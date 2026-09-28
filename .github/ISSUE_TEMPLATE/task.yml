@@ -1,0 +1,33 @@
+name: 团队任务
+description: 认领一个资料、分析、开发或验证任务
+title: "[Task] "
+body:
+  - type: input
+    id: owner
+    attributes:
+      label: 负责人
+      description: 填写自己的 GitHub 用户名；有权限时同时设置 Assignee。
+    validations:
+      required: true
+  - type: textarea
+    id: objective
+    attributes:
+      label: 目标与完成标准
+      description: 写清要交付什么，以及如何判断完成。
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 涉及的文件或模块
+      description: 写清工作范围，方便队友避免重复修改。
+  - type: textarea
+    id: context
+    attributes:
+      label: 已有资料、依赖和待确认项
+      description: 附来源、相关 Issue 或交接记录。
+  - type: textarea
+    id: progress
+    attributes:
+      label: 当前状态与成果入口
+      description: 待开始、进行中、阻塞或待评审；补充工作分支、PR、文档和交接链接。

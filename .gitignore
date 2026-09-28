@@ -1,0 +1,44 @@
+# Local credentials and private material
+.env
+.env.*
+!.env.example
+!.env.template
+.aws/
+credentials.json
+secrets.json
+*.pem
+*.key
+*.p12
+*.pfx
+data/private/
+data/raw/
+
+# Local tools and caches
+.codex/
+.claude/settings.local.json
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+node_modules/
+.DS_Store
+Thumbs.db
+Desktop.ini
+~$*
+
+# Generated previews and temporary output
+**/qa/
+**/qa-integrated/
+artifacts/
+tmp/
+*.log
+cdk.out/
+dist/
+build/
+
+# Video assets belong in shared storage, with links and metadata in Git
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.avi

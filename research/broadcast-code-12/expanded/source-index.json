@@ -1,0 +1,172 @@
+[
+  {
+    "id": "S01",
+    "url": "https://www.nba.com/news/inside-the-game-stat-glossary",
+    "final_url": "https://www.nba.com/news/inside-the-game-stat-glossary",
+    "title": "Inside The Game: Stat Glossary | NBA.com",
+    "published_date": "2025-10-20T18:50:41Z",
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S02",
+    "url": "https://www.nba.com/news/leverage-stat-explainer",
+    "final_url": "https://www.nba.com/news/leverage-stat-explainer",
+    "title": "Leverage Score aims to quantify high-impact moments in games | NBA.com",
+    "published_date": "2026-01-22T19:25:50Z",
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S03",
+    "url": "https://www.nba.com/news/intro-to-gravity-stat-nba-2025",
+    "final_url": "https://www.nba.com/news/intro-to-gravity-stat-nba-2025",
+    "title": "Intro to Gravity | NBA.com",
+    "published_date": "2025-12-16T18:42:32Z",
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S04",
+    "url": "https://aws-agent-hackathon.devpost.com/rules",
+    "final_url": "https://aws-agent-hackathon.devpost.com/rules",
+    "title": "AWS AI Agent Global Hackathon",
+    "published_date": null,
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S05",
+    "url": "https://amazon-nova.devpost.com/rules",
+    "final_url": "https://amazon-nova.devpost.com/rules",
+    "title": "Amazon Nova AI Hackathon",
+    "published_date": null,
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S06",
+    "url": "https://aws-agent-hackathon.devpost.com/updates/38140-congratulations-to-the-winners-of-the-aws-ai-agent-global-hackathon",
+    "final_url": "https://aws-agent-hackathon.devpost.com/updates/38140-congratulations-to-the-winners-of-the-aws-ai-agent-global-hackathon",
+    "title": "AWS AI Agent Global Hackathon",
+    "published_date": null,
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S07",
+    "url": "https://www.nba.com/bucks/news/milwaukee-bucks-to-host-second-annual-analytics-hackathon",
+    "final_url": "https://www.nba.com/bucks/news/milwaukee-bucks-to-host-second-annual-analytics-hackathon",
+    "title": "Milwaukee Bucks To Host Second Annual Analytics Hackathon | Milwaukee Bucks",
+    "published_date": null,
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S08",
+    "url": "https://mendoza.nd.edu/news/notre-dame-business-student-wins-nba-hackathon/",
+    "final_url": "https://mendoza.nd.edu/news/notre-dame-business-student-wins-nba-hackathon/",
+    "title": "Notre Dame business student wins NBA Hackathon - Notre Dame Business Mendoza College of Business",
+    "published_date": "2019-09-25T12:04:39+00:00",
+    "collected_on": "2026-09-17",
+    "source_type": "获奖者所在大学报道",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S09",
+    "url": "https://www.nba.com/news/intro-to-expected-field-goal-percentage",
+    "final_url": "https://www.nba.com/news/intro-to-expected-field-goal-percentage",
+    "title": "Intro to Expected Field Goal Percentage | NBA.com",
+    "published_date": "2025-10-01T12:15:44Z",
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S10",
+    "url": "https://www.nba.com/news/understanding-defensive-pressure-score",
+    "final_url": "https://www.nba.com/news/understanding-defensive-pressure-score",
+    "title": "Intro to Defensive Pressure Score | NBA.com",
+    "published_date": "2025-10-01T12:31:05Z",
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S11",
+    "url": "https://aws.amazon.com/cn/sports/nba/",
+    "final_url": "https://aws.amazon.com/cn/sports/nba/",
+    "title": "AWS 上的 NBA",
+    "published_date": null,
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S12",
+    "url": "https://github.com/MLH/mlh-policies/blob/main/standard-hackathon-rules.md",
+    "final_url": "https://github.com/MLH/mlh-policies/blob/main/standard-hackathon-rules.md",
+    "title": "mlh-policies/standard-hackathon-rules.md at main · MLH/mlh-policies",
+    "published_date": null,
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S13",
+    "url": "https://guide.mlh.io/general-information/judging-and-submissions/judging-plan",
+    "final_url": "https://guide.mlh.com/general-information/judging-and-submissions/judging-plan",
+    "title": "Judging Plan | Hackathon Organizer Guide",
+    "published_date": "2026-03-09T19:24:05.897Z",
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S14",
+    "url": "https://www.digitimes.com.tw/seminar/generativeai_hackathon_2026/",
+    "final_url": "https://www.digitimes.com.tw/seminar/generativeai_hackathon_2026/",
+    "title": "雲湧智生｜臺灣生成式AI應用黑客松競賽",
+    "published_date": null,
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S15",
+    "url": "https://www.163.com/dy/article/L0C2GD3U0511FQO9.html",
+    "final_url": "https://www.163.com/dy/article/L0C2GD3U0511FQO9.html",
+    "title": "从代码到赛场：亚马逊云科技用黑客松打开了体育科技的想象空间",
+    "published_date": "2026-06-26T15:43:29+08:00",
+    "collected_on": "2026-09-17",
+    "source_type": "第三方自媒体报道 待核实",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S16",
+    "url": "https://www.nba.com/news/nba-aws-partnership",
+    "final_url": "https://www.nba.com/news/nba-aws-partnership",
+    "title": "NBA and AWS announce new multi-year partnership to power the next era of basketball innovation | NBA.com",
+    "published_date": "2025-10-01T13:03:59Z",
+    "collected_on": "2026-09-17",
+    "source_type": "官方或主办方页面",
+    "fetch_status": "正文读取成功"
+  },
+  {
+    "id": "S17",
+    "url": "https://docs.ecolafaek.com/getting-started.html",
+    "final_url": "https://docs.ecolafaek.com/getting-started.html",
+    "title": "EcoLafaek Documentation",
+    "published_date": null,
+    "collected_on": "2026-09-17",
+    "source_type": "项目作者文档",
+    "fetch_status": "正文读取成功"
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "results": [
+    {
+      "url": "https://builderx.csdn.net/bcast-code?from=yaofoundation#eligibility",
+      "final_url": "https://builderx.csdn.net/bcast-code?from=yaofoundation#eligibility",
+      "title": "NBA × AWS 澳门黑客松｜选手招募中",
+      "description": "10.10 珠海初赛 · 10.11 澳门决赛。用 AI 与深度赛场数据重新定义篮球观看体验，冠军直通 2026 亚马逊云科技 re:Invent。9 月 23 日报名截止。",
+      "language": "zh",
+      "text": "BROADCAST CODE 12 HACKATHON\n\n# 用 AI 重新定义篮球观看体验\n\n伴随休斯顿火箭队与达拉斯独行侠队重磅对决，一场属于开发者、AI 创新者与篮球爱好者的技术挑战同步开启。用数据看见赛场上隐藏的博弈，用 AI 讲出每一次攻防背后的故事。\n\n立即报名\n\n**9 月 24 日公布入围参赛资格**赛前培训 9 月 28 日（暂定）\n\n\n\n10.10\n珠海初赛 · 当晚公布 TOP 8\n\n10.11\n澳门决赛 · 现场路演终评\n\n120\n参赛规模上限 · 2-3 人组队\n\n立即报名\n\nGAME DATA / AI STORYTELLING\n\n## 当篮球遇见 AI\n\n本次黑客松将在 NBA 中国赛休斯顿火箭队与达拉斯独行侠队对决期间举办，这也是中国球迷近距离感受 NBA 魅力的难得机会。\n\n而你真正要动手分析的，是这两支球队过往交手的经典比赛——官方提供的历史比赛视频与深度赛场数据，就是你手中的素材。我们希望用 AI 与数据，为篮球打开一种全新的观看方式。\n\n传统比赛解说依赖解说员的经验与即时判断，一次跑位、一处空档或一次防守收缩，往往只能通过手工标注和语言描述呈现。这一次，我们把那支分析比赛的“笔”交给你。\n\nLIVE SIGNAL / COURT VISION\n\n看见隐藏的博弈\n\n## 用 AI，把一次出手重新讲述一遍\n\n你将围绕 NBA 比赛视频及深度赛场数据，打造一个 AI Agent，读取投篮难度、球员引力、关键度等数据，自动识别并解读关键回合。\n\n通过箭头、色块、球员标注等方式，把跑位、空档与防守变化叠加到原视频中，并生成与画面准确对应的篮球解说。\n\n作品不仅要跑得通，更要把数据真正带回球场：让看不见的战术选择浮现在画面之上，让懂球与不懂球的观众都能看得更明白、更投入。\n\nTelestrator / possession #24 · Q3 07:41\nAI overlay running\n\n参考方向 / 不限于此\n\n本图仅作参考，创作与呈现方式不限于此：同一次 24 秒进攻，AI Agent 可依次画出持球人的突破路线、无球跑动创造出的空档，以及防守收缩慢了 0.4 秒的位置，并输出与画面同步的解说。你可以从更多数据、模型与表达方式出发，重新讲述比赛。\n\n1. 01input\n\n   ### 比赛视频 + 深度赛场数据\n\n   官方比赛画面，配合投篮难度、球员引力、关键度等赛场数据流。\n2. 02analyze\n\n   ### 关键回合识别与战术解读\n\n   自动定位关键回合，读出跑位、空档与防守变化背后的选择。\n3. 03visualize\n\n   ### 箭头、色块与球员标注叠加\n\n   把分析结果画回原始画面，让看不见的战术浮现在视频之上。\n4. 04narrate\n\n   ### 画面同步的篮球解说\n\n   生成与画面、数据准确对应的解说，懂球与不懂球都看得明白。\n\n完整赛题、数据说明、提交规范与评审细则即将更新，敬请关注。\n\n## 你将完成什么\n\n### 构建 AI Agent\n\n处理 NBA 比赛视频与深度赛场数据，建立完整可运行的分析流程。\n\n### 识别关键变化\n\n解读球员跑位、进攻空档、防守收缩及关键出手。\n\n### 叠加视觉分析\n\n将分析结果以箭头、色块、球员标注等形式带回比赛画面。\n\n### 生成篮球解说\n\n让解说与比赛画面和官方数据准确对应。\n\n### 完成作品交付\n\n提交可运行作品、代码仓库、说明文档及演示视频。\n\n> “官方提供的是起点，而不是边界。探索更多数据、模型与表达方式，让篮球比赛被更聪明、更生动地看见。”\n\n## 谁可以参加\n\nAI 开发者、算法工程师、产品设计师、视频创作者，以及希望用技术改变观赛体验的篮球爱好者，都欢迎组队挑战。\n\nTEAM SIZE / 组队人数\n\n2-3 人 / 队\n\n每支队伍由 2 人或 3 人组成，组合技术、产品、视觉与篮球理解。\n\nCAPACITY\n\n120\n\n活动参赛规模上限为 120 人。\n\nDEADLINE\n\n09/23\n\n线上报名及组队截止。\n\nSHORTLIST\n\n09/24\n\n公布入围参赛资格。\n\n## 从组队到澳门决赛\n\n即日起-09/23\n\n### 线上报名及组队\n\n寻找互补队友，完成报名，9 月 23 日截止。\n\n09/24\n\n### 公布入围参赛资格\n\n组委会公布入围参赛资格及后续参赛通知。\n\n09/28 暂定\n\n### 赛前培训与赛题说明\n\n介绍比赛任务、数据使用方式及作品提交要求。\n\n10/09\n\n### 抵达珠海\n\n完成报到及入住，具体集合、交通与住宿安排另行通知。\n\n10/10\n\n### 珠海初赛\n\n现场签到、赛题抽签、作品开发与提交，当晚公布晋级澳门决赛的 TOP 8 队伍。\n\n10/11\n\n### 澳门决赛\n\nTOP 8 队伍现场路演，完成终评、颁奖与合影，其他参赛选手到场观赛。\n\n具体时间及交通、住宿、通关安排以组委会最终通知为准。\n\n## 双城赛场，一路打到澳门\n\n10/10\n\n### 珠海初赛\n\n入围队伍根据抽签结果领取比赛视频与数据，在规定时间内完成 AI Agent 开发、作品打磨及提交。\n\n综合技术完成度、数据运用、可视化效果与解说表现，评选 TOP 8 晋级。\n\n10/11\n\n### 澳门决赛\n\nTOP 8 队伍进行现场路演，从技术方案、实现深度、数据准确性、可视化表达、篮球叙事与作品质感等方面接受终评。其他参赛选手共同观赛并参与颁奖与合影。\n\n**珠海****澳门**\n\nPRIZE / RECOGNITION\n\n## 为最完整的篮球答案加冕\n\n一等奖 / TOP 1\n\n### 2026 亚马逊云科技 re:Invent\n\nTRAVEL + PASS\n**大会门票、常住地至拉斯维加斯的往返机票及拉斯维加斯 4 晚酒店**\n\nCHAMPION JERSEYS\n**冠军队球衣奖品**\n\n1. 01\n   **斯蒂芬·库里**金州勇士 · City Edition · Nike 男子\n2. 02\n   **安东尼·爱德华兹**明尼苏达森林狼 · Icon · Nike 中性\n3. 03\n   **尼古拉·约基奇**丹佛掘金 · Association · Nike 中性\n\n球衣数量、尺码、款式及发放方式以最终通知为准。\n\n二等奖 / TOP 2-4\n\n获奖者每人获得\n\n**电子产品**每人 1 台\n\n另任选 1 项\n\n* Wilson 中性联盟篮球\n* NBA Style 简约纯色短袖黑色 · 男女同款\n\n三等奖 / TOP 5-8\n\n获奖者每人获得\n\n**电子产品**每人 1 台\n\n**NBA 双肩包**每人 1 个\n\n奖品可能会有微调，最终解释权归亚马逊云科技所有。\n\n## 不只为冠军而来\n\n每一次完成、分享与协作，都可能获得来自赛场之外的认可。\n\n### ALL PARTICIPANTSNBA House 决赛观赛\n\n即使未进入决赛，全部参赛者仍有资格前往澳门 NBA House，现场观看 Broadcast Code 12 路演决赛。\n\n### 完赛奖\n\n在规定时间内完成并提交合格作品，即有机会获得 NBA 周边奖品。\n\n### Social Media 互动奖\n\n分享参赛体验、创作过程或作品亮点，优秀内容及互动表现将有机会获得专项奖励。\n\n### 参赛装备包\n\n所有入围参赛选手均可获得赛事专属装备包，为双城挑战做好准备。\n\n### 珠海住宿\n\n通过报名筛选的入围选手，赛事统一提供 10 月 9 日、10 月 10 日两晚珠海酒店住宿。\n\n## 让全世界看见你的篮球答案\n\n一段比赛画面，可以有多少种解读？\n\n一次 24 秒进攻，可以藏着多少数据与战术？\n\n当 AI 真正进入球场，篮球又将以怎样的方式被看见？\n\n这个十月，和队友一起从珠海出发，在澳门展示你们的答案。\n\n**报名截止：9 月 23 日**  \n入围参赛资格公布：9 月 24 日\n\n立即报名",
+      "author": null,
+      "published_date": null,
+      "links": [
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#main",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#top",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#challenge",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#schedule",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#awards",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#eligibility",
+        "https://marketing.csdn.net/questions/Q2609071804379567473",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#story",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#challenge",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#deliverables",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#eligibility",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#schedule",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#cities",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#awards",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#benefits",
+        "https://builderx.csdn.net/bcast-code?from=yaofoundation#register",
+        "https://marketing.csdn.net/questions/Q2609071804379567473",
+        "https://marketing.csdn.net/questions/Q2609071804379567473",
+        "https://marketing.csdn.net/questions/Q2609071804379567473",
+        "https://marketing.csdn.net/questions/Q2609071804379567473"
+      ],
+      "image_links": [
+        "https://i-operation.csdnimg.cn/ad/ad_pic/d9e39520e798449898679c8d72fbfdae.png",
+        "https://i-operation.csdnimg.cn/ad/ad_pic/36bb3ede69974cf980d101a850ae59a6.png",
+        "https://i-operation.csdnimg.cn/ad/ad_pic/a4764980bdb04e339a888a45134a1b55.png"
+      ],
+      "latency_ms": 1685.394300002372,
+      "format": "markdown",
+      "page_metadata": {
+        "canonical": "https://marketing.csdn.net/nba-aws-macau-hackathon",
+        "viewport": "width=device-width, initial-scale=1",
+        "theme_color": "#080a0c",
+        "og": {
+          "type": "website",
+          "site_name": "CSDN",
+          "locale": "zh_CN",
+          "url": "https://marketing.csdn.net/nba-aws-macau-hackathon",
+          "title": "NBA × AWS 澳门黑客松｜选手招募中",
+          "description": "10.10 珠海初赛 · 10.11 澳门决赛。用 AI 与深度赛场数据重新定义篮球观看体验，冠军直通 2026 亚马逊云科技 re:Invent。9 月 23 日报名截止。",
+          "image": [
+            "https://i-operation.csdnimg.cn/ad/ad_pic/a4764980bdb04e339a888a45134a1b55.png"
+          ],
+          "image:width": "2496",
+          "image:height": "1404",
+          "image:alt": "NBA × AWS 澳门黑客松主视觉"
+        },
+        "twitter": {
+          "card": "summary_large_image",
+          "title": "NBA × AWS 澳门黑客松｜选手招募中",
+          "description": "10.10 珠海初赛 · 10.11 澳门决赛。用 AI 与深度赛场数据重新定义篮球观看体验。",
+          "image": "https://i-operation.csdnimg.cn/ad/ad_pic/a4764980bdb04e339a888a45134a1b55.png"
+        }
+      }
+    }
+  ],
+  "errors": []
+}

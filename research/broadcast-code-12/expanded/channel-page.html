@@ -1,0 +1,3378 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="NBA × AWS 澳门黑客松选手招募专题页。用 AI 与深度赛场数据重新定义篮球观看体验。">
+  <meta name="theme-color" content="#080a0c">
+  <title>BROADCAST CODE 12</title>
+
+  <!-- 分享卡片（微信 / 飞书 / X 转发时的标题、摘要与配图）
+       ⚠️ og:url 请在正式发布后替换为专题页真实地址 -->
+  <link rel="canonical" href="https://marketing.csdn.net/nba-aws-macau-hackathon">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CSDN">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:url" content="https://marketing.csdn.net/nba-aws-macau-hackathon">
+  <meta property="og:title" content="NBA × AWS 澳门黑客松｜选手招募中">
+  <meta property="og:description" content="10.10 珠海初赛 · 10.11 澳门决赛。用 AI 与深度赛场数据重新定义篮球观看体验，冠军直通 2026 亚马逊云科技 re:Invent。9 月 23 日报名截止。">
+  <meta property="og:image" content="https://i-operation.csdnimg.cn/ad/ad_pic/a4764980bdb04e339a888a45134a1b55.png">
+  <meta property="og:image:width" content="2496">
+  <meta property="og:image:height" content="1404">
+  <meta property="og:image:alt" content="NBA × AWS 澳门黑客松主视觉">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NBA × AWS 澳门黑客松｜选手招募中">
+  <meta name="twitter:description" content="10.10 珠海初赛 · 10.11 澳门决赛。用 AI 与深度赛场数据重新定义篮球观看体验。">
+  <meta name="twitter:image" content="https://i-operation.csdnimg.cn/ad/ad_pic/a4764980bdb04e339a888a45134a1b55.png">
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <!-- 结构化数据：让搜索引擎把它识别为一场有明确时间地点的赛事 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "NBA × AWS 澳门黑客松",
+    "description": "用 AI 与深度赛场数据重新定义篮球观看体验的开发者黑客松，于 NBA 中国赛期间在珠海、澳门两地举办。",
+    "image": "https://i-operation.csdnimg.cn/ad/ad_pic/a4764980bdb04e339a888a45134a1b55.png",
+    "startDate": "2026-10-10T09:00+08:00",
+    "endDate": "2026-10-11T21:00+08:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "inLanguage": "zh-CN",
+    "maximumAttendeeCapacity": 120,
+    "location": [
+      {
+        "@type": "Place",
+        "name": "珠海（初赛）",
+        "address": { "@type": "PostalAddress", "addressLocality": "珠海市", "addressRegion": "广东省", "addressCountry": "CN" }
+      },
+      {
+        "@type": "Place",
+        "name": "澳门（决赛）",
+        "address": { "@type": "PostalAddress", "addressLocality": "澳门", "addressCountry": "MO" }
+      }
+    ],
+    "organizer": [
+      { "@type": "Organization", "name": "CSDN", "url": "https://www.csdn.net" },
+      { "@type": "Organization", "name": "亚马逊云科技" }
+    ],
+    "offers": {
+      "@type": "Offer",
+      "name": "选手报名",
+      "price": "0",
+      "priceCurrency": "CNY",
+      "availability": "https://schema.org/InStock",
+      "validThrough": "2026-09-23T23:59+08:00",
+      "url": "https://marketing.csdn.net/questions/Q2609071804379567473"
+    }
+  }
+  </script>
+  <style>
+    /* 字体：拉丁字形走 webfont（Chakra Petch 运动科技感标题 + JetBrains Mono 终端字），
+       中文继续用系统 PingFang / 微软雅黑，避免几 MB 的中文字体包 */
+    @font-face {
+      font-family: 'Chakra Petch';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url(https://cdn.jsdelivr.net/npm/@fontsource/chakra-petch@5.3.0/files/chakra-petch-latin-600-normal.woff2) format('woff2');
+    }
+    @font-face {
+      font-family: 'Chakra Petch';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url(https://cdn.jsdelivr.net/npm/@fontsource/chakra-petch@5.3.0/files/chakra-petch-latin-700-normal.woff2) format('woff2');
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.2.5/files/jetbrains-mono-latin-400-normal.woff2) format('woff2');
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url(https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.2.5/files/jetbrains-mono-latin-700-normal.woff2) format('woff2');
+    }
+
+    :root {
+      color-scheme: dark;
+      --bg: #080a0c;
+      --surface: #10151b;
+      --surface-2: #151b22;
+      --line: #293039;
+      --line-soft: rgba(255, 255, 255, 0.1);
+      --text: #f5f6f7;
+      --muted: #a9afb6;
+      --accent: #ff4b14;
+      --accent-deep: #d93600;
+      --accent-soft: rgba(255, 75, 20, 0.09);
+      /* 解析层专用色：追踪青 = 球员轨迹/数据，空档绿 = 机会区，防守紫红 = 收缩 */
+      --track: #38dcff;
+      --open: #4ef2a1;
+      --deny: #ff3d78;
+      --display: "Chakra Petch", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      --page: min(1320px, calc(100vw - 72px));
+      --section-space: clamp(84px, 8vw, 128px);
+      --radius: 12px;
+      /* 动效曲线 */
+      --enter: cubic-bezier(0.22, 1, 0.36, 1);
+      --move: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.75;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    ::selection { background: var(--accent); color: #080a0c; }
+
+    /* 影院质感图层：扫描线 + 胶片颗粒 + 暗角。纯装饰，不接收指针事件 */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+    body::before {
+      z-index: 45;
+      opacity: 0.5;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E"),
+        repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 4px);
+      mix-blend-mode: soft-light;
+    }
+    body::after {
+      z-index: 44;
+      background:
+        radial-gradient(120% 90% at 50% 42%, transparent 52%, rgba(0, 0, 0, 0.5) 100%);
+    }
+    @media (prefers-contrast: more) {
+      body::before, body::after { display: none; }
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: 12px;
+      z-index: 100;
+      padding: 10px 16px;
+      background: var(--accent);
+      color: #080a0c;
+      font-weight: 700;
+      transform: translateY(-160%);
+      transition: transform 180ms ease;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 30;
+      height: auto;
+      padding: 18px max(18px, calc((100vw - 1320px) / 2));
+      pointer-events: none;
+    }
+    /* 头部整行：Logo + tab 融合为「一整块」液态玻璃胶囊（iOS 26 Liquid Glass）。
+       透明度 20% —— tint 底色不透明度 0.2；折射层走 SVG feDisplacementMap，
+       非 Chromium 自动降级为纯 CSS 毛玻璃。参考 skill: liquid-glass.md */
+    .header-bar {
+      --lg-radius: 999px;
+      --lg-tint: 255, 255, 255;
+      --lg-tint-opacity: 0.2;   /* 玻璃透明度 20% */
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 6px 14px 6px 16px;
+      border-radius: var(--lg-radius);
+      /* 降级底色：非 Chromium 也有半透明毛玻璃 */
+      background: rgba(13, 16, 20, 0.20);
+      backdrop-filter: blur(22px) saturate(1.4);
+      -webkit-backdrop-filter: blur(22px) saturate(1.4);
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28);
+      pointer-events: auto;
+    }
+    /* 着色 + 内高光/内阴影层 */
+    .header-bar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      border-radius: inherit;
+      background:
+        radial-gradient(120% 160% at 18% -60%, rgba(255, 255, 255, 0.28), transparent 46%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.02) 60%),
+        rgba(var(--lg-tint), var(--lg-tint-opacity));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.30),
+        inset 0 0 20px -6px rgba(255, 255, 255, 0.35),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+      pointer-events: none;
+    }
+    /* 折射层：把 SVG 液态玻璃滤镜作用在头部背后的内容上（仅 Chromium 生效） */
+    .header-bar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);
+      pointer-events: none;
+    }
+    @supports (backdrop-filter: url(#liquid-glass-filter)) {
+      .header-bar.lg-refract::after {
+        -webkit-backdrop-filter: url(#liquid-glass-filter);
+        backdrop-filter: url(#liquid-glass-filter);
+      }
+      /* 折射生效后由 ::after 承担模糊+折射，元素自身不再叠加模糊，避免糊过头 */
+      .header-bar.lg-refract {
+        background: transparent;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+    }
+    .header-brands {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .header-nav-group {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      height: 58px;
+      pointer-events: auto;
+    }
+    .brand-logo img {
+      height: 100%;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+    }
+    /* nav 融进整块玻璃：去掉自身的玻璃底、边框与投影，只保留布局 */
+    .nav {
+      position: relative;
+      z-index: 1;
+      width: max-content;
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      pointer-events: auto;
+    }
+    /* ── tab 标签栏：LiquidGlass-UI 单实例共享玻璃层 ────────────────
+       保留原生链接与现有状态机，只将项目的 optical tokens、固定顶部光、
+       masked rim 和渐进式 edge refraction 适配到移动胶囊。
+       ---------------------------------------------------------------- */
+    .nav-links {
+      --nba-tab-gap: 2px;
+      --nba-tab-radius: 999px;
+      --lg-ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --lg-duration: 0.24s;
+      --lg-tint: 255, 255, 255;
+      --lg-tint-strength: 0.075;
+      --lg-blur: 18px;
+      --lg-saturate: 135%;
+      --lg-brightness: 104%;
+      --lg-fill: linear-gradient(
+        155deg,
+        rgba(var(--lg-tint), calc(var(--lg-tint-strength) + 0.025)) 0%,
+        rgba(var(--lg-tint), var(--lg-tint-strength)) 55%,
+        rgba(var(--lg-tint), calc(var(--lg-tint-strength) - 0.02)) 100%
+      );
+      --lg-border: rgba(255, 255, 255, 0.2);
+      --lg-rim: rgba(255, 255, 255, 0.34);
+      --lg-rim-low: rgba(255, 255, 255, 0.035);
+      --lg-specular: inset 0 1px 1px rgba(255, 255, 255, 0.32);
+      --lg-occlusion: inset 0 -1px 1px rgba(0, 0, 0, 0.16);
+      --lg-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 10px 28px rgba(0, 0, 0, 0.16);
+      --lg-sheen: 0.1;
+      position: relative;
+      isolation: isolate;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: var(--nba-tab-gap);
+      margin: 0;
+    }
+
+    /* 一整条 tablist 只共享这一块玻璃，避免多层 blur 与边缘碎片化。 */
+    .nav-glass-pill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 0;
+      width: var(--nba-tab-w, 0px);
+      height: var(--nba-tab-h, 0px);
+      overflow: hidden;
+      isolation: isolate;
+      border: 1px solid var(--lg-border);
+      border-radius: var(--nba-tab-radius);
+      opacity: 0;
+      transform:
+        translate3d(var(--nba-tab-x, 0px), var(--nba-tab-y, 0px), 0)
+        scale(var(--nba-tab-sx, 1), var(--nba-tab-sy, 1));
+      background: var(--lg-fill);
+      box-shadow: var(--lg-shadow), var(--lg-specular), var(--lg-occlusion);
+      -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate)) brightness(var(--lg-brightness));
+      backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate)) brightness(var(--lg-brightness));
+      pointer-events: none;
+      will-change: transform, width, height;
+      transition:
+        transform 360ms var(--lg-ease),
+        width 360ms var(--lg-ease),
+        height var(--lg-duration) var(--lg-ease),
+        opacity 180ms ease,
+        background var(--lg-duration) var(--lg-ease),
+        border-color var(--lg-duration) var(--lg-ease),
+        box-shadow var(--lg-duration) var(--lg-ease);
+    }
+    .nav-glass-pill.is-active { opacity: 1; }
+
+    /* 固定上方光源，不追踪鼠标，降低水波感并保持整条导航光向一致。 */
+    .nav-glass-pill::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      border-radius: inherit;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, var(--lg-sheen)) 0%,
+        rgba(255, 255, 255, 0) 42%
+      );
+      opacity: 0.78;
+      pointer-events: none;
+    }
+
+    /* LiquidGlass-UI masked rim：顶部清晰、侧边克制、底部仅保留反射。 */
+    .nav-glass-pill::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      padding: 1px;
+      border-radius: inherit;
+      background: linear-gradient(
+        180deg,
+        var(--lg-rim) 0%,
+        var(--lg-rim-low) 35%,
+        var(--lg-rim-low) 72%,
+        rgba(255, 255, 255, 0.14) 100%
+      );
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    /* Chromium 渐进增强：轴向平滑位移只折射边缘，中心保持清晰。 */
+    .nav-glass-pill.lgui-refract {
+      -webkit-backdrop-filter:
+        blur(var(--lg-blur)) saturate(var(--lg-saturate)) brightness(var(--lg-brightness))
+        url("#nba-tab-liquidglass-filter");
+      backdrop-filter:
+        blur(var(--lg-blur)) saturate(var(--lg-saturate)) brightness(var(--lg-brightness))
+        url("#nba-tab-liquidglass-filter");
+    }
+
+    /* 当前章节只改变玻璃 tint，不额外叠加第二块高光。 */
+    .nav-glass-pill.is-current {
+      --lg-tint: 255, 107, 62;
+      --lg-tint-strength: 0.16;
+      --lg-border: rgba(255, 176, 148, 0.3);
+      box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.1),
+        0 10px 28px rgba(255, 75, 20, 0.14),
+        var(--lg-specular),
+        var(--lg-occlusion);
+    }
+
+    .nav-links a {
+      position: relative;
+      z-index: 1;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 15px;
+      border-radius: 999px;
+      color: #c0c5ca;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+    /* 无 JS 时的降级：标签各自显示半透明底，状态依然可见 */
+    .nav-links a:hover,
+    .nav-links a:focus-visible,
+    .nav-links a[aria-current="true"] {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+    /* 玻璃胶囊接管背景后，标签自身不再各贴一块玻璃 */
+    .nav-links.has-glass-pill a:hover,
+    .nav-links.has-glass-pill a:focus-visible,
+    .nav-links.has-glass-pill a[aria-current="true"] {
+      background: transparent;
+      box-shadow: none;
+    }
+    .nav-links a:active { transform: scale(0.97); }
+    /* 降级：不支持 backdrop-filter 时用实色胶囊，保证对比度 */
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .nav-glass-pill { background: rgba(255, 255, 255, 0.14); }
+      .nav-glass-pill.is-current { background: rgba(255, 118, 74, 0.26); }
+    }
+    .nav > .button,
+    .nav > .menu-toggle { position: relative; z-index: 1; }
+    /* tab 上的「立即报名」：液态玻璃按钮，透明度 50%（accent 着色 0.5） */
+    .site-header .button {
+      position: relative;
+      isolation: isolate;
+      min-height: 44px;
+      padding-inline: 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #fff;
+      background: rgba(255, 75, 20, 0.5);
+      -webkit-backdrop-filter: blur(14px) saturate(1.5);
+      backdrop-filter: blur(14px) saturate(1.5);
+      box-shadow:
+        0 8px 22px rgba(255, 75, 20, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+      transition: transform 140ms var(--enter), background-color 180ms ease, box-shadow 180ms var(--enter);
+    }
+    /* 玻璃高光/内光泽层 */
+    .site-header .button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background:
+        radial-gradient(120% 150% at 20% -40%, rgba(255, 255, 255, 0.5), transparent 48%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02) 60%);
+      pointer-events: none;
+    }
+    .site-header .button:hover {
+      background-color: rgba(255, 101, 56, 0.62);
+      box-shadow:
+        0 10px 28px rgba(255, 75, 20, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .site-header .button { background: rgba(217, 54, 0, 0.9); }
+    }
+
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 24px;
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      background: var(--accent);
+      color: #080a0c;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: transform 140ms var(--enter), background-color 180ms ease, box-shadow 180ms var(--enter);
+    }
+    .button:hover { background-color: #ff6538; box-shadow: 0 8px 24px rgba(255, 75, 20, 0.22); }
+    .button:active { transform: scale(0.975); }
+    .button:focus-visible, a:focus-visible, .menu-toggle:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+    .button.secondary { background: transparent; color: var(--text); }
+    .button.secondary:hover { background: rgba(255, 75, 20, 0.1); }
+
+    .menu-toggle {
+      display: none;
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 20px;
+      height: 1px;
+      margin: 5px auto;
+      background: currentColor;
+    }
+
+    main { overflow: clip; }
+    .container { width: var(--page); margin: 0 auto; }
+    .section { position: relative; padding-block: var(--section-space); }
+    .section-rule { border-top: 1px solid var(--line-soft); }
+
+    .eyebrow {
+      margin: 0 0 20px;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 {
+      font-family: var(--display);
+      font-weight: 700;
+      letter-spacing: -0.008em;
+      text-wrap: balance;
+    }
+    h1 {
+      max-width: 720px;
+      margin-bottom: 24px;
+      font-size: clamp(44px, 4.8vw, 76px);
+      line-height: 1.06;
+    }
+    h1 span { display: block; }
+    h2 {
+      max-width: 820px;
+      margin-bottom: 24px;
+      font-size: clamp(34px, 3.6vw, 56px);
+      line-height: 1.12;
+    }
+    h3 { margin-bottom: 14px; font-size: clamp(22px, 1.8vw, 30px); line-height: 1.24; }
+    p { text-wrap: pretty; }
+    .lead { max-width: 62ch; color: #d4d7da; font-size: clamp(18px, 1.3vw, 20px); line-height: 1.8; }
+    .body-copy { max-width: 66ch; color: var(--muted); }
+    .accent { color: var(--accent); }
+    .mono { font-family: var(--mono); }
+  </style>
+
+<style>
+  .hero {
+    position: relative;
+    padding-top: 92px;
+    display: grid;
+    isolation: isolate;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    left: -18vw;
+    bottom: -48vw;
+    z-index: -1;
+    width: 72vw;
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 12vw var(--bg), inset 0 0 0 calc(12vw + 1px) rgba(255, 255, 255, 0.05);
+  }
+  .hero-grid {
+    /* 首屏整体（KV + 文字 + HUD）对齐到与正文相同的页面宽度，
+       使主 KV 与下方文字左右边缘完全一致 */
+    width: var(--page);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-block: 0 clamp(48px, 6vw, 88px);
+  }
+  .hero-copy {
+    position: relative;
+    z-index: 2;
+    order: 3;
+    max-width: none;
+    margin-top: clamp(40px, 4.4vw, 66px);
+  }
+
+  /* --- 玻璃材质：与导航同一套语言，可复用到 HUD 与 CTA --- */
+  .glass {
+    position: relative;
+    isolation: isolate;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 58%),
+      rgba(13, 16, 20, 0.62);
+    backdrop-filter: blur(22px) saturate(1.4);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+    box-shadow:
+      0 18px 46px rgba(0, 0, 0, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* --- 首屏 HUD：把「什么时候 / 多少人 / 怎么报名」压在主视觉下沿 --- */
+  .hero-hud {
+    order: 2;
+    z-index: 4;
+    margin-top: clamp(-38px, -3vw, -22px);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+    align-items: center;
+    border-radius: 4px;
+  }
+  .hud-cell {
+    display: grid;
+    gap: 4px;
+    padding: 18px clamp(14px, 1.5vw, 24px);
+    border-left: 1px solid rgba(255, 255, 255, 0.09);
+  }
+  .hud-cell:first-child { border-left: 0; }
+  .hud-label {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .hud-value {
+    color: var(--text);
+    font-family: var(--display);
+    font-size: clamp(24px, 2vw, 32px);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.05;
+  }
+  .hud-count .hud-value { color: var(--accent); }
+  .hud-note { color: #b6bbc1; font-size: 12px; line-height: 1.45; }
+  .hero-hud .hud-cta { margin: 10px clamp(14px, 1.4vw, 20px) 10px 0; }
+  .hud-cell + .hud-cta { border-left: 1px solid rgba(255, 255, 255, 0.09); }
+
+  @media (max-width: 1120px) {
+    .hero-hud { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: -20px; }
+    .hud-cell { border-top: 1px solid rgba(255, 255, 255, 0.09); }
+    .hud-cell:nth-child(odd) { border-left: 0; }
+    .hud-cell:nth-child(-n+2) { border-top: 0; }
+    .hero-hud .hud-cta { grid-column: 1 / -1; margin: 6px 16px 16px; }
+    .hud-cell + .hud-cta { border-left: 0; }
+  }
+  @media (max-width: 560px) {
+    .hero-hud { margin-top: 8px; }
+    .hud-value { font-size: 22px; }
+    .hud-cell { padding: 14px 14px; }
+  }
+  .hero-kicker {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .hero-kicker::before { content: ""; width: 42px; height: 3px; background: var(--accent); }
+  /* 主标题排成一行 */
+  .hero h1 { max-width: none; }
+  .hero h1 > span { display: block; white-space: nowrap; }
+  .hero h1 .accent {
+    position: relative;
+    display: inline;
+    white-space: nowrap;
+    text-shadow: 2px 1px 0 rgba(0, 228, 255, 0.55), -2px -1px 0 rgba(255, 5, 0, 0.45);
+  }
+  .hero-summary { max-width: 590px; margin-bottom: 30px; color: #c6cacf; font-size: clamp(17px, 1.25vw, 20px); }
+  .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .hero-date { color: var(--muted); font-family: var(--mono); font-size: 13px; line-height: 1.6; }
+  .hero-date strong { display: block; color: var(--text); font-size: 15px; }
+  .hero-visual {
+    position: relative;
+    order: 1;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    background: #000;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  /* KV 稍放大：填满首屏内容宽度，右边缘与下方文字对齐；高度上限 68dvh */
+  .hero-visual img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 68vh;
+    max-height: 68dvh;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+  }
+  /* 主视觉下沿的转播式渐隐，让 HUD 压上去时不突兀 */
+  .hero-visual::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 96px;
+    background: linear-gradient(0deg, var(--bg), transparent);
+    pointer-events: none;
+  }
+  .tracking-ring { display: none; }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(64px, 10vw, 160px);
+    align-items: start;
+  }
+  .story-copy p { margin-bottom: 22px; color: var(--muted); font-size: 18px; }
+  .signal-panel {
+    position: relative;
+    min-height: 410px;
+    padding: 40px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .signal-panel::before {
+    content: "";
+    position: absolute;
+    right: -120px;
+    top: -90px;
+    width: 360px;
+    height: 360px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 0 64px rgba(255, 75, 20, 0.04), 0 0 0 128px rgba(255, 255, 255, 0.025);
+  }
+  .signal-panel::after {
+    content: "";
+    position: absolute;
+    left: 44px;
+    bottom: 44px;
+    width: 68%;
+    height: 130px;
+    opacity: 0.9;
+    background-image: radial-gradient(circle, var(--accent) 0 4px, transparent 4.5px);
+    background-size: 23px 23px;
+    mask-image: linear-gradient(90deg, #000, transparent);
+  }
+  .signal-label { position: relative; z-index: 1; font-family: var(--mono); color: var(--muted); font-size: 12px; }
+  .signal-value { position: relative; z-index: 1; max-width: none; white-space: nowrap; margin-top: 140px; font-family: var(--display); font-size: clamp(38px, 4.4vw, 62px); line-height: 0.95; letter-spacing: -0.018em; }
+
+  .challenge-layout { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(48px, 8vw, 120px); align-items: start; }
+  .challenge-statement { position: sticky; top: 112px; }
+  .challenge-statement h2 { font-size: clamp(38px, 4vw, 62px); }
+  .challenge-detail { padding-top: 12px; }
+  .challenge-detail p { color: var(--muted); font-size: 18px; }
+  /* --- 战术板：AI 在比赛画面上画出解析 --- */
+  .telestrator {
+    position: relative;
+    margin: clamp(44px, 5vw, 72px) 0 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background:
+      radial-gradient(75% 120% at 62% 6%, #172230, #0b1014 72%);
+  }
+  .board-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px clamp(14px, 1.6vw, 22px);
+    border-bottom: 1px solid var(--line-soft);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .board-live { display: inline-flex; align-items: center; gap: 9px; color: var(--accent); }
+  .board-live::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(255, 75, 20, 0.16);
+  }
+  .board { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+  .telestrator figcaption {
+    padding: 15px clamp(14px, 1.6vw, 22px) 18px;
+    border-top: 1px solid var(--line-soft);
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+
+  .board .player circle { fill: rgba(8, 10, 12, 0.72); stroke: rgba(255, 255, 255, 0.55); stroke-width: 1.5; }
+  .board .player text {
+    fill: #fff;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-anchor: middle;
+  }
+  .board .player.def path { stroke: rgba(255, 255, 255, 0.5); stroke-width: 2.5; stroke-linecap: round; fill: none; }
+  .board .stroke-track path, .board .stroke-track polyline { fill: none; stroke: var(--track); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .board .stroke-open path, .board .stroke-open polyline { fill: none; stroke: var(--open); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .board .stroke-deny path, .board .stroke-deny polyline { fill: none; stroke: var(--deny); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .board .chip rect { fill: rgba(8, 10, 12, 0.82); stroke: var(--accent); stroke-width: 1; }
+  .board .chip text { fill: var(--accent); font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; }
+  .board .chip-open rect { stroke: var(--open); }
+  .board .chip-open text { fill: var(--open); }
+  .board .chip-deny rect { stroke: var(--deny); }
+  .board .chip-deny text { fill: var(--deny); }
+  .board .chip-track rect { stroke: var(--track); }
+  .board .chip-track text { fill: var(--track); }
+
+  /* 笔迹动画：进入视口后按顺序画出，未支持/降级时直接呈现终态 */
+  .board [data-draw] { stroke-dasharray: 100; stroke-dashoffset: 100; }
+  .board [data-fade] { opacity: 0; }
+  .telestrator.is-visible .board [data-draw] {
+    animation: board-draw 720ms var(--enter) forwards;
+    animation-delay: calc(var(--i, 0) * 150ms + 180ms);
+  }
+  .telestrator.is-visible .board [data-fade] {
+    animation: board-fade 420ms var(--enter) forwards;
+    animation-delay: calc(var(--i, 0) * 150ms + 260ms);
+  }
+  @keyframes board-draw { to { stroke-dashoffset: 0; } }
+  @keyframes board-fade { from { opacity: 0; } to { opacity: 1; } }
+
+  /* --- 处理管线：INPUT → ANALYZE → VISUALIZE → NARRATE --- */
+  .pipeline {
+    position: relative;
+    margin: clamp(40px, 4.5vw, 64px) 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .pipeline::before {
+    content: "";
+    position: absolute;
+    left: 13px;
+    right: 13px;
+    top: 13px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), var(--track) 62%, rgba(255, 255, 255, 0.14));
+  }
+  .pipeline-step { position: relative; padding: 0 24px 0 0; }
+  .pipeline-step + .pipeline-step { padding-left: 24px; border-left: 1px solid var(--line); }
+  .pipeline-step::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 27px;
+    height: 27px;
+    background: var(--bg);
+  }
+  .pipeline-step + .pipeline-step::before { left: 24px; }
+  .step-head { position: relative; display: flex; align-items: center; gap: 11px; }
+  .step-index {
+    width: 27px;
+    height: 27px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    transition: background 200ms var(--enter), box-shadow 200ms var(--enter), color 200ms var(--enter);
+  }
+  .step-code {
+    padding-right: 12px;
+    background: var(--bg);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .step-code::before { content: "// "; color: rgba(255, 255, 255, 0.28); }
+  .step-name { margin: 20px 0 10px; font-size: 17px; line-height: 1.5; }
+  .step-desc { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+  .notice { margin-top: 36px; padding-left: 20px; border-left: 3px solid var(--accent); color: #d9dcdf; }
+
+  .deliverables { counter-reset: deliverable; display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(48px, 8vw, 120px); }
+  .deliverable {
+    counter-increment: deliverable;
+    min-height: 150px;
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    align-items: start;
+    gap: 24px;
+    padding: 34px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .deliverable::before { content: "0" counter(deliverable); color: var(--accent); font-family: var(--mono); font-size: 14px; }
+  .deliverable h3 { font-size: 25px; }
+  .deliverable p { margin-bottom: 0; color: var(--muted); }
+  .wide-quote { grid-column: 1 / -1; margin: 58px 0 0; max-width: 980px; color: var(--text); font-size: clamp(24px, 2.4vw, 38px); line-height: 1.55; }
+</style>
+
+<style>
+  .eligibility-grid {
+    margin-top: 54px;
+    display: grid;
+    grid-template-columns: 1.45fr 0.78fr 0.78fr;
+    grid-template-rows: auto auto;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .metric { min-height: 190px; padding: 30px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--surface); }
+  .metric:first-child {
+    grid-row: 1 / 3;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: 2px solid rgba(255, 75, 20, 0.72);
+    background:
+      linear-gradient(145deg, rgba(255, 75, 20, 0.085), transparent 48%),
+      var(--surface-2);
+    color: var(--text);
+  }
+  .metric-label { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .metric:first-child .metric-label { color: var(--accent); }
+  .metric-value { margin-top: 30px; color: var(--text); font-family: var(--display); font-size: clamp(42px, 5vw, 72px); font-variant-numeric: tabular-nums; line-height: 0.95; letter-spacing: -0.018em; }
+  .metric:first-child .metric-value { color: var(--accent); font-size: clamp(58px, 7vw, 98px); }
+  .metric-unit { font-family: var(--body); font-size: 0.28em; font-weight: 600; letter-spacing: 0.02em; color: var(--text); vertical-align: baseline; white-space: nowrap; }
+  .metric:last-child { grid-column: 2 / -1; }
+  .metric-note { max-width: 31ch; margin: 18px 0 0; color: var(--muted); line-height: 1.6; }
+  .metric:first-child .metric-note { color: var(--muted); }
+
+  .timeline { position: relative; margin-top: 58px; }
+  .timeline::before { content: ""; position: absolute; left: 171px; top: 0; bottom: 0; width: 1px; background: var(--line); }
+  .timeline-item { display: grid; grid-template-columns: 142px 1fr; gap: 60px; min-height: 130px; padding: 0 0 44px; }
+  .timeline-date { position: relative; color: var(--accent); font-family: var(--mono); font-size: 15px; font-weight: 700; }
+  .timeline-date::after { content: ""; position: absolute; right: -36px; top: 7px; width: 9px; height: 9px; border: 2px solid var(--accent); background: var(--bg); }
+  .timeline-content { max-width: 820px; }
+  .timeline-content h3 { margin-bottom: 8px; font-size: 22px; letter-spacing: -0.02em; }
+  .timeline-content p { margin: 0; color: var(--muted); }
+
+  .cities {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .city { position: relative; min-height: 470px; padding: clamp(36px, 4.5vw, 64px); overflow: hidden; }
+  .city + .city { border-left: 1px solid var(--line); }
+  .city::after { content: ""; position: absolute; right: -150px; bottom: -220px; width: 460px; height: 460px; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 50%; box-shadow: 0 0 0 70px rgba(255, 255, 255, 0.02); }
+  /* 注意：.cities 的最后一个子元素是 .route-line，所以不能用 :last-child
+     选中第二张城市卡，要用相邻兄弟选择器 */
+  .city + .city::after { border-color: var(--accent); box-shadow: 0 0 0 70px rgba(255, 75, 20, 0.04); }
+  /* --- 城市地标线稿：珠海大剧院「日月贝」/ 澳门大三巴牌坊 --- */
+  .city-landmark {
+    position: absolute;
+    right: -14px;
+    bottom: -18px;
+    z-index: 0;
+    width: min(52%, 296px);
+    height: auto;
+    color: #fff;
+    opacity: 0.13;
+    pointer-events: none;
+  }
+  .city + .city .city-landmark { color: var(--accent); opacity: 0.17; }
+  .city-landmark [stroke-width="2"] { stroke-width: 1.6; }
+  /* 文案压在地标之上 */
+  .city-date,
+  .city h3 { position: relative; z-index: 1; }
+  .city-date { color: var(--accent); font-family: var(--mono); font-size: 16px; }
+  .city h3 { margin-top: 100px; font-size: clamp(42px, 5vw, 76px); }
+  .city p { position: relative; z-index: 1; max-width: 48ch; color: var(--muted); }
+  .route-line { grid-column: 1 / -1; height: 74px; display: flex; align-items: center; justify-content: center; gap: 18px; border-top: 1px solid var(--line); color: var(--muted); font-family: var(--mono); font-size: 13px; }
+  .route-line span { width: min(26vw, 360px); height: 2px; background: var(--accent); }
+
+  .awards-layout { display: grid; grid-template-columns: 1.35fr 0.65fr; align-items: stretch; gap: 1px; margin-top: 58px; background: var(--line); border: 1px solid var(--line); }
+  .award { background: var(--surface); padding: clamp(30px, 3.4vw, 46px); }
+  .award.champion {
+    grid-row: span 2;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 28px;
+    border-left: 2px solid rgba(255, 75, 20, 0.78);
+    background:
+      radial-gradient(circle at 15% 10%, rgba(255, 75, 20, 0.11), transparent 34%),
+      var(--surface-2);
+    color: var(--text);
+  }
+  .award-rank { color: var(--accent); font-family: var(--mono); font-size: 13px; font-weight: 700; }
+  .award h3 { margin-top: 28px; font-size: clamp(38px, 4.5vw, 70px); }
+  /* 冠军奖标题「2026 亚马逊云科技 re:Invent」保持一行 */
+  .award.champion h3 { max-width: none; white-space: nowrap; font-size: clamp(24px, 2.5vw, 40px); }
+  .award-list { margin: 0; padding: 0; list-style: none; }
+  .award-list li { margin-top: 14px; line-height: 1.65; }
+  .award.champion .award-list { color: var(--muted); }
+  .award:not(.champion) { min-height: 0; }
+  .award:not(.champion) h3 { margin-bottom: 14px; font-size: clamp(30px, 3vw, 44px); }
+  .award:not(.champion) p { color: var(--muted); }
+  .award:not(.champion) .award-rank + p { margin-top: 20px; }
+  .awards-disclaimer { margin: 26px 0 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
+
+  .benefits { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: clamp(56px, 9vw, 136px); align-items: start; }
+  .benefit-list { border-top: 1px solid var(--line); }
+  .benefit { display: grid; grid-template-columns: 170px 1fr; gap: 32px; padding: 34px 0; border-bottom: 1px solid var(--line); }
+  .benefit h3 { font-size: 22px; }
+  .benefit p { margin: 0; color: var(--muted); }
+
+  .final-cta { padding-block: clamp(96px, 13vw, 190px); background: var(--surface); }
+  .final-cta .container { display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: end; gap: 80px; }
+  .final-cta h2 { margin-bottom: 22px; }
+  .questions { color: var(--muted); font-size: 18px; }
+  .questions p { margin-bottom: 8px; }
+  .cta-panel {
+    padding: clamp(26px, 3vw, 40px);
+    border-radius: 4px;
+    box-shadow:
+      inset 3px 0 0 var(--accent),
+      0 18px 46px rgba(0, 0, 0, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+  .cta-panel p { color: var(--muted); }
+  .cta-panel p:first-child { margin-top: 0; }
+  .cta-panel strong { color: var(--text); }
+  .cta-panel .button { margin-top: 10px; }
+
+  .site-footer { padding: 54px 0; border-top: 1px solid var(--line); background: #060708; }
+  .footer-grid { width: var(--page); margin: 0 auto; display: grid; grid-template-columns: 0.42fr 1.58fr; gap: 60px; }
+  .footer-title { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+  .notes { margin: 0; padding-left: 18px; color: #7f868d; font-size: 13px; }
+  .notes li + li { margin-top: 8px; }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 620ms cubic-bezier(0.16, 1, 0.3, 1), transform 620ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+  /* --- 交互反馈：仅在真正支持悬停的设备上启用，避免触屏点一下就残留 --- */
+  @media (hover: hover) and (pointer: fine) {
+    .deliverable { transition: transform 240ms var(--enter), border-color 240ms var(--enter); }
+    .deliverable:hover { transform: translateY(-2px); border-bottom-color: var(--accent); }
+    .metric { transition: box-shadow 240ms var(--enter), background-color 240ms var(--enter); }
+    .metric:hover { box-shadow: inset 0 0 0 1px rgba(255, 75, 20, 0.4); }
+    .city { transition: background-color 240ms var(--enter); }
+    .city:hover { background-color: rgba(255, 255, 255, 0.022); }
+    .award { transition: background-color 240ms var(--enter); }
+    .award:not(.champion):hover { background-color: var(--surface-2); }
+    .benefit h3 { transition: color 200ms var(--enter); }
+    .benefit:hover h3 { color: var(--accent); }
+    .pipeline-step .step-code { transition: color 200ms var(--enter); }
+    .pipeline-step:hover .step-index { background: var(--accent); color: #080a0c; box-shadow: 0 0 0 5px rgba(255, 75, 20, 0.14); }
+    .pipeline-step:hover .step-code { color: var(--text); }
+    .timeline-date::after { transition: background-color 200ms var(--enter), box-shadow 200ms var(--enter); }
+    .timeline-item:hover .timeline-date::after { background-color: var(--accent); box-shadow: 0 0 0 4px rgba(255, 75, 20, 0.16); }
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .header-bar,
+    .nav-links,
+    .glass { background: rgba(18, 22, 27, 0.97); }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .header-bar,
+    .nav-links,
+    .glass {
+      background: rgba(18, 22, 27, 0.98);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .header-bar::before { background: rgba(18, 22, 27, 0.98); }
+    .header-bar::after { backdrop-filter: none; -webkit-backdrop-filter: none; }
+    /* tab 玻璃胶囊：去掉折射与半透明，改为实色高亮块 */
+    .nav-glass-pill,
+    .nav-glass-pill.lgui-refract {
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: none;
+    }
+    .nav-glass-pill::before,
+    .nav-glass-pill::after { display: none; }
+    .nav-glass-pill.is-current { background: rgba(255, 75, 20, 0.34); box-shadow: none; }
+  }
+
+  /* 降低动效：胶囊直接落位，不做迁移动画与拉伸 */
+  @media (prefers-reduced-motion: reduce) {
+    .nav-glass-pill {
+      transition: opacity 120ms ease;
+      --nba-tab-sx: 1;
+      --nba-tab-sy: 1;
+    }
+  }
+
+  /* 高对比度：玻璃让位给明确的描边 + 实色底 */
+  @media (prefers-contrast: more) {
+    .nav-glass-pill,
+    .nav-glass-pill.lgui-refract {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid #fff;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .nav-glass-pill::before,
+    .nav-glass-pill::after { display: none; }
+    .nav-glass-pill.is-current { background: rgba(255, 75, 20, 0.42); }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .board-live::before { animation: signal-pulse 2.4s ease-in-out infinite; }
+    @keyframes signal-pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(255, 75, 20, 0.16); }
+      50% { box-shadow: 0 0 0 8px rgba(255, 75, 20, 0.04); }
+    }
+  }
+</style>
+
+<style>
+  @media (max-width: 1100px) {
+    :root { --page: min(calc(100% - 56px), 1040px); }
+    .nav-links { --nba-tab-gap: 0px; }
+    .hero-grid { gap: 36px; }
+    .story-grid, .challenge-layout, .benefits { gap: 56px; }
+    .pipeline { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+    .pipeline::before { display: none; }
+    .pipeline-step:nth-child(odd) { padding-left: 0; border-left: 0; }
+    .pipeline-step:nth-child(odd)::before { left: 0; }
+    .eligibility-grid { grid-template-columns: 1.2fr 1fr; }
+    .metric:first-child { grid-row: auto; }
+    .metric:last-child { grid-column: 1 / -1; min-height: 190px; }
+    .benefit { grid-template-columns: 130px 1fr; }
+  }
+
+  @media (min-width: 821px) {
+    .hero-grid {
+      gap: clamp(40px, 4vw, 56px);
+      padding-block: 0 clamp(76px, 8vw, 112px);
+    }
+  }
+
+  @media (max-width: 820px) {
+    :root { --page: calc(100% - 40px); --section-space: 88px; }
+    .site-header { padding: 12px 16px; }
+    .header-bar { gap: 10px; padding: 5px 10px 5px 12px; overflow: visible; }
+    .header-nav-group { gap: 10px; }
+    .brand-logo { height: 46px; }
+    .brand-logo img { max-width: 132px; }
+    .nav { min-height: 54px; padding: 5px; overflow: visible; }
+    .site-header .button { min-height: 42px; padding-inline: 16px; font-size: 12px; }
+    .menu-toggle {
+      display: grid;
+      place-content: center;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .nav-links {
+      position: absolute;
+      inset: 64px 0 auto auto;
+      display: none;
+      width: min(300px, calc(100vw - 32px));
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.17);
+      border-radius: 24px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.12), transparent 55%),
+        rgba(13, 16, 20, 0.82);
+      backdrop-filter: blur(24px) saturate(1.4);
+      -webkit-backdrop-filter: blur(24px) saturate(1.4);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      flex-direction: column;
+      align-items: stretch;
+      /* 竖排下拉：降低折射强度并让共享玻璃贴合全宽标签。 */
+      --nba-tab-gap: 4px;
+      --nba-tab-radius: 14px;
+      --lg-blur: 14px;
+      --lg-tint-strength: 0.095;
+    }
+    .nav-links.is-open { display: flex; }
+    .nav-links a { width: 100%; min-height: 48px; padding: 0 16px; border: 0; font-size: 15px; }
+
+    .hero { padding-top: 86px; }
+    .hero-grid {
+      padding-block: 0 64px;
+      gap: 32px;
+    }
+    .hero h1 { font-size: clamp(43px, 11vw, 68px); }
+    .hero-summary { font-size: 17px; }
+
+    .story-grid, .challenge-layout, .benefits, .final-cta .container, .footer-grid { grid-template-columns: 1fr; }
+    .challenge-statement { position: static; }
+    .signal-panel { min-height: 390px; }
+    .deliverables { grid-template-columns: 1fr; }
+    .wide-quote { grid-column: auto; }
+    .eligibility-grid { grid-template-columns: 1fr 1fr; }
+    .metric:first-child { grid-column: 1 / -1; min-height: 340px; }
+    .cities { grid-template-columns: 1fr; }
+    .city { min-height: 440px; }
+    .city + .city { border-left: 0; border-top: 1px solid var(--line); }
+    .awards-layout { grid-template-columns: 1fr; }
+    .award.champion { grid-row: auto; min-height: 560px; }
+    .benefit { grid-template-columns: 150px 1fr; }
+    .final-cta .container { gap: 48px; }
+    .cta-panel { padding-left: 24px; }
+    .footer-grid { gap: 24px; }
+  }
+
+  @media (max-width: 560px) {
+    :root { --page: calc(100% - 32px); --section-space: 72px; }
+    body { font-size: 15px; }
+    .site-header { padding: 10px 12px; }
+    .header-bar { gap: 8px; }
+    .header-nav-group { gap: 8px; }
+    .brand-logo { height: 38px; }
+    .brand-logo img { max-width: 92px; }
+    .nav-links { inset: 60px 0 auto auto; width: min(300px, calc(100vw - 24px)); }
+    .hero-kicker { font-size: 11px; }
+    .hero h1 span { display: inline; }
+    .hero h1 > span, .hero h1 .accent { white-space: normal; }
+    .hero-actions { align-items: stretch; flex-direction: column; }
+    .hero-actions .button { width: 100%; }
+    h2 { font-size: clamp(34px, 10.5vw, 48px); }
+    .pipeline { grid-template-columns: 1fr; row-gap: 0; }
+    .pipeline-step, .pipeline-step + .pipeline-step { padding: 22px 0 24px; border-left: 0; border-bottom: 1px solid var(--line); }
+    .pipeline-step:first-child { padding-top: 0; }
+    .pipeline-step::before, .pipeline-step + .pipeline-step::before { display: none; }
+    .step-name { margin-top: 16px; font-size: 16px; }
+    .deliverable { min-height: 0; grid-template-columns: 44px 1fr; gap: 12px; padding: 28px 0; }
+    .deliverable h3 { font-size: 21px; }
+    .signal-panel { min-height: 330px; padding: 28px; }
+    .signal-value { margin-top: 115px; }
+    .eligibility-grid { grid-template-columns: 1fr; }
+    .metric, .metric:first-child, .metric:last-child { grid-column: auto; min-height: 190px; padding: 28px; }
+    .metric:first-child { min-height: 300px; }
+    .timeline::before { left: 7px; }
+    .timeline-item { grid-template-columns: 1fr; gap: 12px; min-height: 0; padding: 0 0 44px 34px; }
+    .timeline-date::after { left: -31px; right: auto; }
+    .city { min-height: 410px; padding: 32px 26px; }
+    .city h3 { margin-top: 68px; }
+    .route-line span { width: 70px; }
+    .award, .award.champion { padding: 34px 26px; }
+    .award.champion { min-height: 510px; }
+    .award.champion h3 { white-space: normal; font-size: clamp(22px, 6.5vw, 32px); }
+    .benefit { grid-template-columns: 1fr; gap: 4px; padding: 28px 0; }
+    .final-cta { padding-block: 86px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+
+<style>
+  /* ================================================================
+     Coding / 分析视觉层
+     1) 章节编号 —— 用 CSS counter 自动排出 § 01 / 09，像代码文件的大纲
+     2) 左侧固定大纲轨道 —— 滚动时高亮当前章节
+     3) metric 数字 count-up + sparkline 信号纹理
+     4) 战术板十字准星 + 坐标 / 时间码读数
+     ================================================================ */
+
+  /* --- 1) 章节编号：main 上起计数器，每个 section 自增 --- */
+  main { counter-reset: section-index; }
+  .section,
+  .final-cta { counter-increment: section-index; }
+  .final-cta { position: relative; }
+  .section::before,
+  .final-cta::before {
+    content: "§ " counter(section-index, decimal-leading-zero) " / 09";
+    position: absolute;
+    left: calc((100% - var(--page)) / 2);
+    top: calc(var(--section-space) - 36px);
+    color: rgba(255, 255, 255, 0.3);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    pointer-events: none;
+  }
+  .final-cta::before { top: clamp(46px, 7vw, 96px); }
+  /* 有 eyebrow 的章节把编号往上挪，避免和 eyebrow 撞行 */
+  .section:has(.eyebrow)::before { top: calc(var(--section-space) - 40px); }
+
+  /* --- 2) 左侧固定大纲轨道 --- */
+  .outline-rail {
+    position: fixed;
+    left: 14px;
+    top: 50%;
+    z-index: 26;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 6px;
+    border-radius: 999px;
+    background: rgba(13, 16, 20, 0.42);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    backdrop-filter: blur(14px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 320ms var(--enter), visibility 320ms var(--enter);
+  }
+  .outline-rail.is-ready { opacity: 1; visibility: visible; }
+  .outline-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 22px;
+    padding: 0 4px;
+    color: rgba(255, 255, 255, 0.34);
+    font-family: var(--mono);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    transition: color 200ms var(--enter);
+  }
+  .outline-num { width: 2ch; text-align: right; font-variant-numeric: tabular-nums; }
+  /* 刻度线：当前章节变长变亮，像时间轴游标 */
+  .outline-tick {
+    display: block;
+    width: 10px;
+    height: 1px;
+    background: currentColor;
+    transition: width 220ms var(--enter), background-color 220ms var(--enter);
+  }
+  .outline-item:hover,
+  .outline-item:focus-visible { color: var(--text); }
+  .outline-item:hover .outline-tick { width: 16px; }
+  .outline-item[aria-current="true"] { color: var(--accent); }
+  .outline-item[aria-current="true"] .outline-tick { width: 20px; }
+  /* hover 时浮出章节标题 */
+  .outline-label {
+    position: absolute;
+    left: calc(100% + 10px);
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: rgba(13, 16, 20, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-4px);
+    pointer-events: none;
+    transition: opacity 180ms var(--enter), transform 180ms var(--enter);
+  }
+  .outline-item:hover .outline-label,
+  .outline-item:focus-visible .outline-label { opacity: 1; transform: translateX(0); }
+  /* 空间不够就藏起来：轨道只在够宽的视口出现 */
+  @media (max-width: 1460px) {
+    .outline-rail { display: none; }
+  }
+
+  /* --- 3) metric sparkline：卡片角落的信号纹理（装饰，不代表真实数据） --- */
+  .metric { position: relative; overflow: hidden; }
+  .metric-spark {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 62%;
+    max-width: 190px;
+    height: 44px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .metric-spark polyline { fill: none; stroke: var(--track); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .metric:first-child .metric-spark { opacity: 0.62; }
+  .metric:first-child .metric-spark polyline { stroke: var(--accent); }
+  .metric-spark .spark-base { stroke: rgba(255, 255, 255, 0.1); stroke-width: 1; }
+  /* 进入视口后把折线画出来 */
+  .metric-spark polyline[data-draw] { stroke-dasharray: 100; stroke-dashoffset: 100; }
+  .eligibility-grid.is-visible .metric-spark polyline[data-draw] {
+    animation: spark-draw 1000ms var(--enter) forwards;
+    animation-delay: calc(var(--i, 0) * 120ms + 200ms);
+  }
+  @keyframes spark-draw { to { stroke-dashoffset: 0; } }
+
+  /* count-up 期间锁定等宽数字，避免宽度跳动 */
+  [data-countup] { font-variant-numeric: tabular-nums; }
+
+  /* --- 4) 战术板十字准星 --- */
+  .board-stage { position: relative; overflow: hidden; }
+  .board-example-badge {
+    position: absolute;
+    top: clamp(10px, 1.4vw, 16px);
+    left: clamp(10px, 1.4vw, 16px);
+    z-index: 3;
+    padding: 5px 10px;
+    border: 1px solid rgba(255, 75, 20, 0.72);
+    border-radius: 2px;
+    background: rgba(8, 10, 12, 0.82);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .board-crosshair {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms var(--enter);
+  }
+  .board-stage.is-tracking .board-crosshair { opacity: 1; }
+  .ch-v,
+  .ch-h {
+    position: absolute;
+    background: rgba(56, 220, 255, 0.5);
+  }
+  .ch-v { top: 0; bottom: 0; width: 1px; transform: translateX(-0.5px); }
+  .ch-h { left: 0; right: 0; height: 1px; transform: translateY(-0.5px); }
+  /* 准星中心的小方框 */
+  .ch-dot {
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    margin: -7px 0 0 -7px;
+    border: 1px solid var(--track);
+    box-shadow: 0 0 0 3px rgba(56, 220, 255, 0.12);
+  }
+  .ch-readout {
+    position: absolute;
+    padding: 5px 9px;
+    border: 1px solid rgba(56, 220, 255, 0.42);
+    background: rgba(8, 10, 12, 0.86);
+    color: var(--track);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+    white-space: pre;
+    transform: translate(12px, 12px);
+  }
+  /* 触屏 / 无精确指针设备不启用准星 */
+  @media (hover: none), (pointer: coarse) {
+    .board-crosshair { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .metric-spark polyline[data-draw] { stroke-dasharray: none; stroke-dashoffset: 0; }
+  }
+</style>
+
+<style>
+  /* ================================================================
+     正文排版优化：只调版式，不改文案
+     核心是控制「每行字数（measure）」—— 中文正文每行 28~38 字最舒服。
+     用 em 做单位：1em ≈ 1 个汉字宽，所以 34em ≈ 34 字/行，
+     且会随各自 font-size 自动缩放。
+     配合更松的行高、段间距，以及标点悬挂，减少密密麻麻的压迫感。
+     ================================================================ */
+
+  :root {
+    --measure: 34em;        /* 常规正文 */
+    --measure-narrow: 26em; /* 卡片内窄栏 */
+    --measure-wide: 46em;   /* 小字号说明文本可略宽 */
+  }
+
+  /* 中文正文统一：略松的行高 + 微量字距，标点尽量悬挂到行外 */
+  .story-copy p,
+  .challenge-detail p,
+  .telestrator figcaption,
+  .step-desc,
+  .deliverable p,
+  .metric-note,
+  .timeline-content p,
+  .city p,
+  .award-list li,
+  .benefit p,
+  .cta-panel p,
+  .notes,
+  .lead,
+  .body-copy {
+    letter-spacing: 0.012em;
+    hanging-punctuation: allow-end;
+  }
+
+  /* --- 主叙事段落：收窄行宽，拉开段距 --- */
+  .story-copy p {
+    max-width: var(--measure);
+    margin-bottom: 26px;
+    line-height: 1.9;
+  }
+  .story-copy p:last-child { margin-bottom: 0; }
+
+  .challenge-detail p {
+    max-width: var(--measure);
+    margin-bottom: 24px;
+    line-height: 1.9;
+  }
+  .challenge-detail p:last-child { margin-bottom: 0; }
+
+  .lead { line-height: 1.88; }
+  .body-copy { max-width: var(--measure); line-height: 1.85; }
+
+  /* --- 战术板说明：原来横跨整个 1320px，每行近百字，是最难读的一处 ---
+     注意用 padding-right 而不是 max-width 来收窄行宽：
+     figcaption 自带 border-top，元素本身要保持满宽，边线才不会跟着截断 --- */
+  .telestrator figcaption {
+    padding-top: 16px;
+    padding-bottom: 20px;
+    padding-right: max(clamp(14px, 1.6vw, 22px), calc(100% - var(--measure-wide)));
+    font-size: 14px;
+    line-height: 1.85;
+  }
+
+  /* --- 管线步骤说明 --- */
+  .step-desc { max-width: 22em; line-height: 1.8; }
+
+  /* --- 交付物 / 权益 / 时间轴 --- */
+  .deliverable p { max-width: var(--measure); line-height: 1.85; }
+  .benefit p { max-width: var(--measure); line-height: 1.85; }
+  .timeline-content p { max-width: 36em; line-height: 1.85; }
+
+  /* --- 城市卡片与 metric 说明 --- */
+  .city p { max-width: var(--measure-narrow); line-height: 1.85; }
+  .metric-note { line-height: 1.75; }
+
+  /* --- 奖项清单：条目之间拉开，长条目收窄行宽 --- */
+  .award-list li {
+    max-width: 40em;
+    margin-top: 18px;
+    line-height: 1.85;
+  }
+  .award:not(.champion) p { max-width: var(--measure-narrow); line-height: 1.85; }
+  .awards-disclaimer { max-width: var(--measure-wide); line-height: 1.8; }
+
+  /* --- CTA 与页脚注意事项 --- */
+  .cta-panel p { line-height: 1.85; }
+  .questions p { line-height: 1.7; }
+  .notes { max-width: 48em; line-height: 1.85; }
+  .notes li + li { margin-top: 12px; }
+
+  /* 窄屏：行宽本来就被容器限制，这里只补足行高与段距的呼吸感 */
+  @media (max-width: 820px) {
+    .story-copy p,
+    .challenge-detail p { margin-bottom: 22px; line-height: 1.88; }
+    .telestrator figcaption { font-size: 13.5px; line-height: 1.82; }
+  }
+</style>
+<style>
+  /* ================================================================
+     H5 EDITORIAL PASS
+     收敛科技装饰与重复 CTA，让首屏先回答「这是什么 / 如何参加」。
+     桌面端保持原布局，仅在 820px 以下接管视觉顺序与按钮系统。
+     ================================================================ */
+  .mobile-register-bar { display: none; }
+
+  @media (max-width: 820px) {
+    /* 降低扫描线与颗粒强度，保留纸面颗粒，不让装饰抢正文。 */
+    body::before {
+      opacity: 0.18;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.34'/%3E%3C/svg%3E");
+    }
+    body::after { opacity: 0.56; }
+
+    /* Header 只承担品牌与目录；报名由首屏和滚动后的吸底条接管。 */
+    .site-header .nav > [data-register] { display: none; }
+    .header-bar {
+      padding: 5px 7px 5px 12px;
+      background: rgba(13, 16, 20, 0.58);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    }
+    .menu-toggle { background: rgba(255, 255, 255, 0.06); }
+
+    /* 首屏顺序：文案与 CTA → KV → 三项赛事数据。 */
+    .hero { padding-top: 78px; }
+    .hero-grid { gap: 0; padding-bottom: 54px; }
+    .hero-copy {
+      order: 1;
+      margin-top: 0;
+      padding: 42px 0 38px;
+    }
+    .hero-visual {
+      order: 2;
+      border: 1px solid var(--line);
+      background: #060708;
+    }
+    .hero-visual img { max-height: none; object-fit: cover; }
+    .hero-visual::after { height: 52px; opacity: 0.72; }
+    .hero-hud {
+      order: 3;
+      margin-top: -1px;
+      border-radius: 0 0 4px 4px;
+      box-shadow: none;
+    }
+    .hero-hud .hud-cta { display: none; }
+    .hero-hud .hud-cell:nth-child(3) {
+      grid-column: 1 / -1;
+      border-left: 0;
+    }
+
+    .hero-kicker {
+      margin-bottom: 18px;
+      color: #bfc4ca;
+      font-size: 11px;
+      letter-spacing: 0.11em;
+    }
+    .hero-kicker::before { width: 30px; height: 2px; }
+    .hero h1 {
+      max-width: 9.5em;
+      margin-bottom: 22px;
+      font-size: clamp(43px, 10.5vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+    }
+    .hero h1 .accent { text-shadow: none; }
+    .hero-summary {
+      max-width: 35em;
+      margin-bottom: 24px;
+      color: #b9bec4;
+      font-size: 16px;
+      line-height: 1.78;
+    }
+    .hero-actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 14px;
+    }
+    .hero-actions > .button {
+      width: 100%;
+      min-height: 62px;
+      display: grid;
+      place-content: center;
+      gap: 5px;
+      border-radius: 15px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.32), 0 10px 24px rgba(255,75,20,.16);
+      touch-action: manipulation;
+    }
+    .hero-actions > .button::after {
+      content: "9/23 截止 · 限 120 席";
+      color: rgba(8, 10, 12, 0.66);
+      font-family: var(--body);
+      font-size: 10px;
+      font-weight: 650;
+      letter-spacing: 0.08em;
+    }
+    .hero-date {
+      padding: 13px 0 0;
+      border-top: 1px solid rgba(255,255,255,.1);
+      font-size: 11px;
+    }
+    .hero-date strong { font-size: 13px; }
+
+    /* H5 按钮统一：实体橙色、克制高光、明确按压反馈。 */
+    .button { touch-action: manipulation; }
+    .button:active { transform: translateY(1px) scale(0.985); }
+    .final-cta .cta-panel .button {
+      width: 100%;
+      min-height: 58px;
+      display: grid;
+      place-content: center;
+      gap: 5px;
+      border-radius: 15px;
+    }
+    .final-cta .cta-panel .button::after {
+      content: "9/23 截止 · 9/24 公布入围";
+      color: rgba(8, 10, 12, 0.66);
+      font-family: var(--body);
+      font-size: 10px;
+      font-weight: 650;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hero { padding-top: 68px; }
+    .hero-copy { padding: 34px 0 32px; }
+    .hero-grid { padding-bottom: 46px; }
+    .hero h1 { font-size: clamp(42px, 12.3vw, 56px); }
+    .hero-summary { font-size: 15px; }
+    .hero-hud { margin-top: -1px; }
+    .hud-value { font-size: 21px; }
+    .hud-cell { padding: 13px 14px; }
+  }
+</style>
+<style>
+  /* H5 内容节奏：减少模板化等距区块，奖项与终局 CTA 改成更紧凑的编辑式层级。 */
+  @media (max-width: 820px) {
+    #deliverables,
+    #eligibility,
+    #schedule,
+    #cities,
+    #awards,
+    #benefits { --section-space: 72px; }
+
+    #deliverables,
+    #schedule,
+    #awards {
+      background: linear-gradient(180deg, rgba(255,255,255,.018), transparent 34%);
+    }
+    .section::before,
+    .final-cta::before { color: rgba(255,255,255,.22); }
+    .eyebrow {
+      margin-bottom: 15px;
+      color: #aab0b7;
+      font-size: 10px;
+      letter-spacing: .11em;
+    }
+    .lead { font-size: 17px; }
+    .story-copy p,
+    .challenge-detail p { font-size: 16px; line-height: 1.82; }
+    .signal-panel { min-height: 330px; }
+
+    .timeline-item { padding-bottom: 34px; }
+    .city { min-height: 390px; }
+    .benefit { padding-block: 25px; }
+
+    .awards-layout { margin-top: 34px; }
+    .award.champion {
+      min-height: 0;
+      gap: 22px;
+    }
+    .award:not(.champion) {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 18px;
+      padding-block: 24px;
+    }
+    .award:not(.champion) p,
+    .award:not(.champion) .award-rank + p {
+      margin: 0;
+      white-space: nowrap;
+    }
+    .award:not(.champion) p {
+      color: #8f969e;
+      font-size: 13px;
+    }
+    .awards-disclaimer { margin-top: 18px; font-size: 12px; }
+
+    .final-cta { padding-block: 72px 78px; }
+    .final-cta .container { gap: 32px; }
+    .final-cta .questions { font-size: 16px; }
+    .cta-panel {
+      padding: 25px 22px;
+      border-color: rgba(255,255,255,.12);
+      background: #121820;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      box-shadow: inset 2px 0 0 var(--accent);
+    }
+    .cta-panel .button { margin-top: 14px; }
+    .site-footer { padding-bottom: calc(42px + env(safe-area-inset-bottom)); }
+
+    /* 滚过首屏后接管转化；进入页尾报名区时自动退出。 */
+    .mobile-register-bar {
+      position: fixed;
+      inset: auto 0 0;
+      z-index: 50;
+      display: block;
+      padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(calc(100% + env(safe-area-inset-bottom)));
+      transition: opacity 220ms ease, visibility 220ms ease, transform 360ms var(--enter);
+    }
+    .mobile-register-bar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-top: 1px solid rgba(255,255,255,.15);
+      background: rgba(9, 12, 16, .86);
+      -webkit-backdrop-filter: blur(22px) saturate(1.25);
+      backdrop-filter: blur(22px) saturate(1.25);
+      box-shadow: 0 -14px 38px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .mobile-register-bar.is-visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .mobile-register-inner {
+      width: min(100%, 560px);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+    }
+    .mobile-register-copy { min-width: 0; line-height: 1.25; }
+    .mobile-register-copy strong,
+    .mobile-register-copy span { display: block; }
+    .mobile-register-copy strong {
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .02em;
+    }
+    .mobile-register-copy span {
+      margin-top: 4px;
+      overflow: hidden;
+      color: #9299a2;
+      font-size: 10px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .mobile-register-button {
+      min-width: 112px;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      background: var(--accent);
+      color: #080a0c;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.32);
+      touch-action: manipulation;
+      transition: transform 140ms var(--enter), background-color 180ms ease;
+    }
+    .mobile-register-button::after { content: "↗"; font-size: 15px; line-height: 1; }
+    .mobile-register-button:active { transform: translateY(1px) scale(.985); }
+  }
+
+  @media (max-width: 560px) {
+    #deliverables,
+    #eligibility,
+    #schedule,
+    #cities,
+    #awards,
+    #benefits { --section-space: 58px; }
+    .signal-panel { min-height: 300px; }
+    .city { min-height: 360px; }
+    .award,
+    .award.champion { padding: 28px 22px; }
+    .award.champion { min-height: 0; }
+    .award:not(.champion) { padding-block: 22px; }
+    .award:not(.champion) p { font-size: 12px; }
+    .final-cta { padding-block: 64px 70px; }
+    .mobile-register-copy span { max-width: 180px; }
+  }
+
+  @media (prefers-reduced-transparency: reduce) and (max-width: 820px) {
+    .mobile-register-bar::before { background: #0b0e12; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  }
+  @media (prefers-reduced-motion: reduce) and (max-width: 820px) {
+    .mobile-register-bar { transition: none; }
+  }
+</style>
+<style>
+  /* 一等奖奖品：从长段落改为「核心权益 + 球衣名录 + 发放说明」三级结构。 */
+  .award-prize-stack {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.72fr) minmax(360px, 1.28fr);
+    gap: 1px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    background: rgba(255, 255, 255, 0.11);
+  }
+  .award-prize-main,
+  .jersey-prize {
+    min-width: 0;
+    background: rgba(8, 11, 15, 0.72);
+  }
+  .award-prize-main {
+    min-height: 216px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+  }
+  .prize-overline {
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+  .prize-title {
+    display: block;
+    margin-top: 12px;
+    color: var(--text);
+    font-family: var(--display);
+    font-size: clamp(18px, 1.5vw, 23px);
+    font-weight: 700;
+    line-height: 1.28;
+  }
+  .prize-meta {
+    display: block;
+    max-width: 22em;
+    margin-top: auto;
+    padding-top: 22px;
+    color: #8f969e;
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  .jersey-prize { padding: 22px 24px 16px; }
+  .jersey-prize-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 14px;
+  }
+  .jersey-prize-head .prize-title {
+    margin: 0;
+    font-size: 18px;
+    text-align: right;
+  }
+  .jersey-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .jersey-item {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 13px;
+    align-items: center;
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .jersey-item:last-child { border-bottom: 0; }
+  .jersey-number {
+    color: rgba(255, 255, 255, 0.36);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .jersey-copy,
+  .jersey-copy strong,
+  .jersey-copy span { display: block; }
+  .jersey-copy strong {
+    color: #f2f3f4;
+    font-family: var(--body);
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.35;
+  }
+  .jersey-copy span {
+    margin-top: 4px;
+    color: #90979f;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+  .award-prize-note {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 11px 15px;
+    background: rgba(8, 11, 15, 0.82);
+    color: #777f88;
+    font-size: 11px;
+    line-height: 1.55;
+  }
+  .award-prize-note::before {
+    content: "NOTE / ";
+    color: rgba(255, 75, 20, 0.76);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 820px) {
+    .award-prize-stack { grid-template-columns: 1fr; }
+    .award-prize-main { min-height: 0; padding: 21px 20px; }
+    .prize-meta { margin-top: 14px; padding-top: 0; }
+    .jersey-prize { padding: 20px 20px 12px; }
+    .award-prize-note { grid-column: auto; padding: 11px 20px; }
+  }
+  @media (max-width: 560px) {
+    .jersey-prize-head {
+      display: block;
+      padding-bottom: 13px;
+    }
+    .jersey-prize-head .prize-title {
+      margin-top: 8px;
+      font-size: 17px;
+      text-align: left;
+    }
+    .jersey-item { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; padding: 12px 0; }
+    .jersey-copy strong { font-size: 14px; }
+    .jersey-copy span { font-size: 10.5px; }
+  }
+</style>
+<style>
+  /* 二、三等奖：以奖品明细替代“待公布”占位状态。 */
+  .award.award-secondary {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 18px;
+  }
+  .award-secondary .award-rank { display: block; }
+  .award-detail-list { display: grid; gap: 0; }
+  .award-detail-intro {
+    padding-bottom: 11px;
+    color: #7f8790;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+  .award-detail-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 16px;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .award-detail-item strong {
+    color: var(--text);
+    font-family: var(--display);
+    font-size: 17px;
+    line-height: 1.35;
+  }
+  .award-detail-item > span {
+    color: #a0a6ad;
+    font-family: var(--mono);
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .award-choice-block {
+    padding-top: 13px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .award-choice-label {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .award-option-list {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .award-option-list li {
+    position: relative;
+    padding-left: 14px;
+    color: #c8ccd0;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .award-option-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 5px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .award-option-list li > span {
+    display: block;
+    margin-top: 2px;
+    color: #858c94;
+    font-size: 11px;
+  }
+
+  @media (max-width: 820px) {
+    .award.award-secondary {
+      display: flex;
+      align-items: stretch;
+      gap: 15px;
+      padding-block: 24px;
+    }
+    .award-detail-item { padding-block: 11px; }
+    .award-option-list li { font-size: 13px; }
+  }
+  @media (max-width: 560px) {
+    .award.award-secondary { padding: 24px 22px; }
+    .award-detail-item strong { font-size: 16px; }
+  }
+</style>
+<style>
+  /* 全体参赛者权益：与“是否晋级”解耦，在权益区首项明确提示。 */
+  .benefit-highlight {
+    position: relative;
+    padding-inline: 22px;
+    background: linear-gradient(90deg, rgba(255, 75, 20, 0.08), transparent 72%);
+  }
+  .benefit-highlight::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 2px;
+    background: var(--accent);
+  }
+  .benefit-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .benefit-highlight p {
+    color: #d0d3d6;
+    font-size: 16px;
+    line-height: 1.78;
+  }
+  @media (max-width: 560px) {
+    .benefit-highlight { padding: 24px 18px; }
+    .benefit-highlight h3 { margin-bottom: 10px; }
+    .benefit-highlight p { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <!-- 液态玻璃折射滤镜容器（贴图由脚本按头部尺寸生成，仅 Chromium 生效） -->
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0"
+       style="position:absolute;overflow:hidden" aria-hidden="true"
+       color-interpolation-filters="sRGB">
+    <defs id="lg-svg-defs"></defs>
+  </svg>
+
+  <header class="site-header">
+    <div class="header-bar" id="header-glass">
+      <div class="header-brands">
+        <a class="brand-logo brand-logo-left" href="#top" aria-label="NBA × AWS 澳门黑客松">
+          <img src="https://i-operation.csdnimg.cn/ad/ad_pic/d9e39520e798449898679c8d72fbfdae.png" alt="NBA × AWS 澳门黑客松 Logo" referrerpolicy="no-referrer">
+        </a>
+        <span class="brand-logo brand-logo-right" aria-label="Broadcast Code Logo">
+          <img src="https://i-operation.csdnimg.cn/ad/ad_pic/36bb3ede69974cf980d101a850ae59a6.png" alt="Broadcast Code Logo" referrerpolicy="no-referrer">
+        </span>
+      </div>
+      <div class="header-nav-group">
+        <nav class="nav" aria-label="主导航">
+          <div class="nav-links" id="nav-links">
+            <a href="#challenge">赛题</a>
+            <a href="#schedule">赛程</a>
+            <a href="#awards">奖项</a>
+            <a href="#eligibility">参赛要求</a>
+          </div>
+          <a class="button" data-register href="https://marketing.csdn.net/questions/Q2609071804379567473">立即报名</a>
+          <button class="menu-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="nav-links">
+            <span></span><span></span>
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- 章节大纲轨道：像代码编辑器的 outline，滚动时高亮当前章节 -->
+  <nav class="outline-rail" id="outline-rail" aria-label="章节大纲">
+    <a class="outline-item" href="#story"><span class="outline-num">01</span><span class="outline-tick"></span><span class="outline-label">当篮球遇见 AI</span></a>
+    <a class="outline-item" href="#challenge"><span class="outline-num">02</span><span class="outline-tick"></span><span class="outline-label">赛题</span></a>
+    <a class="outline-item" href="#deliverables"><span class="outline-num">03</span><span class="outline-tick"></span><span class="outline-label">你将完成什么</span></a>
+    <a class="outline-item" href="#eligibility"><span class="outline-num">04</span><span class="outline-tick"></span><span class="outline-label">谁可以参加</span></a>
+    <a class="outline-item" href="#schedule"><span class="outline-num">05</span><span class="outline-tick"></span><span class="outline-label">赛程</span></a>
+    <a class="outline-item" href="#cities"><span class="outline-num">06</span><span class="outline-tick"></span><span class="outline-label">双城赛场</span></a>
+    <a class="outline-item" href="#awards"><span class="outline-num">07</span><span class="outline-tick"></span><span class="outline-label">奖项</span></a>
+    <a class="outline-item" href="#benefits"><span class="outline-num">08</span><span class="outline-tick"></span><span class="outline-label">不只为冠军而来</span></a>
+    <a class="outline-item" href="#register"><span class="outline-num">09</span><span class="outline-tick"></span><span class="outline-label">立即报名</span></a>
+  </nav>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        <div class="hero-copy reveal">
+          <div class="hero-kicker">BROADCAST CODE 12 HACKATHON</div>
+          <h1 id="hero-title"><span>用 AI 重新定义<span class="accent">篮球观看体验</span></span></h1>
+          <p class="hero-summary">伴随休斯顿火箭队与达拉斯独行侠队重磅对决，一场属于开发者、AI 创新者与篮球爱好者的技术挑战同步开启。用数据看见赛场上隐藏的博弈，用 AI 讲出每一次攻防背后的故事。</p>
+          <div class="hero-actions">
+            <a class="button" data-register href="https://marketing.csdn.net/questions/Q2609071804379567473">立即报名</a>
+            <div class="hero-date"><strong>9 月 24 日公布入围参赛资格</strong>赛前培训 9 月 28 日（暂定）</div>
+          </div>
+        </div>
+        <figure class="hero-visual">
+          <img src="https://i-operation.csdnimg.cn/ad/ad_pic/a4764980bdb04e339a888a45134a1b55.png" alt="NBA × AWS 澳门黑客松主视觉，包含篮球运动影像与数据分析图形" width="2496" height="1404" fetchpriority="high" referrerpolicy="no-referrer">
+        </figure>
+        <div class="hero-hud glass" role="group" aria-label="赛事关键信息">
+          <div class="hud-cell">
+            <span class="hud-label" aria-hidden="true">Round 01 / Zhuhai</span>
+            <span class="hud-value">10.10</span>
+            <span class="hud-note">珠海初赛 · 当晚公布 TOP 8</span>
+          </div>
+          <div class="hud-cell">
+            <span class="hud-label" aria-hidden="true">Final / Macau</span>
+            <span class="hud-value">10.11</span>
+            <span class="hud-note">澳门决赛 · 现场路演终评</span>
+          </div>
+          <div class="hud-cell">
+            <span class="hud-label" aria-hidden="true">Roster</span>
+            <span class="hud-value" data-countup="120">120</span>
+            <span class="hud-note">参赛规模上限 · 2-3 人组队</span>
+          </div>
+          <a class="button hud-cta" data-register href="https://marketing.csdn.net/questions/Q2609071804379567473">立即报名</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="story" aria-labelledby="story-title">
+      <div class="container story-grid">
+        <div class="story-copy reveal">
+          <p class="eyebrow">GAME DATA / AI STORYTELLING</p>
+          <h2 id="story-title">当篮球遇见 AI</h2>
+          <p>本次黑客松将在 NBA 中国赛休斯顿火箭队与达拉斯独行侠队对决期间举办，这也是中国球迷近距离感受 NBA 魅力的难得机会。</p>
+          <p>而你真正要动手分析的，是这两支球队过往交手的经典比赛——官方提供的历史比赛视频与深度赛场数据，就是你手中的素材。我们希望用 AI 与数据，为篮球打开一种全新的观看方式。</p>
+          <p>传统比赛解说依赖解说员的经验与即时判断，一次跑位、一处空档或一次防守收缩，往往只能通过手工标注和语言描述呈现。这一次，我们把那支分析比赛的“笔”交给你。</p>
+        </div>
+        <div class="signal-panel reveal" aria-label="比赛数据转化为篮球叙事的视觉示意">
+          <div class="signal-label">LIVE SIGNAL / COURT VISION</div>
+          <div class="signal-value">看见隐藏的博弈</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-rule" id="challenge" aria-labelledby="challenge-title">
+      <div class="container challenge-layout">
+        <div class="challenge-statement reveal">
+          <h2 id="challenge-title">用 AI，把一次出手重新讲述一遍</h2>
+        </div>
+        <div class="challenge-detail reveal">
+          <p>你将围绕 NBA 比赛视频及深度赛场数据，打造一个 AI Agent，读取投篮难度、球员引力、关键度等数据，自动识别并解读关键回合。</p>
+          <p>通过箭头、色块、球员标注等方式，把跑位、空档与防守变化叠加到原视频中，并生成与画面准确对应的篮球解说。</p>
+          <p>作品不仅要跑得通，更要把数据真正带回球场：让看不见的战术选择浮现在画面之上，让懂球与不懂球的观众都能看得更明白、更投入。</p>
+        </div>
+      </div>
+
+      <div class="container">
+        <figure class="telestrator reveal">
+          <div class="board-head">
+            <span>Telestrator / possession #24 · Q3 07:41</span>
+            <span class="board-live">AI overlay running</span>
+          </div>
+          <div class="board-stage">
+            <span class="board-example-badge" aria-label="参考方向，创作与呈现方式不限于此">参考方向 / 不限于此</span>
+          <svg class="board" viewBox="0 0 640 360" role="img" aria-labelledby="board-title board-desc">
+            <title id="board-title">AI 战术板标注示意</title>
+            <desc id="board-desc">半场示意图上，AI 依次画出持球人突破路线、无球跑动创造的空档区域，以及防守方的收缩方向，并附上投篮质量、球员引力等数据标签。</desc>
+
+            <!-- 场地底图：按真实 NBA 半场尺寸绘制（NBA 官方规则）
+                 全场 94ft × 50ft，半场 47ft × 50ft
+                 比例尺 6.4 px/ft —— 场宽 50ft = 320px，半场长 47ft = 300.8px
+                 半场居中：中线 x=169.6，底线 x=470.4（球篮在右），
+                 边线 y=20 / y=340，场地长轴中心 y=180
+                 · 篮板：宽 6ft，板面距底线 4ft            → x=444.8，y 160.8–199.2
+                 · 篮圈：直径 18in，圈心距底线 5.25ft      → (436.8, 180) r=4.8
+                 · 罚球区：宽 16ft，底线到罚球线 19ft      → x 348.8–470.4，y 128.8–231.2
+                 · 罚球圈：半径 6ft，圆心在罚球线上        → (348.8, 180) r=38.4
+                 · 三分线：弧半径 23.75ft（自圈心），底角直线距边线 3ft（即距长轴 22ft），
+                   直线段自底线延伸至距底线 14ft 3in 处与弧相接 → 交点 x=379.5
+                 · 合理冲撞区：半径 4ft（自圈心）          → r=25.6
+                 · 中圈：半径 6ft，内圈 2ft，只画本半场一侧 → (169.6, 180) r=38.4 / 12.8 -->
+            <g class="court" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5">
+              <!-- 半场边界：两条边线 + 底线 + 中线（闭合） -->
+              <path d="M 169.6 20 H 470.4 V 340 H 169.6 Z"></path>
+              <!-- 中圈（只画进入本半场的一半） -->
+              <path d="M 169.6 141.6 A 38.4 38.4 0 0 1 169.6 218.4"></path>
+              <path d="M 169.6 167.2 A 12.8 12.8 0 0 1 169.6 192.8"></path>
+              <!-- 罚球区 16ft × 19ft -->
+              <rect x="348.8" y="128.8" width="121.6" height="102.4"></rect>
+              <!-- 罚球圈：远离球篮一侧实线，禁区内一侧虚线 -->
+              <path d="M 348.8 141.6 A 38.4 38.4 0 0 0 348.8 218.4"></path>
+              <path d="M 348.8 141.6 A 38.4 38.4 0 0 1 348.8 218.4" stroke-dasharray="6 5"></path>
+              <!-- 三分线：底角直线 + 23.75ft 弧 -->
+              <path d="M 470.4 39.2 H 379.5 A 152 152 0 0 0 379.5 320.8 H 470.4"></path>
+              <!-- 篮板与篮圈 -->
+              <path d="M 444.8 160.8 V 199.2" stroke-width="2.5"></path>
+              <path d="M 444.8 180 H 441.6"></path>
+              <circle cx="436.8" cy="180" r="4.8"></circle>
+              <!-- 合理冲撞区 4ft -->
+              <path d="M 436.8 154.4 A 25.6 25.6 0 0 0 436.8 205.6"></path>
+              <!-- 罚球区两侧标记：低位块距底线 7ft，其后每 3ft 一道 -->
+              <g stroke-width="1">
+                <path d="M 425.6 128.8 v -4.4 M 425.6 231.2 v 4.4"></path>
+                <path d="M 400 128.8 v -4.4 M 400 231.2 v 4.4"></path>
+                <path d="M 380.8 128.8 v -4.4 M 380.8 231.2 v 4.4"></path>
+                <path d="M 361.6 128.8 v -4.4 M 361.6 231.2 v 4.4"></path>
+              </g>
+            </g>
+
+            <!-- 空档区域：AI 判定的机会区（三分弧内、罚球区上方的侧翼） -->
+            <g data-fade style="--i: 2">
+              <polygon points="352,58 426,52 438,110 360,118" fill="rgba(78,242,161,0.13)" stroke="var(--open)" stroke-width="1.5" stroke-dasharray="5 5"></polygon>
+            </g>
+
+            <!-- 球员：进攻 O / 防守 X（1、2 号在三分弧外侧翼，3 号在底角三分区内） -->
+            <g class="players" data-fade style="--i: 0">
+              <g class="player off"><circle cx="288" cy="252" r="13"></circle><text x="288" y="257">1</text></g>
+              <g class="player off"><circle cx="290" cy="108" r="13"></circle><text x="290" y="113">2</text></g>
+              <g class="player off"><circle cx="436" cy="330" r="9"></circle><text x="436" y="334">3</text></g>
+              <g class="player def"><path d="M 308 237 l 14 14 M 322 237 l -14 14"></path></g>
+              <g class="player def"><path d="M 371 198 l 14 14 M 385 198 l -14 14"></path></g>
+            </g>
+
+            <!-- 1. 持球突破路线：自下侧翼切入罚球区直扑篮下 -->
+            <g class="stroke-track">
+              <path data-draw pathLength="100" style="--i: 1" d="M 302 249 C 336 246 370 226 414 196"></path>
+              <polyline data-draw pathLength="100" style="--i: 2" points="399,190 416,195 407,211"></polyline>
+            </g>
+
+            <!-- 2. 无球跑动 → 空档 -->
+            <g class="stroke-open">
+              <path data-draw pathLength="100" style="--i: 2" stroke-dasharray="100" d="M 304 112 C 330 128 360 132 386 122"></path>
+              <polyline data-draw pathLength="100" style="--i: 3" points="372,114 389,120 380,136"></polyline>
+            </g>
+
+            <!-- 3. 防守收缩 -->
+            <g class="stroke-deny">
+              <path data-draw pathLength="100" style="--i: 3" d="M 376 200 C 365 208 354 218 342 228"></path>
+              <polyline data-draw pathLength="100" style="--i: 4" points="352,220 340,230 354,238"></polyline>
+            </g>
+
+            <!-- 数据标签：分置于半场两侧留白，指向各自对象 -->
+            <g class="chip" data-fade style="--i: 4">
+              <rect x="478" y="168" width="118" height="24" rx="2"></rect>
+              <text x="488" y="184">SHOT_Q 0.62 ↑</text>
+            </g>
+            <g class="chip chip-open" data-fade style="--i: 5">
+              <rect x="214" y="52" width="128" height="24" rx="2"></rect>
+              <text x="224" y="68">OPEN_ZONE 1.34s</text>
+            </g>
+            <g class="chip chip-deny" data-fade style="--i: 6">
+              <rect x="196" y="286" width="152" height="24" rx="2"></rect>
+              <text x="206" y="302">HELP_LATE −0.4s</text>
+            </g>
+            <g class="chip chip-track" data-fade style="--i: 5">
+              <rect x="24" y="240" width="132" height="24" rx="2"></rect>
+              <text x="34" y="256">GRAVITY +2.1</text>
+            </g>
+          </svg>
+            <!-- 十字准星：把「你正在分析这段画面」变成可交互的 -->
+            <div class="board-crosshair" aria-hidden="true">
+              <span class="ch-v"></span>
+              <span class="ch-h"></span>
+              <span class="ch-dot"></span>
+              <span class="ch-readout"></span>
+            </div>
+          </div>
+          <figcaption>本图仅作参考，创作与呈现方式不限于此：同一次 24 秒进攻，AI Agent 可依次画出持球人的突破路线、无球跑动创造出的空档，以及防守收缩慢了 0.4 秒的位置，并输出与画面同步的解说。你可以从更多数据、模型与表达方式出发，重新讲述比赛。</figcaption>
+        </figure>
+
+        <ol class="pipeline" aria-label="作品处理流程">
+          <li class="pipeline-step">
+            <div class="step-head"><span class="step-index">01</span><span class="step-code">input</span></div>
+            <h3 class="step-name">比赛视频 + 深度赛场数据</h3>
+            <p class="step-desc">官方比赛画面，配合投篮难度、球员引力、关键度等赛场数据流。</p>
+          </li>
+          <li class="pipeline-step">
+            <div class="step-head"><span class="step-index">02</span><span class="step-code">analyze</span></div>
+            <h3 class="step-name">关键回合识别与战术解读</h3>
+            <p class="step-desc">自动定位关键回合，读出跑位、空档与防守变化背后的选择。</p>
+          </li>
+          <li class="pipeline-step">
+            <div class="step-head"><span class="step-index">03</span><span class="step-code">visualize</span></div>
+            <h3 class="step-name">箭头、色块与球员标注叠加</h3>
+            <p class="step-desc">把分析结果画回原始画面，让看不见的战术浮现在视频之上。</p>
+          </li>
+          <li class="pipeline-step">
+            <div class="step-head"><span class="step-index">04</span><span class="step-code">narrate</span></div>
+            <h3 class="step-name">画面同步的篮球解说</h3>
+            <p class="step-desc">生成与画面、数据准确对应的解说，懂球与不懂球都看得明白。</p>
+          </li>
+        </ol>
+        <p class="notice reveal">完整赛题、数据说明、提交规范与评审细则即将更新，敬请关注。</p>
+      </div>
+    </section>
+
+    <section class="section section-rule" id="deliverables" aria-labelledby="deliverables-title">
+      <div class="container">
+        <h2 id="deliverables-title" class="reveal">你将完成什么</h2>
+        <div class="deliverables">
+          <article class="deliverable reveal"><div><h3>构建 AI Agent</h3><p>处理 NBA 比赛视频与深度赛场数据，建立完整可运行的分析流程。</p></div></article>
+          <article class="deliverable reveal"><div><h3>识别关键变化</h3><p>解读球员跑位、进攻空档、防守收缩及关键出手。</p></div></article>
+          <article class="deliverable reveal"><div><h3>叠加视觉分析</h3><p>将分析结果以箭头、色块、球员标注等形式带回比赛画面。</p></div></article>
+          <article class="deliverable reveal"><div><h3>生成篮球解说</h3><p>让解说与比赛画面和官方数据准确对应。</p></div></article>
+          <article class="deliverable reveal"><div><h3>完成作品交付</h3><p>提交可运行作品、代码仓库、说明文档及演示视频。</p></div></article>
+          <blockquote class="wide-quote reveal">“官方提供的是起点，而不是边界。探索更多数据、模型与表达方式，让篮球比赛被更聪明、更生动地看见。”</blockquote>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section section-rule" id="eligibility" aria-labelledby="eligibility-title">
+      <div class="container">
+        <div class="reveal">
+          <h2 id="eligibility-title">谁可以参加</h2>
+          <p class="lead">AI 开发者、算法工程师、产品设计师、视频创作者，以及希望用技术改变观赛体验的篮球爱好者，都欢迎组队挑战。</p>
+        </div>
+        <div class="eligibility-grid reveal">
+          <article class="metric">
+            <span class="metric-label">TEAM SIZE / 组队人数</span>
+            <div><div class="metric-value">2-3 <span class="metric-unit">人 / 队</span></div><p class="metric-note">每支队伍由 2 人或 3 人组成，组合技术、产品、视觉与篮球理解。</p></div>
+            <svg class="metric-spark" viewBox="0 0 190 44" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <polyline class="spark-base" points="0,43 190,43"></polyline>
+              <polyline data-draw pathLength="100" style="--i: 0" points="2,34 22,30 42,35 62,22 82,26 102,14 122,19 142,9 162,13 188,5"></polyline>
+            </svg>
+          </article>
+          <article class="metric">
+            <span class="metric-label">CAPACITY</span>
+            <div class="metric-value" data-countup="120">120</div>
+            <p class="metric-note">活动参赛规模上限为 120 人。</p>
+            <svg class="metric-spark" viewBox="0 0 190 44" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <polyline class="spark-base" points="0,43 190,43"></polyline>
+              <polyline data-draw pathLength="100" style="--i: 1" points="2,38 24,33 46,34 68,25 90,27 112,18 134,20 156,11 188,8"></polyline>
+            </svg>
+          </article>
+          <article class="metric">
+            <span class="metric-label">DEADLINE</span>
+            <div class="metric-value">09/23</div>
+            <p class="metric-note">线上报名及组队截止。</p>
+            <svg class="metric-spark" viewBox="0 0 190 44" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <polyline class="spark-base" points="0,43 190,43"></polyline>
+              <polyline data-draw pathLength="100" style="--i: 2" points="2,12 26,16 50,10 74,20 98,15 122,25 146,21 188,32"></polyline>
+            </svg>
+          </article>
+          <article class="metric">
+            <span class="metric-label">SHORTLIST</span>
+            <div class="metric-value">09/24</div>
+            <p class="metric-note">公布入围参赛资格。</p>
+            <svg class="metric-spark" viewBox="0 0 190 44" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <polyline class="spark-base" points="0,43 190,43"></polyline>
+              <polyline data-draw pathLength="100" style="--i: 3" points="2,28 24,26 46,29 68,18 90,21 112,12 134,15 156,7 188,10"></polyline>
+            </svg>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-rule" id="schedule" aria-labelledby="schedule-title">
+      <div class="container">
+        <h2 id="schedule-title" class="reveal">从组队到澳门决赛</h2>
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <time class="timeline-date">即日起-09/23</time>
+            <div class="timeline-content"><h3>线上报名及组队</h3><p>寻找互补队友，完成报名，9 月 23 日截止。</p></div>
+          </article>
+          <article class="timeline-item reveal">
+            <time class="timeline-date">09/24</time>
+            <div class="timeline-content"><h3>公布入围参赛资格</h3><p>组委会公布入围参赛资格及后续参赛通知。</p></div>
+          </article>
+          <article class="timeline-item reveal">
+            <time class="timeline-date">09/28 暂定</time>
+            <div class="timeline-content"><h3>赛前培训与赛题说明</h3><p>介绍比赛任务、数据使用方式及作品提交要求。</p></div>
+          </article>
+          <article class="timeline-item reveal">
+            <time class="timeline-date">10/09</time>
+            <div class="timeline-content"><h3>抵达珠海</h3><p>完成报到及入住，具体集合、交通与住宿安排另行通知。</p></div>
+          </article>
+          <article class="timeline-item reveal">
+            <time class="timeline-date">10/10</time>
+            <div class="timeline-content"><h3>珠海初赛</h3><p>现场签到、赛题抽签、作品开发与提交，当晚公布晋级澳门决赛的 TOP 8 队伍。</p></div>
+          </article>
+          <article class="timeline-item reveal">
+            <time class="timeline-date">10/11</time>
+            <div class="timeline-content"><h3>澳门决赛</h3><p>TOP 8 队伍现场路演，完成终评、颁奖与合影，其他参赛选手到场观赛。</p></div>
+          </article>
+        </div>
+        <p class="notice reveal">具体时间及交通、住宿、通关安排以组委会最终通知为准。</p>
+      </div>
+    </section>
+
+    <section class="section section-rule" id="cities" aria-labelledby="cities-title">
+      <div class="container">
+        <h2 id="cities-title" class="reveal">双城赛场，一路打到澳门</h2>
+        <div class="cities reveal">
+          <article class="city">
+            <!-- 地标线稿：珠海大剧院「日月贝」，装饰性图形 -->
+            <svg class="city-landmark" viewBox="0 0 300 320" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
+                 aria-hidden="true" focusable="false">
+              <!-- 大贝壳（日）：平底 + 圆顶，肋线为近似平行的弧线（不收敛于一点，
+                   否则会看成扇子而不是贝壳） -->
+              <path d="M 98 268 C 70 226 54 184 60 142 C 100 90 180 76 230 114 C 224 182 190 240 150 268 Z"></path>
+              <path d="M 105 268 C 84 222 70 184 71 152" stroke-width="1"></path>
+              <path d="M 116 268 C 106 216 97 156 99 120" stroke-width="1"></path>
+              <path d="M 128 268 C 125 210 125 146 130 100" stroke-width="1"></path>
+              <path d="M 139 268 C 148 208 161 146 170 92" stroke-width="1"></path>
+              <path d="M 148 268 C 165 214 188 158 206 110" stroke-width="1"></path>
+              <!-- 小贝壳（月） -->
+              <path d="M 216 292 C 200 264 192 238 196 212 C 220 180 264 174 290 198 C 286 240 262 274 238 292 Z"></path>
+              <path d="M 221 292 C 210 267 202 243 204 221" stroke-width="1"></path>
+              <path d="M 228 292 C 223 259 219 220 221 197" stroke-width="1"></path>
+              <path d="M 236 292 C 236 256 240 214 245 187" stroke-width="1"></path>
+              <path d="M 244 292 C 250 258 262 220 276 198" stroke-width="1"></path>
+              <!-- 水岸线与倒影 -->
+              <path d="M 8 300 H 292" stroke-width="1"></path>
+              <path d="M 30 309 H 96" stroke-width="1" stroke-dasharray="3 7"></path>
+              <path d="M 120 309 H 210" stroke-width="1" stroke-dasharray="3 7"></path>
+              <path d="M 232 309 H 286" stroke-width="1" stroke-dasharray="3 7"></path>
+            </svg>
+            <time class="city-date">10/10</time>
+            <h3>珠海初赛</h3>
+            <p>入围队伍根据抽签结果领取比赛视频与数据，在规定时间内完成 AI Agent 开发、作品打磨及提交。</p>
+            <p>综合技术完成度、数据运用、可视化效果与解说表现，评选 TOP 8 晋级。</p>
+          </article>
+          <article class="city">
+            <!-- 地标线稿：澳门大三巴牌坊，装饰性图形 -->
+            <svg class="city-landmark" viewBox="0 0 300 320" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
+                 aria-hidden="true" focusable="false">
+              <!-- 顶部十字架 -->
+              <path d="M 150 30 V 8" stroke-width="1.4"></path>
+              <path d="M 139 17 H 161" stroke-width="1.4"></path>
+              <!-- 山花三角楣 -->
+              <path d="M 104 68 L 150 28 L 196 68 Z"></path>
+              <!-- 第四层 -->
+              <path d="M 96 68 H 204 V 108 H 96 Z"></path>
+              <path d="M 138 104 V 82 A 12 12 0 0 1 162 82 V 104" stroke-width="1"></path>
+              <!-- 第三层 -->
+              <path d="M 76 108 H 224 V 152 H 76 Z"></path>
+              <path d="M 136 148 V 124 A 14 14 0 0 1 164 124 V 148" stroke-width="1"></path>
+              <path d="M 100 148 V 128 A 9 9 0 0 1 118 128 V 148" stroke-width="1"></path>
+              <path d="M 182 148 V 128 A 9 9 0 0 1 200 128 V 148" stroke-width="1"></path>
+              <!-- 第二层 -->
+              <path d="M 58 152 H 242 V 200 H 58 Z"></path>
+              <path d="M 96 196 V 172 A 10 10 0 0 1 116 172 V 196" stroke-width="1"></path>
+              <path d="M 140 196 V 172 A 10 10 0 0 1 160 172 V 196" stroke-width="1"></path>
+              <path d="M 184 196 V 172 A 10 10 0 0 1 204 172 V 196" stroke-width="1"></path>
+              <path d="M 76 152 V 200" stroke-width="1"></path>
+              <path d="M 224 152 V 200" stroke-width="1"></path>
+              <!-- 第一层（含中央拱门） -->
+              <path d="M 44 200 H 256 V 262 H 44 Z"></path>
+              <path d="M 128 262 V 232 A 22 22 0 0 1 172 232 V 262" stroke-width="1"></path>
+              <path d="M 70 200 V 262" stroke-width="1"></path>
+              <path d="M 96 200 V 262" stroke-width="1"></path>
+              <path d="M 204 200 V 262" stroke-width="1"></path>
+              <path d="M 230 200 V 262" stroke-width="1"></path>
+              <!-- 前方大台阶 -->
+              <path d="M 32 269 H 268" stroke-width="1"></path>
+              <path d="M 24 277 H 276" stroke-width="1"></path>
+              <path d="M 16 285 H 284" stroke-width="1"></path>
+              <path d="M 8 293 H 292" stroke-width="1"></path>
+              <path d="M 2 301 H 298" stroke-width="1"></path>
+            </svg>
+            <time class="city-date">10/11</time>
+            <h3>澳门决赛</h3>
+            <p>TOP 8 队伍进行现场路演，从技术方案、实现深度、数据准确性、可视化表达、篮球叙事与作品质感等方面接受终评。其他参赛选手共同观赛并参与颁奖与合影。</p>
+          </article>
+          <div class="route-line" aria-label="从珠海到澳门"><strong>珠海</strong><span aria-hidden="true"></span><strong>澳门</strong></div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section section-rule" id="awards" aria-labelledby="awards-title">
+      <div class="container">
+        <div class="reveal">
+          <p class="eyebrow">PRIZE / RECOGNITION</p>
+          <h2 id="awards-title">为最完整的篮球答案加冕</h2>
+        </div>
+        <div class="awards-layout reveal">
+          <article class="award champion">
+            <div><span class="award-rank">一等奖 / TOP 1</span><h3>2026 亚马逊云科技 re:Invent</h3></div>
+            <div class="award-prize-stack">
+              <section class="award-prize-main" aria-label="冠军核心奖品">
+                <span class="prize-overline">TRAVEL + PASS</span>
+                <strong class="prize-title">大会门票、常住地至拉斯维加斯的往返机票及拉斯维加斯 4 晚酒店</strong>
+              </section>
+              <section class="jersey-prize" aria-labelledby="jersey-prize-title">
+                <div class="jersey-prize-head">
+                  <span class="prize-overline">CHAMPION JERSEYS</span>
+                  <strong class="prize-title" id="jersey-prize-title">冠军队球衣奖品</strong>
+                </div>
+                <ol class="jersey-list">
+                  <li class="jersey-item">
+                    <span class="jersey-number">01</span>
+                    <span class="jersey-copy"><strong>斯蒂芬·库里</strong><span>金州勇士 · City Edition · Nike 男子</span></span>
+                  </li>
+                  <li class="jersey-item">
+                    <span class="jersey-number">02</span>
+                    <span class="jersey-copy"><strong>安东尼·爱德华兹</strong><span>明尼苏达森林狼 · Icon · Nike 中性</span></span>
+                  </li>
+                  <li class="jersey-item">
+                    <span class="jersey-number">03</span>
+                    <span class="jersey-copy"><strong>尼古拉·约基奇</strong><span>丹佛掘金 · Association · Nike 中性</span></span>
+                  </li>
+                </ol>
+              </section>
+              <p class="award-prize-note">球衣数量、尺码、款式及发放方式以最终通知为准。</p>
+            </div>
+          </article>
+          <article class="award award-secondary">
+            <span class="award-rank">二等奖 / TOP 2-4</span>
+            <div class="award-detail-list">
+              <span class="award-detail-intro">获奖者每人获得</span>
+              <div class="award-detail-item"><strong>电子产品</strong><span>每人 1 台</span></div>
+              <div class="award-choice-block">
+                <span class="award-choice-label">另任选 1 项</span>
+                <ul class="award-option-list">
+                  <li>Wilson 中性联盟篮球</li>
+                  <li>NBA Style 简约纯色短袖<span>黑色 · 男女同款</span></li>
+                </ul>
+              </div>
+            </div>
+          </article>
+          <article class="award award-secondary">
+            <span class="award-rank">三等奖 / TOP 5-8</span>
+            <div class="award-detail-list">
+              <span class="award-detail-intro">获奖者每人获得</span>
+              <div class="award-detail-item"><strong>电子产品</strong><span>每人 1 台</span></div>
+              <div class="award-detail-item"><strong>NBA 双肩包</strong><span>每人 1 个</span></div>
+            </div>
+          </article>
+        </div>
+        <p class="awards-disclaimer reveal">奖品可能会有微调，最终解释权归亚马逊云科技所有。</p>
+      </div>
+    </section>
+
+    <section class="section section-rule" id="benefits" aria-labelledby="benefits-title">
+      <div class="container benefits">
+        <div class="reveal">
+          <h2 id="benefits-title">不只为冠军而来</h2>
+          <p class="body-copy">每一次完成、分享与协作，都可能获得来自赛场之外的认可。</p>
+        </div>
+        <div class="benefit-list reveal">
+          <article class="benefit benefit-highlight">
+            <h3><span class="benefit-label">ALL PARTICIPANTS</span>NBA House 决赛观赛</h3>
+            <p>即使未进入决赛，全部参赛者仍有资格前往澳门 NBA House，现场观看 Broadcast Code 12 路演决赛。</p>
+          </article>
+          <article class="benefit"><h3>完赛奖</h3><p>在规定时间内完成并提交合格作品，即有机会获得 NBA 周边奖品。</p></article>
+          <article class="benefit"><h3>Social Media 互动奖</h3><p>分享参赛体验、创作过程或作品亮点，优秀内容及互动表现将有机会获得专项奖励。</p></article>
+          <article class="benefit"><h3>参赛装备包</h3><p>所有入围参赛选手均可获得赛事专属装备包，为双城挑战做好准备。</p></article>
+          <article class="benefit"><h3>珠海住宿</h3><p>通过报名筛选的入围选手，赛事统一提供 10 月 9 日、10 月 10 日两晚珠海酒店住宿。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta" id="register" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="reveal">
+          <h2 id="cta-title">让全世界看见你的篮球答案</h2>
+          <div class="questions">
+            <p>一段比赛画面，可以有多少种解读？</p>
+            <p>一次 24 秒进攻，可以藏着多少数据与战术？</p>
+            <p>当 AI 真正进入球场，篮球又将以怎样的方式被看见？</p>
+          </div>
+        </div>
+        <div class="cta-panel glass reveal">
+          <p>这个十月，和队友一起从珠海出发，在澳门展示你们的答案。</p>
+          <p><strong>报名截止：9 月 23 日</strong><br>入围参赛资格公布：9 月 24 日</p>
+          <a class="button" data-register href="https://marketing.csdn.net/questions/Q2609071804379567473">立即报名</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- H5 智能吸底报名：首屏离开后出现，进入最终报名区后自动退出。 -->
+  <aside class="mobile-register-bar" id="mobile-register-bar" aria-label="赛事报名入口" aria-hidden="true">
+    <div class="mobile-register-inner">
+      <div class="mobile-register-copy">
+        <strong>报名截止 09/23</strong>
+        <span>限 120 席 · 2–3 人组队</span>
+      </div>
+      <a class="mobile-register-button" data-register tabindex="-1" href="https://marketing.csdn.net/questions/Q2609071804379567473">立即报名</a>
+    </div>
+  </aside>
+
+  <script>
+    /* H5 报名条状态机：Hero 可见时不重复；最终 CTA 可见时让出空间。 */
+    (function initMobileRegisterBar() {
+      const bar = document.getElementById('mobile-register-bar');
+      const button = bar?.querySelector('[data-register]');
+      const hero = document.getElementById('top');
+      const finalCta = document.getElementById('register');
+      if (!bar || !button || !hero || !finalCta) return;
+
+      const mobile = window.matchMedia('(max-width: 820px)');
+      let heroVisible = true;
+      let finalVisible = false;
+
+      function render() {
+        const visible = mobile.matches && !heroVisible && !finalVisible;
+        bar.classList.toggle('is-visible', visible);
+        bar.setAttribute('aria-hidden', String(!visible));
+        button.tabIndex = visible ? 0 : -1;
+        if ('inert' in bar) bar.inert = !visible;
+      }
+
+      function measureFallback() {
+        const heroRect = hero.getBoundingClientRect();
+        const finalRect = finalCta.getBoundingClientRect();
+        heroVisible = heroRect.bottom > 0 && heroRect.top < window.innerHeight;
+        finalVisible = finalRect.bottom > 0 && finalRect.top < window.innerHeight;
+        render();
+      }
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => {
+          heroVisible = entry.isIntersecting;
+          render();
+        }, { threshold: 0 }).observe(hero);
+        new IntersectionObserver(([entry]) => {
+          finalVisible = entry.isIntersecting;
+          render();
+        }, { threshold: 0.08 }).observe(finalCta);
+      } else {
+        let frame = 0;
+        const onScroll = () => {
+          if (frame) return;
+          frame = requestAnimationFrame(() => { frame = 0; measureFallback(); });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        measureFallback();
+      }
+
+      const onBreakpoint = () => {
+        if (!mobile.matches) {
+          heroVisible = true;
+          finalVisible = false;
+        } else {
+          const heroRect = hero.getBoundingClientRect();
+          const finalRect = finalCta.getBoundingClientRect();
+          heroVisible = heroRect.bottom > 0 && heroRect.top < window.innerHeight;
+          finalVisible = finalRect.bottom > 0 && finalRect.top < window.innerHeight;
+        }
+        render();
+      };
+      if (typeof mobile.addEventListener === 'function') mobile.addEventListener('change', onBreakpoint);
+      else if (typeof mobile.addListener === 'function') mobile.addListener(onBreakpoint);
+      render();
+    })();
+  </script>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-title">EVENT NOTES</div>
+      <ul class="notes">
+        <li>活动名额、赛程、奖项及相关权益以组委会最终公布为准。</li>
+        <li>9 月 28 日赛前培训时间为暂定安排，如有调整将另行通知。</li>
+        <li>2026 亚马逊云科技 re:Invent 大会门票及机酒为预估奖品，具体内容、数量及兑现方式以最终奖项规则为准。</li>
+        <li>Social Media 互动奖的具体奖品将于后续公布。</li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const registrationBaseUrl = 'https://marketing.csdn.net/questions/Q2609071804379567473';
+    const sensitiveQueryKeys = new Set([
+      'token', 'access_token', 'id_token', 'auth', 'authorization', 'code',
+      'session', 'session_id', 'sessionid', 'password', 'pwd', 'secret'
+    ]);
+
+    const isMenuOpen = () => menuButton?.getAttribute('aria-expanded') === 'true';
+
+    function setMenu(open, { restoreFocus = false } = {}) {
+      if (!menuButton || !navLinks) return;
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute('aria-label', open ? '关闭导航菜单' : '打开导航菜单');
+      navLinks.classList.toggle('is-open', open);
+      if (open) {
+        navLinks.querySelector('a')?.focus({ preventScroll: true });
+      } else if (restoreFocus) {
+        menuButton.focus({ preventScroll: true });
+      }
+    }
+
+    menuButton?.addEventListener('click', () => setMenu(!isMenuOpen()));
+
+    navLinks?.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setMenu(false));
+    });
+
+    // Esc 关闭并把焦点交还给按钮；点击菜单外部同样关闭
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && isMenuOpen()) setMenu(false, { restoreFocus: true });
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      if (!isMenuOpen()) return;
+      const target = event.target;
+      if (navLinks?.contains(target) || menuButton?.contains(target)) return;
+      setMenu(false);
+    });
+
+    // 焦点移出菜单区域（Tab 到页面其他位置）时自动收起
+    document.addEventListener('focusin', (event) => {
+      if (!isMenuOpen()) return;
+      const target = event.target;
+      if (navLinks?.contains(target) || menuButton?.contains(target)) return;
+      setMenu(false);
+    });
+
+    // 回到桌面宽度时重置菜单状态，避免隐藏的展开态残留
+    const desktopQuery = window.matchMedia('(min-width: 821px)');
+    const handleBreakpoint = (event) => {
+      if (event.matches && isMenuOpen()) setMenu(false);
+    };
+    if (typeof desktopQuery.addEventListener === 'function') {
+      desktopQuery.addEventListener('change', handleBreakpoint);
+    } else if (typeof desktopQuery.addListener === 'function') {
+      desktopQuery.addListener(handleBreakpoint);
+    }
+
+    const sectionLinks = new Map(
+      [...document.querySelectorAll('.nav-links a[href^="#"]')].map((link) => [link.getAttribute('href').slice(1), link])
+    );
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      sectionLinks.forEach((link, id) => {
+        if (id === visible.target.id) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-20% 0px -65%', threshold: [0, 0.25, 0.5] });
+    sectionLinks.forEach((link, id) => {
+      const section = document.getElementById(id);
+      if (section) sectionObserver.observe(section);
+    });
+
+    function buildRegistrationUrl(search = window.location.search) {
+      const destination = new URL(registrationBaseUrl);
+      const incomingParams = new URLSearchParams(search);
+
+      incomingParams.forEach((value, key) => {
+        const normalizedKey = key.trim().toLowerCase();
+        const isSafeLength = key.length <= 100 && value.length <= 500;
+        if (!normalizedKey || !isSafeLength || sensitiveQueryKeys.has(normalizedKey)) return;
+        destination.searchParams.append(key, value);
+      });
+
+      return destination.toString();
+    }
+
+    const registrationUrl = buildRegistrationUrl();
+    document.querySelectorAll('[data-register]').forEach((link) => {
+      link.setAttribute('href', registrationUrl);
+    });
+
+    const revealElements = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -30px' });
+      revealElements.forEach((element) => observer.observe(element));
+    } else {
+      revealElements.forEach((element) => element.classList.add('is-visible'));
+    }
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------- 章节大纲轨道：滚动高亮当前章节 ---------- */
+    (function initOutlineRail() {
+      const rail = document.getElementById('outline-rail');
+      if (!rail) return;
+      const items = [...rail.querySelectorAll('.outline-item')];
+      const targets = items
+        .map((item) => {
+          const id = item.getAttribute('href').slice(1);
+          const section = document.getElementById(id);
+          return section ? { item, section } : null;
+        })
+        .filter(Boolean);
+      if (!targets.length) return;
+
+      // 首屏之后再淡入，避免一进页面就抢注意力
+      const hero = document.getElementById('top');
+      if (hero && 'IntersectionObserver' in window) {
+        new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            rail.classList.toggle('is-ready', !entry.isIntersecting);
+          });
+        }, { threshold: 0.28 }).observe(hero);
+      } else {
+        rail.classList.add('is-ready');
+      }
+
+      if (!('IntersectionObserver' in window)) return;
+      const visible = new Set();
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visible.add(entry.target);
+          else visible.delete(entry.target);
+        });
+        // 取当前可见里最靠上的那一节作为 current
+        let current = null;
+        targets.forEach(({ section }) => {
+          if (!visible.has(section)) return;
+          if (!current || section.offsetTop < current.offsetTop) current = section;
+        });
+        targets.forEach(({ item, section }) => {
+          if (section === current) item.setAttribute('aria-current', 'true');
+          else item.removeAttribute('aria-current');
+        });
+      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+      targets.forEach(({ section }) => observer.observe(section));
+    })();
+
+    /* ---------- 数字 count-up：进入视口时从 0 滚到目标值 ---------- */
+    (function initCountUp() {
+      const nodes = [...document.querySelectorAll('[data-countup]')];
+      if (!nodes.length) return;
+
+      const runCountUp = (node) => {
+        const target = Number(node.dataset.countup);
+        if (!Number.isFinite(target)) return;
+        if (reduceMotion) { node.textContent = String(target); return; }
+        const duration = 1100;
+        const start = performance.now();
+        const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+        const tick = (now) => {
+          const progress = Math.min(1, (now - start) / duration);
+          node.textContent = String(Math.round(target * easeOut(progress)));
+          if (progress < 1) requestAnimationFrame(tick);
+          else node.textContent = String(target);
+        };
+        node.textContent = '0';
+        requestAnimationFrame(tick);
+      };
+
+      if (!('IntersectionObserver' in window)) {
+        nodes.forEach((node) => { node.textContent = node.dataset.countup; });
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          runCountUp(entry.target);
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.5 });
+      nodes.forEach((node) => observer.observe(node));
+    })();
+
+    /* ---------- 战术板十字准星：坐标 + 时间码读数 ---------- */
+    (function initCrosshair() {
+      const stage = document.querySelector('.board-stage');
+      if (!stage) return;
+      const crosshair = stage.querySelector('.board-crosshair');
+      if (!crosshair) return;
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+      const vLine = crosshair.querySelector('.ch-v');
+      const hLine = crosshair.querySelector('.ch-h');
+      const dot = crosshair.querySelector('.ch-dot');
+      const readout = crosshair.querySelector('.ch-readout');
+      const pad = (value) => String(value).padStart(2, '0');
+      let frame = 0;
+
+      const move = (event) => {
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          const rect = stage.getBoundingClientRect();
+          const x = Math.min(Math.max(event.clientX - rect.left, 0), rect.width);
+          const y = Math.min(Math.max(event.clientY - rect.top, 0), rect.height);
+          const nx = rect.width ? x / rect.width : 0;
+          const ny = rect.height ? y / rect.height : 0;
+
+          vLine.style.left = x + 'px';
+          hLine.style.top = y + 'px';
+          dot.style.left = x + 'px';
+          dot.style.top = y + 'px';
+
+          // 映射到战术板坐标系（viewBox 640×360），并按横向位置换算一个回合时间码
+          const bx = Math.round(nx * 640);
+          const by = Math.round(ny * 360);
+          const elapsed = nx * 24; // 一次 24 秒进攻
+          const timecode = 'T+' + pad(Math.floor(elapsed)) + '.' + pad(Math.floor((elapsed % 1) * 100));
+
+          readout.textContent = 'X:' + pad(bx) + '  Y:' + pad(by) + '  ' + timecode;
+          // 贴近右/下边缘时把读数翻到另一侧，避免被裁掉
+          const flipX = nx > 0.78 ? -1 : 1;
+          const flipY = ny > 0.8 ? -1 : 1;
+          readout.style.transform =
+            'translate(' + (flipX > 0 ? 12 : -12) + 'px, ' + (flipY > 0 ? 12 : -12) + 'px)' +
+            (flipX > 0 ? '' : ' translateX(-100%)') +
+            (flipY > 0 ? '' : ' translateY(-100%)');
+          readout.style.left = x + 'px';
+          readout.style.top = y + 'px';
+        });
+      };
+
+      stage.addEventListener('pointerenter', () => stage.classList.add('is-tracking'));
+      stage.addEventListener('pointerleave', () => {
+        stage.classList.remove('is-tracking');
+        if (frame) { cancelAnimationFrame(frame); frame = 0; }
+      });
+      stage.addEventListener('pointermove', move);
+    })();
+
+    /* ============================================================
+       Liquid Glass —— iOS 26 风格液态玻璃折射（skill: liquid-glass.md）
+       用程序化位移贴图驱动 SVG feDisplacementMap，对头部背后内容做物理折射。
+       仅 Chromium 生效；其它浏览器保留纯 CSS 毛玻璃降级。
+       ============================================================ */
+    (function initLiquidGlass() {
+      const glass = document.getElementById('header-glass');
+      const defs = document.getElementById('lg-svg-defs');
+      if (!glass || !defs) return;
+
+      // 折射引用型 backdrop-filter 仅 Chromium 支持
+      const supportsSvgBackdrop = (() => {
+        try { return CSS.supports('backdrop-filter', 'url(#x)'); } catch (e) { return false; }
+      })();
+      if (!supportsSvgBackdrop) return;
+      if (window.matchMedia('(prefers-reduced-transparency: reduce)').matches) return;
+
+      const FILTER_ID = 'liquid-glass-filter';
+      // 玻璃参数：厚度越大折射越强；斜面带越宽边缘弯曲范围越大
+      const GLASS_THICKNESS = 42;
+      const BEZEL = 34;
+      const IOR = 1.5;
+      const SCALE = 1.0;
+      const BG_BLUR = 1.4;
+      const SPEC_OPACITY = 0.55;
+      const SPEC_SATURATION = 3;
+
+      // 超椭圆凸面高度函数（苹果同款 squircle），x∈[0,1] 归一化到斜面带内
+      const heightFn = (x) => Math.pow(Math.max(0, 1 - Math.pow(1 - x, 2.2)), 0.5);
+
+      // 逐点用斯涅尔定律估算折射位移量（沿斜面带方向）
+      function refractionProfile(width) {
+        const bezel = Math.min(BEZEL, Math.floor(width / 2));
+        const profile = new Float32Array(bezel);
+        for (let i = 0; i < bezel; i++) {
+          const t = i / Math.max(1, bezel - 1);
+          const h = heightFn(t);
+          // 斜面切向 → 法线角，越靠边缘倾角越大
+          const slope = (heightFn(Math.min(1, t + 0.02)) - h) / 0.02;
+          const theta = Math.atan(slope * GLASS_THICKNESS / bezel);
+          const refr = theta - Math.asin(Math.sin(theta) / IOR);
+          profile[i] = Math.tan(refr) * GLASS_THICKNESS * SCALE;
+        }
+        return { bezel, profile };
+      }
+
+      // 生成位移贴图：R=X 位移、G=Y 位移，中性 128；只有圆角斜面带有位移
+      function makeDisplacementMap(w, h, radius) {
+        const c = document.createElement('canvas');
+        c.width = w; c.height = h;
+        const ctx = c.getContext('2d');
+        const img = ctx.createImageData(w, h);
+        const data = img.data;
+        const { bezel, profile } = refractionProfile(Math.min(w, h));
+        const r = Math.min(radius, w / 2, h / 2);
+
+        for (let y = 0; y < h; y++) {
+          for (let x = 0; x < w; x++) {
+            // 到最近边缘（含圆角）的距离
+            const cx = Math.min(Math.max(x, r), w - r);
+            const cy = Math.min(Math.max(y, r), h - r);
+            const dx = x - cx, dy = y - cy;
+            let dist, nx = 0, ny = 0;
+            if (x < r || x > w - r || y < r || y > h - r) {
+              const d = Math.hypot(dx, dy);
+              dist = r - d;
+              if (d > 0.0001) { nx = dx / d; ny = dy / d; }
+            } else {
+              const left = x, right = w - x, top = y, bottom = h - y;
+              dist = Math.min(left, right, top, bottom);
+              if (dist === left) nx = -1; else if (dist === right) nx = 1;
+              else if (dist === top) ny = -1; else ny = 1;
+            }
+            let dispX = 0, dispY = 0;
+            if (dist >= 0 && dist < bezel) {
+              const amt = profile[Math.floor(dist)] || 0;
+              dispX = -nx * amt;
+              dispY = -ny * amt;
+            }
+            const idx = (y * w + x) * 4;
+            data[idx]     = Math.max(0, Math.min(255, 128 + dispX));
+            data[idx + 1] = Math.max(0, Math.min(255, 128 + dispY));
+            data[idx + 2] = 128;
+            data[idx + 3] = 255;
+          }
+        }
+        ctx.putImageData(img, 0, 0);
+        return c.toDataURL();
+      }
+
+      // 生成高光贴图：沿光照方向在上边缘/左边缘生成白色高光 alpha
+      function makeSpecularMap(w, h, radius) {
+        const c = document.createElement('canvas');
+        c.width = w; c.height = h;
+        const ctx = c.getContext('2d');
+        ctx.clearRect(0, 0, w, h);
+        const r = Math.min(radius, w / 2, h / 2);
+        ctx.strokeStyle = 'rgba(255,255,255,1)';
+        ctx.lineWidth = 2;
+        // 顶部高光弧
+        const grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, 'rgba(255,255,255,0.9)');
+        grad.addColorStop(0.5, 'rgba(255,255,255,0)');
+        ctx.strokeStyle = grad;
+        roundRectPath(ctx, 1, 1, w - 2, h - 2, r - 1);
+        ctx.stroke();
+        return c.toDataURL();
+      }
+
+      function roundRectPath(ctx, x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+      }
+
+      function rebuildFilter() {
+        const rect = glass.getBoundingClientRect();
+        const w = Math.round(rect.width);
+        const h = Math.round(rect.height);
+        if (w < 8 || h < 8) return;
+        const radius = h / 2; // 胶囊：圆角=半高
+
+        const dispURL = makeDisplacementMap(w, h, radius);
+        const specURL = makeSpecularMap(w, h, radius);
+
+        defs.innerHTML =
+          '<filter id="' + FILTER_ID + '" x="-20%" y="-20%" width="140%" height="140%">' +
+            '<feImage href="' + dispURL + '" x="0" y="0" width="' + w + '" height="' + h + '" result="disp" preserveAspectRatio="none"/>' +
+            '<feGaussianBlur in="SourceGraphic" stdDeviation="' + BG_BLUR + '" result="blur"/>' +
+            '<feDisplacementMap in="blur" in2="disp" scale="' + (GLASS_THICKNESS) + '" xChannelSelector="R" yChannelSelector="G" result="refr"/>' +
+            '<feColorMatrix in="refr" type="saturate" values="' + SPEC_SATURATION + '" result="sat"/>' +
+            '<feImage href="' + specURL + '" x="0" y="0" width="' + w + '" height="' + h + '" result="spec" preserveAspectRatio="none"/>' +
+            '<feComponentTransfer in="spec" result="specA"><feFuncA type="linear" slope="' + SPEC_OPACITY + '"/></feComponentTransfer>' +
+            '<feBlend in="sat" in2="specA" mode="screen"/>' +
+          '</filter>';
+
+        glass.classList.add('lg-refract');
+      }
+
+      let raf1;
+      const schedule = () => {
+        cancelAnimationFrame(raf1);
+        raf1 = requestAnimationFrame(() => requestAnimationFrame(rebuildFilter));
+      };
+      schedule();
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(rebuildFilter, 160);
+      });
+      if ('ResizeObserver' in window) {
+        let first = true;
+        new ResizeObserver(() => {
+          if (first) { first = false; return; }
+          window.clearTimeout(resizeTimer);
+          resizeTimer = window.setTimeout(rebuildFilter, 160);
+        }).observe(glass);
+      }
+      // 字体/图片加载完布局会变，稳妥再重建一次
+      window.addEventListener('load', schedule);
+    })();
+
+    /* ============================================================
+       LiquidGlass-UI tab 适配层
+       原生链接与 aria-current 状态机保持不变；整条 tablist 只创建一块
+       移动玻璃。Chromium 使用项目的双轴 edge-lens 位移图，其它浏览器
+       自动保留 blur / rim / sheen 降级。
+       ============================================================ */
+    (function initNavGlassPill() {
+      const list = document.getElementById('nav-links');
+      if (!list) return;
+      const tabs = [...list.querySelectorAll('a')];
+      if (!tabs.length) return;
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      const pill = document.createElement('span');
+      pill.className = 'nav-glass-pill';
+      pill.setAttribute('aria-hidden', 'true');
+      list.prepend(pill);
+      list.classList.add('has-glass-pill');
+      list.dataset.glassEngine = 'liquidglass-ui';
+
+      // 直接复用 LiquidGlass-UI 的平滑双轴 edge-lens 管线；中心值 128
+      // 保持零位移，仅外侧 18% 产生折射，避免噪声贴图的“水渍感”。
+      (function enableTabRefraction() {
+        const supportsRefraction = (() => {
+          try { return CSS.supports('backdrop-filter', 'url(#x)'); }
+          catch (error) { return false; }
+        })();
+        if (!supportsRefraction) return;
+        if (window.matchMedia('(prefers-reduced-transparency: reduce)').matches) return;
+
+        const axisMapURI = (axis, edge = 0.18) => {
+          const e = edge.toFixed(3);
+          const f = (1 - edge).toFixed(3);
+          const horizontal = axis === 'x';
+          const direction = horizontal
+            ? 'x1="0" y1="0" x2="1" y2="0"'
+            : 'x1="0" y1="0" x2="0" y2="1"';
+          const middle = horizontal ? 'rgb(128,0,0)' : 'rgb(0,0,128)';
+          const high = horizontal ? 'rgb(255,0,0)' : 'rgb(0,0,255)';
+          const source =
+            '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" preserveAspectRatio="none">' +
+            '<defs><linearGradient id="g" ' + direction + '>' +
+            '<stop offset="0" stop-color="rgb(0,0,0)"/>' +
+            '<stop offset="' + e + '" stop-color="' + middle + '"/>' +
+            '<stop offset="' + f + '" stop-color="' + middle + '"/>' +
+            '<stop offset="1" stop-color="' + high + '"/>' +
+            '</linearGradient></defs>' +
+            '<rect width="100" height="100" fill="black"/>' +
+            '<rect width="100" height="100" fill="url(#g)"/>' +
+            '</svg>';
+          return 'data:image/svg+xml,' + encodeURIComponent(source);
+        };
+
+        const filterHost = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        filterHost.setAttribute('width', '0');
+        filterHost.setAttribute('height', '0');
+        filterHost.setAttribute('aria-hidden', 'true');
+        filterHost.style.cssText = 'position:absolute;overflow:hidden;pointer-events:none';
+        filterHost.innerHTML =
+          '<filter id="nba-tab-liquidglass-filter" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">' +
+            '<feImage href="' + axisMapURI('x') + '" preserveAspectRatio="none" x="0" y="0" width="100%" height="100%" result="mx"/>' +
+            '<feImage href="' + axisMapURI('y') + '" preserveAspectRatio="none" x="0" y="0" width="100%" height="100%" result="my"/>' +
+            '<feBlend in="mx" in2="my" mode="screen" result="map"/>' +
+            '<feGaussianBlur in="map" stdDeviation="0.5" result="smap"/>' +
+            '<feDisplacementMap in="SourceGraphic" in2="smap" scale="10" xChannelSelector="R" yChannelSelector="B"/>' +
+          '</filter>';
+        document.body.appendChild(filterHost);
+        pill.classList.add('lgui-refract');
+      })();
+
+      let hovered = null;
+      let focused = null;
+      let last = null;          // 上一次落位的标签，用于判断迁移主轴
+      let morphTimer = 0;
+
+      const currentTab = () => list.querySelector('a[aria-current="true"]');
+      // 优先级：指针悬停 > 键盘焦点 > 当前所在章节
+      const targetTab = () => hovered || focused || currentTab();
+
+      const setVar = (name, value) => pill.style.setProperty(name, value);
+
+      function hide() {
+        pill.classList.remove('is-active');
+        last = null;
+      }
+
+      function place(tab, animate) {
+        // 隐藏状态（如移动端未展开的下拉）测不到尺寸，直接收起
+        if (!tab || !tab.offsetParent) { hide(); return; }
+        const x = tab.offsetLeft;
+        const y = tab.offsetTop;
+        const w = tab.offsetWidth;
+        const h = tab.offsetHeight;
+        if (!w || !h) { hide(); return; }
+
+        const moving = animate && last && last !== tab && !reduceMotion.matches;
+        if (moving) {
+          // 沿迁移主轴做极轻微形变，保留材质连续性但避免果冻感。
+          const vertical = Math.abs(y - last.offsetTop) > Math.abs(x - last.offsetLeft);
+          setVar('--nba-tab-sx', vertical ? '0.98' : '1.035');
+          setVar('--nba-tab-sy', vertical ? '1.035' : '0.97');
+          window.clearTimeout(morphTimer);
+          morphTimer = window.setTimeout(() => {
+            setVar('--nba-tab-sx', '1');
+            setVar('--nba-tab-sy', '1');
+          }, 170);
+        }
+
+        setVar('--nba-tab-x', x + 'px');
+        setVar('--nba-tab-y', y + 'px');
+        setVar('--nba-tab-w', w + 'px');
+        setVar('--nba-tab-h', h + 'px');
+        pill.classList.add('is-active');
+        pill.classList.toggle('is-current', tab === currentTab());
+        last = tab;
+      }
+
+      function sync(animate = true) {
+        const tab = targetTab();
+        if (tab) place(tab, animate);
+        else hide();
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('pointerenter', () => { hovered = tab; sync(); });
+        tab.addEventListener('focus', () => { focused = tab; sync(); });
+        tab.addEventListener('blur', () => { focused = null; sync(); });
+      });
+      list.addEventListener('pointerleave', () => { hovered = null; sync(); });
+
+      // 当前章节由 IntersectionObserver 写入 aria-current，跟随它变形
+      new MutationObserver(() => sync()).observe(list, {
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['aria-current'],
+      });
+      // 移动端下拉展开/收起（is-open 切换）后重新测量
+      new MutationObserver(() => sync(false)).observe(list, {
+        attributes: true,
+        attributeFilter: ['class'],
+      });
+
+      let resizeTimer2;
+      window.addEventListener('resize', () => {
+        window.clearTimeout(resizeTimer2);
+        resizeTimer2 = window.setTimeout(() => sync(false), 120);
+      });
+      window.addEventListener('load', () => sync(false));
+      requestAnimationFrame(() => sync(false));
+    })();
+  </script>
+</body>
+</html>

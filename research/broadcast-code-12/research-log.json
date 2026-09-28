@@ -1,0 +1,26 @@
+{
+  "form": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\n  \"results\": [\n    {\n      \"url\": \"https://marketing.csdn.net/questions/Q2609071804379567473\",\n      \"final_url\": \"https://marketing.csdn.net/\",\n      \"title\": \"CSDN\",\n      \"description\": null,\n      \"language\": \"zh\",\n      \"text\": \"bold\\nCreated with Sketch.\\nbackground\\nLayer 1\\nbackground\\nLayer 1\\nSvg Vector Icons : http://www.onlinewebfonts.com/icon\\nconter\\nCreated with Sketch.\\nbackground\\nLayer 1\\nB\\nbackground\\nLayer 1\\nB\\nbackground\\nLayer 1\\nleft\\nCreated with Sketch.\\nbackground\\nLayer 1\\nright\\nCreated with Sketch.\\n标签/选中\\nCreated with Sketch.\",\n      \"author\": null,\n      \"published_date\": null,\n      \"links\": [],\n      \"latency_ms\": 6320.189638005104,\n      \"format\": \"markdown\",\n      \"page_metadata\": {\n        \"viewport\": \"width=device-width,initial-scale=1\",\n        \"keywords\": \"\",\n        \"other\": {\n          \"referrer\": \"always\",\n          \"build\": \"2026-09-01 14:03:37\",\n          \"report\": \"{\\\"disabled\\\":\\\"true\\\"}\"\n        }\n      }\n    }\n  ],\n  \"errors\": []\n}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "search": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\n  \"query\": \"\\\"Broadcast Code 12\\\" 黑客松 报名 评审\",\n  \"results\": [\n    {\n      \"position\": 1,\n      \"site_name\": \"bhuntr.com\",\n      \"snippet\": \"30 Agu 2026 — 評審流程分為「資格審查」、「初選」與「決選」三個階段 。 階段, 說明. 資格審查, 檢核年齡、隊伍人數、報名 ...\",\n      \"title\": \"Trustworthy AI Hackathon｜可信AI 黑客松- 比賽\",\n      \"url\": \"https://bhuntr.com\"\n    },\n    {\n      \"position\": 2,\n      \"site_name\": \"www.digitimes.com.tw\",\n      \"snippet\": \"進入決賽之隊伍，全員須於4/26-27 全程參與 黑客松 競賽（包含開幕儀式、競賽實作、 評審 簡報、頒獎典禮），方可取得完賽證明。 須於4/26-27 競賽期間30 小時內繳交提案，將 ...\",\n      \"title\": \"雲湧智生｜臺灣生成式AI應用黑客松競賽\",\n      \"url\": \"https://www.digitimes.com.tw\"\n    },\n    {\n      \"position\": 3,\n      \"site_name\": \"www.accupass.com\",\n      \"snippet\": \"29 Agu 2026 — 當AI Agent 開始代表你查資料、下訂單、送申請、觸發付款—— 問題不再是「模型答得對不對」，而是：它代表誰？被授權做什麼？高風險動作誰把關？\",\n      \"title\": \"2026 可信AI 黑客松Trustworthy AI Hackathon\",\n      \"url\": \"https://www.accupass.com\"\n    },\n    {\n      \"position\": 4,\n      \"site_name\": \"tch.cloud.tencent.com\",\n      \"snippet\": \"活动参与队伍 12 组以上，人数涉及200-300人。 经过专家评委与Workbuddy评委联合 评审 打分，针对两个赛道分别选择1个冠亚季军队伍，即最终2个获胜队伍。 查看详情. 1; 2; 3. ;.\",\n      \"title\": \"赛事一览 - 腾讯云黑客松官网- Tencent\",\n      \"url\": \"https://tch.cloud.tencent.com\"\n    },\n    {\n      \"position\": 5,\n      \"site_name\": \"event.systex.com\",\n      \"snippet\": \"報名 期間. 2026/1/ 12 至 2026/03/18 截止。 · 說明會. 2026/2/2 線上舉辦， · 資格確認. 2026/3/23 · 提案截止. 2026/4/6前， · 工作坊. 2026/4/11 線上舉辦，內容包含提案審核.\",\n      \"title\": \"2026 YTP黑客松\",\n      \"url\": \"https://event.systex.com\"\n    },\n    {\n      \"position\": 6,\n      \"site_name\": \"ai.heywhale.com\",\n      \"snippet\": \"26 Jun 2026 — 赛事采用多阶段 评审 机制。 首先由主办方与 评审 团对 报名 项目进行初筛，从所有 报名 项目中选出Top 40 团队。 入围团队将参加线上半决赛Demo Day，通过 ...\",\n      \"title\": \"GENESIS黑客松报名倒计时：$20K奖金+$100K算力，7.5截止\",\n      \"url\": \"https://ai.heywhale.com\"\n    },\n    {\n      \"position\": 7,\n      \"site_name\": \"www.yifuture.org\",\n      \"snippet\": \"競賽日期. 2026.08.22（六）. 09:00–17:30 ; 競賽地點. 1001Station. 陽明交大光復校區 ; 參賽資格. 15-19 歲. 3-6 人一隊 ; 報名 費用. NT$ 300/人. 含午餐與場地清潔費 ; 活動 ...\",\n      \"title\": \"2026 YIF 青少年生成式AI 黑客松競賽\",\n      \"url\": \"https://www.yifuture.org\"\n    }\n  ],\n  \"total_results\": 7,\n  \"page\": 0\n}"
+        }
+      ],
+      "isError": false
+    }
+  }
+}
