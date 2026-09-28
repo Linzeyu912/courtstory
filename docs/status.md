@@ -15,6 +15,7 @@
 | 官网与报名渠道核验、扩展调研、Word 手册 | [调研索引](../research/README.md) | 已归档；主要采集于 9 月 17 日 |
 | 共享文档结构、Agent 指引与交接模板 | [协作流程](workflow.md)、[交接目录](../handoffs/README.md) | 已准备 |
 | GitHub 私有仓库与首次同步 | [broadcastcode-team-hub](https://github.com/Linzeyu912/broadcastcode-team-hub) | 已创建并推送，已核对私有状态及本地与远端提交一致 |
+| TypeSafe Jev 珠海与澳门可用性调研 | [调研结论与验证步骤](../research/jev-regional-availability.md) | 公开资料核查完成；地区支持未获明确确认，未实测；尚未决定采用 |
 
 ## 待认领任务
 
@@ -42,5 +43,6 @@
 ## 交接记录
 
 - [2026-09-28：建立团队资料仓库](../handoffs/Linzeyu912/2026-09-28-repository-setup.md)
+- [2026-09-28：Jev 地区可用性调研](../handoffs/Linzeyu912/2026-09-28-2159-jev-regional-availability.md)
 
 日常任务过程放在各自交接文件中；只在团队阶段、任务入口或关键依赖变化时修改本页，减少多人同时编辑冲突。
