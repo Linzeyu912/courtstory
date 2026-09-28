@@ -2,7 +2,7 @@
 
 - 核查日期：2026-09-28（Asia/Shanghai）
 - 对象：TypeSafe AI 的 Jev，官方域名为 `typesafe.ai`。
-- 结论状态：公开资料核查完成；地区资格、实际网络和账号调用仍待确认。
+- 结论状态：公开资料核查完成；已于 2026-09-28 发邮件向厂商确认，等待答复；地区资格、实际网络和账号调用仍待确认。
 
 ## 1. 能否在珠海、澳门调用？
 
@@ -14,7 +14,7 @@
 | 澳门 | 未找到明确支持承诺或针对该地区的禁用说明 | 未在澳门实际网络进行带有效 Key 的请求 | 待厂商确认和实测，不能直接套用珠海结果 |
 | 比赛 AWS 后端 | 实际 AWS 区域及厂商对此使用方式的确认尚缺 | 未部署或调用 | 单独验证；服务器所在地不能替代用户资格确认 |
 
-本次没有进行付费推理、创建 API Key 或联系厂商。搜索工具能够读取官网，只能证明资料可读取，不能证明两地的账号、支付和推理服务可用。
+本次没有进行付费推理或创建 API Key。公开资料调研完成后，已按用户要求[发邮件联系厂商](jev-support-email-2026-09-28.md)。搜索工具能够读取官网，只能证明资料可读取，不能证明两地的账号、支付和推理服务可用。
 
 ## 2. 官方资料能确认什么？
 
@@ -40,13 +40,7 @@
 
 ### 厂商确认
 
-官方支持入口为 **support@typesafe.ai**，见 [MCA §3](https://typesafe.ai/legal/mca)。下面是可发送的询问信，**仅为草稿，尚未发送**：
-
-> Subject: Jev API availability in mainland China and Macau
->
-> We are a three-person team evaluating Jev for a basketball analytics hackathon in Zhuhai, mainland China, and Macau. Could you confirm whether developers based in mainland China and users in Macau may register accounts, obtain API keys, pay for credits, and use the Jev API?
->
-> Are there any IP-based restrictions affecting mainland China or Macau? Would an application hosted in an AWS region outside mainland China be supported when its developers and end users are in these locations? Our required AWS region is still being confirmed. Please also let us know whether any account approval is required.
+官方支持入口为 **support@typesafe.ai**，见 [MCA §3](https://typesafe.ai/legal/mca)。已于 2026-09-28 22:06（Asia/Shanghai）发送询问信，补充三人团队、比赛时间、篮球分析用途及拟采用的 AWS 后端背景；[已发送正文与记录](jev-support-email-2026-09-28.md)。目前等待厂商答复，地区可用性结论尚未改变。
 
 ### 实际调用验证
 
