@@ -14,6 +14,7 @@
 | 腾讯体育「深度赛场」官方参考片段 | 同上第 8 节 | G1–G4 链接已核验；日期为 2026 年 6 月 |
 | 官网与报名渠道核验、扩展调研、Word 手册 | [调研索引](../research/README.md) | 已归档；主要采集于 9 月 17 日 |
 | 共享文档结构、Agent 指引与交接模板 | [协作流程](workflow.md)、[交接目录](../handoffs/README.md) | 已准备 |
+| GitHub 私有仓库与首次同步 | [broadcastcode-team-hub](https://github.com/Linzeyu912/broadcastcode-team-hub) | 已创建并推送，已核对私有状态及本地与远端提交一致 |
 
 ## 待认领任务
 
