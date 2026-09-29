@@ -30,4 +30,4 @@ body:
     id: progress
     attributes:
       label: 当前状态与成果入口
-      description: 待开始、进行中、阻塞或待评审；补充工作分支、PR、文档和交接链接。
+      description: 待开始、进行中、阻塞或已完成；补充 main 上的提交、文档和交接链接。所有修改直接在 main 完成。
