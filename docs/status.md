@@ -1,6 +1,6 @@
 # 团队状态
 
-更新日期：2026-09-29（Asia/Shanghai）
+更新日期：2026-09-30（Asia/Shanghai）
 
 ## 当前阶段
 
@@ -18,7 +18,7 @@
 | 共享文档结构、Agent 指引与交接模板 | [协作流程](workflow.md)、[交接目录](../handoffs/README.md) | 已准备 |
 | GitHub 私有仓库与首次同步 | [broadcastcode-team-hub](https://github.com/Linzeyu912/broadcastcode-team-hub) | 已创建并推送，已核对私有状态及本地与远端提交一致 |
 | TypeSafe Jev 珠海与澳门可用性调研 | [调研结论与验证步骤](../research/jev-regional-availability.md) | 已发邮件向厂商确认，等待答复；未实测，尚未决定采用 |
-| 解说 Agent 方案总结与直播纪要核对 | [方案讨论稿](agent-concept-review.md) | 按数据采集、数据处理、内容呈现整理；重点为战术意图、行为动因与声画同步；球员引力待验证，另两项核心指标后续再议 |
+| 解说 Agent 方案总结与直播纪要核对 | [方案讨论稿](agent-concept-review.md) | 已同步至 main（8bb3611）；按数据采集、数据处理、内容呈现整理；重点为战术意图、行为动因与声画同步；球员引力待验证，另两项核心指标后续再议 |
 
 ## 待认领任务
 
@@ -52,5 +52,6 @@
 - [2026-09-29：三部分思路总结与纪要核对](../handoffs/Linzeyu912/2026-09-29-2115-agent-concept-review.md)
 - [2026-09-29：收敛战术解读与声画表达](../handoffs/Linzeyu912/2026-09-29-2140-tactical-storytelling.md)
 - [2026-09-29：方案总结结构与文风调整](../handoffs/Linzeyu912/2026-09-29-2147-summary-format.md)
+- [2026-09-30：方案总结远端同步核验](../handoffs/Linzeyu912/2026-09-30-1038-agent-summary-sync.md)
 
 日常任务过程放在各自交接文件中；只在团队阶段、任务入口或关键依赖变化时修改本页，减少多人同时编辑冲突。
