@@ -1,6 +1,7 @@
 * text=auto
 *.md text eol=lf
 *.json text eol=lf
+"2K Player Data/**/*.jsonl" text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
 *.py text eol=lf

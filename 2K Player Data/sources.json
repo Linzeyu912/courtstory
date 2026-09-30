@@ -1,0 +1,1349 @@
+{
+  "schema_version": "1.0.0",
+  "catalog": {
+    "src_0342d262464b8723": {
+      "url": "https://www.nba.com/wizards/news/wizards-acquire-middleton-johnson-from-milwaukee-bucks",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_04f1fb9101e2fe5d": {
+      "url": "https://www.basketball-reference.com/teams/SAC/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_0c4db8b9f6889590": {
+      "url": "https://www.basketball-reference.com/teams/HOU/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_1982bd4ae7cf45fa": {
+      "url": "https://www.basketball-reference.com/teams/NOP/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_1b8f22cfcaa40b62": {
+      "url": "https://www.basketball-reference.com/teams/CHI/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_2b7812b02ac44c51": {
+      "url": "https://www.basketball-reference.com/teams/MIA/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_2da0f90de08271e7": {
+      "url": "https://www.nba.com/news/2025-offseason-trade-tracker",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_340340164123a924": {
+      "url": "https://www.basketball-reference.com/teams/LAC/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_34eb5b0c6be80dae": {
+      "url": "https://www.basketball-reference.com/teams/DET/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_34f085c90daf1dfd": {
+      "url": "https://www.basketball-reference.com/teams/IND/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_359e44c576aea624": {
+      "url": "https://www.basketball-reference.com/teams/DET/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_38913786de5b4a52": {
+      "url": "https://www.basketball-reference.com/teams/MIL/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_3ce7548ce2c8eb41": {
+      "url": "https://www.basketball-reference.com/teams/MEM/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_3d4ffc3c36e79199": {
+      "url": "https://www.basketball-reference.com/teams/IND/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_3e3fda85af4f0db8": {
+      "url": "https://www.basketball-reference.com/teams/WAS/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_3fc708a05c7de9a1": {
+      "url": "https://www.basketball-reference.com/teams/MIA/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_414c9e2f43ba3a2b": {
+      "url": "https://www.basketball-reference.com/teams/DEN/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_423f7e54a07639e3": {
+      "url": "https://www.basketball-reference.com/teams/CHO/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_42f78f7515acffbc": {
+      "url": "https://www.nba.com/news/2025-nba-playoffs-standings-and-bracket-updates",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "playoff_qualification"
+      ]
+    },
+    "src_434d18da0762f7ac": {
+      "url": "https://www.basketball-reference.com/teams/ATL/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_43bda69fe0692749": {
+      "url": "https://www.basketball-reference.com/teams/LAC/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_497d8aa2e7ec31d0": {
+      "url": "https://www.basketball-reference.com/teams/POR/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_4e2fe33288de58b0": {
+      "url": "https://www.basketball-reference.com/teams/PHO/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_5069c6bff4b9f116": {
+      "url": "https://gleague.nba.com/news/celtics-acquire-rj-luis-jr-from-utah-jazz",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_50ab456bf8396385": {
+      "url": "https://www.basketball-reference.com/teams/HOU/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_51c28bdac846a3ee": {
+      "url": "https://www.nba.com/rockets/news/rockets-complete-trade-with-boston",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_57eaa4fd372023f5": {
+      "url": "https://www.basketball-reference.com/teams/CHI/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_5ac61e68706cea55": {
+      "url": "https://www.basketball-reference.com/teams/MIL/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_5b0c16e1d89c8abc": {
+      "url": "https://www.basketball-reference.com/teams/OKC/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_63c550d946458993": {
+      "url": "https://www.basketball-reference.com/teams/PHO/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_65912017564cf63d": {
+      "url": "https://www.2kratings.com/",
+      "retrieved_dates": [],
+      "roles": [
+        "rating_website"
+      ]
+    },
+    "src_65aec256b78e72ed": {
+      "url": "https://www.basketball-reference.com/teams/DAL/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_66b22b8ff3fbfcd7": {
+      "url": "https://www.basketball-reference.com/teams/NOP/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_6706458a794973a4": {
+      "url": "https://web.archive.org/web/20250805140621/https://www.2kratings.com/luka-doncic",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_6b660d30a9ef8e95": {
+      "url": "https://www.basketball-reference.com/teams/CLE/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_6dcb5aa97dc75bef": {
+      "url": "https://www.basketball-reference.com/teams/NYK/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_70e941997d6d7d0b": {
+      "url": "https://www.basketball-reference.com/teams/NYK/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_74b598f27bb7e3c0": {
+      "url": "https://www.basketball-reference.com/teams/MIN/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_792185c8baa3d418": {
+      "url": "https://www.basketball-reference.com/teams/ATL/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_805ccf96fbc0c692": {
+      "url": "https://www.basketball-reference.com/teams/BRK/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_8871170d66676dfe": {
+      "url": "https://www.basketball-reference.com/teams/OKC/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_8e2d804b3bb163bf": {
+      "url": "https://www.basketball-reference.com/teams/MIN/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_98b1b7628c627196": {
+      "url": "https://raw.githubusercontent.com/thompgt/nba2k26-analysis/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_a223093edc90fc84": {
+      "url": "https://www.basketball-reference.com/teams/POR/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_a33b8f876eb41ef0": {
+      "url": "https://www.basketball-reference.com/teams/DEN/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_a42f6508e3193313": {
+      "url": "https://web.archive.org/web/20251105015633/https://www.2kratings.com/lebron-james",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_a66d99c886b99f22": {
+      "url": "https://www.basketball-reference.com/teams/SAS/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_a6e967e2bfd130b6": {
+      "url": "https://www.basketball-reference.com/teams/ORL/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_aa8997a4c3412a82": {
+      "url": "https://www.basketball-reference.com/teams/BOS/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_aad88143e7083c16": {
+      "url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "ratings"
+      ]
+    },
+    "src_ab02ebd23398b478": {
+      "url": "https://www.basketball-reference.com/teams/PHI/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_afac203b2488be41": {
+      "url": "https://www.basketball-reference.com/teams/WAS/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_b28d04238c17562c": {
+      "url": "https://www.basketball-reference.com/teams/TOR/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_b3115cd1cad7d2a2": {
+      "url": "https://www.nba.com/news/2026-nba-playoffs-schedule",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "playoff_qualification"
+      ]
+    },
+    "src_b4153471ec365133": {
+      "url": "https://www.basketball-reference.com/teams/PHI/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_bc05f3377b26124f": {
+      "url": "https://web.archive.org/web/20251031190131/https://www.2kratings.com/kevin-durant",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_c07a7676da15b4e1": {
+      "url": "https://www.basketball-reference.com/teams/SAC/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_c71a39cbda498bd0": {
+      "url": "https://www.basketball-reference.com/teams/CHO/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_c72b4953c9504869": {
+      "url": "https://www.basketball-reference.com/teams/MEM/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_cc97bffd2f2ca58b": {
+      "url": "https://raw.githubusercontent.com/ReinerJasin/NBA2k25_Web_Scraping/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_d0518d75dfb0219b": {
+      "url": "https://www.basketball-reference.com/teams/LAL/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_d09bef3cb7ca2233": {
+      "url": "https://www.basketball-reference.com/teams/ORL/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_d5a71f7303c437e3": {
+      "url": "https://www.basketball-reference.com/teams/CLE/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_d7c936fd27a08e4b": {
+      "url": "https://www.basketball-reference.com/teams/BRK/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_d99ece10bd6337ec": {
+      "url": "https://www.basketball-reference.com/teams/DAL/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_db75f25bd9422e7f": {
+      "url": "https://www.basketball-reference.com/teams/BOS/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_e6729fbd860609b6": {
+      "url": "https://www.nba.com/news/2024-25-nba-trade-tracker",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_ef1050ad4576077c": {
+      "url": "https://www.basketball-reference.com/teams/GSW/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_f25245d08f980a13": {
+      "url": "https://www.basketball-reference.com/teams/SAS/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_f2b92547e6b428c7": {
+      "url": "https://www.basketball-reference.com/teams/UTA/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_f2ba7c4c81fbf753": {
+      "url": "https://www.basketball-reference.com/teams/TOR/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_f567943daf4d0e47": {
+      "url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "ratings"
+      ]
+    },
+    "src_f6f07a8c5a28b911": {
+      "url": "https://www.basketball-reference.com/teams/LAL/2025.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_f9cd88ef7a83fdd9": {
+      "url": "https://web.archive.org/web/20250804093301/https://www.2kratings.com/nikola-jokic",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_fb3b2463740a2250": {
+      "url": "https://www.nba.com/news/2025-26-nba-trade-tracker",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_fd28e73de6f33187": {
+      "url": "https://www.basketball-reference.com/teams/UTA/2026.html",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    },
+    "src_ff63b4e52982b195": {
+      "url": "https://www.basketball-reference.com/teams/GSW/2026.html?view=1",
+      "retrieved_dates": [
+        "2026-09-30"
+      ],
+      "roles": [
+        "team_history"
+      ]
+    }
+  },
+  "shared_texts": {
+    "txt_26952e9ca00b9230": "混合早期/季前历史快照；原始逐球员抓取时间未知。；来源号码已数值化，0.0无法区分0与00；请使用真实赛季号码。",
+    "txt_2836ee3a5b432a71": "Official transaction confirms team association; this is not evidence of NBA game appearance. Jersey unverified. Transaction dates use source listing, not independently reconstructed arrival/departure times.",
+    "txt_39cf9d1100768903": "按该队整个赛季名单计数；已离队球员仍计入；跨队球员会在各队重复计数。",
+    "txt_428fece02e0f367a": "官方交易补充（可能未出场）",
+    "txt_42f85e193875cfe9": "混合早期/季前历史快照；原始逐球员抓取时间未知。",
+    "txt_69046db266563ebb": "同赛季多队与多号码的排列不表示先后顺序；名单可能不含短约且未出场的其他停留。",
+    "txt_6a5a32cf2bd51ae3": "进入首轮的16支季后赛球队；不含仅参加附加赛后被淘汰的球队",
+    "txt_726211c1c52d7acd": "2024-11-26仓库快照；游戏补丁日期未核",
+    "txt_92917aebb9a2975b": "来源缺少部分个人能力值；未推算或补零。；混合早期/季前历史快照；原始逐球员抓取时间未知。",
+    "txt_bbe5bd2d2693e3f9": "2025-08至2026-02混合归档；含早期/季前快照；逐球员时间未知",
+    "txt_c718e3757c3d5365": "所用历史来源未找到可核对记录；所有能力值留空，不以0代替。",
+    "txt_d4d2dea86364ca9a": "混合早期/季前历史快照；原始逐球员抓取时间未知。；评分CSV号码35与独立归档页及HOU赛季名单号码7不一致；号码以球队赛季记录为准。",
+    "txt_f7f3c3da8af4f016": "同赛季队伍按缩写排序，不代表转队顺序；仅覆盖这两个赛季；可能遗漏短约且未出场的停留。",
+    "txt_f9f2ed522967dea3": "球队赛季名单记录（不代表季后赛出场）"
+  },
+  "upstream_metadata": {
+    "title": "NBA 2K25/2K26 季后赛球队球员能力与赛季球队号码",
+    "created_at_utc": "2026-09-30T08:14:48.151693+00:00",
+    "source_retrieved_date": "2026-09-30",
+    "scope": "球队范围为每季正式首轮16队；球员范围为这些球队整个赛季名单（含季中离队球员），不等于季后赛出场名单。",
+    "rating_time_basis": [
+      "2024-25对应NBA 2K25：使用2024-11-26固定仓库版本；提交日期不是已验证的游戏补丁日期，也不代表赛季末。",
+      "2025-26对应NBA 2K26：归档混合2025年8月至2026年2月的不同时间点，包含早期/季前记录。2026年7月是提取文件提交时间，不能称作7月游戏能力值。",
+      "NBA 2K26提取不含逐球员的准确归档时间；不能将独立抽查页面时间当成原始CSV抓取时间，也不能当成正式发售或最终赛季评分。"
+    ],
+    "numeric_metric_count": 42,
+    "individual_metric_count": 36,
+    "core_metrics": [
+      "overall",
+      "three_point_shot",
+      "perimeter_defense",
+      "interior_defense",
+      "steal",
+      "block"
+    ],
+    "null_semantics": "null或CSV空字段表示来源无值；绝不表示能力为0。",
+    "jersey_semantics": "号码是文本；0和00不同；逗号分隔多个号码的顺序不表示时间顺序。",
+    "identity_basis": "BBR编号缺失，使用规范化精确姓名；显式别名均核对同队同号码。",
+    "history_order": "按赛季及球队缩写排列；未推断交易先后。",
+    "limitations": [
+      "能力值来自可追溯的第三方历史抓取，不是2K官方数据导出；真实球队和号码独立取自赛季球队名单。",
+      "2024-25对应NBA 2K25：使用2024-11-26固定仓库版本；提交日期不是已验证的游戏补丁日期，也不代表赛季末。",
+      "2025-26对应NBA 2K26：归档混合2025年8月至2026年2月的不同时间点，包含早期/季前记录。2026年7月是提取文件提交时间，不能称作7月游戏能力值。",
+      "NBA 2K26提取不含逐球员的准确归档时间；不能将独立抽查页面时间当成原始CSV抓取时间，也不能当成正式发售或最终赛季评分。",
+      "球队范围为每季正式首轮16队；球员范围为这些球队整个赛季名单（含季中离队球员），不等于季后赛出场名单。",
+      "缺失评分留空，不补零，不用其他版本/当前页面能力值填补历史缺口。",
+      "同赛季转队顺序及具体日期通常未核实；球队按缩写排序。号码逐队保留，0和00不同，同队多个号码保留来源文本。",
+      "球队名单可能不含短约或零出场的停留；仅在另有NBA官方交易证据时补入历史，不能称为完整合同或交易档案。",
+      "来源文本没有BBR球员超链接，BBR编号留空；连接键使用去重音/标点后的精确姓名并辅以11条逐项核对的显式别名。未使用模糊匹配。",
+      "2K26来源快照号码曾被数值化，0.0不能可靠区分0和00；杜兰特来源快照号码35与HOU赛季号码7不同。请以真实赛季号码为准。",
+      "42个能力字段包括36项个人能力（含总评）及6项来源提供的综合分类；分类值不是本次重新计算。"
+    ],
+    "sources": [
+      {
+        "season": "2024-25",
+        "edition": "NBA 2K25",
+        "source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+        "file_url": "https://raw.githubusercontent.com/ReinerJasin/NBA2k25_Web_Scraping/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+        "origin": "https://www.2kratings.com/",
+        "file_sha256": "b9660fe0903afc99a65a38172962d46a2cd71f6f3d7770e95f997cd0b98c9680",
+        "retrieved_at_utc": "2026-09-30T08:01:19.0064337Z",
+        "source_commit_utc": "2024-11-26T02:25:26Z",
+        "source_commit_sha": "bdf93420a846f073e4028de432a5cbd8a557ed51"
+      },
+      {
+        "season": "2025-26",
+        "edition": "NBA 2K26",
+        "source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+        "file_url": "https://raw.githubusercontent.com/thompgt/nba2k26-analysis/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+        "origin": "https://www.2kratings.com/",
+        "file_sha256": "9bbadeb3ce3a9ed8a1c4ac8986742568d7655702b9ece512e39a4f33c06012d2",
+        "retrieved_at_utc": "2026-09-30T08:03:33.6913572Z",
+        "source_commit_utc": "2026-07-16T00:52:34Z",
+        "source_commit_sha": "397508b993a4b11c31d5e3801fa300b1d38b5a4d"
+      }
+    ],
+    "roster_source_summary": {
+      "team_season_sources": 60,
+      "roster_rows": 1316,
+      "source_caveats": [
+        "Initial Exa fetch of the canonical GSW/2026 page returned a stale preseason 0-0 roster with no jersey numbers. It was rejected and replaced by the same page fetched with ?view=1, which returned the completed 37-45 season and 22 jersey-bearing rows. The 22-player total is independently corroborated by Land of Basketball.",
+        "Do not interpret same-season multiple teams as a complete contract/transaction ledger: some brief contract-only stints without roster presence or games may not be included."
+      ]
+    },
+    "summary_by_season": [
+      {
+        "season": "2024-25",
+        "selected_player_season_rows": 317,
+        "with_overall_rating": 295,
+        "all_individual_ratings_complete": 295,
+        "partial_individual_ratings": 0,
+        "without_rating_record": 22,
+        "with_three_point_rating": 295,
+        "with_six_core_ratings": 295
+      },
+      {
+        "season": "2025-26",
+        "selected_player_season_rows": 318,
+        "with_overall_rating": 188,
+        "all_individual_ratings_complete": 175,
+        "partial_individual_ratings": 13,
+        "without_rating_record": 130,
+        "with_three_point_rating": 178,
+        "with_six_core_ratings": 176
+      }
+    ],
+    "counts": {
+      "players": 635,
+      "unique_players": 472,
+      "stints": 1033,
+      "histories": 472,
+      "playoff_teams": 32,
+      "coverage": 32,
+      "unresolved_joins": 152,
+      "explicit_aliases": 11,
+      "official_transaction_supplements": 42
+    }
+  },
+  "upstream_field_dictionary": {
+    "columns": [
+      {
+        "key": "season",
+        "label_zh": "NBA赛季"
+      },
+      {
+        "key": "edition",
+        "label_zh": "对应游戏"
+      },
+      {
+        "key": "player_name",
+        "label_zh": "球员"
+      },
+      {
+        "key": "qualifying_teams_zh",
+        "label_zh": "入选范围的季后赛球队"
+      },
+      {
+        "key": "season_team_jersey",
+        "label_zh": "赛季名单球队与号码（顺序未核）"
+      },
+      {
+        "key": "overall",
+        "label_zh": "总评 OVR"
+      },
+      {
+        "key": "three_point_shot",
+        "label_zh": "三分球"
+      },
+      {
+        "key": "perimeter_defense",
+        "label_zh": "外线防守"
+      },
+      {
+        "key": "interior_defense",
+        "label_zh": "内线防守"
+      },
+      {
+        "key": "steal",
+        "label_zh": "抢断"
+      },
+      {
+        "key": "block",
+        "label_zh": "盖帽"
+      },
+      {
+        "key": "help_defense_iq",
+        "label_zh": "协防意识"
+      },
+      {
+        "key": "pass_perception",
+        "label_zh": "传球预判"
+      },
+      {
+        "key": "defensive_consistency",
+        "label_zh": "防守稳定性"
+      },
+      {
+        "key": "defensive_rebound",
+        "label_zh": "防守篮板"
+      },
+      {
+        "key": "offensive_rebound",
+        "label_zh": "进攻篮板"
+      },
+      {
+        "key": "mid_range_shot",
+        "label_zh": "中距离投篮"
+      },
+      {
+        "key": "close_shot",
+        "label_zh": "近距离投篮"
+      },
+      {
+        "key": "free_throw",
+        "label_zh": "罚球"
+      },
+      {
+        "key": "layup",
+        "label_zh": "上篮"
+      },
+      {
+        "key": "driving_dunk",
+        "label_zh": "突破扣篮"
+      },
+      {
+        "key": "standing_dunk",
+        "label_zh": "原地扣篮"
+      },
+      {
+        "key": "post_hook",
+        "label_zh": "背身勾手"
+      },
+      {
+        "key": "post_fade",
+        "label_zh": "背身后仰"
+      },
+      {
+        "key": "post_control",
+        "label_zh": "背身控制"
+      },
+      {
+        "key": "draw_foul",
+        "label_zh": "制造犯规"
+      },
+      {
+        "key": "ball_handle",
+        "label_zh": "控球"
+      },
+      {
+        "key": "pass_accuracy",
+        "label_zh": "传球准确性"
+      },
+      {
+        "key": "pass_vision",
+        "label_zh": "传球视野"
+      },
+      {
+        "key": "pass_iq",
+        "label_zh": "传球意识"
+      },
+      {
+        "key": "speed_with_ball",
+        "label_zh": "持球速度"
+      },
+      {
+        "key": "shot_iq",
+        "label_zh": "投篮选择"
+      },
+      {
+        "key": "offensive_consistency",
+        "label_zh": "进攻稳定性"
+      },
+      {
+        "key": "speed",
+        "label_zh": "速度"
+      },
+      {
+        "key": "agility",
+        "label_zh": "敏捷"
+      },
+      {
+        "key": "strength",
+        "label_zh": "力量"
+      },
+      {
+        "key": "vertical",
+        "label_zh": "弹跳"
+      },
+      {
+        "key": "stamina",
+        "label_zh": "体力"
+      },
+      {
+        "key": "hustle",
+        "label_zh": "积极性"
+      },
+      {
+        "key": "hands",
+        "label_zh": "接球能力"
+      },
+      {
+        "key": "overall_durability",
+        "label_zh": "耐久度"
+      },
+      {
+        "key": "cat_defense",
+        "label_zh": "防守综合（来源原值）"
+      },
+      {
+        "key": "cat_outside_scoring",
+        "label_zh": "外线得分综合（来源原值）"
+      },
+      {
+        "key": "cat_inside_scoring",
+        "label_zh": "内线得分综合（来源原值）"
+      },
+      {
+        "key": "cat_playmaking",
+        "label_zh": "组织综合（来源原值）"
+      },
+      {
+        "key": "cat_rebounding",
+        "label_zh": "篮板综合（来源原值）"
+      },
+      {
+        "key": "cat_athleticism",
+        "label_zh": "运动能力综合（来源原值）"
+      },
+      {
+        "key": "coverage_status",
+        "label_zh": "数据覆盖状态"
+      },
+      {
+        "key": "individual_ratings_present",
+        "label_zh": "已有个人能力项数"
+      },
+      {
+        "key": "individual_ratings_expected",
+        "label_zh": "个人能力项总数"
+      },
+      {
+        "key": "core_ratings_present",
+        "label_zh": "六项核心能力已有项数"
+      },
+      {
+        "key": "missing_individual_ratings",
+        "label_zh": "缺失的个人能力项"
+      },
+      {
+        "key": "data_quality_note",
+        "label_zh": "数据说明"
+      },
+      {
+        "key": "other_confirmed_team_associations",
+        "label_zh": "另有官方交易关联（不等于出场）"
+      },
+      {
+        "key": "player_key",
+        "label_zh": "球员连接键"
+      },
+      {
+        "key": "bbr_player_id",
+        "label_zh": "BBR球员编号（未提供则空）"
+      },
+      {
+        "key": "join_method",
+        "label_zh": "姓名连接方式"
+      },
+      {
+        "key": "rating_source_player_name",
+        "label_zh": "评分来源姓名"
+      },
+      {
+        "key": "snapshot_team",
+        "label_zh": "评分快照球队（不代表赛季履历）"
+      },
+      {
+        "key": "snapshot_jersey",
+        "label_zh": "评分快照号码（可能过时或失真）"
+      },
+      {
+        "key": "snapshot_jersey_raw",
+        "label_zh": "评分快照号码原始文本"
+      },
+      {
+        "key": "rating_snapshot_basis",
+        "label_zh": "能力值时间口径"
+      },
+      {
+        "key": "rating_source_url",
+        "label_zh": "能力值来源"
+      },
+      {
+        "key": "rating_source_origin",
+        "label_zh": "原评分网站"
+      },
+      {
+        "key": "rating_source_commit",
+        "label_zh": "来源仓库版本"
+      },
+      {
+        "key": "rating_source_retrieved_date",
+        "label_zh": "能力来源取回日期"
+      },
+      {
+        "key": "roster_source_urls",
+        "label_zh": "球队号码来源"
+      },
+      {
+        "key": "roster_source_retrieved_date",
+        "label_zh": "球队号码取回日期"
+      }
+    ],
+    "stints_columns": [
+      {
+        "key": "season",
+        "label_zh": "NBA赛季"
+      },
+      {
+        "key": "player_name",
+        "label_zh": "球员"
+      },
+      {
+        "key": "player_key",
+        "label_zh": "球员连接键"
+      },
+      {
+        "key": "team_abbreviation",
+        "label_zh": "球队缩写"
+      },
+      {
+        "key": "team_name_zh",
+        "label_zh": "球队中文名"
+      },
+      {
+        "key": "team_name",
+        "label_zh": "球队英文名"
+      },
+      {
+        "key": "jersey",
+        "label_zh": "赛季号码（文本，保留0与00）"
+      },
+      {
+        "key": "team_qualified_playoffs",
+        "label_zh": "球队是否进入季后赛"
+      },
+      {
+        "key": "in_rating_selection_for_season",
+        "label_zh": "该球员本赛季是否在能力表范围"
+      },
+      {
+        "key": "record_type",
+        "label_zh": "记录类型"
+      },
+      {
+        "key": "phase",
+        "label_zh": "赛季阶段"
+      },
+      {
+        "key": "association_kind",
+        "label_zh": "球队关联类型"
+      },
+      {
+        "key": "transaction_date",
+        "label_zh": "NBA交易追踪页列示日期（非到离队时点）"
+      },
+      {
+        "key": "history_note",
+        "label_zh": "记录说明"
+      },
+      {
+        "key": "source_url",
+        "label_zh": "来源"
+      },
+      {
+        "key": "source_retrieved_date",
+        "label_zh": "取回日期"
+      }
+    ],
+    "history_columns": [
+      {
+        "key": "player_name",
+        "label_zh": "球员"
+      },
+      {
+        "key": "player_key",
+        "label_zh": "球员连接键"
+      },
+      {
+        "key": "season_2024_25_teams_jerseys",
+        "label_zh": "2024-25球队与号码"
+      },
+      {
+        "key": "season_2025_26_teams_jerseys",
+        "label_zh": "2025-26球队与号码"
+      },
+      {
+        "key": "distinct_teams_in_two_seasons",
+        "label_zh": "两赛季涉及球队数"
+      },
+      {
+        "key": "has_multiple_teams_within_season",
+        "label_zh": "存在同赛季多队记录"
+      },
+      {
+        "key": "history_note",
+        "label_zh": "履历说明"
+      },
+      {
+        "key": "source_urls",
+        "label_zh": "履历来源"
+      }
+    ],
+    "teams_columns": [
+      {
+        "key": "season",
+        "label_zh": "NBA赛季"
+      },
+      {
+        "key": "edition",
+        "label_zh": "对应游戏"
+      },
+      {
+        "key": "conference",
+        "label_zh": "分区"
+      },
+      {
+        "key": "seed",
+        "label_zh": "种子"
+      },
+      {
+        "key": "team_abbreviation",
+        "label_zh": "球队缩写"
+      },
+      {
+        "key": "team_name_zh",
+        "label_zh": "球队中文名"
+      },
+      {
+        "key": "team_name",
+        "label_zh": "球队英文名"
+      },
+      {
+        "key": "selection_basis",
+        "label_zh": "入选口径"
+      },
+      {
+        "key": "source_url",
+        "label_zh": "季后赛名单来源"
+      },
+      {
+        "key": "retrieved_date",
+        "label_zh": "取回日期"
+      }
+    ],
+    "coverage_columns": [
+      {
+        "key": "season",
+        "label_zh": "NBA赛季"
+      },
+      {
+        "key": "team_abbreviation",
+        "label_zh": "球队缩写"
+      },
+      {
+        "key": "team_name_zh",
+        "label_zh": "球队中文名"
+      },
+      {
+        "key": "season_roster_players",
+        "label_zh": "球队赛季名单人数"
+      },
+      {
+        "key": "with_overall_rating",
+        "label_zh": "已有总评人数"
+      },
+      {
+        "key": "all_individual_ratings_complete",
+        "label_zh": "个人能力完整人数"
+      },
+      {
+        "key": "partial_individual_ratings",
+        "label_zh": "个人能力部分缺失人数"
+      },
+      {
+        "key": "without_rating_record",
+        "label_zh": "无评分记录人数"
+      },
+      {
+        "key": "with_three_point_rating",
+        "label_zh": "已有三分能力人数"
+      },
+      {
+        "key": "with_six_core_ratings",
+        "label_zh": "六项核心能力齐全人数"
+      },
+      {
+        "key": "overall_coverage_percent",
+        "label_zh": "总评覆盖率百分比"
+      },
+      {
+        "key": "count_note",
+        "label_zh": "计数口径"
+      }
+    ]
+  },
+  "independent_spotchecks": {
+    "checked_at_utc": "2026-09-30T08:07:11.9327439Z",
+    "method": "Retrieved the actual archived player pages using Exa web_fetch_exa and, for LeBron, direct HTTPS HTML. Dates came from Internet Archive availability API, not guesses. Compare observed attributes to frozen third-party CSV.",
+    "results": [
+      {
+        "name": "Luka Doncic",
+        "archive_url": "https://web.archive.org/web/20250805140621/https://www.2kratings.com/luka-doncic",
+        "capture_timestamp": "20250805140621",
+        "observed_title": "Luka Doncic NBA 2K26 Rating (Current Los Angeles Lakers)",
+        "observed_team": "Los Angeles Lakers",
+        "observed_jersey": "77",
+        "observed_attributes": {
+          "overall": 96,
+          "three_point_shot": 86,
+          "interior_defense": 66,
+          "perimeter_defense": 74,
+          "steal": 76,
+          "block": 51
+        },
+        "compared_attributes_match_csv": true,
+        "caveat": "Prelaunch August 2025 capture. Title says NBA 2K26, but this must not be described as confirmed release/final-season ratings."
+      },
+      {
+        "name": "LeBron James",
+        "archive_url": "https://web.archive.org/web/20251105015633/https://www.2kratings.com/lebron-james",
+        "capture_timestamp": "20251105015633",
+        "observed_title": "LeBron James NBA 2K26 Rating (Current Los Angeles Lakers)",
+        "observed_team": "Los Angeles Lakers",
+        "observed_jersey": "23",
+        "observed_attributes": {
+          "overall": 94,
+          "three_point_shot": 82,
+          "interior_defense": 74,
+          "perimeter_defense": 74,
+          "steal": 42,
+          "block": 70
+        },
+        "compared_attributes_match_csv": true
+      },
+      {
+        "name": "Kevin Durant",
+        "archive_url": "https://web.archive.org/web/20251031190131/https://www.2kratings.com/kevin-durant",
+        "capture_timestamp": "20251031190131",
+        "observed_title": "Kevin Durant NBA 2K26 Rating (Current Houston Rockets)",
+        "observed_team": "Houston Rockets",
+        "observed_jersey": "7",
+        "csv_jersey": "35",
+        "observed_attributes": {
+          "overall": 93,
+          "three_point_shot": 91,
+          "interior_defense": 70,
+          "perimeter_defense": 77,
+          "steal": 38,
+          "block": 72
+        },
+        "compared_attributes_match_csv": true,
+        "caveat": "Archived October player page has jersey 7 but frozen CSV has earlier jersey 35. User-facing season roster jersey must not blindly reuse CSV."
+      },
+      {
+        "name": "Nikola Jokic",
+        "archive_url": "https://web.archive.org/web/20250804093301/https://www.2kratings.com/nikola-jokic",
+        "capture_timestamp": "20250804093301",
+        "observed_title": "Nikola Jokic NBA 2K26 Rating (Current Denver Nuggets)",
+        "observed_team": "Denver Nuggets",
+        "observed_jersey": "15",
+        "observed_attributes": {
+          "overall": 98,
+          "three_point_shot": 86,
+          "interior_defense": 83,
+          "perimeter_defense": 61,
+          "steal": 70,
+          "block": 56
+        },
+        "compared_attributes_match_csv": true,
+        "caveat": "Prelaunch August 2025 capture. Do not call this a final-season rating."
+      }
+    ],
+    "overall_result": "All 24 compared ability values match the frozen CSV. One of four jerseys disagrees. This verifies sampled archival extraction, not universal dataset accuracy or exact per-row capture dates."
+  },
+  "status_labels_zh": {
+    "complete": "个人能力完整",
+    "partial": "部分能力缺失",
+    "missing_record": "未找到评分记录"
+  },
+  "join_method_labels_zh": {
+    "normalized_exact": "去重音与标点后的精确姓名",
+    "audited_alias": "经核对的显式别名",
+    "unmatched": "未匹配"
+  },
+  "provenance_note": "URL strings, repository metadata, original shared notes and independent checks are retained exactly. Independent sample capture dates do not establish original CSV per-player dates."
+}

@@ -1,0 +1,1495 @@
+{
+  "audited_aliases": [
+    {
+      "season": "2024-25",
+      "roster_player_name": "Xavier Tillman Sr.",
+      "rating_source_name": "Xavier Tillman",
+      "corroborating_team": "Boston Celtics",
+      "corroborating_jersey": "26",
+      "evidence_note": "已逐项核对姓名全名/后缀差异；相同赛季球队及号码一致；未采用模糊自动匹配。",
+      "roster_source_url": "https://www.basketball-reference.com/teams/BOS/2025.html",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "player_id": "name:xaviertillmansr"
+    },
+    {
+      "season": "2024-25",
+      "roster_player_name": "Craig Porter Jr.",
+      "rating_source_name": "Craig Porter",
+      "corroborating_team": "Cleveland Cavaliers",
+      "corroborating_jersey": "9",
+      "evidence_note": "已逐项核对姓名全名/后缀差异；相同赛季球队及号码一致；未采用模糊自动匹配。",
+      "roster_source_url": "https://www.basketball-reference.com/teams/CLE/2025.html",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "player_id": "name:craigporterjr"
+    },
+    {
+      "season": "2024-25",
+      "roster_player_name": "Ron Holland",
+      "rating_source_name": "Ronald Holland II",
+      "corroborating_team": "Detroit Pistons",
+      "corroborating_jersey": "00",
+      "evidence_note": "已逐项核对姓名全名/后缀差异；相同赛季球队及号码一致；未采用模糊自动匹配。",
+      "roster_source_url": "https://www.basketball-reference.com/teams/DET/2025.html",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "player_id": "name:ronholland"
+    },
+    {
+      "season": "2024-25",
+      "roster_player_name": "GG Jackson II",
+      "rating_source_name": "G.G. Jackson",
+      "corroborating_team": "Memphis Grizzlies",
+      "corroborating_jersey": "45",
+      "evidence_note": "已逐项核对姓名全名/后缀差异；相同赛季球队及号码一致；未采用模糊自动匹配。",
+      "roster_source_url": "https://www.basketball-reference.com/teams/MEM/2025.html",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "player_id": "name:ggjacksonii"
+    },
+    {
+      "season": "2024-25",
+      "roster_player_name": "Terry Rozier",
+      "rating_source_name": "Terry Rozier III",
+      "corroborating_team": "Miami Heat",
+      "corroborating_jersey": "2",
+      "evidence_note": "已逐项核对姓名全名/后缀差异；相同赛季球队及号码一致；未采用模糊自动匹配。",
+      "roster_source_url": "https://www.basketball-reference.com/teams/MIA/2025.html",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "player_id": "name:terryrozier"
+    },
+    {
+      "season": "2024-25",
+      "roster_player_name": "Trey Jemison",
+      "rating_source_name": "Trey Jemison III",
+      "corroborating_team": "New Orleans Pelicans",
+      "corroborating_jersey": "55",
+      "evidence_note": "已逐项核对姓名全名/后缀差异；相同赛季球队及号码一致；未采用模糊自动匹配。",
+      "roster_source_url": "https://www.basketball-reference.com/teams/NOP/2025.html",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "player_id": "name:treyjemison"
+    },
+    {
+      "season": "2024-25",
+      "roster_player_name": "Kevin McCullar Jr.",
+      "rating_source_name": "Kevin McCullar",
+      "corroborating_team": "New York Knicks",
+      "corroborating_jersey": "9",
+      "evidence_note": "已逐项核对姓名全名/后缀差异；相同赛季球队及号码一致；未采用模糊自动匹配。",
+      "roster_source_url": "https://www.basketball-reference.com/teams/NYK/2025.html",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "player_id": "name:kevinmccullarjr"
+    },
+    {
+      "season": "2025-26",
+      "roster_player_name": "Bronny James",
+      "rating_source_name": "Bronny James Jr.",
+      "corroborating_team": "Los Angeles Lakers",
+      "corroborating_jersey": "9",
+      "evidence_note": "已逐项核对姓名全名/后缀差异；相同赛季球队及号码一致；未采用模糊自动匹配。",
+      "roster_source_url": "https://www.basketball-reference.com/teams/LAL/2026.html",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "player_id": "name:bronnyjames"
+    },
+    {
+      "season": "2025-26",
+      "roster_player_name": "DaRon Holmes",
+      "rating_source_name": "DaRon Holmes II",
+      "corroborating_team": "Denver Nuggets",
+      "corroborating_jersey": "14",
+      "evidence_note": "已逐项核对姓名全名/后缀差异；相同赛季球队及号码一致；未采用模糊自动匹配。",
+      "roster_source_url": "https://www.basketball-reference.com/teams/DEN/2026.html",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "player_id": "name:daronholmes"
+    },
+    {
+      "season": "2025-26",
+      "roster_player_name": "Robert Williams",
+      "rating_source_name": "Robert Williams III",
+      "corroborating_team": "Portland Trail Blazers",
+      "corroborating_jersey": "35",
+      "evidence_note": "已逐项核对姓名全名/后缀差异；相同赛季球队及号码一致；未采用模糊自动匹配。",
+      "roster_source_url": "https://www.basketball-reference.com/teams/POR/2026.html",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "player_id": "name:robertwilliams"
+    },
+    {
+      "season": "2025-26",
+      "roster_player_name": "Kevin McCullar Jr.",
+      "rating_source_name": "Kevin McCullar",
+      "corroborating_team": "New York Knicks",
+      "corroborating_jersey": "9",
+      "evidence_note": "已逐项核对姓名全名/后缀差异；相同赛季球队及号码一致；未采用模糊自动匹配。",
+      "roster_source_url": "https://www.basketball-reference.com/teams/NYK/2026.html",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "player_id": "name:kevinmccullarjr"
+    }
+  ],
+  "unresolved_joins": [
+    {
+      "season": "2024-25",
+      "player_name": "Alex Reese",
+      "player_key": "name:alexreese",
+      "qualifying_teams_zh": "俄克拉荷马城雷霆",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/OKC/2025.html | https://www.basketball-reference.com/teams/PHI/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Braxton Key",
+      "player_key": "name:braxtonkey",
+      "qualifying_teams_zh": "金州勇士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/GSW/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Chuma Okeke",
+      "player_key": "name:chumaokeke",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2025.html | https://www.basketball-reference.com/teams/PHI/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Isaiah Stevens",
+      "player_key": "name:isaiahstevens",
+      "qualifying_teams_zh": "迈阿密热火",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIA/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Jackson Rowe",
+      "player_key": "name:jacksonrowe",
+      "qualifying_teams_zh": "金州勇士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/GSW/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Jahlil Okafor",
+      "player_key": "name:jahlilokafor",
+      "qualifying_teams_zh": "印第安纳步行者",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/IND/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Jamaree Bouyea",
+      "player_key": "name:jamareebouyea",
+      "qualifying_teams_zh": "密尔沃基雄鹿",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIL/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Jordan Goodwin",
+      "player_key": "name:jordangoodwin",
+      "qualifying_teams_zh": "洛杉矶湖人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/LAL/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Kevin Knox",
+      "player_key": "name:kevinknox",
+      "qualifying_teams_zh": "金州勇士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/GSW/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Lamar Stevens",
+      "player_key": "name:lamarstevens",
+      "qualifying_teams_zh": "孟菲斯灰熊",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MEM/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Landry Shamet",
+      "player_key": "name:landryshamet",
+      "qualifying_teams_zh": "纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/NYK/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Liam Robbins",
+      "player_key": "name:liamrobbins",
+      "qualifying_teams_zh": "密尔沃基雄鹿",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIL/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Malevy Leons",
+      "player_key": "name:malevyleons",
+      "qualifying_teams_zh": "俄克拉荷马城雷霆",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/OKC/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Miles Norris",
+      "player_key": "name:milesnorris",
+      "qualifying_teams_zh": "波士顿凯尔特人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/BOS/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Nae'Qwan Tomlin",
+      "player_key": "name:naeqwantomlin",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Pete Nance",
+      "player_key": "name:petenance",
+      "qualifying_teams_zh": "密尔沃基雄鹿",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIL/2025.html | https://www.basketball-reference.com/teams/PHI/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "RayJ Dennis",
+      "player_key": "name:rayjdennis",
+      "qualifying_teams_zh": "印第安纳步行者",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/IND/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Ron Harper Jr.",
+      "player_key": "name:ronharperjr",
+      "qualifying_teams_zh": "底特律活塞",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DET/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Tolu Smith",
+      "player_key": "name:tolusmith",
+      "qualifying_teams_zh": "底特律活塞",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DET/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Tony Bradley",
+      "player_key": "name:tonybradley",
+      "qualifying_teams_zh": "印第安纳步行者",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/IND/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Yuri Collins",
+      "player_key": "name:yuricollins",
+      "qualifying_teams_zh": "金州勇士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/GSW/2025.html"
+    },
+    {
+      "season": "2024-25",
+      "player_name": "Zyon Pullin",
+      "player_key": "name:zyonpullin",
+      "qualifying_teams_zh": "孟菲斯灰熊",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MEM/2025.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Aaron Wiggins",
+      "player_key": "name:aaronwiggins",
+      "qualifying_teams_zh": "俄克拉荷马城雷霆",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/OKC/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Adem Bona",
+      "player_key": "name:adembona",
+      "qualifying_teams_zh": "费城76人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHI/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Adou Thiero",
+      "player_key": "name:adouthiero",
+      "qualifying_teams_zh": "洛杉矶湖人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/LAL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Ajay Mitchell",
+      "player_key": "name:ajaymitchell",
+      "qualifying_teams_zh": "俄克拉荷马城雷霆",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/OKC/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Alex Morales",
+      "player_key": "name:alexmorales",
+      "qualifying_teams_zh": "奥兰多魔术",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/ORL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Alijah Martin",
+      "player_key": "name:alijahmartin",
+      "qualifying_teams_zh": "多伦多猛龙",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/TOR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Asa Newell",
+      "player_key": "name:asanewell",
+      "qualifying_teams_zh": "亚特兰大老鹰",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/ATL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Bismack Biyombo",
+      "player_key": "name:bismackbiyombo",
+      "qualifying_teams_zh": "圣安东尼奥马刺",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/SAS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Bobi Klintman",
+      "player_key": "name:bobiklintman",
+      "qualifying_teams_zh": "底特律活塞",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DET/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Branden Carlson",
+      "player_key": "name:brandencarlson",
+      "qualifying_teams_zh": "俄克拉荷马城雷霆",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/OKC/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Brooks Barnhizer",
+      "player_key": "name:brooksbarnhizer",
+      "qualifying_teams_zh": "俄克拉荷马城雷霆",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/OKC/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Buddy Boeheim",
+      "player_key": "name:buddyboeheim",
+      "qualifying_teams_zh": "俄克拉荷马城雷霆",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/OKC/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Buddy Hield",
+      "player_key": "name:buddyhield",
+      "qualifying_teams_zh": "亚特兰大老鹰",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/ATL/2026.html | https://www.basketball-reference.com/teams/GSW/2026.html?view=1"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Caleb Love",
+      "player_key": "name:caleblove",
+      "qualifying_teams_zh": "波特兰开拓者",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/POR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Cameron Johnson",
+      "player_key": "name:cameronjohnson",
+      "qualifying_teams_zh": "丹佛掘金",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DEN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Cameron Payne",
+      "player_key": "name:cameronpayne",
+      "qualifying_teams_zh": "费城76人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHI/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Carter Bryant",
+      "player_key": "name:carterbryant",
+      "qualifying_teams_zh": "圣安东尼奥马刺",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/SAS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Cason Wallace",
+      "player_key": "name:casonwallace",
+      "qualifying_teams_zh": "俄克拉荷马城雷霆",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/OKC/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Charles Bassey",
+      "player_key": "name:charlesbassey",
+      "qualifying_teams_zh": "波士顿凯尔特人；费城76人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/BOS/2026.html | https://www.basketball-reference.com/teams/GSW/2026.html?view=1 | https://www.basketball-reference.com/teams/MEM/2026.html | https://www.basketball-reference.com/teams/PHI/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Chaz Lanier",
+      "player_key": "name:chazlanier",
+      "qualifying_teams_zh": "底特律活塞",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DET/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Chris Livingston",
+      "player_key": "name:chrislivingston",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Chris Mañon",
+      "player_key": "name:chrismanon",
+      "qualifying_teams_zh": "洛杉矶湖人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/LAL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Christian Braun",
+      "player_key": "name:christianbraun",
+      "qualifying_teams_zh": "丹佛掘金",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DEN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Chris Youngblood",
+      "player_key": "name:chrisyoungblood",
+      "qualifying_teams_zh": "俄克拉荷马城雷霆；波特兰开拓者",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/OKC/2026.html | https://www.basketball-reference.com/teams/POR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Chucky Hepburn",
+      "player_key": "name:chuckyhepburn",
+      "qualifying_teams_zh": "多伦多猛龙",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/TOR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "CJ Huntley",
+      "player_key": "name:cjhuntley",
+      "qualifying_teams_zh": "菲尼克斯太阳",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHO/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Colby Jones",
+      "player_key": "name:colbyjones",
+      "qualifying_teams_zh": "底特律活塞",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DET/2026.html | https://www.nba.com/news/2025-offseason-trade-tracker"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Craig Porter Jr.",
+      "player_key": "name:craigporterjr",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Curtis Jones",
+      "player_key": "name:curtisjones",
+      "qualifying_teams_zh": "丹佛掘金",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DEN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Dalano Banton",
+      "player_key": "name:dalanobanton",
+      "qualifying_teams_zh": "波士顿凯尔特人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/BOS/2026.html | https://www.basketball-reference.com/teams/LAC/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Dalton Knecht",
+      "player_key": "name:daltonknecht",
+      "qualifying_teams_zh": "洛杉矶湖人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/LAL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Daniss Jenkins",
+      "player_key": "name:danissjenkins",
+      "qualifying_teams_zh": "底特律活塞",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DET/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Darius Brown II",
+      "player_key": "name:dariusbrownii",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "De'Aaron Fox",
+      "player_key": "name:deaaronfox",
+      "qualifying_teams_zh": "圣安东尼奥马刺",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/SAS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Deni Avdija",
+      "player_key": "name:deniavdija",
+      "qualifying_teams_zh": "波特兰开拓者",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/POR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Devin Vassell",
+      "player_key": "name:devinvassell",
+      "qualifying_teams_zh": "圣安东尼奥马刺",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/SAS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Dillon Jones",
+      "player_key": "name:dillonjones",
+      "qualifying_teams_zh": "纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/NYK/2026.html | https://www.nba.com/news/2025-offseason-trade-tracker"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Dominick Barlow",
+      "player_key": "name:dominickbarlow",
+      "qualifying_teams_zh": "费城76人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHI/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Donovan Clingan",
+      "player_key": "name:donovanclingan",
+      "qualifying_teams_zh": "波特兰开拓者",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/POR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Drew Timme",
+      "player_key": "name:drewtimme",
+      "qualifying_teams_zh": "洛杉矶湖人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/LAL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Dylan Harper",
+      "player_key": "name:dylanharper",
+      "qualifying_teams_zh": "圣安东尼奥马刺",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/SAS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Enrique Freeman",
+      "player_key": "name:enriquefreeman",
+      "qualifying_teams_zh": "明尼苏达森林狼",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Gradey Dick",
+      "player_key": "name:gradeydick",
+      "qualifying_teams_zh": "多伦多猛龙",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/TOR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Guerschon Yabusele",
+      "player_key": "name:guerschonyabusele",
+      "qualifying_teams_zh": "纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CHI/2026.html | https://www.basketball-reference.com/teams/NYK/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Harrison Barnes",
+      "player_key": "name:harrisonbarnes",
+      "qualifying_teams_zh": "圣安东尼奥马刺",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/SAS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Harrison Ingram",
+      "player_key": "name:harrisoningram",
+      "qualifying_teams_zh": "圣安东尼奥马刺",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/SAS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Haywood Highsmith",
+      "player_key": "name:haywoodhighsmith",
+      "qualifying_teams_zh": "菲尼克斯太阳",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHO/2026.html | https://www.nba.com/news/2025-offseason-trade-tracker"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Hunter Sallis",
+      "player_key": "name:huntersallis",
+      "qualifying_teams_zh": "费城76人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHI/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Isaiah Crawford",
+      "player_key": "name:isaiahcrawford",
+      "qualifying_teams_zh": "休斯顿火箭",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/HOU/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Isaiah Stewart",
+      "player_key": "name:isaiahstewart",
+      "qualifying_teams_zh": "底特律活塞",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DET/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jacob Toppin",
+      "player_key": "name:jacobtoppin",
+      "qualifying_teams_zh": "亚特兰大老鹰",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/ATL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Ja'Kobe Walter",
+      "player_key": "name:jakobewalter",
+      "qualifying_teams_zh": "多伦多猛龙",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/TOR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jakob Poeltl",
+      "player_key": "name:jakobpoeltl",
+      "qualifying_teams_zh": "多伦多猛龙",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/TOR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jamison Battle",
+      "player_key": "name:jamisonbattle",
+      "qualifying_teams_zh": "多伦多猛龙",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/TOR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jared McCain",
+      "player_key": "name:jaredmccain",
+      "qualifying_teams_zh": "俄克拉荷马城雷霆；费城76人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/OKC/2026.html | https://www.basketball-reference.com/teams/PHI/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jarred Vanderbilt",
+      "player_key": "name:jarredvanderbilt",
+      "qualifying_teams_zh": "洛杉矶湖人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/LAL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jase Richardson",
+      "player_key": "name:jaserichardson",
+      "qualifying_teams_zh": "奥兰多魔术",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/ORL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jaxson Hayes",
+      "player_key": "name:jaxsonhayes",
+      "qualifying_teams_zh": "洛杉矶湖人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/LAL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jaylen Clark",
+      "player_key": "name:jaylenclark",
+      "qualifying_teams_zh": "明尼苏达森林狼",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jaylon Tyson",
+      "player_key": "name:jaylontyson",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jayson Kent",
+      "player_key": "name:jaysonkent",
+      "qualifying_teams_zh": "波特兰开拓者",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/POR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jeremy Sochan",
+      "player_key": "name:jeremysochan",
+      "qualifying_teams_zh": "圣安东尼奥马刺；纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/NYK/2026.html | https://www.basketball-reference.com/teams/SAS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jevon Carter",
+      "player_key": "name:jevoncarter",
+      "qualifying_teams_zh": "奥兰多魔术",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CHI/2026.html | https://www.basketball-reference.com/teams/ORL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Joan Beringer",
+      "player_key": "name:joanberinger",
+      "qualifying_teams_zh": "明尼苏达森林狼",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Joe Ingles",
+      "player_key": "name:joeingles",
+      "qualifying_teams_zh": "明尼苏达森林狼",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Johnny Juzang",
+      "player_key": "name:johnnyjuzang",
+      "qualifying_teams_zh": "明尼苏达森林狼",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "John Tonje",
+      "player_key": "name:johntonje",
+      "qualifying_teams_zh": "波士顿凯尔特人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/BOS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jonas Valančiūnas",
+      "player_key": "name:jonasvalanciunas",
+      "qualifying_teams_zh": "丹佛掘金",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DEN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jonathan Mogbo",
+      "player_key": "name:jonathanmogbo",
+      "qualifying_teams_zh": "多伦多猛龙",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/TOR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jordan Clarkson",
+      "player_key": "name:jordanclarkson",
+      "qualifying_teams_zh": "纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/NYK/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jordan Walsh",
+      "player_key": "name:jordanwalsh",
+      "qualifying_teams_zh": "波士顿凯尔特人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/BOS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Jose Alvarado",
+      "player_key": "name:josealvarado",
+      "qualifying_teams_zh": "纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/NOP/2026.html | https://www.basketball-reference.com/teams/NYK/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Josh Hart",
+      "player_key": "name:joshhart",
+      "qualifying_teams_zh": "纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/NYK/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Josh Okogie",
+      "player_key": "name:joshokogie",
+      "qualifying_teams_zh": "休斯顿火箭",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/HOU/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Julian Champagnie",
+      "player_key": "name:julianchampagnie",
+      "qualifying_teams_zh": "圣安东尼奥马刺",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/SAS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Julius Randle",
+      "player_key": "name:juliusrandle",
+      "qualifying_teams_zh": "明尼苏达森林狼",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Karl-Anthony Towns",
+      "player_key": "name:karlanthonytowns",
+      "qualifying_teams_zh": "纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/NYK/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Kelly Oubre Jr.",
+      "player_key": "name:kellyoubrejr",
+      "qualifying_teams_zh": "费城76人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHI/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Kenrich Williams",
+      "player_key": "name:kenrichwilliams",
+      "qualifying_teams_zh": "俄克拉荷马城雷霆",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/OKC/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Keshon Gilbert",
+      "player_key": "name:keshongilbert",
+      "qualifying_teams_zh": "亚特兰大老鹰",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/ATL/2026.html | https://www.basketball-reference.com/teams/WAS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Khaman Maluach",
+      "player_key": "name:khamanmaluach",
+      "qualifying_teams_zh": "菲尼克斯太阳",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHO/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Koby Brea",
+      "player_key": "name:kobybrea",
+      "qualifying_teams_zh": "菲尼克斯太阳",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHO/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Leonard Miller",
+      "player_key": "name:leonardmiller",
+      "qualifying_teams_zh": "明尼苏达森林狼",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CHI/2026.html | https://www.basketball-reference.com/teams/MIN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Luke Kennard",
+      "player_key": "name:lukekennard",
+      "qualifying_teams_zh": "亚特兰大老鹰；洛杉矶湖人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/ATL/2026.html | https://www.basketball-reference.com/teams/LAL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Luke Travers",
+      "player_key": "name:luketravers",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Marcus Smart",
+      "player_key": "name:marcussmart",
+      "qualifying_teams_zh": "洛杉矶湖人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/LAL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "MarJon Beauchamp",
+      "player_key": "name:marjonbeauchamp",
+      "qualifying_teams_zh": "费城76人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHI/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Markelle Fultz",
+      "player_key": "name:markellefultz",
+      "qualifying_teams_zh": "多伦多猛龙",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/TOR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Maxi Kleber",
+      "player_key": "name:maxikleber",
+      "qualifying_teams_zh": "洛杉矶湖人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/LAL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Max Strus",
+      "player_key": "name:maxstrus",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Miles McBride",
+      "player_key": "name:milesmcbride",
+      "qualifying_teams_zh": "纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/NYK/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Mitchell Robinson",
+      "player_key": "name:mitchellrobinson",
+      "qualifying_teams_zh": "纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/NYK/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Mo Bamba",
+      "player_key": "name:mobamba",
+      "qualifying_teams_zh": "多伦多猛龙",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/TOR/2026.html | https://www.basketball-reference.com/teams/UTA/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Mohamed Diawara",
+      "player_key": "name:mohameddiawara",
+      "qualifying_teams_zh": "纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/NYK/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Nick Richards",
+      "player_key": "name:nickrichards",
+      "qualifying_teams_zh": "菲尼克斯太阳",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CHI/2026.html | https://www.basketball-reference.com/teams/PHO/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Nick Smith Jr.",
+      "player_key": "name:nicksmithjr",
+      "qualifying_teams_zh": "洛杉矶湖人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/LAL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Nigel Hayes-Davis",
+      "player_key": "name:nigelhayesdavis",
+      "qualifying_teams_zh": "菲尼克斯太阳",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHO/2026.html | https://www.nba.com/news/2025-26-nba-trade-tracker"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Noah Penda",
+      "player_key": "name:noahpenda",
+      "qualifying_teams_zh": "奥兰多魔术",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/ORL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Olivier Sarr",
+      "player_key": "name:oliviersarr",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Orlando Robinson",
+      "player_key": "name:orlandorobinson",
+      "qualifying_teams_zh": "奥兰多魔术",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/ORL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Pacôme Dadiet",
+      "player_key": "name:pacomedadiet",
+      "qualifying_teams_zh": "纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/NYK/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Payton Pritchard",
+      "player_key": "name:paytonpritchard",
+      "qualifying_teams_zh": "波士顿凯尔特人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/BOS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Payton Sandfort",
+      "player_key": "name:paytonsandfort",
+      "qualifying_teams_zh": "俄克拉荷马城雷霆",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/OKC/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Rasheer Fleming",
+      "player_key": "name:rasheerfleming",
+      "qualifying_teams_zh": "菲尼克斯太阳",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHO/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "RayJ Dennis",
+      "player_key": "name:rayjdennis",
+      "qualifying_teams_zh": "亚特兰大老鹰",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/ATL/2026.html | https://www.basketball-reference.com/teams/IND/2026.html | https://www.basketball-reference.com/teams/LAC/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Riley Minix",
+      "player_key": "name:rileyminix",
+      "qualifying_teams_zh": "克利夫兰骑士；圣安东尼奥马刺",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2026.html | https://www.basketball-reference.com/teams/SAS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "RJ Barrett",
+      "player_key": "name:rjbarrett",
+      "qualifying_teams_zh": "多伦多猛龙",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/TOR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Rocco Zikarsky",
+      "player_key": "name:roccozikarsky",
+      "qualifying_teams_zh": "明尼苏达森林狼",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Royce O'Neale",
+      "player_key": "name:royceoneale",
+      "qualifying_teams_zh": "菲尼克斯太阳",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHO/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Rudy Gobert",
+      "player_key": "name:rudygobert",
+      "qualifying_teams_zh": "明尼苏达森林狼",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Ryan Dunn",
+      "player_key": "name:ryandunn",
+      "qualifying_teams_zh": "菲尼克斯太阳",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHO/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Sam Merrill",
+      "player_key": "name:sammerrill",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Sandro Mamukelashvili",
+      "player_key": "name:sandromamukelashvili",
+      "qualifying_teams_zh": "多伦多猛龙",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/TOR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Stanley Umude",
+      "player_key": "name:stanleyumude",
+      "qualifying_teams_zh": "圣安东尼奥马刺",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/SAS/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Terrence Shannon Jr.",
+      "player_key": "name:terrenceshannonjr",
+      "qualifying_teams_zh": "明尼苏达森林狼",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Thomas Bryant",
+      "player_key": "name:thomasbryant",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Tim Hardaway Jr.",
+      "player_key": "name:timhardawayjr",
+      "qualifying_teams_zh": "丹佛掘金",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DEN/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Tolu Smith",
+      "player_key": "name:tolusmith",
+      "qualifying_teams_zh": "底特律活塞",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DET/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Tony Bradley",
+      "player_key": "name:tonybradley",
+      "qualifying_teams_zh": "亚特兰大老鹰",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/ATL/2026.html | https://www.basketball-reference.com/teams/IND/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Trey Jemison",
+      "player_key": "name:treyjemison",
+      "qualifying_teams_zh": "纽约尼克斯",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/NYK/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Tristan Da Silva",
+      "player_key": "name:tristandasilva",
+      "qualifying_teams_zh": "奥兰多魔术",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/ORL/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Tristan Enaruna",
+      "player_key": "name:tristanenaruna",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Tristen Newton",
+      "player_key": "name:tristennewton",
+      "qualifying_teams_zh": "休斯顿火箭",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/HOU/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Tyrese Martin",
+      "player_key": "name:tyresemartin",
+      "qualifying_teams_zh": "费城76人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/BRK/2026.html | https://www.basketball-reference.com/teams/PHI/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Tyrese Maxey",
+      "player_key": "name:tyresemaxey",
+      "qualifying_teams_zh": "费城76人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHI/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Tyrese Proctor",
+      "player_key": "name:tyreseproctor",
+      "qualifying_teams_zh": "克利夫兰骑士",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/CLE/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Tyus Jones",
+      "player_key": "name:tyusjones",
+      "qualifying_teams_zh": "丹佛掘金；奥兰多魔术",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/DAL/2026.html | https://www.basketball-reference.com/teams/DEN/2026.html | https://www.basketball-reference.com/teams/ORL/2026.html | https://www.nba.com/news/2025-26-nba-trade-tracker"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "VJ Edgecombe",
+      "player_key": "name:vjedgecombe",
+      "qualifying_teams_zh": "费城76人",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/PHI/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Yang Hansen",
+      "player_key": "name:yanghansen",
+      "qualifying_teams_zh": "波特兰开拓者",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/POR/2026.html"
+    },
+    {
+      "season": "2025-26",
+      "player_name": "Zyon Pullin",
+      "player_key": "name:zyonpullin",
+      "qualifying_teams_zh": "明尼苏达森林狼",
+      "reason": "规范化精确姓名及已审定别名均无匹配；保留空值。",
+      "rating_source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+      "roster_source_urls": "https://www.basketball-reference.com/teams/MIN/2026.html"
+    }
+  ]
+}

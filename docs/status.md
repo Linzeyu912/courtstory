@@ -1,6 +1,6 @@
 # 团队状态
 
-更新日期：2026-09-30（Asia/Shanghai）
+更新日期：2026-10-01（Asia/Shanghai）
 
 ## 当前阶段
 
@@ -19,6 +19,7 @@
 | GitHub 私有仓库与首次同步 | [broadcastcode-team-hub](https://github.com/Linzeyu912/broadcastcode-team-hub) | 已创建并推送，已核对私有状态及本地与远端提交一致 |
 | TypeSafe Jev 珠海与澳门可用性调研 | [调研结论与验证步骤](../research/jev-regional-availability.md) | 已发邮件向厂商确认，等待答复；未实测，尚未决定采用 |
 | 解说 Agent 方案总结与直播纪要核对 | [方案讨论稿](agent-concept-review.md) | 已同步至 main（8bb3611）；按数据采集、数据处理、内容呈现整理；重点为战术意图、行为动因与声画同步；球员引力待验证，另两项核心指标后续再议 |
+| NBA 2K25 / 2K26 季后赛球队球员能力数据 | [Agent 数据包](../2K%20Player%20Data/manifest.json)、[读取指引](../2K%20Player%20Data/AGENTS.md) | 本地已准备：635 条赛季记录、472 人、42 项能力；483 条有总评，152 条评分缺失，13 条能力部分缺失；待独立复核和推送核对 |
 
 ## 待认领任务
 
@@ -53,5 +54,7 @@
 - [2026-09-29：收敛战术解读与声画表达](../handoffs/Linzeyu912/2026-09-29-2140-tactical-storytelling.md)
 - [2026-09-29：方案总结结构与文风调整](../handoffs/Linzeyu912/2026-09-29-2147-summary-format.md)
 - [2026-09-30：方案总结远端同步核验](../handoffs/Linzeyu912/2026-09-30-1038-agent-summary-sync.md)
+
+- [2026-10-01：NBA 2K 球员数据包入库准备](../handoffs/thy-0629/2026-10-01-0003-nba2k-player-data.md)
 
 日常任务过程放在各自交接文件中；只在团队阶段、任务入口或关键依赖变化时修改本页，减少多人同时编辑冲突。

@@ -1,0 +1,533 @@
+{
+  "schema_version": "1.0.0",
+  "format": "explicit-field-contract",
+  "encoding": "UTF-8 without BOM; JSONL has one object per LF-terminated line",
+  "record_types": {
+    "player_season": {
+      "files": [
+        "players/2024-25.jsonl",
+        "players/2025-26.jsonl"
+      ],
+      "fields": {
+        "record_id": "string: player_id + '@' + season",
+        "player_id": "string: unchanged upstream player_key",
+        "player_name": "string: source roster name, no invented translation",
+        "season": "enum: 2024-25, 2025-26",
+        "game": "enum: NBA 2K25, NBA 2K26",
+        "qualifying_playoff_teams": "array<object{team_abbreviation:string,team_name:string,team_name_zh:string,source_id:string}>; derived from qualifying roster associations, not snapshot",
+        "ratings": "object with all 42 exact keys listed in rating_fields; every value integer 25..99 or null",
+        "availability": "object{status:complete|partial|missing_record,missing_keys:array<string>,missing_individual_keys:array<string>,individual_present:integer,individual_expected:integer,core_present:integer}; completeness refers to 36 individual fields",
+        "season_teams": "array<stint>; contains same-season roster and separately tagged official transaction associations; association does not imply game appearance",
+        "snapshot": "object{source_player_name:string|null,team:string|null,jersey:string|null,jersey_raw:string|null,source_id:string,basis_text_id:string,quality_note_text_id:string|null,exact_capture_date:null,exact_game_patch_date:null}",
+        "identity": "object{upstream_player_key:string,bbr_player_id:string|null,join_method:normalized_exact|audited_alias|unmatched}",
+        "provenance": "object{rating_source_id:string,rating_origin_source_id:string,rating_source_commit:string,rating_source_retrieved_date:YYYY-MM-DD,roster_source_ids:array<string>,roster_source_retrieved_date:YYYY-MM-DD}"
+      }
+    },
+    "history": {
+      "file": "team_history.jsonl",
+      "fields": {
+        "player_id": "string",
+        "player_name": "string",
+        "stints": "array<stint>, both seasons including non-playoff teams",
+        "distinct_teams_in_two_seasons": "integer",
+        "has_multiple_teams_within_season": "boolean; includes explicitly marked transaction associations",
+        "note_text_id": "string",
+        "source_ids": "array<string>"
+      }
+    },
+    "stint": {
+      "fields": {
+        "season": "enum: 2024-25, 2025-26",
+        "team_abbreviation": "string",
+        "team_name": "string",
+        "team_name_zh": "string",
+        "jersey": "string|null; raw source text, e.g. '0', '00', '00, 0'; never numeric",
+        "jersey_numbers": "array<string>; comma-split, whitespace-trimmed derivative of jersey; [] for null; no temporal order inferred",
+        "team_qualified_playoffs": "boolean",
+        "in_rating_scope": "boolean; player's season-selection flag, not team's classification",
+        "phase": "string: preserved source phase, includes season roster, regular season, 2025 offseason",
+        "association_kind": "string: season_team_roster or official_transaction_without_matching_season_roster_row",
+        "transaction_date_as_listed": "YYYY-MM-DD string|null; date listed in NBA tracker, not inferred arrival/departure",
+        "record_type_text_id": "string",
+        "note_text_id": "string",
+        "source_id": "string",
+        "source_retrieved_date": "YYYY-MM-DD string"
+      }
+    }
+  },
+  "rating_fields": [
+    {
+      "key": "overall",
+      "label_zh": "总评 OVR",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "three_point_shot",
+      "label_zh": "三分球",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "perimeter_defense",
+      "label_zh": "外线防守",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "interior_defense",
+      "label_zh": "内线防守",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "steal",
+      "label_zh": "抢断",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "block",
+      "label_zh": "盖帽",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "help_defense_iq",
+      "label_zh": "协防意识",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "pass_perception",
+      "label_zh": "传球预判",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "defensive_consistency",
+      "label_zh": "防守稳定性",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "defensive_rebound",
+      "label_zh": "防守篮板",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "offensive_rebound",
+      "label_zh": "进攻篮板",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "mid_range_shot",
+      "label_zh": "中距离投篮",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "close_shot",
+      "label_zh": "近距离投篮",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "free_throw",
+      "label_zh": "罚球",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "layup",
+      "label_zh": "上篮",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "driving_dunk",
+      "label_zh": "突破扣篮",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "standing_dunk",
+      "label_zh": "原地扣篮",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "post_hook",
+      "label_zh": "背身勾手",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "post_fade",
+      "label_zh": "背身后仰",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "post_control",
+      "label_zh": "背身控制",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "draw_foul",
+      "label_zh": "制造犯规",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "ball_handle",
+      "label_zh": "控球",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "pass_accuracy",
+      "label_zh": "传球准确性",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "pass_vision",
+      "label_zh": "传球视野",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "pass_iq",
+      "label_zh": "传球意识",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "speed_with_ball",
+      "label_zh": "持球速度",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "shot_iq",
+      "label_zh": "投篮选择",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "offensive_consistency",
+      "label_zh": "进攻稳定性",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "speed",
+      "label_zh": "速度",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "agility",
+      "label_zh": "敏捷",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "strength",
+      "label_zh": "力量",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "vertical",
+      "label_zh": "弹跳",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "stamina",
+      "label_zh": "体力",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "hustle",
+      "label_zh": "积极性",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "hands",
+      "label_zh": "接球能力",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "overall_durability",
+      "label_zh": "耐久度",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "individual"
+    },
+    {
+      "key": "cat_defense",
+      "label_zh": "防守综合（来源原值）",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "source_category"
+    },
+    {
+      "key": "cat_outside_scoring",
+      "label_zh": "外线得分综合（来源原值）",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "source_category"
+    },
+    {
+      "key": "cat_inside_scoring",
+      "label_zh": "内线得分综合（来源原值）",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "source_category"
+    },
+    {
+      "key": "cat_playmaking",
+      "label_zh": "组织综合（来源原值）",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "source_category"
+    },
+    {
+      "key": "cat_rebounding",
+      "label_zh": "篮板综合（来源原值）",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "source_category"
+    },
+    {
+      "key": "cat_athleticism",
+      "label_zh": "运动能力综合（来源原值）",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 25,
+      "maximum": 99,
+      "category": "source_category"
+    }
+  ],
+  "null_semantics": "Unknown or unavailable, never 0; no imputation, no cross-edition substitution.",
+  "reference_resolution": {
+    "source_id": "sources.json.catalog[source_id]",
+    "text_id": "sources.json.shared_texts[text_id]; null means original text was empty",
+    "record_id": "index.json.by_record[record_id]",
+    "player_id": "index.json.players[player_id]"
+  },
+  "identity_assumptions": "BBR编号缺失，使用规范化精确姓名；显式别名均核对同队同号码。",
+  "chronology": "Record order and team order are not transaction chronology. Only transaction_date_as_listed conveys a source-listed date.",
+  "snapshot_time": "Repository commit/retrieval dates are not game update dates. NBA 2K26 mixes Aug 2025-Feb 2026 early/pre-release captures; exact original per-player timestamps unavailable.",
+  "derived_display_fields": "Upstream human-readable combined team/jersey strings and missing-label strings are replaced by structured stints and missing-key lists; original underlying values and labels are retained."
+}

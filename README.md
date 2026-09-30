@@ -17,6 +17,7 @@
 | 给各自 Agent 的仓库说明 | [AGENTS.md](AGENTS.md) |
 | 每次工作的结果、阻塞与下一步 | [交接记录](handoffs/README.md) |
 | 早期官网资料、报名准备、Word 手册 | [历史调研索引](research/README.md) |
+| NBA 2K25 / 2K26 球员能力、球队及号码（Agent 数据包） | [包清单](2K%20Player%20Data/manifest.json)、[读取指引](2K%20Player%20Data/AGENTS.md) |
 
 ## 三个人如何同步
 

@@ -1,0 +1,109 @@
+{
+  "package": "nba2k-playoff-player-data",
+  "schema_version": "1.0.0",
+  "generated_at_utc": "2026-09-30T08:29:12.160003+00:00",
+  "encoding": "UTF-8 without BOM",
+  "read_first": [
+    "manifest.json",
+    "index.json"
+  ],
+  "seasons": [
+    "2024-25",
+    "2025-26"
+  ],
+  "counts": {
+    "player_season_records": 635,
+    "records_by_season": {
+      "2024-25": 317,
+      "2025-26": 318
+    },
+    "unique_players": 472,
+    "history_stints": 1033,
+    "metrics_per_record": 42,
+    "qualified_team_seasons": 32,
+    "rating_statuses": {
+      "complete": 470,
+      "missing_record": 152,
+      "partial": 13
+    },
+    "with_overall_rating": 483,
+    "audited_aliases": 11,
+    "unresolved_joins": 152,
+    "sources": 77,
+    "files_including_manifest": 10
+  },
+  "availability_status_basis": "complete/partial refers to 36 individual metrics, not all 42 fields; missing_keys always covers all 42, and missing_individual_keys covers 36.",
+  "upstream": {
+    "sha256": "1b5c28bf0659872ed173153f2a36f1295e83e4e03f1f85e403e5e25048f1e1bc",
+    "operation": "local deterministic structure conversion; ratings, identities, teams, jerseys and provenance preserved",
+    "source_file": "nba2k_playoff_dataset.json",
+    "source_note": "本地上游聚合文件未随本包发布；保留文件名及 SHA256 用于来源核对，不依赖任何成员的本机目录。"
+  },
+  "files": [
+    {
+      "path": "index.json",
+      "role": "Name/record/team/jersey lookup with 1-based line references and explicit season scope status",
+      "bytes": 441018,
+      "sha256": "482727e53d95ef095c214c720e6bb4f9c9f2b8da5a5f06678975861c8013c94a"
+    },
+    {
+      "path": "players/2024-25.jsonl",
+      "role": "317 selected NBA 2K25 player-season records; one record per line",
+      "bytes": 811341,
+      "sha256": "8409e66915c39e6f11919958abc3fdae1805423a5b56cf229a8d8c91b48d1831"
+    },
+    {
+      "path": "players/2025-26.jsonl",
+      "role": "318 selected NBA 2K26 player-season records; one record per line",
+      "bytes": 957706,
+      "sha256": "acece504187f91c328af205a9e6c7a28d159eaaad40dda9e94a8a025797c5333"
+    },
+    {
+      "path": "team_history.jsonl",
+      "role": "472 selected people and all 1033 structured two-season team associations",
+      "bytes": 593667,
+      "sha256": "d3b6b23529c107a02cc3864010ca2809d5e4eb80f03825a8c781f2f96f64b3d9"
+    },
+    {
+      "path": "teams.json",
+      "role": "32 playoff team-season records and their original coverage metrics",
+      "bytes": 24658,
+      "sha256": "78f044579f9590b523a72f51d67c25110df166f1a9cebff806b6a9d0bcd1e540"
+    },
+    {
+      "path": "sources.json",
+      "role": "Exact source URL catalog, shared original notes, upstream metadata/dictionaries and independent checks",
+      "bytes": 39644,
+      "sha256": "14be22b3e6e00d713c95f8c811a2face3387d4aba7d4420b0ac15e0081a75538"
+    },
+    {
+      "path": "schema.json",
+      "role": "Field/type/null contracts, all 42 ability labels and identity/chronology assumptions",
+      "bytes": 13378,
+      "sha256": "2e4f4c6f5af4cc8b08acdd4e7365df8fdc4c26ac95aae54221048c64ca49c6d3"
+    },
+    {
+      "path": "audits.json",
+      "role": "Original 11 alias audits and 152 unresolved joins; aliases additionally reference player_id",
+      "bytes": 85525,
+      "sha256": "da34002b344b0d322c69a6bd1c9cad3504bab3d98ebd9d713b7933fd9ef9b826"
+    },
+    {
+      "path": "AGENTS.md",
+      "role": "Minimal selective-reading instructions and standard-library lookup example",
+      "bytes": 3404,
+      "sha256": "ce3b0666d6a67bc74dda4fbbf8a2138d0e27de57642754d3c23a4a160f455549"
+    }
+  ],
+  "manifest_hash_note": "Manifest lists hashes for every other package file; self-hash deliberately excluded.",
+  "essential_caveats": [
+    "null means unavailable, never zero; no missing rating was filled.",
+    "Jerseys are strings, 0 != 00; snapshot labels may be stale or numerically damaged.",
+    "Entire-season rosters of playoff-qualified teams, not actual playoff appearance lists.",
+    "Transaction-only and offseason associations do not establish games played; no inferred chronology.",
+    "NBA 2K26 contains mixed early/pre-release captures, not final-season or July 2026 game ratings.",
+    "Record absence (not_in_rating_scope) differs from an existing selected record with missing_record status."
+  ],
+  "portability_updated_at_utc": "2026-09-30T16:03:24.297027+00:00",
+  "portability_note": "仅将读取示例改为仓库相对路径，并移除上游文件的私有本机路径；球员、评分、球队、号码及来源文件未改变。"
+}
