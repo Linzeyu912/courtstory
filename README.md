@@ -18,6 +18,7 @@
 | 每次工作的结果、阻塞与下一步 | [交接记录](handoffs/README.md) |
 | 早期官网资料、报名准备、Word 手册 | [历史调研索引](research/README.md) |
 | NBA 2K25 / 2K26 球员能力、球队及号码（Agent 数据包） | [包清单](2K%20Player%20Data/manifest.json)、[读取指引](2K%20Player%20Data/AGENTS.md) |
+| 视频成片、标签、批次清单和LFS下载 | [视频资料入口](data/videos/README.md)、[视频数据管理规范](docs/video-data-management.md) |
 
 ## 三个人如何同步
 
@@ -37,7 +38,7 @@ GitHub 同步的是已经提交并推送的文件。各台机器的聊天记录�
 - **所有内容直接在 `main` 上修改、提交和推送，不新建任务分支，不使用 PR 合并流程。**
 - GitHub Issue 记录任务负责人和最新状态；[团队状态](docs/status.md)保留汇总及入口。
 - 新发现标明来源、采集日期和确认程度；原文有歧义时保留待确认项。
-- 代码、Markdown、轻量来源快照和最终 Word 手册入库。视频、大型数据及文档排版检查中间文件保存在各自本地或团队后续选定的存储中，并记录获取方式。
+- 代码、Markdown、轻量来源快照和最终 Word 手册入库。用户授权共享的成片在 `data/videos/` 使用 Git LFS 保存，来源、标签与规格使用普通 Git；原片、缓存和检查中间文件保留本地。见[视频数据管理规范](docs/video-data-management.md)。
 - 密钥、密码、登录 Cookie、证件及个人报名材料不提交到仓库。`.gitignore` 已包含常见排除项。
 
 ## 当前最重要的未决事项

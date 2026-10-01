@@ -36,9 +36,14 @@ cdk.out/
 dist/
 build/
 
-# Video assets belong in shared storage, with links and metadata in Git
+# Local source videos stay ignored; selected shared clips use Git LFS.
 *.mp4
 *.mov
 *.mkv
 *.webm
 *.avi
+!data/videos/**/*.mp4
+!data/videos/**/*.mov
+!data/videos/**/*.mkv
+!data/videos/**/*.webm
+!data/videos/**/*.avi
