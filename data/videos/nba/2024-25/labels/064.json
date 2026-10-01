@@ -1,0 +1,60 @@
+{
+  "id": "064",
+  "season": "2024-25",
+  "game": {
+    "key": "BOS-ORL-G3",
+    "date_local": "2025-04-25",
+    "date_beijing": "2025-04-26",
+    "tipoff_utc": "2025-04-25T23:00:00+00:00",
+    "tipoff_beijing": "2025-04-26T07:00:00+08:00",
+    "matchup": "BOS-ORL",
+    "stage": "东部首轮G3",
+    "final_score": {
+      "ORL": 95,
+      "BOS": 93
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401768030",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250425"
+  },
+  "quarter": 4,
+  "clock_start": "6:28",
+  "clock_end": "6:20",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "推进后霍福德跟进接球三分",
+  "tags": [
+    "推进三分",
+    "推进后霍福德跟进接球三分"
+  ],
+  "description": "推进后霍福德跟进接球三分",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "transition-three",
+  "offense": "BOS",
+  "defense": "ORL",
+  "scope": "包含推进",
+  "full_possession": false,
+  "source_url": "https://v.qq.com/x/cover/mzc00200h7ytuv2/l4101w753pv.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "l4101w753pv",
+  "source_start_seconds": 0.0,
+  "source_end_seconds": 8.3,
+  "file": "clips/064_BOS-ORL_Q4_transition-three_8.3s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 25.0,
+  "decode_check": "passed",
+  "duration_seconds": 8.2,
+  "sha256": "a86e6ef08950b6ee0b7c3178f907666ac9bfacc80d9e60aa1d1c2adaffc2a543",
+  "size_bytes": 5997437,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G14",
+  "tactic_repeat": true,
+  "similar_to": [
+    "019",
+    "037",
+    "069"
+  ],
+  "repeat_reason": "同属「推进三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

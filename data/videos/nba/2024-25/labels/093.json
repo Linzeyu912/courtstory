@@ -1,0 +1,59 @@
+{
+  "id": "093",
+  "season": "2024-25",
+  "game": {
+    "key": "GSW-MIN-G2",
+    "date_local": "2025-05-08",
+    "date_beijing": "2025-05-09",
+    "tipoff_utc": "2025-05-09T00:30:00+00:00",
+    "tipoff_beijing": "2025-05-09T08:30:00+08:00",
+    "matchup": "GSW-MIN",
+    "stage": "西部半决赛G2",
+    "final_score": {
+      "MIN": 117,
+      "GSW": 93
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401769838",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250508"
+  },
+  "quarter": 2,
+  "clock_start": "9:08",
+  "clock_end": "9:03",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "麦克丹尼尔斯空切接球扣篮",
+  "tags": [
+    "空切接球",
+    "麦克丹尼尔斯空切接球扣篮"
+  ],
+  "description": "麦克丹尼尔斯空切接球扣篮",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "cut-pass",
+  "offense": "MIN",
+  "defense": "GSW",
+  "scope": "前场回合",
+  "full_possession": false,
+  "source_url": "https://v.qq.com/x/cover/mzc0020090gvl4c/j4101co8y1t.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "j4101co8y1t",
+  "source_start_seconds": 28.2,
+  "source_end_seconds": 33.3,
+  "file": "clips/093_GSW-MIN_Q2_cut-pass_5.1s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 29.97002997002997,
+  "decode_check": "passed",
+  "duration_seconds": 5.072,
+  "sha256": "b270d3c06157996c9ffdbf2559a30a45dfe3421a366aed330cf21fbb794f1482",
+  "size_bytes": 3334938,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G03",
+  "tactic_repeat": true,
+  "similar_to": [
+    "034",
+    "035"
+  ],
+  "repeat_reason": "同属「空切接球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

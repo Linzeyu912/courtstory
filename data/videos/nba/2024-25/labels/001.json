@@ -1,0 +1,68 @@
+{
+  "id": "001",
+  "season": "2024-25",
+  "game": {
+    "key": "IND-OKC-G1",
+    "date_local": "2025-06-05",
+    "date_beijing": "2025-06-06",
+    "matchup": "IND-OKC",
+    "stage": "总决赛G1",
+    "final_score": {
+      "IND": 111,
+      "OKC": 110
+    },
+    "verification_url": "https://www.nba.com/game/0042400401"
+  },
+  "quarter": 4,
+  "clock_start": "08:52",
+  "clock_end": "08:44",
+  "clock_precision": "画面读数，约±1秒",
+  "title": "挡拆外弹三分",
+  "tags": [
+    "挡拆外弹",
+    "突破回传",
+    "接球三分"
+  ],
+  "description": "内姆哈德从右侧借托平掩护向内突破，托平留在外线，接回传命中三分。",
+  "label_confidence": "高；球员号码、掩护、回传和出手在画面中可见。",
+  "family": "pick-pop",
+  "offense": "IND",
+  "defense": "OKC",
+  "players": [
+    "Andrew Nembhard #2",
+    "Obi Toppin #1"
+  ],
+  "scope": "前场配合片段",
+  "full_possession": false,
+  "source_url": "https://www.bilibili.com/video/BV1EHuj6vETP/",
+  "source_publisher": "NBA（哔哩哔哩）",
+  "source_vid": "BV1EHuj6vETP",
+  "source_start_seconds": 38.74,
+  "source_end_seconds": 46.85,
+  "file": "clips/IND-OKC_Q4_pick-pop_8.1s_1080p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "duration_seconds": 8.108,
+  "width": 1920,
+  "height": 1080,
+  "fps": 29.97002997002997,
+  "sha256": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+  "size_bytes": 13397003,
+  "decode_check": "passed",
+  "content_duplicate": false,
+  "tactic_repeat_group": "G01",
+  "tactic_repeat": true,
+  "similar_to": [
+    "003",
+    "014",
+    "038",
+    "046",
+    "053",
+    "066",
+    "068",
+    "077",
+    "083"
+  ],
+  "repeat_reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

@@ -1,0 +1,61 @@
+{
+  "id": "056",
+  "season": "2024-25",
+  "game": {
+    "key": "NYK-IND-G3",
+    "date_local": "2025-05-25",
+    "date_beijing": "2025-05-26",
+    "tipoff_utc": "2025-05-26T00:00:00+00:00",
+    "tipoff_beijing": "2025-05-26T08:00:00+08:00",
+    "matchup": "NYK-IND",
+    "stage": "东部决赛G3",
+    "final_score": {
+      "IND": 100,
+      "NYK": 106
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401772991",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250525"
+  },
+  "quarter": 4,
+  "clock_start": "3:45",
+  "clock_end": "3:39",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "阿奴诺比协防封盖内史密斯突破",
+  "tags": [
+    "协防与追防封盖",
+    "阿奴诺比协防封盖内史密斯突破"
+  ],
+  "description": "阿奴诺比协防封盖内史密斯突破",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "block",
+  "offense": "IND",
+  "defense": "NYK",
+  "scope": "前场回合",
+  "full_possession": false,
+  "source_url": "https://v.qq.com/x/cover/mzc00200zuwdjc0/y4101ll4vzi.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "y4101ll4vzi",
+  "source_start_seconds": 0.0,
+  "source_end_seconds": 7.4,
+  "file": "clips/056_NYK-IND_Q4_block_7.4s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 25.0,
+  "decode_check": "passed",
+  "duration_seconds": 7.28,
+  "sha256": "47232c5956dcd9392e4185a8f235fe2059770fcd692108d99e1ab3e1d5805e69",
+  "size_bytes": 5169156,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G11",
+  "tactic_repeat": true,
+  "similar_to": [
+    "021",
+    "043",
+    "059",
+    "079"
+  ],
+  "repeat_reason": "同属「协防与追防封盖」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

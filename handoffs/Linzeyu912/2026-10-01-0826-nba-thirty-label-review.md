@@ -9,7 +9,7 @@
 
 ## 本次完成
 
-- 新增[逐段复核说明](../../research/nba-video-samples/batch-030-review.md)和[30段标签草案](../../research/nba-video-samples/batch-030-labels.json)，更新调研及团队状态入口。
+- 新增[逐段复核说明](../../data/videos/nba/2025-26/review.md)和[30段标签草案](../../data/videos/nba/2025-26/sources/batch-030-labels.json)，更新调研及团队状态入口。
 - 原采集清单 `research/nba-video-samples/batch-030.json` 保持原貌；新增标签记录来源清单版本与UTF-8/LF归一化SHA-256。
 - 按原动作记录补中文标题、动作标签、进攻/防守方、同类动作组、关联编号及边界事项。标签均为 `provisional_from_collector_notes`，本轮未作新的视频画面观察。
 - 本地处理与独立标签文件位于 `artifacts/nba-tactical-clips-2025-26/review30/`，没有下载成功的MP4。

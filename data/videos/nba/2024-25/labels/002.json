@@ -1,0 +1,67 @@
+{
+  "id": "002",
+  "season": "2024-25",
+  "game": {
+    "key": "IND-OKC-G1",
+    "date_local": "2025-06-05",
+    "date_beijing": "2025-06-06",
+    "matchup": "IND-OKC",
+    "stage": "总决赛G1",
+    "final_score": {
+      "IND": 111,
+      "OKC": 110
+    },
+    "verification_url": "https://www.nba.com/game/0042400401"
+  },
+  "quarter": 4,
+  "clock_start": "06:58",
+  "clock_end": "06:47",
+  "clock_precision": "画面读数，约±1秒",
+  "title": "突破分球三分",
+  "tags": [
+    "底线突破",
+    "吸引协防",
+    "突破分球",
+    "弱侧接球三分"
+  ],
+  "description": "内史密斯从左侧沿底线突破，吸引禁区多人收缩后，将球传向右侧外线，托平接球命中三分。",
+  "label_confidence": "高；动作链可见，NBA 官方 Game 1 Film Study 对此配合也有描述。",
+  "family": "drive-kick",
+  "offense": "IND",
+  "defense": "OKC",
+  "players": [
+    "Aaron Nesmith #23",
+    "Obi Toppin #1"
+  ],
+  "scope": "前场配合片段",
+  "full_possession": false,
+  "source_url": "https://www.bilibili.com/video/BV1EHuj6vETP/",
+  "source_publisher": "NBA（哔哩哔哩）",
+  "source_vid": "BV1EHuj6vETP",
+  "source_start_seconds": 82.84,
+  "source_end_seconds": 94.25,
+  "file": "clips/IND-OKC_Q4_drive-kick_11.4s_1080p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "duration_seconds": 11.411,
+  "width": 1920,
+  "height": 1080,
+  "fps": 29.97002997002997,
+  "sha256": "64d9aafbcb6557fbab5d30b254a8abda608ae04011e4087e80bc4292ee5791fc",
+  "size_bytes": 21299969,
+  "decode_check": "passed",
+  "content_duplicate": false,
+  "tactic_repeat_group": "G02",
+  "tactic_repeat": true,
+  "similar_to": [
+    "010",
+    "045",
+    "051",
+    "058",
+    "078",
+    "082",
+    "095"
+  ],
+  "repeat_reason": "同属「突破分球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

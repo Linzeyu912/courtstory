@@ -1,0 +1,61 @@
+{
+  "id": "079",
+  "season": "2024-25",
+  "game": {
+    "key": "OKC-IND-G3",
+    "date_local": "2025-06-11",
+    "date_beijing": "2025-06-12",
+    "tipoff_utc": "2025-06-12T00:30:00+00:00",
+    "tipoff_beijing": "2025-06-12T08:30:00+08:00",
+    "matchup": "OKC-IND",
+    "stage": "总决赛G3",
+    "final_score": {
+      "IND": 116,
+      "OKC": 107
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401766124",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250611"
+  },
+  "quarter": 1,
+  "clock_start": "11:34",
+  "clock_end": "11:26",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "华莱士追防封盖哈利伯顿投篮",
+  "tags": [
+    "协防与追防封盖",
+    "华莱士追防封盖哈利伯顿投篮"
+  ],
+  "description": "华莱士追防封盖哈利伯顿投篮",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "block",
+  "offense": "IND",
+  "defense": "OKC",
+  "scope": "前场回合",
+  "full_possession": false,
+  "source_url": "https://v.qq.com/x/cover/mzc00200bq3obnv/c4101aeg443.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "c4101aeg443",
+  "source_start_seconds": 0.0,
+  "source_end_seconds": 8.2,
+  "file": "clips/079_OKC-IND_Q1_block_8.2s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 25.0,
+  "decode_check": "passed",
+  "duration_seconds": 8.08,
+  "sha256": "d7141995283477023cdd1b6d7217eba1897162d150758c0c1d38f05bb2328713",
+  "size_bytes": 6882049,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G11",
+  "tactic_repeat": true,
+  "similar_to": [
+    "021",
+    "043",
+    "056",
+    "059"
+  ],
+  "repeat_reason": "同属「协防与追防封盖」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}
