@@ -1,13 +1,14 @@
 # 调研索引
 
+资料位置和正在开发的本地内容边界见[仓库目录说明](../docs/repository-map.md)。
+
 ## 最新专题
 
 | 文件 | 日期 | 结论 |
 |---|---|---|
 | [原视频战术标注的位置提取与 RelateAnything 评估](video-overlay-vision-assessment.md) | 2026-10-01 | 建议先验证检测跟踪、脚下锚点和球场映射，再测试关系候选；核对固定版本源码、接口与分数限制，尚未运行模型或样片 |
-| [2025–26赛季30段视频标签与要求复核](nba-video-samples/batch-030-review.md)、[标签草案](nba-video-samples/batch-030-labels.json) | 2026-10-01 | 按原采集记录补30段标签、9类动作及重复关联；记录中的1080p规格够用，原链接受登录/地区限制，本轮尚未取得成片实测 |
-| [2024–25 NBA 训练素材100段](nba-training-clips-2024-25-library100.md)、[来源与标签清单](nba-training-clips-2024-25-library100.json) | 2026-10-01 | 100段成片使用Git LFS共享；16场、17队，14段完整球权；同类战术按16组关联标记；[下载及管理规范](../docs/video-data-management.md) |
-| [2024–25 赛季 NBA 战术视频](nba-training-clips-2024-25.md) | 2026-09-30 | 首批 3 段 1080p 前场战术片段已在本地裁切并附标签；记录来源、裁切点及完整性限制 |
+| [2025–26赛季30段视频标签与要求复核](../data/videos/nba/2025-26/review.md)、[标签草案](../data/videos/nba/2025-26/sources/batch-030-labels.json) | 2026-10-01 | 按原采集记录补30段标签、9类动作及重复关联；记录中的1080p规格够用，原链接受登录/地区限制，本轮尚未取得成片实测 |
+| [2024–25视频资料](../data/videos/nba/2024-25/README.md)、[100段统计](../data/videos/nba/2024-25/collection-report.md) | 2026-10-01 | 只保留100段集合入口，含首批3段；首批独立说明与重复包已清理。16场、17队、14段完整球权。同步结果见本次资料整理交接 |
 | [NBA 中国预期命中率图表核验](nba-china-xfg-chart.md) | 2026-09-30 | 已找到深度赛场入口，复现总决赛 G1 图表；记录横轴、纵向堆叠及追踪样本与普通统计的差异 |
 | [TypeSafe Jev 地区可用性](jev-regional-availability.md) | 2026-09-28 | 珠海与澳门的支持状态仍需厂商确认及实测；附官方依据和验证步骤 |
 

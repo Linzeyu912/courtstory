@@ -4,22 +4,24 @@
 
 ## 1. 目录与唯一编号
 
+2026-10-01目录调整：按用户要求按赛季集中资料，取消批次文件夹和每段独立文件夹。目录和数据校验方法如下，同步结果见[本次交接](../handoffs/Linzeyu912/2026-10-01-2118-repository-audit-sync.md)。
+
 ```text
 data/videos/
-  catalog.json                         # 全部登记批次及历史资料入口
-  nba/<season>/<dataset>/
-    manifest.json                      # 统一资产清单，普通 Git
-    README.md                          # 批次说明与限制
-    clips/<local-id_date_matchup_action>/
-      <filename>.mp4                   # 成片，Git LFS
-      labels.json                      # 独立标签，普通 Git
-      README.md                        # 单段说明
+  catalog.json                         # 登记批次，ID保持不变
+  nba/<season>/                        # 2024-25 / 2025-26，每赛季一个入口
+    README.md, manifest.json           # 当前说明与资产清单
+    clips/<filename>.mp4               # 成片集中保存，Git LFS
+    labels/<local-id>.json             # 标签，普通 Git
+    notes/<local-id>.md                # 单段说明（已有时）
+    sources/                           # 原始采集快照，保留原貌
+    collection-report.md, index.html   # 统计与播放入口（已有时）
 ```
 
 - 批次 ID 如 `nba-2024-25-library100`，片段全局 ID 如 `nba-2024-25-library100-001`。编号分配后不重排；重裁同一素材时保留 ID、更新哈希，并写明裁切变化。
 - 目录用英文和 NBA 球队简称。新文件建议 `<id>_<US-date>_<matchup>_Q<period>_<action>.mp4`；时长、像素以清单为准。现有100段保留原文件名，避免破坏既有引用。
-- 清单中的 `asset.path`、`annotation_path` 相对于所在批次；总目录里的 `root`、`manifest` 相对于仓库根目录。使用 `/`，禁止盘符路径、`..` 越界和指向仓库外的链接。
-- 首批3段已纳入100段，不再上传第二份视频。旧8段、旧单段清单作为历史入口保留，尚未确认与30段的逐段对应关系，不能相加声称139段独立素材。
+- 清单中的 `asset.path`、`annotation_path` 相对于所在赛季目录；总目录里的 `root`、`manifest` 相对于仓库根目录。使用 `/`，禁止盘符路径、`..` 越界和指向仓库外的链接。
+- 首批3段已纳入100段；按用户要求删除首批独立说明、旧重复成片及旧压缩包，统一只保留100段集合入口。2025–26的旧8段、旧单段清单在本赛季 `sources/` 中保留，尚未确认与30段的逐段对应关系，不能相加声称139段独立素材。
 
 ## 2. 哪些文件入库
 
@@ -32,7 +34,7 @@ data/videos/
 
 Git LFS 在 Git 中保存含 SHA-256 和文件大小的指针，视频内容由 LFS 保存；首次使用需要安装并初始化 LFS。[GitHub 官方说明](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage)，读取于2026-10-01。
 
-本次上传100个独立成片，不再把含同一批视频的ZIP上传一次。保留本机现有ZIP供离线分发。除 `data/videos/` 外的视频继续被忽略，不用 `git add -f` 批量加入来源原片。
+此前LFS共享上传100个独立成片，不再把含同一批视频的ZIP上传一次。保留本机100段ZIP供离线分发。除 `data/videos/` 外的视频继续被忽略，不用 `git add -f` 批量加入来源原片。
 
 ## 3. 每段必须记录的内容
 
@@ -81,11 +83,11 @@ Git LFS 在 Git 中保存含 SHA-256 和文件大小的指针，视频内容由 
 ```sh
 git lfs install --local
 git pull --ff-only origin main
-git lfs pull --include="data/videos/nba/2024-25/library100/clips/**" origin
+git lfs pull --include="data/videos/nba/2024-25/clips/**" origin
 python scripts/validate_video_data.py
 ```
 
-打开 `data/videos/nba/2024-25/library100/index.html` 可播放和筛选，也可按 `INDEX.md` 查找单段。[LFS 按路径下载说明](https://github.com/git-lfs/git-lfs/blob/main/docs/man/git-lfs-pull.adoc)，读取于2026-10-01。GitHub网页中的源代码ZIP是否包含成片取决于仓库设置；以 LFS 拉取和哈希校验为准。
+打开 `data/videos/nba/2024-25/index.html` 可播放和筛选，也可按 `INDEX.md` 查找单段。[LFS 按路径下载说明](https://github.com/git-lfs/git-lfs/blob/main/docs/man/git-lfs-pull.adoc)，读取于2026-10-01。GitHub网页中的源代码ZIP是否包含成片取决于仓库设置；以 LFS 拉取和哈希校验为准。
 
 ### 提交新批次
 
