@@ -4,6 +4,7 @@
 
 | 文件 | 日期 | 结论 |
 |---|---|---|
+| [原视频战术标注的位置提取与 RelateAnything 评估](video-overlay-vision-assessment.md) | 2026-10-01 | 建议先验证检测跟踪、脚下锚点和球场映射，再测试关系候选；核对固定版本源码、接口与分数限制，尚未运行模型或样片 |
 | [2025–26赛季30段视频标签与要求复核](nba-video-samples/batch-030-review.md)、[标签草案](nba-video-samples/batch-030-labels.json) | 2026-10-01 | 按原采集记录补30段标签、9类动作及重复关联；记录中的1080p规格够用，原链接受登录/地区限制，本轮尚未取得成片实测 |
 | [2024–25 NBA 训练素材100段](nba-training-clips-2024-25-library100.md)、[来源与标签清单](nba-training-clips-2024-25-library100.json) | 2026-10-01 | 100段成片使用Git LFS共享；16场、17队，14段完整球权；同类战术按16组关联标记；[下载及管理规范](../docs/video-data-management.md) |
 | [2024–25 赛季 NBA 战术视频](nba-training-clips-2024-25.md) | 2026-09-30 | 首批 3 段 1080p 前场战术片段已在本地裁切并附标签；记录来源、裁切点及完整性限制 |
