@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "teams": [
     {
       "season": "2024-25",
@@ -382,13 +382,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 20,
-        "with_overall_rating": 14,
-        "all_individual_ratings_complete": 12,
-        "partial_individual_ratings": 2,
-        "without_rating_record": 6,
-        "with_three_point_rating": 12,
-        "with_six_core_ratings": 12,
-        "overall_coverage_percent": 70.0,
+        "with_overall_rating": 20,
+        "all_individual_ratings_complete": 20,
+        "partial_individual_ratings": 0,
+        "without_rating_record": 0,
+        "with_three_point_rating": 20,
+        "with_six_core_ratings": 20,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -405,13 +405,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 21,
-        "with_overall_rating": 16,
-        "all_individual_ratings_complete": 15,
-        "partial_individual_ratings": 1,
-        "without_rating_record": 5,
-        "with_three_point_rating": 15,
-        "with_six_core_ratings": 15,
-        "overall_coverage_percent": 76.2,
+        "with_overall_rating": 21,
+        "all_individual_ratings_complete": 21,
+        "partial_individual_ratings": 0,
+        "without_rating_record": 0,
+        "with_three_point_rating": 21,
+        "with_six_core_ratings": 21,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -428,13 +428,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 20,
-        "with_overall_rating": 8,
-        "all_individual_ratings_complete": 7,
-        "partial_individual_ratings": 1,
-        "without_rating_record": 12,
-        "with_three_point_rating": 8,
-        "with_six_core_ratings": 7,
-        "overall_coverage_percent": 40.0,
+        "with_overall_rating": 20,
+        "all_individual_ratings_complete": 20,
+        "partial_individual_ratings": 0,
+        "without_rating_record": 0,
+        "with_three_point_rating": 20,
+        "with_six_core_ratings": 20,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -451,13 +451,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 24,
-        "with_overall_rating": 12,
-        "all_individual_ratings_complete": 10,
-        "partial_individual_ratings": 2,
-        "without_rating_record": 12,
-        "with_three_point_rating": 10,
-        "with_six_core_ratings": 10,
-        "overall_coverage_percent": 50.0,
+        "with_overall_rating": 24,
+        "all_individual_ratings_complete": 23,
+        "partial_individual_ratings": 1,
+        "without_rating_record": 0,
+        "with_three_point_rating": 23,
+        "with_six_core_ratings": 23,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -474,13 +474,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 20,
-        "with_overall_rating": 9,
-        "all_individual_ratings_complete": 9,
+        "with_overall_rating": 20,
+        "all_individual_ratings_complete": 20,
         "partial_individual_ratings": 0,
-        "without_rating_record": 11,
-        "with_three_point_rating": 9,
-        "with_six_core_ratings": 9,
-        "overall_coverage_percent": 45.0,
+        "without_rating_record": 0,
+        "with_three_point_rating": 20,
+        "with_six_core_ratings": 20,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -497,13 +497,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 25,
-        "with_overall_rating": 18,
-        "all_individual_ratings_complete": 16,
-        "partial_individual_ratings": 2,
-        "without_rating_record": 7,
-        "with_three_point_rating": 17,
-        "with_six_core_ratings": 17,
-        "overall_coverage_percent": 72.0,
+        "with_overall_rating": 25,
+        "all_individual_ratings_complete": 24,
+        "partial_individual_ratings": 1,
+        "without_rating_record": 0,
+        "with_three_point_rating": 24,
+        "with_six_core_ratings": 24,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -520,13 +520,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 23,
-        "with_overall_rating": 12,
-        "all_individual_ratings_complete": 10,
-        "partial_individual_ratings": 2,
-        "without_rating_record": 11,
-        "with_three_point_rating": 10,
-        "with_six_core_ratings": 10,
-        "overall_coverage_percent": 52.2,
+        "with_overall_rating": 23,
+        "all_individual_ratings_complete": 22,
+        "partial_individual_ratings": 1,
+        "without_rating_record": 0,
+        "with_three_point_rating": 22,
+        "with_six_core_ratings": 22,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -543,13 +543,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 19,
-        "with_overall_rating": 12,
-        "all_individual_ratings_complete": 11,
-        "partial_individual_ratings": 1,
-        "without_rating_record": 7,
-        "with_three_point_rating": 11,
-        "with_six_core_ratings": 11,
-        "overall_coverage_percent": 63.2,
+        "with_overall_rating": 19,
+        "all_individual_ratings_complete": 19,
+        "partial_individual_ratings": 0,
+        "without_rating_record": 0,
+        "with_three_point_rating": 19,
+        "with_six_core_ratings": 19,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -566,13 +566,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 20,
-        "with_overall_rating": 10,
-        "all_individual_ratings_complete": 10,
+        "with_overall_rating": 20,
+        "all_individual_ratings_complete": 20,
         "partial_individual_ratings": 0,
-        "without_rating_record": 10,
-        "with_three_point_rating": 10,
-        "with_six_core_ratings": 10,
-        "overall_coverage_percent": 50.0,
+        "without_rating_record": 0,
+        "with_three_point_rating": 20,
+        "with_six_core_ratings": 20,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -589,13 +589,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 20,
-        "with_overall_rating": 9,
-        "all_individual_ratings_complete": 8,
-        "partial_individual_ratings": 1,
-        "without_rating_record": 11,
-        "with_three_point_rating": 9,
-        "with_six_core_ratings": 8,
-        "overall_coverage_percent": 45.0,
+        "with_overall_rating": 20,
+        "all_individual_ratings_complete": 20,
+        "partial_individual_ratings": 0,
+        "without_rating_record": 0,
+        "with_three_point_rating": 20,
+        "with_six_core_ratings": 20,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -612,13 +612,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 19,
-        "with_overall_rating": 13,
-        "all_individual_ratings_complete": 12,
-        "partial_individual_ratings": 1,
-        "without_rating_record": 6,
-        "with_three_point_rating": 12,
-        "with_six_core_ratings": 12,
-        "overall_coverage_percent": 68.4,
+        "with_overall_rating": 19,
+        "all_individual_ratings_complete": 19,
+        "partial_individual_ratings": 0,
+        "without_rating_record": 0,
+        "with_three_point_rating": 19,
+        "with_six_core_ratings": 19,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -635,13 +635,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 20,
-        "with_overall_rating": 10,
-        "all_individual_ratings_complete": 10,
+        "with_overall_rating": 20,
+        "all_individual_ratings_complete": 20,
         "partial_individual_ratings": 0,
-        "without_rating_record": 10,
-        "with_three_point_rating": 10,
-        "with_six_core_ratings": 10,
-        "overall_coverage_percent": 50.0,
+        "without_rating_record": 0,
+        "with_three_point_rating": 20,
+        "with_six_core_ratings": 20,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -658,13 +658,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 16,
-        "with_overall_rating": 13,
-        "all_individual_ratings_complete": 13,
+        "with_overall_rating": 16,
+        "all_individual_ratings_complete": 16,
         "partial_individual_ratings": 0,
-        "without_rating_record": 3,
-        "with_three_point_rating": 13,
-        "with_six_core_ratings": 13,
-        "overall_coverage_percent": 81.2,
+        "without_rating_record": 0,
+        "with_three_point_rating": 16,
+        "with_six_core_ratings": 16,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -681,13 +681,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 21,
-        "with_overall_rating": 10,
-        "all_individual_ratings_complete": 10,
+        "with_overall_rating": 21,
+        "all_individual_ratings_complete": 21,
         "partial_individual_ratings": 0,
-        "without_rating_record": 11,
-        "with_three_point_rating": 10,
-        "with_six_core_ratings": 10,
-        "overall_coverage_percent": 47.6,
+        "without_rating_record": 0,
+        "with_three_point_rating": 21,
+        "with_six_core_ratings": 21,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -704,13 +704,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 20,
-        "with_overall_rating": 14,
-        "all_individual_ratings_complete": 13,
-        "partial_individual_ratings": 1,
-        "without_rating_record": 6,
-        "with_three_point_rating": 13,
-        "with_six_core_ratings": 13,
-        "overall_coverage_percent": 70.0,
+        "with_overall_rating": 20,
+        "all_individual_ratings_complete": 20,
+        "partial_individual_ratings": 0,
+        "without_rating_record": 0,
+        "with_three_point_rating": 20,
+        "with_six_core_ratings": 20,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     },
@@ -727,13 +727,13 @@
       "source_retrieved_date": "2026-09-30",
       "coverage": {
         "season_roster_players": 20,
-        "with_overall_rating": 11,
-        "all_individual_ratings_complete": 11,
-        "partial_individual_ratings": 0,
-        "without_rating_record": 9,
-        "with_three_point_rating": 11,
-        "with_six_core_ratings": 11,
-        "overall_coverage_percent": 55.0,
+        "with_overall_rating": 20,
+        "all_individual_ratings_complete": 19,
+        "partial_individual_ratings": 1,
+        "without_rating_record": 0,
+        "with_three_point_rating": 19,
+        "with_six_core_ratings": 19,
+        "overall_coverage_percent": 100.0,
         "count_note_text_id": "txt_39cf9d1100768903"
       }
     }

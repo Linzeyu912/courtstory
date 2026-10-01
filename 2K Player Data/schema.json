@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "format": "explicit-field-contract",
   "encoding": "UTF-8 without BOM; JSONL has one object per LF-terminated line",
   "record_types": {
@@ -16,11 +16,11 @@
         "game": "enum: NBA 2K25, NBA 2K26",
         "qualifying_playoff_teams": "array<object{team_abbreviation:string,team_name:string,team_name_zh:string,source_id:string}>; derived from qualifying roster associations, not snapshot",
         "ratings": "object with all 42 exact keys listed in rating_fields; every value integer 25..99 or null",
-        "availability": "object{status:complete|partial|missing_record,missing_keys:array<string>,missing_individual_keys:array<string>,individual_present:integer,individual_expected:integer,core_present:integer}; completeness refers to 36 individual fields",
+        "availability": "object{status:complete|partial|missing_record,missing_keys:array<string>,missing_individual_keys:array<string>,individual_present:integer,individual_expected:integer,core_present:integer,supplemented_fields:array<string>}; completeness refers to 36 individual fields, not the six category fields",
         "season_teams": "array<stint>; contains same-season roster and separately tagged official transaction associations; association does not imply game appearance",
-        "snapshot": "object{source_player_name:string|null,team:string|null,jersey:string|null,jersey_raw:string|null,source_id:string,basis_text_id:string,quality_note_text_id:string|null,exact_capture_date:null,exact_game_patch_date:null}",
-        "identity": "object{upstream_player_key:string,bbr_player_id:string|null,join_method:normalized_exact|audited_alias|unmatched}",
-        "provenance": "object{rating_source_id:string,rating_origin_source_id:string,rating_source_commit:string,rating_source_retrieved_date:YYYY-MM-DD,roster_source_ids:array<string>,roster_source_retrieved_date:YYYY-MM-DD}"
+        "snapshot": "object{source_player_name:string|null,team:string|null,jersey:string|null,jersey_raw:string|null,source_id:string,basis_text_id:string,quality_note_text_id:string|null,exact_capture_date:null,exact_game_patch_date:null}; legacy BASELINE snapshot context only, NOT a shared timestamp/source for supplemented fields",
+        "identity": "object{upstream_player_key:string,bbr_player_id:string|null,join_method:normalized_exact|audited_alias|unmatched}; join_method describes baseline source; supplement_matches in field_provenance records explains new joins",
+        "provenance": "object{rating_source_id:string,rating_origin_source_id:string,rating_source_commit:string,rating_source_retrieved_date:YYYY-MM-DD,roster_source_ids:array<string>,roster_source_retrieved_date:YYYY-MM-DD,rating_fields_ref:object{path:string,record_id:string},rating_source_scope:baseline_only|supplement_only|mixed_field_sources}; legacy rating_source_* fields describe baseline only"
       }
     },
     "history": {
@@ -528,6 +528,26 @@
   },
   "identity_assumptions": "BBR编号缺失，使用规范化精确姓名；显式别名均核对同队同号码。",
   "chronology": "Record order and team order are not transaction chronology. Only transaction_date_as_listed conveys a source-listed date.",
-  "snapshot_time": "Repository commit/retrieval dates are not game update dates. NBA 2K26 mixes Aug 2025-Feb 2026 early/pre-release captures; exact original per-player timestamps unavailable.",
+  "snapshot_time": "Repository commit/retrieval dates are not game update dates. Preserved baseline NBA 2K26 uses early mixed captures; additions use independently verified historical HTML and fixed Blacktop 2K26 snapshots. Read each field's source snapshot_date with date_basis; do not assert one shared snapshot for a mixed record.",
+  "field_provenance_contract": {
+    "path": "field_provenance.json",
+    "record_fields": {
+      "default_source_id": "string: original baseline source",
+      "baseline_fields": "array<string>: metrics whose original non-null values remain",
+      "field_source_ids": "object<string,string>: supplemental metric -> source_id",
+      "supplement_matches": "object<source_id,object{source_player_name,source_slug,match_method}>"
+    },
+    "source_fields": {
+      "source_url": "string",
+      "game": "NBA 2K25|NBA 2K26",
+      "snapshot_date": "ISO8601 string|null",
+      "date_basis": "string; capture vs repository sync/commit explicitly distinguished",
+      "game_patch_date": "null: unknown",
+      "source_commit_date": "ISO8601 string|null",
+      "per_player_capture_known": "boolean",
+      "source_kind": "preserved_baseline|verified_archived_html|fixed_blacktop_current_roster"
+    },
+    "resolution_rule": "For a non-null metric: use records[record_id].field_source_ids[field] if present, otherwise default_source_id only when field is listed in baseline_fields. Null metrics have no value source."
+  },
   "derived_display_fields": "Upstream human-readable combined team/jersey strings and missing-label strings are replaced by structured stints and missing-key lists; original underlying values and labels are retained."
 }

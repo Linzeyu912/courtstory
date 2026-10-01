@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "catalog": {
     "src_0342d262464b8723": {
       "url": "https://www.nba.com/wizards/news/wizards-acquire-middleton-johnson-from-milwaukee-bucks",
@@ -10,6 +10,30 @@
         "team_history"
       ]
     },
+    "src_03d9e5ecfd64768f": {
+      "url": "https://web.archive.org/web/20260610075247/https://www.2kratings.com/julian-champagnie",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_03d9e5ecfd64768f",
+        "source_url": "https://web.archive.org/web/20260610075247/https://www.2kratings.com/julian-champagnie",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-06-10T07:52:47Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Julian Champagnie NBA 2K26 Rating (Current San Antonio Spurs)",
+        "decoded_html_sha256": "a5ad305f145c7f7eadb888bf0eb62f31d90fb78b798c8e7c382ccd5fdf00aae1",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
+    },
     "src_04f1fb9101e2fe5d": {
       "url": "https://www.basketball-reference.com/teams/SAC/2026.html",
       "retrieved_dates": [
@@ -19,6 +43,30 @@
         "team_history"
       ]
     },
+    "src_0ad010b764d83dcf": {
+      "url": "https://web.archive.org/web/20251204110849/https://www.2kratings.com/jalen-suggs",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_0ad010b764d83dcf",
+        "source_url": "https://web.archive.org/web/20251204110849/https://www.2kratings.com/jalen-suggs",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2025-12-04T11:08:49Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Jalen Suggs NBA 2K26 Rating (Current Orlando Magic)",
+        "decoded_html_sha256": "e1e118565341ae9d856676056da2b4740a89f89ba8c493b2f0cd41c984dc1e91",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
+    },
     "src_0c4db8b9f6889590": {
       "url": "https://www.basketball-reference.com/teams/HOU/2026.html",
       "retrieved_dates": [
@@ -27,6 +75,11 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_1632652decf92372": {
+      "url": "https://web.archive.org/web/20250719013119/https://www.2kratings.com/payton-pritchard",
+      "retrieved_dates": [],
+      "roles": []
     },
     "src_1982bd4ae7cf45fa": {
       "url": "https://www.basketball-reference.com/teams/NOP/2026.html",
@@ -45,6 +98,35 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_217a6ccea7a4ec87": {
+      "url": "https://www.2kratings.com/darius-brown",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_2851a92edda5edd3": {
+      "url": "https://web.archive.org/web/20260210080008/https://www.2kratings.com/paul-george",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_2851a92edda5edd3",
+        "source_url": "https://web.archive.org/web/20260210080008/https://www.2kratings.com/paul-george",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-02-10T08:00:08Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Paul George NBA 2K26 Rating (Current Philadelphia 76ers)",
+        "decoded_html_sha256": "36eb0052f0819a54651363abd0ad146530b8a512eeed16a95c497f7919e7f210",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
     },
     "src_2b7812b02ac44c51": {
       "url": "https://www.basketball-reference.com/teams/MIA/2026.html",
@@ -190,6 +272,30 @@
         "team_history"
       ]
     },
+    "src_4441167c6d46b422": {
+      "url": "https://web.archive.org/web/20260409184406/https://www.2kratings.com/deni-avdija",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_4441167c6d46b422",
+        "source_url": "https://web.archive.org/web/20260409184406/https://www.2kratings.com/deni-avdija",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-04-09T18:44:06Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Deni Avdija NBA 2K26 Rating (Current Portland Trail Blazers)",
+        "decoded_html_sha256": "51c964606d7706263429cd7cec4a16baef0d7bda5a2ae4639438c8f69837bfbf",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
+    },
     "src_497d8aa2e7ec31d0": {
       "url": "https://www.basketball-reference.com/teams/POR/2025.html",
       "retrieved_dates": [
@@ -262,6 +368,64 @@
         "team_history"
       ]
     },
+    "src_5dc795233c2f9b8d": {
+      "url": "https://github.com/wkoverfield/blacktop-blitz/blob/33e28bf419c04ef70b6a29fd340ee408e175b641/public/players.json",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_5dc795233c2f9b8d",
+        "source_url": "https://github.com/wkoverfield/blacktop-blitz/blob/33e28bf419c04ef70b6a29fd340ee408e175b641/public/players.json",
+        "source_kind": "fixed_blacktop_current_roster",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-08-08T06:51:10Z",
+        "date_basis": "Blacktop sync commit plus nba2kapi archived-version metadata",
+        "game_patch_date": null,
+        "source_commit_date": "2026-08-08T06:51:10Z",
+        "source_commit_sha": "33e28bf419c04ef70b6a29fd340ee408e175b641",
+        "source_file_sha256": "c38e88cb8caadb61a4eca82438f173d221d88836d45bb37776092000f5f74240",
+        "per_player_capture_known": false,
+        "category_semantics": "Blacktop cats are Math.round-derived means and excluded from cat_*",
+        "edition_evidence": {
+          "repo": "wkoverfield/nba2kapi",
+          "archive_commit": "6f460b8d187f449ce1fc1bfce304b475f20463fc",
+          "archive_commit_date": "2026-09-08T20:07:47Z",
+          "archive_file": "data/roster-archive/2K26.json",
+          "same_bytes_as_aug08_blacktop": true,
+          "metadata_url": "https://api.nba2kapi.com/api/versions",
+          "metadata_source": "blacktop-sync-2026-08-08",
+          "metadata_captured_at": "2026-08-08T06:51:10Z"
+        },
+        "retrieved_date": "2026-10-01"
+      }
+    },
+    "src_5dfa5cb9eb0bb14a": {
+      "url": "https://web.archive.org/web/20260216060657/https://www.2kratings.com/charles-bassey",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_5dfa5cb9eb0bb14a",
+        "source_url": "https://web.archive.org/web/20260216060657/https://www.2kratings.com/charles-bassey",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-02-16T06:06:57Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Charles Bassey NBA 2K26 Rating (Current Philadelphia 76ers)",
+        "decoded_html_sha256": "78f642881c6dc5f4ed7de9713f790ef889f4a76a492c964db0cbafe6c6592ee5",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
+    },
     "src_63c550d946458993": {
       "url": "https://www.basketball-reference.com/teams/PHO/2025.html",
       "retrieved_dates": [
@@ -270,6 +434,31 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_6583befd64222196": {
+      "url": "https://github.com/wkoverfield/blacktop-blitz/blob/b48e89b45696cf4f330dc80b7cb21994708f14ac/public/players.json",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_6583befd64222196",
+        "source_url": "https://github.com/wkoverfield/blacktop-blitz/blob/b48e89b45696cf4f330dc80b7cb21994708f14ac/public/players.json",
+        "source_kind": "fixed_blacktop_current_roster",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-07-21T08:27:05Z",
+        "date_basis": "Blacktop sync commit timestamp; individual upstream scrape times not retained",
+        "game_patch_date": null,
+        "source_commit_date": "2026-07-21T08:27:05Z",
+        "source_commit_sha": "b48e89b45696cf4f330dc80b7cb21994708f14ac",
+        "source_file_sha256": "3031c419f1c14f0cc2c4de16ceb7d2a9f80cb1d1d65a653b5a333e6f6d32f157",
+        "per_player_capture_known": false,
+        "category_semantics": "Blacktop cats are Math.round-derived means and excluded from cat_*",
+        "edition_evidence": "fixed historical Blacktop 2K26 source documented in candidate audit",
+        "retrieved_date": "2026-10-01"
+      }
     },
     "src_65912017564cf63d": {
       "url": "https://www.2kratings.com/",
@@ -301,6 +490,30 @@
       "retrieved_dates": [],
       "roles": []
     },
+    "src_6a01826f933d2ec5": {
+      "url": "https://web.archive.org/web/20260610075403/https://www.2kratings.com/josh-hart",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_6a01826f933d2ec5",
+        "source_url": "https://web.archive.org/web/20260610075403/https://www.2kratings.com/josh-hart",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-06-10T07:54:03Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Josh Hart NBA 2K26 Rating (Current New York Knicks)",
+        "decoded_html_sha256": "4699daa1e71827c95ced3a4ca49c1775820ef1ec90096ccada3ced9832543f1a",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
+    },
     "src_6b660d30a9ef8e95": {
       "url": "https://www.basketball-reference.com/teams/CLE/2025.html",
       "retrieved_dates": [
@@ -309,6 +522,30 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_6c19ced94c355f25": {
+      "url": "https://web.archive.org/web/20260111233909/https://www.2kratings.com/javonte-green",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_6c19ced94c355f25",
+        "source_url": "https://web.archive.org/web/20260111233909/https://www.2kratings.com/javonte-green",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-01-11T23:39:09Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Javonte Green NBA 2K26 Rating (Current Detroit Pistons)",
+        "decoded_html_sha256": "96e51369b0ac9fba39a7ed0400b8e6bcc8b77b7b1bb3906ac161f40f15d33a47",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
     },
     "src_6dcb5aa97dc75bef": {
       "url": "https://www.basketball-reference.com/teams/NYK/2025.html",
@@ -336,6 +573,30 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_75eb44a227e96b97": {
+      "url": "https://web.archive.org/web/20251030151358/https://www.2kratings.com/khaman-maluach",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_75eb44a227e96b97",
+        "source_url": "https://web.archive.org/web/20251030151358/https://www.2kratings.com/khaman-maluach",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2025-10-30T15:13:58Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Khaman Maluach NBA 2K26 Rating (Current Phoenix Suns)",
+        "decoded_html_sha256": "f02d4dbf1d9f25c1bf00510559ea6bedd3040af019cbabdbae25753586cc1d39",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
     },
     "src_792185c8baa3d418": {
       "url": "https://www.basketball-reference.com/teams/ATL/2026.html",
@@ -378,6 +639,30 @@
       "retrieved_dates": [],
       "roles": []
     },
+    "src_a09eea2147fe99fa": {
+      "url": "https://web.archive.org/web/20260302052016/https://www.2kratings.com/joe-ingles",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_a09eea2147fe99fa",
+        "source_url": "https://web.archive.org/web/20260302052016/https://www.2kratings.com/joe-ingles",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-03-02T05:20:16Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Joe Ingles NBA 2K26 Rating (Current Minnesota Timberwolves)",
+        "decoded_html_sha256": "4b710a74f1ed84088a6a37903bc54eeccd3050548105d13e5d2e6e924d248f28",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
+    },
     "src_a223093edc90fc84": {
       "url": "https://www.basketball-reference.com/teams/POR/2026.html",
       "retrieved_dates": [
@@ -400,6 +685,54 @@
       "url": "https://web.archive.org/web/20251105015633/https://www.2kratings.com/lebron-james",
       "retrieved_dates": [],
       "roles": []
+    },
+    "src_a4da165ede6f37e0": {
+      "url": "https://web.archive.org/web/20260308191855/https://www.2kratings.com/christian-braun",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_a4da165ede6f37e0",
+        "source_url": "https://web.archive.org/web/20260308191855/https://www.2kratings.com/christian-braun",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-03-08T19:18:55Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Christian Braun NBA 2K26 Rating (Current Denver Nuggets)",
+        "decoded_html_sha256": "a54709da67bebc6c4f392adf1565f590e0d827eff1a4c31d0a08c7c206b8e835",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
+    },
+    "src_a5f867ad263da27d": {
+      "url": "https://web.archive.org/web/20260105061510/https://www.2kratings.com/vit-krejci",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_a5f867ad263da27d",
+        "source_url": "https://web.archive.org/web/20260105061510/https://www.2kratings.com/vit-krejci",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-01-05T06:15:10Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Vit Krejci NBA 2K26 Rating (Current Atlanta Hawks)",
+        "decoded_html_sha256": "cf87196af713a266f619aa84b92c2c2c0274de7a8cb8b0d0dfe0b9a134c9d00b",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
     },
     "src_a66d99c886b99f22": {
       "url": "https://www.basketball-reference.com/teams/SAS/2025.html",
@@ -434,8 +767,23 @@
         "2026-09-30"
       ],
       "roles": [
+        "rating_field_provenance",
         "ratings"
-      ]
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_aad88143e7083c16",
+        "source_url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/blob/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
+        "source_kind": "preserved_baseline",
+        "game": "NBA 2K25",
+        "snapshot_date": "2024-11-26T02:25:26Z",
+        "date_basis": "repository snapshot commit, game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": "2024-11-26T02:25:26Z",
+        "source_commit_sha": "bdf93420a846f073e4028de432a5cbd8a557ed51",
+        "source_file_sha256": "b9660fe0903afc99a65a38172962d46a2cd71f6f3d7770e95f997cd0b98c9680",
+        "per_player_capture_known": false,
+        "retrieved_date": "2026-09-30"
+      }
     },
     "src_ab02ebd23398b478": {
       "url": "https://www.basketball-reference.com/teams/PHI/2025.html",
@@ -445,6 +793,30 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_af831a0d6e6a0fa4": {
+      "url": "https://web.archive.org/web/20260103080352/https://www.2kratings.com/daniss-jenkins",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_af831a0d6e6a0fa4",
+        "source_url": "https://web.archive.org/web/20260103080352/https://www.2kratings.com/daniss-jenkins",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-01-03T08:03:52Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Daniss Jenkins NBA 2K26 Rating (Current Detroit Pistons)",
+        "decoded_html_sha256": "9a748e73c8ed3f64ebd2ce4b31b8082858cab991694c70ff151be8a141625d65",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
     },
     "src_afac203b2488be41": {
       "url": "https://www.basketball-reference.com/teams/WAS/2026.html",
@@ -472,6 +844,30 @@
       "roles": [
         "playoff_qualification"
       ]
+    },
+    "src_b40fb78744f910f2": {
+      "url": "https://web.archive.org/web/20251130230105/https://www.2kratings.com/nikola-vucevic",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_b40fb78744f910f2",
+        "source_url": "https://web.archive.org/web/20251130230105/https://www.2kratings.com/nikola-vucevic",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2025-11-30T23:01:05Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Nikola Vucevic NBA 2K26 Rating (Current Chicago Bulls)",
+        "decoded_html_sha256": "ec38f19e756f1a6c26b8655890f34f8af8677841396382253b048a62f78dd5b7",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
     },
     "src_b4153471ec365133": {
       "url": "https://www.basketball-reference.com/teams/PHI/2026.html",
@@ -514,6 +910,30 @@
         "team_history"
       ]
     },
+    "src_c9dc101ceff4e588": {
+      "url": "https://web.archive.org/web/20251230102427/https://www.2kratings.com/deandre-hunter",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_c9dc101ceff4e588",
+        "source_url": "https://web.archive.org/web/20251230102427/https://www.2kratings.com/deandre-hunter",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2025-12-30T10:24:27Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "De’Andre Hunter NBA 2K26 Rating (Current Cleveland Cavaliers)",
+        "decoded_html_sha256": "522a0d3b797ec9bb11688cf504f4cff16037ef73a8e1446136d5270323e6fc12",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
+    },
     "src_cc97bffd2f2ca58b": {
       "url": "https://raw.githubusercontent.com/ReinerJasin/NBA2k25_Web_Scraping/bdf93420a846f073e4028de432a5cbd8a557ed51/output/current_nba_players.csv",
       "retrieved_dates": [],
@@ -546,6 +966,36 @@
         "team_history"
       ]
     },
+    "src_d6f14360e2051750": {
+      "url": "https://web.archive.org/web/20260103062407/https://www.2kratings.com/aaron-wiggins",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_d6f6c9146e599703": {
+      "url": "https://github.com/wkoverfield/blacktop-blitz/blob/edf8e0ea9d0f82a04a597aa983cf6140e5f85c07/public/players.json",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_d6f6c9146e599703",
+        "source_url": "https://github.com/wkoverfield/blacktop-blitz/blob/edf8e0ea9d0f82a04a597aa983cf6140e5f85c07/public/players.json",
+        "source_kind": "fixed_blacktop_current_roster",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-05-28T14:15:56Z",
+        "date_basis": "Blacktop static-roster commit timestamp; individual upstream scrape times not retained",
+        "game_patch_date": null,
+        "source_commit_date": "2026-05-28T14:15:56Z",
+        "source_commit_sha": "edf8e0ea9d0f82a04a597aa983cf6140e5f85c07",
+        "source_file_sha256": "9564711d5d93a6575984d2e8ac465a3facd9cdc4f5aa4d745be6a78f336e4492",
+        "per_player_capture_known": false,
+        "category_semantics": "Blacktop cats are Math.round-derived means and excluded from cat_*",
+        "edition_evidence": "fixed historical Blacktop 2K26 source documented in candidate audit",
+        "retrieved_date": "2026-10-01"
+      }
+    },
     "src_d7c936fd27a08e4b": {
       "url": "https://www.basketball-reference.com/teams/BRK/2025.html",
       "retrieved_dates": [
@@ -573,6 +1023,35 @@
         "team_history"
       ]
     },
+    "src_db8df3a9722d3446": {
+      "url": "https://web.archive.org/web/20260522182549/https://www.2kratings.com/thomas-bryant",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_db8df3a9722d3446",
+        "source_url": "https://web.archive.org/web/20260522182549/https://www.2kratings.com/thomas-bryant",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-05-22T18:25:49Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "Thomas Bryant NBA 2K26 Rating (Current Cleveland Cavaliers)",
+        "decoded_html_sha256": "631cce208ba6dca89682c09b1efb3aca9d65d77d5de53b115de199e4336f8013",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
+    },
+    "src_e0ac664ea36b5c85": {
+      "url": "https://www.2kratings.com/trey-jemison",
+      "retrieved_dates": [],
+      "roles": []
+    },
     "src_e6729fbd860609b6": {
       "url": "https://www.nba.com/news/2024-25-nba-trade-tracker",
       "retrieved_dates": [
@@ -581,6 +1060,35 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_e6b9f6e9ea6f2ec9": {
+      "url": "https://api.nba2kapi.com/api/versions",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_ea607fe9843a3d15": {
+      "url": "https://web.archive.org/web/20251201020216/https://www.2kratings.com/og-anunoby",
+      "retrieved_dates": [
+        "2026-10-01"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_ea607fe9843a3d15",
+        "source_url": "https://web.archive.org/web/20251201020216/https://www.2kratings.com/og-anunoby",
+        "source_kind": "verified_archived_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2025-12-01T02:02:16Z",
+        "date_basis": "Internet Archive capture timestamp visible in snapshot URL; not a game patch date",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "source_title": "OG Anunoby NBA 2K26 Rating (Current New York Knicks)",
+        "decoded_html_sha256": "8108ebe1b6a003be462a1d5a69a36b65bf607b2042a39ef0308940dec1b0e795",
+        "retrieved_date": "2026-10-01",
+        "category_semantics": "category values are source page displays, not locally calculated"
+      }
     },
     "src_ef1050ad4576077c": {
       "url": "https://www.basketball-reference.com/teams/GSW/2025.html",
@@ -624,8 +1132,23 @@
         "2026-09-30"
       ],
       "roles": [
+        "rating_field_provenance",
         "ratings"
-      ]
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_f567943daf4d0e47",
+        "source_url": "https://github.com/thompgt/nba2k26-analysis/blob/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
+        "source_kind": "preserved_baseline",
+        "game": "NBA 2K26",
+        "snapshot_date": null,
+        "date_basis": "heterogeneous Aug 2025-Feb 2026 original captures; exact per-player capture unavailable",
+        "game_patch_date": null,
+        "source_commit_date": "2026-07-16T00:52:34Z",
+        "source_commit_sha": "397508b993a4b11c31d5e3801fa300b1d38b5a4d",
+        "source_file_sha256": "9bbadeb3ce3a9ed8a1c4ac8986742568d7655702b9ece512e39a4f33c06012d2",
+        "per_player_capture_known": false,
+        "retrieved_date": "2026-09-30"
+      }
     },
     "src_f6f07a8c5a28b911": {
       "url": "https://www.basketball-reference.com/teams/LAL/2025.html",
@@ -670,6 +1193,7 @@
     }
   },
   "shared_texts": {
+    "txt_1653cde43dcf66ac": "仅补原null；已有非空值未改。原始来源/快照列只说明保留的原始数据；补入字段的来源和日期逐项见rating_field_provenance。补采前原始备注：所用历史来源未找到可核对记录；所有能力值留空，不以0代替。",
     "txt_26952e9ca00b9230": "混合早期/季前历史快照；原始逐球员抓取时间未知。；来源号码已数值化，0.0无法区分0与00；请使用真实赛季号码。",
     "txt_2836ee3a5b432a71": "Official transaction confirms team association; this is not evidence of NBA game appearance. Jersey unverified. Transaction dates use source listing, not independently reconstructed arrival/departure times.",
     "txt_39cf9d1100768903": "按该队整个赛季名单计数；已离队球员仍计入；跨队球员会在各队重复计数。",
@@ -677,8 +1201,8 @@
     "txt_42f85e193875cfe9": "混合早期/季前历史快照；原始逐球员抓取时间未知。",
     "txt_69046db266563ebb": "同赛季多队与多号码的排列不表示先后顺序；名单可能不含短约且未出场的其他停留。",
     "txt_6a5a32cf2bd51ae3": "进入首轮的16支季后赛球队；不含仅参加附加赛后被淘汰的球队",
+    "txt_6f6aab3840de6171": "仅补原null；已有非空值未改。原始来源/快照列只说明保留的原始数据；补入字段的来源和日期逐项见rating_field_provenance。补采前原始备注：来源缺少部分个人能力值；未推算或补零。；混合早期/季前历史快照；原始逐球员抓取时间未知。",
     "txt_726211c1c52d7acd": "2024-11-26仓库快照；游戏补丁日期未核",
-    "txt_92917aebb9a2975b": "来源缺少部分个人能力值；未推算或补零。；混合早期/季前历史快照；原始逐球员抓取时间未知。",
     "txt_bbe5bd2d2693e3f9": "2025-08至2026-02混合归档；含早期/季前快照；逐球员时间未知",
     "txt_c718e3757c3d5365": "所用历史来源未找到可核对记录；所有能力值留空，不以0代替。",
     "txt_d4d2dea86364ca9a": "混合早期/季前历史快照；原始逐球员抓取时间未知。；评分CSV号码35与独立归档页及HOU赛季名单号码7不一致；号码以球队赛季记录为准。",
@@ -692,8 +1216,8 @@
     "scope": "球队范围为每季正式首轮16队；球员范围为这些球队整个赛季名单（含季中离队球员），不等于季后赛出场名单。",
     "rating_time_basis": [
       "2024-25对应NBA 2K25：使用2024-11-26固定仓库版本；提交日期不是已验证的游戏补丁日期，也不代表赛季末。",
-      "2025-26对应NBA 2K26：归档混合2025年8月至2026年2月的不同时间点，包含早期/季前记录。2026年7月是提取文件提交时间，不能称作7月游戏能力值。",
-      "NBA 2K26提取不含逐球员的准确归档时间；不能将独立抽查页面时间当成原始CSV抓取时间，也不能当成正式发售或最终赛季评分。"
+      "2K26原始非空值保留早期混合归档；新增空值优先真实历史HTML，再按固定2026-08-08/07-21/05-28的2K26第三方快照补采；逐字段追溯，不是单一时间点。",
+      "归档抓取时间与仓库同步时间按date_basis区分，均不等于游戏补丁更新时间；所有game_patch_date未知。"
     ],
     "numeric_metric_count": 42,
     "individual_metric_count": 36,
@@ -712,15 +1236,19 @@
     "limitations": [
       "能力值来自可追溯的第三方历史抓取，不是2K官方数据导出；真实球队和号码独立取自赛季球队名单。",
       "2024-25对应NBA 2K25：使用2024-11-26固定仓库版本；提交日期不是已验证的游戏补丁日期，也不代表赛季末。",
-      "2025-26对应NBA 2K26：归档混合2025年8月至2026年2月的不同时间点，包含早期/季前记录。2026年7月是提取文件提交时间，不能称作7月游戏能力值。",
-      "NBA 2K26提取不含逐球员的准确归档时间；不能将独立抽查页面时间当成原始CSV抓取时间，也不能当成正式发售或最终赛季评分。",
+      "2K26原始非空值保留早期混合归档；新增空值优先真实历史HTML，再按固定2026-08-08/07-21/05-28的2K26第三方快照补采；逐字段追溯，不是单一时间点。",
+      "归档抓取时间与仓库同步时间按date_basis区分，均不等于游戏补丁更新时间；所有game_patch_date未知。",
       "球队范围为每季正式首轮16队；球员范围为这些球队整个赛季名单（含季中离队球员），不等于季后赛出场名单。",
       "缺失评分留空，不补零，不用其他版本/当前页面能力值填补历史缺口。",
       "同赛季转队顺序及具体日期通常未核实；球队按缩写排序。号码逐队保留，0和00不同，同队多个号码保留来源文本。",
       "球队名单可能不含短约或零出场的停留；仅在另有NBA官方交易证据时补入历史，不能称为完整合同或交易档案。",
       "来源文本没有BBR球员超链接，BBR编号留空；连接键使用去重音/标点后的精确姓名并辅以11条逐项核对的显式别名。未使用模糊匹配。",
       "2K26来源快照号码曾被数值化，0.0不能可靠区分0和00；杜兰特来源快照号码35与HOU赛季号码7不同。请以真实赛季号码为准。",
-      "42个能力字段包括36项个人能力（含总评）及6项来源提供的综合分类；分类值不是本次重新计算。"
+      "42个能力字段包括36项个人能力（含总评）及6项来源提供的综合分类；分类值不是本次重新计算。",
+      "本次只补2K26原有null，已有非空评分和2K25不改；未补0，也不使用2K27/MyTEAM/经典或全明星版本。",
+      "新增补采没有采用仅有发售前预览的HTML；原包已有早期快照值仍保留。",
+      "Blacktop综合分类是Math.round派生均值，不导入cat_*；综合分类只在真实历史页面有原始显示值时补入，否则保持null。",
+      "混合来源记录必须按field_provenance.json逐字段解析；原始评分来源/快照列不能代表整条已补采记录。"
     ],
     "sources": [
       {
@@ -768,12 +1296,12 @@
       {
         "season": "2025-26",
         "selected_player_season_rows": 318,
-        "with_overall_rating": 188,
-        "all_individual_ratings_complete": 175,
-        "partial_individual_ratings": 13,
-        "without_rating_record": 130,
-        "with_three_point_rating": 178,
-        "with_six_core_ratings": 176
+        "with_overall_rating": 318,
+        "all_individual_ratings_complete": 314,
+        "partial_individual_ratings": 4,
+        "without_rating_record": 0,
+        "with_three_point_rating": 314,
+        "with_six_core_ratings": 314
       }
     ],
     "counts": {
@@ -783,9 +1311,58 @@
       "histories": 472,
       "playoff_teams": 32,
       "coverage": 32,
-      "unresolved_joins": 152,
+      "unresolved_joins": 22,
       "explicit_aliases": 11,
       "official_transaction_supplements": 42
+    },
+    "remediation": {
+      "version": "1.1.0",
+      "updated_at_utc": "2026-10-01T03:21:34.449355+00:00",
+      "policy": "Only original 2K26 nulls filled; existing values and complete 2K25 rows unchanged; verified historical HTML first, then fixed Blacktop Aug08/Jul21/May28; per-field provenance required",
+      "baseline_dataset_sha256": "1b5c28bf0659872ed173153f2a36f1295e83e4e03f1f85e403e5e25048f1e1bc",
+      "affected_records": 143,
+      "added_rating_cells": 4792,
+      "added_source_category_cells": 77,
+      "field_provenance_file": "field_provenance.json",
+      "source_usage_cells": {
+        "src_5dc795233c2f9b8d": 4198,
+        "src_ea607fe9843a3d15": 11,
+        "src_0ad010b764d83dcf": 24,
+        "src_b40fb78744f910f2": 21,
+        "src_2851a92edda5edd3": 18,
+        "src_c9dc101ceff4e588": 24,
+        "src_a5f867ad263da27d": 24,
+        "src_6c19ced94c355f25": 18,
+        "src_5dfa5cb9eb0bb14a": 42,
+        "src_d6f6c9146e599703": 4,
+        "src_a4da165ede6f37e0": 42,
+        "src_af831a0d6e6a0fa4": 42,
+        "src_4441167c6d46b422": 42,
+        "src_6583befd64222196": 72,
+        "src_a09eea2147fe99fa": 42,
+        "src_6a01826f933d2ec5": 42,
+        "src_03d9e5ecfd64768f": 42,
+        "src_75eb44a227e96b97": 42,
+        "src_db8df3a9722d3446": 42
+      },
+      "inputs": [
+        {
+          "file": "blacktop_candidate_coverage_audit.json",
+          "sha256": "f41081b051bcbe6202f8c4327ef31fad87ab0175a2487d3e92f966008e1aa117"
+        },
+        {
+          "file": "reviewed_null_fill_candidates.json",
+          "sha256": "31f41fff5c5dbebed8a83076961fe4a8be1e84e623137c338aca1344bac9708d"
+        },
+        {
+          "file": "verified_historical_candidates.json",
+          "sha256": "138e481d1a7832e699ea508ad1522ba5820d5f215991e0fddc4f3597814a0b79"
+        },
+        {
+          "file": "verified_historical_incremental_candidates.json",
+          "sha256": "bd24ba72f9d990fa932bdd2f6e781d7b1efc44d2e977085b3e0a0f9173916d55"
+        }
+      ]
     }
   },
   "upstream_field_dictionary": {
@@ -1016,11 +1593,11 @@
       },
       {
         "key": "join_method",
-        "label_zh": "姓名连接方式"
+        "label_zh": "原始姓名连接方式（补采另见逐字段出处）"
       },
       {
         "key": "rating_source_player_name",
-        "label_zh": "评分来源姓名"
+        "label_zh": "原始评分来源姓名（补采另见逐字段出处）"
       },
       {
         "key": "snapshot_team",
@@ -1036,11 +1613,11 @@
       },
       {
         "key": "rating_snapshot_basis",
-        "label_zh": "能力值时间口径"
+        "label_zh": "原始能力值时间口径（补采另见逐字段出处）"
       },
       {
         "key": "rating_source_url",
-        "label_zh": "能力值来源"
+        "label_zh": "原始能力值来源（补采另见逐字段出处）"
       },
       {
         "key": "rating_source_origin",
@@ -1061,6 +1638,26 @@
       {
         "key": "roster_source_retrieved_date",
         "label_zh": "球队号码取回日期"
+      },
+      {
+        "key": "baseline_coverage_status",
+        "label_zh": "补采前覆盖状态"
+      },
+      {
+        "key": "rating_provenance_scope",
+        "label_zh": "补采后时间来源口径"
+      },
+      {
+        "key": "rating_field_provenance_id",
+        "label_zh": "逐字段出处记录键"
+      },
+      {
+        "key": "rating_supplemented_fields",
+        "label_zh": "本次仅补空值的指标"
+      },
+      {
+        "key": "rating_supplement_source_urls",
+        "label_zh": "补采来源网址"
       }
     ],
     "stints_columns": [
