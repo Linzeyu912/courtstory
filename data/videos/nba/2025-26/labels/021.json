@@ -1,90 +1,101 @@
 {
-  "clip_id": 21,
-  "season": "2025-26",
-  "game_date_local": "2025-11-03",
-  "game_date_timezone": "比赛美国当地日期",
-  "game_id": "0022500160",
-  "matchup": "DAL at HOU",
-  "offense_team": "DAL",
-  "defense_team": "HOU",
-  "period": 2,
-  "clock_start_recorded": "7:59",
-  "clock_result_recorded": "7:44",
-  "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
-  "label_title": "独行侠篮板后推进，掩护传导至内线得分",
-  "tactic_tags": [
-    "防守篮板",
-    "后场推进",
-    "半场掩护",
-    "内线传球"
-  ],
-  "tactic_repeat_group": "B30-G01",
-  "tactic_group_name": "掩护配合（含挡拆）",
-  "tactic_repeat": true,
-  "similar_to": [
-    1,
-    2,
-    6,
-    8,
-    12
-  ],
-  "repeat_reason": "同属「掩护配合（含挡拆）」的可见动作分类；具体战术是否相同待画面复核。",
-  "label_status": "provisional_from_collector_notes",
-  "label_basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察",
-  "label_confidence": "草案，待成片视觉确认；不是球队官方战术名称",
-  "original_action_note": "防守篮板后推进，半场掩护、传导和内线终结得分。",
-  "content_overlap": [
-    {
-      "clip_ids": [
-        20,
-        21
-      ],
-      "source_url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
-      "source_start_seconds": 2428,
-      "source_end_seconds": 2430,
-      "duration_seconds": 2,
-      "kind": "shared_source_frames_near_possession_change",
-      "basis": "原清单裁切区间计算，尚未取得成片逐帧复核"
-    }
-  ],
-  "related_context": [],
-  "whole_possession_duplicate_status": "未从清单发现整回合重复；缺少视频，未完成视觉去重",
-  "reported_video": {
-    "width": 1920,
-    "height": 1080,
-    "pixels_per_frame": 2073600,
-    "fps": 30.0,
-    "fps_fraction": "30/1",
-    "duration_seconds": 20.0,
-    "file_size_bytes": 21301174,
-    "video_codec": "h264",
-    "audio_codec": "aac",
-    "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
-  },
-  "quality_review": {
-    "resolution_target_from_record": "1080p规格满足高清目标",
-    "actual_resolution_verified_here": false,
-    "visual_clarity_verified_here": false,
-    "native_1080p_verified_here": false,
-    "normal_speed_broadcast": "原采集记录声称为连续正常速度直播；本轮待看片",
-    "added_overlay_review": "原记录称无新增标注或解说；本轮待看片"
-  },
-  "possession_review": {
-    "full_possession_visually_verified_here": false,
-    "start_visibility_reported": "待实际视频确认",
-    "original_continuity_note": "起点保留篮板前约2秒投篮来源，完整独行侠推进组织至得分，含约4秒即时反应；与ID20仅在球权交接附近重叠2秒，不重复整个回合。",
-    "original_boundary_note": null,
-    "flags": [
-      "与另一段在篮板交接附近共用2秒源画面"
-    ]
-  },
-  "source_url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
-  "publisher": "manuelmazon",
-  "publisher_class": "third_party_public_upload",
-  "official_game_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
-  "source_start_seconds": 2428,
-  "source_end_seconds": 2448,
-  "expected_video_path": "data/raw/nba-2025-26-30/021_2025-11-03_DAL_Q2.mp4",
-  "video_available_here": false,
-  "reviewed_at": "2026-10-01T08:24:31.074423+08:00"
+ "clip_id": 21,
+ "season": "2025-26",
+ "game_date_local": "2025-11-03",
+ "game_date_timezone": "比赛美国当地日期",
+ "game_id": "0022500160",
+ "matchup": "DAL at HOU",
+ "offense_team": "DAL",
+ "defense_team": "HOU",
+ "period": 2,
+ "clock_start_recorded": "7:59",
+ "clock_result_recorded": "7:44",
+ "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+ "label_title": "独行侠篮板后推进，掩护传导至内线得分",
+ "tactic_tags": [
+  "防守篮板",
+  "后场推进",
+  "半场掩护",
+  "内线传球"
+ ],
+ "tactic_repeat_group": "B30-G01",
+ "tactic_group_name": "掩护配合（含挡拆）",
+ "tactic_repeat": true,
+ "similar_to": [
+  1,
+  2,
+  6,
+  8,
+  12
+ ],
+ "repeat_reason": "同属「掩护配合（含挡拆）」的可见动作分类；具体战术是否相同待画面复核。",
+ "label_status": "provisional_from_collector_notes",
+ "label_basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察",
+ "label_confidence": "草案，待成片视觉确认；不是球队官方战术名称",
+ "original_action_note": "防守篮板后推进，半场掩护、传导和内线终结得分。",
+ "content_overlap": [
+  {
+   "clip_ids": [
+    20,
+    21
+   ],
+   "source_url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+   "source_start_seconds": 2428,
+   "source_end_seconds": 2430,
+   "duration_seconds": 2,
+   "kind": "shared_source_frames_near_possession_change",
+   "basis": "原清单裁切区间计算，尚未取得成片逐帧复核"
+  }
+ ],
+ "related_context": [],
+ "whole_possession_duplicate_status": "未从清单发现整回合重复；缺少视频，未完成视觉去重",
+ "reported_video": {
+  "width": 1920,
+  "height": 1080,
+  "pixels_per_frame": 2073600,
+  "fps": 30.0,
+  "fps_fraction": "30/1",
+  "duration_seconds": 20.0,
+  "file_size_bytes": 21301174,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+ },
+ "quality_review": {
+  "resolution_target_from_record": "1080p规格满足高清目标",
+  "actual_resolution_verified_here": false,
+  "visual_clarity_verified_here": false,
+  "native_1080p_verified_here": false,
+  "normal_speed_broadcast": "原采集记录声称为连续正常速度直播；本轮待看片",
+  "added_overlay_review": "原记录称无新增标注或解说；本轮待看片"
+ },
+ "possession_review": {
+  "full_possession_visually_verified_here": false,
+  "start_visibility_reported": "待实际视频确认",
+  "original_continuity_note": "起点保留篮板前约2秒投篮来源，完整独行侠推进组织至得分，含约4秒即时反应；与ID20仅在球权交接附近重叠2秒，不重复整个回合。",
+  "original_boundary_note": null,
+  "flags": [
+   "与另一段在篮板交接附近共用2秒源画面"
+  ]
+ },
+ "source_url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+ "publisher": "manuelmazon",
+ "publisher_class": "third_party_public_upload",
+ "official_game_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+ "source_start_seconds": 2428,
+ "source_end_seconds": 2448,
+ "expected_video_path": "data/raw/nba-2025-26-30/021_2025-11-03_DAL_Q2.mp4",
+ "video_available_here": true,
+ "reviewed_at": "2026-10-01T08:24:31.074423+08:00",
+ "sha256": "0179d35dbc5b992e81579ca7e22874c9b9e0e0e4c555a5c6c3addd27e4774c94",
+ "size_bytes": 21301174,
+ "asset_path": "data/videos/nba/2025-26/clips/021_2025-11-03_DAL_Q2.mp4",
+ "measured_video": {
+  "duration_seconds": 20.0,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30.0,
+  "measurement_status": "measured",
+  "measurement_basis": "本次入库由 ffprobe 实测；未做画面视觉复核"
+ }
 }

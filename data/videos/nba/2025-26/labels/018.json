@@ -1,82 +1,93 @@
 {
-  "clip_id": 18,
-  "season": "2025-26",
-  "game_date_local": "2025-11-03",
-  "game_date_timezone": "比赛美国当地日期",
-  "game_id": "0022500160",
-  "matchup": "DAL at HOU",
-  "offense_team": "HOU",
-  "defense_team": "DAL",
-  "period": 3,
-  "clock_start_recorded": "11:25",
-  "clock_result_recorded": "11:07",
-  "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
-  "label_title": "火箭传球至申京低位出手，造成犯规",
-  "tactic_tags": [
-    "后场推进",
-    "内线传球",
-    "低位进攻",
-    "造成犯规"
-  ],
-  "tactic_repeat_group": "B30-G04",
-  "tactic_group_name": "低位与背身进攻",
-  "tactic_repeat": true,
-  "similar_to": [
-    9,
-    11,
-    28
-  ],
-  "repeat_reason": "同属「低位与背身进攻」的可见动作分类；具体战术是否相同待画面复核。",
-  "label_status": "provisional_from_collector_notes",
-  "label_basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察",
-  "label_confidence": "草案，待成片视觉确认；不是球队官方战术名称",
-  "original_action_note": "Houston inbounds and advances into a half-court set, works the ball inside to Sengun, and draws a foul on the low-post attempt.",
-  "content_overlap": [],
-  "related_context": [
-    {
-      "other_clip_id": 15,
-      "kind": "same_scoring_reaction_context",
-      "basis": "原采集交接记载；两段裁切区间相接，没有正时长区间重叠，重复的是相邻得分反应上下文"
-    }
-  ],
-  "whole_possession_duplicate_status": "未从清单发现整回合重复；缺少视频，未完成视觉去重",
-  "reported_video": {
-    "width": 1920,
-    "height": 1080,
-    "pixels_per_frame": 2073600,
-    "fps": 30.0,
-    "fps_fraction": "30/1",
-    "duration_seconds": 21.5,
-    "file_size_bytes": 20957525,
-    "video_codec": "h264",
-    "audio_codec": "aac",
-    "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
-  },
-  "quality_review": {
-    "resolution_target_from_record": "1080p规格满足高清目标",
-    "actual_resolution_verified_here": false,
-    "visual_clarity_verified_here": false,
-    "native_1080p_verified_here": false,
-    "normal_speed_broadcast": "原采集记录声称为连续正常速度直播；本轮待看片",
-    "added_overlay_review": "原记录称无新增标注或解说；本轮待看片"
-  },
-  "possession_review": {
-    "full_possession_visually_verified_here": false,
-    "start_visibility_reported": "球权起点未完整可见",
-    "original_continuity_note": "21.5 seconds of continuous live footage from the inbound through the half-court possession and foul; brief opening Dallas reaction shot is followed by the Houston restart.",
-    "original_boundary_note": "开头约1.5秒为上一得分后的原直播近景，随后为HOU推进、半场组织至结果；发球首刻未完全可见。",
-    "flags": [
-      "原记录明确说明球权起点或发球首刻未完整可见",
-      "与相邻片段使用同一得分后的反应上下文"
-    ]
-  },
-  "source_url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
-  "publisher": "manuelmazon",
-  "publisher_class": "third_party_public_upload",
-  "official_game_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
-  "source_start_seconds": 3458.5,
-  "source_end_seconds": 3480.0,
-  "expected_video_path": "data/raw/nba-2025-26-30/018_2025-11-03_HOU_Q3.mp4",
-  "video_available_here": false,
-  "reviewed_at": "2026-10-01T08:24:31.074423+08:00"
+ "clip_id": 18,
+ "season": "2025-26",
+ "game_date_local": "2025-11-03",
+ "game_date_timezone": "比赛美国当地日期",
+ "game_id": "0022500160",
+ "matchup": "DAL at HOU",
+ "offense_team": "HOU",
+ "defense_team": "DAL",
+ "period": 3,
+ "clock_start_recorded": "11:25",
+ "clock_result_recorded": "11:07",
+ "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+ "label_title": "火箭传球至申京低位出手，造成犯规",
+ "tactic_tags": [
+  "后场推进",
+  "内线传球",
+  "低位进攻",
+  "造成犯规"
+ ],
+ "tactic_repeat_group": "B30-G04",
+ "tactic_group_name": "低位与背身进攻",
+ "tactic_repeat": true,
+ "similar_to": [
+  9,
+  11,
+  28
+ ],
+ "repeat_reason": "同属「低位与背身进攻」的可见动作分类；具体战术是否相同待画面复核。",
+ "label_status": "provisional_from_collector_notes",
+ "label_basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察",
+ "label_confidence": "草案，待成片视觉确认；不是球队官方战术名称",
+ "original_action_note": "Houston inbounds and advances into a half-court set, works the ball inside to Sengun, and draws a foul on the low-post attempt.",
+ "content_overlap": [],
+ "related_context": [
+  {
+   "other_clip_id": 15,
+   "kind": "same_scoring_reaction_context",
+   "basis": "原采集交接记载；两段裁切区间相接，没有正时长区间重叠，重复的是相邻得分反应上下文"
+  }
+ ],
+ "whole_possession_duplicate_status": "未从清单发现整回合重复；缺少视频，未完成视觉去重",
+ "reported_video": {
+  "width": 1920,
+  "height": 1080,
+  "pixels_per_frame": 2073600,
+  "fps": 30.0,
+  "fps_fraction": "30/1",
+  "duration_seconds": 21.5,
+  "file_size_bytes": 20957525,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+ },
+ "quality_review": {
+  "resolution_target_from_record": "1080p规格满足高清目标",
+  "actual_resolution_verified_here": false,
+  "visual_clarity_verified_here": false,
+  "native_1080p_verified_here": false,
+  "normal_speed_broadcast": "原采集记录声称为连续正常速度直播；本轮待看片",
+  "added_overlay_review": "原记录称无新增标注或解说；本轮待看片"
+ },
+ "possession_review": {
+  "full_possession_visually_verified_here": false,
+  "start_visibility_reported": "球权起点未完整可见",
+  "original_continuity_note": "21.5 seconds of continuous live footage from the inbound through the half-court possession and foul; brief opening Dallas reaction shot is followed by the Houston restart.",
+  "original_boundary_note": "开头约1.5秒为上一得分后的原直播近景，随后为HOU推进、半场组织至结果；发球首刻未完全可见。",
+  "flags": [
+   "原记录明确说明球权起点或发球首刻未完整可见",
+   "与相邻片段使用同一得分后的反应上下文"
+  ]
+ },
+ "source_url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+ "publisher": "manuelmazon",
+ "publisher_class": "third_party_public_upload",
+ "official_game_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+ "source_start_seconds": 3458.5,
+ "source_end_seconds": 3480.0,
+ "expected_video_path": "data/raw/nba-2025-26-30/018_2025-11-03_HOU_Q3.mp4",
+ "video_available_here": true,
+ "reviewed_at": "2026-10-01T08:24:31.074423+08:00",
+ "sha256": "2437fdf127ba5a967716ddc6f2d8895faa6f980267c4fff0e391f85cd3c4d6b9",
+ "size_bytes": 20957525,
+ "asset_path": "data/videos/nba/2025-26/clips/018_2025-11-03_HOU_Q3.mp4",
+ "measured_video": {
+  "duration_seconds": 21.5,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30.0,
+  "measurement_status": "measured",
+  "measurement_basis": "本次入库由 ffprobe 实测；未做画面视觉复核"
+ }
 }

@@ -1,0 +1,651 @@
+{
+ "schema_version": "1.0.0",
+ "dataset_id": "nba-2025-26-batch-008",
+ "season": "2025-26",
+ "timezone": "Asia/Shanghai",
+ "created_at": "2026-10-01T23:06:01+08:00",
+ "source_manifest": "data/videos/nba/2025-26/sources/batch-008.json",
+ "label_source": "data/videos/nba/2025-26/sources/batch-008.json",
+ "entries": [
+  {
+   "clip_id": "nba-2025-26-batch-008-001",
+   "local_id": "001",
+   "asset": {
+    "path": "clips/01-hou-screen-drive-kick.mp4",
+    "bytes": 18444910,
+    "sha256": "534b9abd4ca9d0d2b1ccc5c8bb0c23ef0ad0ec0eb397e034ea7d71e75f92841e",
+    "storage": "git-lfs",
+    "availability": "included"
+   },
+   "annotation_path": "labels-batch-008/001.json",
+   "source": {
+    "url": "https://www.youtube.com/watch?v=UG9E636IzfE",
+    "publisher": "NBA",
+    "collected_at": "2026-09-30",
+    "start_seconds": 100.7,
+    "end_seconds": 111.7
+   },
+   "game": {
+    "season": "2025-26",
+    "date_local": "2026-01-31",
+    "date_beijing": null,
+    "matchup": "DAL at HOU",
+    "game_id": "0022500701",
+    "verification_url": "https://www.nba.com/game/0022500701",
+    "period": 1,
+    "clock_start": "7:02",
+    "clock_end": "6:51",
+    "clock_precision": "原采集者人工读数；本轮未复核画面时钟",
+    "offense_team": "HOU",
+    "defense_team": "DAL"
+   },
+   "tactic": {
+    "title": "火箭：掩护后突分，底角三分",
+    "tags": [
+     "突破分球",
+     "掩护配合"
+    ],
+    "description": "外围掩护后持球人向内线推进，吸引防守，再把球送到底角完成三分。可观察掩护、防守收缩和外线接应的衔接。",
+    "label_status": "provisional_from_collector_notes",
+    "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+    "basis": "历史采集清单 sources/batch-008.json；本轮仅完成入库测量，未看片"
+   },
+   "video": {
+    "duration_seconds": 11.011,
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "measurement_status": "measured"
+   },
+   "reported_video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "fps_fraction": "60000/1001",
+    "duration_seconds": 11.011,
+    "file_size_bytes": 18444910,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "measurement_basis": "原采集者记录的ffprobe结果；本次入库已实测复核"
+   },
+   "review": {
+    "normal_speed": null,
+    "original_broadcast": null,
+    "full_possession": null,
+    "scope": null,
+    "decode_status": "unverified",
+    "visual_status": "unverified",
+    "reviewed_at": null,
+    "basis": "尚未看片复核；仅完成入库测量"
+   },
+   "dedup": {
+    "content_status": "unverified",
+    "action_group": "nba-2025-26-batch-008:G001",
+    "similar_to": [],
+    "reason": "历史批次；与 batch030 三十段的逐段对应关系未确认，入库时未做内容去重",
+    "source_overlaps": [],
+    "related_context": []
+   }
+  },
+  {
+   "clip_id": "nba-2025-26-batch-008-002",
+   "local_id": "002",
+   "asset": {
+    "path": "clips/02-dal-flagg-screen-drive.mp4",
+    "bytes": 18655842,
+    "sha256": "31764549ed2064d34110bc50ed76b20d9acc63a012f405b3b8ad6f6aabf2bb93",
+    "storage": "git-lfs",
+    "availability": "included"
+   },
+   "annotation_path": "labels-batch-008/002.json",
+   "source": {
+    "url": "https://www.youtube.com/watch?v=UG9E636IzfE",
+    "publisher": "NBA",
+    "collected_at": "2026-09-30",
+    "start_seconds": 148.5,
+    "end_seconds": 159.4
+   },
+   "game": {
+    "season": "2025-26",
+    "date_local": "2026-01-31",
+    "date_beijing": null,
+    "matchup": "DAL at HOU",
+    "game_id": "0022500701",
+    "verification_url": "https://www.nba.com/game/0022500701",
+    "period": 1,
+    "clock_start": "5:30",
+    "clock_end": "5:22",
+    "clock_precision": "原采集者人工读数；本轮未复核画面时钟",
+    "offense_team": "DAL",
+    "defense_team": "HOU"
+   },
+   "tactic": {
+    "title": "独行侠：Flagg 借掩护突破",
+    "tags": [
+     "挡拆",
+     "持球突破"
+    ],
+    "description": "深色球衣的 32 号 Flagg 在外围持球，队友上提掩护，随后突破到禁区近筐出手。能看到掩护前站位和防守跟随。",
+    "label_status": "provisional_from_collector_notes",
+    "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+    "basis": "历史采集清单 sources/batch-008.json；本轮仅完成入库测量，未看片"
+   },
+   "video": {
+    "duration_seconds": 10.91,
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "measurement_status": "measured"
+   },
+   "reported_video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "fps_fraction": "60000/1001",
+    "duration_seconds": 10.910217,
+    "file_size_bytes": 18655842,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "measurement_basis": "原采集者记录的ffprobe结果；本次入库已实测复核"
+   },
+   "review": {
+    "normal_speed": null,
+    "original_broadcast": null,
+    "full_possession": null,
+    "scope": null,
+    "decode_status": "unverified",
+    "visual_status": "unverified",
+    "reviewed_at": null,
+    "basis": "尚未看片复核；仅完成入库测量"
+   },
+   "dedup": {
+    "content_status": "unverified",
+    "action_group": "nba-2025-26-batch-008:G002",
+    "similar_to": [],
+    "reason": "历史批次；与 batch030 三十段的逐段对应关系未确认，入库时未做内容去重",
+    "source_overlaps": [],
+    "related_context": []
+   }
+  },
+  {
+   "clip_id": "nba-2025-26-batch-008-003",
+   "local_id": "003",
+   "asset": {
+    "path": "clips/03-hou-catch-attack.mp4",
+    "bytes": 16535595,
+    "sha256": "14d75e451e3d4e47fed0bfdbcb34d7ff49a7216121424da51e7c1ef04b3f1588",
+    "storage": "git-lfs",
+    "availability": "included"
+   },
+   "annotation_path": "labels-batch-008/003.json",
+   "source": {
+    "url": "https://www.youtube.com/watch?v=UG9E636IzfE",
+    "publisher": "NBA",
+    "collected_at": "2026-09-30",
+    "start_seconds": 82.8,
+    "end_seconds": 92.2
+   },
+   "game": {
+    "season": "2025-26",
+    "date_local": "2026-01-31",
+    "date_beijing": null,
+    "matchup": "DAL at HOU",
+    "game_id": "0022500701",
+    "verification_url": "https://www.nba.com/game/0022500701",
+    "period": 1,
+    "clock_start": "7:59",
+    "clock_end": "7:51",
+    "clock_precision": "原采集者人工读数；本轮未复核画面时钟",
+    "offense_team": "HOU",
+    "defense_team": "DAL"
+   },
+   "tactic": {
+    "title": "火箭：外围接应后攻筐",
+    "tags": [
+     "接应移动",
+     "内线终结"
+    ],
+    "description": "火箭在外围交接球，接应球员转身向内线推进，经过协防后完成近筐出手。适合观察接应位置和防守收缩。",
+    "label_status": "provisional_from_collector_notes",
+    "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+    "basis": "历史采集清单 sources/batch-008.json；本轮仅完成入库测量，未看片"
+   },
+   "video": {
+    "duration_seconds": 9.409,
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "measurement_status": "measured"
+   },
+   "reported_video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "fps_fraction": "60000/1001",
+    "duration_seconds": 9.408717,
+    "file_size_bytes": 16535595,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "measurement_basis": "原采集者记录的ffprobe结果；本次入库已实测复核"
+   },
+   "review": {
+    "normal_speed": null,
+    "original_broadcast": null,
+    "full_possession": null,
+    "scope": null,
+    "decode_status": "unverified",
+    "visual_status": "unverified",
+    "reviewed_at": null,
+    "basis": "尚未看片复核；仅完成入库测量"
+   },
+   "dedup": {
+    "content_status": "unverified",
+    "action_group": "nba-2025-26-batch-008:G003",
+    "similar_to": [],
+    "reason": "历史批次；与 batch030 三十段的逐段对应关系未确认，入库时未做内容去重",
+    "source_overlaps": [],
+    "related_context": []
+   }
+  },
+  {
+   "clip_id": "nba-2025-26-batch-008-004",
+   "local_id": "004",
+   "asset": {
+    "path": "clips/04-dal-drive-corner-three.mp4",
+    "bytes": 18703783,
+    "sha256": "39a1957f065ab081339b37c68e5a9c1c0c79a431573c0ccfa1f4de4e0b42aa76",
+    "storage": "git-lfs",
+    "availability": "included"
+   },
+   "annotation_path": "labels-batch-008/004.json",
+   "source": {
+    "url": "https://www.youtube.com/watch?v=UG9E636IzfE",
+    "publisher": "NBA",
+    "collected_at": "2026-09-30",
+    "start_seconds": 605.7,
+    "end_seconds": 616.6
+   },
+   "game": {
+    "season": "2025-26",
+    "date_local": "2026-01-31",
+    "date_beijing": null,
+    "matchup": "DAL at HOU",
+    "game_id": "0022500701",
+    "verification_url": "https://www.nba.com/game/0022500701",
+    "period": 3,
+    "clock_start": "7:06",
+    "clock_end": "6:54",
+    "clock_precision": "原采集者人工读数；本轮未复核画面时钟",
+    "offense_team": "DAL",
+    "defense_team": "HOU"
+   },
+   "tactic": {
+    "title": "独行侠：突破吸引协防，分到底角",
+    "tags": [
+     "突破分球",
+     "底角三分"
+    ],
+    "description": "独行侠深色球衣推进到半场，持球突破吸引禁区防守，再分给底角接应球员完成三分出手。",
+    "label_status": "provisional_from_collector_notes",
+    "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+    "basis": "历史采集清单 sources/batch-008.json；本轮仅完成入库测量，未看片"
+   },
+   "video": {
+    "duration_seconds": 10.911,
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "measurement_status": "measured"
+   },
+   "reported_video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "fps_fraction": "60000/1001",
+    "duration_seconds": 10.9109,
+    "file_size_bytes": 18703783,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "measurement_basis": "原采集者记录的ffprobe结果；本次入库已实测复核"
+   },
+   "review": {
+    "normal_speed": null,
+    "original_broadcast": null,
+    "full_possession": null,
+    "scope": null,
+    "decode_status": "unverified",
+    "visual_status": "unverified",
+    "reviewed_at": null,
+    "basis": "尚未看片复核；仅完成入库测量"
+   },
+   "dedup": {
+    "content_status": "unverified",
+    "action_group": "nba-2025-26-batch-008:G004",
+    "similar_to": [],
+    "reason": "历史批次；与 batch030 三十段的逐段对应关系未确认，入库时未做内容去重",
+    "source_overlaps": [],
+    "related_context": []
+   }
+  },
+  {
+   "clip_id": "nba-2025-26-batch-008-005",
+   "local_id": "005",
+   "asset": {
+    "path": "clips/05-hou-drive-smith-corner.mp4",
+    "bytes": 15643384,
+    "sha256": "f57e920e5bc6e5232f6f16401c9d0d82df22143f7db21c6dad1fe88cdadeec61",
+    "storage": "git-lfs",
+    "availability": "included"
+   },
+   "annotation_path": "labels-batch-008/005.json",
+   "source": {
+    "url": "https://www.youtube.com/watch?v=UG9E636IzfE",
+    "publisher": "NBA",
+    "collected_at": "2026-09-30",
+    "start_seconds": 248.9,
+    "end_seconds": 258.5
+   },
+   "game": {
+    "season": "2025-26",
+    "date_local": "2026-01-31",
+    "date_beijing": null,
+    "matchup": "DAL at HOU",
+    "game_id": "0022500701",
+    "verification_url": "https://www.nba.com/game/0022500701",
+    "period": 1,
+    "clock_start": "1:23",
+    "clock_end": "1:14",
+    "clock_precision": "原采集者人工读数；本轮未复核画面时钟",
+    "offense_team": "HOU",
+    "defense_team": "DAL"
+   },
+   "tactic": {
+    "title": "火箭：突破牵制，Smith 底角接应",
+    "tags": [
+     "无球空间",
+     "突破分球"
+    ],
+    "description": "Thompson 突入禁区，防守向持球侧收缩，Smith 在底角保持接应空间，接球后完成三分出手。",
+    "label_status": "provisional_from_collector_notes",
+    "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+    "basis": "历史采集清单 sources/batch-008.json；本轮仅完成入库测量，未看片"
+   },
+   "video": {
+    "duration_seconds": 9.609,
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "measurement_status": "measured"
+   },
+   "reported_video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "fps_fraction": "60000/1001",
+    "duration_seconds": 9.608917,
+    "file_size_bytes": 15643384,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "measurement_basis": "原采集者记录的ffprobe结果；本次入库已实测复核"
+   },
+   "review": {
+    "normal_speed": null,
+    "original_broadcast": null,
+    "full_possession": null,
+    "scope": null,
+    "decode_status": "unverified",
+    "visual_status": "unverified",
+    "reviewed_at": null,
+    "basis": "尚未看片复核；仅完成入库测量"
+   },
+   "dedup": {
+    "content_status": "unverified",
+    "action_group": "nba-2025-26-batch-008:G005",
+    "similar_to": [],
+    "reason": "历史批次；与 batch030 三十段的逐段对应关系未确认，入库时未做内容去重",
+    "source_overlaps": [],
+    "related_context": []
+   }
+  },
+  {
+   "clip_id": "nba-2025-26-batch-008-006",
+   "local_id": "006",
+   "asset": {
+    "path": "clips/06-dal-late-catch-drive.mp4",
+    "bytes": 21411554,
+    "sha256": "b0e428f7c043ce58e360653972231dd5ad7189c2f1a68b7aadde73c8df3066c0",
+    "storage": "git-lfs",
+    "availability": "included"
+   },
+   "annotation_path": "labels-batch-008/006.json",
+   "source": {
+    "url": "https://www.youtube.com/watch?v=UG9E636IzfE",
+    "publisher": "NBA",
+    "collected_at": "2026-09-30",
+    "start_seconds": 869.0,
+    "end_seconds": 880.9
+   },
+   "game": {
+    "season": "2025-26",
+    "date_local": "2026-01-31",
+    "date_beijing": null,
+    "matchup": "DAL at HOU",
+    "game_id": "0022500701",
+    "verification_url": "https://www.nba.com/game/0022500701",
+    "period": 4,
+    "clock_start": "1:42",
+    "clock_end": "1:34",
+    "clock_precision": "原采集者人工读数；本轮未复核画面时钟",
+    "offense_team": "DAL",
+    "defense_team": "HOU"
+   },
+   "tactic": {
+    "title": "独行侠：末节外线接球后突破",
+    "tags": [
+     "无球接应",
+     "持球终结"
+    ],
+    "description": "外围传递后，Flagg 在右侧接球并向内线突破，在多名防守球员附近完成两分；比分由 103–107 更新为 105–107。",
+    "label_status": "provisional_from_collector_notes",
+    "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+    "basis": "历史采集清单 sources/batch-008.json；本轮仅完成入库测量，未看片"
+   },
+   "video": {
+    "duration_seconds": 11.912,
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "measurement_status": "measured"
+   },
+   "reported_video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "fps_fraction": "60000/1001",
+    "duration_seconds": 11.9119,
+    "file_size_bytes": 21411554,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "measurement_basis": "原采集者记录的ffprobe结果；本次入库已实测复核"
+   },
+   "review": {
+    "normal_speed": null,
+    "original_broadcast": null,
+    "full_possession": null,
+    "scope": null,
+    "decode_status": "unverified",
+    "visual_status": "unverified",
+    "reviewed_at": null,
+    "basis": "尚未看片复核；仅完成入库测量"
+   },
+   "dedup": {
+    "content_status": "unverified",
+    "action_group": "nba-2025-26-batch-008:G006",
+    "similar_to": [],
+    "reason": "历史批次；与 batch030 三十段的逐段对应关系未确认，入库时未做内容去重",
+    "source_overlaps": [],
+    "related_context": []
+   }
+  },
+  {
+   "clip_id": "nba-2025-26-batch-008-007",
+   "local_id": "007",
+   "asset": {
+    "path": "clips/07-dal-turnover-hou-transition.mp4",
+    "bytes": 21952198,
+    "sha256": "767d63eccde3268c7350d86670aef3ddd573468fc34901147fbdd8652db90195",
+    "storage": "git-lfs",
+    "availability": "included"
+   },
+   "annotation_path": "labels-batch-008/007.json",
+   "source": {
+    "url": "https://www.youtube.com/watch?v=UG9E636IzfE",
+    "publisher": "NBA",
+    "collected_at": "2026-09-30",
+    "start_seconds": 135.6,
+    "end_seconds": 148.2
+   },
+   "game": {
+    "season": "2025-26",
+    "date_local": "2026-01-31",
+    "date_beijing": null,
+    "matchup": "DAL at HOU",
+    "game_id": "0022500701",
+    "verification_url": "https://www.nba.com/game/0022500701",
+    "period": 1,
+    "clock_start": "约6:00",
+    "clock_end": "5:48",
+    "clock_precision": "原采集者人工读数；本轮未复核画面时钟",
+    "offense_team": "DAL",
+    "defense_team": "HOU"
+   },
+   "tactic": {
+    "title": "防守成功：抢断后转换得分",
+    "tags": [
+     "进攻受阻",
+     "抢断转换"
+    ],
+    "description": "独行侠的半场进攻被火箭抢断，随后火箭推进并完成转换得分。这段用于观察防守成功怎样改变进攻结果。",
+    "label_status": "provisional_from_collector_notes",
+    "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+    "basis": "历史采集清单 sources/batch-008.json；本轮仅完成入库测量，未看片"
+   },
+   "video": {
+    "duration_seconds": 12.613,
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "measurement_status": "measured"
+   },
+   "reported_video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "fps_fraction": "60000/1001",
+    "duration_seconds": 12.6126,
+    "file_size_bytes": 21952198,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "measurement_basis": "原采集者记录的ffprobe结果；本次入库已实测复核"
+   },
+   "review": {
+    "normal_speed": null,
+    "original_broadcast": null,
+    "full_possession": null,
+    "scope": null,
+    "decode_status": "unverified",
+    "visual_status": "unverified",
+    "reviewed_at": null,
+    "basis": "尚未看片复核；仅完成入库测量"
+   },
+   "dedup": {
+    "content_status": "unverified",
+    "action_group": "nba-2025-26-batch-008:G007",
+    "similar_to": [],
+    "reason": "历史批次；与 batch030 三十段的逐段对应关系未确认，入库时未做内容去重",
+    "source_overlaps": [],
+    "related_context": []
+   }
+  },
+  {
+   "clip_id": "nba-2025-26-batch-008-008",
+   "local_id": "008",
+   "asset": {
+    "path": "clips/08-hou-screen-crowded-paint.mp4",
+    "bytes": 18130577,
+    "sha256": "5f6992a815d7afc3a7bd8020c494b99d6326d26ccdf9eea0fa0ca9c7a2d3d145",
+    "storage": "git-lfs",
+    "availability": "included"
+   },
+   "annotation_path": "labels-batch-008/008.json",
+   "source": {
+    "url": "https://www.youtube.com/watch?v=UG9E636IzfE",
+    "publisher": "NBA",
+    "collected_at": "2026-09-30",
+    "start_seconds": 777.6,
+    "end_seconds": 787.9
+   },
+   "game": {
+    "season": "2025-26",
+    "date_local": "2026-01-31",
+    "date_beijing": null,
+    "matchup": "DAL at HOU",
+    "game_id": "0022500701",
+    "verification_url": "https://www.nba.com/game/0022500701",
+    "period": 4,
+    "clock_start": "5:27",
+    "clock_end": "5:17",
+    "clock_precision": "原采集者人工读数；本轮未复核画面时钟",
+    "offense_team": "HOU",
+    "defense_team": "DAL"
+   },
+   "tactic": {
+    "title": "困难样例：掩护后禁区多人重叠",
+    "tags": [
+     "挡拆配合",
+     "遮挡困难"
+    ],
+    "description": "火箭高位配合后把球交到 Sengun 手中，随后进入禁区终结。掩护附近以及出手阶段有多人重叠，适合检查识别和跟踪的难点。",
+    "label_status": "provisional_from_collector_notes",
+    "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+    "basis": "历史采集清单 sources/batch-008.json；本轮仅完成入库测量，未看片"
+   },
+   "video": {
+    "duration_seconds": 10.31,
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "measurement_status": "measured"
+   },
+   "reported_video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.94,
+    "fps_fraction": "60000/1001",
+    "duration_seconds": 10.309617,
+    "file_size_bytes": 18130577,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "measurement_basis": "原采集者记录的ffprobe结果；本次入库已实测复核"
+   },
+   "review": {
+    "normal_speed": null,
+    "original_broadcast": null,
+    "full_possession": null,
+    "scope": null,
+    "decode_status": "unverified",
+    "visual_status": "unverified",
+    "reviewed_at": null,
+    "basis": "尚未看片复核；仅完成入库测量"
+   },
+   "dedup": {
+    "content_status": "unverified",
+    "action_group": "nba-2025-26-batch-008:G008",
+    "similar_to": [],
+    "reason": "历史批次；与 batch030 三十段的逐段对应关系未确认，入库时未做内容去重",
+    "source_overlaps": [],
+    "related_context": []
+   }
+  }
+ ]
+}
