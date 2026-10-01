@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "line_number_base": 1,
   "name_normalization": "NFKD -> ASCII ignoring diacritics -> lowercase -> retain a-z and 0-9; explicit audited aliases only; no fuzzy matching",
   "key_separator": "|",
@@ -324,6 +324,9 @@
     ],
     "dariosaric": [
       "name:dariosaric"
+    ],
+    "dariusbrown": [
+      "name:dariusbrownii"
     ],
     "dariusbrownii": [
       "name:dariusbrownii"
@@ -18469,5 +18472,11 @@
   },
   "by_team_semantics": "season|team_abbreviation -> qualifying seasonal-roster record IDs; excludes transaction-only associations",
   "by_jersey_semantics": "season|team_abbreviation|single jersey text -> all known roster player IDs, not a unique identity; raw multi-number text preserved in stint",
-  "not_in_rating_scope_semantics": "No player-season record was selected; inspect history if available. This is different from availability.status=missing_record in an existing record."
+  "not_in_rating_scope_semantics": "No player-season record was selected; inspect history if available. This is different from availability.status=missing_record in an existing record.",
+  "field_provenance": {
+    "path": "field_provenance.json",
+    "lookup": "records[record_id]",
+    "source_lookup": "sources[source_id]",
+    "rule": "For a non-null metric: use records[record_id].field_source_ids[field] if present, otherwise default_source_id only when field is listed in baseline_fields. Null metrics have no value source."
+  }
 }

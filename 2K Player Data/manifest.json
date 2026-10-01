@@ -1,7 +1,7 @@
 {
   "package": "nba2k-playoff-player-data",
-  "schema_version": "1.0.0",
-  "generated_at_utc": "2026-09-30T08:29:12.160003+00:00",
+  "schema_version": "1.1.0",
+  "generated_at_utc": "2026-10-01T03:26:21.851726+00:00",
   "encoding": "UTF-8 without BOM",
   "read_first": [
     "manifest.json",
@@ -22,41 +22,91 @@
     "metrics_per_record": 42,
     "qualified_team_seasons": 32,
     "rating_statuses": {
-      "complete": 470,
-      "missing_record": 152,
-      "partial": 13
+      "complete": 609,
+      "missing_record": 22,
+      "partial": 4
     },
-    "with_overall_rating": 483,
-    "audited_aliases": 11,
-    "unresolved_joins": 152,
-    "sources": 77,
-    "files_including_manifest": 10
+    "with_overall_rating": 613,
+    "audited_aliases": 13,
+    "unresolved_joins": 22,
+    "sources": 101,
+    "files_including_manifest": 12
   },
   "availability_status_basis": "complete/partial refers to 36 individual metrics, not all 42 fields; missing_keys always covers all 42, and missing_individual_keys covers 36.",
   "upstream": {
-    "sha256": "1b5c28bf0659872ed173153f2a36f1295e83e4e03f1f85e403e5e25048f1e1bc",
-    "operation": "local deterministic structure conversion; ratings, identities, teams, jerseys and provenance preserved",
     "source_file": "nba2k_playoff_dataset.json",
-    "source_note": "本地上游聚合文件未随本包发布；保留文件名及 SHA256 用于来源核对，不依赖任何成员的本机目录。"
+    "source_note": "Canonical aggregate retained outside package; resolve lineage by SHA256, not private workstation paths",
+    "sha256": "53afe6aedab6f0bae1fed6cb3c8ba63b2584e2c0aa8b872eedcfdf6131cd6992",
+    "baseline_sha256": "1b5c28bf0659872ed173153f2a36f1295e83e4e03f1f85e403e5e25048f1e1bc",
+    "operation": "structure conversion of null-only supplemented canonical; original non-null ratings, all 2K25 rows, identities, teams and jerseys preserved"
+  },
+  "remediation": {
+    "version": "1.1.0",
+    "updated_at_utc": "2026-10-01T03:21:34.449355+00:00",
+    "policy": "Only original 2K26 nulls filled; existing values and complete 2K25 rows unchanged; verified historical HTML first, then fixed Blacktop Aug08/Jul21/May28; per-field provenance required",
+    "baseline_dataset_sha256": "1b5c28bf0659872ed173153f2a36f1295e83e4e03f1f85e403e5e25048f1e1bc",
+    "affected_records": 143,
+    "added_rating_cells": 4792,
+    "added_source_category_cells": 77,
+    "field_provenance_file": "field_provenance.json",
+    "source_usage_cells": {
+      "src_5dc795233c2f9b8d": 4198,
+      "src_ea607fe9843a3d15": 11,
+      "src_0ad010b764d83dcf": 24,
+      "src_b40fb78744f910f2": 21,
+      "src_2851a92edda5edd3": 18,
+      "src_c9dc101ceff4e588": 24,
+      "src_a5f867ad263da27d": 24,
+      "src_6c19ced94c355f25": 18,
+      "src_5dfa5cb9eb0bb14a": 42,
+      "src_d6f6c9146e599703": 4,
+      "src_a4da165ede6f37e0": 42,
+      "src_af831a0d6e6a0fa4": 42,
+      "src_4441167c6d46b422": 42,
+      "src_6583befd64222196": 72,
+      "src_a09eea2147fe99fa": 42,
+      "src_6a01826f933d2ec5": 42,
+      "src_03d9e5ecfd64768f": 42,
+      "src_75eb44a227e96b97": 42,
+      "src_db8df3a9722d3446": 42
+    },
+    "inputs": [
+      {
+        "file": "blacktop_candidate_coverage_audit.json",
+        "sha256": "f41081b051bcbe6202f8c4327ef31fad87ab0175a2487d3e92f966008e1aa117"
+      },
+      {
+        "file": "reviewed_null_fill_candidates.json",
+        "sha256": "31f41fff5c5dbebed8a83076961fe4a8be1e84e623137c338aca1344bac9708d"
+      },
+      {
+        "file": "verified_historical_candidates.json",
+        "sha256": "138e481d1a7832e699ea508ad1522ba5820d5f215991e0fddc4f3597814a0b79"
+      },
+      {
+        "file": "verified_historical_incremental_candidates.json",
+        "sha256": "bd24ba72f9d990fa932bdd2f6e781d7b1efc44d2e977085b3e0a0f9173916d55"
+      }
+    ]
   },
   "files": [
     {
       "path": "index.json",
       "role": "Name/record/team/jersey lookup with 1-based line references and explicit season scope status",
-      "bytes": 441018,
-      "sha256": "482727e53d95ef095c214c720e6bb4f9c9f2b8da5a5f06678975861c8013c94a"
+      "bytes": 441423,
+      "sha256": "a1bce261dd326751ce2afab791c7ab2221c5feb1ec2fd2a7b15d89bffd7a6975"
     },
     {
       "path": "players/2024-25.jsonl",
       "role": "317 selected NBA 2K25 player-season records; one record per line",
-      "bytes": 811341,
-      "sha256": "8409e66915c39e6f11919958abc3fdae1805423a5b56cf229a8d8c91b48d1831"
+      "bytes": 860744,
+      "sha256": "e1a61b5cc1128df35415e9c25bd4f947d1da23f827629391322af0b64597a4cd"
     },
     {
       "path": "players/2025-26.jsonl",
       "role": "318 selected NBA 2K26 player-season records; one record per line",
-      "bytes": 957706,
-      "sha256": "acece504187f91c328af205a9e6c7a28d159eaaad40dda9e94a8a025797c5333"
+      "bytes": 930153,
+      "sha256": "3583219d7c2619ab9ad7aebc35129ca4a546b7ddba4741d081120e703d5368cc"
     },
     {
       "path": "team_history.jsonl",
@@ -67,43 +117,54 @@
     {
       "path": "teams.json",
       "role": "32 playoff team-season records and their original coverage metrics",
-      "bytes": 24658,
-      "sha256": "78f044579f9590b523a72f51d67c25110df166f1a9cebff806b6a9d0bcd1e540"
+      "bytes": 24678,
+      "sha256": "95fd071736bde92fbcefa52de94fd01c98498702021dd2beb2f680e86e8c79cf"
     },
     {
       "path": "sources.json",
       "role": "Exact source URL catalog, shared original notes, upstream metadata/dictionaries and independent checks",
-      "bytes": 39644,
-      "sha256": "14be22b3e6e00d713c95f8c811a2face3387d4aba7d4420b0ac15e0081a75538"
+      "bytes": 67784,
+      "sha256": "3cf3766e3f5a368852475156c47fa3557135352132cf09106e1914493faa899d"
     },
     {
       "path": "schema.json",
       "role": "Field/type/null contracts, all 42 ability labels and identity/chronology assumptions",
-      "bytes": 13378,
-      "sha256": "2e4f4c6f5af4cc8b08acdd4e7365df8fdc4c26ac95aae54221048c64ca49c6d3"
+      "bytes": 15084,
+      "sha256": "295bf0f16dbfde23ad52bb8a7c2fe71ac41e4c868b821842436a400404ea1b86"
     },
     {
       "path": "audits.json",
-      "role": "Original 11 alias audits and 152 unresolved joins; aliases additionally reference player_id",
-      "bytes": 85525,
-      "sha256": "da34002b344b0d322c69a6bd1c9cad3504bab3d98ebd9d713b7933fd9ef9b826"
+      "role": "Alias audits, remaining and original unresolved joins, plus field-level remediation audit",
+      "bytes": 1532499,
+      "sha256": "6b335ae6a008dcf60be743136f84a30e209623d396cc8b8778bbdeaa8b0617e9"
     },
     {
       "path": "AGENTS.md",
       "role": "Minimal selective-reading instructions and standard-library lookup example",
-      "bytes": 3404,
-      "sha256": "ce3b0666d6a67bc74dda4fbbf8a2138d0e27de57642754d3c23a4a160f455549"
+      "bytes": 4168,
+      "sha256": "15d18bd1e51fd72c7f4196ce6f2c2b9151ccf6ab9999c25d7187f0617325482a"
+    },
+    {
+      "path": "field_provenance.json",
+      "role": "Baseline source resolution and supplemental metric-to-source mapping with game/date basis",
+      "bytes": 869032,
+      "sha256": "0398ec3a0823d07b4c16ccce0c751e97d23933287befc4488cc6855b6c82404e"
+    },
+    {
+      "path": "README.md",
+      "role": "Current coverage and concise version 1.1 null-only supplementation limitations",
+      "bytes": 1499,
+      "sha256": "08c3408e9ca365e549b8eaa836d6c1a84a027da02529f3d83283a5786dcdf4e9"
     }
   ],
   "manifest_hash_note": "Manifest lists hashes for every other package file; self-hash deliberately excluded.",
   "essential_caveats": [
-    "null means unavailable, never zero; no missing rating was filled.",
+    "null means unavailable, never zero; only originally-null 2K26 fields were filled from approved historical sources, never estimated.",
     "Jerseys are strings, 0 != 00; snapshot labels may be stale or numerically damaged.",
     "Entire-season rosters of playoff-qualified teams, not actual playoff appearance lists.",
     "Transaction-only and offseason associations do not establish games played; no inferred chronology.",
-    "NBA 2K26 contains mixed early/pre-release captures, not final-season or July 2026 game ratings.",
+    "NBA 2K26 combines preserved early baseline values and per-field historical supplements. Never label mixed records as one snapshot or as uniform final-season ratings.",
+    "Blacktop derived categories are excluded; unknown cat_* fields remain null unless a verified original HTML display was available.",
     "Record absence (not_in_rating_scope) differs from an existing selected record with missing_record status."
-  ],
-  "portability_updated_at_utc": "2026-09-30T16:03:24.297027+00:00",
-  "portability_note": "仅将读取示例改为仓库相对路径，并移除上游文件的私有本机路径；球员、评分、球队、号码及来源文件未改变。"
+  ]
 }
