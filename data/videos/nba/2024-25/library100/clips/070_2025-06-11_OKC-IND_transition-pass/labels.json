@@ -1,0 +1,62 @@
+{
+  "id": "070",
+  "season": "2024-25",
+  "game": {
+    "key": "OKC-IND-G3",
+    "date_local": "2025-06-11",
+    "date_beijing": "2025-06-12",
+    "tipoff_utc": "2025-06-12T00:30:00+00:00",
+    "tipoff_beijing": "2025-06-12T08:30:00+08:00",
+    "matchup": "OKC-IND",
+    "stage": "总决赛G3",
+    "final_score": {
+      "IND": 116,
+      "OKC": 107
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401766124",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250611"
+  },
+  "quarter": 2,
+  "clock_start": "5:52",
+  "clock_end": "5:47",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "哈利伯顿托平连续传球助马瑟林快攻2+1",
+  "tags": [
+    "转换传球",
+    "哈利伯顿托平连续传球助马瑟林快攻2+1"
+  ],
+  "description": "哈利伯顿托平连续传球助马瑟林快攻2+1",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "transition-pass",
+  "offense": "IND",
+  "defense": "OKC",
+  "scope": "包含推进",
+  "full_possession": false,
+  "source_url": "https://v.qq.com/x/cover/mzc00200bq3obnv/e410128emyn.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "e410128emyn",
+  "source_start_seconds": 0.0,
+  "source_end_seconds": 8.8,
+  "file": "clips/070_2025-06-11_OKC-IND_transition-pass/070_OKC-IND_Q2_transition-pass_8.8s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 25.0,
+  "decode_check": "passed",
+  "duration_seconds": 8.68,
+  "sha256": "d8bc8ad4cd9e9a1cfb324a441adf5d354951ea9c8c39c85172483dbd88f2986c",
+  "size_bytes": 8181056,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G09",
+  "tactic_repeat": true,
+  "similar_to": [
+    "025",
+    "031",
+    "072",
+    "076",
+    "086"
+  ],
+  "repeat_reason": "同属「转换传球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

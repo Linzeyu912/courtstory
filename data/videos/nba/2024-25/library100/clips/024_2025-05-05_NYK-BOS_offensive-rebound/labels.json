@@ -1,0 +1,60 @@
+{
+  "id": "024",
+  "season": "2024-25",
+  "game": {
+    "key": "NYK-BOS-G1",
+    "date_local": "2025-05-05",
+    "date_beijing": "2025-05-06",
+    "tipoff_utc": "2025-05-05T23:00:00+00:00",
+    "tipoff_beijing": "2025-05-06T07:00:00+08:00",
+    "matchup": "NYK-BOS",
+    "stage": "东部半决赛G1",
+    "final_score": {
+      "BOS": 105,
+      "NYK": 108
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401769746",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250505"
+  },
+  "quarter": 2,
+  "clock_start": "4:40",
+  "clock_end": "4:28",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "哈特连续前场篮板后二次分球布伦森三分",
+  "tags": [
+    "前场篮板与二次进攻",
+    "哈特连续前场篮板后二次分球布伦森三分"
+  ],
+  "description": "哈特连续前场篮板后二次分球布伦森三分",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "offensive-rebound",
+  "offense": "NYK",
+  "defense": "BOS",
+  "scope": "包含二次进攻",
+  "full_possession": false,
+  "source_url": "https://v.qq.com/x/cover/mzc002000vxb85h/o4101myeuf0.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "o4101myeuf0",
+  "source_start_seconds": 0.0,
+  "source_end_seconds": 13.1,
+  "file": "clips/024_2025-05-05_NYK-BOS_offensive-rebound/024_NYK-BOS_Q2_offensive-rebound_13.1s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 25.0,
+  "decode_check": "passed",
+  "duration_seconds": 13.0,
+  "sha256": "5e71a89da84ad3484ea44715d92c5b5b8fb1ee281d642074331153cb0c8f5bd0",
+  "size_bytes": 9187012,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G13",
+  "tactic_repeat": true,
+  "similar_to": [
+    "007",
+    "075",
+    "087"
+  ],
+  "repeat_reason": "同属「前场篮板与二次进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

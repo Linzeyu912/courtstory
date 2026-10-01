@@ -1,0 +1,62 @@
+{
+  "id": "096",
+  "season": "2024-25",
+  "game": {
+    "key": "CLE-MIA-G3",
+    "date_local": "2025-04-26",
+    "date_beijing": "2025-04-27",
+    "tipoff_utc": "2025-04-26T17:00:00+00:00",
+    "tipoff_beijing": "2025-04-27T01:00:00+08:00",
+    "matchup": "CLE-MIA",
+    "stage": "东部首轮G3",
+    "final_score": {
+      "MIA": 87,
+      "CLE": 124
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401768036",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250426"
+  },
+  "quarter": 1,
+  "clock_start": "5:10",
+  "clock_end": "5:05",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "热火推进突破篮下终结",
+  "tags": [
+    "转换突破",
+    "热火推进突破篮下终结"
+  ],
+  "description": "热火推进突破篮下终结",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "transition-drive",
+  "offense": "MIA",
+  "defense": "CLE",
+  "scope": "包含推进",
+  "full_possession": false,
+  "source_url": "https://v.qq.com/x/page/j4101ixceoi.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "j4101ixceoi",
+  "source_start_seconds": 25.4,
+  "source_end_seconds": 30.8,
+  "file": "clips/096_2025-04-26_CLE-MIA_transition-drive/096_CLE-MIA_Q1_transition-drive_5.4s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 29.97002997002997,
+  "decode_check": "passed",
+  "duration_seconds": 5.372,
+  "sha256": "26b5009877d1e6c750fcead21a5cba3741eb513cda563426371cc79b6183f10b",
+  "size_bytes": 4018517,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G08",
+  "tactic_repeat": true,
+  "similar_to": [
+    "040",
+    "049",
+    "050",
+    "052",
+    "073"
+  ],
+  "repeat_reason": "同属「转换突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

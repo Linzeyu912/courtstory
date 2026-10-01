@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-10-01T08:43:56+08:00",
+  "path_base": "repository_root",
+  "datasets": [
+    {
+      "dataset_id": "nba-2024-25-library100",
+      "season": "2024-25",
+      "root": "data/videos/nba/2024-25/library100",
+      "manifest": "data/videos/nba/2024-25/library100/manifest.json",
+      "entry_count": 100,
+      "included_count": 100,
+      "awaiting_upload_count": 0
+    },
+    {
+      "dataset_id": "nba-2025-26-batch030",
+      "season": "2025-26",
+      "root": "data/videos/nba/2025-26/batch030",
+      "manifest": "data/videos/nba/2025-26/batch030/manifest.json",
+      "entry_count": 30,
+      "included_count": 0,
+      "awaiting_upload_count": 30
+    }
+  ],
+  "historical_references": [
+    {
+      "path": "research/nba-training-clips-2024-25.md",
+      "note": "首批3段对应library100的001–003，成片不重复保存"
+    },
+    {
+      "path": "research/nba-video-samples/batch-008.json",
+      "note": "历史8段清单；与30段的逐段关系待确认，不计新增独立素材"
+    },
+    {
+      "path": "research/nba-video-samples/sample-001.json",
+      "note": "历史单段清单；与后续批次关系待确认，不计新增独立素材"
+    }
+  ]
+}

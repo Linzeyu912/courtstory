@@ -1,0 +1,2683 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "nba-2025-26-batch030",
+  "season": "2025-26",
+  "timezone": "Asia/Shanghai",
+  "created_at": "2026-10-01T08:43:56+08:00",
+  "source_manifest": "research/nba-video-samples/batch-030.json",
+  "label_source": "research/nba-video-samples/batch-030-labels.json",
+  "entries": [
+    {
+      "clip_id": "nba-2025-26-batch030-001",
+      "local_id": "001",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/001.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 3548,
+        "end_seconds": 3571
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 3,
+        "clock_start": "10:36",
+        "clock_end": "10:18",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "DAL",
+        "defense_team": "HOU"
+      },
+      "tactic": {
+        "title": "独行侠半场挡拆后攻筐，接触后吹停",
+        "tags": [
+          "后场推进",
+          "挡拆",
+          "持球攻筐"
+        ],
+        "description": "推进至半场，传导、挡拆和持球攻筐，造成身体接触后吹停。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 23.0,
+        "file_size_bytes": 22897046,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "球权起点未完整可见",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G01",
+        "similar_to": [
+          "nba-2025-26-batch030-002",
+          "nba-2025-26-batch030-006",
+          "nba-2025-26-batch030-008",
+          "nba-2025-26-batch030-012",
+          "nba-2025-26-batch030-021"
+        ],
+        "reason": "同属「掩护配合（含挡拆）」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-002",
+      "local_id": "002",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/002.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 3611,
+        "end_seconds": 3632
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 3,
+        "clock_start": "10:18",
+        "clock_end": "10:02",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭发球推进，高位掩护后出手未中",
+        "tags": [
+          "界外发球",
+          "高位掩护",
+          "投篮未中",
+          "防守篮板"
+        ],
+        "description": "罚球后界外发球、推进和高位掩护，投篮不中，独行侠控制篮板。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 21.0,
+        "file_size_bytes": 22449395,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G01",
+        "similar_to": [
+          "nba-2025-26-batch030-001",
+          "nba-2025-26-batch030-006",
+          "nba-2025-26-batch030-008",
+          "nba-2025-26-batch030-012",
+          "nba-2025-26-batch030-021"
+        ],
+        "reason": "同属「掩护配合（含挡拆）」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-003",
+      "local_id": "003",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/003.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 3736,
+        "end_seconds": 3759
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 3,
+        "clock_start": "9:33",
+        "clock_end": "9:15",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭推进传导后突破，受阻后吹停",
+        "tags": [
+          "后场推进",
+          "半场传导",
+          "持球突破",
+          "进攻受阻"
+        ],
+        "description": "后场推进与外线配合，持球突入禁区后受阻并吹停。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 23.0,
+        "file_size_bytes": 21202578,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "球权起点未完整可见",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G05",
+        "similar_to": [
+          "nba-2025-26-batch030-004",
+          "nba-2025-26-batch030-013",
+          "nba-2025-26-batch030-016",
+          "nba-2025-26-batch030-017",
+          "nba-2025-26-batch030-022",
+          "nba-2025-26-batch030-023",
+          "nba-2025-26-batch030-024"
+        ],
+        "reason": "同属「持球突破与攻筐」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-004",
+      "local_id": "004",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/004.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 3792,
+        "end_seconds": 3815
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 3,
+        "clock_start": "9:05",
+        "clock_end": "8:47",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭篮板后推进传导，突破攻筐",
+        "tags": [
+          "防守篮板",
+          "后场推进",
+          "半场传导",
+          "持球突破"
+        ],
+        "description": "防守篮板后推进，半场落位和传导，突破攻筐时造成身体接触。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 23.0,
+        "file_size_bytes": 24953768,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G05",
+        "similar_to": [
+          "nba-2025-26-batch030-003",
+          "nba-2025-26-batch030-013",
+          "nba-2025-26-batch030-016",
+          "nba-2025-26-batch030-017",
+          "nba-2025-26-batch030-022",
+          "nba-2025-26-batch030-023",
+          "nba-2025-26-batch030-024"
+        ],
+        "reason": "同属「持球突破与攻筐」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-005",
+      "local_id": "005",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/005.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 3933,
+        "end_seconds": 3967
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 3,
+        "clock_start": "7:46",
+        "clock_end": "7:15",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭前场篮板续攻，二次传导得分",
+        "tags": [
+          "半场组织",
+          "前场篮板",
+          "二次进攻",
+          "内线终结"
+        ],
+        "description": "后场推进，半场组织和内线出手，进攻篮板延续同一球权，重新传导后二次进攻得分。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 34.0,
+        "file_size_bytes": 34890916,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "球权起点未完整可见",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G08",
+        "similar_to": [
+          "nba-2025-26-batch030-010",
+          "nba-2025-26-batch030-020"
+        ],
+        "reason": "同属「前场篮板与二次进攻」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-006",
+      "local_id": "006",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/006.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 4024,
+        "end_seconds": 4046
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 3,
+        "clock_start": "6:36",
+        "clock_end": "6:18",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭传导与掩护牵制，外线三分命中",
+        "tags": [
+          "后场推进",
+          "半场传导",
+          "掩护牵制",
+          "外线三分"
+        ],
+        "description": "后场推进、外线传导和内线掩护牵制，外线三分命中。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 22.0,
+        "file_size_bytes": 22202808,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G01",
+        "similar_to": [
+          "nba-2025-26-batch030-001",
+          "nba-2025-26-batch030-002",
+          "nba-2025-26-batch030-008",
+          "nba-2025-26-batch030-012",
+          "nba-2025-26-batch030-021"
+        ],
+        "reason": "同属「掩护配合（含挡拆）」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-007",
+      "local_id": "007",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/007.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 4154,
+        "end_seconds": 4175
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 3,
+        "clock_start": "5:43",
+        "clock_end": "5:28",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭防守篮板后推进，传球至内线得分",
+        "tags": [
+          "防守篮板",
+          "后场推进",
+          "半场传导",
+          "内线终结"
+        ],
+        "description": "防守篮板后推进，半场传导至内线完成得分。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 21.0,
+        "file_size_bytes": 23383069,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G02",
+        "similar_to": [
+          "nba-2025-26-batch030-015",
+          "nba-2025-26-batch030-019"
+        ],
+        "reason": "同属「半场传导与内线终结」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-008",
+      "local_id": "008",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/008.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 4534,
+        "end_seconds": 4555
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 3,
+        "clock_start": "4:03",
+        "clock_end": "3:47",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "DAL",
+        "defense_team": "HOU"
+      },
+      "tactic": {
+        "title": "独行侠发球推进，高位掩护传球后内线终结",
+        "tags": [
+          "界外发球",
+          "高位掩护",
+          "外线传球",
+          "内线终结"
+        ],
+        "description": "界外发球后推进落位，高位掩护、外线传球，内线终结。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 21.0,
+        "file_size_bytes": 20418217,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G01",
+        "similar_to": [
+          "nba-2025-26-batch030-001",
+          "nba-2025-26-batch030-002",
+          "nba-2025-26-batch030-006",
+          "nba-2025-26-batch030-012",
+          "nba-2025-26-batch030-021"
+        ],
+        "reason": "同属「掩护配合（含挡拆）」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-009",
+      "local_id": "009",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/009.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 4732,
+        "end_seconds": 4754
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 3,
+        "clock_start": "2:22",
+        "clock_end": "2:06",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭挡拆后错位背身，转身终结",
+        "tags": [
+          "挡拆",
+          "错位背身",
+          "转身出手",
+          "内线终结"
+        ],
+        "description": "后场推进、半场挡拆和错位背身，转身内线出手命中。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 22.0,
+        "file_size_bytes": 23479266,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "开头含近景，待看片",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G04",
+        "similar_to": [
+          "nba-2025-26-batch030-011",
+          "nba-2025-26-batch030-018",
+          "nba-2025-26-batch030-028"
+        ],
+        "reason": "同属「低位与背身进攻」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-010",
+      "local_id": "010",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/010.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 5118,
+        "end_seconds": 5152
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 4,
+        "clock_start": "12:00",
+        "clock_end": "11:31",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "DAL",
+        "defense_team": "HOU"
+      },
+      "tactic": {
+        "title": "独行侠节初掩护进攻，前场篮板后二次组织未得分",
+        "tags": [
+          "节初发球",
+          "掩护",
+          "前场篮板",
+          "二次进攻",
+          "投篮未中"
+        ],
+        "description": "节初发球推进，掩护后投篮不中，进攻篮板延续同一球权，二次传导与投篮仍不中，火箭拿到篮板。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 34.0,
+        "file_size_bytes": 35678348,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G08",
+        "similar_to": [
+          "nba-2025-26-batch030-005",
+          "nba-2025-26-batch030-020"
+        ],
+        "reason": "同属「前场篮板与二次进攻」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-011",
+      "local_id": "011",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/011.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 5152,
+        "end_seconds": 5179
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 4,
+        "clock_start": "11:31",
+        "clock_end": "11:08",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭篮板后组织传导，背身终结",
+        "tags": [
+          "防守篮板",
+          "半场组织",
+          "半场传导",
+          "背身进攻"
+        ],
+        "description": "防守篮板后推进，外线组织和传导，背身内线终结。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 27.0,
+        "file_size_bytes": 27419228,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G04",
+        "similar_to": [
+          "nba-2025-26-batch030-009",
+          "nba-2025-26-batch030-018",
+          "nba-2025-26-batch030-028"
+        ],
+        "reason": "同属「低位与背身进攻」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-012",
+      "local_id": "012",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/012.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 5536,
+        "end_seconds": 5557
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 4,
+        "clock_start": "10:13",
+        "clock_end": "9:56",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "DAL",
+        "defense_team": "HOU"
+      },
+      "tactic": {
+        "title": "独行侠拉开空间，高位掩护后投篮未中",
+        "tags": [
+          "拉开空间",
+          "高位掩护",
+          "投篮未中",
+          "防守篮板"
+        ],
+        "description": "后场推进，半场空间拉开、传球与高位掩护后投篮不中，火箭控制篮板。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 21.0,
+        "file_size_bytes": 21727429,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "球权起点未完整可见",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G01",
+        "similar_to": [
+          "nba-2025-26-batch030-001",
+          "nba-2025-26-batch030-002",
+          "nba-2025-26-batch030-006",
+          "nba-2025-26-batch030-008",
+          "nba-2025-26-batch030-021"
+        ],
+        "reason": "同属「掩护配合（含挡拆）」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-013",
+      "local_id": "013",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/013.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 526.0,
+        "end_seconds": 547.0
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 1,
+        "clock_start": "10:22",
+        "clock_end": "10:01",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "DAL",
+        "defense_team": "HOU"
+      },
+      "tactic": {
+        "title": "独行侠半场攻筐未得分，火箭控制篮板",
+        "tags": [
+          "后场推进",
+          "半场进攻",
+          "持球攻筐",
+          "防守篮板"
+        ],
+        "description": "Dallas advances into the half court and attacks the lane against Houston defenders. The sequence ends as Houston secures the rebound and takes control.",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 21.0,
+        "file_size_bytes": 23281234,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G05",
+        "similar_to": [
+          "nba-2025-26-batch030-003",
+          "nba-2025-26-batch030-004",
+          "nba-2025-26-batch030-016",
+          "nba-2025-26-batch030-017",
+          "nba-2025-26-batch030-022",
+          "nba-2025-26-batch030-023",
+          "nba-2025-26-batch030-024"
+        ],
+        "reason": "同属「持球突破与攻筐」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-014",
+      "local_id": "014",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/014.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 5786.5,
+        "end_seconds": 5806.5
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 4,
+        "clock_start": "8:24",
+        "clock_end": "8:07",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭罚球后发球推进，半场出手未中",
+        "tags": [
+          "罚球后发球",
+          "后场推进",
+          "半场组织",
+          "投篮未中"
+        ],
+        "description": "The clip opens on the end of a Dallas free throw. Houston then inbounds and advances into a half-court possession; its attempt misses and Dallas secures the rebound.",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 20.0,
+        "file_size_bytes": 20679898,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G09",
+        "similar_to": [],
+        "reason": "按目前动作记录，尚无同组片段。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-015",
+      "local_id": "015",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/015.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 3438.5,
+        "end_seconds": 3458.5
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 3,
+        "clock_start": "11:45",
+        "clock_end": "11:27",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "DAL",
+        "defense_team": "HOU"
+      },
+      "tactic": {
+        "title": "独行侠防守篮板后转移球，篮下得分",
+        "tags": [
+          "防守篮板",
+          "后场推进",
+          "半场转移球",
+          "篮下终结"
+        ],
+        "description": "Dallas secures the defensive rebound after Houston misses, advances the ball, moves it across the half court and finishes at the rim.",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 20.0,
+        "file_size_bytes": 21239734,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G02",
+        "similar_to": [
+          "nba-2025-26-batch030-007",
+          "nba-2025-26-batch030-019"
+        ],
+        "reason": "同属「半场传导与内线终结」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": [
+          {
+            "other_clip_id": 18,
+            "kind": "same_scoring_reaction_context",
+            "basis": "原采集交接记载；两段裁切区间相接，没有正时长区间重叠，重复的是相邻得分反应上下文"
+          }
+        ]
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-016",
+      "local_id": "016",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/016.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 1064.0,
+        "end_seconds": 1086.0
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 1,
+        "clock_start": "4:42",
+        "clock_end": "4:20",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "DAL",
+        "defense_team": "HOU"
+      },
+      "tactic": {
+        "title": "独行侠半场组织后攻筐，面对协防得分",
+        "tags": [
+          "后场推进",
+          "半场组织",
+          "持球攻筐",
+          "协防应对"
+        ],
+        "description": "Dallas brings the ball up, organizes a half-court attack, and works into the lane against Houston’s help defense before scoring at the rim.",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 22.0,
+        "file_size_bytes": 23181939,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G05",
+        "similar_to": [
+          "nba-2025-26-batch030-003",
+          "nba-2025-26-batch030-004",
+          "nba-2025-26-batch030-013",
+          "nba-2025-26-batch030-017",
+          "nba-2025-26-batch030-022",
+          "nba-2025-26-batch030-023",
+          "nba-2025-26-batch030-024"
+        ],
+        "reason": "同属「持球突破与攻筐」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-017",
+      "local_id": "017",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/017.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 5838.0,
+        "end_seconds": 5859.5
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 4,
+        "clock_start": "7:44",
+        "clock_end": "7:22",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭推进后半场攻筐未中，独行侠控制篮板",
+        "tags": [
+          "后场推进",
+          "半场组织",
+          "持球攻筐",
+          "投篮未中"
+        ],
+        "description": "Houston brings the ball up and organizes a half-court possession, attacks near the basket but misses; Dallas secures the rebound.",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 21.5,
+        "file_size_bytes": 24095055,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "球权起点未完整可见",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G05",
+        "similar_to": [
+          "nba-2025-26-batch030-003",
+          "nba-2025-26-batch030-004",
+          "nba-2025-26-batch030-013",
+          "nba-2025-26-batch030-016",
+          "nba-2025-26-batch030-022",
+          "nba-2025-26-batch030-023",
+          "nba-2025-26-batch030-024"
+        ],
+        "reason": "同属「持球突破与攻筐」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-018",
+      "local_id": "018",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/018.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 3458.5,
+        "end_seconds": 3480.0
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 3,
+        "clock_start": "11:25",
+        "clock_end": "11:07",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭传球至申京低位出手，造成犯规",
+        "tags": [
+          "后场推进",
+          "内线传球",
+          "低位进攻",
+          "造成犯规"
+        ],
+        "description": "Houston inbounds and advances into a half-court set, works the ball inside to Sengun, and draws a foul on the low-post attempt.",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 21.5,
+        "file_size_bytes": 20957525,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "球权起点未完整可见",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G04",
+        "similar_to": [
+          "nba-2025-26-batch030-009",
+          "nba-2025-26-batch030-011",
+          "nba-2025-26-batch030-028"
+        ],
+        "reason": "同属「低位与背身进攻」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": [
+          {
+            "other_clip_id": 15,
+            "kind": "same_scoring_reaction_context",
+            "basis": "原采集交接记载；两段裁切区间相接，没有正时长区间重叠，重复的是相邻得分反应上下文"
+          }
+        ]
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-019",
+      "local_id": "019",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/019.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 2343.5,
+        "end_seconds": 2364
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 2,
+        "clock_start": "9:23",
+        "clock_end": "9:08",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭防守取得球权后推进，传导至内线得分",
+        "tags": [
+          "防守取得球权",
+          "后场推进",
+          "半场传导",
+          "内线终结"
+        ],
+        "description": "防守取得球权后推进，半场传导与内线终结得分。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 20.5,
+        "file_size_bytes": 22132151,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G02",
+        "similar_to": [
+          "nba-2025-26-batch030-007",
+          "nba-2025-26-batch030-015"
+        ],
+        "reason": "同属「半场传导与内线终结」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-020",
+      "local_id": "020",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/020.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 2405,
+        "end_seconds": 2430
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 2,
+        "clock_start": "8:22",
+        "clock_end": "7:58",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭外线出手后前场篮板续攻，二次突破未得分",
+        "tags": [
+          "外线出手",
+          "前场篮板",
+          "二次组织",
+          "持球突破",
+          "投篮未中"
+        ],
+        "description": "推进与半场传导，外线出手未中后进攻篮板延续，重新组织突破后仍未得分，独行侠控制篮板。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 25.0,
+        "file_size_bytes": 25913837,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G08",
+        "similar_to": [
+          "nba-2025-26-batch030-005",
+          "nba-2025-26-batch030-010"
+        ],
+        "reason": "同属「前场篮板与二次进攻」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [
+          {
+            "clip_ids": [
+              20,
+              21
+            ],
+            "source_url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+            "source_start_seconds": 2428,
+            "source_end_seconds": 2430,
+            "duration_seconds": 2,
+            "kind": "shared_source_frames_near_possession_change",
+            "basis": "原清单裁切区间计算，尚未取得成片逐帧复核"
+          }
+        ],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-021",
+      "local_id": "021",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/021.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 2428,
+        "end_seconds": 2448
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/dal-vs-hou-0022500160",
+        "period": 2,
+        "clock_start": "7:59",
+        "clock_end": "7:44",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "DAL",
+        "defense_team": "HOU"
+      },
+      "tactic": {
+        "title": "独行侠篮板后推进，掩护传导至内线得分",
+        "tags": [
+          "防守篮板",
+          "后场推进",
+          "半场掩护",
+          "内线传球"
+        ],
+        "description": "防守篮板后推进，半场掩护、传导和内线终结得分。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 20.0,
+        "file_size_bytes": 21301174,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G01",
+        "similar_to": [
+          "nba-2025-26-batch030-001",
+          "nba-2025-26-batch030-002",
+          "nba-2025-26-batch030-006",
+          "nba-2025-26-batch030-008",
+          "nba-2025-26-batch030-012"
+        ],
+        "reason": "同属「掩护配合（含挡拆）」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [
+          {
+            "clip_ids": [
+              20,
+              21
+            ],
+            "source_url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+            "source_start_seconds": 2428,
+            "source_end_seconds": 2430,
+            "duration_seconds": 2,
+            "kind": "shared_source_frames_near_possession_change",
+            "basis": "原清单裁切区间计算，尚未取得成片逐帧复核"
+          }
+        ],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-022",
+      "local_id": "022",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/022.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=7tj8cGp6OjI",
+        "publisher": "NBA",
+        "collected_at": "2026-09-30",
+        "start_seconds": 97.0,
+        "end_seconds": 120.0
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-09",
+        "date_beijing": null,
+        "matchup": "HOU at MIL",
+        "game_id": "0022500191",
+        "verification_url": "https://www.nba.com/game/hou-vs-mil-0022500191/play-by-play?period=Q4&type=traditional",
+        "period": 4,
+        "clock_start": "3:07",
+        "clock_end": "2:47",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "MIL",
+        "defense_team": "HOU"
+      },
+      "tactic": {
+        "title": "雄鹿推进后字母哥攻筐，进攻干扰球判罚",
+        "tags": [
+          "后场推进",
+          "半场组织",
+          "持球攻筐",
+          "进攻干扰球判罚"
+        ],
+        "description": "MIL由后场推进并组织半场进攻，Giannis Antetokounmpo攻框；Houston迫使进攻干扰球违例并取得球权。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 59.94005994005994,
+        "fps_fraction": "60000/1001",
+        "duration_seconds": 23.005633,
+        "file_size_bytes": 30841090,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G05",
+        "similar_to": [
+          "nba-2025-26-batch030-003",
+          "nba-2025-26-batch030-004",
+          "nba-2025-26-batch030-013",
+          "nba-2025-26-batch030-016",
+          "nba-2025-26-batch030-017",
+          "nba-2025-26-batch030-023",
+          "nba-2025-26-batch030-024"
+        ],
+        "reason": "同属「持球突破与攻筐」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-023",
+      "local_id": "023",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/023.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=7tj8cGp6OjI",
+        "publisher": "NBA",
+        "collected_at": "2026-09-30",
+        "start_seconds": 164.0,
+        "end_seconds": 185.0
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-09",
+        "date_beijing": null,
+        "matchup": "HOU at MIL",
+        "game_id": "0022500191",
+        "verification_url": "https://www.nba.com/game/hou-vs-mil-0022500191/play-by-play?period=Q4&type=traditional",
+        "period": 4,
+        "clock_start": "2:22",
+        "clock_end": "2:03",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "MIL",
+        "defense_team": "HOU"
+      },
+      "tactic": {
+        "title": "雄鹿半场组织后Rollins突破上篮",
+        "tags": [
+          "半场组织",
+          "传球助攻",
+          "持球突破",
+          "上篮"
+        ],
+        "description": "镜头回到比赛时MIL已开始本次进攻；随后镜头连续覆盖Rollins推进、半场组织和突破上篮追平，助攻者为AJ Green。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 59.94005994005994,
+        "fps_fraction": "60000/1001",
+        "duration_seconds": 21.003633,
+        "file_size_bytes": 30731847,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "球权起点未完整可见",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G05",
+        "similar_to": [
+          "nba-2025-26-batch030-003",
+          "nba-2025-26-batch030-004",
+          "nba-2025-26-batch030-013",
+          "nba-2025-26-batch030-016",
+          "nba-2025-26-batch030-017",
+          "nba-2025-26-batch030-022",
+          "nba-2025-26-batch030-024"
+        ],
+        "reason": "同属「持球突破与攻筐」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-024",
+      "local_id": "024",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/024.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 5921.5,
+        "end_seconds": 5944.0
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/DAL-vs-HOU-0022500160/play-by-play?period=Q4&type=traditional",
+        "period": 4,
+        "clock_start": "7:21",
+        "clock_end": "6:59",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭杜兰特传球，申京突破上篮",
+        "tags": [
+          "后场推进",
+          "半场组织",
+          "传球助攻",
+          "突破上篮"
+        ],
+        "description": "HOU由后场推进后落入半场阵地，Sengun借Durant助攻突破上篮得分。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 22.5,
+        "file_size_bytes": 23761953,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G05",
+        "similar_to": [
+          "nba-2025-26-batch030-003",
+          "nba-2025-26-batch030-004",
+          "nba-2025-26-batch030-013",
+          "nba-2025-26-batch030-016",
+          "nba-2025-26-batch030-017",
+          "nba-2025-26-batch030-022",
+          "nba-2025-26-batch030-023"
+        ],
+        "reason": "同属「持球突破与攻筐」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-025",
+      "local_id": "025",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/025.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 6000.0,
+        "end_seconds": 6020.0
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/DAL-vs-HOU-0022500160/play-by-play?period=Q4&type=traditional",
+        "period": 4,
+        "clock_start": "6:01",
+        "clock_end": "5:43",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭杜兰特持球后仰三分",
+        "tags": [
+          "半场组织",
+          "持球跳投",
+          "后仰出手",
+          "三分"
+        ],
+        "description": "HOU推进并进入半场组织，Durant持球后仰拔起命中25英尺三分。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 20.0,
+        "file_size_bytes": 21695519,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G06",
+        "similar_to": [
+          "nba-2025-26-batch030-026",
+          "nba-2025-26-batch030-030"
+        ],
+        "reason": "同属「持球跳投」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-026",
+      "local_id": "026",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/026.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 6039.0,
+        "end_seconds": 6060.0
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/DAL-vs-HOU-0022500160/play-by-play?period=Q4&type=traditional",
+        "period": 4,
+        "clock_start": "5:22",
+        "clock_end": "5:05",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "DAL"
+      },
+      "tactic": {
+        "title": "火箭杜兰特急停三分",
+        "tags": [
+          "半场落位",
+          "持球跳投",
+          "急停出手",
+          "三分"
+        ],
+        "description": "HOU在前场落位并组织，Durant完成27英尺急停三分。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 21.0,
+        "file_size_bytes": 20650342,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G06",
+        "similar_to": [
+          "nba-2025-26-batch030-025",
+          "nba-2025-26-batch030-030"
+        ],
+        "reason": "同属「持球跳投」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-027",
+      "local_id": "027",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/027.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+        "publisher": "manuelmazon",
+        "collected_at": "2026-09-30",
+        "start_seconds": 6062.5,
+        "end_seconds": 6082.5
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-03",
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": "0022500160",
+        "verification_url": "https://www.nba.com/game/DAL-vs-HOU-0022500160/play-by-play?period=Q4&type=traditional",
+        "period": 4,
+        "clock_start": "4:59",
+        "clock_end": "4:43",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "DAL",
+        "defense_team": "HOU"
+      },
+      "tactic": {
+        "title": "独行侠Russell助攻Christie空切扣篮",
+        "tags": [
+          "后场推进",
+          "空切",
+          "传球助攻",
+          "接球扣篮"
+        ],
+        "description": "DAL接球推进后攻击篮下，Christie借Russell助攻空切完成扣篮。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "duration_seconds": 20.0,
+        "file_size_bytes": 19457918,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G07",
+        "similar_to": [],
+        "reason": "按目前动作记录，尚无同组片段。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-028",
+      "local_id": "028",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/028.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=7tj8cGp6OjI",
+        "publisher": "NBA",
+        "collected_at": "2026-09-30",
+        "start_seconds": 237.0,
+        "end_seconds": 257.8
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-09",
+        "date_beijing": null,
+        "matchup": "HOU at MIL",
+        "game_id": "0022500191",
+        "verification_url": "https://www.nba.com/game/hou-vs-mil-0022500191/play-by-play?period=Q4&type=traditional",
+        "period": 4,
+        "clock_start": "1:26",
+        "clock_end": "1:09",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "MIL"
+      },
+      "tactic": {
+        "title": "火箭推进落位，申京转身勾手",
+        "tags": [
+          "后场推进",
+          "半场落位",
+          "转身勾手",
+          "内线终结"
+        ],
+        "description": "HOU后场篮板后推进并落入半场组织，申京转身勾手命中。约17秒为活球进攻，随后约4秒为官方原转播即时反应。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 59.94005994005994,
+        "fps_fraction": "60000/1001",
+        "duration_seconds": 20.804117,
+        "file_size_bytes": 28521336,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G04",
+        "similar_to": [
+          "nba-2025-26-batch030-009",
+          "nba-2025-26-batch030-011",
+          "nba-2025-26-batch030-018"
+        ],
+        "reason": "同属「低位与背身进攻」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-029",
+      "local_id": "029",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/029.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=7tj8cGp6OjI",
+        "publisher": "NBA",
+        "collected_at": "2026-09-30",
+        "start_seconds": 140,
+        "end_seconds": 162
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-09",
+        "date_beijing": null,
+        "matchup": "HOU at MIL",
+        "game_id": "0022500191",
+        "verification_url": "https://www.nba.com/game/hou-vs-mil-0022500191/play-by-play?period=Q4&type=traditional",
+        "period": 4,
+        "clock_start": "2:47",
+        "clock_end": "2:28",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "MIL"
+      },
+      "tactic": {
+        "title": "火箭杜兰特助攻贾巴里·史密斯三分",
+        "tags": [
+          "后场推进",
+          "半场传导",
+          "传球助攻",
+          "三分终结"
+        ],
+        "description": "推进落位、半场传导，杜兰特助攻贾巴里·史密斯三分命中。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 59.94005994005994,
+        "fps_fraction": "60000/1001",
+        "duration_seconds": 22.005317,
+        "file_size_bytes": 30418899,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G03",
+        "similar_to": [],
+        "reason": "按目前动作记录，尚无同组片段。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-030",
+      "local_id": "030",
+      "asset": {
+        "path": null,
+        "bytes": null,
+        "sha256": null,
+        "storage": "not_shared",
+        "availability": "awaiting_upload"
+      },
+      "annotation_path": "labels/030.json",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=7tj8cGp6OjI",
+        "publisher": "NBA",
+        "collected_at": "2026-09-30",
+        "start_seconds": 188,
+        "end_seconds": 209
+      },
+      "game": {
+        "season": "2025-26",
+        "date_local": "2025-11-09",
+        "date_beijing": null,
+        "matchup": "HOU at MIL",
+        "game_id": "0022500191",
+        "verification_url": "https://www.nba.com/game/hou-vs-mil-0022500191/play-by-play?period=Q4&type=traditional",
+        "period": 4,
+        "clock_start": "2:03",
+        "clock_end": "1:42",
+        "clock_precision": "原采集者人工读数；本轮未看到成片进行复核",
+        "offense_team": "HOU",
+        "defense_team": "MIL"
+      },
+      "tactic": {
+        "title": "火箭杜兰特持球摆脱后中距离跳投",
+        "tags": [
+          "后场推进",
+          "半场组织",
+          "持球摆脱",
+          "中距离跳投"
+        ],
+        "description": "后场推进和半场组织，杜兰特持球摆脱后中距离跳投命中。",
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "草案，待成片视觉确认；不是球队官方战术名称",
+        "basis": "原采集清单action_note、continuity_note和boundary_note；本轮按文字记录归类，未作新的画面观察"
+      },
+      "video": {
+        "duration_seconds": null,
+        "width": null,
+        "height": null,
+        "fps": null,
+        "measurement_status": "unverified"
+      },
+      "reported_video": {
+        "width": 1920,
+        "height": 1080,
+        "pixels_per_frame": 2073600,
+        "fps": 59.94005994005994,
+        "fps_fraction": "60000/1001",
+        "duration_seconds": 21.004317,
+        "file_size_bytes": 30222288,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "measurement_basis": "原采集者记录的ffprobe结果；本轮未取得MP4重新测量"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": "待实际视频确认",
+        "decode_status": "unverified",
+        "visual_status": "unverified",
+        "reviewed_at": null,
+        "basis": "尚未取得成片；原采集者的检查保留在独立标签中"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "action_group": "nba-2025-26-batch030:B30-G06",
+        "similar_to": [
+          "nba-2025-26-batch030-025",
+          "nba-2025-26-batch030-026"
+        ],
+        "reason": "同属「持球跳投」的可见动作分类；具体战术是否相同待画面复核。",
+        "source_overlaps": [],
+        "related_context": []
+      }
+    }
+  ]
+}

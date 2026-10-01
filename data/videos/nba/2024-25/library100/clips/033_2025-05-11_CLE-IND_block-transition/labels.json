@@ -1,0 +1,62 @@
+{
+  "id": "033",
+  "season": "2024-25",
+  "game": {
+    "key": "CLE-IND-G4",
+    "date_local": "2025-05-11",
+    "date_beijing": "2025-05-12",
+    "tipoff_utc": "2025-05-12T00:00:00+00:00",
+    "tipoff_beijing": "2025-05-12T08:00:00+08:00",
+    "matchup": "CLE-IND",
+    "stage": "东部半决赛G4",
+    "final_score": {
+      "IND": 129,
+      "CLE": 109
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401769742",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250511"
+  },
+  "quarter": 4,
+  "clock_start": "8:44",
+  "clock_end": "8:33",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "汤普森协防封盖后骑士转换进攻三分",
+  "tags": [
+    "防守夺回球权后反击",
+    "汤普森协防封盖后骑士转换进攻三分"
+  ],
+  "description": "汤普森协防封盖后骑士转换进攻三分",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "block-transition",
+  "offense": "CLE",
+  "defense": "IND",
+  "scope": "包含封盖及反击",
+  "full_possession": true,
+  "source_url": "https://v.qq.com/x/cover/mzc002009xnmkyn/u41012t67xs.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "u41012t67xs",
+  "source_start_seconds": 7.3,
+  "source_end_seconds": 18.6,
+  "file": "clips/033_2025-05-11_CLE-IND_block-transition/033_CLE-IND_Q4_block-transition_11.3s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 25.0,
+  "decode_check": "passed",
+  "duration_seconds": 11.32,
+  "sha256": "527ed16f84a4d753c324735a9bf6171f4f18d9ebba209e5008f49e9e04c9889a",
+  "size_bytes": 9033918,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G10",
+  "tactic_repeat": true,
+  "similar_to": [
+    "015",
+    "023",
+    "054",
+    "074",
+    "080"
+  ],
+  "repeat_reason": "同属「防守夺回球权后反击」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

@@ -1,0 +1,62 @@
+{
+  "id": "072",
+  "season": "2024-25",
+  "game": {
+    "key": "OKC-IND-G3",
+    "date_local": "2025-06-11",
+    "date_beijing": "2025-06-12",
+    "tipoff_utc": "2025-06-12T00:30:00+00:00",
+    "tipoff_beijing": "2025-06-12T08:30:00+08:00",
+    "matchup": "OKC-IND",
+    "stage": "总决赛G3",
+    "final_score": {
+      "IND": 116,
+      "OKC": 107
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401766124",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250611"
+  },
+  "quarter": 1,
+  "clock_start": "5:48",
+  "clock_end": "5:40",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "霍姆格伦防守篮板后跟进快攻扣篮",
+  "tags": [
+    "转换传球",
+    "霍姆格伦防守篮板后跟进快攻扣篮"
+  ],
+  "description": "霍姆格伦防守篮板后跟进快攻扣篮",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "transition-pass",
+  "offense": "OKC",
+  "defense": "IND",
+  "scope": "包含篮板及反击",
+  "full_possession": true,
+  "source_url": "https://v.qq.com/x/cover/mzc00200bq3obnv/m4101td2bwy.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "m4101td2bwy",
+  "source_start_seconds": 20.8,
+  "source_end_seconds": 28.4,
+  "file": "clips/072_2025-06-11_OKC-IND_transition-pass/072_OKC-IND_Q1_transition-pass_7.6s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 25.0,
+  "decode_check": "passed",
+  "duration_seconds": 7.56,
+  "sha256": "98005058f3a1f595b95841d106fd134efaa13adaaacecfceb98502dc55a4f7e0",
+  "size_bytes": 6413063,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G09",
+  "tactic_repeat": true,
+  "similar_to": [
+    "025",
+    "031",
+    "070",
+    "076",
+    "086"
+  ],
+  "repeat_reason": "同属「转换传球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

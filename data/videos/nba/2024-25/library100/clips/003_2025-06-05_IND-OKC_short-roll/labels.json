@@ -1,0 +1,68 @@
+{
+  "id": "003",
+  "season": "2024-25",
+  "game": {
+    "key": "IND-OKC-G1",
+    "date_local": "2025-06-05",
+    "date_beijing": "2025-06-06",
+    "matchup": "IND-OKC",
+    "stage": "总决赛G1",
+    "final_score": {
+      "IND": 111,
+      "OKC": 110
+    },
+    "verification_url": "https://www.nba.com/game/0042400401"
+  },
+  "quarter": 4,
+  "clock_start": "05:49",
+  "clock_end": "05:39",
+  "clock_precision": "画面读数，约±1秒",
+  "title": "挡拆短顺下中投",
+  "tags": [
+    "持球掩护",
+    "短顺下",
+    "中距离跳投"
+  ],
+  "description": "特纳先向右侧传球，再为内姆哈德提供持球掩护；内姆哈德突破后回传，特纳短顺下到罚球线附近接球，命中中距离跳投。",
+  "label_confidence": "高；掩护、短顺下接球和投篮可见；不推断球队对这次配合的内部叫法。",
+  "family": "short-roll",
+  "offense": "IND",
+  "defense": "OKC",
+  "players": [
+    "Andrew Nembhard #2",
+    "Myles Turner #33"
+  ],
+  "scope": "前场配合片段",
+  "full_possession": false,
+  "source_url": "https://www.bilibili.com/video/BV1EHuj6vETP/",
+  "source_publisher": "NBA（哔哩哔哩）",
+  "source_vid": "BV1EHuj6vETP",
+  "source_start_seconds": 107.41,
+  "source_end_seconds": 117.03,
+  "file": "clips/003_2025-06-05_IND-OKC_short-roll/IND-OKC_Q4_short-roll_9.6s_1080p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "duration_seconds": 9.61,
+  "width": 1920,
+  "height": 1080,
+  "fps": 29.97002997002997,
+  "sha256": "958159c72918943a3e19e095ff59a203bd409a83d2d6f386427a5b9463809198",
+  "size_bytes": 17747056,
+  "decode_check": "passed",
+  "content_duplicate": false,
+  "tactic_repeat_group": "G01",
+  "tactic_repeat": true,
+  "similar_to": [
+    "001",
+    "014",
+    "038",
+    "046",
+    "053",
+    "066",
+    "068",
+    "077",
+    "083"
+  ],
+  "repeat_reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

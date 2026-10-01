@@ -1,0 +1,60 @@
+{
+  "id": "007",
+  "season": "2024-25",
+  "game": {
+    "key": "LAL-MIN-G4",
+    "date_local": "2025-04-27",
+    "date_beijing": "2025-04-28",
+    "tipoff_utc": "2025-04-27T19:50:00+00:00",
+    "tipoff_beijing": "2025-04-28T03:50:00+08:00",
+    "matchup": "LAL-MIN",
+    "stage": "西部首轮G4",
+    "final_score": {
+      "MIN": 116,
+      "LAL": 113
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401768057",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250427"
+  },
+  "quarter": 2,
+  "clock_start": null,
+  "clock_end": "8:47",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "戈贝尔罚球后前场篮板补扣",
+  "tags": [
+    "前场篮板与二次进攻",
+    "戈贝尔罚球后前场篮板补扣"
+  ],
+  "description": "戈贝尔罚球后前场篮板补扣",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "offensive-rebound",
+  "offense": "MIN",
+  "defense": "LAL",
+  "scope": "罚球及二次进攻",
+  "full_possession": false,
+  "source_url": "https://v.qq.com/x/cover/mzc00200eygk9jw/r4101v52hcu.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "r4101v52hcu",
+  "source_start_seconds": 0.0,
+  "source_end_seconds": 6.4,
+  "file": "clips/007_2025-04-27_LAL-MIN_offensive-rebound/007_LAL-MIN_Q2_offensive-rebound_6.4s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 25.0,
+  "decode_check": "passed",
+  "duration_seconds": 6.28,
+  "sha256": "086a96eeb370fbf703fe2097dbeac15827bbe9cd66e879badeac856faefc444e",
+  "size_bytes": 3821549,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G13",
+  "tactic_repeat": true,
+  "similar_to": [
+    "024",
+    "075",
+    "087"
+  ],
+  "repeat_reason": "同属「前场篮板与二次进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

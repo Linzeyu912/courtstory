@@ -1,0 +1,112 @@
+# 2024–25 NBA 训练素材：100 段
+
+共 100 段，16 场比赛、17 支球队，合计 14.0 分钟。首批 3 段为1080p；新增97段为720p。
+
+完整球权 14 段，其余按前场配合、推进、防守或二次进攻标注。比赛时钟为画面读数（约±1秒），标签为人工观察的行为描述。
+
+相似战术按 G01–G16 分组，关联编号见 labels.json、repeat-groups.json；内容相同的球权未重复纳入。
+
+## 清单
+
+| 编号 | 美国比赛日期 | 对阵 / 阶段 | 时钟（约） | 动作标签 | 秒 | 完整球权 | 同类组 | 视频 |
+|---|---|---|---|---|---|---|---|---|
+| 001 | 2025-06-05 | IND-OKC / 总决赛G1 | Q4 08:52→08:44 | 挡拆外弹三分 | 8.11 | 否 | G01 | [播放](clips/001_2025-06-05_IND-OKC_pick-pop/IND-OKC_Q4_pick-pop_8.1s_1080p.mp4) |
+| 002 | 2025-06-05 | IND-OKC / 总决赛G1 | Q4 06:58→06:47 | 突破分球三分 | 11.41 | 否 | G02 | [播放](clips/002_2025-06-05_IND-OKC_drive-kick/IND-OKC_Q4_drive-kick_11.4s_1080p.mp4) |
+| 003 | 2025-06-05 | IND-OKC / 总决赛G1 | Q4 05:49→05:39 | 挡拆短顺下中投 | 9.61 | 否 | G01 | [播放](clips/003_2025-06-05_IND-OKC_short-roll/IND-OKC_Q4_short-roll_9.6s_1080p.mp4) |
+| 004 | 2025-04-27 | LAL-MIN / 西部首轮G4 | Q2 0:06.7→0:00.6 | 兰德尔撤步单打三分 | 9.08 | 否 | G05 | [播放](clips/004_2025-04-27_LAL-MIN_isolation/004_LAL-MIN_Q2_isolation_9.2s_720p.mp4) |
+| 005 | 2025-04-27 | LAL-MIN / 西部首轮G4 | Q2 11:43→11:32 | 底线发球后推进分底角詹姆斯三分 | 10.68 | 是 | G04 | [播放](clips/005_2025-04-27_LAL-MIN_catch-shoot/005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4) |
+| 006 | 2025-04-27 | LAL-MIN / 西部首轮G4 | Q2 8:43→8:37 | 东契奇接球空位三分 | 6.40 | 否 | G04 | [播放](clips/006_2025-04-27_LAL-MIN_catch-shoot/006_LAL-MIN_Q2_catch-shoot_6.5s_720p.mp4) |
+| 007 | 2025-04-27 | LAL-MIN / 西部首轮G4 | Q2 未显示→8:47 | 戈贝尔罚球后前场篮板补扣 | 6.28 | 否 | G13 | [播放](clips/007_2025-04-27_LAL-MIN_offensive-rebound/007_LAL-MIN_Q2_offensive-rebound_6.4s_720p.mp4) |
+| 008 | 2025-04-27 | LAL-MIN / 西部首轮G4 | Q1 7:09→6:59 | 詹姆斯持球突破上篮 | 9.48 | 否 | G07 | [播放](clips/008_2025-04-27_LAL-MIN_drive-finish/008_LAL-MIN_Q1_drive-finish_9.6s_720p.mp4) |
+| 009 | 2025-04-27 | LAL-MIN / 西部首轮G4 | Q1 6:41→6:34 | 詹姆斯持球三分 | 7.84 | 否 | G05 | [播放](clips/009_2025-04-27_LAL-MIN_pullup/009_LAL-MIN_Q1_pullup_7.9s_720p.mp4) |
+| 010 | 2025-04-27 | LAL-MIN / 西部首轮G4 | Q1 8:20→8:12 | 东契奇吸引内线协防分海耶斯扣篮 | 7.88 | 否 | G02 | [播放](clips/010_2025-04-27_LAL-MIN_drive-pass/010_LAL-MIN_Q1_drive-pass_8.0s_720p.mp4) |
+| 011 | 2025-04-27 | LAL-MIN / 西部首轮G4 | Q1 10:10→10:04 | 兰德尔外线接球三分 | 6.40 | 否 | G04 | [播放](clips/011_2025-04-27_LAL-MIN_catch-shoot/011_LAL-MIN_Q1_catch-shoot_6.5s_720p.mp4) |
+| 012 | 2025-04-27 | LAL-MIN / 西部首轮G4 | Q1 9:37→9:28 | 八村垒弱侧底角接球三分 | 8.48 | 否 | G04 | [播放](clips/012_2025-04-27_LAL-MIN_catch-shoot/012_LAL-MIN_Q1_catch-shoot_8.5s_720p.mp4) |
+| 013 | 2025-04-21 | LAC-DEN / 西部首轮G2 | Q2 5:46→5:38 | 威斯布鲁克底角接球三分 | 8.28 | 否 | G04 | [播放](clips/013_2025-04-21_LAC-DEN_catch-shoot/013_LAC-DEN_Q2_catch-shoot_8.4s_720p.mp4) |
+| 014 | 2025-04-21 | LAC-DEN / 西部首轮G2 | Q2 7:00→6:52 | 穆雷吸引包夹传戈登顺下扣篮 | 8.28 | 否 | G01 | [播放](clips/014_2025-04-21_LAC-DEN_roll-pass/014_LAC-DEN_Q2_roll-pass_8.4s_720p.mp4) |
+| 015 | 2025-04-21 | LAC-DEN / 西部首轮G2 | Q2 9:55→9:46 | 巴图姆切断传球线路后琼斯快攻上篮 | 10.04 | 是 | G10 | [播放](clips/015_2025-04-21_LAC-DEN_defense-transition/015_LAC-DEN_Q2_defense-transition_10.2s_720p.mp4) |
+| 016 | 2025-04-21 | LAC-DEN / 西部首轮G2 | Q1 11:20→11:12 | 约基奇高位接球假传真投三分 | 8.48 | 否 | G04 | [播放](clips/016_2025-04-21_LAC-DEN_catch-shoot/016_LAC-DEN_Q1_catch-shoot_8.6s_720p.mp4) |
+| 017 | 2025-04-21 | LAC-DEN / 西部首轮G2 | Q1 6:28→6:20 | 穆雷追防切球破坏鲍威尔突破 | 10.40 | 否 | G12 | [播放](clips/017_2025-04-21_LAC-DEN_steal/017_LAC-DEN_Q1_steal_10.5s_720p.mp4) |
+| 018 | 2025-04-21 | LAC-DEN / 西部首轮G2 | Q1 7:49→7:44 | 邓恩接球空位三分 | 5.40 | 否 | G04 | [播放](clips/018_2025-04-21_LAC-DEN_catch-shoot/018_LAC-DEN_Q1_catch-shoot_5.5s_720p.mp4) |
+| 019 | 2025-04-21 | LAC-DEN / 西部首轮G2 | Q1 9:31→9:23 | 防守篮板后莱昂纳德推进追身三分 | 7.72 | 是 | G14 | [播放](clips/019_2025-04-21_LAC-DEN_transition-three/019_LAC-DEN_Q1_transition-three_7.7s_720p.mp4) |
+| 020 | 2025-04-21 | LAC-DEN / 西部首轮G2 | Q1 11:02→10:55 | 莱昂纳德背身转身后仰中投 | 7.48 | 否 | G06 | [播放](clips/020_2025-04-21_LAC-DEN_post-up/020_LAC-DEN_Q1_post-up_7.6s_720p.mp4) |
+| 021 | 2025-04-21 | LAC-DEN / 西部首轮G2 | Q1 10:48→10:45 | 莱昂纳德协防封盖戈登低位投篮 | 5.16 | 否 | G11 | [播放](clips/021_2025-04-21_LAC-DEN_block/021_LAC-DEN_Q1_block_5.2s_720p.mp4) |
+| 022 | 2025-05-05 | NYK-BOS / 东部半决赛G1 | Q3 8:38→8:30 | 阿奴诺比侧翼持球突破上篮 | 8.68 | 否 | G07 | [播放](clips/022_2025-05-05_NYK-BOS_drive-finish/022_NYK-BOS_Q3_drive-finish_8.8s_720p.mp4) |
+| 023 | 2025-05-05 | NYK-BOS / 东部半决赛G1 | Q2 1:09→0:55.1 | 怀特协防切球后助布朗快攻空接 | 14.88 | 是 | G10 | [播放](clips/023_2025-05-05_NYK-BOS_defense-transition/023_NYK-BOS_Q2_defense-transition_15.0s_720p.mp4) |
+| 024 | 2025-05-05 | NYK-BOS / 东部半决赛G1 | Q2 4:40→4:28 | 哈特连续前场篮板后二次分球布伦森三分 | 13.00 | 否 | G13 | [播放](clips/024_2025-05-05_NYK-BOS_offensive-rebound/024_NYK-BOS_Q2_offensive-rebound_13.1s_720p.mp4) |
+| 025 | 2025-05-05 | NYK-BOS / 东部半决赛G1 | Q2 5:18→5:12 | 塔图姆防守篮板后长传怀特快攻扣篮 | 6.32 | 是 | G09 | [播放](clips/025_2025-05-05_NYK-BOS_transition-pass/025_NYK-BOS_Q2_transition-pass_6.3s_720p.mp4) |
+| 026 | 2025-05-05 | NYK-BOS / 东部半决赛G1 | Q2 6:53→6:45 | 布朗虚晃布伦森后单打中投 | 8.40 | 否 | G05 | [播放](clips/026_2025-05-05_NYK-BOS_isolation/026_NYK-BOS_Q2_isolation_8.5s_720p.mp4) |
+| 027 | 2025-05-05 | NYK-BOS / 东部半决赛G1 | Q2 6:23→6:16 | 布朗背打哈特转身中投 | 6.48 | 否 | G06 | [播放](clips/027_2025-05-05_NYK-BOS_post-up/027_NYK-BOS_Q2_post-up_6.5s_720p.mp4) |
+| 028 | 2025-05-05 | NYK-BOS / 东部半决赛G1 | Q2 8:43→8:36 | 普理查德外围接球三分 | 9.08 | 否 | G04 | [播放](clips/028_2025-05-05_NYK-BOS_catch-shoot/028_NYK-BOS_Q2_catch-shoot_9.2s_720p.mp4) |
+| 029 | 2025-05-05 | NYK-BOS / 东部半决赛G1 | Q2 8:09→8:02 | 普理查德突破上篮 | 6.56 | 否 | G07 | [播放](clips/029_2025-05-05_NYK-BOS_drive-finish/029_NYK-BOS_Q2_drive-finish_6.6s_720p.mp4) |
+| 030 | 2025-05-05 | NYK-BOS / 东部半决赛G1 | Q1 1:58→1:47 | 唐斯高位接球后突破篮下终结 | 11.00 | 否 | G07 | [播放](clips/030_2025-05-05_NYK-BOS_drive-finish/030_NYK-BOS_Q1_drive-finish_11.1s_720p.mp4) |
+| 031 | 2025-05-05 | NYK-BOS / 东部半决赛G1 | Q1 6:41→6:36 | 布朗防守篮板后长传塔图姆快攻扣篮 | 6.12 | 是 | G09 | [播放](clips/031_2025-05-05_NYK-BOS_transition-pass/031_NYK-BOS_Q1_transition-pass_6.1s_720p.mp4) |
+| 032 | 2025-05-11 | CLE-IND / 东部半决赛G4 | Q4 9:01→8:56 | 汤普森低位接球勾手 | 5.68 | 否 | G06 | [播放](clips/032_2025-05-11_CLE-IND_post-up/032_CLE-IND_Q4_post-up_5.8s_720p.mp4) |
+| 033 | 2025-05-11 | CLE-IND / 东部半决赛G4 | Q4 8:44→8:33 | 汤普森协防封盖后骑士转换进攻三分 | 11.32 | 是 | G10 | [播放](clips/033_2025-05-11_CLE-IND_block-transition/033_CLE-IND_Q4_block-transition_11.3s_720p.mp4) |
+| 034 | 2025-05-11 | CLE-IND / 东部半决赛G4 | Q3 3:34→3:27 | 麦康奈尔传托平空切上篮打成2+1 | 9.40 | 否 | G03 | [播放](clips/034_2025-05-11_CLE-IND_cut-pass/034_CLE-IND_Q3_cut-pass_9.5s_720p.mp4) |
+| 035 | 2025-05-11 | CLE-IND / 东部半决赛G4 | Q3 10:27→10:17 | 杰罗姆接球切入上篮 | 9.40 | 否 | G03 | [播放](clips/035_2025-05-11_CLE-IND_cut-pass/035_CLE-IND_Q3_cut-pass_9.5s_720p.mp4) |
+| 036 | 2025-05-11 | CLE-IND / 东部半决赛G4 | Q3 9:33→9:27 | 杰罗姆外围接球三分 | 6.00 | 否 | G04 | [播放](clips/036_2025-05-11_CLE-IND_catch-shoot/036_CLE-IND_Q3_catch-shoot_6.0s_720p.mp4) |
+| 037 | 2025-05-11 | CLE-IND / 东部半决赛G4 | Q3 7:13→7:03 | 莫布利转换进攻跟进三分 | 9.28 | 否 | G14 | [播放](clips/037_2025-05-11_CLE-IND_transition-three/037_CLE-IND_Q3_transition-three_9.4s_720p.mp4) |
+| 038 | 2025-05-11 | CLE-IND / 东部半决赛G4 | Q3 未显示→5:19 | 莫布利顺下接球扣篮 | 6.52 | 否 | G01 | [播放](clips/038_2025-05-11_CLE-IND_roll-pass/038_CLE-IND_Q3_roll-pass_6.5s_720p.mp4) |
+| 039 | 2025-05-11 | CLE-IND / 东部半决赛G4 | Q3 9:04→8:55 | 特纳高位假投分球内史密斯三分 | 8.68 | 否 | G16 | [播放](clips/039_2025-05-11_CLE-IND_high-post-pass/039_CLE-IND_Q3_high-post-pass_8.8s_720p.mp4) |
+| 040 | 2025-05-11 | CLE-IND / 东部半决赛G4 | Q3 11:17→11:10 | 西亚卡姆转换推进后突破打成2+1 | 8.28 | 否 | G08 | [播放](clips/040_2025-05-11_CLE-IND_transition-drive/040_CLE-IND_Q3_transition-drive_8.4s_720p.mp4) |
+| 041 | 2025-04-26 | OKC-MEM / 西部首轮G4 | Q4 0:44.6→0:34.4 | 文斯威廉姆斯外围接球三分 | 10.68 | 否 | G04 | [播放](clips/041_2025-04-26_OKC-MEM_catch-shoot/041_OKC-MEM_Q4_catch-shoot_10.8s_720p.mp4) |
+| 042 | 2025-04-26 | OKC-MEM / 西部首轮G4 | Q4 0:19.6→0:11.0 | 亚历山大撤步单打中投 | 9.76 | 否 | G05 | [播放](clips/042_2025-04-26_OKC-MEM_isolation/042_OKC-MEM_Q4_isolation_9.8s_720p.mp4) |
+| 043 | 2025-04-26 | OKC-MEM / 西部首轮G4 | Q4 4:29→4:20 | 亚历山大协防封盖贝恩篮下投篮 | 9.80 | 否 | G11 | [播放](clips/043_2025-04-26_OKC-MEM_block/043_OKC-MEM_Q4_block_9.9s_720p.mp4) |
+| 044 | 2025-04-26 | OKC-MEM / 西部首轮G4 | Q4 6:20→6:11 | 亚历山大持球中投 | 8.68 | 否 | G05 | [播放](clips/044_2025-04-26_OKC-MEM_pullup/044_OKC-MEM_Q4_pullup_8.8s_720p.mp4) |
+| 045 | 2025-04-26 | OKC-MEM / 西部首轮G4 | Q4 5:49→5:43 | 杰伦威廉姆斯接突破分球三分 | 6.20 | 否 | G02 | [播放](clips/045_2025-04-26_OKC-MEM_drive-pass/045_OKC-MEM_Q4_drive-pass_6.2s_720p.mp4) |
+| 046 | 2025-04-26 | OKC-MEM / 西部首轮G4 | Q4 9:19→9:11 | 小皮蓬借掩护后外线三分 | 8.12 | 否 | G01 | [播放](clips/046_2025-04-26_OKC-MEM_screen-three/046_OKC-MEM_Q4_screen-three_8.1s_720p.mp4) |
+| 047 | 2025-04-26 | OKC-MEM / 西部首轮G4 | Q4 9:04→8:56 | 以赛亚乔底角接球三分 | 7.80 | 否 | G04 | [播放](clips/047_2025-04-26_OKC-MEM_catch-shoot/047_OKC-MEM_Q4_catch-shoot_7.8s_720p.mp4) |
+| 048 | 2025-04-26 | OKC-MEM / 西部首轮G4 | Q3 1:51→1:41 | 伊迪低位接球转身勾手 | 10.28 | 否 | G06 | [播放](clips/048_2025-04-26_OKC-MEM_post-up/048_OKC-MEM_Q3_post-up_10.4s_720p.mp4) |
+| 049 | 2025-04-26 | OKC-MEM / 西部首轮G4 | Q3 3:13→3:05 | 亚历山大推进后突破双塔打成2+1 | 9.20 | 否 | G08 | [播放](clips/049_2025-04-26_OKC-MEM_transition-drive/049_OKC-MEM_Q3_transition-drive_9.3s_720p.mp4) |
+| 050 | 2025-04-29 | MIL-IND / 东部首轮G5 | Q2 4:27→4:18 | 防守篮板后哈利伯顿推进挑篮 | 10.28 | 是 | G08 | [播放](clips/050_2025-04-29_MIL-IND_transition-drive/050_MIL-IND_Q2_transition-drive_10.4s_720p.mp4) |
+| 051 | 2025-04-29 | MIL-IND / 东部首轮G5 | Q2 未显示→4:55 | 哈利伯顿突破转体分内史密斯底角三分 | 8.28 | 否 | G02 | [播放](clips/051_2025-04-29_MIL-IND_drive-pass/051_MIL-IND_Q2_drive-pass_8.4s_720p.mp4) |
+| 052 | 2025-04-29 | MIL-IND / 东部首轮G5 | Q2 8:22→8:16 | 字母哥防守篮板后转换突破制造犯规 | 8.68 | 是 | G08 | [播放](clips/052_2025-04-29_MIL-IND_transition-drive/052_MIL-IND_Q2_transition-drive_8.8s_720p.mp4) |
+| 053 | 2025-04-29 | MIL-IND / 东部首轮G5 | Q1 0:13.2→0:07.1 | 小波特挡拆后高吊希姆斯空接扣篮 | 8.48 | 否 | G01 | [播放](clips/053_2025-04-29_MIL-IND_roll-pass/053_MIL-IND_Q1_roll-pass_8.6s_720p.mp4) |
+| 054 | 2025-04-29 | MIL-IND / 东部首轮G5 | Q1 3:50→3:36 | 特伦特抢断后快攻上篮 | 13.60 | 是 | G10 | [播放](clips/054_2025-04-29_MIL-IND_defense-transition/054_MIL-IND_Q1_defense-transition_13.7s_720p.mp4) |
+| 055 | 2025-04-29 | MIL-IND / 东部首轮G5 | Q1 8:17→8:07 | 字母哥低位背打西亚卡姆上篮 | 10.68 | 否 | G06 | [播放](clips/055_2025-04-29_MIL-IND_post-up/055_MIL-IND_Q1_post-up_10.8s_720p.mp4) |
+| 056 | 2025-05-25 | NYK-IND / 东部决赛G3 | Q4 3:45→3:39 | 阿奴诺比协防封盖内史密斯突破 | 7.28 | 否 | G11 | [播放](clips/056_2025-05-25_NYK-IND_block/056_NYK-IND_Q4_block_7.4s_720p.mp4) |
+| 057 | 2025-05-25 | NYK-IND / 东部决赛G3 | Q4 9:33→9:26 | 西亚卡姆低位转身后仰打成2+1 | 10.28 | 否 | G06 | [播放](clips/057_2025-05-25_NYK-IND_post-up/057_NYK-IND_Q4_post-up_10.4s_720p.mp4) |
+| 058 | 2025-05-25 | NYK-IND / 东部决赛G3 | Q3 0:11.5→0:05.1 | 马瑟林分球特纳篮下终结 | 8.80 | 否 | G02 | [播放](clips/058_2025-05-25_NYK-IND_drive-pass/058_NYK-IND_Q3_drive-pass_8.9s_720p.mp4) |
+| 059 | 2025-05-25 | NYK-IND / 东部决赛G3 | Q3 1:21→1:11 | 罗宾逊追防封盖麦康奈尔上篮 | 9.40 | 否 | G11 | [播放](clips/059_2025-05-25_NYK-IND_block/059_NYK-IND_Q3_block_9.5s_720p.mp4) |
+| 060 | 2025-05-25 | NYK-IND / 东部决赛G3 | Q3 1:01→0:53.7 | 麦克布莱德持球撤步三分 | 8.80 | 否 | G05 | [播放](clips/060_2025-05-25_NYK-IND_isolation/060_NYK-IND_Q3_isolation_8.9s_720p.mp4) |
+| 061 | 2025-04-25 | BOS-ORL / 东部首轮G3 | Q4 2:23→2:12 | 小瓦格纳底线突破上篮 | 10.28 | 否 | G07 | [播放](clips/061_2025-04-25_BOS-ORL_drive-finish/061_BOS-ORL_Q4_drive-finish_10.4s_720p.mp4) |
+| 062 | 2025-04-25 | BOS-ORL / 东部首轮G3 | Q4 1:35→1:26 | 小瓦格纳持球突破攻筐 | 8.80 | 否 | G07 | [播放](clips/062_2025-04-25_BOS-ORL_drive-finish/062_BOS-ORL_Q4_drive-finish_8.8s_720p.mp4) |
+| 063 | 2025-04-25 | BOS-ORL / 东部首轮G3 | Q4 8:40→8:32 | 班凯罗背身转身后仰中投 | 8.00 | 否 | G06 | [播放](clips/063_2025-04-25_BOS-ORL_post-up/063_BOS-ORL_Q4_post-up_8.1s_720p.mp4) |
+| 064 | 2025-04-25 | BOS-ORL / 东部首轮G3 | Q4 6:28→6:20 | 推进后霍福德跟进接球三分 | 8.20 | 否 | G14 | [播放](clips/064_2025-04-25_BOS-ORL_transition-three/064_BOS-ORL_Q4_transition-three_8.3s_720p.mp4) |
+| 065 | 2025-04-25 | BOS-ORL / 东部首轮G3 | Q4 4:29→4:20 | 塔图姆单打班凯罗突破上篮 | 9.20 | 否 | G05 | [播放](clips/065_2025-04-25_BOS-ORL_isolation/065_BOS-ORL_Q4_isolation_9.3s_720p.mp4) |
+| 066 | 2025-04-25 | BOS-ORL / 东部首轮G3 | Q3 4:42→4:33 | 怀特借掩护后持球突破上篮 | 8.68 | 否 | G01 | [播放](clips/066_2025-04-25_BOS-ORL_screen-drive/066_BOS-ORL_Q3_screen-drive_8.8s_720p.mp4) |
+| 067 | 2025-04-25 | BOS-ORL / 东部首轮G3 | Q2 0:07.3→0:00.9 | 布朗接球准压哨三分 | 8.48 | 否 | G04 | [播放](clips/067_2025-04-25_BOS-ORL_catch-shoot/067_BOS-ORL_Q2_catch-shoot_8.6s_720p.mp4) |
+| 068 | 2025-06-11 | OKC-IND / 总决赛G3 | Q2 2:22→2:11 | 哈利伯顿借掩护后抛投 | 10.28 | 否 | G01 | [播放](clips/068_2025-06-11_OKC-IND_screen-drive/068_OKC-IND_Q2_screen-drive_10.4s_720p.mp4) |
+| 069 | 2025-06-11 | OKC-IND / 总决赛G3 | Q2 1:52→1:44 | 哈利伯顿推进后持球三分 | 8.92 | 否 | G14 | [播放](clips/069_2025-06-11_OKC-IND_transition-three/069_OKC-IND_Q2_transition-three_8.9s_720p.mp4) |
+| 070 | 2025-06-11 | OKC-IND / 总决赛G3 | Q2 5:52→5:47 | 哈利伯顿托平连续传球助马瑟林快攻2+1 | 8.68 | 否 | G09 | [播放](clips/070_2025-06-11_OKC-IND_transition-pass/070_OKC-IND_Q2_transition-pass_8.8s_720p.mp4) |
+| 071 | 2025-06-11 | OKC-IND / 总决赛G3 | Q1 未显示→7:35 | 霍姆格伦接球后中距离投篮 | 10.68 | 否 | G15 | [播放](clips/071_2025-06-11_OKC-IND_catch-midrange/071_OKC-IND_Q1_catch-midrange_10.8s_720p.mp4) |
+| 072 | 2025-06-11 | OKC-IND / 总决赛G3 | Q1 5:48→5:40 | 霍姆格伦防守篮板后跟进快攻扣篮 | 7.56 | 是 | G09 | [播放](clips/072_2025-06-11_OKC-IND_transition-pass/072_OKC-IND_Q1_transition-pass_7.6s_720p.mp4) |
+| 073 | 2025-06-11 | OKC-IND / 总决赛G3 | Q1 5:15→5:08 | 哈利伯顿推进后抛投 | 7.48 | 否 | G08 | [播放](clips/073_2025-06-11_OKC-IND_transition-drive/073_OKC-IND_Q1_transition-drive_7.6s_720p.mp4) |
+| 074 | 2025-06-11 | OKC-IND / 总决赛G3 | Q1 5:01→4:50 | 哈利伯顿抢断后回传托平快攻上篮 | 13.48 | 是 | G10 | [播放](clips/074_2025-06-11_OKC-IND_defense-transition/074_OKC-IND_Q1_defense-transition_13.5s_720p.mp4) |
+| 075 | 2025-06-11 | OKC-IND / 总决赛G3 | Q1 7:01→6:51 | 托平转换空接未果后前场篮板补篮 | 10.48 | 是 | G13 | [播放](clips/075_2025-06-11_OKC-IND_offensive-rebound/075_OKC-IND_Q1_offensive-rebound_10.6s_720p.mp4) |
+| 076 | 2025-06-11 | OKC-IND / 总决赛G3 | Q1 11:03→10:55 | 霍姆格伦推进中接球篮下终结 | 8.28 | 否 | G09 | [播放](clips/076_2025-06-11_OKC-IND_transition-pass/076_OKC-IND_Q1_transition-pass_8.4s_720p.mp4) |
+| 077 | 2025-06-11 | OKC-IND / 总决赛G3 | Q1 9:51→9:42 | 霍姆格伦顺下接球篮下终结 | 9.20 | 否 | G01 | [播放](clips/077_2025-06-11_OKC-IND_roll-pass/077_OKC-IND_Q1_roll-pass_9.2s_720p.mp4) |
+| 078 | 2025-06-11 | OKC-IND / 总决赛G3 | Q1 8:55→8:46 | 亚历山大吸引协防分多尔特底角三分 | 9.08 | 否 | G02 | [播放](clips/078_2025-06-11_OKC-IND_drive-pass/078_OKC-IND_Q1_drive-pass_9.2s_720p.mp4) |
+| 079 | 2025-06-11 | OKC-IND / 总决赛G3 | Q1 11:34→11:26 | 华莱士追防封盖哈利伯顿投篮 | 8.08 | 否 | G11 | [播放](clips/079_2025-06-11_OKC-IND_block/079_OKC-IND_Q1_block_8.2s_720p.mp4) |
+| 080 | 2025-06-11 | OKC-IND / 总决赛G3 | Q1 10:54→10:44 | 华莱士截断传球后雷霆快攻未中 | 10.96 | 是 | G10 | [播放](clips/080_2025-06-11_OKC-IND_defense-transition/080_OKC-IND_Q1_defense-transition_11.0s_720p.mp4) |
+| 081 | 2025-04-29 | ORL-BOS / 东部首轮G5 | Q4 4:27→4:22 | 塔图姆单打三分制造犯规打成3+1 | 7.88 | 否 | G05 | [播放](clips/081_2025-04-29_ORL-BOS_isolation/081_ORL-BOS_Q4_isolation_8.0s_720p.mp4) |
+| 082 | 2025-04-29 | ORL-BOS / 东部首轮G5 | Q4 7:52→7:41 | 班凯罗突破分球布莱克底角三分 | 11.08 | 否 | G02 | [播放](clips/082_2025-04-29_ORL-BOS_drive-pass/082_ORL-BOS_Q4_drive-pass_11.2s_720p.mp4) |
+| 083 | 2025-04-15 | ATL-ORL / 东部附加赛 | Q1 11:36→11:27 | 特雷杨高吊奥孔武空接扣篮 | 8.68 | 否 | G01 | [播放](clips/083_2025-04-15_ATL-ORL_roll-pass/083_ATL-ORL_Q1_roll-pass_8.8s_720p.mp4) |
+| 084 | 2025-04-15 | ATL-ORL / 东部附加赛 | Q1 9:04→9:01 | 特雷杨持球突破上篮 | 3.20 | 否 | G07 | [播放](clips/084_2025-04-15_ATL-ORL_drive-finish/084_ATL-ORL_Q1_drive-finish_3.2s_720p.mp4) |
+| 085 | 2025-04-15 | ATL-ORL / 东部附加赛 | Q1 2:45→2:41 | 布莱克突破篮下终结 | 4.00 | 否 | G07 | [播放](clips/085_2025-04-15_ATL-ORL_drive-finish/085_ATL-ORL_Q1_drive-finish_4.0s_720p.mp4) |
+| 086 | 2025-04-15 | ATL-ORL / 东部附加赛 | Q2 9:11→9:05 | 安东尼推进突破分卡特篮下终结 | 5.70 | 否 | G09 | [播放](clips/086_2025-04-15_ATL-ORL_transition-pass/086_ATL-ORL_Q2_transition-pass_5.7s_720p.mp4) |
+| 087 | 2025-04-18 | DAL-MEM / 西部附加赛 | Q1 5:46→5:35 | 戴维斯中投后连续二次进攻 | 11.28 | 否 | G13 | [播放](clips/087_2025-04-18_DAL-MEM_offensive-rebound/087_DAL-MEM_Q1_offensive-rebound_11.3s_720p.mp4) |
+| 088 | 2025-04-18 | DAL-MEM / 西部附加赛 | Q2 5:37→5:28 | 戴维斯持球突破上篮 | 9.16 | 否 | G07 | [播放](clips/088_2025-04-18_DAL-MEM_drive-finish/088_DAL-MEM_Q2_drive-finish_9.2s_720p.mp4) |
+| 089 | 2025-04-18 | DAL-MEM / 西部附加赛 | Q1 2:48→2:39 | 戴维斯低位接球强攻 | 9.36 | 否 | G06 | [播放](clips/089_2025-04-18_DAL-MEM_post-up/089_DAL-MEM_Q1_post-up_9.4s_720p.mp4) |
+| 090 | 2025-04-18 | DAL-MEM / 西部附加赛 | Q2 6:09→6:00 | 戴维斯高位持球突破后篮下终结 | 8.80 | 否 | G07 | [播放](clips/090_2025-04-18_DAL-MEM_drive-finish/090_DAL-MEM_Q2_drive-finish_8.8s_720p.mp4) |
+| 091 | 2025-05-08 | GSW-MIN / 西部半决赛G2 | Q1 8:45→8:42 | 兰德尔低位转身篮下终结 | 4.47 | 否 | G06 | [播放](clips/091_2025-05-08_GSW-MIN_post-up/091_GSW-MIN_Q1_post-up_4.5s_720p.mp4) |
+| 092 | 2025-05-08 | GSW-MIN / 西部半决赛G2 | Q1 1:30→1:26 | 兰德尔低位持球转身篮下终结 | 4.17 | 否 | G06 | [播放](clips/092_2025-05-08_GSW-MIN_post-up/092_GSW-MIN_Q1_post-up_4.2s_720p.mp4) |
+| 093 | 2025-05-08 | GSW-MIN / 西部半决赛G2 | Q2 9:08→9:03 | 麦克丹尼尔斯空切接球扣篮 | 5.07 | 否 | G03 | [播放](clips/093_2025-05-08_GSW-MIN_cut-pass/093_GSW-MIN_Q2_cut-pass_5.1s_720p.mp4) |
+| 094 | 2025-05-08 | GSW-MIN / 西部半决赛G2 | Q3 7:21→7:18 | 勇士接球后底线突破上篮 | 2.97 | 否 | G07 | [播放](clips/094_2025-05-08_GSW-MIN_drive-finish/094_GSW-MIN_Q3_drive-finish_3.0s_720p.mp4) |
+| 095 | 2025-04-26 | CLE-MIA / 东部首轮G3 | Q1 6:51→6:46 | 骑士突破吸引协防分内线终结 | 4.77 | 否 | G02 | [播放](clips/095_2025-04-26_CLE-MIA_drive-pass/095_CLE-MIA_Q1_drive-pass_4.8s_720p.mp4) |
+| 096 | 2025-04-26 | CLE-MIA / 东部首轮G3 | Q1 5:10→5:05 | 热火推进突破篮下终结 | 5.37 | 否 | G08 | [播放](clips/096_2025-04-26_CLE-MIA_transition-drive/096_CLE-MIA_Q1_transition-drive_5.4s_720p.mp4) |
+| 097 | 2025-04-26 | CLE-MIA / 东部首轮G3 | Q1 0:03.9→0:00.1 | 骑士持球后远距离压哨三分 | 4.50 | 否 | G05 | [播放](clips/097_2025-04-26_CLE-MIA_pullup/097_CLE-MIA_Q1_pullup_4.5s_720p.mp4) |
+| 098 | 2025-04-26 | CLE-MIA / 东部首轮G3 | Q2 2:40→2:35 | 骑士持球突破上篮 | 5.47 | 否 | G07 | [播放](clips/098_2025-04-26_CLE-MIA_drive-finish/098_CLE-MIA_Q2_drive-finish_5.5s_720p.mp4) |
+| 099 | 2025-04-27 | NYK-DET / 东部首轮G4 | Q4 1:36→1:29 | 唐斯低位转身后仰中投 | 9.08 | 否 | G06 | [播放](clips/099_2025-04-27_NYK-DET_post-up/099_NYK-DET_Q4_post-up_9.2s_720p.mp4) |
+| 100 | 2025-04-27 | NYK-DET / 东部首轮G4 | Q4 0:51.8→0:46.6 | 唐斯持球撤步超远三分 | 5.68 | 否 | G05 | [播放](clips/100_2025-04-27_NYK-DET_isolation/100_NYK-DET_Q4_isolation_5.7s_720p.mp4) |

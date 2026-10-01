@@ -1,0 +1,62 @@
+{
+  "id": "050",
+  "season": "2024-25",
+  "game": {
+    "key": "MIL-IND-G5",
+    "date_local": "2025-04-29",
+    "date_beijing": "2025-04-30",
+    "tipoff_utc": "2025-04-29T22:00:00+00:00",
+    "tipoff_beijing": "2025-04-30T06:00:00+08:00",
+    "matchup": "MIL-IND",
+    "stage": "东部首轮G5",
+    "final_score": {
+      "IND": 119,
+      "MIL": 118
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401768050",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250429"
+  },
+  "quarter": 2,
+  "clock_start": "4:27",
+  "clock_end": "4:18",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "防守篮板后哈利伯顿推进挑篮",
+  "tags": [
+    "转换突破",
+    "防守篮板后哈利伯顿推进挑篮"
+  ],
+  "description": "防守篮板后哈利伯顿推进挑篮",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "transition-drive",
+  "offense": "IND",
+  "defense": "MIL",
+  "scope": "包含篮板及推进",
+  "full_possession": true,
+  "source_url": "https://v.qq.com/x/cover/mzc00200176tirm/i4101yoljqt.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "i4101yoljqt",
+  "source_start_seconds": 0.0,
+  "source_end_seconds": 10.4,
+  "file": "clips/050_2025-04-29_MIL-IND_transition-drive/050_MIL-IND_Q2_transition-drive_10.4s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 25.0,
+  "decode_check": "passed",
+  "duration_seconds": 10.28,
+  "sha256": "f59d236436ce8a833ecdcf6018c3774312c1b13a34aabd511752273648274bdc",
+  "size_bytes": 7486054,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G08",
+  "tactic_repeat": true,
+  "similar_to": [
+    "040",
+    "049",
+    "052",
+    "073",
+    "096"
+  ],
+  "repeat_reason": "同属「转换突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

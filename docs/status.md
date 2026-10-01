@@ -20,7 +20,9 @@
 | TypeSafe Jev 珠海与澳门可用性调研 | [调研结论与验证步骤](../research/jev-regional-availability.md) | 已发邮件向厂商确认，等待答复；未实测，尚未决定采用 |
 | 解说 Agent 方案总结与直播纪要核对 | [方案讨论稿](agent-concept-review.md) | 已同步至 main（8bb3611）；按数据采集、数据处理、内容呈现整理；重点为战术意图、行为动因与声画同步；球员引力待验证，另两项核心指标后续再议 |
 | NBA 2K25 / 2K26 季后赛球队球员能力数据 | [Agent 数据包](../2K%20Player%20Data/manifest.json)、[读取指引](../2K%20Player%20Data/AGENTS.md) | 已推送 main（[0584778](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/0584778933bb555d42f1985a8c56009d8316b718)），独立检查 54 项通过；635 条赛季记录、472 人、42 项能力，483 条有总评、152 条评分缺失、13 条能力部分缺失；2K26 为混合早期快照，null 未补值 |
-| 2025–26 赛季 NBA 备赛视频素材（30 段） | [来源与实际规格清单](../research/nba-video-samples/batch-030.json)、[采集交接](../handoffs/Linzeyu912/2026-09-30-1555-nba-thirty-video-samples.md) | 30 个本地 MP4 已采集及检查，20–34 秒，1080p；清单随本任务同步 main，原视频按仓库规则留在本机；仅两场比赛，尚未验证训练效果 |
+| 2024–25 NBA 训练素材100段 | [素材说明](../research/nba-training-clips-2024-25-library100.md)、[播放目录](../data/videos/nba/2024-25/library100/INDEX.md) | 100段成片通过Git LFS共享，共647,393,804字节；16场、17队，14段完整球权；相似动作分16组关联，包含原首批3段；实际推送与远端下载核验结果见[本轮交接](../handoffs/Linzeyu912/2026-10-01-0848-video-lfs-management.md) |
+| 2025–26 赛季 NBA 备赛视频素材（30 段） | [来源与实际规格清单](../research/nba-video-samples/batch-030.json)、[采集交接](../handoffs/Linzeyu912/2026-09-30-1555-nba-thirty-video-samples.md)、[标签与要求复核](../research/nba-video-samples/batch-030-review.md) | 据采集记录30个MP4已检查，20–34秒、1080p；视频留在采集者本机，清单已同步；仅两场比赛，尚未验证训练效果。本轮补了标签草案，尚未取得成片进行独立画质复核 |
+| 视频管理规范与统一批次登记 | [管理规范](video-data-management.md)、[批次清单](../data/videos/catalog.json)、[校验脚本](../scripts/validate_video_data.py) | 成片用LFS、元数据用普通Git；100段登记有文件、30段登记待上传；区分实测/采集记录、已看片标签/草案、完整回合/局部片段和内容重复/同类动作 |
 
 ## 待认领任务
 
@@ -57,5 +59,8 @@
 - [2026-09-30：方案总结远端同步核验](../handoffs/Linzeyu912/2026-09-30-1038-agent-summary-sync.md)
 
 - [2026-10-01：NBA 2K 球员数据包入库与远端同步](../handoffs/thy-0629/2026-10-01-0003-nba2k-player-data.md)
+
+- [2026-10-01：NBA训练素材100段](../handoffs/Linzeyu912/2026-10-01-0031-nba-library100.md)
+- [2026-10-01：视频数据管理与LFS共享](../handoffs/Linzeyu912/2026-10-01-0848-video-lfs-management.md)
 
 日常任务过程放在各自交接文件中；只在团队阶段、任务入口或关键依赖变化时修改本页，减少多人同时编辑冲突。

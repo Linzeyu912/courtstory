@@ -1,0 +1,62 @@
+{
+  "id": "086",
+  "season": "2024-25",
+  "game": {
+    "key": "ATL-ORL-PI",
+    "date_local": "2025-04-15",
+    "date_beijing": "2025-04-16",
+    "tipoff_utc": "2025-04-15T23:30:00+00:00",
+    "tipoff_beijing": "2025-04-16T07:30:00+08:00",
+    "matchup": "ATL-ORL",
+    "stage": "东部附加赛",
+    "final_score": {
+      "ORL": 120,
+      "ATL": 95
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401766458",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250415"
+  },
+  "quarter": 2,
+  "clock_start": "9:11",
+  "clock_end": "9:05",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "安东尼推进突破分卡特篮下终结",
+  "tags": [
+    "转换传球",
+    "安东尼推进突破分卡特篮下终结"
+  ],
+  "description": "安东尼推进突破分卡特篮下终结",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "transition-pass",
+  "offense": "ORL",
+  "defense": "ATL",
+  "scope": "包含推进",
+  "full_possession": false,
+  "source_url": "https://v.qq.com/x/cover/mzc00200egy2rje/y4101ilp486.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "y4101ilp486",
+  "source_start_seconds": 80.0,
+  "source_end_seconds": 85.7,
+  "file": "clips/086_2025-04-15_ATL-ORL_transition-pass/086_ATL-ORL_Q2_transition-pass_5.7s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 30.0,
+  "decode_check": "passed",
+  "duration_seconds": 5.7,
+  "sha256": "4dd643060c77994fc05a4704868cfb2880043fd85698fadca34f7895f04f7f8f",
+  "size_bytes": 4003624,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G09",
+  "tactic_repeat": true,
+  "similar_to": [
+    "025",
+    "031",
+    "070",
+    "072",
+    "076"
+  ],
+  "repeat_reason": "同属「转换传球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

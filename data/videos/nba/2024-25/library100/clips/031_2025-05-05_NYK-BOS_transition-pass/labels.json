@@ -1,0 +1,62 @@
+{
+  "id": "031",
+  "season": "2024-25",
+  "game": {
+    "key": "NYK-BOS-G1",
+    "date_local": "2025-05-05",
+    "date_beijing": "2025-05-06",
+    "tipoff_utc": "2025-05-05T23:00:00+00:00",
+    "tipoff_beijing": "2025-05-06T07:00:00+08:00",
+    "matchup": "NYK-BOS",
+    "stage": "东部半决赛G1",
+    "final_score": {
+      "BOS": 105,
+      "NYK": 108
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401769746",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250505"
+  },
+  "quarter": 1,
+  "clock_start": "6:41",
+  "clock_end": "6:36",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "布朗防守篮板后长传塔图姆快攻扣篮",
+  "tags": [
+    "转换传球",
+    "布朗防守篮板后长传塔图姆快攻扣篮"
+  ],
+  "description": "布朗防守篮板后长传塔图姆快攻扣篮",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "transition-pass",
+  "offense": "BOS",
+  "defense": "NYK",
+  "scope": "包含篮板及反击",
+  "full_possession": true,
+  "source_url": "https://v.qq.com/x/cover/mzc002000vxb85h/b4101rjr9o6.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "b4101rjr9o6",
+  "source_start_seconds": 1.5,
+  "source_end_seconds": 7.6,
+  "file": "clips/031_2025-05-05_NYK-BOS_transition-pass/031_NYK-BOS_Q1_transition-pass_6.1s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 25.0,
+  "decode_check": "passed",
+  "duration_seconds": 6.12,
+  "sha256": "017f6b108d6e4a75c0ec285592ccb1dbe95a864fd46171f544472fe6602464b3",
+  "size_bytes": 4886979,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G09",
+  "tactic_repeat": true,
+  "similar_to": [
+    "025",
+    "070",
+    "072",
+    "076",
+    "086"
+  ],
+  "repeat_reason": "同属「转换传球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}

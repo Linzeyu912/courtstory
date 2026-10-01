@@ -1,0 +1,62 @@
+{
+  "id": "054",
+  "season": "2024-25",
+  "game": {
+    "key": "MIL-IND-G5",
+    "date_local": "2025-04-29",
+    "date_beijing": "2025-04-30",
+    "tipoff_utc": "2025-04-29T22:00:00+00:00",
+    "tipoff_beijing": "2025-04-30T06:00:00+08:00",
+    "matchup": "MIL-IND",
+    "stage": "东部首轮G5",
+    "final_score": {
+      "IND": 119,
+      "MIL": 118
+    },
+    "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401768050",
+    "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250429"
+  },
+  "quarter": 1,
+  "clock_start": "3:50",
+  "clock_end": "3:36",
+  "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+  "title": "特伦特抢断后快攻上篮",
+  "tags": [
+    "防守夺回球权后反击",
+    "特伦特抢断后快攻上篮"
+  ],
+  "description": "特伦特抢断后快攻上篮",
+  "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+  "family": "defense-transition",
+  "offense": "MIL",
+  "defense": "IND",
+  "scope": "包含抢断及反击",
+  "full_possession": true,
+  "source_url": "https://v.qq.com/x/cover/mzc00200176tirm/z4101ivssp0.html",
+  "source_publisher": "腾讯视频 NBA 栏目",
+  "source_vid": "z4101ivssp0",
+  "source_start_seconds": 0.0,
+  "source_end_seconds": 13.7,
+  "file": "clips/054_2025-04-29_MIL-IND_defense-transition/054_MIL-IND_Q1_defense-transition_13.7s_720p.mp4",
+  "normal_speed": true,
+  "original_broadcast": true,
+  "collected_at": "2026-09-30",
+  "width": 1280,
+  "height": 720,
+  "fps": 25.0,
+  "decode_check": "passed",
+  "duration_seconds": 13.6,
+  "sha256": "cd25fecfebdf296271abe3122e0bcb07fd7c5e4c0438fb8ebc6a1bead4899228",
+  "size_bytes": 10335574,
+  "content_duplicate": false,
+  "tactic_repeat_group": "G10",
+  "tactic_repeat": true,
+  "similar_to": [
+    "015",
+    "023",
+    "033",
+    "074",
+    "080"
+  ],
+  "repeat_reason": "同属「防守夺回球权后反击」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+}
