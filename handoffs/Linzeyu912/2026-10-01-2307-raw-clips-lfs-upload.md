@@ -4,8 +4,8 @@
 - 成员：Linzeyu912
 - 任务 / Issue：用户直接要求（把 data/raw 里的所有视频推送到 GitHub 远端）
 - 分支：main
-- 提交：见“同步状态”
-- 状态：进行中（本地入库与校验已完成，推送结果见文末）
+- 提交：bce03c7（data: share 39 NBA 2025-26 raw clips via Git LFS）
+- 状态：已完成
 
 ## 本次完成
 
@@ -43,4 +43,6 @@
 
 ## 同步状态
 
-- <推送后填写：提交哈希、远端核对结果、校验输出>
+- 已直接提交并推送 main：`f0d0aa9..bce03c7`，`git ls-remote origin main` 核对一致（bce03c7bfa86ac3ad281cc953e0cd3477bc55f80）。
+- 推送前校验：`python scripts/validate_video_data.py` 全量通过（4 数据集 / 139 条目 / 139 文件哈希全部相符，共 1,560,866,428 字节）；`--check-index` 通过（139 个暂存视频均为符合清单哈希的 LFS 指针）；`git diff --cached --check` 无空白错误。
+- 推送后远端验证：`git lfs fetch` 实际从服务端取回 2 个抽样对象（batch030-001 与 sample-001），SHA-256 与清单一致，远端可下载。本次 LFS 推送约 871MB 未被配额拒绝。
