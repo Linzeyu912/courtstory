@@ -1,0 +1,164 @@
+// Keep a decoded frame in a canvas independently of the native video compositor.
+export function mountVideoDisplay({video,canvas,status,message,retry,stage,onReady=()=>{},onError=()=>{},getTargetTime=()=>video.currentTime,startTime=0}) {
+  const context=canvas.getContext('2d');
+  const validTime=value=>Number.isFinite(value)&&value>=0?value:null;
+  let targetTime=validTime(getTargetTime())??0,pendingTime=targetTime;
+  let state='loading',disposed=false,presenting=false,awaitingSeek=false,reloading=false;
+  let wantsPlayback=!video.paused,playPending=false,playSerial=0;
+  let videoFrameId=null,animationId=null,frameEpoch=0;
+  const listeners=[];
+  canvas.dataset.ready='false';
+
+  function show(next,text,canRetry=false) {
+    if(disposed)return;
+    state=next;stage.dataset.videoState=next;
+    status.hidden=next==='ready';message.textContent=text;
+    retry.hidden=!canRetry;
+  }
+  function cancelFrames() {
+    frameEpoch++;
+    if(videoFrameId!==null&&typeof video.cancelVideoFrameCallback==='function')video.cancelVideoFrameCallback(videoFrameId);
+    if(animationId!==null&&typeof globalThis.cancelAnimationFrame==='function')globalThis.cancelAnimationFrame(animationId);
+    videoFrameId=null;animationId=null;
+  }
+  function fail(error,text='视频画面读取失败，请重新载入。') {
+    if(disposed)return;
+    cancelFrames();playPending=false;playSerial++;
+    show('error',text,true);onError(text,error);
+  }
+  function boundedTime(time) {
+    return Number.isFinite(video.duration)&&video.duration>=0?Math.min(time,video.duration):time;
+  }
+  function atTarget() {
+    return pendingTime===null||Math.abs(video.currentTime-boundedTime(pendingTime))<.001;
+  }
+  function present() {
+    if(disposed||presenting||video.error||awaitingSeek||video.seeking||video.readyState<2||!atTarget())return false;
+    if(!canvas.width||!canvas.height)return false;
+    presenting=true;
+    try {
+      try {
+        if(!context)throw new Error('Canvas 2D context is unavailable');
+        context.drawImage(video,0,0,canvas.width,canvas.height);
+      } catch(error) {
+        fail(error);return false;
+      }
+      const time=video.currentTime,notify=state!=='ready';
+      targetTime=time;pendingTime=null;
+      canvas.dataset.ready='true';show('ready','');
+      if(notify)onReady({time});
+      return true;
+    } finally {presenting=false;}
+  }
+  function queueFrame(force=false) {
+    if(disposed||state==='error'||videoFrameId!==null||animationId!==null)return;
+    const playing=!video.paused&&!video.ended;
+    if(!playing&&!force)return;
+    const epoch=frameEpoch;
+    if(typeof video.requestVideoFrameCallback==='function') {
+      videoFrameId=video.requestVideoFrameCallback(()=>{
+        if(disposed||epoch!==frameEpoch)return;
+        videoFrameId=null;present();queueFrame();
+      });
+    } else if(playing&&typeof globalThis.requestAnimationFrame==='function') {
+      animationId=globalThis.requestAnimationFrame(()=>{
+        if(disposed||epoch!==frameEpoch)return;
+        animationId=null;present();queueFrame();
+      });
+    }
+  }
+  function attemptPlayback() {
+    if(disposed||!wantsPlayback||playPending||!video.paused||awaitingSeek||video.readyState<2||state==='error')return;
+    playPending=true;const serial=++playSerial;
+    let result;
+    try {result=video.play();}
+    catch(error){playPending=false;wantsPlayback=false;fail(error,'视频无法播放，请重新载入后重试。');return;}
+    Promise.resolve(result).then(()=>{
+      if(disposed||serial!==playSerial)return;
+      playPending=false;queueFrame();
+    },error=>{
+      if(disposed||serial!==playSerial)return;
+      playPending=false;wantsPlayback=false;
+      fail(error,error?.name==='NotAllowedError'?'浏览器尚未允许播放，请再次点击播放。':'视频无法播放，请重新载入后重试。');
+    });
+  }
+  function applyPendingSeek() {
+    if(disposed||video.readyState<1||pendingTime===null||awaitingSeek)return;
+    pendingTime=boundedTime(pendingTime);targetTime=pendingTime;
+    if(Math.abs(video.currentTime-pendingTime)>=.001) {
+      awaitingSeek=true;show('seeking','正在定位视频画面…');
+      try {video.currentTime=pendingTime;}
+      catch(error){awaitingSeek=false;fail(error,'无法定位视频画面，请重新载入。');return;}
+    }
+    present();queueFrame(true);
+  }
+  function pause() {
+    if(disposed)return;
+    wantsPlayback=false;playPending=false;playSerial++;
+    video.pause();cancelFrames();present();
+  }
+  function seek(time) {
+    if(disposed||validTime(time)===null)return false;
+    targetTime=time;pendingTime=time;awaitingSeek=false;
+    // Mark the old canvas as pending before pause/currentTime can emit events.
+    show(video.readyState<1?'loading':'seeking',video.readyState<1?'正在载入视频…':'正在定位视频画面…');
+    pause();applyPendingSeek();return true;
+  }
+  function togglePlayback() {
+    if(disposed)return;
+    if(video.ended) {
+      // Some clips have no decodable frame at zero; avoid native ended replay's zero seek.
+      seek(validTime(startTime)??0);wantsPlayback=true;attemptPlayback();queueFrame();return;
+    }
+    if(wantsPlayback||!video.paused){pause();return;}
+    wantsPlayback=true;applyPendingSeek();present();attemptPlayback();queueFrame();
+  }
+  function refresh() {
+    if(disposed)return;
+    applyPendingSeek();present();queueFrame();
+  }
+  function reload() {
+    if(disposed)return;
+    const resume=wantsPlayback||!video.paused;
+    targetTime=pendingTime??validTime(getTargetTime())??validTime(video.currentTime)??targetTime;
+    pendingTime=targetTime;awaitingSeek=false;reloading=true;
+    cancelFrames();playPending=false;playSerial++;wantsPlayback=resume;
+    show('loading','正在重新载入视频…');
+    try {video.load();}
+    catch(error){reloading=false;fail(error,'视频重新载入失败，请重试。');}
+  }
+  function listen(type,handler) {video.addEventListener(type,handler);listeners.push([type,handler]);}
+  listen('loadedmetadata',()=>{reloading=false;applyPendingSeek();attemptPlayback();});
+  for(const type of ['loadeddata','canplay'])listen(type,()=>{
+    applyPendingSeek();present();attemptPlayback();queueFrame(true);
+  });
+  listen('seeking',()=>{
+    awaitingSeek=true;pendingTime??=validTime(video.currentTime)??targetTime;
+    cancelFrames();show('seeking','正在定位视频画面…');queueFrame(true);
+  });
+  listen('seeked',()=>{
+    if(video.seeking)return;
+    awaitingSeek=false;applyPendingSeek();present();attemptPlayback();queueFrame(true);
+  });
+  for(const type of ['play','playing'])listen(type,()=>{
+    if(video.paused)return;
+    wantsPlayback=true;present();queueFrame();
+  });
+  listen('pause',()=>{
+    if(!reloading)wantsPlayback=false;
+    cancelFrames();present();
+  });
+  listen('ended',()=>{wantsPlayback=false;cancelFrames();present();});
+  listen('waiting',()=>show(awaitingSeek?'seeking':'loading',awaitingSeek?'正在定位视频画面…':'正在等待视频数据…'));
+  listen('stalled',()=>show('loading','视频数据暂未就绪，可以重新载入。',true));
+  listen('error',()=>fail(video.error||new Error('Video media error'),video.error?.code===3?'视频解码失败，请重新载入。':'视频加载失败，请检查本地服务后重试。'));
+  retry.addEventListener('click',reload);
+  show('loading','正在载入视频…');applyPendingSeek();attemptPlayback();
+
+  return {seek,pause,togglePlayback,refresh,reload,dispose(){
+    if(disposed)return;
+    disposed=true;cancelFrames();playSerial++;playPending=false;
+    for(const [type,handler] of listeners)video.removeEventListener(type,handler);
+    retry.removeEventListener('click',reload);
+  }};
+}

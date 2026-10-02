@@ -14,6 +14,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from scene_profiles import validate_court_candidates, validate_feet_candidates
+from review_session import apply_review_edit
 
 
 def main():
@@ -26,6 +27,8 @@ def main():
     parser.add_argument("--court-profile", default="engineering/research/vision-player-refinement/clip001-court-expanded.json")
     parser.add_argument("--state-file", default="artifacts/vision-player-refinement/review-server.json")
     parser.add_argument("--trim-root", default="artifacts/player-review-clips")
+    parser.add_argument("--court-model", default="tmp/court-models-v2/best.pt", help="Pinned local 48-point weights; loaded on calibration requests only")
+    parser.add_argument("--court-imgsz", type=int, choices=(640, 960), default=640)
     args = parser.parse_args()
     if args.library:
         if args.video or args.tracks or args.alternative_tracks:
@@ -64,6 +67,7 @@ def main():
             if any(not Path(sample[k]).resolve().is_relative_to(cache) or not Path(sample[k]).is_file() for k in ['courtCandidates','feetCandidates'] if sample.get(k)):continue
             clips[sample['id']]=load_clip(parser,sample);samples.append(sample);saved.append(sample)
     mutation_lock=threading.Lock()
+    court_models={}
     def library_payload():
         return json.dumps({"defaultSample":default,"samples":[{**{k:s.get(k) for k in ['id','title','description','sourceUrl']},'defaultVariant':clips[s['id']]['defaultVariant']} for s in samples]},ensure_ascii=False).encode('utf-8')
     static = Path(__file__).resolve().parents[1] / "tools/player-review"
@@ -74,17 +78,39 @@ def main():
     class Handler(BaseHTTPRequestHandler):
         def do_POST(self):
             route=urlsplit(self.path).path
-            if route not in {'/api/trim','/api/court-propagate'}:self.send_error(404);return
+            if route not in {'/api/trim','/api/court-propagate','/api/court-calibrate','/api/review-edit'}:self.send_error(404);return
             origin=self.headers.get('Origin')
             if origin and origin!=f'http://127.0.0.1:{self.server.server_port}':self.send_error(403);return
             if self.headers.get('Content-Type','').split(';')[0]!='application/json':self.send_error(415);return
             try:
                 size=int(self.headers.get('Content-Length','0'))
-                if not 0<size<=65536:raise ValueError('请求大小不正确。')
+                if not 0<size<=(16*1024*1024 if route=='/api/review-edit' else 65536):raise ValueError('请求大小不正确。')
                 request=json.loads(self.rfile.read(size))
                 if not isinstance(request,dict):raise ValueError('请求必须是 JSON 对象。')
                 source_id=request.get('sample');variant=request.get('variant',clips.get(source_id,{}).get('defaultVariant','original'))
                 if source_id not in clips or variant not in clips[source_id]['payloads']:raise ValueError('找不到源视频或跟踪版本。')
+                if route=='/api/review-edit':
+                    result=apply_review_edit(request.get('session'),request.get('operation'),json.loads(clips[source_id]['payloads'][variant]))
+                    data=json.dumps(result,ensure_ascii=False,allow_nan=False).encode('utf-8')
+                    self.send_response(200);self.send_header('Content-Type','application/json; charset=utf-8')
+                    self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(data)))
+                    self.end_headers();self.wfile.write(data);return
+                if route=='/api/court-calibrate':
+                    from court_calibration import CourtKeypointModel, CourtModelUnavailable, calibrate_court, object_source_payload
+                    try:
+                        with mutation_lock:
+                            if 'court48' not in court_models:
+                                court_models['court48']=CourtKeypointModel(args.court_model,args.court_imgsz)
+                            result=calibrate_court(clips[source_id]['video'],json.loads(clips[source_id]['payloads'][variant]),
+                                                   request.get('frame'),court_models['court48'],request.get('cuts',[]),
+                                                   request.get('propagate',False),object_source_payload(clips[source_id],variant))
+                    except CourtModelUnavailable as error:
+                        data=json.dumps({'error':str(error)},ensure_ascii=False).encode('utf-8')
+                        self.send_response(503);self.send_header('Content-Type','application/json; charset=utf-8')
+                        self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
+                    data=json.dumps(result,ensure_ascii=False,allow_nan=False).encode('utf-8')
+                    self.send_response(200);self.send_header('Content-Type','application/json; charset=utf-8')
+                    self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
                 if route=='/api/court-propagate':
                     from court_propagation import propagate_court
                     with mutation_lock:

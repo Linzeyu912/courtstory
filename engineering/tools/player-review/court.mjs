@@ -97,6 +97,9 @@ export function buildCourtTrajectories(session,frames,imageTrajectories){
   for(const entity of session.entities){
     result[entity.id]=imageTrajectories[entity.id].map((p,i)=>{
       const base={frame:i,time:p.time,x:null,y:null,imageSource:p.source};
+      if(p.reviewExcluded)return {...base,source:'missing',reviewExcluded:true,
+        identitySource:p.identitySource,identityStartFrame:p.identityStartFrame,identityEndFrame:p.identityEndFrame,
+        identityOrder:p.identityOrder,identityExclusive:p.identityExclusive,identityOrigin:p.identityOrigin};
       if(['conflict','out_of_view'].includes(p.source))return {...base,source:p.source};
       const anchor=(entity.courtAnchors||[]).find(a=>a.frame===i);
       if(anchor)return {...base,x:anchor.x,y:anchor.y,source:'court_manual',footMethod:'human_court_anchor',reviewRequired:true};
