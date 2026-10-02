@@ -138,15 +138,18 @@ function IdentityPanel({state,api}) {
   const hasRecords=state.entities.find(item=>item.id===entity.id)?.hasRecords;
   const available=point?.x!=null&&!point?.reviewExcluded;
   const releaseRange=state.releaseRange;
-  const evidenceLabel=point?.reviewExcluded?'已取消关联':point?.source==='conflict'?'身份冲突':point?.identitySource==='model_suggestion'?'模型建议 · 待确认':point?.associationScope==='track_occurrences'?'整段归并 · 待逐帧核对':({tracked:'模型位置 · 待核对',manual:point?.footMethod==='bbox_bottom_center'?'人工选人 · 脚点待核对':'人工位置',interpolated:'估计位置',manual_path:'手绘待核对',missing:'缺少位置',conflict:'身份冲突',out_of_view:'已标出画'})[point?.source]||'待关联';
+  const confirmed=point?.frameIdentityConfirmed===true;
+  const canConfirm=available&&!['interpolated','manual_path','conflict'].includes(point?.source);
+  const evidenceLabel=point?.reviewExcluded?'已取消关联':point?.source==='conflict'?'身份冲突':confirmed?'本帧人物已确认 · 实线':point?.identitySource==='model_suggestion'?'模型建议 · 虚线待确认':point?.associationScope==='track_occurrences'?'整段归并 · 虚线待核对':({tracked:'模型位置 · 待核对',manual:'人工位置 · 人物待确认',interpolated:'估计位置',manual_path:'手绘待核对',missing:'缺少位置',conflict:'身份冲突',out_of_view:'已标出画'})[point?.source]||'待关联';
   const fields=[['name','目标名称',40],['team','球队 / 球衣描述',40],['jersey','球衣号码',4]];
   return <>
-    <div className="identity-flow"><div><small>正在编辑的固定身份</small><strong>球员 {slotLabel(entity.id)} · {entity.name}</strong></div><span>←</span><div><small>跟踪器临时编号</small><strong>{point?.reviewExcluded?'已取消关联':point?.trackId!=null?`T${point.trackId}`:'尚未关联'}</strong></div></div>
-    <div className="identity-evidence"><span className={`identity-state state-${point?.reviewExcluded?'unassigned':point?.source||'missing'}`}>{evidenceLabel}</span>{state.observedIds.length>0&&<span>此身份对应过 {state.observedIds.map(id=>`T${id}`).join('、')}</span>}</div>
+    <div className="identity-flow"><div><small>正在编辑的固定身份</small><strong>球员 {slotLabel(entity.id)} · {entity.name}</strong></div><span>←</span><div><small>跟踪器临时编号</small><strong>{point?.reviewExcluded?'已取消关联':point?.trackId!=null?`T${point.trackId}`:confirmed?'无 T · 本帧人工确认':'尚未关联'}</strong></div></div>
+    <div className="identity-evidence"><span className={`identity-state state-${point?.reviewExcluded?'unassigned':confirmed?'confirmed':point?.source||'missing'}`}>{evidenceLabel}</span>{state.observedIds.length>0&&<span>此身份对应过 {state.observedIds.map(id=>`T${id}`).join('、')}</span>}</div>
     <p className="small muted">YOLO 逐帧检测人物框，跟踪器分配 T 编号。一个球员可以归并多个 T；每个编号分别选一次，关联后仍需逐帧核对。</p>
+    <div className="frame-confirmation"><button className="primary wide" disabled={busy||!canConfirm||confirmed} onClick={()=>api.confirmCurrent()}>{confirmed?'本帧人物已确认':`确认第 ${state.frame+1} 帧人物`}</button><p>核对画面后确认，当前球员框改为实线。只确认这一帧；脚点和球场位置另行核对。</p></div>
     <label className="field">人物关联范围<select aria-label="人物关联范围" disabled={busy} value={state.associationScope} onChange={event=>api.setAssociationScope(event.target.value)}><option value="track_occurrences">整个 T 编号的出现帧（含之前）</option><option value="forward">从当前帧向后纠错</option></select></label>
     <p className="small muted">{state.associationScope==='track_occurrences'?'累计归并这个编号实际出现的帧；缺帧留空，已有人工纠错优先。同帧多个编号冲突时留待处理。':'从当前帧起纠正身份，直到下一次人工边界或切镜。适合编号中途串到其他人的情况。'}</p>
-    {point?.identitySource==='model_suggestion'&&available&&<button className="primary wide" disabled={busy} onClick={()=>api.confirmCurrent()}>{state.associationScope==='track_occurrences'?`归并 T${point.trackId} 的全部出现帧`:'确认当前人物关联'}</button>}
+    {point?.identitySource==='model_suggestion'&&available&&point.trackId!=null&&<button className="wide" disabled={busy} onClick={()=>api.associateCurrent()}>{state.associationScope==='track_occurrences'?`归并 T${point.trackId} 的全部出现帧`:'从当前帧向后关联此人物'}</button>}
     {state.trackAssignments?.length>0&&<div className="track-assignment-summary"><strong>已归并的临时编号</strong>{state.trackAssignments.map(item=><button key={item.trackId} onClick={()=>api.seek(item.start)}>{`T${item.trackId} · ${item.frames} 个观测帧 / ${item.segments} 段`}</button>)}<p className="small muted">登记数量不等于有效位置或审核数量。编号有重叠、取消或人工纠正时，以当前轨迹状态为准。</p></div>}
     <div className="identity-release">
       <button disabled={busy||hasRecords===false||point?.reviewExcluded} onClick={()=>api.releaseIdentity()}>从当前帧取消关联</button>
@@ -158,10 +161,11 @@ function IdentityPanel({state,api}) {
     <p className="note">{mode==='select'?'点击候选框关联；已选中后，拖动脚下圆点改位置，拖动框边移动人物框，拖动四角调整大小。':'点击球员脚下保存当前帧位置；也可直接拖动已有圆点。'}</p>
     <label className="field">当前帧候选人物<select aria-label="当前帧候选人物" value={candidate} onChange={e=>{setCandidate(e.target.value);api.preview(e.target.value===''?null:proposals[Number(e.target.value)]);}}><option value="">选择一个候选，先预览</option>{proposals.map((p,i)=><option key={i} value={i}>{proposalLabel(p)} · 置信度 {Math.round((p.score||0)*100)}%</option>)}</select></label>
     {selected?.roleConflict&&<p className="candidate-warning">这个位置同时有球员与裁判候选，请核对真人和所属角色后关联。</p>}
+    {selected?.suppressed&&<p className="candidate-warning">这个框已被模型后处理抑制，可能与其他框重复。核对后可作为当前帧的人工兜底，不会重新生成临时 T 编号。</p>}
     {selected?.role==='referee'&&entity.role==='player'&&<p className="candidate-warning">模型把这个候选标为裁判。若实际是裁判，请先添加 R 编号；误分类的球员仍可人工关联到当前 P。</p>}
     <button className="primary wide" disabled={busy||!selected} onClick={async()=>{if(await api.associate(selected))setCandidate('');}}>{state.associationScope==='track_occurrences'&&selected?.trackId!=null?`将 T${selected.trackId} 全部出现帧归入 ${slotLabel(entity.id)}`:`把当前候选关联到 ${slotLabel(entity.id)}`}</button>
     {selected&&selected.trackId==null&&<p className="small muted">这个检测框尚无跟踪编号，只能确认当前帧，不能按编号传播到其他帧。</p>}
-    <p className="small muted">橙框是候选预览，蓝色手柄属于当前目标。关联和位置修改都可撤销。</p>
+    <p className="small muted">预览框会高亮。候选框用虚线；球员框在本帧人工确认后用实线。关联和位置修改都可撤销。</p>
     <details className="identity-keyframes"><summary>身份确认时间点（{state.identityRanges.length}）</summary>
       {state.identityRanges.map(key=><div className={`anchor ${isUnassigned(key)?'identity-unassigned':''}`} key={key.frame}><button onClick={()=>api.seek(key.frame)}>{key.time.toFixed(2)} s · 第 {key.start+1}–{key.end+1} 帧 · {isUnassigned(key)?'已取消关联':key.trackId==null?'未编号':`T${key.trackId}`}</button><button disabled={busy} aria-label={`删除第 ${key.frame+1} 帧身份确认`} onClick={()=>api.removeIdentity(key.frame)}>删除身份确认</button></div>)}
       <p className="small muted">位置编辑只改当前帧。删除身份确认可恢复上一段规则，撤销可恢复整个操作。</p>

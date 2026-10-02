@@ -175,6 +175,7 @@ test('default whole-ID association uses the authoritative review API and keeps u
     const draft=structuredClone(request.session);
     draft.entities[2].bindings=[{kind:'track',trackId:9,start:0,end:1,scope:'track_occurrences',origin:'human_track_assignment',selectionFrame:1,order:3,exclusive:false},
       {kind:'track',trackId:9,start:2,end:4,scope:'track_occurrences',origin:'human_track_assignment',selectionFrame:1,order:3,exclusive:false}];
+    draft.entities[2].frameConfirmations=[{frame:1,trackId:9,origin:'human_track_selection',identityOrder:3,identityScope:'track_occurrences'}];
     return {session:draft,message:'已归并，仍待逐帧核对'};
   }});try{
     app.select('P3');app.get('next').click();const before=structuredClone(app.state().session);
@@ -188,7 +189,41 @@ test('default whole-ID association uses the authoritative review API and keeps u
     assert.equal(app.state().trajectories.P3[4].trackId,9);
     assert.equal(app.state().trajectories.P3[4].reviewRequired,true);
     assert.equal(app.state().trajectories.P3[4].identityConfirmed,false);
-    assert.match(app.get('coverage').textContent,/模型位置待核对/);
+    assert.equal(app.state().trajectories.P3[1].frameIdentityConfirmed,true);
+    assert.match(app.get('coverage').textContent,/人物已逐帧确认 1 \/ 5 帧/);
+    app.get('undo').click();assert.deepEqual(app.state().session,before);
+  }finally{app.restore();}
+});
+
+test('confirming the displayed risky model frame reveals its player and leaves other frames unreviewed',async()=>{
+  const app=await openApp({modelConflict:true});try{
+    app.select('P3');const before=structuredClone(app.state().session);
+    assert.equal(app.actions.confirmCurrent(),true);
+    assert.equal(app.state().trajectories.P3[0].frameIdentityConfirmed,true);
+    assert.ok(app.get('overlay').ctx.labels.includes('3'));
+    assert.equal(app.state().trajectories.P3[1].frameIdentityConfirmed,false);
+    assert.match(app.get('trackingDiagnosis').textContent,/人工确认.*风险提示/);
+    app.get('undo').click();assert.deepEqual(app.state().session,before);
+  }finally{app.restore();}
+});
+
+test('hidden candidate overlays cannot claim a track by clicking an invisible box',async()=>{
+  const app=await openApp();try{
+    const before=structuredClone(app.state().session);
+    app.get('showCandidates').checked=false;app.clickBox(750,150);
+    assert.deepEqual(app.state().session,before);assert.equal(app.reviewRequests.length,0);
+    assert.match(app.get('toast').textContent,/先打开/);
+  }finally{app.restore();}
+});
+
+test('explicit untracked fallback affects one frame and undo restores the prior track',async()=>{
+  const app=await openApp();try{
+    const before=structuredClone(app.state().session),next=structuredClone(app.state().trajectories.P1[1]);
+    await app.actions.associate({box:[120,90,220,310],trackId:null,suppressed:true});
+    assert.equal(app.state().trajectories.P1[0].frameIdentityConfirmed,true);
+    assert.equal(app.state().trajectories.P1[0].trackId,null);
+    assert.deepEqual(app.state().trajectories.P1[1],next);
+    assert.match(app.get('toast').textContent,/其他帧保持/);
     app.get('undo').click();assert.deepEqual(app.state().session,before);
   }finally{app.restore();}
 });

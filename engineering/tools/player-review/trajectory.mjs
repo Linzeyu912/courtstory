@@ -1,5 +1,5 @@
 import {exportCourtData,courtGaps} from './court.mjs';
-import {IDENTITY_BINDING_MODE,identityAt,identityKeyframes,identityBoundaries,identityProvenance,resolveIdentityOwners,migrateIdentitySession,nextIdentityOrder,entityTeamSide,normalizeTeamColorMetadata} from './identity-timeline.mjs';
+import {IDENTITY_BINDING_MODE,identityAt,identityKeyframes,identityBoundaries,identityProvenance,resolveIdentityOwners,migrateIdentitySession,nextIdentityOrder,entityTeamSide,normalizeTeamColorMetadata,frameIdentityConfirmed,identityReviewToken,anchorReviewSignature} from './identity-timeline.mjs';
 import {mergeSourceCuts} from './tracking-display.mjs';
 import {exportSceneObjects} from './scene-objects.mjs';
 export function blankSession(videoHash) {
@@ -117,6 +117,10 @@ export function buildTrajectories(session, frames, sourceCuts=[]) {
       }
       left = right;
     }
+    for(const point of points){
+      const confirmed=frameIdentityConfirmed(entity,point,identityAt(entity,point.frame,session.cuts,frames[point.frame]));
+      Object.assign(point,{frameIdentityConfirmed:confirmed,identityConfirmed:confirmed,identityReviewRequired:!confirmed});
+    }
     result[entity.id] = points;
   }
   resolveIdentityOwners(result,session.entities,frames);
@@ -125,6 +129,8 @@ export function buildTrajectories(session, frames, sourceCuts=[]) {
     if(point.source==='interpolated' && point.supportFrames.some(index=>points[index].x==null)) {
       points[frame]={frame,time:point.time,x:null,y:null,source:point.supportFrames.some(index=>points[index].source==='conflict')?'conflict':'missing'};
     }
+    if(points[frame].x==null||!['manual','tracked'].includes(points[frame].source))
+      Object.assign(points[frame],{frameIdentityConfirmed:false,identityConfirmed:false,identityReviewRequired:true});
   }
   return result;
 }
@@ -175,20 +181,44 @@ export function isSelected(entity){return Boolean(entity.anchors?.length||entity
 
 export function isHumanIdentitySelected(entity) {
   return Boolean(identityKeyframes(entity).some(key=>key.kind==='track'||key.origin==='human_selection')||
-    (entity.bindings||[]).some(binding=>binding.kind==='track')||(entity.anchors||[]).some(anchor=>anchor.identityConfirmed!==false&&anchor.source!=='manual_path'));
+    (entity.bindings||[]).some(binding=>binding.kind==='track')||(entity.anchors||[]).some(anchor=>anchor.identityConfirmed!==false&&anchor.source!=='manual_path')||
+    (entity.frameConfirmations||[]).some(review=>{
+      const anchor=(entity.anchors||[]).find(item=>item.frame===review.frame),identity=identityAt(entity,review.frame,[]);
+      return frameIdentityConfirmed(entity,{frame:review.frame,x:anchor?.x??0,y:anchor?.y??0,
+        trackId:review.trackId,source:anchor?'manual':'tracked'},identity);
+    }));
+}
+
+export function confirmFrameIdentity(session,entityId,frame,frames,sourceCuts=[]) {
+  const entity=session.entities.find(item=>item.id===entityId);
+  if(!entity||!Number.isInteger(frame)||!frames[frame])throw new Error('人物确认帧不正确。');
+  const point=buildTrajectories(session,frames,sourceCuts)[entityId][frame];
+  if(point.x==null||point.y==null||!['manual','tracked'].includes(point.source)||point.reviewExcluded)
+    throw new Error('请先选定当前帧可见的人物；缺失、冲突和估计位置不能确认。');
+  const cuts=mergeSourceCuts(session.cuts,sourceCuts,frames.length),identity=identityAt(entity,frame,cuts,frames[frame]);
+  const manualPosition=point.trackId==null,anchor=(entity.anchors||[]).find(item=>item.frame===frame);
+  if(manualPosition&&!anchor)throw new Error('当前帧没有可确认的人工位置。');
+  const review={frame,trackId:point.trackId??null,origin:'human_frame_review',
+    identityScope:manualPosition?'manual_position':identity.scope==='track_occurrences'?'track_occurrences':identity.identitySource,
+    identityOrder:identity?.order||0,identityToken:identityReviewToken(identity),
+    ...(manualPosition?{anchorSignature:anchorReviewSignature(anchor)}:{})};
+  entity.frameConfirmations=(entity.frameConfirmations||[]).filter(item=>item.frame!==frame);
+  entity.frameConfirmations.push(review);entity.frameConfirmations.sort((a,b)=>a.frame-b.frame);
+  session.identitySelection=null;
+  return review;
 }
 
 export function hasAssociation(entity){return isSelected(entity)||Boolean(!entity.identitySuggestionsDismissed&&entity.modelBindings?.length);}
 
 export function playerDisplayState(entity,point) {
-  const identity=point?.identitySource==='model_suggestion'?'model_proposed':
+  const identity=point?.frameIdentityConfirmed?'human_locked':point?.identitySource==='model_suggestion'?'model_proposed':
     ['manual_forward','manual_range','manual_track_occurrences'].includes(point?.identitySource)?'human_locked':'unassigned';
   if(point?.reviewExcluded)return {status:'unassigned',label:'已取消关联',identity:'unassigned'};
   if(point?.source==='out_of_view')return {status:'out_of_view',label:'已离开画面',identity};
   if(point?.source==='conflict')return {status:'conflict',label:'身份冲突',identity};
   if(['interpolated','manual_path'].includes(point?.source))return {status:'estimated',label:'估计 · 待复核',identity};
   if(point?.x!=null)return {status:point.source==='manual'?'manual':'tracked',
-    label:point.source==='manual'?'人工位置':point.associationScope==='track_occurrences'?
+    label:point.frameIdentityConfirmed?'当前帧人物已确认':point.source==='manual'?'人工位置 · 人物待核对':point.associationScope==='track_occurrences'?
       '整段归并 · 待逐帧核对':identity==='model_proposed'?'模型建议 · 待确认':'模型跟踪',identity};
   if(point?.visibility==='occluded_waiting')return {status:'occluded_waiting',label:'遮挡 / 断轨待续接',identity};
   return {status:'missing',label:'位置未知',identity};

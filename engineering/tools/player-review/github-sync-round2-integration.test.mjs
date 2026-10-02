@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {blankSession,buildTrajectories,exportReview,hasAssociation,draftStorageKey} from './trajectory.mjs';
+import {blankSession,buildTrajectories,exportReview,hasAssociation,draftStorageKey,confirmFrameIdentity} from './trajectory.mjs';
 import {confirmIdentity} from './identity-timeline.mjs';
 import {feetForPoint,footCandidateAnchor} from './feet-candidates.mjs';
 import {sceneObjectsAt,updateSceneObject} from './scene-objects.mjs';
@@ -57,6 +57,24 @@ function domFixture(){
     setTimeout(fn,ms){if(ms===0)fn();return 1;},clearTimeout(){}});
   return {get,restore(){for(const [key,value] of originals){if(value===undefined)delete globalThis[key];else globalThis[key]=value;}}};
 }
+
+test('the real 2D player renderer uses frame review for dashed and solid circles',()=>{
+  const dom=domFixture();
+  try{
+    const session=calibratedSession(),entity=session.entities[0];
+    entity.anchors=[];entity.identityKeyframes=[];entity.modelBindings=[{kind:'track',trackId:7,start:0,end:8}];
+    let frame=0,dash=[],lastStroke=[],playerDash=[];
+    const canvas=dom.get('court');canvas.clientWidth=700;canvas.clientHeight=420;
+    const context=canvas.getContext('2d');
+    context.setLineDash=value=>{dash=[...value];};context.stroke=()=>{lastStroke=[...dash];};
+    context.fillText=text=>{if(text==='1')playerDash.push([...lastStroke]);};
+    const workspace=createWorkspace({clip,getState:()=>({session,active:'P1',frame,video:dom.get('video'),trajectories:buildTrajectories(session,frames)}),
+      setMode(){},change:fn=>fn(),redraw(){},seek(){},toast(){},isSelected:hasAssociation,color:()=> '#38bdf8'});
+    workspace.refresh();assert.deepEqual(playerDash.at(-1),[3,2]);
+    confirmFrameIdentity(session,'P1',0,frames);workspace.refresh();assert.deepEqual(playerDash.at(-1),[]);
+    frame=4;workspace.refresh();assert.deepEqual(playerDash.at(-1),[3,2]);
+  }finally{dom.restore();}
+});
 
 test('raw E-BARD feet remain usable with a rich draft fingerprint and cannot transfer to another detector',()=>{
   const point=buildTrajectories(calibratedSession(),frames).P1[0];
