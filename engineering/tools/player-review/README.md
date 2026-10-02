@@ -1,8 +1,114 @@
 # 球场数据工作台
 
-更新：2026-10-02（Asia/Shanghai）。当前按用户要求优先做好数据提取，入口 `http://127.0.0.1:8876/?sample=004`。三个[普通转播样例](../../../data/videos/tactics/acceptance/README.md)已替换教学素材，按对阵 / 节次命名。具体优先级与边界见[工作流程](../../research/vision-player-refinement/data-extraction-workflow.md)。
+## 2026-10-02 20:27：工作台与候选发布
+
+当前工作台源码与预计算候选已推送至 GitHub `main`，实测远端提交为 [351292f](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/351292fba6c5e7accafea9f8780a81b93810caba)。本次最新发布说明与[20:27 交接](../../../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)随本次文档提交同步，具体提交以 Git 日志为准；验证与范围见[发布记录](../../research/player-workbench-publish-20261002.md)。下方日期段落保留各轮当时的“未提交”状态，以本节为本轮最新发布说明。
+
+默认简版、编号 1–10、人工姓名确认和 13 项 2K 能力逻辑保持。四个样例、17 个版本所需的本机篮球候选已按原字节复制为[22 份共享 JSON / metadata](../../../data/videos/tactics/acceptance/tracks/basketball-20261002/README.md)，约 19.7 MB；库中 11 条路径改指向副本，新目录 `*.json -text` 保留换行字节、SHA 与旧草稿指纹。候选是推理结果，不是模型权重，也不证明十人身份或断轨已稳定。
+
+看预计算效果只需已有 Python / PyAV 环境与既有 Git LFS 视频，从仓库根启动：
+
+```powershell
+python engineering/scripts/serve_player_review.py --library data/videos/tactics/acceptance/review-library.json --port 8876
+```
+
+首次准备环境见[运行依赖](../../requirements-review.txt)和[工程入口](../../README.md)；视频沿用已有 LFS 成片，本轮不新增视频上传。模型权重、CUDA 推理环境、原缓存、QA 草稿和本机测试成片仍留本地。重跑检测才需要对应权重 / CUDA；离线 `basketball_render.py` 另须显式 `--ffmpeg <本机可执行路径>`，其历史 D 盘默认值不影响预计算工作台。本次没有新推理、OCR 或断轨续接。
+
+更新：2026-10-02 19:30（Asia/Shanghai）。当前默认球员单标注，入口 `http://127.0.0.1:8876/?sample=004`；十个编号下新增折叠的“身份确认与 2K 能力”。三个[普通转播样例](../../../data/videos/tactics/acceptance/README.md)按对阵 / 节次命名；高级工具保留原数据提取流程。单标注范围见[原设计](../../docs/plans/2026-10-02-player-annotation-simple.md)，本轮身份资料与能力匹配见[计划](../../docs/plans/2026-10-02-player-identity-2k.md)和[实测记录](../../research/player-identity-2k-20261002.md)。
 
 目录整理与分类共享状态见[最新同步交接](../../../handoffs/Linzeyu912/2026-10-02-1109-organize-publish.md)。下文按日期保留各轮验证记录中的当时状态；启动和测试命令已使用新工程路径。
+
+## 2026-10-02：人工身份资料与 2K 能力
+
+普通点击编号或球员框只查看。确认资料按以下步骤操作，和原来的“纠正编号”分开：
+
+1. 选中一个编号，展开下方“身份确认与 2K 能力”。
+2. 选择视频赛季、实际 NBA 球队，输入文字球衣号码；`0` 与 `00` 分开查询，蓝 / 橙框色不代替实际球队。
+3. 点击“查找球员”，对照视频核对姓名，再从候选中选择。即使只有一人，也不会自动确认；整季同队同号可能返回多人。
+4. 点击“确认身份”。能力卡显示该季游戏的总评和投篮 / 突破 / 防守原值，未知显示“未知”；展开来源可查看名册链接、各项快照日期和日期口径。
+5. 需要重做时点“清除身份”或“撤销”；原编号、队色、手工姓名 / 球队 / 号码和轨道不变，刷新保留资料。切编号或改查询输入会失效原候选，需重新查找。
+
+本机 QA 验收入口为 `http://127.0.0.1:8876/?sample=nba-lal-min-005&variant=team-stable&qa=1`。在隔离草稿中，首帧核对蓝衣 MIN 10 号 CONLEY 后，将编号 4 明确确认为 **Mike Conley / 2024-25 / NBA 2K25**；能力总评 79、三分 83、控球 89、外线防守 83。普通入口的正式草稿未写入这份示例资料。姓名确认只说明这个编号的资料已确认；框仍提示“需要核对”，不证明整段始终对应同一真人。没有位置时资料卡仍保留，也不生成球员框或坐标。
+
+查询使用[现有 2K 数据包](../../../2K%20Player%20Data/AGENTS.md)：球队选项来自已收录 472 人两季履历中的 30 队，不是完整全队名单。整季名单含离队球员，不证明当场阵容；能力范围仍为各季 16 支季后赛球队的筛选范围。四种能力状态分别显示，保留所有 null，不跨季借值，不计算综合分或投篮命中率。
+
+`&qa=1` 使用隔离测试草稿，可测试本轮资料确认 / 清除 / 撤销；正式导出在 QA 中禁用。实际浏览器本轮只写 QA 草稿，未改正式用户草稿、未执行真实下载；十人资料导出包装已通过 JavaScript 行为测试。两个编号不能确认同一赛季同一球员；其他编号尚有另一赛季资料时，先清除旧资料再换季。
+
+本轮 17 项新 / 144 项全量 JavaScript、22 项新 / 102 项全量 Python、独立产品审查及真实浏览器正常流程通过；异步迟返和网络失败另由实际 app 的可控 HTTP harness 验证。原片、模型候选和历史产物不变。本地证据及[19:30 交接](../../../handoffs/thy-0629/2026-10-02-1930-player-identity-2k.md)均记录明确边界；此轮未提交或推送。
+
+服务只读预计算候选和本地 2K 文件，不新增模型部署。已配置本机环境可在仓库根目录运行：
+
+```powershell
+& tmp/player-identity-test/.venv/Scripts/python.exe engineering/scripts/serve_player_review.py --library data/videos/tactics/acceptance/review-library.json --port 8876
+```
+
+`--player-data-root` 可指定只读 2K 包，默认仓库的 `2K Player Data`。权重、独立环境及实验 `artifacts` 被 Git 忽略，克隆仓库不等于已有本机环境和全部可选候选；本轮没有运行新推理、OCR、自动断轨续接、轨迹优化、投篮概率或云部署。下文保留历史功能与验收记录。
+
+## 2026-10-02：默认球员单标注
+
+首屏只有视频选择、球员框与脚下数字、播放 / 逐帧 / 进度、编号 1–10 及纠正入口。打开便加载可用的自动编号，无需先配置五人槽位或点击载入建议。“高级工具”保留模型选择、原来的直播筛选、球场标定、轨迹、脚候选、对象编辑和导出；返回标注不修改草稿。
+
+身份与队色分开：已有编号不重排，队色未知仍显示灰色数字框。明确的球员检测尚未接回固定编号时显示“编号未匹配”灰框；点框、点“纠正编号”、再点正确数字进行一次续接。普通点选只查看，不确认或抢占身份。分队可在纠正入口单独修改，保存成功后结束此次纠正；人工修改可撤销。没有临时跟踪编号的检测只能人工补当前帧，界面明确提示后续尚未检出。
+
+原 r3 的队色过滤曾把 004 十个建议缩成五个，额外丢失 288 条本来有位置的编号观测。现在从同一原始检测 SHA 的未分组建议恢复编号，不修改检测文件或旧草稿指纹。004 第 1 / 71 / 178 帧实际分别显示 10 / 6 / 3 个已编号框，另有 0 / 4 / 3 个未匹配灰框；原来第 178 帧隐藏的三个球员框重新可见。已知身份 / 角色冲突的模型编号转灰框，明确人工身份优先。未跟踪的低分重复候选收进高级工具；所有已经跟踪的球员不因队色或低分而消失。
+
+十个编号不证明已经锁准十名不同真人。原检测仍有重复框和未标记的同队串人；不为凑十个框生成遮挡坐标。默认画面是标注预览，自动结果仍为未确认模型建议，原图脚环仍是框底参考。本轮没有更换模型、重新推理或优化轨迹；详细证据见[本轮记录](../../research/player-annotation-simple-20261002.md)。下方关于手动载入建议、五人槽位和多步默认入口的描述是上一轮历史状态。
+
+## 2026-10-02：远端新增入口与本机版本合并
+
+后续球员身份与连续跟踪工作继续在本目录完成。顶部“检测与跟踪”选择器由 [review-library.json](../../../data/videos/tactics/acceptance/review-library.json) 登记版本，`app.mjs` 接入视频与操作，`identity-ui.jsx` 管理固定 P 身份，`tracking-display.mjs` 管理角色候选与尾迹，`team-overlay.mjs` 管理分队颜色与稳定展示。新增的 `scene-objects.mjs` / `scene-objects-ui.mjs` 管理独立篮球和篮筐编辑，`feet-candidates.mjs` 管理脚部候选，`calibration-guide.mjs` / `court.mjs` 管理球场参考与镜头映射。服务和多版本裁切入口分别为 `engineering/scripts/serve_player_review.py`、`engineering/scripts/review_video_trim.py`。
+
+远端 `aa2ba4f` 的三个 E-BARD / ByteTrack 预计算版本与本机 `team-stable` / BoT-SORT 版本共同保留。本机四段优先 `team-stable`；004–006 缺少本地可选产物时回退已共享的 `ebard`。模型说明按当前版本显示。旧版本独立草稿、固定十人、人工分队和精确脚点继续使用；裁切同步保留各版本来源、分队建议与展示策略，来源拼接点保持断开。
+
+远端 `b434660` / `72c74e0` 已接入三个样例的 RTMPose-s 脚部候选、场地参考和 SIFT / LK 镜头跟随候选。脚部缓存绑定 E-BARD 原始检测文件哈希与 T 编号，切换到本机分队或其他模型时不套用；同一视频的场地候选可共用，均需人工核对后采用。脚点分数、图像脚环与场地匹配覆盖都不证明真实接地或米制精度。来源和实测见[脚部对照](../../research/vision-player-refinement/feet-model-comparison.md)、[场地对照](../../research/vision-player-refinement/court-model-comparison.md)和[传播核验](../../research/vision-player-refinement/propagation-validation.md)。下文各轮“默认版本”与测试数量保留当时状态，以本节说明当前入口。
+
+## 2026-10-02 补充：两队颜色、稳定框与脚下编号
+
+四段本机样例现在优先选择 `team-stable`（“分队颜色 · 稳定框与脚下编号”），最终准备文件在 `artifacts/player-team-overlay-20261002/r3/`。新建议P1–P5为蓝队，P6–P10为橙队，每队最多五人；不够可靠的候选留待确认。下文的optimized默认描述为上一轮历史状态；缺少新产物时保留原版本回退。
+
+在球员标定中载入建议，检查人物与队色，然后分别点击身份确认和分队确认。模型建议以问号 / 虚线提示，只确认其中一项仍保留待确认；人工分队保持同队框色，原姓名、球队文字、号码和人工编号保留。旧草稿不会静默重排成新的5+5编号。
+
+“稳定显示”默认开启，仅减少有观测框的单帧尖峰；暂停、跳转和回看使用确定的展示几何。切镜、缺失、身份边界和人工锚点不跨越，不向遮挡中填充十人坐标。脚下椭圆和编号是框底图像参考，不是已验证地面位置；人工精确脚点另存。
+
+修改坐标时自动关闭稳定显示，拖动或输入有限小数并保存，只修改当前帧；可重新开启稳定显示，人工值保持。轨迹导出及球场投影继续使用原始 / 人工坐标，不采用展示滤波坐标。浏览器QA草稿不会自动写入冻结的预览MP4。
+
+本轮149项回归通过，最终两行小数输入收尾的17项相关回归、独立审查、四段真实HTTP / 全帧JS-Python对照、浏览器QA和267帧 / 508AAC包验证通过。LAL目前仅有4+4个分队建议，不代表十名真人已自动识别；遮挡串号仍需人工关联。依据、指标、来源、产物与复现见[本轮记录](../../research/player-team-overlay-20261002.md)。
+
+入口 `http://127.0.0.1:8876/?sample=nba-lal-min-005&variant=team-stable`；先保留整段、进入球员标定，再载入建议。`&qa=1`是独立测试草稿，不能正式确认 / 导出。
+
+## 2026-10-02 补充：篮球模型版本与固定球员身份
+
+本轮沿用同一工作台，新增第四个**可选本机入口** `nba-lal-min-005`，复用赛季目录中的 [LAL–MIN 原转播片段](../../../data/videos/nba/2024-25/clips/005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4)。实测 267 帧、1280×720、25 fps，首帧源 PTS 为 0.120 秒；原片 AAC 音轨保持。它没有替换旧 sample `005`（SAS–MIA）。下方旧轮次中的“三段 / 通用人物候选”描述保留当时状态；本轮结果入口为[篮球跟踪工作台实测记录](../../research/player-tracking-workbench-20261002.md)。
+
+LAL–MIN 的可用版本由 [review-library.json](../../../data/videos/tactics/acceptance/review-library.json) 明确登记：
+
+| 工作台版本 | 生成器 `--variant` / 本地产物 | 含义 |
+|---|---|---|
+| `original` | `baseline` / `baseline.json` | 篮球专用模型的原配置基线 |
+| `low` | `low` / `low.json` | 放入低分检测参与既有轨迹续接 |
+| `reid` | `reid` / `reid.json` | 增加模型外观特征续接；此对照版本可选 |
+| `optimized` | `optimized` / `optimized.json` | 保留原生外观关联，增加队色复核标记与输出重复 / 完整框修正；仍是待核对候选 |
+
+以上产物位于本机 `artifacts/player-tracking-workbench-20261002/`，每个 JSON 有相邻 `.meta.json`。旧 004–006 保留原候选，并登记可选 `004_optimized.json` / `005_optimized.json` / `006_optimized.json`；本机对应文件齐备时默认选择 optimized，否则回退 original。缺少 LAL–MIN 的源视频或必需对照产物时跳过该可选样例，不影响已下载成片的原三样例。旧单视频 `alternativeTracks` / `jersey` 继续兼容。
+
+界面固定显示**球员 1–10**，存储身份仍为 P1–P10。内部 T 是模型临时编号，可超过十个、断裂或串人；十个槽位与十个框都不能证明已经识别出十名不同真人。模型缺乏可靠位置时显示“遮挡 / 断轨待续接”或空位置，不为凑十人生成隐藏坐标。
+
+模型建议需要主动点击“载入十人建议（待确认）”才进入草稿，可撤销。它写入独立 `modelBindings`，每段保持 `identitySource: model_suggestion`、`identityConfirmed:false` 与 `reviewRequired:true`，采用记录的 `modelSuggestionLoad.verified` 仍为 false；已有人工姓名、身份确认、位置与出画记录保留。确认某个当前建议后才按原有“从当前帧向后生效”规则锁定该段身份；人工选人仍不代表已测量地面脚点，也不代表整段轨迹核验完成。
+
+各版本显示模型 / tracker / 配置 / 权重来源，API 和导出保留 `trackingMetadata` 与跟踪指纹。原 original 和 legacy jersey 的已有草稿键保持；新增模型版本把元数据纳入指纹，避免参数或建议变更后沿用旧版本草稿。服务逐版本校验源视频 SHA、实际解码帧数和源 PTS，tracked / pending 行分别为 7 / 6 列，模型建议不自动成为人工确认。
+
+**音轨与剪辑边界**：未裁切版本均播放同一源 MP4，LAL–MIN 原音轨保持；原 004–006 本身无声。保留整段不会重编码。应用非整段人工剪辑时，当前剪辑器只编码视频，**子视频不含音轨，原片音轨保留**。子候选仍保存模型来源、父版本与根来源帧 / 时间；模型建议只映射可见的保留帧，并在切镜、删除段和检测缺口处分段。新子片段不自动转移用户草稿中的人工身份或补点。
+
+### 本轮本机生成与启动
+
+仓库根目录运行。模型权重 `tmp/player-identity-test/models/BODD_yolov8n_0001.pt`、独立环境 `tmp/player-identity-test/.venv/` 和生成的 `artifacts/` 均被 Git 忽略，不随克隆自动提供。当前生成器要求已配置的 CUDA GPU、PyTorch / Ultralytics / PyAV 和本机权重；它先离线生成候选，服务随后只读取预计算文件。复现请选独立输出目录，保留现有模型对照和草稿对应的候选：
+
+```powershell
+& tmp/player-identity-test/.venv/Scripts/python.exe engineering/scripts/basketball_run.py --video data/videos/nba/2024-25/clips/005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4 --weights tmp/player-identity-test/models/BODD_yolov8n_0001.pt --variant optimized --imgsz 704 --output artifacts/player-tracking-workbench-repro-20261002/optimized.json
+& tmp/player-identity-test/.venv/Scripts/python.exe engineering/scripts/serve_player_review.py --library data/videos/tactics/acceptance/review-library.json --port 8876
+```
+
+生成其他对照时将 `--variant` 改为 `baseline` / `low` / `reid`，并使用对应的独立输出文件；要在界面载入复现文件，须另行明确登记其 tracks 路径，服务不会自动扫描或重新推理。当前配置入口在 `engineering/configs/tracking/`。新样例测试入口为 `http://127.0.0.1:8876/?sample=nba-lal-min-005&variant=optimized&qa=1`；去掉 `qa=1` 才使用该模型版本的正式本机草稿。以上能力不代表真人身份准确率或场地米制精度已验收。
 
 ## 界面层级
 
@@ -139,7 +245,7 @@ P1–P10 是人工确认的片段内固定身份；模型临时 ID 累计到几�
 & tmp/vision-deploy-bench-venv/Scripts/python.exe engineering/scripts/serve_player_review.py --library data/videos/tactics/acceptance/review-library.json --port 8876
 ```
 
-库内显式登记每段视频、对应逐帧候选、哈希和切镜；服务启动时实际解码验证匹配。当前库仅含新三段，候选随数据目录保存；成片下载需 Git LFS，见样例说明。
+库内显式登记每段视频、对应逐帧候选、哈希和切镜；服务启动时实际解码验证匹配。004–006为基础验收样例，LAL–MIN为可选第四段；原候选随数据目录保存，篮球模型和team-stable产物仍在本机忽略目录。成片下载需 Git LFS，见样例说明。
 
 React 只接管身份与选中目标面板，现有画布、球场和轨迹逻辑继续工作。运行界面无需联网或 CDN；修改 `identity-ui.jsx` 后在 `engineering/tools/player-review/` 构建并保留本地 bundle 和许可证文件：
 
