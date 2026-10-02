@@ -1,5 +1,5 @@
 // Keep a decoded frame in a canvas independently of the native video compositor.
-export function mountVideoDisplay({video,canvas,status,message,retry,stage,onReady=()=>{},onError=()=>{},getTargetTime=()=>video.currentTime,startTime=0}) {
+export function mountVideoDisplay({video,canvas,status,message,retry,stage,onReady=()=>{},onFrame=()=>{},onError=()=>{},getTargetTime=()=>video.currentTime,startTime=0}) {
   const context=canvas.getContext('2d');
   const validTime=value=>Number.isFinite(value)&&value>=0?value:null;
   let targetTime=validTime(getTargetTime())??0,pendingTime=targetTime;
@@ -32,7 +32,7 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,onRea
   function atTarget() {
     return pendingTime===null||Math.abs(video.currentTime-boundedTime(pendingTime))<.001;
   }
-  function present() {
+  function present(mediaTime) {
     if(disposed||presenting||video.error||awaitingSeek||video.seeking||video.readyState<2||!atTarget())return false;
     if(!canvas.width||!canvas.height)return false;
     presenting=true;
@@ -43,10 +43,11 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,onRea
       } catch(error) {
         fail(error);return false;
       }
-      const time=video.currentTime,notify=state!=='ready';
+      const time=validTime(mediaTime)??video.currentTime,notify=state!=='ready';
       targetTime=time;pendingTime=null;
       canvas.dataset.ready='true';show('ready','');
       if(notify)onReady({time});
+      onFrame({time});
       return true;
     } finally {presenting=false;}
   }
@@ -56,9 +57,9 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,onRea
     if(!playing&&!force)return;
     const epoch=frameEpoch;
     if(typeof video.requestVideoFrameCallback==='function') {
-      videoFrameId=video.requestVideoFrameCallback(()=>{
+      videoFrameId=video.requestVideoFrameCallback((_,metadata)=>{
         if(disposed||epoch!==frameEpoch)return;
-        videoFrameId=null;present();queueFrame();
+        videoFrameId=null;present(metadata?.mediaTime);queueFrame();
       });
     } else if(playing&&typeof globalThis.requestAnimationFrame==='function') {
       animationId=globalThis.requestAnimationFrame(()=>{
