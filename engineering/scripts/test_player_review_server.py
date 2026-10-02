@@ -16,6 +16,7 @@ import av
 import numpy as np
 
 from serve_player_review import load_clip
+from detector_evidence import build_detector_evidence
 
 
 class RaisingParser:
@@ -72,6 +73,28 @@ class ReviewServerTests(unittest.TestCase):
         self.assertEqual([frame['time'] for frame in payload['frames']], self.times)
         self.assertEqual(payload['video_sha256'], self.digest)
         self.assertEqual(self.video.read_bytes(), Path(self.sample['video']).read_bytes())
+        self.assertFalse(payload['detectorEvidence']['partition_complete'])
+
+    def test_detector_evidence_is_derived_without_mutating_records_or_legacy_fingerprints(self):
+        for row in self.records:
+            row.update(suppressed_detections=[[2, 3, 18, 39, .7, 2]], raw_detection_count=3,
+                       detection_indices={'tracks': [2], 'pending_detections': [0], 'suppressed_detections': [1]},
+                       track_evidence={'1': {'raw_detection_index': 2, 'native_detection_index': 2}})
+        self.write_variant('original', self.records)
+        before = self.tracks.read_bytes()
+        metadata_before = self.tracks.with_suffix('.meta.json').read_bytes()
+        legacy = self.load()
+        self.assertFalse(legacy['detectorEvidence']['partition_complete'])
+        self.assertEqual(legacy['frames'], self.records)
+        self.assertEqual(legacy['tracking_fingerprint'], hashlib.sha256(before).hexdigest())
+        self.assertEqual(self.tracks.read_bytes(), before)
+        self.assertEqual(self.tracks.with_suffix('.meta.json').read_bytes(), metadata_before)
+        self.write_variant('original', self.records, detector_evidence=build_detector_evidence(self.records))
+        declared = self.load()
+        self.assertTrue(declared['detectorEvidence']['partition_complete'])
+        self.assertEqual(declared['detectorEvidence']['raw_detection_count'], 12)
+        self.assertEqual(declared['frames'], self.records)
+        self.assertEqual(declared['tracking_fingerprint'], legacy['tracking_fingerprint'])
 
     def test_explicit_variant_returns_its_metadata_and_unverified_identity_suggestions(self):
         suggestions = {'version': 1, 'method': 'appearance_proposal', 'verified': False,

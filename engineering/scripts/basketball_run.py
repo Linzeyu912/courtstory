@@ -21,6 +21,7 @@ from pathlib import Path
 import statistics
 import tempfile
 import time
+from detector_evidence import build_detector_evidence
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -211,6 +212,7 @@ def run(args):
                         summary.setdefault("first_feature", snapshot)
                         summary["last_feature"] = snapshot
                 tracks, pending, suppressed = [], [], []
+                detection_indices = {field: [] for field in ('tracks', 'pending_detections', 'suppressed_detections')}
                 for index, row in enumerate(raw):
                     values = [round(float(v), 6) for v in row]
                     values[5] = int(row[5])
@@ -218,10 +220,13 @@ def run(args):
                         raise RuntimeError("Unexpected class in player-only inference output.")
                     if index in suppressed_indices:
                         suppressed.append(values)
+                        detection_indices['suppressed_detections'].append(index)
                     elif index in assignment:
                         tracks.append([*values[:4], assignment[index], values[4], values[5]])
+                        detection_indices['tracks'].append(index)
                     else:
                         pending.append(values)
+                        detection_indices['pending_detections'].append(index)
                 pts_seconds = float(decoded.pts * decoded.time_base)
                 if pts_values and pts_seconds <= pts_values[-1]:
                     raise RuntimeError("Non-monotonic decoded video PTS.")
@@ -229,9 +234,9 @@ def run(args):
                 record = {"frame": frame_index, "time": round(pts_seconds, 9),
                           "source_frame_pts": decoded.pts, "source_time_base": time_base,
                           "tracks": tracks, "pending_detections": pending,
+                          "suppressed_detections": suppressed, "detection_indices": detection_indices,
+                          "raw_detection_count": len(raw),
                           "candidate_count": len(tracks) + len(pending), "track_evidence": evidence}
-                if suppressed:
-                    record["suppressed_detections"] = suppressed
                 records.append(record)
                 count_distribution.append(record["candidate_count"])
                 all_ids.update(assignment.values())
@@ -256,11 +261,12 @@ def run(args):
             "frame_time_basis": "decoded_container_pts", "video_start_seconds": pts_values[0],
             "decoded_pts_seconds": pts_values, "source_time_base": time_base, "source_audio": audio,
             "model": weights.name, "model_names": names, "player_class_id": player_class,
+            "detector_evidence": build_detector_evidence(records),
             "weights": str(weights.relative_to(ROOT)) if weights.is_relative_to(ROOT) else weights.name, "weights_sha256": weight_hash,
             "tracker": "ByteTrack" if args.variant == "yolo" else "BoT-SORT", "configuration_path": str(config_path.relative_to(ROOT)),
             "configuration_sha256": sha256(config_path), "config": configuration,
             "implementation_sha256": {name: sha256(Path(__file__).with_name(name))
-                for name in ("basketball_run.py", "basketball_tracker.py", "basketball_tracking.py")},
+                for name in ("basketball_run.py", "basketball_tracker.py", "basketball_tracking.py", "detector_evidence.py")},
             "detection": {"conf": detector_conf, "iou": detector_iou, "imgsz": args.imgsz,
                           "half_requested": half, "precision_options": precision_options},
             "device": {"name": torch.cuda.get_device_name(0), "actual_model_parameter_device": "cuda:0",
