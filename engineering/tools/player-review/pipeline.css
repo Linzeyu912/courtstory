@@ -892,3 +892,17 @@ body.workbench-shell {
 .track-assignment-summary{display:grid;gap:6px;margin:10px 0;padding:10px;background:#f5f8fb;border:1px solid #dce5ee;border-radius:8px}
 .track-assignment-summary button{text-align:left;font-size:12px}
 .tracking-diagnosis{margin:5px 0 0;padding:6px 8px;background:#f6f8fb;border-left:3px solid #c88821;line-height:1.5}
+.detection-legend{display:flex;align-items:center;flex-wrap:wrap;gap:5px 14px;padding:3px 11px;color:#647483;font-size:10px;flex-shrink:0}
+.detection-legend span{display:inline-flex;align-items:center;gap:5px}
+.detection-legend i{display:inline-block;width:21px;height:12px;border:2px solid #647483;border-radius:2px}
+.detection-legend i.machine{border-style:dashed}
+.detection-legend .detection-untracked{color:#986019}.detection-legend .detection-suppressed{color:#8753a5}
+.detection-overview{padding:3px 11px 5px;border-bottom:1px solid #e5ebef;flex-shrink:0}
+.detection-overview>p{font-size:11px;line-height:1.5;margin:2px 0}
+.detection-overview details{margin:3px 0 0;padding:0;border:0}
+.detection-overview summary{font-size:10px;font-weight:400;color:#687b8e}
+.detection-overview details p{font-size:11px;line-height:1.6;margin:6px 0}
+body[data-step=footage] .detection-legend,body[data-step=footage] .detection-overview{display:none}
+.frame-confirmation{margin:9px 0;padding:9px;border:1px solid #dce5ee;border-radius:6px;background:#f7f9fc}
+.frame-confirmation p{margin:6px 0 0;font-size:11px;line-height:1.5;color:#697b89}
+.identity-state.state-confirmed{background:#e1efe9;color:#286649}

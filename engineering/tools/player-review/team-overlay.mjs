@@ -14,7 +14,7 @@ export function setTeamGroup(session,entityId,group) {
 }
 
 export function teamOverlayStyle(entity,point,policy) {
-  const group=effectiveTeamGroup(entity),tentative=point?.identitySource==='model_suggestion';
+  const group=effectiveTeamGroup(entity),tentative=point?.frameIdentityConfirmed!==true;
   const estimated=['interpolated','manual_path'].includes(point?.source);
   return {group,color:group?FIXED_TEAM_COLORS[group]:policy.pendingColor,
     dashed:tentative||estimated,

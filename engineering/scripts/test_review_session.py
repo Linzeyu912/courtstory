@@ -327,11 +327,18 @@ class WholeTrackAssignmentTests(unittest.TestCase):
             self.assertFalse(any(binding['start'] < boundary <= binding['end'] for binding in bindings))
         self.assertFalse({6, 7, 13, 14, 15, 16, 20, 21, 22, 23, 24} & assigned)
 
-    def test_repeated_selection_from_another_frame_is_idempotent(self):
+    def test_repeated_selection_accumulates_only_clicked_frames_and_same_frame_is_idempotent(self):
         first = self.assign()
         restored = json.loads(json.dumps(first['session']))
+        self.assertEqual(self.assign(restored), first)
         second = self.assign(restored, frame=31)
-        self.assertEqual(second, first)
+        self.assertEqual(second['assignment'], first['assignment'])
+        self.assertEqual(second['session']['entities'][1]['bindings'], first['session']['entities'][1]['bindings'])
+        self.assertEqual(second['session']['identitySequence'], first['session']['identitySequence'])
+        self.assertEqual(second['session']['entities'][1]['frameConfirmations'], [
+            {'frame': frame, 'trackId': 71, 'origin': 'human_track_selection',
+             'identityOrder': 4, 'identityScope': 'track_occurrences'} for frame in (18, 31)])
+        self.assertEqual(self.assign(second['session'], frame=31), second)
         self.assertEqual(validate_session(restored, self.clip), 40)
 
     def test_duplicate_detections_in_a_frame_count_as_one_observation(self):
@@ -361,7 +368,7 @@ class WholeTrackAssignmentTests(unittest.TestCase):
                 self.assertEqual(after['entities'][0]['bindings'][0], before['entities'][0]['bindings'][0])
                 for field in ('anchors', 'identityKeyframes', 'courtAnchors', 'events'):
                     self.assertEqual(after['entities'][0][field], before['entities'][0][field])
-                self.assertEqual(self.assign(after, entity='P1', frame=31), result)
+                self.assertEqual(self.assign(after, entity='P1', frame=4), result)
 
     def test_multiple_tracks_accumulate_and_ambiguous_observations_are_retained(self):
         for frame in (13, 14, 15, 18):
@@ -406,6 +413,7 @@ class WholeTrackAssignmentTests(unittest.TestCase):
         bulk = deepcopy(first['entities'][1]['bindings'])
         cleared = apply_review_edit(first, {'type': 'clear_player', 'entityId': 'P2'}, self.clip)['session']
         self.assertEqual(cleared['entities'][1]['bindings'], [])
+        self.assertEqual(cleared['entities'][1]['frameConfirmations'], [])
         self.assertEqual(cleared['entities'][1]['dismissedModelBindings'], bulk)
         self.assertTrue(cleared['entities'][1]['identitySuggestionsDismissed'])
         repeated = apply_review_edit(cleared, {'type': 'clear_player', 'entityId': 'P2'}, self.clip)['session']
@@ -429,6 +437,7 @@ class WholeTrackAssignmentTests(unittest.TestCase):
         self.assertEqual(player['bindings'][:6], bulk)
         self.assertEqual(player['bindings'][-1]['kind'], 'unassigned')
         self.assertEqual(player['bindings'][-1]['order'], 5)
+        self.assertEqual(player['frameConfirmations'], [])
         self.assertEqual(player['modelBindings'], [
             {'kind': 'track', 'trackId': 71, 'start': 0, 'end': 17},
             {'kind': 'track', 'trackId': 71, 'start': 20, 'end': 39}])
@@ -439,7 +448,36 @@ class WholeTrackAssignmentTests(unittest.TestCase):
         self.assertEqual(again['entities'][1]['dismissedModelBindings'], player['dismissedModelBindings'])
         # Re-grouping T71 must not remove the explicit cancellation barrier.
         reassigned = self.assign(again, frame=31)['session']
-        self.assertEqual(reassigned, again)
+        self.assertEqual(reassigned['entities'][1]['bindings'], again['entities'][1]['bindings'])
+        self.assertEqual([item['frame'] for item in reassigned['entities'][1]['frameConfirmations']], [31])
+
+    def test_release_keeps_confirmations_outside_the_cancelled_range(self):
+        first = self.assign()['session']
+        for frame in (2, 19, 31):
+            first = self.assign(first, frame=frame)['session']
+        result = apply_review_edit(first, {'type': 'release_identity', 'entityId': 'P2', 'frame': 18}, self.clip)['session']
+        self.assertEqual([item['frame'] for item in result['entities'][1]['frameConfirmations']], [2, 31])
+        self.assertEqual([item['frame'] for item in first['entities'][1]['frameConfirmations']], [18, 2, 19, 31])
+
+    def test_frame_confirmation_schema_accepts_browser_review_tokens_and_rejects_invalid_records(self):
+        for scope in ('manual_forward', 'manual_range', 'model_suggestion', 'manual_position'):
+            session = deepcopy(self.session)
+            record = {'frame': 2, 'trackId': None if scope == 'manual_position' else 71,
+                      'origin': 'human_frame_review', 'identityScope': scope, 'identityOrder': 0,
+                      'identityToken': '["saved-identity"]'}
+            if scope == 'manual_position':
+                record['anchorSignature'] = '[2,10,20]'
+            session['entities'][1]['frameConfirmations'] = [record]
+            self.assertEqual(validate_session(session, self.clip), 40)
+        first = self.assign()['session']
+        for change in ({'frame': True}, {'frame': 40}, {'trackId': None}, {'trackId': 0},
+                       {'identityOrder': -1}, {'identityScope': 'whole_video'}, {'origin': 'model'},
+                       {'identityToken': []}, {'identityToken': 'x' * 8193},
+                       {'origin': 'human_frame_review'}):
+            candidate = deepcopy(first)
+            candidate['entities'][1]['frameConfirmations'][0].update(change)
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                validate_session(candidate, self.clip)
 
     def test_swap_moves_bulk_assignments_and_cancelled_ranges_as_complete_person_records(self):
         first = self.assign()['session']
@@ -547,7 +585,10 @@ class ReviewEditHttpTests(unittest.TestCase):
         body['operation']['frame'] = 31
         status, data = self.request(body)
         self.assertEqual(status, 200)
-        self.assertEqual(json.loads(data), result)
+        repeated = json.loads(data)
+        self.assertEqual(repeated['assignment'], result['assignment'])
+        self.assertEqual(repeated['session']['entities'][1]['bindings'], result['session']['entities'][1]['bindings'])
+        self.assertEqual([record['frame'] for record in repeated['session']['entities'][1]['frameConfirmations']], [5, 31])
         body['operation']['frame'] = 20
         self.assertEqual(self.request(body)[0], 400)
         after = {str(p.relative_to(self.temp)): p.read_bytes() for p in Path(self.temp).rglob('*') if p.is_file()}

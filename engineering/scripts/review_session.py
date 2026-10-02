@@ -9,7 +9,8 @@ IDENTITY_BINDING_MODE = 'forward_only_v1'
 TRACK_OCCURRENCES_SCOPE = 'track_occurrences'
 PLAYER_IDS = {f'P{i}' for i in range(1, 11)}
 IDENTITY_KINDS = {'track', 'untracked', 'out_of_view', 'unassigned'}
-PERSON_RECORDS = ('anchors', 'identityKeyframes', 'bindings', 'modelBindings', 'courtAnchors', 'events')
+PERSON_RECORDS = ('anchors', 'identityKeyframes', 'bindings', 'modelBindings', 'courtAnchors', 'events', 'frameConfirmations')
+FRAME_CONFIRMATION_SCOPES = {'track_occurrences', 'manual_forward', 'manual_range', 'model_suggestion', 'manual_position'}
 
 
 def _integer(value, name, low=0, high=2**53 - 1):
@@ -85,6 +86,30 @@ def _identity_record(record, frame_count, interval=False):
         _integer(record['selectionFrame'], '选取帧', high=frame_count - 1)
 
 
+def _frame_confirmation(record, frame_count):
+    if not isinstance(record, dict):
+        raise ValueError('逐帧确认记录必须是对象。')
+    _integer(record.get('frame'), '人工确认帧', high=frame_count - 1)
+    _integer(record.get('identityOrder'), '确认关联顺序')
+    scope = record.get('identityScope')
+    if not isinstance(scope, str) or scope not in FRAME_CONFIRMATION_SCOPES:
+        raise ValueError('逐帧确认的关联范围无效。')
+    if record.get('trackId') is not None or scope != 'manual_position':
+        _integer(record.get('trackId'), '确认临时编号', low=1)
+    origin = record.get('origin')
+    if origin not in ('human_track_selection', 'human_frame_review'):
+        raise ValueError('逐帧确认来源无效。')
+    if origin == 'human_track_selection' and scope != TRACK_OCCURRENCES_SCOPE:
+        raise ValueError('编号点选确认只适用于实际出现帧。')
+    for field in ('identityToken', 'anchorSignature'):
+        required = (field == 'identityToken' and origin == 'human_frame_review' or
+                    field == 'anchorSignature' and scope == 'manual_position')
+        if required or field in record:
+            value = record.get(field)
+            if not isinstance(value, str) or not 0 < len(value) <= 8192:
+                raise ValueError(f'逐帧确认的 {field} 必须是 1–8192 字符的文本。')
+
+
 def validate_session(session, clip):
     """Validate the supported draft contract before making a private copy."""
     if not isinstance(session, dict) or type(session.get('version')) is not int or session['version'] != 1:
@@ -147,6 +172,8 @@ def validate_session(session, clip):
             _identity_record(key, frame_count)
         for binding in _list(entity, 'bindings'):
             _identity_record(binding, frame_count, interval=True)
+        for confirmation in _list(entity, 'frameConfirmations'):
+            _frame_confirmation(confirmation, frame_count)
         for field in ('modelBindings', 'dismissedModelBindings'):
             for binding in _list(entity, field):
                 _identity_record(binding, frame_count, interval=True)
@@ -281,10 +308,18 @@ def apply_review_edit(session, operation, clip):
                 'selectionFrame': frame, 'order': order, 'exclusive': False, 'reviewRequired': True,
             } for span in _occurrence_ranges(missing, set(draft['cuts'])))
             draft['identitySelection'] = None
+        selected_binding = max((binding for binding in _bulk_bindings(entity)
+                                if binding['trackId'] == track_id and binding['start'] <= frame <= binding['end']),
+                               key=lambda binding: binding.get('order', 0))
+        confirmation = {'frame': frame, 'trackId': track_id, 'origin': 'human_track_selection',
+                        'identityOrder': selected_binding.get('order', 0), 'identityScope': TRACK_OCCURRENCES_SCOPE}
+        confirmations = entity.setdefault('frameConfirmations', [])
+        if confirmation not in confirmations:
+            confirmations.append(confirmation)
         assignment = {'trackId': track_id, 'observationCount': len(observed),
                       'rangeCount': len(ranges), 'ranges': ranges}
         message = (f'T{track_id} 的 {len(observed)} 个观测帧（{len(ranges)} 段）已归并到{_label(entity)}，'
-                   '仍待逐帧核对；已有人工位置、区间与取消记录保留。')
+                   f'仅第 {frame + 1} 帧记录了本次人工确认，其余仍待逐帧核对；已有人工位置、区间与取消记录保留。')
     elif kind == 'clear_player':
         entity = _entity(draft, operation.get('entityId'))
         # Rejection follows the observed track intervals as well as this person.
@@ -313,6 +348,9 @@ def apply_review_edit(session, operation, clip):
             'kind': 'unassigned', 'trackId': None, 'start': start, 'end': end,
             'order': order, 'exclusive': True, 'origin': 'human_release', 'identitySource': 'human',
         })
+        if 'frameConfirmations' in entity:
+            entity['frameConfirmations'] = [record for record in entity['frameConfirmations']
+                                            if not start <= record['frame'] <= end]
         # Keep evidence outside the released interval. The human unassigned
         # binding remains authoritative if suggestions are reloaded later.
         if 'modelBindings' in entity:

@@ -41,7 +41,7 @@ test('one team color survives proposed, human and estimated states and model tea
   const style=requireFeature('teamOverlayStyle');
   const a={id:'P1',role:'player',modelTeamGroup:'A'},b={id:'P6',role:'player',modelTeamGroup:'B'};
   const proposedPoint={identitySource:'model_suggestion',source:'tracked'};
-  const humanPoint={identitySource:'manual_forward',source:'tracked'};
+  const humanPoint={identitySource:'manual_forward',source:'tracked',frameIdentityConfirmed:true};
   assert.equal(style(a,proposedPoint,policy).color,style(a,humanPoint,policy).color);
   assert.equal(style(a,{...humanPoint,source:'interpolated'},policy).color,style(a,humanPoint,policy).color);
   assert.notEqual(style(a,proposedPoint,policy).color,style(b,proposedPoint,policy).color);
@@ -51,17 +51,18 @@ test('one team color survives proposed, human and estimated states and model tea
 });
 
 // Locking identity must not silently promote the independent model team hint.
-test('identity confirmation removes only the model warning and keeps the fixed team color',()=>{
+test('identity confirmation uses a solid line only on its reviewed frame and keeps the team color',()=>{
   const style=requireFeature('teamOverlayStyle'),assign=requireFeature('setTeamGroup'),s=blankSession('clip');
   adoptIdentitySuggestions(s,suggestions([proposed('P1',1,'A')]),frames);
   confirmIdentity(s,'P1',1,{box:[100,100,200,300],trackId:1},frames);
-  const point=buildTrajectories(s,frames).P1[2],e=s.entities[0];
+  const trajectory=buildTrajectories(s,frames).P1,point=trajectory[1],e=s.entities[0];
   assert.equal(point.identitySource,'manual_forward');assert.equal(e.teamGroupSource,undefined);
   const identityOnly=style(e,point,policy);assert.equal(identityOnly.label,'1');assert.equal(identityOnly.dashed,false);
   assign(s,'P1','A');const both=style(e,point,policy);
   assert.equal(both.color,identityOnly.color);assert.equal(both.label,'1');assert.equal(both.dashed,false);
-  const groupOnly=style(e,{...point,identitySource:'model_suggestion'},policy);
+  const groupOnly=style(e,{...point,identitySource:'model_suggestion',frameIdentityConfirmed:false},policy);
   assert.equal(groupOnly.label,'1?');assert.equal(groupOnly.dashed,true);
+  assert.equal(style(e,trajectory[2],policy).dashed,true,'forward association is not a review of the next frame');
 });
 
 // Removing capacity checks would silently turn a fixed five-person team into six.
@@ -152,7 +153,7 @@ test('shared renderer fixture keeps hand-checked geometry and team display polic
   assert.deepEqual(stable.map(p=>p.y),fixture.expectedY);
   const style=requireFeature('teamOverlayStyle');
   assert.equal(style(fixture.entities[0],fixture.points[0],policy).label,'1?');
-  assert.equal(style(fixture.entities[1],{identitySource:'manual_forward',source:'tracked'},policy).label,'6');
+  assert.equal(style(fixture.entities[1],{identitySource:'manual_forward',source:'tracked',frameIdentityConfirmed:true},policy).label,'6');
 });
 
 test('fresh roster reserves two rows of five and keeps both empty and selected slots on their fixed rows',()=>{

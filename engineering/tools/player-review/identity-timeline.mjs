@@ -139,8 +139,69 @@ export function confirmIdentity(session, entityId, frame, proposal, frames) {
   entity.anchors.push(preserved?{...preserved,identityConfirmed:true}:
     {frame,x:(proposal.box[0]+proposal.box[2])/2,y:proposal.box[3],
       trackId,box:proposal.box.slice(),footMethod:'bbox_bottom_center',identityConfirmed:true});
+  Object.assign(entity.anchors.at(-1),{identityReviewOrder:key.order,identityReviewSource:'manual_forward'});
   session.identitySelection = null;
   return identityConfirmationInterval(session,entity,frame,frames.length);
+}
+
+export function confirmUntrackedFrame(session,entityId,frame,proposal,frames) {
+  const entity=session.entities.find(item=>item.id===entityId),box=proposal?.box;
+  if(!entity||!Number.isInteger(frame)||!frames[frame])throw new Error('人物确认帧不正确。');
+  if(proposal?.trackId!=null||!Array.isArray(box)||box.length!==4||!box.every(Number.isFinite)||
+      box[2]<=box[0]||box[3]<=box[1])throw new Error('请选择当前帧有效的无临时编号候选框。');
+  migrateIdentitySession(session);
+  const order=nextIdentityOrder(session),binding={kind:'untracked',trackId:null,start:frame,end:frame,
+    order,exclusive:true,origin:'human_frame_selection'};
+  entity.bindings||=[];entity.bindings.push(binding);
+  const anchor={frame,x:(box[0]+box[2])/2,y:box[3],trackId:null,box:box.slice(),detectorBox:box.slice(),
+    footMethod:'bbox_bottom_center',identityConfirmed:true,identityReviewOrder:order,identityReviewSource:'manual_range'};
+  entity.anchors=entity.anchors.filter(item=>item.frame!==frame);entity.anchors.push(anchor);
+  const identity=identityAt(entity,frame,session.cuts,frames[frame]);
+  const review={frame,trackId:null,origin:'human_frame_review',identityScope:'manual_position',
+    identityOrder:order,identityToken:identityReviewToken(identity),anchorSignature:anchorReviewSignature(anchor)};
+  entity.frameConfirmations=(entity.frameConfirmations||[]).filter(item=>item.frame!==frame);
+  entity.frameConfirmations.push(review);entity.frameConfirmations.sort((a,b)=>a.frame-b.frame);
+  session.identitySelection=null;
+  return {start:frame,end:frame};
+}
+
+export function identityReviewToken(identity) {
+  return JSON.stringify(identity?[identity.identitySource,identity.kind,identity.trackId??null,
+    identity.scope==='track_occurrences'?null:identity.start,
+    identity.scope==='track_occurrences'?null:Number.isFinite(identity.end)?identity.end:null,identity.order||0]:null);
+}
+
+export function anchorReviewSignature(anchor) {
+  return JSON.stringify(anchor?[anchor.frame,anchor.x,anchor.y,anchor.trackId??null,
+    anchor.box||null,anchor.source||null]:null);
+}
+
+// A track assignment and a frame review are different facts. Reviews apply only
+// to the observation and identity that were actually shown to the reviewer.
+export function frameIdentityConfirmed(entity,point,identity) {
+  if(!point||point.x==null||point.y==null||!['manual','tracked'].includes(point.source)||
+      point.reviewExcluded||['conflict','unassigned','out_of_view'].includes(identity?.kind))return false;
+  const anchor=(entity.anchors||[]).find(item=>item.frame===point.frame);
+  const scope=identity?.scope==='track_occurrences'?'track_occurrences':identity?.identitySource||'manual_position';
+  for(const review of entity.frameConfirmations||[]){
+    if(review.frame!==point.frame||review.trackId!==(point.trackId??null))continue;
+    if(review.identityScope==='manual_position'){
+      if(anchor&&review.anchorSignature===anchorReviewSignature(anchor)&&
+          review.identityToken===identityReviewToken(identity))return true;
+      continue;
+    }
+    if(review.identityScope!==scope||review.identityOrder!==(identity?.order||0)||
+        review.trackId!==identity?.trackId)continue;
+    if(review.identityToken!==undefined&&review.identityToken!==identityReviewToken(identity))continue;
+    return true;
+  }
+  if(anchor?.identityConfirmed!==true||anchor.source==='manual_path'||
+      (anchor.trackId??null)!==(point.trackId??null))return false;
+  if(anchor.trackId!=null&&(identity?.kind!=='track'||Number(identity.trackId)!==Number(anchor.trackId)))return false;
+  if(anchor.trackId==null&&identity?.kind==='track')return false;
+  if(anchor.identityReviewOrder!==undefined&&anchor.identityReviewOrder!==(identity?.order||0))return false;
+  if(anchor.identityReviewSource!==undefined&&anchor.identityReviewSource!==identity?.identitySource)return false;
+  return true;
 }
 
 export function identityProvenance(identity) {
@@ -245,10 +306,12 @@ export function resolveIdentityOwners(result, entities, frames) {
       if (group.length < 2) continue;
       let winner = null;
       const explicit=group.filter(owner=>!['model_suggestion','manual_track_occurrences'].includes(owner.point.identitySource));
+      const reviewed=group.filter(owner=>!explicit.includes(owner)&&owner.point.frameIdentityConfirmed);
       const bulk=group.filter(owner=>owner.point.identitySource==='manual_track_occurrences');
-      // A whole-track claim never evicts an existing explicit human correction.
-      // Two whole-track claims remain a conflict, even if one was clicked later.
-      const eligible=explicit.length?explicit:bulk.length?bulk:group;
+      // Explicit human corrections stay authoritative. A single frame review
+      // wins over unreviewed propagation only at this frame; two reviewed
+      // claims still conflict. Merely clicking later never resolves that tie.
+      const eligible=explicit.length?explicit:reviewed.length?reviewed:bulk.length?bulk:group;
       if(eligible.length===1&&eligible.length<group.length)winner=eligible[0];
       if (!winner && eligible.some(owner=>owner.point.identityExclusive)) {
         const start = Math.max(...eligible.map(owner=>owner.point.identityStartFrame??-1));

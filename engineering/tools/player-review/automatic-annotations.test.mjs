@@ -2,10 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-import {blankSession,buildTrajectories,draftStorageKey,exportReview} from './trajectory.mjs';
+import {blankSession,buildTrajectories,draftStorageKey,exportReview,confirmFrameIdentity} from './trajectory.mjs';
 import {adoptIdentitySuggestions,confirmIdentity} from './identity-timeline.mjs';
 import {setTeamGroup,effectiveTeamGroup} from './team-overlay.mjs';
 import {feetForPoint} from './feet-candidates.mjs';
+import {trackingDiagnostic} from './tracking-diagnostics.mjs';
 
 const api=await import('./automatic-annotations.mjs').catch(error=>{
   if(error.code==='ERR_MODULE_NOT_FOUND')return {};
@@ -281,6 +282,31 @@ test('known conflict in an existing model draft becomes a grey detection without
     assert.equal(api.automaticAnnotationPointVisible(clip,0,human.P6[0]),true);
     assert(!candidates(clip,0,human).some(row=>row.trackId===1));
     assert.equal(api.automaticAnnotationPointVisible(clip,0,{...human.P6[0],x:null}),false);
+  }
+});
+
+test('a reviewed risk-marked model observation becomes visible only on that frame and keeps diagnostic warnings',()=>{
+  for(const defect of ['identity','role']){
+    const clip=fixture(),session=blankSession('video');
+    adoptIdentitySuggestions(session,clip.identitySuggestions,clip.frames);
+    for(const record of clip.frames.slice(0,2)){
+      if(defect==='identity')record.track_evidence={'1':{identity_review_required:true}};
+      else record.role_conflicts=[{trackIds:[1,99]}];
+    }
+    const source=structuredClone(clip),model=structuredClone(session.entities[5].modelBindings);
+    assert.equal(api.automaticAnnotationPointVisible(clip,0,buildTrajectories(session,clip.frames).P6[0]),false);
+    confirmFrameIdentity(session,'P6',0,clip.frames);
+    const points=buildTrajectories(session,clip.frames),point=points.P6[0];
+    assert.equal(point.identitySource,'model_suggestion');assert.equal(point.frameIdentityConfirmed,true);
+    assert.equal(api.automaticAnnotationPointVisible(clip,0,point),true);
+    assert.equal(api.automaticAnnotationPointVisible(clip,1,points.P6[1]),false);
+    assert(!candidates(clip,0,points).some(candidate=>candidate.trackId===1));
+    assert.match(trackingDiagnostic(clip.frames[0],point).label,/人工确认.*风险提示/);
+    assert.match(trackingDiagnostic(clip.frames[0],point).detail,defect==='identity'?/模型标记身份待核对/:/人物角色冲突/);
+    for(const source of ['conflict','missing','out_of_view','interpolated','manual_path'])
+      assert.equal(api.automaticAnnotationPointVisible(clip,0,{...point,source}),false,source);
+    assert.equal(api.automaticAnnotationPointVisible(clip,0,{...point,x:NaN}),false);
+    assert.deepEqual(clip,source);assert.deepEqual(session.entities[5].modelBindings,model);
   }
 });
 
