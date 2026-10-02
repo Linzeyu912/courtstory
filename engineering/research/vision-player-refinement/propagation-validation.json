@@ -1,0 +1,399 @@
+{
+  "collectedAt": "2026-10-02 Asia/Shanghai",
+  "sample": "006",
+  "referenceType": "Agent visual reading; not blinded; not surveyed truth. Occluded points are rough line-continuation estimates. These points were not used to tune the propagation.",
+  "metricAccuracyValidated": false,
+  "profiles": {
+    "before": {
+      "path": "artifacts/court-propagation-qa/006-before-scorebug-mask.json",
+      "sha256": "18054f4d1b36e822a62dc14365d7a3357e6f6aac794711b117bd58cb12cda4a2",
+      "summary": {
+        "startFrame": 0,
+        "endFrame": 461,
+        "validFrames": 461,
+        "totalFrames": 462,
+        "processingSeconds": 28.047194099985063
+      },
+      "bottomMaskFraction": 0.13
+    },
+    "after": {
+      "path": "engineering/research/vision-player-refinement/court-candidates-006.json",
+      "sha256": "cc0019b94658bc55ca86a9f29f6fbc7584f3a7d1e494ef10b4c72d0135e367c1",
+      "summary": {
+        "startFrame": 0,
+        "endFrame": 461,
+        "validFrames": 300,
+        "totalFrames": 462,
+        "processingSeconds": 26.45613740000408
+      },
+      "bottomMaskFraction": 0.25
+    }
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "referencePoints": [
+        {
+          "id": "B",
+          "image": [
+            944,
+            491
+          ],
+          "visibility": "visible"
+        },
+        {
+          "id": "E",
+          "image": [
+            515,
+            312
+          ],
+          "visibility": "visible"
+        }
+      ],
+      "before": {
+        "status": "needs_review",
+        "points": [
+          {
+            "id": "B",
+            "image": [
+              936.75,
+              492.375
+            ],
+            "differencePixels": 7.379236071572721
+          },
+          {
+            "id": "E",
+            "image": [
+              516.375,
+              311.625
+            ],
+            "differencePixels": 1.4252192813739224
+          }
+        ]
+      },
+      "after": {
+        "status": "needs_review",
+        "points": [
+          {
+            "id": "B",
+            "image": [
+              936.75,
+              492.375
+            ],
+            "differencePixels": 7.379236071572721
+          },
+          {
+            "id": "E",
+            "image": [
+              516.375,
+              311.625
+            ],
+            "differencePixels": 1.4252192813739224
+          }
+        ]
+      }
+    },
+    {
+      "frame": 154,
+      "referencePoints": [
+        {
+          "id": "B",
+          "image": [
+            991,
+            522
+          ],
+          "visibility": "occluded_by_white_21_estimated_from_adjacent_lines"
+        },
+        {
+          "id": "E",
+          "image": [
+            577,
+            348
+          ],
+          "visibility": "visible"
+        }
+      ],
+      "before": {
+        "status": "needs_review",
+        "points": [
+          {
+            "id": "B",
+            "image": [
+              935.1187,
+              488.7454
+            ],
+            "differencePixels": 65.02759499512496
+          },
+          {
+            "id": "E",
+            "image": [
+              509.3285,
+              304.4168
+            ],
+            "differencePixels": 80.49178364584795
+          }
+        ]
+      },
+      "after": {
+        "status": "needs_review",
+        "points": [
+          {
+            "id": "B",
+            "image": [
+              991.8188,
+              527.1408
+            ],
+            "differencePixels": 5.20559872445045
+          },
+          {
+            "id": "E",
+            "image": [
+              572.9993,
+              345.9031
+            ],
+            "differencePixels": 4.516922636043309
+          }
+        ]
+      }
+    },
+    {
+      "frame": 308,
+      "referencePoints": [
+        {
+          "id": "B",
+          "image": [
+            1198,
+            581
+          ],
+          "visibility": "visible"
+        },
+        {
+          "id": "E",
+          "image": [
+            738,
+            379
+          ],
+          "visibility": "partly_occluded_by_red_34_estimated_from_line_continuation"
+        }
+      ],
+      "before": {
+        "status": "needs_review",
+        "points": [
+          {
+            "id": "B",
+            "image": [
+              934.9244,
+              488.8957
+            ],
+            "differencePixels": 278.73279927889723
+          },
+          {
+            "id": "E",
+            "image": [
+              508.0678,
+              304.2358
+            ],
+            "differencePixels": 241.7819310835283
+          }
+        ]
+      },
+      "after": {
+        "status": "needs_review",
+        "points": [
+          {
+            "id": "B",
+            "image": [
+              1187.1949,
+              583.828
+            ],
+            "differencePixels": 11.169054123335632
+          },
+          {
+            "id": "E",
+            "image": [
+              735.6285,
+              380.2442
+            ],
+            "differencePixels": 2.678067566361946
+          }
+        ]
+      }
+    },
+    {
+      "frame": 461,
+      "referencePoints": [
+        {
+          "id": "B",
+          "image": [
+            1561,
+            662
+          ],
+          "visibility": "visible"
+        },
+        {
+          "id": "E",
+          "image": [
+            1090,
+            437
+          ],
+          "visibility": "occluded_by_white_player_estimated_from_line_continuation"
+        }
+      ],
+      "before": {
+        "status": "needs_review",
+        "points": [
+          {
+            "id": "B",
+            "image": [
+              933.8048,
+              487.423
+            ],
+            "differencePixels": 651.0383612599492
+          },
+          {
+            "id": "E",
+            "image": [
+              500.0017,
+              300.0505
+            ],
+            "differencePixels": 605.6840426766582
+          }
+        ]
+      },
+      "after": {
+        "status": "invalid",
+        "points": []
+      }
+    }
+  ],
+  "additionalExperiments": [
+    {
+      "sample": "004",
+      "references": {
+        "120": {
+          "B": [
+            173,
+            325
+          ],
+          "E": [
+            500,
+            174
+          ]
+        },
+        "136": {
+          "B": [
+            198,
+            354
+          ],
+          "E": [
+            514,
+            205
+          ]
+        }
+      },
+      "limitation": "Agent visual approximation. E at136 partly occluded. Neither point used in propagation fit.",
+      "requestedFrames": [
+        0,
+        140,
+        209
+      ],
+      "requestedFramesBothVersionsInvalid": true,
+      "profiles": {
+        "fallback12": {
+          "path": "engineering/research/vision-player-refinement/court-candidates-004.json",
+          "summary": {
+            "startFrame": 0,
+            "endFrame": 209,
+            "validFrames": 102,
+            "totalFrames": 210,
+            "processingSeconds": 11.83958219998749
+          },
+          "validFrameRange": [
+            33,
+            136
+          ],
+          "sha256": "328d2e21fac803da2c1edd54084a95fdb1afc1a0e84e0d9b1dabac37113753f4"
+        },
+        "fallback60": {
+          "path": "artifacts/court-propagation-qa/004-fallback60.json",
+          "summary": {
+            "startFrame": 0,
+            "endFrame": 209,
+            "validFrames": 102,
+            "totalFrames": 210,
+            "processingSeconds": 11.83958219998749
+          },
+          "validFrameRange": [
+            33,
+            136
+          ],
+          "sha256": "328d2e21fac803da2c1edd54084a95fdb1afc1a0e84e0d9b1dabac37113753f4"
+        }
+      },
+      "evaluations": [
+        {
+          "frame": 120,
+          "status": "needs_review",
+          "fallbackFrames": 44,
+          "points": [
+            {
+              "id": "B",
+              "reference": [
+                173,
+                325
+              ],
+              "propagated": [
+                171.1062,
+                323.9043
+              ],
+              "differencePixels": 2.1879298274853434
+            },
+            {
+              "id": "E",
+              "reference": [
+                500,
+                174
+              ],
+              "propagated": [
+                494.7411,
+                171.4901
+              ],
+              "differencePixels": 5.827145718102453
+            }
+          ]
+        },
+        {
+          "frame": 136,
+          "status": "needs_review",
+          "fallbackFrames": 60,
+          "points": [
+            {
+              "id": "B",
+              "reference": [
+                198,
+                354
+              ],
+              "propagated": [
+                184.9369,
+                353.566
+              ],
+              "differencePixels": 13.070307479550733
+            },
+            {
+              "id": "E",
+              "reference": [
+                514,
+                205
+              ],
+              "propagated": [
+                517.4668,
+                202.4155
+              ],
+              "differencePixels": 4.324158009370171
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

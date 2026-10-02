@@ -26,3 +26,12 @@ test('resizing preserves an independently confirmed foot and rejects invalid inp
   assert.throws(()=>editImageAnchor(point,1,{box:[50,20,30,80]},100,100));
   assert.throws(()=>editImageAnchor(point,1,{x:NaN},100,100));
 });
+test('resizing an adopted pose foot preserves provenance; a foot correction remains unverified contact',()=>{
+  const posed={...point,footMethod:'pose_candidate_human_adopted',footCandidate:{source:'rtmpose_s_halpe26',side:'left',score:.85,contactState:'unknown'},groundContactConfirmed:false};
+  const resized=editImageAnchor(posed,0,{box:[20,20,50,90]},100,100);
+  assert.equal(resized.footMethod,'pose_candidate_human_adopted');assert.deepEqual(resized.footCandidate,posed.footCandidate);assert.equal(resized.groundContactConfirmed,false);
+  resized.footCandidate.score=0;assert.equal(posed.footCandidate.score,.85);
+  const corrected=editImageAnchor(posed,0,{x:32,y:79},100,100);assert.equal(corrected.footMethod,'human_image_anchor');assert.equal(corrected.footCandidate,undefined);assert.equal(corrected.groundContactConfirmed,false);
+  const session=blankSession('clip'),records=[{frame:0,time:0,tracks:[[20,20,40,80,7,.9,0]]}];session.entities[0].identityKeyframes=[{frame:0,kind:'track',trackId:7}];session.entities[0].anchors=[corrected];
+  assert.equal(exportReview(session,{video_sha256:'clip',width:100,height:100,frames:records},'now').entities[0].trajectory[0].groundContactConfirmed,false);
+});
