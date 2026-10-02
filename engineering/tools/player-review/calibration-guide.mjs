@@ -21,21 +21,33 @@ function cameraReference(key){
  const camera=key.source==='camera_propagation'||keyframePoints(key).some(point=>point.enabled!==false&&point.role!=='check'&&point.source==='camera_propagation');
  return camera?(key.cameraSupportFrame??key.quality?.cameraSupportFrame??key.quality?.referenceFrame):null;
 }
-function staleCameraKey(key,referenceFrame){
- return {...key,status:'needs_review',invalidReason:'reference_changed',reviewRequired:true,
-  quality:{...(key.quality||{}),invalidationReason:'reference_changed',changedReferenceFrame:referenceFrame,reason:'参考帧已修改，请重新生成这段镜头标定。'}};
+export function isHumanCalibrationKey(key){
+ if(key.source==='human'||keyframePoints(key).some(point=>point.source==='human'))return true;
+ const reviewed=Boolean(key.projectionReviewedAt)||key.quality?.cameraSupportReviewSource==='human_projection_review',reference=cameraReference(key);
+ return reviewed&&(reference===null||reference===key.frame);
 }
-export function invalidateCameraDependents(calibration,referenceFrame){
+function staleCameraKey(key,referenceFrame,reason='reference_changed'){
+ return {...key,status:'needs_review',invalidReason:reason,reviewRequired:true,
+  quality:{...(key.quality||{}),invalidationReason:reason,changedReferenceFrame:referenceFrame,
+   reason:reason==='reference_deleted'?'参考帧已删除，请重新建立并核对参考。':'参考帧已修改，请重新生成这段镜头标定。'}};
+}
+export function invalidateCameraDependents(calibration,referenceFrame,{referenceDeleted=false}={}){
+ if(referenceDeleted)calibration.deletedReferenceFrames=[...new Set([...(calibration.deletedReferenceFrames||[]),referenceFrame])];
  let invalidated=0;
- calibration.keyframes=(calibration.keyframes||[]).map(key=>{if(key.frame===referenceFrame||cameraReference(key)!==referenceFrame)return key;invalidated++;return staleCameraKey(key,referenceFrame);});
+ calibration.keyframes=(calibration.keyframes||[]).map(key=>{if(key.frame===referenceFrame||cameraReference(key)!==referenceFrame)return key;invalidated++;return staleCameraKey(key,referenceFrame,referenceDeleted?'reference_deleted':'reference_changed');});
  return invalidated;
 }
 export function acceptCourtCandidates(session,value,frameCount,videoHash){
  const keys=normalizeCourtCandidates(value,frameCount),old=session.courtCalibration?.keyframes||[];
- const manual=new Map(old.filter(key=>key.source==='human'||keyframePoints(key).some(point=>point.source==='human')).map(key=>[key.frame,key]));
+ const deletedReferences=new Set(session.courtCalibration?.deletedReferenceFrames||[]);
+ const manual=new Map(old.filter(isHumanCalibrationKey).map(key=>[key.frame,key]));
  const incoming=new Map(keys.map(key=>[key.frame,key])),changedReferences=new Set([...manual].filter(([frame,key])=>incoming.has(frame)&&calibrationGeometryFingerprint(key)!==calibrationGeometryFingerprint(incoming.get(frame))).map(([frame])=>frame));
  const merged=new Map(old.map(key=>[key.frame,key]));let accepted=0,invalid=0,preserved=0;
- for(const key of keys){if(manual.has(key.frame)){preserved++;continue;}const reference=cameraReference(key);if(reference!==key.frame&&changedReferences.has(reference)){merged.set(key.frame,staleCameraKey(key,reference));invalid++;continue;}if(key.status==='invalid'||!fitKeyframe(key)){merged.set(key.frame,{...key,status:'invalid'});invalid++;continue;}merged.set(key.frame,{...key,status:'accepted_reference',reviewRequired:true});accepted++;}
+ for(const key of keys){if(manual.has(key.frame)){preserved++;continue;}const reference=cameraReference(key);
+  if(deletedReferences.has(key.frame)||deletedReferences.has(reference)){merged.set(key.frame,staleCameraKey(key,deletedReferences.has(key.frame)?key.frame:reference,'reference_deleted'));invalid++;continue;}
+  if(reference!==key.frame&&changedReferences.has(reference)){merged.set(key.frame,staleCameraKey(key,reference));invalid++;continue;}
+  if(key.status==='invalid'||!fitKeyframe(key)){merged.set(key.frame,{...key,status:'invalid'});invalid++;continue;}
+  merged.set(key.frame,{...key,status:'accepted_reference',reviewRequired:true});accepted++;}
  session.courtCalibration={...(session.courtCalibration||{}),template:'NBA',videoHash,maxKeyframeGapSeconds:value?.maxKeyframeGapSeconds??session.courtCalibration?.maxKeyframeGapSeconds??1.2,keyframes:[...merged.values()].sort((a,b)=>a.frame-b.frame)};
  return {accepted,invalid,preserved};
 }

@@ -8,17 +8,29 @@
       "sourceUrl": "https://www.facebook.com/TheWarriorNation/videos/the-signature-elevator-doors-play-by-the-warriors/186346969187899/",
       "video": "data/videos/tactics/acceptance/clips/004_GSW_elevator.mp4",
       "tracks": "data/videos/tactics/acceptance/tracks/004.json",
-      "originalLabel": "通用 YOLOv8s · ByteTrack",
-      "defaultVariant": "ebard",
+      "defaultVariant": "team-stable",
       "trackingVariants": [
+        {
+          "id": "team-stable",
+          "label": "分队颜色 · 稳定框与脚下编号",
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.json",
+          "optional": true
+        },
         {
           "id": "ebard",
           "label": "E-BARD YOLOv8n · ByteTrack",
           "recommended": true,
           "tracks": "data/videos/tactics/acceptance/tracks/004-ebard.json"
+        },
+        {
+          "id": "optimized",
+          "label": "篮球专用模型 · 优化候选",
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-optimized.json",
+          "optional": true
         }
       ],
       "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "originalLabel": "通用 YOLOv8s · ByteTrack",
       "feetCandidates": "engineering/research/vision-player-refinement/feet-candidates-004.json",
       "courtCandidates": "engineering/research/vision-player-refinement/court-candidates-004.json"
     },
@@ -29,17 +41,29 @@
       "sourceUrl": "https://www.bilibili.com/video/BV1zqgd6DEPQ/",
       "video": "data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4",
       "tracks": "data/videos/tactics/acceptance/tracks/005.json",
-      "originalLabel": "通用 YOLOv8s · ByteTrack",
-      "defaultVariant": "ebard",
+      "defaultVariant": "team-stable",
       "trackingVariants": [
+        {
+          "id": "team-stable",
+          "label": "分队颜色 · 稳定框与脚下编号",
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json",
+          "optional": true
+        },
         {
           "id": "ebard",
           "label": "E-BARD YOLOv8n · ByteTrack",
           "recommended": true,
           "tracks": "data/videos/tactics/acceptance/tracks/005-ebard.json"
+        },
+        {
+          "id": "optimized",
+          "label": "篮球专用模型 · 优化候选",
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-optimized.json",
+          "optional": true
         }
       ],
       "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "originalLabel": "通用 YOLOv8s · ByteTrack",
       "feetCandidates": "engineering/research/vision-player-refinement/feet-candidates-005.json",
       "courtCandidates": "engineering/research/vision-player-refinement/court-candidates-005.json"
     },
@@ -50,19 +74,67 @@
       "sourceUrl": "https://www.bilibili.com/video/BV1zqgd6DEPQ/",
       "video": "data/videos/tactics/acceptance/clips/006_SAS_drive_kick.mp4",
       "tracks": "data/videos/tactics/acceptance/tracks/006.json",
-      "originalLabel": "通用 YOLOv8s · ByteTrack",
-      "defaultVariant": "ebard",
+      "defaultVariant": "team-stable",
       "trackingVariants": [
+        {
+          "id": "team-stable",
+          "label": "分队颜色 · 稳定框与脚下编号",
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-team-stable.json",
+          "optional": true
+        },
         {
           "id": "ebard",
           "label": "E-BARD YOLOv8n · ByteTrack",
           "recommended": true,
           "tracks": "data/videos/tactics/acceptance/tracks/006-ebard.json"
+        },
+        {
+          "id": "optimized",
+          "label": "篮球专用模型 · 优化候选",
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-optimized.json",
+          "optional": true
         }
       ],
       "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "originalLabel": "通用 YOLOv8s · ByteTrack",
       "feetCandidates": "engineering/research/vision-player-refinement/feet-candidates-006.json",
       "courtCandidates": "engineering/research/vision-player-refinement/court-candidates-006.json"
+    },
+    {
+      "id": "nba-lal-min-005",
+      "title": "篮球模型对照 · LAL–MIN 第二节",
+      "description": "10.68 秒 · 720p · 原转播音轨与源时间戳 · 底线发球后推进分底角三分；模型建议仍需逐段人工复核。",
+      "sourceUrl": "https://v.qq.com/x/cover/mzc00200eygk9jw/w4101iq9j4m.html",
+      "video": "data/videos/nba/2024-25/clips/005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4",
+      "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
+      "originalTrackingLabel": "篮球专用模型 · 原配置基线",
+      "defaultVariant": "team-stable",
+      "trackingVariants": [
+        {
+          "id": "team-stable",
+          "label": "分队颜色 · 稳定框与脚下编号",
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-team-stable.json",
+          "optional": true
+        },
+        {
+          "id": "low",
+          "label": "篮球专用模型 · 低分续接",
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-low.json"
+        },
+        {
+          "id": "reid",
+          "label": "篮球专用模型 · 外观续接",
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-reid.json",
+          "optional": true
+        },
+        {
+          "id": "optimized",
+          "label": "篮球专用模型 · 综合优化",
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-optimized.json"
+        }
+      ],
+      "videoSha256": "e76feffb09ede3e1b336c2e470370bcf1ee0937326bdf672e3e7e4bc5b661885",
+      "optional": true
     }
   ]
 }
