@@ -3,23 +3,26 @@
 三人参加 BroadcastCode「深度赛场」比赛的共享资料与协作仓库。资料正文使用中文，仓库名及新增目录使用英文。
 
 **GitHub 仓库**：https://github.com/Linzeyu912/broadcastcode-team-hub  
-**当前阶段**：信息整理、规则核对、任务分工与方案准备。成员名单不代表已核验比赛入围资格。
+**当前阶段**：赛事准备与本机数据提取原型开发；完整 Agent 流程和 AWS 部署待完成。成员名单不代表已核验比赛入围资格。
 
 ## 从这里开始
 
 | 内容 | 入口 |
 |---|---|
 | 仓库各目录的用途、数据入口与开发内容边界 | [目录说明](docs/repository-map.md) |
-| 最新赛事要求、评分、交付清单、对标视频 | [赛事资料整理](BroadcastCode赛事资料整理.md) |
+| 最新赛事要求、评分、交付清单、对标视频 | [赛事资料整理](requirements/BroadcastCode赛事资料整理.md) |
 | 当前进度和待认领事项 | [团队状态](docs/status.md) |
 | 三位成员与建议分工 | [团队成员](docs/team.md) |
 | 首次克隆、直接在 main 修改和同步 | [协作流程](docs/workflow.md) |
 | 已确定的协作方式和待定技术选择 | [决策记录](docs/decisions.md) |
 | 给各自 Agent 的仓库说明 | [AGENTS.md](AGENTS.md) |
 | 每次工作的结果、阻塞与下一步 | [交接记录](handoffs/README.md) |
-| 早期官网资料、报名准备、Word 手册 | [历史调研索引](research/README.md) |
+| 早期官网资料、报名准备、Word 手册 | [赛事资料索引](requirements/README.md) |
+| 软件、运行方式、设计文档与技术实验 | [工程入口](engineering/README.md)、[工作台](engineering/tools/player-review/README.md) |
 | NBA 2K25 / 2K26 球员能力、球队及号码（Agent 数据包） | [包清单](2K%20Player%20Data/manifest.json)、[读取指引](2K%20Player%20Data/AGENTS.md) |
 | 视频成片、标签、批次清单和LFS下载 | [视频资料入口](data/videos/README.md)、[视频数据管理规范](docs/video-data-management.md) |
+
+赛事要求放在 `requirements/`，软件、产品设计和技术实验放在 `engineering/`，视频与参考数据放在 `data/`。`docs/` 只保存团队协作、进度和仓库规范；历史工作记录在 `handoffs/`。不要把实验结论写成官方赛事要求。详细目录见[目录说明](docs/repository-map.md)。
 
 ## 三个人如何同步
 

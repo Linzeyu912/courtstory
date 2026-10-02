@@ -9,8 +9,8 @@
 
 ## 本次完成
 
-- 新增[评估文档](../../research/video-overlay-vision-assessment.md)，说明检测、跟踪、接地锚点、平面映射、遮挡合成与关系判断的职责。
-- 在[已有方案总结](../../docs/agent-concept-review.md)增加入口，延续数据采集、数据处理、内容呈现三部分及原视频叠加方向。
+- 新增[评估文档](../../engineering/research/video-overlay-vision-assessment.md)，说明检测、跟踪、接地锚点、平面映射、遮挡合成与关系判断的职责。
+- 在[已有方案总结](../../engineering/docs/agent-concept-review.md)增加入口，延续数据采集、数据处理、内容呈现三部分及原视频叠加方向。
 - 提供内部数据接口草案、现有样片候选和对照验证步骤；未登记为已采用技术方案。
 
 ## 结论与依据
