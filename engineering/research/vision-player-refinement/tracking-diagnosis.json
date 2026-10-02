@@ -1,0 +1,375 @@
+{
+  "date": "2026-10-01",
+  "timezone": "Asia/Shanghai",
+  "scope": "Same-clip diagnosis, region checks are manually scoped and do not provide full MOT accuracy. Frames are zero-based.",
+  "source_sha256": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+  "detection_cache_sha256": "d8db5444a2ee104e284ea9bfe663f15a83b018245369b5177692f05e7f545a94",
+  "original_id10": {
+    "first_frame": 0,
+    "last_frame": 131,
+    "track_frames": 124
+  },
+  "original_id33": {
+    "first_frame": 131,
+    "last_frame": 147,
+    "track_frames": 17
+  },
+  "original_id8": {
+    "first_frame": 0,
+    "last_frame": 148,
+    "track_frames": 130
+  },
+  "original_id39": {
+    "first_frame": 159,
+    "last_frame": 173,
+    "track_frames": 10
+  },
+  "pending_boxes_before": 35,
+  "pending_boxes_after": 35,
+  "evidence": [
+    {
+      "frame": 147,
+      "region": "far_white_at_right_edge",
+      "detections": [
+        {
+          "box": [
+            1872.0,
+            546.75,
+            1920.0,
+            762.75,
+            0.81982421875,
+            0.0
+          ],
+          "reason": "accepted"
+        }
+      ]
+    },
+    {
+      "frame": 148,
+      "region": "far_white_at_right_edge",
+      "detections": [
+        {
+          "box": [
+            1887.5999755859375,
+            690.75,
+            1920.0,
+            767.25,
+            0.49609375,
+            0.0
+          ],
+          "reason": "partial_or_implausible_body"
+        },
+        {
+          "box": [
+            1885.7999267578125,
+            564.2999877929688,
+            1920.0,
+            767.699951171875,
+            0.190673828125,
+            0.0
+          ],
+          "reason": "clothing_not_supported"
+        }
+      ]
+    },
+    {
+      "frame": 149,
+      "region": "far_white_at_right_edge",
+      "detections": [
+        {
+          "box": [
+            1891.199951171875,
+            700.199951171875,
+            1920.0,
+            766.7999877929688,
+            0.51171875,
+            0.0
+          ],
+          "reason": "partial_or_implausible_body"
+        },
+        {
+          "box": [
+            1890.0,
+            697.5,
+            1920.0,
+            846.0,
+            0.08538818359375,
+            0.0
+          ],
+          "reason": "partial_or_implausible_body"
+        }
+      ]
+    },
+    {
+      "frame": 150,
+      "region": "far_white_at_right_edge",
+      "detections": [
+        {
+          "box": [
+            1896.0,
+            711.75,
+            1920.0,
+            764.25,
+            0.393310546875,
+            0.0
+          ],
+          "reason": "partial_or_implausible_body"
+        },
+        {
+          "box": [
+            1896.0,
+            709.875,
+            1920.0,
+            844.5,
+            0.10302734375,
+            0.0
+          ],
+          "reason": "partial_or_implausible_body"
+        }
+      ]
+    },
+    {
+      "frame": 151,
+      "region": "far_white_at_right_edge",
+      "detections": [
+        {
+          "box": [
+            1896.0,
+            705.0,
+            1920.0,
+            768.0,
+            0.2005615234375,
+            0.0
+          ],
+          "reason": "partial_or_implausible_body"
+        },
+        {
+          "box": [
+            1896.0,
+            704.625,
+            1920.0,
+            849.0,
+            0.076416015625,
+            0.0
+          ],
+          "reason": "partial_or_implausible_body"
+        }
+      ]
+    },
+    {
+      "frame": 152,
+      "region": "far_white_at_right_edge",
+      "detections": []
+    },
+    {
+      "frame": 153,
+      "region": "far_white_at_right_edge",
+      "detections": []
+    },
+    {
+      "frame": 154,
+      "region": "far_white_at_right_edge",
+      "detections": []
+    },
+    {
+      "frame": 148,
+      "region": "occluded_far_yellow",
+      "detections": [
+        {
+          "box": [
+            850.5,
+            418.9499816894531,
+            1023.2999877929688,
+            609.75,
+            0.89697265625,
+            0.0
+          ],
+          "reason": "accepted"
+        },
+        {
+          "box": [
+            882.75,
+            357.75,
+            951.75,
+            495.0,
+            0.2139892578125,
+            0.0
+          ],
+          "reason": "accepted"
+        },
+        {
+          "box": [
+            876.5999755859375,
+            359.7749938964844,
+            973.7999877929688,
+            559.7999877929688,
+            0.11395263671875,
+            0.0
+          ],
+          "reason": "accepted"
+        }
+      ]
+    },
+    {
+      "frame": 149,
+      "region": "occluded_far_yellow",
+      "detections": [
+        {
+          "box": [
+            847.7999877929688,
+            415.79998779296875,
+            1008.0,
+            608.3999633789062,
+            0.90283203125,
+            0.0
+          ],
+          "reason": "accepted"
+        },
+        {
+          "box": [
+            878.9249877929688,
+            359.0999755859375,
+            930.4500122070312,
+            454.5,
+            0.282958984375,
+            0.0
+          ],
+          "reason": "outside_candidate_area"
+        }
+      ]
+    },
+    {
+      "frame": 150,
+      "region": "occluded_far_yellow",
+      "detections": [
+        {
+          "box": [
+            873.8999633789062,
+            360.0,
+            927.8999633789062,
+            492.29998779296875,
+            0.1251220703125,
+            0.0
+          ],
+          "reason": "accepted"
+        }
+      ]
+    },
+    {
+      "frame": 151,
+      "region": "occluded_far_yellow",
+      "detections": []
+    },
+    {
+      "frame": 152,
+      "region": "occluded_far_yellow",
+      "detections": []
+    },
+    {
+      "frame": 153,
+      "region": "occluded_far_yellow",
+      "detections": []
+    },
+    {
+      "frame": 154,
+      "region": "occluded_far_yellow",
+      "detections": []
+    },
+    {
+      "frame": 155,
+      "region": "occluded_far_yellow",
+      "detections": [
+        {
+          "box": [
+            815.3999633789062,
+            372.5999755859375,
+            865.7999877929688,
+            463.9499816894531,
+            0.0966796875,
+            0.0
+          ],
+          "reason": "outside_candidate_area"
+        }
+      ]
+    },
+    {
+      "frame": 156,
+      "region": "occluded_far_yellow",
+      "detections": [
+        {
+          "box": [
+            792.2999877929688,
+            374.8499755859375,
+            856.9312744140625,
+            463.04998779296875,
+            0.2147216796875,
+            0.0
+          ],
+          "reason": "outside_candidate_area"
+        }
+      ]
+    },
+    {
+      "frame": 157,
+      "region": "occluded_far_yellow",
+      "detections": [
+        {
+          "box": [
+            789.0,
+            374.25,
+            846.0,
+            461.25,
+            0.1842041015625,
+            0.0
+          ],
+          "reason": "outside_candidate_area"
+        }
+      ]
+    },
+    {
+      "frame": 158,
+      "region": "occluded_far_yellow",
+      "detections": [
+        {
+          "box": [
+            782.7937622070312,
+            374.3999938964844,
+            840.5062255859375,
+            473.3999938964844,
+            0.2081298828125,
+            0.0
+          ],
+          "reason": "accepted"
+        },
+        {
+          "box": [
+            775.7999877929688,
+            375.0749816894531,
+            841.5,
+            587.7000122070312,
+            0.091064453125,
+            0.0
+          ],
+          "reason": "accepted"
+        }
+      ]
+    },
+    {
+      "frame": 159,
+      "region": "occluded_far_yellow",
+      "detections": [
+        {
+          "box": [
+            767.699951171875,
+            372.5999755859375,
+            836.0999755859375,
+            593.0999755859375,
+            0.320068359375,
+            0.0
+          ],
+          "reason": "accepted"
+        }
+      ]
+    }
+  ]
+}

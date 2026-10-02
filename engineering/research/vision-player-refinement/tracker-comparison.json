@@ -1,0 +1,22 @@
+{
+  "byte-original": {
+    "seconds_decode_and_tracking": 2.8444279999966966,
+    "unique_ids": 21
+  },
+  "byte-buffer60": {
+    "seconds_decode_and_tracking": 2.903654000008828,
+    "unique_ids": 21
+  },
+  "botsort": {
+    "seconds_decode_and_tracking": 7.181312600005185,
+    "unique_ids": 19
+  },
+  "ocsort": {
+    "seconds_decode_and_tracking": 2.8900756999937585,
+    "unique_ids": 18
+  },
+  "byte-jersey": {
+    "seconds_decode_and_tracking": 3.3104949999979,
+    "unique_ids": 23
+  }
+}

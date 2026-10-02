@@ -1,0 +1,72 @@
+[
+  {
+    "model": "yolov8n.pt",
+    "tracker": "bytetrack.yaml",
+    "imgsz": 640,
+    "runs": 3,
+    "files": [
+      "yolov8n-bytetrack-r2.json",
+      "yolov8n-bytetrack-r3.json",
+      "yolov8n-bytetrack.json"
+    ],
+    "frames_per_run": 243,
+    "video_seconds": 8.1081,
+    "wall_seconds_median": 2.6796978999918792,
+    "wall_seconds_min": 2.6216043000022182,
+    "wall_seconds_max": 3.804582600001595,
+    "real_time_factor_median": 0.3304964048287366,
+    "accuracy_evaluated": false
+  },
+  {
+    "model": "yolov8s.pt",
+    "tracker": "botsort.yaml",
+    "imgsz": 640,
+    "runs": 3,
+    "files": [
+      "yolov8s-botsort-r1.json",
+      "yolov8s-botsort-r2.json",
+      "yolov8s-botsort-r3.json"
+    ],
+    "frames_per_run": 243,
+    "video_seconds": 8.1081,
+    "wall_seconds_median": 6.530503400004818,
+    "wall_seconds_min": 6.4531835999951,
+    "wall_seconds_max": 6.58589679999568,
+    "real_time_factor_median": 0.8054295580968189,
+    "accuracy_evaluated": false
+  },
+  {
+    "model": "yolov8s.pt",
+    "tracker": "bytetrack.yaml",
+    "imgsz": 1280,
+    "runs": 1,
+    "files": [
+      "yolov8s-bytetrack-1280.json"
+    ],
+    "frames_per_run": 243,
+    "video_seconds": 8.1081,
+    "wall_seconds_median": 3.739474900008645,
+    "wall_seconds_min": 3.739474900008645,
+    "wall_seconds_max": 3.739474900008645,
+    "real_time_factor_median": 0.4612023655367651,
+    "accuracy_evaluated": false
+  },
+  {
+    "model": "yolov8s.pt",
+    "tracker": "bytetrack.yaml",
+    "imgsz": 640,
+    "runs": 3,
+    "files": [
+      "yolov8s-bytetrack-r2.json",
+      "yolov8s-bytetrack-r3.json",
+      "yolov8s-bytetrack.json"
+    ],
+    "frames_per_run": 243,
+    "video_seconds": 8.1081,
+    "wall_seconds_median": 2.658650500001386,
+    "wall_seconds_min": 2.606628499997896,
+    "wall_seconds_max": 2.7944491999951424,
+    "real_time_factor_median": 0.32790055623406045,
+    "accuracy_evaluated": false
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "videoSha256": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+  "frames": 243,
+  "fps": 29.97002997002997,
+  "wallSeconds": 2.494566699999268,
+  "lineCandidateSeconds": 0.04683360000490211,
+  "straightCandidatesFirstFrame": 40,
+  "motionAcceptedFrames": 242,
+  "motionFailedFrames": 0,
+  "usesNewYoloInference": false,
+  "usesCachedPeopleMask": true,
+  "seed": "expanded reference controls at frame 0",
+  "independentMetricAccuracyValidated": false,
+  "visualReferenceComparisons": [
+    {
+      "frame": 30,
+      "medianDifferenceFromVisualReferencePixels": 5.967887931358779
+    },
+    {
+      "frame": 60,
+      "medianDifferenceFromVisualReferencePixels": 16.4675340548788
+    },
+    {
+      "frame": 90,
+      "medianDifferenceFromVisualReferencePixels": 15.417733315150942
+    },
+    {
+      "frame": 120,
+      "medianDifferenceFromVisualReferencePixels": 24.937366798535997
+    },
+    {
+      "frame": 150,
+      "medianDifferenceFromVisualReferencePixels": 24.534668209465142
+    },
+    {
+      "frame": 180,
+      "medianDifferenceFromVisualReferencePixels": 19.550107648303836
+    },
+    {
+      "frame": 210,
+      "medianDifferenceFromVisualReferencePixels": 19.254537022345573
+    },
+    {
+      "frame": 242,
+      "medianDifferenceFromVisualReferencePixels": 39.85268351929007
+    }
+  ],
+  "notes": [
+    "Line candidates have no automatic court semantics.",
+    "Motion quality gates are experimental, not calibrated probabilities.",
+    "Reference comparisons are rough manual annotations, not surveyed ground truth.",
+    "Masks depend on this clip geometry and lower graphics region."
+  ],
+  "collectedDate": "2026-10-01",
+  "timezone": "Asia/Shanghai",
+  "video": "data/videos/nba/2024-25/clips/IND-OKC_Q4_pick-pop_8.1s_1080p.mp4",
+  "processingResolution": [
+    960,
+    540
+  ],
+  "cpuThreads": 4,
+  "opencvVersion": "5.0.0",
+  "validation": "single run, no independent ground truth"
+}

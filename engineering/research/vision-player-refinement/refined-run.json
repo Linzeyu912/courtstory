@@ -1,0 +1,29 @@
+{
+  "source": "data/videos/nba/2024-25/library100/clips/001_2025-06-05_IND-OKC_pick-pop/IND-OKC_Q4_pick-pop_8.1s_1080p.mp4",
+  "output": "artifacts/vision-player-refinement/player-candidates-v2.mp4",
+  "model": "yolov8m.pt",
+  "tracker": "bytetrack.yaml",
+  "imgsz": 1280,
+  "classes": [
+    0
+  ],
+  "conf": 0.07,
+  "fp16": true,
+  "frames": 243,
+  "player_profile": "research/vision-player-refinement/clip001-profile.json",
+  "extra_tiles": true,
+  "tracker_parameters": {
+    "track_high_thresh": 0.2,
+    "track_low_thresh": 0.07,
+    "new_track_thresh": 0.2,
+    "track_buffer": 30,
+    "match_thresh": 0.8,
+    "fuse_score": false
+  },
+  "pending_display_threshold": 0.2,
+  "audio_packets_copied": 351,
+  "unique_track_ids": 21,
+  "render_seconds": 30.701214099986828,
+  "total_seconds_including_imports": 34.519152799999574,
+  "note": "Visualization only; includes drawing and encoding, no accuracy evaluation or tactical overlays."
+}

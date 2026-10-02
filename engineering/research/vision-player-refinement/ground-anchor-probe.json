@@ -1,0 +1,27 @@
+{
+  "videoSha256": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+  "model": "tmp/vision-deploy-bench/yolov8s-pose.pt",
+  "modelSha256": "234314cd8baf62616791aceb9ea6ad5c19f26cf6c0d8f3a1bfce1e23b186cfb3",
+  "source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8s-pose.pt",
+  "device": "0",
+  "inputSize": 1280,
+  "sampleFrames": 9,
+  "trackObservations": 75,
+  "matchedPoseObservations": 67,
+  "bothAnklesAboveThreshold": 63,
+  "ankleConfidenceThreshold": 0.5,
+  "loadAndWarmupSeconds": 0.5975399000017205,
+  "wallSecondsExcludingWarmup": 0.8939525000023423,
+  "predictMedianSeconds": 0.013674200003151782,
+  "proxyDifferenceMetresMedian": 1.0232491504473256,
+  "proxyDifferenceMetresP90": 1.479710848235046,
+  "metricAccuracyValidated": false,
+  "notes": [
+    "Ankles are above the floor. Contact, occlusion and jumping remain unresolved.",
+    "Difference between proxies is not error against ground truth.",
+    "Court transform uses unvalidated visual references.",
+    "Runtime is nine sampled frames plus decoding; not a full-pipeline benchmark."
+  ],
+  "collectedDate": "2026-10-01",
+  "timezone": "Asia/Shanghai"
+}

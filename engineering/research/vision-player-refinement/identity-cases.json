@@ -1,0 +1,23 @@
+{
+  "scope": "Sparse identity checks visually annotated on the debugging clip; not held-out MOT accuracy. Names describe the players at frame 0. Boxes are evaluation references only.",
+  "video_sha256": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+  "cases": [
+    {"frame":0,"person":"far_yellow","box":[603,301,655,470]},
+    {"frame":0,"person":"far_white","box":[640,348,687,521]},
+    {"frame":0,"person":"white_9","box":[1375,433,1442,595]},
+    {"frame":0,"person":"yellow_pink_shoes","box":[1277,404,1353,555]},
+    {"frame":90,"person":"far_yellow","box":[940,288,1020,486]},
+    {"frame":90,"person":"far_white","box":[882,360,1002,563]},
+    {"frame":90,"person":"white_9","box":[685,434,800,624]},
+    {"frame":90,"person":"yellow_pink_shoes","box":[1562,438,1667,689]},
+    {"frame":120,"person":"far_yellow","box":[1000,321,1089,506]},
+    {"frame":120,"person":"far_white","box":[1272,438,1407,655]},
+    {"frame":120,"person":"white_9","box":[834,399,963,604]},
+    {"frame":120,"person":"yellow_pink_shoes","box":[1490,420,1599,714]},
+    {"frame":150,"person":"white_9","box":[845,416,991,609]},
+    {"frame":150,"person":"yellow_pink_shoes","box":[1500,475,1657,726]},
+    {"frame":180,"person":"white_9","box":[730,400,841,602]},
+    {"frame":242,"person":"far_yellow","box":[615,442,705,675]},
+    {"frame":242,"person":"white_9","box":[787,367,870,574]}
+  ]
+}
