@@ -58,6 +58,33 @@ test('export preserves estimates and unresolved gaps without claiming every fram
   assert.deepEqual(output.entities[0].unresolved,[{start:0,end:0},{start:5,end:8}]);
 });
 
+test('scene object export preserves per-frame evidence without becoming player or ground trajectories',()=>{
+  const records=structuredClone(frames);
+  records[3].objects=[{kind:'basketball',box:[20,30,28,38],score:.73,source:'model',groundPoint:false},
+    {kind:'hoop',box:[80,50,120,68],score:.91,source:'model',groundPoint:false}];
+  const session=scenario([{frame:0,x:100,y:300,trackId:null}]);
+  const exported=exportReview(session,{video_sha256:'sample',width:1920,height:1080,frames:records},'test-time');
+  assert.equal(exported.sceneObjects.coordinateSystem,'image_pixels');
+  assert.equal(exported.sceneObjects.continuousTracking,false);assert.equal(exported.sceneObjects.groundProjection,false);
+  assert.deepEqual(exported.sceneObjects.frames[3],{frame:3,time:.3,objects:records[3].objects});
+  assert.deepEqual(exported.sceneObjects.frames[4].objects,[]);
+  assert.equal(exported.entities.length,1);assert.equal(exported.entities[0].id,'P1');
+  assert.equal(exported.entities[0].trajectory[3].source,'missing');
+  assert.equal(exported.entities[0].courtTrajectory[3].x,null);
+  exported.sceneObjects.frames[3].objects[0].box[0]=999;
+  assert.equal(records[3].objects[0].box[0],20);
+});
+
+test('direct export restores immutable source cuts without rewriting the supplied draft',()=>{
+  const records=frames.slice(0,4).map((record,i)=>({...record,source_frame:i<2?i:i+98,tracks:[[90,200,110,300,1,.9,2]]}));
+  const session=scenario([{frame:0,x:100,y:300,trackId:1}]);session.cuts=[];
+  const exported=exportReview(session,{video_sha256:'joined',width:1920,height:1080,frames:records,sourceCuts:[2]},'test-time');
+  assert.deepEqual(exported.settings.cuts,[2]);assert.deepEqual(exported.settings.sourceCuts,[2]);
+  assert.deepEqual(exported.entities[0].trajectory.map(p=>p.source),['manual','tracked','missing','missing']);
+  assert.deepEqual(session.cuts,[]);
+  assert.equal(exported.sourceFrameMapping[2].sourceFrame,100);
+});
+
 test('manual range reconnects an ID without changing earlier frames or unrelated people',()=>{
   const records=structuredClone(frames);
   records[1].tracks=[[90,200,110,300,10,.9,0]];

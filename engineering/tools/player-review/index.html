@@ -2,9 +2,10 @@
 <html lang="zh-CN">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>球场数据工作台</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/pipeline.css"></head>
 <body>
-<header><div><div class="eyebrow">COURT REVIEW / 篮球视频</div><h1>球场数据工作台</h1></div><div class="header-tools"><label>跟踪版本 <select id="trackingVersion" aria-label="跟踪版本"></select></label><span id="summary" class="pill">正在载入</span><button id="save">保存草稿</button><button id="undo">撤销</button></div></header>
+<header><div><div class="eyebrow">COURT REVIEW / 篮球视频</div><h1>球场数据工作台</h1></div><div class="header-tools"><label>检测与跟踪 <select id="trackingVersion" aria-label="跟踪版本"></select></label><span id="summary" class="pill">正在载入</span><button id="save">保存草稿</button><button id="undo">撤销</button></div></header>
 <main>
   <section class="review-card sample-picker"><label class="field">验收视频<select id="sampleSelect" aria-label="验收视频"></select></label><div><h2 id="sampleTitle"></h2><p id="sampleDescription" class="small muted"></p><a id="sampleSource" target="_blank" rel="noreferrer">查看来源</a></div></section>
+  <section class="tracking-explainer" aria-label="检测和跟踪的关系"><div class="tracking-stages"><span>逐帧检测 <b>人物 / 球 / 篮筐</b></span><i>→</i><span>ByteTrack 连续关联 <b>临时 T 编号</b></span><i>→</i><span>人工确认与纠错 <b>固定 P 身份</b></span></div><p id="modelSummary" class="small muted"></p></section>
   <section class="overview" id="overview" hidden>
     <div class="court-card" id="courtCard">
       <div class="court-heading"><div><span class="eyebrow">同步视频时间</span><h2>2D 球场 · 移动轨迹</h2></div><div class="mode-switch"><button id="halfCourt" class="active" aria-pressed="true">滑动半场</button><button id="fullCourt" aria-pressed="false">全场总览</button><button id="openCourtCalibration" hidden>校准球场</button></div></div>
@@ -31,7 +32,7 @@
       <button id="tab-events" role="tab" aria-controls="panel-events" aria-selected="false" tabindex="-1" data-step="events" hidden>动作事件</button>
     </nav>
     <div class="operation-body">
-      <div class="video-card"><div class="section-heading video-heading"><h2>原视频 · 核对依据</h2><span id="videoMode" class="small muted">点击候选框关联球员</span></div><div id="stage"><video id="video" playsinline preload="auto"></video><canvas id="overlay" aria-label="原视频人工操作区"></canvas></div><div class="video-footer"><label class="check"><input id="showCandidates" type="checkbox" checked>显示候选人物</label><button id="cut">此处标记切镜</button></div><p id="pointStatus" class="status-text"></p><div id="repairCourtView" hidden></div></div>
+      <div class="video-card"><div class="section-heading video-heading"><h2>原视频 · 核对依据</h2><span id="videoMode" class="small muted">点击候选框关联球员</span></div><div id="stage"><video id="video" playsinline preload="auto"></video><canvas id="overlay" aria-label="原视频人工操作区"></canvas></div><div class="video-footer"><label class="check"><input id="showCandidates" type="checkbox" checked>候选人物</label><label class="check"><input id="showTrackTrails" type="checkbox" checked>T / P 轨迹尾迹</label><label class="check"><input id="showObjects" type="checkbox" checked>篮球 / 篮筐</label><button id="cut">此处标记切镜</button></div><div class="tracking-evidence"><p id="trackingContinuity" class="small muted"></p><p id="objectStatus" class="small muted"></p></div><p id="pointStatus" class="status-text"></p><div id="repairCourtView" hidden></div></div>
       <div class="step-panels">
         <section id="panel-footage" role="tabpanel" aria-labelledby="tab-footage">
           <h2>先保留能看清整体站位的直播画面</h2><p class="small muted">逐帧选择普通转播区间，把特写、采访、回放、慢放和停帧留在区间外。画面类型由你核对。</p>

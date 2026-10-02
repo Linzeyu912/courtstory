@@ -58,13 +58,14 @@ def main():
             if sample.get('parentSample') not in clips:continue
             if sample.get('parentVideoSha256')!=clips[sample['parentSample']]['digest']:continue
             if any(not Path(sample[k]).resolve().is_relative_to(cache) or not Path(sample[k]).is_file() for k in ['video','tracks']):continue
+            if any(not Path(v['tracks']).resolve().is_relative_to(cache) or not Path(v['tracks']).is_file() for v in sample.get('trackingVariants',[])):continue
             clips[sample['id']]=load_clip(parser,sample);samples.append(sample);saved.append(sample)
     mutation_lock=threading.Lock()
     def library_payload():
-        return json.dumps({"defaultSample":default,"samples":[{k:s.get(k) for k in ['id','title','description','sourceUrl']} for s in samples]},ensure_ascii=False).encode('utf-8')
+        return json.dumps({"defaultSample":default,"samples":[{**{k:s.get(k) for k in ['id','title','description','sourceUrl']},'defaultVariant':clips[s['id']]['defaultVariant']} for s in samples]},ensure_ascii=False).encode('utf-8')
     static = Path(__file__).resolve().parents[1] / "tools/player-review"
     routes = {"/": static / "index.html"}
-    for filename in ["style.css","pipeline.css","app.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
+    for filename in ["style.css","pipeline.css","app.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
         routes['/'+filename]=static/filename
 
     class Handler(BaseHTTPRequestHandler):
@@ -77,14 +78,15 @@ def main():
                 size=int(self.headers.get('Content-Length','0'))
                 if not 0<size<=65536:raise ValueError('剪辑请求大小不正确。')
                 request=json.loads(self.rfile.read(size))
-                source_id=request.get('sample');variant=request.get('variant','original')
+                source_id=request.get('sample');variant=request.get('variant',clips.get(source_id,{}).get('defaultVariant','original'))
                 if source_id not in clips or variant not in clips[source_id]['payloads']:raise ValueError('找不到源视频或跟踪版本。')
                 from review_video_trim import trim_review_clip
                 with mutation_lock:
                     parent=next(s for s in samples if s['id']==source_id)
                     ident=('qa-cut-' if request.get('qa') is True else 'cut-')+uuid.uuid4().hex[:12]
                     result=trim_review_clip({'video':clips[source_id]['video'],
-                        'payload':json.loads(clips[source_id]['payloads'][variant])},request.get('ranges'),cache/ident)
+                        'payload':json.loads(clips[source_id]['payloads'][variant]),
+                        'payloads':{key:json.loads(value) for key,value in clips[source_id]['payloads'].items()}},request.get('ranges'),cache/ident)
                     selection={'ranges':result['retainedRanges'],'confirmedAt':datetime.now(timezone.utc).isoformat(),
                         'method':'manual_retained_frame_ranges','parentVideoSha256':clips[source_id]['digest']}
                     sample={**result,'id':ident,'title':parent['title']+' · 人工剪辑',
@@ -116,7 +118,7 @@ def main():
             if route in {"/api/clip","/video.mp4"} and sample_id not in clips:
                 self.send_error(404,"Unknown sample");return
             if route in {"/api/clip","/api/library"}:
-                payload=library_payload() if route=="/api/library" else clips[sample_id]['payloads'].get(query.get('variant',['original'])[0])
+                payload=library_payload() if route=="/api/library" else clips[sample_id]['payloads'].get(query.get('variant',[clips[sample_id]['defaultVariant']])[0])
                 if payload is None:
                     self.send_error(404,"Unknown tracking variant");return
                 self.send_response(200)
@@ -193,13 +195,27 @@ def load_clip(parser,sample):
         times=[float(f.time) for f in container.decode(video=0)]
     if len(times)!=len(records) or any(abs(t-r['time'])>.001 for t,r in zip(times,records)):
         parser.error('Tracks must match every decoded video frame timestamp')
-    versions={"original":(records,records_path,"原跟踪 · 保留已有草稿")}
+    versions={"original":(records,records_path,sample.get('originalLabel','原跟踪 · 保留已有草稿'),False)}
+    extra_variants=list(sample.get('trackingVariants',[]))
     if sample.get('alternativeTracks'):
-        alternative_path=Path(sample['alternativeTracks']).resolve()
+        extra_variants.append({'id':'jersey','tracks':sample['alternativeTracks'],'label':'球衣约束实验 · 独立草稿'})
+    for config in extra_variants:
+        ident=config.get('id')
+        if not isinstance(ident,str) or not re.fullmatch(r'[a-z][a-z0-9_-]{0,39}',ident) or ident in versions:
+            parser.error('Tracking variants must have unique safe identifiers')
+        alternative_path=Path(config['tracks']).resolve()
         alternative=json.loads(alternative_path.read_text(encoding="utf-8"))
         if len(alternative)!=len(records) or any(a['frame']!=b['frame'] or abs(a['time']-b['time'])>.001 for a,b in zip(records,alternative)):
             parser.error("Alternative tracks must match the original frame sequence")
-        versions["jersey"]=(alternative,alternative_path,"球衣约束实验 · 独立草稿")
+        meta_path=alternative_path.with_suffix('.meta.json')
+        if meta_path.is_file():
+            meta=json.loads(meta_path.read_text(encoding='utf-8'))
+            if meta.get('video_sha256')!=digest or meta.get('frames')!=len(records):
+                parser.error('Alternative tracks metadata does not match the video')
+        versions[ident]=(alternative,alternative_path,config.get('label',ident),bool(config.get('recommended',False)))
+    default_variant=sample.get('defaultVariant','original')
+    if default_variant not in versions:
+        parser.error('Default tracking variant is unavailable')
     court_profile = None
     if Path(sample.get('courtProfile','engineering/research/vision-player-refinement/clip001-court-expanded.json')).is_file():
         candidate = json.loads(Path(sample.get('courtProfile','engineering/research/vision-player-refinement/clip001-court-expanded.json')).read_text(encoding="utf-8"))
@@ -207,8 +223,9 @@ def load_clip(parser,sample):
             court_profile = candidate
     payloads={key:json.dumps({"video_sha256":digest,"width":width,"height":height,"courtCalibration":court_profile,
         "frames":data,"sourceCuts":sample.get('sourceCuts',[]),"liveSelection":sample.get('liveSelection'),"source_video_sha256":sample.get('sourceVideoSha256'),"supportsCourtCalibration":sample.get('supportsCourtCalibration',True),"tracking_revision":key,"tracking_fingerprint":hashlib.sha256(path.read_bytes()).hexdigest(),
-        "variants":[{"id":identifier,"label":entry[2]} for identifier,entry in versions.items()]},ensure_ascii=False).encode("utf-8") for key,(data,path,label) in versions.items()}
-    return {'video':video,'payloads':payloads,'digest':digest,'frames':len(records)}
+        "variant":key,"defaultVariant":default_variant,
+        "variants":[{"id":identifier,"label":entry[2],"recommended":entry[3]} for identifier,entry in versions.items()]},ensure_ascii=False).encode("utf-8") for key,(data,path,label,recommended) in versions.items()}
+    return {'video':video,'payloads':payloads,'digest':digest,'frames':len(records),'defaultVariant':default_variant}
 
 
 if __name__ == "__main__":
