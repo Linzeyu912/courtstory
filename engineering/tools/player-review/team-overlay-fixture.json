@@ -1,0 +1,12 @@
+{
+  "width": 1280, "height": 720, "cuts": [],
+  "points": [
+    {"frame":0,"time":0,"x":150,"y":300,"box":[100,100,200,300],"source":"tracked","trackId":1,"identitySource":"model_suggestion","identityStartFrame":0,"footMethod":"bbox_bottom_center"},
+    {"frame":1,"time":0.04,"x":150,"y":301,"box":[100,100,200,301],"source":"tracked","trackId":1,"identitySource":"model_suggestion","identityStartFrame":0,"footMethod":"bbox_bottom_center"},
+    {"frame":2,"time":0.08,"x":150,"y":380,"box":[100,100,200,380],"source":"tracked","trackId":1,"identitySource":"model_suggestion","identityStartFrame":0,"footMethod":"bbox_bottom_center"},
+    {"frame":3,"time":0.12,"x":150,"y":303,"box":[100,100,200,303],"source":"tracked","trackId":1,"identitySource":"model_suggestion","identityStartFrame":0,"footMethod":"bbox_bottom_center"},
+    {"frame":4,"time":0.16,"x":150,"y":304,"box":[100,100,200,304],"source":"tracked","trackId":1,"identitySource":"model_suggestion","identityStartFrame":0,"footMethod":"bbox_bottom_center"}
+  ],
+  "expectedY": [300,301,322.25,303.75,304],
+  "entities": [{"id":"P1","role":"player","modelTeamGroup":"A"},{"id":"P6","role":"player","teamGroup":"B","teamGroupSource":"human"}]
+}

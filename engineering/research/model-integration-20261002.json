@@ -1,0 +1,300 @@
+{
+  "collected_at_utc": "2026-10-02T14:29:50.244513+00:00",
+  "source_thy_revision": "1839dcd",
+  "runtime": {
+    "python": "3.12.10",
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8",
+    "ultralytics": "8.4.171",
+    "pyav": "17.0.0",
+    "device": "NVIDIA GeForce RTX 5070 Laptop GPU",
+    "models": {
+      "ebard": {
+        "path": "tmp/models/BODD_yolov8n_0001.pt",
+        "sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+        "bytes": 6151282
+      },
+      "yolo": {
+        "path": "tmp/models/yolov8s.pt",
+        "sha256": "1f47a78bf100391c2a140b7ac73a1caae18c32779be7d310658112f7ac9aa78a",
+        "bytes": 22588772
+      }
+    },
+    "reid": "detector-native features; no separate ReID weight or network download"
+  },
+  "recommended": "team-stable",
+  "recommendation_basis": "user requested THY full configuration as default; this run does not measure identity accuracy",
+  "smoke": {
+    "variants": [
+      "baseline",
+      "low",
+      "reid",
+      "optimized",
+      "yolo"
+    ],
+    "frames_per_variant": 8,
+    "all_passed": true,
+    "ebard_bytetrack": {
+      "frames": 8,
+      "passed": true,
+      "actual_device": "cuda:0",
+      "evidence_sha256": "aae267cc725958f2cd776fc21dbe96f5ec1d171a32520dcdbc27668195adc813"
+    }
+  },
+  "generated_runs": [
+    {
+      "sample": "004",
+      "variant": "baseline",
+      "frames": 210,
+      "video_sha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "tracks_sha256": "6ce659c01d1203c461abe634097b72980d336d29a2fd2e978d3847e0c3c11869",
+      "metadata_sha256": "9276281839ba8eeb620da95e446db84d3b187cda1dd75c3d3a097f3313187e3b",
+      "seconds": 5.0272025000012945,
+      "library_entry": {
+        "id": "baseline",
+        "label": "THY · BoT-SORT 基线",
+        "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/004-baseline.json"
+      },
+      "decoded_source_frames": 210,
+      "maximum_pts_error_seconds": 4.981228762801493e-10,
+      "configuration_sha256": "1cd06a3ac3b7bd1775d65f0663600c916f52314c8e4e122bcff54f43bc0e1931",
+      "actual_parameter_dtype": "torch.float32"
+    },
+    {
+      "sample": "004",
+      "variant": "low",
+      "frames": 210,
+      "video_sha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "tracks_sha256": "8370284f29d639763cf76acf3899616389ed10b4f0f3b6b2b7440fd95e7b2f99",
+      "metadata_sha256": "21b789ffa3904362ad64ce3d3ec8e7068ec05c308b2e8489ab05d3c1eb9cf328",
+      "seconds": 5.230045500007691,
+      "library_entry": {
+        "id": "low",
+        "label": "THY · 低分续接",
+        "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/004-low.json"
+      },
+      "decoded_source_frames": 210,
+      "maximum_pts_error_seconds": 4.981228762801493e-10,
+      "configuration_sha256": "1cd06a3ac3b7bd1775d65f0663600c916f52314c8e4e122bcff54f43bc0e1931",
+      "actual_parameter_dtype": "torch.float32"
+    },
+    {
+      "sample": "004",
+      "variant": "reid",
+      "frames": 210,
+      "video_sha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "tracks_sha256": "d62d98c6788b3c6b4a856252c9a17e8174f39f4aa2deaafc9cd5f404bf57b22b",
+      "metadata_sha256": "f5f4c300840ece6786680d7b9f590eeba2c1b8fadc8e037992c08d393a4a94d3",
+      "seconds": 5.880722799978685,
+      "library_entry": {
+        "id": "reid",
+        "label": "THY · 原生 ReID 外观续接",
+        "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/004-reid.json"
+      },
+      "decoded_source_frames": 210,
+      "maximum_pts_error_seconds": 4.981228762801493e-10,
+      "configuration_sha256": "8a50fcee8475c5d865b6ef8b4f25bc94348a61019668796f9786da394de99dc4",
+      "actual_parameter_dtype": "torch.float32"
+    },
+    {
+      "sample": "005",
+      "variant": "baseline",
+      "frames": 143,
+      "video_sha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "tracks_sha256": "a78acf752488fa54fa11608bf45228551733ade0ca31474019f7494db91a1e15",
+      "metadata_sha256": "3e2cf1bd143968a89010b034ac53da8e04ec398c3de33c5747e30f0a09519f65",
+      "seconds": 4.683995300001698,
+      "library_entry": {
+        "id": "baseline",
+        "label": "THY · BoT-SORT 基线",
+        "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/005-baseline.json"
+      },
+      "decoded_source_frames": 143,
+      "maximum_pts_error_seconds": 3.33333360913457e-10,
+      "configuration_sha256": "1cd06a3ac3b7bd1775d65f0663600c916f52314c8e4e122bcff54f43bc0e1931",
+      "actual_parameter_dtype": "torch.float32"
+    },
+    {
+      "sample": "005",
+      "variant": "low",
+      "frames": 143,
+      "video_sha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "tracks_sha256": "be9a8e8f2677418c549083e074d39fa9b632b322a94beb0335b6721eab8ab3f1",
+      "metadata_sha256": "fd928a3c19f8cdb033e73f069c5d43b40eb8bd92e3834410d74e2e568ed3ad6c",
+      "seconds": 4.635614099999657,
+      "library_entry": {
+        "id": "low",
+        "label": "THY · 低分续接",
+        "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/005-low.json"
+      },
+      "decoded_source_frames": 143,
+      "maximum_pts_error_seconds": 3.33333360913457e-10,
+      "configuration_sha256": "1cd06a3ac3b7bd1775d65f0663600c916f52314c8e4e122bcff54f43bc0e1931",
+      "actual_parameter_dtype": "torch.float32"
+    },
+    {
+      "sample": "005",
+      "variant": "reid",
+      "frames": 143,
+      "video_sha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "tracks_sha256": "5bfccdcd5965ce64c18944bf2b8cbf32412b64a079e063d610f914c3cd6e59c4",
+      "metadata_sha256": "00346bff929248d659f9332938ddd3c7f1075205ed476bd435953f66617d8ccb",
+      "seconds": 4.654630299977725,
+      "library_entry": {
+        "id": "reid",
+        "label": "THY · 原生 ReID 外观续接",
+        "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/005-reid.json"
+      },
+      "decoded_source_frames": 143,
+      "maximum_pts_error_seconds": 3.33333360913457e-10,
+      "configuration_sha256": "8a50fcee8475c5d865b6ef8b4f25bc94348a61019668796f9786da394de99dc4",
+      "actual_parameter_dtype": "torch.float32"
+    },
+    {
+      "sample": "006",
+      "variant": "baseline",
+      "frames": 462,
+      "video_sha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "tracks_sha256": "cc2b38daf0b1407e7a0af15227e8ba1e718516ce29789689b2e6049eb246ab2b",
+      "metadata_sha256": "0759286f3e7aa2199f4231b4d6a9ac74267040af8f8930d4ecd2e2e651576715",
+      "seconds": 14.511803000001237,
+      "library_entry": {
+        "id": "baseline",
+        "label": "THY · BoT-SORT 基线",
+        "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/006-baseline.json"
+      },
+      "decoded_source_frames": 462,
+      "maximum_pts_error_seconds": 3.33333360913457e-10,
+      "configuration_sha256": "1cd06a3ac3b7bd1775d65f0663600c916f52314c8e4e122bcff54f43bc0e1931",
+      "actual_parameter_dtype": "torch.float32"
+    },
+    {
+      "sample": "006",
+      "variant": "low",
+      "frames": 462,
+      "video_sha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "tracks_sha256": "591ce4143a24d9b9846ad35439c30f795ae77fb70bca039182f1911743f6ecf3",
+      "metadata_sha256": "5782f6f55d7fc11adc59b13ae18510da58ff85b8dd06587f705d0848082d3583",
+      "seconds": 14.504003600013675,
+      "library_entry": {
+        "id": "low",
+        "label": "THY · 低分续接",
+        "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/006-low.json"
+      },
+      "decoded_source_frames": 462,
+      "maximum_pts_error_seconds": 3.33333360913457e-10,
+      "configuration_sha256": "1cd06a3ac3b7bd1775d65f0663600c916f52314c8e4e122bcff54f43bc0e1931",
+      "actual_parameter_dtype": "torch.float32"
+    },
+    {
+      "sample": "006",
+      "variant": "reid",
+      "frames": 462,
+      "video_sha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "tracks_sha256": "c0d76d9210c684d5048e64248da8930cf227ab9acccbd401946b65ffe395065a",
+      "metadata_sha256": "0d5628f67c475236f5a239e9c760a557a5a156c6f59cae6c8a920b6c01ecb0db",
+      "seconds": 16.399178599996958,
+      "library_entry": {
+        "id": "reid",
+        "label": "THY · 原生 ReID 外观续接",
+        "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/006-reid.json"
+      },
+      "decoded_source_frames": 462,
+      "maximum_pts_error_seconds": 3.33333360913457e-10,
+      "configuration_sha256": "8a50fcee8475c5d865b6ef8b4f25bc94348a61019668796f9786da394de99dc4",
+      "actual_parameter_dtype": "torch.float32"
+    },
+    {
+      "sample": "nba-lal-min-005",
+      "variant": "yolo",
+      "frames": 267,
+      "video_sha256": "e76feffb09ede3e1b336c2e470370bcf1ee0937326bdf672e3e7e4bc5b661885",
+      "tracks_sha256": "427a76eb6ab3a37672acdbc924bb889f4cd0270230b258a10158963e899673ac",
+      "metadata_sha256": "42e3e19d563b3fee01b4d89127518eade86ed48f978f3a18e0d59e5926434a02",
+      "seconds": 6.95928099998855,
+      "library_entry": {
+        "id": "yolo",
+        "label": "通用 YOLOv8s · ByteTrack",
+        "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/nba-lal-min-005-yolo.json"
+      },
+      "decoded_source_frames": 267,
+      "maximum_pts_error_seconds": 0.0,
+      "configuration_sha256": "563bcd13056350fab4c184b01dd2240912054bf4e698708bfb79b96277c68079",
+      "actual_parameter_dtype": "torch.float32"
+    }
+  ],
+  "generated_total_frames": 2712,
+  "preserved_thy_files": [
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-optimized.json",
+      "sha256": "aaca9d5ea06d3e2a503b5b15453ca3f06ec73bcd8d83c36cee75a106af07c593"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-optimized.meta.json",
+      "sha256": "0ecacd3befaf7e868caae33ed9554addd3d59cb6216f468f9f361b4c0a018944"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.json",
+      "sha256": "aaca9d5ea06d3e2a503b5b15453ca3f06ec73bcd8d83c36cee75a106af07c593"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.meta.json",
+      "sha256": "976579c9578bce870b99d9bbc55b89998d7988a69502ae6a770dccd6dd1664e1"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-optimized.json",
+      "sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-optimized.meta.json",
+      "sha256": "19fbb5155f08dd9912886d0b2ade7008da5125ac8544d3022d1cd0bd44b6bab0"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json",
+      "sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.meta.json",
+      "sha256": "59a59e2c0843b051f81f425a09f1ea5ab2122ce7f06ee85cd4eae60a200460c0"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-optimized.json",
+      "sha256": "a8ce872d737fd3eeb8f18cc30f8138f5d3a7098b40241d7cf6ba553e63aedbf0"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-optimized.meta.json",
+      "sha256": "30cb50a1b976b9ef64feca9613af1522e7be4a3531ad0b7f0be4b7d18104fb72"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-team-stable.json",
+      "sha256": "a8ce872d737fd3eeb8f18cc30f8138f5d3a7098b40241d7cf6ba553e63aedbf0"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-team-stable.meta.json",
+      "sha256": "2741ff051c4b7d8815906772022252f1cef98658efe7f2c57d0e29224db12c2b"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-optimized.json",
+      "sha256": "87395ce9653d083aadc35bb59d8b81ddbaa3afa92e97992f3ab17e08f946eee1"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-optimized.meta.json",
+      "sha256": "edc7fbdf2522e3700d95d2a44bc1ba8f5187717edfaeb881ad84ec127b2822cb"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-team-stable.json",
+      "sha256": "87395ce9653d083aadc35bb59d8b81ddbaa3afa92e97992f3ab17e08f946eee1"
+    },
+    {
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-team-stable.meta.json",
+      "sha256": "4ad9a1d4b3e18d466f8d2850f66f1d18934c15b78ea30685b418eff94feb66d9"
+    }
+  ],
+  "regression": {
+    "basketball_tracking_and_render": 38,
+    "basketball_presentation": 8,
+    "passed": true
+  },
+  "identity_accuracy_validated": false,
+  "ground_position_accuracy_validated": false
+}
