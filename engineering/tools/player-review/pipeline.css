@@ -1,0 +1,21 @@
+.live-timeline{position:relative;height:24px;margin:12px 0;background:#e4e7eb;border-radius:5px;overflow:hidden;cursor:pointer}
+.live-timeline span{position:absolute;top:3px;bottom:3px;background:#4c8b79}
+.live-timeline i{position:absolute;top:0;bottom:0;width:2px;background:#1a2531}
+.identity-roster .player-overview{border:0;padding:8px 0}
+.identity-roster .metrics,.identity-roster .list-heading,.identity-roster #gapList,.identity-roster #playerHeading,.identity-roster #playerIdentity,.identity-roster #courtPointStatus,.identity-roster #coordinateInspector{display:none!important}
+.sample-picker{margin-bottom:14px}.step-panels{max-height:650px}
+body[data-step=footage] .shared-timeline .timeline-row,body[data-step=footage] .shared-timeline .section-heading{display:none}
+body[data-step=footage] .video-footer{display:none}
+body[data-step=identity] #identityControls{margin-top:14px}
+#repairBindingControls details{margin-top:10px}#panel-footage .gap-controls{margin:10px 0}
+#repairCourtView{padding:8px 12px 0}
+#repairCourtView #court{height:270px}
+#repairCourtView .court-heading{padding:12px 14px 0;flex-wrap:wrap}
+#repairCourtView .court-heading h2{font-size:15px}
+#repairCourtView .court-heading .eyebrow{letter-spacing:1px}
+#repairCourtView .court-legend{padding:8px 14px 12px;gap:8px}
+#repairCourtView .pan-controls{padding:0 14px 8px;flex-wrap:wrap}
+#repairRoster #courtPointStatus,#repairRoster #coordinateInspector:not([hidden]){display:block!important}
+body[data-step=repair] .operation-body{grid-template-columns:minmax(0,1.4fr) minmax(320px,1fr)}
+@media(max-width:760px){body[data-step=repair] .operation-body{grid-template-columns:1fr}#repairCourtView #court{height:300px}}
+@media(max-width:760px){.step-panels{max-height:none}}
