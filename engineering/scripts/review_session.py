@@ -6,9 +6,10 @@ import re
 
 
 IDENTITY_BINDING_MODE = 'forward_only_v1'
+TRACK_OCCURRENCES_SCOPE = 'track_occurrences'
 PLAYER_IDS = {f'P{i}' for i in range(1, 11)}
 IDENTITY_KINDS = {'track', 'untracked', 'out_of_view', 'unassigned'}
-PERSON_RECORDS = ('anchors', 'identityKeyframes', 'bindings', 'courtAnchors', 'events')
+PERSON_RECORDS = ('anchors', 'identityKeyframes', 'bindings', 'modelBindings', 'courtAnchors', 'events')
 
 
 def _integer(value, name, low=0, high=2**53 - 1):
@@ -50,12 +51,13 @@ def _list(container, key):
     return value
 
 
-def _roles(value):
+def _legacy_roles(value):
+    """Read historical role labels for migration, without assigning new ones."""
     if value is None:
         return
     if (not isinstance(value, dict) or set(value) != {'red', 'blue'} or
             (value['red'], value['blue']) not in (('offense', 'defense'), ('defense', 'offense'))):
-        raise ValueError('红蓝两队须分别设为进攻和防守，或将攻守设为空。')
+        raise ValueError('旧草稿的攻守字段格式不正确。')
 
 
 def _identity_record(record, frame_count, interval=False):
@@ -75,6 +77,12 @@ def _identity_record(record, frame_count, interval=False):
         raise ValueError('未关联或出画记录不能带临时编号。')
     if 'order' in record:
         _integer(record['order'], '身份顺序')
+    if 'scope' in record:
+        if not interval or record['kind'] != 'track' or record['scope'] != TRACK_OCCURRENCES_SCOPE:
+            raise ValueError('身份区间作用范围不受支持。')
+        _integer(record.get('trackId'), '临时编号', low=1)
+    if 'selectionFrame' in record:
+        _integer(record['selectionFrame'], '选取帧', high=frame_count - 1)
 
 
 def validate_session(session, clip):
@@ -97,7 +105,7 @@ def validate_session(session, clip):
         _integer(cut, '切镜帧', high=frame_count - 1)
     if 'identitySequence' in session:
         _integer(session['identitySequence'], '身份顺序')
-    _roles(session.get('teamRoles'))
+    _legacy_roles(session.get('teamRoles'))
     entities = _list(session, 'entities')
     ids = set()
     for entity in entities:
@@ -114,6 +122,9 @@ def validate_session(session, clip):
                 raise ValueError(f'{ident} 的 {field} 必须是文本。')
         if 'teamSide' in entity and entity['teamSide'] not in (None, 'red', 'blue'):
             raise ValueError('队伍颜色必须是 red 或 blue。')
+        if ('identitySuggestionsDismissed' in entity and
+                type(entity['identitySuggestionsDismissed']) is not bool):
+            raise ValueError('模型建议取消标记必须是布尔值。')
         for field in ('anchors', 'courtAnchors', 'events'):
             for record in _list(entity, field):
                 if not isinstance(record, dict):
@@ -136,6 +147,11 @@ def validate_session(session, clip):
             _identity_record(key, frame_count)
         for binding in _list(entity, 'bindings'):
             _identity_record(binding, frame_count, interval=True)
+        for field in ('modelBindings', 'dismissedModelBindings'):
+            for binding in _list(entity, field):
+                _identity_record(binding, frame_count, interval=True)
+                if binding['kind'] != 'track' or binding['trackId'] < 1:
+                    raise ValueError('模型建议须关联有效的临时编号。')
     if not PLAYER_IDS.issubset(ids):
         raise ValueError('草稿必须包含完整的 P1–P10 球员槽位。')
     return frame_count
@@ -144,6 +160,12 @@ def validate_session(session, clip):
 def _prepare(session, source_cuts):
     session['cuts'] = sorted(set(session.get('cuts', []) + source_cuts))
     session['identityBindingMode'] = IDENTITY_BINDING_MODE
+    # Colors identify roster groups; historical role labels have no evidence.
+    session.pop('teamRoles', None)
+    for field in ('automaticAnnotation', 'modelSuggestionLoad'):
+        metadata = session.get(field)
+        if isinstance(metadata, dict) and 'teamLayout' in metadata:
+            metadata['teamLayout'] = 'fixed_red_blue_color_only_v1'
     for entity in session['entities']:
         if entity['role'] == 'player':
             entity['teamSide'] = 'red' if int(entity['id'][1:]) <= 5 else 'blue'
@@ -166,6 +188,60 @@ def _entity(session, ident):
     raise ValueError('找不到指定人物槽位。')
 
 
+def _label(entity):
+    return ('球员 ' if entity['role'] == 'player' else '裁判 ') + entity['id'][1:]
+
+
+def _next_identity_order(session):
+    orders = [session.get('identitySequence', 0)]
+    for entity in session['entities']:
+        orders += [record.get('order', 0) for field in ('identityKeyframes', 'bindings')
+                   for record in entity.get(field, [])]
+    order = _integer(max(orders) + 1, '身份顺序')
+    session['identitySequence'] = order
+    return order
+
+
+def _occurrence_ranges(frames, cuts):
+    """Group observed frame indexes only; a gap or cut always starts a range."""
+    ranges = []
+    for frame in frames:
+        if not ranges or frame != ranges[-1]['end'] + 1 or frame in cuts:
+            ranges.append({'start': frame, 'end': frame})
+        else:
+            ranges[-1]['end'] = frame
+    return ranges
+
+
+def _bulk_bindings(entity):
+    return [binding for binding in entity.get('bindings', [])
+            if binding.get('scope') == TRACK_OCCURRENCES_SCOPE and binding['kind'] == 'track']
+
+
+def _split_bulk_at_cuts(entity, track_id, cuts):
+    """New cuts split stored occurrences without changing the original claim."""
+    if 'bindings' not in entity:
+        return
+    segments = []
+    for binding in entity['bindings']:
+        if binding.get('scope') != TRACK_OCCURRENCES_SCOPE or binding.get('trackId') != track_id:
+            segments.append(binding)
+            continue
+        boundaries = [binding['start'], *[cut for cut in cuts
+                      if binding['start'] < cut <= binding['end']], binding['end'] + 1]
+        segments.extend({**binding, 'start': start, 'end': stop - 1}
+                        for start, stop in zip(boundaries, boundaries[1:]))
+    entity['bindings'] = segments
+
+
+def _dismiss_observations(entity, records):
+    """Keep rejected observations with the person when records move to a slot."""
+    for record in records:
+        dismissed = entity.setdefault('dismissedModelBindings', [])
+        if record not in dismissed:
+            dismissed.append(deepcopy(record))
+
+
 def apply_review_edit(session, operation, clip):
     """Return a complete edited draft; inputs and server/library data stay intact."""
     frame_count = validate_session(session, clip)
@@ -181,33 +257,83 @@ def apply_review_edit(session, operation, clip):
     _prepare(draft, source_cuts)
     kind = operation.get('type')
     affected = None
-    if kind == 'clear_player':
+    assignment = None
+    if kind == 'assign_track':
         entity = _entity(draft, operation.get('entityId'))
+        frame = _integer(operation.get('frame'), '选取帧', high=frame_count - 1)
+        track_id = _integer(operation.get('trackId'), '临时编号', low=1)
+        observed = [index for index, record in enumerate(clip['frames'])
+                    if any(isinstance(row, (list, tuple)) and len(row) > 4 and
+                           type(row[4]) in (int, float) and row[4] == track_id
+                           for row in record.get('tracks', []))]
+        if frame not in observed:
+            raise ValueError('当前帧没有所选临时编号。')
+        ranges = _occurrence_ranges(observed, set(draft['cuts']))
+        _split_bulk_at_cuts(entity, track_id, draft['cuts'])
+        existing = [binding for binding in _bulk_bindings(entity) if binding['trackId'] == track_id]
+        missing = [index for index in observed if not any(
+            binding['start'] <= index <= binding['end'] for binding in existing)]
+        if missing:
+            order = _next_identity_order(draft)
+            entity.setdefault('bindings', []).extend({
+                'kind': 'track', 'trackId': track_id, **span,
+                'scope': TRACK_OCCURRENCES_SCOPE, 'origin': 'human_track_assignment',
+                'selectionFrame': frame, 'order': order, 'exclusive': False, 'reviewRequired': True,
+            } for span in _occurrence_ranges(missing, set(draft['cuts'])))
+            draft['identitySelection'] = None
+        assignment = {'trackId': track_id, 'observationCount': len(observed),
+                      'rangeCount': len(ranges), 'ranges': ranges}
+        message = (f'T{track_id} 的 {len(observed)} 个观测帧（{len(ranges)} 段）已归并到{_label(entity)}，'
+                   '仍待逐帧核对；已有人工位置、区间与取消记录保留。')
+    elif kind == 'clear_player':
+        entity = _entity(draft, operation.get('entityId'))
+        # Rejection follows the observed track intervals as well as this person.
+        # Otherwise swapping a cleared person into an empty slot could let the
+        # same model observations reappear at their original numbered slot.
+        _dismiss_observations(entity, entity.get('modelBindings', []) + _bulk_bindings(entity))
         for field in PERSON_RECORDS:
             entity[field] = []
+        # The browser reloads model proposals on startup. Persist the user's
+        # deliberate clearing so those proposals cannot silently fill it again.
+        entity['identitySuggestionsDismissed'] = True
+        for field in ('modelTeamGroup', 'modelTeamHint', 'automaticTeamEvidence'):
+            entity.pop(field, None)
         draft['identitySelection'] = None
         affected = {'start': 0, 'end': frame_count - 1}
-        message = f"{entity['id']} 的整段关联与位置已清空，姓名和球队资料保留。"
+        message = f"{_label(entity)} 的整段关联与位置已清空，姓名和球队资料保留。"
     elif kind == 'release_identity':
         entity = _entity(draft, operation.get('entityId'))
         start = _integer(operation.get('frame'), '取消关联帧', high=frame_count - 1)
         boundaries = ([key['frame'] for key in entity['identityKeyframes']] +
-                      [binding['start'] for binding in entity.get('bindings', [])] + draft['cuts'])
+                      [binding['start'] for binding in entity.get('bindings', [])] +
+                      [binding['end'] + 1 for binding in _bulk_bindings(entity)] + draft['cuts'])
         end = min([frame_count] + [frame for frame in boundaries if frame > start]) - 1
-        orders = [draft.get('identitySequence', 0)]
-        for item in draft['entities']:
-            orders += [record.get('order', 0) for field in ('identityKeyframes', 'bindings')
-                       for record in item.get(field, [])]
-        order = max(orders) + 1
-        _integer(order, '身份顺序')
-        draft['identitySequence'] = order
+        order = _next_identity_order(draft)
         entity.setdefault('bindings', []).append({
             'kind': 'unassigned', 'trackId': None, 'start': start, 'end': end,
             'order': order, 'exclusive': True, 'origin': 'human_release', 'identitySource': 'human',
         })
+        # Keep evidence outside the released interval. The human unassigned
+        # binding remains authoritative if suggestions are reloaded later.
+        if 'modelBindings' in entity:
+            remaining = []
+            for binding in entity['modelBindings']:
+                if binding['end'] < start or binding['start'] > end:
+                    remaining.append(binding)
+                else:
+                    _dismiss_observations(entity, [{
+                        **binding, 'start': max(start, binding['start']), 'end': min(end, binding['end'])}])
+                    if binding['start'] < start:
+                        remaining.append({**binding, 'end': start - 1})
+                    if binding['end'] > end:
+                        remaining.append({**binding, 'start': end + 1})
+            entity['modelBindings'] = remaining
+        _dismiss_observations(entity, [{
+            **binding, 'start': max(start, binding['start']), 'end': min(end, binding['end'])}
+            for binding in _bulk_bindings(entity) if binding['start'] <= end and binding['end'] >= start])
         draft['identitySelection'] = None
         affected = {'start': start, 'end': end}
-        message = f"{entity['id']} 第 {start + 1}–{end + 1} 帧已取消关联，等待重新选择。"
+        message = f"{_label(entity)} 第 {start + 1}–{end + 1} 帧已取消关联，等待重新选择。"
     elif kind == 'swap_players':
         source = _entity(draft, operation.get('sourceId'))
         target = _entity(draft, operation.get('targetId'))
@@ -221,16 +347,18 @@ def apply_review_edit(session, operation, clip):
         target.update(source_data, id=target_id, teamSide='red' if int(target_id[1:]) <= 5 else 'blue')
         draft['identitySelection'] = None
         affected = {'start': 0, 'end': frame_count - 1}
-        message = f'{source_id} 与 {target_id} 的整段人物资料和轨迹已交换。'
+        message = f'{_label(source)} 与 {_label(target)} 的整段人物资料和轨迹已交换。'
     elif kind == 'set_team_roles':
         if 'teamRoles' not in operation:
             raise ValueError('缺少 teamRoles。')
-        _roles(operation['teamRoles'])
-        draft['teamRoles'] = deepcopy(operation['teamRoles'])
-        message = '红蓝队攻守设置已保存。'
+        if operation['teamRoles'] is not None:
+            raise ValueError('当前只记录红蓝颜色分队，不设置进攻或防守；旧攻守字段只支持清除。')
+        message = '旧攻守字段已清除，保留红蓝颜色分队。'
     else:
         raise ValueError('不支持的草稿操作。')
     result = {'session': draft, 'message': message}
     if affected is not None:
         result['affectedRange'] = affected
+    if assignment is not None:
+        result['assignment'] = assignment
     return result

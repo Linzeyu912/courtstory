@@ -1,6 +1,18 @@
 // Identity confirmations are time boundaries; position edits are independent.
 export const IDENTITY_BINDING_MODE = 'forward_only_v1';
+export const TEAM_COLOR_LAYOUT = 'fixed_red_blue_color_only_v1';
 
+export function normalizeTeamColorMetadata(session) {
+  delete session.teamRoles;
+  for(const key of ['automaticAnnotation','modelSuggestionLoad']){
+    const metadata=session[key];
+    if(metadata&&typeof metadata==='object'&&'teamLayout' in metadata)
+      session[key]={...metadata,teamLayout:TEAM_COLOR_LAYOUT};
+  }
+  return session;
+}
+
+// Row slots define the review team; model jersey-color groups remain evidence.
 export function entityTeamSide(entity) {
   const number = /^P([1-9]|10)$/.exec(entity.id)?.[1];
   return number ? (Number(number)<=5?'red':'blue') : null;
@@ -9,7 +21,7 @@ export function entityTeamSide(entity) {
 export function identityKeyframes(entity) {
   if (Array.isArray(entity.identityKeyframes)) return entity.identityKeyframes;
   const keys = [];
-  for (const anchor of [...entity.anchors].sort((a,b)=>a.frame-b.frame)) {
+  for (const anchor of [...(entity.anchors||[])].sort((a,b)=>a.frame-b.frame)) {
     if (anchor.trackId == null || anchor.identityConfirmed === false) continue;
     const trackId = Number(anchor.trackId);
     // Old drafts did not distinguish selections from edits. Repeated IDs do
@@ -21,7 +33,7 @@ export function identityKeyframes(entity) {
 }
 
 export function migrateIdentitySession(session) {
-  session.teamRoles ??= null;
+  normalizeTeamColorMetadata(session);
   for (const entity of session.entities) {
     entity.teamSide = entityTeamSide(entity);
     entity.identityKeyframes ??= identityKeyframes(entity).map(key=>({...key}));
@@ -38,7 +50,10 @@ export function nextIdentityOrder(session) {
   return session.identitySequence;
 }
 
-export function identityAt(entity, frame, cuts=[]) {
+export function identityAt(entity, frame, cuts=[], availableTracks=null) {
+  const records=availableTracks?.tracks??availableTracks;
+  const present=records==null?null:new Set([...(records instanceof Map?records.keys():records)]
+    .map(value=>Number(Array.isArray(value)?value[4]:value)));
   let active = null;
   const consider = event => {
     if (event.start > frame || event.end < frame) return;
@@ -49,20 +64,59 @@ export function identityAt(entity, frame, cuts=[]) {
     consider({...key,start:key.frame,end:Infinity,identitySource:'manual_forward'});
   }
   for (const binding of entity.bindings||[]) {
+    if(binding.scope==='track_occurrences')continue;
     consider({...binding,identitySource:binding.kind==='unassigned'?'human_unassigned':'manual_range'});
   }
-  if (active && cuts.some(cut=>cut>active.start&&cut<=frame)) return null;
+  if(active&&active.kind!=='unassigned'&&cuts.some(cut=>cut>active.start&&cut<=frame))active=null;
+  // A legacy forward claim can leave a real gap after its T disappears. An
+  // explicitly reviewed range or a hand-edited position must remain protected.
+  const manual=(entity.anchors||[]).find(anchor=>anchor.frame===frame&&
+    (anchor.trackId==null||Number(anchor.trackId)===Number(active?.trackId)));
+  const forwardGap=active?.identitySource==='manual_forward'&&active.kind==='track'&&
+    present&&!present.has(Number(active.trackId))&&!manual;
+  if(active&&!forwardGap)return active;
+  const occurrences=(entity.bindings||[]).filter(binding=>binding.scope==='track_occurrences'&&
+    binding.kind==='track'&&binding.start<=frame&&binding.end>=frame&&
+    (!present||present.has(Number(binding.trackId))));
+  // These claims apply to observations, not forward propagation. A cut added
+  // after assignment breaks display trails without deleting later observations.
+  if(occurrences.length){
+    const ids=[...new Set(occurrences.map(binding=>Number(binding.trackId)))].sort((a,b)=>a-b);
+    const latest=[...occurrences].sort((a,b)=>(b.order||0)-(a.order||0))[0];
+    return {...latest,kind:ids.length>1?'conflict':'track',trackId:ids.length>1?null:ids[0],
+      ...(ids.length>1?{candidateTrackIds:ids}:{}),identitySource:'manual_track_occurrences',exclusive:false};
+  }
+  if(active)return active;
+  if (entity.identitySuggestionsDismissed) return null;
+  // Model proposals are a separate fallback lane. They never outrank any
+  // active human confirmation, including a deliberate untracked/exit state.
+  active = null;
+  for (const binding of entity.modelBindings||[]) {
+    if (cuts.some(cut=>cut>binding.start&&cut<=frame)) continue;
+    consider({...binding,identitySource:'model_suggestion',exclusive:false});
+  }
   return active;
 }
 
 export function identityBoundaries(entity) {
   return [...identityKeyframes(entity).map(key=>key.frame),
-    ...(entity.bindings||[]).flatMap(binding=>[binding.start,binding.end+1])];
+    ...(entity.bindings||[]).flatMap(binding=>[binding.start,binding.end+1]),
+    ...(entity.modelBindings||[]).flatMap(binding=>[binding.start,binding.end+1])];
 }
 
 export function identityInterval(session, entity, start, frameCount) {
   const boundaries = [...identityKeyframes(entity).map(key=>key.frame),
-    ...(entity.bindings||[]).map(binding=>binding.start),...session.cuts];
+    ...(entity.bindings||[]).flatMap(binding=>binding.scope==='track_occurrences'?
+      [binding.start,binding.end+1]:[binding.start]),...session.cuts];
+  return {start,end:Math.min(frameCount,...boundaries.filter(frame=>frame>start))-1};
+}
+
+// Forward confirmation outranks whole-track assignments, so their observation
+// boundaries cannot shorten its reported scope. Release uses the finer interval.
+export function identityConfirmationInterval(session, entity, start, frameCount) {
+  const boundaries = [...identityKeyframes(entity).map(key=>key.frame),
+    ...(entity.bindings||[]).filter(binding=>binding.scope!=='track_occurrences').map(binding=>binding.start),
+    ...session.cuts];
   return {start,end:Math.min(frameCount,...boundaries.filter(frame=>frame>start))-1};
 }
 
@@ -79,18 +133,100 @@ export function confirmIdentity(session, entityId, frame, proposal, frames) {
   entity.identityKeyframes = entity.identityKeyframes.filter(item=>item.frame!==frame);
   entity.identityKeyframes.push(key);
   entity.identityKeyframes.sort((a,b)=>a.frame-b.frame);
+  const preserved=proposal.preservePosition?entity.anchors.find(item=>item.frame===frame&&
+    item.identityConfirmed===false&&Number(item.trackId)===trackId):null;
   entity.anchors = entity.anchors.filter(item=>item.frame!==frame);
-  entity.anchors.push({frame,x:(proposal.box[0]+proposal.box[2])/2,y:proposal.box[3],
-    trackId,box:proposal.box.slice(),footMethod:'bbox_bottom_center',identityConfirmed:true});
+  entity.anchors.push(preserved?{...preserved,identityConfirmed:true}:
+    {frame,x:(proposal.box[0]+proposal.box[2])/2,y:proposal.box[3],
+      trackId,box:proposal.box.slice(),footMethod:'bbox_bottom_center',identityConfirmed:true});
   session.identitySelection = null;
-  return identityInterval(session,entity,frame,frames.length);
+  return identityConfirmationInterval(session,entity,frame,frames.length);
 }
 
 export function identityProvenance(identity) {
   return identity ? {identitySource:identity.identitySource,identityStartFrame:identity.start,
     identityOrder:identity.order||0,identityExclusive:Boolean(identity.exclusive),
     ...(Number.isFinite(identity.end)?{identityEndFrame:identity.end}:{}),
-    ...(identity.origin?{identityOrigin:identity.origin}:{})} : {};
+    ...(identity.origin?{identityOrigin:identity.origin}:{}),
+    ...(identity.scope==='track_occurrences'?{associationScope:'track_occurrences',
+      selectionFrame:identity.selectionFrame,identityConfirmed:false,reviewRequired:true,
+      ...(identity.candidateTrackIds?{candidateTrackIds:[...identity.candidateTrackIds]}:{})}:{}),
+    ...(identity.identitySource==='model_suggestion'?{identityConfirmed:false,
+      reviewRequired:true,modelSuggestionMethod:identity.method}: {})} : {};
+}
+
+export function identitySuggestionSummary(suggestions,frames) {
+  if (!suggestions || suggestions.version!==1 || suggestions.verified!==false ||
+      !Array.isArray(suggestions.entities)) throw new Error('模型建议格式不正确，未载入。');
+  if(suggestions.teamGrouping&&(suggestions.teamGrouping.version!==1||suggestions.teamGrouping.verified!==false||
+      suggestions.teamGrouping.layout!=='reserved_5_plus_5_v1'))throw new Error('分队建议须保持待确认，未载入。');
+  const seen=new Set(),entities=[],teamCounts={A:0,B:0};
+  for (const item of suggestions.entities) {
+    if (!/^P(?:[1-9]|10)$/.test(item?.id) || seen.has(item.id) || !Array.isArray(item.bindings)) {
+      throw new Error('模型建议须使用不重复的球员 1–10，未载入。');
+    }
+    seen.add(item.id);
+    if(item.teamGroup!=null){
+      if(!['A','B'].includes(item.teamGroup)||++teamCounts[item.teamGroup]>5||
+          (item.teamGroup==='A')!==(Number(item.id.slice(1))<=5))
+        throw new Error('分队建议须每队最多五人，并使用 1–5 / 6–10 槽位，未载入。');
+    }
+    const bindings=item.bindings.map(binding=>{
+      const {start,end,trackId}=binding;
+      if (!Number.isInteger(start)||!Number.isInteger(end)||!Number.isInteger(trackId)||
+          start<0||end>=frames.length||start>end||trackId<0||
+          !frames.slice(start,end+1).some(record=>record.tracks.some(box=>Number(box[4])===trackId))) {
+        throw new Error('模型建议区间或临时编号不匹配，未载入。');
+      }
+      return {kind:'track',start,end,trackId,source:'model_suggestion',
+        reviewRequired:true,identityConfirmed:false,method:String(suggestions.method||'model')};
+    });
+    entities.push({id:item.id,teamHint:typeof item.teamHint==='string'?item.teamHint:null,
+      teamGroup:item.teamGroup||null,bindings});
+  }
+  return {method:String(suggestions.method||'model'),entities,
+    playerCount:entities.filter(item=>item.bindings.length).length,
+    bindingCount:entities.reduce((n,item)=>n+item.bindings.length,0)};
+}
+
+// Rejected observations travel with the person during roster swaps. Keeping
+// their original track/range prevents automatic aliases reappearing in an empty slot.
+export function filterDismissedModelBindings(bindings,entities) {
+  const dismissed=entities.flatMap(entity=>entity.dismissedModelBindings||[]);
+  if(!dismissed.length)return bindings.map(binding=>({...binding}));
+  return bindings.flatMap(binding=>{
+    let ranges=[{...binding}];
+    for(const blocked of dismissed){
+      if(Number(blocked.trackId)!==Number(binding.trackId))continue;
+      ranges=ranges.flatMap(range=>{
+        if(blocked.end<range.start||blocked.start>range.end)return [range];
+        return [...(blocked.start>range.start?[{...range,end:blocked.start-1}]:[]),
+          ...(blocked.end<range.end?[{...range,start:blocked.end+1}]:[])];
+      });
+    }
+    return ranges;
+  });
+}
+
+export function adoptIdentitySuggestions(session,suggestions,frames) {
+  // Finish validation before writing anything; no partial roster on failure.
+  const summary=identitySuggestionSummary(suggestions,frames);
+  normalizeTeamColorMetadata(session);
+  for (const entity of session.entities) {
+    if (entity.role!=='player'||entity.identitySuggestionsDismissed) continue;
+    const item=summary.entities.find(value=>value.id===entity.id);
+    if(!item)continue; // A partial proposal must not erase recovered associations.
+    entity.modelBindings=filterDismissedModelBindings(item.bindings,session.entities);
+    if(item?.teamHint)entity.modelTeamHint=item.teamHint;
+    else delete entity.modelTeamHint;
+    if(item?.teamGroup)entity.modelTeamGroup=item.teamGroup;
+    else delete entity.modelTeamGroup;
+  }
+  // Model groups describe observed jerseys; fixed row teams are never overwritten.
+  if(suggestions.teamGrouping)session.modelTeamGrouping=structuredClone(suggestions.teamGrouping);
+  session.modelSuggestionLoad={version:1,method:summary.method,verified:false,
+    playerCount:summary.playerCount,bindingCount:summary.bindingCount,teamLayout:TEAM_COLOR_LAYOUT};
+  return summary;
 }
 
 // A new human claim releases a competing owner only where both use this ID.
@@ -108,9 +244,15 @@ export function resolveIdentityOwners(result, entities, frames) {
     for (const group of owners.values()) {
       if (group.length < 2) continue;
       let winner = null;
-      if (group.some(owner=>owner.point.identityExclusive)) {
-        const start = Math.max(...group.map(owner=>owner.point.identityStartFrame??-1));
-        const latest = group.filter(owner=>(owner.point.identityStartFrame??-1)===start);
+      const explicit=group.filter(owner=>!['model_suggestion','manual_track_occurrences'].includes(owner.point.identitySource));
+      const bulk=group.filter(owner=>owner.point.identitySource==='manual_track_occurrences');
+      // A whole-track claim never evicts an existing explicit human correction.
+      // Two whole-track claims remain a conflict, even if one was clicked later.
+      const eligible=explicit.length?explicit:bulk.length?bulk:group;
+      if(eligible.length===1&&eligible.length<group.length)winner=eligible[0];
+      if (!winner && eligible.some(owner=>owner.point.identityExclusive)) {
+        const start = Math.max(...eligible.map(owner=>owner.point.identityStartFrame??-1));
+        const latest = eligible.filter(owner=>(owner.point.identityStartFrame??-1)===start);
         const order = Math.max(...latest.map(owner=>owner.point.identityOrder||0));
         const final = latest.filter(owner=>(owner.point.identityOrder||0)===order);
         if (final.length === 1) winner = final[0];
@@ -118,8 +260,14 @@ export function resolveIdentityOwners(result, entities, frames) {
       for (const owner of group) {
         if (owner === winner) continue;
         result[owner.id][frame] = {frame,time:frames[frame].time,x:null,y:null,
-          source:winner?'missing':'conflict',...(winner?{identitySource:'reassigned',
-            previousTrackId:owner.point.trackId,claimedBy:winner.id}:{})};
+          source:winner?'missing':'conflict',...(owner.point.identitySource==='model_suggestion'?{
+            identityConfirmed:false,reviewRequired:true}:{}),...(winner?{identitySource:'reassigned',
+            previousTrackId:owner.point.trackId,claimedBy:winner.id}:{}),
+          ...(owner.point.associationScope==='track_occurrences'?{
+            associationScope:'track_occurrences',selectionFrame:owner.point.selectionFrame,
+            identityConfirmed:false,reviewRequired:true,
+            ...(winner&&explicit.includes(winner)?{assignmentBlockedByHuman:true}:{}),
+            ...(!winner?{candidateTrackIds:[owner.point.trackId]}:{})}:{})};
       }
     }
   }

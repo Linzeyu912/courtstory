@@ -1,4 +1,5 @@
 // Layout and navigation only. Video time, selections and review data stay in app.mjs.
+import {entityLabel} from './trajectory.mjs';
 export function mountWorkbenchShell(api) {
   const $ = id => document.getElementById(id);
   const body = document.body;
@@ -204,12 +205,12 @@ export function mountWorkbenchShell(api) {
       $('reviewEntity').replaceChildren(...s.session.entities.map(entity => {
         const option = document.createElement('option');
         option.value = entity.id;
-        option.textContent = `${entity.id} · ${entity.name}`;
+        option.textContent = entity.name===entityLabel(entity.id)?entity.name:`${entityLabel(entity.id)} · ${entity.name}`;
         return option;
       }));
     }
     $('reviewEntity').value = s.active;
-    $('drawerContext').textContent = `${s.active} · 第 ${s.frame + 1} 帧 · 2D 球场与轨迹`;
+    $('drawerContext').textContent = `${entityLabel(s.active)} · 第 ${s.frame + 1} 帧 · 2D 球场与轨迹`;
     $('pointStatus').title = $('pointStatus').textContent;
   }
   renderLayout();

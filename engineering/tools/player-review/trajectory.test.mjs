@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {blankSession,buildTrajectories,gapRanges,exportReview,addBinding,continuationSuggestions} from './trajectory.mjs';
 const frames=Array.from({length:9},(_,frame)=>({frame,time:frame/10,tracks:[]}));
-function scenario(anchors){const session=blankSession('sample');session.entities[0].anchors=anchors;return session;}
+function scenario(anchors){const session=blankSession('sample');session.maxGapSeconds=.5;session.entities[0].anchors=anchors;return session;}
 test('short gap uses both endpoints and keeps estimates distinct from manual points',()=>{
   const session=scenario([{frame:1,x:100,y:300,trackId:null},{frame:4,x:130,y:330,trackId:null}]);
   const points=buildTrajectories(session,frames).P1;
@@ -157,18 +157,21 @@ test('automatic interpolation keeps a released gap empty and retains its evidenc
   }
 });
 
-test('export derives legacy team sides without mutating drafts and preserves team roles',()=>{
-  const session=blankSession('sample');delete session.teamRoles;
+test('export retains color groups and human data without inferred team roles or mutating legacy drafts',()=>{
+  const session=blankSession('sample');
   for(const entity of session.entities)delete entity.teamSide;
   for(const index of [0,5])session.entities[index].anchors=[{frame:0,x:100+index,y:300,trackId:null}];
   session.entities[0].team='实际队名';session.entities[0].jersey='30';
   const clip={video_sha256:'sample',width:1920,height:1080,frames},before=structuredClone(session);
   let output=exportReview(session,clip,'now');
-  assert.equal(output.teamRoles,null);assert.deepEqual(output.entities.map(entity=>entity.teamSide),['red','blue']);
+  assert.equal(Object.hasOwn(output,'teamRoles'),false);assert.deepEqual(output.entities.map(entity=>entity.teamSide),['red','blue']);
   assert.equal(output.entities[0].team,'实际队名');assert.equal(output.entities[0].jersey,'30');
   assert.deepEqual(session,before);
   session.teamRoles={red:'defense',blue:'offense'};session.entities[0].teamSide='blue';
+  session.modelSuggestionLoad={verified:false,teamLayout:'fixed_red_offense_blue_defense_v1',playerCount:2};
+  const legacy=structuredClone(session);
   output=exportReview(session,clip,'now');
-  assert.deepEqual(output.teamRoles,session.teamRoles);assert.equal(output.entities[0].teamSide,'red');
-  assert.equal(session.entities[0].teamSide,'blue');
+  assert.equal(Object.hasOwn(output,'teamRoles'),false);assert.equal(output.entities[0].teamSide,'red');
+  assert.deepEqual(output.modelSuggestionLoad,{verified:false,teamLayout:'fixed_red_blue_color_only_v1',playerCount:2});
+  assert.deepEqual(session,legacy);
 });

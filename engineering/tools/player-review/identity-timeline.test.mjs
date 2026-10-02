@@ -163,16 +163,25 @@ test('release intervals preserve a subsequent range and stop at camera cuts',()=
   assert.equal(points[18].source,'missing');assert.equal(points[18].reviewExcluded,undefined);assert.equal(points[20].trackId,70);
 });
 
-test('team metadata migration normalizes fixed sides without replacing real team descriptions or roles',()=>{
-  const s=blankSession('clip');assert.equal(s.teamRoles,null);
+test('team metadata migration preserves color groups and human data while removing inferred offense/defense',()=>{
+  const s=blankSession('clip');assert.equal(Object.hasOwn(s,'teamRoles'),false);
   assert.deepEqual(s.entities.map(entity=>entity.teamSide),Array(5).fill('red').concat(Array(5).fill('blue')));
   for(const entity of s.entities)delete entity.teamSide;
-  delete s.teamRoles;s.entities[0].team='白色球衣';s.entities[0].jersey='15';s.entities[1].teamSide='blue';
+  s.teamRoles={red:'offense',blue:'defense'};s.entities[0].team='白色球衣';s.entities[0].jersey='15';s.entities[1].teamSide='blue';
+  s.automaticAnnotation={verified:false,teamLayout:'fixed_red_offense_blue_defense_v1'};
+  s.modelSuggestionLoad={verified:false,teamLayout:'fixed_red_offense_blue_defense_v1',playerCount:2};
+  const human={anchors:[{frame:0,x:32.25,y:74.5,trackId:10,identityConfirmed:false}],
+    courtAnchors:[{frame:0,x:1.5,y:2.5}],bindings:[{kind:'track',trackId:10,start:0,end:24,scope:'track_occurrences'}]};
+  Object.assign(s.entities[0],structuredClone(human));
   s.entities.push({id:'R1',role:'referee',name:'裁判',teamSide:'red',anchors:[]});
   migrateIdentitySession(s);
-  assert.equal(s.teamRoles,null);assert.equal(s.entities[0].teamSide,'red');assert.equal(s.entities[1].teamSide,'red');
+  assert.equal(Object.hasOwn(s,'teamRoles'),false);assert.equal(s.entities[0].teamSide,'red');assert.equal(s.entities[1].teamSide,'red');
   assert.equal(s.entities[5].teamSide,'blue');assert.equal(s.entities[10].teamSide,null);
   assert.equal(s.entities[0].team,'白色球衣');assert.equal(s.entities[0].jersey,'15');
-  s.teamRoles={red:'offense',blue:'defense'};migrateIdentitySession(s);
-  assert.deepEqual(s.teamRoles,{red:'offense',blue:'defense'});
+  assert.equal(s.entities[0].role,'player');assert.equal(s.entities[10].role,'referee');
+  for(const [key,value] of Object.entries(human))assert.deepEqual(s.entities[0][key],value);
+  assert.deepEqual(s.automaticAnnotation,{verified:false,teamLayout:'fixed_red_blue_color_only_v1'});
+  assert.deepEqual(s.modelSuggestionLoad,{verified:false,teamLayout:'fixed_red_blue_color_only_v1',playerCount:2});
+  s.teamRoles={red:'defense',blue:'offense'};migrateIdentitySession(s);
+  assert.equal(Object.hasOwn(s,'teamRoles'),false);
 });
