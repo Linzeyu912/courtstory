@@ -67,6 +67,30 @@ class CourtInitializationTrimTests(unittest.TestCase):
         self.assertEqual(again['courtCandidates']['initialization']['sourceTime'], .4)
         self.assertEqual(self.profile, original)
 
+    def test_model_suggestions_and_court_initialization_share_nested_trim_mapping(self):
+        tracks = self.root / 'ebard.json'
+        metadata_path = tracks.with_suffix('.meta.json')
+        metadata = json.loads(metadata_path.read_text(encoding='utf-8'))
+        metadata.update(tracker='BoT-SORT', presentation={'version': 1, 'default_stable': True},
+            identitySuggestions={'version': 1, 'method': 'thy-observed-tracks', 'verified': False,
+                'entities': [{'id': 'P1', 'bindings': [
+                    {'start': i, 'end': i, 'trackId': i + 10} for i in range(6)]}]})
+        metadata_path.write_text(json.dumps(metadata), encoding='utf-8')
+        first, payload = self.trim(self.load_profile(), [{'start': 1, 'end': 2}, {'start': 4, 'end': 5}], 'model-first')
+        self.assertEqual(payload['courtCandidates']['initialization']['frame'], 2)
+        self.assertEqual(payload['trackingMetadata']['tracker'], 'BoT-SORT')
+        self.assertEqual(payload['identitySuggestions']['entities'][0]['bindings'], [
+            {'start': i, 'end': i, 'trackId': source + 10} for i, source in enumerate([1, 2, 4, 5])])
+        self.assertNotEqual(payload['tracking_fingerprint'], payload['tracking_raw_fingerprint'])
+        _, nested = self.trim(first, [{'start': 0, 'end': 1}, {'start': 3, 'end': 3}], 'model-second')
+        self.assertEqual(nested['courtCandidates']['initialization']['status'], 'source_removed')
+        self.assertEqual(nested['courtCandidates']['initialization']['sourceFrame'], 4)
+        self.assertEqual([record['source_frame'] for record in nested['frames']], [1, 2, 5])
+        self.assertEqual(nested['identitySuggestions']['entities'][0]['bindings'], [
+            {'start': i, 'end': i, 'trackId': source + 10} for i, source in enumerate([1, 2, 5])])
+        self.assertEqual(nested['sourceCuts'], [2])
+        self.assertFalse(nested['identitySuggestions']['verified'])
+
     def test_removed_initialization_stays_removed_across_later_cut(self):
         first, _ = self.trim(self.load_profile(), [{'start': 1, 'end': 2}, {'start': 4, 'end': 5}], 'first')
         second, payload = self.trim(first, [{'start': 0, 'end': 1}, {'start': 3, 'end': 3}], 'second')
