@@ -8,7 +8,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT, WD_CELL_VERTICAL_ALIGNMENT
 from docx.opc.constants import RELATIONSHIP_TYPE as RT
 
-root=Path(__file__).parent
+root=Path(__file__).resolve().parents[2]/'requirements/archive/broadcast-code-12'
 src=(root/'赛事与报名资料.md').read_text(encoding='utf-8')
 parts={}
 for seg in src.split('\n## ')[1:]:

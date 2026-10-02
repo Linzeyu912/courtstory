@@ -1,10 +1,11 @@
 from pathlib import Path
 import json,re
-root=Path(__file__).parent
+script_root=Path(__file__).resolve().parent
+root=script_root.parents[1]/'requirements/archive/broadcast-code-12'
 # Reuse the established document styles and OOXML helpers without executing the previous authoring block.
-code=(root/'build_doc.py').read_text(encoding='utf-8').split('\ndef section(name):')[0]
+code=(script_root/'build_doc.py').read_text(encoding='utf-8').split('\ndef section(name):')[0]
 code=code.replace("elif re.match(r'^\\d+\\. ',l):style='List Number';l=re.sub(r'^\\d+\\. ','',l)","elif re.match(r'^\\d+\\. ',l):style='Normal'")
-exec(compile(code,str(root/'build_doc.py'),'exec'))
+exec(compile(code,str(script_root/'build_doc.py'),'exec'))
 for style in doc.styles:
     for border in list(style.element.iter(qn('w:pBdr'))):
         border.getparent().remove(border)
