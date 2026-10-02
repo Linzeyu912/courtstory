@@ -7,13 +7,13 @@
 | 内容 | 入口 |
 |---|---|
 | 30 段资产登记（成片已入库） | [manifest.json](manifest.json) |
-| 30 份独立标签草案 | [labels/](labels/) |
+| 30 份独立标签草案 | [labels/](labels) |
 | 标签、重复关系和待复核事项 | [review.md](review.md) |
 | 30 段原采集清单 | [sources/batch-030.json](sources/batch-030.json) |
 | 汇总标签草案的原始快照 | [sources/batch-030-labels.json](sources/batch-030-labels.json) |
-| 历史 8 段登记（成片已入库） | [manifest-batch-008.json](manifest-batch-008.json)、[labels-batch-008/](labels-batch-008/)、[sources/batch-008.json](sources/batch-008.json) |
-| 历史单段登记（成片已入库） | [manifest-sample-001.json](manifest-sample-001.json)、[labels-sample-001/](labels-sample-001/)、[sources/sample-001.json](sources/sample-001.json) |
-| 成片文件（Git LFS） | [clips/](clips/)，39 个 MP4，共 913,472,624 字节 |
+| 历史 8 段登记（成片已入库） | [manifest-batch-008.json](manifest-batch-008.json)、[labels-batch-008/](labels-batch-008)、[sources/batch-008.json](sources/batch-008.json) |
+| 历史单段登记（成片已入库） | [manifest-sample-001.json](manifest-sample-001.json)、[labels-sample-001/](labels-sample-001)、[sources/sample-001.json](sources/sample-001.json) |
+| 成片文件（Git LFS） | [clips/](clips)，39 个 MP4，共 913,472,624 字节 |
 
 ## 当前状态
 

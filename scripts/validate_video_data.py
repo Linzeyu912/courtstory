@@ -71,7 +71,9 @@ def validate(metadata_only=False, check_index=False):
             require(urlparse(source['url']).scheme in {'https', 'http'}, 'source URL missing: ' + cid)
             require(is_number(source['start_seconds']) and is_number(source['end_seconds'])
                     and 0 <= source['start_seconds'] < source['end_seconds'], 'invalid source interval: ' + cid)
-            require(source['collected_at'] and entry['game']['date_local'], 'collection or game date missing: ' + cid)
+            require(source['collected_at'] and (entry['game']['date_local'] or
+                    (dataset.get('purpose') == 'tactic_acceptance' and entry['game'].get('unknown_reason'))),
+                    'collection or game date missing without acceptance-sample explanation: ' + cid)
             require(entry['tactic']['label_status'] in {'reviewed_visible_actions', 'provisional_from_collector_notes'},
                     'invalid label status: ' + cid)
             require(entry['tactic']['tags'] and entry['tactic']['basis'], 'label tags or basis missing: ' + cid)

@@ -1,0 +1,251 @@
+{
+  "retired_at": "2026-10-02T08:56:21+08:00",
+  "reason": "用户拒绝教学素材：局部动作、字幕讲解、停帧或非直播镜头，不能作为正常连续进攻验收。编号001–003不重新分配。",
+  "original_manifest": {
+    "schema_version": "1.0.0",
+    "dataset_id": "tactics-acceptance",
+    "season": null,
+    "timezone": "Asia/Shanghai",
+    "created_at": "2026-10-02T07:56:32+08:00",
+    "purpose": "tactic_acceptance",
+    "source_manifest": "data/videos/tactics/acceptance/sources/selection.json",
+    "entries": [
+      {
+        "clip_id": "tactics-acceptance-001",
+        "local_id": "001",
+        "asset": {
+          "path": "clips/001_GSW_elevator.mp4",
+          "bytes": 2225909,
+          "sha256": "f0756b1487be871d18616450b76207b13eb5f5871e694ddf3dd5232cd1c0f89e",
+          "storage": "git-lfs",
+          "availability": "included"
+        },
+        "annotation_path": "labels/001.json",
+        "source": {
+          "url": "https://www.bilibili.com/video/BV1Vv4y1Y7bq/",
+          "publisher": "超巨体坛",
+          "collected_at": "2026-10-02T07:56:32+08:00",
+          "start_seconds": 0.8,
+          "end_seconds": 4.5
+        },
+        "game": {
+          "season": null,
+          "league": "NBA",
+          "date_local": null,
+          "unknown_reason": "按战术收集验收案例，未独立核实比赛日期/赛季；不按上传年份推断",
+          "matchup": null,
+          "period": null,
+          "clock_start": null,
+          "clock_end": null,
+          "offense_team": "GSW",
+          "defense_team": null
+        },
+        "tactic": {
+          "title": "勇士电梯门 · 克莱外切三分",
+          "tags": [
+            "电梯门",
+            "双人无球掩护",
+            "接球三分"
+          ],
+          "description": "两名队友设置关门掩护，射手向外线跑动后接球出手。",
+          "label_status": "reviewed_visible_actions",
+          "basis": "2026-10-02 连续播放与精确时间首中尾帧观察、来源作者战术描述；命名只作为可见动作教学标签，非球队内部暗号",
+          "confidence_note": "用于位置与身份 UI 验收，未构建战术识别真值"
+        },
+        "video": {
+          "duration_seconds": 3.7,
+          "width": 1920,
+          "height": 1080,
+          "fps": 30.0,
+          "measurement_status": "measured"
+        },
+        "review": {
+          "normal_speed": null,
+          "original_broadcast": false,
+          "full_possession": false,
+          "scope": "教学来源里的局部比赛过程",
+          "decode_status": "passed",
+          "visual_status": "reviewed",
+          "reviewed_at": "2026-10-02T07:56:32+08:00",
+          "basis": "全片解码与首中尾帧观察；保留来源字幕/水印。已去掉随后科尔采访；索引51（界面第52帧，1.70秒）切至比赛近景，必须重新关联身份，不跨镜头续接。开头仍有来源缩放转场。"
+        },
+        "dedup": {
+          "content_status": "reviewed_distinct",
+          "action_group": null,
+          "similar_to": [],
+          "duplicate_of": null,
+          "basis": "本批三种不同画面与来源，SHA-256各异；尚未与既有赛季素材逐回合复核内容重复"
+        }
+      },
+      {
+        "clip_id": "tactics-acceptance-002",
+        "local_id": "002",
+        "asset": {
+          "path": "clips/002_SAS_hammer.mp4",
+          "bytes": 8129872,
+          "sha256": "3943dae03a5a3972bcb2e49391176205fc1605d3de378a8c2643415832980547",
+          "storage": "git-lfs",
+          "availability": "included"
+        },
+        "annotation_path": "labels/002.json",
+        "source": {
+          "url": "https://www.bilibili.com/video/BV1P34y1p7cA/",
+          "publisher": "篮球战术指北",
+          "collected_at": "2026-10-02T07:56:32+08:00",
+          "start_seconds": 0.3,
+          "end_seconds": 8.8
+        },
+        "game": {
+          "season": null,
+          "league": "NBA",
+          "date_local": null,
+          "unknown_reason": "按战术收集验收案例，未独立核实比赛日期/赛季；不按上传年份推断",
+          "matchup": null,
+          "period": null,
+          "clock_start": null,
+          "clock_end": null,
+          "offense_team": "SAS",
+          "defense_team": "POR"
+        },
+        "tactic": {
+          "title": "马刺 Hammer · 弱侧底角",
+          "tags": [
+            "Hammer",
+            "弱侧背掩护",
+            "底角接球"
+          ],
+          "description": "强侧持球配合吸引防守，弱侧背掩护释放底角接球队员。",
+          "label_status": "reviewed_visible_actions",
+          "basis": "2026-10-02 连续播放与精确时间首中尾帧观察、来源作者战术描述；命名只作为可见动作教学标签，非球队内部暗号",
+          "confidence_note": "用于位置与身份 UI 验收，未构建战术识别真值"
+        },
+        "video": {
+          "duration_seconds": 8.5,
+          "width": 1920,
+          "height": 1080,
+          "fps": 30.0,
+          "measurement_status": "measured"
+        },
+        "review": {
+          "normal_speed": null,
+          "original_broadcast": false,
+          "full_possession": false,
+          "scope": "教学来源里的局部比赛过程",
+          "decode_status": "passed",
+          "visual_status": "reviewed",
+          "reviewed_at": "2026-10-02T07:56:32+08:00",
+          "basis": "全片解码，首中尾帧及连续画面检查；截取马刺对开拓者的局部比赛配合，保留原来源字幕/水印。未核实比赛日期。"
+        },
+        "dedup": {
+          "content_status": "reviewed_distinct",
+          "action_group": null,
+          "similar_to": [],
+          "duplicate_of": null,
+          "basis": "本批三种不同画面与来源，SHA-256各异；尚未与既有赛季素材逐回合复核内容重复"
+        }
+      },
+      {
+        "clip_id": "tactics-acceptance-003",
+        "local_id": "003",
+        "asset": {
+          "path": "clips/003_NCAA_spain.mp4",
+          "bytes": 17840335,
+          "sha256": "2bfd90c164153df9128c9caca191bbaaf7cefc63d7370f3affd2501f52747526",
+          "storage": "git-lfs",
+          "availability": "included"
+        },
+        "annotation_path": "labels/003.json",
+        "source": {
+          "url": "https://www.bilibili.com/video/BV1164y177d3/",
+          "publisher": "DERON-06",
+          "collected_at": "2026-10-02T07:56:32+08:00",
+          "start_seconds": 0,
+          "end_seconds": 17.1
+        },
+        "game": {
+          "season": null,
+          "league": "NCAA",
+          "date_local": null,
+          "unknown_reason": "按战术收集验收案例，未独立核实比赛日期/赛季；不按上传年份推断",
+          "matchup": null,
+          "period": null,
+          "clock_start": null,
+          "clock_end": null,
+          "offense_team": null,
+          "defense_team": null
+        },
+        "tactic": {
+          "title": "Spain 背掩护挡拆 · NCAA 示例",
+          "tags": [
+            "Spain",
+            "Ram Screen",
+            "背掩护挡拆"
+          ],
+          "description": "先无球掩护衔接持球挡拆，再加入第三人背掩护与外弹；来源有暂停与战术讲解。",
+          "label_status": "reviewed_visible_actions",
+          "basis": "2026-10-02 连续播放与精确时间首中尾帧观察、来源作者战术描述；命名只作为可见动作教学标签，非球队内部暗号",
+          "confidence_note": "用于位置与身份 UI 验收，未构建战术识别真值"
+        },
+        "video": {
+          "duration_seconds": 17.1,
+          "width": 1920,
+          "height": 1080,
+          "fps": 30.0,
+          "measurement_status": "measured"
+        },
+        "review": {
+          "normal_speed": false,
+          "original_broadcast": false,
+          "full_possession": false,
+          "scope": "教学来源里的局部比赛过程",
+          "decode_status": "passed",
+          "visual_status": "reviewed",
+          "reviewed_at": "2026-10-02T07:56:32+08:00",
+          "basis": "全片解码，首中尾帧及连续画面检查；可见 NCAA 比分牌，来源包含停帧及战术箭头讲解；仅用于原图交互，不套用 NBA 场地模板。"
+        },
+        "dedup": {
+          "content_status": "reviewed_distinct",
+          "action_group": null,
+          "similar_to": [],
+          "duplicate_of": null,
+          "basis": "本批三种不同画面与来源，SHA-256各异；尚未与既有赛季素材逐回合复核内容重复"
+        }
+      }
+    ]
+  },
+  "original_selection": {
+    "collected_at": "2026-10-02T07:56:32+08:00",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1Vv4y1Y7bq/",
+        "publisher": "超巨体坛",
+        "collected_at": "2026-10-02T07:56:32+08:00",
+        "start_seconds": 0.8,
+        "end_seconds": 4.5,
+        "source_title": "勇士再现电梯门战术，克莱投进三分球，裁判没吹，科尔透露原因！",
+        "source_upload_date": "20230227",
+        "note": "仅提取公开页面事实；原始下载元数据与原片留在忽略的本地 data/raw/tactics/"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1P34y1p7cA/",
+        "publisher": "篮球战术指北",
+        "collected_at": "2026-10-02T07:56:32+08:00",
+        "start_seconds": 0.3,
+        "end_seconds": 8.8,
+        "source_title": "[战术解析] 平淡无奇的锤子战术 Hammer Action 究竟有何精妙之处？",
+        "source_upload_date": "20220628",
+        "note": "仅提取公开页面事实；原始下载元数据与原片留在忽略的本地 data/raw/tactics/"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1164y177d3/",
+        "publisher": "DERON-06",
+        "collected_at": "2026-10-02T07:56:32+08:00",
+        "start_seconds": 0,
+        "end_seconds": 17.1,
+        "source_title": "这是个经典的西班牙挡拆战术",
+        "source_upload_date": "20231201",
+        "note": "仅提取公开页面事实；原始下载元数据与原片留在忽略的本地 data/raw/tactics/"
+      }
+    ]
+  }
+}

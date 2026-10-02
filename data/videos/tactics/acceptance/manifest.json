@@ -1,0 +1,233 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "tactics-acceptance",
+  "season": null,
+  "timezone": "Asia/Shanghai",
+  "created_at": "2026-10-02T07:56:32+08:00",
+  "updated_at": "2026-10-02T08:56:21+08:00",
+  "purpose": "tactic_acceptance",
+  "source_manifest": "data/videos/tactics/acceptance/sources/selection.json",
+  "retired_local_ids": [
+    "001",
+    "002",
+    "003"
+  ],
+  "entries": [
+    {
+      "clip_id": "tactics-acceptance-004",
+      "local_id": "004",
+      "asset": {
+        "path": "clips/004_GSW_elevator.mp4",
+        "bytes": 5425996,
+        "sha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/004.json",
+      "source": {
+        "url": "https://www.facebook.com/TheWarriorNation/videos/the-signature-elevator-doors-play-by-the-warriors/186346969187899/",
+        "publisher": "Warriors Nation",
+        "collected_at": "2026-10-02T08:56:21+08:00",
+        "start_seconds": 156.8,
+        "end_seconds": 165.6
+      },
+      "game": {
+        "season": null,
+        "league": "NBA",
+        "date_local": null,
+        "unknown_reason": "按战术单独采集；画面可读球队与节次，但比赛日期/赛季尚未独立核实，不按上传年份推断。",
+        "matchup": "GSW–MEM",
+        "period": 4,
+        "clock_start": "9:07",
+        "clock_end": "9:03",
+        "offense_team": "GSW",
+        "defense_team": "MEM"
+      },
+      "tactic": {
+        "title": "勇士电梯门 · 边线发球接球三分",
+        "tags": [
+          "电梯门",
+          "边线发球",
+          "双人无球掩护",
+          "接球三分"
+        ],
+        "description": "完整边线发球配合：发球前站位、双人掩护、接球三分、灰熊控制球。发球前原球权的活球过程不在此片段。",
+        "label_status": "reviewed_visible_actions",
+        "basis": "2026-10-02 连续比赛帧、比分时钟与动作首尾逐段核对；标签描述可见动作，不是球队内部战术暗号。",
+        "confidence_note": "只用于交互验收，不作为球员身份或战术识别真值。"
+      },
+      "video": {
+        "duration_seconds": 8.760951188986233,
+        "width": 1280,
+        "height": 720,
+        "fps": 23.97,
+        "measurement_status": "measured",
+        "audio_streams": 0
+      },
+      "review": {
+        "normal_speed": true,
+        "original_broadcast": true,
+        "full_possession": false,
+        "complete_tactic_sequence": true,
+        "scope": "完整边线发球配合：发球前站位、双人掩护、接球三分、灰熊控制球。发球前原球权的活球过程不在此片段。",
+        "decode_status": "passed",
+        "visual_status": "reviewed",
+        "reviewed_at": "2026-10-02T08:56:21+08:00",
+        "basis": "逐段查看连续原始转播及起止/终结帧；比赛时钟与源时长一致，无教学字幕、人工停帧、慢放、回放或切入其他回合。保留原画幅/水印/比分牌。",
+        "audio_note": "按用户无解说要求移除全部音轨；不是通过静音掩盖画面的教学编辑。",
+        "full_possession_note": "完整前场配合或发球重新开始至投篮结果；未包含取得本次原始球权之前/之后的全部后场过程，因此不标为完整原始球权。"
+      },
+      "dedup": {
+        "content_status": "reviewed_distinct",
+        "action_group": null,
+        "similar_to": [],
+        "duplicate_of": null,
+        "basis": "三个源区间/画面各不相同；未与两个赛季全库逐回合去重。"
+      }
+    },
+    {
+      "clip_id": "tactics-acceptance-005",
+      "local_id": "005",
+      "asset": {
+        "path": "clips/005_SAS_pick_roll.mp4",
+        "bytes": 4316630,
+        "sha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/005.json",
+      "source": {
+        "url": "https://www.bilibili.com/video/BV1zqgd6DEPQ/",
+        "publisher": "用过皮球",
+        "collected_at": "2026-10-02T08:56:21+08:00",
+        "start_seconds": 0,
+        "end_seconds": 4.7666
+      },
+      "game": {
+        "season": null,
+        "league": "NBA",
+        "date_local": null,
+        "unknown_reason": "按战术单独采集；画面可读球队与节次，但比赛日期/赛季尚未独立核实，不按上传年份推断。",
+        "matchup": "SAS–MIA",
+        "period": 4,
+        "clock_start": "3:17",
+        "clock_end": "3:12",
+        "offense_team": "SAS",
+        "defense_team": "MIA"
+      },
+      "tactic": {
+        "title": "马刺挡拆 · 顺下吊传上篮",
+        "tags": [
+          "挡拆",
+          "顺下",
+          "吊传",
+          "篮下终结"
+        ],
+        "description": "完整前场挡拆配合：外线组织、掩护后顺下、内线接球及上篮结果。开头进攻时钟23秒；之前取得球权的过程不在源片内。",
+        "label_status": "reviewed_visible_actions",
+        "basis": "2026-10-02 连续比赛帧、比分时钟与动作首尾逐段核对；标签描述可见动作，不是球队内部战术暗号。",
+        "confidence_note": "只用于交互验收，不作为球员身份或战术识别真值。"
+      },
+      "video": {
+        "duration_seconds": 4.766666666666667,
+        "width": 1920,
+        "height": 1080,
+        "fps": 30.0,
+        "measurement_status": "measured",
+        "audio_streams": 0
+      },
+      "review": {
+        "normal_speed": true,
+        "original_broadcast": true,
+        "full_possession": false,
+        "complete_tactic_sequence": true,
+        "scope": "完整前场挡拆配合：外线组织、掩护后顺下、内线接球及上篮结果。开头进攻时钟23秒；之前取得球权的过程不在源片内。",
+        "decode_status": "passed",
+        "visual_status": "reviewed",
+        "reviewed_at": "2026-10-02T08:56:21+08:00",
+        "basis": "逐段查看连续原始转播及起止/终结帧；比赛时钟与源时长一致，无教学字幕、人工停帧、慢放、回放或切入其他回合。保留原画幅/水印/比分牌。",
+        "audio_note": "按用户无解说要求移除全部音轨；不是通过静音掩盖画面的教学编辑。",
+        "full_possession_note": "完整前场配合或发球重新开始至投篮结果；未包含取得本次原始球权之前/之后的全部后场过程，因此不标为完整原始球权。"
+      },
+      "dedup": {
+        "content_status": "reviewed_distinct",
+        "action_group": null,
+        "similar_to": [],
+        "duplicate_of": null,
+        "basis": "三个源区间/画面各不相同；未与两个赛季全库逐回合去重。"
+      }
+    },
+    {
+      "clip_id": "tactics-acceptance-006",
+      "local_id": "006",
+      "asset": {
+        "path": "clips/006_SAS_drive_kick.mp4",
+        "bytes": 14206559,
+        "sha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/006.json",
+      "source": {
+        "url": "https://www.bilibili.com/video/BV1zqgd6DEPQ/",
+        "publisher": "用过皮球",
+        "collected_at": "2026-10-02T08:56:21+08:00",
+        "start_seconds": 373.8667,
+        "end_seconds": 389.2666
+      },
+      "game": {
+        "season": null,
+        "league": "NBA",
+        "date_local": null,
+        "unknown_reason": "按战术单独采集；画面可读球队与节次，但比赛日期/赛季尚未独立核实，不按上传年份推断。",
+        "matchup": "SAS–MIA",
+        "period": 2,
+        "clock_start": "3:58",
+        "clock_end": "3:43",
+        "offense_team": "SAS",
+        "defense_team": "MIA"
+      },
+      "tactic": {
+        "title": "马刺转移球 · 弱侧底角三分",
+        "tags": [
+          "高位策应",
+          "传切",
+          "转移球",
+          "底角三分"
+        ],
+        "description": "连续前场进攻配合：外线组织、高位策应、传切转移至弱侧、底角三分及篮下结果。开头已有球权，后场推进不在源片内。",
+        "label_status": "reviewed_visible_actions",
+        "basis": "2026-10-02 连续比赛帧、比分时钟与动作首尾逐段核对；标签描述可见动作，不是球队内部战术暗号。",
+        "confidence_note": "只用于交互验收，不作为球员身份或战术识别真值。"
+      },
+      "video": {
+        "duration_seconds": 15.4,
+        "width": 1920,
+        "height": 1080,
+        "fps": 30.0,
+        "measurement_status": "measured",
+        "audio_streams": 0
+      },
+      "review": {
+        "normal_speed": true,
+        "original_broadcast": true,
+        "full_possession": false,
+        "complete_tactic_sequence": true,
+        "scope": "连续前场进攻配合：外线组织、高位策应、传切转移至弱侧、底角三分及篮下结果。开头已有球权，后场推进不在源片内。",
+        "decode_status": "passed",
+        "visual_status": "reviewed",
+        "reviewed_at": "2026-10-02T08:56:21+08:00",
+        "basis": "逐段查看连续原始转播及起止/终结帧；比赛时钟与源时长一致，无教学字幕、人工停帧、慢放、回放或切入其他回合。保留原画幅/水印/比分牌。",
+        "audio_note": "按用户无解说要求移除全部音轨；不是通过静音掩盖画面的教学编辑。",
+        "full_possession_note": "完整前场配合或发球重新开始至投篮结果；未包含取得本次原始球权之前/之后的全部后场过程，因此不标为完整原始球权。"
+      },
+      "dedup": {
+        "content_status": "reviewed_distinct",
+        "action_group": null,
+        "similar_to": [],
+        "duplicate_of": null,
+        "basis": "三个源区间/画面各不相同；未与两个赛季全库逐回合去重。"
+      }
+    }
+  ]
+}

@@ -6,7 +6,7 @@
 
 | 内容 | 入口 |
 |---|---|
-| 100 个 MP4，集中在一个文件夹 | [clips/](clips/) |
+| 100 个 MP4，集中在一个文件夹 | [clips/](clips) |
 | 播放、搜索、按动作组与完整程度筛选 | [index.html](index.html) |
 | 100 段文字索引 | [INDEX.md](INDEX.md) |
 | 当前视频路径、哈希和标签登记 | [manifest.json](manifest.json) |
