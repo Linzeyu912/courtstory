@@ -1,5 +1,6 @@
 import {exportCourtData,courtGaps} from './court.mjs';
 import {IDENTITY_BINDING_MODE,identityAt,identityBoundaries,identityProvenance,resolveIdentityOwners,migrateIdentitySession,nextIdentityOrder} from './identity-timeline.mjs';
+import {visibleObjects,mergeSourceCuts} from './tracking-display.mjs';
 export function blankSession(videoHash) {
   return { version: 1, videoHash, identityBindingMode:IDENTITY_BINDING_MODE, maxGapSeconds: 0.5, cuts: [], entities: Array.from({length:10}, (_,i) => ({id:`P${i+1}`, name:`球员 ${i+1}`, role:'player', anchors:[]})) };
 }
@@ -77,6 +78,8 @@ export function gapRanges(points) {
 }
 
 export function exportReview(session, clip, confirmedAt) {
+  const sourceCuts=mergeSourceCuts([],clip.sourceCuts,clip.frames.length);
+  session={...session,cuts:mergeSourceCuts(session.cuts,sourceCuts,clip.frames.length)};
   const trajectories = buildTrajectories(session, clip.frames);
   const entities = session.entities.filter(isSelected);
   if (!entities.length) throw new Error('Select at least one target before confirming');
@@ -88,7 +91,11 @@ export function exportReview(session, clip, confirmedAt) {
     allFramesManuallyVerified:false,liveSelection:session.liveSelection||null,identitySelection:session.identitySelection||null,
     sourceVideoSha256:clip.source_video_sha256||clip.video_sha256,
     sourceFrameMapping:clip.frames.map(f=>({frame:f.frame,time:f.time,sourceFrame:f.source_frame??f.frame,sourceTime:f.source_time??f.time})),
-    settings:{maxGapSeconds:session.maxGapSeconds,cuts:[...session.cuts],identityBindingMode:IDENTITY_BINDING_MODE},
+    settings:{maxGapSeconds:session.maxGapSeconds,cuts:[...session.cuts],sourceCuts,identityBindingMode:IDENTITY_BINDING_MODE},
+    sceneObjects:{coordinateSystem:'image_pixels',continuousTracking:false,groundProjection:false,
+      frames:clip.frames.map(record=>({frame:record.frame,time:record.time,
+        objects:visibleObjects(record).map(object=>({kind:object.kind,box:object.box.slice(0,4),score:object.score,
+          source:object.source||'model',groundPoint:false}))}))},
     entities:entities.map(entity => ({...entity,trajectory:trajectories[entity.id],unresolved:gapRanges(trajectories[entity.id]),unverifiedPathFrames:trajectories[entity.id].filter(p=>p.source==='manual_path').map(p=>p.frame),courtTrajectory:courtTrajectories[entity.id],courtUnresolved:courtGaps(courtTrajectories[entity.id])}))};
 }
 

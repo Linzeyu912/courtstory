@@ -5,23 +5,27 @@ import {editImageAnchor,dragImageEdit} from './image-edit.mjs';
 import {createWorkspace} from './workspace.mjs';
 import {blankSession,buildTrajectories,gapRanges,exportReview,isSelected,trackCatalog,confirmBinding,continuationSuggestions} from './trajectory.mjs';
 import {IDENTITY_BINDING_MODE,migrateIdentitySession,confirmIdentity,identityInterval} from './identity-timeline.mjs';
+import {personProposals,visibleObjects,personTrail,indexTemporaryTracks,temporaryTrail,mergeSourceCuts,toggleReviewCut} from './tracking-display.mjs';
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
 const library=await fetch('/api/library').then(r=>{if(!r.ok)throw new Error('视频库加载失败');return r.json();});
 const requestedSample=params.get('sample');
 const sample=library.samples.some(item=>item.id===requestedSample)?requestedSample:library.defaultSample;
 if(requestedSample&&requestedSample!==sample){params.set('sample',sample);params.delete('variant');window.history.replaceState(null,'',`/?${params}`);}
-const variant=params.get('variant')||'original';
-const clip=await fetch(`/api/clip?sample=${encodeURIComponent(sample)}&variant=${encodeURIComponent(variant)}`).then(response=>{if(!response.ok)throw new Error('视频数据加载失败');return response.json();});
+const requestedVariant=params.get('variant')||library.samples.find(item=>item.id===sample)?.defaultVariant||library.defaultVariant||'original';
+const clip=await fetch(`/api/clip?sample=${encodeURIComponent(sample)}&variant=${encodeURIComponent(requestedVariant)}`).then(response=>{if(!response.ok)throw new Error('视频数据加载失败');return response.json();});
+const variant=clip.variant||requestedVariant;
 const qa=params.has('qa');
 const key=`player-review:${clip.video_sha256}${variant==='original'?'':`:${clip.tracking_fingerprint||variant}`}${qa?':qa':''}`;
 let session=blankSession(clip.video_sha256);
 session.maxGapSeconds=0;
-session.cuts=[...(clip.sourceCuts||[])];
+const sourceCuts=mergeSourceCuts([],clip.sourceCuts,clip.frames.length);
+session.cuts=[...sourceCuts];
 try{const raw=localStorage.getItem(key),saved=JSON.parse(raw);if(saved?.videoHash===clip.video_sha256&&saved.version===1&&Array.isArray(saved.entities)){
   if(saved.identityBindingMode!==IDENTITY_BINDING_MODE&&!localStorage.getItem(key+':before-forward-identity'))localStorage.setItem(key+':before-forward-identity',raw);
   session=saved;
 }}catch{}
+session.cuts=mergeSourceCuts(session.cuts,sourceCuts,clip.frames.length);
 migrateIdentitySession(session);
 if(session.courtCalibration===undefined)session.courtCalibration=structuredClone(clip.courtCalibration||null);
 if(session.liveSelection===undefined)session.liveSelection=structuredClone(clip.liveSelection||null);
@@ -30,8 +34,12 @@ let workspace=null;
 let footageUI=null,pathStroke=null;
 let active='P1',frame=0,mode='select',trajectories={},history=[],toastTimer,previewTrackId=null,previewBox=null;
 const catalog=trackCatalog(clip.frames);
-for(const item of clip.variants||[{id:'original',label:'原跟踪 · 保留已有草稿'}]){const option=document.createElement('option');option.value=item.id;option.textContent=item.label;$('trackingVersion').append(option);}
+const trackIndex=indexTemporaryTracks(clip.frames);
+const versions=clip.variants||[{id:'original',label:'原跟踪 · 保留已有草稿'}];
+for(const item of versions){const option=document.createElement('option');option.value=item.id;option.textContent=`${item.label}${item.recommended?' · 推荐':''}`;$('trackingVersion').append(option);}
 $('trackingVersion').value=variant;
+const currentVersion=versions.find(item=>item.id===variant);
+$('modelSummary').textContent=`${currentVersion?.label||variant}${currentVersion?.recommended?' · 推荐用于篮球片段，结果仍需核对':''}。每个版本分别保存人工草稿。`;
 $('trackingVersion').addEventListener('change',event=>{saveDraft();params.set('variant',event.target.value);location.assign(`/?${params}`);});
 for(const item of catalog){const option=document.createElement('option');option.value=item.id;option.textContent=`临时 ${item.id} · ${clip.frames[item.start].time.toFixed(2)}–${clip.frames[item.end].time.toFixed(2)} s`;$('linkTrack').append(option);}
 for(const id of ['linkStart','linkEnd'])$(id).max=clip.frames.length;
@@ -55,15 +63,39 @@ const colors=['#39c3ff','#ffbe3d','#6fdf93','#e992ff','#ff8595','#7fe1d2','#90aa
 function entity(){return session.entities.find(item=>item.id===active);}
 function color(id){return colors[Math.max(0,session.entities.findIndex(item=>item.id===id))%colors.length];}
 function toast(message){$('toast').textContent=message;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),4500);}
-function saveDraft(){localStorage.setItem(key,JSON.stringify(session));}
+function saveDraft(){session.cuts=mergeSourceCuts(session.cuts,sourceCuts,clip.frames.length);localStorage.setItem(key,JSON.stringify(session));}
 function change(callback){history.push(JSON.stringify(session));if(history.length>40)history.shift();callback();saveDraft();refresh();}
 function seek(index){frame=Math.max(0,Math.min(clip.frames.length-1,index));video.pause();video.currentTime=clip.frames[frame].time;draw();}
 function updateFrame(){let best=0;for(let index=0;index<clip.frames.length;index++){if(Math.abs(clip.frames[index].time-video.currentTime)<Math.abs(clip.frames[best].time-video.currentTime))best=index;}frame=best;draw();}
-function proposals(){const record=clip.frames[frame];return record.tracks.map(box=>({box:box.slice(0,4),trackId:Number(box[4]),score:box[5]})).concat((record.pending_detections||[]).map(box=>({box:box.slice(0,4),trackId:null,score:box[4]})));}
+function proposals(){return personProposals(clip.frames[frame],clip.track_roles);}
 function drawBox(box,stroke,label,dashed=false){const[x1,y1,x2,y2]=box;ctx.strokeStyle=stroke;ctx.lineWidth=3;ctx.setLineDash(dashed?[10,7]:[]);ctx.strokeRect(x1,y1,x2-x1,y2-y1);ctx.setLineDash([]);if(label){ctx.font='bold 20px sans-serif';const w=ctx.measureText(label).width+14;ctx.fillStyle=stroke;ctx.fillRect(x1,Math.max(0,y1-28),w,27);ctx.fillStyle='#102133';ctx.fillText(label,x1+7,Math.max(21,y1-7));}}
+function drawTrail(points,stroke,selected=false){
+  if(points.length<2)return;
+  ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+  ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+  if(selected){ctx.strokeStyle='#102133b0';ctx.lineWidth=10;ctx.stroke();}
+  ctx.strokeStyle=stroke;ctx.lineWidth=selected?5:2.5;ctx.globalAlpha=selected ? .95 : .55;ctx.stroke();
+  ctx.fillStyle=stroke;ctx.beginPath();ctx.arc(points[0].x,points[0].y,selected?4:2.5,0,2*Math.PI);ctx.fill();ctx.restore();
+}
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  if($('showCandidates').checked)for(const proposal of proposals())drawBox(proposal.box,'#97a5b8',proposal.trackId===null?'候选':`T${proposal.trackId}`,true);
+  const candidates=proposals(),objects=visibleObjects(clip.frames[frame]);
+  if($('showTrackTrails').checked){
+    for(const candidate of candidates)if(candidate.trackId!=null)drawTrail(temporaryTrail(trackIndex,clip.frames,candidate.trackId,frame,session.cuts),candidate.role==='referee'?'#6eb3ec':'#b4c2cd');
+    if(isSelected(entity()))drawTrail(personTrail(trajectories[active],clip.frames,frame,session.cuts),color(active),true);
+  }
+  if($('showObjects').checked)for(const object of objects){
+    const stroke=object.kind==='basketball'?'#ffaf52':'#ff78b7',name=object.kind==='basketball'?'篮球候选':'篮筐候选';
+    drawBox(object.box,stroke,name,true);
+    const [x1,y1,x2,y2]=object.box,x=(x1+x2)/2,y=(y1+y2)/2;
+    ctx.beginPath();ctx.arc(x,y,5,0,2*Math.PI);ctx.strokeStyle=stroke;ctx.lineWidth=3;ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x-9,y);ctx.lineTo(x+9,y);ctx.moveTo(x,y-9);ctx.lineTo(x,y+9);ctx.stroke();
+  }
+  if($('showCandidates').checked)for(const proposal of candidates){
+    const id=proposal.trackId==null?'候选':`T${proposal.trackId}`;
+    const label=`${id}${proposal.roleConflict?' · 角色?':proposal.role==='referee'?' · 裁判':proposal.role==='player'?' · 球员':''}`;
+    drawBox(proposal.box,proposal.roleConflict?'#f5ad55':proposal.role==='referee'?'#6eb3ec':'#97a5b8',label,true);
+  }
   for(const item of session.entities){if(!isSelected(item))continue;const point=trajectories[item.id]?.[frame];if(!point||point.x===null)continue;const rendered=drag?.entityId===item.id?{...point,...drag.edit}:point;const stroke=point.source==='manual_path'?'#b97610':color(item.id);if(rendered.box)drawBox(rendered.box,stroke,item.id,point.source==='interpolated');ctx.beginPath();ctx.arc(rendered.x,rendered.y,item.id===active?12:8,0,2*Math.PI);ctx.strokeStyle=point.source==='interpolated'?'#ffc247':stroke;ctx.lineWidth=4;ctx.setLineDash(['interpolated','manual_path'].includes(point.source)?[5,4]:[]);ctx.stroke();ctx.setLineDash([]);ctx.font='bold 23px sans-serif';ctx.fillStyle=stroke;ctx.fillText(`${item.id}${point.source==='interpolated'?' · 估计':''}`,rendered.x+15,rendered.y-8);
     if(item.id===active&&editable()){if(rendered.box){const b=rendered.box;for(const [x,y] of [[b[0],b[1]],[b[2],b[1]],[b[2],b[3]],[b[0],b[3]]]){ctx.fillStyle='#fff';ctx.strokeStyle=stroke;ctx.fillRect(x-7,y-7,14,14);ctx.strokeRect(x-7,y-7,14,14);}}ctx.beginPath();ctx.moveTo(rendered.x-18,rendered.y);ctx.lineTo(rendered.x+18,rendered.y);ctx.moveTo(rendered.x,rendered.y-18);ctx.lineTo(rendered.x,rendered.y+18);ctx.strokeStyle=stroke;ctx.stroke();}}
   if(previewTrackId!==null){const box=clip.frames[frame].tracks.find(box=>Number(box[4])===previewTrackId);if(box)drawBox(box,'#ff9638',`候选 T${previewTrackId}`,true);}
@@ -71,13 +103,19 @@ function draw(){
   if(pathStroke?.length){ctx.beginPath();pathStroke.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.strokeStyle='#d99516';ctx.lineWidth=5;ctx.setLineDash([10,5]);ctx.stroke();ctx.setLineDash([]);}
   $('time').textContent=`${clip.frames[frame].time.toFixed(2)} s`;$('frameLabel').textContent=`第 ${frame+1} / ${clip.frames.length} 帧`;$('scrubber').value=frame;$('play').textContent=video.paused?'播放':'暂停';
   const item=entity(),point=trajectories[active]?.[frame];
+  const visibleCount=candidates.filter(p=>p.trackId!=null).length;
+  const pTail=isSelected(item)?personTrail(trajectories[active],clip.frames,frame,session.cuts):[];
+  $('trackingContinuity').textContent=`当前 ${visibleCount} 个临时 T 编号${isSelected(item)?` · ${active} ${point?.trackId!=null?`关联 T${point.trackId}`:'当前无临时编号'} · 连续实际位置 ${pTail.length} 帧`:''}。尾迹为最近 1.2 秒的原图位置，受镜头移动影响；缺失、估计与切镜处断开。`;
+  const basketballs=objects.filter(o=>o.kind==='basketball').length,hoops=objects.filter(o=>o.kind==='hoop').length;
+  $('objectStatus').textContent=objects.length?`当前帧：篮球 ${basketballs} 个候选 · 篮筐 ${hoops} 个候选。框中心是图像标记，不能作为球场地面点。`:'当前帧没有篮球 / 篮筐候选；通用人物模型不提供这两类结果。';
   footageUI?.render();
   const descriptions={manual:'这一帧的位置由你确认。',tracked:'这一帧来自已绑定临时编号的模型位置，仍可点选修正。',interpolated:'这一帧由前后位置估计；不是模型直接检出的结果。',missing:'这一帧尚未关联到位置；可以找回新编号、补点，或标记离开画面。',out_of_view:'这一帧已由你标记为离开画面，不计算位置。',conflict:'这一帧存在身份冲突，需要你重新点选确认。'};
   if(point?.source==='manual')descriptions.manual=point.footMethod==='bbox_bottom_center'?'这一帧已人工选人；位置仍取框底边中心，尚未确认地面脚点。':'这一帧使用人工点选的原图参考位置，仍需核对地面接触与标定。';
   if(point?.identitySource==='reassigned')descriptions.missing=`原 T${point.previousTrackId} 在这一段已由人工确认归到 ${point.claimedBy}；请重新关联当前球员。`;
   descriptions.manual_path='手绘路径的拟补位置，时间沿路径均匀分配；逐帧核对后点击脚点或保存坐标确认。';
   $('pointStatus').textContent=isSelected(item)?`${active} · ${descriptions[point?.source]||''}`:'尚未选择这个目标。点击画面中的人物框开始。';
-  $('cut').textContent=session.cuts.includes(frame)?'移除此处切镜标记':'此处标记切镜';drawTimeline();workspace?.draw();workspace?.drawImageOverlay(ctx);identityUI.render({entity:entity(),entities:session.entities.map(e=>({id:e.id,name:e.name,selected:isSelected(e)})),point:trajectories[active]?.[frame],frame,mode,proposals:proposals(),previewTrackId,identityRanges:entity().identityKeyframes.map(item=>({...item,...identityInterval(session,entity(),item.frame,clip.frames.length),time:clip.frames[item.frame].time}))});
+  $('cut').disabled=sourceCuts.includes(frame);
+  $('cut').textContent=sourceCuts.includes(frame)?'固定拼接点 · 轨迹在此断开':session.cuts.includes(frame)?'移除此处切镜标记':'此处标记切镜';drawTimeline();workspace?.draw();workspace?.drawImageOverlay(ctx);identityUI.render({entity:entity(),entities:session.entities.map(e=>({id:e.id,name:e.name,selected:isSelected(e)})),point:trajectories[active]?.[frame],frame,mode,proposals:candidates,previewTrackId,observedIds:[...new Set((trajectories[active]||[]).filter(p=>p.trackId!=null&&p.x!=null).map(p=>p.trackId))],identityRanges:entity().identityKeyframes.map(item=>({...item,...identityInterval(session,entity(),item.frame,clip.frames.length),time:clip.frames[item.frame].time}))});
 }
 function drawTimeline(){const target=$('timeline'),context=target.getContext('2d');target.width=Math.round(target.clientWidth*devicePixelRatio);target.height=36*devicePixelRatio;const points=trajectories[active]||[];const shades={manual:'#2563eb',tracked:'#0b9c79',interpolated:'#d99516',missing:'#db737c',conflict:'#ad3156',out_of_view:'#8c98a8'};context.clearRect(0,0,target.width,target.height);if(isSelected(entity())){points.forEach((point,index)=>{context.fillStyle=shades[point.source];context.fillRect(index/points.length*target.width,8*devicePixelRatio,target.width/points.length+1,20*devicePixelRatio);});}for(const cut of session.cuts){context.fillStyle='#122034';context.fillRect(cut/clip.frames.length*target.width,0,2*devicePixelRatio,target.height);}context.fillStyle='#122034';context.fillRect(frame/clip.frames.length*target.width,0,3*devicePixelRatio,target.height);}
 function refresh(){
@@ -90,7 +128,7 @@ function refresh(){
   $('anchorList').replaceChildren();for(const anchor of [...entity().anchors].sort((a,b)=>a.frame-b.frame)){const row=document.createElement('div');row.className='anchor';const jump=document.createElement('button');jump.textContent=`位置 · 第 ${anchor.frame+1} 帧 · ${clip.frames[anchor.frame].time.toFixed(2)} s`;jump.addEventListener('click',()=>seek(anchor.frame));const remove=document.createElement('button');remove.textContent='删除位置';remove.addEventListener('click',()=>change(()=>entity().anchors=entity().anchors.filter(item=>item.frame!==anchor.frame)));row.append(jump,remove);$('anchorList').append(row);}
   const playerCount=session.entities.filter(e=>e.role==='player'&&isSelected(e)).length;
   $('identityProgress').textContent=`已对应 ${playerCount} / 10 名球员${session.identitySelection?' · 人工确认完成':''}。T 编号变化在第三步归并。`;
-  renderBindings();workspace?.refresh();$('cuts').textContent=session.cuts.length?`切镜：${session.cuts.map(index=>`第 ${index+1} 帧`).join('、')}`:'当前没有切镜标记。';draw();
+  renderBindings();workspace?.refresh();$('cuts').textContent=session.cuts.length?`切镜：${session.cuts.map(index=>`第 ${index+1} 帧${sourceCuts.includes(index)?'（固定拼接点）':''}`).join('、')}`:'当前没有切镜标记。';draw();
 }
 function associateProposal(hit){
   if(!hit)return;
@@ -132,10 +170,10 @@ $('previous').addEventListener('click',()=>seek(frame-1));$('next').addEventList
 $('timeline').addEventListener('click',event=>{const rect=event.currentTarget.getBoundingClientRect();seek(Math.floor((event.clientX-rect.left)/rect.width*clip.frames.length));});
 for(const event of ['timeupdate','seeked','play','pause'])video.addEventListener(event,updateFrame);
 function tick(){if(!video.paused)updateFrame();requestAnimationFrame(tick);}requestAnimationFrame(tick);
-$('showCandidates').addEventListener('change',draw);$('maxGap').addEventListener('change',event=>change(()=>session.maxGapSeconds=Number(event.target.value)));
+for(const id of ['showCandidates','showObjects','showTrackTrails'])$(id).addEventListener('change',draw);$('maxGap').addEventListener('change',event=>change(()=>session.maxGapSeconds=Number(event.target.value)));
 $('undo').addEventListener('click',()=>{if(history.length){session=JSON.parse(history.pop());if(!session.entities.some(item=>item.id===active))active='P1';saveDraft();refresh();}});
 $('save').addEventListener('click',()=>{saveDraft();toast('草稿已保存在当前浏览器，可继续修改。');});
-$('cut').addEventListener('click',()=>change(()=>session.cuts=session.cuts.includes(frame)?session.cuts.filter(value=>value!==frame):[...session.cuts,frame].sort((a,b)=>a-b)));
+$('cut').addEventListener('click',()=>{if(sourceCuts.includes(frame)){toast('这里是删除视频区间后的固定拼接点，轨迹必须在此断开。');return;}change(()=>session.cuts=toggleReviewCut(session.cuts,sourceCuts,frame,clip.frames.length));});
 function jumpGap(direction){if(!isSelected(entity())){toast('请先选定当前球员。');return;}const gaps=workspace?.gaps()||gapRanges(trajectories[active]);const match=direction>0?gaps.find(gap=>gap.start>frame):[...gaps].reverse().find(gap=>gap.end<frame);if(match)seek(direction>0?match.start:match.end);else toast('这个方向没有更多缺失区间。');}
 $('previousGap').addEventListener('click',()=>jumpGap(-1));$('nextGap').addEventListener('click',()=>jumpGap(1));
 $('addReferee').addEventListener('click',()=>{const count=session.entities.filter(item=>item.role==='referee').length;if(count>=3){toast('当前已提供 3 个裁判编号。');return;}change(()=>{active=`R${count+1}`;session.entities.push({id:active,name:`裁判 ${count+1}`,role:'referee',anchors:[]});});});

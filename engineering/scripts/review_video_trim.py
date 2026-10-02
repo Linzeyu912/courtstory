@@ -32,6 +32,16 @@ def trim_review_clip(source, ranges, output_dir):
     import av
     payload=source['payload'];records=payload['frames']
     ranges=retained_ranges(ranges,len(records))
+    payloads=source.get('payloads')
+    if payloads:
+        if 'original' not in payloads:raise ValueError('剪辑需要保留原始检测版本。')
+        for variant,entry in payloads.items():
+            import re
+            if not re.fullmatch(r'[a-z][a-z0-9_-]{0,39}',variant):raise ValueError('检测版本编号无效。')
+            if entry.get('video_sha256')!=payload['video_sha256'] or len(entry['frames'])!=len(records):
+                raise ValueError('检测版本必须对应同一段视频。')
+            if any(a['frame']!=b['frame'] or abs(a['time']-b['time'])>.001 for a,b in zip(records,entry['frames'])):
+                raise ValueError('检测版本的来源帧不一致。')
     kept=[i for r in ranges for i in range(r['start'],r['end']+1)]
     output_dir=Path(output_dir);output_dir.mkdir(parents=True,exist_ok=False)
     video=output_dir/'video.mp4';track_path=output_dir/'tracks.json'
@@ -70,9 +80,32 @@ def trim_review_clip(source, ranges, output_dir):
         track_path.write_text(json.dumps(new_records,separators=(',',':'))+'\n',encoding='utf-8')
         track_path.with_suffix('.meta.json').write_text(json.dumps({'video_sha256':digest,'frames':len(times),
             'identity_verified':False,'method':'subset_of_source_proposals','source_video_sha256':root_hash},indent=2)+'\n',encoding='utf-8')
-        return {'video':str(video),'tracks':str(track_path),'videoSha256':digest,'sourceCuts':cuts,
+        result={'video':str(video),'tracks':str(track_path),'videoSha256':digest,'sourceCuts':cuts,
                 'sourceVideoSha256':root_hash,'retainedRanges':ranges,
                 'supportsCourtCalibration':payload.get('supportsCourtCalibration',True)}
+        if payloads:
+            variants=[]
+            configs={item['id']:item for item in payload.get('variants',[])}
+            for variant,entry in payloads.items():
+                path=output_dir/f'tracks-{variant}.json'
+                subset=[]
+                for i,(source_index,time) in enumerate(zip(kept,times)):
+                    record=copy.deepcopy(entry['frames'][source_index])
+                    record.update(frame=i,time=time,source_frame=record.get('source_frame',source_index),
+                                  source_time=record.get('source_time',record['time']))
+                    subset.append(record)
+                path.write_text(json.dumps(subset,separators=(',',':'))+'\n',encoding='utf-8')
+                path.with_suffix('.meta.json').write_text(json.dumps({'video_sha256':digest,'frames':len(times),
+                    'identity_verified':False,'method':'subset_of_source_proposals','tracking_revision':variant,
+                    'source_video_sha256':root_hash,'source_tracking_fingerprint':entry.get('tracking_fingerprint')},indent=2)+'\n',encoding='utf-8')
+                config=configs.get(variant,{'label':variant})
+                if variant=='original':
+                    result['tracks']=str(path);result['originalLabel']=config['label']
+                else:
+                    variants.append({'id':variant,'tracks':str(path),'label':config['label'],'recommended':config.get('recommended',False)})
+            result['trackingVariants']=variants
+            result['defaultVariant']=payload.get('variant',payload.get('tracking_revision','original'))
+        return result
     except Exception:
         # Keep incomplete output for diagnosis, but never register it as a usable clip.
         raise

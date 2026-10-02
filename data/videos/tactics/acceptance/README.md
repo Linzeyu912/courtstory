@@ -37,7 +37,9 @@
 
 ## 候选、验证与共享
 
-`tracks/*.json` 是逐帧匹配的 YOLOv8s 通用人物候选 + ByteTrack 临时编号，`.meta.json` 绑定视频哈希 / 帧数；三个样例均使用 `--min-foot-y-ratio .3`。仍可能有裁判、观众或遮挡遗漏，不套用旧场景的黄白球衣规则。
+`tracks/004.json`、`005.json`、`006.json` 是原有 YOLOv8s 通用人物候选 + ByteTrack 临时编号，使用 `--min-foot-y-ratio .3`。新增 `*-ebard.json` 是 E-BARD YOLOv8n 的球员 / 裁判分别跟踪结果，含逐帧篮球和篮筐候选，不套用该图像区域筛选或球衣条件。两类 `.meta.json` 均绑定视频哈希 / 帧数；新模型仍可能误分类、重复、遮挡遗漏或串号，不限制输出人数为十人。
+
+顶部默认推荐 E-BARD，可切回通用模型；各自草稿隔离。实际裁剪同步保留两种版本，旧 T 编号不会自动迁移。新管线参数、耗时见[测量 JSON](../../../../engineering/research/vision-player-refinement/ebard-tracking-probe.json)，操作与限制见[工作台说明](../../../../engineering/tools/player-review/README.md)。新增候选尚未提交推送，不影响本节下方历史成片共享记录。
 
 2026-10-02：三个实际成片的字节 / SHA-256、全片解码、候选帧数 / 时间戳及零音轨检查通过；连续帧与比赛时钟逐段复核。35 项 JavaScript、4 项 Python 裁切测试通过。浏览器验证了三步流程、P1 脚点 / 框编辑、两个 T 的分段归并、手绘待核对点、跨视频草稿恢复、三段播放和 720px 布局；接口的剪辑重启恢复及 Range 播放通过。测试编号只验证交互，不验证真人身份。
 

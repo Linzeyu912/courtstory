@@ -1,0 +1,44 @@
+{
+  "video_sha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+  "frames": 462,
+  "width": 1920,
+  "height": 1080,
+  "frame_rate": 30.0,
+  "first_time": 0.0,
+  "last_time": 15.366666666666667,
+  "model": "BODD_yolov8n_0001.pt",
+  "model_sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+  "class_names": {
+    "0": "basketball",
+    "1": "hoop",
+    "2": "player",
+    "3": "referee"
+  },
+  "detector_id": "ebard_yolov8n",
+  "pipeline_version": "ebard-yolov8n-bytetrack-v1",
+  "tracker": "ByteTrack",
+  "tracker_parameters": {
+    "track_high_thresh": 0.2,
+    "track_low_thresh": 0.07,
+    "new_track_thresh": 0.2,
+    "track_buffer": 30,
+    "match_thresh": 0.8,
+    "fuse_score": true
+  },
+  "detection_parameters": {
+    "imgsz": 704,
+    "conf": 0.07,
+    "iou": 0.5,
+    "device": 0,
+    "half": true,
+    "verbose": false
+  },
+  "identity_verified": false,
+  "object_tracking": false,
+  "foot_method": "bbox_bottom_center",
+  "cross_role_policy": "preserve_and_flag_iou_at_least_0.75",
+  "object_confidence": 0.25,
+  "candidate_filter_note": "No jersey/image-region/fixed-count filtering",
+  "processing_seconds": 9.294994099996984,
+  "tracks_sha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0"
+}

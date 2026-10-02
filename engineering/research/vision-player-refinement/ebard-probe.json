@@ -1,0 +1,677 @@
+{
+  "collectedAt": "2026-10-02T14:46:06.248699+08:00",
+  "source": "https://huggingface.co/GabrieleGiudici/E-BARD-detection-models",
+  "device": "NVIDIA GeForce RTX 5070 Laptop GPU",
+  "torch": "2.11.0+cu128",
+  "ultralytics": "8.4.63",
+  "conf": 0.25,
+  "iou": 0.5,
+  "half": true,
+  "accuracyValidated": false,
+  "notes": [
+    "Raw detections, no geometric/jersey filters or ByteTrack.",
+    "Detection count is not recall; identities and feet are not predicted.",
+    "Per-clip time includes decode/predict/CPU result collection; excludes loading, warmup, preview and JSON writing.",
+    "FP16 letterbox inference; imgsz is the target maximum dimension, not a square stretch."
+  ],
+  "models": {
+    "generic_yolov8s": {
+      "file": "tmp/vision-deploy-bench/yolov8s.pt",
+      "sha256": "1f47a78bf100391c2a140b7ac73a1caae18c32779be7d310658112f7ac9aa78a",
+      "names": {
+        "0": "person",
+        "1": "bicycle",
+        "2": "car",
+        "3": "motorcycle",
+        "4": "airplane",
+        "5": "bus",
+        "6": "train",
+        "7": "truck",
+        "8": "boat",
+        "9": "traffic light",
+        "10": "fire hydrant",
+        "11": "stop sign",
+        "12": "parking meter",
+        "13": "bench",
+        "14": "bird",
+        "15": "cat",
+        "16": "dog",
+        "17": "horse",
+        "18": "sheep",
+        "19": "cow",
+        "20": "elephant",
+        "21": "bear",
+        "22": "zebra",
+        "23": "giraffe",
+        "24": "backpack",
+        "25": "umbrella",
+        "26": "handbag",
+        "27": "tie",
+        "28": "suitcase",
+        "29": "frisbee",
+        "30": "skis",
+        "31": "snowboard",
+        "32": "sports ball",
+        "33": "kite",
+        "34": "baseball bat",
+        "35": "baseball glove",
+        "36": "skateboard",
+        "37": "surfboard",
+        "38": "tennis racket",
+        "39": "bottle",
+        "40": "wine glass",
+        "41": "cup",
+        "42": "fork",
+        "43": "knife",
+        "44": "spoon",
+        "45": "bowl",
+        "46": "banana",
+        "47": "apple",
+        "48": "sandwich",
+        "49": "orange",
+        "50": "broccoli",
+        "51": "carrot",
+        "52": "hot dog",
+        "53": "pizza",
+        "54": "donut",
+        "55": "cake",
+        "56": "chair",
+        "57": "couch",
+        "58": "potted plant",
+        "59": "bed",
+        "60": "dining table",
+        "61": "toilet",
+        "62": "tv",
+        "63": "laptop",
+        "64": "mouse",
+        "65": "remote",
+        "66": "keyboard",
+        "67": "cell phone",
+        "68": "microwave",
+        "69": "oven",
+        "70": "toaster",
+        "71": "sink",
+        "72": "refrigerator",
+        "73": "book",
+        "74": "clock",
+        "75": "vase",
+        "76": "scissors",
+        "77": "teddy bear",
+        "78": "hair drier",
+        "79": "toothbrush"
+      },
+      "loadSeconds": 0.06809239997528493
+    },
+    "ebard_yolov8n": {
+      "file": "tmp/ebard-probe/BODD_yolov8n_0001.pt",
+      "sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+      "names": {
+        "0": "basketball",
+        "1": "hoop",
+        "2": "player",
+        "3": "referee"
+      },
+      "loadSeconds": 0.036688099993625656
+    }
+  },
+  "runs": [
+    {
+      "sample": "004",
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "model": "generic_yolov8s",
+      "imgsz": 704,
+      "frames": 210,
+      "wallSeconds": 3.372085299983155,
+      "predictMedianMs": 7.30204998399131,
+      "predictP90Ms": 8.533289996557869,
+      "meanDetections": {
+        "person": 13.714285714285714
+      },
+      "snapshots": [
+        {
+          "frame": 0,
+          "counts": {
+            "person": 14
+          }
+        },
+        {
+          "frame": 70,
+          "counts": {
+            "person": 13
+          }
+        },
+        {
+          "frame": 140,
+          "counts": {
+            "person": 12
+          }
+        },
+        {
+          "frame": 209,
+          "counts": {
+            "person": 13
+          }
+        }
+      ]
+    },
+    {
+      "sample": "005",
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "model": "generic_yolov8s",
+      "imgsz": 704,
+      "frames": 143,
+      "wallSeconds": 2.6096494999947026,
+      "predictMedianMs": 7.348099985392764,
+      "predictP90Ms": 8.288600004743783,
+      "meanDetections": {
+        "person": 16.216783216783217
+      },
+      "snapshots": [
+        {
+          "frame": 0,
+          "counts": {
+            "person": 15
+          }
+        },
+        {
+          "frame": 47,
+          "counts": {
+            "person": 14
+          }
+        },
+        {
+          "frame": 95,
+          "counts": {
+            "person": 14
+          }
+        },
+        {
+          "frame": 142,
+          "counts": {
+            "person": 15
+          }
+        }
+      ]
+    },
+    {
+      "sample": "006",
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "model": "generic_yolov8s",
+      "imgsz": 704,
+      "frames": 462,
+      "wallSeconds": 8.565683799999533,
+      "predictMedianMs": 7.603350008139387,
+      "predictP90Ms": 9.043469984317198,
+      "meanDetections": {
+        "person": 17.9025974025974
+      },
+      "snapshots": [
+        {
+          "frame": 0,
+          "counts": {
+            "person": 19
+          }
+        },
+        {
+          "frame": 154,
+          "counts": {
+            "person": 18
+          }
+        },
+        {
+          "frame": 308,
+          "counts": {
+            "person": 17
+          }
+        },
+        {
+          "frame": 461,
+          "counts": {
+            "person": 12
+          }
+        }
+      ]
+    },
+    {
+      "sample": "004",
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "model": "generic_yolov8s",
+      "imgsz": 960,
+      "frames": 210,
+      "wallSeconds": 3.590154200006509,
+      "predictMedianMs": 8.618899999419227,
+      "predictP90Ms": 9.768990008160472,
+      "meanDetections": {
+        "person": 18.676190476190477
+      },
+      "snapshots": [
+        {
+          "frame": 0,
+          "counts": {
+            "person": 18
+          }
+        },
+        {
+          "frame": 70,
+          "counts": {
+            "person": 20
+          }
+        },
+        {
+          "frame": 140,
+          "counts": {
+            "person": 20
+          }
+        },
+        {
+          "frame": 209,
+          "counts": {
+            "person": 13
+          }
+        }
+      ]
+    },
+    {
+      "sample": "005",
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "model": "generic_yolov8s",
+      "imgsz": 960,
+      "frames": 143,
+      "wallSeconds": 2.8988727999967523,
+      "predictMedianMs": 8.918600011384115,
+      "predictP90Ms": 10.563740017823875,
+      "meanDetections": {
+        "person": 25.552447552447553
+      },
+      "snapshots": [
+        {
+          "frame": 0,
+          "counts": {
+            "person": 25
+          }
+        },
+        {
+          "frame": 47,
+          "counts": {
+            "person": 21
+          }
+        },
+        {
+          "frame": 95,
+          "counts": {
+            "person": 34
+          }
+        },
+        {
+          "frame": 142,
+          "counts": {
+            "person": 24
+          }
+        }
+      ]
+    },
+    {
+      "sample": "006",
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "model": "generic_yolov8s",
+      "imgsz": 960,
+      "frames": 462,
+      "wallSeconds": 9.233721600001445,
+      "predictMedianMs": 8.89709999319166,
+      "predictP90Ms": 10.232760006329045,
+      "meanDetections": {
+        "person": 26.049783549783548
+      },
+      "snapshots": [
+        {
+          "frame": 0,
+          "counts": {
+            "person": 26
+          }
+        },
+        {
+          "frame": 154,
+          "counts": {
+            "person": 25
+          }
+        },
+        {
+          "frame": 308,
+          "counts": {
+            "person": 27
+          }
+        },
+        {
+          "frame": 461,
+          "counts": {
+            "person": 24
+          }
+        }
+      ]
+    },
+    {
+      "sample": "004",
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "model": "ebard_yolov8n",
+      "imgsz": 704,
+      "frames": 210,
+      "wallSeconds": 3.3165867000061553,
+      "predictMedianMs": 7.1783000021241605,
+      "predictP90Ms": 8.653359994059429,
+      "meanDetections": {
+        "basketball": 0.3523809523809524,
+        "hoop": 0.9761904761904762,
+        "player": 9.014285714285714,
+        "referee": 2.395238095238095
+      },
+      "snapshots": [
+        {
+          "frame": 0,
+          "counts": {
+            "basketball": 0,
+            "hoop": 1,
+            "player": 10,
+            "referee": 3
+          }
+        },
+        {
+          "frame": 70,
+          "counts": {
+            "basketball": 0,
+            "hoop": 1,
+            "player": 10,
+            "referee": 2
+          }
+        },
+        {
+          "frame": 140,
+          "counts": {
+            "basketball": 1,
+            "hoop": 1,
+            "player": 9,
+            "referee": 3
+          }
+        },
+        {
+          "frame": 209,
+          "counts": {
+            "basketball": 0,
+            "hoop": 1,
+            "player": 6,
+            "referee": 0
+          }
+        }
+      ]
+    },
+    {
+      "sample": "005",
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "model": "ebard_yolov8n",
+      "imgsz": 704,
+      "frames": 143,
+      "wallSeconds": 2.5848230999836233,
+      "predictMedianMs": 7.30719999410212,
+      "predictP90Ms": 8.231100003467873,
+      "meanDetections": {
+        "basketball": 0.5454545454545454,
+        "hoop": 1.0,
+        "player": 9.272727272727273,
+        "referee": 2.0
+      },
+      "snapshots": [
+        {
+          "frame": 0,
+          "counts": {
+            "basketball": 0,
+            "hoop": 1,
+            "player": 10,
+            "referee": 2
+          }
+        },
+        {
+          "frame": 47,
+          "counts": {
+            "basketball": 1,
+            "hoop": 1,
+            "player": 10,
+            "referee": 2
+          }
+        },
+        {
+          "frame": 95,
+          "counts": {
+            "basketball": 1,
+            "hoop": 1,
+            "player": 9,
+            "referee": 2
+          }
+        },
+        {
+          "frame": 142,
+          "counts": {
+            "basketball": 1,
+            "hoop": 1,
+            "player": 8,
+            "referee": 2
+          }
+        }
+      ]
+    },
+    {
+      "sample": "006",
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "model": "ebard_yolov8n",
+      "imgsz": 704,
+      "frames": 462,
+      "wallSeconds": 8.289629700011574,
+      "predictMedianMs": 7.417850007186644,
+      "predictP90Ms": 8.824950011330657,
+      "meanDetections": {
+        "basketball": 0.44805194805194803,
+        "hoop": 1.0,
+        "player": 9.41991341991342,
+        "referee": 2.4393939393939394
+      },
+      "snapshots": [
+        {
+          "frame": 0,
+          "counts": {
+            "basketball": 1,
+            "hoop": 1,
+            "player": 10,
+            "referee": 3
+          }
+        },
+        {
+          "frame": 154,
+          "counts": {
+            "basketball": 0,
+            "hoop": 1,
+            "player": 10,
+            "referee": 2
+          }
+        },
+        {
+          "frame": 308,
+          "counts": {
+            "basketball": 1,
+            "hoop": 1,
+            "player": 10,
+            "referee": 2
+          }
+        },
+        {
+          "frame": 461,
+          "counts": {
+            "basketball": 0,
+            "hoop": 1,
+            "player": 6,
+            "referee": 3
+          }
+        }
+      ]
+    },
+    {
+      "sample": "004",
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "model": "ebard_yolov8n",
+      "imgsz": 960,
+      "frames": 210,
+      "wallSeconds": 3.2733797000255436,
+      "predictMedianMs": 8.265299999038689,
+      "predictP90Ms": 9.297230010270141,
+      "meanDetections": {
+        "basketball": 0.40476190476190477,
+        "hoop": 0.9809523809523809,
+        "player": 8.947619047619048,
+        "referee": 2.642857142857143
+      },
+      "snapshots": [
+        {
+          "frame": 0,
+          "counts": {
+            "basketball": 0,
+            "hoop": 1,
+            "player": 10,
+            "referee": 4
+          }
+        },
+        {
+          "frame": 70,
+          "counts": {
+            "basketball": 0,
+            "hoop": 1,
+            "player": 10,
+            "referee": 2
+          }
+        },
+        {
+          "frame": 140,
+          "counts": {
+            "basketball": 1,
+            "hoop": 1,
+            "player": 10,
+            "referee": 2
+          }
+        },
+        {
+          "frame": 209,
+          "counts": {
+            "basketball": 0,
+            "hoop": 1,
+            "player": 6,
+            "referee": 0
+          }
+        }
+      ]
+    },
+    {
+      "sample": "005",
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "model": "ebard_yolov8n",
+      "imgsz": 960,
+      "frames": 143,
+      "wallSeconds": 2.585996100009652,
+      "predictMedianMs": 8.157200005371124,
+      "predictP90Ms": 9.699839976383373,
+      "meanDetections": {
+        "basketball": 0.5524475524475524,
+        "hoop": 1.0,
+        "player": 9.160839160839162,
+        "referee": 1.979020979020979
+      },
+      "snapshots": [
+        {
+          "frame": 0,
+          "counts": {
+            "basketball": 0,
+            "hoop": 1,
+            "player": 10,
+            "referee": 2
+          }
+        },
+        {
+          "frame": 47,
+          "counts": {
+            "basketball": 1,
+            "hoop": 1,
+            "player": 10,
+            "referee": 2
+          }
+        },
+        {
+          "frame": 95,
+          "counts": {
+            "basketball": 1,
+            "hoop": 1,
+            "player": 9,
+            "referee": 2
+          }
+        },
+        {
+          "frame": 142,
+          "counts": {
+            "basketball": 2,
+            "hoop": 1,
+            "player": 6,
+            "referee": 2
+          }
+        }
+      ]
+    },
+    {
+      "sample": "006",
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "model": "ebard_yolov8n",
+      "imgsz": 960,
+      "frames": 462,
+      "wallSeconds": 8.332246499980101,
+      "predictMedianMs": 8.241049989010207,
+      "predictP90Ms": 9.739200002513826,
+      "meanDetections": {
+        "basketball": 0.45670995670995673,
+        "hoop": 0.9891774891774892,
+        "player": 9.573593073593074,
+        "referee": 2.344155844155844
+      },
+      "snapshots": [
+        {
+          "frame": 0,
+          "counts": {
+            "basketball": 1,
+            "hoop": 1,
+            "player": 10,
+            "referee": 3
+          }
+        },
+        {
+          "frame": 154,
+          "counts": {
+            "basketball": 0,
+            "hoop": 1,
+            "player": 11,
+            "referee": 3
+          }
+        },
+        {
+          "frame": 308,
+          "counts": {
+            "basketball": 1,
+            "hoop": 1,
+            "player": 10,
+            "referee": 1
+          }
+        },
+        {
+          "frame": 461,
+          "counts": {
+            "basketball": 2,
+            "hoop": 0,
+            "player": 7,
+            "referee": 2
+          }
+        }
+      ]
+    }
+  ]
+}

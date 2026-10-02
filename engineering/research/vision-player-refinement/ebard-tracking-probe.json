@@ -1,0 +1,1873 @@
+{
+  "collectedAt": "2026-10-02T15:02:23.596389+08:00",
+  "source": "https://huggingface.co/GabrieleGiudici/E-BARD-detection-models",
+  "pipelineVersion": "ebard-yolov8n-bytetrack-v1",
+  "device": "NVIDIA GeForce RTX 5070 Laptop GPU",
+  "torch": "2.11.0+cu128",
+  "ultralytics": "8.4.63",
+  "modelSha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+  "loadAndWarmupSeconds": 0.5184431000088807,
+  "detection": {
+    "imgsz": 704,
+    "conf": 0.07,
+    "iou": 0.5,
+    "device": 0,
+    "half": true,
+    "verbose": false
+  },
+  "tracker": {
+    "track_high_thresh": 0.2,
+    "track_low_thresh": 0.07,
+    "new_track_thresh": 0.2,
+    "track_buffer": 30,
+    "match_thresh": 0.8,
+    "fuse_score": true
+  },
+  "identityAccuracyValidated": false,
+  "footAccuracyValidated": false,
+  "notes": [
+    "Separate player/referee ByteTrack instances; compact globally unique output IDs within each video.",
+    "No maximum-ten restriction, jersey filter or image-region filter.",
+    "Cross-role tracks with IoU >= 0.75 are retained and flagged; classification remains uncertain.",
+    "Basketball/hoop are per-frame detections at confidence >= 0.25, not temporal object trajectories or ground anchors.",
+    "Track count/coverage is not identity accuracy; Kalman predictions during missing frames are not exported as observed points.",
+    "Processing time includes decoding/detection/tracking/record collection, excludes loading/warmup/previews/JSON writing."
+  ],
+  "runs": [
+    {
+      "sample": "004",
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "tracksSha256": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+      "output": "data/videos/tactics/acceptance/tracks/004-ebard.json",
+      "frames": 210,
+      "frameRate": 23.97,
+      "firstTime": 0.04098873591989988,
+      "lastTime": 8.760221109720485,
+      "processingSeconds": 3.570122300006915,
+      "predictMedianMs": 7.296150011825375,
+      "trackingAndRecordsMedianMs": 1.131349999923259,
+      "distinctTracksByRole": {
+        "player": 31,
+        "referee": 9
+      },
+      "framesWithRoleConflicts": 29,
+      "framesWithObjects": {
+        "basketball": 73,
+        "hoop": 205
+      },
+      "tracks": [
+        {
+          "trackId": 1,
+          "role": "player",
+          "observations": 210,
+          "firstFrame": 0,
+          "lastFrame": 209,
+          "visibleIntervals": [
+            [
+              0,
+              209
+            ]
+          ]
+        },
+        {
+          "trackId": 2,
+          "role": "player",
+          "observations": 44,
+          "firstFrame": 0,
+          "lastFrame": 46,
+          "visibleIntervals": [
+            [
+              0,
+              36
+            ],
+            [
+              40,
+              46
+            ]
+          ]
+        },
+        {
+          "trackId": 3,
+          "role": "player",
+          "observations": 173,
+          "firstFrame": 0,
+          "lastFrame": 173,
+          "visibleIntervals": [
+            [
+              0,
+              108
+            ],
+            [
+              110,
+              173
+            ]
+          ]
+        },
+        {
+          "trackId": 4,
+          "role": "player",
+          "observations": 81,
+          "firstFrame": 0,
+          "lastFrame": 81,
+          "visibleIntervals": [
+            [
+              0,
+              63
+            ],
+            [
+              65,
+              81
+            ]
+          ]
+        },
+        {
+          "trackId": 5,
+          "role": "player",
+          "observations": 165,
+          "firstFrame": 0,
+          "lastFrame": 164,
+          "visibleIntervals": [
+            [
+              0,
+              164
+            ]
+          ]
+        },
+        {
+          "trackId": 6,
+          "role": "player",
+          "observations": 193,
+          "firstFrame": 0,
+          "lastFrame": 209,
+          "visibleIntervals": [
+            [
+              0,
+              29
+            ],
+            [
+              32,
+              50
+            ],
+            [
+              62,
+              98
+            ],
+            [
+              101,
+              102
+            ],
+            [
+              105,
+              209
+            ]
+          ]
+        },
+        {
+          "trackId": 7,
+          "role": "player",
+          "observations": 195,
+          "firstFrame": 0,
+          "lastFrame": 209,
+          "visibleIntervals": [
+            [
+              0,
+              15
+            ],
+            [
+              18,
+              54
+            ],
+            [
+              58,
+              188
+            ],
+            [
+              199,
+              209
+            ]
+          ]
+        },
+        {
+          "trackId": 8,
+          "role": "player",
+          "observations": 59,
+          "firstFrame": 0,
+          "lastFrame": 65,
+          "visibleIntervals": [
+            [
+              0,
+              14
+            ],
+            [
+              16,
+              18
+            ],
+            [
+              23,
+              46
+            ],
+            [
+              49,
+              65
+            ]
+          ]
+        },
+        {
+          "trackId": 9,
+          "role": "player",
+          "observations": 206,
+          "firstFrame": 0,
+          "lastFrame": 209,
+          "visibleIntervals": [
+            [
+              0,
+              42
+            ],
+            [
+              44,
+              112
+            ],
+            [
+              116,
+              209
+            ]
+          ]
+        },
+        {
+          "trackId": 10,
+          "role": "player",
+          "observations": 3,
+          "firstFrame": 0,
+          "lastFrame": 2,
+          "visibleIntervals": [
+            [
+              0,
+              2
+            ]
+          ]
+        },
+        {
+          "trackId": 11,
+          "role": "player",
+          "observations": 1,
+          "firstFrame": 0,
+          "lastFrame": 0,
+          "visibleIntervals": [
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        {
+          "trackId": 12,
+          "role": "referee",
+          "observations": 138,
+          "firstFrame": 0,
+          "lastFrame": 137,
+          "visibleIntervals": [
+            [
+              0,
+              137
+            ]
+          ]
+        },
+        {
+          "trackId": 13,
+          "role": "referee",
+          "observations": 193,
+          "firstFrame": 0,
+          "lastFrame": 192,
+          "visibleIntervals": [
+            [
+              0,
+              192
+            ]
+          ]
+        },
+        {
+          "trackId": 14,
+          "role": "referee",
+          "observations": 34,
+          "firstFrame": 0,
+          "lastFrame": 33,
+          "visibleIntervals": [
+            [
+              0,
+              33
+            ]
+          ]
+        },
+        {
+          "trackId": 15,
+          "role": "player",
+          "observations": 38,
+          "firstFrame": 2,
+          "lastFrame": 39,
+          "visibleIntervals": [
+            [
+              2,
+              39
+            ]
+          ]
+        },
+        {
+          "trackId": 16,
+          "role": "player",
+          "observations": 3,
+          "firstFrame": 8,
+          "lastFrame": 12,
+          "visibleIntervals": [
+            [
+              8,
+              8
+            ],
+            [
+              10,
+              10
+            ],
+            [
+              12,
+              12
+            ]
+          ]
+        },
+        {
+          "trackId": 17,
+          "role": "referee",
+          "observations": 111,
+          "firstFrame": 22,
+          "lastFrame": 192,
+          "visibleIntervals": [
+            [
+              22,
+              29
+            ],
+            [
+              47,
+              57
+            ],
+            [
+              63,
+              63
+            ],
+            [
+              68,
+              73
+            ],
+            [
+              78,
+              78
+            ],
+            [
+              105,
+              105
+            ],
+            [
+              107,
+              113
+            ],
+            [
+              117,
+              192
+            ]
+          ]
+        },
+        {
+          "trackId": 18,
+          "role": "player",
+          "observations": 41,
+          "firstFrame": 48,
+          "lastFrame": 88,
+          "visibleIntervals": [
+            [
+              48,
+              88
+            ]
+          ]
+        },
+        {
+          "trackId": 19,
+          "role": "player",
+          "observations": 73,
+          "firstFrame": 58,
+          "lastFrame": 142,
+          "visibleIntervals": [
+            [
+              58,
+              60
+            ],
+            [
+              62,
+              62
+            ],
+            [
+              68,
+              118
+            ],
+            [
+              124,
+              125
+            ],
+            [
+              127,
+              142
+            ]
+          ]
+        },
+        {
+          "trackId": 20,
+          "role": "player",
+          "observations": 9,
+          "firstFrame": 70,
+          "lastFrame": 81,
+          "visibleIntervals": [
+            [
+              70,
+              70
+            ],
+            [
+              74,
+              81
+            ]
+          ]
+        },
+        {
+          "trackId": 21,
+          "role": "player",
+          "observations": 9,
+          "firstFrame": 90,
+          "lastFrame": 98,
+          "visibleIntervals": [
+            [
+              90,
+              98
+            ]
+          ]
+        },
+        {
+          "trackId": 22,
+          "role": "player",
+          "observations": 67,
+          "firstFrame": 92,
+          "lastFrame": 161,
+          "visibleIntervals": [
+            [
+              92,
+              157
+            ],
+            [
+              161,
+              161
+            ]
+          ]
+        },
+        {
+          "trackId": 23,
+          "role": "player",
+          "observations": 40,
+          "firstFrame": 97,
+          "lastFrame": 136,
+          "visibleIntervals": [
+            [
+              97,
+              136
+            ]
+          ]
+        },
+        {
+          "trackId": 24,
+          "role": "player",
+          "observations": 21,
+          "firstFrame": 105,
+          "lastFrame": 125,
+          "visibleIntervals": [
+            [
+              105,
+              125
+            ]
+          ]
+        },
+        {
+          "trackId": 25,
+          "role": "player",
+          "observations": 78,
+          "firstFrame": 132,
+          "lastFrame": 209,
+          "visibleIntervals": [
+            [
+              132,
+              209
+            ]
+          ]
+        },
+        {
+          "trackId": 26,
+          "role": "referee",
+          "observations": 2,
+          "firstFrame": 139,
+          "lastFrame": 140,
+          "visibleIntervals": [
+            [
+              139,
+              140
+            ]
+          ]
+        },
+        {
+          "trackId": 27,
+          "role": "player",
+          "observations": 3,
+          "firstFrame": 141,
+          "lastFrame": 143,
+          "visibleIntervals": [
+            [
+              141,
+              143
+            ]
+          ]
+        },
+        {
+          "trackId": 28,
+          "role": "player",
+          "observations": 20,
+          "firstFrame": 144,
+          "lastFrame": 167,
+          "visibleIntervals": [
+            [
+              144,
+              158
+            ],
+            [
+              163,
+              167
+            ]
+          ]
+        },
+        {
+          "trackId": 29,
+          "role": "player",
+          "observations": 20,
+          "firstFrame": 149,
+          "lastFrame": 168,
+          "visibleIntervals": [
+            [
+              149,
+              168
+            ]
+          ]
+        },
+        {
+          "trackId": 30,
+          "role": "referee",
+          "observations": 1,
+          "firstFrame": 154,
+          "lastFrame": 154,
+          "visibleIntervals": [
+            [
+              154,
+              154
+            ]
+          ]
+        },
+        {
+          "trackId": 31,
+          "role": "player",
+          "observations": 15,
+          "firstFrame": 156,
+          "lastFrame": 170,
+          "visibleIntervals": [
+            [
+              156,
+              170
+            ]
+          ]
+        },
+        {
+          "trackId": 32,
+          "role": "player",
+          "observations": 8,
+          "firstFrame": 166,
+          "lastFrame": 173,
+          "visibleIntervals": [
+            [
+              166,
+              173
+            ]
+          ]
+        },
+        {
+          "trackId": 33,
+          "role": "player",
+          "observations": 4,
+          "firstFrame": 171,
+          "lastFrame": 174,
+          "visibleIntervals": [
+            [
+              171,
+              174
+            ]
+          ]
+        },
+        {
+          "trackId": 34,
+          "role": "player",
+          "observations": 20,
+          "firstFrame": 173,
+          "lastFrame": 192,
+          "visibleIntervals": [
+            [
+              173,
+              192
+            ]
+          ]
+        },
+        {
+          "trackId": 35,
+          "role": "referee",
+          "observations": 13,
+          "firstFrame": 173,
+          "lastFrame": 185,
+          "visibleIntervals": [
+            [
+              173,
+              185
+            ]
+          ]
+        },
+        {
+          "trackId": 36,
+          "role": "player",
+          "observations": 2,
+          "firstFrame": 180,
+          "lastFrame": 181,
+          "visibleIntervals": [
+            [
+              180,
+              181
+            ]
+          ]
+        },
+        {
+          "trackId": 37,
+          "role": "player",
+          "observations": 25,
+          "firstFrame": 185,
+          "lastFrame": 209,
+          "visibleIntervals": [
+            [
+              185,
+              209
+            ]
+          ]
+        },
+        {
+          "trackId": 38,
+          "role": "referee",
+          "observations": 3,
+          "firstFrame": 194,
+          "lastFrame": 196,
+          "visibleIntervals": [
+            [
+              194,
+              196
+            ]
+          ]
+        },
+        {
+          "trackId": 39,
+          "role": "referee",
+          "observations": 1,
+          "firstFrame": 194,
+          "lastFrame": 194,
+          "visibleIntervals": [
+            [
+              194,
+              194
+            ]
+          ]
+        },
+        {
+          "trackId": 40,
+          "role": "player",
+          "observations": 1,
+          "firstFrame": 198,
+          "lastFrame": 198,
+          "visibleIntervals": [
+            [
+              198,
+              198
+            ]
+          ]
+        }
+      ],
+      "longestConsecutiveTrackByRole": {
+        "player": {
+          "trackId": 1,
+          "startFrame": 0,
+          "endFrame": 209,
+          "frames": 210
+        },
+        "referee": {
+          "trackId": 13,
+          "startFrame": 0,
+          "endFrame": 192,
+          "frames": 193
+        }
+      }
+    },
+    {
+      "sample": "005",
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "tracksSha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+      "output": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+      "frames": 143,
+      "frameRate": 30.0,
+      "firstTime": 0.0,
+      "lastTime": 4.733333333333333,
+      "processingSeconds": 2.964168900012737,
+      "predictMedianMs": 8.062400011112913,
+      "trackingAndRecordsMedianMs": 1.0631000041030347,
+      "distinctTracksByRole": {
+        "player": 14,
+        "referee": 2
+      },
+      "framesWithRoleConflicts": 0,
+      "framesWithObjects": {
+        "basketball": 76,
+        "hoop": 143
+      },
+      "tracks": [
+        {
+          "trackId": 1,
+          "role": "player",
+          "observations": 143,
+          "firstFrame": 0,
+          "lastFrame": 142,
+          "visibleIntervals": [
+            [
+              0,
+              142
+            ]
+          ]
+        },
+        {
+          "trackId": 2,
+          "role": "player",
+          "observations": 139,
+          "firstFrame": 0,
+          "lastFrame": 142,
+          "visibleIntervals": [
+            [
+              0,
+              30
+            ],
+            [
+              33,
+              37
+            ],
+            [
+              39,
+              44
+            ],
+            [
+              46,
+              142
+            ]
+          ]
+        },
+        {
+          "trackId": 3,
+          "role": "player",
+          "observations": 129,
+          "firstFrame": 0,
+          "lastFrame": 138,
+          "visibleIntervals": [
+            [
+              0,
+              107
+            ],
+            [
+              109,
+              109
+            ],
+            [
+              113,
+              114
+            ],
+            [
+              119,
+              133
+            ],
+            [
+              136,
+              138
+            ]
+          ]
+        },
+        {
+          "trackId": 4,
+          "role": "player",
+          "observations": 131,
+          "firstFrame": 0,
+          "lastFrame": 131,
+          "visibleIntervals": [
+            [
+              0,
+              128
+            ],
+            [
+              130,
+              131
+            ]
+          ]
+        },
+        {
+          "trackId": 5,
+          "role": "player",
+          "observations": 132,
+          "firstFrame": 0,
+          "lastFrame": 135,
+          "visibleIntervals": [
+            [
+              0,
+              108
+            ],
+            [
+              110,
+              112
+            ],
+            [
+              115,
+              130
+            ],
+            [
+              132,
+              135
+            ]
+          ]
+        },
+        {
+          "trackId": 6,
+          "role": "player",
+          "observations": 142,
+          "firstFrame": 0,
+          "lastFrame": 142,
+          "visibleIntervals": [
+            [
+              0,
+              119
+            ],
+            [
+              121,
+              142
+            ]
+          ]
+        },
+        {
+          "trackId": 7,
+          "role": "player",
+          "observations": 111,
+          "firstFrame": 0,
+          "lastFrame": 110,
+          "visibleIntervals": [
+            [
+              0,
+              110
+            ]
+          ]
+        },
+        {
+          "trackId": 8,
+          "role": "player",
+          "observations": 139,
+          "firstFrame": 0,
+          "lastFrame": 142,
+          "visibleIntervals": [
+            [
+              0,
+              79
+            ],
+            [
+              84,
+              142
+            ]
+          ]
+        },
+        {
+          "trackId": 9,
+          "role": "player",
+          "observations": 87,
+          "firstFrame": 0,
+          "lastFrame": 86,
+          "visibleIntervals": [
+            [
+              0,
+              86
+            ]
+          ]
+        },
+        {
+          "trackId": 10,
+          "role": "player",
+          "observations": 33,
+          "firstFrame": 0,
+          "lastFrame": 32,
+          "visibleIntervals": [
+            [
+              0,
+              32
+            ]
+          ]
+        },
+        {
+          "trackId": 11,
+          "role": "referee",
+          "observations": 143,
+          "firstFrame": 0,
+          "lastFrame": 142,
+          "visibleIntervals": [
+            [
+              0,
+              142
+            ]
+          ]
+        },
+        {
+          "trackId": 12,
+          "role": "referee",
+          "observations": 143,
+          "firstFrame": 0,
+          "lastFrame": 142,
+          "visibleIntervals": [
+            [
+              0,
+              142
+            ]
+          ]
+        },
+        {
+          "trackId": 13,
+          "role": "player",
+          "observations": 89,
+          "firstFrame": 37,
+          "lastFrame": 142,
+          "visibleIntervals": [
+            [
+              37,
+              50
+            ],
+            [
+              52,
+              54
+            ],
+            [
+              57,
+              57
+            ],
+            [
+              62,
+              63
+            ],
+            [
+              65,
+              66
+            ],
+            [
+              68,
+              110
+            ],
+            [
+              119,
+              142
+            ]
+          ]
+        },
+        {
+          "trackId": 14,
+          "role": "player",
+          "observations": 27,
+          "firstFrame": 116,
+          "lastFrame": 142,
+          "visibleIntervals": [
+            [
+              116,
+              142
+            ]
+          ]
+        },
+        {
+          "trackId": 15,
+          "role": "player",
+          "observations": 8,
+          "firstFrame": 128,
+          "lastFrame": 135,
+          "visibleIntervals": [
+            [
+              128,
+              135
+            ]
+          ]
+        },
+        {
+          "trackId": 16,
+          "role": "player",
+          "observations": 1,
+          "firstFrame": 138,
+          "lastFrame": 138,
+          "visibleIntervals": [
+            [
+              138,
+              138
+            ]
+          ]
+        }
+      ],
+      "longestConsecutiveTrackByRole": {
+        "player": {
+          "trackId": 1,
+          "startFrame": 0,
+          "endFrame": 142,
+          "frames": 143
+        },
+        "referee": {
+          "trackId": 11,
+          "startFrame": 0,
+          "endFrame": 142,
+          "frames": 143
+        }
+      }
+    },
+    {
+      "sample": "006",
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "tracksSha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+      "output": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+      "frames": 462,
+      "frameRate": 30.0,
+      "firstTime": 0.0,
+      "lastTime": 15.366666666666667,
+      "processingSeconds": 9.294994099996984,
+      "predictMedianMs": 7.795549987349659,
+      "trackingAndRecordsMedianMs": 1.1136499961139634,
+      "distinctTracksByRole": {
+        "player": 30,
+        "referee": 12
+      },
+      "framesWithRoleConflicts": 23,
+      "framesWithObjects": {
+        "basketball": 191,
+        "hoop": 462
+      },
+      "tracks": [
+        {
+          "trackId": 1,
+          "role": "player",
+          "observations": 433,
+          "firstFrame": 0,
+          "lastFrame": 451,
+          "visibleIntervals": [
+            [
+              0,
+              19
+            ],
+            [
+              25,
+              159
+            ],
+            [
+              168,
+              282
+            ],
+            [
+              284,
+              383
+            ],
+            [
+              385,
+              445
+            ],
+            [
+              450,
+              451
+            ]
+          ]
+        },
+        {
+          "trackId": 2,
+          "role": "player",
+          "observations": 411,
+          "firstFrame": 0,
+          "lastFrame": 415,
+          "visibleIntervals": [
+            [
+              0,
+              84
+            ],
+            [
+              88,
+              181
+            ],
+            [
+              183,
+              313
+            ],
+            [
+              315,
+              415
+            ]
+          ]
+        },
+        {
+          "trackId": 3,
+          "role": "player",
+          "observations": 412,
+          "firstFrame": 0,
+          "lastFrame": 441,
+          "visibleIntervals": [
+            [
+              0,
+              327
+            ],
+            [
+              358,
+              441
+            ]
+          ]
+        },
+        {
+          "trackId": 4,
+          "role": "player",
+          "observations": 181,
+          "firstFrame": 0,
+          "lastFrame": 196,
+          "visibleIntervals": [
+            [
+              0,
+              92
+            ],
+            [
+              94,
+              164
+            ],
+            [
+              180,
+              196
+            ]
+          ]
+        },
+        {
+          "trackId": 5,
+          "role": "player",
+          "observations": 409,
+          "firstFrame": 0,
+          "lastFrame": 423,
+          "visibleIntervals": [
+            [
+              0,
+              212
+            ],
+            [
+              218,
+              309
+            ],
+            [
+              320,
+              423
+            ]
+          ]
+        },
+        {
+          "trackId": 6,
+          "role": "player",
+          "observations": 48,
+          "firstFrame": 0,
+          "lastFrame": 47,
+          "visibleIntervals": [
+            [
+              0,
+              47
+            ]
+          ]
+        },
+        {
+          "trackId": 7,
+          "role": "player",
+          "observations": 434,
+          "firstFrame": 0,
+          "lastFrame": 438,
+          "visibleIntervals": [
+            [
+              0,
+              182
+            ],
+            [
+              185,
+              188
+            ],
+            [
+              191,
+              416
+            ],
+            [
+              418,
+              438
+            ]
+          ]
+        },
+        {
+          "trackId": 8,
+          "role": "player",
+          "observations": 320,
+          "firstFrame": 0,
+          "lastFrame": 321,
+          "visibleIntervals": [
+            [
+              0,
+              25
+            ],
+            [
+              28,
+              321
+            ]
+          ]
+        },
+        {
+          "trackId": 9,
+          "role": "player",
+          "observations": 68,
+          "firstFrame": 0,
+          "lastFrame": 67,
+          "visibleIntervals": [
+            [
+              0,
+              67
+            ]
+          ]
+        },
+        {
+          "trackId": 10,
+          "role": "player",
+          "observations": 298,
+          "firstFrame": 0,
+          "lastFrame": 299,
+          "visibleIntervals": [
+            [
+              0,
+              37
+            ],
+            [
+              40,
+              299
+            ]
+          ]
+        },
+        {
+          "trackId": 11,
+          "role": "referee",
+          "observations": 462,
+          "firstFrame": 0,
+          "lastFrame": 461,
+          "visibleIntervals": [
+            [
+              0,
+              461
+            ]
+          ]
+        },
+        {
+          "trackId": 12,
+          "role": "referee",
+          "observations": 112,
+          "firstFrame": 0,
+          "lastFrame": 112,
+          "visibleIntervals": [
+            [
+              0,
+              40
+            ],
+            [
+              42,
+              112
+            ]
+          ]
+        },
+        {
+          "trackId": 13,
+          "role": "referee",
+          "observations": 177,
+          "firstFrame": 0,
+          "lastFrame": 177,
+          "visibleIntervals": [
+            [
+              0,
+              175
+            ],
+            [
+              177,
+              177
+            ]
+          ]
+        },
+        {
+          "trackId": 14,
+          "role": "player",
+          "observations": 346,
+          "firstFrame": 86,
+          "lastFrame": 442,
+          "visibleIntervals": [
+            [
+              86,
+              185
+            ],
+            [
+              187,
+              190
+            ],
+            [
+              192,
+              194
+            ],
+            [
+              201,
+              207
+            ],
+            [
+              209,
+              211
+            ],
+            [
+              213,
+              416
+            ],
+            [
+              418,
+              442
+            ]
+          ]
+        },
+        {
+          "trackId": 15,
+          "role": "player",
+          "observations": 373,
+          "firstFrame": 88,
+          "lastFrame": 461,
+          "visibleIntervals": [
+            [
+              88,
+              373
+            ],
+            [
+              375,
+              461
+            ]
+          ]
+        },
+        {
+          "trackId": 16,
+          "role": "referee",
+          "observations": 27,
+          "firstFrame": 118,
+          "lastFrame": 146,
+          "visibleIntervals": [
+            [
+              118,
+              143
+            ],
+            [
+              146,
+              146
+            ]
+          ]
+        },
+        {
+          "trackId": 17,
+          "role": "player",
+          "observations": 16,
+          "firstFrame": 175,
+          "lastFrame": 190,
+          "visibleIntervals": [
+            [
+              175,
+              190
+            ]
+          ]
+        },
+        {
+          "trackId": 18,
+          "role": "referee",
+          "observations": 113,
+          "firstFrame": 189,
+          "lastFrame": 306,
+          "visibleIntervals": [
+            [
+              189,
+              222
+            ],
+            [
+              228,
+              306
+            ]
+          ]
+        },
+        {
+          "trackId": 19,
+          "role": "player",
+          "observations": 6,
+          "firstFrame": 194,
+          "lastFrame": 202,
+          "visibleIntervals": [
+            [
+              194,
+              197
+            ],
+            [
+              201,
+              202
+            ]
+          ]
+        },
+        {
+          "trackId": 20,
+          "role": "player",
+          "observations": 1,
+          "firstFrame": 218,
+          "lastFrame": 218,
+          "visibleIntervals": [
+            [
+              218,
+              218
+            ]
+          ]
+        },
+        {
+          "trackId": 21,
+          "role": "player",
+          "observations": 23,
+          "firstFrame": 221,
+          "lastFrame": 244,
+          "visibleIntervals": [
+            [
+              221,
+              235
+            ],
+            [
+              237,
+              244
+            ]
+          ]
+        },
+        {
+          "trackId": 22,
+          "role": "player",
+          "observations": 13,
+          "firstFrame": 222,
+          "lastFrame": 243,
+          "visibleIntervals": [
+            [
+              222,
+              228
+            ],
+            [
+              231,
+              234
+            ],
+            [
+              242,
+              243
+            ]
+          ]
+        },
+        {
+          "trackId": 23,
+          "role": "referee",
+          "observations": 72,
+          "firstFrame": 233,
+          "lastFrame": 304,
+          "visibleIntervals": [
+            [
+              233,
+              304
+            ]
+          ]
+        },
+        {
+          "trackId": 24,
+          "role": "player",
+          "observations": 199,
+          "firstFrame": 262,
+          "lastFrame": 461,
+          "visibleIntervals": [
+            [
+              262,
+              262
+            ],
+            [
+              264,
+              461
+            ]
+          ]
+        },
+        {
+          "trackId": 25,
+          "role": "player",
+          "observations": 4,
+          "firstFrame": 292,
+          "lastFrame": 313,
+          "visibleIntervals": [
+            [
+              292,
+              293
+            ],
+            [
+              300,
+              300
+            ],
+            [
+              313,
+              313
+            ]
+          ]
+        },
+        {
+          "trackId": 26,
+          "role": "player",
+          "observations": 3,
+          "firstFrame": 307,
+          "lastFrame": 309,
+          "visibleIntervals": [
+            [
+              307,
+              309
+            ]
+          ]
+        },
+        {
+          "trackId": 27,
+          "role": "referee",
+          "observations": 60,
+          "firstFrame": 310,
+          "lastFrame": 371,
+          "visibleIntervals": [
+            [
+              310,
+              346
+            ],
+            [
+              349,
+              371
+            ]
+          ]
+        },
+        {
+          "trackId": 28,
+          "role": "referee",
+          "observations": 9,
+          "firstFrame": 321,
+          "lastFrame": 345,
+          "visibleIntervals": [
+            [
+              321,
+              326
+            ],
+            [
+              343,
+              345
+            ]
+          ]
+        },
+        {
+          "trackId": 29,
+          "role": "player",
+          "observations": 120,
+          "firstFrame": 333,
+          "lastFrame": 461,
+          "visibleIntervals": [
+            [
+              333,
+              333
+            ],
+            [
+              337,
+              409
+            ],
+            [
+              416,
+              461
+            ]
+          ]
+        },
+        {
+          "trackId": 30,
+          "role": "player",
+          "observations": 10,
+          "firstFrame": 340,
+          "lastFrame": 349,
+          "visibleIntervals": [
+            [
+              340,
+              349
+            ]
+          ]
+        },
+        {
+          "trackId": 31,
+          "role": "player",
+          "observations": 12,
+          "firstFrame": 342,
+          "lastFrame": 359,
+          "visibleIntervals": [
+            [
+              342,
+              352
+            ],
+            [
+              359,
+              359
+            ]
+          ]
+        },
+        {
+          "trackId": 32,
+          "role": "player",
+          "observations": 93,
+          "firstFrame": 366,
+          "lastFrame": 461,
+          "visibleIntervals": [
+            [
+              366,
+              381
+            ],
+            [
+              385,
+              461
+            ]
+          ]
+        },
+        {
+          "trackId": 33,
+          "role": "player",
+          "observations": 9,
+          "firstFrame": 373,
+          "lastFrame": 395,
+          "visibleIntervals": [
+            [
+              373,
+              377
+            ],
+            [
+              391,
+              393
+            ],
+            [
+              395,
+              395
+            ]
+          ]
+        },
+        {
+          "trackId": 34,
+          "role": "referee",
+          "observations": 46,
+          "firstFrame": 380,
+          "lastFrame": 428,
+          "visibleIntervals": [
+            [
+              380,
+              390
+            ],
+            [
+              393,
+              416
+            ],
+            [
+              418,
+              428
+            ]
+          ]
+        },
+        {
+          "trackId": 35,
+          "role": "player",
+          "observations": 3,
+          "firstFrame": 431,
+          "lastFrame": 433,
+          "visibleIntervals": [
+            [
+              431,
+              433
+            ]
+          ]
+        },
+        {
+          "trackId": 36,
+          "role": "player",
+          "observations": 4,
+          "firstFrame": 432,
+          "lastFrame": 435,
+          "visibleIntervals": [
+            [
+              432,
+              435
+            ]
+          ]
+        },
+        {
+          "trackId": 37,
+          "role": "player",
+          "observations": 25,
+          "firstFrame": 437,
+          "lastFrame": 461,
+          "visibleIntervals": [
+            [
+              437,
+              461
+            ]
+          ]
+        },
+        {
+          "trackId": 38,
+          "role": "referee",
+          "observations": 24,
+          "firstFrame": 438,
+          "lastFrame": 461,
+          "visibleIntervals": [
+            [
+              438,
+              461
+            ]
+          ]
+        },
+        {
+          "trackId": 39,
+          "role": "player",
+          "observations": 1,
+          "firstFrame": 451,
+          "lastFrame": 451,
+          "visibleIntervals": [
+            [
+              451,
+              451
+            ]
+          ]
+        },
+        {
+          "trackId": 40,
+          "role": "referee",
+          "observations": 4,
+          "firstFrame": 455,
+          "lastFrame": 458,
+          "visibleIntervals": [
+            [
+              455,
+              458
+            ]
+          ]
+        },
+        {
+          "trackId": 41,
+          "role": "player",
+          "observations": 4,
+          "firstFrame": 458,
+          "lastFrame": 461,
+          "visibleIntervals": [
+            [
+              458,
+              461
+            ]
+          ]
+        },
+        {
+          "trackId": 42,
+          "role": "referee",
+          "observations": 3,
+          "firstFrame": 459,
+          "lastFrame": 461,
+          "visibleIntervals": [
+            [
+              459,
+              461
+            ]
+          ]
+        }
+      ],
+      "longestConsecutiveTrackByRole": {
+        "player": {
+          "trackId": 3,
+          "startFrame": 0,
+          "endFrame": 327,
+          "frames": 328
+        },
+        "referee": {
+          "trackId": 11,
+          "startFrame": 0,
+          "endFrame": 461,
+          "frames": 462
+        }
+      }
+    }
+  ],
+  "totalProcessingSeconds": 15.829285300016636,
+  "manualReview": {
+    "sample": "004",
+    "framesInspected": [
+      0,
+      24,
+      36,
+      40,
+      46,
+      50,
+      60,
+      70,
+      80,
+      90,
+      100,
+      110,
+      120,
+      130,
+      140,
+      150,
+      209
+    ],
+    "conclusion": "Long output tracks can change people: visible T7/T9 switches and T18 changes to a white-uniform player. Do not merge these entire IDs based on geometry. T1 corresponds to the white #15 player in the four endpoint/intermediate snapshots; this is not a full ground-truth identity audit.",
+    "demoAssignments": {
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "bindings": [
+        {
+          "identity": "P1",
+          "trackId": 2,
+          "start": 0,
+          "end": 46
+        },
+        {
+          "identity": "P1",
+          "trackId": 23,
+          "start": 100,
+          "end": 136
+        },
+        {
+          "identity": "P2",
+          "trackId": 1,
+          "start": 0,
+          "end": 209
+        }
+      ]
+    },
+    "demoFile": "artifacts/ebard-tracking-probe/004-identity-demo.mp4",
+    "demoSha256": "925e5f673c4e983eb2ed0e27dd7456fcb4406c40ae0253ffc7427758e6537c19",
+    "demoFrames": 210,
+    "demoDurationSeconds": 8.760951188986233,
+    "demoFrameRate": 23.97,
+    "demoCodec": "h264",
+    "demoObservedFrames": {
+      "P1": 81,
+      "P2": 210
+    },
+    "demoInterpolatedFrames": 0,
+    "notes": [
+      "P1 is an explicitly assigned demonstration of blue #30: T2 before frame 47, T23 from frame 100 through 136. Occluded/ambiguous intervals are not automatically linked.",
+      "P1 is missing/unassigned in 129/210 frames; no claim of complete track recovery.",
+      "Video is local ignored QA output; reproduction requires the registered source clip, generated tracks and explicit assignment JSON."
+    ]
+  }
+}
