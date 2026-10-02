@@ -1,8 +1,47 @@
 # 直播画面与数据提取验收样例
 
+## 2026-10-02 晚间：按用户选择的本地整合
+
+本节对应已推送到 `codex/local-workbench-20261002` 的整合功能；提交与验证见[本次分支记录](../../../../engineering/docs/workbench-branch-update-20261002.md)，未合入 main。当前界面沿用用户版左侧导航、分步骤工具与底部 2D 抽屉；默认推荐 `team-stable`（THY 完整方案）。下文发布和简版界面描述保留对应历史状态。
+
+| 样例 | 已接入版本 |
+|---|---|
+| 004 / 005 / 006 | original（通用 YOLOv8s）、ebard、THY baseline / low / reid / optimized / team-stable |
+| nba-lal-min-005 | original（THY 基线）、THY low / reid / optimized / team-stable、yolo（通用 YOLOv8s） |
+
+合计 27 个样例 / 版本组合。THY 共享的 22 份 JSON 保持原字节；补跑的 10 组结果和 metadata 保存于 `tracks/integration-20261002/`，使用实际本机 GPU 推理、源视频哈希和原始 PTS 校验。页面读取这些预计算结果；切换版本后人工草稿分别保存。“推荐”依据本轮用户选择，所有模型建议仍需人工核对。
+
+本地预览：`http://127.0.0.1:8890/`。取舍、接口与验收见[整合记录](../../../../engineering/docs/plans/2026-10-02-selected-integration.md)。原视频与 Git LFS 指针保持一致，没有新增视频素材。
+
+## 2026-10-02 20:27：篮球候选共享发布
+
+当前工作台源码和候选已发布至 `main`，GitHub API、ls-remote 与 fetch 核对远端为 [351292f](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/351292fba6c5e7accafea9f8780a81b93810caba)，见[最新交接](../../../../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)。本次最新说明与交接随本次文档提交同步，具体提交以 Git 日志为准。`review-library.json` 的 11 条本机候选路径现改指向[原字节共享快照](tracks/basketball-20261002/README.md)：11 份检测结果与 11 份相邻 metadata，共 22 份、约 19.7 MB，覆盖四样例 / 17 版本。其他既有候选保留。与运行中原路径 API 的完整 clip payload 逐版一致，帧 / PTS、来源、指纹和草稿键不变；新目录的 `.gitattributes` 禁止 JSON 换行转换。
+
+视频沿用既有 Git LFS 成片，没有新增视频上传。已有 Python / PyAV 环境可直接启动预计算工作台，不需要模型权重或 GPU 推理；重跑检测另需 CUDA / 权重，离线渲染另指定 `--ffmpeg`。原缓存、QA 草稿和本机测试成片不共享。当前默认简版与 team-stable 可用；下文的本机可选产物、旧默认版本和未提交文字是历史记录，本节说明最新共享范围。
+
 采集与复核：2026-10-02，Asia/Shanghai。用户退回教学素材后，改为普通转播、正常速度、连续前场配合，并按无解说要求移除全部音轨。独立于两个赛季目录。
 
 当前优先级是 **直播画面筛选 → 球员标定 → 轨迹补全**。界面按对阵 / 节次命名，动作标签仅是采集参考；战术分析放在轨迹提取之后，见[工作流程](../../../../engineering/research/vision-player-refinement/data-extraction-workflow.md)。
+
+2026-10-02 远端模型选择与本机分队版本已登记到同一个工作台：004–006 保留 original、共享 ebard 和可选 optimized / team-stable；LAL–MIN 保留本机各对照版本。当前本机默认 team-stable，缺少其可选产物时三个基础样例回退 ebard。后文按轮次保留此前默认版本描述；当前入口与代码分工见[工作台合并说明](../../../../engineering/tools/player-review/README.md)。
+
+## 2026-10-02 补充：可选篮球模型对照入口
+
+[review-library.json](review-library.json) 在原三段之外新增可选 sample `nba-lal-min-005`，复用赛季目录的 [LAL–MIN 第二节原转播片段](../../nba/2024-25/clips/005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4)与[既有标签 / 来源](../../nba/2024-25/labels/005.json)。它是工作台的第四个可选入口，没有重用本目录的 SAS–MIA sample `005`，也没有增加本目录 manifest 的原三段素材条目。LAL–MIN 实测 10.68 秒、267 帧、1280×720、25 fps，源 SHA 为 `e76feffb09ede3e1b336c2e470370bcf1ee0937326bdf672e3e7e4bc5b661885`；首帧使用实际源 PTS 0.120 秒，保留原 AAC 音轨。本节后的原三段无声采集说明与历史验证记录保持。
+
+该样例的 `original` 对应篮球模型 baseline，另有 `low`（低分续接）、可选 `reid`（外观续接）和 `optimized`（保留原生外观关联、队色复核标记与输出重复 / 完整框修正）。候选及相邻 `.meta.json` 位于被忽略的本机 `artifacts/player-tracking-workbench-20261002/`。旧 004–006 的通用人物 original 候选保持，并增加可选 optimized 入口；新产物齐备时默认选 optimized，否则保留原版本。缺少 LAL–MIN 视频或必需模型产物时跳过新样例，已下载的原三段仍可使用。
+
+界面固定显示球员 1–10，存储仍使用 P1–P10，内部临时编号 T 可以超过十个。主动载入模型建议后，它作为未人工确认的 `modelBindings` 保存，可撤销且保留已有人工记录；确认当前建议后才按原有分段规则生效。模型数量、固定槽位与采用建议均不能证明十名真人身份或逐帧位置准确。元数据保留源视频 / 权重 SHA、模型、参数与 tracker 来源；服务读取预计算 JSON 并核对真实帧数 / PTS，不在页面请求中运行检测。
+
+仓库根目录使用本轮已有环境启动：
+
+```powershell
+& tmp/player-identity-test/.venv/Scripts/python.exe engineering/scripts/serve_player_review.py --library data/videos/tactics/acceptance/review-library.json --port 8876
+```
+
+新样例测试地址为 `http://127.0.0.1:8876/?sample=nba-lal-min-005&variant=optimized&qa=1`。模型权重及 GPU 环境也在 Git 忽略的 `tmp/player-identity-test/`，不能把克隆代码视为已获得模型或新候选；本机推理命令、模型路径和各版本说明见[工作台本轮补充](../../../../engineering/tools/player-review/README.md)。本轮最终对照结果入口为[实测记录](../../../../engineering/research/player-tracking-workbench-20261002.md)，这里不新增身份准确率结论。
+
+**音轨边界**：LAL–MIN 未裁切版本保留源音轨，原 004–006 已按此前要求移除音轨。选择非整段区间并应用人工剪辑时，当前子视频只编码视频而无音轨，原片音轨保留。剪辑候选保存模型来源与根来源帧 / 时间，模型建议只在可见保留帧重映射并按切镜 / 缺口分段；用户原草稿中的人工身份与补点不自动转移到子片段。
 
 ## 三个替换样例
 

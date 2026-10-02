@@ -2,6 +2,14 @@
 
 更新日期：2026-10-02（Asia/Shanghai）
 
+2026-10-02 23:30 本轮整合已按五类功能提交推送到 `codex/local-workbench-20261002`，远端核对为 537a88d；main 仍为 1839dcd，未合入或推送 main。200 项前端、207 项 Python 与 142 条视频元数据 / LFS 指针检查通过。文档与双方来源记录单独提交，见[分支更新说明](../engineering/docs/workbench-branch-update-20261002.md)与[本轮交接](../handoffs/Linzeyu912/2026-10-02-2330-branch-integration-publish.md)。下方各轮“未提交”保留当时状态，本轮同步结果以本条为准。
+
+2026-10-02 23:14 用户进一步要求可靠判断前不标攻守：本地整合版移除默认“红队进攻 / 蓝队防守”，仅保留红蓝分队；草稿迁移、编辑响应和导出省略 `teamRoles`。前端 200 项、人物编辑后端 36 项与页面检查通过，仍未提交推送。见[本轮交接](../handoffs/Linzeyu912/2026-10-02-2314-color-only-teams.md)。下方前次固定攻守安排保留当时记录，已由本条替代。
+
+2026-10-02 23:08 本地整合新增临时 T 编号全部观测归并、多个 T 累计认领和检测 / 跟踪来源提示。时间轴区分位置覆盖与逐帧审核，保留用户版脚点及球场映射；修复新增切镜边界与逐帧时间戳量化问题。前端 200 项、相关后端 48 项及浏览器 QA 通过；仍在独立整合目录，未提交推送。见[工程说明](../engineering/docs/track-identity-review.md)与[本轮交接](../handoffs/Linzeyu912/2026-10-02-2308-track-identity-review.md)。
+
+2026-10-02 22:29 按用户选择开展本地整合：以用户版 `fffb6ea` 保留左侧导航、分步骤操作、底部 2D 抽屉及球场 / 视频恢复，采用固定上红进攻、下蓝防守，接入 THY `1839dcd` 的模型方案和身份 / 2K 查询。THY 完整方案作为默认推荐，原 YOLO 保留可选。整合位于独立 detached 工作目录，未提交推送；后端 151 项测试及 8890 实际查询 / 编辑 / 球场接口核验通过，27 个样例 / 模型组合、GPU 补跑 2,712 帧与浏览器交互验收已完成，前端 171 项全部通过。见[本轮取舍](../engineering/docs/plans/2026-10-02-selected-integration.md)与[交接](../handoffs/Linzeyu912/2026-10-02-2229-selected-integration.md)。
+
 本次同步：按用户要求，2026-10-02 21:44 已将晚间本地工作台改动作为 `b557622` 推送到 [`codex/local-workbench-20261002`](https://github.com/Linzeyu912/broadcastcode-team-hub/tree/codex/local-workbench-20261002)。下文各轮“本地未提交”描述保留当时状态，本次同步结果见[分支交接](../handoffs/Linzeyu912/2026-10-02-2144-local-workbench-branch-push.md)。该分支基于本机 `72c74e0`，未合入远端 main 后续两次提交；此次分支操作是用户明确指定的任务例外。
 
 ## 当前阶段

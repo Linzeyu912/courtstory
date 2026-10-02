@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "videoSha256": "e76feffb09ede3e1b336c2e470370bcf1ee0937326bdf672e3e7e4bc5b661885",
+  "reviewedFrames": [0, 53, 100, 106, 159, 212, 266],
+  "method": "Human visual identity checks on saved full-frame previews; reference boxes copied from visibly correct baseline detections to locate subjects, not independently measured geometric ground truth.",
+  "limits": "Selected challenge observations, not a representative accuracy benchmark. No full-frame/full-video annotation, IDF1, MOTA, precision or recall claim. Jersey labels here are read by a person only for evaluation, never supplied as inference identity or automatic OCR output. Ambiguous overlap observations excluded from exact-actor checks.",
+  "observations": [
+    {"frame":0,"actor":"white_15","teamAppearance":"white","box":[976.364,214.432,1030.909,335.455],"baselineTrackId":1},
+    {"frame":0,"actor":"white_7","teamAppearance":"white","box":[651.818,475.455,733.636,630.0],"baselineTrackId":2},
+    {"frame":0,"actor":"blue_10","teamAppearance":"dark_blue","box":[734.091,447.273,785.909,624.545],"baselineTrackId":3},
+    {"frame":0,"actor":"white_17","teamAppearance":"white","box":[620.0,243.409,687.273,391.136],"baselineTrackId":7},
+    {"frame":53,"actor":"white_15","teamAppearance":"white","box":[905.909,300.0,974.545,470.455],"baselineTrackId":1},
+    {"frame":53,"actor":"white_7","teamAppearance":"white","box":[710.909,501.818,792.727,632.727],"baselineTrackId":2},
+    {"frame":53,"actor":"blue_10","teamAppearance":"dark_blue","box":[797.273,400.682,858.182,522.727],"baselineTrackId":3},
+    {"frame":53,"actor":"white_17","teamAppearance":"white","box":[776.364,301.364,845.455,421.364],"baselineTrackId":7},
+    {"frame":53,"actor":"white_23","teamAppearance":"white","box":[495.455,230.455,537.273,381.364],"baselineTrackId":22},
+    {"frame":53,"actor":"white_28","teamAppearance":"white","box":[231.818,280.909,279.091,434.091],"baselineTrackId":25},
+    {"frame":159,"actor":"white_7","teamAppearance":"white","box":[502.727,547.273,570.0,718.182],"baselineTrackId":2,"baselineObservationKind":"Partial tracked T2 box ends at y=640; this full-body reference ends at y=718.182 and was pending. Overlapping preview labels concealed the existing partial T2 label. This is a box completeness issue, not an absent identity."},
+    {"frame":159,"actor":"blue_10","teamAppearance":"dark_blue","box":[400.0,365.227,467.273,532.727],"baselineTrackId":3},
+    {"frame":159,"actor":"white_17","teamAppearance":"white","box":[981.818,219.545,1040.0,379.545],"baselineTrackId":7},
+    {"frame":159,"actor":"white_23","teamAppearance":"white","box":[626.364,119.545,695.455,320.0],"baselineTrackId":22},
+    {"frame":159,"actor":"white_28","teamAppearance":"white","box":[338.409,346.818,417.5,515.0],"baselineTrackId":25},
+    {"frame":212,"actor":"white_7","teamAppearance":"white","box":[553.636,532.727,620.909,637.273],"baselineTrackId":2},
+    {"frame":212,"actor":"blue_10","teamAppearance":"dark_blue","box":[358.636,374.773,417.727,540.0],"baselineTrackId":25},
+    {"frame":212,"actor":"white_17","teamAppearance":"white","box":[1208.182,237.273,1277.273,395.455],"baselineTrackId":7},
+    {"frame":212,"actor":"white_23","teamAppearance":"white","box":[865.455,186.023,956.364,327.727],"baselineTrackId":22},
+    {"frame":266,"actor":"white_7","teamAppearance":"white","box":[709.091,438.182,790.909,606.364],"baselineTrackId":2},
+    {"frame":266,"actor":"blue_10","teamAppearance":"dark_blue","box":[242.273,385.682,315.909,543.636],"baselineTrackId":25}
+  ],
+  "teamOnlyChecks": [
+    {"frame":53,"baselineTrackId":4,"teamAppearance":"dark_blue"},
+    {"frame":159,"baselineTrackId":4,"teamAppearance":"dark_blue"},
+    {"frame":212,"baselineTrackId":4,"teamAppearance":"white"},
+    {"frame":266,"baselineTrackId":4,"teamAppearance":"white"}
+  ],
+  "duplicateCheck": {"frame":100,"actor":"white_17","baselineTrackId":7,"pendingConfidence":0.320801,"iou":0.459644}
+}
