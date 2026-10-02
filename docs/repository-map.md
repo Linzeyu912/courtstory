@@ -1,42 +1,53 @@
 # 仓库目录与数据入口
 
-审阅日期：2026-10-01，Asia/Shanghai。依据为本仓库现有文件、资产清单和交接记录；本次不重新采集外部资料或改写赛事规则。
+更新：2026-10-02，Asia/Shanghai。依据本轮用户要求：整理全部积累改动、分类提交共享，并把赛事要求与工程软件分开存储。本轮只重整文件和引用，不重新解释或采集赛事规则。
 
-## 从哪里查找
+## 目录边界
 
-| 内容 | 位置与入口 | 当前口径 |
+```text
+requirements/                 # 赛事要求、培训整理、历史来源与阅读手册
+engineering/                  # 软件、产品设计、技术研究与测量
+  tools/player-review/        # 复核工作台前端、bundle 和 JavaScript 测试
+  scripts/                    # Python 服务、视觉处理和实验脚本
+  docs/                       # 产品 / 工程设计
+  research/                   # 技术评估、原始测量及参考点
+data/                         # 视频成片、标签、来源和辅助参考数据
+2K Player Data/               # 既有 Agent 球员数据包，保留读取契约
+docs/                         # 团队状态、协作、决策和仓库规范
+handoffs/<github-login>/      # 每次工作的历史交接
+scripts/                      # 仓库维护：视频索引校验、历史手册生成
+```
+
+| 要查的内容 | 入口 | 使用口径 |
 |---|---|---|
-| 最新赛事要求、评分和交付清单 | [赛事资料整理](../BroadcastCode赛事资料整理.md) | 以2026-09-28培训整理及后续正式通知为准 |
-| 团队进度、协作与决定 | [状态](status.md)、[协作流程](workflow.md)、[决策](decisions.md) | 团队信息放在 `docs/` |
-| 已收集的视频与标签 | [视频入口](../data/videos/README.md) | `data/videos/nba/` 按赛季保存 |
-| 2024–25视频100段 | [赛季说明](../data/videos/nba/2024-25/README.md)、[统计](../data/videos/nba/2024-25/collection-report.md) | 总共100段含001–003；首批独立文件及重复包已清理 |
-| 2025–26视频登记30条 | [赛季说明](../data/videos/nba/2025-26/README.md) | 清单与标签草案；成片仍待取得，历史8段及单段不额外计数 |
-| NBA 2K球员、能力与球队数据 | [包清单](../2K%20Player%20Data/manifest.json)、[读取指引](../2K%20Player%20Data/AGENTS.md) | 已有1.1版，635条赛季记录、472人；保留既有目录名和索引契约 |
-| 产品页面核验、技术研究与来源 | [调研索引](../research/README.md) | `research/` 保存主题研究，不重复保存视频成片 |
-| 早期官网、报名资料和Word手册 | `research/broadcast-code-12/` | 主要采集于2026-09-17；原始快照与更正分开，旧版本不替代新规则 |
-| 每次工作的依据和同步结果 | [交接目录](../handoffs/README.md) | 按成员和日期记录，历史状态按当时理解 |
-| 任务认领模板 | `.github/ISSUE_TEMPLATE/task.yml` | 负责人及任务范围以Issue最新讨论为准 |
-| 视频校验 | [validate_video_data.py](../scripts/validate_video_data.py) | 检查清单、标签、文件大小、SHA-256及暂存LFS指针 |
+| 最新赛事要求、评分与提交清单 | [赛事整理](../requirements/BroadcastCode赛事资料整理.md)、[资料索引](../requirements/README.md) | 以注明日期的官方来源为准；转写疑点与团队建议分开 |
+| 软件运行和测试 | [工程入口](../engineering/README.md)、[工作台](../engineering/tools/player-review/README.md) | 本机数据提取原型；完整 Agent / AWS 尚未完成 |
+| 产品设计与技术实验 | [设计稿](../engineering/docs/agent-concept-review.md)、[实验索引](../engineering/research/README.md) | 建议、单片段测量和未验收能力明确标注 |
+| 团队同步和负责人 | [状态](status.md)、[协作](workflow.md)、[决策](decisions.md) | 全部直接在 main，任务范围以 Issue / 用户授权为准 |
+| 视频成片及标签 | [视频入口](../data/videos/README.md)、[管理规范](video-data-management.md) | 100 段 2024–25、39 段 2025–26登记记录及 3 段验收样例；历史批次与新批次关系未确认，不声称 142 个独立球权 |
+| 球员评分数据包 | [清单](../2K%20Player%20Data/manifest.json)、[Agent 约定](../2K%20Player%20Data/AGENTS.md) | 1.1版，635 条赛季记录；本轮不移动、改评分或改索引 |
+| 评分来源复核辅助表 | [辅助表说明](../data/reference/nba2k/README.md) | 原有草稿单独归档，不替代正式数据包 |
+| 验收素材 | [样例说明](../data/videos/tactics/acceptance/README.md) | 004–006 普通转播；仅候选数据，无真实十人身份真值 |
+| 历史交接 | [交接目录](../handoffs/README.md) | 当时的完成和未推送状态保留；查本次同步使用最新交接 |
 
-## 本次整理结论
+## 迁移路径
 
-除视频已在本会话归并外，赛事、历史调研、球员数据包和协作文件的边界清楚，不再额外改名或搬动。两份历史Word手册分别为早期阅读版和扩展讨论版，与Markdown源文及采集时间一起保留。
+| 旧位置 | 当前位置 |
+|---|---|
+| 根 `BroadcastCode赛事资料整理.md` | `requirements/BroadcastCode赛事资料整理.md` |
+| `research/broadcast-code-12/` | `requirements/archive/broadcast-code-12/` |
+| `research/nba-china-xfg-chart.md` | `requirements/references/nba-china-xfg-chart.md` |
+| `tools/player-review/` | `engineering/tools/player-review/` |
+| 视觉处理与复核的 `scripts/*.py` | `engineering/scripts/` |
+| `research/vision*` 与 Jev 技术研究 | `engineering/research/` |
+| `docs/agent-concept-review.md` | `engineering/docs/agent-concept-review.md` |
+| `research/nba2k-rating-tables/` | `data/reference/nba2k/drafts/` |
+| 历史手册生成器 | `scripts/requirements/` |
 
-视频现在以赛季为唯一日常入口：同赛季MP4集中放在 `clips/`，标签在 `labels/`，逐段说明在 `notes/`，原始采集快照在 `sources/`。当前路径以 `catalog.json` 和各赛季 `manifest.json` 为准；原始快照中的旧路径保留当时原貌，并在快照目录说明。
+当前 Markdown 链接和可执行命令使用新路径。历史交接中的路径文字、官方快照、实验 JSON、Word 手册和视频字节保持原貌；历史链接可跳到当前位置。以后新增软件不再写根 `tools/` 或旧 `research/`，新增赛事材料不混进工程实验。
 
-交接记录可能提到已经迁移或删除的旧目录，以及当时的“未提交”状态。这些记录用于解释历史；查当前数据时使用本页和对应资产清单。当前文档的可点击链接随资料迁移修复。
+## 本机文件与共享状态
 
-## 正在开发的本地内容
+`artifacts/`、`tmp/`、`data/raw/`、依赖环境和浏览器草稿继续排除，不能作为其他成员获取已共享成果的入口。已选成片仅在 `data/videos/` 用 Git LFS 保存，提交前运行 `python scripts/validate_video_data.py --check-index`。云部署、组外分享和赛事提交不在本轮授权范围。
 
-截至本次审阅，视觉基线、人物筛选、球衣与身份跟踪、人工选人复核，以及其方案增量仍属于本机开发工作。本次不移动、清理或提交以下内容：
-
-- `tools/` 及尚未入库的视觉、身份跟踪、选人复核脚本。
-- `research/vision-local-aws-deployment.md`、`research/vision-deployment-benchmark/`、`research/vision-player-refinement/`。
-- `research/nba2k-rating-tables/` 中的本地草稿。
-- `docs/agent-concept-review.md`、`research/video-overlay-vision-assessment.md` 中的开发增量，以及相关未提交交接。
-
-`docs/status.md` 和 `research/README.md` 同时含有资料整理与本地开发更新。本次只同步完成资料相关段落；开发段落继续留在工作区。已发布的视觉研究仅修复指向新视频位置的链接，不发布本机后续实验。
-
-`artifacts/`、`tmp/`、`data/raw/` 等目录保存本机来源、过程文件或缓存，继续按 `.gitignore` 排除。它们不作为其他成员获取已完成资料的入口；运行中的本地服务保持原状。
-
-本次审阅与同步记录见[交接](../handoffs/Linzeyu912/2026-10-01-2118-repository-audit-sync.md)。
+本次分类提交、验证和远端核对结果见[整理同步交接](../handoffs/Linzeyu912/2026-10-02-1109-organize-publish.md)。

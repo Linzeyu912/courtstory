@@ -10,7 +10,7 @@
 
 - 通过已连接 Gmail 向 support@typesafe.ai 发送英文询问信。
 - 补充三人团队、BroadcastCode、珠海与澳门的比赛安排，以及计划评估的 Jev 用途和 AWS 调用方式。
-- 将[已发送邮件](../../research/jev-support-email-2026-09-28.md)归档，更新调研和团队状态。
+- 将[已发送邮件](../../engineering/research/jev-support-email-2026-09-28.md)归档，更新调研和团队状态。
 
 ## 结论与依据
 
