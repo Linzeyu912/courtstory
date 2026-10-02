@@ -4,7 +4,8 @@
 
 | 专题 | 入口 | 已验证与限制 |
 |---|---|---|
-| E-BARD 篮球专用检测 | [模型评估与本机对照](vision-player-refinement/ebard-assessment.md)、[持续跟踪实测](vision-player-refinement/ebard-tracking-probe.json)、[工作台](../tools/player-review/README.md) | 三个样例已提供通用 YOLOv8s / E-BARD YOLOv8n 可选，后者默认推荐；815 帧解码检测跟踪共 15.83 秒，含球 / 篮筐候选。真实身份、脚点和米制精度未验收，改动仍在本地 |
+| E-BARD 篮球专用检测 | [模型评估与本机对照](vision-player-refinement/ebard-assessment.md)、[持续跟踪实测](vision-player-refinement/ebard-tracking-probe.json)、[工作台](../tools/player-review/README.md) | 已随 aa2ba4f 推送；三个样例提供通用 YOLOv8s / E-BARD YOLOv8n 可选，后者默认推荐；815 帧解码检测跟踪共 15.83 秒，含球 / 篮筐候选。身份和位置精度未验收；ByteTrack 后续转交 |
+| 脚部与场地现成工具 | [GitHub / Hugging Face 核查](vision-player-refinement/ground-tools-survey.md) | RTMPose-s 脚趾 / 脚跟、48 点篮球场模型、脚地接触研究；下载入口和源码已核查，新增候选尚未运行，场地点语义和接触判定需适配 |
 | 裁剪及人工身份规则 | [身份绑定核查](vision-player-refinement/identity-binding-review.md)、[工作台](../tools/player-review/README.md) | 多区间拼接、从确认帧向后绑定、重复 ID 错段释放；46 项 JavaScript 与 4 项裁切回归通过，真人身份仍需复核 |
 | 当前数据提取流程 | [三步流程](vision-player-refinement/data-extraction-workflow.md) | 先筛直播、再标人、再补轨迹；战术分析与讲解后续处理 |
 | 脚点、场地和相机 | [专项实验](vision-player-refinement/court-calibration-research.md) | 多点拟合、核验及局部敏感度；姿态与 KaliCalib 仅离线抽样，米制精度未验收 |

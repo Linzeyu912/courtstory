@@ -6,6 +6,8 @@
 
 赛事资料与本机数据提取原型开发并行。赛事要求集中在 `requirements/`，代码、设计和技术实验集中在 `engineering/`；完整 Agent 流程、真实身份 / 位置精度验收和 AWS 部署尚未完成。
 
+2026-10-02 下午，双模型工作台接入已按用户要求推送 `main`（`aa2ba4f`），52 项 JavaScript、14 项 Python 和独立浏览器 QA 通过。ByteTrack 后续工作由用户安排的另一合作者处理；本任务转向[脚下地面点与 2D 球场量化调研](../engineering/research/vision-player-refinement/ground-tools-survey.md)，新增候选仅核查源码 / 权重入口，尚未运行或接入。
+
 2026-10-02 已按用户授权把此前全部改动分成六类提交到 main 并推送，远端提交一致，三个新验收成片独立下载与哈希核验通过；分类提交和验证结果见[本次整理交接](../handoffs/Linzeyu912/2026-10-02-1109-organize-publish.md)。归档共享不代表实验已经达到产品验收标准。
 
 **协作方式：所有内容直接在 `main` 修改、提交和推送，不新建任务分支，不使用 PR 合并。** 见[协作流程](workflow.md)与[决策 D004](decisions.md#d004所有内容直接在-main-上改进)。
