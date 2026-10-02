@@ -5,6 +5,10 @@
 **GitHub 仓库**：https://github.com/Linzeyu912/broadcastcode-team-hub  
 **当前阶段**：赛事准备与本机数据提取原型开发；完整 Agent 流程和 AWS 部署待完成。成员名单不代表已核验比赛入围资格。
 
+## 本分支的工作台更新
+
+当前分支 `codex/local-workbench-20261002` 保存用户版与 THY 版的选择性整合：保留原 UI、脚点与球场映射，接入多模型及 2K 查询，增加整段 T 归并和待核对提示，红蓝仅表示分队。五个功能提交已于 2026-10-02 推送；[更新说明、提交清单与验证结果](engineering/docs/workbench-branch-update-20261002.md)记录完整范围。**本轮按用户要求只更新这个分支，未合入 main。** 下方 main-only 仍为仓库默认协作规则。
+
 ## 从这里开始
 
 | 内容 | 入口 |
