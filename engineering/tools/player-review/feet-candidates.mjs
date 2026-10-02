@@ -1,7 +1,7 @@
 import {editImageAnchor} from './image-edit.mjs';
 export function feetForPoint(clip,frame,point){
  const source=clip.feetCandidates;
- if(!source||point?.trackId==null||source.videoHash!==clip.video_sha256||source.trackingFingerprint!==clip.tracking_fingerprint)return null;
+ if(!source||point?.trackId==null||source.videoHash!==clip.video_sha256||source.trackingFingerprint!==(clip.tracking_raw_fingerprint||clip.tracking_fingerprint))return null;
  const candidate=source.frames?.find(item=>item.frame===frame)?.feet?.find(item=>Number(item.trackId)===Number(point.trackId));
  return candidate?{...candidate,source:source.source,contactState:'unknown',groundPoint:false}:null;
 }

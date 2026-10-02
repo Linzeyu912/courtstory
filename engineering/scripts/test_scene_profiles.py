@@ -46,7 +46,7 @@ class SceneProfileTests(unittest.TestCase):
         clip = self.loaded()
         self.assertIsNone(json.loads(clip['payloads']['original'])['feetCandidates'])
         data = json.loads(clip['payloads']['ebard'])
-        self.assertEqual(data['feetCandidates']['trackingFingerprint'], data['tracking_fingerprint'])
+        self.assertEqual(data['feetCandidates']['trackingFingerprint'], data['tracking_raw_fingerprint'])
 
     def test_hash_mismatch_rejected(self):
         self.feet['trackingFingerprint'] = '0' * 64
@@ -115,7 +115,7 @@ class SceneProfileTests(unittest.TestCase):
         self.assertEqual([f['sourceFrame'] for f in b['feetCandidates']['frames']], [1, 2, 4, 5])
         self.assertEqual([f['time'] for f in b['feetCandidates']['frames']], [f['time'] for f in b['frames']])
         self.assertEqual([f['sourceTime'] for f in b['feetCandidates']['frames']], [.1, .2, .4, .5])
-        self.assertEqual(b['feetCandidates']['trackingFingerprint'], b['tracking_fingerprint'])
+        self.assertEqual(b['feetCandidates']['trackingFingerprint'], b['tracking_raw_fingerprint'])
         self.assertEqual(b['feetCandidates']['videoHash'], b['video_sha256'])
         self.assertIsNone(new_payloads['original']['feetCandidates'])
         self.assertEqual([k['frame'] for k in b['courtCandidates']['keyframes']], [0, 1, 2, 3])
@@ -202,7 +202,7 @@ class SceneProfileTests(unittest.TestCase):
         result = trim_review_clip({'video': clip['video'], 'payload': payload},
                                   [{'start': 2, 'end': 4}], self.root / 'single-payload')
         derived = json.loads(self.fixture.load(result)['payloads']['original'])
-        self.assertEqual(derived['feetCandidates']['trackingFingerprint'], derived['tracking_fingerprint'])
+        self.assertEqual(derived['feetCandidates']['trackingFingerprint'], derived['tracking_raw_fingerprint'])
         self.assertEqual([f['sourceFrame'] for f in derived['feetCandidates']['frames']], [2, 3, 4])
         self.assertEqual([f['time'] for f in derived['feetCandidates']['frames']], [f['time'] for f in derived['frames']])
 
