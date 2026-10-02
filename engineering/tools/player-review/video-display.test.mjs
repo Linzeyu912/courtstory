@@ -24,13 +24,25 @@ class FakeVideo extends FakeEvents {
   frame(time=this.time){this.time=time;const item=this.callbacks.entries().next().value;if(item){this.callbacks.delete(item[0]);item[1](0,{mediaTime:time});}}
 }
 function setup(t,{initial=0,startTime=0,video=new FakeVideo(),onReady}={}) {
-  const draws=[],ready=[],errors=[],status={hidden:false},message={textContent:''},retry=new FakeEvents(),stage={dataset:{}};
+  const draws=[],ready=[],presented=[],errors=[],status={hidden:false},message={textContent:''},retry=new FakeEvents(),stage={dataset:{}};
   let target=initial,drawError=null;
   const canvas={width:1920,height:1080,dataset:{},getContext:()=>({drawImage(...args){if(drawError)throw drawError;draws.push({time:video.currentTime,args});}})};
-  const display=mountVideoDisplay({video,canvas,status,message,retry,stage,startTime,getTargetTime:()=>target,onReady:point=>{ready.push(point);onReady?.(point);},onError:error=>errors.push(error)});
+  const display=mountVideoDisplay({video,canvas,status,message,retry,stage,startTime,getTargetTime:()=>target,onReady:point=>{ready.push(point);onReady?.(point);},onFrame:point=>presented.push(point),onError:error=>errors.push(error)});
   t.after(()=>display.dispose());
-  return {video,canvas,status,message,retry,stage,display,draws,ready,errors,setTarget:value=>target=value,setDrawError:error=>drawError=error};
+  return {video,canvas,status,message,retry,stage,display,draws,ready,presented,errors,setTarget:value=>target=value,setDrawError:error=>drawError=error};
 }
+
+test('annotation frames follow presented media time and never advance on pending or failed draws',t=>{
+  const s=setup(t);s.video.metadata();s.video.data();s.display.togglePlayback();
+  s.video.time=1.08;const [id,callback]=s.video.callbacks.entries().next().value;
+  s.video.callbacks.delete(id);callback(0,{mediaTime:1});
+  assert.equal(s.presented.at(-1).time,1);
+  const count=s.presented.length;s.display.seek(4);s.video.frame(4);
+  assert.equal(s.presented.length,count);
+  s.setDrawError(new Error('draw failed'));s.video.finishSeek();
+  assert.equal(s.presented.length,count);
+  s.display.dispose();callback(0,{mediaTime:5});assert.equal(s.presented.length,count);
+});
 
 test('metadata precedes seeking and only the latest queued target is presented',t=>{
   const s=setup(t,{initial:.033});s.display.seek(2);s.display.seek(3);
