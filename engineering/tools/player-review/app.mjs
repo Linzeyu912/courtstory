@@ -5,7 +5,7 @@ import {editImageAnchor,dragImageEdit} from './image-edit.mjs';
 import {createWorkspace} from './workspace.mjs';
 import {blankSession,ensurePlayerSlots,buildTrajectories,confirmFrameIdentity,reviewTrailCuts,gapRanges,exportReview,isHumanIdentitySelected,isSelected,hasAssociation,entityLabel,playerDisplayState,draftStorageKey,trackingModelSummary,trackCatalog,confirmBinding,continuationSuggestions} from './trajectory.mjs';
 import {IDENTITY_BINDING_MODE,migrateIdentitySession,confirmIdentity,confirmUntrackedFrame,identityInterval,identityConfirmationInterval,identitySuggestionSummary} from './identity-timeline.mjs';
-import {teamOverlayStyle,stabilizePoints,presentationPoint,frameAtMediaTime} from './team-overlay.mjs';
+import {teamOverlayStyle,stabilizePoints,presentationPoint,frameAtMediaTime,frameSeekTime} from './team-overlay.mjs';
 import {personProposals,pickPersonProposal,visibleObjects,personTrail,indexTemporaryTracks,temporaryTrail,mergeSourceCuts,toggleReviewCut} from './tracking-display.mjs';
 import {mountSceneObjects} from './scene-objects-ui.mjs';
 import {feetForPoint,footCandidateAnchor} from './feet-candidates.mjs';
@@ -119,7 +119,7 @@ async function reviewEdit(operation){
   finally{reviewBusy=false;draw();}
 }
 function pauseVideo(){if(videoDisplay)videoDisplay.pause();else video.pause();}
-function seek(index){frame=Math.max(0,Math.min(clip.frames.length-1,index));const time=clip.frames[frame].time;if(videoDisplay)videoDisplay.seek(time);else{video.pause();video.currentTime=time;}draw();}
+function seek(index){frame=Math.max(0,Math.min(clip.frames.length-1,index));const time=frameSeekTime(clip.frames,frame);if(videoDisplay)videoDisplay.seek(time);else{video.pause();video.currentTime=time;}draw();}
 function updateFrame(mediaTime){if(videoDisplay&&$('stage').dataset.videoState!=='ready')return;frame=frameAtMediaTime(clip.frames,Number.isFinite(mediaTime)?mediaTime:video.currentTime,frame);draw();}
 function proposals(){return personProposals(clip.frames[frame],clip.track_roles,clip.detectorEvidence);}
 function drawBox(box,stroke,label,dashed=false,labelSize=20){const[x1,y1,x2,y2]=box;ctx.strokeStyle=stroke;ctx.lineWidth=3;ctx.setLineDash(dashed?[10,7]:[]);ctx.strokeRect(x1,y1,x2-x1,y2-y1);ctx.setLineDash([]);if(label){ctx.font=`bold ${labelSize}px sans-serif`;const w=ctx.measureText(label).width+14;ctx.fillStyle=stroke;ctx.fillRect(x1,Math.max(0,y1-labelSize-8),w,labelSize+7);ctx.fillStyle='#102133';ctx.fillText(label,x1+7,Math.max(labelSize+1,y1-7));}}
@@ -347,4 +347,4 @@ playerIdentityUI=mountPlayerIdentityUI({getState:()=>({session,active,frame,clip
 if(clip.supportsCourtCalibration===false){$('tab-calibration').disabled=true;$('repairCourt').disabled=true;}
 window.addEventListener('resize',drawTimeline);setLinkTrack(catalog[0]?.id);previewTrackId=null;saveDraft();refresh();workspace.switchStep(session.liveSelection?'identity':'footage');
 const videoFrame=$('videoFrame');videoFrame.width=clip.width;videoFrame.height=clip.height;
-videoDisplay=mountVideoDisplay({video,canvas:videoFrame,stage:$('stage'),status:$('videoStatus'),message:$('videoStatusMessage'),retry:$('videoRetry'),startTime:clip.frames[0].time,getTargetTime:()=>clip.frames[frame].time,onReady:({time})=>updateFrame(time),onFrame:({time})=>updateFrame(time),onError:toast});
+videoDisplay=mountVideoDisplay({video,canvas:videoFrame,stage:$('stage'),status:$('videoStatus'),message:$('videoStatusMessage'),retry:$('videoRetry'),startTime:frameSeekTime(clip.frames,0),getTargetTime:()=>frameSeekTime(clip.frames,frame),onReady:({time})=>updateFrame(time),onFrame:({time})=>updateFrame(time),onError:toast});
