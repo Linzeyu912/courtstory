@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import {COURT,landmarks,project,homography,validQuad,keyframePoints,fitKeyframe,calibrationAt,buildCourtTrajectories,courtGaps,pathSegments,addCourtAnchor,addEvent,convexHull,insideHull,footPointSensitivity} from './court.mjs';
 import {courtLandmarks,courtMarkings,fitHomography} from './court-geometry.mjs';
 import {blankSession,buildTrajectories,exportReview} from './trajectory.mjs';
+import {confirmIdentity,nextIdentityOrder} from './identity-timeline.mjs';
 const image=[[448,536],[934,570],[809,697],[230,653]];
 const frames=Array.from({length:5},(_,i)=>({frame:i,time:i*.1,tracks:[[380+i,500,420+i,600,1,.9,0]]}));
 const calibration={maxKeyframeGapSeconds:1.2,keyframes:[{frame:0,side:'left',source:'reference',image},{frame:4,side:'left',source:'reference',image:image.map(([x,y])=>[x+20,y+10])}]};
@@ -87,4 +88,25 @@ test('court export distinguishes a human identity selection from a human foot co
   const s=setup();s.entities[0].anchors=[{frame:0,x:400,y:600,trackId:1,box:[380,500,420,600]},{frame:2,x:402,y:590,trackId:null}];
   const out=exportReview(s,{video_sha256:'test',width:1920,height:1080,frames},'test');
   const e=out.entities[0];assert.equal(e.trajectory[0].source,'manual');assert.equal(e.trajectory[0].footMethod,'bbox_bottom_center');assert.equal(e.courtTrajectory[0].footMethod,'bbox_bottom_center');assert.equal(e.courtTrajectory[2].footMethod,'human_image_anchor');assert.equal(e.courtTrajectory[1].footMethod,'bbox_bottom_center');
+});
+
+test('released identities suppress existing court anchors and export nulls until reconfirmed',()=>{
+  const s=setup(),entity=s.entities[0];
+  confirmIdentity(s,'P1',0,{trackId:1,box:frames[0].tracks[0].slice(0,4)},frames);
+  confirmIdentity(s,'P1',4,{trackId:1,box:frames[4].tracks[0].slice(0,4)},frames);
+  entity.anchors.push({frame:2,x:402,y:590,trackId:null});addCourtAnchor(entity,2,7,5);addCourtAnchor(entity,4,9,6);
+  const before=buildCourtTrajectories(s,frames,buildTrajectories(s,frames)).P1;
+  entity.bindings=[{kind:'unassigned',trackId:null,start:1,end:3,order:nextIdentityOrder(s),exclusive:true,origin:'human_release',identitySource:'human'}];
+  const output=exportReview(s,{video_sha256:'test',width:1920,height:1080,frames},'now').entities[0];
+  assert.deepEqual(output.courtTrajectory[0],before[0]);assert.deepEqual(output.courtTrajectory[4],before[4]);
+  for(const point of output.courtTrajectory.slice(1,4)){
+    assert.equal(point.source,'missing');assert.equal(point.x,null);assert.equal(point.y,null);assert.equal(point.reviewExcluded,true);
+    assert.equal(point.identitySource,'human_unassigned');assert.equal(point.identityStartFrame,1);assert.equal(point.identityEndFrame,3);
+    assert.equal(point.identityOrigin,'human_release');assert.equal(point.identityOrder,entity.bindings[0].order);
+  }
+  assert.equal(entity.courtAnchors.find(anchor=>anchor.frame===2).x,7);
+  confirmIdentity(s,'P1',2,{trackId:1,box:frames[2].tracks[0].slice(0,4)},frames);
+  const restored=buildCourtTrajectories(s,frames,buildTrajectories(s,frames)).P1;
+  assert.equal(restored[1].reviewExcluded,true);assert.equal(restored[2].source,'court_manual');assert.equal(restored[2].x,7);
+  assert.equal(restored[3].source,'projected');assert.deepEqual(restored[4],before[4]);
 });

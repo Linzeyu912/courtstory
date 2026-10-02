@@ -1,0 +1,3044 @@
+{
+  "generatedAt": "2026-10-02T20:09:54.786549+08:00",
+  "pointThreshold": 0.5,
+  "hoopThreshold": 0.35,
+  "implementationSha256": "4561642de7f46b8ce079e95984d89932da3699f5b9d439798d7239fa0e68692d",
+  "method": "cached court keypoints + same-frame E-BARD hoop detections",
+  "newInference": false,
+  "metricAccuracyValidated": false,
+  "note": "Accepted output remains needs_review. Coverage and direction corrections are not independent position accuracy. Original cache is unchanged.",
+  "inputs": [
+    {
+      "path": "artifacts/court-models-v2/report.json",
+      "sha256": "55828beecba8921544fca1e3fa142c95afd2233d98c79e25f57960b25c71dd0a",
+      "modelSha256": "68e5faf5fb5388cf83477238abe22e9824a69fb33a4cf34f79ab61858f410064",
+      "inputSize": 640
+    },
+    {
+      "path": "artifacts/court-models-v2-960/report.json",
+      "sha256": "c4cd8e200ceba60a524f4c8d76c9688025f2cad9e01d9b2754c41b2bd0f7a945",
+      "modelSha256": "68e5faf5fb5388cf83477238abe22e9824a69fb33a4cf34f79ab61858f410064",
+      "inputSize": 960
+    }
+  ],
+  "cases": [
+    {
+      "cache": "artifacts/court-models-v2/report.json",
+      "cacheRunIndex": 0,
+      "inputSize": 640,
+      "sample": "004",
+      "frame": 0,
+      "width": 1280,
+      "height": 720,
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "objectCache": "data/videos/tactics/acceptance/tracks/004-ebard.json",
+      "objectCacheSha256": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+      "oldSide": "left",
+      "oldHomographyFound": true,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 4,
+              "accepted": false,
+              "fitResidualPixels": 7.581960434284848e-06,
+              "baselineCenter": [
+                -86.92094615542923,
+                347.81240116647353
+              ],
+              "freeThrowCenter": [
+                432.293418155708,
+                362.24955659866913
+              ],
+              "projectedRimGround": [
+                70.97438451631571,
+                352.2028024874198
+              ],
+              "laneAxis": [
+                519.2143643111373,
+                14.437155432195595
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 505.3892629446218,
+              "hoopHorizontalTolerancePixels": 114.2271601484502,
+              "hoopAboveGroundPixels": 263.56643659691684,
+              "reason": "hoop_conflicts_with_ground_geometry"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 0,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                548.1818237304688,
+                54.20454788208008,
+                604.5454711914062,
+                123.06818389892578
+              ],
+              "score": 0.830078125,
+              "center": [
+                576.3636474609375,
+                88.63636589050293
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2/report.json",
+      "cacheRunIndex": 1,
+      "inputSize": 640,
+      "sample": "004",
+      "frame": 70,
+      "width": 1280,
+      "height": 720,
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "objectCache": "data/videos/tactics/acceptance/tracks/004-ebard.json",
+      "objectCacheSha256": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+      "oldSide": "left",
+      "oldHomographyFound": true,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 4,
+              "accepted": false,
+              "fitResidualPixels": 6.998338816419445e-06,
+              "baselineCenter": [
+                -105.16245230836294,
+                361.77381521405454
+              ],
+              "freeThrowCenter": [
+                437.37847089696413,
+                364.7153225627289
+              ],
+              "projectedRimGround": [
+                70.78787759562802,
+                362.7277694067753
+              ],
+              "laneAxis": [
+                542.5409232053271,
+                2.9415073486743495
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 507.39394613484075,
+              "hoopHorizontalTolerancePixels": 119.35900310517196,
+              "hoopAboveGroundPixels": 273.9777694067753,
+              "reason": "hoop_conflicts_with_ground_geometry"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 0,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                549.5454711914062,
+                53.75,
+                606.8181762695312,
+                123.75
+              ],
+              "score": 0.80908203125,
+              "center": [
+                578.1818237304688,
+                88.75
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2/report.json",
+      "cacheRunIndex": 2,
+      "inputSize": 640,
+      "sample": "004",
+      "frame": 140,
+      "width": 1280,
+      "height": 720,
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "objectCache": "data/videos/tactics/acceptance/tracks/004-ebard.json",
+      "objectCacheSha256": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+      "oldSide": "left",
+      "oldHomographyFound": true,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 4,
+              "accepted": false,
+              "fitResidualPixels": 6.830407405301936e-06,
+              "baselineCenter": [
+                -33.64100621618629,
+                410.9741000987329
+              ],
+              "freeThrowCenter": [
+                489.99469446879294,
+                414.3082363144795
+              ],
+              "projectedRimGround": [
+                134.94396102214915,
+                412.04752814033606
+              ],
+              "laneAxis": [
+                523.6357006849793,
+                3.3341362157465824
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 499.6015101692571,
+              "hoopHorizontalTolerancePixels": 115.19985415069544,
+              "hoopAboveGroundPixels": 272.729340426713,
+              "reason": "hoop_conflicts_with_ground_geometry"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 0,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                607.2727661132812,
+                104.7727279663086,
+                661.8181762695312,
+                173.8636474609375
+              ],
+              "score": 0.82080078125,
+              "center": [
+                634.5454711914062,
+                139.31818771362305
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2/report.json",
+      "cacheRunIndex": 3,
+      "inputSize": 640,
+      "sample": "004",
+      "frame": 209,
+      "width": 1280,
+      "height": 720,
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "objectCache": "data/videos/tactics/acceptance/tracks/004-ebard.json",
+      "objectCacheSha256": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+      "oldSide": "left",
+      "oldHomographyFound": false,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 3,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 0,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                757.2727661132812,
+                87.04545593261719,
+                834.5454711914062,
+                178.4091033935547
+              ],
+              "score": 0.83642578125,
+              "center": [
+                795.9091186523438,
+                132.72727966308594
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2/report.json",
+      "cacheRunIndex": 4,
+      "inputSize": 640,
+      "sample": "005",
+      "frame": 0,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "objectCache": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+      "objectCacheSha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+      "oldSide": "right",
+      "oldHomographyFound": true,
+      "newStatus": "needs_review",
+      "newSide": "right",
+      "reason": "hoop_and_floor_geometry_agree",
+      "result": {
+        "side": "right",
+        "points": [
+          {
+            "id": "A",
+            "image": [
+              1437.0,
+              451.5
+            ],
+            "score": 0.52880859375,
+            "modelSlot": 38,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "B",
+            "image": [
+              827.25,
+              499.875
+            ],
+            "score": 0.50146484375,
+            "modelSlot": 29,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "C",
+            "image": [
+              969.75,
+              669.375
+            ],
+            "score": 0.50048828125,
+            "modelSlot": 31,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "E",
+            "image": [
+              1256.25,
+              316.5
+            ],
+            "score": 0.51025390625,
+            "modelSlot": 35,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "I",
+            "image": [
+              1288.5,
+              339.75
+            ],
+            "score": 0.5,
+            "modelSlot": 36,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          }
+        ],
+        "courtToImage": [
+          114.50143721084312,
+          7.518182102319104,
+          -1820.6495303732545,
+          -5.88243885205072,
+          19.87691926581255,
+          536.6596965142152,
+          0.005609450917361313,
+          -0.022729070075430898,
+          1.0
+        ],
+        "imageToCourt": [
+          0.013824339841169674,
+          0.0145953180138102,
+          17.336558903725994,
+          0.0038328395364002153,
+          0.05375242392217326,
+          -21.868502007033847,
+          9.569922606758794e-06,
+          0.0011398708900295965,
+          1.0
+        ],
+        "status": "needs_review",
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "hoop_and_floor_geometry_agree",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 2,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 5,
+              "accepted": true,
+              "fitResidualPixels": 1.1586591137329547,
+              "baselineCenter": [
+                1536.4139901116407,
+                526.1481734783199
+              ],
+              "freeThrowCenter": [
+                894.3551806467149,
+                579.7152773258101
+              ],
+              "projectedRimGround": [
+                1363.2652383039263,
+                540.5940108882555
+              ],
+              "laneAxis": [
+                -642.0588094649258,
+                53.567103847490216
+              ],
+              "inferredSide": "right",
+              "hoopHorizontalOffsetPixels": 17.416585426542497,
+              "hoopHorizontalTolerancePixels": 141.2529380822837,
+              "hoopAboveGroundPixels": 331.95764309040396,
+              "reason": "hoop_and_floor_geometry_agree",
+              "reinterpreted": false
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                1340.45458984375,
+                161.93182373046875,
+                1420.9090576171875,
+                255.34091186523438
+              ],
+              "score": 0.88330078125,
+              "center": [
+                1380.6818237304688,
+                208.63636779785156
+              ]
+            }
+          ],
+          "inferredSide": "right",
+          "slotSide": "right",
+          "reinterpreted": false
+        },
+        "reason": "hoop_and_floor_geometry_agree",
+        "metricAccuracyValidated": false
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2/report.json",
+      "cacheRunIndex": 5,
+      "inputSize": 640,
+      "sample": "005",
+      "frame": 47,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "objectCache": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+      "objectCacheSha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+      "oldSide": "left",
+      "oldHomographyFound": false,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 2,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 2,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                1321.3636474609375,
+                167.72727966308594,
+                1407.272705078125,
+                265.2272644042969
+              ],
+              "score": 0.83740234375,
+              "center": [
+                1364.3181762695312,
+                216.4772720336914
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2/report.json",
+      "cacheRunIndex": 6,
+      "inputSize": 640,
+      "sample": "005",
+      "frame": 95,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "objectCache": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+      "objectCacheSha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+      "oldSide": "right",
+      "oldHomographyFound": false,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 2,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 3,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                1325.45458984375,
+                208.2954559326172,
+                1407.272705078125,
+                303.4090881347656
+              ],
+              "score": 0.83349609375,
+              "center": [
+                1366.3636474609375,
+                255.8522720336914
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2/report.json",
+      "cacheRunIndex": 7,
+      "inputSize": 640,
+      "sample": "005",
+      "frame": 142,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "objectCache": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+      "objectCacheSha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+      "oldSide": "right",
+      "oldHomographyFound": false,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 2,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 4,
+              "accepted": false,
+              "reason": "degenerate_ground_layout"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                1348.6363525390625,
+                184.94317626953125,
+                1455.0,
+                311.42047119140625
+              ],
+              "score": 0.85498046875,
+              "center": [
+                1401.8181762695312,
+                248.18182373046875
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2/report.json",
+      "cacheRunIndex": 8,
+      "inputSize": 640,
+      "sample": "006",
+      "frame": 0,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "objectCache": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+      "objectCacheSha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+      "oldSide": "left",
+      "oldHomographyFound": true,
+      "newStatus": "needs_review",
+      "newSide": "left",
+      "reason": "hoop_and_floor_geometry_agree",
+      "result": {
+        "side": "left",
+        "points": [
+          {
+            "id": "A",
+            "image": [
+              321.375,
+              450.375
+            ],
+            "score": 0.533203125,
+            "modelSlot": 3,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "B",
+            "image": [
+              936.75,
+              492.375
+            ],
+            "score": 0.52783203125,
+            "modelSlot": 12,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "C",
+            "image": [
+              792.0,
+              663.0
+            ],
+            "score": 0.54345703125,
+            "modelSlot": 14,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "E",
+            "image": [
+              516.375,
+              311.625
+            ],
+            "score": 0.54296875,
+            "modelSlot": 0,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "I",
+            "image": [
+              481.5,
+              332.25
+            ],
+            "score": 0.537109375,
+            "modelSlot": 1,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          }
+        ],
+        "courtToImage": [
+          97.26417950998491,
+          -44.450590293596505,
+          514.4894292746299,
+          8.10633559772362,
+          16.914725776542817,
+          310.86107784049017,
+          0.003385093767081823,
+          -0.022195519691798254,
+          1.0
+        ],
+        "imageToCourt": [
+          0.011874401689459305,
+          0.016470089000831523,
+          -11.22916376711491,
+          -0.0035172984627964803,
+          0.047629636179475764,
+          -12.99658716118955,
+          -0.00011826423043974556,
+          0.0010014117321147432,
+          1.0
+        ],
+        "status": "needs_review",
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "hoop_and_floor_geometry_agree",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 5,
+              "accepted": true,
+              "fitResidualPixels": 1.3861468005106878,
+              "baselineCenter": [
+                211.55644280142286,
+                529.265967224439
+              ],
+              "freeThrowCenter": [
+                868.9887508418051,
+                572.2653003794616
+              ],
+              "projectedRimGround": [
+                396.29706592264716,
+                541.348920105982
+              ],
+              "laneAxis": [
+                657.4323080403822,
+                42.999333155022555
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 19.933433720498726,
+              "hoopHorizontalTolerancePixels": 144.63510776888407,
+              "hoopAboveGroundPixels": 341.91710400490774,
+              "reason": "hoop_and_floor_geometry_agree",
+              "reinterpreted": false
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 1,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                333.4090881347656,
+                147.9545440673828,
+                419.31817626953125,
+                250.90908813476562
+              ],
+              "score": 0.82763671875,
+              "center": [
+                376.36363220214844,
+                199.43181610107422
+              ]
+            }
+          ],
+          "inferredSide": "left",
+          "slotSide": "left",
+          "reinterpreted": false
+        },
+        "reason": "hoop_and_floor_geometry_agree",
+        "metricAccuracyValidated": false
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2/report.json",
+      "cacheRunIndex": 9,
+      "inputSize": 640,
+      "sample": "006",
+      "frame": 154,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "objectCache": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+      "objectCacheSha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+      "oldSide": "left",
+      "oldHomographyFound": true,
+      "newStatus": "needs_review",
+      "newSide": "left",
+      "reason": "hoop_and_floor_geometry_agree",
+      "result": {
+        "side": "left",
+        "points": [
+          {
+            "id": "A",
+            "image": [
+              405.75,
+              482.25
+            ],
+            "score": 0.54443359375,
+            "modelSlot": 3,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "B",
+            "image": [
+              1007.25,
+              525.0
+            ],
+            "score": 0.5224609375,
+            "modelSlot": 12,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "C",
+            "image": [
+              863.25,
+              692.25
+            ],
+            "score": 0.5302734375,
+            "modelSlot": 14,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "E",
+            "image": [
+              594.0,
+              347.625
+            ],
+            "score": 0.5302734375,
+            "modelSlot": 0,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "I",
+            "image": [
+              561.0,
+              368.625
+            ],
+            "score": 0.5224609375,
+            "modelSlot": 1,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          }
+        ],
+        "courtToImage": [
+          92.62933934748739,
+          -44.75680051921835,
+          592.5668982225651,
+          6.687682138968891,
+          15.737928733046607,
+          347.32301485486425,
+          0.0002193427458742849,
+          -0.021362085775819755,
+          1.0
+        ],
+        "imageToCourt": [
+          0.013179272008305013,
+          0.01826765382692073,
+          -14.154376936283887,
+          -0.0037627054237121247,
+          0.052642803134273025,
+          -16.054402413152488,
+          -8.32700137214063e-05,
+          0.0011205531986828556,
+          1.0
+        ],
+        "status": "needs_review",
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "hoop_and_floor_geometry_agree",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 5,
+              "accepted": true,
+              "fitResidualPixels": 0.9946582500076956,
+              "baselineCenter": [
+                300.42259617138745,
+                558.0916914943813
+              ],
+              "freeThrowCenter": [
+                939.729769415967,
+                603.435979135306
+              ],
+              "projectedRimGround": [
+                477.2671429571421,
+                570.6347855386498
+              ],
+              "laneAxis": [
+                639.3071732445795,
+                45.34428764092468
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 34.42623109190771,
+              "hoopHorizontalTolerancePixels": 140.6475781138075,
+              "hoopAboveGroundPixels": 332.85068977448964,
+              "reason": "hoop_and_floor_geometry_agree",
+              "reinterpreted": false
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 1,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                401.5909118652344,
+                189.88636779785156,
+                484.0909118652344,
+                285.68182373046875
+              ],
+              "score": 0.796875,
+              "center": [
+                442.8409118652344,
+                237.78409576416016
+              ]
+            }
+          ],
+          "inferredSide": "left",
+          "slotSide": "left",
+          "reinterpreted": false
+        },
+        "reason": "hoop_and_floor_geometry_agree",
+        "metricAccuracyValidated": false
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2/report.json",
+      "cacheRunIndex": 10,
+      "inputSize": 640,
+      "sample": "006",
+      "frame": 308,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "objectCache": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+      "objectCacheSha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+      "oldSide": "right",
+      "oldHomographyFound": true,
+      "newStatus": "needs_review",
+      "newSide": "left",
+      "reason": "hoop_and_floor_geometry_agree",
+      "result": {
+        "side": "left",
+        "points": [
+          {
+            "id": "A",
+            "image": [
+              552.0,
+              523.5
+            ],
+            "score": 0.55224609375,
+            "modelSlot": 3,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "B",
+            "image": [
+              1199.25,
+              578.25
+            ],
+            "score": 0.52685546875,
+            "modelSlot": 12,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "C",
+            "image": [
+              1021.5,
+              750.75
+            ],
+            "score": 0.52294921875,
+            "modelSlot": 14,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "D",
+            "image": [
+              283.5,
+              676.875
+            ],
+            "score": 0.5341796875,
+            "modelSlot": 4,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "E",
+            "image": [
+              771.0,
+              397.125
+            ],
+            "score": 0.50146484375,
+            "modelSlot": 0,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "I",
+            "image": [
+              732.75,
+              418.5
+            ],
+            "score": 0.50146484375,
+            "modelSlot": 1,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          }
+        ],
+        "courtToImage": [
+          90.05268760751105,
+          -55.029376628371736,
+          768.9595740801901,
+          4.617431012962314,
+          11.614777140624076,
+          397.99556458620634,
+          -0.006616443906905314,
+          -0.02386115386875346,
+          1.0
+        ],
+        "imageToCourt": [
+          0.016239093781380012,
+          0.028215454742947968,
+          -23.716832478054368,
+          -0.00557734167322673,
+          0.07318293290763377,
+          -24.83773242310404,
+          -2.5636754739998133e-05,
+          0.001932915196290251,
+          1.0
+        ],
+        "status": "needs_review",
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "hoop_and_floor_geometry_agree",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 6,
+              "accepted": true,
+              "fitResidualPixels": 1.318902664309211,
+              "baselineCenter": [
+                427.33454206590693,
+                594.6140838866423
+              ],
+              "freeThrowCenter": [
+                1117.056767489335,
+                658.1182116020117
+              ],
+              "projectedRimGround": [
+                611.3718672104923,
+                611.5587746180478
+              ],
+              "laneAxis": [
+                689.7222254234281,
+                63.50412771536935
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 13.758219749554769,
+              "hoopHorizontalTolerancePixels": 151.73888959315417,
+              "hoopAboveGroundPixels": 351.4451347865048,
+              "reason": "hoop_and_floor_geometry_agree",
+              "reinterpreted": false
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 6,
+              "accepted": false,
+              "fitResidualPixels": 1.76689768135563,
+              "baselineCenter": [
+                1510.0117239223052,
+                587.607605840984
+              ],
+              "freeThrowCenter": [
+                828.725919762283,
+                651.0293975112597
+              ],
+              "projectedRimGround": [
+                1327.9372101685567,
+                604.5571618265138
+              ],
+              "laneAxis": [
+                -681.2858041600223,
+                63.42179167027575
+              ],
+              "inferredSide": "right",
+              "hoopHorizontalOffsetPixels": 730.3235627076192,
+              "hoopHorizontalTolerancePixels": 149.8828769152049,
+              "hoopAboveGroundPixels": 344.44352199497087,
+              "reason": "hoop_conflicts_with_ground_geometry"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                555.3409423828125,
+                208.2954559326172,
+                639.8863525390625,
+                311.93182373046875
+              ],
+              "score": 0.84716796875,
+              "center": [
+                597.6136474609375,
+                260.11363983154297
+              ]
+            }
+          ],
+          "inferredSide": "left",
+          "slotSide": "left",
+          "reinterpreted": false
+        },
+        "reason": "hoop_and_floor_geometry_agree",
+        "metricAccuracyValidated": false
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2/report.json",
+      "cacheRunIndex": 11,
+      "inputSize": 640,
+      "sample": "006",
+      "frame": 461,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "objectCache": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+      "objectCacheSha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+      "oldSide": "right",
+      "oldHomographyFound": true,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 1,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 5,
+              "accepted": false,
+              "fitResidualPixels": 0.9152721650149906,
+              "baselineCenter": [
+                1918.1625890990458,
+                661.9596997027514
+              ],
+              "freeThrowCenter": [
+                1145.241816143818,
+                718.7875887092644
+              ],
+              "projectedRimGround": [
+                1706.4350861627033,
+                677.5266600659576
+              ],
+              "laneAxis": [
+                -772.9207729552279,
+                56.82788900651292
+              ],
+              "inferredSide": "right",
+              "hoopHorizontalOffsetPixels": 803.7078217584065,
+              "hoopHorizontalTolerancePixels": 170.04257005015015,
+              "hoopAboveGroundPixels": 397.9812041333404,
+              "reason": "hoop_conflicts_with_ground_geometry"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                855.0,
+                232.84091186523438,
+                950.4545288085938,
+                326.25
+              ],
+              "score": 0.43408203125,
+              "center": [
+                902.7272644042969,
+                279.5454559326172
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2-960/report.json",
+      "cacheRunIndex": 0,
+      "inputSize": 960,
+      "sample": "004",
+      "frame": 0,
+      "width": 1280,
+      "height": 720,
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "objectCache": "data/videos/tactics/acceptance/tracks/004-ebard.json",
+      "objectCacheSha256": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+      "oldSide": "left",
+      "oldHomographyFound": false,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 2,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 0,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                548.1818237304688,
+                54.20454788208008,
+                604.5454711914062,
+                123.06818389892578
+              ],
+              "score": 0.830078125,
+              "center": [
+                576.3636474609375,
+                88.63636589050293
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2-960/report.json",
+      "cacheRunIndex": 1,
+      "inputSize": 960,
+      "sample": "004",
+      "frame": 70,
+      "width": 1280,
+      "height": 720,
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "objectCache": "data/videos/tactics/acceptance/tracks/004-ebard.json",
+      "objectCacheSha256": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+      "oldSide": "left",
+      "oldHomographyFound": false,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 2,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 0,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                549.5454711914062,
+                53.75,
+                606.8181762695312,
+                123.75
+              ],
+              "score": 0.80908203125,
+              "center": [
+                578.1818237304688,
+                88.75
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2-960/report.json",
+      "cacheRunIndex": 2,
+      "inputSize": 960,
+      "sample": "004",
+      "frame": 140,
+      "width": 1280,
+      "height": 720,
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "objectCache": "data/videos/tactics/acceptance/tracks/004-ebard.json",
+      "objectCacheSha256": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+      "oldSide": "left",
+      "oldHomographyFound": true,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 4,
+              "accepted": false,
+              "fitResidualPixels": 8.408144804510388e-06,
+              "baselineCenter": [
+                -18.711610767166153,
+                377.7682670885162
+              ],
+              "freeThrowCenter": [
+                477.39543776602125,
+                408.80129151577444
+              ],
+              "projectedRimGround": [
+                116.12748044135132,
+                386.20286769254955
+              ],
+              "laneAxis": [
+                496.1070485331874,
+                31.033024427258226
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 518.417990750055,
+              "hoopHorizontalTolerancePixels": 109.14355067730123,
+              "hoopAboveGroundPixels": 246.8846799789265,
+              "reason": "hoop_conflicts_with_ground_geometry"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 0,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                607.2727661132812,
+                104.7727279663086,
+                661.8181762695312,
+                173.8636474609375
+              ],
+              "score": 0.82080078125,
+              "center": [
+                634.5454711914062,
+                139.31818771362305
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2-960/report.json",
+      "cacheRunIndex": 3,
+      "inputSize": 960,
+      "sample": "004",
+      "frame": 209,
+      "width": 1280,
+      "height": 720,
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "objectCache": "data/videos/tactics/acceptance/tracks/004-ebard.json",
+      "objectCacheSha256": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+      "oldSide": "left",
+      "oldHomographyFound": true,
+      "newStatus": "needs_review",
+      "newSide": "right",
+      "reason": "hoop_and_floor_geometry_agree",
+      "result": {
+        "side": "right",
+        "points": [
+          {
+            "id": "B",
+            "image": [
+              272.5,
+              436.0
+            ],
+            "score": 0.5234375,
+            "modelSlot": 29,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "C",
+            "image": [
+              445.3333435058594,
+              594.3333740234375
+            ],
+            "score": 0.54248046875,
+            "modelSlot": 31,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "D",
+            "image": [
+              1128.0,
+              516.6666870117188
+            ],
+            "score": 0.505859375,
+            "modelSlot": 39,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "I",
+            "image": [
+              698.6666870117188,
+              273.3333435058594
+            ],
+            "score": 0.51904296875,
+            "modelSlot": 36,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          }
+        ],
+        "courtToImage": [
+          105.44193028441602,
+          22.98851208900094,
+          -2263.770521882842,
+          -8.895592709764134,
+          16.216665910660325,
+          544.523792456699,
+          0.004806969898368984,
+          -0.02598824153956394,
+          1.0
+        ],
+        "imageToCourt": [
+          0.015862764096111478,
+          0.018722659677424574,
+          25.71472410393134,
+          0.006013907243328987,
+          0.06076212772560841,
+          -19.472318288100766,
+          8.003904452123073e-05,
+          0.0014891015903041598,
+          1.0
+        ],
+        "status": "needs_review",
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "hoop_and_floor_geometry_agree",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 4,
+              "accepted": false,
+              "fitResidualPixels": 1.0807769238242252e-05,
+              "baselineCenter": [
+                60.42285019328662,
+                454.3556911583702
+              ],
+              "freeThrowCenter": [
+                623.2974535938478,
+                503.4064499025652
+              ],
+              "projectedRimGround": [
+                199.24141022405792,
+                466.45280063204143
+              ],
+              "laneAxis": [
+                562.8746034005611,
+                49.050758744195036
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 596.6677084282858,
+              "hoopHorizontalTolerancePixels": 123.83241274812345,
+              "hoopAboveGroundPixels": 333.7255209689555,
+              "reason": "hoop_conflicts_with_ground_geometry"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 4,
+              "accepted": true,
+              "fitResidualPixels": 1.2019269855116868e-05,
+              "baselineCenter": [
+                992.2791099318715,
+                439.7441259972878
+              ],
+              "freeThrowCenter": [
+                352.9111371258054,
+                509.66497196561517
+              ],
+              "projectedRimGround": [
+                819.4304564802144,
+                458.6467369941823
+              ],
+              "laneAxis": [
+                -639.3679728060661,
+                69.92084596832734
+              ],
+              "inferredSide": "right",
+              "hoopHorizontalOffsetPixels": 23.52133782787064,
+              "hoopHorizontalTolerancePixels": 140.66095401733455,
+              "hoopAboveGroundPixels": 325.91945733109634,
+              "reason": "hoop_and_floor_geometry_agree",
+              "reinterpreted": false
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                757.2727661132812,
+                87.04545593261719,
+                834.5454711914062,
+                178.4091033935547
+              ],
+              "score": 0.83642578125,
+              "center": [
+                795.9091186523438,
+                132.72727966308594
+              ]
+            }
+          ],
+          "inferredSide": "right",
+          "slotSide": "right",
+          "reinterpreted": false
+        },
+        "reason": "hoop_and_floor_geometry_agree",
+        "metricAccuracyValidated": false
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2-960/report.json",
+      "cacheRunIndex": 4,
+      "inputSize": 960,
+      "sample": "005",
+      "frame": 0,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "objectCache": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+      "objectCacheSha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+      "oldSide": "right",
+      "oldHomographyFound": true,
+      "newStatus": "needs_review",
+      "newSide": "right",
+      "reason": "hoop_and_floor_geometry_agree",
+      "result": {
+        "side": "right",
+        "points": [
+          {
+            "id": "A",
+            "image": [
+              1437.0,
+              453.5
+            ],
+            "score": 0.58154296875,
+            "modelSlot": 38,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "B",
+            "image": [
+              825.0,
+              504.0
+            ],
+            "score": 0.580078125,
+            "modelSlot": 29,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "C",
+            "image": [
+              978.0,
+              668.0
+            ],
+            "score": 0.56396484375,
+            "modelSlot": 31,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "D",
+            "image": [
+              1668.0,
+              605.5
+            ],
+            "score": 0.53271484375,
+            "modelSlot": 39,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "E",
+            "image": [
+              1246.0,
+              327.25
+            ],
+            "score": 0.556640625,
+            "modelSlot": 35,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "I",
+            "image": [
+              1278.0,
+              348.0
+            ],
+            "score": 0.55322265625,
+            "modelSlot": 36,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          }
+        ],
+        "courtToImage": [
+          113.01977287159507,
+          6.666320571981408,
+          -1797.47995674867,
+          -6.157612459857854,
+          16.773244255120666,
+          554.9944162662597,
+          0.005438506917475196,
+          -0.025034953909680167,
+          1.0
+        ],
+        "imageToCourt": [
+          0.01583446238807584,
+          0.01979262745910913,
+          17.477331045413187,
+          0.004737793138617439,
+          0.06340257863943422,
+          -26.671988915882192,
+          3.24945996268353e-05,
+          0.0014796382926417332,
+          1.0
+        ],
+        "status": "needs_review",
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "hoop_and_floor_geometry_agree",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 6,
+              "accepted": false,
+              "fitResidualPixels": 1.4069818616447745,
+              "baselineCenter": [
+                538.5484649549596,
+                527.6251270971417
+              ],
+              "freeThrowCenter": [
+                1187.5290129876187,
+                583.0605675917316
+              ],
+              "projectedRimGround": [
+                711.8190726844251,
+                542.4257748104917
+              ],
+              "laneAxis": [
+                648.980548032659,
+                55.4354404945899
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 668.8627510460436,
+              "hoopHorizontalTolerancePixels": 142.775720567185,
+              "hoopAboveGroundPixels": 333.78940701264014,
+              "reason": "hoop_conflicts_with_ground_geometry"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 6,
+              "accepted": true,
+              "fitResidualPixels": 0.5716695417492276,
+              "baselineCenter": [
+                1545.4787492358264,
+                524.7207574880433
+              ],
+              "freeThrowCenter": [
+                896.5157881630414,
+                580.6211970652445
+              ],
+              "projectedRimGround": [
+                1370.4337534834606,
+                539.7988016836181
+              ],
+              "laneAxis": [
+                -648.962961072785,
+                55.900439577201155
+              ],
+              "inferredSide": "right",
+              "hoopHorizontalOffsetPixels": 10.248070247008172,
+              "hoopHorizontalTolerancePixels": 142.7718514360127,
+              "hoopAboveGroundPixels": 331.1624338857665,
+              "reason": "hoop_and_floor_geometry_agree",
+              "reinterpreted": false
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                1340.45458984375,
+                161.93182373046875,
+                1420.9090576171875,
+                255.34091186523438
+              ],
+              "score": 0.88330078125,
+              "center": [
+                1380.6818237304688,
+                208.63636779785156
+              ]
+            }
+          ],
+          "inferredSide": "right",
+          "slotSide": "right",
+          "reinterpreted": false
+        },
+        "reason": "hoop_and_floor_geometry_agree",
+        "metricAccuracyValidated": false
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2-960/report.json",
+      "cacheRunIndex": 5,
+      "inputSize": 960,
+      "sample": "005",
+      "frame": 47,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "objectCache": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+      "objectCacheSha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+      "oldSide": "left",
+      "oldHomographyFound": false,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 4,
+              "accepted": false,
+              "reason": "degenerate_ground_layout"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 0,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                1321.3636474609375,
+                167.72727966308594,
+                1407.272705078125,
+                265.2272644042969
+              ],
+              "score": 0.83740234375,
+              "center": [
+                1364.3181762695312,
+                216.4772720336914
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2-960/report.json",
+      "cacheRunIndex": 6,
+      "inputSize": 960,
+      "sample": "005",
+      "frame": 95,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "objectCache": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+      "objectCacheSha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+      "oldSide": "right",
+      "oldHomographyFound": true,
+      "newStatus": "needs_review",
+      "newSide": "right",
+      "reason": "hoop_and_floor_geometry_agree",
+      "result": {
+        "side": "right",
+        "points": [
+          {
+            "id": "A",
+            "image": [
+              1429.0,
+              518.5
+            ],
+            "score": 0.52294921875,
+            "modelSlot": 38,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "B",
+            "image": [
+              783.5,
+              571.0
+            ],
+            "score": 0.5390625,
+            "modelSlot": 29,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "C",
+            "image": [
+              947.0,
+              743.5
+            ],
+            "score": 0.517578125,
+            "modelSlot": 31,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "E",
+            "image": [
+              1226.0,
+              387.0
+            ],
+            "score": 0.54248046875,
+            "modelSlot": 35,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "I",
+            "image": [
+              1262.0,
+              408.0
+            ],
+            "score": 0.5458984375,
+            "modelSlot": 36,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          }
+        ],
+        "courtToImage": [
+          126.80420457804954,
+          10.420408944105883,
+          -2138.181525486016,
+          -5.487585449724369,
+          17.53926979800856,
+          628.3353894708854,
+          0.0075949482220314,
+          -0.025837118622644827,
+          1.0
+        ],
+        "imageToCourt": [
+          0.014804976423581563,
+          0.019649014822816294,
+          19.309555692744652,
+          0.0044974566499897855,
+          0.06270441990124453,
+          -29.78302737951204,
+          3.75829160049135e-06,
+          0.0014708682849593692,
+          1.0
+        ],
+        "status": "needs_review",
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "hoop_and_floor_geometry_agree",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 4,
+              "accepted": false,
+              "reason": "degenerate_ground_layout"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 5,
+              "accepted": true,
+              "fitResidualPixels": 1.188164719587191,
+              "baselineCenter": [
+                1542.3486142289842,
+                592.4792663777656
+              ],
+              "freeThrowCenter": [
+                859.9675134310893,
+                651.6957757660226
+              ],
+              "projectedRimGround": [
+                1359.7466438914203,
+                608.3253255346871
+              ],
+              "laneAxis": [
+                -682.3811007978949,
+                59.21650938825701
+              ],
+              "inferredSide": "right",
+              "hoopHorizontalOffsetPixels": 6.617003569517237,
+              "hoopHorizontalTolerancePixels": 150.12384217553688,
+              "hoopAboveGroundPixels": 352.47305350099566,
+              "reason": "hoop_and_floor_geometry_agree",
+              "reinterpreted": false
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                1325.45458984375,
+                208.2954559326172,
+                1407.272705078125,
+                303.4090881347656
+              ],
+              "score": 0.83349609375,
+              "center": [
+                1366.3636474609375,
+                255.8522720336914
+              ]
+            }
+          ],
+          "inferredSide": "right",
+          "slotSide": "right",
+          "reinterpreted": false
+        },
+        "reason": "hoop_and_floor_geometry_agree",
+        "metricAccuracyValidated": false
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2-960/report.json",
+      "cacheRunIndex": 7,
+      "inputSize": 960,
+      "sample": "005",
+      "frame": 142,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "objectCache": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+      "objectCacheSha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+      "oldSide": "left",
+      "oldHomographyFound": true,
+      "newStatus": "needs_review",
+      "newSide": "right",
+      "reason": "hoop_and_floor_geometry_agree",
+      "result": {
+        "side": "right",
+        "points": [
+          {
+            "id": "A",
+            "image": [
+              1504.0,
+              572.0
+            ],
+            "score": 0.5888671875,
+            "modelSlot": 38,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "B",
+            "image": [
+              644.0,
+              648.5
+            ],
+            "score": 0.6298828125,
+            "modelSlot": 29,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "C",
+            "image": [
+              886.5,
+              873.0
+            ],
+            "score": 0.609375,
+            "modelSlot": 31,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "D",
+            "image": [
+              1856.0,
+              771.0
+            ],
+            "score": 0.57861328125,
+            "modelSlot": 39,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "E",
+            "image": [
+              1209.0,
+              406.0
+            ],
+            "score": 0.56396484375,
+            "modelSlot": 35,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "I",
+            "image": [
+              1258.0,
+              435.5
+            ],
+            "score": 0.60400390625,
+            "modelSlot": 36,
+            "slotSide": "right",
+            "source": "yolo11n-court48"
+          }
+        ],
+        "courtToImage": [
+          168.27070051673928,
+          27.488898220463565,
+          -3314.8371547142683,
+          -9.231846476263598,
+          23.29827375752293,
+          771.251850035335,
+          0.008506077662623051,
+          -0.02817784787448454,
+          1.0
+        ],
+        "imageToCourt": [
+          0.01078783898509614,
+          0.015791345562815376,
+          23.58082500700311,
+          0.003783290674946748,
+          0.04706708522566697,
+          -23.759584059668928,
+          1.4842792884505029e-05,
+          0.0011919267556296173,
+          1.0
+        ],
+        "status": "needs_review",
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "hoop_and_floor_geometry_agree",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 6,
+              "accepted": false,
+              "fitResidualPixels": 1.9717650549131989,
+              "baselineCenter": [
+                224.35156860871743,
+                667.4500257529086
+              ],
+              "freeThrowCenter": [
+                1138.2377407699216,
+                750.2065285505452
+              ],
+              "projectedRimGround": [
+                470.8508971877155,
+                689.7716485070005
+              ],
+              "laneAxis": [
+                913.8861721612042,
+                82.75650279763659
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 930.9672790818158,
+              "hoopHorizontalTolerancePixels": 201.0549578754649,
+              "hoopAboveGroundPixels": 441.5898247765317,
+              "reason": "hoop_conflicts_with_ground_geometry"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 6,
+              "accepted": true,
+              "fitResidualPixels": 1.7720470281801572,
+              "baselineCenter": [
+                1667.4397761919824,
+                665.0001154949512
+              ],
+              "freeThrowCenter": [
+                756.6305388761787,
+                753.0052907166569
+              ],
+              "projectedRimGround": [
+                1424.6046941590653,
+                688.4635840992712
+              ],
+              "laneAxis": [
+                -910.8092373158038,
+                88.00517522170571
+              ],
+              "inferredSide": "right",
+              "hoopHorizontalOffsetPixels": 22.786517889534025,
+              "hoopHorizontalTolerancePixels": 200.37803220947683,
+              "hoopAboveGroundPixels": 440.28176036880245,
+              "reason": "hoop_and_floor_geometry_agree",
+              "reinterpreted": false
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                1348.6363525390625,
+                184.94317626953125,
+                1455.0,
+                311.42047119140625
+              ],
+              "score": 0.85498046875,
+              "center": [
+                1401.8181762695312,
+                248.18182373046875
+              ]
+            }
+          ],
+          "inferredSide": "right",
+          "slotSide": "right",
+          "reinterpreted": false
+        },
+        "reason": "hoop_and_floor_geometry_agree",
+        "metricAccuracyValidated": false
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2-960/report.json",
+      "cacheRunIndex": 8,
+      "inputSize": 960,
+      "sample": "006",
+      "frame": 0,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "objectCache": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+      "objectCacheSha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+      "oldSide": "left",
+      "oldHomographyFound": true,
+      "newStatus": "needs_review",
+      "newSide": "left",
+      "reason": "hoop_and_floor_geometry_agree",
+      "result": {
+        "side": "left",
+        "points": [
+          {
+            "id": "B",
+            "image": [
+              925.5,
+              486.75
+            ],
+            "score": 0.6083984375,
+            "modelSlot": 12,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "C",
+            "image": [
+              766.0,
+              660.0
+            ],
+            "score": 0.62744140625,
+            "modelSlot": 14,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "E",
+            "image": [
+              480.25,
+              307.0
+            ],
+            "score": 0.58349609375,
+            "modelSlot": 0,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "I",
+            "image": [
+              448.5,
+              329.5
+            ],
+            "score": 0.609375,
+            "modelSlot": 1,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          }
+        ],
+        "courtToImage": [
+          95.47942849646785,
+          -43.4277893565445,
+          480.2500000000002,
+          4.088945504736271,
+          18.210571417774172,
+          307.0000000000002,
+          -0.004524643658228969,
+          -0.019410404530164748,
+          1.0
+        ],
+        "imageToCourt": [
+          0.012612562970727471,
+          0.01779772774758236,
+          -11.52108578519966,
+          -0.002858626471434508,
+          0.050958586537140124,
+          -14.271430703995605,
+          1.580256848334338e-06,
+          0.0010696551549552813,
+          1.0
+        ],
+        "status": "needs_review",
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "hoop_and_floor_geometry_agree",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 4,
+              "accepted": true,
+              "fitResidualPixels": 1.1610958412997374e-05,
+              "baselineCenter": [
+                175.2511693149294,
+                523.1409036350866
+              ],
+              "freeThrowCenter": [
+                850.3203218128635,
+                568.4106625995672
+              ],
+              "projectedRimGround": [
+                357.5967030101695,
+                535.3688929130567
+              ],
+              "laneAxis": [
+                675.0691524979342,
+                45.269758964480616
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 18.76692919197893,
+              "hoopHorizontalTolerancePixels": 148.5152135495455,
+              "hoopAboveGroundPixels": 335.9370768119825,
+              "reason": "hoop_and_floor_geometry_agree",
+              "reinterpreted": false
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 0,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                333.4090881347656,
+                147.9545440673828,
+                419.31817626953125,
+                250.90908813476562
+              ],
+              "score": 0.82763671875,
+              "center": [
+                376.36363220214844,
+                199.43181610107422
+              ]
+            }
+          ],
+          "inferredSide": "left",
+          "slotSide": "left",
+          "reinterpreted": false
+        },
+        "reason": "hoop_and_floor_geometry_agree",
+        "metricAccuracyValidated": false
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2-960/report.json",
+      "cacheRunIndex": 9,
+      "inputSize": 960,
+      "sample": "006",
+      "frame": 154,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "objectCache": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+      "objectCacheSha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+      "oldSide": "left",
+      "oldHomographyFound": true,
+      "newStatus": "needs_review",
+      "newSide": "left",
+      "reason": "hoop_and_floor_geometry_agree",
+      "result": {
+        "side": "left",
+        "points": [
+          {
+            "id": "A",
+            "image": [
+              357.0,
+              478.25
+            ],
+            "score": 0.53857421875,
+            "modelSlot": 3,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "B",
+            "image": [
+              987.0,
+              524.0
+            ],
+            "score": 0.5712890625,
+            "modelSlot": 12,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "C",
+            "image": [
+              835.0,
+              692.0
+            ],
+            "score": 0.56201171875,
+            "modelSlot": 14,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "E",
+            "image": [
+              555.0,
+              343.0
+            ],
+            "score": 0.58251953125,
+            "modelSlot": 0,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "I",
+            "image": [
+              526.0,
+              366.5
+            ],
+            "score": 0.5927734375,
+            "modelSlot": 1,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          }
+        ],
+        "courtToImage": [
+          97.31256142975049,
+          -46.378201583301426,
+          556.2577265228181,
+          7.558986066630218,
+          15.280537983813966,
+          343.965346226634,
+          0.001143110006305704,
+          -0.02229191909900826,
+          1.0
+        ],
+        "imageToCourt": [
+          0.012488397535486938,
+          0.018490901325708114,
+          -13.306996897542845,
+          -0.0038996245029386434,
+          0.052611437388372075,
+          -15.927315016474955,
+          -0.00010120572612155715,
+          0.0011516727716131003,
+          1.0
+        ],
+        "status": "needs_review",
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "hoop_and_floor_geometry_agree",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 5,
+              "accepted": true,
+              "fitResidualPixels": 1.0908634622736093,
+              "baselineCenter": [
+                244.36469922389585,
+                554.6118715012076
+              ],
+              "freeThrowCenter": [
+                915.9333708722481,
+                602.5399445260689
+              ],
+              "projectedRimGround": [
+                430.99828190426985,
+                567.9314147694205
+              ],
+              "laneAxis": [
+                671.5686716483523,
+                47.928073024861305
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 11.84262996096453,
+              "hoopHorizontalTolerancePixels": 147.7451077626375,
+              "hoopAboveGroundPixels": 330.14731900526033,
+              "reason": "hoop_and_floor_geometry_agree",
+              "reinterpreted": false
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 0,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                401.5909118652344,
+                189.88636779785156,
+                484.0909118652344,
+                285.68182373046875
+              ],
+              "score": 0.796875,
+              "center": [
+                442.8409118652344,
+                237.78409576416016
+              ]
+            }
+          ],
+          "inferredSide": "left",
+          "slotSide": "left",
+          "reinterpreted": false
+        },
+        "reason": "hoop_and_floor_geometry_agree",
+        "metricAccuracyValidated": false
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2-960/report.json",
+      "cacheRunIndex": 10,
+      "inputSize": 960,
+      "sample": "006",
+      "frame": 308,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "objectCache": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+      "objectCacheSha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+      "oldSide": "left",
+      "oldHomographyFound": true,
+      "newStatus": "needs_review",
+      "newSide": "left",
+      "reason": "hoop_and_floor_geometry_agree",
+      "result": {
+        "side": "left",
+        "points": [
+          {
+            "id": "A",
+            "image": [
+              519.0,
+              517.0
+            ],
+            "score": 0.591796875,
+            "modelSlot": 3,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "B",
+            "image": [
+              1193.0,
+              575.0
+            ],
+            "score": 0.59814453125,
+            "modelSlot": 12,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "C",
+            "image": [
+              1018.0,
+              753.0
+            ],
+            "score": 0.57373046875,
+            "modelSlot": 14,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "D",
+            "image": [
+              246.5,
+              684.0
+            ],
+            "score": 0.52587890625,
+            "modelSlot": 4,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "E",
+            "image": [
+              734.5,
+              379.0
+            ],
+            "score": 0.58154296875,
+            "modelSlot": 0,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          },
+          {
+            "id": "I",
+            "image": [
+              702.5,
+              402.75
+            ],
+            "score": 0.58251953125,
+            "modelSlot": 1,
+            "slotSide": "left",
+            "source": "yolo11n-court48"
+          }
+        ],
+        "courtToImage": [
+          99.59023160985272,
+          -54.37962647582548,
+          736.697970086994,
+          7.28567550466066,
+          14.371958727005833,
+          380.29803328160983,
+          -0.0025778069346976784,
+          -0.02312313191739749,
+          1.0
+        ],
+        "imageToCourt": [
+          0.012676143834071283,
+          0.020434956138388242,
+          -17.10986306071609,
+          -0.004523127160620386,
+          0.055534528961086405,
+          -17.78749354544738,
+          -7.191221453349454e-05,
+          0.0013368096107815124,
+          1.0
+        ],
+        "status": "needs_review",
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "hoop_and_floor_geometry_agree",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 6,
+              "accepted": true,
+              "fitResidualPixels": 1.5511074122677213,
+              "baselineCenter": [
+                391.2655226728701,
+                594.5755369240554
+              ],
+              "freeThrowCenter": [
+                1111.511956562762,
+                657.7114963226917
+              ],
+              "projectedRimGround": [
+                587.657900280669,
+                611.7910628821377
+              ],
+              "laneAxis": [
+                720.2464338898919,
+                63.13595939863626
+              ],
+              "inferredSide": "left",
+              "hoopHorizontalOffsetPixels": 9.955747180268531,
+              "hoopHorizontalTolerancePixels": 158.45421545577622,
+              "hoopAboveGroundPixels": 351.6774230505947,
+              "reason": "hoop_and_floor_geometry_agree",
+              "reinterpreted": false
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 6,
+              "accepted": false,
+              "fitResidualPixels": 1.3399608679095276,
+              "baselineCenter": [
+                1523.0088742002408,
+                593.7379775111677
+              ],
+              "freeThrowCenter": [
+                807.8260126917546,
+                658.8229823403101
+              ],
+              "projectedRimGround": [
+                1332.4718211399888,
+                611.0777456823461
+              ],
+              "laneAxis": [
+                -715.1828615084862,
+                65.08500482914235
+              ],
+              "inferredSide": "right",
+              "hoopHorizontalOffsetPixels": 734.8581736790513,
+              "hoopHorizontalTolerancePixels": 157.34022953186698,
+              "hoopAboveGroundPixels": 350.9641058508031,
+              "reason": "hoop_conflicts_with_ground_geometry"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                555.3409423828125,
+                208.2954559326172,
+                639.8863525390625,
+                311.93182373046875
+              ],
+              "score": 0.84716796875,
+              "center": [
+                597.6136474609375,
+                260.11363983154297
+              ]
+            }
+          ],
+          "inferredSide": "left",
+          "slotSide": "left",
+          "reinterpreted": false
+        },
+        "reason": "hoop_and_floor_geometry_agree",
+        "metricAccuracyValidated": false
+      }
+    },
+    {
+      "cache": "artifacts/court-models-v2-960/report.json",
+      "cacheRunIndex": 11,
+      "inputSize": 960,
+      "sample": "006",
+      "frame": 461,
+      "width": 1920,
+      "height": 1080,
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "objectCache": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+      "objectCacheSha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+      "oldSide": "right",
+      "oldHomographyFound": true,
+      "newStatus": "invalid",
+      "newSide": null,
+      "reason": "no_consistent_ground_hypothesis",
+      "result": {
+        "side": null,
+        "status": "invalid",
+        "points": [],
+        "courtToImage": null,
+        "imageToCourt": null,
+        "orientation": {
+          "method": "hoop_relative_to_lane_geometry",
+          "reason": "no_consistent_ground_hypothesis",
+          "lockedSide": null,
+          "coordinateConvention": "screen_oriented_sideline_template",
+          "physicalEndIdentityVerified": false,
+          "hoopUsedForGroundFit": false,
+          "pointThreshold": 0.5,
+          "hoopThreshold": 0.35,
+          "hypotheses": [
+            {
+              "slotSide": "left",
+              "pointCount": 0,
+              "accepted": false,
+              "reason": "insufficient_ground_points"
+            },
+            {
+              "slotSide": "right",
+              "pointCount": 4,
+              "accepted": false,
+              "fitResidualPixels": 1.783978507794286e-05,
+              "baselineCenter": [
+                1782.8953876031746,
+                625.47806489124
+              ],
+              "freeThrowCenter": [
+                1144.7098944931781,
+                751.2568867934092
+              ],
+              "projectedRimGround": [
+                1658.9807330521762,
+                649.9001795179548
+              ],
+              "laneAxis": [
+                -638.1854931099965,
+                125.77882190216917
+              ],
+              "inferredSide": "right",
+              "hoopHorizontalOffsetPixels": 756.2534686478793,
+              "hoopHorizontalTolerancePixels": 140.40080848419925,
+              "hoopAboveGroundPixels": 370.35472358533764,
+              "reason": "hoop_conflicts_with_ground_geometry"
+            }
+          ],
+          "hoopEvidence": [
+            {
+              "box": [
+                855.0,
+                232.84091186523438,
+                950.4545288085938,
+                326.25
+              ],
+              "score": 0.43408203125,
+              "center": [
+                902.7272644042969,
+                279.5454559326172
+              ]
+            }
+          ]
+        },
+        "reason": "no_consistent_ground_hypothesis"
+      }
+    }
+  ],
+  "summary": {
+    "640": {
+      "total": 12,
+      "needsReview": 4,
+      "invalid": 8
+    },
+    "960": {
+      "total": 12,
+      "needsReview": 7,
+      "invalid": 5
+    }
+  },
+  "httpValidation": [
+    {
+      "name": "generic_uses_ebard",
+      "status": 200,
+      "passed": true,
+      "summary": {
+        "startFrame": 0,
+        "endFrame": 0,
+        "validFrames": 1,
+        "totalFrames": 1,
+        "processingSeconds": 7.510767300002044
+      }
+    },
+    {
+      "name": "initial_and_propagate",
+      "status": 200,
+      "passed": true,
+      "summary": {
+        "startFrame": 0,
+        "endFrame": 3,
+        "validFrames": 4,
+        "totalFrames": 4,
+        "processingSeconds": 1.6818449000129476
+      }
+    },
+    {
+      "name": "ambiguous_004",
+      "status": 200,
+      "passed": true,
+      "summary": {
+        "startFrame": 0,
+        "endFrame": 0,
+        "validFrames": 0,
+        "totalFrames": 1,
+        "processingSeconds": 1.4525220000068657
+      }
+    },
+    {
+      "name": "bad_frame",
+      "status": 400,
+      "passed": true,
+      "summary": null
+    },
+    {
+      "name": "bad_cut",
+      "status": 400,
+      "passed": true,
+      "summary": null
+    },
+    {
+      "name": "bad_boolean",
+      "status": 400,
+      "passed": true,
+      "summary": null
+    },
+    {
+      "name": "unknown_sample",
+      "status": 400,
+      "passed": true,
+      "summary": null
+    },
+    {
+      "name": "cross_origin_rejected",
+      "status": 403,
+      "passed": true
+    },
+    {
+      "name": "missing_model",
+      "status": 503,
+      "passed": true
+    }
+  ],
+  "freshInferenceValidation": {
+    "sample": "005",
+    "frame": 0,
+    "inputSize": 640,
+    "model": {
+      "name": "yolo11n-court48",
+      "sha256": "68e5faf5fb5388cf83477238abe22e9824a69fb33a4cf34f79ab61858f410064",
+      "inputSize": 640
+    },
+    "initialSide": "right",
+    "summary": {
+      "startFrame": 0,
+      "endFrame": 142,
+      "validFrames": 139,
+      "totalFrames": 143,
+      "processingSeconds": 15.514152899995679
+    },
+    "frontendAcceptedFrames": 139,
+    "frontendInvalidFrames": 4,
+    "pythonTests": 60,
+    "javascriptContractTests": 23,
+    "metricAccuracyValidated": false
+  }
+}

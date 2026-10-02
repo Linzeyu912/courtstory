@@ -13,6 +13,7 @@
 | 球場与脚点实验 | `analyze_court_geometry.py`、`benchmark_ground_anchors.py`、`probe_kalicalib.py` | 姿态与场地模型仍为离线实验，米制位置待独立验收 |
 | 场地 / 脚部模型对照 | `probe_court_models_v2.py`、`probe_feet_models.py` | YOLO11n 48 点 / KaliCalib / LSD 与 RTMPose-s / YOLOv8s-pose 的真实本机比较；输出提议，不能直接当真值 |
 | 镜头跟随候选 | `court_propagation.py`、`build_court_review_candidates.py`、`scene_profiles.py` | 从具名地面种子做 SIFT / LK 跟随，严格验证帧、哈希与来源，失败留空；工作台显式采用 |
+| 篮筐约束的自动初始化 | `court_orientation.py`、`court_calibration.py` | 用已有篮筐检测核对场地朝向，只以地面交点计算透视；通过新增 HTTP 接口或省略 `--seed` 的候选生成命令调用，见[后端说明](../docs/court-calibration-backend.md) |
 | 回归检查 | `test_player_proposals.py`、`test_review_video_trim.py`、`test_review_variants.py`、`test_ebard_review_tracks.py` | 候选匹配、实际裁切、多模型帧同步与角色 / 对象隔离 |
 | 场地 / 脚点接口检查 | `test_court_propagation.py`、`test_scene_profiles.py` | 已知运动、切镜停止、坏候选拒绝、实际裁切后的时间和版本绑定 |
 

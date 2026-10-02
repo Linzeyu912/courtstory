@@ -1,6 +1,11 @@
 // Identity confirmations are time boundaries; position edits are independent.
 export const IDENTITY_BINDING_MODE = 'forward_only_v1';
 
+export function entityTeamSide(entity) {
+  const number = /^P([1-9]|10)$/.exec(entity.id)?.[1];
+  return number ? (Number(number)<=5?'red':'blue') : null;
+}
+
 export function identityKeyframes(entity) {
   if (Array.isArray(entity.identityKeyframes)) return entity.identityKeyframes;
   const keys = [];
@@ -16,7 +21,9 @@ export function identityKeyframes(entity) {
 }
 
 export function migrateIdentitySession(session) {
+  session.teamRoles ??= null;
   for (const entity of session.entities) {
+    entity.teamSide = entityTeamSide(entity);
     entity.identityKeyframes ??= identityKeyframes(entity).map(key=>({...key}));
   }
   session.identityBindingMode = IDENTITY_BINDING_MODE;
@@ -42,7 +49,7 @@ export function identityAt(entity, frame, cuts=[]) {
     consider({...key,start:key.frame,end:Infinity,identitySource:'manual_forward'});
   }
   for (const binding of entity.bindings||[]) {
-    consider({...binding,identitySource:'manual_range'});
+    consider({...binding,identitySource:binding.kind==='unassigned'?'human_unassigned':'manual_range'});
   }
   if (active && cuts.some(cut=>cut>active.start&&cut<=frame)) return null;
   return active;
@@ -81,7 +88,9 @@ export function confirmIdentity(session, entityId, frame, proposal, frames) {
 
 export function identityProvenance(identity) {
   return identity ? {identitySource:identity.identitySource,identityStartFrame:identity.start,
-    identityOrder:identity.order||0,identityExclusive:Boolean(identity.exclusive)} : {};
+    identityOrder:identity.order||0,identityExclusive:Boolean(identity.exclusive),
+    ...(Number.isFinite(identity.end)?{identityEndFrame:identity.end}:{}),
+    ...(identity.origin?{identityOrigin:identity.origin}:{})} : {};
 }
 
 // A new human claim releases a competing owner only where both use this ID.

@@ -1,6 +1,7 @@
 import {COURT,LANDMARK_NAMES,landmarks,keyframePoints,fitKeyframe,project,calibrationAt,buildCourtTrajectories,courtGaps,pathSegments,validQuad,addCourtAnchor,addEvent} from './court.mjs';
 import {courtLandmarks,courtMarkings} from './court-geometry.mjs';
 import {normalizeCourtCandidates,acceptCourtCandidates,calibrationGuideState,reorientCalibrationKey,confirmCalibrationProjection,calibrationGeometryFingerprint,invalidateCameraDependents} from './calibration-guide.mjs';
+import {mountWorkbenchShell} from './ui.bundle.mjs';
 
 export function createWorkspace(api){
   const $=id=>document.getElementById(id),{clip,sample,variant,getState,change,seek,toast,isSelected,color}=api;
@@ -11,18 +12,17 @@ export function createWorkspace(api){
   const reasonLabel={missing:'位置缺失',conflict:'身份冲突',uncalibrated:clip.supportsCourtCalibration===false?'未提供适配场地模板':'球场待标定'};
   const shades={projected:'#1675b6',court_manual:'#6e4fd0',court_estimated:'#b96a09',missing:'#c83d4c',conflict:'#ae385c',uncalibrated:'#a08bd1',out_of_view:'#8c98a8'};
   const time=i=>`${clip.frames[i].time.toFixed(2)} s`;
+  const shell=mountWorkbenchShell(api);
   function switchStep(next,scroll=false){
     const session=getState().session;
     if(['identity','repair','export'].includes(next)&&!session.liveSelection){toast('先在第一步保留并确认直播画面。');next='footage';}
     if(next==='calibration'&&clip.supportsCourtCalibration===false){toast('这段 NCAA 示例用于原图位置验收；尚未提供适配的球场模板。');return;}
     step=next;pending=null;pointMode=false;$('repairCourt').setAttribute('aria-pressed','false');
     document.body.dataset.step=step;
-    $('overview').hidden=!['calibration','events'].includes(step);
-    (step==='repair'?$('repairCourtView'):$('overview')).prepend($('courtCard'));
-    $('repairCourtView').hidden=step!=='repair';
-    $('openCourtCalibration').hidden=step!=='repair';
+    shell.enterVideo(step);
+    $('openCourtCalibration').hidden=clip.supportsCourtCalibration===false;
     const roster=document.querySelector('.player-overview');
-    (step==='identity'?$('identityRoster'):step==='repair'?$('repairRoster'):$('overview')).append(roster);
+    (step==='repair'?$('repairRoster'):$('identityRoster')).append(roster);
     (step==='repair'?$('repairIdentityControls'):$('identityMain')).append($('identityControls'));
     $('repairBindingControls').append($('bindingControls'));
     $('overlay').hidden=step==='footage';$('pointStatus').hidden=step==='footage';
@@ -31,7 +31,7 @@ export function createWorkspace(api){
     $('videoMode').textContent={footage:'核对直播区间及整体站位',calibration:'核对场地线与参照点',identity:'点击候选框对应 P1–P10',repair:'归并临时编号，手动补脚下点',events:'核对事件发生时刻',export:'导出位置与未解决区间'}[step];
     $('calibrationHelp').textContent='先在示意图选一个点名，再点原视频中同一个地面交点；看不清可换其他点。';
     api.redraw();
-    if(scroll)$('operations').scrollIntoView({behavior:'smooth',block:'start'});
+    if(scroll)$('stepPanels').scrollTop=0;
   }
   const tabs=[...document.querySelectorAll('[data-step]')].filter(tab=>!tab.hidden);
   tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>switchStep(tab.dataset.step));tab.addEventListener('keydown',event=>{let index;if(event.key==='ArrowRight')index=(i+1)%tabs.length;if(event.key==='ArrowLeft')index=(i+tabs.length-1)%tabs.length;if(event.key==='Home')index=0;if(event.key==='End')index=tabs.length-1;if(index!==undefined){event.preventDefault();event.stopPropagation();tabs[index].focus();switchStep(tabs[index].dataset.step);}});});
@@ -44,7 +44,7 @@ export function createWorkspace(api){
   $('openCourtCalibration').onclick=()=>switchStep('calibration',true);
   $('returnToRepair').onclick=()=>switchStep('repair',true);
   $('repairImage').onclick=()=>{pointMode=false;api.setMode('point');$('repairCourt').setAttribute('aria-pressed','false');$('repairHelp').textContent='在原视频中，点击当前球员脚下。';};
-  $('repairCourt').onclick=()=>{if(!isSelected(state().entity)){toast('请先对应当前球员。');return;}if(clip.supportsCourtCalibration===false){toast('本示例尚未提供适配的球场模板，请在原视频补位置。');return;}getState().video.pause();api.setMode('select');pointMode=true;$('repairCourt').setAttribute('aria-pressed','true');$('repairHelp').textContent='在左侧 2D 球场点击当前帧的位置；只保存当前帧，可撤销。';toast('在 2D 球场点击当前帧的位置，可撤销。');draw();};
+  $('repairCourt').onclick=()=>{if(!isSelected(state().entity)){toast('请先对应当前球员。');return;}if(clip.supportsCourtCalibration===false){toast('本示例尚未提供适配的球场模板，请在原视频补位置。');return;}getState().video.pause();api.setMode('select');pointMode=true;$('repairCourt').setAttribute('aria-pressed','true');$('repairHelp').textContent='在下方 2D 球场点击当前帧的位置；只保存当前帧，可撤销。';shell.openData();toast('在 2D 球场点击当前帧的位置，可撤销。');draw();};
   $('repairIdentity').onclick=()=>{$('bindingControls').open=true;$('bindingControls').scrollIntoView({behavior:'smooth',block:'nearest'});};
   $('startCalibration').onclick=()=>{const s=state();s.video.pause();pending={frame:s.frame,side:$('calibrationSide').value,image:[]};$('calibrationHelp').textContent=`正在标定第 ${s.frame+1} 帧：请点击 ${LANDMARK_NAMES[0]}`;api.redraw();};
   $('cancelCalibration').onclick=()=>{pending=null;$('calibrationHelp').textContent='已取消本次点选，原标定保留。';api.redraw();};
@@ -131,6 +131,8 @@ export function createWorkspace(api){
   }
   function draw(){
     const s=state(),points=courtPoints[s.active]||[],current=points[s.frame],mapping=calibrationAt(s.session.courtCalibration,s.frame,clip.frames,s.session.cuts);
+    shell.refresh();
+    drawTimeline(points,s);
     if(lastControlFrame!==s.frame)renderControls();else if(step==='calibration')renderGuide();
     if(pending&&pending.frame!==s.frame){pending=null;$('calibrationHelp').textContent='时间已改变，本次未完成的点选已取消。';}
     if(view==='half'&&$('followPlayer').checked&&current?.x!=null){pan=Math.max(0,Math.min(COURT.length/2,current.x-COURT.length/4));$('courtPan').value=pan/(COURT.length/2)*1000;}
@@ -181,12 +183,11 @@ export function createWorkspace(api){
       if(current.sensitivity)lines.push(`误差示例：脚点偏 5 px，局部可偏约 ${current.sensitivity.approxMaxMetres.toFixed(2)} 米；不含标定误差。`);
       for(const text of lines){const p=document.createElement('p');p.textContent=text;inspector.append(p);}
     }
-    drawTimeline(points,s);
   }
   function drawTimeline(points,s){const target=$('courtTimeline'),c=target.getContext('2d'),dpr=devicePixelRatio||1;target.width=Math.round(target.clientWidth*dpr);target.height=24*dpr;c.clearRect(0,0,target.width,target.height);if(isSelected(s.entity))points.forEach((p,i)=>{c.fillStyle=shades[p.source];c.fillRect(i/points.length*target.width,3*dpr,target.width/points.length+1,18*dpr);});for(const event of s.entity.events||[]){c.fillStyle='#172336';c.fillRect(event.frame/points.length*target.width,0,2*dpr,6*dpr);}c.fillStyle='#111d2a';c.fillRect(s.frame/clip.frames.length*target.width,0,2*dpr,target.height);}
   $('courtTimeline').onclick=e=>{const r=e.currentTarget.getBoundingClientRect();seek(Math.floor((e.clientX-r.left)/r.width*clip.frames.length));};
   function clickCourt(event){if(!transform)return;const s=state(),r=court.getBoundingClientRect(),x=event.clientX-r.left,y=event.clientY-r.top;
-    if(pointMode){if(['conflict','out_of_view'].includes(s.trajectories[s.active][s.frame].source)){toast('请先解决身份冲突或修改出画区间，再补位置。');return;}const xx=(x-transform.ox)/transform.scale+transform.start,yy=(y-transform.oy)/transform.scale;try{change(()=>addCourtAnchor(s.entity,s.frame,xx,yy));pointMode=false;$('repairCourt').setAttribute('aria-pressed','false');$('repairHelp').textContent='已保存当前帧的人工球场点。可删除或撤销。';toast(`${s.active} 已补当前帧球场位置。`);}catch(error){toast(error.message);}return;}
+    if(pointMode){if(s.trajectories[s.active][s.frame].reviewExcluded){toast('这一段已取消关联；请先在原视频重新关联人物，再补球场位置。');return;}if(['conflict','out_of_view'].includes(s.trajectories[s.active][s.frame].source)){toast('请先解决身份冲突或修改出画区间，再补位置。');return;}const xx=(x-transform.ox)/transform.scale+transform.start,yy=(y-transform.oy)/transform.scale;try{change(()=>addCourtAnchor(s.entity,s.frame,xx,yy));pointMode=false;$('repairCourt').setAttribute('aria-pressed','false');$('repairHelp').textContent='已保存当前帧的人工球场点。可删除或撤销。';toast(`${s.active} 已补当前帧球场位置。`);}catch(error){toast(error.message);}return;}
     const hit=[...hits].reverse().find(p=>Math.hypot(p.x-x,p.y-y)<(p.kind==='player'?16:9));
     if(hit){if(hit.id!==s.active)api.select(hit.id);seek(hit.frame);if(hit.kind==='gap')switchStep(hit.reason==='uncalibrated'?'calibration':hit.reason==='conflict'?'identity':'repair',true);if(hit.kind==='event')switchStep('events',true);}
   }

@@ -8,7 +8,7 @@ export function manualPathAnchors(path,start,end,frames,points,cuts=[]){
   if(total<2||span<=0)throw new Error('路径太短或时间区间不正确。');
   const anchors=[];
   for(let frame=start;frame<=end;frame++){
-    if(points[frame]?.source!=='missing')continue;
+    if(points[frame]?.source!=='missing'||points[frame].reviewExcluded)continue;
     let distance=(frames[frame].time-frames[start].time)/span*total;
     let segment=segments.at(-1);
     for(const candidate of segments){segment=candidate;if(distance<=candidate.length)break;distance-=candidate.length;}
@@ -17,6 +17,9 @@ export function manualPathAnchors(path,start,end,frames,points,cuts=[]){
       trackId:null,box:null,source:'manual_path',footMethod:'human_drawn_image_path',
       method:'uniform_time_along_drawn_path',supportFrames:[start,end],reviewRequired:true});
   }
-  if(!anchors.length)throw new Error('这个区间没有缺失位置；已有位置、冲突和出画标记保留。');
+  if(!anchors.length){
+    if(points.slice(start,end+1).some(point=>point.reviewExcluded))throw new Error('这个区间的缺失位置已取消身份关联，请先重新关联球员再补路径。');
+    throw new Error('这个区间没有缺失位置；已有位置、冲突和出画标记保留。');
+  }
   return anchors;
 }

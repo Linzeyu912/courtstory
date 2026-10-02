@@ -30,3 +30,15 @@ test('export keeps source mapping and unverified paths; confirming one frame doe
   session.entities[0].anchors=session.entities[0].anchors.filter(a=>a.frame!==1).concat(anchor);
   output=exportReview(session,clip,'now');assert.equal(output.entities[0].trajectory[1].source,'manual');assert.deepEqual(output.entities[0].unverifiedPathFrames,[0,2,3]);
 });
+
+test('drawn paths skip released frames and require reassociation when every missing frame was released',()=>{
+  const session=blankSession('cut');session.maxGapSeconds=0;
+  session.entities[0].bindings=[{kind:'unassigned',trackId:null,start:1,end:2,order:1,exclusive:true,origin:'human_release',identitySource:'human'}];
+  const points=buildTrajectories(session,frames).P1,path=[{x:10,y:10},{x:30,y:30}];
+  const anchors=manualPathAnchors(path,0,3,frames,points);
+  assert.deepEqual(anchors.map(anchor=>anchor.frame),[0,3]);
+  session.entities[0].anchors=anchors;
+  const after=buildTrajectories(session,frames).P1;
+  assert(after.slice(1,3).every(point=>point.reviewExcluded&&point.x===null));
+  assert.throws(()=>manualPathAnchors(path,0,3,frames,after),/先重新关联球员/);
+});

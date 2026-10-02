@@ -143,3 +143,32 @@ test('range validation rejects reversed ranges and a track absent from the selec
   assert.throws(()=>addBinding(session.entities[0],{kind:'track',trackId:33,start:0,end:3},frames));
   assert.equal(session.entities[0].bindings,undefined);
 });
+
+test('automatic interpolation keeps a released gap empty and retains its evidence',()=>{
+  const session=scenario([{frame:1,x:100,y:300,trackId:null},{frame:4,x:130,y:330,trackId:null}]);
+  assert.equal(buildTrajectories(session,frames).P1[2].source,'interpolated');
+  session.entities[0].bindings=[{kind:'unassigned',trackId:null,start:2,end:3,order:1,exclusive:true,origin:'human_release',identitySource:'human'}];
+  const output=exportReview(session,{video_sha256:'sample',width:1920,height:1080,frames},'now');
+  const points=output.entities[0].trajectory;
+  assert.equal(points[1].source,'manual');assert.equal(points[4].source,'manual');
+  for(const point of points.slice(2,4)){
+    assert.equal(point.source,'missing');assert.equal(point.x,null);assert.equal(point.reviewExcluded,true);
+    assert.equal(point.identitySource,'human_unassigned');assert.equal(point.identityOrigin,'human_release');
+  }
+});
+
+test('export derives legacy team sides without mutating drafts and preserves team roles',()=>{
+  const session=blankSession('sample');delete session.teamRoles;
+  for(const entity of session.entities)delete entity.teamSide;
+  for(const index of [0,5])session.entities[index].anchors=[{frame:0,x:100+index,y:300,trackId:null}];
+  session.entities[0].team='实际队名';session.entities[0].jersey='30';
+  const clip={video_sha256:'sample',width:1920,height:1080,frames},before=structuredClone(session);
+  let output=exportReview(session,clip,'now');
+  assert.equal(output.teamRoles,null);assert.deepEqual(output.entities.map(entity=>entity.teamSide),['red','blue']);
+  assert.equal(output.entities[0].team,'实际队名');assert.equal(output.entities[0].jersey,'30');
+  assert.deepEqual(session,before);
+  session.teamRoles={red:'defense',blue:'offense'};session.entities[0].teamSide='blue';
+  output=exportReview(session,clip,'now');
+  assert.deepEqual(output.teamRoles,session.teamRoles);assert.equal(output.entities[0].teamSide,'red');
+  assert.equal(session.entities[0].teamSide,'blue');
+});

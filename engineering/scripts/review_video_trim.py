@@ -163,6 +163,24 @@ def trim_review_clip(source, ranges, output_dir):
                 mapped_keys.append(mapped)
             profile['keyframes']=mapped_keys
             profile['invalidFrames']=[remap[i] for i in profile.get('invalidFrames',[]) if i in remap]
+            if 'unresolvedFrames' in profile:
+                profile['unresolvedFrames']=[remap[i] for i in profile['unresolvedFrames'] if i in remap]
+            initial=profile.get('initialization')
+            if isinstance(initial,dict):
+                initial_frame=initial.get('frame')
+                if type(initial_frame) is int and 0 <= initial_frame < len(records):
+                    record=records[initial_frame]
+                    initial.setdefault('sourceFrame',record.get('source_frame',initial_frame))
+                    initial.setdefault('sourceTime',record.get('source_time',record['time']))
+                initial['frame']=remap.get(initial_frame) if type(initial_frame) is int else None
+                if initial['frame'] is None:
+                    # Keep the original inference as provenance, without presenting
+                    # a deleted reference as an initialization of this new clip.
+                    if initial.get('status')!='source_removed':
+                        initial['previousStatus']=initial.get('status')
+                        initial['previousReason']=initial.get('reason')
+                    initial.update(status='source_removed',sourceRemoved=True,
+                                   reason='初始化参考帧已从当前剪辑移除；保留原始来源记录。')
             if profile.get('referenceFrame') is not None:
                 reference=profile['referenceFrame']
                 profile['sourceReferenceFrame']=(profile['sourceReferenceFrame'] if type(profile.get('sourceReferenceFrame')) is int
@@ -170,8 +188,9 @@ def trim_review_clip(source, ranges, output_dir):
                 profile['referenceFrame']=remap.get(reference)
             if isinstance(profile.get('summary'),dict):
                 rows=profile['keyframes']
-                profile['summary']={**profile['summary'],'startFrame':min((k['frame'] for k in rows),default=None),
-                    'endFrame':max((k['frame'] for k in rows),default=None),'totalFrames':len(rows),
+                attempted={k['frame'] for k in rows}|set(profile.get('unresolvedFrames',[]))
+                profile['summary']={**profile['summary'],'startFrame':min(attempted,default=None),
+                    'endFrame':max(attempted,default=None),'totalFrames':len(attempted),
                     'validFrames':sum(k.get('status')!='invalid' and bool(k.get('points')) for k in rows)}
             path=output_dir/'court-candidates.json';path.write_text(json.dumps(profile,ensure_ascii=False,allow_nan=False)+'\n',encoding='utf-8',newline='\n')
             result['courtCandidates']=str(path)

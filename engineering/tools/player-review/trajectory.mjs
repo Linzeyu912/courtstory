@@ -1,9 +1,9 @@
 import {exportCourtData,courtGaps} from './court.mjs';
-import {IDENTITY_BINDING_MODE,identityAt,identityBoundaries,identityProvenance,resolveIdentityOwners,migrateIdentitySession,nextIdentityOrder} from './identity-timeline.mjs';
+import {IDENTITY_BINDING_MODE,identityAt,identityBoundaries,identityProvenance,resolveIdentityOwners,migrateIdentitySession,nextIdentityOrder,entityTeamSide} from './identity-timeline.mjs';
 import {mergeSourceCuts} from './tracking-display.mjs';
 import {exportSceneObjects} from './scene-objects.mjs';
 export function blankSession(videoHash) {
-  return { version: 1, videoHash, identityBindingMode:IDENTITY_BINDING_MODE, maxGapSeconds: 0.5, cuts: [], entities: Array.from({length:10}, (_,i) => ({id:`P${i+1}`, name:`球员 ${i+1}`, role:'player', anchors:[]})) };
+  return { version: 1, videoHash, identityBindingMode:IDENTITY_BINDING_MODE, teamRoles:null, maxGapSeconds: 0.5, cuts: [], entities: Array.from({length:10}, (_,i) => ({id:`P${i+1}`, name:`球员 ${i+1}`, role:'player', teamSide:i<5?'red':'blue', anchors:[]})) };
 }
 
 export function buildTrajectories(session, frames) {
@@ -15,6 +15,8 @@ export function buildTrajectories(session, frames) {
     const points = frames.map((record, frame) => {
       const manual = anchors.find(anchor => anchor.frame === frame);
       const identity = identityAt(entity,frame,session.cuts);
+      if (identity?.kind==='unassigned') return {frame,time:record.time,x:null,y:null,trackId:null,
+        source:'missing',reviewExcluded:true,...identityProvenance(identity)};
       if (identity?.kind==='out_of_view') return {frame,time:record.time,x:null,y:null,source:'out_of_view',...identityProvenance(identity)};
       // An old position tied to a replaced ID must not override a new identity.
       if (manual && (manual.trackId==null || (identity?.kind==='track' && Number(manual.trackId)===Number(identity.trackId)))) {
@@ -43,7 +45,7 @@ export function buildTrajectories(session, frames) {
         const gap = points.slice(left+1,right);
         const crossesCut = session.cuts.some(cut => cut > left && cut <= right);
         const crossesIdentity = boundaries.some(boundary=>boundary>left&&boundary<=right);
-        const uncertain = gap.some(point => ['conflict','out_of_view'].includes(point.source));
+        const uncertain = gap.some(point => point.reviewExcluded || ['conflict','out_of_view'].includes(point.source));
         const travel = Math.hypot(points[right].x-points[left].x,points[right].y-points[left].y);
         // No extrapolation, no cuts, no identity conflicts; reject implausible jumps.
         if (span > 0 && span <= session.maxGapSeconds && !crossesCut && !crossesIdentity && !uncertain && travel/span <= 1800) {
@@ -92,11 +94,12 @@ export function exportReview(session, clip, confirmedAt) {
     width:clip.width,height:clip.height,selectionConfirmed:true,confirmedAt,
     trackingRevision:clip.tracking_revision||'original',trackingFingerprint:clip.tracking_fingerprint||null,
     allFramesManuallyVerified:false,liveSelection:session.liveSelection||null,identitySelection:session.identitySelection||null,
+    teamRoles:session.teamRoles??null,
     sourceVideoSha256:clip.source_video_sha256||clip.video_sha256,
     sourceFrameMapping:clip.frames.map(f=>({frame:f.frame,time:f.time,sourceFrame:f.source_frame??f.frame,sourceTime:f.source_time??f.time})),
     settings:{maxGapSeconds:session.maxGapSeconds,cuts:[...session.cuts],sourceCuts,identityBindingMode:IDENTITY_BINDING_MODE},
     sceneObjects:exportSceneObjects(session,clip.frames),
-    entities:entities.map(entity => ({...entity,trajectory:trajectories[entity.id],unresolved:gapRanges(trajectories[entity.id]),unverifiedPathFrames:trajectories[entity.id].filter(p=>p.source==='manual_path').map(p=>p.frame),courtTrajectory:courtTrajectories[entity.id],courtUnresolved:courtGaps(courtTrajectories[entity.id])}))};
+    entities:entities.map(entity => ({...entity,teamSide:entityTeamSide(entity),trajectory:trajectories[entity.id],unresolved:gapRanges(trajectories[entity.id]),unverifiedPathFrames:trajectories[entity.id].filter(p=>p.source==='manual_path').map(p=>p.frame),courtTrajectory:courtTrajectories[entity.id],courtUnresolved:courtGaps(courtTrajectories[entity.id])}))};
 }
 
 export function isSelected(entity){return Boolean(entity.anchors.length||entity.courtAnchors?.length||entity.identityKeyframes?.some(key=>key.kind==='track')||(entity.bindings||[]).some(item=>item.kind==='track'));}
