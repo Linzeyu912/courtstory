@@ -1,0 +1,67 @@
+{
+  "recorded_at": "2026-10-01T15:54:40.544490+08:00",
+  "scope": "warm person detection + tracking + video decode; includes first tracker setup and optional snapshot; excludes model warmup, ball, calibration, pose, segmentation, narration, full video encoding, upload and cloud execution",
+  "environment": {
+    "os": "Windows",
+    "python": "3.12.10",
+    "packages": {
+      "torch": "2.11.0+cu128",
+      "torchvision": "0.26.0+cu128",
+      "ultralytics": "8.4.63",
+      "lap": "0.5.13",
+      "opencv-python": "5.0.0.93",
+      "numpy": "2.4.3"
+    },
+    "torch_cuda_build": "12.8",
+    "device": "NVIDIA GeForce RTX 5070 Laptop GPU",
+    "gpu_total_mib": 8150.5625
+  },
+  "input": {
+    "video": "data/videos/nba/2024-25/library100/clips/001_2025-06-05_IND-OKC_pick-pop/IND-OKC_Q4_pick-pop_8.1s_1080p.mp4",
+    "video_sha256": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+    "width": 1920,
+    "height": 1080,
+    "reported_fps": 29.97002997002997,
+    "reported_frame_count": 243,
+    "processed_frames": 243,
+    "processed_seconds_at_reported_fps": 8.1081
+  },
+  "configuration": {
+    "model": "yolov8n.pt",
+    "model_sha256": "f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36",
+    "tracker": "bytetrack.yaml",
+    "reid": false,
+    "classes": [
+      0
+    ],
+    "conf": 0.1,
+    "imgsz": 640,
+    "fp16": true,
+    "warmup_frames": 10
+  },
+  "timing": {
+    "model_load_and_warmup_seconds": 0.7887036000029184,
+    "pipeline_wall_seconds": 3.804582600001595,
+    "decode_seconds": 0.699666000000434,
+    "pipeline_fps": 63.8703441475809,
+    "real_time_factor": 0.46923232323251995,
+    "first_track_call_ms": 925.1745999936247,
+    "remaining_track_call_median_ms": 7.581400001072325,
+    "remaining_track_call_p95_ms": 13.35635999639635,
+    "model_speed_mean_ms": {
+      "preprocess": 0.9231370367845635,
+      "inference": 4.736339094856497,
+      "postprocess": 1.2878366250644435
+    }
+  },
+  "torch_peak_allocated_mib": 13.10302734375,
+  "torch_peak_reserved_mib": 34.0,
+  "observations": {
+    "track_count_per_frame_min": 3,
+    "track_count_per_frame_max": 14,
+    "track_count_per_frame_mean": 8.008230452674898,
+    "unique_track_ids": 62,
+    "snapshot_saved": true,
+    "accuracy_evaluated": false
+  }
+}

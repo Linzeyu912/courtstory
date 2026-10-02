@@ -1,0 +1,1146 @@
+{
+  "scope": "Sparse identity checks visually annotated on the debugging clip; not held-out MOT accuracy. Names describe the players at frame 0. Boxes are evaluation references only.",
+  "iou_threshold": 0.4,
+  "runs": {
+    "botsort.tracks": {
+      "matched_cases": 17,
+      "same_initial_id_cases": 8,
+      "total_cases": 17,
+      "cases": [
+        {
+          "frame": 0,
+          "person": "far_yellow",
+          "box": [
+            603,
+            301,
+            655,
+            470
+          ],
+          "track_id": 8,
+          "iou": 0.957,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "far_white",
+          "box": [
+            640,
+            348,
+            687,
+            521
+          ],
+          "track_id": 10,
+          "iou": 0.985,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "white_9",
+          "box": [
+            1375,
+            433,
+            1442,
+            595
+          ],
+          "track_id": 3,
+          "iou": 0.981,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1277,
+            404,
+            1353,
+            555
+          ],
+          "track_id": 7,
+          "iou": 0.991,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "far_yellow",
+          "box": [
+            940,
+            288,
+            1020,
+            486
+          ],
+          "track_id": 8,
+          "iou": 0.827,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "far_white",
+          "box": [
+            882,
+            360,
+            1002,
+            563
+          ],
+          "track_id": 10,
+          "iou": 0.77,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "white_9",
+          "box": [
+            685,
+            434,
+            800,
+            624
+          ],
+          "track_id": 20,
+          "iou": 0.891,
+          "same_initial_id": false
+        },
+        {
+          "frame": 90,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1562,
+            438,
+            1667,
+            689
+          ],
+          "track_id": 3,
+          "iou": 0.718,
+          "same_initial_id": false
+        },
+        {
+          "frame": 120,
+          "person": "far_yellow",
+          "box": [
+            1000,
+            321,
+            1089,
+            506
+          ],
+          "track_id": 8,
+          "iou": 0.953,
+          "same_initial_id": true
+        },
+        {
+          "frame": 120,
+          "person": "far_white",
+          "box": [
+            1272,
+            438,
+            1407,
+            655
+          ],
+          "track_id": 10,
+          "iou": 0.867,
+          "same_initial_id": true
+        },
+        {
+          "frame": 120,
+          "person": "white_9",
+          "box": [
+            834,
+            399,
+            963,
+            604
+          ],
+          "track_id": 20,
+          "iou": 0.819,
+          "same_initial_id": false
+        },
+        {
+          "frame": 120,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1490,
+            420,
+            1599,
+            714
+          ],
+          "track_id": 3,
+          "iou": 0.632,
+          "same_initial_id": false
+        },
+        {
+          "frame": 150,
+          "person": "white_9",
+          "box": [
+            845,
+            416,
+            991,
+            609
+          ],
+          "track_id": 20,
+          "iou": 0.947,
+          "same_initial_id": false
+        },
+        {
+          "frame": 150,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1500,
+            475,
+            1657,
+            726
+          ],
+          "track_id": 3,
+          "iou": 0.795,
+          "same_initial_id": false
+        },
+        {
+          "frame": 180,
+          "person": "white_9",
+          "box": [
+            730,
+            400,
+            841,
+            602
+          ],
+          "track_id": 20,
+          "iou": 0.828,
+          "same_initial_id": false
+        },
+        {
+          "frame": 242,
+          "person": "far_yellow",
+          "box": [
+            615,
+            442,
+            705,
+            675
+          ],
+          "track_id": 40,
+          "iou": 0.545,
+          "same_initial_id": false
+        },
+        {
+          "frame": 242,
+          "person": "white_9",
+          "box": [
+            787,
+            367,
+            870,
+            574
+          ],
+          "track_id": 20,
+          "iou": 0.966,
+          "same_initial_id": false
+        }
+      ]
+    },
+    "byte-buffer60.tracks": {
+      "matched_cases": 17,
+      "same_initial_id_cases": 8,
+      "total_cases": 17,
+      "cases": [
+        {
+          "frame": 0,
+          "person": "far_yellow",
+          "box": [
+            603,
+            301,
+            655,
+            470
+          ],
+          "track_id": 8,
+          "iou": 0.957,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "far_white",
+          "box": [
+            640,
+            348,
+            687,
+            521
+          ],
+          "track_id": 10,
+          "iou": 0.985,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "white_9",
+          "box": [
+            1375,
+            433,
+            1442,
+            595
+          ],
+          "track_id": 3,
+          "iou": 0.981,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1277,
+            404,
+            1353,
+            555
+          ],
+          "track_id": 7,
+          "iou": 0.991,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "far_yellow",
+          "box": [
+            940,
+            288,
+            1020,
+            486
+          ],
+          "track_id": 8,
+          "iou": 0.94,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "far_white",
+          "box": [
+            882,
+            360,
+            1002,
+            563
+          ],
+          "track_id": 10,
+          "iou": 0.795,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "white_9",
+          "box": [
+            685,
+            434,
+            800,
+            624
+          ],
+          "track_id": 19,
+          "iou": 0.911,
+          "same_initial_id": false
+        },
+        {
+          "frame": 90,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1562,
+            438,
+            1667,
+            689
+          ],
+          "track_id": 3,
+          "iou": 0.658,
+          "same_initial_id": false
+        },
+        {
+          "frame": 120,
+          "person": "far_yellow",
+          "box": [
+            1000,
+            321,
+            1089,
+            506
+          ],
+          "track_id": 8,
+          "iou": 0.975,
+          "same_initial_id": true
+        },
+        {
+          "frame": 120,
+          "person": "far_white",
+          "box": [
+            1272,
+            438,
+            1407,
+            655
+          ],
+          "track_id": 10,
+          "iou": 0.962,
+          "same_initial_id": true
+        },
+        {
+          "frame": 120,
+          "person": "white_9",
+          "box": [
+            834,
+            399,
+            963,
+            604
+          ],
+          "track_id": 19,
+          "iou": 0.966,
+          "same_initial_id": false
+        },
+        {
+          "frame": 120,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1490,
+            420,
+            1599,
+            714
+          ],
+          "track_id": 3,
+          "iou": 0.933,
+          "same_initial_id": false
+        },
+        {
+          "frame": 150,
+          "person": "white_9",
+          "box": [
+            845,
+            416,
+            991,
+            609
+          ],
+          "track_id": 19,
+          "iou": 0.986,
+          "same_initial_id": false
+        },
+        {
+          "frame": 150,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1500,
+            475,
+            1657,
+            726
+          ],
+          "track_id": 3,
+          "iou": 0.839,
+          "same_initial_id": false
+        },
+        {
+          "frame": 180,
+          "person": "white_9",
+          "box": [
+            730,
+            400,
+            841,
+            602
+          ],
+          "track_id": 19,
+          "iou": 0.98,
+          "same_initial_id": false
+        },
+        {
+          "frame": 242,
+          "person": "far_yellow",
+          "box": [
+            615,
+            442,
+            705,
+            675
+          ],
+          "track_id": 30,
+          "iou": 0.618,
+          "same_initial_id": false
+        },
+        {
+          "frame": 242,
+          "person": "white_9",
+          "box": [
+            787,
+            367,
+            870,
+            574
+          ],
+          "track_id": 43,
+          "iou": 0.966,
+          "same_initial_id": false
+        }
+      ]
+    },
+    "byte-jersey.tracks": {
+      "matched_cases": 17,
+      "same_initial_id_cases": 11,
+      "total_cases": 17,
+      "cases": [
+        {
+          "frame": 0,
+          "person": "far_yellow",
+          "box": [
+            603,
+            301,
+            655,
+            470
+          ],
+          "track_id": 8,
+          "iou": 0.957,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "far_white",
+          "box": [
+            640,
+            348,
+            687,
+            521
+          ],
+          "track_id": 10,
+          "iou": 0.985,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "white_9",
+          "box": [
+            1375,
+            433,
+            1442,
+            595
+          ],
+          "track_id": 3,
+          "iou": 0.981,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1277,
+            404,
+            1353,
+            555
+          ],
+          "track_id": 7,
+          "iou": 0.991,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "far_yellow",
+          "box": [
+            940,
+            288,
+            1020,
+            486
+          ],
+          "track_id": 8,
+          "iou": 0.931,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "far_white",
+          "box": [
+            882,
+            360,
+            1002,
+            563
+          ],
+          "track_id": 10,
+          "iou": 0.795,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "white_9",
+          "box": [
+            685,
+            434,
+            800,
+            624
+          ],
+          "track_id": 20,
+          "iou": 0.911,
+          "same_initial_id": false
+        },
+        {
+          "frame": 90,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1562,
+            438,
+            1667,
+            689
+          ],
+          "track_id": 7,
+          "iou": 0.658,
+          "same_initial_id": true
+        },
+        {
+          "frame": 120,
+          "person": "far_yellow",
+          "box": [
+            1000,
+            321,
+            1089,
+            506
+          ],
+          "track_id": 8,
+          "iou": 0.975,
+          "same_initial_id": true
+        },
+        {
+          "frame": 120,
+          "person": "far_white",
+          "box": [
+            1272,
+            438,
+            1407,
+            655
+          ],
+          "track_id": 10,
+          "iou": 0.97,
+          "same_initial_id": true
+        },
+        {
+          "frame": 120,
+          "person": "white_9",
+          "box": [
+            834,
+            399,
+            963,
+            604
+          ],
+          "track_id": 20,
+          "iou": 0.966,
+          "same_initial_id": false
+        },
+        {
+          "frame": 120,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1490,
+            420,
+            1599,
+            714
+          ],
+          "track_id": 7,
+          "iou": 0.933,
+          "same_initial_id": true
+        },
+        {
+          "frame": 150,
+          "person": "white_9",
+          "box": [
+            845,
+            416,
+            991,
+            609
+          ],
+          "track_id": 20,
+          "iou": 0.985,
+          "same_initial_id": false
+        },
+        {
+          "frame": 150,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1500,
+            475,
+            1657,
+            726
+          ],
+          "track_id": 7,
+          "iou": 0.839,
+          "same_initial_id": true
+        },
+        {
+          "frame": 180,
+          "person": "white_9",
+          "box": [
+            730,
+            400,
+            841,
+            602
+          ],
+          "track_id": 20,
+          "iou": 0.98,
+          "same_initial_id": false
+        },
+        {
+          "frame": 242,
+          "person": "far_yellow",
+          "box": [
+            615,
+            442,
+            705,
+            675
+          ],
+          "track_id": 39,
+          "iou": 0.618,
+          "same_initial_id": false
+        },
+        {
+          "frame": 242,
+          "person": "white_9",
+          "box": [
+            787,
+            367,
+            870,
+            574
+          ],
+          "track_id": 47,
+          "iou": 0.966,
+          "same_initial_id": false
+        }
+      ]
+    },
+    "byte-original.tracks": {
+      "matched_cases": 17,
+      "same_initial_id_cases": 8,
+      "total_cases": 17,
+      "cases": [
+        {
+          "frame": 0,
+          "person": "far_yellow",
+          "box": [
+            603,
+            301,
+            655,
+            470
+          ],
+          "track_id": 8,
+          "iou": 0.957,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "far_white",
+          "box": [
+            640,
+            348,
+            687,
+            521
+          ],
+          "track_id": 10,
+          "iou": 0.985,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "white_9",
+          "box": [
+            1375,
+            433,
+            1442,
+            595
+          ],
+          "track_id": 3,
+          "iou": 0.981,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1277,
+            404,
+            1353,
+            555
+          ],
+          "track_id": 7,
+          "iou": 0.991,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "far_yellow",
+          "box": [
+            940,
+            288,
+            1020,
+            486
+          ],
+          "track_id": 8,
+          "iou": 0.94,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "far_white",
+          "box": [
+            882,
+            360,
+            1002,
+            563
+          ],
+          "track_id": 10,
+          "iou": 0.795,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "white_9",
+          "box": [
+            685,
+            434,
+            800,
+            624
+          ],
+          "track_id": 19,
+          "iou": 0.911,
+          "same_initial_id": false
+        },
+        {
+          "frame": 90,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1562,
+            438,
+            1667,
+            689
+          ],
+          "track_id": 3,
+          "iou": 0.658,
+          "same_initial_id": false
+        },
+        {
+          "frame": 120,
+          "person": "far_yellow",
+          "box": [
+            1000,
+            321,
+            1089,
+            506
+          ],
+          "track_id": 8,
+          "iou": 0.975,
+          "same_initial_id": true
+        },
+        {
+          "frame": 120,
+          "person": "far_white",
+          "box": [
+            1272,
+            438,
+            1407,
+            655
+          ],
+          "track_id": 10,
+          "iou": 0.962,
+          "same_initial_id": true
+        },
+        {
+          "frame": 120,
+          "person": "white_9",
+          "box": [
+            834,
+            399,
+            963,
+            604
+          ],
+          "track_id": 19,
+          "iou": 0.966,
+          "same_initial_id": false
+        },
+        {
+          "frame": 120,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1490,
+            420,
+            1599,
+            714
+          ],
+          "track_id": 3,
+          "iou": 0.933,
+          "same_initial_id": false
+        },
+        {
+          "frame": 150,
+          "person": "white_9",
+          "box": [
+            845,
+            416,
+            991,
+            609
+          ],
+          "track_id": 19,
+          "iou": 0.986,
+          "same_initial_id": false
+        },
+        {
+          "frame": 150,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1500,
+            475,
+            1657,
+            726
+          ],
+          "track_id": 3,
+          "iou": 0.839,
+          "same_initial_id": false
+        },
+        {
+          "frame": 180,
+          "person": "white_9",
+          "box": [
+            730,
+            400,
+            841,
+            602
+          ],
+          "track_id": 19,
+          "iou": 0.98,
+          "same_initial_id": false
+        },
+        {
+          "frame": 242,
+          "person": "far_yellow",
+          "box": [
+            615,
+            442,
+            705,
+            675
+          ],
+          "track_id": 30,
+          "iou": 0.618,
+          "same_initial_id": false
+        },
+        {
+          "frame": 242,
+          "person": "white_9",
+          "box": [
+            787,
+            367,
+            870,
+            574
+          ],
+          "track_id": 43,
+          "iou": 0.966,
+          "same_initial_id": false
+        }
+      ]
+    },
+    "ocsort.tracks": {
+      "matched_cases": 17,
+      "same_initial_id_cases": 11,
+      "total_cases": 17,
+      "cases": [
+        {
+          "frame": 0,
+          "person": "far_yellow",
+          "box": [
+            603,
+            301,
+            655,
+            470
+          ],
+          "track_id": 8,
+          "iou": 0.957,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "far_white",
+          "box": [
+            640,
+            348,
+            687,
+            521
+          ],
+          "track_id": 10,
+          "iou": 0.985,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "white_9",
+          "box": [
+            1375,
+            433,
+            1442,
+            595
+          ],
+          "track_id": 3,
+          "iou": 0.981,
+          "same_initial_id": true
+        },
+        {
+          "frame": 0,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1277,
+            404,
+            1353,
+            555
+          ],
+          "track_id": 7,
+          "iou": 0.991,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "far_yellow",
+          "box": [
+            940,
+            288,
+            1020,
+            486
+          ],
+          "track_id": 8,
+          "iou": 0.94,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "far_white",
+          "box": [
+            882,
+            360,
+            1002,
+            563
+          ],
+          "track_id": 10,
+          "iou": 0.795,
+          "same_initial_id": true
+        },
+        {
+          "frame": 90,
+          "person": "white_9",
+          "box": [
+            685,
+            434,
+            800,
+            624
+          ],
+          "track_id": 21,
+          "iou": 0.911,
+          "same_initial_id": false
+        },
+        {
+          "frame": 90,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1562,
+            438,
+            1667,
+            689
+          ],
+          "track_id": 7,
+          "iou": 0.657,
+          "same_initial_id": true
+        },
+        {
+          "frame": 120,
+          "person": "far_yellow",
+          "box": [
+            1000,
+            321,
+            1089,
+            506
+          ],
+          "track_id": 8,
+          "iou": 0.975,
+          "same_initial_id": true
+        },
+        {
+          "frame": 120,
+          "person": "far_white",
+          "box": [
+            1272,
+            438,
+            1407,
+            655
+          ],
+          "track_id": 10,
+          "iou": 0.962,
+          "same_initial_id": true
+        },
+        {
+          "frame": 120,
+          "person": "white_9",
+          "box": [
+            834,
+            399,
+            963,
+            604
+          ],
+          "track_id": 21,
+          "iou": 0.966,
+          "same_initial_id": false
+        },
+        {
+          "frame": 120,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1490,
+            420,
+            1599,
+            714
+          ],
+          "track_id": 7,
+          "iou": 0.933,
+          "same_initial_id": true
+        },
+        {
+          "frame": 150,
+          "person": "white_9",
+          "box": [
+            845,
+            416,
+            991,
+            609
+          ],
+          "track_id": 21,
+          "iou": 0.985,
+          "same_initial_id": false
+        },
+        {
+          "frame": 150,
+          "person": "yellow_pink_shoes",
+          "box": [
+            1500,
+            475,
+            1657,
+            726
+          ],
+          "track_id": 7,
+          "iou": 0.839,
+          "same_initial_id": true
+        },
+        {
+          "frame": 180,
+          "person": "white_9",
+          "box": [
+            730,
+            400,
+            841,
+            602
+          ],
+          "track_id": 21,
+          "iou": 0.98,
+          "same_initial_id": false
+        },
+        {
+          "frame": 242,
+          "person": "far_yellow",
+          "box": [
+            615,
+            442,
+            705,
+            675
+          ],
+          "track_id": 6,
+          "iou": 0.618,
+          "same_initial_id": false
+        },
+        {
+          "frame": 242,
+          "person": "white_9",
+          "box": [
+            787,
+            367,
+            870,
+            574
+          ],
+          "track_id": 21,
+          "iou": 0.955,
+          "same_initial_id": false
+        }
+      ]
+    }
+  }
+}

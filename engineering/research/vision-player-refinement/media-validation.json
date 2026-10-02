@@ -1,0 +1,29 @@
+{
+  "source_path": "data/videos/nba/2024-25/clips/IND-OKC_Q4_pick-pop_8.1s_1080p.mp4",
+  "source_sha256": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+  "source": {
+    "width": 1920,
+    "height": 1080,
+    "codec": "h264",
+    "frames": 243,
+    "first_time": 0.033,
+    "last_time": 8.107733333333334,
+    "audio_codec": "aac",
+    "audio_packets": 351,
+    "audio_packet_sha256": "e718678fa80c0125aaf7c72cbace5ba28f9f37813d18aacffeef072a8493171f"
+  },
+  "output": {
+    "width": 1920,
+    "height": 1080,
+    "codec": "h264",
+    "frames": 243,
+    "first_time": 0.033,
+    "last_time": 8.107733333333334,
+    "audio_codec": "aac",
+    "audio_packets": 351,
+    "audio_packet_sha256": "e718678fa80c0125aaf7c72cbace5ba28f9f37813d18aacffeef072a8493171f"
+  },
+  "max_video_timestamp_difference_seconds": 0.0,
+  "audio_payloads_identical": true,
+  "frame_records": 243
+}

@@ -1,0 +1,533 @@
+{
+  "scope": "Sparse visual checks on frames used during debugging; not an independent accuracy benchmark. Boxes were outlined by visual inspection of the original frames. They are evaluation references only and must not be used to draw output boxes.",
+  "iou_threshold": 0.5,
+  "source_video_sha256": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+  "baseline": {
+    "groups": {
+      "far_player": {
+        "cases": 6,
+        "visible_boxes": 1,
+        "tracked": 1,
+        "pending": 0
+      },
+      "other_player": {
+        "cases": 4,
+        "visible_boxes": 4,
+        "tracked": 4,
+        "pending": 0
+      },
+      "non_player": {
+        "cases": 6,
+        "visible_boxes": 4,
+        "tracked": 4,
+        "pending": 0
+      }
+    },
+    "cases": [
+      {
+        "frame": 0,
+        "name": "far_yellow",
+        "group": "far_player",
+        "box": [
+          600,
+          303,
+          660,
+          473
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.0
+      },
+      {
+        "frame": 0,
+        "name": "far_white",
+        "group": "far_player",
+        "box": [
+          634,
+          334,
+          692,
+          524
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.0
+      },
+      {
+        "frame": 30,
+        "name": "far_yellow",
+        "group": "far_player",
+        "box": [
+          703,
+          295,
+          763,
+          463
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.1926186149973827
+      },
+      {
+        "frame": 30,
+        "name": "far_white",
+        "group": "far_player",
+        "box": [
+          722,
+          345,
+          808,
+          519
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.6214285689153164,
+        "best_iou": 0.6214285689153164
+      },
+      {
+        "frame": 60,
+        "name": "far_yellow",
+        "group": "far_player",
+        "box": [
+          809,
+          291,
+          887,
+          465
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.09276973181364363
+      },
+      {
+        "frame": 60,
+        "name": "far_white",
+        "group": "far_player",
+        "box": [
+          822,
+          357,
+          916,
+          557
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.34419792900130936
+      },
+      {
+        "frame": 0,
+        "name": "near_yellow",
+        "group": "other_player",
+        "box": [
+          256,
+          619,
+          356,
+          780
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.8067857142857143,
+        "best_iou": 0.8067857142857143
+      },
+      {
+        "frame": 0,
+        "name": "middle_white",
+        "group": "other_player",
+        "box": [
+          1115,
+          592,
+          1248,
+          785
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.7999337722544704,
+        "best_iou": 0.7999337722544704
+      },
+      {
+        "frame": 60,
+        "name": "near_yellow",
+        "group": "other_player",
+        "box": [
+          310,
+          638,
+          411,
+          840
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.7724596259104114,
+        "best_iou": 0.7724596259104114
+      },
+      {
+        "frame": 60,
+        "name": "right_yellow",
+        "group": "other_player",
+        "box": [
+          1484,
+          589,
+          1594,
+          859
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.7666047550647548,
+        "best_iou": 0.7666047550647548
+      },
+      {
+        "frame": 60,
+        "name": "left_referee",
+        "group": "non_player",
+        "box": [
+          160,
+          463,
+          251,
+          721
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.006974698957719652
+      },
+      {
+        "frame": 60,
+        "name": "far_referee",
+        "group": "non_player",
+        "box": [
+          1226,
+          338,
+          1307,
+          491
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.0
+      },
+      {
+        "frame": 60,
+        "name": "near_referee",
+        "group": "non_player",
+        "box": [
+          1516,
+          742,
+          1648,
+          1032
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.8301845584557146,
+        "best_iou": 0.8301845584557146
+      },
+      {
+        "frame": 60,
+        "name": "sideline_staff",
+        "group": "non_player",
+        "box": [
+          1548,
+          316,
+          1640,
+          503
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.6629522556094316,
+        "best_iou": 0.6629522556094316
+      },
+      {
+        "frame": 60,
+        "name": "foreground_spectator_left",
+        "group": "non_player",
+        "box": [
+          190,
+          715,
+          296,
+          875
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.8043733961819803,
+        "best_iou": 0.8043733961819803
+      },
+      {
+        "frame": 60,
+        "name": "foreground_spectator_middle",
+        "group": "non_player",
+        "box": [
+          787,
+          771,
+          917,
+          957
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.7943680726512465,
+        "best_iou": 0.7943680726512465
+      }
+    ]
+  },
+  "improved": {
+    "groups": {
+      "far_player": {
+        "cases": 6,
+        "visible_boxes": 6,
+        "tracked": 6,
+        "pending": 0
+      },
+      "other_player": {
+        "cases": 4,
+        "visible_boxes": 4,
+        "tracked": 4,
+        "pending": 0
+      },
+      "non_player": {
+        "cases": 6,
+        "visible_boxes": 0,
+        "tracked": 0,
+        "pending": 0
+      }
+    },
+    "cases": [
+      {
+        "frame": 0,
+        "name": "far_yellow",
+        "group": "far_player",
+        "box": [
+          600,
+          303,
+          660,
+          473
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.8115032783230657,
+        "best_iou": 0.8115032783230657
+      },
+      {
+        "frame": 0,
+        "name": "far_white",
+        "group": "far_player",
+        "box": [
+          634,
+          334,
+          692,
+          524
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.730029903460436,
+        "best_iou": 0.730029903460436
+      },
+      {
+        "frame": 30,
+        "name": "far_yellow",
+        "group": "far_player",
+        "box": [
+          703,
+          295,
+          763,
+          463
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.8415296158295066,
+        "best_iou": 0.8415296158295066
+      },
+      {
+        "frame": 30,
+        "name": "far_white",
+        "group": "far_player",
+        "box": [
+          722,
+          345,
+          808,
+          519
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.6418175537661226,
+        "best_iou": 0.6418175537661226
+      },
+      {
+        "frame": 60,
+        "name": "far_yellow",
+        "group": "far_player",
+        "box": [
+          809,
+          291,
+          887,
+          465
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.8731589258687404,
+        "best_iou": 0.8731589258687404
+      },
+      {
+        "frame": 60,
+        "name": "far_white",
+        "group": "far_player",
+        "box": [
+          822,
+          357,
+          916,
+          557
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.6346039954953371,
+        "best_iou": 0.6346039954953371
+      },
+      {
+        "frame": 0,
+        "name": "near_yellow",
+        "group": "other_player",
+        "box": [
+          256,
+          619,
+          356,
+          780
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.8624068322981366,
+        "best_iou": 0.8624068322981366
+      },
+      {
+        "frame": 0,
+        "name": "middle_white",
+        "group": "other_player",
+        "box": [
+          1115,
+          592,
+          1248,
+          785
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.7477975470720332,
+        "best_iou": 0.7477975470720332
+      },
+      {
+        "frame": 60,
+        "name": "near_yellow",
+        "group": "other_player",
+        "box": [
+          310,
+          638,
+          411,
+          840
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.9311570154263606,
+        "best_iou": 0.9311570154263606
+      },
+      {
+        "frame": 60,
+        "name": "right_yellow",
+        "group": "other_player",
+        "box": [
+          1484,
+          589,
+          1594,
+          859
+        ],
+        "visible_box": true,
+        "matched_status": "tracked",
+        "matched_iou": 0.8066671511388267,
+        "best_iou": 0.8066671511388267
+      },
+      {
+        "frame": 60,
+        "name": "left_referee",
+        "group": "non_player",
+        "box": [
+          160,
+          463,
+          251,
+          721
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.0
+      },
+      {
+        "frame": 60,
+        "name": "far_referee",
+        "group": "non_player",
+        "box": [
+          1226,
+          338,
+          1307,
+          491
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.0
+      },
+      {
+        "frame": 60,
+        "name": "near_referee",
+        "group": "non_player",
+        "box": [
+          1516,
+          742,
+          1648,
+          1032
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.12042472670655958
+      },
+      {
+        "frame": 60,
+        "name": "sideline_staff",
+        "group": "non_player",
+        "box": [
+          1548,
+          316,
+          1640,
+          503
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.1028156948005377
+      },
+      {
+        "frame": 60,
+        "name": "foreground_spectator_left",
+        "group": "non_player",
+        "box": [
+          190,
+          715,
+          296,
+          875
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.0
+      },
+      {
+        "frame": 60,
+        "name": "foreground_spectator_middle",
+        "group": "non_player",
+        "box": [
+          787,
+          771,
+          917,
+          957
+        ],
+        "visible_box": false,
+        "matched_status": null,
+        "matched_iou": null,
+        "best_iou": 0.0
+      }
+    ]
+  }
+}

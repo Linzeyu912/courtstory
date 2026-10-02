@@ -1,0 +1,140 @@
+{
+  "source": "https://github.com/CEA-LIST/KaliCalib",
+  "sourceArchive": "CEA-LIST-KaliCalib-3b3f52b",
+  "nativeCourtMetres": [
+    28,
+    15
+  ],
+  "device": "cuda",
+  "videoSha256": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+  "modelFiles": {
+    "model_test.pth": "d3718c40a06cbaf6beb14b669755866b2d7766a9258d431f44521a208951752c",
+    "model_challenge.pth": "ab2ec59e87fd028740494302f17bcdf2dc0269f6499b4a559fc411f9d507fee7"
+  },
+  "results": [
+    {
+      "weight": "model_test.pth",
+      "frame": 0,
+      "networkSeconds": 0.20011520000116434,
+      "groundClassesVisible": 17,
+      "inliers": 6,
+      "homographyFound": true,
+      "nativeCourtCmToImage": [
+        0.5337474256776199,
+        -2.839279804147433,
+        1760.3515345601666,
+        0.16586620635657315,
+        -0.7969912309003783,
+        541.1957292616493,
+        0.0002800486270251299,
+        -0.001516012761997878,
+        1.0
+      ],
+      "normalizedTemplateDifferencePixelsMedian": 1050.2037574730386
+    },
+    {
+      "weight": "model_test.pth",
+      "frame": 90,
+      "networkSeconds": 0.007658999995328486,
+      "groundClassesVisible": 34,
+      "inliers": 23,
+      "homographyFound": true,
+      "nativeCourtCmToImage": [
+        1.006916690514891,
+        -0.67486303216436,
+        840.2986754899988,
+        0.16347954705776388,
+        0.07150027095076722,
+        426.27118345035274,
+        6.573656215904984e-05,
+        -0.00029894078463814404,
+        1.0
+      ],
+      "normalizedTemplateDifferencePixelsMedian": 32.783851183806945
+    },
+    {
+      "weight": "model_test.pth",
+      "frame": 242,
+      "networkSeconds": 0.006939400002011098,
+      "groundClassesVisible": 31,
+      "inliers": 11,
+      "homographyFound": true,
+      "nativeCourtCmToImage": [
+        0.6178388967256602,
+        -0.46536793188560194,
+        715.0814046034671,
+        -0.10867388999387248,
+        0.09739137875222255,
+        487.3003029694004,
+        -0.0003471039347105078,
+        -0.0001697642509587668,
+        0.9999999999999999
+      ],
+      "normalizedTemplateDifferencePixelsMedian": 23.747408007332844
+    },
+    {
+      "weight": "model_challenge.pth",
+      "frame": 0,
+      "networkSeconds": 0.006971099996007979,
+      "groundClassesVisible": 60,
+      "inliers": 39,
+      "homographyFound": true,
+      "nativeCourtCmToImage": [
+        0.7075794246940924,
+        -0.47362460211056995,
+        646.3109910248558,
+        0.0005367273170225288,
+        0.046291570459958485,
+        461.8305587083505,
+        -7.174968274697767e-05,
+        -0.0002475948411039349,
+        1.0
+      ],
+      "normalizedTemplateDifferencePixelsMedian": 29.93488655370723
+    },
+    {
+      "weight": "model_challenge.pth",
+      "frame": 90,
+      "networkSeconds": 0.008767899998929352,
+      "groundClassesVisible": 52,
+      "inliers": 33,
+      "homographyFound": true,
+      "nativeCourtCmToImage": [
+        0.7332352732660159,
+        -0.5055680791434599,
+        775.1543498177639,
+        -0.025557306762349154,
+        0.10083449733814963,
+        466.91579159656015,
+        -0.00017196378823556874,
+        -0.00020073383092140433,
+        1.0
+      ],
+      "normalizedTemplateDifferencePixelsMedian": 12.285723162621464
+    },
+    {
+      "weight": "model_challenge.pth",
+      "frame": 242,
+      "networkSeconds": 0.007497200000216253,
+      "groundClassesVisible": 40,
+      "inliers": 28,
+      "homographyFound": true,
+      "nativeCourtCmToImage": [
+        0.7901364365791035,
+        -0.5226533251658675,
+        706.3630954035395,
+        -0.051393186737506515,
+        0.08527139529627002,
+        500.4332569291069,
+        -0.00019621857113695106,
+        -0.0002096230883176103,
+        1.0
+      ],
+      "normalizedTemplateDifferencePixelsMedian": 31.53435058106588
+    }
+  ],
+  "pipeline": "author network + winning-class centroids + plane RANSAC; omits official camera refinement and fixed default camera",
+  "metricAccuracyValidated": false,
+  "collectedDate": "2026-10-01",
+  "timezone": "Asia/Shanghai"
+}

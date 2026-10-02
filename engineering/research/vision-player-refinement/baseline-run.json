@@ -1,0 +1,20 @@
+{
+  "source": "data/videos/nba/2024-25/library100/clips/001_2025-06-05_IND-OKC_pick-pop/IND-OKC_Q4_pick-pop_8.1s_1080p.mp4",
+  "output": "artifacts/vision-player-refinement/baseline-with-tracks.mp4",
+  "model": "yolov8s.pt",
+  "tracker": "bytetrack.yaml",
+  "imgsz": 640,
+  "classes": [
+    0
+  ],
+  "conf": 0.1,
+  "fp16": true,
+  "frames": 243,
+  "player_profile": null,
+  "extra_tiles": false,
+  "audio_packets_copied": 351,
+  "unique_track_ids": 64,
+  "render_seconds": 9.032283099993947,
+  "total_seconds_including_imports": 12.727872100003879,
+  "note": "Visualization only; includes drawing and encoding, no accuracy evaluation or tactical overlays."
+}
