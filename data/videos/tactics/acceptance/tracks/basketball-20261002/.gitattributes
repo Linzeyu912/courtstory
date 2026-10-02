@@ -1,0 +1,2 @@
+# Preserve candidate bytes and existing draft fingerprints across platforms.
+*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

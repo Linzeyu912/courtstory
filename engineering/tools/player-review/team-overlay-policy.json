@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "layout": "reserved_5_plus_5_v1",
+  "teams": {
+    "A": {"label": "红队", "color": "#ee5568", "slots": [1, 2, 3, 4, 5]},
+    "B": {"label": "蓝队", "color": "#4295ed", "slots": [6, 7, 8, 9, 10]}
+  },
+  "pendingColor": "#9ca3af",
+  "candidateColor": "#c084fc",
+  "capacity": 5,
+  "grouping": {"minimumReliableFrames": 3, "minimumDominance": 0.9, "compatibleLabels": {"dark": "dark", "blue": "dark", "white": "white", "yellow": "yellow", "red": "red"}},
+  "filter": {"method": "bounded_centered_median3_v1", "blend": 0.75, "maximumCoordinateDeviationAt720": 64, "maximumFrameGapSeconds": 0.12},
+  "foot": {"method": "bbox_bottom_center_display_estimate", "radiusXAt720": 18, "radiusYAt720": 6, "numberOffsetAt720": 18, "fontSizeAt720": 20},
+  "box": {"lineWidthAt720": 3, "dashAt720": [10, 7]}
+}
