@@ -1,53 +1,63 @@
 {
- "schema_version": "1.0.0",
- "updated_at": "2026-10-01T23:06:01+08:00",
- "path_base": "repository_root",
- "datasets": [
-  {
-   "dataset_id": "nba-2024-25-library100",
-   "season": "2024-25",
-   "root": "data/videos/nba/2024-25",
-   "manifest": "data/videos/nba/2024-25/manifest.json",
-   "entry_count": 100,
-   "included_count": 100,
-   "awaiting_upload_count": 0
-  },
-  {
-   "dataset_id": "nba-2025-26-batch030",
-   "season": "2025-26",
-   "root": "data/videos/nba/2025-26",
-   "manifest": "data/videos/nba/2025-26/manifest.json",
-   "entry_count": 30,
-   "included_count": 30,
-   "awaiting_upload_count": 0
-  },
-  {
-   "dataset_id": "nba-2025-26-batch-008",
-   "season": "2025-26",
-   "root": "data/videos/nba/2025-26",
-   "manifest": "data/videos/nba/2025-26/manifest-batch-008.json",
-   "entry_count": 8,
-   "included_count": 8,
-   "awaiting_upload_count": 0
-  },
-  {
-   "dataset_id": "nba-2025-26-sample-001",
-   "season": "2025-26",
-   "root": "data/videos/nba/2025-26",
-   "manifest": "data/videos/nba/2025-26/manifest-sample-001.json",
-   "entry_count": 1,
-   "included_count": 1,
-   "awaiting_upload_count": 0
-  }
- ],
- "historical_references": [
-  {
-   "path": "data/videos/nba/2025-26/sources/batch-008.json",
-   "note": "历史8段清单；与30段的逐段关系待确认，不计新增独立素材"
-  },
-  {
-   "path": "data/videos/nba/2025-26/sources/sample-001.json",
-   "note": "历史单段清单；与后续批次关系待确认，不计新增独立素材"
-  }
- ]
+  "schema_version": "1.0.0",
+  "updated_at": "2026-10-02T07:56:32+08:00",
+  "path_base": "repository_root",
+  "datasets": [
+    {
+      "dataset_id": "nba-2024-25-library100",
+      "season": "2024-25",
+      "root": "data/videos/nba/2024-25",
+      "manifest": "data/videos/nba/2024-25/manifest.json",
+      "entry_count": 100,
+      "included_count": 100,
+      "awaiting_upload_count": 0
+    },
+    {
+      "dataset_id": "nba-2025-26-batch030",
+      "season": "2025-26",
+      "root": "data/videos/nba/2025-26",
+      "manifest": "data/videos/nba/2025-26/manifest.json",
+      "entry_count": 30,
+      "included_count": 30,
+      "awaiting_upload_count": 0
+    },
+    {
+      "dataset_id": "nba-2025-26-batch-008",
+      "season": "2025-26",
+      "root": "data/videos/nba/2025-26",
+      "manifest": "data/videos/nba/2025-26/manifest-batch-008.json",
+      "entry_count": 8,
+      "included_count": 8,
+      "awaiting_upload_count": 0
+    },
+    {
+      "dataset_id": "nba-2025-26-sample-001",
+      "season": "2025-26",
+      "root": "data/videos/nba/2025-26",
+      "manifest": "data/videos/nba/2025-26/manifest-sample-001.json",
+      "entry_count": 1,
+      "included_count": 1,
+      "awaiting_upload_count": 0
+    },
+    {
+      "dataset_id": "tactics-acceptance",
+      "season": null,
+      "purpose": "tactic_acceptance",
+      "root": "data/videos/tactics/acceptance",
+      "manifest": "data/videos/tactics/acceptance/manifest.json",
+      "entry_count": 3,
+      "included_count": 3,
+      "awaiting_upload_count": 0
+    }
+  ],
+  "historical_references": [
+    {
+      "path": "data/videos/nba/2025-26/sources/batch-008.json",
+      "note": "历史8段清单；与30段的逐段关系待确认，不计新增独立素材"
+    },
+    {
+      "path": "data/videos/nba/2025-26/sources/sample-001.json",
+      "note": "历史单段清单；与后续批次关系待确认，不计新增独立素材"
+    }
+  ]
 }

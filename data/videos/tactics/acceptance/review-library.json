@@ -1,0 +1,32 @@
+{
+  "defaultSample": "004",
+  "samples": [
+    {
+      "id": "004",
+      "title": "样例 004 · GSW–MEM 第四节",
+      "description": "8.76 秒 · 720p · 普通直播、正常速度、无声 · 发球/前场组织至投篮结果；先筛直播画面，再对应球员和补轨迹。动作标签仅为采集参考。",
+      "sourceUrl": "https://www.facebook.com/TheWarriorNation/videos/the-signature-elevator-doors-play-by-the-warriors/186346969187899/",
+      "video": "data/videos/tactics/acceptance/clips/004_GSW_elevator.mp4",
+      "tracks": "data/videos/tactics/acceptance/tracks/004.json",
+      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3"
+    },
+    {
+      "id": "005",
+      "title": "样例 005 · SAS–MIA 第四节",
+      "description": "4.77 秒 · 1080p · 普通直播、正常速度、无声 · 发球/前场组织至投篮结果；先筛直播画面，再对应球员和补轨迹。动作标签仅为采集参考。",
+      "sourceUrl": "https://www.bilibili.com/video/BV1zqgd6DEPQ/",
+      "video": "data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4",
+      "tracks": "data/videos/tactics/acceptance/tracks/005.json",
+      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d"
+    },
+    {
+      "id": "006",
+      "title": "样例 006 · SAS–MIA 第二节",
+      "description": "15.40 秒 · 1080p · 普通直播、正常速度、无声 · 发球/前场组织至投篮结果；先筛直播画面，再对应球员和补轨迹。动作标签仅为采集参考。",
+      "sourceUrl": "https://www.bilibili.com/video/BV1zqgd6DEPQ/",
+      "video": "data/videos/tactics/acceptance/clips/006_SAS_drive_kick.mp4",
+      "tracks": "data/videos/tactics/acceptance/tracks/006.json",
+      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919"
+    }
+  ]
+}
