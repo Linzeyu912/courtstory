@@ -16,6 +16,7 @@ from urllib.parse import urlsplit
 
 from scene_profiles import finite_json, validate_court_candidates, validate_feet_candidates
 from review_session import apply_review_edit
+from detector_evidence import validate_frame_evidence, detector_evidence_for_clip
 
 
 def main():
@@ -336,8 +337,8 @@ def validate_frame_records(records, times, context):
         if not finite_number(record.get('time')) or abs(record['time']-times[index])>.001:
             raise ValueError(f'{location}: timestamp must match decoded source PTS {times[index]:.9f}')
         seen=set()
-        for field,columns,confidence_column,class_column in [('tracks',7,5,6),('pending_detections',6,4,5)]:
-            rows=record.get(field,[] if field=='pending_detections' else None)
+        for field,columns,confidence_column,class_column in [('tracks',7,5,6),('pending_detections',6,4,5),('suppressed_detections',6,4,5)]:
+            rows=record.get(field,[] if field!='tracks' else None)
             if not isinstance(rows,list):
                 raise ValueError(f'{location}: {field} must be an array')
             for row_index,row in enumerate(rows):
@@ -357,6 +358,7 @@ def validate_frame_records(records, times, context):
                     seen.add(identifier)
         if 'candidate_count' in record and (type(record['candidate_count']) is not int or record['candidate_count']<0):
             raise ValueError(f'{location}: candidate_count must be a nonnegative integer')
+        validate_frame_evidence(record, location)
 
 
 def validate_identity_suggestions(suggestions, frame_count, context):
@@ -465,7 +467,8 @@ def validated_clip(sample):
             separators=(',',':'),allow_nan=False).encode('utf-8')).hexdigest()
         versions[identifier]={'records':records,'metadata':metadata,'suggestions':suggestions,
                               'fingerprint':fingerprint,'rawFingerprint':track_digest,'label':definition['label'],
-                              'recommended':definition.get('recommended',False)}
+                              'recommended':definition.get('recommended',False),
+                              'detectorEvidence':detector_evidence_for_clip(records,metadata,context)}
     default=sample.get('defaultVariant','original')
     if default not in versions:
         default=next((identifier for identifier,entry in versions.items() if entry['recommended']),'original')
@@ -514,6 +517,7 @@ def validated_clip(sample):
             'supportsCourtCalibration':sample.get('supportsCourtCalibration',True),'tracking_revision':identifier,
             'tracking_fingerprint':entry['fingerprint'],'tracking_raw_fingerprint':entry['rawFingerprint'],
             'trackingMetadata':entry['metadata'],
+            'detectorEvidence':entry['detectorEvidence'],
             'identitySuggestions':entry['suggestions'],'identitySupplement':identity_supplement,
             'variant':identifier,'defaultVariant':default,'variants':variants,
             'audioPolicy':entry['metadata'].get('audio_policy')},

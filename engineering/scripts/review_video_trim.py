@@ -12,6 +12,7 @@ import re
 from datetime import datetime, timezone
 from fractions import Fraction
 from pathlib import Path
+from detector_evidence import build_detector_evidence, detector_evidence_for_clip
 
 
 def remap_camera_quality(quality, source_index, records, kept, cuts, remap, support_override=None):
@@ -100,6 +101,10 @@ def trim_tracking_metadata(payload, video, records, times, time_base, fps, kept,
     """Keep model provenance while distinguishing this subset from its parent run."""
     parent_metadata=copy.deepcopy(payload.get('trackingMetadata') or {})
     metadata=copy.deepcopy(parent_metadata)
+    # Frame partitions stay byte-for-byte observations; only clip totals change.
+    if (parent_metadata.get('detector_evidence') is not None and
+            detector_evidence_for_clip(payload.get('frames', []), parent_metadata, 'Trim source')['partition_complete']):
+        metadata['detector_evidence'] = build_detector_evidence(records)
     # These describe the complete parent inference run and are preserved only under its explicit source metadata.
     for field in ['statistics','duplicate_events','timing_seconds','presentation_geometry_comparison']:
         metadata.pop(field,None)
