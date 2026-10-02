@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "videoHash": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+  "template": "NBA",
+  "source": "human_visual_reference",
+  "label": "人工目视初始参考 · 004第70帧 · 待复核",
+  "description": "黄色条带外侧灰线对应16ft禁区；ABCD用于拟合，E只核验。A已通过放大图改选外侧交点。D被白色15号遮挡，是可见近禁区线与底线的延长估计，需重点复核。像素来自AI目视读取，未由用户确认，不是测量真值。",
+  "keyframes": [
+    {
+      "frame": 70,
+      "side": "right",
+      "status": "needs_review",
+      "source": "human_visual_reference",
+      "points": [
+        {
+          "id": "A",
+          "image": [
+            632,
+            272
+          ],
+          "role": "control",
+          "source": "human_visual_reference",
+          "description": "16ft禁区外侧线交点，目视读取"
+        },
+        {
+          "id": "B",
+          "image": [
+            139,
+            326
+          ],
+          "role": "control",
+          "source": "human_visual_reference",
+          "description": "16ft禁区外侧线交点，目视读取"
+        },
+        {
+          "id": "C",
+          "image": [
+            273,
+            462
+          ],
+          "role": "control",
+          "source": "human_visual_reference",
+          "description": "16ft禁区外侧线交点，目视读取"
+        },
+        {
+          "id": "D",
+          "image": [
+            816,
+            386
+          ],
+          "role": "control",
+          "source": "human_visual_reference",
+          "description": "被白15遮挡的线延长估计，需重点核对"
+        },
+        {
+          "id": "E",
+          "image": [
+            467,
+            175
+          ],
+          "role": "check",
+          "source": "human_visual_reference",
+          "description": "远侧底线×边线留出点，不参与拟合"
+        }
+      ]
+    }
+  ],
+  "diagnostics": {
+    "fitPoints": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "checkPoints": [
+      "E"
+    ],
+    "EProjected": [
+      478.1422525358597,
+      176.67503778517212
+    ],
+    "EObserved": [
+      467,
+      175
+    ],
+    "EErrorPixels": 11.267455043381647,
+    "previousCoordinates": {
+      "A": [
+        640,
+        278
+      ],
+      "B": [
+        139,
+        327
+      ],
+      "C": [
+        273,
+        461
+      ],
+      "D": [
+        815,
+        386
+      ]
+    },
+    "previousEErrorPixels": 26.884858433872484,
+    "metricAccuracyValidated": false
+  },
+  "invalidFrames": []
+}

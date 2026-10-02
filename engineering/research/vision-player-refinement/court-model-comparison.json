@@ -1,0 +1,1877 @@
+{
+  "collectedAt": "2026-10-02 Asia/Shanghai",
+  "device": "NVIDIA GeForce RTX 5070 Laptop GPU",
+  "weightsSha256": "68e5faf5fb5388cf83477238abe22e9824a69fb33a4cf34f79ab61858f410064",
+  "weightsBytes": 7934664,
+  "imgsz": 640,
+  "accuracyValidated": false,
+  "pointSemantics": "Human inspection of HF original labels + flip_idx; partial map only",
+  "slotMap": {
+    "left": {
+      "A": 3,
+      "B": 12,
+      "C": 14,
+      "D": 4,
+      "E": 0,
+      "I": 1,
+      "J": 6
+    },
+    "right": {
+      "A": 38,
+      "B": 29,
+      "C": 31,
+      "D": 39,
+      "E": 35,
+      "I": 36,
+      "J": 41
+    }
+  },
+  "yoloLoadWarmupSeconds": 3.176056399999652,
+  "kaliWeightsSha256": "ab2ec59e87fd028740494302f17bcdf2dc0269f6499b4a559fc411f9d507fee7",
+  "sourceUrls": [
+    "https://huggingface.co/koppolusameer/yolo11n-basketball-court-keypoints",
+    "https://huggingface.co/datasets/koppolusameer/basketball-keypoint-detection-yolov8",
+    "https://github.com/CEA-LIST/KaliCalib"
+  ],
+  "modelCommit": "6cb899251439982067a81baa225b33f45f335981",
+  "datasetCommit": "98d6979ac482c0ff6945754550e06ac7aa67d941",
+  "experiments": [
+    {
+      "imgsz": 640,
+      "sampleFrames": 12,
+      "medianPredictMs": 8.34515001042746,
+      "sideMismatches": 7,
+      "homographiesFound": 8,
+      "rightSideAndHomography": 3,
+      "loadWarmupSeconds": 3.176056399999652
+    },
+    {
+      "imgsz": 960,
+      "sampleFrames": 12,
+      "medianPredictMs": 10.436700002173893,
+      "sideMismatches": 7,
+      "homographiesFound": 9,
+      "rightSideAndHomography": 5,
+      "loadWarmupSeconds": 3.1353820000076666
+    }
+  ],
+  "runs": [
+    {
+      "model": "yolo11n-court48",
+      "sample": "004",
+      "frame": 0,
+      "predictSeconds": 0.014426099980482832,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "B",
+          "image": [
+            479.0,
+            305.0
+          ],
+          "score": 0.54443359375,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            376.0,
+            431.25
+          ],
+          "score": 0.5859375,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            179.75,
+            183.5
+          ],
+          "score": 0.50146484375,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            155.0,
+            198.75
+          ],
+          "score": 0.5048828125,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 8,
+      "imgsz": 640,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "004",
+      "frame": 70,
+      "predictSeconds": 0.008964500011643395,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "B",
+          "image": [
+            485.75,
+            310.0
+          ],
+          "score": 0.5498046875,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            379.0,
+            430.75
+          ],
+          "score": 0.60546875,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            192.75,
+            190.75
+          ],
+          "score": 0.53857421875,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            165.75,
+            206.25
+          ],
+          "score": 0.556640625,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 9,
+      "imgsz": 640,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "004",
+      "frame": 140,
+      "predictSeconds": 0.015670399996452034,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "B",
+          "image": [
+            537.5,
+            360.0
+          ],
+          "score": 0.53369140625,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            434.5,
+            477.75
+          ],
+          "score": 0.5703125,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            240.5,
+            237.0
+          ],
+          "score": 0.5517578125,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            214.5,
+            253.5
+          ],
+          "score": 0.564453125,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 9,
+      "imgsz": 640,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "004",
+      "frame": 209,
+      "predictSeconds": 0.006904600013513118,
+      "courtDetections": 2,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "B",
+          "image": [
+            659.0,
+            422.25
+          ],
+          "score": 0.56103515625,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            259.25,
+            264.5
+          ],
+          "score": 0.53271484375,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            229.75,
+            283.75
+          ],
+          "score": 0.5302734375,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": false,
+      "pointsAtLeast05": 7,
+      "imgsz": 640,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "005",
+      "frame": 0,
+      "predictSeconds": 0.007303599995793775,
+      "courtDetections": 1,
+      "side": "right",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            1437.0,
+            451.5
+          ],
+          "score": 0.52880859375,
+          "modelSlot": 38,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            827.25,
+            499.875
+          ],
+          "score": 0.50146484375,
+          "modelSlot": 29,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            969.75,
+            669.375
+          ],
+          "score": 0.50048828125,
+          "modelSlot": 31,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            1256.25,
+            316.5
+          ],
+          "score": 0.51025390625,
+          "modelSlot": 35,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            1288.5,
+            339.75
+          ],
+          "score": 0.5,
+          "modelSlot": 36,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 11,
+      "imgsz": 640,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "005",
+      "frame": 47,
+      "predictSeconds": 0.007881400000769645,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            583.875,
+            469.875
+          ],
+          "score": 0.5107421875,
+          "modelSlot": 3,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "D",
+          "image": [
+            353.25,
+            638.625
+          ],
+          "score": 0.537109375,
+          "modelSlot": 4,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": false,
+      "pointsAtLeast05": 9,
+      "imgsz": 640,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "005",
+      "frame": 95,
+      "predictSeconds": 0.007374400011030957,
+      "courtDetections": 1,
+      "side": "right",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            1425.75,
+            516.0
+          ],
+          "score": 0.52685546875,
+          "modelSlot": 38,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            787.5,
+            567.375
+          ],
+          "score": 0.5009765625,
+          "modelSlot": 29,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            1233.0,
+            372.75
+          ],
+          "score": 0.50341796875,
+          "modelSlot": 35,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": false,
+      "pointsAtLeast05": 10,
+      "imgsz": 640,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "005",
+      "frame": 142,
+      "predictSeconds": 0.0090288000064902,
+      "courtDetections": 1,
+      "side": "right",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            1492.5,
+            581.625
+          ],
+          "score": 0.5556640625,
+          "modelSlot": 38,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            656.25,
+            651.375
+          ],
+          "score": 0.533203125,
+          "modelSlot": 29,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            1223.25,
+            408.375
+          ],
+          "score": 0.51513671875,
+          "modelSlot": 35,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            1271.25,
+            439.5
+          ],
+          "score": 0.53759765625,
+          "modelSlot": 36,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": false,
+      "pointsAtLeast05": 13,
+      "imgsz": 640,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "006",
+      "frame": 0,
+      "predictSeconds": 0.008808900020085275,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            321.375,
+            450.375
+          ],
+          "score": 0.533203125,
+          "modelSlot": 3,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            936.75,
+            492.375
+          ],
+          "score": 0.52783203125,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            792.0,
+            663.0
+          ],
+          "score": 0.54345703125,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            516.375,
+            311.625
+          ],
+          "score": 0.54296875,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            481.5,
+            332.25
+          ],
+          "score": 0.537109375,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 12,
+      "imgsz": 640,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "006",
+      "frame": 154,
+      "predictSeconds": 0.006876600004034117,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            405.75,
+            482.25
+          ],
+          "score": 0.54443359375,
+          "modelSlot": 3,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            1007.25,
+            525.0
+          ],
+          "score": 0.5224609375,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            863.25,
+            692.25
+          ],
+          "score": 0.5302734375,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            594.0,
+            347.625
+          ],
+          "score": 0.5302734375,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            561.0,
+            368.625
+          ],
+          "score": 0.5224609375,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 11,
+      "imgsz": 640,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "006",
+      "frame": 308,
+      "predictSeconds": 0.00724060001084581,
+      "courtDetections": 1,
+      "side": "right",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            1389.0,
+            520.875
+          ],
+          "score": 0.54833984375,
+          "modelSlot": 38,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            748.5,
+            573.0
+          ],
+          "score": 0.51708984375,
+          "modelSlot": 29,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            921.75,
+            741.0
+          ],
+          "score": 0.51513671875,
+          "modelSlot": 31,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "D",
+          "image": [
+            1650.0,
+            666.0
+          ],
+          "score": 0.5439453125,
+          "modelSlot": 39,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            1174.5,
+            394.5
+          ],
+          "score": 0.51708984375,
+          "modelSlot": 35,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            1209.0,
+            415.5
+          ],
+          "score": 0.5341796875,
+          "modelSlot": 36,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 21,
+      "imgsz": 640,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "006",
+      "frame": 461,
+      "predictSeconds": 0.009677699999883771,
+      "courtDetections": 1,
+      "side": "right",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            1782.0,
+            581.625
+          ],
+          "score": 0.5361328125,
+          "modelSlot": 38,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            1056.0,
+            633.75
+          ],
+          "score": 0.5556640625,
+          "modelSlot": 29,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            1247.25,
+            816.0
+          ],
+          "score": 0.552734375,
+          "modelSlot": 31,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            1542.0,
+            440.625
+          ],
+          "score": 0.548828125,
+          "modelSlot": 35,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            1581.0,
+            460.5
+          ],
+          "score": 0.546875,
+          "modelSlot": 36,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 11,
+      "imgsz": 640,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "KaliCalib-challenge",
+      "sample": "004",
+      "frame": 0,
+      "pipelineSeconds": 0.021309500007191673,
+      "classesVisible": 29,
+      "inliers": 20,
+      "homographyFound": true,
+      "nativeCourtMetres": [
+        28,
+        15
+      ],
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "OpenCV-LSD",
+      "sample": "004",
+      "frame": 0,
+      "pipelineSeconds": 0.05389429998467676,
+      "lineCount": 76,
+      "semanticNames": false,
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "KaliCalib-challenge",
+      "sample": "004",
+      "frame": 70,
+      "pipelineSeconds": 0.01914220000617206,
+      "classesVisible": 32,
+      "inliers": 21,
+      "homographyFound": true,
+      "nativeCourtMetres": [
+        28,
+        15
+      ],
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "OpenCV-LSD",
+      "sample": "004",
+      "frame": 70,
+      "pipelineSeconds": 0.05255560000659898,
+      "lineCount": 82,
+      "semanticNames": false,
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "KaliCalib-challenge",
+      "sample": "004",
+      "frame": 140,
+      "pipelineSeconds": 0.0166431000106968,
+      "classesVisible": 32,
+      "inliers": 23,
+      "homographyFound": true,
+      "nativeCourtMetres": [
+        28,
+        15
+      ],
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "OpenCV-LSD",
+      "sample": "004",
+      "frame": 140,
+      "pipelineSeconds": 0.05029610000201501,
+      "lineCount": 56,
+      "semanticNames": false,
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "KaliCalib-challenge",
+      "sample": "004",
+      "frame": 209,
+      "pipelineSeconds": 0.0198192999814637,
+      "classesVisible": 27,
+      "inliers": 14,
+      "homographyFound": true,
+      "nativeCourtMetres": [
+        28,
+        15
+      ],
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "OpenCV-LSD",
+      "sample": "004",
+      "frame": 209,
+      "pipelineSeconds": 0.050290699990000576,
+      "lineCount": 83,
+      "semanticNames": false,
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "KaliCalib-challenge",
+      "sample": "005",
+      "frame": 0,
+      "pipelineSeconds": 0.017291299998760223,
+      "classesVisible": 43,
+      "inliers": 39,
+      "homographyFound": true,
+      "nativeCourtMetres": [
+        28,
+        15
+      ],
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "OpenCV-LSD",
+      "sample": "005",
+      "frame": 0,
+      "pipelineSeconds": 0.0465175999852363,
+      "lineCount": 34,
+      "semanticNames": false,
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "KaliCalib-challenge",
+      "sample": "005",
+      "frame": 47,
+      "pipelineSeconds": 0.016154399985680357,
+      "classesVisible": 41,
+      "inliers": 37,
+      "homographyFound": true,
+      "nativeCourtMetres": [
+        28,
+        15
+      ],
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "OpenCV-LSD",
+      "sample": "005",
+      "frame": 47,
+      "pipelineSeconds": 0.047656600014306605,
+      "lineCount": 32,
+      "semanticNames": false,
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "KaliCalib-challenge",
+      "sample": "005",
+      "frame": 95,
+      "pipelineSeconds": 0.017276099999435246,
+      "classesVisible": 42,
+      "inliers": 29,
+      "homographyFound": true,
+      "nativeCourtMetres": [
+        28,
+        15
+      ],
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "OpenCV-LSD",
+      "sample": "005",
+      "frame": 95,
+      "pipelineSeconds": 0.04325740001513623,
+      "lineCount": 38,
+      "semanticNames": false,
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "KaliCalib-challenge",
+      "sample": "005",
+      "frame": 142,
+      "pipelineSeconds": 0.016348800010746345,
+      "classesVisible": 27,
+      "inliers": 25,
+      "homographyFound": true,
+      "nativeCourtMetres": [
+        28,
+        15
+      ],
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "OpenCV-LSD",
+      "sample": "005",
+      "frame": 142,
+      "pipelineSeconds": 0.04334179998841137,
+      "lineCount": 52,
+      "semanticNames": false,
+      "imgsz": null,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "KaliCalib-challenge",
+      "sample": "006",
+      "frame": 0,
+      "pipelineSeconds": 0.01669309998396784,
+      "classesVisible": 42,
+      "inliers": 33,
+      "homographyFound": true,
+      "nativeCourtMetres": [
+        28,
+        15
+      ],
+      "imgsz": null,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "OpenCV-LSD",
+      "sample": "006",
+      "frame": 0,
+      "pipelineSeconds": 0.046738600009121,
+      "lineCount": 62,
+      "semanticNames": false,
+      "imgsz": null,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "KaliCalib-challenge",
+      "sample": "006",
+      "frame": 154,
+      "pipelineSeconds": 0.01658199998200871,
+      "classesVisible": 39,
+      "inliers": 33,
+      "homographyFound": true,
+      "nativeCourtMetres": [
+        28,
+        15
+      ],
+      "imgsz": null,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "OpenCV-LSD",
+      "sample": "006",
+      "frame": 154,
+      "pipelineSeconds": 0.04524220002349466,
+      "lineCount": 59,
+      "semanticNames": false,
+      "imgsz": null,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "KaliCalib-challenge",
+      "sample": "006",
+      "frame": 308,
+      "pipelineSeconds": 0.017360300000291318,
+      "classesVisible": 37,
+      "inliers": 29,
+      "homographyFound": true,
+      "nativeCourtMetres": [
+        28,
+        15
+      ],
+      "imgsz": null,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "OpenCV-LSD",
+      "sample": "006",
+      "frame": 308,
+      "pipelineSeconds": 0.0441663000092376,
+      "lineCount": 51,
+      "semanticNames": false,
+      "imgsz": null,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "KaliCalib-challenge",
+      "sample": "006",
+      "frame": 461,
+      "pipelineSeconds": 0.0162514999974519,
+      "classesVisible": 21,
+      "inliers": 19,
+      "homographyFound": true,
+      "nativeCourtMetres": [
+        28,
+        15
+      ],
+      "imgsz": null,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "OpenCV-LSD",
+      "sample": "006",
+      "frame": 461,
+      "pipelineSeconds": 0.0447967000072822,
+      "lineCount": 69,
+      "semanticNames": false,
+      "imgsz": null,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "004",
+      "frame": 0,
+      "predictSeconds": 0.017653799994150177,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "B",
+          "image": [
+            453.3333435058594,
+            299.0
+          ],
+          "score": 0.662109375,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            338.8333435058594,
+            426.3333435058594
+          ],
+          "score": 0.61083984375,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": false,
+      "pointsAtLeast05": 6,
+      "imgsz": 960,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "004",
+      "frame": 70,
+      "predictSeconds": 0.010114699980476871,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "B",
+          "image": [
+            486.0,
+            305.8333435058594
+          ],
+          "score": 0.7119140625,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            371.3333435058594,
+            433.0
+          ],
+          "score": 0.7333984375,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": false,
+      "pointsAtLeast05": 6,
+      "imgsz": 960,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "004",
+      "frame": 140,
+      "predictSeconds": 0.010349299991503358,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "B",
+          "image": [
+            532.0,
+            352.0
+          ],
+          "score": 0.6474609375,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            416.0,
+            472.66668701171875
+          ],
+          "score": 0.68017578125,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            206.33334350585938,
+            226.6666717529297
+          ],
+          "score": 0.56396484375,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            183.0,
+            242.33334350585938
+          ],
+          "score": 0.60107421875,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 8,
+      "imgsz": 960,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "004",
+      "frame": 209,
+      "predictSeconds": 0.010524100012844428,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "B",
+          "image": [
+            703.3333740234375,
+            424.66668701171875
+          ],
+          "score": 0.6123046875,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            538.6666870117188,
+            586.6666870117188
+          ],
+          "score": 0.583984375,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            304.66668701171875,
+            256.0
+          ],
+          "score": 0.56591796875,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            277.16668701171875,
+            278.3333435058594
+          ],
+          "score": 0.54150390625,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 16,
+      "imgsz": 960,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "005",
+      "frame": 0,
+      "predictSeconds": 0.008573800005251542,
+      "courtDetections": 1,
+      "side": "right",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            1437.0,
+            453.5
+          ],
+          "score": 0.58154296875,
+          "modelSlot": 38,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            825.0,
+            504.0
+          ],
+          "score": 0.580078125,
+          "modelSlot": 29,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            978.0,
+            668.0
+          ],
+          "score": 0.56396484375,
+          "modelSlot": 31,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "D",
+          "image": [
+            1668.0,
+            605.5
+          ],
+          "score": 0.53271484375,
+          "modelSlot": 39,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            1246.0,
+            327.25
+          ],
+          "score": 0.556640625,
+          "modelSlot": 35,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            1278.0,
+            348.0
+          ],
+          "score": 0.55322265625,
+          "modelSlot": 36,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 21,
+      "imgsz": 960,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "005",
+      "frame": 47,
+      "predictSeconds": 0.016179700003704056,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            592.0,
+            460.0
+          ],
+          "score": 0.51513671875,
+          "modelSlot": 3,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            1213.0,
+            514.5
+          ],
+          "score": 0.50927734375,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            784.5,
+            325.0
+          ],
+          "score": 0.51708984375,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            755.0,
+            349.5
+          ],
+          "score": 0.52001953125,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": false,
+      "pointsAtLeast05": 7,
+      "imgsz": 960,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "005",
+      "frame": 95,
+      "predictSeconds": 0.01192099999752827,
+      "courtDetections": 1,
+      "side": "right",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            1429.0,
+            518.5
+          ],
+          "score": 0.52294921875,
+          "modelSlot": 38,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            783.5,
+            571.0
+          ],
+          "score": 0.5390625,
+          "modelSlot": 29,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            947.0,
+            743.5
+          ],
+          "score": 0.517578125,
+          "modelSlot": 31,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            1226.0,
+            387.0
+          ],
+          "score": 0.54248046875,
+          "modelSlot": 35,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            1262.0,
+            408.0
+          ],
+          "score": 0.5458984375,
+          "modelSlot": 36,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 16,
+      "imgsz": 960,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "005",
+      "frame": 142,
+      "predictSeconds": 0.008198499999707565,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            391.5,
+            572.0
+          ],
+          "score": 0.63623046875,
+          "modelSlot": 3,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            1249.0,
+            647.0
+          ],
+          "score": 0.6611328125,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            1010.5,
+            869.5
+          ],
+          "score": 0.64013671875,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "D",
+          "image": [
+            33.0,
+            777.0
+          ],
+          "score": 0.5,
+          "modelSlot": 4,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            678.0,
+            404.0
+          ],
+          "score": 0.6171875,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            637.0,
+            434.5
+          ],
+          "score": 0.6123046875,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 22,
+      "imgsz": 960,
+      "reviewedSide": "right"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "006",
+      "frame": 0,
+      "predictSeconds": 0.011214999976800755,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "B",
+          "image": [
+            925.5,
+            486.75
+          ],
+          "score": 0.6083984375,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            766.0,
+            660.0
+          ],
+          "score": 0.62744140625,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            480.25,
+            307.0
+          ],
+          "score": 0.58349609375,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            448.5,
+            329.5
+          ],
+          "score": 0.609375,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 9,
+      "imgsz": 960,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "006",
+      "frame": 154,
+      "predictSeconds": 0.010110599978361279,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            357.0,
+            478.25
+          ],
+          "score": 0.53857421875,
+          "modelSlot": 3,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            987.0,
+            524.0
+          ],
+          "score": 0.5712890625,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            835.0,
+            692.0
+          ],
+          "score": 0.56201171875,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            555.0,
+            343.0
+          ],
+          "score": 0.58251953125,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            526.0,
+            366.5
+          ],
+          "score": 0.5927734375,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 11,
+      "imgsz": 960,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "006",
+      "frame": 308,
+      "predictSeconds": 0.008740099990973249,
+      "courtDetections": 1,
+      "side": "left",
+      "namedPoints": [
+        {
+          "id": "A",
+          "image": [
+            519.0,
+            517.0
+          ],
+          "score": 0.591796875,
+          "modelSlot": 3,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "B",
+          "image": [
+            1193.0,
+            575.0
+          ],
+          "score": 0.59814453125,
+          "modelSlot": 12,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            1018.0,
+            753.0
+          ],
+          "score": 0.57373046875,
+          "modelSlot": 14,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "D",
+          "image": [
+            246.5,
+            684.0
+          ],
+          "score": 0.52587890625,
+          "modelSlot": 4,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            734.5,
+            379.0
+          ],
+          "score": 0.58154296875,
+          "modelSlot": 0,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            702.5,
+            402.75
+          ],
+          "score": 0.58251953125,
+          "modelSlot": 1,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 22,
+      "imgsz": 960,
+      "reviewedSide": "left"
+    },
+    {
+      "model": "yolo11n-court48",
+      "sample": "006",
+      "frame": 461,
+      "predictSeconds": 0.01139939998392947,
+      "courtDetections": 1,
+      "side": "right",
+      "namedPoints": [
+        {
+          "id": "B",
+          "image": [
+            1040.0,
+            656.0
+          ],
+          "score": 0.599609375,
+          "modelSlot": 29,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "C",
+          "image": [
+            1256.0,
+            852.5
+          ],
+          "score": 0.5830078125,
+          "modelSlot": 31,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "E",
+          "image": [
+            1546.0,
+            450.0
+          ],
+          "score": 0.529296875,
+          "modelSlot": 35,
+          "source": "yolo11n-court48"
+        },
+        {
+          "id": "I",
+          "image": [
+            1573.0,
+            470.0
+          ],
+          "score": 0.58349609375,
+          "modelSlot": 36,
+          "source": "yolo11n-court48"
+        }
+      ],
+      "homographyFound": true,
+      "pointsAtLeast05": 9,
+      "imgsz": 960,
+      "reviewedSide": "left"
+    }
+  ],
+  "manualReference": {
+    "referenceType": "Agent visual reading, not blinded, no surveyed ground truth. Some occluded corners inferred. Does not establish metric accuracy.",
+    "samples": {
+      "004": {
+        "side": "right",
+        "points": {
+          "E": [
+            466,
+            174
+          ],
+          "A": [
+            632,
+            278
+          ],
+          "B": [
+            136,
+            328
+          ],
+          "C": [
+            263,
+            453
+          ],
+          "D": [
+            792,
+            380
+          ]
+        },
+        "note": "B/C partly occluded; line-edge selection has additional uncertainty."
+      },
+      "005": {
+        "side": "right",
+        "points": {
+          "E": [
+            1257,
+            316
+          ],
+          "A": [
+            1433,
+            453
+          ],
+          "B": [
+            819,
+            500
+          ],
+          "C": [
+            968,
+            661
+          ],
+          "D": [
+            1618,
+            601
+          ]
+        },
+        "note": "B/C obscured by players; use as rough diagnostic only."
+      },
+      "006": {
+        "side": "left",
+        "points": {
+          "E": [
+            515,
+            312
+          ],
+          "A": [
+            325,
+            451
+          ],
+          "B": [
+            944,
+            491
+          ],
+          "C": [
+            800,
+            649
+          ],
+          "D": [
+            93,
+            607
+          ]
+        },
+        "note": "C partly occluded; corner inferred by visible line continuation."
+      }
+    }
+  },
+  "manualPointDifferences": [
+    {
+      "model": "YOLO11n-640",
+      "sample": "005",
+      "points": 4,
+      "medianPx": 6.3,
+      "maxPx": 8.6
+    },
+    {
+      "model": "YOLO11n-640",
+      "sample": "006",
+      "points": 4,
+      "medianPx": 5.5,
+      "maxPx": 16.1
+    },
+    {
+      "model": "YOLO11n-960",
+      "sample": "005",
+      "points": 5,
+      "medianPx": 12.2,
+      "maxPx": 50.2
+    },
+    {
+      "model": "YOLO11n-960",
+      "sample": "006",
+      "points": 3,
+      "medianPx": 35.1,
+      "maxPx": 35.7
+    },
+    {
+      "model": "KaliCalib-native-FIBA",
+      "sample": "004",
+      "points": 5,
+      "medianPx": 11.6,
+      "maxPx": 47.4
+    },
+    {
+      "model": "KaliCalib-native-FIBA",
+      "sample": "005",
+      "points": 5,
+      "medianPx": 33.1,
+      "maxPx": 69.7
+    },
+    {
+      "model": "KaliCalib-native-FIBA",
+      "sample": "006",
+      "points": 5,
+      "medianPx": 14.5,
+      "maxPx": 43.3
+    }
+  ],
+  "selectedProposals": {
+    "004": [],
+    "005": [
+      {
+        "frame": 0,
+        "imgsz": 640
+      },
+      {
+        "frame": 95,
+        "imgsz": 960
+      }
+    ],
+    "006": [
+      {
+        "frame": 0,
+        "imgsz": 640
+      },
+      {
+        "frame": 154,
+        "imgsz": 640
+      },
+      {
+        "frame": 308,
+        "imgsz": 960
+      }
+    ]
+  }
+}

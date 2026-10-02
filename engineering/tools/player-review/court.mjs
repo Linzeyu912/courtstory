@@ -51,6 +51,13 @@ export function calibrationAt(calibration,frame,frames,cuts=[]){
   let left=null,right=null;
   for(const key of keys){if(key.frame===frame){left=right=key;break;}if(key.frame<frame)left=key;else{right=key;break;}}
   if(!left||!right||left.side!==right.side||cuts.some(c=>c>left.frame&&c<=right.frame))return null;
+  if([left,right].some(key=>['needs_review','invalid','failed'].includes(key.status)||key.valid===false))return null;
+  for(const key of [left,right]){
+    const propagated=key.source==='camera_propagation'||keyframePoints(key).some(p=>p.enabled!==false&&p.role!=='check'&&p.source==='camera_propagation');
+    if(!propagated)continue;
+    const support=key.cameraSupportFrame??key.quality?.cameraSupportFrame??key.quality?.referenceFrame;
+    if(!Number.isInteger(support)||support<0||support>=frames.length||cuts.some(c=>c>Math.min(support,key.frame)&&c<=Math.max(support,key.frame)))return null;
+  }
   const span=frames[right.frame].time-frames[left.frame].time;
   if(span>(calibration.maxKeyframeGapSeconds??1.2))return null;
   const a=fitKeyframe(left),b=left===right?a:fitKeyframe(right);if(!a||!b)return null;
@@ -60,7 +67,8 @@ export function calibrationAt(calibration,frame,frames,cuts=[]){
   const toImage=left===right?a.toImage:homography(floor,image),toCourt=toImage&&invertHomography(toImage);
   if(!toCourt||!validQuad(image))return null;
   return {toCourt,toImage,image,side:left.side,supportFrames:[left.frame,right.frame],
-    method:left.frame===right.frame?'manual_keyframe':'interpolated_landmarks',
+    method:left.frame===right.frame?(left.source==='human'?'manual_keyframe':'reference_keyframe'):'interpolated_landmarks',
+    quality:left===right?left.quality||null:{left:left.quality||null,right:right.quality||null},
     referenceOnly:[...a.points,...b.points].some(p=>p.source!=='human'),reviewRequired:true,
     fitRmsePixels:left===right?a.fitRmsePixels:null,residuals:left===right?a.residuals:[],
     controlCount:left===right?a.points.length:Math.min(a.points.length,b.points.length),
@@ -97,7 +105,10 @@ export function buildCourtTrajectories(session,frames,imageTrajectories){
       if(!point)return {...base,source:'uncalibrated'};
       return {...base,...point,source:['interpolated','manual_path'].includes(p.source)?'court_estimated':'projected',
         mappingMethod:mapping.method,calibrationFrames:mapping.supportFrames,referenceCalibration:mapping.referenceOnly,
+        calibrationQuality:mapping.quality,
         footMethod:p.footMethod||(p.source==='interpolated'?'interpolated_image_point':p.source==='manual'&&!p.box?'human_image_anchor':'bbox_bottom_center'),reviewRequired:true,
+        ...(p.footCandidate?{footCandidate:p.footCandidate}:{}),
+        ...(p.groundContactConfirmed===false?{groundContactConfirmed:false}:{}),
         calibrationSupport:mapping.supportHulls.every(hull=>insideHull(hull,point.x,point.y))?'inside_controls':'outside_controls',
         sensitivity:footPointSensitivity(mapping.toCourt,p.x,p.y),
         outsideCourt:point.x<0||point.x>COURT.length||point.y<0||point.y>COURT.width};

@@ -6,8 +6,48 @@ All output assets stay in the ignored local review cache.
 import copy
 import hashlib
 import json
+from bisect import bisect_right
 from fractions import Fraction
 from pathlib import Path
+
+
+def remap_camera_quality(quality, source_index, records, kept, cuts, remap, support_override=None):
+    """Keep real-reference provenance separate from the surviving segment's cut guard."""
+    if not isinstance(quality, dict):
+        return quality
+    result = copy.deepcopy(quality)
+    reference = quality.get('referenceFrame')
+    valid_reference = type(reference) is int and 0 <= reference < len(records)
+    support = (support_override if type(support_override) is int and 0 <= support_override < len(records)
+               else quality.get('cameraSupportFrame'))
+    if 'referenceFrame' not in quality and support is None:
+        return result
+    if valid_reference:
+        result['sourceReferenceFrame'] = (quality['sourceReferenceFrame']
+            if type(quality.get('sourceReferenceFrame')) is int else records[reference].get('source_frame', reference))
+    result['referenceFrame'] = remap.get(reference) if valid_reference else None
+    # A separately reviewed support anchor supersedes the old propagation seed
+    # for cut protection, while the real seed remains in reference provenance.
+    anchor = support if type(support) is int and 0 <= support < len(records) else reference if valid_reference else None
+    boundaries = [0, *cuts, len(kept)]
+    segment = bisect_right(cuts, remap[source_index])
+    lo, hi = boundaries[segment], boundaries[segment + 1] - 1
+    if type(anchor) is int and 0 <= anchor < len(records):
+        if anchor <= kept[lo]:
+            result['cameraSupportFrame'] = lo
+        elif anchor >= kept[hi]:
+            result['cameraSupportFrame'] = hi
+        else:
+            result['cameraSupportFrame'] = remap[anchor]
+    elif type(result.get('sourceReferenceFrame')) is int:
+        # Older profiles can retain only root provenance. Preserve that reference
+        # and choose the nearest surviving frame by its root source index.
+        root_reference = result['sourceReferenceFrame']
+        result['cameraSupportFrame'] = min(range(lo, hi + 1),
+            key=lambda i: abs(records[kept[i]].get('source_frame', kept[i]) - root_reference))
+    else:
+        result['cameraSupportFrame'] = None
+    return result
 
 
 def retained_ranges(ranges, frame_count):
@@ -105,6 +145,48 @@ def trim_review_clip(source, ranges, output_dir):
                     variants.append({'id':variant,'tracks':str(path),'label':config['label'],'recommended':config.get('recommended',False)})
             result['trackingVariants']=variants
             result['defaultVariant']=payload.get('variant',payload.get('tracking_revision','original'))
+        remap={source_index:i for i,source_index in enumerate(kept)}
+        if payload.get('courtCandidates'):
+            profile=copy.deepcopy(payload['courtCandidates']);profile['videoHash']=digest
+            profile['sourceVideoHash']=root_hash
+            mapped_keys=[]
+            for key in profile.get('keyframes',[]):
+                old_frame=key['frame']
+                if old_frame not in remap:continue
+                mapped={**key,'frame':remap[old_frame],
+                        'sourceFrame':key.get('sourceFrame',records[old_frame].get('source_frame',old_frame))}
+                if 'quality' in key or 'cameraSupportFrame' in key:
+                    mapped['quality']=remap_camera_quality(key.get('quality',{}),old_frame,records,kept,cuts,remap,key.get('cameraSupportFrame'))
+                    if 'cameraSupportFrame' in key:mapped['cameraSupportFrame']=mapped['quality'].get('cameraSupportFrame')
+                if 'time' in key:
+                    mapped.update(time=times[remap[old_frame]],sourceTime=key.get('sourceTime',records[old_frame].get('source_time',key['time'])))
+                mapped_keys.append(mapped)
+            profile['keyframes']=mapped_keys
+            profile['invalidFrames']=[remap[i] for i in profile.get('invalidFrames',[]) if i in remap]
+            if profile.get('referenceFrame') is not None:
+                reference=profile['referenceFrame']
+                profile['sourceReferenceFrame']=(profile['sourceReferenceFrame'] if type(profile.get('sourceReferenceFrame')) is int
+                    else records[reference].get('source_frame',reference))
+                profile['referenceFrame']=remap.get(reference)
+            if isinstance(profile.get('summary'),dict):
+                rows=profile['keyframes']
+                profile['summary']={**profile['summary'],'startFrame':min((k['frame'] for k in rows),default=None),
+                    'endFrame':max((k['frame'] for k in rows),default=None),'totalFrames':len(rows),
+                    'validFrames':sum(k.get('status')!='invalid' and bool(k.get('points')) for k in rows)}
+            path=output_dir/'court-candidates.json';path.write_text(json.dumps(profile,ensure_ascii=False,allow_nan=False)+'\n',encoding='utf-8',newline='\n')
+            result['courtCandidates']=str(path)
+        # A pose proposal belongs to one detector fingerprint, not to the currently selected P identity.
+        for variant,entry in (payloads or {payload.get('variant','original'):payload}).items():
+            if not entry.get('feetCandidates'):continue
+            profile=copy.deepcopy(entry['feetCandidates']);profile['videoHash']=digest
+            profile['sourceVideoHash']=root_hash;profile['sourceTrackingFingerprint']=profile['trackingFingerprint']
+            new_track_path=Path(result['tracks']) if not payloads or variant=='original' else next(Path(v['tracks']) for v in result['trackingVariants'] if v['id']==variant)
+            profile['trackingFingerprint']=hashlib.sha256(new_track_path.read_bytes()).hexdigest()
+            profile['frames']=[{**profile['frames'][i],'frame':j,'time':times[j],
+                'sourceFrame':profile['frames'][i].get('sourceFrame',records[i].get('source_frame',i)),
+                'sourceTime':profile['frames'][i].get('sourceTime',records[i].get('source_time',records[i]['time']))} for j,i in enumerate(kept)]
+            path=output_dir/'feet-candidates.json';path.write_text(json.dumps(profile,ensure_ascii=False,allow_nan=False)+'\n',encoding='utf-8',newline='\n')
+            result['feetCandidates']=str(path)
         return result
     except Exception:
         # Keep incomplete output for diagnosis, but never register it as a usable clip.

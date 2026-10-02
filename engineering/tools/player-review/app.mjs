@@ -6,6 +6,8 @@ import {createWorkspace} from './workspace.mjs';
 import {blankSession,buildTrajectories,gapRanges,exportReview,isSelected,trackCatalog,confirmBinding,continuationSuggestions} from './trajectory.mjs';
 import {IDENTITY_BINDING_MODE,migrateIdentitySession,confirmIdentity,identityInterval} from './identity-timeline.mjs';
 import {personProposals,visibleObjects,personTrail,indexTemporaryTracks,temporaryTrail,mergeSourceCuts,toggleReviewCut} from './tracking-display.mjs';
+import {mountSceneObjects} from './scene-objects-ui.mjs';
+import {feetForPoint,footCandidateAnchor} from './feet-candidates.mjs';
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
 const library=await fetch('/api/library').then(r=>{if(!r.ok)throw new Error('视频库加载失败');return r.json();});
@@ -30,7 +32,7 @@ migrateIdentitySession(session);
 if(session.courtCalibration===undefined)session.courtCalibration=structuredClone(clip.courtCalibration||null);
 if(session.liveSelection===undefined)session.liveSelection=structuredClone(clip.liveSelection||null);
 if(!session.liveRanges)session.liveRanges=session.liveSelection?[{start:0,end:clip.frames.length-1}]:[];
-let workspace=null;
+let workspace=null,sceneUI=null;
 let footageUI=null,pathStroke=null;
 let active='P1',frame=0,mode='select',trajectories={},history=[],toastTimer,previewTrackId=null,previewBox=null;
 const catalog=trackCatalog(clip.frames);
@@ -79,15 +81,16 @@ function drawTrail(points,stroke,selected=false){
 }
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  const candidates=proposals(),objects=visibleObjects(clip.frames[frame]);
+  const candidates=proposals(),objects=sceneUI?.objects()||visibleObjects(clip.frames[frame]);
   if($('showTrackTrails').checked){
     for(const candidate of candidates)if(candidate.trackId!=null)drawTrail(temporaryTrail(trackIndex,clip.frames,candidate.trackId,frame,session.cuts),candidate.role==='referee'?'#6eb3ec':'#b4c2cd');
     if(isSelected(entity()))drawTrail(personTrail(trajectories[active],clip.frames,frame,session.cuts),color(active),true);
   }
   if($('showObjects').checked)for(const object of objects){
     const stroke=object.kind==='basketball'?'#ffaf52':'#ff78b7',name=object.kind==='basketball'?'篮球候选':'篮筐候选';
-    drawBox(object.box,stroke,name,true);
-    const [x1,y1,x2,y2]=object.box,x=(x1+x2)/2,y=(y1+y2)/2;
+    const selected=sceneUI?.selected()===object.id;
+    if(object.box)drawBox(object.box,selected?'#ffe14e':stroke,`${name}${selected?' · 已选中':''}`,true);
+    const [x,y]=object.point||[(object.box[0]+object.box[2])/2,(object.box[1]+object.box[3])/2];
     ctx.beginPath();ctx.arc(x,y,5,0,2*Math.PI);ctx.strokeStyle=stroke;ctx.lineWidth=3;ctx.stroke();
     ctx.beginPath();ctx.moveTo(x-9,y);ctx.lineTo(x+9,y);ctx.moveTo(x,y-9);ctx.lineTo(x,y+9);ctx.stroke();
   }
@@ -103,12 +106,16 @@ function draw(){
   if(pathStroke?.length){ctx.beginPath();pathStroke.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.strokeStyle='#d99516';ctx.lineWidth=5;ctx.setLineDash([10,5]);ctx.stroke();ctx.setLineDash([]);}
   $('time').textContent=`${clip.frames[frame].time.toFixed(2)} s`;$('frameLabel').textContent=`第 ${frame+1} / ${clip.frames.length} 帧`;$('scrubber').value=frame;$('play').textContent=video.paused?'播放':'暂停';
   const item=entity(),point=trajectories[active]?.[frame];
+  const feet=feetForPoint(clip,frame,point),footText=side=>feet?.[side]?`${side==='left'?'左脚':'右脚'} (${feet[side].x.toFixed(1)}, ${feet[side].y.toFixed(1)}) px · ${Math.round(feet[side].score*100)}%`:`${side==='left'?'左脚':'右脚'}无候选`;
+  $('feetCandidateStatus').textContent=feet?`${active} / T${point.trackId}：${footText('left')}；${footText('right')}。来源 ${feet.source}。`:point?.trackId==null?'先把当前球员关联到一个临时 T 编号。':'当前帧 / 模型版本没有匹配的脚部候选；可直接人工补脚下点。';
+  $('adoptLeftFoot').disabled=!feet?.left;$('adoptRightFoot').disabled=!feet?.right;
+  if(feet&&$('showFeetCandidates').checked)for(const side of ['left','right'])if(feet[side]){const p=feet[side];ctx.beginPath();ctx.arc(p.x,p.y,9,0,2*Math.PI);ctx.strokeStyle=side==='left'?'#ffda70':'#cf9dff';ctx.lineWidth=3;ctx.stroke();ctx.fillStyle=ctx.strokeStyle;ctx.font='bold 17px sans-serif';ctx.fillText(side==='left'?'左脚?':'右脚?',p.x+12,p.y);}
   const visibleCount=candidates.filter(p=>p.trackId!=null).length;
   const pTail=isSelected(item)?personTrail(trajectories[active],clip.frames,frame,session.cuts):[];
   $('trackingContinuity').textContent=`当前 ${visibleCount} 个临时 T 编号${isSelected(item)?` · ${active} ${point?.trackId!=null?`关联 T${point.trackId}`:'当前无临时编号'} · 连续实际位置 ${pTail.length} 帧`:''}。尾迹为最近 1.2 秒的原图位置，受镜头移动影响；缺失、估计与切镜处断开。`;
   const basketballs=objects.filter(o=>o.kind==='basketball').length,hoops=objects.filter(o=>o.kind==='hoop').length;
   $('objectStatus').textContent=objects.length?`当前帧：篮球 ${basketballs} 个候选 · 篮筐 ${hoops} 个候选。框中心是图像标记，不能作为球场地面点。`:'当前帧没有篮球 / 篮筐候选；通用人物模型不提供这两类结果。';
-  footageUI?.render();
+  footageUI?.render();sceneUI?.render();
   const descriptions={manual:'这一帧的位置由你确认。',tracked:'这一帧来自已绑定临时编号的模型位置，仍可点选修正。',interpolated:'这一帧由前后位置估计；不是模型直接检出的结果。',missing:'这一帧尚未关联到位置；可以找回新编号、补点，或标记离开画面。',out_of_view:'这一帧已由你标记为离开画面，不计算位置。',conflict:'这一帧存在身份冲突，需要你重新点选确认。'};
   if(point?.source==='manual')descriptions.manual=point.footMethod==='bbox_bottom_center'?'这一帧已人工选人；位置仍取框底边中心，尚未确认地面脚点。':'这一帧使用人工点选的原图参考位置，仍需核对地面接触与标定。';
   if(point?.identitySource==='reassigned')descriptions.missing=`原 T${point.previousTrackId} 在这一段已由人工确认归到 ${point.claimedBy}；请重新关联当前球员。`;
@@ -141,6 +148,7 @@ function commitImageEdit(edit){try{const anchor=editImageAnchor(trajectories[act
 function imagePosition(event){const r=canvas.getBoundingClientRect();return {x:(event.clientX-r.left)/r.width*clip.width,y:(event.clientY-r.top)/r.height*clip.height};}
 function editable(){return ['identity','repair'].some(step=>$(`tab-${step}`).getAttribute('aria-selected')==='true');}
 function handleAt(x,y){
+  if(sceneUI?.isPicking())return null;
   if(!editable())return null;const point=trajectories[active]?.[frame];if(point?.x==null)return null;
   const tolerance=14*clip.width/canvas.clientWidth;
   if(Math.hypot(x-point.x,y-point.y)<tolerance)return 'foot';
@@ -153,7 +161,7 @@ canvas.addEventListener('pointerdown',e=>{if(e.button!==0)return;const pos=image
 canvas.addEventListener('pointermove',e=>{const pos=imagePosition(e);if(pathStroke){pos.x=Math.max(0,Math.min(clip.width,pos.x));pos.y=Math.max(0,Math.min(clip.height,pos.y));if(Math.hypot(pos.x-pathStroke.at(-1).x,pos.y-pathStroke.at(-1).y)>2)pathStroke.push(pos);draw();return;}if(!drag){const hit=handleAt(pos.x,pos.y);canvas.style.cursor=hit==='foot'||hit==='box'?'move':hit?'nwse-resize':'crosshair';return;}if(Math.hypot(pos.x-drag.origin.x,pos.y-drag.origin.y)>3)drag.moved=true;drag.edit=dragImageEdit(drag.point,drag.kind,drag.origin,pos,clip.width,clip.height);draw();});
 canvas.addEventListener('pointerup',e=>{if(pathStroke){const stroke=pathStroke;pathStroke=null;if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);suppressClick=true;setTimeout(()=>suppressClick=false,0);try{const anchors=manualPathAnchors(stroke,Number($('pathStart').value)-1,Number($('pathEnd').value)-1,clip.frames,trajectories[active],session.cuts);change(()=>entity().anchors.push(...anchors));toast(`已拟补 ${anchors.length} 帧，手绘路径仍需逐帧核对。`);}catch(error){toast(error.message);}setMode('point');return;}if(!drag)return;const current=drag;drag=null;if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);if(current.moved){suppressClick=true;setTimeout(()=>suppressClick=false,0);commitImageEdit(current.edit);}else draw();});
 canvas.addEventListener('pointercancel',()=>{drag=null;pathStroke=null;draw();});
-canvas.addEventListener('click',event=>{if(suppressClick){suppressClick=false;return;}video.pause();const {x,y}=imagePosition(event);if(workspace?.handleImageClick(x,y))return;
+canvas.addEventListener('click',event=>{if(suppressClick){suppressClick=false;return;}video.pause();const {x,y}=imagePosition(event);if(sceneUI?.handleImageClick(x,y))return;if(workspace?.handleImageClick(x,y))return;
   if(!editable()||mode==='path')return;
   if(mode==='select'){const hits=proposals().filter(({box:[x1,y1,x2,y2]})=>x>=x1&&x<=x2&&y>=y1&&y<=y2).sort((a,b)=>(a.box[2]-a.box[0])*(a.box[3]-a.box[1])-(b.box[2]-b.box[0])*(b.box[3]-b.box[1]));if(!hits.length){toast('这里没有候选框；点击“补脚下点”也可以手动开始。');return;}associateProposal(hits[0]);}
   else {const point=trajectories[active]?.[frame];change(()=>{entity().anchors=entity().anchors.filter(a=>a.frame!==frame);entity().anchors.push({frame,x,y,trackId:point?.trackId??null,box:point?.box||null,footMethod:'human_image_anchor',identityConfirmed:false,detectorBox:point?.detectorBox||point?.box||null});});toast(`${active} 当前帧脚下点已保存。`);}
@@ -170,7 +178,8 @@ $('previous').addEventListener('click',()=>seek(frame-1));$('next').addEventList
 $('timeline').addEventListener('click',event=>{const rect=event.currentTarget.getBoundingClientRect();seek(Math.floor((event.clientX-rect.left)/rect.width*clip.frames.length));});
 for(const event of ['timeupdate','seeked','play','pause'])video.addEventListener(event,updateFrame);
 function tick(){if(!video.paused)updateFrame();requestAnimationFrame(tick);}requestAnimationFrame(tick);
-for(const id of ['showCandidates','showObjects','showTrackTrails'])$(id).addEventListener('change',draw);$('maxGap').addEventListener('change',event=>change(()=>session.maxGapSeconds=Number(event.target.value)));
+for(const id of ['showCandidates','showObjects','showTrackTrails','showFeetCandidates'])$(id).addEventListener('change',draw);$('maxGap').addEventListener('change',event=>change(()=>session.maxGapSeconds=Number(event.target.value)));
+for(const [id,side] of [['adoptLeftFoot','left'],['adoptRightFoot','right']])$(id).onclick=()=>{const point=trajectories[active]?.[frame],candidate=feetForPoint(clip,frame,point);try{const anchor=footCandidateAnchor(point,frame,candidate,side,clip.width,clip.height);change(()=>{entity().anchors=entity().anchors.filter(a=>a.frame!==frame);entity().anchors.push(anchor);});toast('已采用当前帧脚部候选；来源保留，接地仍需人工核对，可撤销。');}catch(error){toast(error.message);}};
 $('undo').addEventListener('click',()=>{if(history.length){session=JSON.parse(history.pop());if(!session.entities.some(item=>item.id===active))active='P1';saveDraft();refresh();}});
 $('save').addEventListener('click',()=>{saveDraft();toast('草稿已保存在当前浏览器，可继续修改。');});
 $('cut').addEventListener('click',()=>{if(sourceCuts.includes(frame)){toast('这里是删除视频区间后的固定拼接点，轨迹必须在此断开。');return;}change(()=>session.cuts=toggleReviewCut(session.cuts,sourceCuts,frame,clip.frames.length));});
@@ -217,6 +226,7 @@ $('findLinks').addEventListener('click',()=>{
   for(const item of suggestions){const button=document.createElement('button');button.className='suggestion';button.textContent=`查看候选 ${item.fromId} → ${item.id} · ${clip.frames[item.start].time.toFixed(2)} s 起`;
     button.addEventListener('click',()=>{setLinkTrack(item.id,item.start,item.end);seek(item.start);});$('linkSuggestions').append(button);}
 });
-workspace=createWorkspace({clip,getState:()=>({session,active,frame,mode,trajectories,video}),change,seek,toast,isSelected,color,setMode,select:id=>{active=id;refresh();},redraw:draw});
+sceneUI=mountSceneObjects({clip,state:()=>({session,frame,video}),change,toast,redraw:draw});
+workspace=createWorkspace({clip,sample,variant,getState:()=>({session,active,frame,mode,trajectories,video}),change,seek,toast,isSelected,color,setMode,select:id=>{active=id;refresh();},redraw:draw});
 if(clip.supportsCourtCalibration===false){$('tab-calibration').disabled=true;$('repairCourt').disabled=true;}
 window.addEventListener('resize',drawTimeline);setLinkTrack(catalog[0]?.id);previewTrackId=null;refresh();workspace.switchStep(session.liveSelection?'identity':'footage');

@@ -1,0 +1,67 @@
+{
+  "frame": 0,
+  "side": "right",
+  "points": [
+    {
+      "id": "A",
+      "image": [
+        1437.0,
+        451.5
+      ],
+      "score": 0.52880859375,
+      "modelSlot": 38,
+      "source": "yolo11n-court48"
+    },
+    {
+      "id": "B",
+      "image": [
+        827.25,
+        499.875
+      ],
+      "score": 0.50146484375,
+      "modelSlot": 29,
+      "source": "yolo11n-court48"
+    },
+    {
+      "id": "C",
+      "image": [
+        969.75,
+        669.375
+      ],
+      "score": 0.50048828125,
+      "modelSlot": 31,
+      "source": "yolo11n-court48"
+    },
+    {
+      "id": "E",
+      "image": [
+        1256.25,
+        316.5
+      ],
+      "score": 0.51025390625,
+      "modelSlot": 35,
+      "source": "yolo11n-court48"
+    },
+    {
+      "id": "I",
+      "image": [
+        1288.5,
+        339.75
+      ],
+      "score": 0.5,
+      "modelSlot": 36,
+      "source": "yolo11n-court48"
+    }
+  ],
+  "status": "needs_review",
+  "quality": {
+    "modelInputSize": 640,
+    "sideVisuallyChecked": true,
+    "metricAccuracyValidated": false,
+    "accepted": false
+  },
+  "reliability": "仅作为人工点选起点。原图点位、投影线及镜头内传播仍需人工确认。",
+  "videoHash": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+  "source": "yolo11n-court48",
+  "description": "YOLO11n 场地点候选，经目视核对半场方向；点位和米制精度仍需人工确认。"
+}

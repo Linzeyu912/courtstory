@@ -13,6 +13,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from scene_profiles import validate_court_candidates, validate_feet_candidates
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -59,27 +61,38 @@ def main():
             if sample.get('parentVideoSha256')!=clips[sample['parentSample']]['digest']:continue
             if any(not Path(sample[k]).resolve().is_relative_to(cache) or not Path(sample[k]).is_file() for k in ['video','tracks']):continue
             if any(not Path(v['tracks']).resolve().is_relative_to(cache) or not Path(v['tracks']).is_file() for v in sample.get('trackingVariants',[])):continue
+            if any(not Path(sample[k]).resolve().is_relative_to(cache) or not Path(sample[k]).is_file() for k in ['courtCandidates','feetCandidates'] if sample.get(k)):continue
             clips[sample['id']]=load_clip(parser,sample);samples.append(sample);saved.append(sample)
     mutation_lock=threading.Lock()
     def library_payload():
         return json.dumps({"defaultSample":default,"samples":[{**{k:s.get(k) for k in ['id','title','description','sourceUrl']},'defaultVariant':clips[s['id']]['defaultVariant']} for s in samples]},ensure_ascii=False).encode('utf-8')
     static = Path(__file__).resolve().parents[1] / "tools/player-review"
     routes = {"/": static / "index.html"}
-    for filename in ["style.css","pipeline.css","app.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
+    for filename in ["style.css","pipeline.css","app.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
         routes['/'+filename]=static/filename
 
     class Handler(BaseHTTPRequestHandler):
         def do_POST(self):
-            if urlsplit(self.path).path!='/api/trim':self.send_error(404);return
+            route=urlsplit(self.path).path
+            if route not in {'/api/trim','/api/court-propagate'}:self.send_error(404);return
             origin=self.headers.get('Origin')
             if origin and origin!=f'http://127.0.0.1:{self.server.server_port}':self.send_error(403);return
             if self.headers.get('Content-Type','').split(';')[0]!='application/json':self.send_error(415);return
             try:
                 size=int(self.headers.get('Content-Length','0'))
-                if not 0<size<=65536:raise ValueError('剪辑请求大小不正确。')
+                if not 0<size<=65536:raise ValueError('请求大小不正确。')
                 request=json.loads(self.rfile.read(size))
+                if not isinstance(request,dict):raise ValueError('请求必须是 JSON 对象。')
                 source_id=request.get('sample');variant=request.get('variant',clips.get(source_id,{}).get('defaultVariant','original'))
                 if source_id not in clips or variant not in clips[source_id]['payloads']:raise ValueError('找不到源视频或跟踪版本。')
+                if route=='/api/court-propagate':
+                    from court_propagation import propagate_court
+                    with mutation_lock:
+                        result=propagate_court(clips[source_id]['video'],json.loads(clips[source_id]['payloads'][variant]),
+                                               request.get('seed'),request.get('cuts') or [])
+                    data=json.dumps(result,ensure_ascii=False,allow_nan=False).encode('utf-8')
+                    self.send_response(200);self.send_header('Content-Type','application/json; charset=utf-8')
+                    self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
                 from review_video_trim import trim_review_clip
                 with mutation_lock:
                     parent=next(s for s in samples if s['id']==source_id)
@@ -103,7 +116,7 @@ def main():
                 data=json.dumps({'error':str(error)},ensure_ascii=False).encode('utf-8')
                 self.send_response(400);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data)
             except Exception as error:
-                print(f'Trim failed: {type(error).__name__}: {error}',flush=True);self.send_error(500,'Video trim failed; source preserved')
+                print(f'Review operation failed: {type(error).__name__}: {error}',flush=True);self.send_error(500,'Review operation failed; source preserved')
 
         def do_HEAD(self):
             self.respond(head_only=True)
@@ -221,10 +234,22 @@ def load_clip(parser,sample):
         candidate = json.loads(Path(sample.get('courtProfile','engineering/research/vision-player-refinement/clip001-court-expanded.json')).read_text(encoding="utf-8"))
         if candidate.get("videoHash") == digest:
             court_profile = candidate
+    court_candidates = None
+    if sample.get('courtCandidates'):
+        candidate=json.loads(Path(sample['courtCandidates']).read_text(encoding='utf-8'))
+        court_candidates=validate_court_candidates(candidate,digest,len(records))
+    fingerprints={key:hashlib.sha256(entry[1].read_bytes()).hexdigest() for key,entry in versions.items()}
+    feet_candidates = None
+    if sample.get('feetCandidates'):
+        candidate=json.loads(Path(sample['feetCandidates']).read_text(encoding='utf-8'))
+        feet_candidates=validate_feet_candidates(candidate,digest,
+            {fingerprints[key]:entry[0] for key,entry in versions.items()},width,height)
     payloads={key:json.dumps({"video_sha256":digest,"width":width,"height":height,"courtCalibration":court_profile,
-        "frames":data,"sourceCuts":sample.get('sourceCuts',[]),"liveSelection":sample.get('liveSelection'),"source_video_sha256":sample.get('sourceVideoSha256'),"supportsCourtCalibration":sample.get('supportsCourtCalibration',True),"tracking_revision":key,"tracking_fingerprint":hashlib.sha256(path.read_bytes()).hexdigest(),
+        "courtCandidates":court_candidates,
+        "feetCandidates":feet_candidates if feet_candidates and feet_candidates['trackingFingerprint']==fingerprints[key] else None,
+        "frames":data,"sourceCuts":sample.get('sourceCuts',[]),"liveSelection":sample.get('liveSelection'),"source_video_sha256":sample.get('sourceVideoSha256'),"supportsCourtCalibration":sample.get('supportsCourtCalibration',True),"tracking_revision":key,"tracking_fingerprint":fingerprints[key],
         "variant":key,"defaultVariant":default_variant,
-        "variants":[{"id":identifier,"label":entry[2],"recommended":entry[3]} for identifier,entry in versions.items()]},ensure_ascii=False).encode("utf-8") for key,(data,path,label,recommended) in versions.items()}
+        "variants":[{"id":identifier,"label":entry[2],"recommended":entry[3]} for identifier,entry in versions.items()]},ensure_ascii=False,allow_nan=False).encode("utf-8") for key,(data,path,label,recommended) in versions.items()}
     return {'video':video,'payloads':payloads,'digest':digest,'frames':len(records),'defaultVariant':default_variant}
 
 

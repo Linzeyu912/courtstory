@@ -7,8 +7,11 @@ export function editImageAnchor(point, frame, edit, width, height) {
   const x=clamp(rawX,width), y=clamp(rawY,height);
   const box=edit.box??point.box;
   if(box && (box.length!==4 || !box.every(Number.isFinite) || box[0]<0 || box[1]<0 || box[2]>width || box[3]>height || box[2]-box[0]<2 || box[3]-box[1]<2)) throw new Error('人物框必须在画面内且宽高至少 2 像素。');
+  const keepFootCandidate=point.footCandidate&&Math.abs(x-point.x)<1e-8&&Math.abs(y-point.y)<1e-8;
   return {frame,x,y,trackId:point.trackId??null,box:box?.slice()||null,identityConfirmed:false,
-    footMethod:edit.box && point.footMethod==='bbox_bottom_center' && Math.abs(x-(box[0]+box[2])/2)<.01 && Math.abs(y-box[3])<.01?'bbox_bottom_center':'human_image_anchor',
+    footMethod:keepFootCandidate?point.footMethod:edit.box && point.footMethod==='bbox_bottom_center' && Math.abs(x-(box[0]+box[2])/2)<.01 && Math.abs(y-box[3])<.01?'bbox_bottom_center':'human_image_anchor',
+    ...(keepFootCandidate?{footCandidate:structuredClone(point.footCandidate)}:{}),
+    ...(point.footCandidate||point.groundContactConfirmed===false?{groundContactConfirmed:false}:{}),
     boxMethod:edit.box&&JSON.stringify(edit.box)!==JSON.stringify(point.box)?'human_image_box':point.boxMethod||'detector',
     detectorBox:point.detectorBox||point.box?.slice()||null};
 }

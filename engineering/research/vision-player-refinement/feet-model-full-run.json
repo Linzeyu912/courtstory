@@ -1,0 +1,47 @@
+{
+  "collectedAt": "2026-10-02T15:36:45.232682+08:00",
+  "device": "cpu",
+  "threads": 4,
+  "initializationSeconds": 0.12371420001727529,
+  "timingScope": "per-clip loop includes sequential video decode, crop, inference, postprocess, result collection; excludes load/warmup/hash/write",
+  "clips": [
+    {
+      "sampleId": "004",
+      "frames": 210,
+      "personObservations": 1827,
+      "leftCandidates": 1470,
+      "rightCandidates": 1511,
+      "loopSeconds": 8.909054499992635,
+      "poseSeconds": 8.543130300298799,
+      "cacheBytes": 2185482,
+      "cacheSha256": "e91e86bdf519ec2b12c9173221f3157a276b71f722bdad6872b4f82153f4341c",
+      "trackingFingerprint": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb"
+    },
+    {
+      "sampleId": "005",
+      "frames": 143,
+      "personObservations": 1311,
+      "leftCandidates": 1203,
+      "rightCandidates": 1197,
+      "loopSeconds": 6.69880589999957,
+      "poseSeconds": 6.224288100085687,
+      "cacheBytes": 1676329,
+      "cacheSha256": "9fb457577faa57c91da84b4b0e14f18349e2e8ce37c22d1a7e1f06d2a1638d52",
+      "trackingFingerprint": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e"
+    },
+    {
+      "sampleId": "006",
+      "frames": 462,
+      "personObservations": 4279,
+      "leftCandidates": 3893,
+      "rightCandidates": 3890,
+      "loopSeconds": 21.577462799992645,
+      "poseSeconds": 20.125887500296813,
+      "cacheBytes": 5455581,
+      "cacheSha256": "5369ea730099981f79529bd2e451cb8144b4ac9ef1354399cb1109c07bad3ec3",
+      "trackingFingerprint": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0"
+    }
+  ],
+  "totalLoopSeconds": 37.18532319998485,
+  "totalPoseSeconds": 34.8933059006813
+}
