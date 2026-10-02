@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import {mountVideoDisplay} from './video-display.mjs';
+import {frameAtMediaTime,frameSeekTime} from './team-overlay.mjs';
 
 class FakeEvents {
   listeners=new Map();
@@ -64,6 +66,39 @@ test('paused frame steps keep the old canvas pending until the new seek finishes
   s.display.seek(4);assert.equal(s.stage.dataset.videoState,'seeking');assert.equal(s.canvas.dataset.ready,'true');
   s.display.refresh();s.video.emit('canplay');s.video.frame();assert.equal(s.draws.length,count);
   s.video.finishSeek();assert.equal(s.draws.at(-1).time,4);assert.equal(s.stage.dataset.videoState,'ready');assert.equal(s.video.paused,true);
+});
+
+test('frame navigation survives quantized seeks followed by actual decoded-frame callbacks',t=>{
+  const records=JSON.parse(fs.readFileSync(new URL('../../../data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.json',import.meta.url),'utf8'));
+  const pts=records.map(record=>record.source_frame_pts*record.source_time_base[0]/record.source_time_base[1]);
+  class QuantizedVideo extends FakeVideo {
+    get currentTime(){return super.currentTime;}
+    set currentTime(time){super.currentTime=Math.floor(time*1e6)/1e6;}
+    decodedFrame(){
+      const decoded=Math.max(0,pts.findLastIndex(time=>time<=this.currentTime));
+      const item=this.callbacks.entries().next().value;
+      if(item){this.callbacks.delete(item[0]);item[1](0,{mediaTime:Math.floor(pts[decoded]*1e6)/1e6});}
+      return decoded;
+    }
+  }
+  const video=new QuantizedVideo(),s=setup(t,{video,initial:frameSeekTime(records,0)});
+  video.metadata();video.finishSeek();video.decodedFrame();
+  const displayed=()=>frameAtMediaTime(records,s.presented.at(-1).time);
+  // Reproduce the old two-click bug: seeked first reports target currentTime,
+  // then rVFC correctly reports the previous source frame actually decoded.
+  s.display.seek(records[1].time);video.finishSeek();
+  assert.equal(displayed(),1);assert.equal(video.decodedFrame(),0);assert.equal(displayed(),0);
+  const step=index=>{
+    s.display.seek(frameSeekTime(records,index));video.finishSeek();
+    assert.equal(video.decodedFrame(),index);assert.equal(displayed(),index);
+  };
+  step(0);
+  for(let index=1;index<records.length;index++)step(index);
+  for(let index=records.length-2;index>=0;index--)step(index);
+  for(let index=1;index<=32;index++)s.display.seek(frameSeekTime(records,index));
+  video.finishSeek();assert.equal(video.decodedFrame(),32);assert.equal(displayed(),32,'rapid scrubber input keeps its latest target');
+  s.display.pause();s.display.refresh();s.display.refresh();
+  step(displayed()-1);assert.equal(displayed(),31,'pause and undo-style refreshes do not change the next previous-frame action');
 });
 
 test('reload preserves the requested time and resumes only when previously playing',async t=>{

@@ -57,6 +57,18 @@ export function presentationPoint(raw,stable,{stable:enabled=true,editing=false}
   return enabled&&!editing?stable||raw:raw;
 }
 
+export function frameSeekTime(frames,index) {
+  if(!frames.length)return 0;
+  const at=Math.max(0,Math.min(frames.length-1,Number.isFinite(index)?Math.trunc(index):0));
+  const time=frames[at].time,next=frames[at+1]?.time;
+  if(!Number.isFinite(time)||time<0)return 0;
+  // A seek exactly at source PTS may truncate below that PTS in the browser,
+  // decoding the previous frame. Land inside this frame instead; the decoder's
+  // reported presentation time still decides which annotations are displayed.
+  const inset=Number.isFinite(next)&&next>time?Math.min(2e-6,(next-time)/2):2e-6;
+  return time+inset;
+}
+
 export function frameAtMediaTime(frames,time,fallback=0) {
   if(!Number.isFinite(time))return Math.max(0,Math.min(frames.length-1,fallback));
   // Browser media times can truncate source PTS to microseconds, while the

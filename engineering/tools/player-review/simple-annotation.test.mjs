@@ -122,14 +122,16 @@ test('explicit candidate association changes only the selected identity and undo
   }finally{app.restore();}
 });
 
-test('scrubbing follows source timestamps and card selection cannot consume an earlier candidate preview',async()=>{
+test('scrubbing seeks just inside source frames without changing timestamps or consuming an earlier candidate preview',async()=>{
   const app=await openApp();try{
-    const before=structuredClone(app.state().session);
+    const before=structuredClone(app.state().session),sourceTimes=app.clip.frames.map(record=>record.time);
     app.actions.preview(app.identityState().proposals.find(proposal=>proposal.trackId===9));
-    app.get('next').click();assert.equal(app.state().video.currentTime,.031);assert.equal(app.state().frame,1);
+    app.get('next').click();assert.equal(app.state().video.currentTime,.031+2e-6);assert.equal(app.state().frame,1);
     app.select('P3');assert.deepEqual(app.state().session,before);
     app.get('scrubber').value='3';app.get('scrubber').dispatch('input');
-    assert.equal(app.state().video.currentTime,.119);assert.deepEqual(app.state().session.cuts,[2]);
+    assert.equal(app.state().video.currentTime,.119+2e-6);assert.deepEqual(app.state().session.cuts,[2]);
+    assert.deepEqual(app.clip.frames.map(record=>record.time),sourceTimes);
+    assert.equal(app.state().trajectories.P1[3].time,.119,'trajectory timestamps retain the original PTS');
     assert.equal(app.state().trajectories.P1[3].x,null,'source join does not inherit the earlier identity');
   }finally{app.restore();}
 });

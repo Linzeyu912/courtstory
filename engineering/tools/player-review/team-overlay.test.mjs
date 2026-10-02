@@ -147,6 +147,32 @@ test('timestamp tolerance stays local with irregular presentation intervals and 
   assert.equal(at(records,.198824),3);
 });
 
+test('seek positions remain inside every decoded sample 004 frame after browser microsecond truncation',()=>{
+  const seekTime=requireFeature('frameSeekTime');
+  const records=JSON.parse(fs.readFileSync(new URL('../../../data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.json',import.meta.url),'utf8'));
+  const before=structuredClone(records),pts=records.map(record=>record.source_frame_pts*record.source_time_base[0]/record.source_time_base[1]);
+  assert.ok(Math.floor(records[1].time*1e6)/1e6<pts[1],'exact boundary requests can decode the preceding frame');
+  for(let index=0;index<records.length;index++){
+    const requested=seekTime(records,index),quantized=Math.floor(requested*1e6)/1e6;
+    assert.ok(quantized>=pts[index],`seek must not precede decoded frame ${index}`);
+    if(index+1<pts.length)assert.ok(quantized<pts[index+1],`seek must not cross frame ${index}`);
+    assert.equal(requireFeature('frameAtMediaTime')(records,quantized),index);
+  }
+  assert.deepEqual(records,before);
+});
+
+test('seek inset respects short variable frame intervals and clamps invalid indices',()=>{
+  const seekTime=requireFeature('frameSeekTime'),records=[.04,.0801,.080102,.2].map(time=>({time}));
+  assert.equal(seekTime(records,0),.040002);
+  assert.equal(seekTime(records,1),(.0801+.080102)/2,'inset is capped at half the next interval');
+  assert.ok(seekTime(records,1)<records[2].time);
+  assert.equal(seekTime(records,-1),seekTime(records,0));
+  assert.equal(seekTime(records,100),seekTime(records,3));
+  assert.equal(seekTime(records,NaN),seekTime(records,0));
+  assert.equal(seekTime([],0),0);
+  assert.equal(seekTime([{time:0}],0),.000002);
+});
+
 test('shared renderer fixture keeps hand-checked geometry and team display policy',()=>{
   const fixture=JSON.parse(fs.readFileSync(new URL('./team-overlay-fixture.json',import.meta.url),'utf8'));
   const stable=requireFeature('stabilizePoints')(fixture.points,fixture.cuts,fixture.width,fixture.height,policy);
