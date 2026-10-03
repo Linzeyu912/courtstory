@@ -68,11 +68,21 @@ def validate(metadata_only=False, check_index=False):
             require(str(label.get('id', label.get('clip_id'))).zfill(3) == local_id, 'annotation ID mismatch: ' + cid)
             require(label['season'] == manifest['season'] == entry['game']['season'], 'annotation season mismatch: ' + cid)
             source = entry['source']
-            require(urlparse(source['url']).scheme in {'https', 'http'}, 'source URL missing: ' + cid)
-            require(is_number(source['start_seconds']) and is_number(source['end_seconds'])
-                    and 0 <= source['start_seconds'] < source['end_seconds'], 'invalid source interval: ' + cid)
+            user_upload = dataset.get('purpose') == 'user_upload' and source.get('kind') == 'user_upload'
+            if user_upload:
+                require(isinstance(source.get('uploaded_filename'), str) and source['uploaded_filename'].strip(),
+                        'uploaded filename missing: ' + cid)
+                require(isinstance(source.get('unknown_reason'), str) and source['unknown_reason'].strip(),
+                        'uploaded source explanation missing: ' + cid)
+            require((user_upload and source['url'] is None)
+                    or urlparse(source['url']).scheme in {'https', 'http'}, 'source URL missing: ' + cid)
+            require((user_upload and source['start_seconds'] is None and source['end_seconds'] is None)
+                    or (is_number(source['start_seconds']) and is_number(source['end_seconds'])
+                        and 0 <= source['start_seconds'] < source['end_seconds']), 'invalid source interval: ' + cid)
             require(source['collected_at'] and (entry['game']['date_local'] or
-                    (dataset.get('purpose') == 'tactic_acceptance' and entry['game'].get('unknown_reason'))),
+                    ((dataset.get('purpose') == 'tactic_acceptance' or user_upload)
+                     and isinstance(entry['game'].get('unknown_reason'), str)
+                     and entry['game']['unknown_reason'].strip())),
                     'collection or game date missing without acceptance-sample explanation: ' + cid)
             require(entry['tactic']['label_status'] in {'reviewed_visible_actions', 'provisional_from_collector_notes'},
                     'invalid label status: ' + cid)
