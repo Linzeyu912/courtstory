@@ -1,0 +1,63 @@
+case,frame,track_id,event_time_seconds,source,observed,confidence,anchors,role_reference_frame,role_reference_time_seconds,source_frame_floor,lookahead_floor_seconds,available_at,actual_latency_seconds,source_file,pointer
+s24-007,72,8,2.88,interpolated,False,0.2523,"[71, 78]",31,1.24,125,2.12,,,artifacts/player-recovery/batch-v3/s24-007/recovered.json,/frames/72/tracks/6
+s24-007,73,8,2.92,interpolated,False,0.2523,"[71, 78]",31,1.24,125,2.08,,,artifacts/player-recovery/batch-v3/s24-007/recovered.json,/frames/73/tracks/6
+s24-007,74,8,2.96,interpolated,False,0.2523,"[71, 78]",31,1.24,125,2.04,,,artifacts/player-recovery/batch-v3/s24-007/recovered.json,/frames/74/tracks/6
+s24-007,75,8,3.0,interpolated,False,0.2523,"[71, 78]",31,1.24,125,2.0,,,artifacts/player-recovery/batch-v3/s24-007/recovered.json,/frames/75/tracks/6
+s24-007,76,8,3.04,interpolated,False,0.2523,"[71, 78]",31,1.24,125,1.96,,,artifacts/player-recovery/batch-v3/s24-007/recovered.json,/frames/76/tracks/6
+s24-007,77,8,3.08,interpolated,False,0.2523,"[71, 78]",31,1.24,125,1.92,,,artifacts/player-recovery/batch-v3/s24-007/recovered.json,/frames/77/tracks/6
+s24-007,78,8,3.12,qwen,True,0.85,null,31,1.24,125,1.88,,,artifacts/player-recovery/batch-v3/s24-007/recovered.json,/frames/78/tracks/6
+s24-015,62,10,2.48,interpolated,False,0.5751,"[61, 67]",87,3.48,87,1.0,,,artifacts/player-recovery/batch-v3/s24-015/recovered.json,/frames/62/tracks/8
+s24-015,63,10,2.52,interpolated,False,0.5751,"[61, 67]",87,3.48,87,0.96,,,artifacts/player-recovery/batch-v3/s24-015/recovered.json,/frames/63/tracks/8
+s24-015,64,10,2.56,interpolated,False,0.5751,"[61, 67]",87,3.48,87,0.9199999999999999,,,artifacts/player-recovery/batch-v3/s24-015/recovered.json,/frames/64/tracks/8
+s24-015,65,10,2.6,interpolated,False,0.5751,"[61, 67]",87,3.48,87,0.8799999999999999,,,artifacts/player-recovery/batch-v3/s24-015/recovered.json,/frames/65/tracks/8
+s24-015,66,10,2.64,interpolated,False,0.5751,"[61, 67]",87,3.48,87,0.8399999999999999,,,artifacts/player-recovery/batch-v3/s24-015/recovered.json,/frames/66/tracks/8
+s24-015,67,10,2.68,qwen,True,0.95,null,87,3.48,87,0.7999999999999998,,,artifacts/player-recovery/batch-v3/s24-015/recovered.json,/frames/67/tracks/7
+s24-015,68,10,2.72,interpolated,False,0.591,"[67, 73]",87,3.48,87,0.7599999999999998,,,artifacts/player-recovery/batch-v3/s24-015/recovered.json,/frames/68/tracks/7
+s24-015,69,10,2.76,interpolated,False,0.591,"[67, 73]",87,3.48,87,0.7200000000000002,,,artifacts/player-recovery/batch-v3/s24-015/recovered.json,/frames/69/tracks/7
+s24-015,70,10,2.8,interpolated,False,0.591,"[67, 73]",87,3.48,87,0.6800000000000002,,,artifacts/player-recovery/batch-v3/s24-015/recovered.json,/frames/70/tracks/8
+s24-015,71,10,2.84,interpolated,False,0.591,"[67, 73]",87,3.48,87,0.6400000000000001,,,artifacts/player-recovery/batch-v3/s24-015/recovered.json,/frames/71/tracks/8
+s24-015,72,10,2.88,interpolated,False,0.591,"[67, 73]",87,3.48,87,0.6000000000000001,,,artifacts/player-recovery/batch-v3/s24-015/recovered.json,/frames/72/tracks/8
+s24-023,182,7,7.28,interpolated,False,0.4269,"[181, 188]",138,5.52,196,0.5599999999999996,,,artifacts/player-recovery/batch-v3/s24-023/recovered.json,/frames/182/tracks/4
+s24-023,183,7,7.32,interpolated,False,0.4269,"[181, 188]",138,5.52,196,0.5199999999999996,,,artifacts/player-recovery/batch-v3/s24-023/recovered.json,/frames/183/tracks/4
+s24-023,184,7,7.36,interpolated,False,0.4269,"[181, 188]",138,5.52,196,0.47999999999999954,,,artifacts/player-recovery/batch-v3/s24-023/recovered.json,/frames/184/tracks/4
+s24-023,185,7,7.4,interpolated,False,0.4269,"[181, 188]",138,5.52,196,0.4399999999999995,,,artifacts/player-recovery/batch-v3/s24-023/recovered.json,/frames/185/tracks/4
+s24-023,186,7,7.44,interpolated,False,0.4269,"[181, 188]",138,5.52,196,0.39999999999999947,,,artifacts/player-recovery/batch-v3/s24-023/recovered.json,/frames/186/tracks/4
+s24-023,187,7,7.48,interpolated,False,0.4269,"[181, 188]",138,5.52,196,0.35999999999999943,,,artifacts/player-recovery/batch-v3/s24-023/recovered.json,/frames/187/tracks/4
+s24-023,188,7,7.52,qwen,True,0.85,null,138,5.52,196,0.3200000000000003,,,artifacts/player-recovery/batch-v3/s24-023/recovered.json,/frames/188/tracks/4
+s24-053,82,1,3.28,interpolated,False,0.5313,"[81, 87]",42,1.68,163,3.2399999999999998,,,artifacts/player-recovery/batch-v3/s24-053/recovered.json,/frames/82/tracks/0
+s24-053,83,1,3.32,interpolated,False,0.5313,"[81, 87]",42,1.68,163,3.1999999999999997,,,artifacts/player-recovery/batch-v3/s24-053/recovered.json,/frames/83/tracks/0
+s24-053,84,1,3.36,interpolated,False,0.5313,"[81, 87]",42,1.68,163,3.1599999999999997,,,artifacts/player-recovery/batch-v3/s24-053/recovered.json,/frames/84/tracks/0
+s24-053,85,1,3.4,interpolated,False,0.5313,"[81, 87]",42,1.68,163,3.1199999999999997,,,artifacts/player-recovery/batch-v3/s24-053/recovered.json,/frames/85/tracks/0
+s24-053,86,1,3.44,interpolated,False,0.5313,"[81, 87]",42,1.68,163,3.0799999999999996,,,artifacts/player-recovery/batch-v3/s24-053/recovered.json,/frames/86/tracks/0
+s24-053,87,1,3.48,qwen,True,0.85,null,42,1.68,163,3.0399999999999996,,,artifacts/player-recovery/batch-v3/s24-053/recovered.json,/frames/87/tracks/0
+s25-05,81,13,1.35135,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.75175,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/81/tracks/10
+s25-05,82,13,1.368033,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.735067,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/82/tracks/10
+s25-05,83,13,1.384717,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.718383,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/83/tracks/10
+s25-05,84,13,1.4014,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.7017,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/84/tracks/10
+s25-05,85,13,1.418083,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.685017,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/85/tracks/10
+s25-05,86,13,1.434767,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.668333,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/86/tracks/10
+s25-05,87,13,1.45145,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.65165,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/87/tracks/10
+s25-05,88,13,1.468133,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.634967,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/88/tracks/10
+s25-05,89,13,1.484817,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.618283,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/89/tracks/10
+s25-05,90,13,1.5015,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.6016,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/90/tracks/10
+s25-05,91,13,1.518183,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.584917,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/91/tracks/10
+s25-05,92,13,1.534867,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.568233,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/92/tracks/10
+s25-05,93,13,1.55155,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.55155,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/93/tracks/10
+s25-05,94,13,1.568233,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.534867,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/94/tracks/10
+s25-05,95,13,1.584917,interpolated,False,0.6224,"[80, 96]",186,3.1031,186,1.518183,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/95/tracks/10
+s25-05,96,13,1.6016,qwen,True,0.95,null,186,3.1031,186,1.5015,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/96/tracks/10
+s25-05,97,13,1.618283,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.484817,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/97/tracks/10
+s25-05,98,13,1.634967,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.468133,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/98/tracks/10
+s25-05,99,13,1.65165,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.45145,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/99/tracks/10
+s25-05,100,13,1.668333,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.434767,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/100/tracks/10
+s25-05,101,13,1.685017,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.418083,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/101/tracks/10
+s25-05,102,13,1.7017,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.4014,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/102/tracks/10
+s25-05,103,13,1.718383,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.384717,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/103/tracks/10
+s25-05,104,13,1.735067,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.368033,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/104/tracks/10
+s25-05,105,13,1.75175,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.35135,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/105/tracks/10
+s25-05,106,13,1.768433,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.334667,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/106/tracks/10
+s25-05,107,13,1.785117,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.317983,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/107/tracks/10
+s25-05,108,13,1.8018,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.3013,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/108/tracks/10
+s25-05,109,13,1.818483,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.284617,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/109/tracks/10
+s25-05,110,13,1.835167,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.267933,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/110/tracks/10
+s25-05,111,13,1.85185,interpolated,False,0.2548,"[96, 112]",186,3.1031,186,1.25125,,,artifacts/player-recovery/batch-v3/s25-05/recovered.json,/frames/111/tracks/10

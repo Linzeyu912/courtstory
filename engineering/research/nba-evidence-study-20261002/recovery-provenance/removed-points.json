@@ -1,0 +1,45 @@
+[
+  {
+    "case": "s24-053",
+    "frame": 138,
+    "track_id": 14,
+    "source": "interpolated",
+    "observed": false,
+    "anchors": [
+      137,
+      139
+    ],
+    "role_reference_frame": 168,
+    "person_role": "active_player",
+    "source_file": "tmp/player-recovery/batch-v3/s24-053/players-short.json",
+    "matching_C_gaps": [
+      {
+        "track_id": 14,
+        "start_frame": 138,
+        "end_frame": 138,
+        "missing_frames": 1,
+        "missing_seconds": 0.07999999999999918,
+        "left_anchor": {
+          "frame": 137,
+          "source": "detector"
+        },
+        "right_anchor": {
+          "frame": 139,
+          "source": "detector"
+        },
+        "qwen_candidate": false,
+        "recovery_eligible": true,
+        "remaining_long_gap": false,
+        "motion": {
+          "implied_bbox_s": 2.396961276031351,
+          "allowed_bbox_s": 6.05089254016718,
+          "reason": "ok"
+        },
+        "filled_frames": [
+          138
+        ],
+        "role_rejected": true
+      }
+    ]
+  }
+]

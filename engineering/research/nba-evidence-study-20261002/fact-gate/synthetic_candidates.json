@@ -1,0 +1,3328 @@
+{
+  "schema_version": "candidate-fact-gate/0.1",
+  "items": [
+    {
+      "case_id": "healthy_named_actor",
+      "candidate": {
+        "kind": "named_actor_position",
+        "value": [
+          128.0,
+          350.0
+        ],
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "986c2c7a847015b12e4e9f86bf725713527eeeec54079a206fadcc25294c2c52",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "box": [
+            113.0,
+            270.0,
+            143.0,
+            350.0
+          ]
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "actor_position",
+        "world": {
+          "actors": {
+            "A": {
+              "40": [
+                128.0,
+                350.0
+              ]
+            }
+          }
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "healthy_linear",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "healthy_low_detector_score",
+      "candidate": {
+        "kind": "named_actor_position",
+        "value": [
+          128.0,
+          350.0
+        ],
+        "category": "world",
+        "confidence": 0.4,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "986c2c7a847015b12e4e9f86bf725713527eeeec54079a206fadcc25294c2c52",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "box": [
+            113.0,
+            270.0,
+            143.0,
+            350.0
+          ]
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "actor_position",
+        "world": {
+          "actors": {
+            "A": {
+              "40": [
+                128.0,
+                350.0
+              ]
+            }
+          }
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "healthy_linear",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "distant_swap_named_actor",
+      "candidate": {
+        "kind": "named_actor_position",
+        "value": [
+          1007.0,
+          465.0
+        ],
+        "category": "world",
+        "confidence": 0.65,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 60,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "bf77dc2bd7d07b1ea7d996d213b2e6a535925130a16e47791cc2abf3aa690103",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "box": [
+            992.0,
+            385.0,
+            1022.0,
+            465.0
+          ]
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "actor_position",
+        "world": {
+          "actors": {
+            "A": {
+              "60": [
+                112.0,
+                355.0
+              ]
+            }
+          }
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "distant_id_swap",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "smooth_identity_ambiguous_pass",
+      "candidate": {
+        "kind": "named_actor_position",
+        "value": [
+          132.8,
+          200.0
+        ],
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 20,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "31203e0e61a0e2f332e76f2c248afa17975b9932dc3418f6695be508671bf677",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "ambiguous",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12,
+            0.16,
+            0.2,
+            0.24,
+            0.28,
+            0.32,
+            0.36,
+            0.4,
+            0.44,
+            0.48,
+            0.52,
+            0.56,
+            0.6,
+            0.64,
+            0.68,
+            0.72,
+            0.76,
+            0.8
+          ],
+          "T1": [
+            [
+              107.2,
+              200.0
+            ],
+            [
+              110.6688,
+              200.0
+            ],
+            [
+              113.4464,
+              200.0
+            ],
+            [
+              115.6096,
+              200.0
+            ],
+            [
+              117.2352,
+              200.0
+            ],
+            [
+              118.4,
+              200.0
+            ],
+            [
+              119.1808,
+              200.0
+            ],
+            [
+              119.6544,
+              200.0
+            ],
+            [
+              119.8976,
+              200.0
+            ],
+            [
+              119.9872,
+              200.0
+            ],
+            [
+              120.0,
+              200.0
+            ],
+            [
+              120.0128,
+              200.0
+            ],
+            [
+              120.1024,
+              200.0
+            ],
+            [
+              120.3456,
+              200.0
+            ],
+            [
+              120.8192,
+              200.0
+            ],
+            [
+              121.6,
+              200.0
+            ],
+            [
+              122.7648,
+              200.0
+            ],
+            [
+              124.3904,
+              200.0
+            ],
+            [
+              126.5536,
+              200.0
+            ],
+            [
+              129.3312,
+              200.0
+            ],
+            [
+              132.8,
+              200.0
+            ]
+          ],
+          "T2": [
+            [
+              132.8,
+              200.0
+            ],
+            [
+              129.3312,
+              200.0
+            ],
+            [
+              126.5536,
+              200.0
+            ],
+            [
+              124.3904,
+              200.0
+            ],
+            [
+              122.7648,
+              200.0
+            ],
+            [
+              121.6,
+              200.0
+            ],
+            [
+              120.8192,
+              200.0
+            ],
+            [
+              120.3456,
+              200.0
+            ],
+            [
+              120.1024,
+              200.0
+            ],
+            [
+              120.0128,
+              200.0
+            ],
+            [
+              120.0,
+              200.0
+            ],
+            [
+              119.9872,
+              200.0
+            ],
+            [
+              119.8976,
+              200.0
+            ],
+            [
+              119.6544,
+              200.0
+            ],
+            [
+              119.1808,
+              200.0
+            ],
+            [
+              118.4,
+              200.0
+            ],
+            [
+              117.2352,
+              200.0
+            ],
+            [
+              115.6096,
+              200.0
+            ],
+            [
+              113.4464,
+              200.0
+            ],
+            [
+              110.6688,
+              200.0
+            ],
+            [
+              107.2,
+              200.0
+            ]
+          ],
+          "initial_identity_anchor": {
+            "actor": "A",
+            "track": "T1",
+            "frame": 0,
+            "status": "independently_verified"
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "actor_position",
+        "world": {
+          "actors": {
+            "A": {
+              "20": [
+                132.8,
+                200.0
+              ]
+            }
+          }
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "identifiability_witnesses.same_team_occlusion",
+      "equivalence_pair": "smooth_identity_ambiguous"
+    },
+    {
+      "case_id": "smooth_identity_ambiguous_turn",
+      "candidate": {
+        "kind": "named_actor_position",
+        "value": [
+          132.8,
+          200.0
+        ],
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 20,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "31203e0e61a0e2f332e76f2c248afa17975b9932dc3418f6695be508671bf677",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "ambiguous",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12,
+            0.16,
+            0.2,
+            0.24,
+            0.28,
+            0.32,
+            0.36,
+            0.4,
+            0.44,
+            0.48,
+            0.52,
+            0.56,
+            0.6,
+            0.64,
+            0.68,
+            0.72,
+            0.76,
+            0.8
+          ],
+          "T1": [
+            [
+              107.2,
+              200.0
+            ],
+            [
+              110.6688,
+              200.0
+            ],
+            [
+              113.4464,
+              200.0
+            ],
+            [
+              115.6096,
+              200.0
+            ],
+            [
+              117.2352,
+              200.0
+            ],
+            [
+              118.4,
+              200.0
+            ],
+            [
+              119.1808,
+              200.0
+            ],
+            [
+              119.6544,
+              200.0
+            ],
+            [
+              119.8976,
+              200.0
+            ],
+            [
+              119.9872,
+              200.0
+            ],
+            [
+              120.0,
+              200.0
+            ],
+            [
+              120.0128,
+              200.0
+            ],
+            [
+              120.1024,
+              200.0
+            ],
+            [
+              120.3456,
+              200.0
+            ],
+            [
+              120.8192,
+              200.0
+            ],
+            [
+              121.6,
+              200.0
+            ],
+            [
+              122.7648,
+              200.0
+            ],
+            [
+              124.3904,
+              200.0
+            ],
+            [
+              126.5536,
+              200.0
+            ],
+            [
+              129.3312,
+              200.0
+            ],
+            [
+              132.8,
+              200.0
+            ]
+          ],
+          "T2": [
+            [
+              132.8,
+              200.0
+            ],
+            [
+              129.3312,
+              200.0
+            ],
+            [
+              126.5536,
+              200.0
+            ],
+            [
+              124.3904,
+              200.0
+            ],
+            [
+              122.7648,
+              200.0
+            ],
+            [
+              121.6,
+              200.0
+            ],
+            [
+              120.8192,
+              200.0
+            ],
+            [
+              120.3456,
+              200.0
+            ],
+            [
+              120.1024,
+              200.0
+            ],
+            [
+              120.0128,
+              200.0
+            ],
+            [
+              120.0,
+              200.0
+            ],
+            [
+              119.9872,
+              200.0
+            ],
+            [
+              119.8976,
+              200.0
+            ],
+            [
+              119.6544,
+              200.0
+            ],
+            [
+              119.1808,
+              200.0
+            ],
+            [
+              118.4,
+              200.0
+            ],
+            [
+              117.2352,
+              200.0
+            ],
+            [
+              115.6096,
+              200.0
+            ],
+            [
+              113.4464,
+              200.0
+            ],
+            [
+              110.6688,
+              200.0
+            ],
+            [
+              107.2,
+              200.0
+            ]
+          ],
+          "initial_identity_anchor": {
+            "actor": "A",
+            "track": "T1",
+            "frame": 0,
+            "status": "independently_verified"
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "actor_position",
+        "world": {
+          "actors": {
+            "A": {
+              "20": [
+                107.2,
+                200.0
+              ]
+            }
+          }
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "identifiability_witnesses.same_team_occlusion",
+      "equivalence_pair": "smooth_identity_ambiguous"
+    },
+    {
+      "case_id": "smooth_identity_declared_verified_pass",
+      "candidate": {
+        "kind": "named_actor_position",
+        "value": [
+          132.8,
+          200.0
+        ],
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 20,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "31203e0e61a0e2f332e76f2c248afa17975b9932dc3418f6695be508671bf677",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12,
+            0.16,
+            0.2,
+            0.24,
+            0.28,
+            0.32,
+            0.36,
+            0.4,
+            0.44,
+            0.48,
+            0.52,
+            0.56,
+            0.6,
+            0.64,
+            0.68,
+            0.72,
+            0.76,
+            0.8
+          ],
+          "T1": [
+            [
+              107.2,
+              200.0
+            ],
+            [
+              110.6688,
+              200.0
+            ],
+            [
+              113.4464,
+              200.0
+            ],
+            [
+              115.6096,
+              200.0
+            ],
+            [
+              117.2352,
+              200.0
+            ],
+            [
+              118.4,
+              200.0
+            ],
+            [
+              119.1808,
+              200.0
+            ],
+            [
+              119.6544,
+              200.0
+            ],
+            [
+              119.8976,
+              200.0
+            ],
+            [
+              119.9872,
+              200.0
+            ],
+            [
+              120.0,
+              200.0
+            ],
+            [
+              120.0128,
+              200.0
+            ],
+            [
+              120.1024,
+              200.0
+            ],
+            [
+              120.3456,
+              200.0
+            ],
+            [
+              120.8192,
+              200.0
+            ],
+            [
+              121.6,
+              200.0
+            ],
+            [
+              122.7648,
+              200.0
+            ],
+            [
+              124.3904,
+              200.0
+            ],
+            [
+              126.5536,
+              200.0
+            ],
+            [
+              129.3312,
+              200.0
+            ],
+            [
+              132.8,
+              200.0
+            ]
+          ],
+          "T2": [
+            [
+              132.8,
+              200.0
+            ],
+            [
+              129.3312,
+              200.0
+            ],
+            [
+              126.5536,
+              200.0
+            ],
+            [
+              124.3904,
+              200.0
+            ],
+            [
+              122.7648,
+              200.0
+            ],
+            [
+              121.6,
+              200.0
+            ],
+            [
+              120.8192,
+              200.0
+            ],
+            [
+              120.3456,
+              200.0
+            ],
+            [
+              120.1024,
+              200.0
+            ],
+            [
+              120.0128,
+              200.0
+            ],
+            [
+              120.0,
+              200.0
+            ],
+            [
+              119.9872,
+              200.0
+            ],
+            [
+              119.8976,
+              200.0
+            ],
+            [
+              119.6544,
+              200.0
+            ],
+            [
+              119.1808,
+              200.0
+            ],
+            [
+              118.4,
+              200.0
+            ],
+            [
+              117.2352,
+              200.0
+            ],
+            [
+              115.6096,
+              200.0
+            ],
+            [
+              113.4464,
+              200.0
+            ],
+            [
+              110.6688,
+              200.0
+            ],
+            [
+              107.2,
+              200.0
+            ]
+          ],
+          "initial_identity_anchor": {
+            "actor": "A",
+            "track": "T1",
+            "frame": 0,
+            "status": "independently_verified"
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "actor_position",
+        "world": {
+          "actors": {
+            "A": {
+              "20": [
+                132.8,
+                200.0
+              ]
+            }
+          }
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "identifiability_witnesses.same_team_occlusion",
+      "equivalence_pair": "smooth_identity_declared_verified"
+    },
+    {
+      "case_id": "smooth_identity_declared_verified_turn",
+      "candidate": {
+        "kind": "named_actor_position",
+        "value": [
+          132.8,
+          200.0
+        ],
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 20,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "31203e0e61a0e2f332e76f2c248afa17975b9932dc3418f6695be508671bf677",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12,
+            0.16,
+            0.2,
+            0.24,
+            0.28,
+            0.32,
+            0.36,
+            0.4,
+            0.44,
+            0.48,
+            0.52,
+            0.56,
+            0.6,
+            0.64,
+            0.68,
+            0.72,
+            0.76,
+            0.8
+          ],
+          "T1": [
+            [
+              107.2,
+              200.0
+            ],
+            [
+              110.6688,
+              200.0
+            ],
+            [
+              113.4464,
+              200.0
+            ],
+            [
+              115.6096,
+              200.0
+            ],
+            [
+              117.2352,
+              200.0
+            ],
+            [
+              118.4,
+              200.0
+            ],
+            [
+              119.1808,
+              200.0
+            ],
+            [
+              119.6544,
+              200.0
+            ],
+            [
+              119.8976,
+              200.0
+            ],
+            [
+              119.9872,
+              200.0
+            ],
+            [
+              120.0,
+              200.0
+            ],
+            [
+              120.0128,
+              200.0
+            ],
+            [
+              120.1024,
+              200.0
+            ],
+            [
+              120.3456,
+              200.0
+            ],
+            [
+              120.8192,
+              200.0
+            ],
+            [
+              121.6,
+              200.0
+            ],
+            [
+              122.7648,
+              200.0
+            ],
+            [
+              124.3904,
+              200.0
+            ],
+            [
+              126.5536,
+              200.0
+            ],
+            [
+              129.3312,
+              200.0
+            ],
+            [
+              132.8,
+              200.0
+            ]
+          ],
+          "T2": [
+            [
+              132.8,
+              200.0
+            ],
+            [
+              129.3312,
+              200.0
+            ],
+            [
+              126.5536,
+              200.0
+            ],
+            [
+              124.3904,
+              200.0
+            ],
+            [
+              122.7648,
+              200.0
+            ],
+            [
+              121.6,
+              200.0
+            ],
+            [
+              120.8192,
+              200.0
+            ],
+            [
+              120.3456,
+              200.0
+            ],
+            [
+              120.1024,
+              200.0
+            ],
+            [
+              120.0128,
+              200.0
+            ],
+            [
+              120.0,
+              200.0
+            ],
+            [
+              119.9872,
+              200.0
+            ],
+            [
+              119.8976,
+              200.0
+            ],
+            [
+              119.6544,
+              200.0
+            ],
+            [
+              119.1808,
+              200.0
+            ],
+            [
+              118.4,
+              200.0
+            ],
+            [
+              117.2352,
+              200.0
+            ],
+            [
+              115.6096,
+              200.0
+            ],
+            [
+              113.4464,
+              200.0
+            ],
+            [
+              110.6688,
+              200.0
+            ],
+            [
+              107.2,
+              200.0
+            ]
+          ],
+          "initial_identity_anchor": {
+            "actor": "A",
+            "track": "T1",
+            "frame": 0,
+            "status": "independently_verified"
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "actor_position",
+        "world": {
+          "actors": {
+            "A": {
+              "20": [
+                107.2,
+                200.0
+              ]
+            }
+          }
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "identifiability_witnesses.same_team_occlusion",
+      "equivalence_pair": "smooth_identity_declared_verified"
+    },
+    {
+      "case_id": "common_motion_unknown_camera_all_players_move",
+      "candidate": {
+        "kind": "world_speed_mps",
+        "value": 2.0,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "e894e79b194c08db1d20c0a8ad88e464eff6f659fa01e35c9c676de7d01abb36",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "unresolved_common_motion",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "claimed_m_per_px": 0.025
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "speed",
+        "world": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "scale_m_per_px": 0.025
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "identifiability_witnesses.global_translation",
+      "equivalence_pair": "common_motion_unknown_camera"
+    },
+    {
+      "case_id": "common_motion_unknown_camera_camera_moves",
+      "candidate": {
+        "kind": "world_speed_mps",
+        "value": 2.0,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "e894e79b194c08db1d20c0a8ad88e464eff6f659fa01e35c9c676de7d01abb36",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "unresolved_common_motion",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "claimed_m_per_px": 0.025
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "speed",
+        "world": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              100.0,
+              200.0
+            ],
+            [
+              100.0,
+              200.0
+            ],
+            [
+              100.0,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "scale_m_per_px": 0.025
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "identifiability_witnesses.global_translation",
+      "equivalence_pair": "common_motion_unknown_camera"
+    },
+    {
+      "case_id": "common_motion_declared_static_camera_all_players_move",
+      "candidate": {
+        "kind": "world_speed_mps",
+        "value": 2.0,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "e894e79b194c08db1d20c0a8ad88e464eff6f659fa01e35c9c676de7d01abb36",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "claimed_m_per_px": 0.025
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "speed",
+        "world": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "scale_m_per_px": 0.025
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "identifiability_witnesses.global_translation",
+      "equivalence_pair": "common_motion_declared_static_camera"
+    },
+    {
+      "case_id": "common_motion_declared_static_camera_camera_moves",
+      "candidate": {
+        "kind": "world_speed_mps",
+        "value": 2.0,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "e894e79b194c08db1d20c0a8ad88e464eff6f659fa01e35c9c676de7d01abb36",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "claimed_m_per_px": 0.025
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "speed",
+        "world": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              100.0,
+              200.0
+            ],
+            [
+              100.0,
+              200.0
+            ],
+            [
+              100.0,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "scale_m_per_px": 0.025
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "identifiability_witnesses.global_translation",
+      "equivalence_pair": "common_motion_declared_static_camera"
+    },
+    {
+      "case_id": "source_pixel_motion_does_not_claim_world_motion",
+      "candidate": {
+        "kind": "pixel_track_displacement_px_s",
+        "value": 80.0,
+        "category": "source_report",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "59c41667219a8061fd7c6998b6cdb7011fe4c97fe733952bf579c7022c6eef4d",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": 80.0,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "unknown",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ]
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "pixel_derivation",
+        "source_artifact": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ]
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "identifiability_witnesses.global_translation",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "repeated_pts_wrong_derived_speed",
+      "candidate": {
+        "kind": "world_speed_mps",
+        "value": 0.38305158350409924,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "claimed_unverified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "ba199bd61d7ed7d134b7cab34160d8949d778370936f01d29786230def0abbf7",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "invalid",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "points": [
+            [
+              363.0,
+              460.0
+            ],
+            [
+              364.2,
+              460.25
+            ]
+          ],
+          "times": [
+            1.56,
+            1.64
+          ],
+          "m_per_px": 0.025
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "speed",
+        "world": {
+          "points": [
+            [
+              363.0,
+              460.0
+            ],
+            [
+              364.2,
+              460.25
+            ]
+          ],
+          "times": [
+            1.6,
+            1.64
+          ],
+          "scale_m_per_px": 0.025
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "repeated_pts",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "metric_scale_unknown_correct",
+      "candidate": {
+        "kind": "world_speed_mps",
+        "value": 2.0,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "7d1725673101b3374256f2be68cb206d8728f5a46e46b144b33d6ab4e56a4e34",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "unverified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "calibration_file": {
+            "m_per_px": 0.025,
+            "verified": false
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "speed",
+        "world": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "scale_m_per_px": 0.025
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "silent_calibration_scale_error",
+      "equivalence_pair": "metric_scale_unknown"
+    },
+    {
+      "case_id": "metric_scale_unknown_silently_wrong",
+      "candidate": {
+        "kind": "world_speed_mps",
+        "value": 2.0,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "7d1725673101b3374256f2be68cb206d8728f5a46e46b144b33d6ab4e56a4e34",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "unverified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "calibration_file": {
+            "m_per_px": 0.025,
+            "verified": false
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "speed",
+        "world": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "scale_m_per_px": 0.05
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "silent_calibration_scale_error",
+      "equivalence_pair": "metric_scale_unknown"
+    },
+    {
+      "case_id": "metric_scale_declared_verified_correct",
+      "candidate": {
+        "kind": "world_speed_mps",
+        "value": 2.0,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "d552039f9cd039c493058ca34e03ba2f211793741b44a1cdfdf6492852775190",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "calibration_file": {
+            "m_per_px": 0.025,
+            "verified": true
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "speed",
+        "world": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "scale_m_per_px": 0.025
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "silent_calibration_scale_error",
+      "equivalence_pair": "metric_scale_declared_verified"
+    },
+    {
+      "case_id": "metric_scale_declared_verified_silently_wrong",
+      "candidate": {
+        "kind": "world_speed_mps",
+        "value": 2.0,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "d552039f9cd039c493058ca34e03ba2f211793741b44a1cdfdf6492852775190",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "calibration_file": {
+            "m_per_px": 0.025,
+            "verified": true
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "speed",
+        "world": {
+          "points": [
+            [
+              100.0,
+              200.0
+            ],
+            [
+              103.2,
+              200.0
+            ],
+            [
+              106.4,
+              200.0
+            ],
+            [
+              109.6,
+              200.0
+            ]
+          ],
+          "times": [
+            0.0,
+            0.04,
+            0.08,
+            0.12
+          ],
+          "scale_m_per_px": 0.05
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "silent_calibration_scale_error",
+      "equivalence_pair": "metric_scale_declared_verified"
+    },
+    {
+      "case_id": "court_orientation_unverified_mirrored",
+      "candidate": {
+        "kind": "court_x_m",
+        "value": 2.0,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "4b7509745b92b5805828208860fd2d3be8fb940f2a5e41ad000e921e275cfadd",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "unverified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "image_x_px": 80.0,
+          "claimed_m_per_px": 0.025,
+          "claimed_half_orientation": "normal"
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "court_x",
+        "world": {
+          "image_x_px": 80.0,
+          "m_per_px": 0.025,
+          "court_length_m": 28.0,
+          "mirrored": true
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "analytic_half_court_mirror",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "court_orientation_verified_mirrored",
+      "candidate": {
+        "kind": "court_x_m",
+        "value": 2.0,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "4b7509745b92b5805828208860fd2d3be8fb940f2a5e41ad000e921e275cfadd",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "image_x_px": 80.0,
+          "claimed_m_per_px": 0.025,
+          "claimed_half_orientation": "normal"
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "court_x",
+        "world": {
+          "image_x_px": 80.0,
+          "m_per_px": 0.025,
+          "court_length_m": 28.0,
+          "mirrored": true
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "analytic_half_court_mirror",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "court_orientation_verified_correct",
+      "candidate": {
+        "kind": "court_x_m",
+        "value": 2.0,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "4b7509745b92b5805828208860fd2d3be8fb940f2a5e41ad000e921e275cfadd",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "image_x_px": 80.0,
+          "claimed_m_per_px": 0.025,
+          "claimed_half_orientation": "normal"
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "court_x",
+        "world": {
+          "image_x_px": 80.0,
+          "m_per_px": 0.025,
+          "court_length_m": 28.0,
+          "mirrored": false
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "analytic_half_court_mirror",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "smoothing_claimed_as_raw",
+      "candidate": {
+        "kind": "detector_reported_position",
+        "value": [
+          134.0,
+          350.0
+        ],
+        "category": "source_report",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "54341aec9df43208bcf224c96e785450ac709d602497505b787f413eab9e6fa1",
+          "evidence_kind": "detector_observation",
+          "data_layer": "display_smoothing",
+          "reported_value": [
+            128.0,
+            350.0
+          ],
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {},
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "source_payload",
+        "source_artifact": {
+          "reported_value": [
+            128.0,
+            350.0
+          ],
+          "direct_observation": true
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "healthy_full_scene_camera_pan",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "raw_report_exact",
+      "candidate": {
+        "kind": "detector_reported_position",
+        "value": [
+          128.0,
+          350.0
+        ],
+        "category": "source_report",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "54341aec9df43208bcf224c96e785450ac709d602497505b787f413eab9e6fa1",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": [
+            128.0,
+            350.0
+          ],
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {},
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "source_payload",
+        "source_artifact": {
+          "reported_value": [
+            128.0,
+            350.0
+          ],
+          "direct_observation": true
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "healthy_full_scene_camera_pan",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "qwen_inference_mislabeled_observed",
+      "candidate": {
+        "kind": "direct_observation_status",
+        "value": true,
+        "category": "source_report",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "ea9e4d60cdf2ef8e7f01e92418fe62427e07f175547cf976a28da7c79b3c1d7a",
+          "evidence_kind": "model_inferred_location",
+          "data_layer": "raw",
+          "reported_value": false,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {},
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "source_payload",
+        "source_artifact": {
+          "reported_value": false,
+          "direct_observation": false
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "synthetic_model_proposal",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "qwen_proposal_reported_as_proposal",
+      "candidate": {
+        "kind": "model_proposed_position",
+        "value": [
+          450.0,
+          310.0
+        ],
+        "category": "source_report",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "a7115bc57f011aeade1130486c9f3b2e94ebae452bda4e14b6c993dab47dc0aa",
+          "evidence_kind": "model_inferred_location",
+          "data_layer": "raw",
+          "reported_value": [
+            450.0,
+            310.0
+          ],
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {},
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "source_payload",
+        "source_artifact": {
+          "reported_value": [
+            450.0,
+            310.0
+          ],
+          "direct_observation": false
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "synthetic_model_proposal",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "late_identity_evidence_causal_replay_as_of_source_time",
+      "candidate": {
+        "kind": "named_actor_position",
+        "value": [
+          128.0,
+          350.0
+        ],
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "7ebcef3f6d1ae227ced29203f2af1ebabc9d3e031cf257478961ea5f9d19c6e2",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 5.0,
+          "known_source_lower_bound_seconds": 5.0,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {},
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "actor_position",
+        "world": {
+          "actors": {
+            "A": {
+              "40": [
+                128.0,
+                350.0
+              ]
+            }
+          }
+        },
+        "exact_available_at_source_seconds": 5.0
+      },
+      "scene_ref": "analytic_delayed_anchor",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "late_identity_evidence_offline_retrospective",
+      "candidate": {
+        "kind": "named_actor_position",
+        "value": [
+          128.0,
+          350.0
+        ],
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "7ebcef3f6d1ae227ced29203f2af1ebabc9d3e031cf257478961ea5f9d19c6e2",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "offline_retrospective",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 5.0,
+          "known_source_lower_bound_seconds": 5.0,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {},
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "actor_position",
+        "world": {
+          "actors": {
+            "A": {
+              "40": [
+                128.0,
+                350.0
+              ]
+            }
+          }
+        },
+        "exact_available_at_source_seconds": 5.0
+      },
+      "scene_ref": "analytic_delayed_anchor",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "lower_bound_is_not_known_readiness",
+      "candidate": {
+        "kind": "named_actor_position",
+        "value": [
+          128.0,
+          350.0
+        ],
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "7ebcef3f6d1ae227ced29203f2af1ebabc9d3e031cf257478961ea5f9d19c6e2",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "incomplete_full_clip_selection",
+          "wall_clock_available_at": null
+        },
+        "observations": {},
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "actor_position",
+        "world": {
+          "actors": {
+            "A": {
+              "40": [
+                128.0,
+                350.0
+              ]
+            }
+          }
+        },
+        "exact_available_at_source_seconds": 5.0
+      },
+      "scene_ref": "analytic_incomplete_dependency",
+      "equivalence_pair": null
+    },
+    {
+      "case_id": "cross_source_time_aligned",
+      "candidate": {
+        "kind": "event_before",
+        "value": true,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "e33bc0bc8ae8870167e40284a1115f77317e6e952370efab61ac73bdab04885b",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 20.0,
+          "target_time_seconds": 10.2
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "first": {
+            "clock": "A",
+            "time": 10.0,
+            "event": "accelerate"
+          },
+          "second": {
+            "clock": "B",
+            "time": 10.2,
+            "event": "catch"
+          },
+          "claimed_clock_offsets": {
+            "A": 0.0,
+            "B": 0.0
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "event_order",
+        "world": {
+          "first_time": 10.0,
+          "second_time": 10.2,
+          "clock_A_offset": 0.0,
+          "clock_B_offset": 0.0
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "analytic_cross_source_alignment",
+      "equivalence_pair": "cross_source_time"
+    },
+    {
+      "case_id": "cross_source_time_silent_offset",
+      "candidate": {
+        "kind": "event_before",
+        "value": true,
+        "category": "world",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "e33bc0bc8ae8870167e40284a1115f77317e6e952370efab61ac73bdab04885b",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": null,
+          "sources": []
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 20.0,
+          "target_time_seconds": 10.2
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {
+          "first": {
+            "clock": "A",
+            "time": 10.0,
+            "event": "accelerate"
+          },
+          "second": {
+            "clock": "B",
+            "time": 10.2,
+            "event": "catch"
+          },
+          "claimed_clock_offsets": {
+            "A": 0.0,
+            "B": 0.0
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "event_order",
+        "world": {
+          "first_time": 10.0,
+          "second_time": 10.2,
+          "clock_A_offset": 0.0,
+          "clock_B_offset": 0.5
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "analytic_cross_source_alignment",
+      "equivalence_pair": "cross_source_time"
+    },
+    {
+      "case_id": "copied_variants_are_not_two_independent_votes",
+      "candidate": {
+        "kind": "independent_model_agreement",
+        "value": 2,
+        "category": "source_report",
+        "confidence": 0.95,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": "T1",
+          "identity_interval": [
+            0,
+            999
+          ],
+          "target_frame": 40,
+          "source_namespace": "synthetic-stream"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": "synthetic/artifact",
+          "payload_sha256": "65cfe3bcc74050dfd4e86b605f17db24a5991770f5fbf68125de82a62324af5c",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": 2,
+          "sources": [
+            {
+              "variant": "team-stable",
+              "file_sha256": "same-bytes",
+              "correlation_group": "same-run"
+            },
+            {
+              "variant": "optimized",
+              "file_sha256": "same-bytes",
+              "correlation_group": "same-run"
+            }
+          ]
+        },
+        "states": {
+          "identity": "verified",
+          "time": "verified",
+          "geometry": "verified",
+          "camera": "verified",
+          "calibration": "verified",
+          "orientation": "verified",
+          "synchronization": "verified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 4.0,
+          "target_time_seconds": 1.6
+        },
+        "availability": {
+          "exact_available_at_source_seconds": 1.6,
+          "known_source_lower_bound_seconds": 1.6,
+          "dependency_completeness": "complete",
+          "wall_clock_available_at": null
+        },
+        "observations": {},
+        "claim_component": "raw_location"
+      },
+      "truth_context": {
+        "predicate": "independent_source_count",
+        "source_artifact": {
+          "independent_generation_ids": [
+            "run-1",
+            "run-1"
+          ]
+        },
+        "exact_available_at_source_seconds": 1.6
+      },
+      "scene_ref": "same_byte_snapshot_counterexample",
+      "equivalence_pair": null
+    }
+  ],
+  "label_origin": "analytic scene state and source artifact predicates; no real-model output is independent truth",
+  "gate_input_boundary": "Only item.candidate is passed to gate; case_id,scene_ref,truth_context and pair labels are withheld."
+}

@@ -1,0 +1,3038 @@
+{
+  "label_source": "engineering/research/player-tracking-spotchecks-20261002.json",
+  "label_sha256": "64349d63c24adc15318735ab4cfec8ca75a72a812db3a5270f094d37893f3ec5",
+  "label_method": "Human visual identity checks on saved full-frame previews; reference boxes copied from visibly correct baseline detections to locate subjects, not independently measured geometric ground truth.",
+  "limitations": [
+    "Selected challenge observations, not a representative accuracy benchmark. No full-frame/full-video annotation, IDF1, MOTA, precision or recall claim. Jersey labels here are read by a person only for evaluation, never supplied as inference identity or automatic OCR output. Ambiguous overlap observations excluded from exact-actor checks.",
+    "Reference boxes came from baseline detections; matching favors baseline geometry and is not an independent spatial benchmark.",
+    "Only reviewed actor observations are used. No frame in between receives inferred human truth.",
+    "Sparse ID contradiction counts are not full-clip IDSW, identity precision, IDF1 or HOTA."
+  ],
+  "runs": [
+    {
+      "variant": "original",
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
+      "sha256": "83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b",
+      "minimum_iou": 0.3,
+      "reviewed_actor_observations": 21,
+      "matched_reference_observations": 21,
+      "unmatched_reference_observations": [],
+      "conflicting_track_label_groups": [
+        {
+          "track_id": 25,
+          "observed_actor_labels": [
+            "blue_10",
+            "white_28"
+          ],
+          "evidence": [
+            {
+              "frame": 53,
+              "actor": "white_28",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999929280039929,
+              "detector_score": 0.825195,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "white_28",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.99999765654949,
+              "detector_score": 0.907715,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "fragmented_actor_groups": [
+        {
+          "actor": "blue_10",
+          "observed_track_ids": [
+            3,
+            25
+          ],
+          "evidence": [
+            {
+              "frame": 0,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999924380707051,
+              "detector_score": 0.878906,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 53,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999894094923018,
+              "detector_score": 0.80127,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999925533304623,
+              "detector_score": 0.828613,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "matches": [
+        {
+          "frame": 0,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999851302357536,
+          "detector_score": 0.900391,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999899354064057,
+          "detector_score": 0.890137,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999924380707051,
+          "detector_score": 0.878906,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999932318124864,
+          "detector_score": 0.609375,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999888168338475,
+          "detector_score": 0.866699,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999911053191367,
+          "detector_score": 0.930176,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999894094923018,
+          "detector_score": 0.80127,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999830734313317,
+          "detector_score": 0.890137,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_23",
+          "track_id": 22,
+          "iou_to_inherited_box": 0.9999785974880616,
+          "detector_score": 0.811523,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_28",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.9999929280039929,
+          "detector_score": 0.825195,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.48389483198553684,
+          "detector_score": 0.689453,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999925533304623,
+          "detector_score": 0.828613,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.999990132877876,
+          "detector_score": 0.827148,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_23",
+          "track_id": 22,
+          "iou_to_inherited_box": 0.9999866818618713,
+          "detector_score": 0.765625,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_28",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.99999765654949,
+          "detector_score": 0.907715,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999879238954898,
+          "detector_score": 0.822266,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "blue_10",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.9999869284582075,
+          "detector_score": 0.816895,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999896089613849,
+          "detector_score": 0.806152,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_23",
+          "track_id": 22,
+          "iou_to_inherited_box": 0.9999876622506761,
+          "detector_score": 0.663574,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999946912791706,
+          "detector_score": 0.929199,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "blue_10",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.9999918707032432,
+          "detector_score": 0.910645,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        }
+      ],
+      "independent_accuracy": null
+    },
+    {
+      "variant": "original",
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
+      "sha256": "83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b",
+      "minimum_iou": 0.5,
+      "reviewed_actor_observations": 21,
+      "matched_reference_observations": 20,
+      "unmatched_reference_observations": [
+        {
+          "frame": 159,
+          "actor": "white_7"
+        }
+      ],
+      "conflicting_track_label_groups": [
+        {
+          "track_id": 25,
+          "observed_actor_labels": [
+            "blue_10",
+            "white_28"
+          ],
+          "evidence": [
+            {
+              "frame": 53,
+              "actor": "white_28",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999929280039929,
+              "detector_score": 0.825195,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "white_28",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.99999765654949,
+              "detector_score": 0.907715,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "fragmented_actor_groups": [
+        {
+          "actor": "blue_10",
+          "observed_track_ids": [
+            3,
+            25
+          ],
+          "evidence": [
+            {
+              "frame": 0,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999924380707051,
+              "detector_score": 0.878906,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 53,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999894094923018,
+              "detector_score": 0.80127,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999925533304623,
+              "detector_score": 0.828613,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "matches": [
+        {
+          "frame": 0,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999851302357536,
+          "detector_score": 0.900391,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999899354064057,
+          "detector_score": 0.890137,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999924380707051,
+          "detector_score": 0.878906,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999932318124864,
+          "detector_score": 0.609375,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999888168338475,
+          "detector_score": 0.866699,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999911053191367,
+          "detector_score": 0.930176,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999894094923018,
+          "detector_score": 0.80127,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999830734313317,
+          "detector_score": 0.890137,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_23",
+          "track_id": 22,
+          "iou_to_inherited_box": 0.9999785974880616,
+          "detector_score": 0.811523,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_28",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.9999929280039929,
+          "detector_score": 0.825195,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999925533304623,
+          "detector_score": 0.828613,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.999990132877876,
+          "detector_score": 0.827148,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_23",
+          "track_id": 22,
+          "iou_to_inherited_box": 0.9999866818618713,
+          "detector_score": 0.765625,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_28",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.99999765654949,
+          "detector_score": 0.907715,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999879238954898,
+          "detector_score": 0.822266,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "blue_10",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.9999869284582075,
+          "detector_score": 0.816895,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999896089613849,
+          "detector_score": 0.806152,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_23",
+          "track_id": 22,
+          "iou_to_inherited_box": 0.9999876622506761,
+          "detector_score": 0.663574,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999946912791706,
+          "detector_score": 0.929199,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "blue_10",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.9999918707032432,
+          "detector_score": 0.910645,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        }
+      ],
+      "independent_accuracy": null
+    },
+    {
+      "variant": "low",
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-low.json",
+      "sha256": "d2aa7f1cbbe418ca2106cf8de14d68897c5675d4dbf00c9334dd9503f9b155fd",
+      "minimum_iou": 0.3,
+      "reviewed_actor_observations": 21,
+      "matched_reference_observations": 21,
+      "unmatched_reference_observations": [],
+      "conflicting_track_label_groups": [
+        {
+          "track_id": 25,
+          "observed_actor_labels": [
+            "blue_10",
+            "white_28"
+          ],
+          "evidence": [
+            {
+              "frame": 53,
+              "actor": "white_28",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999929280039929,
+              "detector_score": 0.825195,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "white_28",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.99999765654949,
+              "detector_score": 0.907715,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "fragmented_actor_groups": [
+        {
+          "actor": "blue_10",
+          "observed_track_ids": [
+            3,
+            25
+          ],
+          "evidence": [
+            {
+              "frame": 0,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999924380707051,
+              "detector_score": 0.878906,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 53,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999894094923018,
+              "detector_score": 0.80127,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999925533304623,
+              "detector_score": 0.828613,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "matches": [
+        {
+          "frame": 0,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999851302357536,
+          "detector_score": 0.900391,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999899354064057,
+          "detector_score": 0.890137,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999924380707051,
+          "detector_score": 0.878906,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999932318124864,
+          "detector_score": 0.609375,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999888168338475,
+          "detector_score": 0.866699,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999911053191367,
+          "detector_score": 0.930176,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999894094923018,
+          "detector_score": 0.80127,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999830734313317,
+          "detector_score": 0.890137,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_23",
+          "track_id": 22,
+          "iou_to_inherited_box": 0.9999785974880616,
+          "detector_score": 0.811523,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_28",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.9999929280039929,
+          "detector_score": 0.825195,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.48389483198553684,
+          "detector_score": 0.689453,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999925533304623,
+          "detector_score": 0.828613,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.999990132877876,
+          "detector_score": 0.827148,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_23",
+          "track_id": 22,
+          "iou_to_inherited_box": 0.9999866818618713,
+          "detector_score": 0.765625,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_28",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.99999765654949,
+          "detector_score": 0.907715,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999879238954898,
+          "detector_score": 0.822266,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "blue_10",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.9999869284582075,
+          "detector_score": 0.816895,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999896089613849,
+          "detector_score": 0.806152,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_23",
+          "track_id": 22,
+          "iou_to_inherited_box": 0.9999876622506761,
+          "detector_score": 0.663574,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999946912791706,
+          "detector_score": 0.929199,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "blue_10",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.9999918707032432,
+          "detector_score": 0.910645,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        }
+      ],
+      "independent_accuracy": null
+    },
+    {
+      "variant": "low",
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-low.json",
+      "sha256": "d2aa7f1cbbe418ca2106cf8de14d68897c5675d4dbf00c9334dd9503f9b155fd",
+      "minimum_iou": 0.5,
+      "reviewed_actor_observations": 21,
+      "matched_reference_observations": 20,
+      "unmatched_reference_observations": [
+        {
+          "frame": 159,
+          "actor": "white_7"
+        }
+      ],
+      "conflicting_track_label_groups": [
+        {
+          "track_id": 25,
+          "observed_actor_labels": [
+            "blue_10",
+            "white_28"
+          ],
+          "evidence": [
+            {
+              "frame": 53,
+              "actor": "white_28",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999929280039929,
+              "detector_score": 0.825195,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "white_28",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.99999765654949,
+              "detector_score": 0.907715,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "fragmented_actor_groups": [
+        {
+          "actor": "blue_10",
+          "observed_track_ids": [
+            3,
+            25
+          ],
+          "evidence": [
+            {
+              "frame": 0,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999924380707051,
+              "detector_score": 0.878906,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 53,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999894094923018,
+              "detector_score": 0.80127,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999925533304623,
+              "detector_score": 0.828613,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 25,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "matches": [
+        {
+          "frame": 0,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999851302357536,
+          "detector_score": 0.900391,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999899354064057,
+          "detector_score": 0.890137,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999924380707051,
+          "detector_score": 0.878906,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999932318124864,
+          "detector_score": 0.609375,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999888168338475,
+          "detector_score": 0.866699,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999911053191367,
+          "detector_score": 0.930176,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999894094923018,
+          "detector_score": 0.80127,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999830734313317,
+          "detector_score": 0.890137,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_23",
+          "track_id": 22,
+          "iou_to_inherited_box": 0.9999785974880616,
+          "detector_score": 0.811523,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_28",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.9999929280039929,
+          "detector_score": 0.825195,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999925533304623,
+          "detector_score": 0.828613,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.999990132877876,
+          "detector_score": 0.827148,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_23",
+          "track_id": 22,
+          "iou_to_inherited_box": 0.9999866818618713,
+          "detector_score": 0.765625,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_28",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.99999765654949,
+          "detector_score": 0.907715,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999879238954898,
+          "detector_score": 0.822266,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "blue_10",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.9999869284582075,
+          "detector_score": 0.816895,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999896089613849,
+          "detector_score": 0.806152,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_23",
+          "track_id": 22,
+          "iou_to_inherited_box": 0.9999876622506761,
+          "detector_score": 0.663574,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999946912791706,
+          "detector_score": 0.929199,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "blue_10",
+          "track_id": 25,
+          "iou_to_inherited_box": 0.9999918707032432,
+          "detector_score": 0.910645,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        }
+      ],
+      "independent_accuracy": null
+    },
+    {
+      "variant": "reid",
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-reid.json",
+      "sha256": "ced609ecb4081e23390efaca024301b80a13fea49f9b673f8916a19150635e3f",
+      "minimum_iou": 0.3,
+      "reviewed_actor_observations": 21,
+      "matched_reference_observations": 21,
+      "unmatched_reference_observations": [],
+      "conflicting_track_label_groups": [],
+      "fragmented_actor_groups": [
+        {
+          "actor": "blue_10",
+          "observed_track_ids": [
+            3,
+            17
+          ],
+          "evidence": [
+            {
+              "frame": 0,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999924380707051,
+              "detector_score": 0.878906,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 53,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999894094923018,
+              "detector_score": 0.80127,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999925533304623,
+              "detector_score": 0.828613,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "matches": [
+        {
+          "frame": 0,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999851302357536,
+          "detector_score": 0.900391,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999899354064057,
+          "detector_score": 0.890137,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999924380707051,
+          "detector_score": 0.878906,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999932318124864,
+          "detector_score": 0.609375,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999888168338475,
+          "detector_score": 0.866699,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999911053191367,
+          "detector_score": 0.930176,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999894094923018,
+          "detector_score": 0.80127,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999830734313317,
+          "detector_score": 0.890137,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999785974880616,
+          "detector_score": 0.811523,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_28",
+          "track_id": 9,
+          "iou_to_inherited_box": 0.9999929280039929,
+          "detector_score": 0.825195,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.48389483198553684,
+          "detector_score": 0.689453,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999925533304623,
+          "detector_score": 0.828613,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.999990132877876,
+          "detector_score": 0.827148,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999866818618713,
+          "detector_score": 0.765625,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_28",
+          "track_id": 9,
+          "iou_to_inherited_box": 0.99999765654949,
+          "detector_score": 0.907715,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999879238954898,
+          "detector_score": 0.822266,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999869284582075,
+          "detector_score": 0.816895,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999896089613849,
+          "detector_score": 0.806152,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999876622506761,
+          "detector_score": 0.663574,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999946912791706,
+          "detector_score": 0.929199,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999918707032432,
+          "detector_score": 0.910645,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        }
+      ],
+      "independent_accuracy": null
+    },
+    {
+      "variant": "reid",
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-reid.json",
+      "sha256": "ced609ecb4081e23390efaca024301b80a13fea49f9b673f8916a19150635e3f",
+      "minimum_iou": 0.5,
+      "reviewed_actor_observations": 21,
+      "matched_reference_observations": 20,
+      "unmatched_reference_observations": [
+        {
+          "frame": 159,
+          "actor": "white_7"
+        }
+      ],
+      "conflicting_track_label_groups": [],
+      "fragmented_actor_groups": [
+        {
+          "actor": "blue_10",
+          "observed_track_ids": [
+            3,
+            17
+          ],
+          "evidence": [
+            {
+              "frame": 0,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999924380707051,
+              "detector_score": 0.878906,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 53,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999894094923018,
+              "detector_score": 0.80127,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999925533304623,
+              "detector_score": 0.828613,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": null,
+              "identity_review_required": null,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "matches": [
+        {
+          "frame": 0,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999851302357536,
+          "detector_score": 0.900391,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999899354064057,
+          "detector_score": 0.890137,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999924380707051,
+          "detector_score": 0.878906,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999932318124864,
+          "detector_score": 0.609375,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999888168338475,
+          "detector_score": 0.866699,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999911053191367,
+          "detector_score": 0.930176,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999894094923018,
+          "detector_score": 0.80127,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999830734313317,
+          "detector_score": 0.890137,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999785974880616,
+          "detector_score": 0.811523,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_28",
+          "track_id": 9,
+          "iou_to_inherited_box": 0.9999929280039929,
+          "detector_score": 0.825195,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999925533304623,
+          "detector_score": 0.828613,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.999990132877876,
+          "detector_score": 0.827148,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999866818618713,
+          "detector_score": 0.765625,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_28",
+          "track_id": 9,
+          "iou_to_inherited_box": 0.99999765654949,
+          "detector_score": 0.907715,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999879238954898,
+          "detector_score": 0.822266,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999869284582075,
+          "detector_score": 0.816895,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999896089613849,
+          "detector_score": 0.806152,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999876622506761,
+          "detector_score": 0.663574,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999946912791706,
+          "detector_score": 0.929199,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999918707032432,
+          "detector_score": 0.910645,
+          "color_conflict": null,
+          "identity_review_required": null,
+          "identity_verified": false
+        }
+      ],
+      "independent_accuracy": null
+    },
+    {
+      "variant": "optimized",
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-optimized.json",
+      "sha256": "87395ce9653d083aadc35bb59d8b81ddbaa3afa92e97992f3ab17e08f946eee1",
+      "minimum_iou": 0.3,
+      "reviewed_actor_observations": 21,
+      "matched_reference_observations": 21,
+      "unmatched_reference_observations": [],
+      "conflicting_track_label_groups": [],
+      "fragmented_actor_groups": [
+        {
+          "actor": "blue_10",
+          "observed_track_ids": [
+            3,
+            17
+          ],
+          "evidence": [
+            {
+              "frame": 0,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999924380707051,
+              "detector_score": 0.878906,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 53,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999894094923018,
+              "detector_score": 0.80127,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999925533304623,
+              "detector_score": 0.828613,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "matches": [
+        {
+          "frame": 0,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999851302357536,
+          "detector_score": 0.900391,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999899354064057,
+          "detector_score": 0.890137,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999924380707051,
+          "detector_score": 0.878906,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999932318124864,
+          "detector_score": 0.609375,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999888168338475,
+          "detector_score": 0.866699,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999911053191367,
+          "detector_score": 0.930176,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999894094923018,
+          "detector_score": 0.80127,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999830734313317,
+          "detector_score": 0.890137,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999785974880616,
+          "detector_score": 0.811523,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_28",
+          "track_id": 9,
+          "iou_to_inherited_box": 0.9999929280039929,
+          "detector_score": 0.825195,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999932159650037,
+          "detector_score": 0.403564,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999925533304623,
+          "detector_score": 0.828613,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.999990132877876,
+          "detector_score": 0.827148,
+          "color_conflict": false,
+          "identity_review_required": true,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999866818618713,
+          "detector_score": 0.765625,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_28",
+          "track_id": 9,
+          "iou_to_inherited_box": 0.99999765654949,
+          "detector_score": 0.907715,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999879238954898,
+          "detector_score": 0.822266,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999869284582075,
+          "detector_score": 0.816895,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999896089613849,
+          "detector_score": 0.806152,
+          "color_conflict": false,
+          "identity_review_required": true,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999876622506761,
+          "detector_score": 0.663574,
+          "color_conflict": false,
+          "identity_review_required": true,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999946912791706,
+          "detector_score": 0.929199,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999918707032432,
+          "detector_score": 0.910645,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        }
+      ],
+      "independent_accuracy": null
+    },
+    {
+      "variant": "optimized",
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-optimized.json",
+      "sha256": "87395ce9653d083aadc35bb59d8b81ddbaa3afa92e97992f3ab17e08f946eee1",
+      "minimum_iou": 0.5,
+      "reviewed_actor_observations": 21,
+      "matched_reference_observations": 21,
+      "unmatched_reference_observations": [],
+      "conflicting_track_label_groups": [],
+      "fragmented_actor_groups": [
+        {
+          "actor": "blue_10",
+          "observed_track_ids": [
+            3,
+            17
+          ],
+          "evidence": [
+            {
+              "frame": 0,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999924380707051,
+              "detector_score": 0.878906,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 53,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999894094923018,
+              "detector_score": 0.80127,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999925533304623,
+              "detector_score": 0.828613,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "matches": [
+        {
+          "frame": 0,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999851302357536,
+          "detector_score": 0.900391,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999899354064057,
+          "detector_score": 0.890137,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999924380707051,
+          "detector_score": 0.878906,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999932318124864,
+          "detector_score": 0.609375,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999888168338475,
+          "detector_score": 0.866699,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999911053191367,
+          "detector_score": 0.930176,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999894094923018,
+          "detector_score": 0.80127,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999830734313317,
+          "detector_score": 0.890137,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999785974880616,
+          "detector_score": 0.811523,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_28",
+          "track_id": 9,
+          "iou_to_inherited_box": 0.9999929280039929,
+          "detector_score": 0.825195,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999932159650037,
+          "detector_score": 0.403564,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999925533304623,
+          "detector_score": 0.828613,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.999990132877876,
+          "detector_score": 0.827148,
+          "color_conflict": false,
+          "identity_review_required": true,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999866818618713,
+          "detector_score": 0.765625,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_28",
+          "track_id": 9,
+          "iou_to_inherited_box": 0.99999765654949,
+          "detector_score": 0.907715,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999879238954898,
+          "detector_score": 0.822266,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999869284582075,
+          "detector_score": 0.816895,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999896089613849,
+          "detector_score": 0.806152,
+          "color_conflict": false,
+          "identity_review_required": true,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999876622506761,
+          "detector_score": 0.663574,
+          "color_conflict": false,
+          "identity_review_required": true,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999946912791706,
+          "detector_score": 0.929199,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999918707032432,
+          "detector_score": 0.910645,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        }
+      ],
+      "independent_accuracy": null
+    },
+    {
+      "variant": "team-stable",
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-team-stable.json",
+      "sha256": "87395ce9653d083aadc35bb59d8b81ddbaa3afa92e97992f3ab17e08f946eee1",
+      "minimum_iou": 0.3,
+      "reviewed_actor_observations": 21,
+      "matched_reference_observations": 21,
+      "unmatched_reference_observations": [],
+      "conflicting_track_label_groups": [],
+      "fragmented_actor_groups": [
+        {
+          "actor": "blue_10",
+          "observed_track_ids": [
+            3,
+            17
+          ],
+          "evidence": [
+            {
+              "frame": 0,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999924380707051,
+              "detector_score": 0.878906,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 53,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999894094923018,
+              "detector_score": 0.80127,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999925533304623,
+              "detector_score": 0.828613,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "matches": [
+        {
+          "frame": 0,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999851302357536,
+          "detector_score": 0.900391,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999899354064057,
+          "detector_score": 0.890137,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999924380707051,
+          "detector_score": 0.878906,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999932318124864,
+          "detector_score": 0.609375,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999888168338475,
+          "detector_score": 0.866699,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999911053191367,
+          "detector_score": 0.930176,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999894094923018,
+          "detector_score": 0.80127,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999830734313317,
+          "detector_score": 0.890137,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999785974880616,
+          "detector_score": 0.811523,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_28",
+          "track_id": 9,
+          "iou_to_inherited_box": 0.9999929280039929,
+          "detector_score": 0.825195,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999932159650037,
+          "detector_score": 0.403564,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999925533304623,
+          "detector_score": 0.828613,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.999990132877876,
+          "detector_score": 0.827148,
+          "color_conflict": false,
+          "identity_review_required": true,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999866818618713,
+          "detector_score": 0.765625,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_28",
+          "track_id": 9,
+          "iou_to_inherited_box": 0.99999765654949,
+          "detector_score": 0.907715,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999879238954898,
+          "detector_score": 0.822266,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999869284582075,
+          "detector_score": 0.816895,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999896089613849,
+          "detector_score": 0.806152,
+          "color_conflict": false,
+          "identity_review_required": true,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999876622506761,
+          "detector_score": 0.663574,
+          "color_conflict": false,
+          "identity_review_required": true,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999946912791706,
+          "detector_score": 0.929199,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999918707032432,
+          "detector_score": 0.910645,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        }
+      ],
+      "independent_accuracy": null
+    },
+    {
+      "variant": "team-stable",
+      "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-team-stable.json",
+      "sha256": "87395ce9653d083aadc35bb59d8b81ddbaa3afa92e97992f3ab17e08f946eee1",
+      "minimum_iou": 0.5,
+      "reviewed_actor_observations": 21,
+      "matched_reference_observations": 21,
+      "unmatched_reference_observations": [],
+      "conflicting_track_label_groups": [],
+      "fragmented_actor_groups": [
+        {
+          "actor": "blue_10",
+          "observed_track_ids": [
+            3,
+            17
+          ],
+          "evidence": [
+            {
+              "frame": 0,
+              "actor": "blue_10",
+              "track_id": 3,
+              "iou_to_inherited_box": 0.9999924380707051,
+              "detector_score": 0.878906,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 53,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999894094923018,
+              "detector_score": 0.80127,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 159,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999925533304623,
+              "detector_score": 0.828613,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 212,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999869284582075,
+              "detector_score": 0.816895,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            },
+            {
+              "frame": 266,
+              "actor": "blue_10",
+              "track_id": 17,
+              "iou_to_inherited_box": 0.9999918707032432,
+              "detector_score": 0.910645,
+              "color_conflict": false,
+              "identity_review_required": false,
+              "identity_verified": false
+            }
+          ]
+        }
+      ],
+      "matches": [
+        {
+          "frame": 0,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999851302357536,
+          "detector_score": 0.900391,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999899354064057,
+          "detector_score": 0.890137,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "blue_10",
+          "track_id": 3,
+          "iou_to_inherited_box": 0.9999924380707051,
+          "detector_score": 0.878906,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 0,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999932318124864,
+          "detector_score": 0.609375,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_15",
+          "track_id": 1,
+          "iou_to_inherited_box": 0.9999888168338475,
+          "detector_score": 0.866699,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999911053191367,
+          "detector_score": 0.930176,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999894094923018,
+          "detector_score": 0.80127,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999830734313317,
+          "detector_score": 0.890137,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999785974880616,
+          "detector_score": 0.811523,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 53,
+          "actor": "white_28",
+          "track_id": 9,
+          "iou_to_inherited_box": 0.9999929280039929,
+          "detector_score": 0.825195,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999932159650037,
+          "detector_score": 0.403564,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999925533304623,
+          "detector_score": 0.828613,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.999990132877876,
+          "detector_score": 0.827148,
+          "color_conflict": false,
+          "identity_review_required": true,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999866818618713,
+          "detector_score": 0.765625,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 159,
+          "actor": "white_28",
+          "track_id": 9,
+          "iou_to_inherited_box": 0.99999765654949,
+          "detector_score": 0.907715,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999879238954898,
+          "detector_score": 0.822266,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999869284582075,
+          "detector_score": 0.816895,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_17",
+          "track_id": 7,
+          "iou_to_inherited_box": 0.9999896089613849,
+          "detector_score": 0.806152,
+          "color_conflict": false,
+          "identity_review_required": true,
+          "identity_verified": false
+        },
+        {
+          "frame": 212,
+          "actor": "white_23",
+          "track_id": 12,
+          "iou_to_inherited_box": 0.9999876622506761,
+          "detector_score": 0.663574,
+          "color_conflict": false,
+          "identity_review_required": true,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "white_7",
+          "track_id": 2,
+          "iou_to_inherited_box": 0.9999946912791706,
+          "detector_score": 0.929199,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        },
+        {
+          "frame": 266,
+          "actor": "blue_10",
+          "track_id": 17,
+          "iou_to_inherited_box": 0.9999918707032432,
+          "detector_score": 0.910645,
+          "color_conflict": false,
+          "identity_review_required": false,
+          "identity_verified": false
+        }
+      ],
+      "independent_accuracy": null
+    }
+  ]
+}

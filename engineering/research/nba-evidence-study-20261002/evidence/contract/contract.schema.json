@@ -1,0 +1,968 @@
+{
+  "type": "object",
+  "properties": {
+    "contract_version": {
+      "enum": [
+        "evidence-contract-research-v1"
+      ]
+    },
+    "research_only": {
+      "enum": [
+        true
+      ]
+    },
+    "sources": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "variants": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/variant"
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/observation"
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/binding"
+      }
+    },
+    "calibrations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/calibration"
+      }
+    },
+    "facts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/fact"
+      }
+    },
+    "revisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/revision"
+      }
+    },
+    "availability": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "variant_id": {
+            "type": "string"
+          },
+          "frame": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "ball": {
+            "enum": [
+              "detected",
+              "not_detected_reason_unknown",
+              "not_provided"
+            ]
+          },
+          "person_identity": {
+            "enum": [
+              "unverified"
+            ]
+          },
+          "court": {
+            "enum": [
+              "candidate_only",
+              "not_provided"
+            ]
+          },
+          "occlusion": {
+            "enum": [
+              "unknown"
+            ]
+          }
+        },
+        "required": [
+          "variant_id",
+          "frame",
+          "ball",
+          "person_identity",
+          "court",
+          "occlusion"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "contract_version",
+    "research_only",
+    "sources",
+    "variants",
+    "observations",
+    "bindings",
+    "calibrations",
+    "facts",
+    "revisions",
+    "availability"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:offline:research:evidence-contract:v1",
+  "$defs": {
+    "source_ref": {
+      "type": "object",
+      "properties": {
+        "source_id": {
+          "type": "string"
+        },
+        "json_pointer": {
+          "type": "string",
+          "pattern": "^(/|$)"
+        },
+        "value_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "source_id",
+        "json_pointer",
+        "value_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "track": {
+      "type": "object",
+      "properties": {
+        "variant_id": {
+          "type": "string"
+        },
+        "local_id": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "variant_id",
+        "local_id"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "variant_id": {
+          "type": "string"
+        },
+        "start_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_frame_inclusive": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cut_version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "variant_id",
+        "start_frame",
+        "end_frame_inclusive",
+        "cut_version"
+      ],
+      "additionalProperties": false
+    },
+    "dependency": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "observation",
+            "binding",
+            "calibration",
+            "cuts",
+            "fact"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "score": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "semantics": {
+          "enum": [
+            "uncalibrated_model_score"
+          ]
+        },
+        "probability": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "value",
+        "semantics",
+        "probability"
+      ],
+      "additionalProperties": false
+    },
+    "geometry": {
+      "type": "object",
+      "properties": {
+        "space": {
+          "enum": [
+            "image_px",
+            "court_m_candidate"
+          ]
+        },
+        "xyxy": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "xy": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ground_contact": {
+          "enum": [
+            "unknown",
+            "reviewed_contact"
+          ]
+        },
+        "metric_accuracy": {
+          "enum": [
+            "not_applicable",
+            "unvalidated",
+            "validated"
+          ]
+        }
+      },
+      "required": [
+        "space",
+        "xyxy",
+        "xy",
+        "ground_contact",
+        "metric_accuracy"
+      ],
+      "additionalProperties": false
+    },
+    "time": {
+      "type": "object",
+      "properties": {
+        "frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "raw_time_seconds": {
+          "type": "number"
+        },
+        "raw_time_basis": {
+          "enum": [
+            "verified_container_pts_seconds"
+          ]
+        },
+        "pts_ticks": {
+          "type": "integer"
+        },
+        "time_base": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "pts_seconds": {
+          "type": "number"
+        },
+        "local_elapsed_seconds": {
+          "type": "number"
+        },
+        "shot_segment": {
+          "type": "string"
+        },
+        "shot_segmentation": {
+          "enum": [
+            "declared_boundaries_only_unreviewed"
+          ]
+        }
+      },
+      "required": [
+        "frame",
+        "raw_time_seconds",
+        "raw_time_basis",
+        "pts_ticks",
+        "time_base",
+        "pts_seconds",
+        "local_elapsed_seconds",
+        "shot_segment",
+        "shot_segmentation"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "format_version": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "tracks",
+            "metadata",
+            "feet",
+            "court",
+            "library"
+          ]
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "format_version",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "variant": {
+      "type": "object",
+      "properties": {
+        "clip_id": {
+          "type": "string"
+        },
+        "video_path": {
+          "type": "string"
+        },
+        "video_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "tracks_source": {
+          "type": "string"
+        },
+        "meta_source": {
+          "type": "string"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "frame_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "timeline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/time"
+          }
+        },
+        "cut_version": {
+          "type": "string"
+        },
+        "cut_frames": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "cut_review_status": {
+          "enum": [
+            "unknown"
+          ]
+        },
+        "objects_channel": {
+          "enum": [
+            "available",
+            "not_provided"
+          ]
+        }
+      },
+      "required": [
+        "clip_id",
+        "video_path",
+        "video_sha256",
+        "tracks_source",
+        "meta_source",
+        "width",
+        "height",
+        "frame_count",
+        "timeline",
+        "cut_version",
+        "cut_frames",
+        "cut_review_status",
+        "objects_channel"
+      ],
+      "additionalProperties": false
+    },
+    "observation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "variant_id": {
+          "type": "string"
+        },
+        "time": {
+          "$ref": "#/$defs/time"
+        },
+        "track": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/track"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kind": {
+          "enum": [
+            "detection_observation",
+            "pose_landmark_candidate"
+          ]
+        },
+        "class": {
+          "enum": [
+            "player",
+            "referee",
+            "ball",
+            "hoop"
+          ]
+        },
+        "raw_class": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "geometry": {
+          "$ref": "#/$defs/geometry"
+        },
+        "score": {
+          "$ref": "#/$defs/score"
+        },
+        "visibility": {
+          "enum": [
+            "detected"
+          ]
+        },
+        "occlusion": {
+          "enum": [
+            "unknown"
+          ]
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source_ref"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "variant_id",
+        "time",
+        "track",
+        "kind",
+        "class",
+        "raw_class",
+        "geometry",
+        "score",
+        "visibility",
+        "occlusion",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "binding": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "track": {
+          "$ref": "#/$defs/track"
+        },
+        "p_slot": {
+          "type": "string",
+          "pattern": "^P([1-9]|10)$"
+        },
+        "status": {
+          "enum": [
+            "model_candidate",
+            "human_reviewed"
+          ]
+        },
+        "nba_identity": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "namespace": {
+                  "type": "string"
+                },
+                "player_id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "season": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "namespace",
+                "player_id",
+                "name",
+                "season"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "review_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source_ref"
+          }
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source_ref"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "scope",
+        "track",
+        "p_slot",
+        "status",
+        "nba_identity",
+        "review_evidence",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "calibration": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reference_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "court_to_image": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 9,
+          "maxItems": 9
+        },
+        "status": {
+          "enum": [
+            "candidate",
+            "human_reviewed"
+          ]
+        },
+        "metric_accuracy_validated": {
+          "type": "boolean"
+        },
+        "tracking_fingerprint": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source_ref"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "scope",
+        "frame",
+        "reference_frame",
+        "court_to_image",
+        "status",
+        "metric_accuracy_validated",
+        "tracking_fingerprint",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "fact": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "kind": {
+          "enum": [
+            "track_image_displacement",
+            "slot_image_position",
+            "court_projection_hypothesis",
+            "ball_near_player",
+            "possession",
+            "pass",
+            "shot"
+          ]
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "epistemic_status": {
+          "enum": [
+            "derived_candidate",
+            "reviewed_fact"
+          ]
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dependency"
+          }
+        },
+        "geometry": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/geometry"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "values": {
+          "type": "object"
+        },
+        "review_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source_ref"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "kind",
+        "scope",
+        "epistemic_status",
+        "dependencies",
+        "geometry",
+        "values",
+        "review_evidence",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "track_image_displacement"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "values": {
+                "type": "object",
+                "properties": {
+                  "delta_image_px": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "dt_seconds": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  }
+                },
+                "required": [
+                  "delta_image_px",
+                  "dt_seconds"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "slot_image_position"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "values": {
+                "type": "object",
+                "properties": {
+                  "p_slot": {
+                    "type": "string",
+                    "pattern": "^P([1-9]|10)$"
+                  },
+                  "nba_identity": {
+                    "type": "null"
+                  }
+                },
+                "required": [
+                  "p_slot",
+                  "nba_identity"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "court_projection_hypothesis"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "values": {
+                "type": "object",
+                "properties": {
+                  "plane_assumption": {
+                    "enum": [
+                      "hypothetical ground plane"
+                    ]
+                  }
+                },
+                "required": [
+                  "plane_assumption"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "ball_near_player"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "values": {
+                "type": "object",
+                "properties": {
+                  "center_to_player_bbox_distance_px": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "threshold_px": {
+                    "enum": [
+                      40
+                    ]
+                  },
+                  "method": {
+                    "enum": [
+                      "2d_ball_center_to_bbox_v1"
+                    ]
+                  }
+                },
+                "required": [
+                  "center_to_player_bbox_distance_px",
+                  "threshold_px",
+                  "method"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "revision": {
+      "type": "object",
+      "properties": {
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "prev_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "target_kind": {
+          "enum": [
+            "binding",
+            "calibration",
+            "cuts"
+          ]
+        },
+        "target_id": {
+          "type": "string"
+        },
+        "old_version": {
+          "type": "string"
+        },
+        "new_version": {
+          "type": "string"
+        },
+        "replacement": {
+          "type": "object"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "actor": {
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "controlled_test_only"
+          ]
+        }
+      },
+      "required": [
+        "sequence",
+        "prev_sha256",
+        "sha256",
+        "target_kind",
+        "target_id",
+        "old_version",
+        "new_version",
+        "replacement",
+        "reason",
+        "actor",
+        "mode"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

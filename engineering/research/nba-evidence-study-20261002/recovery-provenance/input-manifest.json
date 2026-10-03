@@ -1,0 +1,878 @@
+[
+  {
+    "path": "engineering/experiments/player_recovery/batch-results.json",
+    "bytes": 22102,
+    "sha256": "536f66802f999f5f7c906d1f22a4cc9479d386e91f2a21549e614e9ef9c1caa4",
+    "mtime_ns": 1790934125046556000
+  },
+  {
+    "path": "engineering/experiments/player_recovery/annotations.json",
+    "bytes": 13815,
+    "sha256": "1f19d3371c2be1b17276137d974157ef4b0eabdc373fd0b2578e3d08908f548c",
+    "mtime_ns": 1790922494516303600
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-004/baseline.json",
+    "bytes": 251757,
+    "sha256": "fb43a28feb9ab5ea3ecfd3c8ae7417c1ab42940083d7c90d176763e960c1dbd4",
+    "mtime_ns": 1790930473867579300
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-004/short.json",
+    "bytes": 2793711,
+    "sha256": "d46bf0831f99bb571918029e062091c43752ea2f0dea20860fa450882a714c45",
+    "mtime_ns": 1790933194892096800
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-004/players-short.json",
+    "bytes": 2910216,
+    "sha256": "444d87c1c7724cae102c3d63ab649040cfd1b7dcc5b83a9a6acffca4d9aed4dc",
+    "mtime_ns": 1790933205733867100
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-004/recovered.json",
+    "bytes": 2258422,
+    "sha256": "502e46e54257f8be93a6b5c6c31d9b848fda1eaa84a2533756fbb3a4b84051e4",
+    "mtime_ns": 1790933883195410400
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-004/qwen-events.json",
+    "bytes": 8947,
+    "sha256": "a7f9a29a3d1696ca55ad4071acc5c4e0c44b6c0b3e82a5409c2dfadc2c30f02c",
+    "mtime_ns": 1790933207601856300
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-004/qwen-events.json",
+    "bytes": 8947,
+    "sha256": "a7f9a29a3d1696ca55ad4071acc5c4e0c44b6c0b3e82a5409c2dfadc2c30f02c",
+    "mtime_ns": 1790933206690752600
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-004/roles.json",
+    "bytes": 49716,
+    "sha256": "db565fc00cd35bdd36d060cba8ab3619021fbb30c81bf2ed07e8948fb74182d7",
+    "mtime_ns": 1790933207603754400
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-004/excluded-role-points.json",
+    "bytes": 8283,
+    "sha256": "5171e970dcf5be4bb8046bd10478922537352ed1615a06cb2c61fbc353555d8f",
+    "mtime_ns": 1790933205736911700
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-007/baseline.json",
+    "bytes": 157067,
+    "sha256": "764867fcd57935fb11dc3b6c3d4aeecec73b6247c2751663c7fca44693eb974a",
+    "mtime_ns": 1790930882114305500
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-007/short.json",
+    "bytes": 1719236,
+    "sha256": "2babce2d1ee51e47db153ee1d72e16738e786d27a56e36081652b25dd5d50336",
+    "mtime_ns": 1790933222877226800
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-007/players-short.json",
+    "bytes": 1824861,
+    "sha256": "308c7ff11af0f56c52acd0b932fce4f8985c63809c5a2cb8d4c1d92276d2a228",
+    "mtime_ns": 1790933224680499200
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+    "bytes": 1440038,
+    "sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+    "mtime_ns": 1790933883293150800
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-007/qwen-events.json",
+    "bytes": 11410,
+    "sha256": "b59eecf5de75cf5082403d560612b2b562667077171a27d5cf409d9d65d5c74a",
+    "mtime_ns": 1790933226168603500
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-007/qwen-events.json",
+    "bytes": 11350,
+    "sha256": "e42fb4ef3b8f58c88cb4c15c66fa00072663ac2a7465cf1eacf57ea2d9ab9f6c",
+    "mtime_ns": 1790933225632733000
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-007/roles.json",
+    "bytes": 11772,
+    "sha256": "17669435ecce6e4b70d3a98a4bc35afcab3292ce4239827cc923ace417c54cb4",
+    "mtime_ns": 1790933226168603500
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-007/excluded-role-points.json",
+    "bytes": 2,
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "mtime_ns": 1790933224682105100
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-008/baseline.json",
+    "bytes": 240879,
+    "sha256": "9d72b20ac71c020ea6de72cfa24713e9afed6959a9fda70f7442620ad91baccd",
+    "mtime_ns": 1790930492264991800
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-008/short.json",
+    "bytes": 2692881,
+    "sha256": "7a3b64083b5fd0308755fe23bf0ce4912e6660a8211b487f729372f17b486b9c",
+    "mtime_ns": 1790933553928332300
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-008/players-short.json",
+    "bytes": 2848357,
+    "sha256": "5eff367b272b372bd49d07bfce0227474596b0be601e17600bb50af83173cf7b",
+    "mtime_ns": 1790933561795338900
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-008/recovered.json",
+    "bytes": 2239313,
+    "sha256": "b6e99711fb0c57ab10bfdd5f71cb3df6103f96fe3d4e76efa93ed77646549024",
+    "mtime_ns": 1790933883429238800
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-008/qwen-events.json",
+    "bytes": 10997,
+    "sha256": "f5b418f5455a21677cb53d1caf2900b79c5976c79e4788e3f974ddd80ae9c067",
+    "mtime_ns": 1790933564028713400
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-008/qwen-events.json",
+    "bytes": 10997,
+    "sha256": "f5b418f5455a21677cb53d1caf2900b79c5976c79e4788e3f974ddd80ae9c067",
+    "mtime_ns": 1790933562835262300
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-008/roles.json",
+    "bytes": 28212,
+    "sha256": "9cd31c844e09a44de7765766c39d486d7335e119032ba9d361a944fb57ac03cf",
+    "mtime_ns": 1790933564032098900
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-008/excluded-role-points.json",
+    "bytes": 1271,
+    "sha256": "03c44423fcad249121548fc3e04dc5244eb4d506a44e66da2c510f7936da200f",
+    "mtime_ns": 1790933561801955600
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-015/baseline.json",
+    "bytes": 215308,
+    "sha256": "9d8c8ed5041b1cb39c177c79417e0b110f669122f1ff94d46009aaa4e957ec7d",
+    "mtime_ns": 1790930510858298800
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-015/short.json",
+    "bytes": 2388080,
+    "sha256": "b027e25613e1dea4453a12f2b1141572769e4c708f7f69c66dd96d52557f568e",
+    "mtime_ns": 1790933194715948400
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-015/players-short.json",
+    "bytes": 2497366,
+    "sha256": "c9dfdb6736ae09f033563a0c008816ea0b35db3e6627640ed54b1f0275086efb",
+    "mtime_ns": 1790933202113839000
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-015/recovered.json",
+    "bytes": 1966956,
+    "sha256": "38e4e127652d68664e2e5ed76af7bd23aae434581a24d070fc3e2561eff20dd0",
+    "mtime_ns": 1790933883555934900
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-015/qwen-events.json",
+    "bytes": 7249,
+    "sha256": "966177aea3a067c603030bdd09ef404d9c8eb90742e003d91508e4c80bce98df",
+    "mtime_ns": 1790933204009774200
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-015/qwen-events.json",
+    "bytes": 7249,
+    "sha256": "966177aea3a067c603030bdd09ef404d9c8eb90742e003d91508e4c80bce98df",
+    "mtime_ns": 1790933202907936700
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-015/roles.json",
+    "bytes": 28949,
+    "sha256": "a964bf17b30bda0ec632b99da30fd146acf8811e415587d108ac565505430dfd",
+    "mtime_ns": 1790933204009774200
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-015/excluded-role-points.json",
+    "bytes": 5383,
+    "sha256": "5adf8e235d1ad7ab3d3369fa05a1a8527914961568e9beb498a6feca557bacea",
+    "mtime_ns": 1790933202115842900
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-020/baseline.json",
+    "bytes": 201376,
+    "sha256": "926920f7c183c55c2c01fe2bcd4b0a6e07ecfea72540ef99afa23bb2ff85149b",
+    "mtime_ns": 1790930892597639700
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-020/short.json",
+    "bytes": 2206132,
+    "sha256": "4f5e341f22463b50f7245aa91d0688b6d2b7d3b6638817030dcfda945ee66fcf",
+    "mtime_ns": 1790933585768057600
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-020/players-short.json",
+    "bytes": 2194978,
+    "sha256": "433f454515d9c2384c9475a14343fd81361eae77746cfc77c7f946f1f5bb98cc",
+    "mtime_ns": 1790933590038478200
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-020/recovered.json",
+    "bytes": 1682833,
+    "sha256": "fce807f64f5c8ef4e7ac91a9b5d70c4851aeff2dbc554f785817d12b271815b4",
+    "mtime_ns": 1790933883666069200
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-020/qwen-events.json",
+    "bytes": 10870,
+    "sha256": "5d2cd984cfa5f6cf8238fdb499cf88582c1638f71c620fa3f4cf69bb7d1a2bfb",
+    "mtime_ns": 1790933592212228700
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-020/qwen-events.json",
+    "bytes": 10870,
+    "sha256": "5d2cd984cfa5f6cf8238fdb499cf88582c1638f71c620fa3f4cf69bb7d1a2bfb",
+    "mtime_ns": 1790933591596085400
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-020/roles.json",
+    "bytes": 19916,
+    "sha256": "b4457390fd288b05fb58e333539e78e631a79c07c56d4fb98e0bc705393bd1ee",
+    "mtime_ns": 1790933592214362900
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-020/excluded-role-points.json",
+    "bytes": 20938,
+    "sha256": "afca3e9a2b479bcb3211b19c29e3889984d8aef2ad8db6ba56ae79610b8698ad",
+    "mtime_ns": 1790933590042478100
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-023/baseline.json",
+    "bytes": 414947,
+    "sha256": "0ec112ccf4769c02a82edfb0c8801d7f6b13ceb0fac2d23e9a99927b845e6c2a",
+    "mtime_ns": 1790930538251239100
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-023/short.json",
+    "bytes": 4601385,
+    "sha256": "024a474892bacecb742216a7846e78e2ecfe6f3ec5b661b8ced95874fbd4f9f6",
+    "mtime_ns": 1790933555997046900
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-023/players-short.json",
+    "bytes": 4837084,
+    "sha256": "ba5ebaed7d76482c26cb3101d3cb65983eb9e4787dceabe9b864d4043769f7da",
+    "mtime_ns": 1790933565455774100
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-023/recovered.json",
+    "bytes": 3780503,
+    "sha256": "f6bd6be4c8442dde7fefcddd72b40651c7d808842c15b9fc8ea3e159f2b5e095",
+    "mtime_ns": 1790933883880690200
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-023/qwen-events.json",
+    "bytes": 7697,
+    "sha256": "921ab912909c36aec2b93d49c3ab738d3fdce9e0cf1ad7f046b24386e8eacf58",
+    "mtime_ns": 1790933567741223700
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-023/qwen-events.json",
+    "bytes": 7697,
+    "sha256": "921ab912909c36aec2b93d49c3ab738d3fdce9e0cf1ad7f046b24386e8eacf58",
+    "mtime_ns": 1790933566533157000
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-023/roles.json",
+    "bytes": 36863,
+    "sha256": "db289fb690c4b145cc5a5da145694c0841c89273c81e163a8017f3a1d8a570f4",
+    "mtime_ns": 1790933567743226600
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-023/excluded-role-points.json",
+    "bytes": 7193,
+    "sha256": "4c81dc1099d5441a04fbb65c404aa61e2f078378ac26831c751624d2cd9c3649",
+    "mtime_ns": 1790933565459346500
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-033/baseline.json",
+    "bytes": 310625,
+    "sha256": "a13d406c56bbf0031da573dc89774733534e739460a260efad5409d21db92e14",
+    "mtime_ns": 1790930560420856300
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-033/short.json",
+    "bytes": 3521344,
+    "sha256": "3e61557598f3bc1741ff9f0b94e0d6453744b1520492d2860e8820ef62ed8238",
+    "mtime_ns": 1790933208331475400
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-033/players-short.json",
+    "bytes": 3664519,
+    "sha256": "d07179d802e2d99dad571406a49889e4c186e9b861df8ce418bda29868a4e0a2",
+    "mtime_ns": 1790933221012798100
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-033/recovered.json",
+    "bytes": 2865761,
+    "sha256": "38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c",
+    "mtime_ns": 1790933884054140900
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-033/qwen-events.json",
+    "bytes": 8722,
+    "sha256": "f33af02736bd5ef375b4e64a706f99a92f44aafb82203f4eb751e76983748bce",
+    "mtime_ns": 1790933223301119300
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-033/qwen-events.json",
+    "bytes": 8722,
+    "sha256": "f33af02736bd5ef375b4e64a706f99a92f44aafb82203f4eb751e76983748bce",
+    "mtime_ns": 1790933222230954700
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-033/roles.json",
+    "bytes": 35320,
+    "sha256": "6d94268238fdcf709c8891ebcb2ff63c27471bc3a8c286027e2a30e26cba6656",
+    "mtime_ns": 1790933223301119300
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-033/excluded-role-points.json",
+    "bytes": 10612,
+    "sha256": "38d694db445fbda76ab0f9ae658372049223f9d5c01c9b84bcafed6058ce57ea",
+    "mtime_ns": 1790933221014300700
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-038/baseline.json",
+    "bytes": 179667,
+    "sha256": "6fbcc45b3afa297816e8cebc9286af207697229103480c8c9fbd4242a1d5d92d",
+    "mtime_ns": 1790930902108376600
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-038/short.json",
+    "bytes": 1989231,
+    "sha256": "83f2f5291759fcf68c9a477c475e0569ae4674129932991ed766e49a3cb476b4",
+    "mtime_ns": 1790933225999266100
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-038/players-short.json",
+    "bytes": 2029132,
+    "sha256": "6ca5a2efb2542858844e273280b4d7f794160394b63208bf2036a6abef502869",
+    "mtime_ns": 1790933233024125300
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-038/recovered.json",
+    "bytes": 1569536,
+    "sha256": "d7bd31c5cd05c5f5271fddfa5fd8354ddf10610d00d1699cffab8abcea93c683",
+    "mtime_ns": 1790933884162116700
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-038/qwen-events.json",
+    "bytes": 9647,
+    "sha256": "8330a06c50b443c9d58495968061fbe9d9d0b0b377c51e471806383d4a3914c8",
+    "mtime_ns": 1790933234743792100
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-038/qwen-events.json",
+    "bytes": 9647,
+    "sha256": "8330a06c50b443c9d58495968061fbe9d9d0b0b377c51e471806383d4a3914c8",
+    "mtime_ns": 1790933234189202000
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-038/roles.json",
+    "bytes": 28919,
+    "sha256": "bc9303d8845e72ef4a5989dc2fa2b9623a7cdf22ddad8e0f6f5b1ecfeb11fa77",
+    "mtime_ns": 1790933234746695400
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-038/excluded-role-points.json",
+    "bytes": 11613,
+    "sha256": "17018a1989e26f69b498dbd7a25fa26a1831c05f489a470542d9d38aac238d6f",
+    "mtime_ns": 1790933233027126300
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-049/baseline.json",
+    "bytes": 253441,
+    "sha256": "bdb455398105059a8ea08fc18ad47cd2e0cfaf7a97b312b289d345ec34f76b25",
+    "mtime_ns": 1790930578135210000
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-049/short.json",
+    "bytes": 2787755,
+    "sha256": "c0e8f43c2e2a9fb377ea4abc4935059b5591f559ef65d689434221109c17b70b",
+    "mtime_ns": 1790933554000663700
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-049/players-short.json",
+    "bytes": 2943780,
+    "sha256": "f811933220a12fa1598f1b7d1b779487504a73a8d1148242982527ceb1750a82",
+    "mtime_ns": 1790933560621258100
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-049/recovered.json",
+    "bytes": 2294859,
+    "sha256": "cbd5e1e3aeac8cdbb10fb63774f05ec1cbef384ede9b54abcaf1d08dd99ace46",
+    "mtime_ns": 1790933884305166100
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-049/qwen-events.json",
+    "bytes": 10937,
+    "sha256": "5c70e5637ac140579ab4254868072cf975f5a39de99a2baa1709881e472f1af3",
+    "mtime_ns": 1790933563576496900
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-049/qwen-events.json",
+    "bytes": 10937,
+    "sha256": "5c70e5637ac140579ab4254868072cf975f5a39de99a2baa1709881e472f1af3",
+    "mtime_ns": 1790933562303207400
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-049/roles.json",
+    "bytes": 25869,
+    "sha256": "efcf7b330fcb460f00019a7123be6014da711836bc36276b915671a252f9e78f",
+    "mtime_ns": 1790933563577754400
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-049/excluded-role-points.json",
+    "bytes": 2456,
+    "sha256": "fb463c71568cc99bcc98bc908c24d9056fedaa82c3781f11a03789422baa4734",
+    "mtime_ns": 1790933560623401500
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-053/baseline.json",
+    "bytes": 193635,
+    "sha256": "11271cdac5878891f15182ebdd157595add6be7607bd421cf0a176a8f8f1b8d2",
+    "mtime_ns": 1790930914833623700
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-053/short.json",
+    "bytes": 2184273,
+    "sha256": "51d9c96d35771c9871b6f3ad3ab5f6fef888f977fefcf70f31de93df55ee6326",
+    "mtime_ns": 1790933229617842500
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-053/players-short.json",
+    "bytes": 2172841,
+    "sha256": "9a14611342b8dde803a419bf52ae0ad5ceef0ce37b0882eb33e82c817f6ddd24",
+    "mtime_ns": 1790933236024140700
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-053/recovered.json",
+    "bytes": 1672550,
+    "sha256": "118e53a1752d616f9b86bc384ecaf115c09e60911108e6c4886741213b195409",
+    "mtime_ns": 1790933884417126400
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-053/qwen-events.json",
+    "bytes": 11903,
+    "sha256": "ac46c0e289e7d26d391dde75a08f0b8c41af0900875745f978e39b6f8c0936b4",
+    "mtime_ns": 1790933237828795600
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-053/qwen-events.json",
+    "bytes": 11903,
+    "sha256": "ac46c0e289e7d26d391dde75a08f0b8c41af0900875745f978e39b6f8c0936b4",
+    "mtime_ns": 1790933236950308700
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-053/roles.json",
+    "bytes": 31275,
+    "sha256": "2bd4f50fa68fa08078782718b90de4b110cee6eba7995ea3d1dd49b552f9f4a9",
+    "mtime_ns": 1790933237831795200
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-053/excluded-role-points.json",
+    "bytes": 20607,
+    "sha256": "20090da71ad5cb829672d278e758f428ab149569ce9110c5bbc12ed567a7df0d",
+    "mtime_ns": 1790933236028160200
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-058/baseline.json",
+    "bytes": 272542,
+    "sha256": "210266ab8f3b0505e92d8164648f5e622790a01761f9605e5da355d18d098b7d",
+    "mtime_ns": 1790930963918622500
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-058/short.json",
+    "bytes": 3052975,
+    "sha256": "00c7206ee9a26536c4242f16bb27fd3df79c8df4e2b7a4086a3693b00b9a2885",
+    "mtime_ns": 1790933587469896000
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-058/players-short.json",
+    "bytes": 3198852,
+    "sha256": "9835d4ee5e1fcd9b13a15529a75389cededf227bc672162efc73c85d7ae22d24",
+    "mtime_ns": 1790933595044457100
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-058/recovered.json",
+    "bytes": 2497961,
+    "sha256": "eb6b6e47910ec199fc522e49480f75ee50aa53d0a5c316c481928dfb1ad19b36",
+    "mtime_ns": 1790933884599291900
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-058/qwen-events.json",
+    "bytes": 11029,
+    "sha256": "3bff03a378671b432140a095fbd4084828e690c72b020b5a3d9ce1cfd2904cad",
+    "mtime_ns": 1790933597085642200
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-058/qwen-events.json",
+    "bytes": 11029,
+    "sha256": "3bff03a378671b432140a095fbd4084828e690c72b020b5a3d9ce1cfd2904cad",
+    "mtime_ns": 1790933595641511600
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-058/roles.json",
+    "bytes": 30036,
+    "sha256": "13fea87362ac51f993d510f073bc1952addd2508cbdad5d774ce12ae6bc1b4f8",
+    "mtime_ns": 1790933597087511400
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-058/excluded-role-points.json",
+    "bytes": 6024,
+    "sha256": "292b565f4a5b19277d076e7d73e4b695703f999f585e10934404349fb0b86f41",
+    "mtime_ns": 1790933595047109600
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-066/baseline.json",
+    "bytes": 246222,
+    "sha256": "ffc3b7f930abcdb4b8d428514908e7bba9e07bdff64ed47b9de12409d171dd80",
+    "mtime_ns": 1790930929947631300
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-066/short.json",
+    "bytes": 2729825,
+    "sha256": "f5c92e55c9d620059c9b5ad660a50ef7e60a46fe3aed6eaf0edfac1cdb5e02c7",
+    "mtime_ns": 1790933235213308800
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-066/players-short.json",
+    "bytes": 2832205,
+    "sha256": "ca9be3529e457b2b1d8f8da8b3ef59afb8512d281151d679d4411a718f53fc43",
+    "mtime_ns": 1790933244535143900
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-066/recovered.json",
+    "bytes": 2205385,
+    "sha256": "cf29a10daf3c19ba8f0cf520d35961aa3c37a2bd99f1f221a1a9e76573158c9e",
+    "mtime_ns": 1790933884886521200
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-066/qwen-events.json",
+    "bytes": 11446,
+    "sha256": "689f5b158d2b1be2c426d1a4399f5b1f33dfc4500009b648ea24eb3b7ff6d9f4",
+    "mtime_ns": 1790933248184392400
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-066/qwen-events.json",
+    "bytes": 11446,
+    "sha256": "689f5b158d2b1be2c426d1a4399f5b1f33dfc4500009b648ea24eb3b7ff6d9f4",
+    "mtime_ns": 1790933246820238800
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-066/roles.json",
+    "bytes": 40550,
+    "sha256": "60f79008fcb9393e00845024cb9a133dccaa1f3f343ecac259a46065c2cba6f8",
+    "mtime_ns": 1790933248186911500
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-066/excluded-role-points.json",
+    "bytes": 9086,
+    "sha256": "4eb7377701f32460af2f1bf781b2c2ccb50673aa31aed73a66bedc700b442f8b",
+    "mtime_ns": 1790933244539216900
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-075/baseline.json",
+    "bytes": 289977,
+    "sha256": "7d908c36cd94eeb85ead0baa2c7dcba99a7c35aa094a33c59785ad7b20f17c8b",
+    "mtime_ns": 1790930948665239100
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-075/short.json",
+    "bytes": 3298641,
+    "sha256": "5e3c33122adf095bcab830f4c343de7ac2305d3bce7410c92cd058362e69ecc5",
+    "mtime_ns": 1790933239095198500
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-075/players-short.json",
+    "bytes": 3459369,
+    "sha256": "5b1c0ab134c1367bd16d59e67a404dca38ce4892976e8c785326bf08a85cdf41",
+    "mtime_ns": 1790933257249666700
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-075/recovered.json",
+    "bytes": 2713477,
+    "sha256": "b9b6aca7a882bc1b20a891f6233bebd0f70d1b277b5066a429d7af4dbc096430",
+    "mtime_ns": 1790933885116009700
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-075/qwen-events.json",
+    "bytes": 8667,
+    "sha256": "b47d8f60e48a11a93850d10b42b4df820333bd3cf6abdbedab5f64b159e45263",
+    "mtime_ns": 1790933259361518200
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s24-075/qwen-events.json",
+    "bytes": 8667,
+    "sha256": "b47d8f60e48a11a93850d10b42b4df820333bd3cf6abdbedab5f64b159e45263",
+    "mtime_ns": 1790933258453271200
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-075/roles.json",
+    "bytes": 55428,
+    "sha256": "654a7c6f7b25d09b6dd3d75870e74394667e9bfde34d564019615ab12bc52a60",
+    "mtime_ns": 1790933259364349400
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s24-075/excluded-role-points.json",
+    "bytes": 6076,
+    "sha256": "569f778c2e129b19234cebe3ea063b94294772d13860d5cc333cb9e1213fe173",
+    "mtime_ns": 1790933257252133900
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-02/baseline.json",
+    "bytes": 747222,
+    "sha256": "9af6711f102ed73144ed4de33d309a2a4a6a33cf112370810e29157fb2e6c7cd",
+    "mtime_ns": 1790931012116873400
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-02/short.json",
+    "bytes": 8210091,
+    "sha256": "5549c81eb24677d3b6abd7d3a574089eaf7ee9865b83a9116a37d0ac778da38d",
+    "mtime_ns": 1790933259747415400
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-02/players-short.json",
+    "bytes": 8181370,
+    "sha256": "e438d66e3a645ba9c328ec5a7a772023d59b8b0a2db28698b49dbefe3b4b8217",
+    "mtime_ns": 1790933279444701700
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-02/recovered.json",
+    "bytes": 6272486,
+    "sha256": "cd391c668ea0aeb68ba920578d8a90b0b3b45540ff4aa64526b34c9eb47e8f24",
+    "mtime_ns": 1790933885736831100
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-02/qwen-events.json",
+    "bytes": 9267,
+    "sha256": "bcc83d0d0c3ff919e1a960c92fd15627dc1760c19785774d99b6f6cfc4b137cd",
+    "mtime_ns": 1790933285319708100
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-02/qwen-events.json",
+    "bytes": 9267,
+    "sha256": "bcc83d0d0c3ff919e1a960c92fd15627dc1760c19785774d99b6f6cfc4b137cd",
+    "mtime_ns": 1790933281035904100
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-02/roles.json",
+    "bytes": 39974,
+    "sha256": "3b92cd2e1f15c7f6a3c0f700d58361c849604fa2ef697358e8b300602dfd74c6",
+    "mtime_ns": 1790933285319708100
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-02/excluded-role-points.json",
+    "bytes": 76275,
+    "sha256": "39034d93dde706b09a12f456ea48a73525b191b106e9a9d304f7a66ed2acd956",
+    "mtime_ns": 1790933279453134900
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-03/baseline.json",
+    "bytes": 632018,
+    "sha256": "3b94c30100005c8b12c7b2d7467a2c771ddcb6bc0b8cac2bb1186092dc409e56",
+    "mtime_ns": 1790931072546369200
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-03/short.json",
+    "bytes": 6900862,
+    "sha256": "a81329b760d511683dba44d7b0ee42bd266cff3c60d54d2aa0897dfefffc7d4c",
+    "mtime_ns": 1790933606361732100
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-03/players-short.json",
+    "bytes": 7321818,
+    "sha256": "7ac106a30b949b489807c0813e77769349d49e066c0cb163b854ed6392fcacd9",
+    "mtime_ns": 1790933614644568700
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-03/recovered.json",
+    "bytes": 5724967,
+    "sha256": "9b4f5a4d6dc48712b27a30f3c87c4820a3515bb6ea1525b4bbc7704e16e27fee",
+    "mtime_ns": 1790933886275062600
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-03/qwen-events.json",
+    "bytes": 11223,
+    "sha256": "f789aeafd36c52a1166cb7e93a5bc3aa655b2f15e720a706ec761557b7e9d71d",
+    "mtime_ns": 1790933618994876000
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-03/qwen-events.json",
+    "bytes": 11223,
+    "sha256": "f789aeafd36c52a1166cb7e93a5bc3aa655b2f15e720a706ec761557b7e9d71d",
+    "mtime_ns": 1790933617021123500
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-03/roles.json",
+    "bytes": 23877,
+    "sha256": "b9f80c271f840711f6fa8f6f8e0cee88d6e67a365b22a55af2a7355e61a590d7",
+    "mtime_ns": 1790933618994876000
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-03/excluded-role-points.json",
+    "bytes": 790,
+    "sha256": "17c8e66b5c5ffe3176678f757c17ba0aba8f91efa88e8519e87261bd7989611f",
+    "mtime_ns": 1790933614648578900
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-04/baseline.json",
+    "bytes": 809238,
+    "sha256": "fe2f27ff101d208fff5cf31475331e20a7bb9d3513ecf8d32edc858c95f8006f",
+    "mtime_ns": 1790931126995239400
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-04/short.json",
+    "bytes": 8873272,
+    "sha256": "a41d0429919de4bc58f14b6793dec1781928cbf7fba459943cee528fa2060c40",
+    "mtime_ns": 1790933275019844400
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-04/players-short.json",
+    "bytes": 9361494,
+    "sha256": "399f850a9a57519d128f4d6f382e08ab49e5c692f75f1f24130226788e5d89d2",
+    "mtime_ns": 1790933290848148700
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-04/recovered.json",
+    "bytes": 7301027,
+    "sha256": "0dcdb55ba404a108031c63f177b8c56fdccb3cf8ab7514a270be6334214ab9e9",
+    "mtime_ns": 1790933886903042000
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-04/qwen-events.json",
+    "bytes": 11089,
+    "sha256": "2b902e73ad90d28b9c38944cb08b8f64bd117f2900b9e8bca700dd3c2ede31d8",
+    "mtime_ns": 1790933296612663900
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-04/qwen-events.json",
+    "bytes": 11089,
+    "sha256": "2b902e73ad90d28b9c38944cb08b8f64bd117f2900b9e8bca700dd3c2ede31d8",
+    "mtime_ns": 1790933292244929200
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-04/roles.json",
+    "bytes": 41435,
+    "sha256": "322b3c8eb38f302617c1c33cafe0608040c558b4e13ddbd541c29a4ea22e466a",
+    "mtime_ns": 1790933296612663900
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-04/excluded-role-points.json",
+    "bytes": 8782,
+    "sha256": "07861b441f30f551685dc49b4b9c5ef0fb19db4dcc3b2913ff3c180f6c67facb",
+    "mtime_ns": 1790933290853146400
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-05/baseline.json",
+    "bytes": 676684,
+    "sha256": "9275f6fed386103e407e9a82c53637014ab2b89870de06d71fe9b5775f84db4c",
+    "mtime_ns": 1790931223339646500
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-05/short.json",
+    "bytes": 7391745,
+    "sha256": "876da7a753d6cec184d0671b5192109573645a659a3dada27151ee597057329c",
+    "mtime_ns": 1790933292091902200
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-05/players-short.json",
+    "bytes": 7754666,
+    "sha256": "517214d4350e7f13d5ab882cdd5469edf89af121ae0084959b85265f9cdf27da",
+    "mtime_ns": 1790933307037137300
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-05/recovered.json",
+    "bytes": 6077612,
+    "sha256": "16ae192aefa61ec552270c413582708221442a6ae9e4532cb9eaa96d78734f29",
+    "mtime_ns": 1790933887620565200
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-05/qwen-events.json",
+    "bytes": 10349,
+    "sha256": "cffc265c53d2c4b8fa5df17025852f71f59d6ba656500398c57b38d0aa27be1f",
+    "mtime_ns": 1790933312428199100
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-05/qwen-events.json",
+    "bytes": 10349,
+    "sha256": "cffc265c53d2c4b8fa5df17025852f71f59d6ba656500398c57b38d0aa27be1f",
+    "mtime_ns": 1790933309953093000
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-05/roles.json",
+    "bytes": 33406,
+    "sha256": "ba4258ee24867d6b5aa6577fc33c4cea2a85b38d50891b6f4ea1ae5c0a6ebc48",
+    "mtime_ns": 1790933312431621400
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-05/excluded-role-points.json",
+    "bytes": 13557,
+    "sha256": "73b7b906ef1ad748d3b4b5951e63179fe3e91d35361cd83565fceab633d914c8",
+    "mtime_ns": 1790933307037137300
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-06/baseline.json",
+    "bytes": 778449,
+    "sha256": "09434b7f8bd6a9fd634aa1f04aa5aaa4e62017355f8ea1592ccb48ab64a34bed",
+    "mtime_ns": 1790931318068072300
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-06/short.json",
+    "bytes": 8460718,
+    "sha256": "8ed8cb0e0330b738765698f456fd83958c2a933a353d731fb36921fbad9cbc8c",
+    "mtime_ns": 1790933295969865500
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-06/players-short.json",
+    "bytes": 8701877,
+    "sha256": "ec9c47641823a005ad88c478e6eb269aad79b1e5d32a0ecc8a315a051fc5c610",
+    "mtime_ns": 1790933313256137900
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-06/recovered.json",
+    "bytes": 6730735,
+    "sha256": "ec64fd6f3904feeb2b7ec21519a3d2492838010a3d817c4a4007a85aec889b42",
+    "mtime_ns": 1790933888387093100
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-06/qwen-events.json",
+    "bytes": 12069,
+    "sha256": "124f2131aa560d3f268f960046f8e073d0cb6ff2fa7ea2ca34bb650bb9ada044",
+    "mtime_ns": 1790933317324092000
+  },
+  {
+    "path": "tmp/player-recovery/batch-v3/s25-06/qwen-events.json",
+    "bytes": 12069,
+    "sha256": "124f2131aa560d3f268f960046f8e073d0cb6ff2fa7ea2ca34bb650bb9ada044",
+    "mtime_ns": 1790933315436715400
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-06/roles.json",
+    "bytes": 35133,
+    "sha256": "fd3033a49d8bb350351b122561e93359f6ce152519b2608808255c9d8604f669",
+    "mtime_ns": 1790933317325095300
+  },
+  {
+    "path": "artifacts/player-recovery/batch-v3/s25-06/excluded-role-points.json",
+    "bytes": 40431,
+    "sha256": "4afeb8d1e528a50c6bfeeaff7d8f19f93fd37758fc7d833178c23146777d60a1",
+    "mtime_ns": 1790933313256823700
+  }
+]
