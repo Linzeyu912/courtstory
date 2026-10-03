@@ -1,0 +1,4734 @@
+{
+  "adapter_schema_version": "source-semantics-adapter-v1",
+  "adapter_example_snapshot_sha256": "7a0ce49edbc005f09d11e25b64d56e08ac05b7e1ee4a8c95ef4bee2965f06cde",
+  "adapter_sources_renormalized_and_reverified": 10,
+  "adapter_semantic_challenges": [
+    {
+      "case_id": "track_detector_raw_report_offline",
+      "candidate": {
+        "kind": "detector_reported_position",
+        "value": [
+          510.17578125,
+          437.6531677246094,
+          639.8702392578125,
+          679.3873291015625
+        ],
+        "category": "source_report",
+        "confidence": 0.91748046875,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 2,
+          "identity_interval": null,
+          "target_frame": 2,
+          "source_namespace": "005:ebard"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+            "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+            "json_pointer": "/2/tracks/1",
+            "payload_sha256": "d6e548ebc96c3ed5611857727eff293d3b149f24d0e5f18d5004d1ad4afcf261"
+          },
+          "payload_sha256": "d6e548ebc96c3ed5611857727eff293d3b149f24d0e5f18d5004d1ad4afcf261",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": [
+            510.17578125,
+            437.6531677246094,
+            639.8702392578125,
+            679.3873291015625
+          ],
+          "sources": [],
+          "evidence_correlation_group": "d04e8d8acb2853e914fc5210ad7666cd05a78745cdd012e4e6a2508471612ca2"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "verified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "offline_retrospective",
+          "as_of_seconds": 0.0,
+          "target_time_seconds": 0.06666666666666667,
+          "source_time_basis": "verified_container_pts_seconds"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 0.06666666666666667,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "raw_location",
+          "component_source_floor": {
+            "frame": 2,
+            "time_seconds": 0.06666666666666667,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 2,
+            "time_seconds": 0.06666666666666667,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "94b739d32d395442208d90d59c2927434f0b19c105ac9bedfd95b6ebd7e32edf",
+          "raw_payload": [
+            510.17578125,
+            437.6531677246094,
+            639.8702392578125,
+            679.3873291015625,
+            2,
+            0.91748046875,
+            2
+          ]
+        },
+        "claim_component": "raw_location"
+      },
+      "normalized_source": {
+        "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+        "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+        "json_pointer": "/2/tracks/1",
+        "payload_sha256": "d6e548ebc96c3ed5611857727eff293d3b149f24d0e5f18d5004d1ad4afcf261"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            510.17578125,
+            437.6531677246094,
+            639.8702392578125,
+            679.3873291015625
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 2,
+            "identity_interval": null,
+            "target_frame": 2,
+            "source_namespace": "005:ebard"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            510.17578125,
+            437.6531677246094,
+            639.8702392578125,
+            679.3873291015625
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 2,
+            "identity_interval": null,
+            "target_frame": 2,
+            "source_namespace": "005:ebard"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            510.17578125,
+            437.6531677246094,
+            639.8702392578125,
+            679.3873291015625
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 2,
+            "identity_interval": null,
+            "target_frame": 2,
+            "source_namespace": "005:ebard"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "ball_detector_raw_report_offline",
+      "candidate": {
+        "kind": "detector_reported_position",
+        "value": [
+          542.3863525390625,
+          514.0909423828125,
+          590.1136474609375,
+          559.0909423828125
+        ],
+        "category": "source_report",
+        "confidence": 0.46875,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": null,
+          "identity_interval": null,
+          "target_frame": 2,
+          "source_namespace": null
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+            "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+            "json_pointer": "/2/objects/1",
+            "payload_sha256": "5c4744d4de819e205f7a8238ed28569026017e670be3fa49929df353887cb33a"
+          },
+          "payload_sha256": "5c4744d4de819e205f7a8238ed28569026017e670be3fa49929df353887cb33a",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": [
+            542.3863525390625,
+            514.0909423828125,
+            590.1136474609375,
+            559.0909423828125
+          ],
+          "sources": [],
+          "evidence_correlation_group": "3f3f522f111932408a7ba345bf32968c08b33b3de17c05832b8d029c57dc672c"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "verified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "offline_retrospective",
+          "as_of_seconds": 0.0,
+          "target_time_seconds": 0.06666666666666667,
+          "source_time_basis": "verified_container_pts_seconds"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 0.06666666666666667,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "raw_location",
+          "component_source_floor": {
+            "frame": 2,
+            "time_seconds": 0.06666666666666667,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 2,
+            "time_seconds": 0.06666666666666667,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "a5dd75be62b222090cf0ff8cb6d0455526af71857a36027fd2bb1b868e3be13e",
+          "raw_payload": {
+            "kind": "basketball",
+            "box": [
+              542.3863525390625,
+              514.0909423828125,
+              590.1136474609375,
+              559.0909423828125
+            ],
+            "score": 0.46875,
+            "source": "model",
+            "groundPoint": false
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "normalized_source": {
+        "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+        "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+        "json_pointer": "/2/objects/1",
+        "payload_sha256": "5c4744d4de819e205f7a8238ed28569026017e670be3fa49929df353887cb33a"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "silent",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            542.3863525390625,
+            514.0909423828125,
+            590.1136474609375,
+            559.0909423828125
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": null,
+            "identity_interval": null,
+            "target_frame": 2,
+            "source_namespace": null
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            542.3863525390625,
+            514.0909423828125,
+            590.1136474609375,
+            559.0909423828125
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": null,
+            "identity_interval": null,
+            "target_frame": 2,
+            "source_namespace": null
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            542.3863525390625,
+            514.0909423828125,
+            590.1136474609375,
+            559.0909423828125
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": null,
+            "identity_interval": null,
+            "target_frame": 2,
+            "source_namespace": null
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "qwen_legacy_observed_true_is_not_direct_detector_observation",
+      "candidate": {
+        "kind": "direct_observation_status",
+        "value": true,
+        "category": "source_report",
+        "confidence": 0.85,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 8,
+          "identity_interval": null,
+          "target_frame": 78,
+          "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+            "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+            "json_pointer": "/frames/78/tracks/6",
+            "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593"
+          },
+          "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593",
+          "evidence_kind": "model_inferred_location",
+          "data_layer": "raw",
+          "reported_value": false,
+          "sources": [],
+          "evidence_correlation_group": "0eb78a16f3b12849bd7f2f2e3fc7c7ad59be85429ee7eaea92e4349c5bf7a9ec"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "unverified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "offline_retrospective",
+          "as_of_seconds": 0.0,
+          "target_time_seconds": 3.12,
+          "source_time_basis": "nominal_frame_index_over_fps"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 5.0,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "raw_location",
+          "component_source_floor": {
+            "frame": 125,
+            "time_seconds": 5.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 125,
+            "time_seconds": 5.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "387804b14a5fbe6a043d2d8c88f050437c83b481c2fb6083bb80b37fd30ea621",
+          "raw_payload": {
+            "track_id": 8,
+            "bbox": [
+              836.7431131607642,
+              202.07855231340204,
+              895.7431131607642,
+              415.07855231340204
+            ],
+            "raw_bbox": [
+              837.0,
+              202.0,
+              896.0,
+              415.0
+            ],
+            "center": [
+              866.2431131607642,
+              308.57855231340204
+            ],
+            "raw_center": [
+              866.5,
+              308.5
+            ],
+            "foot": [
+              860.0352009099144,
+              415.47655568758455
+            ],
+            "raw_foot": [
+              860.16,
+              415.44
+            ],
+            "time": 3.12,
+            "confidence": 0.85,
+            "source": "qwen",
+            "observed": true,
+            "qwen_anchor": true,
+            "smoothed": true,
+            "motion_speed_bbox_s": 0.19380409121732278,
+            "person_role": "active_player",
+            "role_reference_frame": 31
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "normalized_source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+        "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+        "json_pointer": "/frames/78/tracks/6",
+        "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "direct_observation_status",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 8,
+            "identity_interval": null,
+            "target_frame": 78,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "direct_observation_status",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 8,
+            "identity_interval": null,
+            "target_frame": 78,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "claim_not_equal_to_cited_source_payload",
+            "inferred_or_interpolated_is_not_direct_observation"
+          ],
+          "kind": "direct_observation_status",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 8,
+            "identity_interval": null,
+            "target_frame": 78,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "qwen_estimate_offline_retrospective",
+      "candidate": {
+        "kind": "model_proposed_position",
+        "value": [
+          837.0,
+          202.0,
+          896.0,
+          415.0
+        ],
+        "category": "source_report",
+        "confidence": 0.85,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 8,
+          "identity_interval": null,
+          "target_frame": 78,
+          "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+            "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+            "json_pointer": "/frames/78/tracks/6",
+            "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593"
+          },
+          "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593",
+          "evidence_kind": "model_inferred_location",
+          "data_layer": "raw",
+          "reported_value": [
+            837.0,
+            202.0,
+            896.0,
+            415.0
+          ],
+          "sources": [],
+          "evidence_correlation_group": "0eb78a16f3b12849bd7f2f2e3fc7c7ad59be85429ee7eaea92e4349c5bf7a9ec"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "unverified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "offline_retrospective",
+          "as_of_seconds": 3.12,
+          "target_time_seconds": 3.12,
+          "source_time_basis": "nominal_frame_index_over_fps"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 5.0,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "raw_location",
+          "component_source_floor": {
+            "frame": 125,
+            "time_seconds": 5.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 125,
+            "time_seconds": 5.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "387804b14a5fbe6a043d2d8c88f050437c83b481c2fb6083bb80b37fd30ea621",
+          "raw_payload": {
+            "track_id": 8,
+            "bbox": [
+              836.7431131607642,
+              202.07855231340204,
+              895.7431131607642,
+              415.07855231340204
+            ],
+            "raw_bbox": [
+              837.0,
+              202.0,
+              896.0,
+              415.0
+            ],
+            "center": [
+              866.2431131607642,
+              308.57855231340204
+            ],
+            "raw_center": [
+              866.5,
+              308.5
+            ],
+            "foot": [
+              860.0352009099144,
+              415.47655568758455
+            ],
+            "raw_foot": [
+              860.16,
+              415.44
+            ],
+            "time": 3.12,
+            "confidence": 0.85,
+            "source": "qwen",
+            "observed": true,
+            "qwen_anchor": true,
+            "smoothed": true,
+            "motion_speed_bbox_s": 0.19380409121732278,
+            "person_role": "active_player",
+            "role_reference_frame": 31
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "normalized_source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+        "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+        "json_pointer": "/frames/78/tracks/6",
+        "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "model_proposed_position",
+          "value": [
+            837.0,
+            202.0,
+            896.0,
+            415.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 8,
+            "identity_interval": null,
+            "target_frame": 78,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "model_proposed_position",
+          "value": [
+            837.0,
+            202.0,
+            896.0,
+            415.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 8,
+            "identity_interval": null,
+            "target_frame": 78,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "qualified",
+          "reason": [
+            "accurate_report_of_model_proposal_only_not_world_confirmation"
+          ],
+          "kind": "model_proposed_position",
+          "value": [
+            837.0,
+            202.0,
+            896.0,
+            415.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 8,
+            "identity_interval": null,
+            "target_frame": 78,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "qwen_estimate_causal_replay_as_of_source_time",
+      "candidate": {
+        "kind": "model_proposed_position",
+        "value": [
+          837.0,
+          202.0,
+          896.0,
+          415.0
+        ],
+        "category": "source_report",
+        "confidence": 0.85,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 8,
+          "identity_interval": null,
+          "target_frame": 78,
+          "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+            "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+            "json_pointer": "/frames/78/tracks/6",
+            "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593"
+          },
+          "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593",
+          "evidence_kind": "model_inferred_location",
+          "data_layer": "raw",
+          "reported_value": [
+            837.0,
+            202.0,
+            896.0,
+            415.0
+          ],
+          "sources": [],
+          "evidence_correlation_group": "0eb78a16f3b12849bd7f2f2e3fc7c7ad59be85429ee7eaea92e4349c5bf7a9ec"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "unverified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 3.12,
+          "target_time_seconds": 3.12,
+          "source_time_basis": "nominal_frame_index_over_fps"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 5.0,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "raw_location",
+          "component_source_floor": {
+            "frame": 125,
+            "time_seconds": 5.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 125,
+            "time_seconds": 5.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "387804b14a5fbe6a043d2d8c88f050437c83b481c2fb6083bb80b37fd30ea621",
+          "raw_payload": {
+            "track_id": 8,
+            "bbox": [
+              836.7431131607642,
+              202.07855231340204,
+              895.7431131607642,
+              415.07855231340204
+            ],
+            "raw_bbox": [
+              837.0,
+              202.0,
+              896.0,
+              415.0
+            ],
+            "center": [
+              866.2431131607642,
+              308.57855231340204
+            ],
+            "raw_center": [
+              866.5,
+              308.5
+            ],
+            "foot": [
+              860.0352009099144,
+              415.47655568758455
+            ],
+            "raw_foot": [
+              860.16,
+              415.44
+            ],
+            "time": 3.12,
+            "confidence": 0.85,
+            "source": "qwen",
+            "observed": true,
+            "qwen_anchor": true,
+            "smoothed": true,
+            "motion_speed_bbox_s": 0.19380409121732278,
+            "person_role": "active_player",
+            "role_reference_frame": 31
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "normalized_source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+        "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+        "json_pointer": "/frames/78/tracks/6",
+        "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "model_proposed_position",
+          "value": [
+            837.0,
+            202.0,
+            896.0,
+            415.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 8,
+            "identity_interval": null,
+            "target_frame": 78,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "model_proposed_position",
+          "value": [
+            837.0,
+            202.0,
+            896.0,
+            415.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 8,
+            "identity_interval": null,
+            "target_frame": 78,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "causal_readiness_unknown_lower_bound_insufficient",
+            "dependency_definitely_after_as_of"
+          ],
+          "kind": "model_proposed_position",
+          "value": [
+            837.0,
+            202.0,
+            896.0,
+            415.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 8,
+            "identity_interval": null,
+            "target_frame": 78,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "qwen_raw_bbox_is_not_detector_bbox",
+      "candidate": {
+        "kind": "detector_reported_position",
+        "value": [
+          837.0,
+          202.0,
+          896.0,
+          415.0
+        ],
+        "category": "source_report",
+        "confidence": 0.85,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 8,
+          "identity_interval": null,
+          "target_frame": 78,
+          "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+            "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+            "json_pointer": "/frames/78/tracks/6",
+            "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593"
+          },
+          "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593",
+          "evidence_kind": "model_inferred_location",
+          "data_layer": "raw",
+          "reported_value": [
+            837.0,
+            202.0,
+            896.0,
+            415.0
+          ],
+          "sources": [],
+          "evidence_correlation_group": "0eb78a16f3b12849bd7f2f2e3fc7c7ad59be85429ee7eaea92e4349c5bf7a9ec"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "unverified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "offline_retrospective",
+          "as_of_seconds": 0.0,
+          "target_time_seconds": 3.12,
+          "source_time_basis": "nominal_frame_index_over_fps"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 5.0,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "raw_location",
+          "component_source_floor": {
+            "frame": 125,
+            "time_seconds": 5.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 125,
+            "time_seconds": 5.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "387804b14a5fbe6a043d2d8c88f050437c83b481c2fb6083bb80b37fd30ea621",
+          "raw_payload": {
+            "track_id": 8,
+            "bbox": [
+              836.7431131607642,
+              202.07855231340204,
+              895.7431131607642,
+              415.07855231340204
+            ],
+            "raw_bbox": [
+              837.0,
+              202.0,
+              896.0,
+              415.0
+            ],
+            "center": [
+              866.2431131607642,
+              308.57855231340204
+            ],
+            "raw_center": [
+              866.5,
+              308.5
+            ],
+            "foot": [
+              860.0352009099144,
+              415.47655568758455
+            ],
+            "raw_foot": [
+              860.16,
+              415.44
+            ],
+            "time": 3.12,
+            "confidence": 0.85,
+            "source": "qwen",
+            "observed": true,
+            "qwen_anchor": true,
+            "smoothed": true,
+            "motion_speed_bbox_s": 0.19380409121732278,
+            "person_role": "active_player",
+            "role_reference_frame": 31
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "normalized_source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+        "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+        "json_pointer": "/frames/78/tracks/6",
+        "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            837.0,
+            202.0,
+            896.0,
+            415.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 8,
+            "identity_interval": null,
+            "target_frame": 78,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            837.0,
+            202.0,
+            896.0,
+            415.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 8,
+            "identity_interval": null,
+            "target_frame": 78,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "inferred_raw_bbox_is_not_detector_observation"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            837.0,
+            202.0,
+            896.0,
+            415.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 8,
+            "identity_interval": null,
+            "target_frame": 78,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "smoothed_bbox_cannot_claim_raw",
+      "candidate": {
+        "kind": "detector_reported_position",
+        "value": [
+          618.591588235424,
+          237.87730900706327,
+          682.851588235424,
+          399.20730900706326
+        ],
+        "category": "source_report",
+        "confidence": 0.921,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 1,
+          "identity_interval": null,
+          "target_frame": 0,
+          "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+            "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+            "json_pointer": "/frames/0/tracks/0",
+            "payload_sha256": "3cd63eadf85d87cea7dab5249231b1c256b22e7556a8cd2844ded4c971fbd23c"
+          },
+          "payload_sha256": "3cd63eadf85d87cea7dab5249231b1c256b22e7556a8cd2844ded4c971fbd23c",
+          "evidence_kind": "detector_observation",
+          "data_layer": "display_smoothing",
+          "reported_value": [
+            618.57,
+            237.87,
+            682.83,
+            399.2
+          ],
+          "sources": [],
+          "evidence_correlation_group": "9ae4e7bf842c648d14083b0c68b4f61b765d259d5b8f1eba6a0dab166b1ef1b2"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "unverified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "offline_retrospective",
+          "as_of_seconds": 0.0,
+          "target_time_seconds": 0.0,
+          "source_time_basis": "nominal_frame_index_over_fps"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 0.0,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "raw_location",
+          "component_source_floor": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 34,
+            "time_seconds": 1.36,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "9ac71f232efcc7ff275f15b59a7d61623281aa71177cb5ea2d34e8320899789b",
+          "raw_payload": {
+            "track_id": 1,
+            "bbox": [
+              618.591588235424,
+              237.87730900706327,
+              682.851588235424,
+              399.20730900706326
+            ],
+            "raw_bbox": [
+              618.57,
+              237.87,
+              682.83,
+              399.2
+            ],
+            "center": [
+              650.721588235424,
+              318.5423090070633
+            ],
+            "raw_center": [
+              650.7,
+              318.53499999999997
+            ],
+            "foot": [
+              650.7215381894467,
+              399.21076426222567
+            ],
+            "raw_foot": [
+              650.7,
+              399.2
+            ],
+            "time": 0.0,
+            "confidence": 0.921,
+            "source": "detector",
+            "observed": true,
+            "appearance": [
+              0.5686,
+              0.5216,
+              0.5137
+            ],
+            "smoothed": true,
+            "motion_speed_bbox_s": 0.028812152332419627,
+            "person_role": "active_player",
+            "role_reference_frame": 34
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "normalized_source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+        "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+        "json_pointer": "/frames/0/tracks/0",
+        "payload_sha256": "3cd63eadf85d87cea7dab5249231b1c256b22e7556a8cd2844ded4c971fbd23c"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            618.591588235424,
+            237.87730900706327,
+            682.851588235424,
+            399.20730900706326
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 1,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            618.591588235424,
+            237.87730900706327,
+            682.851588235424,
+            399.20730900706326
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 1,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "claim_not_equal_to_cited_source_payload",
+            "render_or_derived_value_cannot_be_raw_detector_report"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            618.591588235424,
+            237.87730900706327,
+            682.851588235424,
+            399.20730900706326
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 1,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "same_smoothed_record_raw_report_still_available",
+      "candidate": {
+        "kind": "detector_reported_position",
+        "value": [
+          618.57,
+          237.87,
+          682.83,
+          399.2
+        ],
+        "category": "source_report",
+        "confidence": 0.921,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 1,
+          "identity_interval": null,
+          "target_frame": 0,
+          "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+            "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+            "json_pointer": "/frames/0/tracks/0",
+            "payload_sha256": "3cd63eadf85d87cea7dab5249231b1c256b22e7556a8cd2844ded4c971fbd23c"
+          },
+          "payload_sha256": "3cd63eadf85d87cea7dab5249231b1c256b22e7556a8cd2844ded4c971fbd23c",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": [
+            618.57,
+            237.87,
+            682.83,
+            399.2
+          ],
+          "sources": [],
+          "evidence_correlation_group": "9ae4e7bf842c648d14083b0c68b4f61b765d259d5b8f1eba6a0dab166b1ef1b2"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "unverified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "offline_retrospective",
+          "as_of_seconds": 0.0,
+          "target_time_seconds": 0.0,
+          "source_time_basis": "nominal_frame_index_over_fps"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 0.0,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "raw_location",
+          "component_source_floor": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 34,
+            "time_seconds": 1.36,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "9ac71f232efcc7ff275f15b59a7d61623281aa71177cb5ea2d34e8320899789b",
+          "raw_payload": {
+            "track_id": 1,
+            "bbox": [
+              618.591588235424,
+              237.87730900706327,
+              682.851588235424,
+              399.20730900706326
+            ],
+            "raw_bbox": [
+              618.57,
+              237.87,
+              682.83,
+              399.2
+            ],
+            "center": [
+              650.721588235424,
+              318.5423090070633
+            ],
+            "raw_center": [
+              650.7,
+              318.53499999999997
+            ],
+            "foot": [
+              650.7215381894467,
+              399.21076426222567
+            ],
+            "raw_foot": [
+              650.7,
+              399.2
+            ],
+            "time": 0.0,
+            "confidence": 0.921,
+            "source": "detector",
+            "observed": true,
+            "appearance": [
+              0.5686,
+              0.5216,
+              0.5137
+            ],
+            "smoothed": true,
+            "motion_speed_bbox_s": 0.028812152332419627,
+            "person_role": "active_player",
+            "role_reference_frame": 34
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "normalized_source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+        "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+        "json_pointer": "/frames/0/tracks/0",
+        "payload_sha256": "3cd63eadf85d87cea7dab5249231b1c256b22e7556a8cd2844ded4c971fbd23c"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            618.57,
+            237.87,
+            682.83,
+            399.2
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 1,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            618.57,
+            237.87,
+            682.83,
+            399.2
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 1,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            618.57,
+            237.87,
+            682.83,
+            399.2
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 1,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "interpolation_is_not_direct_observation",
+      "candidate": {
+        "kind": "direct_observation_status",
+        "value": true,
+        "category": "source_report",
+        "confidence": 0.5285,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 7,
+          "identity_interval": null,
+          "target_frame": 44,
+          "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+            "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+            "json_pointer": "/frames/44/tracks/6",
+            "payload_sha256": "a4f7391d82934263b3319c668242a4df6a05246fdd305aa5905025dc34eb5eb1"
+          },
+          "payload_sha256": "a4f7391d82934263b3319c668242a4df6a05246fdd305aa5905025dc34eb5eb1",
+          "evidence_kind": "interpolated_location",
+          "data_layer": "raw",
+          "reported_value": false,
+          "sources": [],
+          "evidence_correlation_group": "e9e096f04577d938fe6f27238457ca416dae40aeb6bc149a39f6b548d4e34d56"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "unverified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "offline_retrospective",
+          "as_of_seconds": 0.0,
+          "target_time_seconds": 1.76,
+          "source_time_basis": "nominal_frame_index_over_fps"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 1.84,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "raw_location",
+          "component_source_floor": {
+            "frame": 46,
+            "time_seconds": 1.84,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 46,
+            "time_seconds": 1.84,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "e663c54c036a27da79b32597720a27b26c32930df743fcacb12ca995a99ea7f8",
+          "raw_payload": {
+            "track_id": 7,
+            "bbox": [
+              821.9423518225212,
+              245.58869606391863,
+              892.8323518225211,
+              379.8153627305853
+            ],
+            "raw_bbox": [
+              822.0400000000002,
+              245.35666666666668,
+              892.9300000000001,
+              379.58333333333337
+            ],
+            "center": [
+              857.3873518225212,
+              312.702029397252
+            ],
+            "raw_center": [
+              857.4850000000001,
+              312.47
+            ],
+            "foot": [
+              857.4343544523886,
+              379.93484438720037
+            ],
+            "raw_foot": [
+              857.4850000000001,
+              379.58333333333337
+            ],
+            "time": 1.76,
+            "confidence": 0.5285,
+            "source": "interpolated",
+            "observed": false,
+            "estimated": true,
+            "anchors": [
+              43,
+              46
+            ],
+            "smoothed": true,
+            "motion_speed_bbox_s": 2.9590343942830764,
+            "person_role": "active_player",
+            "role_reference_frame": 38
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "normalized_source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+        "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+        "json_pointer": "/frames/44/tracks/6",
+        "payload_sha256": "a4f7391d82934263b3319c668242a4df6a05246fdd305aa5905025dc34eb5eb1"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "qualified",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "direct_observation_status",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 7,
+            "identity_interval": null,
+            "target_frame": 44,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "direct_observation_status",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 7,
+            "identity_interval": null,
+            "target_frame": 44,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "claim_not_equal_to_cited_source_payload",
+            "inferred_or_interpolated_is_not_direct_observation"
+          ],
+          "kind": "direct_observation_status",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 7,
+            "identity_interval": null,
+            "target_frame": 44,
+            "source_namespace": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "future_role_raw_location_offline_retrospective",
+      "candidate": {
+        "kind": "detector_reported_position",
+        "value": [
+          441.28,
+          138.1,
+          496.99,
+          258.75
+        ],
+        "category": "source_report",
+        "confidence": 0.5993,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 9,
+          "identity_interval": null,
+          "target_frame": 0,
+          "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "artifacts/player-recovery/batch-v3/s24-033/recovered.json",
+            "file_sha256": "38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c",
+            "json_pointer": "/frames/0/tracks/8",
+            "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680"
+          },
+          "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": [
+            441.28,
+            138.1,
+            496.99,
+            258.75
+          ],
+          "sources": [],
+          "evidence_correlation_group": "ad6753b2c2d240e5ac2a7cd32cee213c9d4f214f38492fcf3f323d5e289c2fd8"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "unverified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "offline_retrospective",
+          "as_of_seconds": 1.0,
+          "target_time_seconds": 0.0,
+          "source_time_basis": "nominal_frame_index_over_fps"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 0.0,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "raw_location",
+          "component_source_floor": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 100,
+            "time_seconds": 4.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "06162782af0e5cd6b194ad88e68d2146571bf901a340df2a9398b75567e27407",
+          "raw_payload": {
+            "track_id": 9,
+            "bbox": [
+              441.6118253162744,
+              138.17005255486373,
+              497.32182531627444,
+              258.82005255486376
+            ],
+            "raw_bbox": [
+              441.28,
+              138.1,
+              496.99,
+              258.75
+            ],
+            "center": [
+              469.4668253162744,
+              198.49505255486375
+            ],
+            "raw_center": [
+              469.135,
+              198.425
+            ],
+            "foot": [
+              469.4661301986029,
+              258.808158683414
+            ],
+            "raw_foot": [
+              469.135,
+              258.75
+            ],
+            "time": 0.0,
+            "confidence": 0.5993,
+            "source": "detector",
+            "observed": true,
+            "appearance": [
+              0.4863,
+              0.5216,
+              0.5333
+            ],
+            "smoothed": true,
+            "motion_speed_bbox_s": 0.6875160661962659,
+            "person_role": "active_player",
+            "role_reference_frame": 100
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "normalized_source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-033/recovered.json",
+        "file_sha256": "38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c",
+        "json_pointer": "/frames/0/tracks/8",
+        "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "qualified",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            441.28,
+            138.1,
+            496.99,
+            258.75
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 9,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            441.28,
+            138.1,
+            496.99,
+            258.75
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 9,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            441.28,
+            138.1,
+            496.99,
+            258.75
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 9,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "future_role_raw_location_causal_replay_as_of_source_time",
+      "candidate": {
+        "kind": "detector_reported_position",
+        "value": [
+          441.28,
+          138.1,
+          496.99,
+          258.75
+        ],
+        "category": "source_report",
+        "confidence": 0.5993,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 9,
+          "identity_interval": null,
+          "target_frame": 0,
+          "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "artifacts/player-recovery/batch-v3/s24-033/recovered.json",
+            "file_sha256": "38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c",
+            "json_pointer": "/frames/0/tracks/8",
+            "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680"
+          },
+          "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": [
+            441.28,
+            138.1,
+            496.99,
+            258.75
+          ],
+          "sources": [],
+          "evidence_correlation_group": "ad6753b2c2d240e5ac2a7cd32cee213c9d4f214f38492fcf3f323d5e289c2fd8"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "unverified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 1.0,
+          "target_time_seconds": 0.0,
+          "source_time_basis": "nominal_frame_index_over_fps"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 0.0,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "raw_location",
+          "component_source_floor": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 100,
+            "time_seconds": 4.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "06162782af0e5cd6b194ad88e68d2146571bf901a340df2a9398b75567e27407",
+          "raw_payload": {
+            "track_id": 9,
+            "bbox": [
+              441.6118253162744,
+              138.17005255486373,
+              497.32182531627444,
+              258.82005255486376
+            ],
+            "raw_bbox": [
+              441.28,
+              138.1,
+              496.99,
+              258.75
+            ],
+            "center": [
+              469.4668253162744,
+              198.49505255486375
+            ],
+            "raw_center": [
+              469.135,
+              198.425
+            ],
+            "foot": [
+              469.4661301986029,
+              258.808158683414
+            ],
+            "raw_foot": [
+              469.135,
+              258.75
+            ],
+            "time": 0.0,
+            "confidence": 0.5993,
+            "source": "detector",
+            "observed": true,
+            "appearance": [
+              0.4863,
+              0.5216,
+              0.5333
+            ],
+            "smoothed": true,
+            "motion_speed_bbox_s": 0.6875160661962659,
+            "person_role": "active_player",
+            "role_reference_frame": 100
+          }
+        },
+        "claim_component": "raw_location"
+      },
+      "normalized_source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-033/recovered.json",
+        "file_sha256": "38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c",
+        "json_pointer": "/frames/0/tracks/8",
+        "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "qualified",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            441.28,
+            138.1,
+            496.99,
+            258.75
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 9,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            441.28,
+            138.1,
+            496.99,
+            258.75
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 9,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "causal_readiness_unknown_lower_bound_insufficient"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            441.28,
+            138.1,
+            496.99,
+            258.75
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 9,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "future_role_role_offline_retrospective",
+      "candidate": {
+        "kind": "model_role_report",
+        "value": "active_player",
+        "category": "source_report",
+        "confidence": 0.5993,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 9,
+          "identity_interval": null,
+          "target_frame": 0,
+          "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "artifacts/player-recovery/batch-v3/s24-033/recovered.json",
+            "file_sha256": "38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c",
+            "json_pointer": "/frames/0/tracks/8",
+            "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680"
+          },
+          "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680",
+          "evidence_kind": "model_inferred_role",
+          "data_layer": "raw",
+          "reported_value": "active_player",
+          "sources": [],
+          "evidence_correlation_group": "ad6753b2c2d240e5ac2a7cd32cee213c9d4f214f38492fcf3f323d5e289c2fd8"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "unverified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "offline_retrospective",
+          "as_of_seconds": 1.0,
+          "target_time_seconds": 0.0,
+          "source_time_basis": "nominal_frame_index_over_fps"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 4.0,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "role",
+          "component_source_floor": {
+            "frame": 100,
+            "time_seconds": 4.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "role_reference_frame_lower_bound"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 100,
+            "time_seconds": 4.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "06162782af0e5cd6b194ad88e68d2146571bf901a340df2a9398b75567e27407",
+          "raw_payload": {
+            "track_id": 9,
+            "bbox": [
+              441.6118253162744,
+              138.17005255486373,
+              497.32182531627444,
+              258.82005255486376
+            ],
+            "raw_bbox": [
+              441.28,
+              138.1,
+              496.99,
+              258.75
+            ],
+            "center": [
+              469.4668253162744,
+              198.49505255486375
+            ],
+            "raw_center": [
+              469.135,
+              198.425
+            ],
+            "foot": [
+              469.4661301986029,
+              258.808158683414
+            ],
+            "raw_foot": [
+              469.135,
+              258.75
+            ],
+            "time": 0.0,
+            "confidence": 0.5993,
+            "source": "detector",
+            "observed": true,
+            "appearance": [
+              0.4863,
+              0.5216,
+              0.5333
+            ],
+            "smoothed": true,
+            "motion_speed_bbox_s": 0.6875160661962659,
+            "person_role": "active_player",
+            "role_reference_frame": 100
+          }
+        },
+        "claim_component": "role"
+      },
+      "normalized_source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-033/recovered.json",
+        "file_sha256": "38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c",
+        "json_pointer": "/frames/0/tracks/8",
+        "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "qualified",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "model_role_report",
+          "value": "active_player",
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 9,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "model_role_report",
+          "value": "active_player",
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 9,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "qualified",
+          "reason": [
+            "accurate_report_of_model_proposal_only_not_world_confirmation"
+          ],
+          "kind": "model_role_report",
+          "value": "active_player",
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 9,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "future_role_role_causal_replay_as_of_source_time",
+      "candidate": {
+        "kind": "model_role_report",
+        "value": "active_player",
+        "category": "source_report",
+        "confidence": 0.5993,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 9,
+          "identity_interval": null,
+          "target_frame": 0,
+          "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "artifacts/player-recovery/batch-v3/s24-033/recovered.json",
+            "file_sha256": "38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c",
+            "json_pointer": "/frames/0/tracks/8",
+            "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680"
+          },
+          "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680",
+          "evidence_kind": "model_inferred_role",
+          "data_layer": "raw",
+          "reported_value": "active_player",
+          "sources": [],
+          "evidence_correlation_group": "ad6753b2c2d240e5ac2a7cd32cee213c9d4f214f38492fcf3f323d5e289c2fd8"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "unverified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "causal_replay_as_of_source_time",
+          "as_of_seconds": 1.0,
+          "target_time_seconds": 0.0,
+          "source_time_basis": "nominal_frame_index_over_fps"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 4.0,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "role",
+          "component_source_floor": {
+            "frame": 100,
+            "time_seconds": 4.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "role_reference_frame_lower_bound"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 100,
+            "time_seconds": 4.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "06162782af0e5cd6b194ad88e68d2146571bf901a340df2a9398b75567e27407",
+          "raw_payload": {
+            "track_id": 9,
+            "bbox": [
+              441.6118253162744,
+              138.17005255486373,
+              497.32182531627444,
+              258.82005255486376
+            ],
+            "raw_bbox": [
+              441.28,
+              138.1,
+              496.99,
+              258.75
+            ],
+            "center": [
+              469.4668253162744,
+              198.49505255486375
+            ],
+            "raw_center": [
+              469.135,
+              198.425
+            ],
+            "foot": [
+              469.4661301986029,
+              258.808158683414
+            ],
+            "raw_foot": [
+              469.135,
+              258.75
+            ],
+            "time": 0.0,
+            "confidence": 0.5993,
+            "source": "detector",
+            "observed": true,
+            "appearance": [
+              0.4863,
+              0.5216,
+              0.5333
+            ],
+            "smoothed": true,
+            "motion_speed_bbox_s": 0.6875160661962659,
+            "person_role": "active_player",
+            "role_reference_frame": 100
+          }
+        },
+        "claim_component": "role"
+      },
+      "normalized_source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-033/recovered.json",
+        "file_sha256": "38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c",
+        "json_pointer": "/frames/0/tracks/8",
+        "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "qualified",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "model_role_report",
+          "value": "active_player",
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 9,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "model_role_report",
+          "value": "active_player",
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 9,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "causal_readiness_unknown_lower_bound_insufficient",
+            "dependency_definitely_after_as_of"
+          ],
+          "kind": "model_role_report",
+          "value": "active_player",
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 9,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "same_file_sha_is_not_two_independent_votes",
+      "candidate": {
+        "kind": "independent_model_agreement",
+        "value": 2,
+        "category": "source_report",
+        "confidence": 0.92041,
+        "entity_scope": {
+          "actor": "A",
+          "track_id": 1,
+          "identity_interval": null,
+          "target_frame": 0,
+          "source_namespace": "005:team-stable"
+        },
+        "source_provenance": {
+          "chain_complete": true,
+          "integrity": "verified",
+          "source_ref": {
+            "relative_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json",
+            "file_sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17",
+            "json_pointer": "/0/tracks/0",
+            "payload_sha256": "0440a01c6ee5d59da6e646cbad11fa317737ca663a3a1d96f085523ff9316ee6"
+          },
+          "payload_sha256": "0440a01c6ee5d59da6e646cbad11fa317737ca663a3a1d96f085523ff9316ee6",
+          "evidence_kind": "detector_observation",
+          "data_layer": "raw",
+          "reported_value": 2,
+          "sources": [
+            {
+              "variant": "team-stable",
+              "file_sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17",
+              "correlation_group": "ba703fcb01e5f6d61459843b2944b3ed98a00e3e4d9eeae7052dcfee6b082636"
+            },
+            {
+              "variant": "optimized",
+              "file_sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17",
+              "correlation_group": "ba703fcb01e5f6d61459843b2944b3ed98a00e3e4d9eeae7052dcfee6b082636"
+            }
+          ],
+          "evidence_correlation_group": "ba703fcb01e5f6d61459843b2944b3ed98a00e3e4d9eeae7052dcfee6b082636"
+        },
+        "states": {
+          "identity": "unverified",
+          "time": "verified",
+          "geometry": "unverified",
+          "camera": "unknown",
+          "calibration": "unknown",
+          "orientation": "unknown",
+          "synchronization": "unknown",
+          "object_classification": "unverified"
+        },
+        "timing": {
+          "usage_context": "offline_retrospective",
+          "as_of_seconds": 0.0,
+          "target_time_seconds": 0.0,
+          "source_time_basis": "verified_container_pts_seconds"
+        },
+        "availability": {
+          "exact_available_at_source_seconds": null,
+          "known_source_lower_bound_seconds": 0.0,
+          "dependency_completeness": "partial",
+          "wall_clock_available_at": null,
+          "component": "raw_location",
+          "component_source_floor": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "composite_source_floor_not_used_for_unrelated_claim": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "known_dependencies_only_not_actual_availability"
+          }
+        },
+        "observations": {
+          "adapter_record_id": "8c689a96317a6071d05aeb5bb5c1e1158684b44d445504cb252869c86bdfb47f",
+          "raw_payload": [
+            1452.272705,
+            484.772736,
+            1575.0,
+            737.727295,
+            1,
+            0.92041,
+            2
+          ]
+        },
+        "claim_component": "raw_location"
+      },
+      "normalized_source": {
+        "relative_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json",
+        "file_sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17",
+        "json_pointer": "/0/tracks/0",
+        "payload_sha256": "0440a01c6ee5d59da6e646cbad11fa317737ca663a3a1d96f085523ff9316ee6"
+      },
+      "diagnostic_reference": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "independent_model_agreement",
+          "value": 2,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 1,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "005:team-stable"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "independent_model_agreement",
+          "value": 2,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 1,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "005:team-stable"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "claim_not_equal_to_cited_source_payload"
+          ],
+          "kind": "independent_model_agreement",
+          "value": 2,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": 1,
+            "identity_interval": null,
+            "target_frame": 0,
+            "source_namespace": "005:team-stable"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    }
+  ],
+  "inherited_sparse_reference": {
+    "source_sha256": "9b25fb5d3940efdf2ad476d5d42e7515c877baccc1b7f56f84851f1af68b05c9",
+    "cases": [
+      {
+        "case_id": "T25_white28_binding_at_53",
+        "candidate": {
+          "kind": "named_actor_label",
+          "value": "white_28",
+          "category": "world",
+          "confidence": 0.825195,
+          "entity_scope": {
+            "actor": "white_28",
+            "track_id": 25,
+            "identity_interval": [
+              53,
+              53
+            ],
+            "target_frame": 53,
+            "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+          },
+          "source_provenance": {
+            "chain_complete": true,
+            "integrity": "verified",
+            "source_ref": {
+              "relative_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
+              "file_sha256": "83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b",
+              "json_pointer": "/53/tracks/4",
+              "payload_sha256": "b5b2873e1d3d45e90841fbef01b2a9c0cbd7f26ddd2c687a21a38024f8d18310"
+            },
+            "payload_sha256": "b5b2873e1d3d45e90841fbef01b2a9c0cbd7f26ddd2c687a21a38024f8d18310",
+            "evidence_kind": "detector_observation",
+            "data_layer": "raw",
+            "reported_value": [
+              231.818192,
+              280.909088,
+              279.090912,
+              434.090912
+            ],
+            "sources": [],
+            "evidence_correlation_group": "a6ceced521f9be7364aed7ac00f98809e3e2cf9cf02aac06e19e397c0315040c"
+          },
+          "states": {
+            "identity": "unverified",
+            "time": "unverified",
+            "geometry": "unverified",
+            "camera": "unknown",
+            "calibration": "unknown",
+            "orientation": "unknown",
+            "synchronization": "unknown",
+            "object_classification": "unverified"
+          },
+          "timing": {
+            "usage_context": "offline_retrospective",
+            "as_of_seconds": 0.0,
+            "target_time_seconds": 2.24,
+            "source_time_basis": "declared_container_pts_consistent"
+          },
+          "availability": {
+            "exact_available_at_source_seconds": null,
+            "known_source_lower_bound_seconds": 2.24,
+            "dependency_completeness": "partial",
+            "wall_clock_available_at": null,
+            "component": "raw_location",
+            "component_source_floor": {
+              "frame": 53,
+              "time_seconds": 2.24,
+              "time_basis": "declared_container_pts_consistent",
+              "basis": "source_frame_or_known_inference_anchors"
+            },
+            "composite_source_floor_not_used_for_unrelated_claim": {
+              "frame": 53,
+              "time_seconds": 2.24,
+              "time_basis": "declared_container_pts_consistent",
+              "basis": "known_dependencies_only_not_actual_availability"
+            }
+          },
+          "observations": {
+            "adapter_record_id": "0dc5486ba8d04f53513e271af23dcb28f1b39f1317f39cf5d0c3498eb3e81569",
+            "raw_payload": [
+              231.818192,
+              280.909088,
+              279.090912,
+              434.090912,
+              25,
+              0.825195,
+              2
+            ]
+          },
+          "claim_component": "raw_location"
+        },
+        "normalized_source": {
+          "relative_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
+          "file_sha256": "83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b",
+          "json_pointer": "/53/tracks/4",
+          "payload_sha256": "b5b2873e1d3d45e90841fbef01b2a9c0cbd7f26ddd2c687a21a38024f8d18310"
+        },
+        "diagnostic_reference": {
+          "status": "inherited_sparse_source_claimed_human_not_independently_reverified",
+          "label_source": "engineering/research/player-tracking-spotchecks-20261002.json",
+          "label_sha256": "64349d63c24adc15318735ab4cfec8ca75a72a812db3a5270f094d37893f3ec5",
+          "source_label_at_this_frame": "white_28",
+          "query_label": "white_28",
+          "reference_agreement": true,
+          "detector_score": 0.825195,
+          "iou_to_inherited_box": 0.9999929280039929,
+          "not_dense_ground_truth": true,
+          "no_truth_assigned_between_reviewed_frames": true
+        },
+        "outputs": {
+          "confidence_only": {
+            "decision": "certain",
+            "reason": [
+              "confidence_threshold_only"
+            ],
+            "kind": "named_actor_label",
+            "value": "white_28",
+            "entity_scope": {
+              "actor": "white_28",
+              "track_id": 25,
+              "identity_interval": [
+                53,
+                53
+              ],
+              "target_frame": 53,
+              "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "provenance_only": {
+            "decision": "certain",
+            "reason": [
+              "source_chain_integrity_is_not_world_truth"
+            ],
+            "kind": "named_actor_label",
+            "value": "white_28",
+            "entity_scope": {
+              "actor": "white_28",
+              "track_id": 25,
+              "identity_interval": [
+                53,
+                53
+              ],
+              "target_frame": 53,
+              "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "capability_dependencies": {
+            "decision": "silent",
+            "reason": [
+              "identity_not_verified",
+              "time_not_verified"
+            ],
+            "kind": "named_actor_label",
+            "value": "white_28",
+            "entity_scope": {
+              "actor": "white_28",
+              "track_id": 25,
+              "identity_interval": [
+                53,
+                53
+              ],
+              "target_frame": 53,
+              "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          }
+        }
+      },
+      {
+        "case_id": "T25_white28_binding_at_159",
+        "candidate": {
+          "kind": "named_actor_label",
+          "value": "white_28",
+          "category": "world",
+          "confidence": 0.907715,
+          "entity_scope": {
+            "actor": "white_28",
+            "track_id": 25,
+            "identity_interval": [
+              53,
+              53
+            ],
+            "target_frame": 159,
+            "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+          },
+          "source_provenance": {
+            "chain_complete": true,
+            "integrity": "verified",
+            "source_ref": {
+              "relative_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
+              "file_sha256": "83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b",
+              "json_pointer": "/159/tracks/1",
+              "payload_sha256": "fe3ee62ea40beae413cacac8df7817c6c7e6b9555727126499bfe5ac44105448"
+            },
+            "payload_sha256": "fe3ee62ea40beae413cacac8df7817c6c7e6b9555727126499bfe5ac44105448",
+            "evidence_kind": "detector_observation",
+            "data_layer": "raw",
+            "reported_value": [
+              338.409088,
+              346.818207,
+              417.5,
+              515.0
+            ],
+            "sources": [],
+            "evidence_correlation_group": "4afd3c00da40d4bb8f0f321b7b275fc045e974b369bbe0f5c48a5c08c3922d03"
+          },
+          "states": {
+            "identity": "unverified",
+            "time": "unverified",
+            "geometry": "unverified",
+            "camera": "unknown",
+            "calibration": "unknown",
+            "orientation": "unknown",
+            "synchronization": "unknown",
+            "object_classification": "unverified"
+          },
+          "timing": {
+            "usage_context": "offline_retrospective",
+            "as_of_seconds": 0.0,
+            "target_time_seconds": 6.48,
+            "source_time_basis": "declared_container_pts_consistent"
+          },
+          "availability": {
+            "exact_available_at_source_seconds": null,
+            "known_source_lower_bound_seconds": 6.48,
+            "dependency_completeness": "partial",
+            "wall_clock_available_at": null,
+            "component": "raw_location",
+            "component_source_floor": {
+              "frame": 159,
+              "time_seconds": 6.48,
+              "time_basis": "declared_container_pts_consistent",
+              "basis": "source_frame_or_known_inference_anchors"
+            },
+            "composite_source_floor_not_used_for_unrelated_claim": {
+              "frame": 159,
+              "time_seconds": 6.48,
+              "time_basis": "declared_container_pts_consistent",
+              "basis": "known_dependencies_only_not_actual_availability"
+            }
+          },
+          "observations": {
+            "adapter_record_id": "22ed6806b7019df3b8b9a594b889c93e188c1c8133410ee597e1cc00f77adffd",
+            "raw_payload": [
+              338.409088,
+              346.818207,
+              417.5,
+              515.0,
+              25,
+              0.907715,
+              2
+            ]
+          },
+          "claim_component": "raw_location"
+        },
+        "normalized_source": {
+          "relative_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
+          "file_sha256": "83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b",
+          "json_pointer": "/159/tracks/1",
+          "payload_sha256": "fe3ee62ea40beae413cacac8df7817c6c7e6b9555727126499bfe5ac44105448"
+        },
+        "diagnostic_reference": {
+          "status": "inherited_sparse_source_claimed_human_not_independently_reverified",
+          "label_source": "engineering/research/player-tracking-spotchecks-20261002.json",
+          "label_sha256": "64349d63c24adc15318735ab4cfec8ca75a72a812db3a5270f094d37893f3ec5",
+          "source_label_at_this_frame": "white_28",
+          "query_label": "white_28",
+          "reference_agreement": true,
+          "detector_score": 0.907715,
+          "iou_to_inherited_box": 0.99999765654949,
+          "not_dense_ground_truth": true,
+          "no_truth_assigned_between_reviewed_frames": true
+        },
+        "outputs": {
+          "confidence_only": {
+            "decision": "certain",
+            "reason": [
+              "confidence_threshold_only"
+            ],
+            "kind": "named_actor_label",
+            "value": "white_28",
+            "entity_scope": {
+              "actor": "white_28",
+              "track_id": 25,
+              "identity_interval": [
+                53,
+                53
+              ],
+              "target_frame": 159,
+              "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "provenance_only": {
+            "decision": "certain",
+            "reason": [
+              "source_chain_integrity_is_not_world_truth"
+            ],
+            "kind": "named_actor_label",
+            "value": "white_28",
+            "entity_scope": {
+              "actor": "white_28",
+              "track_id": 25,
+              "identity_interval": [
+                53,
+                53
+              ],
+              "target_frame": 159,
+              "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "capability_dependencies": {
+            "decision": "silent",
+            "reason": [
+              "identity_anchor_does_not_cover_target_interval",
+              "identity_not_verified",
+              "time_not_verified"
+            ],
+            "kind": "named_actor_label",
+            "value": "white_28",
+            "entity_scope": {
+              "actor": "white_28",
+              "track_id": 25,
+              "identity_interval": [
+                53,
+                53
+              ],
+              "target_frame": 159,
+              "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          }
+        }
+      },
+      {
+        "case_id": "T25_white28_binding_at_212",
+        "candidate": {
+          "kind": "named_actor_label",
+          "value": "white_28",
+          "category": "world",
+          "confidence": 0.816895,
+          "entity_scope": {
+            "actor": "white_28",
+            "track_id": 25,
+            "identity_interval": [
+              53,
+              53
+            ],
+            "target_frame": 212,
+            "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+          },
+          "source_provenance": {
+            "chain_complete": true,
+            "integrity": "verified",
+            "source_ref": {
+              "relative_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
+              "file_sha256": "83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b",
+              "json_pointer": "/212/tracks/4",
+              "payload_sha256": "d2670f4839ca9a22ff78038885a58a450506577aa018b8c80ae1f0dae429168e"
+            },
+            "payload_sha256": "d2670f4839ca9a22ff78038885a58a450506577aa018b8c80ae1f0dae429168e",
+            "evidence_kind": "detector_observation",
+            "data_layer": "raw",
+            "reported_value": [
+              358.636383,
+              374.772736,
+              417.727295,
+              540.0
+            ],
+            "sources": [],
+            "evidence_correlation_group": "f9adbd817e8d6162ed8dc5fbd8c92f33ddf8ee6eb55a38ce03eb526cf28f46b6"
+          },
+          "states": {
+            "identity": "unverified",
+            "time": "unverified",
+            "geometry": "unverified",
+            "camera": "unknown",
+            "calibration": "unknown",
+            "orientation": "unknown",
+            "synchronization": "unknown",
+            "object_classification": "unverified"
+          },
+          "timing": {
+            "usage_context": "offline_retrospective",
+            "as_of_seconds": 0.0,
+            "target_time_seconds": 8.6,
+            "source_time_basis": "declared_container_pts_consistent"
+          },
+          "availability": {
+            "exact_available_at_source_seconds": null,
+            "known_source_lower_bound_seconds": 8.6,
+            "dependency_completeness": "partial",
+            "wall_clock_available_at": null,
+            "component": "raw_location",
+            "component_source_floor": {
+              "frame": 212,
+              "time_seconds": 8.6,
+              "time_basis": "declared_container_pts_consistent",
+              "basis": "source_frame_or_known_inference_anchors"
+            },
+            "composite_source_floor_not_used_for_unrelated_claim": {
+              "frame": 212,
+              "time_seconds": 8.6,
+              "time_basis": "declared_container_pts_consistent",
+              "basis": "known_dependencies_only_not_actual_availability"
+            }
+          },
+          "observations": {
+            "adapter_record_id": "3f1ba5346d439237f31974d69c58141afdb003efa78e80cf181055717bb3343e",
+            "raw_payload": [
+              358.636383,
+              374.772736,
+              417.727295,
+              540.0,
+              25,
+              0.816895,
+              2
+            ]
+          },
+          "claim_component": "raw_location"
+        },
+        "normalized_source": {
+          "relative_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
+          "file_sha256": "83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b",
+          "json_pointer": "/212/tracks/4",
+          "payload_sha256": "d2670f4839ca9a22ff78038885a58a450506577aa018b8c80ae1f0dae429168e"
+        },
+        "diagnostic_reference": {
+          "status": "inherited_sparse_source_claimed_human_not_independently_reverified",
+          "label_source": "engineering/research/player-tracking-spotchecks-20261002.json",
+          "label_sha256": "64349d63c24adc15318735ab4cfec8ca75a72a812db3a5270f094d37893f3ec5",
+          "source_label_at_this_frame": "blue_10",
+          "query_label": "white_28",
+          "reference_agreement": false,
+          "detector_score": 0.816895,
+          "iou_to_inherited_box": 0.9999869284582075,
+          "not_dense_ground_truth": true,
+          "no_truth_assigned_between_reviewed_frames": true
+        },
+        "outputs": {
+          "confidence_only": {
+            "decision": "certain",
+            "reason": [
+              "confidence_threshold_only"
+            ],
+            "kind": "named_actor_label",
+            "value": "white_28",
+            "entity_scope": {
+              "actor": "white_28",
+              "track_id": 25,
+              "identity_interval": [
+                53,
+                53
+              ],
+              "target_frame": 212,
+              "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "provenance_only": {
+            "decision": "certain",
+            "reason": [
+              "source_chain_integrity_is_not_world_truth"
+            ],
+            "kind": "named_actor_label",
+            "value": "white_28",
+            "entity_scope": {
+              "actor": "white_28",
+              "track_id": 25,
+              "identity_interval": [
+                53,
+                53
+              ],
+              "target_frame": 212,
+              "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "capability_dependencies": {
+            "decision": "silent",
+            "reason": [
+              "identity_anchor_does_not_cover_target_interval",
+              "identity_not_verified",
+              "time_not_verified"
+            ],
+            "kind": "named_actor_label",
+            "value": "white_28",
+            "entity_scope": {
+              "actor": "white_28",
+              "track_id": 25,
+              "identity_interval": [
+                53,
+                53
+              ],
+              "target_frame": 212,
+              "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          }
+        }
+      },
+      {
+        "case_id": "T25_white28_binding_at_266",
+        "candidate": {
+          "kind": "named_actor_label",
+          "value": "white_28",
+          "category": "world",
+          "confidence": 0.910645,
+          "entity_scope": {
+            "actor": "white_28",
+            "track_id": 25,
+            "identity_interval": [
+              53,
+              53
+            ],
+            "target_frame": 266,
+            "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+          },
+          "source_provenance": {
+            "chain_complete": true,
+            "integrity": "verified",
+            "source_ref": {
+              "relative_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
+              "file_sha256": "83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b",
+              "json_pointer": "/266/tracks/3",
+              "payload_sha256": "e38062bac333c9425050b0a9a71c70c0f4c78e33833d257da360a52988e959b6"
+            },
+            "payload_sha256": "e38062bac333c9425050b0a9a71c70c0f4c78e33833d257da360a52988e959b6",
+            "evidence_kind": "detector_observation",
+            "data_layer": "raw",
+            "reported_value": [
+              242.272736,
+              385.681824,
+              315.909088,
+              543.636353
+            ],
+            "sources": [],
+            "evidence_correlation_group": "4ba3c2fa5dff3ecaf9fe589505a0198c9b43fbe97d2031bf852a6612e4f32406"
+          },
+          "states": {
+            "identity": "unverified",
+            "time": "unverified",
+            "geometry": "unverified",
+            "camera": "unknown",
+            "calibration": "unknown",
+            "orientation": "unknown",
+            "synchronization": "unknown",
+            "object_classification": "unverified"
+          },
+          "timing": {
+            "usage_context": "offline_retrospective",
+            "as_of_seconds": 0.0,
+            "target_time_seconds": 10.76,
+            "source_time_basis": "declared_container_pts_consistent"
+          },
+          "availability": {
+            "exact_available_at_source_seconds": null,
+            "known_source_lower_bound_seconds": 10.76,
+            "dependency_completeness": "partial",
+            "wall_clock_available_at": null,
+            "component": "raw_location",
+            "component_source_floor": {
+              "frame": 266,
+              "time_seconds": 10.76,
+              "time_basis": "declared_container_pts_consistent",
+              "basis": "source_frame_or_known_inference_anchors"
+            },
+            "composite_source_floor_not_used_for_unrelated_claim": {
+              "frame": 266,
+              "time_seconds": 10.76,
+              "time_basis": "declared_container_pts_consistent",
+              "basis": "known_dependencies_only_not_actual_availability"
+            }
+          },
+          "observations": {
+            "adapter_record_id": "0119595176cb6d1b500751c7946669bb42af9c7d12ce17e77f6d668dc673cd11",
+            "raw_payload": [
+              242.272736,
+              385.681824,
+              315.909088,
+              543.636353,
+              25,
+              0.910645,
+              2
+            ]
+          },
+          "claim_component": "raw_location"
+        },
+        "normalized_source": {
+          "relative_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
+          "file_sha256": "83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b",
+          "json_pointer": "/266/tracks/3",
+          "payload_sha256": "e38062bac333c9425050b0a9a71c70c0f4c78e33833d257da360a52988e959b6"
+        },
+        "diagnostic_reference": {
+          "status": "inherited_sparse_source_claimed_human_not_independently_reverified",
+          "label_source": "engineering/research/player-tracking-spotchecks-20261002.json",
+          "label_sha256": "64349d63c24adc15318735ab4cfec8ca75a72a812db3a5270f094d37893f3ec5",
+          "source_label_at_this_frame": "blue_10",
+          "query_label": "white_28",
+          "reference_agreement": false,
+          "detector_score": 0.910645,
+          "iou_to_inherited_box": 0.9999918707032432,
+          "not_dense_ground_truth": true,
+          "no_truth_assigned_between_reviewed_frames": true
+        },
+        "outputs": {
+          "confidence_only": {
+            "decision": "certain",
+            "reason": [
+              "confidence_threshold_only"
+            ],
+            "kind": "named_actor_label",
+            "value": "white_28",
+            "entity_scope": {
+              "actor": "white_28",
+              "track_id": 25,
+              "identity_interval": [
+                53,
+                53
+              ],
+              "target_frame": 266,
+              "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "provenance_only": {
+            "decision": "certain",
+            "reason": [
+              "source_chain_integrity_is_not_world_truth"
+            ],
+            "kind": "named_actor_label",
+            "value": "white_28",
+            "entity_scope": {
+              "actor": "white_28",
+              "track_id": 25,
+              "identity_interval": [
+                53,
+                53
+              ],
+              "target_frame": 266,
+              "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "capability_dependencies": {
+            "decision": "silent",
+            "reason": [
+              "identity_anchor_does_not_cover_target_interval",
+              "identity_not_verified",
+              "time_not_verified"
+            ],
+            "kind": "named_actor_label",
+            "value": "white_28",
+            "entity_scope": {
+              "actor": "white_28",
+              "track_id": 25,
+              "identity_interval": [
+                53,
+                53
+              ],
+              "target_frame": 266,
+              "source_namespace": "artifact:83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          }
+        }
+      }
+    ],
+    "summaries": [
+      {
+        "method": "confidence_only",
+        "reference_agreement_cases": 2,
+        "reference_contradiction_cases": 2,
+        "admitted_reference_contradictions": 2,
+        "retained_reference_agreements": 2,
+        "human_accuracy_rate": null,
+        "rate_reason": "Inherited sparse reference not independently reverified."
+      },
+      {
+        "method": "provenance_only",
+        "reference_agreement_cases": 2,
+        "reference_contradiction_cases": 2,
+        "admitted_reference_contradictions": 2,
+        "retained_reference_agreements": 2,
+        "human_accuracy_rate": null,
+        "rate_reason": "Inherited sparse reference not independently reverified."
+      },
+      {
+        "method": "capability_dependencies",
+        "reference_agreement_cases": 2,
+        "reference_contradiction_cases": 2,
+        "admitted_reference_contradictions": 0,
+        "retained_reference_agreements": 0,
+        "human_accuracy_rate": null,
+        "rate_reason": "Inherited sparse reference not independently reverified."
+      }
+    ]
+  },
+  "provisional_ai_ball_diagnostics": {
+    "source_sha256": "74675e642ac0b0d35a94fcb6d736437ace17ddad52093976becfa0264e35a85c",
+    "not_ground_truth": true,
+    "cases": [
+      {
+        "case_id": "AI_ball_005_f4_object2",
+        "candidate": {
+          "kind": "ball_detected",
+          "value": true,
+          "category": "world",
+          "confidence": 0.273681640625,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": null,
+            "identity_interval": null,
+            "target_frame": 4,
+            "source_namespace": null
+          },
+          "source_provenance": {
+            "chain_complete": true,
+            "integrity": "verified",
+            "source_ref": {
+              "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+              "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+              "json_pointer": "/4/objects/2",
+              "payload_sha256": "db1a44b0a579fb6d9d00194a5dfeecbd7e67bbefc7b6f008d576939b6f0637d1"
+            },
+            "payload_sha256": "db1a44b0a579fb6d9d00194a5dfeecbd7e67bbefc7b6f008d576939b6f0637d1",
+            "evidence_kind": "detector_observation",
+            "data_layer": "raw",
+            "reported_value": [
+              546.1363525390625,
+              568.6363525390625,
+              592.5,
+              613.6363525390625
+            ],
+            "sources": [],
+            "evidence_correlation_group": "19599fca4d2d376e54492f27cfbc3da08ff2db73bc6d4243e942aba6c79c31ed"
+          },
+          "states": {
+            "identity": "unverified",
+            "time": "unverified",
+            "geometry": "unverified",
+            "camera": "unknown",
+            "calibration": "unknown",
+            "orientation": "unknown",
+            "synchronization": "unknown",
+            "object_classification": "unverified"
+          },
+          "timing": {
+            "usage_context": "offline_retrospective",
+            "as_of_seconds": 0.0,
+            "target_time_seconds": 0.13333333333333333,
+            "source_time_basis": "unknown"
+          },
+          "availability": {
+            "exact_available_at_source_seconds": null,
+            "known_source_lower_bound_seconds": 0.13333333333333333,
+            "dependency_completeness": "partial",
+            "wall_clock_available_at": null,
+            "component": "raw_location",
+            "component_source_floor": {
+              "frame": 4,
+              "time_seconds": 0.13333333333333333,
+              "time_basis": "unknown",
+              "basis": "source_frame_or_known_inference_anchors"
+            },
+            "composite_source_floor_not_used_for_unrelated_claim": {
+              "frame": 4,
+              "time_seconds": 0.13333333333333333,
+              "time_basis": "unknown",
+              "basis": "known_dependencies_only_not_actual_availability"
+            }
+          },
+          "observations": {
+            "adapter_record_id": "e0c7fbae98b87ae6cdd3035484aba071ba89f8349ab6c6ce493a586d279a913e",
+            "raw_payload": {
+              "kind": "basketball",
+              "box": [
+                546.1363525390625,
+                568.6363525390625,
+                592.5,
+                613.6363525390625
+              ],
+              "score": 0.273681640625,
+              "source": "model",
+              "groundPoint": false
+            }
+          },
+          "claim_component": "raw_location"
+        },
+        "normalized_source": {
+          "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+          "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+          "json_pointer": "/4/objects/2",
+          "payload_sha256": "db1a44b0a579fb6d9d00194a5dfeecbd7e67bbefc7b6f008d576939b6f0637d1"
+        },
+        "diagnostic_reference": {
+          "status": "provisional_ai_visual_review_requires_human_adjudication",
+          "not_ground_truth": true,
+          "ai_reference_agreement": true,
+          "source_object": {
+            "kind": "basketball",
+            "box": [
+              546.1363525390625,
+              568.6363525390625,
+              592.5,
+              613.6363525390625
+            ],
+            "score": 0.273681640625,
+            "source": "model",
+            "groundPoint": false
+          },
+          "human_adjudication": "pending"
+        },
+        "outputs": {
+          "confidence_only": {
+            "decision": "silent",
+            "reason": [
+              "confidence_threshold_only"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 4,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "provenance_only": {
+            "decision": "certain",
+            "reason": [
+              "source_chain_integrity_is_not_world_truth"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 4,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "capability_dependencies": {
+            "decision": "silent",
+            "reason": [
+              "geometry_not_verified",
+              "object_classification_not_verified",
+              "time_not_verified"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 4,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          }
+        }
+      },
+      {
+        "case_id": "AI_ball_005_f4_object1",
+        "candidate": {
+          "kind": "ball_detected",
+          "value": true,
+          "category": "world",
+          "confidence": 0.332763671875,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": null,
+            "identity_interval": null,
+            "target_frame": 4,
+            "source_namespace": null
+          },
+          "source_provenance": {
+            "chain_complete": true,
+            "integrity": "verified",
+            "source_ref": {
+              "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+              "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+              "json_pointer": "/4/objects/1",
+              "payload_sha256": "fc6f77b46442df550341d56dae71ca55daed4306b1bd4ea8ed0bf59865c463cb"
+            },
+            "payload_sha256": "fc6f77b46442df550341d56dae71ca55daed4306b1bd4ea8ed0bf59865c463cb",
+            "evidence_kind": "detector_observation",
+            "data_layer": "raw",
+            "reported_value": [
+              991.3636474609375,
+              581.5909423828125,
+              1037.727294921875,
+              629.3181762695312
+            ],
+            "sources": [],
+            "evidence_correlation_group": "0d3b4dc746fa5c1339b9a295bbd2fd8764bd6426d52a20121ad45254e4f84213"
+          },
+          "states": {
+            "identity": "unverified",
+            "time": "unverified",
+            "geometry": "unverified",
+            "camera": "unknown",
+            "calibration": "unknown",
+            "orientation": "unknown",
+            "synchronization": "unknown",
+            "object_classification": "unverified"
+          },
+          "timing": {
+            "usage_context": "offline_retrospective",
+            "as_of_seconds": 0.0,
+            "target_time_seconds": 0.13333333333333333,
+            "source_time_basis": "unknown"
+          },
+          "availability": {
+            "exact_available_at_source_seconds": null,
+            "known_source_lower_bound_seconds": 0.13333333333333333,
+            "dependency_completeness": "partial",
+            "wall_clock_available_at": null,
+            "component": "raw_location",
+            "component_source_floor": {
+              "frame": 4,
+              "time_seconds": 0.13333333333333333,
+              "time_basis": "unknown",
+              "basis": "source_frame_or_known_inference_anchors"
+            },
+            "composite_source_floor_not_used_for_unrelated_claim": {
+              "frame": 4,
+              "time_seconds": 0.13333333333333333,
+              "time_basis": "unknown",
+              "basis": "known_dependencies_only_not_actual_availability"
+            }
+          },
+          "observations": {
+            "adapter_record_id": "3ca6d74167f3deea8457456c09b8dd32d3e444d17d61c3bb1c74d824b356d9c2",
+            "raw_payload": {
+              "kind": "basketball",
+              "box": [
+                991.3636474609375,
+                581.5909423828125,
+                1037.727294921875,
+                629.3181762695312
+              ],
+              "score": 0.332763671875,
+              "source": "model",
+              "groundPoint": false
+            }
+          },
+          "claim_component": "raw_location"
+        },
+        "normalized_source": {
+          "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+          "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+          "json_pointer": "/4/objects/1",
+          "payload_sha256": "fc6f77b46442df550341d56dae71ca55daed4306b1bd4ea8ed0bf59865c463cb"
+        },
+        "diagnostic_reference": {
+          "status": "provisional_ai_visual_review_requires_human_adjudication",
+          "not_ground_truth": true,
+          "ai_reference_agreement": false,
+          "source_object": {
+            "kind": "basketball",
+            "box": [
+              991.3636474609375,
+              581.5909423828125,
+              1037.727294921875,
+              629.3181762695312
+            ],
+            "score": 0.332763671875,
+            "source": "model",
+            "groundPoint": false
+          },
+          "human_adjudication": "pending"
+        },
+        "outputs": {
+          "confidence_only": {
+            "decision": "silent",
+            "reason": [
+              "confidence_threshold_only"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 4,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "provenance_only": {
+            "decision": "certain",
+            "reason": [
+              "source_chain_integrity_is_not_world_truth"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 4,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "capability_dependencies": {
+            "decision": "silent",
+            "reason": [
+              "geometry_not_verified",
+              "object_classification_not_verified",
+              "time_not_verified"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 4,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          }
+        }
+      },
+      {
+        "case_id": "AI_ball_005_f117_object1",
+        "candidate": {
+          "kind": "ball_detected",
+          "value": true,
+          "category": "world",
+          "confidence": 0.501953125,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": null,
+            "identity_interval": null,
+            "target_frame": 117,
+            "source_namespace": null
+          },
+          "source_provenance": {
+            "chain_complete": true,
+            "integrity": "verified",
+            "source_ref": {
+              "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+              "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+              "json_pointer": "/117/objects/1",
+              "payload_sha256": "5834a945d530c78ef7a3162a6e88279e4d77265619d07ce1a1f478e9ec74e9a1"
+            },
+            "payload_sha256": "5834a945d530c78ef7a3162a6e88279e4d77265619d07ce1a1f478e9ec74e9a1",
+            "evidence_kind": "detector_observation",
+            "data_layer": "raw",
+            "reported_value": [
+              1381.3636474609375,
+              196.7045440673828,
+              1425.0,
+              243.06817626953125
+            ],
+            "sources": [],
+            "evidence_correlation_group": "e57756f94c71ebccbb5a3ced1cdc174148429fe0503dc9adc57e2e64c57a328b"
+          },
+          "states": {
+            "identity": "unverified",
+            "time": "unverified",
+            "geometry": "unverified",
+            "camera": "unknown",
+            "calibration": "unknown",
+            "orientation": "unknown",
+            "synchronization": "unknown",
+            "object_classification": "unverified"
+          },
+          "timing": {
+            "usage_context": "offline_retrospective",
+            "as_of_seconds": 0.0,
+            "target_time_seconds": 3.9,
+            "source_time_basis": "unknown"
+          },
+          "availability": {
+            "exact_available_at_source_seconds": null,
+            "known_source_lower_bound_seconds": 3.9,
+            "dependency_completeness": "partial",
+            "wall_clock_available_at": null,
+            "component": "raw_location",
+            "component_source_floor": {
+              "frame": 117,
+              "time_seconds": 3.9,
+              "time_basis": "unknown",
+              "basis": "source_frame_or_known_inference_anchors"
+            },
+            "composite_source_floor_not_used_for_unrelated_claim": {
+              "frame": 117,
+              "time_seconds": 3.9,
+              "time_basis": "unknown",
+              "basis": "known_dependencies_only_not_actual_availability"
+            }
+          },
+          "observations": {
+            "adapter_record_id": "125ee0e83dc6df6bac3f042bf7417fa625b3d0b1515ad11cfc37bedfec2a9d57",
+            "raw_payload": {
+              "kind": "basketball",
+              "box": [
+                1381.3636474609375,
+                196.7045440673828,
+                1425.0,
+                243.06817626953125
+              ],
+              "score": 0.501953125,
+              "source": "model",
+              "groundPoint": false
+            }
+          },
+          "claim_component": "raw_location"
+        },
+        "normalized_source": {
+          "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+          "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+          "json_pointer": "/117/objects/1",
+          "payload_sha256": "5834a945d530c78ef7a3162a6e88279e4d77265619d07ce1a1f478e9ec74e9a1"
+        },
+        "diagnostic_reference": {
+          "status": "provisional_ai_visual_review_requires_human_adjudication",
+          "not_ground_truth": true,
+          "ai_reference_agreement": true,
+          "source_object": {
+            "kind": "basketball",
+            "box": [
+              1381.3636474609375,
+              196.7045440673828,
+              1425.0,
+              243.06817626953125
+            ],
+            "score": 0.501953125,
+            "source": "model",
+            "groundPoint": false
+          },
+          "human_adjudication": "pending"
+        },
+        "outputs": {
+          "confidence_only": {
+            "decision": "qualified",
+            "reason": [
+              "confidence_threshold_only"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 117,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "provenance_only": {
+            "decision": "certain",
+            "reason": [
+              "source_chain_integrity_is_not_world_truth"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 117,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "capability_dependencies": {
+            "decision": "silent",
+            "reason": [
+              "geometry_not_verified",
+              "object_classification_not_verified",
+              "time_not_verified"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 117,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          }
+        }
+      },
+      {
+        "case_id": "AI_ball_005_f117_object2",
+        "candidate": {
+          "kind": "ball_detected",
+          "value": true,
+          "category": "world",
+          "confidence": 0.422607421875,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": null,
+            "identity_interval": null,
+            "target_frame": 117,
+            "source_namespace": null
+          },
+          "source_provenance": {
+            "chain_complete": true,
+            "integrity": "verified",
+            "source_ref": {
+              "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+              "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+              "json_pointer": "/117/objects/2",
+              "payload_sha256": "7691de9b4f189ff9468bf52dfe96a2379be9632a5cdfa462821aaf254f56be61"
+            },
+            "payload_sha256": "7691de9b4f189ff9468bf52dfe96a2379be9632a5cdfa462821aaf254f56be61",
+            "evidence_kind": "detector_observation",
+            "data_layer": "raw",
+            "reported_value": [
+              1429.0909423828125,
+              519.5454711914062,
+              1483.6363525390625,
+              579.5454711914062
+            ],
+            "sources": [],
+            "evidence_correlation_group": "6e1bff6e3ab3e6f6239be6b10edf8cfa670f6b84de4b578317ca73a68c8b78ec"
+          },
+          "states": {
+            "identity": "unverified",
+            "time": "unverified",
+            "geometry": "unverified",
+            "camera": "unknown",
+            "calibration": "unknown",
+            "orientation": "unknown",
+            "synchronization": "unknown",
+            "object_classification": "unverified"
+          },
+          "timing": {
+            "usage_context": "offline_retrospective",
+            "as_of_seconds": 0.0,
+            "target_time_seconds": 3.9,
+            "source_time_basis": "unknown"
+          },
+          "availability": {
+            "exact_available_at_source_seconds": null,
+            "known_source_lower_bound_seconds": 3.9,
+            "dependency_completeness": "partial",
+            "wall_clock_available_at": null,
+            "component": "raw_location",
+            "component_source_floor": {
+              "frame": 117,
+              "time_seconds": 3.9,
+              "time_basis": "unknown",
+              "basis": "source_frame_or_known_inference_anchors"
+            },
+            "composite_source_floor_not_used_for_unrelated_claim": {
+              "frame": 117,
+              "time_seconds": 3.9,
+              "time_basis": "unknown",
+              "basis": "known_dependencies_only_not_actual_availability"
+            }
+          },
+          "observations": {
+            "adapter_record_id": "b6e3b3f6d890dc871b7d4df36462371d19411f3680763b368c9abbbd9260babc",
+            "raw_payload": {
+              "kind": "basketball",
+              "box": [
+                1429.0909423828125,
+                519.5454711914062,
+                1483.6363525390625,
+                579.5454711914062
+              ],
+              "score": 0.422607421875,
+              "source": "model",
+              "groundPoint": false
+            }
+          },
+          "claim_component": "raw_location"
+        },
+        "normalized_source": {
+          "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+          "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+          "json_pointer": "/117/objects/2",
+          "payload_sha256": "7691de9b4f189ff9468bf52dfe96a2379be9632a5cdfa462821aaf254f56be61"
+        },
+        "diagnostic_reference": {
+          "status": "provisional_ai_visual_review_requires_human_adjudication",
+          "not_ground_truth": true,
+          "ai_reference_agreement": false,
+          "source_object": {
+            "kind": "basketball",
+            "box": [
+              1429.0909423828125,
+              519.5454711914062,
+              1483.6363525390625,
+              579.5454711914062
+            ],
+            "score": 0.422607421875,
+            "source": "model",
+            "groundPoint": false
+          },
+          "human_adjudication": "pending"
+        },
+        "outputs": {
+          "confidence_only": {
+            "decision": "silent",
+            "reason": [
+              "confidence_threshold_only"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 117,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "provenance_only": {
+            "decision": "certain",
+            "reason": [
+              "source_chain_integrity_is_not_world_truth"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 117,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "capability_dependencies": {
+            "decision": "silent",
+            "reason": [
+              "geometry_not_verified",
+              "object_classification_not_verified",
+              "time_not_verified"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 117,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          }
+        }
+      },
+      {
+        "case_id": "AI_ball_006_f242_object2",
+        "candidate": {
+          "kind": "ball_detected",
+          "value": true,
+          "category": "world",
+          "confidence": 0.43017578125,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": null,
+            "identity_interval": null,
+            "target_frame": 242,
+            "source_namespace": null
+          },
+          "source_provenance": {
+            "chain_complete": true,
+            "integrity": "verified",
+            "source_ref": {
+              "relative_path": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+              "file_sha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+              "json_pointer": "/242/objects/2",
+              "payload_sha256": "62409bc3c29dd5662e02ad9123f0c3d447c1ea1fc4a936c9af3a0a21dd095af7"
+            },
+            "payload_sha256": "62409bc3c29dd5662e02ad9123f0c3d447c1ea1fc4a936c9af3a0a21dd095af7",
+            "evidence_kind": "detector_observation",
+            "data_layer": "raw",
+            "reported_value": [
+              1532.727294921875,
+              439.0909118652344,
+              1570.9090576171875,
+              475.9090881347656
+            ],
+            "sources": [],
+            "evidence_correlation_group": "887dfb5e13adccac4c74ec4d3d152c90a78fbf1ab564c76bf60ff2a249c59f21"
+          },
+          "states": {
+            "identity": "unverified",
+            "time": "unverified",
+            "geometry": "unverified",
+            "camera": "unknown",
+            "calibration": "unknown",
+            "orientation": "unknown",
+            "synchronization": "unknown",
+            "object_classification": "unverified"
+          },
+          "timing": {
+            "usage_context": "offline_retrospective",
+            "as_of_seconds": 0.0,
+            "target_time_seconds": 8.066666666666666,
+            "source_time_basis": "unknown"
+          },
+          "availability": {
+            "exact_available_at_source_seconds": null,
+            "known_source_lower_bound_seconds": 8.066666666666666,
+            "dependency_completeness": "partial",
+            "wall_clock_available_at": null,
+            "component": "raw_location",
+            "component_source_floor": {
+              "frame": 242,
+              "time_seconds": 8.066666666666666,
+              "time_basis": "unknown",
+              "basis": "source_frame_or_known_inference_anchors"
+            },
+            "composite_source_floor_not_used_for_unrelated_claim": {
+              "frame": 242,
+              "time_seconds": 8.066666666666666,
+              "time_basis": "unknown",
+              "basis": "known_dependencies_only_not_actual_availability"
+            }
+          },
+          "observations": {
+            "adapter_record_id": "21ee798b9f3adbf327276de7f32e1fc266745f7c96ae0b0acb57540953c93361",
+            "raw_payload": {
+              "kind": "basketball",
+              "box": [
+                1532.727294921875,
+                439.0909118652344,
+                1570.9090576171875,
+                475.9090881347656
+              ],
+              "score": 0.43017578125,
+              "source": "model",
+              "groundPoint": false
+            }
+          },
+          "claim_component": "raw_location"
+        },
+        "normalized_source": {
+          "relative_path": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+          "file_sha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+          "json_pointer": "/242/objects/2",
+          "payload_sha256": "62409bc3c29dd5662e02ad9123f0c3d447c1ea1fc4a936c9af3a0a21dd095af7"
+        },
+        "diagnostic_reference": {
+          "status": "provisional_ai_visual_review_requires_human_adjudication",
+          "not_ground_truth": true,
+          "ai_reference_agreement": true,
+          "source_object": {
+            "kind": "basketball",
+            "box": [
+              1532.727294921875,
+              439.0909118652344,
+              1570.9090576171875,
+              475.9090881347656
+            ],
+            "score": 0.43017578125,
+            "source": "model",
+            "groundPoint": false
+          },
+          "human_adjudication": "pending"
+        },
+        "outputs": {
+          "confidence_only": {
+            "decision": "silent",
+            "reason": [
+              "confidence_threshold_only"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 242,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "provenance_only": {
+            "decision": "certain",
+            "reason": [
+              "source_chain_integrity_is_not_world_truth"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 242,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "capability_dependencies": {
+            "decision": "silent",
+            "reason": [
+              "geometry_not_verified",
+              "object_classification_not_verified",
+              "time_not_verified"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 242,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          }
+        }
+      },
+      {
+        "case_id": "AI_ball_006_f242_object1",
+        "candidate": {
+          "kind": "ball_detected",
+          "value": true,
+          "category": "world",
+          "confidence": 0.43017578125,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": null,
+            "identity_interval": null,
+            "target_frame": 242,
+            "source_namespace": null
+          },
+          "source_provenance": {
+            "chain_complete": true,
+            "integrity": "verified",
+            "source_ref": {
+              "relative_path": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+              "file_sha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+              "json_pointer": "/242/objects/1",
+              "payload_sha256": "9d40a429a2d56148d1506435d7678e904ec16fb04bc70ac8a0b452694b7772d0"
+            },
+            "payload_sha256": "9d40a429a2d56148d1506435d7678e904ec16fb04bc70ac8a0b452694b7772d0",
+            "evidence_kind": "detector_observation",
+            "data_layer": "raw",
+            "reported_value": [
+              729.5454711914062,
+              209.31817626953125,
+              775.9091186523438,
+              259.7727355957031
+            ],
+            "sources": [],
+            "evidence_correlation_group": "462fd6fa3520d2d5708919ed9cddb3ff3cbadfb44b3dde0ce035cc1194a32aac"
+          },
+          "states": {
+            "identity": "unverified",
+            "time": "unverified",
+            "geometry": "unverified",
+            "camera": "unknown",
+            "calibration": "unknown",
+            "orientation": "unknown",
+            "synchronization": "unknown",
+            "object_classification": "unverified"
+          },
+          "timing": {
+            "usage_context": "offline_retrospective",
+            "as_of_seconds": 0.0,
+            "target_time_seconds": 8.066666666666666,
+            "source_time_basis": "unknown"
+          },
+          "availability": {
+            "exact_available_at_source_seconds": null,
+            "known_source_lower_bound_seconds": 8.066666666666666,
+            "dependency_completeness": "partial",
+            "wall_clock_available_at": null,
+            "component": "raw_location",
+            "component_source_floor": {
+              "frame": 242,
+              "time_seconds": 8.066666666666666,
+              "time_basis": "unknown",
+              "basis": "source_frame_or_known_inference_anchors"
+            },
+            "composite_source_floor_not_used_for_unrelated_claim": {
+              "frame": 242,
+              "time_seconds": 8.066666666666666,
+              "time_basis": "unknown",
+              "basis": "known_dependencies_only_not_actual_availability"
+            }
+          },
+          "observations": {
+            "adapter_record_id": "11082e939243d3239a64f6b0e5661a1a66be1b895d1c97bdc92289071dbc24e5",
+            "raw_payload": {
+              "kind": "basketball",
+              "box": [
+                729.5454711914062,
+                209.31817626953125,
+                775.9091186523438,
+                259.7727355957031
+              ],
+              "score": 0.43017578125,
+              "source": "model",
+              "groundPoint": false
+            }
+          },
+          "claim_component": "raw_location"
+        },
+        "normalized_source": {
+          "relative_path": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+          "file_sha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+          "json_pointer": "/242/objects/1",
+          "payload_sha256": "9d40a429a2d56148d1506435d7678e904ec16fb04bc70ac8a0b452694b7772d0"
+        },
+        "diagnostic_reference": {
+          "status": "provisional_ai_visual_review_requires_human_adjudication",
+          "not_ground_truth": true,
+          "ai_reference_agreement": false,
+          "source_object": {
+            "kind": "basketball",
+            "box": [
+              729.5454711914062,
+              209.31817626953125,
+              775.9091186523438,
+              259.7727355957031
+            ],
+            "score": 0.43017578125,
+            "source": "model",
+            "groundPoint": false
+          },
+          "human_adjudication": "pending"
+        },
+        "outputs": {
+          "confidence_only": {
+            "decision": "silent",
+            "reason": [
+              "confidence_threshold_only"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 242,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "provenance_only": {
+            "decision": "certain",
+            "reason": [
+              "source_chain_integrity_is_not_world_truth"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 242,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "capability_dependencies": {
+            "decision": "silent",
+            "reason": [
+              "geometry_not_verified",
+              "object_classification_not_verified",
+              "time_not_verified"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 242,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          }
+        }
+      },
+      {
+        "case_id": "AI_ball_006_f330_object2",
+        "candidate": {
+          "kind": "ball_detected",
+          "value": true,
+          "category": "world",
+          "confidence": 0.279052734375,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": null,
+            "identity_interval": null,
+            "target_frame": 330,
+            "source_namespace": null
+          },
+          "source_provenance": {
+            "chain_complete": true,
+            "integrity": "verified",
+            "source_ref": {
+              "relative_path": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+              "file_sha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+              "json_pointer": "/330/objects/2",
+              "payload_sha256": "05e8499a0edb7fdcc6007261d298694b9278ec5c4da2d375268996a01e371ebe"
+            },
+            "payload_sha256": "05e8499a0edb7fdcc6007261d298694b9278ec5c4da2d375268996a01e371ebe",
+            "evidence_kind": "detector_observation",
+            "data_layer": "raw",
+            "reported_value": [
+              1217.727294921875,
+              370.9090881347656,
+              1261.3636474609375,
+              415.9090881347656
+            ],
+            "sources": [],
+            "evidence_correlation_group": "34b2a9067e5871ad664a384354c95e8a805acc87fdfaa8d68ce8301f1baa607c"
+          },
+          "states": {
+            "identity": "unverified",
+            "time": "unverified",
+            "geometry": "unverified",
+            "camera": "unknown",
+            "calibration": "unknown",
+            "orientation": "unknown",
+            "synchronization": "unknown",
+            "object_classification": "unverified"
+          },
+          "timing": {
+            "usage_context": "offline_retrospective",
+            "as_of_seconds": 0.0,
+            "target_time_seconds": 11.0,
+            "source_time_basis": "unknown"
+          },
+          "availability": {
+            "exact_available_at_source_seconds": null,
+            "known_source_lower_bound_seconds": 11.0,
+            "dependency_completeness": "partial",
+            "wall_clock_available_at": null,
+            "component": "raw_location",
+            "component_source_floor": {
+              "frame": 330,
+              "time_seconds": 11.0,
+              "time_basis": "unknown",
+              "basis": "source_frame_or_known_inference_anchors"
+            },
+            "composite_source_floor_not_used_for_unrelated_claim": {
+              "frame": 330,
+              "time_seconds": 11.0,
+              "time_basis": "unknown",
+              "basis": "known_dependencies_only_not_actual_availability"
+            }
+          },
+          "observations": {
+            "adapter_record_id": "2f11c628c1df7415ada50b64c700121f26bf5bb3a7965fa4d5b6e12777d09f9a",
+            "raw_payload": {
+              "kind": "basketball",
+              "box": [
+                1217.727294921875,
+                370.9090881347656,
+                1261.3636474609375,
+                415.9090881347656
+              ],
+              "score": 0.279052734375,
+              "source": "model",
+              "groundPoint": false
+            }
+          },
+          "claim_component": "raw_location"
+        },
+        "normalized_source": {
+          "relative_path": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+          "file_sha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+          "json_pointer": "/330/objects/2",
+          "payload_sha256": "05e8499a0edb7fdcc6007261d298694b9278ec5c4da2d375268996a01e371ebe"
+        },
+        "diagnostic_reference": {
+          "status": "provisional_ai_visual_review_requires_human_adjudication",
+          "not_ground_truth": true,
+          "ai_reference_agreement": true,
+          "source_object": {
+            "kind": "basketball",
+            "box": [
+              1217.727294921875,
+              370.9090881347656,
+              1261.3636474609375,
+              415.9090881347656
+            ],
+            "score": 0.279052734375,
+            "source": "model",
+            "groundPoint": false
+          },
+          "human_adjudication": "pending"
+        },
+        "outputs": {
+          "confidence_only": {
+            "decision": "silent",
+            "reason": [
+              "confidence_threshold_only"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 330,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "provenance_only": {
+            "decision": "certain",
+            "reason": [
+              "source_chain_integrity_is_not_world_truth"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 330,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "capability_dependencies": {
+            "decision": "silent",
+            "reason": [
+              "geometry_not_verified",
+              "object_classification_not_verified",
+              "time_not_verified"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 330,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          }
+        }
+      },
+      {
+        "case_id": "AI_ball_006_f330_object1",
+        "candidate": {
+          "kind": "ball_detected",
+          "value": true,
+          "category": "world",
+          "confidence": 0.3310546875,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": null,
+            "identity_interval": null,
+            "target_frame": 330,
+            "source_namespace": null
+          },
+          "source_provenance": {
+            "chain_complete": true,
+            "integrity": "verified",
+            "source_ref": {
+              "relative_path": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+              "file_sha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+              "json_pointer": "/330/objects/1",
+              "payload_sha256": "dedd99aeff9eeda12b0c02c7e59b2415a63b6d04e64d30ecd62167d51463c7db"
+            },
+            "payload_sha256": "dedd99aeff9eeda12b0c02c7e59b2415a63b6d04e64d30ecd62167d51463c7db",
+            "evidence_kind": "detector_observation",
+            "data_layer": "raw",
+            "reported_value": [
+              1114.0909423828125,
+              312.2727355957031,
+              1185.0,
+              377.7272644042969
+            ],
+            "sources": [],
+            "evidence_correlation_group": "91e5a8ea49faf5db3078f87abcb1eb8cbef1fb4d8ad94f02f16ef518369bed58"
+          },
+          "states": {
+            "identity": "unverified",
+            "time": "unverified",
+            "geometry": "unverified",
+            "camera": "unknown",
+            "calibration": "unknown",
+            "orientation": "unknown",
+            "synchronization": "unknown",
+            "object_classification": "unverified"
+          },
+          "timing": {
+            "usage_context": "offline_retrospective",
+            "as_of_seconds": 0.0,
+            "target_time_seconds": 11.0,
+            "source_time_basis": "unknown"
+          },
+          "availability": {
+            "exact_available_at_source_seconds": null,
+            "known_source_lower_bound_seconds": 11.0,
+            "dependency_completeness": "partial",
+            "wall_clock_available_at": null,
+            "component": "raw_location",
+            "component_source_floor": {
+              "frame": 330,
+              "time_seconds": 11.0,
+              "time_basis": "unknown",
+              "basis": "source_frame_or_known_inference_anchors"
+            },
+            "composite_source_floor_not_used_for_unrelated_claim": {
+              "frame": 330,
+              "time_seconds": 11.0,
+              "time_basis": "unknown",
+              "basis": "known_dependencies_only_not_actual_availability"
+            }
+          },
+          "observations": {
+            "adapter_record_id": "4e68bd6ee625ae691f388360683daa424fed5f121676e006c95ab5e67e49fb76",
+            "raw_payload": {
+              "kind": "basketball",
+              "box": [
+                1114.0909423828125,
+                312.2727355957031,
+                1185.0,
+                377.7272644042969
+              ],
+              "score": 0.3310546875,
+              "source": "model",
+              "groundPoint": false
+            }
+          },
+          "claim_component": "raw_location"
+        },
+        "normalized_source": {
+          "relative_path": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+          "file_sha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+          "json_pointer": "/330/objects/1",
+          "payload_sha256": "dedd99aeff9eeda12b0c02c7e59b2415a63b6d04e64d30ecd62167d51463c7db"
+        },
+        "diagnostic_reference": {
+          "status": "provisional_ai_visual_review_requires_human_adjudication",
+          "not_ground_truth": true,
+          "ai_reference_agreement": false,
+          "source_object": {
+            "kind": "basketball",
+            "box": [
+              1114.0909423828125,
+              312.2727355957031,
+              1185.0,
+              377.7272644042969
+            ],
+            "score": 0.3310546875,
+            "source": "model",
+            "groundPoint": false
+          },
+          "human_adjudication": "pending"
+        },
+        "outputs": {
+          "confidence_only": {
+            "decision": "silent",
+            "reason": [
+              "confidence_threshold_only"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 330,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "provenance_only": {
+            "decision": "certain",
+            "reason": [
+              "source_chain_integrity_is_not_world_truth"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 330,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          },
+          "capability_dependencies": {
+            "decision": "silent",
+            "reason": [
+              "geometry_not_verified",
+              "object_classification_not_verified",
+              "time_not_verified"
+            ],
+            "kind": "ball_detected",
+            "value": true,
+            "entity_scope": {
+              "actor": "A",
+              "track_id": null,
+              "identity_interval": null,
+              "target_frame": 330,
+              "source_namespace": null
+            },
+            "category": "world",
+            "value_modified": false,
+            "statement_generation_performed": false
+          }
+        }
+      }
+    ]
+  },
+  "validation": {
+    "all_passed": true,
+    "checks": {
+      "qwen_legacy_observed_true_silenced": true,
+      "qwen_raw_bbox_not_promoted_to_detector": true,
+      "qwen_offline_report_allowed_as_proposal": true,
+      "qwen_causal_future_not_allowed": true,
+      "future_role_does_not_poison_raw_location_source_floor": true,
+      "future_role_has_own_later_floor": true,
+      "offline_raw_report_preserved_despite_future_role": true,
+      "unknown_readiness_does_not_become_measured_realtime": true,
+      "copied_variants_not_independent_votes": true,
+      "real_cases_excluded_from_analytic_gt_metrics": true
+    }
+  },
+  "real_processing_latency_seconds": null,
+  "limitations": [
+    "No new human annotation or dense identity/ball truth.",
+    "Gate statuses do not establish unknown physical truth.",
+    "Offline source reports are allowed; historical causal readiness remains unknown unless actual completion records exist."
+  ]
+}

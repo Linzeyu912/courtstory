@@ -1,0 +1,2726 @@
+{
+  "candidate_count": 30,
+  "summaries": [
+    {
+      "category": "world",
+      "method": "confidence_only",
+      "candidate_count": 24,
+      "false_value_candidates": 11,
+      "certain_false_value_admissions": 10,
+      "certain_false_value_admission_rate": 0.9090909090909091,
+      "any_speech_false_value_admissions": 11,
+      "any_speech_false_value_admission_rate": 1.0,
+      "any_speech_false_value_share": 0.4782608695652174,
+      "true_value_candidates": 13,
+      "true_value_retained": 12,
+      "true_value_retention_rate": 0.9230769230769231,
+      "true_and_causally_admissible_candidates": 11,
+      "true_and_causally_admissible_retained": 10,
+      "true_and_causally_admissible_retention_rate": 0.9090909090909091,
+      "true_value_silenced": 1,
+      "spoken_count": 23,
+      "decisions": {
+        "certain": 22,
+        "silent": 1,
+        "qualified": 1
+      },
+      "simulated_unavailable_candidates": 2,
+      "availability_leaks": 2,
+      "availability_leak_rate": 1.0,
+      "real_processing_latency_seconds": null,
+      "automatic_value_revisions": 0,
+      "wrong_automatic_revisions": 0,
+      "automatic_misrepair_rate": null
+    },
+    {
+      "category": "world",
+      "method": "provenance_only",
+      "candidate_count": 24,
+      "false_value_candidates": 11,
+      "certain_false_value_admissions": 10,
+      "certain_false_value_admission_rate": 0.9090909090909091,
+      "any_speech_false_value_admissions": 11,
+      "any_speech_false_value_admission_rate": 1.0,
+      "any_speech_false_value_share": 0.4583333333333333,
+      "true_value_candidates": 13,
+      "true_value_retained": 13,
+      "true_value_retention_rate": 1.0,
+      "true_and_causally_admissible_candidates": 11,
+      "true_and_causally_admissible_retained": 11,
+      "true_and_causally_admissible_retention_rate": 1.0,
+      "true_value_silenced": 0,
+      "spoken_count": 24,
+      "decisions": {
+        "certain": 23,
+        "qualified": 1
+      },
+      "simulated_unavailable_candidates": 2,
+      "availability_leaks": 2,
+      "availability_leak_rate": 1.0,
+      "real_processing_latency_seconds": null,
+      "automatic_value_revisions": 0,
+      "wrong_automatic_revisions": 0,
+      "automatic_misrepair_rate": null
+    },
+    {
+      "category": "world",
+      "method": "capability_dependencies",
+      "candidate_count": 24,
+      "false_value_candidates": 11,
+      "certain_false_value_admissions": 5,
+      "certain_false_value_admission_rate": 0.45454545454545453,
+      "any_speech_false_value_admissions": 5,
+      "any_speech_false_value_admission_rate": 0.45454545454545453,
+      "any_speech_false_value_share": 0.38461538461538464,
+      "true_value_candidates": 13,
+      "true_value_retained": 8,
+      "true_value_retention_rate": 0.6153846153846154,
+      "true_and_causally_admissible_candidates": 11,
+      "true_and_causally_admissible_retained": 8,
+      "true_and_causally_admissible_retention_rate": 0.7272727272727273,
+      "true_value_silenced": 5,
+      "spoken_count": 13,
+      "decisions": {
+        "certain": 13,
+        "silent": 11
+      },
+      "simulated_unavailable_candidates": 2,
+      "availability_leaks": 0,
+      "availability_leak_rate": 0.0,
+      "real_processing_latency_seconds": null,
+      "automatic_value_revisions": 0,
+      "wrong_automatic_revisions": 0,
+      "automatic_misrepair_rate": null
+    },
+    {
+      "category": "source_report",
+      "method": "confidence_only",
+      "candidate_count": 6,
+      "false_value_candidates": 3,
+      "certain_false_value_admissions": 3,
+      "certain_false_value_admission_rate": 1.0,
+      "any_speech_false_value_admissions": 3,
+      "any_speech_false_value_admission_rate": 1.0,
+      "any_speech_false_value_share": 0.5,
+      "true_value_candidates": 3,
+      "true_value_retained": 3,
+      "true_value_retention_rate": 1.0,
+      "true_and_causally_admissible_candidates": 3,
+      "true_and_causally_admissible_retained": 3,
+      "true_and_causally_admissible_retention_rate": 1.0,
+      "true_value_silenced": 0,
+      "spoken_count": 6,
+      "decisions": {
+        "certain": 6
+      },
+      "simulated_unavailable_candidates": 0,
+      "availability_leaks": 0,
+      "availability_leak_rate": null,
+      "real_processing_latency_seconds": null,
+      "automatic_value_revisions": 0,
+      "wrong_automatic_revisions": 0,
+      "automatic_misrepair_rate": null
+    },
+    {
+      "category": "source_report",
+      "method": "provenance_only",
+      "candidate_count": 6,
+      "false_value_candidates": 3,
+      "certain_false_value_admissions": 3,
+      "certain_false_value_admission_rate": 1.0,
+      "any_speech_false_value_admissions": 3,
+      "any_speech_false_value_admission_rate": 1.0,
+      "any_speech_false_value_share": 0.5,
+      "true_value_candidates": 3,
+      "true_value_retained": 3,
+      "true_value_retention_rate": 1.0,
+      "true_and_causally_admissible_candidates": 3,
+      "true_and_causally_admissible_retained": 3,
+      "true_and_causally_admissible_retention_rate": 1.0,
+      "true_value_silenced": 0,
+      "spoken_count": 6,
+      "decisions": {
+        "certain": 6
+      },
+      "simulated_unavailable_candidates": 0,
+      "availability_leaks": 0,
+      "availability_leak_rate": null,
+      "real_processing_latency_seconds": null,
+      "automatic_value_revisions": 0,
+      "wrong_automatic_revisions": 0,
+      "automatic_misrepair_rate": null
+    },
+    {
+      "category": "source_report",
+      "method": "capability_dependencies",
+      "candidate_count": 6,
+      "false_value_candidates": 3,
+      "certain_false_value_admissions": 0,
+      "certain_false_value_admission_rate": 0.0,
+      "any_speech_false_value_admissions": 0,
+      "any_speech_false_value_admission_rate": 0.0,
+      "any_speech_false_value_share": 0.0,
+      "true_value_candidates": 3,
+      "true_value_retained": 3,
+      "true_value_retention_rate": 1.0,
+      "true_and_causally_admissible_candidates": 3,
+      "true_and_causally_admissible_retained": 3,
+      "true_and_causally_admissible_retention_rate": 1.0,
+      "true_value_silenced": 0,
+      "spoken_count": 3,
+      "decisions": {
+        "certain": 2,
+        "silent": 3,
+        "qualified": 1
+      },
+      "simulated_unavailable_candidates": 0,
+      "availability_leaks": 0,
+      "availability_leak_rate": null,
+      "real_processing_latency_seconds": null,
+      "automatic_value_revisions": 0,
+      "wrong_automatic_revisions": 0,
+      "automatic_misrepair_rate": null
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "healthy_named_actor",
+      "category": "world",
+      "kind": "named_actor_position",
+      "analytic_true_value": [
+        128.0,
+        350.0
+      ],
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "healthy_low_detector_score",
+      "category": "world",
+      "kind": "named_actor_position",
+      "analytic_true_value": [
+        128.0,
+        350.0
+      ],
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "silent",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "distant_swap_named_actor",
+      "category": "world",
+      "kind": "named_actor_position",
+      "analytic_true_value": [
+        112.0,
+        355.0
+      ],
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "qualified",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            1007.0,
+            465.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 60,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            1007.0,
+            465.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 60,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "identity_not_verified"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            1007.0,
+            465.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 60,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "smooth_identity_ambiguous_pass",
+      "category": "world",
+      "kind": "named_actor_position",
+      "analytic_true_value": [
+        132.8,
+        200.0
+      ],
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "smooth_identity_ambiguous",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            132.8,
+            200.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 20,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            132.8,
+            200.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 20,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "identity_not_verified"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            132.8,
+            200.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 20,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "smooth_identity_ambiguous_turn",
+      "category": "world",
+      "kind": "named_actor_position",
+      "analytic_true_value": [
+        107.2,
+        200.0
+      ],
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "smooth_identity_ambiguous",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            132.8,
+            200.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 20,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            132.8,
+            200.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 20,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "identity_not_verified"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            132.8,
+            200.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 20,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "smooth_identity_declared_verified_pass",
+      "category": "world",
+      "kind": "named_actor_position",
+      "analytic_true_value": [
+        132.8,
+        200.0
+      ],
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "smooth_identity_declared_verified",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            132.8,
+            200.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 20,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            132.8,
+            200.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 20,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            132.8,
+            200.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 20,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "smooth_identity_declared_verified_turn",
+      "category": "world",
+      "kind": "named_actor_position",
+      "analytic_true_value": [
+        107.2,
+        200.0
+      ],
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "smooth_identity_declared_verified",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            132.8,
+            200.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 20,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            132.8,
+            200.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 20,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            132.8,
+            200.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 20,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "common_motion_unknown_camera_all_players_move",
+      "category": "world",
+      "kind": "world_speed_mps",
+      "analytic_true_value": 1.9999999999999991,
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "common_motion_unknown_camera",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "camera_not_verified"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "common_motion_unknown_camera_camera_moves",
+      "category": "world",
+      "kind": "world_speed_mps",
+      "analytic_true_value": 0.0,
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "common_motion_unknown_camera",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "camera_not_verified"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "common_motion_declared_static_camera_all_players_move",
+      "category": "world",
+      "kind": "world_speed_mps",
+      "analytic_true_value": 1.9999999999999991,
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "common_motion_declared_static_camera",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "common_motion_declared_static_camera_camera_moves",
+      "category": "world",
+      "kind": "world_speed_mps",
+      "analytic_true_value": 0.0,
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "common_motion_declared_static_camera",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "source_pixel_motion_does_not_claim_world_motion",
+      "category": "source_report",
+      "kind": "pixel_track_displacement_px_s",
+      "analytic_true_value": 79.99999999999996,
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "pixel_track_displacement_px_s",
+          "value": 80.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "pixel_track_displacement_px_s",
+          "value": 80.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "pixel_track_displacement_px_s",
+          "value": 80.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "repeated_pts_wrong_derived_speed",
+      "category": "world",
+      "kind": "world_speed_mps",
+      "analytic_true_value": 0.7661031670082005,
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "world_speed_mps",
+          "value": 0.38305158350409924,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "qualified",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "world_speed_mps",
+          "value": 0.38305158350409924,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "source_chain_unverified",
+            "time_not_verified"
+          ],
+          "kind": "world_speed_mps",
+          "value": 0.38305158350409924,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "metric_scale_unknown_correct",
+      "category": "world",
+      "kind": "world_speed_mps",
+      "analytic_true_value": 1.9999999999999991,
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "metric_scale_unknown",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "calibration_not_verified"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "metric_scale_unknown_silently_wrong",
+      "category": "world",
+      "kind": "world_speed_mps",
+      "analytic_true_value": 3.9999999999999982,
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "metric_scale_unknown",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "calibration_not_verified"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "metric_scale_declared_verified_correct",
+      "category": "world",
+      "kind": "world_speed_mps",
+      "analytic_true_value": 1.9999999999999991,
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "metric_scale_declared_verified",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "metric_scale_declared_verified_silently_wrong",
+      "category": "world",
+      "kind": "world_speed_mps",
+      "analytic_true_value": 3.9999999999999982,
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "metric_scale_declared_verified",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "world_speed_mps",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "court_orientation_unverified_mirrored",
+      "category": "world",
+      "kind": "court_x_m",
+      "analytic_true_value": 26.0,
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "court_x_m",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "court_x_m",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "orientation_not_verified"
+          ],
+          "kind": "court_x_m",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "court_orientation_verified_mirrored",
+      "category": "world",
+      "kind": "court_x_m",
+      "analytic_true_value": 26.0,
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "court_x_m",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "court_x_m",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "court_x_m",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "court_orientation_verified_correct",
+      "category": "world",
+      "kind": "court_x_m",
+      "analytic_true_value": 2.0,
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "court_x_m",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "court_x_m",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "court_x_m",
+          "value": 2.0,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "smoothing_claimed_as_raw",
+      "category": "source_report",
+      "kind": "detector_reported_position",
+      "analytic_true_value": [
+        128.0,
+        350.0
+      ],
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            134.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            134.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "claim_not_equal_to_cited_source_payload",
+            "render_or_derived_value_cannot_be_raw_detector_report"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            134.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "raw_report_exact",
+      "category": "source_report",
+      "kind": "detector_reported_position",
+      "analytic_true_value": [
+        128.0,
+        350.0
+      ],
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "detector_reported_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "qwen_inference_mislabeled_observed",
+      "category": "source_report",
+      "kind": "direct_observation_status",
+      "analytic_true_value": false,
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "direct_observation_status",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "direct_observation_status",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "claim_not_equal_to_cited_source_payload",
+            "inferred_or_interpolated_is_not_direct_observation"
+          ],
+          "kind": "direct_observation_status",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "qwen_proposal_reported_as_proposal",
+      "category": "source_report",
+      "kind": "model_proposed_position",
+      "analytic_true_value": [
+        450.0,
+        310.0
+      ],
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "model_proposed_position",
+          "value": [
+            450.0,
+            310.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "model_proposed_position",
+          "value": [
+            450.0,
+            310.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "qualified",
+          "reason": [
+            "accurate_report_of_model_proposal_only_not_world_confirmation"
+          ],
+          "kind": "model_proposed_position",
+          "value": [
+            450.0,
+            310.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "late_identity_evidence_causal_replay_as_of_source_time",
+      "category": "world",
+      "kind": "named_actor_position",
+      "analytic_true_value": [
+        128.0,
+        350.0
+      ],
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": false,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "dependency_definitely_after_as_of",
+            "exact_dependency_after_as_of"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "late_identity_evidence_offline_retrospective",
+      "category": "world",
+      "kind": "named_actor_position",
+      "analytic_true_value": [
+        128.0,
+        350.0
+      ],
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "lower_bound_is_not_known_readiness",
+      "category": "world",
+      "kind": "named_actor_position",
+      "analytic_true_value": [
+        128.0,
+        350.0
+      ],
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": false,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "causal_readiness_unknown_lower_bound_insufficient"
+          ],
+          "kind": "named_actor_position",
+          "value": [
+            128.0,
+            350.0
+          ],
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "cross_source_time_aligned",
+      "category": "world",
+      "kind": "event_before",
+      "analytic_true_value": true,
+      "candidate_value_true": true,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "cross_source_time",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "event_before",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "event_before",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "event_before",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "cross_source_time_silent_offset",
+      "category": "world",
+      "kind": "event_before",
+      "analytic_true_value": false,
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": "cross_source_time",
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "event_before",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "event_before",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "certain",
+          "reason": [
+            "declared_dependencies_satisfied_not_a_truth_oracle"
+          ],
+          "kind": "event_before",
+          "value": true,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "world",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    },
+    {
+      "case_id": "copied_variants_are_not_two_independent_votes",
+      "category": "source_report",
+      "kind": "independent_model_agreement",
+      "analytic_true_value": 1,
+      "candidate_value_true": false,
+      "causally_admissible_under_simulated_exact_schedule": true,
+      "equivalence_pair": null,
+      "outputs": {
+        "confidence_only": {
+          "decision": "certain",
+          "reason": [
+            "confidence_threshold_only"
+          ],
+          "kind": "independent_model_agreement",
+          "value": 2,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "provenance_only": {
+          "decision": "certain",
+          "reason": [
+            "source_chain_integrity_is_not_world_truth"
+          ],
+          "kind": "independent_model_agreement",
+          "value": 2,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        },
+        "capability_dependencies": {
+          "decision": "silent",
+          "reason": [
+            "claim_not_equal_to_cited_source_payload"
+          ],
+          "kind": "independent_model_agreement",
+          "value": 2,
+          "entity_scope": {
+            "actor": "A",
+            "track_id": "T1",
+            "identity_interval": [
+              0,
+              999
+            ],
+            "target_frame": 40,
+            "source_namespace": "synthetic-stream"
+          },
+          "category": "source_report",
+          "value_modified": false,
+          "statement_generation_performed": false
+        }
+      }
+    }
+  ],
+  "automatic_revision_comparator": [
+    {
+      "scene": "isolated_geometry_spike",
+      "method": "naive_interpolate",
+      "operation_denominator": 1,
+      "operations_are": "changed existing coordinates or inserted missing coordinates, excluding unchanged/dropped rows",
+      "wrong_outputs_over_1px": 0,
+      "misrepair_rate": 0.0,
+      "previously_correct_positions_damaged": 0,
+      "new_positions": 0,
+      "raw_positions_dropped": 0
+    },
+    {
+      "scene": "isolated_geometry_spike",
+      "method": "naive_repair",
+      "operation_denominator": 1,
+      "operations_are": "changed existing coordinates or inserted missing coordinates, excluding unchanged/dropped rows",
+      "wrong_outputs_over_1px": 0,
+      "misrepair_rate": 0.0,
+      "previously_correct_positions_damaged": 0,
+      "new_positions": 0,
+      "raw_positions_dropped": 0
+    },
+    {
+      "scene": "three_frame_gap_hidden_curve",
+      "method": "naive_interpolate",
+      "operation_denominator": 3,
+      "operations_are": "changed existing coordinates or inserted missing coordinates, excluding unchanged/dropped rows",
+      "wrong_outputs_over_1px": 3,
+      "misrepair_rate": 1.0,
+      "previously_correct_positions_damaged": 0,
+      "new_positions": 3,
+      "raw_positions_dropped": 0
+    },
+    {
+      "scene": "three_frame_gap_hidden_curve",
+      "method": "naive_repair",
+      "operation_denominator": 3,
+      "operations_are": "changed existing coordinates or inserted missing coordinates, excluding unchanged/dropped rows",
+      "wrong_outputs_over_1px": 3,
+      "misrepair_rate": 1.0,
+      "previously_correct_positions_damaged": 0,
+      "new_positions": 3,
+      "raw_positions_dropped": 0
+    },
+    {
+      "scene": "healthy_full_scene_camera_pan",
+      "method": "naive_interpolate",
+      "operation_denominator": 0,
+      "operations_are": "changed existing coordinates or inserted missing coordinates, excluding unchanged/dropped rows",
+      "wrong_outputs_over_1px": 0,
+      "misrepair_rate": null,
+      "previously_correct_positions_damaged": 0,
+      "new_positions": 0,
+      "raw_positions_dropped": 0
+    },
+    {
+      "scene": "healthy_full_scene_camera_pan",
+      "method": "naive_repair",
+      "operation_denominator": 12,
+      "operations_are": "changed existing coordinates or inserted missing coordinates, excluding unchanged/dropped rows",
+      "wrong_outputs_over_1px": 12,
+      "misrepair_rate": 1.0,
+      "previously_correct_positions_damaged": 12,
+      "new_positions": 0,
+      "raw_positions_dropped": 0
+    },
+    {
+      "scene": "valid_cut_with_reused_ids",
+      "method": "naive_interpolate",
+      "operation_denominator": 6,
+      "operations_are": "changed existing coordinates or inserted missing coordinates, excluding unchanged/dropped rows",
+      "wrong_outputs_over_1px": 6,
+      "misrepair_rate": 1.0,
+      "previously_correct_positions_damaged": 6,
+      "new_positions": 0,
+      "raw_positions_dropped": 0
+    },
+    {
+      "scene": "valid_cut_with_reused_ids",
+      "method": "naive_repair",
+      "operation_denominator": 18,
+      "operations_are": "changed existing coordinates or inserted missing coordinates, excluding unchanged/dropped rows",
+      "wrong_outputs_over_1px": 18,
+      "misrepair_rate": 1.0,
+      "previously_correct_positions_damaged": 18,
+      "new_positions": 0,
+      "raw_positions_dropped": 0
+    }
+  ],
+  "validation": {
+    "all_passed": true,
+    "checks": {
+      "equivalence_inputs_identical_and_truth_opposite": true,
+      "capability_gate_failure_visible_on_hidden_bad_verification": true,
+      "all_methods_preserve_candidate_values": true,
+      "qualified_false_values_count_as_spoken": true,
+      "no_narrative_generated": true
+    },
+    "equivalence_pairs": [
+      {
+        "pair": "smooth_identity_ambiguous",
+        "identical_complete_public_candidate": true,
+        "opposite_analytic_value_truth": true,
+        "public_candidate_sha256": "82e6202c9dfd0fd46a6ceb705166f489b220735f73cb815df32473eacacac095"
+      },
+      {
+        "pair": "smooth_identity_declared_verified",
+        "identical_complete_public_candidate": true,
+        "opposite_analytic_value_truth": true,
+        "public_candidate_sha256": "f38e952ecd81c9e0b0e90df039fdde16e2a5d398caff1ff3dce6e8d497901c77"
+      },
+      {
+        "pair": "common_motion_unknown_camera",
+        "identical_complete_public_candidate": true,
+        "opposite_analytic_value_truth": true,
+        "public_candidate_sha256": "19e77b7cfa99b311fc1c5ef40717d60ef4fff54a6c54180ad50c7c5853a90ee4"
+      },
+      {
+        "pair": "common_motion_declared_static_camera",
+        "identical_complete_public_candidate": true,
+        "opposite_analytic_value_truth": true,
+        "public_candidate_sha256": "31e13002e0f969c18013657e35eafe76712e13bc373e4179c817904e9108e27c"
+      },
+      {
+        "pair": "metric_scale_unknown",
+        "identical_complete_public_candidate": true,
+        "opposite_analytic_value_truth": true,
+        "public_candidate_sha256": "1730d11ddd5304755d7ba8fa07d9fd15ac3de822477d9a463e9ff68d1a52b059"
+      },
+      {
+        "pair": "metric_scale_declared_verified",
+        "identical_complete_public_candidate": true,
+        "opposite_analytic_value_truth": true,
+        "public_candidate_sha256": "24f5e850f068f8f91aec0b02d449b00dd93658360434b25ee4683daae1db0e21"
+      },
+      {
+        "pair": "cross_source_time",
+        "identical_complete_public_candidate": true,
+        "opposite_analytic_value_truth": true,
+        "public_candidate_sha256": "66a86649695f8ce9d2d12fefbd7e9baba7c0cec1e2b820fc5afda637f609646c"
+      }
+    ],
+    "capability_gate_wrong_admissions_explicit": [
+      "smooth_identity_declared_verified_turn",
+      "common_motion_declared_static_camera_camera_moves",
+      "metric_scale_declared_verified_silently_wrong",
+      "court_orientation_verified_mirrored",
+      "cross_source_time_silent_offset"
+    ]
+  },
+  "limitations": [
+    "Designed challenge cases, not sampled prevalence; no general precision/recall claim.",
+    "Verified dependency states are claims consumed by the gate, not guaranteed truth.",
+    "An accurate source report does not recover withheld world information.",
+    "Synthetic exact readiness times are simulated; real latency remains unknown.",
+    "Gates do not edit values, so their automatic misrepair denominator is zero and rate null."
+  ],
+  "script_sha256": "8e528f73669fb6ec4d7192dd78ffab7c6069e90d01961cf85d9fdd2c78661b55"
+}

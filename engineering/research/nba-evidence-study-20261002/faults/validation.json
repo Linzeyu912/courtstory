@@ -1,0 +1,44 @@
+{
+  "all_passed": true,
+  "checks": {
+    "repeat_semantically_identical_excluding_runtime": true,
+    "eight_source_files_sha256_match": true,
+    "policy_does_not_read_synthetic_truth_or_injection_locations": true,
+    "hidden_straight_and_curved_gap_observations_identical": true,
+    "hidden_gap_truths_differ": true,
+    "identity_and_camera_observation_equivalence_witnesses": true,
+    "review_preserves_all_observed_positions_and_never_fills": true,
+    "real_data_accuracy_fields_explicitly_null": true,
+    "each_real_clip_has_six_predeclared_interventions": true,
+    "curved_gap_error_matches_closed_form": true
+  },
+  "source_hash_checks": [
+    {
+      "clip": "004",
+      "data_sha256_unchanged": true,
+      "metadata_sha256_unchanged": true
+    },
+    {
+      "clip": "005",
+      "data_sha256_unchanged": true,
+      "metadata_sha256_unchanged": true
+    },
+    {
+      "clip": "006",
+      "data_sha256_unchanged": true,
+      "metadata_sha256_unchanged": true
+    },
+    {
+      "clip": "nba-lal-min-005",
+      "data_sha256_unchanged": true,
+      "metadata_sha256_unchanged": true
+    }
+  ],
+  "policy_scene_fields_consumed": [
+    "calibration_status",
+    "independent_identity_anchors",
+    "obs",
+    "t"
+  ],
+  "not_claimed": "No independent annotation of natural tracking errors; no model accuracy validation."
+}

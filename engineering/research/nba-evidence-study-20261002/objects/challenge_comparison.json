@@ -1,0 +1,98 @@
+{
+  "status": "exploratory_case_comparison_not_performance_benchmark",
+  "label_status": "provisional_ai_visual_review_requires_human_adjudication",
+  "cases": [
+    {
+      "sample": "005",
+      "frame": 4,
+      "provisional_ball_object_index": 2,
+      "provisional_nonball_object_indices": [
+        1
+      ],
+      "reason": "Ball below white jersey 31 hands; higher-score candidate on running player's blurred arm/hand."
+    },
+    {
+      "sample": "005",
+      "frame": 117,
+      "provisional_ball_object_index": 1,
+      "provisional_nonball_object_indices": [
+        2
+      ],
+      "reason": "Ball above rim; second candidate on dark-uniform player's head/raised arm."
+    },
+    {
+      "sample": "006",
+      "frame": 242,
+      "provisional_ball_object_index": 2,
+      "provisional_nonball_object_indices": [
+        1
+      ],
+      "reason": "Ball beside right-side white-uniform player's hand; equal-score other candidate at distant shoulder/upper arm."
+    },
+    {
+      "sample": "006",
+      "frame": 330,
+      "provisional_ball_object_index": 2,
+      "provisional_nonball_object_indices": [
+        1
+      ],
+      "reason": "Ball below player's hand to body right; higher-score area mixes arm and bench background."
+    }
+  ],
+  "policies": {
+    "confidence_first_tie_broken": {
+      "agrees_with_ai_review": 1,
+      "disagrees_with_ai_review": 3,
+      "abstains": 0,
+      "selected": 4,
+      "reviewed_challenge_cases": 4,
+      "disagreement_fraction_among_selections": 0.75,
+      "lost_provisionally_selectable_cases": 0,
+      "max_lookahead_seconds": 0,
+      "automatic_repairs": 0,
+      "independent_accuracy": null,
+      "human_adjudicated_error_rate": null
+    },
+    "confidence_tie_aware": {
+      "agrees_with_ai_review": 1,
+      "disagrees_with_ai_review": 2,
+      "abstains": 1,
+      "selected": 3,
+      "reviewed_challenge_cases": 4,
+      "disagreement_fraction_among_selections": 0.6666666666666666,
+      "lost_provisionally_selectable_cases": 1,
+      "max_lookahead_seconds": 0,
+      "automatic_repairs": 0,
+      "independent_accuracy": null,
+      "human_adjudicated_error_rate": null
+    },
+    "causal_nearest_singleton": {
+      "agrees_with_ai_review": 3,
+      "disagrees_with_ai_review": 0,
+      "abstains": 1,
+      "selected": 3,
+      "reviewed_challenge_cases": 4,
+      "disagreement_fraction_among_selections": 0.0,
+      "lost_provisionally_selectable_cases": 1,
+      "max_lookahead_seconds": 0,
+      "automatic_repairs": 0,
+      "independent_accuracy": null,
+      "human_adjudicated_error_rate": null
+    },
+    "two_sided_consensus": {
+      "agrees_with_ai_review": 1,
+      "disagrees_with_ai_review": 0,
+      "abstains": 3,
+      "selected": 1,
+      "reviewed_challenge_cases": 4,
+      "disagreement_fraction_among_selections": 0.0,
+      "lost_provisionally_selectable_cases": 3,
+      "max_lookahead_seconds": 0.09999999999999964,
+      "automatic_repairs": 0,
+      "independent_accuracy": null,
+      "human_adjudicated_error_rate": null
+    }
+  },
+  "full_19_case_accuracy": null,
+  "full_19_case_labels_available": false
+}

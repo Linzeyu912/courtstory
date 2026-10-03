@@ -5,6 +5,7 @@ const frames=Array.from({length:9},(_,frame)=>({frame,time:frame/10,tracks:[]}))
 function scenario(anchors){const session=blankSession('sample');session.maxGapSeconds=.5;session.entities[0].anchors=anchors;return session;}
 test('short gap uses both endpoints and keeps estimates distinct from manual points',()=>{
   const session=scenario([{frame:1,x:100,y:300,trackId:null},{frame:4,x:130,y:330,trackId:null}]);
+  session.maxGapSeconds=.5;
   const points=buildTrajectories(session,frames).P1;
   assert.equal(points[1].source,'manual');assert.equal(points[2].source,'interpolated');
   assert.equal(points[2].x,110);assert.deepEqual(points[2].supportFrames,[1,4]);
@@ -30,6 +31,7 @@ test('future identity anchors do not introduce a competing ID into earlier frame
 });
 test('duplicate human bindings invalidate interpolation supported by the conflict',()=>{
   const session=scenario([{frame:1,x:100,y:100,trackId:74},{frame:4,x:130,y:100,trackId:74}]);
+  session.maxGapSeconds=.5;
   session.entities[1].anchors=[{frame:1,x:100,y:100,trackId:74},{frame:4,x:130,y:100,trackId:74}];
   const points=buildTrajectories(session,frames).P1;assert.equal(points[1].source,'conflict');assert.equal(points[2].source,'conflict');
 });
@@ -50,6 +52,7 @@ test('export preserves estimates and unresolved gaps without claiming every fram
   const clip={video_sha256:'sample',width:1920,height:1080,frames};
   assert.throws(()=>exportReview(blankSession('sample'),clip,'test-time'));
   const session=scenario([{frame:1,x:100,y:300,trackId:null},{frame:4,x:130,y:330,trackId:null}]);
+  session.maxGapSeconds=.5;
   const output=exportReview(session,clip,'test-time');
   assert.equal(output.entities.length,1);assert.equal(output.entities[0].id,'P1');
   assert.equal(output.selectionConfirmed,true);assert.equal(output.allFramesManuallyVerified,false);

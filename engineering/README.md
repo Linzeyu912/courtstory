@@ -9,6 +9,8 @@
 | 产品设计 | [docs/agent-concept-review.md](docs/agent-concept-review.md) | 解说 Agent 讨论稿，技术选型及完整产品待验收 |
 | 技术研究与测量 | [research/](research/README.md) | GPU 基线、身份、脚点和球场映射；保留单片段和推断边界 |
 
+新增 [NBA解释与纠错层离线研究](research/nba-evidence-study-20261002/README.md)：四样例baseline、来源Schema、故障注入、投影/身份/球候选与事实放行比较。研究产物归档，独立准确率与真实延迟未建立；原检测器和总结模块未改动。
+
 ## 启动数据提取工作台
 
 从仓库根目录执行。已有视频在 Git LFS；首次拉取至少下载验收样例：

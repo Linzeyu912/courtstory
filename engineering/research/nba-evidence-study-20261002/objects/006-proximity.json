@@ -1,0 +1,6212 @@
+[
+  {
+    "frame": 0,
+    "source_time": 0.0,
+    "object_pointer": "/0/objects/1",
+    "ball_score": 0.6279296875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 112.68783337512926,
+        "body_height_px": 261.8181457519531,
+        "player_score": 0.833984375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 242.80478993708016,
+        "center_distance_px": 326.22560388034304,
+        "body_height_px": 216.81814575195312,
+        "player_score": 0.9375
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 436.76616759941385,
+        "center_distance_px": 534.1170088894634,
+        "body_height_px": 218.352294921875,
+        "player_score": 0.86572265625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 1,
+    "source_time": 0.03333333333333333,
+    "object_pointer": "/1/objects/1",
+    "ball_score": 0.61865234375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 113.28441987829848,
+        "body_height_px": 260.0431823730469,
+        "player_score": 0.84423828125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 243.63675168746656,
+        "center_distance_px": 327.6708767676436,
+        "body_height_px": 216.81814575195312,
+        "player_score": 0.939453125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 440.91504671615684,
+        "center_distance_px": 538.4678820915339,
+        "body_height_px": 218.7960205078125,
+        "player_score": 0.869140625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 2,
+    "source_time": 0.06666666666666667,
+    "object_pointer": "/2/objects/1",
+    "ball_score": 0.48046875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 2.0872802734375,
+        "center_distance_px": 91.88355008432396,
+        "body_height_px": 258.1404113769531,
+        "player_score": 0.83154296875
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 243.3150634765625,
+        "center_distance_px": 319.91608442179245,
+        "body_height_px": 216.28662109375,
+        "player_score": 0.9423828125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 431.70167787709596,
+        "center_distance_px": 527.2816393117251,
+        "body_height_px": 220.99630737304688,
+        "player_score": 0.86767578125
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 3,
+    "source_time": 0.1,
+    "object_pointer": "/3/objects/1",
+    "ball_score": 0.7744140625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 63.96059145636849,
+        "body_height_px": 255.49002075195312,
+        "player_score": 0.84130859375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 250.14385986328125,
+        "center_distance_px": 320.3260460833126,
+        "body_height_px": 215.598876953125,
+        "player_score": 0.94091796875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 430.5067533533631,
+        "center_distance_px": 522.2168346606763,
+        "body_height_px": 220.646484375,
+        "player_score": 0.8720703125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 4,
+    "source_time": 0.13333333333333333,
+    "object_pointer": "/4/objects/1",
+    "ball_score": 0.346923828125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 33.53526214409388,
+        "body_height_px": 255.22091674804688,
+        "player_score": 0.8681640625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 250.67303466796875,
+        "center_distance_px": 315.6523733828523,
+        "body_height_px": 214.88833618164062,
+        "player_score": 0.9384765625
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 425.23260243597605,
+        "center_distance_px": 512.1958254673876,
+        "body_height_px": 219.970947265625,
+        "player_score": 0.8759765625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 8,
+    "source_time": 0.26666666666666666,
+    "object_pointer": "/8/objects/1",
+    "ball_score": 0.455078125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 27.03205013896717,
+        "body_height_px": 258.4876403808594,
+        "player_score": 0.908203125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 241.325439453125,
+        "center_distance_px": 302.329398751804,
+        "body_height_px": 212.80010986328125,
+        "player_score": 0.9384765625
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 414.99741202009534,
+        "center_distance_px": 497.66594957321627,
+        "body_height_px": 224.05178833007812,
+        "player_score": 0.88037109375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 9,
+    "source_time": 0.3,
+    "object_pointer": "/9/objects/1",
+    "ball_score": 0.611328125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 48.84251857005776,
+        "body_height_px": 258.8804931640625,
+        "player_score": 0.90087890625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 228.99761962890625,
+        "center_distance_px": 289.80038623464844,
+        "body_height_px": 212.12649536132812,
+        "player_score": 0.93603515625
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 405.09707409077305,
+        "center_distance_px": 486.0515360520891,
+        "body_height_px": 226.86495971679688,
+        "player_score": 0.86279296875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 10,
+    "source_time": 0.3333333333333333,
+    "object_pointer": "/10/objects/1",
+    "ball_score": 0.53515625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 65.69807086119184,
+        "body_height_px": 259.02783203125,
+        "player_score": 0.90771484375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 211.691650390625,
+        "center_distance_px": 272.76144613439095,
+        "body_height_px": 210.98004150390625,
+        "player_score": 0.9326171875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 390.6371375497582,
+        "center_distance_px": 469.9663456776225,
+        "body_height_px": 226.8621826171875,
+        "player_score": 0.8818359375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 11,
+    "source_time": 0.36666666666666664,
+    "object_pointer": "/11/objects/1",
+    "ball_score": 0.6494140625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 11.7958984375,
+        "center_distance_px": 83.0782607279174,
+        "body_height_px": 257.7132263183594,
+        "player_score": 0.900390625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 183.1417236328125,
+        "center_distance_px": 244.5996601739329,
+        "body_height_px": 209.66146850585938,
+        "player_score": 0.93017578125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 364.42736045055614,
+        "center_distance_px": 444.786187020319,
+        "body_height_px": 228.63592529296875,
+        "player_score": 0.890625
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 12,
+    "source_time": 0.4,
+    "object_pointer": "/12/objects/1",
+    "ball_score": 0.6279296875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 12.865966796875,
+        "center_distance_px": 87.3675344650371,
+        "body_height_px": 258.132568359375,
+        "player_score": 0.916015625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 168.3001708984375,
+        "center_distance_px": 229.90115093590708,
+        "body_height_px": 209.65628051757812,
+        "player_score": 0.93017578125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 350.71557143211965,
+        "center_distance_px": 432.33511599418836,
+        "body_height_px": 229.71932983398438,
+        "player_score": 0.89892578125
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 13,
+    "source_time": 0.43333333333333335,
+    "object_pointer": "/13/objects/1",
+    "ball_score": 0.763671875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 39.422119140625,
+        "center_distance_px": 110.7025186504939,
+        "body_height_px": 256.9318542480469,
+        "player_score": 0.83935546875
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 135.3668212890625,
+        "center_distance_px": 197.36115644059814,
+        "body_height_px": 209.6812744140625,
+        "player_score": 0.92919921875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 307.802734375,
+        "center_distance_px": 396.0432122757314,
+        "body_height_px": 273.1622009277344,
+        "player_score": 0.91943359375
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 14,
+    "source_time": 0.4666666666666667,
+    "object_pointer": "/14/objects/1",
+    "ball_score": 0.73388671875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 75.16705322265625,
+        "center_distance_px": 143.4873341120803,
+        "body_height_px": 256.4844665527344,
+        "player_score": 0.916015625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 100.07183837890625,
+        "center_distance_px": 162.75440295623912,
+        "body_height_px": 209.71469116210938,
+        "player_score": 0.9208984375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 259.37945556640625,
+        "center_distance_px": 351.40924368259135,
+        "body_height_px": 277.34197998046875,
+        "player_score": 0.927734375
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 15,
+    "source_time": 0.5,
+    "object_pointer": "/15/objects/1",
+    "ball_score": 0.7841796875,
+    "nearest": [
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 51.791015625,
+        "center_distance_px": 115.50958815995195,
+        "body_height_px": 207.93374633789062,
+        "player_score": 0.919921875
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 122.2437744140625,
+        "center_distance_px": 188.4941589283269,
+        "body_height_px": 257.23193359375,
+        "player_score": 0.93017578125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 187.5826416015625,
+        "center_distance_px": 283.2124454326721,
+        "body_height_px": 277.992919921875,
+        "player_score": 0.9208984375
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 16,
+    "source_time": 0.5333333333333333,
+    "object_pointer": "/16/objects/1",
+    "ball_score": 0.7490234375,
+    "nearest": [
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 25.9990234375,
+        "center_distance_px": 92.17026443175384,
+        "body_height_px": 210.012451171875,
+        "player_score": 0.90234375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 141.0430908203125,
+        "center_distance_px": 239.14045409097716,
+        "body_height_px": 279.9720764160156,
+        "player_score": 0.912109375
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 154.1029052734375,
+        "center_distance_px": 219.88877571002297,
+        "body_height_px": 256.6160583496094,
+        "player_score": 0.93212890625
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 17,
+    "source_time": 0.5666666666666667,
+    "object_pointer": "/17/objects/1",
+    "ball_score": 0.7890625,
+    "nearest": [
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 15.6334228515625,
+        "center_distance_px": 82.33294441071892,
+        "body_height_px": 208.54733276367188,
+        "player_score": 0.89013671875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 118.1202392578125,
+        "center_distance_px": 216.82383114497125,
+        "body_height_px": 282.0122375488281,
+        "player_score": 0.912109375
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 167.4403076171875,
+        "center_distance_px": 233.30743309481338,
+        "body_height_px": 255.48434448242188,
+        "player_score": 0.935546875
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 18,
+    "source_time": 0.6,
+    "object_pointer": "/18/objects/1",
+    "ball_score": 0.388671875,
+    "nearest": [
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 44.36204244969835,
+        "body_height_px": 208.45925903320312,
+        "player_score": 0.93359375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 65.10186767578125,
+        "center_distance_px": 164.24008764828113,
+        "body_height_px": 283.1788635253906,
+        "player_score": 0.88818359375
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 164.90868680765647,
+        "center_distance_px": 272.4273346645979,
+        "body_height_px": 237.16836547851562,
+        "player_score": 0.91064453125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 22,
+    "source_time": 0.7333333333333333,
+    "object_pointer": "/22/objects/0",
+    "ball_score": 0.85693359375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 57.79363382008531,
+        "body_height_px": 298.911376953125,
+        "player_score": 0.89306640625
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 180.2323948722795,
+        "center_distance_px": 293.137644856544,
+        "body_height_px": 236.84103393554688,
+        "player_score": 0.8603515625
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 208.78973388671875,
+        "center_distance_px": 273.594903849869,
+        "body_height_px": 246.64865112304688,
+        "player_score": 0.93994140625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 23,
+    "source_time": 0.7666666666666667,
+    "object_pointer": "/23/objects/1",
+    "ball_score": 0.7841796875,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 54.608745763990115,
+        "body_height_px": 301.3561096191406,
+        "player_score": 0.8837890625
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 190.64528618036962,
+        "center_distance_px": 302.65871148907735,
+        "body_height_px": 235.99691772460938,
+        "player_score": 0.86474609375
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 197.81671142578125,
+        "center_distance_px": 263.2937837963141,
+        "body_height_px": 246.45315551757812,
+        "player_score": 0.93798828125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 24,
+    "source_time": 0.8,
+    "object_pointer": "/24/objects/1",
+    "ball_score": 0.7490234375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 67.50176943869266,
+        "body_height_px": 307.1148986816406,
+        "player_score": 0.84228515625
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 174.131103515625,
+        "center_distance_px": 242.3428650219756,
+        "body_height_px": 248.6778564453125,
+        "player_score": 0.9267578125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 204.3394114804676,
+        "center_distance_px": 313.4066157989007,
+        "body_height_px": 236.55699157714844,
+        "player_score": 0.849609375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 25,
+    "source_time": 0.8333333333333334,
+    "object_pointer": "/25/objects/1",
+    "ball_score": 0.75634765625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 66.10471487265075,
+        "body_height_px": 303.4434509277344,
+        "player_score": 0.8349609375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 32.8197021484375,
+        "center_distance_px": 104.08516525776487,
+        "body_height_px": 255.65179443359375,
+        "player_score": 0.5205078125
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 150.97314453125,
+        "center_distance_px": 221.8737315878849,
+        "body_height_px": 250.8887939453125,
+        "player_score": 0.92529296875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 26,
+    "source_time": 0.8666666666666667,
+    "object_pointer": "/26/objects/1",
+    "ball_score": 0.67919921875,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 70.19345673949039,
+        "body_height_px": 286.61700439453125,
+        "player_score": 0.8916015625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 67.12109375,
+        "center_distance_px": 131.59415466202043,
+        "body_height_px": 237.552001953125,
+        "player_score": 0.89453125
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 116.2452392578125,
+        "center_distance_px": 191.82399193789342,
+        "body_height_px": 252.18936157226562,
+        "player_score": 0.93017578125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 27,
+    "source_time": 0.9,
+    "object_pointer": "/27/objects/1",
+    "ball_score": 0.6689453125,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 77.57223584218143,
+        "body_height_px": 279.13214111328125,
+        "player_score": 0.9189453125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 85.9376220703125,
+        "center_distance_px": 147.56770082521524,
+        "body_height_px": 229.98513793945312,
+        "player_score": 0.88623046875
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 90.754638671875,
+        "center_distance_px": 171.40739196556243,
+        "body_height_px": 253.1376953125,
+        "player_score": 0.9306640625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 28,
+    "source_time": 0.9333333333333333,
+    "object_pointer": "/28/objects/0",
+    "ball_score": 0.81982421875,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 78.17394304860505,
+        "body_height_px": 275.4957580566406,
+        "player_score": 0.90087890625
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 77.012451171875,
+        "center_distance_px": 160.21744863734523,
+        "body_height_px": 253.49661254882812,
+        "player_score": 0.9326171875
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 94.4669189453125,
+        "center_distance_px": 154.83484580409063,
+        "body_height_px": 227.1439208984375,
+        "player_score": 0.8916015625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 29,
+    "source_time": 0.9666666666666667,
+    "object_pointer": "/29/objects/1",
+    "ball_score": 0.6669921875,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 81.10378253794666,
+        "body_height_px": 273.7330322265625,
+        "player_score": 0.89208984375
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 54.60955810546875,
+        "center_distance_px": 141.46124783439865,
+        "body_height_px": 254.52853393554688,
+        "player_score": 0.9375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 112.67108154296875,
+        "center_distance_px": 172.20080270631655,
+        "body_height_px": 225.14700317382812,
+        "player_score": 0.9072265625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 30,
+    "source_time": 1.0,
+    "object_pointer": "/30/objects/1",
+    "ball_score": 0.5830078125,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 83.34219378646334,
+        "body_height_px": 274.0339050292969,
+        "player_score": 0.87939453125
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 15.09619140625,
+        "center_distance_px": 109.44230699439228,
+        "body_height_px": 253.56533813476562,
+        "player_score": 0.908203125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 129.8853759765625,
+        "center_distance_px": 189.42457694302018,
+        "body_height_px": 226.6171875,
+        "player_score": 0.91748046875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 31,
+    "source_time": 1.0333333333333334,
+    "object_pointer": "/31/objects/1",
+    "ball_score": 0.70556640625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 80.89493883431844,
+        "body_height_px": 260.8514404296875,
+        "player_score": 0.88037109375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 86.90336152354176,
+        "body_height_px": 266.928466796875,
+        "player_score": 0.912109375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 159.20562744140625,
+        "center_distance_px": 219.37619363773925,
+        "body_height_px": 229.84054565429688,
+        "player_score": 0.92333984375
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 32,
+    "source_time": 1.0666666666666667,
+    "object_pointer": "/32/objects/1",
+    "ball_score": 0.6689453125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 63.46929301971101,
+        "body_height_px": 264.45684814453125,
+        "player_score": 0.876953125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 4.8636474609375,
+        "center_distance_px": 85.56888743756669,
+        "body_height_px": 256.05328369140625,
+        "player_score": 0.89501953125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 181.1353759765625,
+        "center_distance_px": 241.6545866200563,
+        "body_height_px": 230.13967895507812,
+        "player_score": 0.9287109375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 33,
+    "source_time": 1.1,
+    "object_pointer": "/33/objects/1",
+    "ball_score": 0.61328125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 58.11486177357264,
+        "body_height_px": 268.0382995605469,
+        "player_score": 0.86181640625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 73.11030120752496,
+        "body_height_px": 252.11502075195312,
+        "player_score": 0.89013671875
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 188.38665771484375,
+        "center_distance_px": 249.56050407925463,
+        "body_height_px": 227.97024536132812,
+        "player_score": 0.91015625
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 34,
+    "source_time": 1.1333333333333333,
+    "object_pointer": "/34/objects/1",
+    "ball_score": 0.64404296875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 54.11150496801317,
+        "body_height_px": 270.7017517089844,
+        "player_score": 0.853515625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 64.49955869211855,
+        "body_height_px": 252.6346435546875,
+        "player_score": 0.87255859375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 192.66143798828125,
+        "center_distance_px": 254.90273794275137,
+        "body_height_px": 227.107421875,
+        "player_score": 0.91259765625
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 35,
+    "source_time": 1.1666666666666667,
+    "object_pointer": "/35/objects/1",
+    "ball_score": 0.79833984375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 51.59768488695542,
+        "body_height_px": 269.8858947753906,
+        "player_score": 0.8134765625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 55.579866196830686,
+        "body_height_px": 256.1186218261719,
+        "player_score": 0.83935546875
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 194.09161376953125,
+        "center_distance_px": 257.0440510613817,
+        "body_height_px": 222.70486450195312,
+        "player_score": 0.921875
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 36,
+    "source_time": 1.2,
+    "object_pointer": "/36/objects/1",
+    "ball_score": 0.556640625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 44.96296565629524,
+        "body_height_px": 269.5113830566406,
+        "player_score": 0.7900390625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 42.365038955158276,
+        "body_height_px": 260.2086181640625,
+        "player_score": 0.736328125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 194.7578125,
+        "center_distance_px": 257.63429456958045,
+        "body_height_px": 217.84426879882812,
+        "player_score": 0.92236328125
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 38,
+    "source_time": 1.2666666666666666,
+    "object_pointer": "/38/objects/1",
+    "ball_score": 0.422607421875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 44.33552289811976,
+        "body_height_px": 268.99725341796875,
+        "player_score": 0.89599609375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 176.2569580078125,
+        "center_distance_px": 240.38201261883404,
+        "body_height_px": 213.5181884765625,
+        "player_score": 0.91943359375
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 291.6612087348163,
+        "center_distance_px": 388.37555904188264,
+        "body_height_px": 232.07420349121094,
+        "player_score": 0.86279296875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 39,
+    "source_time": 1.3,
+    "object_pointer": "/39/objects/1",
+    "ball_score": 0.505859375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 45.198676060364804,
+        "body_height_px": 264.09100341796875,
+        "player_score": 0.8486328125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 175.04742431640625,
+        "center_distance_px": 239.69068093384476,
+        "body_height_px": 212.6722412109375,
+        "player_score": 0.91748046875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 289.24066006045905,
+        "center_distance_px": 387.23122789677836,
+        "body_height_px": 232.30223083496094,
+        "player_score": 0.86669921875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 42,
+    "source_time": 1.4,
+    "object_pointer": "/42/objects/1",
+    "ball_score": 0.39599609375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 38.590162171999545,
+        "body_height_px": 253.77862548828125,
+        "player_score": 0.9296875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 33.70721435546875,
+        "center_distance_px": 95.07816627934206,
+        "body_height_px": 240.50775146484375,
+        "player_score": 0.912109375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 162.27996826171875,
+        "center_distance_px": 227.16571155510627,
+        "body_height_px": 210.63467407226562,
+        "player_score": 0.919921875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 43,
+    "source_time": 1.4333333333333333,
+    "object_pointer": "/43/objects/1",
+    "ball_score": 0.57568359375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 38.17087380511738,
+        "body_height_px": 247.02609252929688,
+        "player_score": 0.94921875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 56.468017578125,
+        "center_distance_px": 117.19839790890089,
+        "body_height_px": 240.2752685546875,
+        "player_score": 0.91015625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 150.652587890625,
+        "center_distance_px": 215.83697024760207,
+        "body_height_px": 211.73553466796875,
+        "player_score": 0.91455078125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 43,
+    "source_time": 1.4333333333333333,
+    "object_pointer": "/43/objects/2",
+    "ball_score": 0.392333984375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 47.733407114405836,
+        "body_height_px": 240.2752685546875,
+        "player_score": 0.91015625
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 64.9976806640625,
+        "center_distance_px": 169.65431667218175,
+        "body_height_px": 247.02609252929688,
+        "player_score": 0.94921875
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 299.2889404296875,
+        "center_distance_px": 371.25437305907076,
+        "body_height_px": 211.73553466796875,
+        "player_score": 0.91455078125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 44,
+    "source_time": 1.4666666666666666,
+    "object_pointer": "/44/objects/1",
+    "ball_score": 0.65478515625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 39.055989148936455,
+        "body_height_px": 242.71246337890625,
+        "player_score": 0.94775390625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 73.79998779296875,
+        "center_distance_px": 135.17850380479643,
+        "body_height_px": 242.10720825195312,
+        "player_score": 0.92236328125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 140.38739013671875,
+        "center_distance_px": 206.10261115539498,
+        "body_height_px": 213.5306396484375,
+        "player_score": 0.90966796875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 44,
+    "source_time": 1.4666666666666666,
+    "object_pointer": "/44/objects/2",
+    "ball_score": 0.2705078125,
+    "nearest": [
+      {
+        "track_id": 8,
+        "box_edge_distance_px": 174.15639342139283,
+        "center_distance_px": 251.54085534788246,
+        "body_height_px": 193.35227966308594,
+        "player_score": 0.80517578125
+      },
+      {
+        "track_id": 9,
+        "box_edge_distance_px": 281.91766357421875,
+        "center_distance_px": 342.4812107864721,
+        "body_height_px": 205.14088439941406,
+        "player_score": 0.8193359375
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 307.4055879250961,
+        "center_distance_px": 440.58079323176037,
+        "body_height_px": 274.13671875,
+        "player_score": 0.779296875
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 45,
+    "source_time": 1.5,
+    "object_pointer": "/45/objects/1",
+    "ball_score": 0.5869140625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 38.033039273602824,
+        "body_height_px": 240.73074340820312,
+        "player_score": 0.94677734375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 79.75634765625,
+        "center_distance_px": 142.2557485278278,
+        "body_height_px": 242.86367797851562,
+        "player_score": 0.927734375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 136.197998046875,
+        "center_distance_px": 201.98556800922188,
+        "body_height_px": 213.77700805664062,
+        "player_score": 0.89892578125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 46,
+    "source_time": 1.5333333333333334,
+    "object_pointer": "/46/objects/1",
+    "ball_score": 0.517578125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 38.04810250896092,
+        "body_height_px": 239.15911865234375,
+        "player_score": 0.9404296875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 84.05120849609375,
+        "center_distance_px": 148.95623946707835,
+        "body_height_px": 247.74169921875,
+        "player_score": 0.92333984375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 129.34722900390625,
+        "center_distance_px": 194.95188321730868,
+        "body_height_px": 212.53204345703125,
+        "player_score": 0.9013671875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 47,
+    "source_time": 1.5666666666666667,
+    "object_pointer": "/47/objects/1",
+    "ball_score": 0.56201171875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 40.061476819835015,
+        "body_height_px": 238.19491577148438,
+        "player_score": 0.92724609375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 87.13897705078125,
+        "center_distance_px": 154.25841401302685,
+        "body_height_px": 252.74639892578125,
+        "player_score": 0.9228515625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 121.92498779296875,
+        "center_distance_px": 187.310500582357,
+        "body_height_px": 210.71853637695312,
+        "player_score": 0.88623046875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 48,
+    "source_time": 1.6,
+    "object_pointer": "/48/objects/1",
+    "ball_score": 0.609375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 42.01931891111364,
+        "body_height_px": 238.81869506835938,
+        "player_score": 0.92724609375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 99.1240234375,
+        "center_distance_px": 169.0283549158026,
+        "body_height_px": 259.1368713378906,
+        "player_score": 0.92041015625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 109.8536376953125,
+        "center_distance_px": 175.09215671438525,
+        "body_height_px": 209.14834594726562,
+        "player_score": 0.88916015625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 49,
+    "source_time": 1.6333333333333333,
+    "object_pointer": "/49/objects/1",
+    "ball_score": 0.478515625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 45.021741013194486,
+        "body_height_px": 239.11334228515625,
+        "player_score": 0.927734375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 102.3380126953125,
+        "center_distance_px": 167.85523406247972,
+        "body_height_px": 207.67672729492188,
+        "player_score": 0.90234375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 105.97412109375,
+        "center_distance_px": 176.02827678755034,
+        "body_height_px": 259.3398742675781,
+        "player_score": 0.9091796875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 50,
+    "source_time": 1.6666666666666667,
+    "object_pointer": "/50/objects/1",
+    "ball_score": 0.56201171875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 47.150600910498056,
+        "body_height_px": 238.37347412109375,
+        "player_score": 0.9287109375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 99.0457763671875,
+        "center_distance_px": 165.10236681653996,
+        "body_height_px": 206.69952392578125,
+        "player_score": 0.91162109375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 111.0283203125,
+        "center_distance_px": 180.1824621203626,
+        "body_height_px": 255.8056640625,
+        "player_score": 0.90478515625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 51,
+    "source_time": 1.7,
+    "object_pointer": "/51/objects/1",
+    "ball_score": 0.26220703125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 51.472080253698586,
+        "body_height_px": 239.95855712890625,
+        "player_score": 0.93017578125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 93.93145751953125,
+        "center_distance_px": 161.57994827340957,
+        "body_height_px": 208.629150390625,
+        "player_score": 0.9248046875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 121.45697021484375,
+        "center_distance_px": 187.84261649533047,
+        "body_height_px": 244.05804443359375,
+        "player_score": 0.91064453125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 54,
+    "source_time": 1.8,
+    "object_pointer": "/54/objects/1",
+    "ball_score": 0.357666015625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 82.46230318722688,
+        "body_height_px": 250.55615234375,
+        "player_score": 0.90625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 73.50469970703125,
+        "center_distance_px": 153.33998118048783,
+        "body_height_px": 207.46926879882812,
+        "player_score": 0.908203125
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 121.13946533203125,
+        "center_distance_px": 182.12491438713843,
+        "body_height_px": 252.29464721679688,
+        "player_score": 0.755859375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 57,
+    "source_time": 1.9,
+    "object_pointer": "/57/objects/1",
+    "ball_score": 0.373779296875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 109.06133183125931,
+        "body_height_px": 255.32437133789062,
+        "player_score": 0.88671875
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 72.148193359375,
+        "center_distance_px": 169.87988175174175,
+        "body_height_px": 208.3721923828125,
+        "player_score": 0.90478515625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 119.1878662109375,
+        "center_distance_px": 175.2870801361535,
+        "body_height_px": 245.67306518554688,
+        "player_score": 0.76708984375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 58,
+    "source_time": 1.9333333333333333,
+    "object_pointer": "/58/objects/1",
+    "ball_score": 0.447509765625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 115.707520090297,
+        "body_height_px": 258.9554748535156,
+        "player_score": 0.8837890625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 75.2440192979621,
+        "center_distance_px": 179.15545678691493,
+        "body_height_px": 211.177734375,
+        "player_score": 0.89208984375
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 122.64337158203125,
+        "center_distance_px": 178.9413643119288,
+        "body_height_px": 250.53778076171875,
+        "player_score": 0.76953125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 59,
+    "source_time": 1.9666666666666666,
+    "object_pointer": "/59/objects/1",
+    "ball_score": 0.294189453125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 118.73392208355973,
+        "body_height_px": 271.0096435546875,
+        "player_score": 0.89599609375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 83.80068824214163,
+        "center_distance_px": 192.32066043767932,
+        "body_height_px": 212.6893310546875,
+        "player_score": 0.9306640625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 135.6995849609375,
+        "center_distance_px": 188.8331423262552,
+        "body_height_px": 236.2412109375,
+        "player_score": 0.8173828125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 62,
+    "source_time": 2.066666666666667,
+    "object_pointer": "/62/objects/1",
+    "ball_score": 0.33642578125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 128.40990117772807,
+        "body_height_px": 293.1755065917969,
+        "player_score": 0.90478515625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 93.99914772420325,
+        "center_distance_px": 211.86803426449248,
+        "body_height_px": 214.94100952148438,
+        "player_score": 0.9228515625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 117.1240234375,
+        "center_distance_px": 167.06551635754712,
+        "body_height_px": 225.73092651367188,
+        "player_score": 0.8916015625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 65,
+    "source_time": 2.1666666666666665,
+    "object_pointer": "/65/objects/1",
+    "ball_score": 0.37744140625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 131.6424876342577,
+        "body_height_px": 301.5923156738281,
+        "player_score": 0.90478515625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 89.6170654296875,
+        "center_distance_px": 140.3792262758083,
+        "body_height_px": 226.05322265625,
+        "player_score": 0.90234375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 105.75579600005378,
+        "center_distance_px": 222.56673546497854,
+        "body_height_px": 213.73062133789062,
+        "player_score": 0.9013671875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 66,
+    "source_time": 2.2,
+    "object_pointer": "/66/objects/1",
+    "ball_score": 0.332763671875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 128.32463356954133,
+        "body_height_px": 301.7181396484375,
+        "player_score": 0.90966796875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 79.30047607421875,
+        "center_distance_px": 132.13281553406424,
+        "body_height_px": 229.03399658203125,
+        "player_score": 0.890625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 108.74691642099486,
+        "center_distance_px": 223.2767378540483,
+        "body_height_px": 213.11923217773438,
+        "player_score": 0.89306640625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 67,
+    "source_time": 2.2333333333333334,
+    "object_pointer": "/67/objects/1",
+    "ball_score": 0.313232421875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 128.08262815556495,
+        "body_height_px": 301.641845703125,
+        "player_score": 0.9140625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 73.766845703125,
+        "center_distance_px": 128.366007222052,
+        "body_height_px": 233.35162353515625,
+        "player_score": 0.890625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 111.61860563427972,
+        "center_distance_px": 225.10314007251247,
+        "body_height_px": 211.98239135742188,
+        "player_score": 0.89453125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 68,
+    "source_time": 2.2666666666666666,
+    "object_pointer": "/68/objects/1",
+    "ball_score": 0.357666015625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 125.23137866634238,
+        "body_height_px": 301.50213623046875,
+        "player_score": 0.9150390625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 71.2244873046875,
+        "center_distance_px": 127.48036876098662,
+        "body_height_px": 233.21014404296875,
+        "player_score": 0.90625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 113.26858042107415,
+        "center_distance_px": 225.393244031482,
+        "body_height_px": 210.64874267578125,
+        "player_score": 0.90283203125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 70,
+    "source_time": 2.3333333333333335,
+    "object_pointer": "/70/objects/1",
+    "ball_score": 0.299072265625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 121.76906402286122,
+        "body_height_px": 297.89532470703125,
+        "player_score": 0.91748046875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 65.4521484375,
+        "center_distance_px": 128.60261670458607,
+        "body_height_px": 228.788330078125,
+        "player_score": 0.90087890625
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 107.3121337890625,
+        "center_distance_px": 187.63275905755262,
+        "body_height_px": 223.3763427734375,
+        "player_score": 0.8681640625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 71,
+    "source_time": 2.3666666666666667,
+    "object_pointer": "/71/objects/1",
+    "ball_score": 0.615234375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 124.07647699627242,
+        "body_height_px": 296.666748046875,
+        "player_score": 0.9150390625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 59.2510986328125,
+        "center_distance_px": 125.92153306860558,
+        "body_height_px": 218.76248168945312,
+        "player_score": 0.8779296875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 106.717041015625,
+        "center_distance_px": 184.43990710919206,
+        "body_height_px": 221.81326293945312,
+        "player_score": 0.86669921875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 72,
+    "source_time": 2.4,
+    "object_pointer": "/72/objects/1",
+    "ball_score": 0.5869140625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 125.85855125285634,
+        "body_height_px": 297.0470886230469,
+        "player_score": 0.91357421875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 55.9847412109375,
+        "center_distance_px": 125.11046274785036,
+        "body_height_px": 213.2366943359375,
+        "player_score": 0.8486328125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 105.7491455078125,
+        "center_distance_px": 181.4747812558009,
+        "body_height_px": 219.80929565429688,
+        "player_score": 0.85546875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 73,
+    "source_time": 2.433333333333333,
+    "object_pointer": "/73/objects/1",
+    "ball_score": 0.4609375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 127.06901462717039,
+        "body_height_px": 297.5943908691406,
+        "player_score": 0.91455078125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 50.15753173828125,
+        "center_distance_px": 121.68824439049713,
+        "body_height_px": 210.25955200195312,
+        "player_score": 0.8828125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 105.72711181640625,
+        "center_distance_px": 178.89406134696938,
+        "body_height_px": 215.40493774414062,
+        "player_score": 0.87451171875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 74,
+    "source_time": 2.466666666666667,
+    "object_pointer": "/74/objects/1",
+    "ball_score": 0.39794921875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 127.45196816917455,
+        "body_height_px": 297.7578430175781,
+        "player_score": 0.9091796875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 44.0257568359375,
+        "center_distance_px": 117.4819964613165,
+        "body_height_px": 209.36557006835938,
+        "player_score": 0.87548828125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 102.112060546875,
+        "center_distance_px": 173.7767210918113,
+        "body_height_px": 212.3470458984375,
+        "player_score": 0.90478515625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 75,
+    "source_time": 2.5,
+    "object_pointer": "/75/objects/1",
+    "ball_score": 0.422607421875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 124.12494115345848,
+        "body_height_px": 298.67724609375,
+        "player_score": 0.908203125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 37.881103515625,
+        "center_distance_px": 116.39457198250028,
+        "body_height_px": 212.77047729492188,
+        "player_score": 0.87548828125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 97.636962890625,
+        "center_distance_px": 169.44267045827976,
+        "body_height_px": 207.11492919921875,
+        "player_score": 0.8916015625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 76,
+    "source_time": 2.533333333333333,
+    "object_pointer": "/76/objects/1",
+    "ball_score": 0.441650390625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 123.89379246661112,
+        "body_height_px": 298.53875732421875,
+        "player_score": 0.90966796875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 25.5640869140625,
+        "center_distance_px": 112.05844139513961,
+        "body_height_px": 221.43408203125,
+        "player_score": 0.857421875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 91.0223388671875,
+        "center_distance_px": 165.51174760800595,
+        "body_height_px": 206.53237915039062,
+        "player_score": 0.8974609375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 77,
+    "source_time": 2.566666666666667,
+    "object_pointer": "/77/objects/1",
+    "ball_score": 0.383056640625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 123.67357977376597,
+        "body_height_px": 298.8981018066406,
+        "player_score": 0.912109375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 17.80535888671875,
+        "center_distance_px": 112.03341072985324,
+        "body_height_px": 226.8201904296875,
+        "player_score": 0.83837890625
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 85.87164306640625,
+        "center_distance_px": 162.9143242575646,
+        "body_height_px": 204.52603149414062,
+        "player_score": 0.89501953125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 78,
+    "source_time": 2.6,
+    "object_pointer": "/78/objects/1",
+    "ball_score": 0.392333984375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 123.84183908456906,
+        "body_height_px": 298.1024475097656,
+        "player_score": 0.91015625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 14.0191650390625,
+        "center_distance_px": 112.59790121632486,
+        "body_height_px": 229.2325439453125,
+        "player_score": 0.84326171875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 84.09375,
+        "center_distance_px": 162.74124680945883,
+        "body_height_px": 202.43966674804688,
+        "player_score": 0.890625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 79,
+    "source_time": 2.6333333333333333,
+    "object_pointer": "/79/objects/1",
+    "ball_score": 0.42431640625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 119.3635214507888,
+        "body_height_px": 296.8693542480469,
+        "player_score": 0.9072265625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 7.89031982421875,
+        "center_distance_px": 118.58116972065937,
+        "body_height_px": 234.71994018554688,
+        "player_score": 0.8369140625
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 79.94793701171875,
+        "center_distance_px": 164.35383330694307,
+        "body_height_px": 203.97216796875,
+        "player_score": 0.88427734375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 79,
+    "source_time": 2.6333333333333333,
+    "object_pointer": "/79/objects/2",
+    "ball_score": 0.26513671875,
+    "nearest": [
+      {
+        "track_id": 8,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 42.828642053287744,
+        "body_height_px": 191.48129272460938,
+        "player_score": 0.869140625
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 215.99697051608774,
+        "center_distance_px": 340.31566188575596,
+        "body_height_px": 284.6545715332031,
+        "player_score": 0.849609375
+      },
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 369.2918395996094,
+        "center_distance_px": 451.90295485027275,
+        "body_height_px": 220.69271850585938,
+        "player_score": 0.89794921875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 80,
+    "source_time": 2.6666666666666665,
+    "object_pointer": "/80/objects/1",
+    "ball_score": 0.474609375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 111.75142854898422,
+        "body_height_px": 314.4168701171875,
+        "player_score": 0.8720703125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.372802734375,
+        "center_distance_px": 123.0920195183105,
+        "body_height_px": 232.78570556640625,
+        "player_score": 0.80029296875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 79.7960205078125,
+        "center_distance_px": 166.92886359372136,
+        "body_height_px": 203.21524047851562,
+        "player_score": 0.86572265625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 81,
+    "source_time": 2.7,
+    "object_pointer": "/81/objects/1",
+    "ball_score": 0.458984375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 107.41699170026406,
+        "body_height_px": 325.7406921386719,
+        "player_score": 0.88525390625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 8.608734130859375,
+        "center_distance_px": 128.600118862745,
+        "body_height_px": 230.19113159179688,
+        "player_score": 0.86279296875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 73.38702392578125,
+        "center_distance_px": 170.22226993446452,
+        "body_height_px": 218.3603515625,
+        "player_score": 0.88671875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 88,
+    "source_time": 2.933333333333333,
+    "object_pointer": "/88/objects/1",
+    "ball_score": 0.61865234375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 128.80650329775665,
+        "body_height_px": 338.1212463378906,
+        "player_score": 0.89208984375
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 9.3355712890625,
+        "center_distance_px": 113.12419512244054,
+        "body_height_px": 238.44586181640625,
+        "player_score": 0.79248046875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 24.26641845703125,
+        "center_distance_px": 136.98713327620447,
+        "body_height_px": 222.564453125,
+        "player_score": 0.78466796875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 89,
+    "source_time": 2.966666666666667,
+    "object_pointer": "/89/objects/1",
+    "ball_score": 0.56787109375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 133.79447065325226,
+        "body_height_px": 329.0258483886719,
+        "player_score": 0.89794921875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 9.29217529296875,
+        "center_distance_px": 111.29771981995903,
+        "body_height_px": 238.2498779296875,
+        "player_score": 0.818359375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 27.286117553710938,
+        "center_distance_px": 142.7756886527531,
+        "body_height_px": 226.3699188232422,
+        "player_score": 0.80029296875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 90,
+    "source_time": 3.0,
+    "object_pointer": "/90/objects/1",
+    "ball_score": 0.6494140625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 136.32998979364257,
+        "body_height_px": 326.3636169433594,
+        "player_score": 0.89794921875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 6.92608642578125,
+        "center_distance_px": 107.77231285822617,
+        "body_height_px": 239.01779174804688,
+        "player_score": 0.814453125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 28.449874877929688,
+        "center_distance_px": 145.95731331226335,
+        "body_height_px": 228.72471618652344,
+        "player_score": 0.8330078125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 91,
+    "source_time": 3.033333333333333,
+    "object_pointer": "/91/objects/1",
+    "ball_score": 0.57177734375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 135.39604066780237,
+        "body_height_px": 326.70013427734375,
+        "player_score": 0.89501953125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 2.62518310546875,
+        "center_distance_px": 105.18110810861779,
+        "body_height_px": 240.1512451171875,
+        "player_score": 0.81689453125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 33.93220520019531,
+        "center_distance_px": 149.71301511035594,
+        "body_height_px": 225.5817108154297,
+        "player_score": 0.818359375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 92,
+    "source_time": 3.066666666666667,
+    "object_pointer": "/92/objects/1",
+    "ball_score": 0.33984375,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 95.55577945050716,
+        "body_height_px": 235.2706298828125,
+        "player_score": 0.75830078125
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 131.31553473171903,
+        "body_height_px": 333.57037353515625,
+        "player_score": 0.89599609375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 36.7344970703125,
+        "center_distance_px": 152.2797009328473,
+        "body_height_px": 224.8045196533203,
+        "player_score": 0.728515625
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 94,
+    "source_time": 3.1333333333333333,
+    "object_pointer": "/94/objects/1",
+    "ball_score": 0.359375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 127.58997286235903,
+        "body_height_px": 337.227294921875,
+        "player_score": 0.88818359375
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 107.59933270672568,
+        "body_height_px": 271.0537109375,
+        "player_score": 0.6123046875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 33.272506992011316,
+        "center_distance_px": 157.13196011894206,
+        "body_height_px": 233.04061889648438,
+        "player_score": 0.26904296875
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 95,
+    "source_time": 3.1666666666666665,
+    "object_pointer": "/95/objects/1",
+    "ball_score": 0.294921875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 122.87512308255302,
+        "body_height_px": 336.5225830078125,
+        "player_score": 0.90087890625
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 109.23327289043192,
+        "body_height_px": 275.627685546875,
+        "player_score": 0.798828125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 52.850634566904915,
+        "center_distance_px": 170.36542332436204,
+        "body_height_px": 219.71713256835938,
+        "player_score": 0.33203125
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 96,
+    "source_time": 3.2,
+    "object_pointer": "/96/objects/1",
+    "ball_score": 0.449462890625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 125.80730654547729,
+        "body_height_px": 329.4599609375,
+        "player_score": 0.8828125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 103.48881896813178,
+        "body_height_px": 272.0155944824219,
+        "player_score": 0.896484375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 64.22836017072356,
+        "center_distance_px": 176.57087737342675,
+        "body_height_px": 209.4049835205078,
+        "player_score": 0.5166015625
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 97,
+    "source_time": 3.2333333333333334,
+    "object_pointer": "/97/objects/1",
+    "ball_score": 0.315673828125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 133.3564622416174,
+        "body_height_px": 324.4601135253906,
+        "player_score": 0.88427734375
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 85.44671364845111,
+        "body_height_px": 249.5213623046875,
+        "player_score": 0.869140625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 68.70322984423937,
+        "center_distance_px": 178.18261311065908,
+        "body_height_px": 205.11630249023438,
+        "player_score": 0.81103515625
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 98,
+    "source_time": 3.2666666666666666,
+    "object_pointer": "/98/objects/1",
+    "ball_score": 0.498046875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 138.73245370938054,
+        "body_height_px": 320.7723083496094,
+        "player_score": 0.88671875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 80.62215393235768,
+        "body_height_px": 240.55532836914062,
+        "player_score": 0.900390625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 74.40834686726417,
+        "center_distance_px": 183.40686430296455,
+        "body_height_px": 206.8533935546875,
+        "player_score": 0.8359375
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 99,
+    "source_time": 3.3,
+    "object_pointer": "/99/objects/1",
+    "ball_score": 0.4072265625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 137.87973802731915,
+        "body_height_px": 319.41278076171875,
+        "player_score": 0.89892578125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 82.45209551786155,
+        "body_height_px": 238.35430908203125,
+        "player_score": 0.90478515625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 81.33537150715352,
+        "center_distance_px": 190.32806034636954,
+        "body_height_px": 206.7478790283203,
+        "player_score": 0.84130859375
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 100,
+    "source_time": 3.3333333333333335,
+    "object_pointer": "/100/objects/1",
+    "ball_score": 0.470703125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 137.97235789445983,
+        "body_height_px": 318.4801940917969,
+        "player_score": 0.9072265625
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 78.71068027215445,
+        "body_height_px": 237.90475463867188,
+        "player_score": 0.90234375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 79.30955142640427,
+        "center_distance_px": 189.06088427404214,
+        "body_height_px": 207.11102294921875,
+        "player_score": 0.8515625
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 101,
+    "source_time": 3.3666666666666667,
+    "object_pointer": "/101/objects/1",
+    "ball_score": 0.60205078125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 135.93666906230624,
+        "body_height_px": 317.7088623046875,
+        "player_score": 0.916015625
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 80.43907433284946,
+        "body_height_px": 235.943115234375,
+        "player_score": 0.8701171875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 79.63555327282812,
+        "center_distance_px": 190.83849815035413,
+        "body_height_px": 208.7718048095703,
+        "player_score": 0.8681640625
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 102,
+    "source_time": 3.4,
+    "object_pointer": "/102/objects/1",
+    "ball_score": 0.6318359375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 136.87487278946602,
+        "body_height_px": 317.9037780761719,
+        "player_score": 0.91455078125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 80.49980926771052,
+        "body_height_px": 229.32144165039062,
+        "player_score": 0.8203125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 79.7302562763978,
+        "center_distance_px": 192.56103080755182,
+        "body_height_px": 212.02940368652344,
+        "player_score": 0.849609375
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 103,
+    "source_time": 3.433333333333333,
+    "object_pointer": "/103/objects/1",
+    "ball_score": 0.63720703125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 128.5538754850092,
+        "body_height_px": 318.0064697265625,
+        "player_score": 0.90380859375
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 92.19655603650644,
+        "body_height_px": 226.87222290039062,
+        "player_score": 0.802734375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 88.68606988849379,
+        "center_distance_px": 203.41148880808163,
+        "body_height_px": 214.17616271972656,
+        "player_score": 0.80615234375
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 104,
+    "source_time": 3.466666666666667,
+    "object_pointer": "/104/objects/1",
+    "ball_score": 0.36669921875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 128.99257582220062,
+        "body_height_px": 315.8124694824219,
+        "player_score": 0.90576171875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 93.10613200441908,
+        "body_height_px": 228.76699829101562,
+        "player_score": 0.8515625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 93.19980497428979,
+        "center_distance_px": 208.59094533386266,
+        "body_height_px": 216.0120086669922,
+        "player_score": 0.8603515625
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 105,
+    "source_time": 3.5,
+    "object_pointer": "/105/objects/1",
+    "ball_score": 0.478515625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 130.5601572149369,
+        "body_height_px": 310.03033447265625,
+        "player_score": 0.90576171875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 96.71405381922298,
+        "body_height_px": 228.60763549804688,
+        "player_score": 0.87109375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 95.79135488553015,
+        "center_distance_px": 211.87847537422977,
+        "body_height_px": 217.04541015625,
+        "player_score": 0.8896484375
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 106,
+    "source_time": 3.533333333333333,
+    "object_pointer": "/106/objects/1",
+    "ball_score": 0.5078125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 130.62878730308,
+        "body_height_px": 306.9831848144531,
+        "player_score": 0.90576171875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 98.75739335450618,
+        "body_height_px": 229.95281982421875,
+        "player_score": 0.84521484375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 97.86161229855043,
+        "center_distance_px": 215.79079945423612,
+        "body_height_px": 220.5729522705078,
+        "player_score": 0.865234375
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 109,
+    "source_time": 3.6333333333333333,
+    "object_pointer": "/109/objects/1",
+    "ball_score": 0.373779296875,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 60.51785428023569,
+        "body_height_px": 234.63406372070312,
+        "player_score": 0.89453125
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 10.573532104492188,
+        "center_distance_px": 186.9340150919062,
+        "body_height_px": 324.9925537109375,
+        "player_score": 0.89599609375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 92.5933111787239,
+        "center_distance_px": 195.81804911087093,
+        "body_height_px": 222.55490112304688,
+        "player_score": 0.86474609375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 110,
+    "source_time": 3.6666666666666665,
+    "object_pointer": "/110/objects/1",
+    "ball_score": 0.352294921875,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 46.19536040983431,
+        "body_height_px": 236.37680053710938,
+        "player_score": 0.9072265625
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 37.613520292625246,
+        "center_distance_px": 209.1911938831546,
+        "body_height_px": 313.7815856933594,
+        "player_score": 0.89794921875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 103.84936351368212,
+        "center_distance_px": 198.98138085503686,
+        "body_height_px": 220.7807159423828,
+        "player_score": 0.884765625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 111,
+    "source_time": 3.7,
+    "object_pointer": "/111/objects/1",
+    "ball_score": 0.30810546875,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 43.28222163692443,
+        "body_height_px": 236.14111328125,
+        "player_score": 0.9072265625
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 60.5882746266773,
+        "center_distance_px": 225.43435406701875,
+        "body_height_px": 300.3053894042969,
+        "player_score": 0.88916015625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 104.67390628362965,
+        "center_distance_px": 194.78032991281862,
+        "body_height_px": 220.0838165283203,
+        "player_score": 0.89501953125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 112,
+    "source_time": 3.7333333333333334,
+    "object_pointer": "/112/objects/1",
+    "ball_score": 0.501953125,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 35.1384060729669,
+        "body_height_px": 235.143798828125,
+        "player_score": 0.9091796875
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 88.50701987301125,
+        "center_distance_px": 246.8558910847606,
+        "body_height_px": 287.50579833984375,
+        "player_score": 0.876953125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 114.82956802444795,
+        "center_distance_px": 197.5084801740865,
+        "body_height_px": 218.4576416015625,
+        "player_score": 0.896484375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 122,
+    "source_time": 4.066666666666666,
+    "object_pointer": "/122/objects/1",
+    "ball_score": 0.33447265625,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 69.3598249489485,
+        "body_height_px": 237.1356201171875,
+        "player_score": 0.90576171875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 200.73968505859375,
+        "center_distance_px": 263.55618433344983,
+        "body_height_px": 206.22781372070312,
+        "player_score": 0.89306640625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 221.19976806640625,
+        "center_distance_px": 304.5921398514349,
+        "body_height_px": 223.216796875,
+        "player_score": 0.90234375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 123,
+    "source_time": 4.1,
+    "object_pointer": "/123/objects/1",
+    "ball_score": 0.4130859375,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 70.64370422809928,
+        "body_height_px": 239.0855712890625,
+        "player_score": 0.8818359375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 203.94854736328125,
+        "center_distance_px": 268.13621832589047,
+        "body_height_px": 207.03973388671875,
+        "player_score": 0.92138671875
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 222.59796142578125,
+        "center_distance_px": 303.7367172417115,
+        "body_height_px": 223.19033813476562,
+        "player_score": 0.88671875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 129,
+    "source_time": 4.3,
+    "object_pointer": "/129/objects/1",
+    "ball_score": 0.39794921875,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 17.590454416061057,
+        "body_height_px": 223.71533203125,
+        "player_score": 0.91259765625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 138.27148244303407,
+        "center_distance_px": 228.94851822923573,
+        "body_height_px": 204.3249053955078,
+        "player_score": 0.91552734375
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 157.27423095703125,
+        "center_distance_px": 216.40316913698845,
+        "body_height_px": 204.97140502929688,
+        "player_score": 0.84765625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 130,
+    "source_time": 4.333333333333333,
+    "object_pointer": "/130/objects/1",
+    "ball_score": 0.517578125,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 30.844138758764256,
+        "body_height_px": 221.49612426757812,
+        "player_score": 0.916015625
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 126.9730229455225,
+        "center_distance_px": 221.0599643805175,
+        "body_height_px": 204.12924194335938,
+        "player_score": 0.91845703125
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 141.59259033203125,
+        "center_distance_px": 201.12066328046336,
+        "body_height_px": 212.29312133789062,
+        "player_score": 0.8583984375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 132,
+    "source_time": 4.4,
+    "object_pointer": "/132/objects/1",
+    "ball_score": 0.72509765625,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 51.420837996265035,
+        "body_height_px": 218.47589111328125,
+        "player_score": 0.92626953125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 101.36897603202769,
+        "center_distance_px": 198.5675649446504,
+        "body_height_px": 203.83233642578125,
+        "player_score": 0.9208984375
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 112.6246337890625,
+        "center_distance_px": 174.53101740718571,
+        "body_height_px": 230.98098754882812,
+        "player_score": 0.84326171875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 133,
+    "source_time": 4.433333333333334,
+    "object_pointer": "/133/objects/1",
+    "ball_score": 0.53125,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 53.43310843912022,
+        "body_height_px": 217.40521240234375,
+        "player_score": 0.92724609375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 94.78978330061688,
+        "center_distance_px": 189.86938337586238,
+        "body_height_px": 204.65740966796875,
+        "player_score": 0.91796875
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 109.718505859375,
+        "center_distance_px": 172.14115274876335,
+        "body_height_px": 234.68572998046875,
+        "player_score": 0.8603515625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 134,
+    "source_time": 4.466666666666667,
+    "object_pointer": "/134/objects/1",
+    "ball_score": 0.62060546875,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 66.66133823850326,
+        "body_height_px": 218.4173583984375,
+        "player_score": 0.908203125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 81.4662312108488,
+        "center_distance_px": 171.65734804814997,
+        "body_height_px": 204.0765838623047,
+        "player_score": 0.91748046875
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 97.789794921875,
+        "center_distance_px": 163.67982471567902,
+        "body_height_px": 242.27691650390625,
+        "player_score": 0.86474609375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 135,
+    "source_time": 4.5,
+    "object_pointer": "/135/objects/1",
+    "ball_score": 0.52734375,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 74.07239017416379,
+        "body_height_px": 216.57550048828125,
+        "player_score": 0.87255859375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 78.26226806640625,
+        "center_distance_px": 159.58314340695188,
+        "body_height_px": 203.41259765625,
+        "player_score": 0.9189453125
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 98.18621826171875,
+        "center_distance_px": 166.01602316866138,
+        "body_height_px": 239.41070556640625,
+        "player_score": 0.87890625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 136,
+    "source_time": 4.533333333333333,
+    "object_pointer": "/136/objects/1",
+    "ball_score": 0.325927734375,
+    "nearest": [
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 83.16056967946591,
+        "body_height_px": 211.8387451171875,
+        "player_score": 0.81005859375
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 80.46319580078125,
+        "center_distance_px": 152.17037579199257,
+        "body_height_px": 203.3969268798828,
+        "player_score": 0.92041015625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 100.49090576171875,
+        "center_distance_px": 171.58757343550369,
+        "body_height_px": 236.3909912109375,
+        "player_score": 0.89501953125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 147,
+    "source_time": 4.9,
+    "object_pointer": "/147/objects/1",
+    "ball_score": 0.279052734375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 53.8174595684058,
+        "body_height_px": 205.56484985351562,
+        "player_score": 0.89111328125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 66.70350646972656,
+        "center_distance_px": 188.95297546775308,
+        "body_height_px": 214.21578979492188,
+        "player_score": 0.92236328125
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 82.35064197680425,
+        "center_distance_px": 208.05366279159088,
+        "body_height_px": 230.85247802734375,
+        "player_score": 0.8544921875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 155,
+    "source_time": 5.166666666666667,
+    "object_pointer": "/155/objects/1",
+    "ball_score": 0.291748046875,
+    "nearest": [
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 69.35402893730748,
+        "body_height_px": 215.60824584960938,
+        "player_score": 0.75439453125
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 65.60415757322498,
+        "body_height_px": 209.6789093017578,
+        "player_score": 0.67236328125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 57.737637942636944,
+        "body_height_px": 247.30316162109375,
+        "player_score": 0.779296875
+      }
+    ],
+    "inside_player_boxes": 3
+  },
+  {
+    "frame": 156,
+    "source_time": 5.2,
+    "object_pointer": "/156/objects/1",
+    "ball_score": 0.316650390625,
+    "nearest": [
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 68.3728798069778,
+        "body_height_px": 218.81820678710938,
+        "player_score": 0.84326171875
+      },
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 66.60631904089684,
+        "body_height_px": 192.47604370117188,
+        "player_score": 0.7138671875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 55.137152405037895,
+        "body_height_px": 249.41921997070312,
+        "player_score": 0.84326171875
+      }
+    ],
+    "inside_player_boxes": 3
+  },
+  {
+    "frame": 156,
+    "source_time": 5.2,
+    "object_pointer": "/156/objects/2",
+    "ball_score": 0.287841796875,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 49.64065470231578,
+        "body_height_px": 192.47604370117188,
+        "player_score": 0.7138671875
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 27.267410278320312,
+        "center_distance_px": 152.13107275924602,
+        "body_height_px": 249.41921997070312,
+        "player_score": 0.84326171875
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 60.90180711151839,
+        "center_distance_px": 180.59332635906233,
+        "body_height_px": 218.81820678710938,
+        "player_score": 0.84326171875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 159,
+    "source_time": 5.3,
+    "object_pointer": "/159/objects/1",
+    "ball_score": 0.312255859375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 46.52773503096507,
+        "body_height_px": 204.0448760986328,
+        "player_score": 0.442626953125
+      },
+      {
+        "track_id": 4,
+        "box_edge_distance_px": 14.466567993164062,
+        "center_distance_px": 129.00323724301876,
+        "body_height_px": 229.01190185546875,
+        "player_score": 0.8662109375
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 58.43692122781158,
+        "center_distance_px": 182.69597104161727,
+        "body_height_px": 221.15576171875,
+        "player_score": 0.8876953125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 199,
+    "source_time": 6.633333333333334,
+    "object_pointer": "/199/objects/1",
+    "ball_score": 0.28466796875,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 24.344632661867106,
+        "body_height_px": 239.2692413330078,
+        "player_score": 0.86767578125
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 71.63763427734375,
+        "center_distance_px": 183.95546343635925,
+        "body_height_px": 311.1727294921875,
+        "player_score": 0.859375
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 155.0828617704709,
+        "center_distance_px": 284.55534863641674,
+        "body_height_px": 269.4447326660156,
+        "player_score": 0.84033203125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 200,
+    "source_time": 6.666666666666667,
+    "object_pointer": "/200/objects/1",
+    "ball_score": 0.3310546875,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 23.62665764126438,
+        "body_height_px": 236.55775451660156,
+        "player_score": 0.86572265625
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 71.77252197265625,
+        "center_distance_px": 181.79088992001394,
+        "body_height_px": 309.8359680175781,
+        "player_score": 0.8583984375
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 152.2107032928115,
+        "center_distance_px": 280.27187807377186,
+        "body_height_px": 269.8750305175781,
+        "player_score": 0.826171875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 202,
+    "source_time": 6.733333333333333,
+    "object_pointer": "/202/objects/1",
+    "ball_score": 0.2666015625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 25.506595569044592,
+        "body_height_px": 231.8615264892578,
+        "player_score": 0.8466796875
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 74.28619384765625,
+        "center_distance_px": 172.30292969312808,
+        "body_height_px": 295.2527160644531,
+        "player_score": 0.86279296875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 149.44822975324652,
+        "center_distance_px": 271.03838534848296,
+        "body_height_px": 272.5607604980469,
+        "player_score": 0.7861328125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 203,
+    "source_time": 6.766666666666667,
+    "object_pointer": "/203/objects/1",
+    "ball_score": 0.32763671875,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 7.797723064202884,
+        "body_height_px": 229.5599365234375,
+        "player_score": 0.88671875
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 91.3031005859375,
+        "center_distance_px": 176.14660453644314,
+        "body_height_px": 288.10260009765625,
+        "player_score": 0.88623046875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 158.42005132883193,
+        "center_distance_px": 269.25856184579294,
+        "body_height_px": 272.8211364746094,
+        "player_score": 0.8583984375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 214,
+    "source_time": 7.133333333333334,
+    "object_pointer": "/214/objects/1",
+    "ball_score": 0.361083984375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 69.91663428848595,
+        "body_height_px": 207.86102294921875,
+        "player_score": 0.87548828125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 152.6158447265625,
+        "center_distance_px": 237.87433947234348,
+        "body_height_px": 311.8116455078125,
+        "player_score": 0.88671875
+      },
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 441.42124321885944,
+        "center_distance_px": 605.8652642673782,
+        "body_height_px": 304.06927490234375,
+        "player_score": 0.78857421875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 215,
+    "source_time": 7.166666666666667,
+    "object_pointer": "/215/objects/1",
+    "ball_score": 0.390380859375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 96.37755694826011,
+        "body_height_px": 207.70877075195312,
+        "player_score": 0.84765625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 151.642822265625,
+        "center_distance_px": 236.53339069999708,
+        "body_height_px": 318.9503173828125,
+        "player_score": 0.88525390625
+      },
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 413.9425012485705,
+        "center_distance_px": 582.5375417234637,
+        "body_height_px": 320.31121826171875,
+        "player_score": 0.79736328125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 216,
+    "source_time": 7.2,
+    "object_pointer": "/216/objects/1",
+    "ball_score": 0.447509765625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 110.04539167804742,
+        "body_height_px": 209.64080810546875,
+        "player_score": 0.81689453125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 152.00946044921875,
+        "center_distance_px": 237.73975794070387,
+        "body_height_px": 323.2210693359375,
+        "player_score": 0.8837890625
+      },
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 399.043718181389,
+        "center_distance_px": 568.5219658207344,
+        "body_height_px": 328.6192626953125,
+        "player_score": 0.7529296875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 217,
+    "source_time": 7.233333333333333,
+    "object_pointer": "/217/objects/1",
+    "ball_score": 0.5849609375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 112.26180917303657,
+        "body_height_px": 218.64727783203125,
+        "player_score": 0.9013671875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 158.8934326171875,
+        "center_distance_px": 244.1615541398755,
+        "body_height_px": 324.72125244140625,
+        "player_score": 0.86279296875
+      },
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 389.95168599968974,
+        "center_distance_px": 557.2839093258377,
+        "body_height_px": 329.88714599609375,
+        "player_score": 0.69189453125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 218,
+    "source_time": 7.266666666666667,
+    "object_pointer": "/218/objects/1",
+    "ball_score": 0.67919921875,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 91.2979990446178,
+        "body_height_px": 225.35885620117188,
+        "player_score": 0.88916015625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 169.360107421875,
+        "center_distance_px": 242.399878349612,
+        "body_height_px": 290.3043518066406,
+        "player_score": 0.8466796875
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 210.271484375,
+        "center_distance_px": 267.1104830672683,
+        "body_height_px": 200.81976318359375,
+        "player_score": 0.46875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 219,
+    "source_time": 7.3,
+    "object_pointer": "/219/objects/1",
+    "ball_score": 0.77880859375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 65.3579296948396,
+        "body_height_px": 233.37384033203125,
+        "player_score": 0.88623046875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 164.2408447265625,
+        "center_distance_px": 241.04100227031026,
+        "body_height_px": 301.3052062988281,
+        "player_score": 0.814453125
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 223.1219482421875,
+        "center_distance_px": 272.9054926011939,
+        "body_height_px": 211.8140869140625,
+        "player_score": 0.4716796875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 220,
+    "source_time": 7.333333333333333,
+    "object_pointer": "/220/objects/1",
+    "ball_score": 0.60595703125,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 52.46349402652075,
+        "body_height_px": 236.539794921875,
+        "player_score": 0.88916015625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 174.26123046875,
+        "center_distance_px": 248.59193545510766,
+        "body_height_px": 275.2145690917969,
+        "player_score": 0.79638671875
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 228.890380859375,
+        "center_distance_px": 277.5649762027133,
+        "body_height_px": 213.77374267578125,
+        "player_score": 0.6982421875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 221,
+    "source_time": 7.366666666666666,
+    "object_pointer": "/221/objects/1",
+    "ball_score": 0.447509765625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 48.122563469589316,
+        "body_height_px": 237.60177612304688,
+        "player_score": 0.86669921875
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 140.7451171875,
+        "center_distance_px": 202.80542225302665,
+        "body_height_px": 222.95452880859375,
+        "player_score": 0.6123046875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 189.481201171875,
+        "center_distance_px": 263.13134602133164,
+        "body_height_px": 260.07843017578125,
+        "player_score": 0.8369140625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 222,
+    "source_time": 7.4,
+    "object_pointer": "/222/objects/1",
+    "ball_score": 0.312255859375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 46.410990715815174,
+        "body_height_px": 235.27713012695312,
+        "player_score": 0.87939453125
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 134.5126953125,
+        "center_distance_px": 194.35458817482572,
+        "body_height_px": 217.72015380859375,
+        "player_score": 0.6318359375
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 194.397705078125,
+        "center_distance_px": 268.503559203954,
+        "body_height_px": 260.3515319824219,
+        "player_score": 0.8525390625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 223,
+    "source_time": 7.433333333333334,
+    "object_pointer": "/223/objects/1",
+    "ball_score": 0.443603515625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 46.16653774495735,
+        "body_height_px": 236.22454833984375,
+        "player_score": 0.896484375
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 125.40960693359375,
+        "center_distance_px": 184.72658481113768,
+        "body_height_px": 217.70098876953125,
+        "player_score": 0.75146484375
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 201.62969970703125,
+        "center_distance_px": 277.20841868627974,
+        "body_height_px": 250.42922973632812,
+        "player_score": 0.8779296875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 224,
+    "source_time": 7.466666666666667,
+    "object_pointer": "/224/objects/1",
+    "ball_score": 0.403564453125,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 46.47572676026167,
+        "body_height_px": 238.21826171875,
+        "player_score": 0.90771484375
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 127.33160400390625,
+        "center_distance_px": 183.64563118325933,
+        "body_height_px": 207.43756103515625,
+        "player_score": 0.68408203125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 192.25408935546875,
+        "center_distance_px": 270.73071673994616,
+        "body_height_px": 243.149169921875,
+        "player_score": 0.84228515625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 226,
+    "source_time": 7.533333333333333,
+    "object_pointer": "/226/objects/1",
+    "ball_score": 0.26806640625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 37.26941591755145,
+        "body_height_px": 225.54010009765625,
+        "player_score": 0.79638671875
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 100.142822265625,
+        "center_distance_px": 155.81023526966663,
+        "body_height_px": 204.16494750976562,
+        "player_score": 0.8349609375
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 201.23046875,
+        "center_distance_px": 278.77950475485693,
+        "body_height_px": 235.88970947265625,
+        "player_score": 0.8359375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 228,
+    "source_time": 7.6,
+    "object_pointer": "/228/objects/1",
+    "ball_score": 0.355712890625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 41.76311700820822,
+        "body_height_px": 236.7672119140625,
+        "player_score": 0.8916015625
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 88.51416015625,
+        "center_distance_px": 147.30966322927404,
+        "body_height_px": 216.32293701171875,
+        "player_score": 0.81103515625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 207.67626953125,
+        "center_distance_px": 279.23636129941224,
+        "body_height_px": 226.47772216796875,
+        "player_score": 0.87451171875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 229,
+    "source_time": 7.633333333333334,
+    "object_pointer": "/229/objects/1",
+    "ball_score": 0.445556640625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 39.08791302698817,
+        "body_height_px": 234.759521484375,
+        "player_score": 0.8564453125
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 77.967529296875,
+        "center_distance_px": 138.38616196666257,
+        "body_height_px": 224.84823608398438,
+        "player_score": 0.7724609375
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 185.6397705078125,
+        "center_distance_px": 257.98711533579416,
+        "body_height_px": 222.32858276367188,
+        "player_score": 0.86474609375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 230,
+    "source_time": 7.666666666666667,
+    "object_pointer": "/230/objects/1",
+    "ball_score": 0.546875,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 27.73013343640548,
+        "body_height_px": 236.2044677734375,
+        "player_score": 0.8349609375
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 62.29278564453125,
+        "center_distance_px": 125.3662693831652,
+        "body_height_px": 235.256103515625,
+        "player_score": 0.85546875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 167.05084228515625,
+        "center_distance_px": 239.622668866267,
+        "body_height_px": 223.75656127929688,
+        "player_score": 0.8818359375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 235,
+    "source_time": 7.833333333333333,
+    "object_pointer": "/235/objects/1",
+    "ball_score": 0.445556640625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 98.74708958438444,
+        "body_height_px": 219.51156616210938,
+        "player_score": 0.8916015625
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 41.30700428446752,
+        "center_distance_px": 172.61660670694616,
+        "body_height_px": 254.17691040039062,
+        "player_score": 0.69287109375
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 107.18585205078125,
+        "center_distance_px": 203.11420011523464,
+        "body_height_px": 232.43878173828125,
+        "player_score": 0.88671875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 236,
+    "source_time": 7.866666666666666,
+    "object_pointer": "/236/objects/1",
+    "ball_score": 0.262939453125,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 61.9196660499618,
+        "body_height_px": 216.44967651367188,
+        "player_score": 0.8466796875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 96.23193359375,
+        "center_distance_px": 185.5398761235282,
+        "body_height_px": 237.54885864257812,
+        "player_score": 0.88818359375
+      },
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 164.08357849220567,
+        "center_distance_px": 289.6407063191051,
+        "body_height_px": 213.3929443359375,
+        "player_score": 0.89208984375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 237,
+    "source_time": 7.9,
+    "object_pointer": "/237/objects/1",
+    "ball_score": 0.474609375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 51.45656772894888,
+        "body_height_px": 215.80862426757812,
+        "player_score": 0.89599609375
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 48.11968994140625,
+        "center_distance_px": 137.75252764412718,
+        "body_height_px": 264.03692626953125,
+        "player_score": 0.58203125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 89.67340087890625,
+        "center_distance_px": 176.69389913834237,
+        "body_height_px": 236.3714599609375,
+        "player_score": 0.87890625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 238,
+    "source_time": 7.933333333333334,
+    "object_pointer": "/238/objects/1",
+    "ball_score": 0.449462890625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 48.33309837978754,
+        "body_height_px": 216.528076171875,
+        "player_score": 0.9072265625
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 47.67010498046875,
+        "center_distance_px": 130.21655526527013,
+        "body_height_px": 264.7167663574219,
+        "player_score": 0.58203125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 84.35064697265625,
+        "center_distance_px": 170.5682817709702,
+        "body_height_px": 237.73443603515625,
+        "player_score": 0.88134765625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 239,
+    "source_time": 7.966666666666667,
+    "object_pointer": "/239/objects/1",
+    "ball_score": 0.486328125,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 42.46541171974724,
+        "body_height_px": 213.66928100585938,
+        "player_score": 0.89599609375
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 40.45806884765625,
+        "center_distance_px": 116.48221625537548,
+        "body_height_px": 267.9731140136719,
+        "player_score": 0.591796875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 75.31829833984375,
+        "center_distance_px": 159.55497854398212,
+        "body_height_px": 236.462646484375,
+        "player_score": 0.8515625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 240,
+    "source_time": 8.0,
+    "object_pointer": "/240/objects/1",
+    "ball_score": 0.515625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 37.530911474119705,
+        "body_height_px": 209.45095825195312,
+        "player_score": 0.89599609375
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 38.1229248046875,
+        "center_distance_px": 99.55650210104892,
+        "body_height_px": 242.88339233398438,
+        "player_score": 0.47265625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 61.4359130859375,
+        "center_distance_px": 146.07814116662257,
+        "body_height_px": 241.3983154296875,
+        "player_score": 0.8486328125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 241,
+    "source_time": 8.033333333333333,
+    "object_pointer": "/241/objects/1",
+    "ball_score": 0.441650390625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 47.48884840583927,
+        "body_height_px": 218.44595336914062,
+        "player_score": 0.88134765625
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 34.0477294921875,
+        "center_distance_px": 91.512246536961,
+        "body_height_px": 246.43099975585938,
+        "player_score": 0.301513671875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 57.0111083984375,
+        "center_distance_px": 141.21774874553583,
+        "body_height_px": 244.14154052734375,
+        "player_score": 0.8486328125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 241,
+    "source_time": 8.033333333333333,
+    "object_pointer": "/241/objects/2",
+    "ball_score": 0.2822265625,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 43.596217552791416,
+        "body_height_px": 182.7262420654297,
+        "player_score": 0.7646484375
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 52.51594169703949,
+        "center_distance_px": 180.11681017570376,
+        "body_height_px": 232.76058959960938,
+        "player_score": 0.87451171875
+      },
+      {
+        "track_id": 8,
+        "box_edge_distance_px": 304.3308226809052,
+        "center_distance_px": 433.95816741150406,
+        "body_height_px": 270.01220703125,
+        "player_score": 0.86669921875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 242,
+    "source_time": 8.066666666666666,
+    "object_pointer": "/242/objects/1",
+    "ball_score": 0.43017578125,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 43.56007364343347,
+        "body_height_px": 181.9429168701172,
+        "player_score": 0.7431640625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 50.6077430320262,
+        "center_distance_px": 181.55613372052693,
+        "body_height_px": 238.72055053710938,
+        "player_score": 0.87890625
+      },
+      {
+        "track_id": 8,
+        "box_edge_distance_px": 310.5569493646879,
+        "center_distance_px": 439.3015320846248,
+        "body_height_px": 268.3213195800781,
+        "player_score": 0.88427734375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 242,
+    "source_time": 8.066666666666666,
+    "object_pointer": "/242/objects/2",
+    "ball_score": 0.43017578125,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 64.14683032612577,
+        "body_height_px": 226.200927734375,
+        "player_score": 0.8564453125
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 30.48529052734375,
+        "center_distance_px": 85.22208385907746,
+        "body_height_px": 245.86697387695312,
+        "player_score": 0.49609375
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 55.13055419921875,
+        "center_distance_px": 140.39713879389805,
+        "body_height_px": 246.07321166992188,
+        "player_score": 0.802734375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 243,
+    "source_time": 8.1,
+    "object_pointer": "/243/objects/1",
+    "ball_score": 0.42626953125,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 77.8261457278738,
+        "body_height_px": 239.83551025390625,
+        "player_score": 0.8544921875
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 22.17987060546875,
+        "center_distance_px": 84.60241951361212,
+        "body_height_px": 264.27044677734375,
+        "player_score": 0.30322265625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 47.30499267578125,
+        "center_distance_px": 141.14147812331552,
+        "body_height_px": 262.441650390625,
+        "player_score": 0.77392578125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 243,
+    "source_time": 8.1,
+    "object_pointer": "/243/objects/2",
+    "ball_score": 0.4091796875,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 40.14719827536829,
+        "body_height_px": 187.67518615722656,
+        "player_score": 0.60400390625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 50.97842007154913,
+        "center_distance_px": 182.18538582638254,
+        "body_height_px": 239.96426391601562,
+        "player_score": 0.86767578125
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 304.9373578061099,
+        "center_distance_px": 398.5681435288471,
+        "body_height_px": 216.85186767578125,
+        "player_score": 0.92041015625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 244,
+    "source_time": 8.133333333333333,
+    "object_pointer": "/244/objects/1",
+    "ball_score": 0.445556640625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 86.66705346285043,
+        "body_height_px": 248.53265380859375,
+        "player_score": 0.83935546875
+      },
+      {
+        "track_id": 21,
+        "box_edge_distance_px": 26.60565185546875,
+        "center_distance_px": 91.51711008751114,
+        "body_height_px": 268.3924255371094,
+        "player_score": 0.35400390625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 46.49334716796875,
+        "center_distance_px": 137.87558274073626,
+        "body_height_px": 262.8685607910156,
+        "player_score": 0.71630859375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 244,
+    "source_time": 8.133333333333333,
+    "object_pointer": "/244/objects/2",
+    "ball_score": 0.3056640625,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 36.32783819585385,
+        "body_height_px": 190.2753448486328,
+        "player_score": 0.78515625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 52.856292521874806,
+        "center_distance_px": 183.1012334648936,
+        "body_height_px": 239.9490966796875,
+        "player_score": 0.86474609375
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 292.5733341079605,
+        "center_distance_px": 387.4240787488106,
+        "body_height_px": 217.00302124023438,
+        "player_score": 0.923828125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 245,
+    "source_time": 8.166666666666666,
+    "object_pointer": "/245/objects/1",
+    "ball_score": 0.361083984375,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 33.491030949446674,
+        "body_height_px": 191.08883666992188,
+        "player_score": 0.81884765625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 57.74287442254394,
+        "center_distance_px": 185.22485760730322,
+        "body_height_px": 235.97817993164062,
+        "player_score": 0.86474609375
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 279.6226077503333,
+        "center_distance_px": 375.87557819072754,
+        "body_height_px": 217.72848510742188,
+        "player_score": 0.90771484375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 247,
+    "source_time": 8.233333333333333,
+    "object_pointer": "/247/objects/1",
+    "ball_score": 0.251708984375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 120.29175681429494,
+        "body_height_px": 287.08648681640625,
+        "player_score": 0.8076171875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 47.72552490234375,
+        "center_distance_px": 181.58458060696077,
+        "body_height_px": 292.7695007324219,
+        "player_score": 0.7861328125
+      },
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 281.7583814822624,
+        "center_distance_px": 434.9854671474564,
+        "body_height_px": 263.33892822265625,
+        "player_score": 0.8603515625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 248,
+    "source_time": 8.266666666666667,
+    "object_pointer": "/248/objects/1",
+    "ball_score": 0.312255859375,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 119.82832794664964,
+        "body_height_px": 286.0580749511719,
+        "player_score": 0.853515625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 59.106984568629045,
+        "center_distance_px": 199.29119302735438,
+        "body_height_px": 279.089599609375,
+        "player_score": 0.83154296875
+      },
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 292.20185940514665,
+        "center_distance_px": 450.51360406124917,
+        "body_height_px": 272.74114990234375,
+        "player_score": 0.87255859375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 250,
+    "source_time": 8.333333333333334,
+    "object_pointer": "/250/objects/1",
+    "ball_score": 0.405517578125,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 119.90437195260782,
+        "body_height_px": 276.8880310058594,
+        "player_score": 0.8076171875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 85.53918140836377,
+        "center_distance_px": 221.4115048541814,
+        "body_height_px": 263.65838623046875,
+        "player_score": 0.8583984375
+      },
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 305.9348190970327,
+        "center_distance_px": 467.8247149062036,
+        "body_height_px": 279.86529541015625,
+        "player_score": 0.89013671875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 253,
+    "source_time": 8.433333333333334,
+    "object_pointer": "/253/objects/1",
+    "ball_score": 0.42822265625,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 118.8028081925168,
+        "body_height_px": 310.97406005859375,
+        "player_score": 0.62890625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 100.63182234054977,
+        "center_distance_px": 239.50601797188185,
+        "body_height_px": 259.4662170410156,
+        "player_score": 0.8994140625
+      },
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 328.2318262545992,
+        "center_distance_px": 495.6347431943517,
+        "body_height_px": 289.56744384765625,
+        "player_score": 0.89501953125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 267,
+    "source_time": 8.9,
+    "object_pointer": "/267/objects/1",
+    "ball_score": 0.289306640625,
+    "nearest": [
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 96.71647602076075,
+        "body_height_px": 254.300537109375,
+        "player_score": 0.90087890625
+      },
+      {
+        "track_id": 24,
+        "box_edge_distance_px": 138.4625244140625,
+        "center_distance_px": 185.20114466255063,
+        "body_height_px": 243.84310913085938,
+        "player_score": 0.70654296875
+      },
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 144.0757598876953,
+        "center_distance_px": 279.13707549463925,
+        "body_height_px": 269.6497802734375,
+        "player_score": 0.91015625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 286,
+    "source_time": 9.533333333333333,
+    "object_pointer": "/286/objects/1",
+    "ball_score": 0.67919921875,
+    "nearest": [
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 44.225608255625545,
+        "body_height_px": 227.93972778320312,
+        "player_score": 0.8349609375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 59.21345520019531,
+        "center_distance_px": 166.25960015418448,
+        "body_height_px": 213.29083251953125,
+        "player_score": 0.84765625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 60.380096435546875,
+        "center_distance_px": 114.80863849623401,
+        "body_height_px": 246.708984375,
+        "player_score": 0.8271484375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 286,
+    "source_time": 9.533333333333333,
+    "object_pointer": "/286/objects/2",
+    "ball_score": 0.253173828125,
+    "nearest": [
+      {
+        "track_id": 10,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 99.97525834453042,
+        "body_height_px": 225.7886962890625,
+        "player_score": 0.83837890625
+      },
+      {
+        "track_id": 24,
+        "box_edge_distance_px": 183.09198755723932,
+        "center_distance_px": 275.08896647011096,
+        "body_height_px": 224.45101928710938,
+        "player_score": 0.8994140625
+      },
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 370.43658447265625,
+        "center_distance_px": 465.75081935384884,
+        "body_height_px": 277.8876953125,
+        "player_score": 0.90625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 287,
+    "source_time": 9.566666666666666,
+    "object_pointer": "/287/objects/1",
+    "ball_score": 0.49609375,
+    "nearest": [
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 3.3739013671875,
+        "center_distance_px": 58.45603571010651,
+        "body_height_px": 224.01055908203125,
+        "player_score": 0.833984375
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 75.34844970703125,
+        "center_distance_px": 132.37169413085846,
+        "body_height_px": 239.3974609375,
+        "player_score": 0.8134765625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 77.77824401855469,
+        "center_distance_px": 187.97750857191363,
+        "body_height_px": 211.48135375976562,
+        "player_score": 0.8515625
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 288,
+    "source_time": 9.6,
+    "object_pointer": "/288/objects/1",
+    "ball_score": 0.39599609375,
+    "nearest": [
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 0.490203857421875,
+        "center_distance_px": 60.95766951528146,
+        "body_height_px": 222.23892211914062,
+        "player_score": 0.7529296875
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 76.15359497070312,
+        "center_distance_px": 135.2110195606147,
+        "body_height_px": 236.39059448242188,
+        "player_score": 0.82958984375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 84.87860107421875,
+        "center_distance_px": 199.08444436200753,
+        "body_height_px": 212.95465087890625,
+        "player_score": 0.76708984375
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 289,
+    "source_time": 9.633333333333333,
+    "object_pointer": "/289/objects/1",
+    "ball_score": 0.541015625,
+    "nearest": [
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 0.392852783203125,
+        "center_distance_px": 73.92945879460865,
+        "body_height_px": 223.08920288085938,
+        "player_score": 0.83935546875
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 84.25955200195312,
+        "center_distance_px": 148.88523085987188,
+        "body_height_px": 233.536376953125,
+        "player_score": 0.84228515625
+      },
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 89.30289292037902,
+        "center_distance_px": 177.51510905882856,
+        "body_height_px": 180.07997131347656,
+        "player_score": 0.86962890625
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 300,
+    "source_time": 10.0,
+    "object_pointer": "/300/objects/1",
+    "ball_score": 0.346923828125,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 21.464996337890625,
+        "center_distance_px": 69.09773044435553,
+        "body_height_px": 180.66122436523438,
+        "player_score": 0.8115234375
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 70.92228698730469,
+        "center_distance_px": 182.03329593707235,
+        "body_height_px": 218.60882568359375,
+        "player_score": 0.86669921875
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 82.17611406358162,
+        "center_distance_px": 202.02823795049713,
+        "body_height_px": 221.483154296875,
+        "player_score": 0.8876953125
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 301,
+    "source_time": 10.033333333333333,
+    "object_pointer": "/301/objects/1",
+    "ball_score": 0.45703125,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 15.40838623046875,
+        "center_distance_px": 65.42546994077307,
+        "body_height_px": 187.9025421142578,
+        "player_score": 0.84716796875
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 71.07278442382812,
+        "center_distance_px": 184.97320726048574,
+        "body_height_px": 220.8331298828125,
+        "player_score": 0.8359375
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 79.46677547535482,
+        "center_distance_px": 199.64011356256276,
+        "body_height_px": 223.44708251953125,
+        "player_score": 0.814453125
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 308,
+    "source_time": 10.266666666666667,
+    "object_pointer": "/308/objects/1",
+    "ball_score": 0.28466796875,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 50.79972546668131,
+        "body_height_px": 198.34893798828125,
+        "player_score": 0.71923828125
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 75.46466064453125,
+        "center_distance_px": 188.4218257261506,
+        "body_height_px": 209.46121215820312,
+        "player_score": 0.8505859375
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 79.66024780273438,
+        "center_distance_px": 210.9073574414745,
+        "body_height_px": 247.54852294921875,
+        "player_score": 0.7255859375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 310,
+    "source_time": 10.333333333333334,
+    "object_pointer": "/310/objects/1",
+    "ball_score": 0.262939453125,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 56.98541309950664,
+        "body_height_px": 189.96702575683594,
+        "player_score": 0.75146484375
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 68.09011397561311,
+        "center_distance_px": 182.29433597753996,
+        "body_height_px": 210.01962280273438,
+        "player_score": 0.8876953125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 94.81314614657157,
+        "center_distance_px": 224.76230719946122,
+        "body_height_px": 238.55459594726562,
+        "player_score": 0.7900390625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 311,
+    "source_time": 10.366666666666667,
+    "object_pointer": "/311/objects/1",
+    "ball_score": 0.2998046875,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 63.3044817746223,
+        "body_height_px": 191.418212890625,
+        "player_score": 0.64501953125
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 67.09136090354114,
+        "center_distance_px": 183.87255698825518,
+        "body_height_px": 211.06973266601562,
+        "player_score": 0.8720703125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 94.76560974121094,
+        "center_distance_px": 230.73908600568376,
+        "body_height_px": 258.714599609375,
+        "player_score": 0.8603515625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 312,
+    "source_time": 10.4,
+    "object_pointer": "/312/objects/1",
+    "ball_score": 0.29833984375,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 63.032425085642544,
+        "body_height_px": 199.7148895263672,
+        "player_score": 0.6767578125
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 60.83000951201366,
+        "center_distance_px": 182.28472302033174,
+        "body_height_px": 216.45513916015625,
+        "player_score": 0.8701171875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 88.77005004882812,
+        "center_distance_px": 227.49669368442096,
+        "body_height_px": 268.9564208984375,
+        "player_score": 0.9189453125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 324,
+    "source_time": 10.8,
+    "object_pointer": "/324/objects/1",
+    "ball_score": 0.355712890625,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 70.56285972800883,
+        "body_height_px": 218.54644775390625,
+        "player_score": 0.765625
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 71.1603143819841,
+        "center_distance_px": 209.04878582870714,
+        "body_height_px": 291.14691162109375,
+        "player_score": 0.826171875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 115.5228271484375,
+        "center_distance_px": 280.2735477614369,
+        "body_height_px": 380.46954345703125,
+        "player_score": 0.546875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 325,
+    "source_time": 10.833333333333334,
+    "object_pointer": "/325/objects/1",
+    "ball_score": 0.43408203125,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 60.07147423651771,
+        "body_height_px": 218.9676513671875,
+        "player_score": 0.783203125
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 82.48045803183365,
+        "center_distance_px": 222.362774286076,
+        "body_height_px": 298.6132507324219,
+        "player_score": 0.82373046875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 134.31048583984375,
+        "center_distance_px": 293.63674638582376,
+        "body_height_px": 373.94317626953125,
+        "player_score": 0.541015625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 326,
+    "source_time": 10.866666666666667,
+    "object_pointer": "/326/objects/1",
+    "ball_score": 0.437744140625,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 55.27473522645187,
+        "body_height_px": 212.55276489257812,
+        "player_score": 0.705078125
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 98.02122055376864,
+        "center_distance_px": 235.25441298335463,
+        "body_height_px": 299.6629638671875,
+        "player_score": 0.79638671875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 150.83250893386196,
+        "center_distance_px": 305.49865297373924,
+        "body_height_px": 358.1699523925781,
+        "player_score": 0.607421875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 327,
+    "source_time": 10.9,
+    "object_pointer": "/327/objects/1",
+    "ball_score": 0.45703125,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 48.3945762238582,
+        "body_height_px": 202.94253540039062,
+        "player_score": 0.81591796875
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 103.39624397895474,
+        "center_distance_px": 237.07393633505214,
+        "body_height_px": 297.282958984375,
+        "player_score": 0.8125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 156.50853923709474,
+        "center_distance_px": 304.0662444079335,
+        "body_height_px": 360.5442810058594,
+        "player_score": 0.66015625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 328,
+    "source_time": 10.933333333333334,
+    "object_pointer": "/328/objects/1",
+    "ball_score": 0.484375,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 45.90440784846374,
+        "body_height_px": 186.46688842773438,
+        "player_score": 0.814453125
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 112.3444330197603,
+        "center_distance_px": 240.99532867344718,
+        "body_height_px": 302.5213623046875,
+        "player_score": 0.794921875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 170.02545166015625,
+        "center_distance_px": 302.2854595655128,
+        "body_height_px": 349.3185119628906,
+        "player_score": 0.6494140625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 329,
+    "source_time": 10.966666666666667,
+    "object_pointer": "/329/objects/1",
+    "ball_score": 0.5908203125,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 47.78461395445111,
+        "body_height_px": 183.478515625,
+        "player_score": 0.791015625
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 121.54683651317363,
+        "center_distance_px": 242.2864731608185,
+        "body_height_px": 304.8754577636719,
+        "player_score": 0.7392578125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 185.24237060546875,
+        "center_distance_px": 299.4500520531867,
+        "body_height_px": 321.26812744140625,
+        "player_score": 0.505859375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 329,
+    "source_time": 10.966666666666667,
+    "object_pointer": "/329/objects/2",
+    "ball_score": 0.3310546875,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 54.09171021616045,
+        "body_height_px": 183.478515625,
+        "player_score": 0.791015625
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 58.20929562015511,
+        "center_distance_px": 221.32866528752876,
+        "body_height_px": 304.8754577636719,
+        "player_score": 0.7392578125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 97.07314830845833,
+        "center_distance_px": 252.26665218049413,
+        "body_height_px": 321.26812744140625,
+        "player_score": 0.505859375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 330,
+    "source_time": 11.0,
+    "object_pointer": "/330/objects/1",
+    "ball_score": 0.3310546875,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 55.95385089395318,
+        "body_height_px": 186.4208984375,
+        "player_score": 0.84228515625
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 65.18802784051013,
+        "center_distance_px": 221.42692372851388,
+        "body_height_px": 300.78778076171875,
+        "player_score": 0.80517578125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 115.61604166219068,
+        "center_distance_px": 259.98658843570826,
+        "body_height_px": 311.6814880371094,
+        "player_score": 0.658203125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 330,
+    "source_time": 11.0,
+    "object_pointer": "/330/objects/2",
+    "ball_score": 0.279052734375,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 48.53835976561033,
+        "body_height_px": 186.4208984375,
+        "player_score": 0.84228515625
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 139.08331298828125,
+        "center_distance_px": 245.36148185832394,
+        "body_height_px": 300.78778076171875,
+        "player_score": 0.80517578125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 203.02960205078125,
+        "center_distance_px": 307.1383414012207,
+        "body_height_px": 311.6814880371094,
+        "player_score": 0.658203125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 331,
+    "source_time": 11.033333333333333,
+    "object_pointer": "/331/objects/1",
+    "ball_score": 0.2861328125,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 50.23887333212793,
+        "body_height_px": 192.06170654296875,
+        "player_score": 0.849609375
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 155.19256591796875,
+        "center_distance_px": 252.9759613708601,
+        "body_height_px": 303.5965576171875,
+        "player_score": 0.80517578125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 212.59771728515625,
+        "center_distance_px": 310.3444528182622,
+        "body_height_px": 309.6269836425781,
+        "player_score": 0.4951171875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 332,
+    "source_time": 11.066666666666666,
+    "object_pointer": "/332/objects/1",
+    "ball_score": 0.290283203125,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 45.89718756276696,
+        "body_height_px": 199.782470703125,
+        "player_score": 0.859375
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 164.71221923828125,
+        "center_distance_px": 255.0036449865814,
+        "body_height_px": 304.14715576171875,
+        "player_score": 0.83837890625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 233.28765869140625,
+        "center_distance_px": 332.38488829322586,
+        "body_height_px": 295.66156005859375,
+        "player_score": 0.64892578125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 345,
+    "source_time": 11.5,
+    "object_pointer": "/345/objects/1",
+    "ball_score": 0.2568359375,
+    "nearest": [
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 262.0159236496471,
+        "center_distance_px": 388.4207128967778,
+        "body_height_px": 225.563720703125,
+        "player_score": 0.8466796875
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 272.329102298539,
+        "center_distance_px": 411.96263450926233,
+        "body_height_px": 277.47845458984375,
+        "player_score": 0.86572265625
+      },
+      {
+        "track_id": 30,
+        "box_edge_distance_px": 275.6765727583257,
+        "center_distance_px": 341.03420601359795,
+        "body_height_px": 188.939208984375,
+        "player_score": 0.35498046875
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 346,
+    "source_time": 11.533333333333333,
+    "object_pointer": "/346/objects/1",
+    "ball_score": 0.322509765625,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 26.216223672387997,
+        "body_height_px": 225.40972900390625,
+        "player_score": 0.89013671875
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 123.50830078125,
+        "center_distance_px": 178.125348156236,
+        "body_height_px": 226.99148559570312,
+        "player_score": 0.74560546875
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 184.523193359375,
+        "center_distance_px": 256.1787335334118,
+        "body_height_px": 280.6896057128906,
+        "player_score": 0.82275390625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 347,
+    "source_time": 11.566666666666666,
+    "object_pointer": "/347/objects/1",
+    "ball_score": 0.64794921875,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 29.513736942961373,
+        "body_height_px": 230.90472412109375,
+        "player_score": 0.8837890625
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 125.41925048828125,
+        "center_distance_px": 177.14782284023897,
+        "body_height_px": 218.00421142578125,
+        "player_score": 0.76708984375
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 192.19488525390625,
+        "center_distance_px": 265.0844072402338,
+        "body_height_px": 276.5325927734375,
+        "player_score": 0.802734375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 348,
+    "source_time": 11.6,
+    "object_pointer": "/348/objects/1",
+    "ball_score": 0.62451171875,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 37.97514674423801,
+        "body_height_px": 236.94039916992188,
+        "player_score": 0.8994140625
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 132.34893798828125,
+        "center_distance_px": 184.3665493129268,
+        "body_height_px": 221.05667114257812,
+        "player_score": 0.783203125
+      },
+      {
+        "track_id": 30,
+        "box_edge_distance_px": 205.68986844089363,
+        "center_distance_px": 277.6241566562224,
+        "body_height_px": 216.5079803466797,
+        "player_score": 0.388671875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 348,
+    "source_time": 11.6,
+    "object_pointer": "/348/objects/2",
+    "ball_score": 0.26806640625,
+    "nearest": [
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 74.49167159916546,
+        "body_height_px": 322.78656005859375,
+        "player_score": 0.9140625
+      },
+      {
+        "track_id": 24,
+        "box_edge_distance_px": 37.143096923828125,
+        "center_distance_px": 197.4503265878074,
+        "body_height_px": 308.2539978027344,
+        "player_score": 0.93115234375
+      },
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 371.09848393529876,
+        "center_distance_px": 497.6432377224917,
+        "body_height_px": 236.94039916992188,
+        "player_score": 0.8994140625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 349,
+    "source_time": 11.633333333333333,
+    "object_pointer": "/349/objects/1",
+    "ball_score": 0.47265625,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 38.55968347351748,
+        "body_height_px": 243.630126953125,
+        "player_score": 0.91064453125
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 131.65008544921875,
+        "center_distance_px": 184.10364859147995,
+        "body_height_px": 224.86581420898438,
+        "player_score": 0.783203125
+      },
+      {
+        "track_id": 24,
+        "box_edge_distance_px": 205.74224853515625,
+        "center_distance_px": 312.7047813142027,
+        "body_height_px": 304.29534912109375,
+        "player_score": 0.92822265625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 349,
+    "source_time": 11.633333333333333,
+    "object_pointer": "/349/objects/2",
+    "ball_score": 0.26806640625,
+    "nearest": [
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 74.48726819656089,
+        "body_height_px": 323.7650146484375,
+        "player_score": 0.912109375
+      },
+      {
+        "track_id": 24,
+        "box_edge_distance_px": 36.872406005859375,
+        "center_distance_px": 197.84708252215265,
+        "body_height_px": 304.29534912109375,
+        "player_score": 0.92822265625
+      },
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 366.1524049229003,
+        "center_distance_px": 494.67936045896016,
+        "body_height_px": 243.630126953125,
+        "player_score": 0.91064453125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 350,
+    "source_time": 11.666666666666666,
+    "object_pointer": "/350/objects/1",
+    "ball_score": 0.46484375,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 42.83155856822155,
+        "body_height_px": 251.43734741210938,
+        "player_score": 0.91650390625
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 132.92376708984375,
+        "center_distance_px": 187.65936854368672,
+        "body_height_px": 237.531494140625,
+        "player_score": 0.76416015625
+      },
+      {
+        "track_id": 24,
+        "box_edge_distance_px": 188.36265248164304,
+        "center_distance_px": 302.1314822218435,
+        "body_height_px": 298.2227478027344,
+        "player_score": 0.9423828125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 352,
+    "source_time": 11.733333333333333,
+    "object_pointer": "/352/objects/1",
+    "ball_score": 0.62451171875,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 101.16297564874542,
+        "body_height_px": 273.4299011230469,
+        "player_score": 0.900390625
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 137.08026123046875,
+        "center_distance_px": 210.25651545899166,
+        "body_height_px": 257.4817199707031,
+        "player_score": 0.7001953125
+      },
+      {
+        "track_id": 24,
+        "box_edge_distance_px": 170.96981680326218,
+        "center_distance_px": 315.1177358488207,
+        "body_height_px": 282.40020751953125,
+        "player_score": 0.9287109375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 356,
+    "source_time": 11.866666666666667,
+    "object_pointer": "/356/objects/1",
+    "ball_score": 0.498046875,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 133.45716549643237,
+        "body_height_px": 334.56927490234375,
+        "player_score": 0.8720703125
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 115.97686097864668,
+        "center_distance_px": 226.66180039809868,
+        "body_height_px": 251.70343017578125,
+        "player_score": 0.7822265625
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 183.34337083805588,
+        "center_distance_px": 314.71086228482164,
+        "body_height_px": 279.27886962890625,
+        "player_score": 0.869140625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 358,
+    "source_time": 11.933333333333334,
+    "object_pointer": "/358/objects/1",
+    "ball_score": 0.2666015625,
+    "nearest": [
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 88.78379013059664,
+        "body_height_px": 326.70111083984375,
+        "player_score": 0.87890625
+      },
+      {
+        "track_id": 24,
+        "box_edge_distance_px": 65.8519343428342,
+        "center_distance_px": 216.80008165151392,
+        "body_height_px": 263.098876953125,
+        "player_score": 0.935546875
+      },
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 359.37637848903256,
+        "center_distance_px": 528.0480471131018,
+        "body_height_px": 354.525390625,
+        "player_score": 0.84228515625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 359,
+    "source_time": 11.966666666666667,
+    "object_pointer": "/359/objects/1",
+    "ball_score": 0.521484375,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 124.90330492741833,
+        "body_height_px": 349.6427307128906,
+        "player_score": 0.82958984375
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 80.13098317540958,
+        "center_distance_px": 211.90472224813342,
+        "body_height_px": 258.47802734375,
+        "player_score": 0.79736328125
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 117.30035400390625,
+        "center_distance_px": 215.61887945023443,
+        "body_height_px": 341.42140197753906,
+        "player_score": 0.36474609375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 359,
+    "source_time": 11.966666666666667,
+    "object_pointer": "/359/objects/2",
+    "ball_score": 0.296630859375,
+    "nearest": [
+      {
+        "track_id": 14,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 89.29743886100138,
+        "body_height_px": 328.0625,
+        "player_score": 0.88623046875
+      },
+      {
+        "track_id": 24,
+        "box_edge_distance_px": 69.48696979849854,
+        "center_distance_px": 218.17614201135558,
+        "body_height_px": 261.4449462890625,
+        "player_score": 0.927734375
+      },
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 369.3590428840774,
+        "center_distance_px": 534.3960165668813,
+        "body_height_px": 349.6427307128906,
+        "player_score": 0.82958984375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 360,
+    "source_time": 12.0,
+    "object_pointer": "/360/objects/1",
+    "ball_score": 0.4765625,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 122.59375865685288,
+        "body_height_px": 335.428955078125,
+        "player_score": 0.8134765625
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 81.08437392131961,
+        "center_distance_px": 212.06813155483442,
+        "body_height_px": 256.97161865234375,
+        "player_score": 0.8349609375
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 125.3837890625,
+        "center_distance_px": 234.05559265944382,
+        "body_height_px": 325.94427490234375,
+        "player_score": 0.33642578125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 361,
+    "source_time": 12.033333333333333,
+    "object_pointer": "/361/objects/1",
+    "ball_score": 0.48828125,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 117.10334232048851,
+        "body_height_px": 319.6954803466797,
+        "player_score": 0.79638671875
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 84.06507621517335,
+        "center_distance_px": 214.17916211947696,
+        "body_height_px": 255.84976196289062,
+        "player_score": 0.84033203125
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 139.90212212766139,
+        "center_distance_px": 253.40292927353616,
+        "body_height_px": 306.5257263183594,
+        "player_score": 0.368408203125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 361,
+    "source_time": 12.033333333333333,
+    "object_pointer": "/361/objects/2",
+    "ball_score": 0.259765625,
+    "nearest": [
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 121.92263762789706,
+        "body_height_px": 283.34869384765625,
+        "player_score": 0.662109375
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 11.91595458984375,
+        "center_distance_px": 108.7429402608844,
+        "body_height_px": 287.6914978027344,
+        "player_score": 0.63427734375
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 81.91497802734375,
+        "center_distance_px": 140.95361403623954,
+        "body_height_px": 306.5257263183594,
+        "player_score": 0.368408203125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 362,
+    "source_time": 12.066666666666666,
+    "object_pointer": "/362/objects/1",
+    "ball_score": 0.272705078125,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 112.04596801244617,
+        "body_height_px": 294.4475402832031,
+        "player_score": 0.79248046875
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 85.89483920242,
+        "center_distance_px": 214.05354727107832,
+        "body_height_px": 254.12002563476562,
+        "player_score": 0.8505859375
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 149.96784718959535,
+        "center_distance_px": 260.6952495805532,
+        "body_height_px": 296.7775573730469,
+        "player_score": 0.55810546875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 364,
+    "source_time": 12.133333333333333,
+    "object_pointer": "/364/objects/1",
+    "ball_score": 0.30322265625,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 101.83749235688929,
+        "body_height_px": 312.61912536621094,
+        "player_score": 0.7861328125
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 78.72374815477451,
+        "center_distance_px": 212.42643354222912,
+        "body_height_px": 260.5511169433594,
+        "player_score": 0.83935546875
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 155.57208104474856,
+        "center_distance_px": 262.59620822786917,
+        "body_height_px": 279.1578369140625,
+        "player_score": 0.48046875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 365,
+    "source_time": 12.166666666666666,
+    "object_pointer": "/365/objects/1",
+    "ball_score": 0.28857421875,
+    "nearest": [
+      {
+        "track_id": 2,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 98.38908343505476,
+        "body_height_px": 340.7281494140625,
+        "player_score": 0.77685546875
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 59.40293534967757,
+        "center_distance_px": 202.48370053340042,
+        "body_height_px": 267.29052734375,
+        "player_score": 0.8681640625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 137.9155457341341,
+        "center_distance_px": 246.66447789861536,
+        "body_height_px": 272.81622314453125,
+        "player_score": 0.537109375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 375,
+    "source_time": 12.5,
+    "object_pointer": "/375/objects/1",
+    "ball_score": 0.689453125,
+    "nearest": [
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 46.31442247776101,
+        "center_distance_px": 183.9090451669879,
+        "body_height_px": 246.83914184570312,
+        "player_score": 0.67138671875
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 114.98263549804688,
+        "center_distance_px": 196.19820898499515,
+        "body_height_px": 256.4280700683594,
+        "player_score": 0.74853515625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 187.66342163085938,
+        "center_distance_px": 245.6031843211903,
+        "body_height_px": 251.81707763671875,
+        "player_score": 0.72119140625
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 376,
+    "source_time": 12.533333333333333,
+    "object_pointer": "/376/objects/1",
+    "ball_score": 0.71044921875,
+    "nearest": [
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 59.02380281263874,
+        "center_distance_px": 201.8330390831931,
+        "body_height_px": 258.5904846191406,
+        "player_score": 0.82177734375
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 156.96319580078125,
+        "center_distance_px": 229.15736210530991,
+        "body_height_px": 254.64984130859375,
+        "player_score": 0.765625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 228.7227783203125,
+        "center_distance_px": 281.6803525767373,
+        "body_height_px": 250.18463134765625,
+        "player_score": 0.6943359375
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 377,
+    "source_time": 12.566666666666666,
+    "object_pointer": "/377/objects/1",
+    "ball_score": 0.611328125,
+    "nearest": [
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 72.25431146449978,
+        "center_distance_px": 209.83141074588767,
+        "body_height_px": 258.798583984375,
+        "player_score": 0.76123046875
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 178.71002197265625,
+        "center_distance_px": 245.72530246212298,
+        "body_height_px": 252.36367797851562,
+        "player_score": 0.7529296875
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 249.97467041015625,
+        "center_distance_px": 300.74513975129696,
+        "body_height_px": 250.60751342773438,
+        "player_score": 0.68408203125
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 378,
+    "source_time": 12.6,
+    "object_pointer": "/378/objects/1",
+    "ball_score": 0.61865234375,
+    "nearest": [
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 110.24376969180445,
+        "center_distance_px": 232.2780623698468,
+        "body_height_px": 256.78131103515625,
+        "player_score": 0.75439453125
+      },
+      {
+        "track_id": 5,
+        "box_edge_distance_px": 220.94610595703125,
+        "center_distance_px": 279.97533018314425,
+        "body_height_px": 241.56646728515625,
+        "player_score": 0.71533203125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 271.9930223445049,
+        "center_distance_px": 429.15544576833605,
+        "body_height_px": 227.82843017578125,
+        "player_score": 0.72412109375
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 381,
+    "source_time": 12.7,
+    "object_pointer": "/381/objects/1",
+    "ball_score": 0.26904296875,
+    "nearest": [
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 225.24513297163458,
+        "center_distance_px": 425.3816945185582,
+        "body_height_px": 351.51336669921875,
+        "player_score": 0.82177734375
+      },
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 225.71409827759408,
+        "center_distance_px": 366.80743871983293,
+        "body_height_px": 238.64013671875,
+        "player_score": 0.90234375
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 253.7187042236328,
+        "center_distance_px": 338.45505452781475,
+        "body_height_px": 272.397705078125,
+        "player_score": 0.4638671875
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 382,
+    "source_time": 12.733333333333333,
+    "object_pointer": "/382/objects/1",
+    "ball_score": 0.272705078125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 203.52783366004198,
+        "center_distance_px": 345.26091720381044,
+        "body_height_px": 238.8194580078125,
+        "player_score": 0.88671875
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 226.56712341308594,
+        "center_distance_px": 422.96674251640957,
+        "body_height_px": 385.5673522949219,
+        "player_score": 0.705078125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 275.0454559326172,
+        "center_distance_px": 358.5370669276386,
+        "body_height_px": 280.7135009765625,
+        "player_score": 0.4619140625
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 385,
+    "source_time": 12.833333333333334,
+    "object_pointer": "/385/objects/1",
+    "ball_score": 0.439697265625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 53.54551696777344,
+        "center_distance_px": 184.24183330488623,
+        "body_height_px": 249.74066162109375,
+        "player_score": 0.904296875
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 400.72974655554515,
+        "center_distance_px": 514.4584720642248,
+        "body_height_px": 230.74609375,
+        "player_score": 0.8134765625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 431.8745880126953,
+        "center_distance_px": 506.3084124084047,
+        "body_height_px": 283.0519714355469,
+        "player_score": 0.87939453125
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 408,
+    "source_time": 13.6,
+    "object_pointer": "/408/objects/1",
+    "ball_score": 0.513671875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 104.99860473723078,
+        "body_height_px": 246.456787109375,
+        "player_score": 0.8203125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 36.5512752567862,
+        "center_distance_px": 164.27840697775963,
+        "body_height_px": 208.56201171875,
+        "player_score": 0.87548828125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 494.0110778808594,
+        "center_distance_px": 565.0803306782808,
+        "body_height_px": 267.5008850097656,
+        "player_score": 0.8251953125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 409,
+    "source_time": 13.633333333333333,
+    "object_pointer": "/409/objects/1",
+    "ball_score": 0.61669921875,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 107.24366295224242,
+        "body_height_px": 258.46258544921875,
+        "player_score": 0.82861328125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 43.45582412261523,
+        "center_distance_px": 171.83138185032735,
+        "body_height_px": 210.93017578125,
+        "player_score": 0.853515625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 487.7790222167969,
+        "center_distance_px": 557.6807996095444,
+        "body_height_px": 263.569091796875,
+        "player_score": 0.7421875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 410,
+    "source_time": 13.666666666666666,
+    "object_pointer": "/410/objects/1",
+    "ball_score": 0.611328125,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 109.31857533706375,
+        "body_height_px": 267.0607604980469,
+        "player_score": 0.8330078125
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 45.04859835133811,
+        "center_distance_px": 174.21382778511233,
+        "body_height_px": 214.0833740234375,
+        "player_score": 0.8515625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 482.9925537109375,
+        "center_distance_px": 551.6846894552413,
+        "body_height_px": 259.5613708496094,
+        "player_score": 0.75146484375
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 411,
+    "source_time": 13.7,
+    "object_pointer": "/411/objects/1",
+    "ball_score": 0.556640625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 108.55954784449614,
+        "body_height_px": 281.6791687011719,
+        "player_score": 0.84228515625
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 48.49084648706806,
+        "center_distance_px": 176.4728967444636,
+        "body_height_px": 214.833984375,
+        "player_score": 0.87890625
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 481.65362548828125,
+        "center_distance_px": 549.6176728849503,
+        "body_height_px": 255.18289184570312,
+        "player_score": 0.77392578125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 412,
+    "source_time": 13.733333333333333,
+    "object_pointer": "/412/objects/1",
+    "ball_score": 0.505859375,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 110.79061087099807,
+        "body_height_px": 297.2257385253906,
+        "player_score": 0.82373046875
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 52.659228327436544,
+        "center_distance_px": 181.79176020395806,
+        "body_height_px": 221.16473388671875,
+        "player_score": 0.89501953125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 481.8920135498047,
+        "center_distance_px": 551.0237987897175,
+        "body_height_px": 256.509033203125,
+        "player_score": 0.775390625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 413,
+    "source_time": 13.766666666666667,
+    "object_pointer": "/413/objects/1",
+    "ball_score": 0.509765625,
+    "nearest": [
+      {
+        "track_id": 7,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 127.08448502681625,
+        "body_height_px": 307.5504150390625,
+        "player_score": 0.8037109375
+      },
+      {
+        "track_id": 1,
+        "box_edge_distance_px": 51.755584716796875,
+        "center_distance_px": 191.34560896144842,
+        "body_height_px": 242.626708984375,
+        "player_score": 0.87548828125
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 484.5053253173828,
+        "center_distance_px": 556.4521938999537,
+        "body_height_px": 260.9331970214844,
+        "player_score": 0.86572265625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 426,
+    "source_time": 14.2,
+    "object_pointer": "/426/objects/1",
+    "ball_score": 0.3310546875,
+    "nearest": [
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 132.5879773745787,
+        "body_height_px": 291.32403564453125,
+        "player_score": 0.9091796875
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 12.75518798828125,
+        "center_distance_px": 95.48725581616411,
+        "body_height_px": 201.27468872070312,
+        "player_score": 0.6826171875
+      },
+      {
+        "track_id": 32,
+        "box_edge_distance_px": 33.343963623046875,
+        "center_distance_px": 119.83520137734614,
+        "body_height_px": 164.92129516601562,
+        "player_score": 0.88525390625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 427,
+    "source_time": 14.233333333333333,
+    "object_pointer": "/427/objects/1",
+    "ball_score": 0.509765625,
+    "nearest": [
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 137.540489608364,
+        "body_height_px": 285.9566650390625,
+        "player_score": 0.890625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 14.89288330078125,
+        "center_distance_px": 96.82945652242988,
+        "body_height_px": 203.70547485351562,
+        "player_score": 0.66357421875
+      },
+      {
+        "track_id": 32,
+        "box_edge_distance_px": 33.12989807128906,
+        "center_distance_px": 119.4890384001377,
+        "body_height_px": 165.78863525390625,
+        "player_score": 0.876953125
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 427,
+    "source_time": 14.233333333333333,
+    "object_pointer": "/427/objects/2",
+    "ball_score": 0.26220703125,
+    "nearest": [
+      {
+        "track_id": 32,
+        "box_edge_distance_px": 9.12518310546875,
+        "center_distance_px": 87.04788500117073,
+        "body_height_px": 165.78863525390625,
+        "player_score": 0.876953125
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 43.56849670410156,
+        "center_distance_px": 196.73158087923227,
+        "body_height_px": 285.9566650390625,
+        "player_score": 0.890625
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 101.48382568359375,
+        "center_distance_px": 161.77307453200922,
+        "body_height_px": 203.70547485351562,
+        "player_score": 0.66357421875
+      }
+    ],
+    "inside_player_boxes": 0
+  },
+  {
+    "frame": 428,
+    "source_time": 14.266666666666667,
+    "object_pointer": "/428/objects/1",
+    "ball_score": 0.517578125,
+    "nearest": [
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 142.94573372707842,
+        "body_height_px": 284.2667236328125,
+        "player_score": 0.87451171875
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 17.60455322265625,
+        "center_distance_px": 101.28775579558626,
+        "body_height_px": 208.17529296875,
+        "player_score": 0.556640625
+      },
+      {
+        "track_id": 32,
+        "box_edge_distance_px": 30.431396484375,
+        "center_distance_px": 117.46445516999836,
+        "body_height_px": 166.2266845703125,
+        "player_score": 0.8837890625
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 430,
+    "source_time": 14.333333333333334,
+    "object_pointer": "/430/objects/1",
+    "ball_score": 0.443603515625,
+    "nearest": [
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 147.22827854232497,
+        "body_height_px": 298.5281982421875,
+        "player_score": 0.794921875
+      },
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 3.3773193359375,
+        "center_distance_px": 84.64861761525427,
+        "body_height_px": 222.087890625,
+        "player_score": 0.74072265625
+      },
+      {
+        "track_id": 32,
+        "box_edge_distance_px": 20.936264038085938,
+        "center_distance_px": 105.79672660764061,
+        "body_height_px": 166.78970336914062,
+        "player_score": 0.763671875
+      }
+    ],
+    "inside_player_boxes": 1
+  },
+  {
+    "frame": 432,
+    "source_time": 14.4,
+    "object_pointer": "/432/objects/1",
+    "ball_score": 0.383056640625,
+    "nearest": [
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 75.23104752603251,
+        "body_height_px": 244.7640380859375,
+        "player_score": 0.74853515625
+      },
+      {
+        "track_id": 32,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 93.4731586507294,
+        "body_height_px": 202.24362182617188,
+        "player_score": 0.841796875
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 0.822662353515625,
+        "center_distance_px": 152.23012242157037,
+        "body_height_px": 297.68817138671875,
+        "player_score": 0.86083984375
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 433,
+    "source_time": 14.433333333333334,
+    "object_pointer": "/433/objects/1",
+    "ball_score": 0.381103515625,
+    "nearest": [
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 67.34271129744364,
+        "body_height_px": 253.61679077148438,
+        "player_score": 0.79248046875
+      },
+      {
+        "track_id": 32,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 98.3469092299376,
+        "body_height_px": 205.42196655273438,
+        "player_score": 0.76611328125
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 1.369781494140625,
+        "center_distance_px": 153.3323695988936,
+        "body_height_px": 296.15533447265625,
+        "player_score": 0.87353515625
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 434,
+    "source_time": 14.466666666666667,
+    "object_pointer": "/434/objects/1",
+    "ball_score": 0.280517578125,
+    "nearest": [
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 62.63201804881432,
+        "body_height_px": 256.09576416015625,
+        "player_score": 0.71630859375
+      },
+      {
+        "track_id": 32,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 96.40346301348193,
+        "body_height_px": 211.86151123046875,
+        "player_score": 0.77587890625
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 3.74432373046875,
+        "center_distance_px": 158.55074920500132,
+        "body_height_px": 297.29840087890625,
+        "player_score": 0.78857421875
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 435,
+    "source_time": 14.5,
+    "object_pointer": "/435/objects/1",
+    "ball_score": 0.30810546875,
+    "nearest": [
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 71.29345708296078,
+        "body_height_px": 268.75384521484375,
+        "player_score": 0.62451171875
+      },
+      {
+        "track_id": 32,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 102.22488453164576,
+        "body_height_px": 229.16220092773438,
+        "player_score": 0.72314453125
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 8.137451171875,
+        "center_distance_px": 159.82082728832287,
+        "body_height_px": 286.92608642578125,
+        "player_score": 0.8251953125
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 436,
+    "source_time": 14.533333333333333,
+    "object_pointer": "/436/objects/1",
+    "ball_score": 0.2998046875,
+    "nearest": [
+      {
+        "track_id": 3,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 73.74177165330447,
+        "body_height_px": 270.0584716796875,
+        "player_score": 0.74560546875
+      },
+      {
+        "track_id": 32,
+        "box_edge_distance_px": 0.0,
+        "center_distance_px": 105.52636164692491,
+        "body_height_px": 226.32327270507812,
+        "player_score": 0.81298828125
+      },
+      {
+        "track_id": 29,
+        "box_edge_distance_px": 18.26856449555366,
+        "center_distance_px": 166.65273205658065,
+        "body_height_px": 271.95709228515625,
+        "player_score": 0.8681640625
+      }
+    ],
+    "inside_player_boxes": 2
+  },
+  {
+    "frame": 453,
+    "source_time": 15.1,
+    "object_pointer": "/453/objects/1",
+    "ball_score": 0.34326171875,
+    "nearest": [
+      {
+        "track_id": 32,
+        "box_edge_distance_px": 144.09883263917152,
+        "center_distance_px": 302.2884185484167,
+        "body_height_px": 305.3854064941406,
+        "player_score": 0.67919921875
+      },
+      {
+        "track_id": 15,
+        "box_edge_distance_px": 201.7385896733402,
+        "center_distance_px": 351.85110391700505,
+        "body_height_px": 279.2508544921875,
+        "player_score": 0.85546875
+      },
+      {
+        "track_id": 24,
+        "box_edge_distance_px": 325.04861596470886,
+        "center_distance_px": 433.3084952117356,
+        "body_height_px": 206.91366577148438,
+        "player_score": 0.853515625
+      }
+    ],
+    "inside_player_boxes": 0
+  }
+]

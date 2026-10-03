@@ -1,0 +1,733 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "enum": [
+        "source-semantics-adapter-v1"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "relative_path": {
+          "type": "string"
+        },
+        "file_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "json_pointer": {
+          "type": "string"
+        },
+        "payload_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "relative_path",
+        "file_sha256",
+        "json_pointer",
+        "payload_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "raw_payload": {
+      "type": [
+        "object",
+        "array"
+      ]
+    },
+    "evidence_correlation_group": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "unknown_origin",
+            "detector_observation",
+            "model_inferred_location",
+            "interpolated_location",
+            "manual_annotation_claim",
+            "agent_annotation_claim"
+          ]
+        },
+        "source_tag": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_observed_flag": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "review_status": {
+          "enum": [
+            "unreviewed",
+            "source_claimed_human_unverified",
+            "agent_drawn_unverified"
+          ]
+        },
+        "score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "score_semantics": {
+          "enum": [
+            "model_self_reported_uncalibrated",
+            "uncalibrated_not_probability"
+          ]
+        },
+        "annotation_method_claim": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "source_tag",
+        "source_observed_flag",
+        "review_status",
+        "score",
+        "score_semantics",
+        "annotation_method_claim"
+      ],
+      "additionalProperties": false
+    },
+    "geometry": {
+      "type": "object",
+      "properties": {
+        "coordinate_space": {
+          "enum": [
+            "image_pixels"
+          ]
+        },
+        "raw_bbox": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "render_bbox": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "raw_bbox_status": {
+          "enum": [
+            "missing",
+            "source_preserved"
+          ]
+        },
+        "raw_bbox_meaning": {
+          "type": "string"
+        },
+        "render_transform": {
+          "type": "string"
+        },
+        "ground_contact": {
+          "enum": [
+            "unknown"
+          ]
+        },
+        "metric_accuracy": {
+          "enum": [
+            "unvalidated"
+          ]
+        }
+      },
+      "required": [
+        "coordinate_space",
+        "raw_bbox",
+        "render_bbox",
+        "raw_bbox_status",
+        "raw_bbox_meaning",
+        "render_transform",
+        "ground_contact",
+        "metric_accuracy"
+      ],
+      "additionalProperties": false
+    },
+    "association": {
+      "type": "object",
+      "properties": {
+        "local_track_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "namespace": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "status": {
+              "enum": [
+                "unknown",
+                "source_declared",
+                "artifact_scoped_only",
+                "contract_variant"
+              ]
+            }
+          },
+          "required": [
+            "value",
+            "status"
+          ],
+          "additionalProperties": false
+        },
+        "variant_version": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "status": {
+              "enum": [
+                "unknown",
+                "source_declared",
+                "artifact_scoped_only",
+                "contract_variant"
+              ]
+            }
+          },
+          "required": [
+            "value",
+            "status"
+          ],
+          "additionalProperties": false
+        },
+        "person_identity": {
+          "type": "null"
+        },
+        "identity_verified": {
+          "enum": [
+            false
+          ]
+        }
+      },
+      "required": [
+        "local_track_id",
+        "namespace",
+        "variant_version",
+        "person_identity",
+        "identity_verified"
+      ],
+      "additionalProperties": false
+    },
+    "timing": {
+      "type": "object",
+      "properties": {
+        "source_frame": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "raw_time_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "time_basis": {
+          "enum": [
+            "unknown",
+            "nominal_frame_index_over_fps",
+            "declared_container_pts_consistent",
+            "verified_container_pts_seconds"
+          ]
+        },
+        "pts_ticks": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "time_base": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "elapsed_seconds": {
+          "type": "null"
+        },
+        "elapsed_time_origin": {
+          "enum": [
+            "unknown"
+          ]
+        }
+      },
+      "required": [
+        "source_frame",
+        "raw_time_seconds",
+        "time_basis",
+        "pts_ticks",
+        "time_base",
+        "elapsed_seconds",
+        "elapsed_time_origin"
+      ],
+      "additionalProperties": false
+    },
+    "availability": {
+      "type": "object",
+      "properties": {
+        "available_at_source_lower_bound": {
+          "type": "object",
+          "properties": {
+            "frame": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "time_seconds": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "time_basis": {
+              "type": "string"
+            },
+            "basis": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "frame",
+            "time_seconds",
+            "time_basis",
+            "basis"
+          ],
+          "additionalProperties": false
+        },
+        "components": {
+          "type": "object",
+          "properties": {
+            "raw_location": {
+              "type": "object",
+              "properties": {
+                "frame": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "time_seconds": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "time_basis": {
+                  "type": "string"
+                },
+                "basis": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "frame",
+                "time_seconds",
+                "time_basis",
+                "basis"
+              ],
+              "additionalProperties": false
+            },
+            "role": {
+              "type": "object",
+              "properties": {
+                "frame": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "time_seconds": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "time_basis": {
+                  "type": "string"
+                },
+                "basis": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "frame",
+                "time_seconds",
+                "time_basis",
+                "basis"
+              ],
+              "additionalProperties": false
+            },
+            "display": {
+              "type": "object",
+              "properties": {
+                "frame": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "time_seconds": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "time_basis": {
+                  "type": "string"
+                },
+                "basis": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "frame",
+                "time_seconds",
+                "time_basis",
+                "basis"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "raw_location",
+            "role",
+            "display"
+          ],
+          "additionalProperties": false
+        },
+        "wall_clock_available_at": {
+          "type": "null"
+        },
+        "wall_clock_status": {
+          "enum": [
+            "unknown"
+          ]
+        },
+        "dependency_completeness": {
+          "enum": [
+            "partial"
+          ]
+        },
+        "selection_horizon": {
+          "enum": [
+            "full_clip_or_track",
+            "unknown"
+          ]
+        },
+        "realtime_eligible": {
+          "enum": [
+            false
+          ]
+        },
+        "realtime_reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "available_at_source_lower_bound",
+        "components",
+        "wall_clock_available_at",
+        "wall_clock_status",
+        "dependency_completeness",
+        "selection_horizon",
+        "realtime_eligible",
+        "realtime_reason"
+      ],
+      "additionalProperties": false
+    },
+    "role": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reference_frame": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "inferred": {
+          "type": "boolean"
+        },
+        "future_reference": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "label",
+        "reference_frame",
+        "inferred",
+        "future_reference"
+      ],
+      "additionalProperties": false
+    },
+    "court": {
+      "type": "object",
+      "properties": {
+        "half_orientation": {
+          "enum": [
+            "unknown"
+          ]
+        },
+        "attack_direction": {
+          "enum": [
+            "unknown"
+          ]
+        },
+        "camera_state": {
+          "enum": [
+            "unknown"
+          ]
+        },
+        "metric_position": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "half_orientation",
+        "attack_direction",
+        "camera_state",
+        "metric_position"
+      ],
+      "additionalProperties": false
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "relative_path": {
+            "type": "string"
+          },
+          "file_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "json_pointer": {
+            "type": "string"
+          },
+          "payload_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "relative_path",
+          "file_sha256",
+          "json_pointer",
+          "payload_sha256"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "contract_bridge": {
+      "type": "object",
+      "properties": {
+        "contract_version": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "not_representable_without_additional_context",
+            "existing_source_grounded_observation"
+          ]
+        },
+        "observation_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "artifact_relative_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "contract_version",
+        "status",
+        "observation_id",
+        "artifact_relative_path"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "source",
+    "raw_payload",
+    "evidence_correlation_group",
+    "evidence",
+    "geometry",
+    "association",
+    "timing",
+    "availability",
+    "role",
+    "court",
+    "dependencies",
+    "contract_bridge"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

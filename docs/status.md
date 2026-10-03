@@ -18,11 +18,17 @@
 
 ## 当前阶段
 
+NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../engineering/research/nba-evidence-study-20261002/README.md)与[交接](../handoffs/chuali-zi/2026-10-02-2135-nba-evidence-study-closeout.md)。完成真实输入审计、来源适配Schema、离线故障/投影/球候选实验与事实门控比较。11个合成错误世界事实中，能力和依赖门控仍放行5个，且损失部分正确候选；实验不能宣称生产准确率。7项独立人类复核、米制真值与真实处理延迟未建立。本次选择性发布研究文件，生产提取及总结生成模块保持原状。
+
 赛事资料与本机数据提取原型开发并行。赛事要求集中在 `requirements/`，代码、设计和技术实验集中在 `engineering/`；完整 Agent 流程、真实身份 / 位置精度验收和 AWS 部署尚未完成。
 
 2026-10-02 晚间，工作台本地增加取消人物误关联、清空槽位和红蓝两队拖动交换；原图 / 2D 同步留空或换人，草稿与撤销保留。73项JavaScript、76项Python与独立浏览器QA通过，8876本机服务已重启，正式草稿未代操作；用户要求只保存在本地，未提交推送。见[交接](../handoffs/Linzeyu912/2026-10-02-2046-roster-cancel-swap.md)。
 
 2026-10-02 晚间，本地后端新增篮筐方向约束的球场自动初始化接口及命令行入口；005实际初始化后生成139/143帧待复核映射，后端60项回归和9项HTTP检查通过。代码尚未提交推送，该轮交接时正式服务尚未重启，米制精度未验收；见[后端说明](../engineering/docs/court-calibration-backend.md)与[交接](../handoffs/Linzeyu912/2026-10-02-2010-hoop-court-backend.md)。
+
+2026-10-02 20:27 发布记录：当前工作台源码与预计算候选已按授权推送 `main`，GitHub API、ls-remote 与 fetch 实测为 [351292f](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/351292fba6c5e7accafea9f8780a81b93810caba)。四样例 / 17 版所需本机结果复制为 22 份共享 JSON / metadata，库中 11 条路径改指向副本，完整 clip payload 与运行中原路径 API 一致；默认简版、人工资料确认和 13 项能力逻辑保持。本次新运行 144 JS、102 Python及 38 项离线篮球测试通过，视频校验 5 批 / 142 条及 142 文件 / LFS 指针通过。本次最新说明与[发布交接](../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)随本次文档提交同步，具体提交以 Git 日志为准；下方按轮次保留旧同步状态。模型权重、GPU 环境、原缓存、QA 草稿 / 测试成片不在发布范围，没有新增断轨续接或 OCR。
+
+2026-10-02 16:57，本机 `main` 已同步至远端 `72c74e0`，合并新增模型选择、球 / 筐编辑、脚部候选和场地工具，同时保留本机分队、稳定框与固定身份。105项JS / 78项Python、独立数据 / API / 六场景剪辑及浏览器QA通过；兼容整合与本机实验仍未提交推送。后续就在此工作台继续修改，见[本轮同步交接](../handoffs/thy-0629/2026-10-02-1657-workbench-remote-sync.md)。
 
 2026-10-02 下午，双模型工作台已随 `aa2ba4f` 推送。随后按用户要求实际下载并比较 RTMPose-s、48点球场模型与 KaliCalib，新增球 / 筐选择、脚部候选、标定向导和逐帧镜头跟随；原图脚点到2D轨迹已在浏览器验证。米制精度、真实接地和通用自动标定仍未验收；ByteTrack 后续继续由用户安排的另一合作者处理。具体产出、验证与同步状态见[本轮交接](../handoffs/Linzeyu912/2026-10-02-1604-scene-ground-workbench.md)。
 
@@ -30,10 +36,20 @@
 
 **协作方式：所有内容直接在 `main` 修改、提交和推送，不新建任务分支，不使用 PR 合并。** 见[协作流程](workflow.md)与[决策 D004](decisions.md#d004所有内容直接在-main-上改进)。
 
+2026-10-02 17:45，按用户要求把工作台默认入口收敛为球员单标注，自动编号1–10，队色不确定仍保留灰色编号，原工具收进高级入口。排查发现004分队筛选曾把十个建议缩成五个，并隐藏未关联的检测；现恢复同源模型建议与可见灰框。四段恢复636条实际编号观测，原检测、帧 / PTS、草稿与高级功能保留；重复框、遮挡和串人仍需后续处理，本机改动未提交推送。见[本轮单标注交接](../handoffs/thy-0629/2026-10-02-1745-player-annotation-simple.md)。
+
+2026-10-02 19:30，本机工作台新增人工球员资料确认与初步 2K 匹配：按赛季、实际球队和文字号码查询，选姓名后明确确认，支持清除 / 撤销 / 刷新；13 项原能力与逐字段来源保留。LAL–MIN 首帧在 QA 中将编号 4 明确确认为 Mike Conley（2024-25 / NBA 2K25，总评79、三分83、控球89），轨道仍需核对。17 新 / 144 全 JS、22 新 / 102 全 Python及独立产品审查通过；实际浏览器正常流程与保护 / HTTP验收通过，迟返和网络错误由实际 app 可控 harness 验证。main 与远端仍为 `72c74e041fd673de81488ebdf48cb97d39427bda`，此轮未提交推送；未做OCR、自动断轨续接或云部署。见[19:30交接](../handoffs/thy-0629/2026-10-02-1930-player-identity-2k.md)。
+
 ## 已有成果
 
 | 成果 | 文件 / 入口 | 状态 |
 |---|---|---|
+| 人工身份资料与初步 2K 匹配 | [实测记录](../engineering/research/player-identity-2k-20261002.md)、[使用说明](../engineering/tools/player-review/README.md#2026-10-02人工身份资料与-2k-能力) | 本地折叠面板、精确名单候选、明确确认和13项能力卡；整季名单不证明当场阵容，null不补值、轨道不升级。144 JS / 102 Python全量通过，真实QA与独立产品审查通过；850项原文件 / 67备份 / 17版clip字节保持。正式草稿及真实下载未操作，代码 / 文档未提交推送 |
+| 默认球员单标注与漏框修复 | [原因与同片结果](../engineering/research/player-annotation-simple-20261002.md)、[操作说明](../engineering/tools/player-review/README.md)、[交接](../handoffs/thy-0629/2026-10-02-1745-player-annotation-simple.md) | 简版视频、固定数字与可撤销纠正，自动补空编号，未知队色不删身份；004第178帧原被隐藏的三个球员框重新可见。最终127JS / 80Python、独立代码 / 数据 / API与真实浏览器验证通过，原检测重复与同队串人未解决；未提交推送 |
+| 最新工作台同步与兼容整合 | [同步交接](../handoffs/thy-0629/2026-10-02-1657-workbench-remote-sync.md)、[当前工作台](../engineering/tools/player-review/README.md) | 本机main与origin/main同为72c74e0；四个新增提交已同步，本机两队 / 稳定展示 / 精确人工标注与新对象 / 脚部 / 球场工具共同保留；105JS、78Python及独立验收通过，原始视频 / 数据保留，本机整合未提交推送 |
+| 两队颜色、稳定框与脚下编号 | [实现 / 同片指标](../engineering/research/player-team-overlay-20261002.md)、[操作说明](../engineering/tools/player-review/README.md) | 本地四段team-stable、两组五人槽位及蓝 / 橙框色，独立人工分队、稳定展示与脚下编号；149项回归、最终17项输入相关回归、独立代码 / 媒体 / 数据验证及真实QA通过。LAL仅4+4个未确认分队建议，脚环为图像近似，身份串号未解决；原数据 / 草稿保留，未提交推送 |
+| 篮球模型与固定十人工作台 | [实施 / 同片对照](../engineering/research/player-tracking-workbench-20261002.md)、[操作说明](../engineering/tools/player-review/README.md) | 本地四段接入篮球专用模型和原生外观追踪，固定显示球员 1–10；建议与人工记录分开，保留原版本 / 草稿。127 项回归、真实 HTTP / QA 界面及成片 PTS / 原 AAC 独立验证通过。重复 / 完整框有具体改善，T21 / T12 跨队错误排除建议、自动片段连接为 0，仍需人工确认；本轮未提交推送 / 云部署 |
+| E-BARD 篮球专用模型单片段测试 | [005 实测报告](../engineering/research/player-test-20261002.md) | 2026-10-02 本机 RTX 5060 已完整处理 267 帧并导出 H.264 标注视频；候选 6–11 个、存在漏检 / 重复框 / 跨队串 ID，不能直接绑定姓名。独立解码、帧记录及音画起点检查通过；这次报告和产物仍在本地，未推送或云部署 |
 | 9 月 28 日培训内容、评分和交付要求 | [赛事资料整理](../requirements/BroadcastCode赛事资料整理.md) | 已整理，转写疑点有单独标注 |
 | 腾讯体育「深度赛场」官方参考片段 | 同上第 8 节 | G1–G4 链接已核验；日期为 2026 年 6 月 |
 | 官网与报名渠道核验、扩展调研、Word 手册 | [调研索引](../engineering/research/README.md) | 已归档；主要采集于 9 月 17 日 |
@@ -77,6 +93,11 @@
 
 ## 交接记录
 
+- [2026-10-02：人工球员资料确认与初步 2K 匹配](../handoffs/thy-0629/2026-10-02-1930-player-identity-2k.md)
+- [2026-10-02：默认单标注、恢复漏框与固定编号](../handoffs/thy-0629/2026-10-02-1745-player-annotation-simple.md)
+- [2026-10-02：同步最新工作台并保留本机篮球跟踪改动](../handoffs/thy-0629/2026-10-02-1657-workbench-remote-sync.md)
+- [2026-10-02：两队颜色、稳定框与脚下编号](../handoffs/thy-0629/2026-10-02-1553-player-team-overlay.md)
+- [2026-10-02：篮球模型与固定十人工作台](../handoffs/thy-0629/2026-10-02-1441-basketball-tracking-workbench.md)
 - [2026-09-28：建立团队资料仓库](../handoffs/Linzeyu912/2026-09-28-repository-setup.md)
 - [2026-09-28：Jev 地区可用性调研](../handoffs/Linzeyu912/2026-09-28-2159-jev-regional-availability.md)
 - [2026-09-28：向 TypeSafe 发送地区支持询问信](../handoffs/Linzeyu912/2026-09-28-2206-jev-support-email.md)
