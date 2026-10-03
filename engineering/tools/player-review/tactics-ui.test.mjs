@@ -1,0 +1,78 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {makePresentationDemo} from '../tactical-overlay/fixtures/presentation-demo.mjs';
+import {mountTacticsUI} from './tactics-ui.mjs';
+
+function environment(source){
+  const nodes=new Map(),events={},writes=[],saved=[],store=new Map();let hold=false,releases=[],frameRequests=0;
+  function make(tag='div'){
+    const node={tag,children:[],attrs:{},listeners:{},style:{},value:'',checked:false,clientWidth:800,hidden:false,textContent:'',
+      append(...children){this.children.push(...children);},replaceChildren(...children){this.children=children;if(tag==='select')this.value=children[0]?.value||'';},
+      setAttribute(k,v){this.attrs[k]=v;},getAttribute(k){return this.attrs[k]??null;},remove(){this.removed=true;},
+      querySelector(selector){if(selector==='svg')return this.children.find(n=>n.tag==='svg')||null;return this.children.find(n=>!n.removed&&selector==='[data-edit-handles]'&&n.attrs['data-edit-handles'])||null;},
+      addEventListener(name,fn){(this.listeners[name]||=[]).push(fn);},setPointerCapture(id){this.pointer=id;},hasPointerCapture(id){return this.pointer===id;},releasePointerCapture(){this.pointer=null;},click(){},
+      getContext:()=>({drawImage(){}}),getScreenCTM:()=>({inverse:()=>({})}),createSVGPoint:()=>({matrixTransform(){return {x:this.x,y:this.y};}})};
+    Object.defineProperty(node,'innerHTML',{get(){return this.html||'';},set(value){this.html=value;this.children=value.startsWith('<svg')?[make('svg')]:[];}});
+    return node;
+  }
+  const get=id=>{if(!nodes.has(id))nodes.set(id,make());return nodes.get(id);};
+  const originals=new Map(['document','window','location','Image','ResizeObserver','indexedDB','localStorage','fetch'].map(k=>[k,globalThis[k]]));
+  const database={transaction(_store,mode){const tx={objectStore:()=>({
+    get(key){const r={};queueMicrotask(()=>{r.result=store.get(key);r.onsuccess();});return r;},
+    put(value,key){const finish=()=>{store.set(key,structuredClone(value));writes.push(structuredClone(value));tx.oncomplete();};if(hold)releases.push(finish);else queueMicrotask(finish);}
+  })};return tx;}};
+  Object.assign(globalThis,{
+    document:{body:{dataset:{area:'tactics'}},getElementById:get,createElement:make,createElementNS:(_ns,tag)=>make(tag),addEventListener:(name,fn)=>events[name]=fn},
+    window:{history:{replaceState(){}}},location:{search:'?sample=test&qa=1'},Image:class{async decode(){}},ResizeObserver:class{observe(){}},
+    localStorage:{getItem:()=>null},indexedDB:{open(){const r={};queueMicrotask(()=>{r.result=database;r.onsuccess();});return r;}},
+    fetch:async(path,options)=>{
+      let value;if(path.startsWith('/api/tactics?'))value={version:0,document:source};
+      else if(path==='/api/tactics/frame'){frameRequests++;value={frames:JSON.parse(options.body).frames.map(frame=>({...source.review.sourceFrameMapping[frame],videoSha256:source.review.videoSha256,dataUrl:'data:image/jpeg;base64,/9j/'}))};}
+      else if(path==='/api/tactics/save'){const payload=JSON.parse(options.body);saved.push(payload);value={version:payload.expectedVersion+1};}
+      else throw new Error(path);return {ok:true,json:async()=>value};
+    }
+  });
+  const ui=mountTacticsUI({key:'player-review:ui-fixture:qa',sample:'test',variant:'test',qa:true,title:'fixture',clip:{video_sha256:source.review.videoSha256},pause(){},snapshot:()=>source.review,frame:()=>12,openStep(){}});
+  return {get,ui,writes,saved,store,get frameRequests(){return frameRequests;},
+    async load(){await events['workbench-area']();await ui.ready();},
+    async event(name,event){for(const fn of get('tacticsCanvas').listeners[name]||[])await fn({button:0,preventDefault(){},...event});},
+    selectRoute(){const route=ui.getSceneState().model.routes.find(r=>r.entityId==='P1');get('tacticsRoute').value=route.routeId;get('tacticsRoute').onchange();return route;},
+    handle(index){return {closest:selector=>selector==='[data-control-index]'?{getAttribute:()=>String(index)}:null};},
+    hold(){hold=true;},release(){hold=false;for(const release of releases.splice(0))release();},
+    restore(){for(const [k,v] of originals){if(v===undefined)delete globalThis[k];else globalThis[k]=v;}}
+  };
+}
+// One mounted session exercises the real UI handlers, asynchronous validation and queued drafts.
+test('mounted UI edits persist, keeps the canvas stable, cancels phase gestures and restores/undoes separately from review',async()=>{
+  const f=await makePresentationDemo(),d={schemaVersion:1,title:'fixture',notes:'',...f},before=structuredClone(d.review),env=environment(d);
+  try{
+    await env.load();assert.match(env.get('tacticsRouteHint').textContent,/先选择/);
+    const state=env.ui.getSceneState(),canvas=state.background,route=env.selectRoute(),point=route.controlPoints[0];
+    const host=env.get('tacticsCanvas'),overlay=host.children[0].children[1];
+    assert.doesNotMatch(overlay.innerHTML,/<text\b|<foreignObject\b/);
+    await env.event('pointerdown',{pointerId:1,target:env.handle(0)});
+    await env.event('pointermove',{pointerId:1,clientX:(point.x+.2)*40,clientY:point.y*40});
+    assert.equal(env.writes.at(-1).document.presentation,undefined);
+    env.hold();const pending=env.event('pointerup',{pointerId:1});await Promise.resolve();await Promise.resolve();
+    assert.equal(env.ui.getSceneState().editBusy,true);
+    await env.event('pointerdown',{pointerId:2,target:env.handle(0)});await env.event('pointermove',{pointerId:2,clientX:40,clientY:80});await env.event('pointerup',{pointerId:2});
+    const initialRequests=env.frameRequests;env.release();await pending;
+    let draft=env.writes.at(-1).document;assert.equal(draft.presentation.routes.length,1);
+    assert.ok(Math.abs(draft.presentation.routes[0].controlPoints[0].x-point.x-.2)<1e-6);
+    assert.deepEqual(draft.review,before);assert.equal(env.ui.getSceneState().background,canvas);
+    assert.equal(env.frameRequests,initialRequests,'presentation-only commit reuses the decoded freeze frame');
+    await env.get('tacticsSave').onclick();assert.equal(env.saved[0].qa,true);assert.equal(env.saved[0].kind,'workspace');assert.deepEqual(env.saved[0].document.presentation,draft.presentation);
+    await env.get('tacticsWorkspace').onclick();await env.ui.ready();
+    assert.equal(env.ui.getSceneState().model.routes.find(r=>r.routeId===route.routeId).manual,true,'IndexedDB reload retains presentation');
+    env.selectRoute();await env.get('tacticsInsertPoint').onclick();draft=env.writes.at(-1).document;
+    assert.equal(draft.presentation.routes[0].controlPoints.length,route.controlPoints.length+1);
+    assert.equal(env.get('tacticsDeletePoint').disabled,false,'inserted internal point remains selected after rebuild');
+    await env.get('tacticsDeletePoint').onclick();assert.equal(env.writes.at(-1).document.presentation.routes[0].controlPoints.length,route.controlPoints.length);
+    const count=env.writes.length;
+    await env.event('pointerdown',{pointerId:3,target:env.handle(0)});await env.event('pointermove',{pointerId:3,clientX:40,clientY:80});
+    env.get('tacticsPhases').children[1].onclick();await env.ui.ready();await env.event('pointerup',{pointerId:3});assert.equal(env.writes.length,count);
+    env.get('tacticsPhases').children[0].onclick();await env.ui.ready();env.selectRoute();
+    await env.get('tacticsRestoreRoute').onclick();assert.equal(env.writes.at(-1).document.presentation,undefined);
+    await env.get('tacticsUndo').onclick();assert.equal(env.writes.at(-1).document.presentation.routes.length,1);assert.deepEqual(env.writes.at(-1).document.review,before);
+  }finally{env.release();env.restore();}
+});

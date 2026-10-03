@@ -110,7 +110,7 @@ def main():
         routes['/'+filename]=static/filename
     routes['/video-library.mjs']=static/'video-library.mjs'
     routes['/model-selection.mjs']=static/'model-selection.mjs'
-    for filename in ['tactics-ui.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-storage.mjs','tactics.css']:
+    for filename in ['tactics-ui.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-storage.mjs','tactics.css']:
         routes['/'+filename]=static/filename
     # Explicit aliases for the independent engine's existing relative imports.
     for route,path in list(routes.items()):

@@ -20,7 +20,8 @@ try{
       }
       const escape=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
       const notes=`<section aria-label="讲解与审核意见"><h2>讲解与审核意见</h2><p style="white-space:pre-wrap">${escape(d.notes)}</p></section>`;
-      process.stdout.write(JSON.stringify({html:buildPreviewHtml({title:d.title,scenes}).replace('</main>',notes+'</main>')}));
+      const scope=`<section aria-label="导出范围"><h2>导出范围</h2><p>此冻结帧报告仅绘制既有动作与审核快照，不包含工作台的平滑未来路线或人工展示修正。完整展示修正及来源绑定保留在战术审核数据 JSON，请同时导出 JSON。${d.presentation?.routes.length?`本次文档含 ${d.presentation.routes.length} 项展示修正。`:''}</p></section>`;
+      process.stdout.write(JSON.stringify({html:buildPreviewHtml({title:d.title,scenes}).replace('</main>',scope+notes+'</main>')}));
     }else process.stdout.write(JSON.stringify({valid:true}));
   }
 }catch(error){process.stderr.write(error.message);process.exitCode=1;}
