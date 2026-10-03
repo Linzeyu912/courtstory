@@ -2,7 +2,21 @@
 
 更新时间：2026-10-02 23:30，Asia/Shanghai。发布分支：[codex/local-workbench-20261002](https://github.com/Linzeyu912/broadcastcode-team-hub/tree/codex/local-workbench-20261002)。
 
+## 2026-10-03 追加更新
+
+00:15 核对新增功能已推送到同一独立分支，远端为 `495a26c5ec063c376b2a20847371c50cbbd5e51e`；main 仍为 `1839dcde5b5cc0aa362baa474e58e5b530e6c695`。本次文档作为随后单独提交保存。下方 2026-10-02 验证数字保留当时记录。
+
+| 提交 | 实际范围 |
+|---|---|
+| [14c2cf7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/14c2cf7) | 检测分区原索引与数量、完整性校验、裁切统计、候选来源与诊断函数 |
+| [92ea072](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/92ea072) | 当前帧人工确认、原图 / 2D 虚实线、候选界面、单帧无 T 兜底与后端草稿兼容 |
+| [495a26c](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/495a26c5ec063c376b2a20847371c50cbbd5e51e) | 修复微秒截断造成实际解码上一帧，保持源时间戳并将跳转落在目标帧内 |
+
+229 项 JavaScript、216 项 Python、bundle 构建通过；8 帧 GPU 推理及 27 个旧版本兼容对照通过。浏览器验证检测 / 抑制来源、仅本帧实线、邻帧虚线、人工兜底不截断后续 T、撤销和精确定位。当前 8890 服务由本分支主工作目录提供。候选原文件、视频和正式人工草稿未改写。操作及限制见[审核文档](track-identity-review.md#检测候选与逐帧实线确认)，交接见[本轮记录](../../handoffs/Linzeyu912/2026-10-03-0010-detection-frame-review.md)。
+
 ## 发布范围
+
+2026-10-03 09:03 续接核对：上方三个功能提交已在远端，额度中断只留下文档未提交。本次补齐分支说明和交接，重新通过 229 项前端、216 项 Python、构建一致性和页面逐帧确认 / 撤销检查。继续使用现有独立分支，详见[续接验收](../../handoffs/Linzeyu912/2026-10-03-0903-detection-review-completion.md)。
 
 本轮按用户明确要求，将两版取舍后的整合结果提交到用户已有的独立分支。五个功能提交已推送，23:30 核对远端为 `537a88da8ca3c661db052eb43e3d3e3eca372335`；本文、来源归档和交接作为随后单独的文档提交保存。未向 main 推送、未合入 main、未创建 PR。远端 main 核对仍为 `1839dcde5b5cc0aa362baa474e58e5b530e6c695`。
 
