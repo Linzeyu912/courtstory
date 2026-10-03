@@ -1,6 +1,6 @@
 # 视频资料入口
 
-2026-10-03 第二批的 002 已按用户要求替换同名文件并推送 main，远端独立下载核验通过；005、006、010 替换文件未找到、保留原视频。见 [当前批次说明](uploads/2026-10-03-batch02/README.md)、[替换记录](uploads/2026-10-03-batch02/sources/replacement-002-20261003.json)与[同步交接](../../handoffs/thy-0629/2026-10-03-1448-video-replacement-002.md)。
+2026-10-03 第二批的 002 已按用户要求替换同名文件并推送 main，远端独立下载核验通过；005、006、010 已在再次查找中找到并完成本地替换，四个请求编号现均已替换，本轮同步状态见[补齐交接](../../handoffs/thy-0629/2026-10-03-1500-video-replacement-005-006-010.md)。见 [当前批次说明](uploads/2026-10-03-batch02/README.md)、[替换记录](uploads/2026-10-03-batch02/sources/replacement-002-20261003.json)与[同步交接](../../handoffs/thy-0629/2026-10-03-1448-video-replacement-002.md)。
 
 2026-10-03 新增 [第二批用户上传的十一段 MP4](uploads/2026-10-03-batch02/README.md)：原名及字节保留，按独立批次 `user-uploads-20261003-batch02` 登记，来源 / 比赛 / 赛季待核实，不混入已确认赛季批次。
 
