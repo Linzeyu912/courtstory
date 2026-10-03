@@ -8,7 +8,7 @@ import {createSourceBinding} from '../../binding.mjs';
 import {makePresentationDemo} from '../presentation-demo.mjs';
 
 export const repositoryRoot=fileURLToPath(new URL('../../../../../',import.meta.url));
-const annotationURL=new URL('./annotation.json',import.meta.url);
+const annotationURL=new URL('../../../../../data/tactics/005-candidate/annotation.json',import.meta.url);
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const parse=bytes=>JSON.parse(bytes.toString('utf8').replace(/^\uFEFF/,''));
 
@@ -17,8 +17,12 @@ export async function makeCandidateFixture({repoRoot=repositoryRoot}={}) {
   const annotationBytes=await readFile(annotationURL),annotation=parse(annotationBytes);
   const entries=await Promise.all(Object.entries(annotation.sourceFiles).map(async([kind,file])=>{
     const bytes=await readFile(path.resolve(repoRoot,file)),actual=sha(bytes);
-    if(actual!==annotation.sourceHashes[file])throw new Error(`005 source hash mismatch: ${file}`);
-    return [kind,{file,sha256:actual,data:kind==='video'?null:parse(bytes)}];
+    const approved=annotation.sourceHashes[file];
+    // Git may check text out with CRLF. Accept only an exact LF/CRLF equivalent
+    // of the locked bytes; bind the actual local bytes in the generated review.
+    const lf=kind==='video'?bytes:Buffer.from(bytes.toString('utf8').replace(/\r\n/g,'\n'));
+    if(actual!==approved&&(kind==='video'||(sha(lf)!==approved&&sha(Buffer.from(lf.toString('utf8').replace(/\n/g,'\r\n')))!==approved)))throw new Error(`005 source hash mismatch: ${file}`);
+    return [kind,{file,sha256:actual,approvedSha256:approved,lineEndingOnly:actual!==approved,data:kind==='video'?null:parse(bytes)}];
   }));
   const sources=Object.fromEntries(entries),frames=sources.tracks.data,court=sources.court.data,feet=sources.feet.data;
   if(frames.length!==143||frames.some((f,i)=>f.frame!==i||!Number.isFinite(f.time)))throw new Error('005 frame mapping mismatch');

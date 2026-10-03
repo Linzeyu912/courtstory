@@ -1,0 +1,11 @@
+.workbench-shell[data-area="tactics"] .operations,.workbench-shell[data-area="production"] .operations,.workbench-shell[data-area="tactics"] .data-drawer{display:none}
+.tactics-panel{flex:1 1 0;min-height:0;min-width:0;overflow:auto;border:1px solid #dce5ee;border-radius:8px;background:#f7fafc;padding:16px}
+.tactics-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.tactics-heading h2{margin:4px 0;font-size:20px}
+.tactics-buttons,.tactics-phases{display:flex;gap:6px;flex-wrap:wrap}.tactics-buttons button,.tactics-phases button{font-size:12px;padding:7px 10px}
+#tacticsStatus{background:#e8f0f7;color:#284e6d;border-left:3px solid #5486ad;padding:10px 12px;line-height:1.6;font-size:13px}
+.tactics-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}.tactics-view,.tactics-controls{min-width:0}
+.tactics-controls{background:#fff;border:1px solid #dce5ee;padding:14px;border-radius:8px}.tactics-controls h3{margin:20px 0 10px}.tactics-controls .field{margin:8px 0}.tactics-controls input,.tactics-controls select,.tactics-controls textarea{max-width:100%;min-width:0}
+.tactics-source{font-size:12px;overflow-wrap:anywhere;color:#667d91}.tactics-phases{margin-bottom:12px}.tactics-phases button[aria-pressed=true]{background:#285d84;color:#fff}
+.tactics-canvas{position:relative;min-height:190px;width:100%;overflow:auto;background:#10202a;color:#e6eef4;border-radius:8px}.tactics-canvas>p{padding:20px}.tactics-scene{position:relative;flex:none}.tactics-scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}.tactics-overlay{position:relative}.tactics-overlay svg{display:block}.tactics-roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.tactics-roster p{background:#fff;border-left:3px solid #669ab9;margin:0;padding:8px;font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+#tacticsIssues{font-size:12px;overflow-wrap:anywhere}#tacticsIssues p{margin:6px 0}.tactics-panel .range-fields{align-items:end}.tactics-panel .range-fields>button{margin-bottom:8px}
+@media(max-width:1100px){.tactics-layout{grid-template-columns:minmax(0,1fr)}.tactics-controls{max-width:none}.tactics-roster{grid-template-columns:1fr}.tactics-panel{padding:10px}}

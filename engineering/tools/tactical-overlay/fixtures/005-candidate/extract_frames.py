@@ -26,7 +26,7 @@ def main():
         parser.error("Output must be a subdirectory of this repository's artifacts directory.")
     if output.exists() and any(output.iterdir()):
         parser.error("Output must be empty; choose a new directory to preserve previous extraction evidence.")
-    annotation = json.loads(Path(__file__).with_name("annotation.json").read_text(encoding="utf-8"))
+    annotation = json.loads((root / "data/tactics/005-candidate/annotation.json").read_text(encoding="utf-8"))
     video = root / annotation["sourceFiles"]["video"]
     tracks_file = root / annotation["sourceFiles"]["tracks"]
     for file in (video, tracks_file):
