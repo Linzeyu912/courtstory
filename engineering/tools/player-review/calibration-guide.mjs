@@ -20,7 +20,7 @@ export function clearCalibrationProjectionReview(key){
  return next;
 }
 export function calibrationGeometryFingerprint(key){
- return JSON.stringify({side:key.side,points:keyframePoints(key).map(point=>({id:point.id,image:point.image,role:point.role||'control',enabled:point.enabled!==false})).sort((a,b)=>a.id.localeCompare(b.id))});
+ return JSON.stringify({side:key.side,points:keyframePoints(key).map(point=>({id:point.id,image:point.image,role:point.role||'control',enabled:point.enabled!==false,captureRegion:point.captureRegion||'video_frame'})).sort((a,b)=>a.id.localeCompare(b.id))});
 }
 function cameraReference(key){
  const camera=key.source==='camera_propagation'||keyframePoints(key).some(point=>point.enabled!==false&&point.role!=='check'&&point.source==='camera_propagation');

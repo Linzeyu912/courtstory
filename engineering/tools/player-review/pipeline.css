@@ -384,6 +384,10 @@ body.workbench-shell {
 .workbench-shell #videoFrame { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; visibility: hidden; }
 .workbench-shell #videoFrame[data-ready="true"] { visibility: visible; }
 .workbench-shell #stage #overlay { z-index: 2; }
+.workbench-shell[data-step="calibration"] #stage,
+body[data-step="calibration"].workbench-shell #stage { background: #253943; }
+body[data-step="calibration"].workbench-shell #stage video,
+body[data-step="calibration"].workbench-shell #stage #videoFrame { inset: 20%; width: 60%; height: 60%; }
 .workbench-shell #stage[data-video-state]:not([data-video-state="ready"]) #overlay { visibility: hidden; pointer-events: none; }
 .workbench-shell .video-status { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px; text-align: center; background: #111923b8; color: #fff; font-size: 12px; line-height: 1.6; }
 .workbench-shell .video-status[hidden] { display: none; }

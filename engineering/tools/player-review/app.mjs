@@ -8,6 +8,7 @@ import {IDENTITY_BINDING_MODE,migrateIdentitySession,confirmIdentity,identityInt
 import {teamOverlayStyle,candidateOverlayColor,stabilizePoints,presentationPoint,frameAtMediaTime,frameSeekTime} from './team-overlay.mjs';
 import {trackedPersonProposals,pickPersonProposal,visibleObjects,personTrail,indexTemporaryTracks,temporaryTrail,mergeSourceCuts,toggleReviewCut,REVIEW_COLORS,trackingReviewState,reviewedPersonTrail} from './tracking-display.mjs';
 import {mountSceneObjects} from './scene-objects-ui.mjs';
+import {buildBasketballTrajectory} from './scene-objects.mjs';
 import {feetForPoint,footCandidateAnchor} from './feet-candidates.mjs';
 import {initializeAutomaticAnnotations,automaticPlayerCandidates,automaticAnnotationPointVisible} from './automatic-annotations.mjs';
 import {mountPlayerIdentityUI,exportPlayerIdentities} from './player-identity.mjs';
@@ -46,7 +47,7 @@ if(session.liveSelection===undefined)session.liveSelection=structuredClone(clip.
 if(!session.liveRanges)session.liveRanges=session.liveSelection?[{start:0,end:clip.frames.length-1}]:[];
 let workspace=null,sceneUI=null,playerIdentityUI=null;
 let footageUI=null,pathStroke=null;
-let active='P1',frame=0,mode='select',trajectories={},stableTrajectories={},history=[],toastTimer,previewTrackId=null;
+let active='P1',frame=0,mode='select',trajectories={},stableTrajectories={},basketballTrajectory=[],history=[],toastTimer,previewTrackId=null;
 let playerTrailCuts={},temporaryTrailCuts=new Map();
 let reviewBusy=false,sessionRevision=0;
 let associationScope='track_occurrences';
@@ -168,8 +169,31 @@ function drawReviewedTrail(trail,points){
   }
   ctx.restore();
 }
+function drawBasketballTrail(points,currentFrame){
+  const current=[...points].reverse().find(point=>point.frame<=currentFrame&&point.x!=null);
+  if(!current)return;
+  const trail=points.filter(point=>point.x!=null&&point.segment===current.segment&&point.frame<=currentFrame&&current.time-point.time<=1.2);
+  ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+  for(let i=1;i<trail.length;i++){
+    const from=trail[i-1],to=trail[i];if(to.frame<=from.frame)continue;
+    ctx.beginPath();ctx.moveTo(from.x,from.y);ctx.lineTo(to.x,to.y);
+    ctx.strokeStyle='#102133c9';ctx.lineWidth=8;ctx.setLineDash([]);ctx.stroke();
+    ctx.strokeStyle='#54e3c6';ctx.lineWidth=4;ctx.setLineDash(from.source==='human_observation'&&to.source==='human_observation'&&to.gapBefore===0?[]:[8,6]);ctx.stroke();
+  }
+  ctx.setLineDash([]);
+  for(const point of trail){ctx.beginPath();ctx.arc(point.x,point.y,point.frame===currentFrame?7:4,0,2*Math.PI);ctx.fillStyle=point.source==='human_observation'?'#fff':'#54e3c6';ctx.fill();ctx.strokeStyle='#143b3c';ctx.lineWidth=2;ctx.stroke();}
+  ctx.restore();
+}
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
+  const extendedCalibration=document.body.dataset.step==='calibration',inset=.2,inner=1-inset*2;
+  if(extendedCalibration){
+    ctx.fillStyle='#253943';ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.clearRect(canvas.width*inset,canvas.height*inset,canvas.width*inner,canvas.height*inner);
+    ctx.save();ctx.strokeStyle='#e8f0f2';ctx.lineWidth=Math.max(1,clip.width/(canvas.clientWidth||clip.width));ctx.setLineDash([8,6]);ctx.strokeRect(canvas.width*inset,canvas.height*inset,canvas.width*inner,canvas.height*inner);ctx.setLineDash([]);
+    ctx.fillStyle='#f0f5f4';ctx.font=`${Math.max(12,12*clip.width/(canvas.clientWidth||clip.width))}px sans-serif`;ctx.fillText('画外标点区 · 按场地线延长方向估计交点',canvas.width*.012,canvas.height*.055);ctx.restore();
+    ctx.save();ctx.translate(canvas.width*inset,canvas.height*inset);ctx.scale(inner,inner);
+  }
   const candidates=proposals(),objects=sceneUI?.objects()||visibleObjects(clip.frames[frame]);
   const annotations=session.entities.filter(hasAssociation).map(entity=>({entity,point:trajectories[entity.id]?.[frame]}))
     .filter(({point})=>point&&point.x!==null&&automaticAnnotationPointVisible(clip,frame,point));
@@ -178,6 +202,7 @@ function draw(){
     for(const candidate of candidates)if(candidate.trackId!=null)drawTrail(temporaryTrail(trackIndex,clip.frames,candidate.trackId,frame,temporaryTrailCuts.get(candidate.trackId)||session.cuts),REVIEW_COLORS.machine);
     drawReviewedTrail(pTail,trajectories[active]);
   }
+  if($('showBallTrajectory').checked)drawBasketballTrail(basketballTrajectory,frame);
   if($('showObjects').checked)for(const object of objects){
     const stroke=object.kind==='basketball'?'#ffaf52':'#ff78b7',name=object.kind==='basketball'?'篮球候选':'篮筐候选';
     const selected=sceneUI?.selected()===object.id;
@@ -205,7 +230,8 @@ function draw(){
   const visibleCount=candidates.filter(p=>p.trackId!=null).length;
   $('trackingContinuity').textContent=`当前 ${visibleCount} 个临时 T 编号${hasAssociation(item)?` · ${entityLabel(active)} ${point?.trackId!=null?`关联 T${point.trackId}`:'当前无临时编号'} · 连续原图位置 ${pTail.length} 帧`:''}。尾迹为最近 1.2 秒的原图位置，受镜头移动影响；缺失、估计、身份确认、人工补点与切镜处断开。`;
   const basketballs=objects.filter(o=>o.kind==='basketball').length,hoops=objects.filter(o=>o.kind==='hoop').length;
-  $('objectStatus').textContent=objects.length?`当前帧：篮球 ${basketballs} 个候选 · 篮筐 ${hoops} 个候选。框中心是图像标记，不能作为球场地面点。`:'当前帧没有篮球 / 篮筐候选；只显示当前版本提供的独立对象检测。';
+  const ballPointCount=basketballTrajectory.filter(point=>point.x!=null).length;
+  $('objectStatus').textContent=`当前帧：篮球 ${basketballs} 个候选 · 篮筐 ${hoops} 个候选。已串接 ${ballPointCount} 个篮球图像观测${ballPointCount?'，仅作待核对路线；空中球不投影到地面。':'；当前版本没有可用的篮球观测。'}`;
   footageUI?.render();sceneUI?.render();
   const descriptions={manual:'这一帧的位置由你确认。',tracked:'这一帧有已关联编号的位置；是否为同一个真人、脚点是否准确，仍需逐帧核对。',interpolated:'这一帧由前后位置估计；不是模型直接检出的结果。',missing:'这一帧尚未关联到位置；可以找回新编号、补点，或标记离开画面。',out_of_view:'这一帧已由你标记为离开画面，不计算位置。',conflict:'这一帧存在身份冲突，需要你重新点选确认。'};
   if(point?.source==='manual')descriptions.manual=point.footMethod==='bbox_bottom_center'?'这一帧已人工选人；位置仍取框底边中心，尚未确认地面脚点。':point.footMethod==='pose_candidate_human_adopted'?'这一帧由你采用脚部模型候选，来源已保留，接地尚未验证。':'这一帧使用人工点选的原图参考位置，仍需核对地面接触与标定。';
@@ -223,6 +249,7 @@ function draw(){
   $('detectionEvidence').textContent='当前只显示带 T 编号的跟踪候选。T 由跟踪器跨帧关联产生，球员身份仍需核对。';
   const diagnostic=trackingDiagnostic(clip.frames[frame],point,previewTrackId!=null?candidates.find(item=>item.trackId===previewTrackId):null,clip.detectorEvidence);$('trackingDiagnosis').textContent=`${diagnostic.label}：${diagnostic.detail}`;
   playerIdentityUI?.render();
+  if(extendedCalibration)ctx.restore();
 }
 function drawTimeline(){
   const target=$('timeline'),context=target.getContext('2d'),dpr=devicePixelRatio||1,points=trajectories[active]||[];
@@ -237,6 +264,7 @@ function drawTimeline(){
 function refresh(){
   session.cuts=mergeSourceCuts(session.cuts,sourceCuts,clip.frames.length);
   trajectories=buildTrajectories(session,clip.frames,sourceCuts);
+  basketballTrajectory=buildBasketballTrajectory(session,clip.frames,session.cuts,{width:clip.width,height:clip.height});
   playerTrailCuts=Object.fromEntries(session.entities.map(item=>[item.id,reviewTrailCuts([item],session.cuts,clip.frames.length)]));
   temporaryTrailCuts=new Map(catalog.map(item=>[item.id,reviewTrailCuts(session.entities,session.cuts,clip.frames.length,item.id)]));
   stableTrajectories=Object.fromEntries(Object.entries(trajectories).map(([id,points])=>[id,stabilizePoints(points,session.cuts,clip.width,clip.height,teamPolicy)]));
@@ -287,7 +315,7 @@ function confirmCurrentFrame(){
   catch(error){toast(error.message);return false;}
 }
 function commitImageEdit(edit){try{const anchor=editImageAnchor(trajectories[active]?.[frame],frame,edit,clip.width,clip.height);change(()=>{entity().anchors=entity().anchors.filter(a=>a.frame!==frame);entity().anchors.push(anchor);});toast(`${entityLabel(active)} 当前帧位置已保存，可撤销。`);}catch(error){toast(error.message);}}
-function imagePosition(event){const r=canvas.getBoundingClientRect();return {x:(event.clientX-r.left)/r.width*clip.width,y:(event.clientY-r.top)/r.height*clip.height};}
+function imagePosition(event){const r=canvas.getBoundingClientRect(),extended=document.body.dataset.step==='calibration',inset=extended?0.2:0,inner=1-inset*2,nx=(event.clientX-r.left)/r.width,ny=(event.clientY-r.top)/r.height;return {x:(nx-inset)/inner*clip.width,y:(ny-inset)/inner*clip.height};}
 function editable(){return ['identity','repair'].some(step=>$(`tab-${step}`).getAttribute('aria-selected')==='true');}
 function rawEditing(){return editable()&&!$('stableDisplay').checked;}
 function prepareGeometryEdit(){pauseVideo();session.presentationStable=false;$('stableDisplay').checked=false;saveDraft();draw();}
@@ -323,7 +351,7 @@ $('previous').addEventListener('click',()=>seek(frame-1));$('next').addEventList
 $('timeline').addEventListener('click',event=>{const rect=event.currentTarget.getBoundingClientRect();seek(Math.floor((event.clientX-rect.left)/rect.width*clip.frames.length));});
 $('stableDisplay').addEventListener('change',event=>change(()=>session.presentationStable=event.target.checked));
 for(const event of ['timeupdate','seeked','play','pause'])video.addEventListener(event,()=>{if(video.paused)updateFrame();});
-for(const id of ['showCandidates','showObjects','showTrackTrails','showFeetCandidates'])$(id).addEventListener('change',draw);$('maxGap').addEventListener('change',event=>change(()=>session.maxGapSeconds=Number(event.target.value)));
+for(const id of ['showCandidates','showObjects','showBallTrajectory','showTrackTrails','showFeetCandidates'])$(id).addEventListener('change',draw);$('maxGap').addEventListener('change',event=>change(()=>session.maxGapSeconds=Number(event.target.value)));
 for(const [id,side] of [['adoptLeftFoot','left'],['adoptRightFoot','right']])$(id).onclick=()=>{const point=trajectories[active]?.[frame],candidate=feetForPoint(clip,frame,point);try{const anchor=footCandidateAnchor(point,frame,candidate,side,clip.width,clip.height);prepareGeometryEdit();change(()=>{entity().anchors=entity().anchors.filter(a=>a.frame!==frame);entity().anchors.push(anchor);});toast('已采用当前帧脚部候选；来源保留，接地仍需人工核对，可撤销。');}catch(error){toast(error.message);}};
 $('undo').addEventListener('click',()=>{if(history.length){const previous=history.pop();session=JSON.parse(previous.draft);active=previous.active;sessionRevision++;if(!session.entities.some(item=>item.id===active))active='P1';saveDraft();refresh();}});
 $('save').addEventListener('click',()=>{saveDraft();toast('草稿已保存在当前浏览器，可继续修改。');});
