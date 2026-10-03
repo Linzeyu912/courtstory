@@ -7,7 +7,7 @@ export function mountWorkbenchShell(api) {
   const drawer = $('dataDrawer');
   const handle = $('drawerResize');
   const videoCard = document.querySelector('.video-card');
-  const titles = {video:'视频处理', data:'数据核对与处理', tactics:'战术分析与讲解', production:'剪辑与成片'};
+  const titles = {video:'视频处理', data:'数据核对与处理', tactics:'战术分析与讲解', production:'导出与交付'};
   let area = 'video', drawerState = 'closed', returnArea = 'video', halfRatio = .45;
   let videoStep = null;
   let drag = null, layoutFrame = 0, entitySignature = '';
@@ -21,13 +21,19 @@ export function mountWorkbenchShell(api) {
       if (button.dataset.areaTarget === area) button.setAttribute('aria-current', 'page');
       else button.removeAttribute('aria-current');
     });
-    const future = area === 'tactics' || area === 'production';
+    const future = area === 'production';
     $('futurePanel').hidden = !future;
+    $('tacticsPanel').hidden = area !== 'tactics';
+    if (future) {
+      $('deliveryVideo').href = `/video.mp4?sample=${encodeURIComponent(api.sample)}`;
+      $('deliveryVideo').download = `${api.sample}.mp4`;
+      $('deliveryContext').textContent = `${api.clip.frames.length} 帧 · ${api.clip.width} × ${api.clip.height} · ${api.variant}。下载的是当前素材；如已裁切，则为裁切后的副本。`;
+    }
     if (future) {
       $('futureTitle').textContent = titles[area];
       $('futureDescription').textContent = area === 'tactics'
         ? '在完成位置与轨迹核对后，分析场上关系，整理战术判断和讲解。'
-        : '组织视频片段、讲解、画面叠加与字幕，预览并导出成片。';
+        : '下载当前素材，导出轨迹数据和战术审核报告。';
     }
     const open = drawerState !== 'closed';
     $('drawerBody').hidden = !open;
@@ -39,6 +45,7 @@ export function mountWorkbenchShell(api) {
     handle.setAttribute('aria-valuenow', String(drawerState === 'closed' ? 0 : drawerState === 'full' ? 100 : Math.round(halfRatio * 100)));
     handle.setAttribute('aria-valuetext', drawerState === 'closed' ? '已收起' : drawerState === 'full' ? '完整数据工作区' : '视频与数据同时可见');
     scheduleLayout();
+    document.dispatchEvent(new CustomEvent('workbench-area',{detail:{area}}));
   }
 
   function setDrawer(next, restoreFocus = false) {
@@ -87,6 +94,8 @@ export function mountWorkbenchShell(api) {
     button.addEventListener('click', () => showArea(button.dataset.areaTarget));
   });
   $('backToVideo').onclick = () => showArea('video');
+  $('deliveryData').onclick = () => api.openExport();
+  $('deliveryTactics').onclick = () => showArea('tactics');
   $('drawerToggle').onclick = () => setDrawer(drawerState === 'closed' ? 'half' : 'closed');
   $('drawerHalf').onclick = () => setDrawer('half');
   $('drawerFull').onclick = () => setDrawer('full');
@@ -97,6 +106,12 @@ export function mountWorkbenchShell(api) {
     $('toolsToggle').setAttribute('aria-expanded', String(expanded));
     $('toolsToggle').textContent = expanded ? '收起工具' : '展开工具';
     $('toolsToggle').title = expanded ? '收起操作工具' : '展开操作工具';
+    scheduleLayout();
+  };
+  $('infoToggle').onclick = () => {
+    const visible=getComputedStyle($('videoInfo')).display!=='none';
+    body.dataset.info=visible?'closed':'open';
+    $('infoToggle').setAttribute('aria-expanded',String(!visible));
     scheduleLayout();
   };
   $('reviewEntity').onchange = event => api.select(event.target.value);
@@ -187,6 +202,7 @@ export function mountWorkbenchShell(api) {
     if (layoutFrame) return;
     layoutFrame = requestAnimationFrame(() => {
       layoutFrame = 0;
+      if($('videoInfo'))$('infoToggle').setAttribute('aria-expanded',String(getComputedStyle($('videoInfo')).display!=='none'));
       fitVideo();
       api.redraw();
     });
@@ -215,5 +231,5 @@ export function mountWorkbenchShell(api) {
   }
   renderLayout();
   refresh();
-  return {enterVideo, refresh, openData:() => setDrawer('half'), scheduleLayout};
+  return {enterVideo, refresh, showArea, openData:() => setDrawer('half'), scheduleLayout};
 }

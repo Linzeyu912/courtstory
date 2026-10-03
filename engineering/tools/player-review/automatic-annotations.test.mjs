@@ -249,7 +249,7 @@ test('automatic aliases keep a same-detector feet profile valid and reject anoth
   assert.equal(feetForPoint(changed,0,point),null);
 });
 
-test('simple candidates retain low-score tracked players while weak or duplicate unindexed boxes stay in raw advanced data',()=>{
+test('simple candidates retain low-score tracks but never offer unindexed detections at any confidence',()=>{
   const clip=fixture(),record=clip.frames[0];record.tracks[0][5]=.05;
   record.pending_detections=[[350,2,380,80,.49,2],[350,2,380,80,.9,2],
     [0,2,30,80,.9,2],[400,2,430,80,.9,3]];
@@ -257,9 +257,9 @@ test('simple candidates retain low-score tracked players while weak or duplicate
   const points=buildTrajectories(session,clip.frames);
   assert.equal(points.P6[0].trackId,1,'low detector score does not erase a tracked identity');
   const simple=candidates(clip,0,points);
-  assert.deepEqual(simple.map(row=>[row.trackId,row.score,row.box[0]]),[[null,.9,350]]);
+  assert.deepEqual(simple,[]);
   assert(candidates(clip,0,{}).some(row=>row.trackId===1&&row.score===.05),'unmatched tracked boxes are also not thresholded');
-  assert.deepEqual(record,raw,'all low-score and duplicate raw detections remain available to advanced review');
+  assert.deepEqual(record,raw,'raw detection evidence is preserved independently of the removed UI');
 });
 
 test('known conflict in an existing model draft becomes a grey detection without rewriting its saved identity',()=>{

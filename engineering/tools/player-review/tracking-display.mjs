@@ -71,21 +71,26 @@ export function proposalLabel(proposal) {
   return `${status} · ${role}${proposal.roleConflict?' · 角色待核对':''}${evidence}`;
 }
 
-// Suppressed detections require an explicit list selection. A small duplicate
-// must not intercept a click intended for a live tracked observation.
+// Raw detector partitions remain available for provenance checks. The workbench
+// only offers observations that already have a tracker ID.
+export function trackedPersonProposals(record,roles={},detectorEvidence=null) {
+  return personProposals(record,roles,detectorEvidence).filter(proposal=>proposal.trackId!=null);
+}
+
 export function pickPersonProposal(proposals,x,y) {
   if(!Array.isArray(proposals)||![x,y].every(Number.isFinite))return null;
-  let selected=null,bestRank=Infinity,bestArea=Infinity;
+  let selected=null,bestArea=Infinity;
   for(const proposal of proposals){
-    if(!proposal||proposal.suppressed||proposal.sourcePartition==='suppressed_detections')continue;
+    if(!proposal||proposal.trackId==null||proposal.suppressed||
+      (proposal.sourcePartition&&proposal.sourcePartition!=='tracks'))continue;
     const box=proposal.box;
     if(!Array.isArray(box)||box.length<4||!box.slice(0,4).every(Number.isFinite))continue;
     const [x1,y1,x2,y2]=box;
     if(x2<=x1||y2<=y1||x<x1||x>x2||y<y1||y>y2)continue;
-    const tracked=proposal.trackId!=null&&Number.isInteger(Number(proposal.trackId))&&Number(proposal.trackId)>0;
-    const rank=tracked?0:1,area=(x2-x1)*(y2-y1);
-    if(rank<bestRank||(rank===bestRank&&area<bestArea)){
-      selected=proposal;bestRank=rank;bestArea=area;
+    if(!Number.isInteger(Number(proposal.trackId))||Number(proposal.trackId)<=0)continue;
+    const area=(x2-x1)*(y2-y1);
+    if(area<bestArea){
+      selected=proposal;bestArea=area;
     }
   }
   return selected;

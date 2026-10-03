@@ -127,7 +127,7 @@ export function trackingDiagnostic(record, point, previewProposal = null, detect
   if (observed) return observationEvidence(record, trackId, preview, frameConfirmed, detectorEvidence);
   if (trackId != null) return {
     label: `T${trackId} 当前没有观测`,
-    detail: '当前编号没有观测，可能涉及漏检、遮挡、过滤或跟踪中断，单凭此不能归因。请对照画面及未编号检测框；也可能需要重新关联其他 T 编号。',
+    detail: '当前编号没有观测，可能涉及漏检、遮挡、过滤或跟踪中断，单凭此不能归因。请对照原图，必要时重新关联其他 T 编号。',
   };
   if (preview) {
     const candidates = personProposals(record, {}, detectorEvidence).filter(item => item.trackId == null && sameBox(item.box, preview.box));

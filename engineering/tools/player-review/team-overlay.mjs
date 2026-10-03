@@ -22,6 +22,15 @@ export function teamOverlayStyle(entity,point,policy) {
     footMethod:point?.footMethod==='human_image_anchor'?'human_image_anchor':policy.foot.method};
 }
 
+// Use the current visible P → T association, so swaps and frame corrections
+// change candidate colors together with the player overlay.
+export function candidateOverlayColor(proposal,annotations,policy) {
+  const owners=annotations.filter(({entity,point})=>entity.role==='player'&&
+    point.trackId===proposal.trackId&&effectiveTeamGroup(entity));
+  if(owners.length===1)return FIXED_TEAM_COLORS[effectiveTeamGroup(owners[0].entity)];
+  return owners.length>1||proposal.roleConflict?policy.candidateColor:'#acbbc9';
+}
+
 function smoothable(point) {
   return point?.source==='tracked'&&point.x!=null&&point.y!=null&&point.footMethod==='bbox_bottom_center'&&
     Array.isArray(point.box)&&point.box.length===4&&point.box.every(Number.isFinite)&&point.trackId!=null;

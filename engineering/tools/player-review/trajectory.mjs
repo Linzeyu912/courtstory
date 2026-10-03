@@ -30,7 +30,7 @@ export function entityLabel(entityOrId) {
 }
 
 export function draftStorageKey(clip,variant='original',qa=false) {
-  return `player-review:${clip.video_sha256}${variant==='original'?'':`:${clip.tracking_fingerprint||variant}`}${qa?':qa':''}`;
+  return `player-review:${clip.video_sha256}${clip.importSourceSha256?`:local:${clip.importSourceSha256}`:''}${variant==='original'?'':`:${clip.tracking_fingerprint||variant}`}${qa?':qa':''}`;
 }
 
 export function trackingModelSummary(metadata={},variant='') {

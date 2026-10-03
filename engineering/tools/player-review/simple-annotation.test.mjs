@@ -10,6 +10,7 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit}={}){
   const reviewRequests=[];
   const records=[0,.031,.078,.119,.165].map((time,frame)=>({frame,time,
     tracks:[[100,80,220,320,7,.95,2],[400,100,530,330,8,.93,2],[720,90,840,300,9,.92,2]],
+    pending_detections:[[260,100,320,300,.99,2]],suppressed_detections:[[560,100,620,300,.99,2]],
     track_roles:{7:'player',8:'player',9:'player'},role_conflicts:[{trackIds:[9]}],
     objects:[{kind:'basketball',box:[600,200,620,220],score:.9}]}));
   const clip={video_sha256:'simple-video',tracking_fingerprint:'rich-original-draft',tracking_revision:'team-stable',
@@ -43,7 +44,7 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit}={}){
   const tabs=['footage','identity','repair','export','calibration','events'].map(step=>{const tab=get(`tab-${step}`);tab.dataset.step=step;tab.setAttribute('aria-selected',String(step==='footage'));return tab;});
   const areas=['video','data','tactics','production'].map(area=>{const node=get(`area-${area}`);node.dataset.areaTarget=area;return node;});
   const body={dataset:{},classList:{add(){},remove(){}}},initialView=html.match(/<body[^>]+data-review-view="([^"]+)"/)?.[1];if(initialView)body.dataset.reviewView=initialView;
-  const document={body,activeElement:null,getElementById:get,createElement:make,addEventListener(){},querySelector:()=>get('player-overview'),querySelectorAll:selector=>selector==='[data-step]'?tabs:selector==='[data-area-target]'?areas:[]};
+  const document={body,activeElement:null,getElementById:get,createElement:make,addEventListener(){},dispatchEvent(){},querySelector:()=>get('player-overview'),querySelectorAll:selector=>selector==='[data-step]'?tabs:selector==='[data-area-target]'?areas:[]};
   const globals=['document','window','devicePixelRatio','location','fetch','localStorage','requestAnimationFrame','setTimeout','clearTimeout','MutationObserver','ResizeObserver'];
   const previous=new Map(globals.map(name=>[name,globalThis[name]]));
   const policy=JSON.parse(readFileSync(new URL('./team-overlay-policy.json',import.meta.url)));
@@ -68,6 +69,8 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit}={}){
           return {pause:()=>video.pause(),seek:time=>{video.pause();video.currentTime=time;},
             reload:()=>{video.pause();video.currentTime=startTime;},togglePlayback:()=>video.paused?video.play():video.pause()};
         };continue;}
+      if(match[2]==='./tactics-storage.mjs'){dependencies.migrateLegacyTacticsDrafts=async()=>{};continue;}
+      if(match[2]==='./tactics-ui.mjs'){dependencies.mountTacticsUI=()=>({saveDraft(){}});continue;}
       if(match[2]==='./footage-ui.mjs'){dependencies.mountFootageUI=()=>({render(){}});continue;}
       if(match[2]==='./workspace.mjs'){
         const module=await import('./workspace.mjs');
@@ -218,15 +221,19 @@ test('hidden candidate overlays cannot claim a track by clicking an invisible bo
   }finally{app.restore();}
 });
 
-test('explicit untracked fallback affects one frame and undo restores the prior track',async()=>{
+test('removed untracked and suppressed candidates cannot render, intercept clicks or create draft edits',async()=>{
   const app=await openApp();try{
-    const before=structuredClone(app.state().session),next=structuredClone(app.state().trajectories.P1[1]);
-    await app.actions.associate({box:[120,90,220,310],trackId:null,suppressed:true});
-    assert.equal(app.state().trajectories.P1[0].frameIdentityConfirmed,true);
-    assert.equal(app.state().trajectories.P1[0].trackId,null);
-    assert.deepEqual(app.state().trajectories.P1[1],next);
-    assert.match(app.get('toast').textContent,/其他帧保持/);
-    app.get('undo').click();assert.deepEqual(app.state().session,before);
+    const before=structuredClone(app.state().session),raw=structuredClone(app.clip);
+    assert.deepEqual(app.identityState().proposals.map(item=>item.trackId),[7,8,9]);
+    assert.ok(!app.get('overlay').ctx.labels.some(label=>/未跟踪|已抑制/.test(label)));
+    assert.ok(!app.get('overlay').ctx.boxes.some(item=>[260,560].includes(item.box[0])));
+    for(const x of [290,590])app.clickBox(x,200);
+    for(const suppressed of [false,true]){
+      assert.equal(await app.actions.associate({box:[260,100,320,300],trackId:null,suppressed}),false);
+    }
+    assert.deepEqual(app.state().session,before);assert.deepEqual(app.clip,raw);
+    assert.equal(app.reviewRequests.length,0);assert.equal(app.get('undo').disabled,true);
+    assert.match(app.get('toast').textContent,/带 T 编号/);
   }finally{app.restore();}
 });
 

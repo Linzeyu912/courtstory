@@ -172,10 +172,8 @@ function IdentityPanel({state,api}) {
     <p className="note">{mode==='select'?'点击候选框关联；已选中后，拖动脚下圆点改位置，拖动框边移动人物框，拖动四角调整大小。':'点击球员脚下保存当前帧位置；也可直接拖动已有圆点。'}</p>
     <label className="field">当前帧候选人物<select aria-label="当前帧候选人物" value={candidateValue} onChange={e=>{setCandidate(e.target.value);api.preview(e.target.value===''?null:proposals[Number(e.target.value)]);}}><option value="">选择一个候选，先预览</option>{proposals.map((p,i)=><option key={i} value={i}>{proposalLabel(p)} · 置信度 {Math.round((p.score||0)*100)}%</option>)}</select></label>
     {selected?.roleConflict&&<p className="candidate-warning">这个位置同时有球员与裁判候选，请核对真人和所属角色后关联。</p>}
-    {selected?.suppressed&&<p className="candidate-warning">这个框已被模型后处理抑制，可能与其他框重复。核对后可作为当前帧的人工兜底，不会重新生成临时 T 编号。</p>}
     {selected?.role==='referee'&&entity.role==='player'&&<p className="candidate-warning">模型把这个候选标为裁判。若实际是裁判，请先添加 R 编号；误分类的球员仍可人工关联到当前 P。</p>}
     <button className="primary wide" disabled={busy||!selected} onClick={async()=>{if(await api.associate(selected))setCandidate('');}}>{state.associationScope==='track_occurrences'&&selected?.trackId!=null?`将 T${selected.trackId} 全部出现帧归入 ${slotLabel(entity.id)}`:`把当前候选关联到 ${slotLabel(entity.id)}`}</button>
-    {selected&&selected.trackId==null&&<p className="small muted">这个检测框尚无跟踪编号，只能确认当前帧，不能按编号传播到其他帧。</p>}
     <p className="small muted">预览框会高亮。候选框用虚线；球员框在本帧人工确认后用实线。关联和位置修改都可撤销。</p>
     <details className="identity-keyframes"><summary>身份确认时间点（{state.identityRanges.length}）</summary>
       {state.identityRanges.map(key=><div className={`anchor ${isUnassigned(key)?'identity-unassigned':''}`} key={key.frame}><button onClick={()=>api.seek(key.frame)}>{key.time.toFixed(2)} s · 第 {key.start+1}–{key.end+1} 帧 · {isUnassigned(key)?'已取消关联':key.trackId==null?'未编号':`T${key.trackId}`}</button><button disabled={busy} aria-label={`删除第 ${key.frame+1} 帧身份确认`} onClick={()=>api.removeIdentity(key.frame)}>删除身份确认</button></div>)}

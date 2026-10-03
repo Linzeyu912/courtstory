@@ -110,7 +110,8 @@ class ReviewServerTests(unittest.TestCase):
         state=self.root/'http-server.json'
         command=[sys.executable,str(Path(__file__).with_name('serve_player_review.py')),'--video',str(self.video),
             '--tracks',str(self.tracks),'--port','0','--state-file',str(state),'--trim-root',str(self.root/'trim'),
-            '--court-profile',str(self.root/'no-court.json')]
+            '--court-profile',str(self.root/'no-court.json'), '--import-cache',str(self.root/'imports'),
+            '--video-folder',str(self.root/'inbox'), '--tactics-folder',str(self.root/'tactics')]
         process=subprocess.Popen(command,stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE)
         try:
             deadline=time.monotonic()+10
@@ -194,7 +195,9 @@ class ReviewServerTests(unittest.TestCase):
             'trackingVariants': [{'id': 'ebard', 'label': 'escaped variant', 'tracks': str(ebard)}]}]), encoding='utf-8')
         state = self.root / 'http-default-server.json'
         command = [sys.executable, str(Path(__file__).with_name('serve_player_review.py')), '--library', str(library),
-            '--port', '0', '--state-file', str(state), '--trim-root', str(cache)]
+            '--port', '0', '--state-file', str(state), '--trim-root', str(cache),
+            '--import-cache',str(self.root/'imports'), '--video-folder',str(self.root/'inbox'),
+            '--tactics-folder',str(self.root/'tactics')]
         process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
         try:
             deadline = time.monotonic() + 10
@@ -242,7 +245,9 @@ class ReviewServerTests(unittest.TestCase):
         state, cache = self.root / 'http-jersey-server.json', self.root / 'legacy-http-cuts'
         command = [sys.executable, str(Path(__file__).with_name('serve_player_review.py')), '--video', str(self.video),
             '--tracks', str(self.tracks), '--alternative-tracks', str(jersey), '--port', '0',
-            '--state-file', str(state), '--trim-root', str(cache), '--court-profile', str(self.root / 'no-court.json')]
+            '--state-file', str(state), '--trim-root', str(cache), '--court-profile', str(self.root / 'no-court.json'),
+            '--import-cache',str(self.root/'imports'), '--video-folder',str(self.root/'inbox'),
+            '--tactics-folder',str(self.root/'tactics')]
         process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
         try:
             deadline = time.monotonic() + 10

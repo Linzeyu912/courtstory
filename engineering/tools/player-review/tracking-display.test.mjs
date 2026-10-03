@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {personProposals,proposalLabel,pickPersonProposal,visibleObjects,personTrail,indexTemporaryTracks,temporaryTrail,mergeSourceCuts,toggleReviewCut} from './tracking-display.mjs';
+import {personProposals,trackedPersonProposals,proposalLabel,pickPersonProposal,visibleObjects,personTrail,indexTemporaryTracks,temporaryTrail,mergeSourceCuts,toggleReviewCut} from './tracking-display.mjs';
 import {blankSession,buildTrajectories} from './trajectory.mjs';
 import {confirmIdentity} from './identity-timeline.mjs';
 
@@ -16,7 +16,7 @@ test('ball and hoop candidates never enter person selection; role conflicts rema
   assert.deepEqual(visibleObjects(frame).map(o=>o.kind),['basketball','hoop']);
 });
 
-test('all detector partitions remain selectable evidence without assigning suppressed boxes a T',()=>{
+test('raw detector evidence remains intact while workbench candidates contain only tracker observations',()=>{
   const record={tracks:[[1,2,10,20,7,.91,2]],pending_detections:[[20,2,30,20,.01,2]],
     suppressed_detections:[[1,2,11,21,.65,2]],track_evidence:{7:{raw_detection_index:2,source:'detection'}},
     detection_indices:{tracks:[2],pending_detections:[0],suppressed_detections:[1]}};
@@ -28,6 +28,7 @@ test('all detector partitions remain selectable evidence without assigning suppr
   assert.match(proposalLabel(people[0]),/检测已跟踪/);
   assert.match(proposalLabel(people[1]),/检测未跟踪/);
   assert.match(proposalLabel(people[2]),/检测已抑制/);
+  assert.deepEqual(trackedPersonProposals(record,{7:'player'}),[people[0]]);
   assert.deepEqual(record,original);
 });
 
@@ -51,19 +52,19 @@ test('a suppressed duplicate cannot steal the real sample 004 frame 32 click fro
   const before=structuredClone(proposals),point=[139.545456,375.6818235];
   assert.equal(pickPersonProposal(proposals,...point).trackId,7);
   assert.equal(pickPersonProposal(proposals.filter(p=>p.suppressed),...point),null,
-    'suppressed-only hits must direct the user to the explicit list selection');
+    'removed suppressed detections cannot be selected');
   assert.equal(pickPersonProposal([{...proposals[2],suppressed:false}],...point),null,
     'source partition also protects older proposals without the boolean flag');
   assert.deepEqual(proposals,before);
 });
 
-test('tracked boxes outrank pending boxes; the smallest box wins only within the same priority',()=>{
+test('only tracked boxes are selectable; overlapping tracks use the smallest box',()=>{
   const pendingSmall={box:[4,4,6,6],trackId:null,sourcePartition:'pending_detections'};
   const pendingLarge={box:[0,0,10,10],trackId:null,sourcePartition:'pending_detections'};
   const trackLarge={box:[0,0,30,30],trackId:1,sourcePartition:'tracks'};
   const trackSmall={box:[0,0,20,20],trackId:2,sourcePartition:'tracks'};
   assert.equal(pickPersonProposal([pendingSmall,trackLarge,trackSmall],5,5),trackSmall);
-  assert.equal(pickPersonProposal([pendingLarge,pendingSmall],5,5),pendingSmall);
+  assert.equal(pickPersonProposal([pendingLarge,pendingSmall],5,5),null);
   assert.equal(pickPersonProposal([pendingSmall,trackLarge],5,5),trackLarge);
   assert.equal(pickPersonProposal([trackSmall,{...trackSmall,trackId:3}],5,5),trackSmall,'equal areas retain list order');
 });

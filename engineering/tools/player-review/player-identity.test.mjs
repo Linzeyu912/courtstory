@@ -75,6 +75,8 @@ async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSe
           return {pause:()=>video.pause(),seek:time=>{video.pause();video.currentTime=time;},
             reload:()=>{video.pause();video.currentTime=startTime;},togglePlayback:()=>video.paused?video.play():video.pause()};
         };continue;}
+      if(match[2]==='./tactics-storage.mjs'){dependencies.migrateLegacyTacticsDrafts=async()=>{};continue;}
+      if(match[2]==='./tactics-ui.mjs'){dependencies.mountTacticsUI=()=>({saveDraft(){}});continue;}
       if(match[2]==='./footage-ui.mjs'){dependencies.mountFootageUI=()=>({render(){}});continue;}
       if(match[2]==='./workspace.mjs'){dependencies.createWorkspace=api=>{appApi=api;return {refresh(){},draw(){},drawImageOverlay(){},handleImageClick:()=>false,
         switchStep(step){document.body.dataset.step=step;get('overlay').hidden=step==='footage';for(const tab of tabs)tab.setAttribute('aria-selected',String(tab.dataset.step===step));api.setMode('select',{edit:false});}};};continue;}

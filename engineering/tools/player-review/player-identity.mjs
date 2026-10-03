@@ -72,7 +72,7 @@ export function mountPlayerIdentityUI(api){
     const current=state(),item=entity(),profile=item?.playerProfile,reference=item?.ratingReference;
     const known=confirmed(item),number=/^P(?:[1-9]|10)$/.test(current.active)?current.active.slice(1):'—';
     $('profileSummary').textContent=known?`编号 ${number} · ${profile.name} · ${reference?.game||'2K能力'}`:`编号 ${number} · 身份确认与 2K 能力`;
-    $('profileSelected').textContent=known?`已确认编号 ${number}：${profile.name} · ${profile.team_abbreviation} #${profile.jersey_number}`:`正在确认编号 ${number}。红 / 蓝表示攻防角色，请填写实际 NBA 球队。`;
+    $('profileSelected').textContent=known?`已确认编号 ${number}：${profile.name} · ${profile.team_abbreviation} #${profile.jersey_number}`:`正在确认编号 ${number}。红 / 蓝与跟踪目标中的红队 / 蓝队对应，请填写实际 NBA 球队。`;
     $('profileClear').disabled=!item?.playerProfile&&!item?.ratingReference;
     const point=current.point;
     $('profileObservation').textContent=point?.x==null?'当前没有可靠位置。资料跟随此编号，画面中的对应关系仍需核对。':'资料跟随此编号，当前框仍需核对。';

@@ -15,7 +15,7 @@ export function createWorkspace(api){
   const reasonLabel={missing:'位置缺失',conflict:'身份冲突',uncalibrated:clip.supportsCourtCalibration===false?'未提供适配场地模板':'球场待标定'};
   const shades={projected:'#1675b6',court_manual:'#6e4fd0',court_estimated:'#b96a09',missing:'#c83d4c',conflict:'#ae385c',uncalibrated:'#a08bd1',out_of_view:'#8c98a8'};
   const time=i=>`${clip.frames[i].time.toFixed(2)} s`;
-  const shell=mountWorkbenchShell(api);
+  const shell=mountWorkbenchShell({...api,openExport:()=>switchStep('export',true)});
   function switchStep(next,scroll=false){
     const session=getState().session;
     if(['identity','repair','export'].includes(next)&&!session.liveSelection){toast('先在第一步保留并确认直播画面。');next='footage';}
@@ -248,5 +248,5 @@ export function createWorkspace(api){
     context.font='bold 23px sans-serif';for(const p of points){const[x,y]=p.image;context.fillStyle=p.enabled===false?'#999':'#fff6d2';context.strokeStyle='#233f5b';context.lineWidth=3;context.beginPath();context.arc(x,y,10,0,Math.PI*2);context.fill();context.stroke();context.fillStyle='#233f5b';context.fillRect(x+12,y-25,31,29);context.fillStyle='white';context.fillText(p.id,x+19,y-3);}
   }
   window.addEventListener('resize',draw);
-  return {refresh,draw,handleImageClick,drawImageOverlay,switchStep,gaps:()=>courtGaps(courtPoints[state().active]||[])};
+  return {refresh,draw,handleImageClick,drawImageOverlay,switchStep,showArea:shell.showArea,gaps:()=>courtGaps(courtPoints[state().active]||[])};
 }
