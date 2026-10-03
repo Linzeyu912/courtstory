@@ -2,6 +2,8 @@
 
 更新日期：2026-10-03（Asia/Shanghai）
 
+2026-10-03 11:03：独立多人战术轨迹首版的 23 个选定文件已推送 main，[功能提交 21d24df](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/21d24dffb06284858669af9b66e14bab8a820dc2)于 11:03:12 核对本地 HEAD、origin/main 与远端一致。接收自 1839dcd 起的 17 个远端提交，以 c0d2dcf 为整合基线；仅状态文档两处文字冲突，双方历史均保留。整合测试、复现与独立兼容复核通过，7 个无关未跟踪文件原样保留。预览、图像、QA 与备份仍仅在本机，真实身份 / 地面与战术精度及播放器接入待验收。见[同步交接](../handoffs/thy-0629/2026-10-03-1103-tactical-overlay-sync.md)；下方“未提交推送”保留各轮当时事实，本条及交接文档的后续提交以 Git 日志为准。
+
 2026-10-03 10:05：人物关联冲突纠正和统一蓝绿审核状态已分类提交并推送工作分支；核对本地 / 远端一致后，与最新 main 合并并正常推送。功能合并 `7ee65bd` 已在 main 与原工作分支同步，保留双方历史、研究归档和用户验收的整合工作台。241 项前端、216 项后端、构建一致性及 142 条视频元数据 / LFS 指针检查通过；完整视频字节校验仍受本机部分 LFS 视频未下载限制。见[分类发布与合并交接](../handoffs/Linzeyu912/2026-10-03-1005-workbench-main-publication.md)。本条更新下方各轮的“未合入 main”状态，历史记录保留当时事实。
 
 2026-10-03 09:03 续接“新建分支并推送本地内容”的额度中断任务：确认检测候选、逐帧虚实线、人工兜底及帧定位三个功能提交已在远端独立分支；待收尾的是五份说明与原交接的文档提交。完整复验 229 项前端、216 项 Python、构建字节一致、页面确认 / 邻帧 / 撤销通过，未发现本次范围内的功能缺口。本次补齐文档收尾，继续仅同步 `codex/local-workbench-20261002`；[续接交接](../handoffs/Linzeyu912/2026-10-03-0903-detection-review-completion.md)记录验证及旧数据边界。
@@ -49,7 +51,7 @@ NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../engin
 
 | 成果 | 文件 / 入口 | 状态 |
 |---|---|---|
-| 多人分阶段战术轨迹 | [接口 / 复现说明](../engineering/tools/tactical-overlay/README.md)、[批准规格](../engineering/docs/specs/2026-10-02-tactical-trajectory-overlay-design.md)、[交接](../handoffs/thy-0629/2026-10-03-0055-tactical-overlay-engine.md) | 第一版本地完成：来源绑定 manifest、SVG、三阶段真实候选、多人实虚线与掩护关系；标签避让路线、窄画布滚动及 8 场景实际验证通过，最终独立复核通过。真实精度与前端接入待完成；未提交推送 |
+| 多人分阶段战术轨迹 | [接口 / 复现说明](../engineering/tools/tactical-overlay/README.md)、[批准规格](../engineering/docs/specs/2026-10-02-tactical-trajectory-overlay-design.md)、[实现交接](../handoffs/thy-0629/2026-10-03-0055-tactical-overlay-engine.md)、[同步交接](../handoffs/thy-0629/2026-10-03-1103-tactical-overlay-sync.md) | 首版功能已推送 main（21d24df）：来源绑定 manifest、SVG、三阶段真实候选、多人实虚线与掩护关系；标签避让路线、窄画布滚动及 8 场景实际验证通过，最终独立复核通过。真实精度与前端接入待完成；预览、图像与 QA 仍仅在本地 |
 | 人工身份资料与初步 2K 匹配 | [实测记录](../engineering/research/player-identity-2k-20261002.md)、[使用说明](../engineering/tools/player-review/README.md#2026-10-02人工身份资料与-2k-能力) | 本地折叠面板、精确名单候选、明确确认和13项能力卡；整季名单不证明当场阵容，null不补值、轨道不升级。144 JS / 102 Python全量通过，真实QA与独立产品审查通过；850项原文件 / 67备份 / 17版clip字节保持。正式草稿及真实下载未操作，代码 / 文档未提交推送 |
 | 默认球员单标注与漏框修复 | [原因与同片结果](../engineering/research/player-annotation-simple-20261002.md)、[操作说明](../engineering/tools/player-review/README.md)、[交接](../handoffs/thy-0629/2026-10-02-1745-player-annotation-simple.md) | 简版视频、固定数字与可撤销纠正，自动补空编号，未知队色不删身份；004第178帧原被隐藏的三个球员框重新可见。最终127JS / 80Python、独立代码 / 数据 / API与真实浏览器验证通过，原检测重复与同队串人未解决；未提交推送 |
 | 最新工作台同步与兼容整合 | [同步交接](../handoffs/thy-0629/2026-10-02-1657-workbench-remote-sync.md)、[当前工作台](../engineering/tools/player-review/README.md) | 本机main与origin/main同为72c74e0；四个新增提交已同步，本机两队 / 稳定展示 / 精确人工标注与新对象 / 脚部 / 球场工具共同保留；105JS、78Python及独立验收通过，原始视频 / 数据保留，本机整合未提交推送 |
@@ -99,6 +101,7 @@ NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../engin
 
 ## 交接记录
 
+- [2026-10-03：多人战术轨迹首版同步与兼容核验](../handoffs/thy-0629/2026-10-03-1103-tactical-overlay-sync.md)
 - [2026-10-02：人工球员资料确认与初步 2K 匹配](../handoffs/thy-0629/2026-10-02-1930-player-identity-2k.md)
 - [2026-10-02：默认单标注、恢复漏框与固定编号](../handoffs/thy-0629/2026-10-02-1745-player-annotation-simple.md)
 - [2026-10-02：同步最新工作台并保留本机篮球跟踪改动](../handoffs/thy-0629/2026-10-02-1657-workbench-remote-sync.md)
