@@ -2,7 +2,7 @@
 
 更新：2026-10-02，Asia/Shanghai。此目录集中软件方案依据、技术研究和测量；[赛事规则与历史来源](../../requirements/README.md)单独保存，实验结果不代替赛事要求。
 
-当前工作台整合说明见[独立分支更新记录](../docs/workbench-branch-update-20261002.md)：沿用用户版左侧导航、分步骤工具和底部 2D 抽屉，接入 THY 模型与 2K 查询，并增加整段 T 归并与审核来源提示。红蓝只表示分队，不推断攻守。发布目标为 `codex/local-workbench-20261002`，不合入 main；实际提交和同步状态以该记录及最新交接为准。
+当前工作台整合说明见[工作台更新记录](../docs/workbench-branch-update-20261002.md)：沿用用户版左侧导航、分步骤工具和底部 2D 抽屉，接入 THY 模型与 2K 查询，并增加整段 T 归并与审核来源提示。红蓝只表示分队，不推断攻守。2026-10-03 已分类提交并合入 main；原工作分支保持同步，实际提交和验证见[发布交接](../../handoffs/Linzeyu912/2026-10-03-1005-workbench-main-publication.md)。
 
 THY 的 20:27 [发布记录](player-workbench-publish-20261002.md)和[交接](../../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)是本次来源。下表的默认简版、提交位置与实测状态对应各自历史轮次；当前界面以[工作台说明](../tools/player-review/README.md)为准。
 

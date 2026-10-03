@@ -2,7 +2,7 @@
 
 ## 2026-10-02 晚间：按用户选择的本地整合
 
-本节对应已推送到 `codex/local-workbench-20261002` 的整合功能；提交与验证见[本次分支记录](../../../../engineering/docs/workbench-branch-update-20261002.md)，未合入 main。当前界面沿用用户版左侧导航、分步骤工具与底部 2D 抽屉；默认推荐 `team-stable`（THY 完整方案）。下文发布和简版界面描述保留对应历史状态。
+本节对应先前推送到 `codex/local-workbench-20261002`、现已于 2026-10-03 合入 main 的整合功能；提交与验证见[工作台更新记录](../../../../engineering/docs/workbench-branch-update-20261002.md)。当前界面沿用用户版左侧导航、分步骤工具与底部 2D 抽屉；默认推荐 `team-stable`（THY 完整方案）。下文发布和简版界面描述保留对应历史状态。
 
 | 样例 | 已接入版本 |
 |---|---|

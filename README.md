@@ -5,9 +5,11 @@
 **GitHub 仓库**：https://github.com/Linzeyu912/broadcastcode-team-hub  
 **当前阶段**：赛事准备与本机数据提取原型开发；完整 Agent 流程和 AWS 部署待完成。成员名单不代表已核验比赛入围资格。
 
-## 本分支的工作台更新
+## 工作台更新
 
-当前分支 `codex/local-workbench-20261002` 保存用户版与 THY 版的选择性整合：保留原 UI、脚点与球场映射，接入多模型及 2K 查询，增加整段 T 归并和待核对提示，红蓝仅表示分队。五个功能提交已于 2026-10-02 推送；[更新说明、提交清单与验证结果](engineering/docs/workbench-branch-update-20261002.md)记录完整范围。**本轮按用户要求只更新这个分支，未合入 main。** 下方 main-only 仍为仓库默认协作规则。
+2026-10-03 已按用户授权将人物关联冲突纠正、人物 / 球场蓝绿审核状态分成两项功能提交，推送工作分支后与最新 `main` 合并。功能合并提交为 [7ee65bd](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/7ee65bd88694fab6341dac8e0060842958ef58f0)，已核对本地 `main` 与两个远端分支一致；保留队友新增研究归档。241 项前端、216 项后端及构建检查通过。分类提交、冲突处理和数据校验边界见[本次发布交接](handoffs/Linzeyu912/2026-10-03-1005-workbench-main-publication.md)。下文早期分支状态保留对应轮次，后续恢复仓库默认的 main 协作流程。
+
+2026-10-02 的工作分支 `codex/local-workbench-20261002` 保存用户版与 THY 版的选择性整合：保留原 UI、脚点与球场映射，接入多模型及 2K 查询，增加整段 T 归并和待核对提示，红蓝仅表示分队。五个功能提交当日已推送；[更新说明、提交清单与验证结果](engineering/docs/workbench-branch-update-20261002.md)记录完整范围。当时仅更新工作分支，现已随上方合并进入 main。
 
 2026-10-03 追加检测候选来源、逐帧人工确认和精确定位修复，已推送三条分类提交。机器候选 / 未确认球员用虚线，本帧人工确认用实线；未跟踪与被抑制候选分别提示，无 T 人工兜底只改当前帧。见[操作与证据边界](engineering/docs/track-identity-review.md#检测候选与逐帧实线确认)和[交接记录](handoffs/Linzeyu912/2026-10-03-0010-detection-frame-review.md)。
 
