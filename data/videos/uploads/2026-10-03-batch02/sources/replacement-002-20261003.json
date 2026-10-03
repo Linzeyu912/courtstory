@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "user_requested_asset_replacement",
+  "dataset_id": "user-uploads-20261003-batch02",
+  "local_id": "002",
+  "clip_id": "user-uploads-20261003-batch02-002",
+  "replaced_at": "2026-10-03T14:48:17+08:00",
+  "timezone": "Asia/Shanghai",
+  "authorization": "用户要求查找截图所列四个文件；存在时，替换刚上传批次对应序号的视频。",
+  "original_receipt": "data/videos/uploads/2026-10-03-batch02/sources/uploaded-files.json",
+  "original_receipt_note": "初次接收的十一段记录保留原貌；当前 002 资产及来源以本替换记录和当前 manifest 为准。",
+  "before": {
+    "asset": {
+      "path": "clips/02_Spurs_20151223_Q3_5m59_team_motion_silent.mp4",
+      "bytes": 6095629,
+      "sha256": "b97ec97396a300e142a416c65aa44cf5feeae2dc96a46d20a80a3a5f287c262e",
+      "storage": "git-lfs",
+      "availability": "included"
+    },
+    "source": {
+      "kind": "user_upload",
+      "uploaded_filename": "02_Spurs_20151223_Q3_5m59_team_motion_silent.mp4",
+      "url": null,
+      "publisher": null,
+      "collected_at": "2026-10-03",
+      "start_seconds": null,
+      "end_seconds": null,
+      "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+    },
+    "video": {
+      "duration_seconds": 17.5,
+      "width": 792,
+      "height": 440,
+      "fps": 30.0,
+      "fps_fraction": "30/1",
+      "codec": "h264",
+      "frame_count": 525,
+      "audio_stream_count": 0,
+      "measurement_status": "measured",
+      "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+    }
+  },
+  "after": {
+    "asset": {
+      "path": "clips/02_Warriors_20240316_Q3_4m17_team_motion_1080class_silent.mp4",
+      "bytes": 8962802,
+      "sha256": "2435960f79e85859e31650204e110a25c79d6bc6cede0ea29c25af2881215df0",
+      "storage": "git-lfs",
+      "availability": "included"
+    },
+    "source": {
+      "kind": "user_upload",
+      "uploaded_filename": "02_Warriors_20240316_Q3_4m17_team_motion_1080class_silent.mp4",
+      "url": null,
+      "publisher": null,
+      "collected_at": "2026-10-03",
+      "start_seconds": null,
+      "end_seconds": null,
+      "unknown_reason": "用户要求用截图所列同名文件替换编号 002；截图指定的 HKS 下“新视频”目录在本机不存在，本次从本机 Codex 文件预览缓存找到同名文件并按原字节复制。未提供原页面、发布者或来源原片裁切区间；文件名仅为命名线索。",
+      "delivery_method": "local_preview_cache_recovery",
+      "replacement_record": "data/videos/uploads/2026-10-03-batch02/sources/replacement-002-20261003.json"
+    },
+    "video": {
+      "duration_seconds": 15.3,
+      "width": 1920,
+      "height": 1078,
+      "fps": 30.0,
+      "fps_fraction": "30/1",
+      "codec": "h264",
+      "frame_count": 459,
+      "audio_stream_count": 0,
+      "measurement_status": "measured",
+      "measurement_basis": "2026-10-03T14:48:17+08:00 使用 ffprobe 检查本机预览缓存中找到的用户指定同名替换文件；按原字节复制，未转码。"
+    }
+  },
+  "recovery": {
+    "requested_directory": "用户截图所列 HKS 下的“新视频”目录",
+    "requested_directory_exists": false,
+    "located_in": "本机 Codex 文件预览缓存",
+    "match_basis": "完整文件名一致；原截图路径未找到文件，未宣称取自原目录。",
+    "local_evidence": "artifacts/video-replacement-20261003-002/copy-and-decode-proof.json"
+  },
+  "verification": {
+    "ffprobe_exit_code": 0,
+    "decode_exit_code": 0,
+    "decode_stderr_bytes": 0,
+    "copied_bytes_match": true,
+    "source_sha256": "2435960f79e85859e31650204e110a25c79d6bc6cede0ea29c25af2881215df0",
+    "destination_sha256": "2435960f79e85859e31650204e110a25c79d6bc6cede0ea29c25af2881215df0",
+    "old_backup_sha256": "b97ec97396a300e142a416c65aa44cf5feeae2dc96a46d20a80a3a5f287c262e",
+    "compared_other_asset_count": 156,
+    "matching_other_asset_hashes": [],
+    "visual_status": "unverified",
+    "game_and_tactic_status": "unverified"
+  },
+  "other_requested_replacements": [
+    {
+      "local_id": "005",
+      "requested_filename": "05_Pacers_20250106_Q2_0m44_team_motion_720p_silent.mp4",
+      "status": "not_found_original_preserved"
+    },
+    {
+      "local_id": "006",
+      "requested_filename": "06_Grizzlies_20251202_Q1_6m33_screens_handoffs_native708_silent.mp4",
+      "status": "not_found_original_preserved"
+    },
+    {
+      "local_id": "010",
+      "requested_filename": "10_Celtics_20231201_Q4_1m01_multi_action_720p_silent.mp4",
+      "status": "not_found_original_preserved"
+    }
+  ],
+  "search_scope_note": "主代理检查截图目录、D 盘及用户下载、桌面、文档、视频、临时目录和 Codex 相关缓存；除 002 同名文件外，其余三项在本轮搜索范围内未找到，原资产保留。"
+}
