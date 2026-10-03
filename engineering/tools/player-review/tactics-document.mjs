@@ -1,6 +1,7 @@
 import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {validateInputs} from '../tactical-overlay/validation.mjs';
 import {validatePresentation} from './tactics-presentation.mjs';
+import {validateAnnotations} from './tactics-annotations.mjs';
 
 export const ACTION_KINDS={move:'跑位',cut:'切入',roll:'顺下',pop:'外弹',hold:'持位',space:'拉开',screen:'掩护'};
 export const clone=value=>JSON.parse(JSON.stringify(value));
@@ -8,7 +9,6 @@ export async function createTacticsDocument(review){
   review=clone(review);
   const count=review.sourceFrameMapping.length;
   const participants=review.entities.map(e=>({id:e.id,name:e.name||e.id,role:e.role||'player'}));
-  if(!participants.length)throw new Error('先在视频处理里关联至少一名球员，再建立战术草稿。');
   return {schemaVersion:1,title:'当前视频 · 战术审核',notes:'',review,
     playDefinition:{schemaVersion:1,synthetic:review.synthetic===true,playId:'manual-play',revision:1,
       sourceBinding:await createSourceBinding(review),startFrame:0,endFrameExclusive:count,participants,
@@ -19,6 +19,8 @@ export async function validateDocument(document){
   if(document?.schemaVersion!==1||typeof document.title!=='string'||typeof document.notes!=='string')throw new Error('战术文件格式不正确。');
   const presentationIssues=validatePresentation(document.presentation);
   if(presentationIssues.length)throw new Error(`展示修正无效：${presentationIssues.map(i=>i.details.field).join('、')}`);
+  const annotationIssues=validateAnnotations(document.annotations,document);
+  if(annotationIssues.length)throw new Error(`画布标注无效：${annotationIssues.map(i=>i.details.field).join('、')}`);
   const {review,playDefinition:play}=document;
   const issues=validateInputs({review,playDefinition:play,phaseId:play?.phases?.[0]?.phaseId,freezeFrame:play?.phases?.[0]?.freezeFrame});
   const errors=issues.filter(i=>i.severity==='fatal');
