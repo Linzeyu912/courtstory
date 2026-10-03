@@ -1,5 +1,6 @@
 import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {validateInputs} from '../tactical-overlay/validation.mjs';
+import {validatePresentation} from './tactics-presentation.mjs';
 
 export const ACTION_KINDS={move:'跑位',cut:'切入',roll:'顺下',pop:'外弹',hold:'持位',space:'拉开',screen:'掩护'};
 export const clone=value=>JSON.parse(JSON.stringify(value));
@@ -16,6 +17,8 @@ export async function createTacticsDocument(review){
 }
 export async function validateDocument(document){
   if(document?.schemaVersion!==1||typeof document.title!=='string'||typeof document.notes!=='string')throw new Error('战术文件格式不正确。');
+  const presentationIssues=validatePresentation(document.presentation);
+  if(presentationIssues.length)throw new Error(`展示修正无效：${presentationIssues.map(i=>i.details.field).join('、')}`);
   const {review,playDefinition:play}=document;
   const issues=validateInputs({review,playDefinition:play,phaseId:play?.phases?.[0]?.phaseId,freezeFrame:play?.phases?.[0]?.freezeFrame});
   const errors=issues.filter(i=>i.severity==='fatal');

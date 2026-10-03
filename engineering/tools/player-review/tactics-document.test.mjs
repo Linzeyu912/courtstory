@@ -48,3 +48,11 @@ test('source changes cannot rebind a plan to another model or frame mapping',asy
   const d=await fixture();await assert.rejects(refreshSnapshot(d,{...d.review,trackingFingerprint:'another-model'}));
   const review=structuredClone(d.review);review.sourceFrameMapping[0].sourceTime+=1;await assert.rejects(refreshSnapshot(d,review));
 });
+
+test('optional presentation data rejects malformed edits instead of accepting unsafe imported coordinates',async()=>{
+  const d=await fixture();
+  for(const presentation of [null,{schemaVersion:2,routes:[]},{schemaVersion:1,routes:[{routeId:'unsafe',controlPoints:[{frame:0,x:Infinity,y:1}]}]}]){
+    await assert.rejects(validateDocument({...d,presentation}),/展示修正/);
+  }
+  await validateDocument({...d,presentation:{schemaVersion:1,routes:[]}});
+});
