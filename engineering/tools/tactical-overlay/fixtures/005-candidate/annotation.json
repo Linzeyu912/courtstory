@@ -1,0 +1,790 @@
+{
+  "schemaVersion": "observation-candidate-v1",
+  "notProductInput": true,
+  "playId": "005-sas-mia-assistant-candidate",
+  "synthetic": false,
+  "source": "assistant_visual_inspection",
+  "reviewStatus": "needs_review",
+  "metricAccuracyValidated": false,
+  "allFramesManuallyVerified": false,
+  "sourceFiles": {
+    "video": "data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4",
+    "tracks": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+    "feet": "engineering/research/vision-player-refinement/feet-candidates-005.json",
+    "court": "engineering/research/vision-player-refinement/court-candidates-005.json"
+  },
+  "sourceHashes": {
+    "data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+    "data/videos/tactics/acceptance/tracks/005-ebard.json": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+    "engineering/research/vision-player-refinement/feet-candidates-005.json": "9e54439058c79e9e77094785b1e516d2acd30f6ec9bf7a5bd749ad25dcf25525",
+    "engineering/research/vision-player-refinement/court-candidates-005.json": "a5ec52f6aac0ca87d5c43df07d3d7b0e06767ebfdff3b2b594b6c8de3aca6988"
+  },
+  "playRange": {
+    "startFrame": 0,
+    "endFrameExclusive": 143
+  },
+  "preferredFreezeFrames": [
+    15,
+    40,
+    90
+  ],
+  "conservativeCalibrationPreviewInterval": {
+    "startFrame": 0,
+    "endFrameExclusive": 108
+  },
+  "participants": [
+    {
+      "id": "P1",
+      "displayName": "白队 20 号",
+      "teamDescription": "SAS white (visual)",
+      "role": "右侧接应、运球绕过掩护、外线出球后拉开",
+      "bindings": [
+        {
+          "trackId": 3,
+          "startFrame": 0,
+          "endFrameExclusive": 108
+        }
+      ],
+      "unresolvedRanges": [
+        [
+          108,
+          143
+        ]
+      ],
+      "note": "T3 后段虽间歇返回，108 以后左侧与白33出现遮挡/混合框；本候选不自动续接。",
+      "identityEvidenceSource": "assistant_visual_inspection",
+      "reviewStatus": "needs_review",
+      "identityConfirmed": false,
+      "personName": null
+    },
+    {
+      "id": "P2",
+      "displayName": "白队 21 号",
+      "teamDescription": "SAS white (visual)",
+      "role": "开头持球、高位掩护、顺下接球、近筐出手",
+      "bindings": [
+        {
+          "trackId": 2,
+          "startFrame": 0,
+          "endFrameExclusive": 31
+        },
+        {
+          "trackId": 2,
+          "startFrame": 33,
+          "endFrameExclusive": 38
+        },
+        {
+          "trackId": 2,
+          "startFrame": 39,
+          "endFrameExclusive": 45
+        },
+        {
+          "trackId": 2,
+          "startFrame": 46,
+          "endFrameExclusive": 143
+        }
+      ],
+      "unresolvedRanges": [
+        [
+          31,
+          33
+        ],
+        [
+          38,
+          39
+        ],
+        [
+          45,
+          46
+        ]
+      ],
+      "note": "缺框不得以 T10 补齐。起跳/转身时框底不是接地真值。",
+      "identityEvidenceSource": "assistant_visual_inspection",
+      "reviewStatus": "needs_review",
+      "identityConfirmed": false,
+      "personName": null
+    },
+    {
+      "id": "P3",
+      "displayName": "白队 9 号",
+      "teamDescription": "SAS white (visual)",
+      "role": "弧顶附近无球移动，经底线侧到远侧接应位置",
+      "bindings": [
+        {
+          "trackId": 8,
+          "startFrame": 0,
+          "endFrameExclusive": 80
+        },
+        {
+          "trackId": 8,
+          "startFrame": 84,
+          "endFrameExclusive": 143
+        }
+      ],
+      "unresolvedRanges": [
+        [
+          80,
+          84
+        ]
+      ],
+      "note": "80–83 仍可在画面看见白9，缺检测不等于出画。",
+      "identityEvidenceSource": "assistant_visual_inspection",
+      "reviewStatus": "needs_review",
+      "identityConfirmed": false,
+      "personName": null
+    },
+    {
+      "id": "P4",
+      "displayName": "白队 33 号",
+      "teamDescription": "SAS white (visual)",
+      "role": "远侧左翼拉开、保持接应",
+      "bindings": [
+        {
+          "trackId": 5,
+          "startFrame": 0,
+          "endFrameExclusive": 108
+        }
+      ],
+      "unresolvedRanges": [
+        [
+          108,
+          143
+        ]
+      ],
+      "note": "108–118 附近 T5 框兼含或转到白20；例如 f110/f112 不可继续当作白33地面轨迹。",
+      "identityEvidenceSource": "assistant_visual_inspection",
+      "reviewStatus": "needs_review",
+      "identityConfirmed": false,
+      "personName": null
+    },
+    {
+      "id": "P5",
+      "displayName": "白队 2 号",
+      "teamDescription": "SAS white (visual)",
+      "role": "远侧拉开，随后向内线跟进",
+      "bindings": [
+        {
+          "trackId": 7,
+          "startFrame": 0,
+          "endFrameExclusive": 111
+        },
+        {
+          "trackId": 15,
+          "startFrame": 128,
+          "endFrameExclusive": 136
+        }
+      ],
+      "unresolvedRanges": [
+        [
+          111,
+          128
+        ],
+        [
+          136,
+          143
+        ]
+      ],
+      "note": "f98 框底一步跳 72.6 像素，但 f100/f109 仍是白2；属遮挡位置风险，不能仅凭跳变定性身份串换。后段 T15 在 f128/f131/f133/f135 可见为白2候选；T16 位于左侧，绝不接到白2。",
+      "identityEvidenceSource": "assistant_visual_inspection",
+      "reviewStatus": "needs_review",
+      "identityConfirmed": false,
+      "personName": null
+    },
+    {
+      "id": "P6",
+      "displayName": "黑队 3 号",
+      "teamDescription": "MIA black (visual)",
+      "role": "白20的跟防者；与白21掩护关系直接相关",
+      "bindings": [
+        {
+          "trackId": 1,
+          "startFrame": 0,
+          "endFrameExclusive": 143
+        }
+      ],
+      "unresolvedRanges": [],
+      "note": "本演示只额外纳入这一位明确相关防守者，不表示其余四名防守者不存在。",
+      "identityEvidenceSource": "assistant_visual_inspection",
+      "reviewStatus": "needs_review",
+      "identityConfirmed": false,
+      "personName": null
+    }
+  ],
+  "phases": [
+    {
+      "phaseId": "phase1",
+      "title": "高位出球与外线接应",
+      "startFrame": 0,
+      "endFrameExclusive": 33,
+      "freezeFrame": 15,
+      "participantIds": [
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6"
+      ],
+      "actionIds": [
+        "a1_receive_and_turn",
+        "a4_setup",
+        "a5_screen",
+        "a8_offball_relocate",
+        "a10_wing_space",
+        "a11_corner_hold",
+        "a13_chase"
+      ],
+      "relationIds": [
+        "r1_screen"
+      ]
+    },
+    {
+      "phaseId": "phase2",
+      "title": "绕过掩护、内线顺下",
+      "startFrame": 33,
+      "endFrameExclusive": 78,
+      "freezeFrame": 40,
+      "participantIds": [
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6"
+      ],
+      "actionIds": [
+        "a1_receive_and_turn",
+        "a2_prepare_pass",
+        "a3_after_pass_space",
+        "a5_screen",
+        "a6_roll_receive",
+        "a8_offball_relocate",
+        "a10_wing_space",
+        "a11_corner_hold",
+        "a13_chase",
+        "a14_defender_observe"
+      ],
+      "relationIds": [
+        "r1_screen"
+      ]
+    },
+    {
+      "phaseId": "phase3",
+      "title": "内线接球与弱侧跟进",
+      "startFrame": 78,
+      "endFrameExclusive": 143,
+      "freezeFrame": 90,
+      "participantIds": [
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6"
+      ],
+      "actionIds": [
+        "a3_after_pass_space",
+        "a6_roll_receive",
+        "a7_near_rim_finish",
+        "a8_offball_relocate",
+        "a9_far_side_space",
+        "a10_wing_space",
+        "a11_corner_hold",
+        "a12_follow_inside",
+        "a14_defender_observe"
+      ],
+      "relationIds": []
+    }
+  ],
+  "actions": [
+    {
+      "actionId": "a1_receive_and_turn",
+      "actorId": "P1",
+      "participantIds": [
+        "P1"
+      ],
+      "kind": "move",
+      "startFrame": 0,
+      "endFrameExclusive": 53,
+      "label": "从右侧接应并运球绕到掩护左侧",
+      "evidenceFrames": [
+        0,
+        15,
+        29,
+        30,
+        34,
+        37,
+        40,
+        43,
+        46,
+        49,
+        52
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "actionId": "a2_prepare_pass",
+      "actorId": "P1",
+      "participantIds": [
+        "P1"
+      ],
+      "kind": "hold",
+      "startFrame": 53,
+      "endFrameExclusive": 64,
+      "label": "外线短暂停留并准备出球",
+      "evidenceFrames": [
+        55,
+        58,
+        60,
+        61
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "actionId": "a3_after_pass_space",
+      "actorId": "P1",
+      "participantIds": [
+        "P1"
+      ],
+      "kind": "space",
+      "startFrame": 64,
+      "endFrameExclusive": 143,
+      "label": "出球后向左侧拉开；源片末端有身份/出画待核",
+      "evidenceFrames": [
+        67,
+        75,
+        78,
+        84,
+        90,
+        100,
+        107,
+        109,
+        119,
+        125,
+        131,
+        138
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review",
+      "clipBoundaryLimited": true
+    },
+    {
+      "actionId": "a4_setup",
+      "actorId": "P2",
+      "participantIds": [
+        "P2"
+      ],
+      "kind": "move",
+      "startFrame": 0,
+      "endFrameExclusive": 30,
+      "label": "开头持球并靠近高位配合点",
+      "evidenceFrames": [
+        0,
+        15,
+        29
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "actionId": "a5_screen",
+      "actorId": "P2",
+      "participantIds": [
+        "P2",
+        "P1",
+        "P6"
+      ],
+      "kind": "screen",
+      "startFrame": 30,
+      "endFrameExclusive": 47,
+      "label": "白21为白20绕行提供阻挡位置",
+      "evidenceFrames": [
+        30,
+        34,
+        37,
+        40,
+        43,
+        46
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "actionId": "a6_roll_receive",
+      "actorId": "P2",
+      "participantIds": [
+        "P2"
+      ],
+      "kind": "roll",
+      "startFrame": 47,
+      "endFrameExclusive": 94,
+      "label": "转身顺下并在内线接球",
+      "evidenceFrames": [
+        47,
+        49,
+        52,
+        60,
+        67,
+        75,
+        78,
+        80,
+        82,
+        84,
+        90
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "actionId": "a7_near_rim_finish",
+      "actorId": "P2",
+      "participantIds": [
+        "P2"
+      ],
+      "kind": "hold",
+      "startFrame": 94,
+      "endFrameExclusive": 143,
+      "label": "内线转身和近筐出手；仅标地面代表位置，不画球的空中弧线",
+      "evidenceFrames": [
+        94,
+        97,
+        100,
+        103,
+        105,
+        109,
+        112,
+        120,
+        125,
+        135,
+        142
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "actionId": "a8_offball_relocate",
+      "actorId": "P3",
+      "participantIds": [
+        "P3"
+      ],
+      "kind": "move",
+      "startFrame": 0,
+      "endFrameExclusive": 80,
+      "label": "无球穿过内线到远侧接应区域",
+      "evidenceFrames": [
+        0,
+        15,
+        30,
+        40,
+        49,
+        60,
+        67,
+        75,
+        78
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "actionId": "a9_far_side_space",
+      "actorId": "P3",
+      "participantIds": [
+        "P3"
+      ],
+      "kind": "space",
+      "startFrame": 80,
+      "endFrameExclusive": 143,
+      "label": "远侧保持接应；80–83 检测缺口保留",
+      "evidenceFrames": [
+        80,
+        81,
+        82,
+        83,
+        84,
+        90,
+        100,
+        120,
+        142
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "actionId": "a10_wing_space",
+      "actorId": "P4",
+      "participantIds": [
+        "P4"
+      ],
+      "kind": "space",
+      "startFrame": 0,
+      "endFrameExclusive": 143,
+      "label": "远侧左翼拉开；摄影机位移不等于实际长距离跑动",
+      "evidenceFrames": [
+        0,
+        15,
+        30,
+        45,
+        60,
+        75,
+        90,
+        107,
+        110,
+        118,
+        125,
+        135
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review",
+      "clipBoundaryLimited": true
+    },
+    {
+      "actionId": "a11_corner_hold",
+      "actorId": "P5",
+      "participantIds": [
+        "P5"
+      ],
+      "kind": "hold",
+      "startFrame": 0,
+      "endFrameExclusive": 79,
+      "label": "远侧拉开等待接应",
+      "evidenceFrames": [
+        0,
+        15,
+        30,
+        45,
+        60,
+        75,
+        78
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "actionId": "a12_follow_inside",
+      "actorId": "P5",
+      "participantIds": [
+        "P5"
+      ],
+      "kind": "cut",
+      "startFrame": 79,
+      "endFrameExclusive": 143,
+      "label": "弱侧向内线跟进；缺轨及源片末端不补造",
+      "evidenceFrames": [
+        81,
+        84,
+        90,
+        95,
+        98,
+        100,
+        109,
+        111,
+        125,
+        128,
+        131,
+        133,
+        135,
+        142
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review",
+      "clipBoundaryLimited": true
+    },
+    {
+      "actionId": "a13_chase",
+      "actorId": "P6",
+      "participantIds": [
+        "P6"
+      ],
+      "kind": "move",
+      "startFrame": 0,
+      "endFrameExclusive": 64,
+      "label": "黑3跟随白20绕过白21",
+      "evidenceFrames": [
+        0,
+        15,
+        30,
+        34,
+        40,
+        45,
+        52,
+        60,
+        61
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "actionId": "a14_defender_observe",
+      "actorId": "P6",
+      "participantIds": [
+        "P6"
+      ],
+      "kind": "hold",
+      "startFrame": 64,
+      "endFrameExclusive": 143,
+      "label": "出球后回看内线",
+      "evidenceFrames": [
+        67,
+        75,
+        90,
+        105,
+        120,
+        142
+      ],
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review"
+    }
+  ],
+  "relations": [
+    {
+      "relationId": "r1_screen",
+      "kind": "screen",
+      "actionId": "a5_screen",
+      "screenerId": "P2",
+      "beneficiaryId": "P1",
+      "defenderIds": [
+        "P6"
+      ],
+      "startFrame": 30,
+      "endFrameExclusive": 47,
+      "eventFrame": 40,
+      "source": "assistant_visual_inspection",
+      "reviewStatus": "needs_review",
+      "imagePositionCandidate": {
+        "frame": 40,
+        "trackId": 2,
+        "point": [
+          898.8934326171875,
+          733.2432861328125
+        ],
+        "method": "bbox_bottom_center",
+        "groundPoint": false
+      },
+      "orientation": null,
+      "barRenderability": "unavailable",
+      "issue": "screen_orientation_missing",
+      "evidenceFrames": [
+        34,
+        37,
+        40,
+        43,
+        46
+      ],
+      "note": "人物阻挡关系可见，但该时段白21鞋部与前后人物重叠，脚缓存左右候选不等于可靠地面横向轴。不得用路线切线、框宽或防守者脚线补掩护短横杠。"
+    }
+  ],
+  "quality": {
+    "identity": "needs_review",
+    "position": "needs_review",
+    "calibration": "needs_review",
+    "tactic": "needs_review"
+  },
+  "reviewEvidence": {
+    "reviewer": "Codex assistant video analyst",
+    "method": "assistant_visual_inspection",
+    "reviewedFrames": [
+      0,
+      15,
+      29,
+      30,
+      31,
+      32,
+      34,
+      37,
+      38,
+      40,
+      43,
+      44,
+      45,
+      46,
+      47,
+      49,
+      52,
+      55,
+      58,
+      60,
+      61,
+      67,
+      75,
+      78,
+      80,
+      81,
+      82,
+      83,
+      84,
+      90,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      103,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      114,
+      115,
+      118,
+      119,
+      120,
+      125,
+      128,
+      131,
+      133,
+      135,
+      136,
+      138,
+      140,
+      142
+    ],
+    "contactSheets": [
+      "005-contact-0-15-30-45-60-75-90-105-120-142.jpg",
+      "005-contact-29-32-38-44-47-61-67-78-81-84.jpg",
+      "005-contact-31-34-37-40-43-46-49-52-55-58.jpg",
+      "005-contact-80-82-83-111-114-128-131-133-136-138.jpg",
+      "005-contact-94-96-97-98-99-107-108-110-118-119.jpg",
+      "005-contact-95-100-103-106-109-112-115-125-135-140.jpg"
+    ],
+    "fullResolutionFramesViewed": [
+      0,
+      15,
+      30,
+      34,
+      40,
+      45,
+      49,
+      60,
+      75,
+      90,
+      100,
+      109,
+      125,
+      135
+    ],
+    "identityReviewGranularity": "sampled frames plus numeric presence/jump audit; not per-frame verified truth",
+    "upstreamLabel": "data/videos/tactics/acceptance/labels/005.json (upstream_supplied, not treated as human confirmation)"
+  },
+  "warnings": [
+    "All real-data quality states remain needs_review.",
+    "Raw court candidates are not accepted calibration; source statuses must remain unchanged.",
+    "Do not connect across missing identity, calibration or track intervals.",
+    "PTS comes from decoded frames, not invented frame/fps timing.",
+    "The annotated play retains the full source so later actions are not silently shortened. Some actions are limited by source-clip boundaries and partial tracks.",
+    "Participant IDs are local to this observation candidate; do not overwrite browser entities."
+  ],
+  "observationRecord": {
+    "path": "artifacts/tactical-overlay-20261002/observations/sample005-annotation-candidate.json",
+    "sha256": "c2905b0fe04c8a2cb3e4954ece96f6f14418af2c5c052422e652f6dc87f3f8a9",
+    "report": "artifacts/tactical-overlay-20261002/observations/report.md",
+    "reportSha256": "571f2518cd64b0114a6cfff8baa67082570f54c1e73fac62cb99510ef684a0a6"
+  }
+}

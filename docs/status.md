@@ -18,6 +18,7 @@
 
 本次同步：按用户要求，2026-10-02 21:44 已将晚间本地工作台改动作为 `b557622` 推送到 [`codex/local-workbench-20261002`](https://github.com/Linzeyu912/broadcastcode-team-hub/tree/codex/local-workbench-20261002)。下文各轮“本地未提交”描述保留当时状态，本次同步结果见[分支交接](../handoffs/Linzeyu912/2026-10-02-2144-local-workbench-branch-push.md)。该分支基于本机 `72c74e0`，未合入远端 main 后续两次提交；此次分支操作是用户明确指定的任务例外。
 
+
 ## 当前阶段
 
 NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../engineering/research/nba-evidence-study-20261002/README.md)与[交接](../handoffs/chuali-zi/2026-10-02-2135-nba-evidence-study-closeout.md)。完成真实输入审计、来源适配Schema、离线故障/投影/球候选实验与事实门控比较。11个合成错误世界事实中，能力和依赖门控仍放行5个，且损失部分正确候选；实验不能宣称生产准确率。7项独立人类复核、米制真值与真实处理延迟未建立。本次选择性发布研究文件，生产提取及总结生成模块保持原状。
@@ -27,6 +28,8 @@ NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../engin
 2026-10-02 晚间，工作台本地增加取消人物误关联、清空槽位和红蓝两队拖动交换；原图 / 2D 同步留空或换人，草稿与撤销保留。73项JavaScript、76项Python与独立浏览器QA通过，8876本机服务已重启，正式草稿未代操作；用户要求只保存在本地，未提交推送。见[交接](../handoffs/Linzeyu912/2026-10-02-2046-roster-cancel-swap.md)。
 
 2026-10-02 晚间，本地后端新增篮筐方向约束的球场自动初始化接口及命令行入口；005实际初始化后生成139/143帧待复核映射，后端60项回归和9项HTTP检查通过。代码尚未提交推送，该轮交接时正式服务尚未重启，米制精度未验收；见[后端说明](../engineering/docs/court-calibration-backend.md)与[交接](../handoffs/Linzeyu912/2026-10-02-2010-hoop-court-backend.md)。
+
+2026-10-03 本机完成第一版独立多人战术轨迹引擎与冻结帧静态报告：当前完整动作实线、后续真实观测虚线、完成动作淡化，保留全参与者、分阶段和有朝向证据的掩护标记。真实 005 SAS–MIA 为 3 阶段 / 6 人待复核候选，与合成规则演示分开；全套曾完成 57 项（56 通过 / 1 Windows 权限跳过），最后路线避让修正重跑受影响消费器 27 项（26 通过 / 同一项跳过），均 0 失败。8 个实际浏览器场景及最终独立复核通过，标签不再遮住路线、箭头或掩护横杠；窄侧栏可横向查看完整画布。原工作台与正式草稿未改，真实身份/地面精度及播放器接入未验收；本轮未提交推送。见[工具与接口](../engineering/tools/tactical-overlay/README.md)、[本轮交接和恢复步骤](../handoffs/thy-0629/2026-10-03-0055-tactical-overlay-engine.md)。
 
 2026-10-02 20:27 发布记录：当前工作台源码与预计算候选已按授权推送 `main`，GitHub API、ls-remote 与 fetch 实测为 [351292f](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/351292fba6c5e7accafea9f8780a81b93810caba)。四样例 / 17 版所需本机结果复制为 22 份共享 JSON / metadata，库中 11 条路径改指向副本，完整 clip payload 与运行中原路径 API 一致；默认简版、人工资料确认和 13 项能力逻辑保持。本次新运行 144 JS、102 Python及 38 项离线篮球测试通过，视频校验 5 批 / 142 条及 142 文件 / LFS 指针通过。本次最新说明与[发布交接](../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)随本次文档提交同步，具体提交以 Git 日志为准；下方按轮次保留旧同步状态。模型权重、GPU 环境、原缓存、QA 草稿 / 测试成片不在发布范围，没有新增断轨续接或 OCR。
 
@@ -46,6 +49,7 @@ NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../engin
 
 | 成果 | 文件 / 入口 | 状态 |
 |---|---|---|
+| 多人分阶段战术轨迹 | [接口 / 复现说明](../engineering/tools/tactical-overlay/README.md)、[批准规格](../engineering/docs/specs/2026-10-02-tactical-trajectory-overlay-design.md)、[交接](../handoffs/thy-0629/2026-10-03-0055-tactical-overlay-engine.md) | 第一版本地完成：来源绑定 manifest、SVG、三阶段真实候选、多人实虚线与掩护关系；标签避让路线、窄画布滚动及 8 场景实际验证通过，最终独立复核通过。真实精度与前端接入待完成；未提交推送 |
 | 人工身份资料与初步 2K 匹配 | [实测记录](../engineering/research/player-identity-2k-20261002.md)、[使用说明](../engineering/tools/player-review/README.md#2026-10-02人工身份资料与-2k-能力) | 本地折叠面板、精确名单候选、明确确认和13项能力卡；整季名单不证明当场阵容，null不补值、轨道不升级。144 JS / 102 Python全量通过，真实QA与独立产品审查通过；850项原文件 / 67备份 / 17版clip字节保持。正式草稿及真实下载未操作，代码 / 文档未提交推送 |
 | 默认球员单标注与漏框修复 | [原因与同片结果](../engineering/research/player-annotation-simple-20261002.md)、[操作说明](../engineering/tools/player-review/README.md)、[交接](../handoffs/thy-0629/2026-10-02-1745-player-annotation-simple.md) | 简版视频、固定数字与可撤销纠正，自动补空编号，未知队色不删身份；004第178帧原被隐藏的三个球员框重新可见。最终127JS / 80Python、独立代码 / 数据 / API与真实浏览器验证通过，原检测重复与同队串人未解决；未提交推送 |
 | 最新工作台同步与兼容整合 | [同步交接](../handoffs/thy-0629/2026-10-02-1657-workbench-remote-sync.md)、[当前工作台](../engineering/tools/player-review/README.md) | 本机main与origin/main同为72c74e0；四个新增提交已同步，本机两队 / 稳定展示 / 精确人工标注与新对象 / 脚部 / 球场工具共同保留；105JS、78Python及独立验收通过，原始视频 / 数据保留，本机整合未提交推送 |
