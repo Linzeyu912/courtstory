@@ -56,7 +56,15 @@ class TacticalWorkbench:
         if kind == 'candidate':
             original = self.candidate()['review']
             if review != original:
-                raise ValueError('THY 示例的来源快照不可改写；请在当前视频草稿中修改轨迹。')
+                # Older snapshots predate these derived exports. Compare against
+                # that exact server-side shape without rewriting the saved review
+                # or its source bindings, and never discard client-supplied fields.
+                derived = {'basketballTrajectory', 'basketballTrajectoryMethod', 'basketballTrajectoryReviewed'}
+                objects = original.get('sceneObjects')
+                legacy = ({**original, 'sceneObjects': {key: value for key, value in objects.items() if key not in derived}}
+                          if isinstance(objects, dict) and derived.issubset(objects) else None)
+                if review != legacy:
+                    raise ValueError('THY 示例的来源快照不可改写；请在当前视频草稿中修改轨迹。')
         elif review.get('trackingFingerprint') != clip['tracking_fingerprint'] or review.get('trackingRevision') != clip['tracking_revision']:
             raise ValueError('战术快照属于另一个模型版本。')
         expected = [{'frame': f['frame'], 'time': f['time'], 'sourceFrame': f.get('source_frame', f['frame']),
