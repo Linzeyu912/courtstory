@@ -122,3 +122,31 @@ test('mounted playback reuses decoded frames, trims cached routes, pauses on ski
     globalThis.document.body.dataset.area='footage';await env.exit();env.present(60);assert.equal(env.ui.getPlaybackState().status,'inactive');assert.equal(env.playerCalls.filter(c=>c[0]==='play').length,plays);
   }finally{env.restore();}
 });
+
+test('same-phase seek during a saved presentation rebuild applies the new model before edits unlock and retains the first edit',async()=>{
+  const f=await makePresentationDemo(),env=environment({schemaVersion:1,title:'fixture',notes:'',...f},{player:true});
+  const subtle=globalThis.crypto.subtle,own=Object.getOwnPropertyDescriptor(subtle,'digest'),real=subtle.digest;
+  let release,blocked;const gate=new Promise(resolve=>release=resolve),reached=new Promise(resolve=>blocked=resolve);
+  try{
+    await env.load();const route=env.selectRoute(),first=route.controlPoints[0],changedX=first.x+.2;
+    await env.event('pointerdown',{pointerId:7,target:env.handle(0)});
+    await env.event('pointermove',{pointerId:7,clientX:changedX*40,clientY:first.y*40});
+    Object.defineProperty(subtle,'digest',{configurable:true,value:async function(algorithm,data){
+      const value=JSON.parse(new TextDecoder().decode(data));
+      if(value?.points&&Object.hasOwn(value,'breakBefore')){blocked();await gate;}
+      return real.call(this,algorithm,data);
+    }});
+    const pending=env.event('pointerup',{pointerId:7});await reached;await env.ui.saveDraft();
+    await env.get('tacticsSave').onclick();assert.ok(Math.abs(env.saved.at(-1).document.presentation.routes[0].controlPoints[0].x-changedX)<1e-6);
+    assert.equal(env.ui.getSceneState().editBusy,true);assert.equal(env.ui.getSceneState().model.routes.find(r=>r.routeId===route.routeId).manual,false);
+    env.ui.externalSeek(16);env.present(16);assert.equal(env.ui.getSceneState().editBusy,true);
+    release();await pending;await env.ui.ready();
+    const updated=env.ui.getSceneState().model.routes.find(r=>r.routeId===route.routeId);
+    assert.equal(updated.manual,true,'same-phase time navigation must not invalidate a newly saved document model');
+    assert.ok(Math.abs(updated.controlPoints[0].x-changedX)<1e-6);assert.equal(env.ui.getSceneState().frame,16);assert.equal(env.ui.getSceneState().editBusy,false);
+    env.get('tacticsRoutePlayer').value='P2';env.get('tacticsRoutePlayer').onchange();env.get('tacticsRoutePlayer').value='P1';env.get('tacticsRoutePlayer').onchange();env.selectRoute();
+    const second=updated.controlPoints[1];await env.event('pointerdown',{pointerId:8,target:env.handle(1)});
+    await env.event('pointermove',{pointerId:8,clientX:second.x*40,clientY:(second.y+.1)*40});await env.event('pointerup',{pointerId:8});
+    await env.get('tacticsSave').onclick();assert.ok(Math.abs(env.saved.at(-1).document.presentation.routes[0].controlPoints[0].x-changedX)<1e-6,'editing another point must retain the saved first point');
+  }finally{release();if(own)Object.defineProperty(subtle,'digest',own);else delete subtle.digest;env.restore();}
+});
