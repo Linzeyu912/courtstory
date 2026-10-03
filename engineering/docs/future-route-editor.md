@@ -27,8 +27,14 @@ JSON 包含完整展示修正与来源绑定。现有 HTML 冻结报告仍使用
 | `renderFrame(frame,mediaTime,backgroundSource,{editing=true})` | 从缓存 model 同步裁剪/投影，复制提供的已呈现画面到稳定 canvas；播放传 `editing:false`，暂停后传 true；无 model 或加载中返回 false |
 | `invalidatePreview()` | 递增请求 epoch 并取消手势，保留缓存 model，供开始播放或退出前使用 |
 | `cancelEditing()` | 丢弃当前拖动与临时曲线，不写文档 |
+| `onPresentedFrame({frame,time,source,paused})` | 接收已呈现视频 canvas，驱动阶段自动暂停及同步裁剪 |
+| `externalSeek(frame)` | 外部时间轴/逐帧跳转取消播放意图，切到对应阶段并保持暂停 |
+| `togglePlayback()` | 战术页接管底部播放键；返回 false 时由原播放器处理 |
+| `getPlaybackState()` | `{phaseId,status,targetFrame}`：inactive / seeking / paused / playing / ended |
 
-背景 scene/canvas/overlay 节点保持稳定；SVG 内容刷新，pointer capture 固定在画布外层。`renderFrame` 不重新提取路线、不请求 JPEG、不更新审核名单；仅编辑模式变化时更新编辑控件。播放接入尚由后续任务完成，当前依然为独立冻结图。
+背景 scene/canvas/overlay 节点保持稳定；SVG 内容刷新，pointer capture 固定在画布外层。`renderFrame` 不重新提取路线、不请求 JPEG、不更新审核名单；仅编辑模式变化时更新编辑控件。工作台现已复用 `video-display` 的已呈现帧及 `frameAtMediaTime` / `frameSeekTime`。选择阶段定位冻结帧，继续到下一阶段冻结点自动 pause + seek，末阶段末帧停止；重播先回到本阶段冻结帧。外部 seek 与退出取消自动继续。无当前标定仍显示同步视频，隐藏视频路线并提示；目标帧未呈现时隐藏旧场景，避免叠加到上一帧。
+
+同步接入要求 `api` 提供 `play()`、`pause()`、`seek(frame)`、`getPresentedFrame()`，后者返回已呈现事件或 null；`source` 是与 frame/time 对应的解码 canvas。没有播放器桥接的独立预览仍支持精确 JPEG / 2D。部署本机源码更新后须运行 `npm run build`，因为 `app.mjs` 使用 `ui.bundle.mjs` 导出的 `mountVideoDisplay`。
 
 编辑状态与 SVG 逆 CTM 坐标映射位于 `tactics-route-editor.mjs`。pointermove 只重建单条临时曲线，不克隆文档/hash/持久化。
 

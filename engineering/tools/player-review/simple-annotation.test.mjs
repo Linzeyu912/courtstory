@@ -6,7 +6,7 @@ import {confirmIdentity} from './identity-timeline.mjs';
 
 // Exercise the shipped step-based workbench and imported model annotations. The DOM double replaces layout,
 // media playback and React mounting; identity, draft and click routing stay real.
-async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit}={}){
+async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit,tacticsBridge=false}={}){
   const reviewRequests=[];
   const records=[0,.031,.078,.119,.165].map((time,frame)=>({frame,time,
     tracks:[[100,80,220,320,7,.95,2],[400,100,530,330,8,.93,2],[720,90,840,300,9,.92,2]],
@@ -59,18 +59,21 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit}={}){
       }
       return {ok:true,json:async()=>url==='/api/library'?{defaultSample:'test',samples:[{id:'test',title:'测试视频',defaultVariant:'team-stable'}]}:url==='/team-overlay-policy.json'?policy:String(url).startsWith('/api/player-identity/options')?{seasons:[],teams:[]}:clip};
     }});
-  let appApi,identityActions,identityState,workbench;
+  let appApi,identityActions,identityState,workbench,tacticsApi;const tacticsCalls=[];
   try{
     const source=readFileSync(new URL('./app.mjs',import.meta.url),'utf8'),imports=[...source.matchAll(/^import \{([^}]+)\} from '([^']+)';$/gm)],dependencies={};
     for(const match of imports){
       if(match[2]==='./ui.bundle.mjs'){dependencies.mountIdentityUI=actions=>{identityActions=actions;return {render(state){identityState=state;}};};
-        dependencies.mountVideoDisplay=({video,stage,startTime,onReady})=>{
-          stage.dataset.videoState='ready';video.currentTime=startTime;onReady?.({time:startTime});
-          return {pause:()=>video.pause(),seek:time=>{video.pause();video.currentTime=time;},
+        dependencies.mountVideoDisplay=({video,stage,startTime,onReady,onFrame})=>{
+          stage.dataset.videoState='ready';video.currentTime=startTime;onReady?.({time:startTime});if(tacticsBridge)onFrame?.({time:startTime});
+          return {pause:()=>video.pause(),play:()=>video.play(),seek:time=>{video.pause();video.currentTime=time;if(tacticsBridge)onFrame?.({time});},
             reload:()=>{video.pause();video.currentTime=startTime;},togglePlayback:()=>video.paused?video.play():video.pause()};
         };continue;}
       if(match[2]==='./tactics-storage.mjs'){dependencies.migrateLegacyTacticsDrafts=async()=>{};continue;}
-      if(match[2]==='./tactics-ui.mjs'){dependencies.mountTacticsUI=()=>({saveDraft(){}});continue;}
+      if(match[2]==='./tactics-ui.mjs'){dependencies.mountTacticsUI=api=>{tacticsApi=api;return tacticsBridge?{
+        saveDraft(){},externalSeek:frame=>tacticsCalls.push(['external',frame]),onPresentedFrame:point=>tacticsCalls.push(['presented',point]),
+        togglePlayback(){if(body.dataset.area!=='tactics')return false;tacticsCalls.push(['toggle']);return true;}
+      }:{saveDraft(){}};};continue;}
       if(match[2]==='./footage-ui.mjs'){dependencies.mountFootageUI=()=>({render(){}});continue;}
       if(match[2]==='./workspace.mjs'){
         const module=await import('./workspace.mjs');
@@ -83,11 +86,21 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit}={}){
     await new AsyncFunction(...Object.keys(dependencies),source.replace(/^import .*;\r?\n/gm,''))(...Object.values(dependencies));
     const restore=()=>{for(const [name,value] of previous){if(value===undefined)delete globalThis[name];else globalThis[name]=value;}};
     await new Promise(resolve=>setImmediate(resolve));
-    return {get,clip,key,saved,reviewRequests,state:()=>appApi.getState(),body,restore,identityState:()=>identityState,actions:identityActions,workbench,
+    return {get,clip,key,saved,reviewRequests,tacticsApi,tacticsCalls,state:()=>appApi.getState(),body,restore,identityState:()=>identityState,actions:identityActions,workbench,
       clickBox:(x,y)=>get('overlay').dispatch('click',{button:0,clientX:x,clientY:y}),
       select:id=>identityActions.select(id)};
   }catch(error){for(const [name,value] of previous){if(value===undefined)delete globalThis[name];else globalThis[name]=value;}throw error;}
 }
+
+test('app tactics bridge publishes decoded canvas frames and separates phase seeks from external navigation',async()=>{
+  const app=await openApp({tacticsBridge:true});try{
+    app.tacticsApi.seek(3);assert.equal(app.tacticsCalls.filter(c=>c[0]==='external').length,0);
+    const point=app.tacticsApi.getPresentedFrame();assert.equal(point.frame,3);assert.equal(point.source,app.get('videoFrame'));assert.equal(point.time,.119+2e-6);
+    app.get('previous').click();assert.deepEqual(app.tacticsCalls.find(c=>c[0]==='external'),['external',2]);
+    app.get('area-tactics').click();app.get('play').click();assert.equal(app.tacticsCalls.at(-1)[0],'toggle');assert.equal(app.get('video').paused,true);
+    app.get('video').currentTime=.031;app.get('video').dispatch('seeking');assert.deepEqual(app.tacticsCalls.at(-1),['external',1]);
+  }finally{app.restore();}
+});
 
 test('the default workbench keeps step navigation and the bottom data drawer without granting clipping confirmation',async()=>{
   const app=await openApp({liveConfirmed:false});try{
