@@ -268,10 +268,13 @@ export function renderPresentationSVG(scene,{space='video',width=scene.width,hei
   if(!['video','court'].includes(space)||!finite(width)||!finite(height)||width<=0||height<=0)throw new Error('检查绘图空间及尺寸。');
   const view=space==='court'?`0 0 ${COURT.length} ${COURT.width}`:`0 0 ${scene.width} ${scene.height}`;
   const line=points=>points.map(p=>`${p.x.toFixed(4)},${p.y.toFixed(4)}`).join(' '),parts=[];
+  // Missing observations split paths, but are not additional destinations.
+  const finalSegment=new Map();
+  for(const route of scene.routes){const old=finalSegment.get(route.entityId);if(!old||route.remaining.endFrameExclusive>old.remaining.endFrameExclusive)finalSegment.set(route.entityId,route);}
   for(const route of scene.routes){
     const geometry=route[space];if(!geometry)continue;
-    const color=route.selected?'#ffca59':'#75d6ff',stroke=space==='court'?.065:3,outline=space==='court'?.13:6;
-    const paths=[geometry.curve,...geometry.chevrons,geometry.ring].map(points=>`<polyline points="${line(points)}"/>`).join('');
+    const color=route.selected?'#183544':'#3a7187',stroke=space==='court'?(route.selected?.09:.07):(route.selected?6:4),outline=space==='court'?(route.selected?.17:.14):(route.selected?10:8);
+    const paths=[geometry.curve,...geometry.chevrons,...(finalSegment.get(route.entityId)===route?[geometry.ring]:[])].map(points=>`<polyline points="${line(points)}"/>`).join('');
     parts.push(`<g data-route-id="${escape(route.routeId)}" data-manual="${route.manual}" opacity="${route.selected?1:.45}" fill="none" stroke-linecap="round" stroke-linejoin="round">`);
     parts.push(`<g stroke="#ffffff" stroke-opacity=".85" stroke-width="${outline}">${paths}</g><g stroke="${color}" stroke-width="${stroke}">${paths}</g></g>`);
   }
