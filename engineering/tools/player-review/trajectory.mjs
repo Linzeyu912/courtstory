@@ -173,7 +173,7 @@ export function exportReview(session, clip, confirmedAt) {
     sourceVideoSha256:clip.source_video_sha256||clip.video_sha256,
     sourceFrameMapping:clip.frames.map(f=>({frame:f.frame,time:f.time,sourceFrame:f.source_frame??f.frame,sourceTime:f.source_time??f.time})),
     settings:{maxGapSeconds:session.maxGapSeconds,cuts:[...session.cuts],sourceCuts,identityBindingMode:IDENTITY_BINDING_MODE},
-    sceneObjects:exportSceneObjects(session,clip.frames),
+    sceneObjects:exportSceneObjects(session,clip.frames,session.cuts,{width:clip.width,height:clip.height}),
     entities:entities.map(entity => ({...entity,teamSide:entityTeamSide(entity),identityConfirmed:isHumanIdentitySelected(entity),trajectory:trajectories[entity.id],unresolved:gapRanges(trajectories[entity.id]),unverifiedPathFrames:trajectories[entity.id].filter(p=>p.source==='manual_path').map(p=>p.frame),courtTrajectory:courtTrajectories[entity.id],courtUnresolved:courtGaps(courtTrajectories[entity.id])}))};
 }
 

@@ -136,6 +136,24 @@ export function pathSegments(points,cuts=[]){
   }
   if(segment.length)result.push(segment);return result;
 }
+export function smoothCourtTrajectory(points,cuts=[],radius=2){
+  const result=points.map(point=>({...point})),cutSet=new Set(cuts),median=values=>{
+    const sorted=[...values].sort((a,b)=>a-b),middle=Math.floor(sorted.length/2);
+    return sorted.length%2?sorted[middle]:(sorted[middle-1]+sorted[middle])/2;
+  };
+  for(let frame=radius;frame<points.length-radius;frame++){
+    const current=points[frame];
+    if(current?.source!=='projected'||!Number.isFinite(current.x)||!Number.isFinite(current.y))continue;
+    const window=points.slice(frame-radius,frame+radius+1);
+    if(window.some((point,index)=>point?.source!=='projected'||!Number.isFinite(point.x)||!Number.isFinite(point.y)||
+      (index>0&&cutSet.has(frame-radius+index))))continue;
+    const x=median(window.map(point=>point.x)),y=median(window.map(point=>point.y)),deviation=Math.hypot(current.x-x,current.y-y);
+    if(deviation<=1.15){result[frame]={...current,x:current.x*.45+x*.55,y:current.y*.45+y*.55,displaySmoothed:true};continue;}
+    const shoulders=Math.hypot(points[frame-radius].x-points[frame+radius].x,points[frame-radius].y-points[frame+radius].y);
+    if(shoulders<1.3)result[frame]={...current,x,y,displaySmoothed:true};
+  }
+  return result;
+}
 export function addCourtAnchor(entity,frame,x,y){
   if(!Number.isInteger(frame)||frame<0||![x,y].every(Number.isFinite)||x<0||x>COURT.length||y<0||y>COURT.width)throw new Error('补点必须在球场范围内');
   entity.courtAnchors=(entity.courtAnchors||[]).filter(a=>a.frame!==frame);
