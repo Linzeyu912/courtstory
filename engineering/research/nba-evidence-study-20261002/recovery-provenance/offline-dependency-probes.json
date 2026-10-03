@@ -1,0 +1,76 @@
+{
+  "scope": "Pure offline mechanism checks; synthetic probe is not real accuracy evaluation",
+  "input_hashes": {
+    "engineering/experiments/player_recovery/tracking.py": "ad2a3f3dc0b7f99adb618b4b31ec2cfacc366eee4431a6149b42552fb9dc1b51",
+    "tmp/player-recovery/batch-v3/s24-053/players-short.json": "9a14611342b8dde803a419bf52ae0ad5ceef0ce37b0882eb33e82c817f6ddd24"
+  },
+  "prefix_probe": [
+    {
+      "frame": 0,
+      "source": "detector",
+      "observed": true,
+      "raw_bbox_equal": true,
+      "prefix_bbox": [
+        100.11646659089722,
+        100.0,
+        120.11646659089722,
+        140.0
+      ],
+      "full_bbox": [
+        100.14584488124781,
+        100.0,
+        120.14584488124781,
+        140.0
+      ],
+      "max_change_px": 0.029378290350592806
+    },
+    {
+      "frame": 1,
+      "source": "detector",
+      "observed": true,
+      "raw_bbox_equal": true,
+      "prefix_bbox": [
+        101.0,
+        100.0,
+        121.0,
+        140.0
+      ],
+      "full_bbox": [
+        101.06430904166274,
+        100.0,
+        121.06430904166274,
+        140.0
+      ],
+      "max_change_px": 0.06430904166273876
+    },
+    {
+      "frame": 2,
+      "source": "detector",
+      "observed": true,
+      "raw_bbox_equal": true,
+      "prefix_bbox": [
+        101.88353340910278,
+        100.0,
+        121.88353340910278,
+        140.0
+      ],
+      "full_bbox": [
+        102.02430582268532,
+        100.0,
+        122.02430582268532,
+        140.0
+      ],
+      "max_change_px": 0.140772413582539
+    }
+  ],
+  "empty_anchor_replay": {
+    "removed": [
+      [
+        138,
+        14
+      ]
+    ],
+    "added": [],
+    "accepted_qwen_anchors": 0
+  }
+}

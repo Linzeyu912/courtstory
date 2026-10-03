@@ -1,0 +1,602 @@
+{
+  "base_validation": {
+    "errors": [],
+    "stale_facts": {},
+    "blocked_facts": {},
+    "active_candidates": [
+      "image-motion-T1",
+      "slot-image-P1",
+      "court-projection-foot-T1",
+      "near-ball-f2-T2"
+    ]
+  },
+  "tests": [
+    {
+      "name": "identity_revision",
+      "passed": true,
+      "expected_block": "BINDING_VERSION_STALE",
+      "schema_valid": true,
+      "what_is_withheld": "Only slot-dependent position becomes stale; raw observations and track motion remain.",
+      "result": {
+        "errors": [],
+        "stale_facts": {
+          "slot-image-P1": [
+            "BINDING_VERSION_STALE",
+            "REVISION_REQUIRES_RECOMPUTE"
+          ]
+        },
+        "blocked_facts": {},
+        "active_candidates": [
+          "image-motion-T1",
+          "court-projection-foot-T1",
+          "near-ball-f2-T2"
+        ]
+      }
+    },
+    {
+      "name": "calibration_revision",
+      "passed": true,
+      "expected_block": "CALIBRATION_VERSION_STALE",
+      "schema_valid": true,
+      "what_is_withheld": "Court projection is withheld; pixel observations remain.",
+      "result": {
+        "errors": [],
+        "stale_facts": {
+          "court-projection-foot-T1": [
+            "CALIBRATION_VERSION_STALE",
+            "REVISION_REQUIRES_RECOMPUTE"
+          ]
+        },
+        "blocked_facts": {},
+        "active_candidates": [
+          "image-motion-T1",
+          "slot-image-P1",
+          "near-ball-f2-T2"
+        ]
+      }
+    },
+    {
+      "name": "same_T_cross_variant",
+      "passed": true,
+      "expected_block": "CROSS_VARIANT_TRACK",
+      "schema_valid": true,
+      "what_is_withheld": "Same numeric T1 cannot join different tracker outputs.",
+      "result": {
+        "errors": [
+          {
+            "code": "CROSS_VARIANT_TRACK",
+            "id": "005:ebard:f0:tracks:0",
+            "detail": "T label namespace changed"
+          }
+        ],
+        "stale_facts": {
+          "image-motion-T1": [
+            "OBSERVATION_VERSION_STALE"
+          ]
+        },
+        "blocked_facts": {
+          "image-motion-T1": [
+            "TRACK_CONTINUITY_REQUIRED"
+          ]
+        },
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "feet_wrong_variant",
+      "passed": true,
+      "expected_block": "FEET_VARIANT_FINGERPRINT",
+      "schema_valid": true,
+      "what_is_withheld": "Pose cached for E-BARD cannot be transferred to same-number team-stable track.",
+      "result": {
+        "errors": [
+          {
+            "code": "OBSERVATION_TIME",
+            "id": "005:ebard:f1:right-foot-T1",
+            "detail": "Observation timing differs from decoded timeline"
+          },
+          {
+            "code": "FEET_VARIANT_FINGERPRINT",
+            "id": "005:ebard:f1:right-foot-T1",
+            "detail": "Foot candidate belongs to different tracking bytes"
+          }
+        ],
+        "stale_facts": {
+          "court-projection-foot-T1": [
+            "OBSERVATION_VERSION_STALE"
+          ]
+        },
+        "blocked_facts": {
+          "court-projection-foot-T1": [
+            "CROSS_VARIANT_DEPENDENCY"
+          ]
+        },
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "insert_cut",
+      "passed": true,
+      "expected_block": "CROSS_CUT",
+      "schema_valid": true,
+      "what_is_withheld": "Cross-cut motion and propagated court mapping withheld; independent source observations remain.",
+      "result": {
+        "errors": [],
+        "stale_facts": {
+          "image-motion-T1": [
+            "CUT_VERSION_STALE",
+            "CUTS_VERSION_STALE"
+          ],
+          "court-projection-foot-T1": [
+            "CUT_VERSION_STALE",
+            "CUTS_VERSION_STALE"
+          ],
+          "near-ball-f2-T2": [
+            "CUT_VERSION_STALE",
+            "CUTS_VERSION_STALE"
+          ]
+        },
+        "blocked_facts": {
+          "image-motion-T1": [
+            "CROSS_CUT"
+          ],
+          "court-projection-foot-T1": [
+            "CALIBRATION_CROSSES_CUT"
+          ]
+        },
+        "active_candidates": [
+          "slot-image-P1"
+        ]
+      }
+    },
+    {
+      "name": "zero_origin_pts_confusion",
+      "passed": true,
+      "expected_block": "PTS_MISMATCH",
+      "schema_valid": true,
+      "what_is_withheld": "LAL source PTS .120 cannot be replaced by elapsed zero.",
+      "result": {
+        "errors": [
+          {
+            "code": "RECORD_HASH",
+            "id": "nba-lal-min-005:team-stable:f0:tracks:0",
+            "detail": "Immutable record payload changed"
+          },
+          {
+            "code": "PTS_MISMATCH",
+            "id": "nba-lal-min-005:team-stable:0",
+            "detail": "PTS, source time, and normalized time disagree"
+          }
+        ],
+        "stale_facts": {},
+        "blocked_facts": {},
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "stale_json_pointer_hash",
+      "passed": true,
+      "expected_block": "POINTER_HASH",
+      "schema_valid": true,
+      "what_is_withheld": "Record references that no longer match pinned source value are rejected.",
+      "result": {
+        "errors": [
+          {
+            "code": "POINTER_HASH",
+            "id": "005:ebard:f0:tracks:0",
+            "detail": "JSON pointer value mismatch"
+          }
+        ],
+        "stale_facts": {
+          "image-motion-T1": [
+            "OBSERVATION_VERSION_STALE"
+          ]
+        },
+        "blocked_facts": {},
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "raw_overwrite_even_if_rehashed",
+      "passed": true,
+      "expected_block": "RAW_VALUE_CHANGED",
+      "schema_valid": true,
+      "what_is_withheld": "Recomputing record hash cannot legitimize overwritten raw coordinates.",
+      "result": {
+        "errors": [
+          {
+            "code": "RAW_VALUE_CHANGED",
+            "id": "005:ebard:f0:tracks:0",
+            "detail": "Detection values differ from source"
+          }
+        ],
+        "stale_facts": {
+          "image-motion-T1": [
+            "OBSERVATION_VERSION_STALE"
+          ]
+        },
+        "blocked_facts": {
+          "image-motion-T1": [
+            "DERIVATION_MISMATCH"
+          ]
+        },
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "basketball_class_misread",
+      "passed": true,
+      "expected_block": "CLASS_MAPPING",
+      "schema_valid": true,
+      "what_is_withheld": "An incorrect ball/hoop normalization loses useful candidates and must fail explicitly.",
+      "result": {
+        "errors": [
+          {
+            "code": "CLASS_MAPPING",
+            "id": "005:ebard:f2:objects:1",
+            "detail": "Source basketball must normalize to ball"
+          }
+        ],
+        "stale_facts": {
+          "near-ball-f2-T2": [
+            "OBSERVATION_VERSION_STALE"
+          ]
+        },
+        "blocked_facts": {
+          "near-ball-f2-T2": [
+            "BALL_AND_PLAYER_EVIDENCE_REQUIRED"
+          ]
+        },
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "proximity_to_possession",
+      "passed": true,
+      "expected_block": "HIGH_LEVEL_EVENT_RULE_NOT_IMPLEMENTED",
+      "schema_valid": true,
+      "what_is_withheld": "Do not transform 2D proximity into possession, pass, or shot.",
+      "result": {
+        "errors": [],
+        "stale_facts": {},
+        "blocked_facts": {
+          "near-ball-f2-T2": [
+            "HIGH_LEVEL_EVENT_RULE_NOT_IMPLEMENTED",
+            "REVIEW_NOT_SUPPORTED_BY_DATASET"
+          ]
+        },
+        "active_candidates": [
+          "image-motion-T1",
+          "slot-image-P1",
+          "court-projection-foot-T1"
+        ]
+      }
+    },
+    {
+      "name": "model_binding_to_human",
+      "passed": true,
+      "expected_block": "UNSUPPORTED_REVIEW",
+      "schema_valid": true,
+      "what_is_withheld": "Model slot cannot be relabeled as human review.",
+      "result": {
+        "errors": [
+          {
+            "code": "UNSUPPORTED_REVIEW",
+            "id": "P1-model-binding",
+            "detail": "No reviewed identity source adapter in this research dataset"
+          }
+        ],
+        "stale_facts": {
+          "slot-image-P1": [
+            "BINDING_VERSION_STALE"
+          ]
+        },
+        "blocked_facts": {},
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "confidence_to_probability",
+      "passed": true,
+      "expected_block": "SCHEMA",
+      "schema_valid": false,
+      "what_is_withheld": "Uncalibrated score is not empirical probability.",
+      "result": {
+        "errors": [
+          {
+            "code": "SCHEMA",
+            "path": "observations/0/score/probability",
+            "detail": "0.92041015625 is not of type 'null'"
+          }
+        ],
+        "stale_facts": {},
+        "blocked_facts": {},
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "binding_outside_interval",
+      "passed": true,
+      "expected_block": "BINDING_OR_CALIBRATION_OUT_OF_SCOPE",
+      "schema_valid": true,
+      "what_is_withheld": "P binding outside its validity interval cannot identify a later frame.",
+      "result": {
+        "errors": [
+          {
+            "code": "BINDING_SOURCE_MISMATCH",
+            "id": "P1-model-binding",
+            "detail": "Normalized association not present in source model suggestions"
+          }
+        ],
+        "stale_facts": {
+          "slot-image-P1": [
+            "BINDING_VERSION_STALE"
+          ]
+        },
+        "blocked_facts": {
+          "slot-image-P1": [
+            "BINDING_OR_CALIBRATION_OUT_OF_SCOPE",
+            "DEPENDENCY_OUTSIDE_INTERVAL"
+          ]
+        },
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "binding_rehashed_tamper",
+      "passed": true,
+      "expected_block": "BINDING_SOURCE_MISMATCH",
+      "schema_valid": true,
+      "what_is_withheld": "A valid content hash cannot establish a fabricated association.",
+      "result": {
+        "errors": [
+          {
+            "code": "BINDING_SOURCE_MISMATCH",
+            "id": "P1-model-binding",
+            "detail": "Normalized association not present in source model suggestions"
+          }
+        ],
+        "stale_facts": {
+          "slot-image-P1": [
+            "BINDING_VERSION_STALE"
+          ]
+        },
+        "blocked_facts": {
+          "slot-image-P1": [
+            "BINDING_TRACK_MISMATCH"
+          ]
+        },
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "calibration_rehashed_tamper",
+      "passed": true,
+      "expected_block": "CALIBRATION_SOURCE_MISMATCH",
+      "schema_valid": true,
+      "what_is_withheld": "Fabricated matrix is rejected even if the record hash is updated.",
+      "result": {
+        "errors": [
+          {
+            "code": "CALIBRATION_SOURCE_MISMATCH",
+            "id": "court005-f1",
+            "detail": "Normalized matrix/frame differs from source"
+          }
+        ],
+        "stale_facts": {
+          "court-projection-foot-T1": [
+            "CALIBRATION_VERSION_STALE"
+          ]
+        },
+        "blocked_facts": {
+          "court-projection-foot-T1": [
+            "DERIVATION_MISMATCH"
+          ]
+        },
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "derived_value_tamper",
+      "passed": true,
+      "expected_block": "DERIVATION_MISMATCH",
+      "schema_valid": true,
+      "what_is_withheld": "Numeric derived values must recompute from declared inputs.",
+      "result": {
+        "errors": [],
+        "stale_facts": {},
+        "blocked_facts": {
+          "image-motion-T1": [
+            "DERIVATION_MISMATCH"
+          ]
+        },
+        "active_candidates": [
+          "slot-image-P1",
+          "court-projection-foot-T1",
+          "near-ball-f2-T2"
+        ]
+      }
+    },
+    {
+      "name": "source_file_hash_mismatch",
+      "passed": true,
+      "expected_block": "SOURCE_HASH",
+      "schema_valid": true,
+      "what_is_withheld": "Changed source bytes cannot pass as the pinned source snapshot.",
+      "result": {
+        "errors": [
+          {
+            "code": "SOURCE_HASH",
+            "id": "005:ebard:tracks",
+            "detail": "Current source bytes differ from pinned hash"
+          },
+          {
+            "code": "FEET_VARIANT_FINGERPRINT",
+            "id": "005:ebard:f1:right-foot-T1",
+            "detail": "Foot candidate belongs to different tracking bytes"
+          }
+        ],
+        "stale_facts": {},
+        "blocked_facts": {
+          "court-projection-foot-T1": [
+            "CALIBRATION_VARIANT_FINGERPRINT"
+          ]
+        },
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "revision_dependency_relabel",
+      "passed": true,
+      "expected_block": "REVISION_REQUIRES_RECOMPUTE",
+      "schema_valid": true,
+      "what_is_withheld": "Relabeling dependency version cannot resurrect an old P1 observation under a revised identity.",
+      "result": {
+        "errors": [],
+        "stale_facts": {
+          "slot-image-P1": [
+            "REVISION_REQUIRES_RECOMPUTE"
+          ]
+        },
+        "blocked_facts": {},
+        "active_candidates": [
+          "image-motion-T1",
+          "court-projection-foot-T1",
+          "near-ball-f2-T2"
+        ]
+      }
+    },
+    {
+      "name": "player_to_ball_class",
+      "passed": true,
+      "expected_block": "CLASS_MAPPING",
+      "schema_valid": true,
+      "what_is_withheld": "Player class_id 2 cannot become ball after normalization.",
+      "result": {
+        "errors": [
+          {
+            "code": "CLASS_MAPPING",
+            "id": "005:ebard:f0:tracks:0",
+            "detail": "Source class and normalization disagree"
+          }
+        ],
+        "stale_facts": {
+          "image-motion-T1": [
+            "OBSERVATION_VERSION_STALE"
+          ]
+        },
+        "blocked_facts": {},
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "empty_provenance",
+      "passed": true,
+      "expected_block": "SCHEMA",
+      "schema_valid": false,
+      "what_is_withheld": "An observation needs at least one resolvable evidence pointer.",
+      "result": {
+        "errors": [
+          {
+            "code": "SCHEMA",
+            "path": "observations/0/provenance",
+            "detail": "[] should be non-empty"
+          }
+        ],
+        "stale_facts": {},
+        "blocked_facts": {},
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "unknown_variant",
+      "passed": true,
+      "expected_block": "SEMANTIC_INPUT_ERROR",
+      "schema_valid": true,
+      "what_is_withheld": "Unknown foreign keys reject the view without aborting the audit.",
+      "result": {
+        "errors": [
+          {
+            "code": "SEMANTIC_INPUT_ERROR",
+            "detail": "KeyError: 'unknown'"
+          }
+        ],
+        "stale_facts": {},
+        "blocked_facts": {},
+        "active_candidates": []
+      }
+    },
+    {
+      "name": "revision_history_tamper",
+      "passed": true,
+      "expected_block": "LEDGER_CHAIN",
+      "schema_valid": true,
+      "what_is_withheld": "Changing an existing revision breaks the append-only hash chain.",
+      "result": {
+        "errors": [
+          {
+            "code": "LEDGER_CHAIN",
+            "id": "1",
+            "detail": "Revision sequence or hash chain invalid"
+          }
+        ],
+        "stale_facts": {
+          "slot-image-P1": [
+            "BINDING_VERSION_STALE",
+            "REVISION_REQUIRES_RECOMPUTE"
+          ]
+        },
+        "blocked_facts": {},
+        "active_candidates": []
+      }
+    }
+  ],
+  "passed": 22,
+  "total": 22,
+  "raw_unchanged_after_revisions": true,
+  "revised_view": {
+    "errors": [],
+    "stale_facts": {
+      "slot-image-P1": [
+        "BINDING_VERSION_STALE",
+        "REVISION_REQUIRES_RECOMPUTE"
+      ],
+      "court-projection-foot-T1": [
+        "CALIBRATION_VERSION_STALE",
+        "REVISION_REQUIRES_RECOMPUTE"
+      ]
+    },
+    "blocked_facts": {},
+    "active_candidates": [
+      "image-motion-T1",
+      "near-ball-f2-T2"
+    ]
+  },
+  "object_mapping_audit": {
+    "004": {
+      "frames": 210,
+      "basketball_candidates": 74,
+      "frame_has_basketball": 73
+    },
+    "005": {
+      "frames": 143,
+      "basketball_candidates": 78,
+      "frame_has_basketball": 76
+    },
+    "006": {
+      "frames": 462,
+      "basketball_candidates": 207,
+      "frame_has_basketball": 191
+    }
+  },
+  "schema_role": "Structure, enums, coordinate tags; cannot establish evidence truth or cross-record consistency.",
+  "semantic_checker_role": "Source bytes/pointers, PTS, namespace, interval, cut, current versions and unsupported promotion.",
+  "limits": [
+    "Pinned SHA proves byte identity, not detector accuracy or human truth.",
+    "Known declared cuts are enforced; undetected real cuts remain possible.",
+    "No identity/calibration human review adapter is implemented: reviewed claims fail closed.",
+    "High-level possession/pass/shot rules are not implemented and always withheld.",
+    "Current source edits fail closed for the entire dataset; practical adapters should quarantine affected components.",
+    "Revised records mark dependent facts stale; recomputation is explicit future work, never silently rewritten."
+  ]
+}

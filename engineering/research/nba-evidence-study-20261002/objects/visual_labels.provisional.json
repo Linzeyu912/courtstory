@@ -1,0 +1,22 @@
+{
+  "label_status": "provisional_ai_visual_review_requires_human_adjudication",
+  "not_ground_truth": true,
+  "selection": "Purposive multi-ball failure cases selected after inspecting model outputs; not representative or held out.",
+  "reviewers": ["root AI; raw and overlay both inspected", "second AI; raw inspected before overlay; agrees on relative selections"],
+  "limits": ["Neither reviewer is a human annotator.", "Motion blur and overlap limit visibility, especially 005 f4 and 006 f330.", "Labels distinguish relative ball candidates, not exact independent bounding boxes or possession."],
+  "cases": [
+    {"sample":"005","frame":4,"provisional_ball_object_index":2,"provisional_nonball_object_indices":[1],"reason":"Ball below white jersey 31 hands; higher-score candidate on running player's blurred arm/hand."},
+    {"sample":"005","frame":117,"provisional_ball_object_index":1,"provisional_nonball_object_indices":[2],"reason":"Ball above rim; second candidate on dark-uniform player's head/raised arm."},
+    {"sample":"006","frame":242,"provisional_ball_object_index":2,"provisional_nonball_object_indices":[1],"reason":"Ball beside right-side white-uniform player's hand; equal-score other candidate at distant shoulder/upper arm."},
+    {"sample":"006","frame":330,"provisional_ball_object_index":2,"provisional_nonball_object_indices":[1],"reason":"Ball below player's hand to body right; higher-score area mixes arm and bench background."}
+  ],
+  "relation_counterexample": {
+    "sample":"004","frame":104,"object_index":1,"track_variant":"ebard","track_id":7,
+    "ball_center_image_px":[700.0000305175781,362.2727355957031],
+    "ball_center_in_player_box":true,
+    "provisional_relation":"airborne_passing_ball_projected_across_player_box",
+    "possession_supported":false,
+    "review_evidence":"../visual/004-flight-sequence.jpg; 98,100,102,104,106,108 raw frames",
+    "human_review_status":"pending"
+  }
+}

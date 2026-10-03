@@ -1,0 +1,1459 @@
+{
+  "schema_version": "source-semantics-adapter-v1",
+  "example_ids": {
+    "track_detector": "94b739d32d395442208d90d59c2927434f0b19c105ac9bedfd95b6ebd7e32edf",
+    "ball_detector": "a5dd75be62b222090cf0ff8cb6d0455526af71857a36027fd2bb1b868e3be13e",
+    "qwen_observed_true": "387804b14a5fbe6a043d2d8c88f050437c83b481c2fb6083bb80b37fd30ea621",
+    "interpolated": "e663c54c036a27da79b32597720a27b26c32930df743fcacb12ca995a99ea7f8",
+    "smoothed_detector": "9ac71f232efcc7ff275f15b59a7d61623281aa71177cb5ea2d34e8320899789b",
+    "manual_claim_21": "fd00be1c8fea12e407ddb967192f64fecc360d6f61e8a6d4965ccc8615f3b202",
+    "agent_annotation_56": "8e3e86f939a24c4c23d1bccb4e6f72fe6a559b1ac30196dbede9852b5da4e5db",
+    "same_content_team_stable": "8c689a96317a6071d05aeb5bb5c1e1158684b44d445504cb252869c86bdfb47f",
+    "same_content_optimized": "ea0935d3f715f27f8e494c3948d4eccf78392ce47bf8a064b73bc999f6a8d14d",
+    "future_role": "06162782af0e5cd6b194ad88e68d2146571bf901a340df2a9398b75567e27407"
+  },
+  "records": [
+    {
+      "schema_version": "source-semantics-adapter-v1",
+      "id": "94b739d32d395442208d90d59c2927434f0b19c105ac9bedfd95b6ebd7e32edf",
+      "source": {
+        "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+        "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+        "json_pointer": "/2/tracks/1",
+        "payload_sha256": "d6e548ebc96c3ed5611857727eff293d3b149f24d0e5f18d5004d1ad4afcf261"
+      },
+      "raw_payload": [
+        510.17578125,
+        437.6531677246094,
+        639.8702392578125,
+        679.3873291015625,
+        2,
+        0.91748046875,
+        2
+      ],
+      "evidence_correlation_group": "d04e8d8acb2853e914fc5210ad7666cd05a78745cdd012e4e6a2508471612ca2",
+      "evidence": {
+        "kind": "detector_observation",
+        "source_tag": "track_array",
+        "source_observed_flag": null,
+        "review_status": "unreviewed",
+        "score": 0.91748046875,
+        "score_semantics": "uncalibrated_not_probability",
+        "annotation_method_claim": null
+      },
+      "geometry": {
+        "coordinate_space": "image_pixels",
+        "raw_bbox": [
+          510.17578125,
+          437.6531677246094,
+          639.8702392578125,
+          679.3873291015625
+        ],
+        "render_bbox": [
+          510.17578125,
+          437.6531677246094,
+          639.8702392578125,
+          679.3873291015625
+        ],
+        "raw_bbox_status": "source_preserved",
+        "raw_bbox_meaning": "detector_candidate_before_display_transform",
+        "render_transform": "same_as_source_not_ui_render",
+        "ground_contact": "unknown",
+        "metric_accuracy": "unvalidated"
+      },
+      "association": {
+        "local_track_id": 2,
+        "namespace": {
+          "value": "005:ebard",
+          "status": "contract_variant"
+        },
+        "variant_version": {
+          "value": "ebard-yolov8n-bytetrack-v1",
+          "status": "source_declared"
+        },
+        "person_identity": null,
+        "identity_verified": false
+      },
+      "timing": {
+        "source_frame": 2,
+        "raw_time_seconds": 0.06666666666666667,
+        "time_basis": "verified_container_pts_seconds",
+        "pts_ticks": 1024,
+        "time_base": [
+          1,
+          15360
+        ],
+        "elapsed_seconds": null,
+        "elapsed_time_origin": "unknown"
+      },
+      "availability": {
+        "available_at_source_lower_bound": {
+          "frame": 2,
+          "time_seconds": 0.06666666666666667,
+          "time_basis": "verified_container_pts_seconds",
+          "basis": "known_dependencies_only_not_actual_availability"
+        },
+        "components": {
+          "raw_location": {
+            "frame": 2,
+            "time_seconds": 0.06666666666666667,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "role": {
+            "frame": 2,
+            "time_seconds": 0.06666666666666667,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "role_reference_frame_lower_bound"
+          },
+          "display": {
+            "frame": 2,
+            "time_seconds": 0.06666666666666667,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "source_geometry_only"
+          }
+        },
+        "wall_clock_available_at": null,
+        "wall_clock_status": "unknown",
+        "dependency_completeness": "partial",
+        "selection_horizon": "unknown",
+        "realtime_eligible": false,
+        "realtime_reason": "source_time_floor_is_not_processing_completion_or_publication_time"
+      },
+      "role": {
+        "label": null,
+        "reference_frame": null,
+        "inferred": false,
+        "future_reference": false
+      },
+      "court": {
+        "half_orientation": "unknown",
+        "attack_direction": "unknown",
+        "camera_state": "unknown",
+        "metric_position": null
+      },
+      "dependencies": [],
+      "contract_bridge": {
+        "contract_version": "evidence-contract-research-v1",
+        "status": "existing_source_grounded_observation",
+        "observation_id": "005:ebard:f2:tracks:1",
+        "artifact_relative_path": "evidence/contract/source_grounded_examples.json"
+      }
+    },
+    {
+      "schema_version": "source-semantics-adapter-v1",
+      "id": "a5dd75be62b222090cf0ff8cb6d0455526af71857a36027fd2bb1b868e3be13e",
+      "source": {
+        "relative_path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+        "file_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+        "json_pointer": "/2/objects/1",
+        "payload_sha256": "5c4744d4de819e205f7a8238ed28569026017e670be3fa49929df353887cb33a"
+      },
+      "raw_payload": {
+        "kind": "basketball",
+        "box": [
+          542.3863525390625,
+          514.0909423828125,
+          590.1136474609375,
+          559.0909423828125
+        ],
+        "score": 0.46875,
+        "source": "model",
+        "groundPoint": false
+      },
+      "evidence_correlation_group": "3f3f522f111932408a7ba345bf32968c08b33b3de17c05832b8d029c57dc672c",
+      "evidence": {
+        "kind": "detector_observation",
+        "source_tag": "model",
+        "source_observed_flag": null,
+        "review_status": "unreviewed",
+        "score": 0.46875,
+        "score_semantics": "uncalibrated_not_probability",
+        "annotation_method_claim": null
+      },
+      "geometry": {
+        "coordinate_space": "image_pixels",
+        "raw_bbox": [
+          542.3863525390625,
+          514.0909423828125,
+          590.1136474609375,
+          559.0909423828125
+        ],
+        "render_bbox": [
+          542.3863525390625,
+          514.0909423828125,
+          590.1136474609375,
+          559.0909423828125
+        ],
+        "raw_bbox_status": "source_preserved",
+        "raw_bbox_meaning": "detector_candidate_before_display_transform",
+        "render_transform": "same_as_source_not_ui_render",
+        "ground_contact": "unknown",
+        "metric_accuracy": "unvalidated"
+      },
+      "association": {
+        "local_track_id": null,
+        "namespace": {
+          "value": null,
+          "status": "unknown"
+        },
+        "variant_version": {
+          "value": "ebard-yolov8n-bytetrack-v1",
+          "status": "source_declared"
+        },
+        "person_identity": null,
+        "identity_verified": false
+      },
+      "timing": {
+        "source_frame": 2,
+        "raw_time_seconds": 0.06666666666666667,
+        "time_basis": "verified_container_pts_seconds",
+        "pts_ticks": 1024,
+        "time_base": [
+          1,
+          15360
+        ],
+        "elapsed_seconds": null,
+        "elapsed_time_origin": "unknown"
+      },
+      "availability": {
+        "available_at_source_lower_bound": {
+          "frame": 2,
+          "time_seconds": 0.06666666666666667,
+          "time_basis": "verified_container_pts_seconds",
+          "basis": "known_dependencies_only_not_actual_availability"
+        },
+        "components": {
+          "raw_location": {
+            "frame": 2,
+            "time_seconds": 0.06666666666666667,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "role": {
+            "frame": 2,
+            "time_seconds": 0.06666666666666667,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "role_reference_frame_lower_bound"
+          },
+          "display": {
+            "frame": 2,
+            "time_seconds": 0.06666666666666667,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "source_geometry_only"
+          }
+        },
+        "wall_clock_available_at": null,
+        "wall_clock_status": "unknown",
+        "dependency_completeness": "partial",
+        "selection_horizon": "unknown",
+        "realtime_eligible": false,
+        "realtime_reason": "source_time_floor_is_not_processing_completion_or_publication_time"
+      },
+      "role": {
+        "label": null,
+        "reference_frame": null,
+        "inferred": false,
+        "future_reference": false
+      },
+      "court": {
+        "half_orientation": "unknown",
+        "attack_direction": "unknown",
+        "camera_state": "unknown",
+        "metric_position": null
+      },
+      "dependencies": [],
+      "contract_bridge": {
+        "contract_version": "evidence-contract-research-v1",
+        "status": "existing_source_grounded_observation",
+        "observation_id": "005:ebard:f2:objects:1",
+        "artifact_relative_path": "evidence/contract/source_grounded_examples.json"
+      }
+    },
+    {
+      "schema_version": "source-semantics-adapter-v1",
+      "id": "387804b14a5fbe6a043d2d8c88f050437c83b481c2fb6083bb80b37fd30ea621",
+      "source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+        "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+        "json_pointer": "/frames/78/tracks/6",
+        "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593"
+      },
+      "raw_payload": {
+        "track_id": 8,
+        "bbox": [
+          836.7431131607642,
+          202.07855231340204,
+          895.7431131607642,
+          415.07855231340204
+        ],
+        "raw_bbox": [
+          837.0,
+          202.0,
+          896.0,
+          415.0
+        ],
+        "center": [
+          866.2431131607642,
+          308.57855231340204
+        ],
+        "raw_center": [
+          866.5,
+          308.5
+        ],
+        "foot": [
+          860.0352009099144,
+          415.47655568758455
+        ],
+        "raw_foot": [
+          860.16,
+          415.44
+        ],
+        "time": 3.12,
+        "confidence": 0.85,
+        "source": "qwen",
+        "observed": true,
+        "qwen_anchor": true,
+        "smoothed": true,
+        "motion_speed_bbox_s": 0.19380409121732278,
+        "person_role": "active_player",
+        "role_reference_frame": 31
+      },
+      "evidence_correlation_group": "0eb78a16f3b12849bd7f2f2e3fc7c7ad59be85429ee7eaea92e4349c5bf7a9ec",
+      "evidence": {
+        "kind": "model_inferred_location",
+        "source_tag": "qwen",
+        "source_observed_flag": true,
+        "review_status": "unreviewed",
+        "score": 0.85,
+        "score_semantics": "model_self_reported_uncalibrated",
+        "annotation_method_claim": null
+      },
+      "geometry": {
+        "coordinate_space": "image_pixels",
+        "raw_bbox": [
+          837.0,
+          202.0,
+          896.0,
+          415.0
+        ],
+        "render_bbox": [
+          836.7431131607642,
+          202.07855231340204,
+          895.7431131607642,
+          415.07855231340204
+        ],
+        "raw_bbox_status": "source_preserved",
+        "raw_bbox_meaning": "model_estimate_before_display_transform",
+        "render_transform": "offline_smoothing_or_clipping",
+        "ground_contact": "unknown",
+        "metric_accuracy": "unvalidated"
+      },
+      "association": {
+        "local_track_id": 8,
+        "namespace": {
+          "value": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+          "status": "artifact_scoped_only"
+        },
+        "variant_version": {
+          "value": null,
+          "status": "unknown"
+        },
+        "person_identity": null,
+        "identity_verified": false
+      },
+      "timing": {
+        "source_frame": 78,
+        "raw_time_seconds": 3.12,
+        "time_basis": "nominal_frame_index_over_fps",
+        "pts_ticks": null,
+        "time_base": null,
+        "elapsed_seconds": null,
+        "elapsed_time_origin": "unknown"
+      },
+      "availability": {
+        "available_at_source_lower_bound": {
+          "frame": 125,
+          "time_seconds": 5.0,
+          "time_basis": "nominal_frame_index_over_fps",
+          "basis": "known_dependencies_only_not_actual_availability"
+        },
+        "components": {
+          "raw_location": {
+            "frame": 125,
+            "time_seconds": 5.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "role": {
+            "frame": 78,
+            "time_seconds": 3.12,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "role_reference_frame_lower_bound"
+          },
+          "display": {
+            "frame": 125,
+            "time_seconds": 5.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "smoothing_future_window_incomplete"
+          }
+        },
+        "wall_clock_available_at": null,
+        "wall_clock_status": "unknown",
+        "dependency_completeness": "partial",
+        "selection_horizon": "full_clip_or_track",
+        "realtime_eligible": false,
+        "realtime_reason": "source_time_floor_is_not_processing_completion_or_publication_time"
+      },
+      "role": {
+        "label": "active_player",
+        "reference_frame": 31,
+        "inferred": true,
+        "future_reference": false
+      },
+      "court": {
+        "half_orientation": "unknown",
+        "attack_direction": "unknown",
+        "camera_state": "unknown",
+        "metric_position": null
+      },
+      "dependencies": [
+        {
+          "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+          "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+          "json_pointer": "/frames/78/tracks/6",
+          "payload_sha256": "380500b4b0d7e39cbaf5ccaf475037869403c875962a1f119d00d34eeaf4e593"
+        },
+        {
+          "relative_path": "artifacts/player-recovery/batch-v3/s24-007/qwen-events.json",
+          "file_sha256": "b59eecf5de75cf5082403d560612b2b562667077171a27d5cf409d9d65d5c74a",
+          "json_pointer": "/2",
+          "payload_sha256": "17cdcfd07792633e1d5d42376ebe7c67b34c202859407c10182cac4dbbb5e570"
+        },
+        {
+          "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+          "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+          "json_pointer": "/frames/71/tracks/6",
+          "payload_sha256": "64f578805b6956deebc65568effd893dbe3d18dc237efd6d3b09da011e01a563"
+        },
+        {
+          "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+          "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+          "json_pointer": "/frames/86/tracks/7",
+          "payload_sha256": "24aef478f82b2c10851fab7608154d93de69b9da2eed7eea9cf9061aee6cff69"
+        }
+      ],
+      "contract_bridge": {
+        "contract_version": "evidence-contract-research-v1",
+        "status": "not_representable_without_additional_context",
+        "observation_id": null,
+        "artifact_relative_path": null
+      }
+    },
+    {
+      "schema_version": "source-semantics-adapter-v1",
+      "id": "e663c54c036a27da79b32597720a27b26c32930df743fcacb12ca995a99ea7f8",
+      "source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+        "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+        "json_pointer": "/frames/44/tracks/6",
+        "payload_sha256": "a4f7391d82934263b3319c668242a4df6a05246fdd305aa5905025dc34eb5eb1"
+      },
+      "raw_payload": {
+        "track_id": 7,
+        "bbox": [
+          821.9423518225212,
+          245.58869606391863,
+          892.8323518225211,
+          379.8153627305853
+        ],
+        "raw_bbox": [
+          822.0400000000002,
+          245.35666666666668,
+          892.9300000000001,
+          379.58333333333337
+        ],
+        "center": [
+          857.3873518225212,
+          312.702029397252
+        ],
+        "raw_center": [
+          857.4850000000001,
+          312.47
+        ],
+        "foot": [
+          857.4343544523886,
+          379.93484438720037
+        ],
+        "raw_foot": [
+          857.4850000000001,
+          379.58333333333337
+        ],
+        "time": 1.76,
+        "confidence": 0.5285,
+        "source": "interpolated",
+        "observed": false,
+        "estimated": true,
+        "anchors": [
+          43,
+          46
+        ],
+        "smoothed": true,
+        "motion_speed_bbox_s": 2.9590343942830764,
+        "person_role": "active_player",
+        "role_reference_frame": 38
+      },
+      "evidence_correlation_group": "e9e096f04577d938fe6f27238457ca416dae40aeb6bc149a39f6b548d4e34d56",
+      "evidence": {
+        "kind": "interpolated_location",
+        "source_tag": "interpolated",
+        "source_observed_flag": false,
+        "review_status": "unreviewed",
+        "score": 0.5285,
+        "score_semantics": "uncalibrated_not_probability",
+        "annotation_method_claim": null
+      },
+      "geometry": {
+        "coordinate_space": "image_pixels",
+        "raw_bbox": [
+          822.0400000000002,
+          245.35666666666668,
+          892.9300000000001,
+          379.58333333333337
+        ],
+        "render_bbox": [
+          821.9423518225212,
+          245.58869606391863,
+          892.8323518225211,
+          379.8153627305853
+        ],
+        "raw_bbox_status": "source_preserved",
+        "raw_bbox_meaning": "interpolation_before_display_transform",
+        "render_transform": "offline_smoothing_or_clipping",
+        "ground_contact": "unknown",
+        "metric_accuracy": "unvalidated"
+      },
+      "association": {
+        "local_track_id": 7,
+        "namespace": {
+          "value": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+          "status": "artifact_scoped_only"
+        },
+        "variant_version": {
+          "value": null,
+          "status": "unknown"
+        },
+        "person_identity": null,
+        "identity_verified": false
+      },
+      "timing": {
+        "source_frame": 44,
+        "raw_time_seconds": 1.76,
+        "time_basis": "nominal_frame_index_over_fps",
+        "pts_ticks": null,
+        "time_base": null,
+        "elapsed_seconds": null,
+        "elapsed_time_origin": "unknown"
+      },
+      "availability": {
+        "available_at_source_lower_bound": {
+          "frame": 46,
+          "time_seconds": 1.84,
+          "time_basis": "nominal_frame_index_over_fps",
+          "basis": "known_dependencies_only_not_actual_availability"
+        },
+        "components": {
+          "raw_location": {
+            "frame": 46,
+            "time_seconds": 1.84,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "role": {
+            "frame": 44,
+            "time_seconds": 1.76,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "role_reference_frame_lower_bound"
+          },
+          "display": {
+            "frame": 46,
+            "time_seconds": 1.84,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "smoothing_future_window_incomplete"
+          }
+        },
+        "wall_clock_available_at": null,
+        "wall_clock_status": "unknown",
+        "dependency_completeness": "partial",
+        "selection_horizon": "full_clip_or_track",
+        "realtime_eligible": false,
+        "realtime_reason": "source_time_floor_is_not_processing_completion_or_publication_time"
+      },
+      "role": {
+        "label": "active_player",
+        "reference_frame": 38,
+        "inferred": true,
+        "future_reference": false
+      },
+      "court": {
+        "half_orientation": "unknown",
+        "attack_direction": "unknown",
+        "camera_state": "unknown",
+        "metric_position": null
+      },
+      "dependencies": [
+        {
+          "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+          "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+          "json_pointer": "/frames/44/tracks/6",
+          "payload_sha256": "a4f7391d82934263b3319c668242a4df6a05246fdd305aa5905025dc34eb5eb1"
+        },
+        {
+          "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+          "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+          "json_pointer": "/frames/43/tracks/6",
+          "payload_sha256": "7383cff95defb21d116619e2f627570b7c1077e9610f163b9a4b5630d96dc338"
+        },
+        {
+          "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+          "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+          "json_pointer": "/frames/46/tracks/6",
+          "payload_sha256": "0fa3100d01fe60937365d2034b0ceddae48f1a595719e6e3c8267c80562eae15"
+        }
+      ],
+      "contract_bridge": {
+        "contract_version": "evidence-contract-research-v1",
+        "status": "not_representable_without_additional_context",
+        "observation_id": null,
+        "artifact_relative_path": null
+      }
+    },
+    {
+      "schema_version": "source-semantics-adapter-v1",
+      "id": "9ac71f232efcc7ff275f15b59a7d61623281aa71177cb5ea2d34e8320899789b",
+      "source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-007/recovered.json",
+        "file_sha256": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+        "json_pointer": "/frames/0/tracks/0",
+        "payload_sha256": "3cd63eadf85d87cea7dab5249231b1c256b22e7556a8cd2844ded4c971fbd23c"
+      },
+      "raw_payload": {
+        "track_id": 1,
+        "bbox": [
+          618.591588235424,
+          237.87730900706327,
+          682.851588235424,
+          399.20730900706326
+        ],
+        "raw_bbox": [
+          618.57,
+          237.87,
+          682.83,
+          399.2
+        ],
+        "center": [
+          650.721588235424,
+          318.5423090070633
+        ],
+        "raw_center": [
+          650.7,
+          318.53499999999997
+        ],
+        "foot": [
+          650.7215381894467,
+          399.21076426222567
+        ],
+        "raw_foot": [
+          650.7,
+          399.2
+        ],
+        "time": 0.0,
+        "confidence": 0.921,
+        "source": "detector",
+        "observed": true,
+        "appearance": [
+          0.5686,
+          0.5216,
+          0.5137
+        ],
+        "smoothed": true,
+        "motion_speed_bbox_s": 0.028812152332419627,
+        "person_role": "active_player",
+        "role_reference_frame": 34
+      },
+      "evidence_correlation_group": "9ae4e7bf842c648d14083b0c68b4f61b765d259d5b8f1eba6a0dab166b1ef1b2",
+      "evidence": {
+        "kind": "detector_observation",
+        "source_tag": "detector",
+        "source_observed_flag": true,
+        "review_status": "unreviewed",
+        "score": 0.921,
+        "score_semantics": "uncalibrated_not_probability",
+        "annotation_method_claim": null
+      },
+      "geometry": {
+        "coordinate_space": "image_pixels",
+        "raw_bbox": [
+          618.57,
+          237.87,
+          682.83,
+          399.2
+        ],
+        "render_bbox": [
+          618.591588235424,
+          237.87730900706327,
+          682.851588235424,
+          399.20730900706326
+        ],
+        "raw_bbox_status": "source_preserved",
+        "raw_bbox_meaning": "detector_candidate_before_display_transform",
+        "render_transform": "offline_smoothing_or_clipping",
+        "ground_contact": "unknown",
+        "metric_accuracy": "unvalidated"
+      },
+      "association": {
+        "local_track_id": 1,
+        "namespace": {
+          "value": "artifact:672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+          "status": "artifact_scoped_only"
+        },
+        "variant_version": {
+          "value": null,
+          "status": "unknown"
+        },
+        "person_identity": null,
+        "identity_verified": false
+      },
+      "timing": {
+        "source_frame": 0,
+        "raw_time_seconds": 0.0,
+        "time_basis": "nominal_frame_index_over_fps",
+        "pts_ticks": null,
+        "time_base": null,
+        "elapsed_seconds": null,
+        "elapsed_time_origin": "unknown"
+      },
+      "availability": {
+        "available_at_source_lower_bound": {
+          "frame": 34,
+          "time_seconds": 1.36,
+          "time_basis": "nominal_frame_index_over_fps",
+          "basis": "known_dependencies_only_not_actual_availability"
+        },
+        "components": {
+          "raw_location": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "role": {
+            "frame": 34,
+            "time_seconds": 1.36,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "role_reference_frame_lower_bound"
+          },
+          "display": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "smoothing_future_window_incomplete"
+          }
+        },
+        "wall_clock_available_at": null,
+        "wall_clock_status": "unknown",
+        "dependency_completeness": "partial",
+        "selection_horizon": "full_clip_or_track",
+        "realtime_eligible": false,
+        "realtime_reason": "source_time_floor_is_not_processing_completion_or_publication_time"
+      },
+      "role": {
+        "label": "active_player",
+        "reference_frame": 34,
+        "inferred": true,
+        "future_reference": true
+      },
+      "court": {
+        "half_orientation": "unknown",
+        "attack_direction": "unknown",
+        "camera_state": "unknown",
+        "metric_position": null
+      },
+      "dependencies": [],
+      "contract_bridge": {
+        "contract_version": "evidence-contract-research-v1",
+        "status": "not_representable_without_additional_context",
+        "observation_id": null,
+        "artifact_relative_path": null
+      }
+    },
+    {
+      "schema_version": "source-semantics-adapter-v1",
+      "id": "fd00be1c8fea12e407ddb967192f64fecc360d6f61e8a6d4965ccc8615f3b202",
+      "source": {
+        "relative_path": "engineering/research/player-tracking-spotchecks-20261002.json",
+        "file_sha256": "64349d63c24adc15318735ab4cfec8ca75a72a812db3a5270f094d37893f3ec5",
+        "json_pointer": "/observations/0",
+        "payload_sha256": "043502eef46a537fdb1c80ee8ef59adac11d126bf7f5c88524e99fb6db373428"
+      },
+      "raw_payload": {
+        "frame": 0,
+        "actor": "white_15",
+        "teamAppearance": "white",
+        "box": [
+          976.364,
+          214.432,
+          1030.909,
+          335.455
+        ],
+        "baselineTrackId": 1
+      },
+      "evidence_correlation_group": "40e95ee3d295e707f9b200995fadc323e3134db62dee87161ecd8d7bb07510e6",
+      "evidence": {
+        "kind": "manual_annotation_claim",
+        "source_tag": "source_claimed_human",
+        "source_observed_flag": null,
+        "review_status": "source_claimed_human_unverified",
+        "score": null,
+        "score_semantics": "uncalibrated_not_probability",
+        "annotation_method_claim": "Human visual identity checks on saved full-frame previews; reference boxes copied from visibly correct baseline detections to locate subjects, not independently measured geometric ground truth."
+      },
+      "geometry": {
+        "coordinate_space": "image_pixels",
+        "raw_bbox": [
+          976.364,
+          214.432,
+          1030.909,
+          335.455
+        ],
+        "render_bbox": [
+          976.364,
+          214.432,
+          1030.909,
+          335.455
+        ],
+        "raw_bbox_status": "source_preserved",
+        "raw_bbox_meaning": "source_claimed_annotation",
+        "render_transform": "same_as_source_not_ui_render",
+        "ground_contact": "unknown",
+        "metric_accuracy": "unvalidated"
+      },
+      "association": {
+        "local_track_id": 1,
+        "namespace": {
+          "value": null,
+          "status": "unknown"
+        },
+        "variant_version": {
+          "value": null,
+          "status": "unknown"
+        },
+        "person_identity": null,
+        "identity_verified": false
+      },
+      "timing": {
+        "source_frame": 0,
+        "raw_time_seconds": null,
+        "time_basis": "unknown",
+        "pts_ticks": null,
+        "time_base": null,
+        "elapsed_seconds": null,
+        "elapsed_time_origin": "unknown"
+      },
+      "availability": {
+        "available_at_source_lower_bound": {
+          "frame": 0,
+          "time_seconds": null,
+          "time_basis": "unknown",
+          "basis": "known_dependencies_only_not_actual_availability"
+        },
+        "components": {
+          "raw_location": {
+            "frame": 0,
+            "time_seconds": null,
+            "time_basis": "unknown",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "role": {
+            "frame": 0,
+            "time_seconds": null,
+            "time_basis": "unknown",
+            "basis": "role_reference_frame_lower_bound"
+          },
+          "display": {
+            "frame": 0,
+            "time_seconds": null,
+            "time_basis": "unknown",
+            "basis": "source_geometry_only"
+          }
+        },
+        "wall_clock_available_at": null,
+        "wall_clock_status": "unknown",
+        "dependency_completeness": "partial",
+        "selection_horizon": "unknown",
+        "realtime_eligible": false,
+        "realtime_reason": "source_time_floor_is_not_processing_completion_or_publication_time"
+      },
+      "role": {
+        "label": null,
+        "reference_frame": null,
+        "inferred": false,
+        "future_reference": false
+      },
+      "court": {
+        "half_orientation": "unknown",
+        "attack_direction": "unknown",
+        "camera_state": "unknown",
+        "metric_position": null
+      },
+      "dependencies": [],
+      "contract_bridge": {
+        "contract_version": "evidence-contract-research-v1",
+        "status": "not_representable_without_additional_context",
+        "observation_id": null,
+        "artifact_relative_path": null
+      }
+    },
+    {
+      "schema_version": "source-semantics-adapter-v1",
+      "id": "8e3e86f939a24c4c23d1bccb4e6f72fe6a559b1ac30196dbede9852b5da4e5db",
+      "source": {
+        "relative_path": "engineering/experiments/player_recovery/annotations.json",
+        "file_sha256": "1f19d3371c2be1b17276137d974157ef4b0eabdc373fd0b2578e3d08908f548c",
+        "json_pointer": "/annotations/0/players/0",
+        "payload_sha256": "85a66b136dc6307d214a67e0198c3c813f212905ac456407712863126eae7019"
+      },
+      "raw_payload": {
+        "bbox": [
+          964,
+          211,
+          1033,
+          407
+        ],
+        "foot": [
+          998,
+          401
+        ],
+        "team": "HOU"
+      },
+      "evidence_correlation_group": "a8b8ce3b9f3b385d60c28ef79909386d249c134accdfc28ffd4564486f4eb9fb",
+      "evidence": {
+        "kind": "agent_annotation_claim",
+        "source_tag": "agent_annotation",
+        "source_observed_flag": null,
+        "review_status": "agent_drawn_unverified",
+        "score": null,
+        "score_semantics": "uncalibrated_not_probability",
+        "annotation_method_claim": "Agent directly viewed the original decoded frames and drew these independent visual references. They have not been human frame-by-frame validated and are not ground truth."
+      },
+      "geometry": {
+        "coordinate_space": "image_pixels",
+        "raw_bbox": [
+          964,
+          211,
+          1033,
+          407
+        ],
+        "render_bbox": [
+          964,
+          211,
+          1033,
+          407
+        ],
+        "raw_bbox_status": "source_preserved",
+        "raw_bbox_meaning": "source_claimed_annotation",
+        "render_transform": "same_as_source_not_ui_render",
+        "ground_contact": "unknown",
+        "metric_accuracy": "unvalidated"
+      },
+      "association": {
+        "local_track_id": null,
+        "namespace": {
+          "value": null,
+          "status": "unknown"
+        },
+        "variant_version": {
+          "value": null,
+          "status": "unknown"
+        },
+        "person_identity": null,
+        "identity_verified": false
+      },
+      "timing": {
+        "source_frame": 220,
+        "raw_time_seconds": null,
+        "time_basis": "unknown",
+        "pts_ticks": null,
+        "time_base": null,
+        "elapsed_seconds": null,
+        "elapsed_time_origin": "unknown"
+      },
+      "availability": {
+        "available_at_source_lower_bound": {
+          "frame": 220,
+          "time_seconds": null,
+          "time_basis": "unknown",
+          "basis": "known_dependencies_only_not_actual_availability"
+        },
+        "components": {
+          "raw_location": {
+            "frame": 220,
+            "time_seconds": null,
+            "time_basis": "unknown",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "role": {
+            "frame": 220,
+            "time_seconds": null,
+            "time_basis": "unknown",
+            "basis": "role_reference_frame_lower_bound"
+          },
+          "display": {
+            "frame": 220,
+            "time_seconds": null,
+            "time_basis": "unknown",
+            "basis": "source_geometry_only"
+          }
+        },
+        "wall_clock_available_at": null,
+        "wall_clock_status": "unknown",
+        "dependency_completeness": "partial",
+        "selection_horizon": "unknown",
+        "realtime_eligible": false,
+        "realtime_reason": "source_time_floor_is_not_processing_completion_or_publication_time"
+      },
+      "role": {
+        "label": null,
+        "reference_frame": null,
+        "inferred": false,
+        "future_reference": false
+      },
+      "court": {
+        "half_orientation": "unknown",
+        "attack_direction": "unknown",
+        "camera_state": "unknown",
+        "metric_position": null
+      },
+      "dependencies": [],
+      "contract_bridge": {
+        "contract_version": "evidence-contract-research-v1",
+        "status": "not_representable_without_additional_context",
+        "observation_id": null,
+        "artifact_relative_path": null
+      }
+    },
+    {
+      "schema_version": "source-semantics-adapter-v1",
+      "id": "8c689a96317a6071d05aeb5bb5c1e1158684b44d445504cb252869c86bdfb47f",
+      "source": {
+        "relative_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json",
+        "file_sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17",
+        "json_pointer": "/0/tracks/0",
+        "payload_sha256": "0440a01c6ee5d59da6e646cbad11fa317737ca663a3a1d96f085523ff9316ee6"
+      },
+      "raw_payload": [
+        1452.272705,
+        484.772736,
+        1575.0,
+        737.727295,
+        1,
+        0.92041,
+        2
+      ],
+      "evidence_correlation_group": "ba703fcb01e5f6d61459843b2944b3ed98a00e3e4d9eeae7052dcfee6b082636",
+      "evidence": {
+        "kind": "detector_observation",
+        "source_tag": "track_array",
+        "source_observed_flag": null,
+        "review_status": "unreviewed",
+        "score": 0.92041,
+        "score_semantics": "uncalibrated_not_probability",
+        "annotation_method_claim": null
+      },
+      "geometry": {
+        "coordinate_space": "image_pixels",
+        "raw_bbox": [
+          1452.272705,
+          484.772736,
+          1575.0,
+          737.727295
+        ],
+        "render_bbox": [
+          1452.272705,
+          484.772736,
+          1575.0,
+          737.727295
+        ],
+        "raw_bbox_status": "source_preserved",
+        "raw_bbox_meaning": "detector_candidate_before_display_transform",
+        "render_transform": "same_as_source_not_ui_render",
+        "ground_contact": "unknown",
+        "metric_accuracy": "unvalidated"
+      },
+      "association": {
+        "local_track_id": 1,
+        "namespace": {
+          "value": "005:team-stable",
+          "status": "contract_variant"
+        },
+        "variant_version": {
+          "value": null,
+          "status": "unknown"
+        },
+        "person_identity": null,
+        "identity_verified": false
+      },
+      "timing": {
+        "source_frame": 0,
+        "raw_time_seconds": 0.0,
+        "time_basis": "verified_container_pts_seconds",
+        "pts_ticks": 0,
+        "time_base": [
+          1,
+          15360
+        ],
+        "elapsed_seconds": null,
+        "elapsed_time_origin": "unknown"
+      },
+      "availability": {
+        "available_at_source_lower_bound": {
+          "frame": 0,
+          "time_seconds": 0.0,
+          "time_basis": "verified_container_pts_seconds",
+          "basis": "known_dependencies_only_not_actual_availability"
+        },
+        "components": {
+          "raw_location": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "role": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "role_reference_frame_lower_bound"
+          },
+          "display": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "verified_container_pts_seconds",
+            "basis": "source_geometry_only"
+          }
+        },
+        "wall_clock_available_at": null,
+        "wall_clock_status": "unknown",
+        "dependency_completeness": "partial",
+        "selection_horizon": "unknown",
+        "realtime_eligible": false,
+        "realtime_reason": "source_time_floor_is_not_processing_completion_or_publication_time"
+      },
+      "role": {
+        "label": null,
+        "reference_frame": null,
+        "inferred": false,
+        "future_reference": false
+      },
+      "court": {
+        "half_orientation": "unknown",
+        "attack_direction": "unknown",
+        "camera_state": "unknown",
+        "metric_position": null
+      },
+      "dependencies": [],
+      "contract_bridge": {
+        "contract_version": "evidence-contract-research-v1",
+        "status": "existing_source_grounded_observation",
+        "observation_id": "005:team-stable:f0:tracks:0",
+        "artifact_relative_path": "evidence/contract/source_grounded_examples.json"
+      }
+    },
+    {
+      "schema_version": "source-semantics-adapter-v1",
+      "id": "ea0935d3f715f27f8e494c3948d4eccf78392ce47bf8a064b73bc999f6a8d14d",
+      "source": {
+        "relative_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-optimized.json",
+        "file_sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17",
+        "json_pointer": "/0/tracks/0",
+        "payload_sha256": "0440a01c6ee5d59da6e646cbad11fa317737ca663a3a1d96f085523ff9316ee6"
+      },
+      "raw_payload": [
+        1452.272705,
+        484.772736,
+        1575.0,
+        737.727295,
+        1,
+        0.92041,
+        2
+      ],
+      "evidence_correlation_group": "ba703fcb01e5f6d61459843b2944b3ed98a00e3e4d9eeae7052dcfee6b082636",
+      "evidence": {
+        "kind": "detector_observation",
+        "source_tag": "track_array",
+        "source_observed_flag": null,
+        "review_status": "unreviewed",
+        "score": 0.92041,
+        "score_semantics": "uncalibrated_not_probability",
+        "annotation_method_claim": null
+      },
+      "geometry": {
+        "coordinate_space": "image_pixels",
+        "raw_bbox": [
+          1452.272705,
+          484.772736,
+          1575.0,
+          737.727295
+        ],
+        "render_bbox": [
+          1452.272705,
+          484.772736,
+          1575.0,
+          737.727295
+        ],
+        "raw_bbox_status": "source_preserved",
+        "raw_bbox_meaning": "detector_candidate_before_display_transform",
+        "render_transform": "same_as_source_not_ui_render",
+        "ground_contact": "unknown",
+        "metric_accuracy": "unvalidated"
+      },
+      "association": {
+        "local_track_id": 1,
+        "namespace": {
+          "value": "artifact:c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17",
+          "status": "artifact_scoped_only"
+        },
+        "variant_version": {
+          "value": null,
+          "status": "unknown"
+        },
+        "person_identity": null,
+        "identity_verified": false
+      },
+      "timing": {
+        "source_frame": 0,
+        "raw_time_seconds": 0.0,
+        "time_basis": "declared_container_pts_consistent",
+        "pts_ticks": 0,
+        "time_base": [
+          1,
+          15360
+        ],
+        "elapsed_seconds": null,
+        "elapsed_time_origin": "unknown"
+      },
+      "availability": {
+        "available_at_source_lower_bound": {
+          "frame": 0,
+          "time_seconds": 0.0,
+          "time_basis": "declared_container_pts_consistent",
+          "basis": "known_dependencies_only_not_actual_availability"
+        },
+        "components": {
+          "raw_location": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "declared_container_pts_consistent",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "role": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "declared_container_pts_consistent",
+            "basis": "role_reference_frame_lower_bound"
+          },
+          "display": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "declared_container_pts_consistent",
+            "basis": "source_geometry_only"
+          }
+        },
+        "wall_clock_available_at": null,
+        "wall_clock_status": "unknown",
+        "dependency_completeness": "partial",
+        "selection_horizon": "unknown",
+        "realtime_eligible": false,
+        "realtime_reason": "source_time_floor_is_not_processing_completion_or_publication_time"
+      },
+      "role": {
+        "label": null,
+        "reference_frame": null,
+        "inferred": false,
+        "future_reference": false
+      },
+      "court": {
+        "half_orientation": "unknown",
+        "attack_direction": "unknown",
+        "camera_state": "unknown",
+        "metric_position": null
+      },
+      "dependencies": [],
+      "contract_bridge": {
+        "contract_version": "evidence-contract-research-v1",
+        "status": "not_representable_without_additional_context",
+        "observation_id": null,
+        "artifact_relative_path": null
+      }
+    },
+    {
+      "schema_version": "source-semantics-adapter-v1",
+      "id": "06162782af0e5cd6b194ad88e68d2146571bf901a340df2a9398b75567e27407",
+      "source": {
+        "relative_path": "artifacts/player-recovery/batch-v3/s24-033/recovered.json",
+        "file_sha256": "38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c",
+        "json_pointer": "/frames/0/tracks/8",
+        "payload_sha256": "5a6325e463b19d6eac4dd5ba7e6cb9acb652a89847dd6673e2e2854f83951680"
+      },
+      "raw_payload": {
+        "track_id": 9,
+        "bbox": [
+          441.6118253162744,
+          138.17005255486373,
+          497.32182531627444,
+          258.82005255486376
+        ],
+        "raw_bbox": [
+          441.28,
+          138.1,
+          496.99,
+          258.75
+        ],
+        "center": [
+          469.4668253162744,
+          198.49505255486375
+        ],
+        "raw_center": [
+          469.135,
+          198.425
+        ],
+        "foot": [
+          469.4661301986029,
+          258.808158683414
+        ],
+        "raw_foot": [
+          469.135,
+          258.75
+        ],
+        "time": 0.0,
+        "confidence": 0.5993,
+        "source": "detector",
+        "observed": true,
+        "appearance": [
+          0.4863,
+          0.5216,
+          0.5333
+        ],
+        "smoothed": true,
+        "motion_speed_bbox_s": 0.6875160661962659,
+        "person_role": "active_player",
+        "role_reference_frame": 100
+      },
+      "evidence_correlation_group": "ad6753b2c2d240e5ac2a7cd32cee213c9d4f214f38492fcf3f323d5e289c2fd8",
+      "evidence": {
+        "kind": "detector_observation",
+        "source_tag": "detector",
+        "source_observed_flag": true,
+        "review_status": "unreviewed",
+        "score": 0.5993,
+        "score_semantics": "uncalibrated_not_probability",
+        "annotation_method_claim": null
+      },
+      "geometry": {
+        "coordinate_space": "image_pixels",
+        "raw_bbox": [
+          441.28,
+          138.1,
+          496.99,
+          258.75
+        ],
+        "render_bbox": [
+          441.6118253162744,
+          138.17005255486373,
+          497.32182531627444,
+          258.82005255486376
+        ],
+        "raw_bbox_status": "source_preserved",
+        "raw_bbox_meaning": "detector_candidate_before_display_transform",
+        "render_transform": "offline_smoothing_or_clipping",
+        "ground_contact": "unknown",
+        "metric_accuracy": "unvalidated"
+      },
+      "association": {
+        "local_track_id": 9,
+        "namespace": {
+          "value": "artifact:38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c",
+          "status": "artifact_scoped_only"
+        },
+        "variant_version": {
+          "value": null,
+          "status": "unknown"
+        },
+        "person_identity": null,
+        "identity_verified": false
+      },
+      "timing": {
+        "source_frame": 0,
+        "raw_time_seconds": 0.0,
+        "time_basis": "nominal_frame_index_over_fps",
+        "pts_ticks": null,
+        "time_base": null,
+        "elapsed_seconds": null,
+        "elapsed_time_origin": "unknown"
+      },
+      "availability": {
+        "available_at_source_lower_bound": {
+          "frame": 100,
+          "time_seconds": 4.0,
+          "time_basis": "nominal_frame_index_over_fps",
+          "basis": "known_dependencies_only_not_actual_availability"
+        },
+        "components": {
+          "raw_location": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "source_frame_or_known_inference_anchors"
+          },
+          "role": {
+            "frame": 100,
+            "time_seconds": 4.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "role_reference_frame_lower_bound"
+          },
+          "display": {
+            "frame": 0,
+            "time_seconds": 0.0,
+            "time_basis": "nominal_frame_index_over_fps",
+            "basis": "smoothing_future_window_incomplete"
+          }
+        },
+        "wall_clock_available_at": null,
+        "wall_clock_status": "unknown",
+        "dependency_completeness": "partial",
+        "selection_horizon": "full_clip_or_track",
+        "realtime_eligible": false,
+        "realtime_reason": "source_time_floor_is_not_processing_completion_or_publication_time"
+      },
+      "role": {
+        "label": "active_player",
+        "reference_frame": 100,
+        "inferred": true,
+        "future_reference": true
+      },
+      "court": {
+        "half_orientation": "unknown",
+        "attack_direction": "unknown",
+        "camera_state": "unknown",
+        "metric_position": null
+      },
+      "dependencies": [],
+      "contract_bridge": {
+        "contract_version": "evidence-contract-research-v1",
+        "status": "not_representable_without_additional_context",
+        "observation_id": null,
+        "artifact_relative_path": null
+      }
+    }
+  ]
+}

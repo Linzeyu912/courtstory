@@ -1,0 +1,4929 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-10-02T14:55:51.421526+00:00",
+  "scope": "Offline source audit, no inference, no edits to repository, no accuracy claims.",
+  "environment": {
+    "python": "3.12.10",
+    "pyav": "18.0.0",
+    "audit_script_sha256": "ab914ae5c0ae2950c18f22d39da431a757b2431678615a1a5705fae4e27793b3"
+  },
+  "repository": {
+    "head": "1839dcde5b5cc0aa362baa474e58e5b530e6c695",
+    "cached_origin_main": "1839dcde5b5cc0aa362baa474e58e5b530e6c695",
+    "branch": "main",
+    "remote_refreshed": false,
+    "status_before": "M docs/status.md\n M engineering/README.md\n?? engineering/experiments/\n?? handoffs/chuali-zi/",
+    "status_after": "M docs/status.md\n M engineering/README.md\n?? engineering/experiments/\n?? handoffs/chuali-zi/",
+    "status_unchanged": true
+  },
+  "library": {
+    "path": "data/videos/tactics/acceptance/review-library.json",
+    "sha256": "1014b79157e0c51f11c1eafa112d68da8dfe9dee912567e58229695a13a42c32"
+  },
+  "metric_contract": {
+    "observations": "One stored row in one frame; repeated variant files remain separate views.",
+    "pending": "Stored pending_detections, not missed-player truth.",
+    "gaps": "Absences strictly between first/last appearance of same temporary T ID; not true missed detections.",
+    "overlap_warnings": "Same-class box overlap proxies only; occlusion can trigger them; not verified duplicate detections.",
+    "color_flags": "Existing source flags only; absent field is null, not zero.",
+    "identity": "Temporary T IDs and proposed P slots are not verified player identities.",
+    "accuracy": "Null without independent ground truth; model confidence is not identity accuracy."
+  },
+  "samples": [
+    {
+      "id": "004",
+      "default_variant": "team-stable",
+      "video": {
+        "readable": true,
+        "width": 1280,
+        "height": 720,
+        "average_rate": "2397/100",
+        "time_base": "1/19176",
+        "declared_frames": 210,
+        "duration_seconds": 8.760951188986233,
+        "audio_streams": [],
+        "decoded_frames": 210,
+        "missing_pts": 0,
+        "first_pts": 786,
+        "last_pts": 167986,
+        "first_time_seconds": 0.04098873591989988,
+        "last_time_seconds": 8.760221109720485,
+        "nonincreasing_pts_steps": 0,
+        "pts_sequence_sha256": "569b6142fb0fff0845a9c749df980cf4a0cc77577b7c713cb02fed0af66ecb59",
+        "path": "data/videos/tactics/acceptance/clips/004_GSW_elevator.mp4",
+        "sha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+        "library_sha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+        "hash_matches": true
+      },
+      "variants": [
+        {
+          "id": "original",
+          "path": "data/videos/tactics/acceptance/tracks/004.json",
+          "tracks_sha256": "2f6aa970eaf50c46e7565d318b7f3f4d04d0dc1b31803ae5c193721d43ae504d",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/004.meta.json",
+          "metadata_sha256": "7f7394d5d9a8e80d0fc9cbbd4a05204bf5a08de9549e2304fc396299baa2ca20",
+          "metadata_required": false,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 0,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 210,
+          "track_observations": 3453,
+          "tracks_per_frame": {
+            "n": 210,
+            "min": 9,
+            "median": 17.0,
+            "max": 23
+          },
+          "frames_with_exactly_10_tracks": 0,
+          "pending_observations": 993,
+          "pending_per_frame": {
+            "n": 210,
+            "min": 0,
+            "median": 5.0,
+            "max": 14
+          },
+          "frames_with_pending": 199,
+          "candidate_count": {
+            "n": 210,
+            "min": 25,
+            "median": 45.0,
+            "max": 66
+          },
+          "candidate_count_sum": 9310,
+          "class_observations": {
+            "0": 3453
+          },
+          "explicit_role_observations": {},
+          "player_observations": null,
+          "player_counts_basis": "unavailable_generic_person_class",
+          "player_count_per_frame": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "max": null
+          },
+          "pending_class_observations": {
+            "0": 993
+          },
+          "unique_track_ids": 95,
+          "id_observation_length": {
+            "n": 95,
+            "min": 1,
+            "median": 16,
+            "max": 206
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 92,
+            "tracks_with_internal_gaps": 41,
+            "absent_frames_sum": 408,
+            "gap_length_frames": {
+              "n": 92,
+              "min": 1,
+              "median": 2.0,
+              "max": 25
+            },
+            "largest_gaps": [
+              {
+                "track_id": 310,
+                "start": 105,
+                "end": 129,
+                "absent_frames": 25
+              },
+              {
+                "track_id": 13,
+                "start": 9,
+                "end": 32,
+                "absent_frames": 24
+              },
+              {
+                "track_id": 19,
+                "start": 15,
+                "end": 38,
+                "absent_frames": 24
+              },
+              {
+                "track_id": 55,
+                "start": 84,
+                "end": 101,
+                "absent_frames": 18
+              },
+              {
+                "track_id": 134,
+                "start": 91,
+                "end": 108,
+                "absent_frames": 18
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 321,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 8,
+            "first_overlap_examples": [
+              {
+                "frame": 48,
+                "ids": [
+                  4,
+                  127
+                ],
+                "iou": 0.5247,
+                "intersection_over_smaller": 0.9977,
+                "area_ratio": 0.5265
+              },
+              {
+                "frame": 54,
+                "ids": [
+                  82,
+                  109
+                ],
+                "iou": 0.4657,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4657
+              },
+              {
+                "frame": 125,
+                "ids": [
+                  8,
+                  394
+                ],
+                "iou": 0.3037,
+                "intersection_over_smaller": 0.9779,
+                "area_ratio": 0.3128
+              },
+              {
+                "frame": 128,
+                "ids": [
+                  8,
+                  394
+                ],
+                "iou": 0.2949,
+                "intersection_over_smaller": 0.9447,
+                "area_ratio": 0.3176
+              },
+              {
+                "frame": 129,
+                "ids": [
+                  8,
+                  394
+                ],
+                "iou": 0.2939,
+                "intersection_over_smaller": 0.9599,
+                "area_ratio": 0.31
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 0,
+            "source_counts": {},
+            "team_label_counts": {},
+            "torso_label_counts": {},
+            "color_conflict_flags": null,
+            "color_conflict_field_observations": 0,
+            "color_conflicts_by_track": {},
+            "identity_review_flags": null,
+            "identity_review_field_observations": 0,
+            "identity_review_by_track": {},
+            "identity_verified_true_observations": null
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "tracker": "ByteTrack",
+            "model": "yolov8s.pt",
+            "identity_verified": false
+          },
+          "identity_suggestions": {
+            "available": false,
+            "entities": null,
+            "verified": null,
+            "linked_fragments": null,
+            "has_team_grouping": null
+          }
+        },
+        {
+          "id": "team-stable",
+          "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.json",
+          "tracks_sha256": "aaca9d5ea06d3e2a503b5b15453ca3f06ec73bcd8d83c36cee75a106af07c593",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.meta.json",
+          "metadata_sha256": "976579c9578bce870b99d9bbc55b89998d7988a69502ae6a770dccd6dd1664e1",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 4.981228762801493e-10,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 210,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 210,
+          "track_observations": 1867,
+          "tracks_per_frame": {
+            "n": 210,
+            "min": 5,
+            "median": 9.0,
+            "max": 11
+          },
+          "frames_with_exactly_10_tracks": 70,
+          "pending_observations": 214,
+          "pending_per_frame": {
+            "n": 210,
+            "min": 0,
+            "median": 1.0,
+            "max": 5
+          },
+          "frames_with_pending": 138,
+          "candidate_count": {
+            "n": 210,
+            "min": 5,
+            "median": 10.0,
+            "max": 15
+          },
+          "candidate_count_sum": 2081,
+          "class_observations": {
+            "2": 1867
+          },
+          "explicit_role_observations": {},
+          "player_observations": 1867,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 210,
+            "min": 5,
+            "median": 9.0,
+            "max": 11
+          },
+          "pending_class_observations": {
+            "2": 214
+          },
+          "unique_track_ids": 33,
+          "id_observation_length": {
+            "n": 33,
+            "min": 1,
+            "median": 31,
+            "max": 210
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 29,
+            "tracks_with_internal_gaps": 14,
+            "absent_frames_sum": 163,
+            "gap_length_frames": {
+              "n": 29,
+              "min": 1,
+              "median": 3,
+              "max": 25
+            },
+            "largest_gaps": [
+              {
+                "track_id": 12,
+                "start": 22,
+                "end": 46,
+                "absent_frames": 25
+              },
+              {
+                "track_id": 16,
+                "start": 41,
+                "end": 57,
+                "absent_frames": 17
+              },
+              {
+                "track_id": 30,
+                "start": 99,
+                "end": 115,
+                "absent_frames": 17
+              },
+              {
+                "track_id": 9,
+                "start": 126,
+                "end": 138,
+                "absent_frames": 13
+              },
+              {
+                "track_id": 55,
+                "start": 186,
+                "end": 198,
+                "absent_frames": 13
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 0,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 43,
+            "first_overlap_examples": [
+              {
+                "frame": 0,
+                "ids": [
+                  9,
+                  10
+                ],
+                "iou": 0.4829,
+                "intersection_over_smaller": 0.9917,
+                "area_ratio": 0.4889
+              },
+              {
+                "frame": 1,
+                "ids": [
+                  10,
+                  9
+                ],
+                "iou": 0.4373,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4373
+              },
+              {
+                "frame": 2,
+                "ids": [
+                  10,
+                  9
+                ],
+                "iou": 0.4475,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4475
+              },
+              {
+                "frame": 3,
+                "ids": [
+                  9,
+                  10
+                ],
+                "iou": 0.3792,
+                "intersection_over_smaller": 0.9778,
+                "area_ratio": 0.3911
+              },
+              {
+                "frame": 4,
+                "ids": [
+                  9,
+                  10
+                ],
+                "iou": 0.3798,
+                "intersection_over_smaller": 0.9779,
+                "area_ratio": 0.3918
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 1867,
+            "source_counts": {
+              "detection": 1844,
+              "low_confidence_continuation": 23
+            },
+            "team_label_counts": {
+              "None": 831,
+              "white": 617,
+              "blue": 419
+            },
+            "torso_label_counts": {
+              "white": 468,
+              "None": 1188,
+              "dark": 209,
+              "blue": 2
+            },
+            "color_conflict_flags": 20,
+            "color_conflict_field_observations": 1867,
+            "color_conflicts_by_track": {
+              "29": 20
+            },
+            "identity_review_flags": 49,
+            "identity_review_field_observations": 1867,
+            "identity_review_by_track": {
+              "29": 49
+            },
+            "identity_verified_true_observations": 0
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "variant": "team-stable",
+            "tracker": "BoT-SORT",
+            "model": "BODD_yolov8n_0001.pt",
+            "identity_verified": false,
+            "metric_accuracy_validated": false,
+            "weights_sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+            "configuration_sha256": "5f54774e39a0de41d9e292199e10d3009b5b32bdeb294c46c85754fd80c653a7",
+            "implementation_sha256": {
+              "basketball_run.py": "5d780a538817d1bbc9fb4f137ad52c3c692c469fff6ed66503db5e54bd148116",
+              "basketball_tracker.py": "b96e315b2548986b04e7112852f4f70d2696384eeeca987915e2ba89f69a55ed",
+              "basketball_tracking.py": "5457b6b679f9808d2b999b4e868df49c3d98a34f4a031c4ff36dec5b3cd3e7ac"
+            }
+          },
+          "identity_suggestions": {
+            "available": true,
+            "entities": 5,
+            "verified": false,
+            "linked_fragments": 0,
+            "has_team_grouping": true
+          }
+        },
+        {
+          "id": "ebard",
+          "path": "data/videos/tactics/acceptance/tracks/004-ebard.json",
+          "tracks_sha256": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/004-ebard.meta.json",
+          "metadata_sha256": "544c78d40ce4f6856dea607e5b31b9246e3812b9327a8251afd082461510f6f6",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 0,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 210,
+          "track_observations": 2323,
+          "tracks_per_frame": {
+            "n": 210,
+            "min": 5,
+            "median": 12.0,
+            "max": 14
+          },
+          "frames_with_exactly_10_tracks": 30,
+          "pending_observations": 139,
+          "pending_per_frame": {
+            "n": 210,
+            "min": 0,
+            "median": 0.0,
+            "max": 6
+          },
+          "frames_with_pending": 95,
+          "candidate_count": {
+            "n": 210,
+            "min": 6,
+            "median": 13.0,
+            "max": 18
+          },
+          "candidate_count_sum": 2722,
+          "class_observations": {
+            "2": 1827,
+            "3": 496
+          },
+          "explicit_role_observations": {
+            "player": 1827,
+            "referee": 496
+          },
+          "player_observations": 1827,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 210,
+            "min": 5,
+            "median": 9.0,
+            "max": 11
+          },
+          "pending_class_observations": {
+            "2": 113,
+            "3": 26
+          },
+          "unique_track_ids": 40,
+          "id_observation_length": {
+            "n": 40,
+            "min": 1,
+            "median": 23.0,
+            "max": 210
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 31,
+            "tracks_with_internal_gaps": 13,
+            "absent_frames_sum": 132,
+            "gap_length_frames": {
+              "n": 31,
+              "min": 1,
+              "median": 3,
+              "max": 26
+            },
+            "largest_gaps": [
+              {
+                "track_id": 17,
+                "start": 79,
+                "end": 104,
+                "absent_frames": 26
+              },
+              {
+                "track_id": 17,
+                "start": 30,
+                "end": 46,
+                "absent_frames": 17
+              },
+              {
+                "track_id": 6,
+                "start": 51,
+                "end": 61,
+                "absent_frames": 11
+              },
+              {
+                "track_id": 7,
+                "start": 189,
+                "end": 198,
+                "absent_frames": 10
+              },
+              {
+                "track_id": 17,
+                "start": 58,
+                "end": 62,
+                "absent_frames": 5
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 119,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 25,
+            "first_overlap_examples": [
+              {
+                "frame": 0,
+                "ids": [
+                  9,
+                  10
+                ],
+                "iou": 0.4829,
+                "intersection_over_smaller": 0.9917,
+                "area_ratio": 0.4889
+              },
+              {
+                "frame": 1,
+                "ids": [
+                  9,
+                  10
+                ],
+                "iou": 0.5231,
+                "intersection_over_smaller": 0.999,
+                "area_ratio": 0.5239
+              },
+              {
+                "frame": 2,
+                "ids": [
+                  9,
+                  10
+                ],
+                "iou": 0.4408,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4408
+              },
+              {
+                "frame": 41,
+                "ids": [
+                  8,
+                  2
+                ],
+                "iou": 0.4952,
+                "intersection_over_smaller": 0.906,
+                "area_ratio": 0.5763
+              },
+              {
+                "frame": 42,
+                "ids": [
+                  8,
+                  2
+                ],
+                "iou": 0.4856,
+                "intersection_over_smaller": 0.927,
+                "area_ratio": 0.5447
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 0,
+            "source_counts": {},
+            "team_label_counts": {},
+            "torso_label_counts": {},
+            "color_conflict_flags": null,
+            "color_conflict_field_observations": 0,
+            "color_conflicts_by_track": {},
+            "identity_review_flags": null,
+            "identity_review_field_observations": 0,
+            "identity_review_by_track": {},
+            "identity_verified_true_observations": null
+          },
+          "objects": {
+            "frames_with_objects_field": 210,
+            "available_in_this_variant": true,
+            "observation_counts": {
+              "hoop": 205,
+              "basketball": 74
+            },
+            "frames_by_kind": {
+              "hoop": 205,
+              "basketball": 73
+            },
+            "sources": {
+              "hoop:model": 205,
+              "basketball:model": 74
+            }
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "tracker": "ByteTrack",
+            "model": "BODD_yolov8n_0001.pt",
+            "pipeline_version": "ebard-yolov8n-bytetrack-v1",
+            "identity_verified": false
+          },
+          "identity_suggestions": {
+            "available": false,
+            "entities": null,
+            "verified": null,
+            "linked_fragments": null,
+            "has_team_grouping": null
+          }
+        },
+        {
+          "id": "optimized",
+          "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-optimized.json",
+          "tracks_sha256": "aaca9d5ea06d3e2a503b5b15453ca3f06ec73bcd8d83c36cee75a106af07c593",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-optimized.meta.json",
+          "metadata_sha256": "0ecacd3befaf7e868caae33ed9554addd3d59cb6216f468f9f361b4c0a018944",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 4.981228762801493e-10,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 210,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 210,
+          "track_observations": 1867,
+          "tracks_per_frame": {
+            "n": 210,
+            "min": 5,
+            "median": 9.0,
+            "max": 11
+          },
+          "frames_with_exactly_10_tracks": 70,
+          "pending_observations": 214,
+          "pending_per_frame": {
+            "n": 210,
+            "min": 0,
+            "median": 1.0,
+            "max": 5
+          },
+          "frames_with_pending": 138,
+          "candidate_count": {
+            "n": 210,
+            "min": 5,
+            "median": 10.0,
+            "max": 15
+          },
+          "candidate_count_sum": 2081,
+          "class_observations": {
+            "2": 1867
+          },
+          "explicit_role_observations": {},
+          "player_observations": 1867,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 210,
+            "min": 5,
+            "median": 9.0,
+            "max": 11
+          },
+          "pending_class_observations": {
+            "2": 214
+          },
+          "unique_track_ids": 33,
+          "id_observation_length": {
+            "n": 33,
+            "min": 1,
+            "median": 31,
+            "max": 210
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 29,
+            "tracks_with_internal_gaps": 14,
+            "absent_frames_sum": 163,
+            "gap_length_frames": {
+              "n": 29,
+              "min": 1,
+              "median": 3,
+              "max": 25
+            },
+            "largest_gaps": [
+              {
+                "track_id": 12,
+                "start": 22,
+                "end": 46,
+                "absent_frames": 25
+              },
+              {
+                "track_id": 16,
+                "start": 41,
+                "end": 57,
+                "absent_frames": 17
+              },
+              {
+                "track_id": 30,
+                "start": 99,
+                "end": 115,
+                "absent_frames": 17
+              },
+              {
+                "track_id": 9,
+                "start": 126,
+                "end": 138,
+                "absent_frames": 13
+              },
+              {
+                "track_id": 55,
+                "start": 186,
+                "end": 198,
+                "absent_frames": 13
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 0,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 43,
+            "first_overlap_examples": [
+              {
+                "frame": 0,
+                "ids": [
+                  9,
+                  10
+                ],
+                "iou": 0.4829,
+                "intersection_over_smaller": 0.9917,
+                "area_ratio": 0.4889
+              },
+              {
+                "frame": 1,
+                "ids": [
+                  10,
+                  9
+                ],
+                "iou": 0.4373,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4373
+              },
+              {
+                "frame": 2,
+                "ids": [
+                  10,
+                  9
+                ],
+                "iou": 0.4475,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4475
+              },
+              {
+                "frame": 3,
+                "ids": [
+                  9,
+                  10
+                ],
+                "iou": 0.3792,
+                "intersection_over_smaller": 0.9778,
+                "area_ratio": 0.3911
+              },
+              {
+                "frame": 4,
+                "ids": [
+                  9,
+                  10
+                ],
+                "iou": 0.3798,
+                "intersection_over_smaller": 0.9779,
+                "area_ratio": 0.3918
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 1867,
+            "source_counts": {
+              "detection": 1844,
+              "low_confidence_continuation": 23
+            },
+            "team_label_counts": {
+              "None": 831,
+              "white": 617,
+              "blue": 419
+            },
+            "torso_label_counts": {
+              "white": 468,
+              "None": 1188,
+              "dark": 209,
+              "blue": 2
+            },
+            "color_conflict_flags": 20,
+            "color_conflict_field_observations": 1867,
+            "color_conflicts_by_track": {
+              "29": 20
+            },
+            "identity_review_flags": 49,
+            "identity_review_field_observations": 1867,
+            "identity_review_by_track": {
+              "29": 49
+            },
+            "identity_verified_true_observations": 0
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "variant": "optimized",
+            "tracker": "BoT-SORT",
+            "model": "BODD_yolov8n_0001.pt",
+            "identity_verified": false,
+            "metric_accuracy_validated": false,
+            "weights_sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+            "configuration_sha256": "5f54774e39a0de41d9e292199e10d3009b5b32bdeb294c46c85754fd80c653a7",
+            "implementation_sha256": {
+              "basketball_run.py": "5d780a538817d1bbc9fb4f137ad52c3c692c469fff6ed66503db5e54bd148116",
+              "basketball_tracker.py": "b96e315b2548986b04e7112852f4f70d2696384eeeca987915e2ba89f69a55ed",
+              "basketball_tracking.py": "5457b6b679f9808d2b999b4e868df49c3d98a34f4a031c4ff36dec5b3cd3e7ac"
+            }
+          },
+          "identity_suggestions": {
+            "available": true,
+            "entities": 10,
+            "verified": false,
+            "linked_fragments": 0,
+            "has_team_grouping": false
+          }
+        }
+      ],
+      "byte_identical_track_groups": [
+        [
+          "team-stable",
+          "optimized"
+        ]
+      ],
+      "independent_track_files": 3,
+      "candidates": {
+        "feet": {
+          "available": true,
+          "path": "engineering/research/vision-player-refinement/feet-candidates-004.json",
+          "sha256": "3f56917b96483809ea3a0eb4cf6148f45df9e3c15d2cebfa1b312e9e2a7b8357",
+          "video_hash_matches": true,
+          "source": "rtmpose_s_halpe26",
+          "tracking_fingerprint": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+          "provenance_fingerprint_matches_variants": [
+            "ebard"
+          ],
+          "frame_rows": 210,
+          "contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/scene_profiles.py:validate_feet_candidates"
+          },
+          "applicable_variants_by_server_contract": [
+            "ebard"
+          ],
+          "independent_accuracy": null,
+          "observations": 1827,
+          "proposed_foot_points": 2981,
+          "contact_states": {
+            "unknown": 1827
+          },
+          "ground_point_true": 0,
+          "points_needing_review": 2981,
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 0,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          }
+        },
+        "court": {
+          "available": true,
+          "path": "engineering/research/vision-player-refinement/court-candidates-004.json",
+          "sha256": "328d2e21fac803da2c1edd54084a95fdb1afc1a0e84e0d9b1dabac37113753f4",
+          "video_hash_matches": true,
+          "source": "camera_propagation",
+          "tracking_fingerprint": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+          "provenance_fingerprint_matches_variants": [
+            "ebard"
+          ],
+          "frame_rows": 210,
+          "contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/scene_profiles.py:validate_court_candidates"
+          },
+          "applicable_variants_by_server_contract": [
+            "original",
+            "team-stable",
+            "ebard",
+            "optimized"
+          ],
+          "independent_accuracy": null,
+          "statuses": {
+            "invalid": 108,
+            "needs_review": 102
+          },
+          "noninvalid_frames_with_at_least_4_points": 102,
+          "metric_accuracy_validated": false,
+          "review_required": true,
+          "contract_note": "Court is video-level: server validates video hash and frame range; stored trackingFingerprint is provenance, not a version gate."
+        }
+      }
+    },
+    {
+      "id": "005",
+      "default_variant": "team-stable",
+      "video": {
+        "readable": true,
+        "width": 1920,
+        "height": 1080,
+        "average_rate": "30",
+        "time_base": "1/15360",
+        "declared_frames": 143,
+        "duration_seconds": 4.766666666666667,
+        "audio_streams": [],
+        "decoded_frames": 143,
+        "missing_pts": 0,
+        "first_pts": 0,
+        "last_pts": 72704,
+        "first_time_seconds": 0.0,
+        "last_time_seconds": 4.733333333333333,
+        "nonincreasing_pts_steps": 0,
+        "pts_sequence_sha256": "049dfe0a2a7a06710c89b5bc1df70c4ea0b21ec5b181a249bf70fd8f3fb1ccfe",
+        "path": "data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4",
+        "sha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+        "library_sha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+        "hash_matches": true
+      },
+      "variants": [
+        {
+          "id": "original",
+          "path": "data/videos/tactics/acceptance/tracks/005.json",
+          "tracks_sha256": "030bb743fc25cfe45e88509e5ef295cc386dc913818197df766dae45e99680ed",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/005.meta.json",
+          "metadata_sha256": "b81acebd9ccf16ecb7e8de4cd3dfa117b4317bfe2f2a098f9ed49793527b303d",
+          "metadata_required": false,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 0,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 143,
+          "track_observations": 2935,
+          "tracks_per_frame": {
+            "n": 143,
+            "min": 14,
+            "median": 20,
+            "max": 30
+          },
+          "frames_with_exactly_10_tracks": 0,
+          "pending_observations": 911,
+          "pending_per_frame": {
+            "n": 143,
+            "min": 0,
+            "median": 6,
+            "max": 16
+          },
+          "frames_with_pending": 142,
+          "candidate_count": {
+            "n": 143,
+            "min": 34,
+            "median": 53,
+            "max": 64
+          },
+          "candidate_count_sum": 7425,
+          "class_observations": {
+            "0": 2935
+          },
+          "explicit_role_observations": {},
+          "player_observations": null,
+          "player_counts_basis": "unavailable_generic_person_class",
+          "player_count_per_frame": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "max": null
+          },
+          "pending_class_observations": {
+            "0": 911
+          },
+          "unique_track_ids": 85,
+          "id_observation_length": {
+            "n": 85,
+            "min": 1,
+            "median": 18,
+            "max": 143
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 130,
+            "tracks_with_internal_gaps": 45,
+            "absent_frames_sum": 359,
+            "gap_length_frames": {
+              "n": 130,
+              "min": 1,
+              "median": 1.0,
+              "max": 22
+            },
+            "largest_gaps": [
+              {
+                "track_id": 349,
+                "start": 72,
+                "end": 93,
+                "absent_frames": 22
+              },
+              {
+                "track_id": 390,
+                "start": 71,
+                "end": 88,
+                "absent_frames": 18
+              },
+              {
+                "track_id": 599,
+                "start": 96,
+                "end": 111,
+                "absent_frames": 16
+              },
+              {
+                "track_id": 5,
+                "start": 104,
+                "end": 118,
+                "absent_frames": 15
+              },
+              {
+                "track_id": 389,
+                "start": 86,
+                "end": 95,
+                "absent_frames": 10
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 187,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 15,
+            "first_overlap_examples": [
+              {
+                "frame": 0,
+                "ids": [
+                  11,
+                  13
+                ],
+                "iou": 0.5846,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.5846
+              },
+              {
+                "frame": 99,
+                "ids": [
+                  425,
+                  640
+                ],
+                "iou": 0.5062,
+                "intersection_over_smaller": 0.9966,
+                "area_ratio": 0.5088
+              },
+              {
+                "frame": 105,
+                "ids": [
+                  612,
+                  635
+                ],
+                "iou": 0.5253,
+                "intersection_over_smaller": 0.9956,
+                "area_ratio": 0.5288
+              },
+              {
+                "frame": 106,
+                "ids": [
+                  612,
+                  635
+                ],
+                "iou": 0.4684,
+                "intersection_over_smaller": 0.9852,
+                "area_ratio": 0.4788
+              },
+              {
+                "frame": 112,
+                "ids": [
+                  3,
+                  9
+                ],
+                "iou": 0.2909,
+                "intersection_over_smaller": 0.9893,
+                "area_ratio": 0.295
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 0,
+            "source_counts": {},
+            "team_label_counts": {},
+            "torso_label_counts": {},
+            "color_conflict_flags": null,
+            "color_conflict_field_observations": 0,
+            "color_conflicts_by_track": {},
+            "identity_review_flags": null,
+            "identity_review_field_observations": 0,
+            "identity_review_by_track": {},
+            "identity_verified_true_observations": null
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "tracker": "ByteTrack",
+            "model": "yolov8s.pt",
+            "identity_verified": false
+          },
+          "identity_suggestions": {
+            "available": false,
+            "entities": null,
+            "verified": null,
+            "linked_fragments": null,
+            "has_team_grouping": null
+          }
+        },
+        {
+          "id": "team-stable",
+          "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json",
+          "tracks_sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.meta.json",
+          "metadata_sha256": "59a59e2c0843b051f81f425a09f1ea5ab2122ce7f06ee85cd4eae60a200460c0",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 3.33333360913457e-10,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 143,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 143,
+          "track_observations": 1324,
+          "tracks_per_frame": {
+            "n": 143,
+            "min": 6,
+            "median": 10,
+            "max": 10
+          },
+          "frames_with_exactly_10_tracks": 74,
+          "pending_observations": 31,
+          "pending_per_frame": {
+            "n": 143,
+            "min": 0,
+            "median": 0,
+            "max": 3
+          },
+          "frames_with_pending": 26,
+          "candidate_count": {
+            "n": 143,
+            "min": 6,
+            "median": 10,
+            "max": 11
+          },
+          "candidate_count_sum": 1355,
+          "class_observations": {
+            "2": 1324
+          },
+          "explicit_role_observations": {},
+          "player_observations": 1324,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 143,
+            "min": 6,
+            "median": 10,
+            "max": 10
+          },
+          "pending_class_observations": {
+            "2": 31
+          },
+          "unique_track_ids": 16,
+          "id_observation_length": {
+            "n": 16,
+            "min": 1,
+            "median": 100.5,
+            "max": 143
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 15,
+            "tracks_with_internal_gaps": 6,
+            "absent_frames_sum": 48,
+            "gap_length_frames": {
+              "n": 15,
+              "min": 1,
+              "median": 1,
+              "max": 9
+            },
+            "largest_gaps": [
+              {
+                "track_id": 5,
+                "start": 110,
+                "end": 118,
+                "absent_frames": 9
+              },
+              {
+                "track_id": 11,
+                "start": 111,
+                "end": 118,
+                "absent_frames": 8
+              },
+              {
+                "track_id": 8,
+                "start": 80,
+                "end": 85,
+                "absent_frames": 6
+              },
+              {
+                "track_id": 11,
+                "start": 133,
+                "end": 138,
+                "absent_frames": 6
+              },
+              {
+                "track_id": 2,
+                "start": 31,
+                "end": 35,
+                "absent_frames": 5
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 0,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 7,
+            "first_overlap_examples": [
+              {
+                "frame": 25,
+                "ids": [
+                  1,
+                  8
+                ],
+                "iou": 0.3368,
+                "intersection_over_smaller": 0.9972,
+                "area_ratio": 0.3381
+              },
+              {
+                "frame": 44,
+                "ids": [
+                  1,
+                  2
+                ],
+                "iou": 0.3449,
+                "intersection_over_smaller": 0.9176,
+                "area_ratio": 0.3879
+              },
+              {
+                "frame": 55,
+                "ids": [
+                  1,
+                  11
+                ],
+                "iou": 0.4701,
+                "intersection_over_smaller": 0.9339,
+                "area_ratio": 0.5207
+              },
+              {
+                "frame": 58,
+                "ids": [
+                  1,
+                  11
+                ],
+                "iou": 0.404,
+                "intersection_over_smaller": 0.9573,
+                "area_ratio": 0.4298
+              },
+              {
+                "frame": 110,
+                "ids": [
+                  6,
+                  11
+                ],
+                "iou": 0.4986,
+                "intersection_over_smaller": 0.9321,
+                "area_ratio": 0.5551
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 1324,
+            "source_counts": {
+              "detection": 1315,
+              "low_confidence_continuation": 9
+            },
+            "team_label_counts": {
+              "None": 545,
+              "blue": 444,
+              "white": 335
+            },
+            "torso_label_counts": {
+              "None": 633,
+              "white": 318,
+              "dark": 373
+            },
+            "color_conflict_flags": 2,
+            "color_conflict_field_observations": 1324,
+            "color_conflicts_by_track": {
+              "10": 1,
+              "9": 1
+            },
+            "identity_review_flags": 2,
+            "identity_review_field_observations": 1324,
+            "identity_review_by_track": {
+              "10": 1,
+              "9": 1
+            },
+            "identity_verified_true_observations": 0
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "variant": "team-stable",
+            "tracker": "BoT-SORT",
+            "model": "BODD_yolov8n_0001.pt",
+            "identity_verified": false,
+            "metric_accuracy_validated": false,
+            "weights_sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+            "configuration_sha256": "5f54774e39a0de41d9e292199e10d3009b5b32bdeb294c46c85754fd80c653a7",
+            "implementation_sha256": {
+              "basketball_run.py": "5d780a538817d1bbc9fb4f137ad52c3c692c469fff6ed66503db5e54bd148116",
+              "basketball_tracker.py": "b96e315b2548986b04e7112852f4f70d2696384eeeca987915e2ba89f69a55ed",
+              "basketball_tracking.py": "5457b6b679f9808d2b999b4e868df49c3d98a34f4a031c4ff36dec5b3cd3e7ac"
+            }
+          },
+          "identity_suggestions": {
+            "available": true,
+            "entities": 9,
+            "verified": false,
+            "linked_fragments": 0,
+            "has_team_grouping": true
+          }
+        },
+        {
+          "id": "ebard",
+          "path": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+          "tracks_sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/005-ebard.meta.json",
+          "metadata_sha256": "d3e9648a46770814200362fd4b96cc98b33b332c8c11532a893897d413d56372",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 0,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 143,
+          "track_observations": 1597,
+          "tracks_per_frame": {
+            "n": 143,
+            "min": 8,
+            "median": 11,
+            "max": 12
+          },
+          "frames_with_exactly_10_tracks": 7,
+          "pending_observations": 26,
+          "pending_per_frame": {
+            "n": 143,
+            "min": 0,
+            "median": 0,
+            "max": 2
+          },
+          "frames_with_pending": 23,
+          "candidate_count": {
+            "n": 143,
+            "min": 8,
+            "median": 12,
+            "max": 13
+          },
+          "candidate_count_sum": 1664,
+          "class_observations": {
+            "2": 1311,
+            "3": 286
+          },
+          "explicit_role_observations": {
+            "player": 1311,
+            "referee": 286
+          },
+          "player_observations": 1311,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 143,
+            "min": 6,
+            "median": 9,
+            "max": 10
+          },
+          "pending_class_observations": {
+            "2": 26
+          },
+          "unique_track_ids": 16,
+          "id_observation_length": {
+            "n": 16,
+            "min": 1,
+            "median": 130.0,
+            "max": 143
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 19,
+            "tracks_with_internal_gaps": 7,
+            "absent_frames_sum": 41,
+            "gap_length_frames": {
+              "n": 19,
+              "min": 1,
+              "median": 1,
+              "max": 8
+            },
+            "largest_gaps": [
+              {
+                "track_id": 13,
+                "start": 111,
+                "end": 118,
+                "absent_frames": 8
+              },
+              {
+                "track_id": 3,
+                "start": 115,
+                "end": 118,
+                "absent_frames": 4
+              },
+              {
+                "track_id": 8,
+                "start": 80,
+                "end": 83,
+                "absent_frames": 4
+              },
+              {
+                "track_id": 13,
+                "start": 58,
+                "end": 61,
+                "absent_frames": 4
+              },
+              {
+                "track_id": 3,
+                "start": 110,
+                "end": 112,
+                "absent_frames": 3
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 40,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 2,
+            "first_overlap_examples": [
+              {
+                "frame": 46,
+                "ids": [
+                  1,
+                  2
+                ],
+                "iou": 0.454,
+                "intersection_over_smaller": 0.9275,
+                "area_ratio": 0.5074
+              },
+              {
+                "frame": 57,
+                "ids": [
+                  1,
+                  13
+                ],
+                "iou": 0.3394,
+                "intersection_over_smaller": 0.9155,
+                "area_ratio": 0.3827
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 0,
+            "source_counts": {},
+            "team_label_counts": {},
+            "torso_label_counts": {},
+            "color_conflict_flags": null,
+            "color_conflict_field_observations": 0,
+            "color_conflicts_by_track": {},
+            "identity_review_flags": null,
+            "identity_review_field_observations": 0,
+            "identity_review_by_track": {},
+            "identity_verified_true_observations": null
+          },
+          "objects": {
+            "frames_with_objects_field": 143,
+            "available_in_this_variant": true,
+            "observation_counts": {
+              "hoop": 143,
+              "basketball": 78
+            },
+            "frames_by_kind": {
+              "hoop": 143,
+              "basketball": 76
+            },
+            "sources": {
+              "hoop:model": 143,
+              "basketball:model": 78
+            }
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "tracker": "ByteTrack",
+            "model": "BODD_yolov8n_0001.pt",
+            "pipeline_version": "ebard-yolov8n-bytetrack-v1",
+            "identity_verified": false
+          },
+          "identity_suggestions": {
+            "available": false,
+            "entities": null,
+            "verified": null,
+            "linked_fragments": null,
+            "has_team_grouping": null
+          }
+        },
+        {
+          "id": "optimized",
+          "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-optimized.json",
+          "tracks_sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-optimized.meta.json",
+          "metadata_sha256": "19fbb5155f08dd9912886d0b2ade7008da5125ac8544d3022d1cd0bd44b6bab0",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 3.33333360913457e-10,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 143,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 143,
+          "track_observations": 1324,
+          "tracks_per_frame": {
+            "n": 143,
+            "min": 6,
+            "median": 10,
+            "max": 10
+          },
+          "frames_with_exactly_10_tracks": 74,
+          "pending_observations": 31,
+          "pending_per_frame": {
+            "n": 143,
+            "min": 0,
+            "median": 0,
+            "max": 3
+          },
+          "frames_with_pending": 26,
+          "candidate_count": {
+            "n": 143,
+            "min": 6,
+            "median": 10,
+            "max": 11
+          },
+          "candidate_count_sum": 1355,
+          "class_observations": {
+            "2": 1324
+          },
+          "explicit_role_observations": {},
+          "player_observations": 1324,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 143,
+            "min": 6,
+            "median": 10,
+            "max": 10
+          },
+          "pending_class_observations": {
+            "2": 31
+          },
+          "unique_track_ids": 16,
+          "id_observation_length": {
+            "n": 16,
+            "min": 1,
+            "median": 100.5,
+            "max": 143
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 15,
+            "tracks_with_internal_gaps": 6,
+            "absent_frames_sum": 48,
+            "gap_length_frames": {
+              "n": 15,
+              "min": 1,
+              "median": 1,
+              "max": 9
+            },
+            "largest_gaps": [
+              {
+                "track_id": 5,
+                "start": 110,
+                "end": 118,
+                "absent_frames": 9
+              },
+              {
+                "track_id": 11,
+                "start": 111,
+                "end": 118,
+                "absent_frames": 8
+              },
+              {
+                "track_id": 8,
+                "start": 80,
+                "end": 85,
+                "absent_frames": 6
+              },
+              {
+                "track_id": 11,
+                "start": 133,
+                "end": 138,
+                "absent_frames": 6
+              },
+              {
+                "track_id": 2,
+                "start": 31,
+                "end": 35,
+                "absent_frames": 5
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 0,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 7,
+            "first_overlap_examples": [
+              {
+                "frame": 25,
+                "ids": [
+                  1,
+                  8
+                ],
+                "iou": 0.3368,
+                "intersection_over_smaller": 0.9972,
+                "area_ratio": 0.3381
+              },
+              {
+                "frame": 44,
+                "ids": [
+                  1,
+                  2
+                ],
+                "iou": 0.3449,
+                "intersection_over_smaller": 0.9176,
+                "area_ratio": 0.3879
+              },
+              {
+                "frame": 55,
+                "ids": [
+                  1,
+                  11
+                ],
+                "iou": 0.4701,
+                "intersection_over_smaller": 0.9339,
+                "area_ratio": 0.5207
+              },
+              {
+                "frame": 58,
+                "ids": [
+                  1,
+                  11
+                ],
+                "iou": 0.404,
+                "intersection_over_smaller": 0.9573,
+                "area_ratio": 0.4298
+              },
+              {
+                "frame": 110,
+                "ids": [
+                  6,
+                  11
+                ],
+                "iou": 0.4986,
+                "intersection_over_smaller": 0.9321,
+                "area_ratio": 0.5551
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 1324,
+            "source_counts": {
+              "detection": 1315,
+              "low_confidence_continuation": 9
+            },
+            "team_label_counts": {
+              "None": 545,
+              "blue": 444,
+              "white": 335
+            },
+            "torso_label_counts": {
+              "None": 633,
+              "white": 318,
+              "dark": 373
+            },
+            "color_conflict_flags": 2,
+            "color_conflict_field_observations": 1324,
+            "color_conflicts_by_track": {
+              "10": 1,
+              "9": 1
+            },
+            "identity_review_flags": 2,
+            "identity_review_field_observations": 1324,
+            "identity_review_by_track": {
+              "10": 1,
+              "9": 1
+            },
+            "identity_verified_true_observations": 0
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "variant": "optimized",
+            "tracker": "BoT-SORT",
+            "model": "BODD_yolov8n_0001.pt",
+            "identity_verified": false,
+            "metric_accuracy_validated": false,
+            "weights_sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+            "configuration_sha256": "5f54774e39a0de41d9e292199e10d3009b5b32bdeb294c46c85754fd80c653a7",
+            "implementation_sha256": {
+              "basketball_run.py": "5d780a538817d1bbc9fb4f137ad52c3c692c469fff6ed66503db5e54bd148116",
+              "basketball_tracker.py": "b96e315b2548986b04e7112852f4f70d2696384eeeca987915e2ba89f69a55ed",
+              "basketball_tracking.py": "5457b6b679f9808d2b999b4e868df49c3d98a34f4a031c4ff36dec5b3cd3e7ac"
+            }
+          },
+          "identity_suggestions": {
+            "available": true,
+            "entities": 10,
+            "verified": false,
+            "linked_fragments": 0,
+            "has_team_grouping": false
+          }
+        }
+      ],
+      "byte_identical_track_groups": [
+        [
+          "team-stable",
+          "optimized"
+        ]
+      ],
+      "independent_track_files": 3,
+      "candidates": {
+        "feet": {
+          "available": true,
+          "path": "engineering/research/vision-player-refinement/feet-candidates-005.json",
+          "sha256": "9e54439058c79e9e77094785b1e516d2acd30f6ec9bf7a5bd749ad25dcf25525",
+          "video_hash_matches": true,
+          "source": "rtmpose_s_halpe26",
+          "tracking_fingerprint": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+          "provenance_fingerprint_matches_variants": [
+            "ebard"
+          ],
+          "frame_rows": 143,
+          "contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/scene_profiles.py:validate_feet_candidates"
+          },
+          "applicable_variants_by_server_contract": [
+            "ebard"
+          ],
+          "independent_accuracy": null,
+          "observations": 1311,
+          "proposed_foot_points": 2400,
+          "contact_states": {
+            "unknown": 1311
+          },
+          "ground_point_true": 0,
+          "points_needing_review": 2400,
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 0,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          }
+        },
+        "court": {
+          "available": true,
+          "path": "engineering/research/vision-player-refinement/court-candidates-005.json",
+          "sha256": "a5ec52f6aac0ca87d5c43df07d3d7b0e06767ebfdff3b2b594b6c8de3aca6988",
+          "video_hash_matches": true,
+          "source": "camera_propagation",
+          "tracking_fingerprint": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+          "provenance_fingerprint_matches_variants": [
+            "ebard"
+          ],
+          "frame_rows": 143,
+          "contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/scene_profiles.py:validate_court_candidates"
+          },
+          "applicable_variants_by_server_contract": [
+            "original",
+            "team-stable",
+            "ebard",
+            "optimized"
+          ],
+          "independent_accuracy": null,
+          "statuses": {
+            "needs_review": 139,
+            "invalid": 4
+          },
+          "noninvalid_frames_with_at_least_4_points": 139,
+          "metric_accuracy_validated": false,
+          "review_required": true,
+          "contract_note": "Court is video-level: server validates video hash and frame range; stored trackingFingerprint is provenance, not a version gate."
+        }
+      }
+    },
+    {
+      "id": "006",
+      "default_variant": "team-stable",
+      "video": {
+        "readable": true,
+        "width": 1920,
+        "height": 1080,
+        "average_rate": "30",
+        "time_base": "1/15360",
+        "declared_frames": 462,
+        "duration_seconds": 15.4,
+        "audio_streams": [],
+        "decoded_frames": 462,
+        "missing_pts": 0,
+        "first_pts": 0,
+        "last_pts": 236032,
+        "first_time_seconds": 0.0,
+        "last_time_seconds": 15.366666666666667,
+        "nonincreasing_pts_steps": 0,
+        "pts_sequence_sha256": "1be12632e7c5692ebc966761da0f91f64288edecc08543f311f5afa47d27985f",
+        "path": "data/videos/tactics/acceptance/clips/006_SAS_drive_kick.mp4",
+        "sha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+        "library_sha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+        "hash_matches": true
+      },
+      "variants": [
+        {
+          "id": "original",
+          "path": "data/videos/tactics/acceptance/tracks/006.json",
+          "tracks_sha256": "5d6ea356939ad17d030005c6a21cecf575c7e637c2d6716aa38134923c497ee2",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/006.meta.json",
+          "metadata_sha256": "3e86c108fcc8e1ca4379d56e9ddf04e1dbc511e3f4db73583b3719ecb2a43425",
+          "metadata_required": false,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 0,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 462,
+          "track_observations": 8901,
+          "tracks_per_frame": {
+            "n": 462,
+            "min": 8,
+            "median": 19.0,
+            "max": 29
+          },
+          "frames_with_exactly_10_tracks": 2,
+          "pending_observations": 3053,
+          "pending_per_frame": {
+            "n": 462,
+            "min": 0,
+            "median": 6.0,
+            "max": 17
+          },
+          "frames_with_pending": 459,
+          "candidate_count": {
+            "n": 462,
+            "min": 30,
+            "median": 47.0,
+            "max": 64
+          },
+          "candidate_count_sum": 21693,
+          "class_observations": {
+            "0": 8901
+          },
+          "explicit_role_observations": {},
+          "player_observations": null,
+          "player_counts_basis": "unavailable_generic_person_class",
+          "player_count_per_frame": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "max": null
+          },
+          "pending_class_observations": {
+            "0": 3053
+          },
+          "unique_track_ids": 269,
+          "id_observation_length": {
+            "n": 269,
+            "min": 1,
+            "median": 16,
+            "max": 431
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 375,
+            "tracks_with_internal_gaps": 148,
+            "absent_frames_sum": 1291,
+            "gap_length_frames": {
+              "n": 375,
+              "min": 1,
+              "median": 2,
+              "max": 31
+            },
+            "largest_gaps": [
+              {
+                "track_id": 32,
+                "start": 148,
+                "end": 178,
+                "absent_frames": 31
+              },
+              {
+                "track_id": 1525,
+                "start": 272,
+                "end": 302,
+                "absent_frames": 31
+              },
+              {
+                "track_id": 1374,
+                "start": 274,
+                "end": 299,
+                "absent_frames": 26
+              },
+              {
+                "track_id": 442,
+                "start": 170,
+                "end": 194,
+                "absent_frames": 25
+              },
+              {
+                "track_id": 470,
+                "start": 101,
+                "end": 125,
+                "absent_frames": 25
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 338,
+            "same_class_iou_ge_0_7_pair_observations": 2,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 33,
+            "first_overlap_examples": [
+              {
+                "frame": 0,
+                "ids": [
+                  17,
+                  23
+                ],
+                "iou": 0.4415,
+                "intersection_over_smaller": 0.9359,
+                "area_ratio": 0.4864
+              },
+              {
+                "frame": 4,
+                "ids": [
+                  23,
+                  17
+                ],
+                "iou": 0.455,
+                "intersection_over_smaller": 0.9337,
+                "area_ratio": 0.5036
+              },
+              {
+                "frame": 20,
+                "ids": [
+                  83,
+                  73
+                ],
+                "iou": 0.5297,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.5297
+              },
+              {
+                "frame": 21,
+                "ids": [
+                  83,
+                  73
+                ],
+                "iou": 0.5435,
+                "intersection_over_smaller": 0.9994,
+                "area_ratio": 0.544
+              },
+              {
+                "frame": 22,
+                "ids": [
+                  4,
+                  32
+                ],
+                "iou": 0.3959,
+                "intersection_over_smaller": 0.9746,
+                "area_ratio": 0.4105
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 0,
+            "source_counts": {},
+            "team_label_counts": {},
+            "torso_label_counts": {},
+            "color_conflict_flags": null,
+            "color_conflict_field_observations": 0,
+            "color_conflicts_by_track": {},
+            "identity_review_flags": null,
+            "identity_review_field_observations": 0,
+            "identity_review_by_track": {},
+            "identity_verified_true_observations": null
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "tracker": "ByteTrack",
+            "model": "yolov8s.pt",
+            "identity_verified": false
+          },
+          "identity_suggestions": {
+            "available": false,
+            "entities": null,
+            "verified": null,
+            "linked_fragments": null,
+            "has_team_grouping": null
+          }
+        },
+        {
+          "id": "team-stable",
+          "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-team-stable.json",
+          "tracks_sha256": "a8ce872d737fd3eeb8f18cc30f8138f5d3a7098b40241d7cf6ba553e63aedbf0",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-team-stable.meta.json",
+          "metadata_sha256": "2741ff051c4b7d8815906772022252f1cef98658efe7f2c57d0e29224db12c2b",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 3.33333360913457e-10,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 462,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 462,
+          "track_observations": 4357,
+          "tracks_per_frame": {
+            "n": 462,
+            "min": 5,
+            "median": 10.0,
+            "max": 12
+          },
+          "frames_with_exactly_10_tracks": 211,
+          "pending_observations": 218,
+          "pending_per_frame": {
+            "n": 462,
+            "min": 0,
+            "median": 0.0,
+            "max": 4
+          },
+          "frames_with_pending": 160,
+          "candidate_count": {
+            "n": 462,
+            "min": 6,
+            "median": 10.0,
+            "max": 13
+          },
+          "candidate_count_sum": 4575,
+          "class_observations": {
+            "2": 4357
+          },
+          "explicit_role_observations": {},
+          "player_observations": 4357,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 462,
+            "min": 5,
+            "median": 10.0,
+            "max": 12
+          },
+          "pending_class_observations": {
+            "2": 218
+          },
+          "unique_track_ids": 34,
+          "id_observation_length": {
+            "n": 34,
+            "min": 1,
+            "median": 27.0,
+            "max": 461
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 39,
+            "tracks_with_internal_gaps": 17,
+            "absent_frames_sum": 157,
+            "gap_length_frames": {
+              "n": 39,
+              "min": 1,
+              "median": 2,
+              "max": 20
+            },
+            "largest_gaps": [
+              {
+                "track_id": 15,
+                "start": 310,
+                "end": 329,
+                "absent_frames": 20
+              },
+              {
+                "track_id": 4,
+                "start": 165,
+                "end": 179,
+                "absent_frames": 15
+              },
+              {
+                "track_id": 15,
+                "start": 208,
+                "end": 217,
+                "absent_frames": 10
+              },
+              {
+                "track_id": 4,
+                "start": 199,
+                "end": 207,
+                "absent_frames": 9
+              },
+              {
+                "track_id": 43,
+                "start": 363,
+                "end": 371,
+                "absent_frames": 9
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 0,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 5,
+            "first_overlap_examples": [
+              {
+                "frame": 48,
+                "ids": [
+                  5,
+                  6
+                ],
+                "iou": 0.398,
+                "intersection_over_smaller": 0.9167,
+                "area_ratio": 0.4505
+              },
+              {
+                "frame": 94,
+                "ids": [
+                  4,
+                  10
+                ],
+                "iou": 0.3754,
+                "intersection_over_smaller": 0.9165,
+                "area_ratio": 0.4242
+              },
+              {
+                "frame": 324,
+                "ids": [
+                  4,
+                  2
+                ],
+                "iou": 0.4385,
+                "intersection_over_smaller": 0.9535,
+                "area_ratio": 0.4699
+              },
+              {
+                "frame": 381,
+                "ids": [
+                  1,
+                  4
+                ],
+                "iou": 0.3702,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.3702
+              },
+              {
+                "frame": 382,
+                "ids": [
+                  1,
+                  4
+                ],
+                "iou": 0.403,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.403
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 4357,
+            "source_counts": {
+              "detection": 4294,
+              "low_confidence_continuation": 62,
+              "full_body_detection_recovery": 1
+            },
+            "team_label_counts": {
+              "None": 1184,
+              "blue": 2326,
+              "white": 847
+            },
+            "torso_label_counts": {
+              "dark": 1847,
+              "None": 2232,
+              "white": 278
+            },
+            "color_conflict_flags": 239,
+            "color_conflict_field_observations": 4357,
+            "color_conflicts_by_track": {
+              "10": 4,
+              "5": 38,
+              "7": 1,
+              "4": 159,
+              "3": 35,
+              "30": 1,
+              "15": 1
+            },
+            "identity_review_flags": 1084,
+            "identity_review_field_observations": 4357,
+            "identity_review_by_track": {
+              "10": 176,
+              "5": 97,
+              "7": 270,
+              "4": 266,
+              "3": 235,
+              "30": 1,
+              "15": 39
+            },
+            "identity_verified_true_observations": 0
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "variant": "team-stable",
+            "tracker": "BoT-SORT",
+            "model": "BODD_yolov8n_0001.pt",
+            "identity_verified": false,
+            "metric_accuracy_validated": false,
+            "weights_sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+            "configuration_sha256": "5f54774e39a0de41d9e292199e10d3009b5b32bdeb294c46c85754fd80c653a7",
+            "implementation_sha256": {
+              "basketball_run.py": "5d780a538817d1bbc9fb4f137ad52c3c692c469fff6ed66503db5e54bd148116",
+              "basketball_tracker.py": "b96e315b2548986b04e7112852f4f70d2696384eeeca987915e2ba89f69a55ed",
+              "basketball_tracking.py": "5457b6b679f9808d2b999b4e868df49c3d98a34f4a031c4ff36dec5b3cd3e7ac"
+            }
+          },
+          "identity_suggestions": {
+            "available": true,
+            "entities": 8,
+            "verified": false,
+            "linked_fragments": 0,
+            "has_team_grouping": true
+          }
+        },
+        {
+          "id": "ebard",
+          "path": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+          "tracks_sha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/006-ebard.meta.json",
+          "metadata_sha256": "e1a5e48a4feac19d88e9f47f4d36b8e9782ae1c48386bdf2aa921ab173dac87a",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 0,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 462,
+          "track_observations": 5388,
+          "tracks_per_frame": {
+            "n": 462,
+            "min": 7,
+            "median": 12.0,
+            "max": 14
+          },
+          "frames_with_exactly_10_tracks": 45,
+          "pending_observations": 161,
+          "pending_per_frame": {
+            "n": 462,
+            "min": 0,
+            "median": 0.0,
+            "max": 4
+          },
+          "frames_with_pending": 135,
+          "candidate_count": {
+            "n": 462,
+            "min": 9,
+            "median": 13.0,
+            "max": 16
+          },
+          "candidate_count_sum": 5890,
+          "class_observations": {
+            "2": 4279,
+            "3": 1109
+          },
+          "explicit_role_observations": {
+            "player": 4279,
+            "referee": 1109
+          },
+          "player_observations": 4279,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 462,
+            "min": 5,
+            "median": 10.0,
+            "max": 11
+          },
+          "pending_class_observations": {
+            "2": 123,
+            "3": 38
+          },
+          "unique_track_ids": 42,
+          "id_observation_length": {
+            "n": 42,
+            "min": 1,
+            "median": 47.0,
+            "max": 462
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 46,
+            "tracks_with_internal_gaps": 26,
+            "absent_frames_sum": 200,
+            "gap_length_frames": {
+              "n": 46,
+              "min": 1,
+              "median": 2.0,
+              "max": 30
+            },
+            "largest_gaps": [
+              {
+                "track_id": 3,
+                "start": 328,
+                "end": 357,
+                "absent_frames": 30
+              },
+              {
+                "track_id": 28,
+                "start": 327,
+                "end": 342,
+                "absent_frames": 16
+              },
+              {
+                "track_id": 4,
+                "start": 165,
+                "end": 179,
+                "absent_frames": 15
+              },
+              {
+                "track_id": 33,
+                "start": 378,
+                "end": 390,
+                "absent_frames": 13
+              },
+              {
+                "track_id": 25,
+                "start": 301,
+                "end": 312,
+                "absent_frames": 12
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 49,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 14,
+            "first_overlap_examples": [
+              {
+                "frame": 219,
+                "ids": [
+                  15,
+                  5
+                ],
+                "iou": 0.3703,
+                "intersection_over_smaller": 0.9018,
+                "area_ratio": 0.4279
+              },
+              {
+                "frame": 321,
+                "ids": [
+                  27,
+                  28
+                ],
+                "iou": 0.288,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.288
+              },
+              {
+                "frame": 322,
+                "ids": [
+                  27,
+                  28
+                ],
+                "iou": 0.2809,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.2809
+              },
+              {
+                "frame": 323,
+                "ids": [
+                  27,
+                  28
+                ],
+                "iou": 0.2783,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.2783
+              },
+              {
+                "frame": 324,
+                "ids": [
+                  27,
+                  28
+                ],
+                "iou": 0.2671,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.2671
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 0,
+            "source_counts": {},
+            "team_label_counts": {},
+            "torso_label_counts": {},
+            "color_conflict_flags": null,
+            "color_conflict_field_observations": 0,
+            "color_conflicts_by_track": {},
+            "identity_review_flags": null,
+            "identity_review_field_observations": 0,
+            "identity_review_by_track": {},
+            "identity_verified_true_observations": null
+          },
+          "objects": {
+            "frames_with_objects_field": 462,
+            "available_in_this_variant": true,
+            "observation_counts": {
+              "hoop": 462,
+              "basketball": 207
+            },
+            "frames_by_kind": {
+              "hoop": 462,
+              "basketball": 191
+            },
+            "sources": {
+              "hoop:model": 462,
+              "basketball:model": 207
+            }
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "tracker": "ByteTrack",
+            "model": "BODD_yolov8n_0001.pt",
+            "pipeline_version": "ebard-yolov8n-bytetrack-v1",
+            "identity_verified": false
+          },
+          "identity_suggestions": {
+            "available": false,
+            "entities": null,
+            "verified": null,
+            "linked_fragments": null,
+            "has_team_grouping": null
+          }
+        },
+        {
+          "id": "optimized",
+          "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-optimized.json",
+          "tracks_sha256": "a8ce872d737fd3eeb8f18cc30f8138f5d3a7098b40241d7cf6ba553e63aedbf0",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-optimized.meta.json",
+          "metadata_sha256": "30cb50a1b976b9ef64feca9613af1522e7be4a3531ad0b7f0be4b7d18104fb72",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 3.33333360913457e-10,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 462,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 462,
+          "track_observations": 4357,
+          "tracks_per_frame": {
+            "n": 462,
+            "min": 5,
+            "median": 10.0,
+            "max": 12
+          },
+          "frames_with_exactly_10_tracks": 211,
+          "pending_observations": 218,
+          "pending_per_frame": {
+            "n": 462,
+            "min": 0,
+            "median": 0.0,
+            "max": 4
+          },
+          "frames_with_pending": 160,
+          "candidate_count": {
+            "n": 462,
+            "min": 6,
+            "median": 10.0,
+            "max": 13
+          },
+          "candidate_count_sum": 4575,
+          "class_observations": {
+            "2": 4357
+          },
+          "explicit_role_observations": {},
+          "player_observations": 4357,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 462,
+            "min": 5,
+            "median": 10.0,
+            "max": 12
+          },
+          "pending_class_observations": {
+            "2": 218
+          },
+          "unique_track_ids": 34,
+          "id_observation_length": {
+            "n": 34,
+            "min": 1,
+            "median": 27.0,
+            "max": 461
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 39,
+            "tracks_with_internal_gaps": 17,
+            "absent_frames_sum": 157,
+            "gap_length_frames": {
+              "n": 39,
+              "min": 1,
+              "median": 2,
+              "max": 20
+            },
+            "largest_gaps": [
+              {
+                "track_id": 15,
+                "start": 310,
+                "end": 329,
+                "absent_frames": 20
+              },
+              {
+                "track_id": 4,
+                "start": 165,
+                "end": 179,
+                "absent_frames": 15
+              },
+              {
+                "track_id": 15,
+                "start": 208,
+                "end": 217,
+                "absent_frames": 10
+              },
+              {
+                "track_id": 4,
+                "start": 199,
+                "end": 207,
+                "absent_frames": 9
+              },
+              {
+                "track_id": 43,
+                "start": 363,
+                "end": 371,
+                "absent_frames": 9
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 0,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 5,
+            "first_overlap_examples": [
+              {
+                "frame": 48,
+                "ids": [
+                  5,
+                  6
+                ],
+                "iou": 0.398,
+                "intersection_over_smaller": 0.9167,
+                "area_ratio": 0.4505
+              },
+              {
+                "frame": 94,
+                "ids": [
+                  4,
+                  10
+                ],
+                "iou": 0.3754,
+                "intersection_over_smaller": 0.9165,
+                "area_ratio": 0.4242
+              },
+              {
+                "frame": 324,
+                "ids": [
+                  4,
+                  2
+                ],
+                "iou": 0.4385,
+                "intersection_over_smaller": 0.9535,
+                "area_ratio": 0.4699
+              },
+              {
+                "frame": 381,
+                "ids": [
+                  1,
+                  4
+                ],
+                "iou": 0.3702,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.3702
+              },
+              {
+                "frame": 382,
+                "ids": [
+                  1,
+                  4
+                ],
+                "iou": 0.403,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.403
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 4357,
+            "source_counts": {
+              "detection": 4294,
+              "low_confidence_continuation": 62,
+              "full_body_detection_recovery": 1
+            },
+            "team_label_counts": {
+              "None": 1184,
+              "blue": 2326,
+              "white": 847
+            },
+            "torso_label_counts": {
+              "dark": 1847,
+              "None": 2232,
+              "white": 278
+            },
+            "color_conflict_flags": 239,
+            "color_conflict_field_observations": 4357,
+            "color_conflicts_by_track": {
+              "10": 4,
+              "5": 38,
+              "7": 1,
+              "4": 159,
+              "3": 35,
+              "30": 1,
+              "15": 1
+            },
+            "identity_review_flags": 1084,
+            "identity_review_field_observations": 4357,
+            "identity_review_by_track": {
+              "10": 176,
+              "5": 97,
+              "7": 270,
+              "4": 266,
+              "3": 235,
+              "30": 1,
+              "15": 39
+            },
+            "identity_verified_true_observations": 0
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "variant": "optimized",
+            "tracker": "BoT-SORT",
+            "model": "BODD_yolov8n_0001.pt",
+            "identity_verified": false,
+            "metric_accuracy_validated": false,
+            "weights_sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+            "configuration_sha256": "5f54774e39a0de41d9e292199e10d3009b5b32bdeb294c46c85754fd80c653a7",
+            "implementation_sha256": {
+              "basketball_run.py": "5d780a538817d1bbc9fb4f137ad52c3c692c469fff6ed66503db5e54bd148116",
+              "basketball_tracker.py": "b96e315b2548986b04e7112852f4f70d2696384eeeca987915e2ba89f69a55ed",
+              "basketball_tracking.py": "5457b6b679f9808d2b999b4e868df49c3d98a34f4a031c4ff36dec5b3cd3e7ac"
+            }
+          },
+          "identity_suggestions": {
+            "available": true,
+            "entities": 10,
+            "verified": false,
+            "linked_fragments": 0,
+            "has_team_grouping": false
+          }
+        }
+      ],
+      "byte_identical_track_groups": [
+        [
+          "team-stable",
+          "optimized"
+        ]
+      ],
+      "independent_track_files": 3,
+      "candidates": {
+        "feet": {
+          "available": true,
+          "path": "engineering/research/vision-player-refinement/feet-candidates-006.json",
+          "sha256": "0f613e86da4564b4588876aaa5d4000fb70488728091d5f0a0aa1b80dfde7a3b",
+          "video_hash_matches": true,
+          "source": "rtmpose_s_halpe26",
+          "tracking_fingerprint": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+          "provenance_fingerprint_matches_variants": [
+            "ebard"
+          ],
+          "frame_rows": 462,
+          "contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/scene_profiles.py:validate_feet_candidates"
+          },
+          "applicable_variants_by_server_contract": [
+            "ebard"
+          ],
+          "independent_accuracy": null,
+          "observations": 4279,
+          "proposed_foot_points": 7783,
+          "contact_states": {
+            "unknown": 4279
+          },
+          "ground_point_true": 0,
+          "points_needing_review": 7783,
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 0,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          }
+        },
+        "court": {
+          "available": true,
+          "path": "engineering/research/vision-player-refinement/court-candidates-006.json",
+          "sha256": "cc0019b94658bc55ca86a9f29f6fbc7584f3a7d1e494ef10b4c72d0135e367c1",
+          "video_hash_matches": true,
+          "source": "camera_propagation",
+          "tracking_fingerprint": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+          "provenance_fingerprint_matches_variants": [
+            "ebard"
+          ],
+          "frame_rows": 462,
+          "contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/scene_profiles.py:validate_court_candidates"
+          },
+          "applicable_variants_by_server_contract": [
+            "original",
+            "team-stable",
+            "ebard",
+            "optimized"
+          ],
+          "independent_accuracy": null,
+          "statuses": {
+            "needs_review": 300,
+            "invalid": 162
+          },
+          "noninvalid_frames_with_at_least_4_points": 300,
+          "metric_accuracy_validated": false,
+          "review_required": true,
+          "contract_note": "Court is video-level: server validates video hash and frame range; stored trackingFingerprint is provenance, not a version gate."
+        }
+      }
+    },
+    {
+      "id": "nba-lal-min-005",
+      "default_variant": "team-stable",
+      "video": {
+        "readable": true,
+        "width": 1280,
+        "height": 720,
+        "average_rate": "25",
+        "time_base": "1/12800",
+        "declared_frames": 267,
+        "duration_seconds": 10.68,
+        "audio_streams": [
+          {
+            "codec": "aac",
+            "sample_rate": 48000,
+            "start_seconds": 0.0
+          }
+        ],
+        "decoded_frames": 267,
+        "missing_pts": 0,
+        "first_pts": 1536,
+        "last_pts": 137728,
+        "first_time_seconds": 0.12,
+        "last_time_seconds": 10.76,
+        "nonincreasing_pts_steps": 0,
+        "pts_sequence_sha256": "0c910f292ba6e46131dea437b659f58f405eb66a0dd8170fc5e2614bf9a7ea07",
+        "path": "data/videos/nba/2024-25/clips/005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4",
+        "sha256": "e76feffb09ede3e1b336c2e470370bcf1ee0937326bdf672e3e7e4bc5b661885",
+        "library_sha256": "e76feffb09ede3e1b336c2e470370bcf1ee0937326bdf672e3e7e4bc5b661885",
+        "hash_matches": true
+      },
+      "variants": [
+        {
+          "id": "original",
+          "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
+          "tracks_sha256": "83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.meta.json",
+          "metadata_sha256": "b3215068c2ae9af5e703f0f16a3b8cf9f9a18987d99dbe935282ccce3baf853f",
+          "metadata_required": false,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 267,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 267,
+          "track_observations": 2348,
+          "tracks_per_frame": {
+            "n": 267,
+            "min": 6,
+            "median": 9,
+            "max": 10
+          },
+          "frames_with_exactly_10_tracks": 105,
+          "pending_observations": 43,
+          "pending_per_frame": {
+            "n": 267,
+            "min": 0,
+            "median": 0,
+            "max": 2
+          },
+          "frames_with_pending": 38,
+          "candidate_count": {
+            "n": 267,
+            "min": 6,
+            "median": 9,
+            "max": 11
+          },
+          "candidate_count_sum": 2391,
+          "class_observations": {
+            "2": 2348
+          },
+          "explicit_role_observations": {},
+          "player_observations": 2348,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 267,
+            "min": 6,
+            "median": 9,
+            "max": 10
+          },
+          "pending_class_observations": {
+            "2": 43
+          },
+          "unique_track_ids": 17,
+          "id_observation_length": {
+            "n": 17,
+            "min": 6,
+            "median": 161,
+            "max": 266
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 23,
+            "tracks_with_internal_gaps": 11,
+            "absent_frames_sum": 98,
+            "gap_length_frames": {
+              "n": 23,
+              "min": 1,
+              "median": 2,
+              "max": 29
+            },
+            "largest_gaps": [
+              {
+                "track_id": 25,
+                "start": 181,
+                "end": 209,
+                "absent_frames": 29
+              },
+              {
+                "track_id": 2,
+                "start": 170,
+                "end": 188,
+                "absent_frames": 19
+              },
+              {
+                "track_id": 3,
+                "start": 17,
+                "end": 23,
+                "absent_frames": 7
+              },
+              {
+                "track_id": 47,
+                "start": 250,
+                "end": 256,
+                "absent_frames": 7
+              },
+              {
+                "track_id": 3,
+                "start": 210,
+                "end": 215,
+                "absent_frames": 6
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 0,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 32,
+            "first_overlap_examples": [
+              {
+                "frame": 96,
+                "ids": [
+                  4,
+                  7
+                ],
+                "iou": 0.241,
+                "intersection_over_smaller": 0.9219,
+                "area_ratio": 0.2668
+              },
+              {
+                "frame": 101,
+                "ids": [
+                  3,
+                  2
+                ],
+                "iou": 0.4786,
+                "intersection_over_smaller": 0.9375,
+                "area_ratio": 0.5273
+              },
+              {
+                "frame": 160,
+                "ids": [
+                  2,
+                  35
+                ],
+                "iou": 0.4712,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4712
+              },
+              {
+                "frame": 161,
+                "ids": [
+                  35,
+                  2
+                ],
+                "iou": 0.4576,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4576
+              },
+              {
+                "frame": 162,
+                "ids": [
+                  35,
+                  2
+                ],
+                "iou": 0.454,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.454
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 2348,
+            "source_counts": {
+              "detection": 2348
+            },
+            "team_label_counts": {
+              "None": 2348
+            },
+            "torso_label_counts": {
+              "white": 413,
+              "None": 1177,
+              "dark": 758
+            },
+            "color_conflict_flags": null,
+            "color_conflict_field_observations": 0,
+            "color_conflicts_by_track": {},
+            "identity_review_flags": null,
+            "identity_review_field_observations": 0,
+            "identity_review_by_track": {},
+            "identity_verified_true_observations": 0
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "variant": "baseline",
+            "tracker": "BoT-SORT",
+            "model": "BODD_yolov8n_0001.pt",
+            "identity_verified": false,
+            "metric_accuracy_validated": false,
+            "weights_sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+            "configuration_sha256": "1cd06a3ac3b7bd1775d65f0663600c916f52314c8e4e122bcff54f43bc0e1931"
+          },
+          "identity_suggestions": {
+            "available": false,
+            "entities": null,
+            "verified": null,
+            "linked_fragments": null,
+            "has_team_grouping": null
+          }
+        },
+        {
+          "id": "team-stable",
+          "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-team-stable.json",
+          "tracks_sha256": "87395ce9653d083aadc35bb59d8b81ddbaa3afa92e97992f3ab17e08f946eee1",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-team-stable.meta.json",
+          "metadata_sha256": "4ad9a1d4b3e18d466f8d2850f66f1d18934c15b78ea30685b418eff94feb66d9",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 267,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 267,
+          "track_observations": 2389,
+          "tracks_per_frame": {
+            "n": 267,
+            "min": 6,
+            "median": 9,
+            "max": 10
+          },
+          "frames_with_exactly_10_tracks": 114,
+          "pending_observations": 83,
+          "pending_per_frame": {
+            "n": 267,
+            "min": 0,
+            "median": 0,
+            "max": 3
+          },
+          "frames_with_pending": 73,
+          "candidate_count": {
+            "n": 267,
+            "min": 6,
+            "median": 10,
+            "max": 11
+          },
+          "candidate_count_sum": 2472,
+          "class_observations": {
+            "2": 2389
+          },
+          "explicit_role_observations": {},
+          "player_observations": 2389,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 267,
+            "min": 6,
+            "median": 9,
+            "max": 10
+          },
+          "pending_class_observations": {
+            "2": 83
+          },
+          "unique_track_ids": 19,
+          "id_observation_length": {
+            "n": 19,
+            "min": 2,
+            "median": 134,
+            "max": 266
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 24,
+            "tracks_with_internal_gaps": 9,
+            "absent_frames_sum": 89,
+            "gap_length_frames": {
+              "n": 24,
+              "min": 1,
+              "median": 2.0,
+              "max": 9
+            },
+            "largest_gaps": [
+              {
+                "track_id": 32,
+                "start": 215,
+                "end": 223,
+                "absent_frames": 9
+              },
+              {
+                "track_id": 12,
+                "start": 23,
+                "end": 30,
+                "absent_frames": 8
+              },
+              {
+                "track_id": 2,
+                "start": 182,
+                "end": 188,
+                "absent_frames": 7
+              },
+              {
+                "track_id": 9,
+                "start": 28,
+                "end": 34,
+                "absent_frames": 7
+              },
+              {
+                "track_id": 11,
+                "start": 17,
+                "end": 23,
+                "absent_frames": 7
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 0,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 45,
+            "first_overlap_examples": [
+              {
+                "frame": 96,
+                "ids": [
+                  21,
+                  7
+                ],
+                "iou": 0.241,
+                "intersection_over_smaller": 0.9219,
+                "area_ratio": 0.2668
+              },
+              {
+                "frame": 101,
+                "ids": [
+                  17,
+                  2
+                ],
+                "iou": 0.4786,
+                "intersection_over_smaller": 0.9375,
+                "area_ratio": 0.5273
+              },
+              {
+                "frame": 160,
+                "ids": [
+                  2,
+                  26
+                ],
+                "iou": 0.4712,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4712
+              },
+              {
+                "frame": 161,
+                "ids": [
+                  26,
+                  2
+                ],
+                "iou": 0.4576,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4576
+              },
+              {
+                "frame": 162,
+                "ids": [
+                  26,
+                  2
+                ],
+                "iou": 0.454,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.454
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 2389,
+            "source_counts": {
+              "detection": 2349,
+              "low_confidence_continuation": 33,
+              "full_body_detection_recovery": 7
+            },
+            "team_label_counts": {
+              "None": 411,
+              "blue": 1031,
+              "white": 947
+            },
+            "torso_label_counts": {
+              "white": 724,
+              "dark": 784,
+              "None": 881
+            },
+            "color_conflict_flags": 174,
+            "color_conflict_field_observations": 2389,
+            "color_conflicts_by_track": {
+              "4": 5,
+              "17": 3,
+              "8": 13,
+              "9": 6,
+              "6": 12,
+              "11": 2,
+              "7": 9,
+              "12": 56,
+              "21": 60,
+              "32": 8
+            },
+            "identity_review_flags": 391,
+            "identity_review_field_observations": 2389,
+            "identity_review_by_track": {
+              "4": 10,
+              "17": 8,
+              "8": 66,
+              "9": 59,
+              "6": 23,
+              "11": 4,
+              "7": 67,
+              "12": 80,
+              "21": 62,
+              "32": 12
+            },
+            "identity_verified_true_observations": 0
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "variant": "team-stable",
+            "tracker": "BoT-SORT",
+            "model": "BODD_yolov8n_0001.pt",
+            "identity_verified": false,
+            "metric_accuracy_validated": false,
+            "weights_sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+            "configuration_sha256": "5f54774e39a0de41d9e292199e10d3009b5b32bdeb294c46c85754fd80c653a7",
+            "implementation_sha256": {
+              "basketball_run.py": "5d780a538817d1bbc9fb4f137ad52c3c692c469fff6ed66503db5e54bd148116",
+              "basketball_tracker.py": "b96e315b2548986b04e7112852f4f70d2696384eeeca987915e2ba89f69a55ed",
+              "basketball_tracking.py": "5457b6b679f9808d2b999b4e868df49c3d98a34f4a031c4ff36dec5b3cd3e7ac"
+            }
+          },
+          "identity_suggestions": {
+            "available": true,
+            "entities": 8,
+            "verified": false,
+            "linked_fragments": 0,
+            "has_team_grouping": true
+          },
+          "document_flagged_cases_raw_evidence": [
+            {
+              "frame": 159,
+              "track_id": 12,
+              "present": true,
+              "time_seconds": 6.48,
+              "source_frame_pts": 82944,
+              "box_xyxy": [
+                626.363647,
+                119.545456,
+                695.45459,
+                320.0
+              ],
+              "tracking_score": 0.765625,
+              "class_id": 2,
+              "evidence": {
+                "source": "detection",
+                "raw_detection_index": 6,
+                "native_detection_index": 6,
+                "native_detection_confidence": 0.765625,
+                "team_label": "white",
+                "torso": {
+                  "label": null,
+                  "reliable": false,
+                  "template_safe": false,
+                  "appearance_safe": true,
+                  "dominance": 0.67,
+                  "overlap": 0.0,
+                  "reason": "mixed-torso"
+                },
+                "color_conflict": false,
+                "identity_review_required": false,
+                "identity_verified": false
+              },
+              "neighbor_motion": [
+                {
+                  "neighbor_frame": 158,
+                  "delta_seconds": 0.040000000000000036,
+                  "center_displacement_px": 6.953201376370828,
+                  "center_speed_px_per_s": 173.83003440927055
+                },
+                {
+                  "neighbor_frame": 160,
+                  "delta_seconds": 0.03999999999999915,
+                  "center_displacement_px": 5.716080416752781,
+                  "center_speed_px_per_s": 142.90201041882256
+                }
+              ]
+            },
+            {
+              "frame": 159,
+              "track_id": 21,
+              "present": true,
+              "time_seconds": 6.48,
+              "source_frame_pts": 82944,
+              "box_xyxy": [
+                486.363647,
+                276.363647,
+                555.45459,
+                444.545471
+              ],
+              "tracking_score": 0.893555,
+              "class_id": 2,
+              "evidence": {
+                "source": "detection",
+                "raw_detection_index": 3,
+                "native_detection_index": 3,
+                "native_detection_confidence": 0.8935546875,
+                "team_label": "blue",
+                "torso": {
+                  "label": null,
+                  "reliable": false,
+                  "template_safe": false,
+                  "appearance_safe": true,
+                  "dominance": 0.344,
+                  "overlap": 0.0,
+                  "reason": "mixed-torso"
+                },
+                "color_conflict": false,
+                "identity_review_required": false,
+                "identity_verified": false
+              },
+              "neighbor_motion": [
+                {
+                  "neighbor_frame": 158,
+                  "delta_seconds": 0.040000000000000036,
+                  "center_displacement_px": 8.624366969264791,
+                  "center_speed_px_per_s": 215.6091742316196
+                },
+                {
+                  "neighbor_frame": 160,
+                  "delta_seconds": 0.03999999999999915,
+                  "center_displacement_px": 7.496566134025866,
+                  "center_speed_px_per_s": 187.41415335065062
+                }
+              ]
+            },
+            {
+              "frame": 212,
+              "track_id": 12,
+              "present": true,
+              "time_seconds": 8.6,
+              "source_frame_pts": 110080,
+              "box_xyxy": [
+                865.45459,
+                186.022736,
+                956.363647,
+                327.727295
+              ],
+              "tracking_score": 0.663574,
+              "class_id": 2,
+              "evidence": {
+                "source": "detection",
+                "raw_detection_index": 6,
+                "native_detection_index": 6,
+                "native_detection_confidence": 0.66357421875,
+                "team_label": "white",
+                "torso": {
+                  "label": null,
+                  "reliable": false,
+                  "template_safe": false,
+                  "appearance_safe": true,
+                  "dominance": 0.735,
+                  "overlap": 0.0,
+                  "reason": "mixed-torso"
+                },
+                "color_conflict": false,
+                "identity_review_required": true,
+                "identity_verified": false
+              },
+              "neighbor_motion": [
+                {
+                  "neighbor_frame": 211,
+                  "delta_seconds": 0.03999999999999915,
+                  "center_displacement_px": 8.589138956646085,
+                  "center_speed_px_per_s": 214.7284739161567
+                },
+                {
+                  "neighbor_frame": 213,
+                  "delta_seconds": 0.040000000000000924,
+                  "center_displacement_px": 7.871515608527779,
+                  "center_speed_px_per_s": 196.78789021318994
+                }
+              ]
+            },
+            {
+              "frame": 212,
+              "track_id": 21,
+              "present": true,
+              "time_seconds": 8.6,
+              "source_frame_pts": 110080,
+              "box_xyxy": [
+                548.181824,
+                353.181824,
+                655.45459,
+                521.363647
+              ],
+              "tracking_score": 0.898926,
+              "class_id": 2,
+              "evidence": {
+                "source": "detection",
+                "raw_detection_index": 0,
+                "native_detection_index": 0,
+                "native_detection_confidence": 0.89892578125,
+                "team_label": "blue",
+                "torso": {
+                  "label": "white",
+                  "reliable": true,
+                  "template_safe": false,
+                  "appearance_safe": true,
+                  "dominance": 0.346,
+                  "overlap": 0.0,
+                  "reason": "rejection-only-torso"
+                },
+                "color_conflict": true,
+                "identity_review_required": true,
+                "identity_verified": false
+              },
+              "neighbor_motion": [
+                {
+                  "neighbor_frame": 211,
+                  "delta_seconds": 0.03999999999999915,
+                  "center_displacement_px": 5.182640381470654,
+                  "center_speed_px_per_s": 129.56600953676912
+                },
+                {
+                  "neighbor_frame": 213,
+                  "delta_seconds": 0.040000000000000924,
+                  "center_displacement_px": 8.194439946273837,
+                  "center_speed_px_per_s": 204.8609986568412
+                }
+              ]
+            },
+            {
+              "frame": 266,
+              "track_id": 12,
+              "present": true,
+              "time_seconds": 10.76,
+              "source_frame_pts": 137728,
+              "box_xyxy": [
+                1187.272705,
+                249.772736,
+                1265.45459,
+                383.409088
+              ],
+              "tracking_score": 0.87207,
+              "class_id": 2,
+              "evidence": {
+                "source": "detection",
+                "raw_detection_index": 5,
+                "native_detection_index": 5,
+                "native_detection_confidence": 0.8720703125,
+                "team_label": "white",
+                "torso": {
+                  "label": "dark",
+                  "reliable": true,
+                  "template_safe": true,
+                  "appearance_safe": true,
+                  "dominance": 0.848,
+                  "overlap": 0.0,
+                  "reason": "clear-torso"
+                },
+                "color_conflict": true,
+                "identity_review_required": true,
+                "identity_verified": false
+              },
+              "neighbor_motion": [
+                {
+                  "neighbor_frame": 265,
+                  "delta_seconds": 0.03999999999999915,
+                  "center_displacement_px": 1.136344600403973,
+                  "center_speed_px_per_s": 28.40861501009993
+                }
+              ]
+            },
+            {
+              "frame": 266,
+              "track_id": 21,
+              "present": true,
+              "time_seconds": 10.76,
+              "source_frame_pts": 137728,
+              "box_xyxy": [
+                850.909119,
+                340.454559,
+                949.090942,
+                502.272736
+              ],
+              "tracking_score": 0.930176,
+              "class_id": 2,
+              "evidence": {
+                "source": "detection",
+                "raw_detection_index": 1,
+                "native_detection_index": 1,
+                "native_detection_confidence": 0.93017578125,
+                "team_label": "blue",
+                "torso": {
+                  "label": "white",
+                  "reliable": true,
+                  "template_safe": true,
+                  "appearance_safe": true,
+                  "dominance": 0.598,
+                  "overlap": 0.0,
+                  "reason": "clear-torso"
+                },
+                "color_conflict": true,
+                "identity_review_required": true,
+                "identity_verified": false
+              },
+              "neighbor_motion": [
+                {
+                  "neighbor_frame": 265,
+                  "delta_seconds": 0.03999999999999915,
+                  "center_displacement_px": 5.182614552043753,
+                  "center_speed_px_per_s": 129.5653638010966
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "low",
+          "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-low.json",
+          "tracks_sha256": "d2aa7f1cbbe418ca2106cf8de14d68897c5675d4dbf00c9334dd9503f9b155fd",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-low.meta.json",
+          "metadata_sha256": "cef701a0d001fc98fdc36ceb6bf3011fc7fec5e26f5e8860820bcf1658c42c5c",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 267,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 267,
+          "track_observations": 2382,
+          "tracks_per_frame": {
+            "n": 267,
+            "min": 6,
+            "median": 9,
+            "max": 10
+          },
+          "frames_with_exactly_10_tracks": 112,
+          "pending_observations": 103,
+          "pending_per_frame": {
+            "n": 267,
+            "min": 0,
+            "median": 0,
+            "max": 3
+          },
+          "frames_with_pending": 88,
+          "candidate_count": {
+            "n": 267,
+            "min": 6,
+            "median": 10,
+            "max": 11
+          },
+          "candidate_count_sum": 2485,
+          "class_observations": {
+            "2": 2382
+          },
+          "explicit_role_observations": {},
+          "player_observations": 2382,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 267,
+            "min": 6,
+            "median": 9,
+            "max": 10
+          },
+          "pending_class_observations": {
+            "2": 103
+          },
+          "unique_track_ids": 17,
+          "id_observation_length": {
+            "n": 17,
+            "min": 6,
+            "median": 162,
+            "max": 266
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 17,
+            "tracks_with_internal_gaps": 10,
+            "absent_frames_sum": 73,
+            "gap_length_frames": {
+              "n": 17,
+              "min": 1,
+              "median": 2,
+              "max": 29
+            },
+            "largest_gaps": [
+              {
+                "track_id": 25,
+                "start": 181,
+                "end": 209,
+                "absent_frames": 29
+              },
+              {
+                "track_id": 2,
+                "start": 182,
+                "end": 188,
+                "absent_frames": 7
+              },
+              {
+                "track_id": 3,
+                "start": 18,
+                "end": 23,
+                "absent_frames": 6
+              },
+              {
+                "track_id": 3,
+                "start": 210,
+                "end": 215,
+                "absent_frames": 6
+              },
+              {
+                "track_id": 46,
+                "start": 252,
+                "end": 256,
+                "absent_frames": 5
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 0,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 45,
+            "first_overlap_examples": [
+              {
+                "frame": 96,
+                "ids": [
+                  4,
+                  7
+                ],
+                "iou": 0.241,
+                "intersection_over_smaller": 0.9219,
+                "area_ratio": 0.2668
+              },
+              {
+                "frame": 101,
+                "ids": [
+                  3,
+                  2
+                ],
+                "iou": 0.4786,
+                "intersection_over_smaller": 0.9375,
+                "area_ratio": 0.5273
+              },
+              {
+                "frame": 160,
+                "ids": [
+                  2,
+                  34
+                ],
+                "iou": 0.4712,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4712
+              },
+              {
+                "frame": 161,
+                "ids": [
+                  34,
+                  2
+                ],
+                "iou": 0.4576,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4576
+              },
+              {
+                "frame": 162,
+                "ids": [
+                  34,
+                  2
+                ],
+                "iou": 0.454,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.454
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 2382,
+            "source_counts": {
+              "detection": 2349,
+              "low_confidence_continuation": 33
+            },
+            "team_label_counts": {
+              "None": 2382
+            },
+            "torso_label_counts": {
+              "white": 383,
+              "None": 1251,
+              "dark": 748
+            },
+            "color_conflict_flags": null,
+            "color_conflict_field_observations": 0,
+            "color_conflicts_by_track": {},
+            "identity_review_flags": null,
+            "identity_review_field_observations": 0,
+            "identity_review_by_track": {},
+            "identity_verified_true_observations": 0
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "variant": "low",
+            "tracker": "BoT-SORT",
+            "model": "BODD_yolov8n_0001.pt",
+            "identity_verified": false,
+            "metric_accuracy_validated": false,
+            "weights_sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+            "configuration_sha256": "1cd06a3ac3b7bd1775d65f0663600c916f52314c8e4e122bcff54f43bc0e1931"
+          },
+          "identity_suggestions": {
+            "available": false,
+            "entities": null,
+            "verified": null,
+            "linked_fragments": null,
+            "has_team_grouping": null
+          }
+        },
+        {
+          "id": "reid",
+          "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-reid.json",
+          "tracks_sha256": "ced609ecb4081e23390efaca024301b80a13fea49f9b673f8916a19150635e3f",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-reid.meta.json",
+          "metadata_sha256": "bd35f9132d64dfaa460feecdcae834624d4dd7092cfe875743f33270903d2d79",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 267,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 267,
+          "track_observations": 2391,
+          "tracks_per_frame": {
+            "n": 267,
+            "min": 6,
+            "median": 9,
+            "max": 11
+          },
+          "frames_with_exactly_10_tracks": 114,
+          "pending_observations": 94,
+          "pending_per_frame": {
+            "n": 267,
+            "min": 0,
+            "median": 0,
+            "max": 3
+          },
+          "frames_with_pending": 83,
+          "candidate_count": {
+            "n": 267,
+            "min": 6,
+            "median": 10,
+            "max": 11
+          },
+          "candidate_count_sum": 2485,
+          "class_observations": {
+            "2": 2391
+          },
+          "explicit_role_observations": {},
+          "player_observations": 2391,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 267,
+            "min": 6,
+            "median": 9,
+            "max": 11
+          },
+          "pending_class_observations": {
+            "2": 94
+          },
+          "unique_track_ids": 20,
+          "id_observation_length": {
+            "n": 20,
+            "min": 1,
+            "median": 105.5,
+            "max": 266
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 25,
+            "tracks_with_internal_gaps": 9,
+            "absent_frames_sum": 96,
+            "gap_length_frames": {
+              "n": 25,
+              "min": 1,
+              "median": 2,
+              "max": 9
+            },
+            "largest_gaps": [
+              {
+                "track_id": 32,
+                "start": 215,
+                "end": 223,
+                "absent_frames": 9
+              },
+              {
+                "track_id": 12,
+                "start": 23,
+                "end": 30,
+                "absent_frames": 8
+              },
+              {
+                "track_id": 2,
+                "start": 182,
+                "end": 188,
+                "absent_frames": 7
+              },
+              {
+                "track_id": 9,
+                "start": 28,
+                "end": 34,
+                "absent_frames": 7
+              },
+              {
+                "track_id": 11,
+                "start": 17,
+                "end": 23,
+                "absent_frames": 7
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 0,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 46,
+            "first_overlap_examples": [
+              {
+                "frame": 96,
+                "ids": [
+                  21,
+                  7
+                ],
+                "iou": 0.241,
+                "intersection_over_smaller": 0.9219,
+                "area_ratio": 0.2668
+              },
+              {
+                "frame": 101,
+                "ids": [
+                  17,
+                  2
+                ],
+                "iou": 0.4786,
+                "intersection_over_smaller": 0.9375,
+                "area_ratio": 0.5273
+              },
+              {
+                "frame": 160,
+                "ids": [
+                  2,
+                  26
+                ],
+                "iou": 0.4712,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4712
+              },
+              {
+                "frame": 161,
+                "ids": [
+                  26,
+                  2
+                ],
+                "iou": 0.4576,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4576
+              },
+              {
+                "frame": 162,
+                "ids": [
+                  26,
+                  2
+                ],
+                "iou": 0.454,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.454
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 2391,
+            "source_counts": {
+              "detection": 2358,
+              "low_confidence_continuation": 33
+            },
+            "team_label_counts": {
+              "None": 2391
+            },
+            "torso_label_counts": {
+              "white": 383,
+              "None": 1260,
+              "dark": 748
+            },
+            "color_conflict_flags": null,
+            "color_conflict_field_observations": 0,
+            "color_conflicts_by_track": {},
+            "identity_review_flags": null,
+            "identity_review_field_observations": 0,
+            "identity_review_by_track": {},
+            "identity_verified_true_observations": 0
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "variant": "reid",
+            "tracker": "BoT-SORT",
+            "model": "BODD_yolov8n_0001.pt",
+            "identity_verified": false,
+            "metric_accuracy_validated": false,
+            "weights_sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+            "configuration_sha256": "8a50fcee8475c5d865b6ef8b4f25bc94348a61019668796f9786da394de99dc4"
+          },
+          "identity_suggestions": {
+            "available": false,
+            "entities": null,
+            "verified": null,
+            "linked_fragments": null,
+            "has_team_grouping": null
+          }
+        },
+        {
+          "id": "optimized",
+          "path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-optimized.json",
+          "tracks_sha256": "87395ce9653d083aadc35bb59d8b81ddbaa3afa92e97992f3ab17e08f946eee1",
+          "metadata_path": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-optimized.meta.json",
+          "metadata_sha256": "edc7fbdf2522e3700d95d2a44bc1ba8f5187717edfaeb881ad84ec127b2822cb",
+          "metadata_required": true,
+          "metadata_available": true,
+          "available": true,
+          "metadata_video_hash_matches": true,
+          "metadata_frame_count_matches": true,
+          "frame_contract_validation": {
+            "pass": true,
+            "validator": "engineering/scripts/serve_player_review.py:validate_frame_records"
+          },
+          "frame_pts_alignment": {
+            "frame_count_matches": true,
+            "time_tolerance_seconds": 0.001,
+            "time_max_abs_error_seconds": 0.0,
+            "frame_or_time_error_count": 0,
+            "first_errors": [],
+            "explicit_pts_rows": 267,
+            "explicit_pts_mismatches": 0,
+            "explicit_time_base_mismatches": 0,
+            "all_pass": true
+          },
+          "frames": 267,
+          "track_observations": 2389,
+          "tracks_per_frame": {
+            "n": 267,
+            "min": 6,
+            "median": 9,
+            "max": 10
+          },
+          "frames_with_exactly_10_tracks": 114,
+          "pending_observations": 83,
+          "pending_per_frame": {
+            "n": 267,
+            "min": 0,
+            "median": 0,
+            "max": 3
+          },
+          "frames_with_pending": 73,
+          "candidate_count": {
+            "n": 267,
+            "min": 6,
+            "median": 10,
+            "max": 11
+          },
+          "candidate_count_sum": 2472,
+          "class_observations": {
+            "2": 2389
+          },
+          "explicit_role_observations": {},
+          "player_observations": 2389,
+          "player_counts_basis": "metadata_class_or_explicit_role",
+          "player_count_per_frame": {
+            "n": 267,
+            "min": 6,
+            "median": 9,
+            "max": 10
+          },
+          "pending_class_observations": {
+            "2": 83
+          },
+          "unique_track_ids": 19,
+          "id_observation_length": {
+            "n": 19,
+            "min": 2,
+            "median": 134,
+            "max": 266
+          },
+          "internal_gaps": {
+            "within_id_gap_events": 24,
+            "tracks_with_internal_gaps": 9,
+            "absent_frames_sum": 89,
+            "gap_length_frames": {
+              "n": 24,
+              "min": 1,
+              "median": 2.0,
+              "max": 9
+            },
+            "largest_gaps": [
+              {
+                "track_id": 32,
+                "start": 215,
+                "end": 223,
+                "absent_frames": 9
+              },
+              {
+                "track_id": 12,
+                "start": 23,
+                "end": 30,
+                "absent_frames": 8
+              },
+              {
+                "track_id": 2,
+                "start": 182,
+                "end": 188,
+                "absent_frames": 7
+              },
+              {
+                "track_id": 9,
+                "start": 28,
+                "end": 34,
+                "absent_frames": 7
+              },
+              {
+                "track_id": 11,
+                "start": 17,
+                "end": 23,
+                "absent_frames": 7
+              }
+            ]
+          },
+          "structural_warnings": {
+            "duplicate_same_frame_ids": 0,
+            "invalid_rows": 0,
+            "boxes_outside_image": 0,
+            "same_class_iou_ge_0_7_pair_observations": 0,
+            "same_class_containment_ge_0_9_area_ratio_le_0_6_pair_observations": 45,
+            "first_overlap_examples": [
+              {
+                "frame": 96,
+                "ids": [
+                  21,
+                  7
+                ],
+                "iou": 0.241,
+                "intersection_over_smaller": 0.9219,
+                "area_ratio": 0.2668
+              },
+              {
+                "frame": 101,
+                "ids": [
+                  17,
+                  2
+                ],
+                "iou": 0.4786,
+                "intersection_over_smaller": 0.9375,
+                "area_ratio": 0.5273
+              },
+              {
+                "frame": 160,
+                "ids": [
+                  2,
+                  26
+                ],
+                "iou": 0.4712,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4712
+              },
+              {
+                "frame": 161,
+                "ids": [
+                  26,
+                  2
+                ],
+                "iou": 0.4576,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.4576
+              },
+              {
+                "frame": 162,
+                "ids": [
+                  26,
+                  2
+                ],
+                "iou": 0.454,
+                "intersection_over_smaller": 1.0,
+                "area_ratio": 0.454
+              }
+            ]
+          },
+          "evidence": {
+            "observations_with_evidence": 2389,
+            "source_counts": {
+              "detection": 2349,
+              "low_confidence_continuation": 33,
+              "full_body_detection_recovery": 7
+            },
+            "team_label_counts": {
+              "None": 411,
+              "blue": 1031,
+              "white": 947
+            },
+            "torso_label_counts": {
+              "white": 724,
+              "dark": 784,
+              "None": 881
+            },
+            "color_conflict_flags": 174,
+            "color_conflict_field_observations": 2389,
+            "color_conflicts_by_track": {
+              "4": 5,
+              "17": 3,
+              "8": 13,
+              "9": 6,
+              "6": 12,
+              "11": 2,
+              "7": 9,
+              "12": 56,
+              "21": 60,
+              "32": 8
+            },
+            "identity_review_flags": 391,
+            "identity_review_field_observations": 2389,
+            "identity_review_by_track": {
+              "4": 10,
+              "17": 8,
+              "8": 66,
+              "9": 59,
+              "6": 23,
+              "11": 4,
+              "7": 67,
+              "12": 80,
+              "21": 62,
+              "32": 12
+            },
+            "identity_verified_true_observations": 0
+          },
+          "objects": {
+            "frames_with_objects_field": 0,
+            "available_in_this_variant": false,
+            "observation_counts": null,
+            "frames_by_kind": null,
+            "sources": null
+          },
+          "accuracy": {
+            "detection_precision": null,
+            "detection_recall": null,
+            "IDF1": null,
+            "identity_accuracy": null,
+            "position_error_m": null,
+            "reason": "No independent ground truth in this audit."
+          },
+          "metadata_claims": {
+            "variant": "optimized",
+            "tracker": "BoT-SORT",
+            "model": "BODD_yolov8n_0001.pt",
+            "identity_verified": false,
+            "metric_accuracy_validated": false,
+            "weights_sha256": "dfe3534d51bb21024d1a400c37f0c1fbf0c8b96ea9a56a5f3cb5454813bfd641",
+            "configuration_sha256": "5f54774e39a0de41d9e292199e10d3009b5b32bdeb294c46c85754fd80c653a7",
+            "implementation_sha256": {
+              "basketball_run.py": "5d780a538817d1bbc9fb4f137ad52c3c692c469fff6ed66503db5e54bd148116",
+              "basketball_tracker.py": "b96e315b2548986b04e7112852f4f70d2696384eeeca987915e2ba89f69a55ed",
+              "basketball_tracking.py": "5457b6b679f9808d2b999b4e868df49c3d98a34f4a031c4ff36dec5b3cd3e7ac"
+            }
+          },
+          "identity_suggestions": {
+            "available": true,
+            "entities": 10,
+            "verified": false,
+            "linked_fragments": 0,
+            "has_team_grouping": false
+          }
+        }
+      ],
+      "byte_identical_track_groups": [
+        [
+          "team-stable",
+          "optimized"
+        ]
+      ],
+      "independent_track_files": 4,
+      "candidates": {
+        "feet": {
+          "available": false,
+          "reason": "No library path."
+        },
+        "court": {
+          "available": false,
+          "reason": "No library path."
+        }
+      }
+    }
+  ],
+  "source_inventory": {
+    "data/videos/tactics/acceptance/review-library.json": {
+      "exists": true,
+      "bytes": 6621,
+      "sha256": "1014b79157e0c51f11c1eafa112d68da8dfe9dee912567e58229695a13a42c32"
+    },
+    "engineering/scripts/scene_profiles.py": {
+      "exists": true,
+      "bytes": 6612,
+      "sha256": "cd797e8b57da12a83954b8ce88d12640c7c7224718e3827902fe1a3c4ab1190f"
+    },
+    "engineering/scripts/serve_player_review.py": {
+      "exists": true,
+      "bytes": 31798,
+      "sha256": "6c36a208aac6d113b6546be0eb0a0aed30527ecf430b7b7c2739f53c3dd9d2e8"
+    },
+    "data/videos/tactics/acceptance/clips/004_GSW_elevator.mp4": {
+      "exists": true,
+      "bytes": 5425996,
+      "sha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3"
+    },
+    "data/videos/tactics/acceptance/tracks/004.json": {
+      "exists": true,
+      "bytes": 422551,
+      "sha256": "2f6aa970eaf50c46e7565d318b7f3f4d04d0dc1b31803ae5c193721d43ae504d"
+    },
+    "data/videos/tactics/acceptance/tracks/004.meta.json": {
+      "exists": true,
+      "bytes": 358,
+      "sha256": "7f7394d5d9a8e80d0fc9cbbd4a05204bf5a08de9549e2304fc396299baa2ca20"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.json": {
+      "exists": true,
+      "bytes": 1440460,
+      "sha256": "aaca9d5ea06d3e2a503b5b15453ca3f06ec73bcd8d83c36cee75a106af07c593"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.meta.json": {
+      "exists": true,
+      "bytes": 109712,
+      "sha256": "976579c9578bce870b99d9bbc55b89998d7988a69502ae6a770dccd6dd1664e1"
+    },
+    "data/videos/tactics/acceptance/tracks/004-ebard.json": {
+      "exists": true,
+      "bytes": 330831,
+      "sha256": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb"
+    },
+    "data/videos/tactics/acceptance/tracks/004-ebard.meta.json": {
+      "exists": true,
+      "bytes": 1295,
+      "sha256": "544c78d40ce4f6856dea607e5b31b9246e3812b9327a8251afd082461510f6f6"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/004-optimized.json": {
+      "exists": true,
+      "bytes": 1440460,
+      "sha256": "aaca9d5ea06d3e2a503b5b15453ca3f06ec73bcd8d83c36cee75a106af07c593"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/004-optimized.meta.json": {
+      "exists": true,
+      "bytes": 105677,
+      "sha256": "0ecacd3befaf7e868caae33ed9554addd3d59cb6216f468f9f361b4c0a018944"
+    },
+    "engineering/research/vision-player-refinement/feet-candidates-004.json": {
+      "exists": true,
+      "bytes": 2185481,
+      "sha256": "3f56917b96483809ea3a0eb4cf6148f45df9e3c15d2cebfa1b312e9e2a7b8357"
+    },
+    "engineering/research/vision-player-refinement/court-candidates-004.json": {
+      "exists": true,
+      "bytes": 175453,
+      "sha256": "328d2e21fac803da2c1edd54084a95fdb1afc1a0e84e0d9b1dabac37113753f4"
+    },
+    "data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4": {
+      "exists": true,
+      "bytes": 4316630,
+      "sha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d"
+    },
+    "data/videos/tactics/acceptance/tracks/005.json": {
+      "exists": true,
+      "bytes": 335867,
+      "sha256": "030bb743fc25cfe45e88509e5ef295cc386dc913818197df766dae45e99680ed"
+    },
+    "data/videos/tactics/acceptance/tracks/005.meta.json": {
+      "exists": true,
+      "bytes": 359,
+      "sha256": "b81acebd9ccf16ecb7e8de4cd3dfa117b4317bfe2f2a098f9ed49793527b303d"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json": {
+      "exists": true,
+      "bytes": 1004545,
+      "sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.meta.json": {
+      "exists": true,
+      "bytes": 71314,
+      "sha256": "59a59e2c0843b051f81f425a09f1ea5ab2122ce7f06ee85cd4eae60a200460c0"
+    },
+    "data/videos/tactics/acceptance/tracks/005-ebard.json": {
+      "exists": true,
+      "bytes": 221793,
+      "sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e"
+    },
+    "data/videos/tactics/acceptance/tracks/005-ebard.meta.json": {
+      "exists": true,
+      "bytes": 1279,
+      "sha256": "d3e9648a46770814200362fd4b96cc98b33b332c8c11532a893897d413d56372"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/005-optimized.json": {
+      "exists": true,
+      "bytes": 1004545,
+      "sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/005-optimized.meta.json": {
+      "exists": true,
+      "bytes": 65583,
+      "sha256": "19fbb5155f08dd9912886d0b2ade7008da5125ac8544d3022d1cd0bd44b6bab0"
+    },
+    "engineering/research/vision-player-refinement/feet-candidates-005.json": {
+      "exists": true,
+      "bytes": 1676328,
+      "sha256": "9e54439058c79e9e77094785b1e516d2acd30f6ec9bf7a5bd749ad25dcf25525"
+    },
+    "engineering/research/vision-player-refinement/court-candidates-005.json": {
+      "exists": true,
+      "bytes": 168416,
+      "sha256": "a5ec52f6aac0ca87d5c43df07d3d7b0e06767ebfdff3b2b594b6c8de3aca6988"
+    },
+    "data/videos/tactics/acceptance/clips/006_SAS_drive_kick.mp4": {
+      "exists": true,
+      "bytes": 14206559,
+      "sha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919"
+    },
+    "data/videos/tactics/acceptance/tracks/006.json": {
+      "exists": true,
+      "bytes": 1038580,
+      "sha256": "5d6ea356939ad17d030005c6a21cecf575c7e637c2d6716aa38134923c497ee2"
+    },
+    "data/videos/tactics/acceptance/tracks/006.meta.json": {
+      "exists": true,
+      "bytes": 359,
+      "sha256": "3e86c108fcc8e1ca4379d56e9ddf04e1dbc511e3f4db73583b3719ecb2a43425"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/006-team-stable.json": {
+      "exists": true,
+      "bytes": 3317762,
+      "sha256": "a8ce872d737fd3eeb8f18cc30f8138f5d3a7098b40241d7cf6ba553e63aedbf0"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/006-team-stable.meta.json": {
+      "exists": true,
+      "bytes": 141992,
+      "sha256": "2741ff051c4b7d8815906772022252f1cef98658efe7f2c57d0e29224db12c2b"
+    },
+    "data/videos/tactics/acceptance/tracks/006-ebard.json": {
+      "exists": true,
+      "bytes": 744592,
+      "sha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0"
+    },
+    "data/videos/tactics/acceptance/tracks/006-ebard.meta.json": {
+      "exists": true,
+      "bytes": 1280,
+      "sha256": "e1a5e48a4feac19d88e9f47f4d36b8e9782ae1c48386bdf2aa921ab173dac87a"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/006-optimized.json": {
+      "exists": true,
+      "bytes": 3317762,
+      "sha256": "a8ce872d737fd3eeb8f18cc30f8138f5d3a7098b40241d7cf6ba553e63aedbf0"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/006-optimized.meta.json": {
+      "exists": true,
+      "bytes": 136602,
+      "sha256": "30cb50a1b976b9ef64feca9613af1522e7be4a3531ad0b7f0be4b7d18104fb72"
+    },
+    "engineering/research/vision-player-refinement/feet-candidates-006.json": {
+      "exists": true,
+      "bytes": 5455580,
+      "sha256": "0f613e86da4564b4588876aaa5d4000fb70488728091d5f0a0aa1b80dfde7a3b"
+    },
+    "engineering/research/vision-player-refinement/court-candidates-006.json": {
+      "exists": true,
+      "bytes": 407135,
+      "sha256": "cc0019b94658bc55ca86a9f29f6fbc7584f3a7d1e494ef10b4c72d0135e367c1"
+    },
+    "data/videos/nba/2024-25/clips/005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4": {
+      "exists": true,
+      "bytes": 6987539,
+      "sha256": "e76feffb09ede3e1b336c2e470370bcf1ee0937326bdf672e3e7e4bc5b661885"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json": {
+      "exists": true,
+      "bytes": 1203537,
+      "sha256": "83e2167ef9f28b83a7731102abdd1feff42767cb2cba0d7796fdad8f67ac5b0b"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.meta.json": {
+      "exists": true,
+      "bytes": 6146,
+      "sha256": "b3215068c2ae9af5e703f0f16a3b8cf9f9a18987d99dbe935282ccce3baf853f"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-team-stable.json": {
+      "exists": true,
+      "bytes": 1819547,
+      "sha256": "87395ce9653d083aadc35bb59d8b81ddbaa3afa92e97992f3ab17e08f946eee1"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-team-stable.meta.json": {
+      "exists": true,
+      "bytes": 105526,
+      "sha256": "4ad9a1d4b3e18d466f8d2850f66f1d18934c15b78ea30685b418eff94feb66d9"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-low.json": {
+      "exists": true,
+      "bytes": 1228607,
+      "sha256": "d2aa7f1cbbe418ca2106cf8de14d68897c5675d4dbf00c9334dd9503f9b155fd"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-low.meta.json": {
+      "exists": true,
+      "bytes": 6144,
+      "sha256": "cef701a0d001fc98fdc36ceb6bf3011fc7fec5e26f5e8860820bcf1658c42c5c"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-reid.json": {
+      "exists": true,
+      "bytes": 1232064,
+      "sha256": "ced609ecb4081e23390efaca024301b80a13fea49f9b673f8916a19150635e3f"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-reid.meta.json": {
+      "exists": true,
+      "bytes": 6172,
+      "sha256": "bd35f9132d64dfaa460feecdcae834624d4dd7092cfe875743f33270903d2d79"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-optimized.json": {
+      "exists": true,
+      "bytes": 1819547,
+      "sha256": "87395ce9653d083aadc35bb59d8b81ddbaa3afa92e97992f3ab17e08f946eee1"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-optimized.meta.json": {
+      "exists": true,
+      "bytes": 99990,
+      "sha256": "edc7fbdf2522e3700d95d2a44bc1ba8f5187717edfaeb881ad84ec127b2822cb"
+    },
+    "AGENTS.md": {
+      "exists": true,
+      "bytes": 3595,
+      "sha256": "4e42e9261e91c4c07bef55551aa453202219a8431105fcb483e647b6965b4fc3"
+    },
+    "engineering/research/player-tracking-workbench-20261002.md": {
+      "exists": true,
+      "bytes": 12057,
+      "sha256": "d428fdb204316fec44aac1ce74de56fb8e62a6c6d0241afa11d3f39eded32974"
+    },
+    "engineering/research/player-team-overlay-20261002.md": {
+      "exists": true,
+      "bytes": 11026,
+      "sha256": "7c8dc6dd45b95087df60f0d446ba82e263fb673fd7d34caf94526101f12f3898"
+    },
+    "data/videos/tactics/acceptance/tracks/basketball-20261002/README.md": {
+      "exists": true,
+      "bytes": 5245,
+      "sha256": "da98fd7c89a07e089990ca628f41ac9dea235d750e3108f6250fd20740d99b5b"
+    },
+    "handoffs/chuali-zi/2026-10-02-1002-remote-sync-overview.md": {
+      "exists": true,
+      "bytes": 8497,
+      "sha256": "3f3d363f0061003170716e53cdab300fa073feba3fb865c4a3c9c7a33b3d097c"
+    }
+  },
+  "source_files_changed_during_audit": [],
+  "totals": {
+    "samples": 4,
+    "variants": 17,
+    "independent_track_files": 13,
+    "decoded_unique_video_frames": 1082,
+    "video_hashes_match": true,
+    "all_videos_readable": true,
+    "all_decoded_pts_monotonic": true,
+    "all_variant_pts_checks_pass": true,
+    "all_frame_contract_checks_pass": true,
+    "variants_with_complete_explicit_integer_pts": 11,
+    "all_metadata_checks_pass": true,
+    "all_candidate_contract_checks_pass": true,
+    "default_track_observations": 9937,
+    "independent_ground_truth_available": false
+  }
+}

@@ -1,0 +1,1092 @@
+{
+  "limitations": [
+    "No independent dense object or possession labels.",
+    "All nearest-player associations below are image-space candidates, never possession.",
+    "Object-channel absence is distinct from no detection in an available channel.",
+    "BBox distance is not court distance; ball and rim are not ground-plane points."
+  ],
+  "samples": [
+    {
+      "sample": "004",
+      "source": "data/videos/tactics/acceptance/tracks/004-ebard.json",
+      "sha256": "6d3ec9141ab4af3433152d9beb7053306a4597246ed4be1d8b1fc9814bad64fb",
+      "frames": 210,
+      "object_kind_counts": {
+        "hoop": 205,
+        "basketball": 74
+      },
+      "ball_detection_frames": 73,
+      "frames_without_ball_detection": 137,
+      "multiple_ball_frames": 1,
+      "longest_no_ball_run": 36,
+      "ball_centers_inside_one_or_more_player_boxes": 23,
+      "ball_centers_inside_multiple_player_boxes": 6,
+      "stable_frames_missing_objects_field": 210,
+      "stable_source": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.json",
+      "stable_sha256": "aaca9d5ea06d3e2a503b5b15453ca3f06ec73bcd8d83c36cee75a106af07c593",
+      "no_ball_runs": [
+        {
+          "start": 0,
+          "end": 18,
+          "frames": 19,
+          "duration_between_endpoint_timestamps_s": 0.7509386733416772
+        },
+        {
+          "start": 30,
+          "end": 61,
+          "frames": 32,
+          "duration_between_endpoint_timestamps_s": 1.2932832707551103
+        },
+        {
+          "start": 63,
+          "end": 98,
+          "frames": 36,
+          "duration_between_endpoint_timestamps_s": 1.4601585314977052
+        },
+        {
+          "start": 109,
+          "end": 113,
+          "frames": 5,
+          "duration_between_endpoint_timestamps_s": 0.16687526074259473
+        },
+        {
+          "start": 115,
+          "end": 118,
+          "frames": 4,
+          "duration_between_endpoint_timestamps_s": 0.1251564455569465
+        },
+        {
+          "start": 122,
+          "end": 122,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 155,
+          "end": 156,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.04171881518564913
+        },
+        {
+          "start": 166,
+          "end": 166,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 170,
+          "end": 170,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 172,
+          "end": 188,
+          "frames": 17,
+          "duration_between_endpoint_timestamps_s": 0.6675010429703798
+        },
+        {
+          "start": 190,
+          "end": 191,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.04171881518564913
+        },
+        {
+          "start": 193,
+          "end": 209,
+          "frames": 17,
+          "duration_between_endpoint_timestamps_s": 0.6675010429703807
+        }
+      ],
+      "source_frames_objects_not_provided": []
+    },
+    {
+      "sample": "005",
+      "source": "data/videos/tactics/acceptance/tracks/005-ebard.json",
+      "sha256": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+      "frames": 143,
+      "object_kind_counts": {
+        "hoop": 143,
+        "basketball": 78
+      },
+      "ball_detection_frames": 76,
+      "frames_without_ball_detection": 67,
+      "multiple_ball_frames": 2,
+      "longest_no_ball_run": 13,
+      "ball_centers_inside_one_or_more_player_boxes": 57,
+      "ball_centers_inside_multiple_player_boxes": 5,
+      "stable_frames_missing_objects_field": 143,
+      "stable_source": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json",
+      "stable_sha256": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17",
+      "no_ball_runs": [
+        {
+          "start": 0,
+          "end": 1,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.03333333333333333
+        },
+        {
+          "start": 6,
+          "end": 6,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 18,
+          "end": 18,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 20,
+          "end": 21,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.033333333333333326
+        },
+        {
+          "start": 23,
+          "end": 23,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 27,
+          "end": 27,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 32,
+          "end": 41,
+          "frames": 10,
+          "duration_between_endpoint_timestamps_s": 0.30000000000000004
+        },
+        {
+          "start": 57,
+          "end": 58,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.03333333333333344
+        },
+        {
+          "start": 65,
+          "end": 65,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 71,
+          "end": 71,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 73,
+          "end": 73,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 77,
+          "end": 77,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 79,
+          "end": 91,
+          "frames": 13,
+          "duration_between_endpoint_timestamps_s": 0.3999999999999999
+        },
+        {
+          "start": 94,
+          "end": 94,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 102,
+          "end": 102,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 104,
+          "end": 107,
+          "frames": 4,
+          "duration_between_endpoint_timestamps_s": 0.10000000000000009
+        },
+        {
+          "start": 109,
+          "end": 110,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.033333333333333215
+        },
+        {
+          "start": 114,
+          "end": 116,
+          "frames": 3,
+          "duration_between_endpoint_timestamps_s": 0.06666666666666687
+        },
+        {
+          "start": 118,
+          "end": 118,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 121,
+          "end": 127,
+          "frames": 7,
+          "duration_between_endpoint_timestamps_s": 0.20000000000000018
+        },
+        {
+          "start": 130,
+          "end": 140,
+          "frames": 11,
+          "duration_between_endpoint_timestamps_s": 0.3333333333333339
+        }
+      ],
+      "source_frames_objects_not_provided": []
+    },
+    {
+      "sample": "006",
+      "source": "data/videos/tactics/acceptance/tracks/006-ebard.json",
+      "sha256": "8a64bc0e3eb3a6ace2e4f6595f0ea7b6d51b52b666777f19c059d8f9b4cfffc0",
+      "frames": 462,
+      "object_kind_counts": {
+        "hoop": 462,
+        "basketball": 207
+      },
+      "ball_detection_frames": 191,
+      "frames_without_ball_detection": 271,
+      "multiple_ball_frames": 16,
+      "longest_no_ball_run": 39,
+      "ball_centers_inside_one_or_more_player_boxes": 183,
+      "ball_centers_inside_multiple_player_boxes": 26,
+      "stable_frames_missing_objects_field": 462,
+      "stable_source": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-team-stable.json",
+      "stable_sha256": "a8ce872d737fd3eeb8f18cc30f8138f5d3a7098b40241d7cf6ba553e63aedbf0",
+      "no_ball_runs": [
+        {
+          "start": 5,
+          "end": 7,
+          "frames": 3,
+          "duration_between_endpoint_timestamps_s": 0.06666666666666668
+        },
+        {
+          "start": 19,
+          "end": 21,
+          "frames": 3,
+          "duration_between_endpoint_timestamps_s": 0.06666666666666665
+        },
+        {
+          "start": 37,
+          "end": 37,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 40,
+          "end": 41,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.03333333333333344
+        },
+        {
+          "start": 52,
+          "end": 53,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.033333333333333215
+        },
+        {
+          "start": 55,
+          "end": 56,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.03333333333333344
+        },
+        {
+          "start": 60,
+          "end": 61,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.033333333333333215
+        },
+        {
+          "start": 63,
+          "end": 64,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.033333333333333215
+        },
+        {
+          "start": 69,
+          "end": 69,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 82,
+          "end": 87,
+          "frames": 6,
+          "duration_between_endpoint_timestamps_s": 0.16666666666666652
+        },
+        {
+          "start": 93,
+          "end": 93,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 107,
+          "end": 108,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.033333333333333215
+        },
+        {
+          "start": 113,
+          "end": 121,
+          "frames": 9,
+          "duration_between_endpoint_timestamps_s": 0.2666666666666666
+        },
+        {
+          "start": 124,
+          "end": 128,
+          "frames": 5,
+          "duration_between_endpoint_timestamps_s": 0.13333333333333286
+        },
+        {
+          "start": 131,
+          "end": 131,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 137,
+          "end": 146,
+          "frames": 10,
+          "duration_between_endpoint_timestamps_s": 0.2999999999999998
+        },
+        {
+          "start": 148,
+          "end": 154,
+          "frames": 7,
+          "duration_between_endpoint_timestamps_s": 0.20000000000000018
+        },
+        {
+          "start": 157,
+          "end": 158,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.033333333333333215
+        },
+        {
+          "start": 160,
+          "end": 198,
+          "frames": 39,
+          "duration_between_endpoint_timestamps_s": 1.2666666666666666
+        },
+        {
+          "start": 201,
+          "end": 201,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 204,
+          "end": 213,
+          "frames": 10,
+          "duration_between_endpoint_timestamps_s": 0.2999999999999998
+        },
+        {
+          "start": 225,
+          "end": 225,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 227,
+          "end": 227,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 231,
+          "end": 234,
+          "frames": 4,
+          "duration_between_endpoint_timestamps_s": 0.09999999999999964
+        },
+        {
+          "start": 246,
+          "end": 246,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 249,
+          "end": 249,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 251,
+          "end": 252,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.033333333333333215
+        },
+        {
+          "start": 254,
+          "end": 266,
+          "frames": 13,
+          "duration_between_endpoint_timestamps_s": 0.40000000000000036
+        },
+        {
+          "start": 268,
+          "end": 285,
+          "frames": 18,
+          "duration_between_endpoint_timestamps_s": 0.5666666666666664
+        },
+        {
+          "start": 290,
+          "end": 299,
+          "frames": 10,
+          "duration_between_endpoint_timestamps_s": 0.3000000000000007
+        },
+        {
+          "start": 302,
+          "end": 307,
+          "frames": 6,
+          "duration_between_endpoint_timestamps_s": 0.16666666666666607
+        },
+        {
+          "start": 309,
+          "end": 309,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 313,
+          "end": 323,
+          "frames": 11,
+          "duration_between_endpoint_timestamps_s": 0.3333333333333339
+        },
+        {
+          "start": 333,
+          "end": 344,
+          "frames": 12,
+          "duration_between_endpoint_timestamps_s": 0.36666666666666714
+        },
+        {
+          "start": 351,
+          "end": 351,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 353,
+          "end": 355,
+          "frames": 3,
+          "duration_between_endpoint_timestamps_s": 0.06666666666666643
+        },
+        {
+          "start": 357,
+          "end": 357,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 363,
+          "end": 363,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 366,
+          "end": 374,
+          "frames": 9,
+          "duration_between_endpoint_timestamps_s": 0.2666666666666675
+        },
+        {
+          "start": 379,
+          "end": 380,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.033333333333333215
+        },
+        {
+          "start": 383,
+          "end": 384,
+          "frames": 2,
+          "duration_between_endpoint_timestamps_s": 0.033333333333333215
+        },
+        {
+          "start": 386,
+          "end": 407,
+          "frames": 22,
+          "duration_between_endpoint_timestamps_s": 0.6999999999999993
+        },
+        {
+          "start": 414,
+          "end": 425,
+          "frames": 12,
+          "duration_between_endpoint_timestamps_s": 0.36666666666666536
+        },
+        {
+          "start": 429,
+          "end": 429,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 431,
+          "end": 431,
+          "frames": 1,
+          "duration_between_endpoint_timestamps_s": 0.0
+        },
+        {
+          "start": 437,
+          "end": 452,
+          "frames": 16,
+          "duration_between_endpoint_timestamps_s": 0.5
+        },
+        {
+          "start": 454,
+          "end": 461,
+          "frames": 8,
+          "duration_between_endpoint_timestamps_s": 0.23333333333333428
+        }
+      ],
+      "source_frames_objects_not_provided": []
+    }
+  ],
+  "challenge_observations": [
+    {
+      "sample": "004",
+      "frame": 104,
+      "objects": [
+        {
+          "kind": "hoop",
+          "box": [
+            556.3636474609375,
+            57.272727966308594,
+            611.8181762695312,
+            125.90909576416016
+          ],
+          "score": 0.81396484375,
+          "source": "model",
+          "groundPoint": false
+        },
+        {
+          "kind": "basketball",
+          "box": [
+            682.727294921875,
+            345.0,
+            717.2727661132812,
+            379.54547119140625
+          ],
+          "score": 0.521484375,
+          "source": "model",
+          "groundPoint": false
+        }
+      ],
+      "associations": [
+        {
+          "frame": 104,
+          "source_time": 4.379745515227367,
+          "object_pointer": "/104/objects/1",
+          "ball_score": 0.521484375,
+          "nearest": [
+            {
+              "track_id": 7,
+              "box_edge_distance_px": 0.0,
+              "center_distance_px": 55.12312509706195,
+              "body_height_px": 184.58660888671875,
+              "player_score": 0.87890625
+            },
+            {
+              "track_id": 1,
+              "box_edge_distance_px": 69.51669311523438,
+              "center_distance_px": 116.89840752455619,
+              "body_height_px": 200.31396484375,
+              "player_score": 0.91259765625
+            },
+            {
+              "track_id": 23,
+              "box_edge_distance_px": 76.35421752929688,
+              "center_distance_px": 119.68429430181128,
+              "body_height_px": 178.1204071044922,
+              "player_score": 0.80126953125
+            }
+          ],
+          "inside_player_boxes": 1
+        }
+      ]
+    },
+    {
+      "sample": "004",
+      "frame": 139,
+      "objects": [
+        {
+          "kind": "hoop",
+          "box": [
+            608.1818237304688,
+            97.2727279663086,
+            662.727294921875,
+            167.0454559326172
+          ],
+          "score": 0.830078125,
+          "source": "model",
+          "groundPoint": false
+        },
+        {
+          "kind": "basketball",
+          "box": [
+            537.2727661132812,
+            7.613636493682861,
+            573.6363525390625,
+            41.590911865234375
+          ],
+          "score": 0.62451171875,
+          "source": "model",
+          "groundPoint": false
+        }
+      ],
+      "associations": [
+        {
+          "frame": 139,
+          "source_time": 5.839904046725073,
+          "object_pointer": "/139/objects/1",
+          "ball_score": 0.62451171875,
+          "nearest": [
+            {
+              "track_id": 7,
+              "box_edge_distance_px": 186.0598657131195,
+              "center_distance_px": 276.51792567843427,
+              "body_height_px": 176.40936279296875,
+              "player_score": 0.8583984375
+            },
+            {
+              "track_id": 25,
+              "box_edge_distance_px": 261.4015359841678,
+              "center_distance_px": 352.09672853109197,
+              "body_height_px": 164.34844970703125,
+              "player_score": 0.59814453125
+            },
+            {
+              "track_id": 9,
+              "box_edge_distance_px": 280.7211302421091,
+              "center_distance_px": 385.55227197852344,
+              "body_height_px": 197.69161987304688,
+              "player_score": 0.8486328125
+            }
+          ],
+          "inside_player_boxes": 0
+        }
+      ]
+    },
+    {
+      "sample": "005",
+      "frame": 0,
+      "objects": [
+        {
+          "kind": "hoop",
+          "box": [
+            1340.45458984375,
+            161.93182373046875,
+            1420.9090576171875,
+            255.34091186523438
+          ],
+          "score": 0.88330078125,
+          "source": "model",
+          "groundPoint": false
+        }
+      ],
+      "associations": []
+    },
+    {
+      "sample": "005",
+      "frame": 47,
+      "objects": [
+        {
+          "kind": "hoop",
+          "box": [
+            1321.3636474609375,
+            167.72727966308594,
+            1407.272705078125,
+            265.2272644042969
+          ],
+          "score": 0.83740234375,
+          "source": "model",
+          "groundPoint": false
+        },
+        {
+          "kind": "basketball",
+          "box": [
+            642.272705078125,
+            702.272705078125,
+            690.0,
+            748.6363525390625
+          ],
+          "score": 0.494140625,
+          "source": "model",
+          "groundPoint": false
+        }
+      ],
+      "associations": [
+        {
+          "frame": 47,
+          "source_time": 1.5666666666666667,
+          "object_pointer": "/47/objects/1",
+          "ball_score": 0.494140625,
+          "nearest": [
+            {
+              "track_id": 3,
+              "box_edge_distance_px": 0.0,
+              "center_distance_px": 80.06678346080919,
+              "body_height_px": 263.885986328125,
+              "player_score": 0.8525390625
+            },
+            {
+              "track_id": 13,
+              "box_edge_distance_px": 102.80208560272877,
+              "center_distance_px": 221.05385216378423,
+              "body_height_px": 225.12115478515625,
+              "player_score": 0.71142578125
+            },
+            {
+              "track_id": 1,
+              "box_edge_distance_px": 138.27923583984375,
+              "center_distance_px": 232.51322894570208,
+              "body_height_px": 279.347412109375,
+              "player_score": 0.8837890625
+            }
+          ],
+          "inside_player_boxes": 1
+        }
+      ]
+    },
+    {
+      "sample": "005",
+      "frame": 71,
+      "objects": [
+        {
+          "kind": "hoop",
+          "box": [
+            1337.727294921875,
+            200.7954559326172,
+            1416.8182373046875,
+            292.5
+          ],
+          "score": 0.8642578125,
+          "source": "model",
+          "groundPoint": false
+        }
+      ],
+      "associations": []
+    },
+    {
+      "sample": "005",
+      "frame": 119,
+      "objects": [
+        {
+          "kind": "hoop",
+          "box": [
+            1311.8182373046875,
+            228.75,
+            1412.727294921875,
+            339.8863525390625
+          ],
+          "score": 0.8857421875,
+          "source": "model",
+          "groundPoint": false
+        },
+        {
+          "kind": "basketball",
+          "box": [
+            1355.45458984375,
+            209.31817626953125,
+            1399.0909423828125,
+            250.22727966308594
+          ],
+          "score": 0.29345703125,
+          "source": "model",
+          "groundPoint": false
+        }
+      ],
+      "associations": [
+        {
+          "frame": 119,
+          "source_time": 3.966666666666667,
+          "object_pointer": "/119/objects/1",
+          "ball_score": 0.29345703125,
+          "nearest": [
+            {
+              "track_id": 4,
+              "box_edge_distance_px": 163.1368794982017,
+              "center_distance_px": 310.8749004275438,
+              "body_height_px": 268.7239990234375,
+              "player_score": 0.80517578125
+            },
+            {
+              "track_id": 14,
+              "box_edge_distance_px": 261.5022770815885,
+              "center_distance_px": 419.167756159155,
+              "body_height_px": 299.5872802734375,
+              "player_score": 0.83837890625
+            },
+            {
+              "track_id": 2,
+              "box_edge_distance_px": 273.77213287353516,
+              "center_distance_px": 430.12301093993926,
+              "body_height_px": 312.20489501953125,
+              "player_score": 0.87890625
+            }
+          ],
+          "inside_player_boxes": 0
+        }
+      ]
+    },
+    {
+      "sample": "005",
+      "frame": 142,
+      "objects": [
+        {
+          "kind": "hoop",
+          "box": [
+            1348.6363525390625,
+            184.94317626953125,
+            1455.0,
+            311.42047119140625
+          ],
+          "score": 0.85498046875,
+          "source": "model",
+          "groundPoint": false
+        },
+        {
+          "kind": "basketball",
+          "box": [
+            1386.8182373046875,
+            261.81817626953125,
+            1449.54541015625,
+            325.2272644042969
+          ],
+          "score": 0.7490234375,
+          "source": "model",
+          "groundPoint": false
+        }
+      ],
+      "associations": [
+        {
+          "frame": 142,
+          "source_time": 4.733333333333333,
+          "object_pointer": "/142/objects/1",
+          "ball_score": 0.7490234375,
+          "nearest": [
+            {
+              "track_id": 13,
+              "box_edge_distance_px": 44.93852233886719,
+              "center_distance_px": 239.3065227575042,
+              "body_height_px": 371.23236083984375,
+              "player_score": 0.6435546875
+            },
+            {
+              "track_id": 14,
+              "box_edge_distance_px": 208.72641454496053,
+              "center_distance_px": 387.83846170637526,
+              "body_height_px": 330.49090576171875,
+              "player_score": 0.89013671875
+            },
+            {
+              "track_id": 2,
+              "box_edge_distance_px": 209.94941313227602,
+              "center_distance_px": 382.4431439256259,
+              "body_height_px": 301.3564147949219,
+              "player_score": 0.87451171875
+            }
+          ],
+          "inside_player_boxes": 0
+        }
+      ]
+    },
+    {
+      "sample": "006",
+      "frame": 0,
+      "objects": [
+        {
+          "kind": "hoop",
+          "box": [
+            333.4090881347656,
+            147.9545440673828,
+            419.31817626953125,
+            250.90908813476562
+          ],
+          "score": 0.82763671875,
+          "source": "model",
+          "groundPoint": false
+        },
+        {
+          "kind": "basketball",
+          "box": [
+            1505.45458984375,
+            688.6363525390625,
+            1543.6363525390625,
+            729.5454711914062
+          ],
+          "score": 0.6279296875,
+          "source": "model",
+          "groundPoint": false
+        }
+      ],
+      "associations": [
+        {
+          "frame": 0,
+          "source_time": 0.0,
+          "object_pointer": "/0/objects/1",
+          "ball_score": 0.6279296875,
+          "nearest": [
+            {
+              "track_id": 7,
+              "box_edge_distance_px": 0.0,
+              "center_distance_px": 112.68783337512926,
+              "body_height_px": 261.8181457519531,
+              "player_score": 0.833984375
+            },
+            {
+              "track_id": 1,
+              "box_edge_distance_px": 242.80478993708016,
+              "center_distance_px": 326.22560388034304,
+              "body_height_px": 216.81814575195312,
+              "player_score": 0.9375
+            },
+            {
+              "track_id": 4,
+              "box_edge_distance_px": 436.76616759941385,
+              "center_distance_px": 534.1170088894634,
+              "body_height_px": 218.352294921875,
+              "player_score": 0.86572265625
+            }
+          ],
+          "inside_player_boxes": 1
+        }
+      ]
+    },
+    {
+      "sample": "006",
+      "frame": 77,
+      "objects": [
+        {
+          "kind": "hoop",
+          "box": [
+            462.2727355957031,
+            163.63636779785156,
+            542.0454711914062,
+            264.54547119140625
+          ],
+          "score": 0.8115234375,
+          "source": "model",
+          "groundPoint": false
+        },
+        {
+          "kind": "basketball",
+          "box": [
+            1356.8182373046875,
+            484.7727355957031,
+            1410.0,
+            535.227294921875
+          ],
+          "score": 0.383056640625,
+          "source": "model",
+          "groundPoint": false
+        }
+      ],
+      "associations": [
+        {
+          "frame": 77,
+          "source_time": 2.566666666666667,
+          "object_pointer": "/77/objects/1",
+          "ball_score": 0.383056640625,
+          "nearest": [
+            {
+              "track_id": 7,
+              "box_edge_distance_px": 0.0,
+              "center_distance_px": 123.67357977376597,
+              "body_height_px": 298.8981018066406,
+              "player_score": 0.912109375
+            },
+            {
+              "track_id": 10,
+              "box_edge_distance_px": 17.80535888671875,
+              "center_distance_px": 112.03341072985324,
+              "body_height_px": 226.8201904296875,
+              "player_score": 0.83837890625
+            },
+            {
+              "track_id": 4,
+              "box_edge_distance_px": 85.87164306640625,
+              "center_distance_px": 162.9143242575646,
+              "body_height_px": 204.52603149414062,
+              "player_score": 0.89501953125
+            }
+          ],
+          "inside_player_boxes": 1
+        }
+      ]
+    },
+    {
+      "sample": "006",
+      "frame": 230,
+      "objects": [
+        {
+          "kind": "hoop",
+          "box": [
+            469.0909118652344,
+            172.5,
+            557.727294921875,
+            282.9545593261719
+          ],
+          "score": 0.8173828125,
+          "source": "model",
+          "groundPoint": false
+        },
+        {
+          "kind": "basketball",
+          "box": [
+            1532.727294921875,
+            409.7727355957031,
+            1570.9090576171875,
+            447.9545593261719
+          ],
+          "score": 0.546875,
+          "source": "model",
+          "groundPoint": false
+        }
+      ],
+      "associations": [
+        {
+          "frame": 230,
+          "source_time": 7.666666666666667,
+          "object_pointer": "/230/objects/1",
+          "ball_score": 0.546875,
+          "nearest": [
+            {
+              "track_id": 10,
+              "box_edge_distance_px": 0.0,
+              "center_distance_px": 27.73013343640548,
+              "body_height_px": 236.2044677734375,
+              "player_score": 0.8349609375
+            },
+            {
+              "track_id": 21,
+              "box_edge_distance_px": 62.29278564453125,
+              "center_distance_px": 125.3662693831652,
+              "body_height_px": 235.256103515625,
+              "player_score": 0.85546875
+            },
+            {
+              "track_id": 15,
+              "box_edge_distance_px": 167.05084228515625,
+              "center_distance_px": 239.622668866267,
+              "body_height_px": 223.75656127929688,
+              "player_score": 0.8818359375
+            }
+          ],
+          "inside_player_boxes": 1
+        }
+      ]
+    }
+  ]
+}

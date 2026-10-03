@@ -1,0 +1,319 @@
+{
+  "passed": 14,
+  "total": 14,
+  "tests": [
+    {
+      "name": "observed_true_qwen_is_not_detection",
+      "passed": true,
+      "expected_code": "EVIDENCE_KIND_PROMOTION",
+      "schema_valid": true,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "EVIDENCE_KIND_PROMOTION"
+          }
+        ]
+      }
+    },
+    {
+      "name": "raw_bbox_replaced_by_render",
+      "passed": true,
+      "expected_code": "RAW_DISPLAY_GEOMETRY_MISMATCH",
+      "schema_valid": true,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "RAW_DISPLAY_GEOMETRY_MISMATCH"
+          }
+        ]
+      }
+    },
+    {
+      "name": "raw_bbox_lost",
+      "passed": true,
+      "expected_code": "RAW_DISPLAY_GEOMETRY_MISMATCH",
+      "schema_valid": true,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "RAW_DISPLAY_GEOMETRY_MISMATCH"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invented_pipeline_version",
+      "passed": true,
+      "expected_code": "UNSUPPORTED_NAMESPACE_OR_VERSION",
+      "schema_valid": true,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "UNSUPPORTED_NAMESPACE_OR_VERSION"
+          }
+        ]
+      }
+    },
+    {
+      "name": "nominal_time_as_pts",
+      "passed": true,
+      "expected_code": "TIME_BASIS_MISMATCH",
+      "schema_valid": true,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "TIME_BASIS_MISMATCH"
+          }
+        ]
+      }
+    },
+    {
+      "name": "future_role_hidden",
+      "passed": true,
+      "expected_code": "AVAILABILITY_DEPENDENCY_MISMATCH",
+      "schema_valid": true,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "AVAILABILITY_DEPENDENCY_MISMATCH"
+          }
+        ]
+      }
+    },
+    {
+      "name": "future_role_pollutes_raw_location",
+      "passed": true,
+      "expected_code": "AVAILABILITY_DEPENDENCY_MISMATCH",
+      "schema_valid": true,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "AVAILABILITY_DEPENDENCY_MISMATCH"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown_half_invented",
+      "passed": true,
+      "expected_code": "SCHEMA",
+      "schema_valid": false,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "SCHEMA",
+            "detail": "'right' is not one of ['unknown']"
+          }
+        ]
+      }
+    },
+    {
+      "name": "manual_claim_as_truth",
+      "passed": true,
+      "expected_code": "SCHEMA",
+      "schema_valid": false,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "SCHEMA",
+            "detail": "True is not one of [False]"
+          }
+        ]
+      }
+    },
+    {
+      "name": "interpolation_as_detection",
+      "passed": true,
+      "expected_code": "EVIDENCE_KIND_PROMOTION",
+      "schema_valid": true,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "EVIDENCE_KIND_PROMOTION"
+          }
+        ]
+      }
+    },
+    {
+      "name": "raw_payload_overwrite",
+      "passed": true,
+      "expected_code": "RAW_PAYLOAD_CHANGED",
+      "schema_valid": true,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "RAW_PAYLOAD_CHANGED"
+          }
+        ]
+      }
+    },
+    {
+      "name": "source_lower_bound_as_wallclock",
+      "passed": true,
+      "expected_code": "SCHEMA",
+      "schema_valid": false,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "SCHEMA",
+            "detail": "'2026-10-02T00:00:05Z' is not of type 'null'"
+          }
+        ]
+      }
+    },
+    {
+      "name": "duplicate_variant_as_independent_vote",
+      "passed": true,
+      "expected_code": "EVIDENCE_CORRELATION_MISMATCH",
+      "schema_valid": true,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "EVIDENCE_CORRELATION_MISMATCH"
+          }
+        ]
+      }
+    },
+    {
+      "name": "raw_payload_rehash_cannot_forge_source",
+      "passed": true,
+      "expected_code": "RAW_PAYLOAD_CHANGED",
+      "schema_valid": true,
+      "result": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "RAW_PAYLOAD_CHANGED"
+          }
+        ]
+      }
+    }
+  ],
+  "source_files_unchanged": true,
+  "path_rejection_tests": [
+    {
+      "input": "../outside.json",
+      "rejected": true
+    },
+    {
+      "input": "engineering/experiments/player_recovery/not-supported.json",
+      "rejected": true
+    },
+    {
+      "input": ".env",
+      "rejected": true
+    }
+  ],
+  "context_truth_flags_ignored": true,
+  "duplicate_variant_correlation": {
+    "same_content_sha": true,
+    "same_evidence_correlation_group": true,
+    "deduplicated_support_count": 1,
+    "independence_status": "not_established_even_when_content_hashes_differ"
+  },
+  "contract_bridge_timing_tamper_rejected": true,
+  "contract_bridge_secondary_provenance_alias_rejected": true,
+  "contract_bridge_indirect_path_rejected": true,
+  "audit_alignment": {
+    "audit_files": [
+      {
+        "relative_workspace_path": "recovery-provenance/adapter-examples.json",
+        "sha256": "d580755741694d9c75cc9b362ffafc5e5298a01f541a842b516b28d825a3fd36"
+      },
+      {
+        "relative_workspace_path": "recovery-provenance/audit.json",
+        "sha256": "bec6f2e510e985be70e4c57c4f8aa7c662d078c6b06ac9f4145d67073fe308f3"
+      },
+      {
+        "relative_workspace_path": "recovery-provenance/input-manifest.json",
+        "sha256": "b2a20d4da117caa3e150ae247cda139fda6f22e3e6fcd8aed22ac0e60b260659"
+      }
+    ],
+    "overlapping_source_hashes_match": true,
+    "qwen_raw_bbox_matches_audit": true,
+    "qwen_known_source_floor_matches_audit": true
+  },
+  "input_manifest": [
+    {
+      "path": "{repo}\\artifacts\\player-recovery\\batch-v3\\s24-007\\qwen-events.json",
+      "sha256_before": "b59eecf5de75cf5082403d560612b2b562667077171a27d5cf409d9d65d5c74a",
+      "sha256_after": "b59eecf5de75cf5082403d560612b2b562667077171a27d5cf409d9d65d5c74a"
+    },
+    {
+      "path": "{repo}\\artifacts\\player-recovery\\batch-v3\\s24-007\\recovered.json",
+      "sha256_before": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2",
+      "sha256_after": "672f3ce79c8c00de2a92b26bb9bc1e3431b6b57a206afa4b18ac8cdb711fe1e2"
+    },
+    {
+      "path": "{repo}\\artifacts\\player-recovery\\batch-v3\\s24-033\\qwen-events.json",
+      "sha256_before": "f33af02736bd5ef375b4e64a706f99a92f44aafb82203f4eb751e76983748bce",
+      "sha256_after": "f33af02736bd5ef375b4e64a706f99a92f44aafb82203f4eb751e76983748bce"
+    },
+    {
+      "path": "{repo}\\artifacts\\player-recovery\\batch-v3\\s24-033\\recovered.json",
+      "sha256_before": "38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c",
+      "sha256_after": "38b56d817c861fff9579b354abbd7fbe68f4d3fc3e03d5fd708bcb2601e8f60c"
+    },
+    {
+      "path": "{repo}\\data\\videos\\tactics\\acceptance\\tracks\\005-ebard.json",
+      "sha256_before": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
+      "sha256_after": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e"
+    },
+    {
+      "path": "{repo}\\data\\videos\\tactics\\acceptance\\tracks\\005-ebard.meta.json",
+      "sha256_before": "d3e9648a46770814200362fd4b96cc98b33b332c8c11532a893897d413d56372",
+      "sha256_after": "d3e9648a46770814200362fd4b96cc98b33b332c8c11532a893897d413d56372"
+    },
+    {
+      "path": "{repo}\\data\\videos\\tactics\\acceptance\\tracks\\basketball-20261002\\005-optimized.json",
+      "sha256_before": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17",
+      "sha256_after": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17"
+    },
+    {
+      "path": "{repo}\\data\\videos\\tactics\\acceptance\\tracks\\basketball-20261002\\005-team-stable.json",
+      "sha256_before": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17",
+      "sha256_after": "c8153625651880b27852b9b9951024936da605402af63f99bcab4a58b5a09d17"
+    },
+    {
+      "path": "{repo}\\data\\videos\\tactics\\acceptance\\tracks\\basketball-20261002\\005-team-stable.meta.json",
+      "sha256_before": "59a59e2c0843b051f81f425a09f1ea5ab2122ce7f06ee85cd4eae60a200460c0",
+      "sha256_after": "59a59e2c0843b051f81f425a09f1ea5ab2122ce7f06ee85cd4eae60a200460c0"
+    },
+    {
+      "path": "{repo}\\engineering\\experiments\\player_recovery\\annotations.json",
+      "sha256_before": "1f19d3371c2be1b17276137d974157ef4b0eabdc373fd0b2578e3d08908f548c",
+      "sha256_after": "1f19d3371c2be1b17276137d974157ef4b0eabdc373fd0b2578e3d08908f548c"
+    },
+    {
+      "path": "{repo}\\engineering\\experiments\\player_recovery\\detect.py",
+      "sha256_before": "49e9a5c0d8d5d703fd4bb45697cea1148250e61be69f7ff4c14cfab71f08fc41",
+      "sha256_after": "49e9a5c0d8d5d703fd4bb45697cea1148250e61be69f7ff4c14cfab71f08fc41"
+    },
+    {
+      "path": "{repo}\\engineering\\research\\player-tracking-spotchecks-20261002.json",
+      "sha256_before": "64349d63c24adc15318735ab4cfec8ca75a72a812db3a5270f094d37893f3ec5",
+      "sha256_after": "64349d63c24adc15318735ab4cfec8ca75a72a812db3a5270f094d37893f3ec5"
+    }
+  ],
+  "contract_validation": "Existing contract imported read-only; two canonical track/object records map to exact contract observation IDs.",
+  "limitations": [
+    "No production adapter integration.",
+    "No wall-clock availability is reconstructed.",
+    "Known source-time floors omit complete smoothing/batch selection dependencies.",
+    "raw_bbox for qwen/interpolated means pre-display estimate, never detector measurement.",
+    "Source-declared human review is unverified; AI references kept separate."
+  ]
+}
