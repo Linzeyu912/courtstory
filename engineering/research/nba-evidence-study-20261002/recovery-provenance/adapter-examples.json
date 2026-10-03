@@ -1,0 +1,104 @@
+{
+  "qwen_inference": {
+    "kind": "model_inferred_location",
+    "track_association_id": 8,
+    "verified_player_identity": null,
+    "event_time_seconds": 3.12,
+    "available_at": null,
+    "evidence_available_at": null,
+    "geometry": {
+      "coordinate_system": "image_pixels",
+      "bbox": [
+        837.0,
+        202.0,
+        896.0,
+        415.0
+      ]
+    },
+    "display_geometry": {
+      "bbox": [
+        836.7431131607642,
+        202.07855231340204,
+        895.7431131607642,
+        415.07855231340204
+      ],
+      "smoothed": true
+    },
+    "confidence": {
+      "value": 0.85,
+      "kind": "model_self_reported_uncalibrated"
+    },
+    "original_tags": {
+      "source": "qwen",
+      "observed": true,
+      "qwen_anchor": true
+    },
+    "decision": {
+      "status": "accepted_geometry",
+      "meaning": "passed_experiment_gates_not_human_validation"
+    },
+    "source_ref": {
+      "file": "artifacts/player-recovery/batch-v3/s24-007/qwen-events.json",
+      "pointer": "/2"
+    },
+    "known_source_frame_floor": 125,
+    "known_source_time_floor_seconds": 5.0,
+    "selection_horizon": "full_clip",
+    "dependency_completeness": "partial",
+    "reason_availability_unknown": "Full-clip selection, role batches, original request completion and output publication times are unavailable"
+  },
+  "detector_geometry_and_display": {
+    "kind": "detector_observation",
+    "track_association_id": 5,
+    "verified_player_identity": null,
+    "event_time_seconds": 7.25725,
+    "available_at": null,
+    "geometry": {
+      "coordinate_system": "image_pixels",
+      "bbox": [
+        647.72,
+        420.39,
+        726.95,
+        769.54
+      ]
+    },
+    "source_ref": {
+      "file": "tmp/player-recovery/batch-v3/s25-03/baseline.json",
+      "pointer": "/frames/435/detections/7"
+    },
+    "display_geometry": {
+      "bbox": [
+        644.5217565234846,
+        412.05127891594293,
+        723.7517565234846,
+        761.2012789159429
+      ],
+      "transform": "offline_bidirectional_smoothing_then_optional_image_clipping",
+      "available_at": null,
+      "dependency_window": "Requires short.json first-pass continuous run; final filtered run is insufficient"
+    },
+    "original_tags": {
+      "source": "detector",
+      "observed": true,
+      "smoothed": true
+    },
+    "geometry_status": "model_candidate_not_ground_truth"
+  },
+  "propagated_role": {
+    "id": "s24-033",
+    "frame": 0,
+    "track_id": 9,
+    "event_time_seconds": 0.0,
+    "role_reference_frame": 100,
+    "role_reference_time_seconds": 4.0,
+    "direct_reference_lookahead_seconds": 4.0,
+    "person_role": "active_player",
+    "available_at": null,
+    "evidence_available_at": null,
+    "reason_availability_unknown": "Whole-track sample selection, role page batching and request completion times are not timestamped",
+    "kind": "model_inferred_role_propagation",
+    "selection_horizon": "full_track",
+    "dependency_completeness": "partial",
+    "note": "A later role-reference image creates a known source-time lookahead; no exact processing availability can be recovered"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "parsed_files": {
+    "python": 21,
+    "json": 33,
+    "gzip_json": 1
+  },
+  "checks": [
+    {
+      "command": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "baseline",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 0,
+      "test_output": "......\n----------------------------------------------------------------------\nRan 6 tests in 0.000s\n\nOK"
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "calibration",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 0,
+      "test_output": "........\n----------------------------------------------------------------------\nRan 8 tests in 0.018s\n\nOK"
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "test_object_probes.py"
+      ],
+      "exit_code": 0,
+      "test_output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK"
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "fact-gate/fact_gate_experiment.py"
+      ],
+      "exit_code": 0,
+      "test_output": ""
+    }
+  ],
+  "readme_links_checked": 22,
+  "credential_pattern_scan": "no matches; only standard credential prefixes scanned",
+  "source_repo_untouched": true,
+  "video_validation": {
+    "source_repo_full_index_check": {
+      "datasets": 5,
+      "entries": 142,
+      "files_hashed": 142,
+      "staged_lfs_pointers": 142
+    },
+    "publication_checkout": "metadata-only index check; LFS smudge deliberately skipped"
+  },
+  "limits": [
+    "Checks validate artifact consistency, not real video world truth.",
+    "Ignored local recovery inputs are required to re-run adapter/audit.",
+    "Source hashes within reports remain original; publication file hashes are separate."
+  ]
+}

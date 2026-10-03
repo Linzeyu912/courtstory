@@ -1,0 +1,1537 @@
+{
+  "audit_time_utc": "2026-10-02T15:06:21.901518+00:00",
+  "scope": "Existing JSON audit only; no inference or human truth validation",
+  "cases": [
+    {
+      "id": "s24-004",
+      "video": "data/videos/nba/2024-25/clips/004_LAL-MIN_Q2_isolation_9.2s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 2046,
+      "short_counts": {
+        "detector": 2046,
+        "interpolated": 23
+      },
+      "player_counts": {
+        "detector": 2000,
+        "interpolated": 17
+      },
+      "final_counts": {
+        "detector": 2000,
+        "interpolated": 17
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 52,
+      "excluded_roles": {
+        "bench": 28,
+        "unknown": 13,
+        "coach": 10,
+        "referee": 1
+      },
+      "events": 3,
+      "event_statuses": {
+        "not_visible_or_uncertain": 3
+      },
+      "frame_count": 227,
+      "future_role_reference_points": 961,
+      "detector_bbox_differs_from_raw": 1991,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 2000,
+          "positive": 950,
+          "max_seconds": 2.3200000000000003,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 17,
+          "positive": 17,
+          "max_seconds": 1.7199999999999998,
+          "median_seconds": 0.40000000000000036
+        }
+      }
+    },
+    {
+      "id": "s24-007",
+      "video": "data/videos/nba/2024-25/clips/007_LAL-MIN_Q2_offensive-rebound_6.4s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 1268,
+      "short_counts": {
+        "detector": 1268,
+        "interpolated": 8
+      },
+      "player_counts": {
+        "detector": 1268,
+        "interpolated": 8
+      },
+      "final_counts": {
+        "detector": 1268,
+        "interpolated": 14,
+        "qwen": 1
+      },
+      "added_counts": {
+        "interpolated": 6,
+        "qwen": 1
+      },
+      "added_points": 7,
+      "removed_from_C": 0,
+      "excluded_points": 0,
+      "excluded_roles": {},
+      "events": 3,
+      "event_statuses": {
+        "rejected": 2,
+        "accepted_geometry": 1
+      },
+      "frame_count": 157,
+      "future_role_reference_points": 636,
+      "detector_bbox_differs_from_raw": 1268,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 1268,
+          "positive": 636,
+          "max_seconds": 2.08,
+          "median_seconds": 0.040000000000000036
+        },
+        "interpolated": {
+          "count": 14,
+          "positive": 14,
+          "max_seconds": 2.12,
+          "median_seconds": 0.08000000000000007
+        },
+        "qwen": {
+          "count": 1,
+          "positive": 1,
+          "max_seconds": 1.88,
+          "median_seconds": 1.88
+        }
+      }
+    },
+    {
+      "id": "s24-008",
+      "video": "data/videos/nba/2024-25/clips/008_LAL-MIN_Q1_drive-finish_9.6s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 1946,
+      "short_counts": {
+        "detector": 1946,
+        "interpolated": 39
+      },
+      "player_counts": {
+        "detector": 1939,
+        "interpolated": 38
+      },
+      "final_counts": {
+        "detector": 1939,
+        "interpolated": 38
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 8,
+      "excluded_roles": {
+        "unknown": 8
+      },
+      "events": 3,
+      "event_statuses": {
+        "rejected": 3
+      },
+      "frame_count": 237,
+      "future_role_reference_points": 975,
+      "detector_bbox_differs_from_raw": 1922,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 1939,
+          "positive": 962,
+          "max_seconds": 2.84,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 38,
+          "positive": 38,
+          "max_seconds": 1.8800000000000008,
+          "median_seconds": 0.040000000000000924
+        }
+      }
+    },
+    {
+      "id": "s24-015",
+      "video": "data/videos/nba/2024-25/clips/015_LAC-DEN_Q2_defense-transition_10.2s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 1713,
+      "short_counts": {
+        "detector": 1713,
+        "interpolated": 37
+      },
+      "player_counts": {
+        "detector": 1683,
+        "interpolated": 33
+      },
+      "final_counts": {
+        "detector": 1683,
+        "interpolated": 43,
+        "qwen": 1
+      },
+      "added_counts": {
+        "interpolated": 10,
+        "qwen": 1
+      },
+      "added_points": 11,
+      "removed_from_C": 0,
+      "excluded_points": 34,
+      "excluded_roles": {
+        "unknown": 6,
+        "referee": 4,
+        "bench": 14,
+        "coach": 10
+      },
+      "events": 2,
+      "event_statuses": {
+        "rejected": 1,
+        "accepted_geometry": 1
+      },
+      "frame_count": 251,
+      "future_role_reference_points": 843,
+      "detector_bbox_differs_from_raw": 1672,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 1683,
+          "positive": 820,
+          "max_seconds": 2.96,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 43,
+          "positive": 43,
+          "max_seconds": 2.6399999999999997,
+          "median_seconds": 0.08000000000000007
+        },
+        "qwen": {
+          "count": 1,
+          "positive": 1,
+          "max_seconds": 0.7999999999999998,
+          "median_seconds": 0.7999999999999998
+        }
+      }
+    },
+    {
+      "id": "s24-020",
+      "video": "data/videos/nba/2024-25/clips/020_LAC-DEN_Q1_post-up_7.6s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 1634,
+      "short_counts": {
+        "detector": 1634,
+        "interpolated": 8
+      },
+      "player_counts": {
+        "detector": 1500,
+        "interpolated": 7
+      },
+      "final_counts": {
+        "detector": 1500,
+        "interpolated": 7
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 135,
+      "excluded_roles": {
+        "bench": 9,
+        "referee": 82,
+        "unknown": 44
+      },
+      "events": 3,
+      "event_statuses": {
+        "rejected": 2,
+        "not_visible_or_uncertain": 1
+      },
+      "frame_count": 187,
+      "future_role_reference_points": 744,
+      "detector_bbox_differs_from_raw": 1496,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 1500,
+          "positive": 742,
+          "max_seconds": 1.92,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 7,
+          "positive": 7,
+          "max_seconds": 1.68,
+          "median_seconds": 0.040000000000000036
+        }
+      }
+    },
+    {
+      "id": "s24-023",
+      "video": "data/videos/nba/2024-25/clips/023_NYK-BOS_Q2_defense-transition_15.0s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 3386,
+      "short_counts": {
+        "detector": 3386,
+        "interpolated": 36
+      },
+      "player_counts": {
+        "detector": 3344,
+        "interpolated": 32
+      },
+      "final_counts": {
+        "detector": 3344,
+        "interpolated": 38,
+        "qwen": 1
+      },
+      "added_counts": {
+        "interpolated": 6,
+        "qwen": 1
+      },
+      "added_points": 7,
+      "removed_from_C": 0,
+      "excluded_points": 46,
+      "excluded_roles": {
+        "unknown": 13,
+        "bench": 33
+      },
+      "events": 2,
+      "event_statuses": {
+        "accepted_geometry": 1,
+        "rejected": 1
+      },
+      "frame_count": 372,
+      "future_role_reference_points": 1667,
+      "detector_bbox_differs_from_raw": 3338,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 3344,
+          "positive": 1645,
+          "max_seconds": 3.76,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 38,
+          "positive": 38,
+          "max_seconds": 2.7199999999999998,
+          "median_seconds": 0.5599999999999996
+        },
+        "qwen": {
+          "count": 1,
+          "positive": 1,
+          "max_seconds": 0.3200000000000003,
+          "median_seconds": 0.3200000000000003
+        }
+      }
+    },
+    {
+      "id": "s24-033",
+      "video": "data/videos/nba/2024-25/clips/033_CLE-IND_Q4_block-transition_11.3s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 2529,
+      "short_counts": {
+        "detector": 2529,
+        "interpolated": 63
+      },
+      "player_counts": {
+        "detector": 2468,
+        "interpolated": 57
+      },
+      "final_counts": {
+        "detector": 2468,
+        "interpolated": 57
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 67,
+      "excluded_roles": {
+        "bench": 4,
+        "unknown": 4,
+        "referee": 59
+      },
+      "events": 3,
+      "event_statuses": {
+        "not_visible_or_uncertain": 3
+      },
+      "frame_count": 283,
+      "future_role_reference_points": 1231,
+      "detector_bbox_differs_from_raw": 2454,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 2468,
+          "positive": 1204,
+          "max_seconds": 4.0,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 57,
+          "positive": 57,
+          "max_seconds": 3.32,
+          "median_seconds": 0.08000000000000007
+        }
+      }
+    },
+    {
+      "id": "s24-038",
+      "video": "data/videos/nba/2024-25/clips/038_CLE-IND_Q3_roll-pass_6.5s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 1459,
+      "short_counts": {
+        "detector": 1459,
+        "interpolated": 14
+      },
+      "player_counts": {
+        "detector": 1385,
+        "interpolated": 12
+      },
+      "final_counts": {
+        "detector": 1385,
+        "interpolated": 12
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 76,
+      "excluded_roles": {
+        "bench": 59,
+        "unknown": 17
+      },
+      "events": 3,
+      "event_statuses": {
+        "not_visible_or_uncertain": 2,
+        "rejected": 1
+      },
+      "frame_count": 163,
+      "future_role_reference_points": 664,
+      "detector_bbox_differs_from_raw": 1375,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 1385,
+          "positive": 659,
+          "max_seconds": 2.04,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 12,
+          "positive": 12,
+          "max_seconds": 1.6,
+          "median_seconds": 0.08000000000000007
+        }
+      }
+    },
+    {
+      "id": "s24-049",
+      "video": "data/videos/nba/2024-25/clips/049_OKC-MEM_Q3_transition-drive_9.3s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 2061,
+      "short_counts": {
+        "detector": 2061,
+        "interpolated": 12
+      },
+      "player_counts": {
+        "detector": 2046,
+        "interpolated": 11
+      },
+      "final_counts": {
+        "detector": 2046,
+        "interpolated": 11
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 16,
+      "excluded_roles": {
+        "bench": 12,
+        "unknown": 4
+      },
+      "events": 3,
+      "event_statuses": {
+        "rejected": 3
+      },
+      "frame_count": 230,
+      "future_role_reference_points": 1015,
+      "detector_bbox_differs_from_raw": 2041,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 2046,
+          "positive": 1012,
+          "max_seconds": 2.4400000000000004,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 11,
+          "positive": 11,
+          "max_seconds": 1.5600000000000005,
+          "median_seconds": 0.08000000000000007
+        }
+      }
+    },
+    {
+      "id": "s24-053",
+      "video": "data/videos/nba/2024-25/clips/053_MIL-IND_Q1_roll-pass_8.6s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 1551,
+      "short_counts": {
+        "detector": 1551,
+        "interpolated": 46
+      },
+      "player_counts": {
+        "detector": 1429,
+        "interpolated": 34
+      },
+      "final_counts": {
+        "detector": 1429,
+        "interpolated": 38,
+        "qwen": 1
+      },
+      "added_counts": {
+        "interpolated": 5,
+        "qwen": 1
+      },
+      "added_points": 6,
+      "removed_from_C": 1,
+      "excluded_points": 134,
+      "excluded_roles": {
+        "unknown": 7,
+        "bench": 127
+      },
+      "events": 3,
+      "event_statuses": {
+        "accepted_geometry": 1,
+        "rejected": 2
+      },
+      "frame_count": 212,
+      "future_role_reference_points": 729,
+      "detector_bbox_differs_from_raw": 1422,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 1429,
+          "positive": 720,
+          "max_seconds": 2.3599999999999994,
+          "median_seconds": 0.04000000000000001
+        },
+        "interpolated": {
+          "count": 38,
+          "positive": 38,
+          "max_seconds": 3.2399999999999998,
+          "median_seconds": 0.040000000000000036
+        },
+        "qwen": {
+          "count": 1,
+          "positive": 1,
+          "max_seconds": 3.0399999999999996,
+          "median_seconds": 3.0399999999999996
+        }
+      }
+    },
+    {
+      "id": "s24-058",
+      "video": "data/videos/nba/2024-25/clips/058_NYK-IND_Q3_drive-pass_8.9s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 2238,
+      "short_counts": {
+        "detector": 2238,
+        "interpolated": 30
+      },
+      "player_counts": {
+        "detector": 2202,
+        "interpolated": 27
+      },
+      "final_counts": {
+        "detector": 2202,
+        "interpolated": 27
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 39,
+      "excluded_roles": {
+        "unknown": 29,
+        "bench": 8,
+        "referee": 2
+      },
+      "events": 3,
+      "event_statuses": {
+        "not_visible_or_uncertain": 2,
+        "rejected": 1
+      },
+      "frame_count": 220,
+      "future_role_reference_points": 1097,
+      "detector_bbox_differs_from_raw": 2192,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 2202,
+          "positive": 1088,
+          "max_seconds": 2.52,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 27,
+          "positive": 27,
+          "max_seconds": 2.24,
+          "median_seconds": 0.040000000000000036
+        }
+      }
+    },
+    {
+      "id": "s24-066",
+      "video": "data/videos/nba/2024-25/clips/066_BOS-ORL_Q3_screen-drive_8.8s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 2011,
+      "short_counts": {
+        "detector": 2011,
+        "interpolated": 15
+      },
+      "player_counts": {
+        "detector": 1951,
+        "interpolated": 15
+      },
+      "final_counts": {
+        "detector": 1951,
+        "interpolated": 15
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 60,
+      "excluded_roles": {
+        "bench": 59,
+        "unknown": 1
+      },
+      "events": 3,
+      "event_statuses": {
+        "rejected": 3
+      },
+      "frame_count": 217,
+      "future_role_reference_points": 941,
+      "detector_bbox_differs_from_raw": 1936,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 1951,
+          "positive": 935,
+          "max_seconds": 1.9600000000000004,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 15,
+          "positive": 15,
+          "max_seconds": 1.7200000000000006,
+          "median_seconds": 0.040000000000000924
+        }
+      }
+    },
+    {
+      "id": "s24-075",
+      "video": "data/videos/nba/2024-25/clips/075_OKC-IND_Q1_offensive-rebound_10.6s_720p.mp4",
+      "fps": 25.0,
+      "baseline_detections": 2362,
+      "short_counts": {
+        "detector": 2362,
+        "interpolated": 65
+      },
+      "player_counts": {
+        "detector": 2326,
+        "interpolated": 62
+      },
+      "final_counts": {
+        "detector": 2326,
+        "interpolated": 62
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 39,
+      "excluded_roles": {
+        "bench": 19,
+        "unknown": 15,
+        "referee": 5
+      },
+      "events": 3,
+      "event_statuses": {
+        "not_visible_or_uncertain": 3
+      },
+      "frame_count": 262,
+      "future_role_reference_points": 1155,
+      "detector_bbox_differs_from_raw": 2307,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 2326,
+          "positive": 1132,
+          "max_seconds": 2.72,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 62,
+          "positive": 62,
+          "max_seconds": 2.4,
+          "median_seconds": 0.040000000000000924
+        }
+      }
+    },
+    {
+      "id": "s25-02",
+      "video": "data/videos/nba/2025-26/clips/02-dal-flagg-screen-drive.mp4",
+      "fps": 59.94005994005994,
+      "baseline_detections": 6041,
+      "short_counts": {
+        "detector": 6041,
+        "interpolated": 52
+      },
+      "player_counts": {
+        "detector": 5562,
+        "interpolated": 40
+      },
+      "final_counts": {
+        "detector": 5562,
+        "interpolated": 40
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 491,
+      "excluded_roles": {
+        "bench": 222,
+        "coach": 8,
+        "unknown": 261
+      },
+      "events": 3,
+      "event_statuses": {
+        "not_visible_or_uncertain": 3
+      },
+      "frame_count": 653,
+      "future_role_reference_points": 2758,
+      "detector_bbox_differs_from_raw": 5528,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 5562,
+          "positive": 2732,
+          "max_seconds": 3.069733,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 40,
+          "positive": 40,
+          "max_seconds": 2.4858160000000002,
+          "median_seconds": 0.417084
+        }
+      }
+    },
+    {
+      "id": "s25-03",
+      "video": "data/videos/nba/2025-26/clips/03-hou-catch-attack.mp4",
+      "fps": 59.94005994005994,
+      "baseline_detections": 5103,
+      "short_counts": {
+        "detector": 5103,
+        "interpolated": 30
+      },
+      "player_counts": {
+        "detector": 5098,
+        "interpolated": 30
+      },
+      "final_counts": {
+        "detector": 5098,
+        "interpolated": 30
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 5,
+      "excluded_roles": {
+        "referee": 5
+      },
+      "events": 3,
+      "event_statuses": {
+        "rejected": 2,
+        "not_visible_or_uncertain": 1
+      },
+      "frame_count": 563,
+      "future_role_reference_points": 2503,
+      "detector_bbox_differs_from_raw": 5063,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 5098,
+          "positive": 2486,
+          "max_seconds": 2.5025000000000004,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 30,
+          "positive": 30,
+          "max_seconds": 2.0854170000000005,
+          "median_seconds": 0.033366000000000895
+        }
+      }
+    },
+    {
+      "id": "s25-04",
+      "video": "data/videos/nba/2025-26/clips/04-dal-drive-corner-three.mp4",
+      "fps": 59.94005994005994,
+      "baseline_detections": 6568,
+      "short_counts": {
+        "detector": 6568,
+        "interpolated": 39
+      },
+      "player_counts": {
+        "detector": 6512,
+        "interpolated": 38
+      },
+      "final_counts": {
+        "detector": 6512,
+        "interpolated": 38
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 57,
+      "excluded_roles": {
+        "referee": 24,
+        "coach": 17,
+        "bench": 13,
+        "unknown": 3
+      },
+      "events": 3,
+      "event_statuses": {
+        "rejected": 3
+      },
+      "frame_count": 654,
+      "future_role_reference_points": 3247,
+      "detector_bbox_differs_from_raw": 6483,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 6512,
+          "positive": 3222,
+          "max_seconds": 3.420083,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 38,
+          "positive": 38,
+          "max_seconds": 2.8361669999999997,
+          "median_seconds": 0.3503499999999997
+        }
+      }
+    },
+    {
+      "id": "s25-05",
+      "video": "data/videos/nba/2025-26/clips/05-hou-drive-smith-corner.mp4",
+      "fps": 59.94005994005994,
+      "baseline_detections": 5488,
+      "short_counts": {
+        "detector": 5488,
+        "interpolated": 21
+      },
+      "player_counts": {
+        "detector": 5401,
+        "interpolated": 21
+      },
+      "final_counts": {
+        "detector": 5401,
+        "interpolated": 51,
+        "qwen": 1
+      },
+      "added_counts": {
+        "interpolated": 30,
+        "qwen": 1
+      },
+      "added_points": 31,
+      "removed_from_C": 0,
+      "excluded_points": 87,
+      "excluded_roles": {
+        "referee": 1,
+        "unknown": 86
+      },
+      "events": 3,
+      "event_statuses": {
+        "not_visible_or_uncertain": 2,
+        "accepted_geometry": 1
+      },
+      "frame_count": 575,
+      "future_role_reference_points": 2695,
+      "detector_bbox_differs_from_raw": 5368,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 5401,
+          "positive": 2655,
+          "max_seconds": 2.519183,
+          "median_seconds": 0.0
+        },
+        "interpolated": {
+          "count": 51,
+          "positive": 51,
+          "max_seconds": 2.3523499999999995,
+          "median_seconds": 1.334667
+        },
+        "qwen": {
+          "count": 1,
+          "positive": 1,
+          "max_seconds": 1.5015,
+          "median_seconds": 1.5015
+        }
+      }
+    },
+    {
+      "id": "s25-06",
+      "video": "data/videos/nba/2025-26/clips/06-dal-late-catch-drive.mp4",
+      "fps": 59.94005994005994,
+      "baseline_detections": 6266,
+      "short_counts": {
+        "detector": 6266,
+        "interpolated": 25
+      },
+      "player_counts": {
+        "detector": 6010,
+        "interpolated": 22
+      },
+      "final_counts": {
+        "detector": 6010,
+        "interpolated": 22
+      },
+      "added_counts": {},
+      "added_points": 0,
+      "removed_from_C": 0,
+      "excluded_points": 259,
+      "excluded_roles": {
+        "unknown": 27,
+        "bench": 15,
+        "referee": 217
+      },
+      "events": 3,
+      "event_statuses": {
+        "rejected": 2,
+        "not_visible_or_uncertain": 1
+      },
+      "frame_count": 714,
+      "future_role_reference_points": 3048,
+      "detector_bbox_differs_from_raw": 5981,
+      "detector_raw_not_uniquely_matched": 0,
+      "known_dependency_lookahead_by_source": {
+        "detector": {
+          "count": 6010,
+          "positive": 3037,
+          "max_seconds": 3.119783,
+          "median_seconds": 0.01668399999999992
+        },
+        "interpolated": {
+          "count": 22,
+          "positive": 22,
+          "max_seconds": 2.9863170000000006,
+          "median_seconds": 0.03336700000000015
+        }
+      }
+    }
+  ],
+  "totals": {
+    "source_videos": 18,
+    "frames": 6177,
+    "baseline_detections": 55670,
+    "short_points": 56233,
+    "C_points": 54628,
+    "D_points": 54689,
+    "added_points": 62,
+    "removed_from_C": 1,
+    "excluded_points": 1605,
+    "events": 52,
+    "future_role_reference_points": 26909,
+    "detector_bbox_differs_from_raw": 53837,
+    "detector_raw_not_uniquely_matched": 0,
+    "final_source_counts": {
+      "detector": 54124,
+      "interpolated": 560,
+      "qwen": 5
+    },
+    "net_added_points": 61,
+    "added_source_counts": {
+      "interpolated": 57,
+      "qwen": 5
+    },
+    "removed_source_counts": {
+      "interpolated": 1
+    },
+    "source_observed_combinations": {
+      "detector|observed=True": 54124,
+      "interpolated|observed=False": 560,
+      "qwen|observed=True": 5
+    },
+    "event_status_counts": {
+      "not_visible_or_uncertain": 21,
+      "rejected": 26,
+      "accepted_geometry": 5
+    },
+    "known_dependency_lookahead_positive": 27202,
+    "known_dependency_lookahead_median_seconds": 0.0,
+    "known_dependency_lookahead_max_seconds": 4.0,
+    "detector_center_shift_median_pixels": 0.34587887489281977,
+    "detector_center_shift_p95_pixels": 1.3527336300781043
+  },
+  "examples": {
+    "largest_future_role_reference": {
+      "id": "s24-033",
+      "frame": 0,
+      "track_id": 9,
+      "event_time_seconds": 0.0,
+      "role_reference_frame": 100,
+      "role_reference_time_seconds": 4.0,
+      "direct_reference_lookahead_seconds": 4.0,
+      "person_role": "active_player",
+      "available_at": null,
+      "evidence_available_at": null,
+      "reason_availability_unknown": "Whole-track sample selection, role page batching and request completion times are not timestamped"
+    },
+    "largest_detector_center_shift": {
+      "id": "s25-03",
+      "frame": 435,
+      "track_id": 5,
+      "shift_pixels": 8.931015096436102,
+      "source": "detector",
+      "observed": true,
+      "smoothed": true,
+      "bbox": [
+        644.5217565234846,
+        412.05127891594293,
+        723.7517565234846,
+        761.2012789159429
+      ],
+      "raw_bbox": [
+        647.72,
+        420.39,
+        726.95,
+        769.54
+      ],
+      "center": [
+        684.1367565234846,
+        586.626278915943
+      ],
+      "raw_center": [
+        687.335,
+        594.9649999999999
+      ]
+    },
+    "s24-049_known_rejection": [
+      {
+        "frame": 199,
+        "track_id": 4,
+        "status": "rejected",
+        "reason": "reference_appearance_conflict",
+        "reference_color_differences": [
+          0.149,
+          0.11110000000000002
+        ],
+        "response_claim": {
+          "reference_role": "active_player",
+          "current_role": "active_player",
+          "after_reference_role": "active_player",
+          "endpoints_consistent": true,
+          "reason": "Reference crop shows blue-uniformed player with number 22 on court; same player visible in current frame at predicted bbox location, consistent uniform color/number and position"
+        },
+        "present_in_final": false,
+        "has_qwen_final_point": false
+      }
+    ],
+    "s25-03_known_rejection": [
+      {
+        "frame": 421,
+        "track_id": 10,
+        "status": "rejected",
+        "reason": "partial_box_overlaps_existing_player",
+        "reference_color_differences": [
+          0.03396666666666668,
+          0.044399999999999974
+        ],
+        "response_claim": {
+          "reference_role": "active_player",
+          "current_role": "active_player",
+          "after_reference_role": "active_player",
+          "endpoints_consistent": true,
+          "reason": "Uniform #25 dark jersey visible in reference and current frames; on-court active engagement confirmed"
+        },
+        "present_in_final": false,
+        "has_qwen_final_point": false
+      }
+    ]
+  },
+  "annotation_audit": {
+    "schema_review_method": "Agent directly viewed the original decoded frames and drew these independent visual references. They have not been human frame-by-frame validated and are not ground truth.",
+    "frames": 6,
+    "boxes": 56,
+    "distinct_videos": 3,
+    "batch_overlap_videos": [],
+    "rows": [
+      {
+        "video": "data/videos/nba/2025-26/clips/01-hou-screen-drive-kick.mp4",
+        "frame": 220,
+        "boxes": 9,
+        "label_fields": [
+          "bbox",
+          "foot",
+          "team"
+        ]
+      },
+      {
+        "video": "data/videos/nba/2025-26/clips/01-hou-screen-drive-kick.mp4",
+        "frame": 366,
+        "boxes": 9,
+        "label_fields": [
+          "bbox",
+          "foot",
+          "team"
+        ]
+      },
+      {
+        "video": "data/videos/nba/2025-26/clips/08-hou-screen-crowded-paint.mp4",
+        "frame": 205,
+        "boxes": 9,
+        "label_fields": [
+          "bbox",
+          "foot",
+          "team"
+        ]
+      },
+      {
+        "video": "data/videos/nba/2025-26/clips/08-hou-screen-crowded-paint.mp4",
+        "frame": 411,
+        "boxes": 9,
+        "label_fields": [
+          "bbox",
+          "foot",
+          "team"
+        ]
+      },
+      {
+        "video": "data/videos/nba/2025-26/clips/07-dal-turnover-hou-transition.mp4",
+        "frame": 84,
+        "boxes": 10,
+        "label_fields": [
+          "bbox",
+          "foot",
+          "team"
+        ]
+      },
+      {
+        "video": "data/videos/nba/2025-26/clips/07-dal-turnover-hou-transition.mp4",
+        "frame": 168,
+        "boxes": 10,
+        "label_fields": [
+          "bbox",
+          "foot",
+          "team"
+        ]
+      }
+    ]
+  },
+  "field_presence_by_source": {
+    "detector": {
+      "track_id": 54124,
+      "bbox": 54124,
+      "raw_bbox": 54124,
+      "center": 54124,
+      "raw_center": 54124,
+      "foot": 54124,
+      "raw_foot": 54124,
+      "time": 54124,
+      "confidence": 54124,
+      "source": 54124,
+      "observed": 54124,
+      "appearance": 54124,
+      "smoothed": 53914,
+      "motion_speed_bbox_s": 53914,
+      "person_role": 54124,
+      "role_reference_frame": 54124,
+      "clipped_to_image": 202
+    },
+    "interpolated": {
+      "track_id": 560,
+      "bbox": 560,
+      "raw_bbox": 560,
+      "center": 560,
+      "raw_center": 560,
+      "foot": 560,
+      "raw_foot": 560,
+      "time": 560,
+      "confidence": 560,
+      "source": 560,
+      "observed": 560,
+      "estimated": 560,
+      "anchors": 560,
+      "smoothed": 560,
+      "motion_speed_bbox_s": 560,
+      "person_role": 560,
+      "role_reference_frame": 560,
+      "clipped_to_image": 8
+    },
+    "qwen": {
+      "track_id": 5,
+      "bbox": 5,
+      "raw_bbox": 5,
+      "center": 5,
+      "raw_center": 5,
+      "foot": 5,
+      "raw_foot": 5,
+      "time": 5,
+      "confidence": 5,
+      "source": 5,
+      "observed": 5,
+      "qwen_anchor": 5,
+      "smoothed": 5,
+      "motion_speed_bbox_s": 5,
+      "person_role": 5,
+      "role_reference_frame": 5
+    }
+  },
+  "qwen_anchors": [
+    {
+      "id": "s24-007",
+      "frame": 78,
+      "track_id": 8,
+      "source": "qwen",
+      "observed": true,
+      "confidence": 0.85,
+      "bbox": [
+        836.7431131607642,
+        202.07855231340204,
+        895.7431131607642,
+        415.07855231340204
+      ],
+      "raw_bbox": [
+        837.0,
+        202.0,
+        896.0,
+        415.0
+      ],
+      "point_keys": [
+        "bbox",
+        "center",
+        "confidence",
+        "foot",
+        "motion_speed_bbox_s",
+        "observed",
+        "person_role",
+        "qwen_anchor",
+        "raw_bbox",
+        "raw_center",
+        "raw_foot",
+        "role_reference_frame",
+        "smoothed",
+        "source",
+        "time",
+        "track_id"
+      ],
+      "event_status": "accepted_geometry",
+      "gap_left": {
+        "frame": 71,
+        "source": "detector"
+      },
+      "gap_right": {
+        "frame": 86,
+        "source": "detector"
+      },
+      "role_reference_frame": 31,
+      "cached": true,
+      "elapsed_seconds": 0.073,
+      "source_frame_floor": 125,
+      "lookahead_floor_seconds": 1.88,
+      "position_human_validated": false
+    },
+    {
+      "id": "s24-015",
+      "frame": 67,
+      "track_id": 10,
+      "source": "qwen",
+      "observed": true,
+      "confidence": 0.95,
+      "bbox": [
+        717.0117753575432,
+        157.98986359371213,
+        778.0117753575432,
+        285.98986359371213
+      ],
+      "raw_bbox": [
+        717.0,
+        158.0,
+        778.0,
+        286.0
+      ],
+      "point_keys": [
+        "bbox",
+        "center",
+        "confidence",
+        "foot",
+        "motion_speed_bbox_s",
+        "observed",
+        "person_role",
+        "qwen_anchor",
+        "raw_bbox",
+        "raw_center",
+        "raw_foot",
+        "role_reference_frame",
+        "smoothed",
+        "source",
+        "time",
+        "track_id"
+      ],
+      "event_status": "accepted_geometry",
+      "gap_left": {
+        "frame": 61,
+        "source": "detector"
+      },
+      "gap_right": {
+        "frame": 73,
+        "source": "detector"
+      },
+      "role_reference_frame": 87,
+      "cached": true,
+      "elapsed_seconds": 0.073,
+      "source_frame_floor": 87,
+      "lookahead_floor_seconds": 0.7999999999999998,
+      "position_human_validated": false
+    },
+    {
+      "id": "s24-023",
+      "frame": 188,
+      "track_id": 7,
+      "source": "qwen",
+      "observed": true,
+      "confidence": 0.85,
+      "bbox": [
+        476.07625257193337,
+        195.7633692101599,
+        539.0762525719333,
+        328.7633692101599
+      ],
+      "raw_bbox": [
+        476.0,
+        195.0,
+        539.0,
+        328.0
+      ],
+      "point_keys": [
+        "bbox",
+        "center",
+        "confidence",
+        "foot",
+        "motion_speed_bbox_s",
+        "observed",
+        "person_role",
+        "qwen_anchor",
+        "raw_bbox",
+        "raw_center",
+        "raw_foot",
+        "role_reference_frame",
+        "smoothed",
+        "source",
+        "time",
+        "track_id"
+      ],
+      "event_status": "accepted_geometry",
+      "gap_left": {
+        "frame": 181,
+        "source": "detector"
+      },
+      "gap_right": {
+        "frame": 196,
+        "source": "detector"
+      },
+      "role_reference_frame": 138,
+      "cached": true,
+      "elapsed_seconds": 0.107,
+      "source_frame_floor": 196,
+      "lookahead_floor_seconds": 0.3200000000000003,
+      "position_human_validated": false
+    },
+    {
+      "id": "s24-053",
+      "frame": 87,
+      "track_id": 1,
+      "source": "qwen",
+      "observed": true,
+      "confidence": 0.85,
+      "bbox": [
+        689.6654361814492,
+        229.05968515010414,
+        734.6654361814492,
+        358.05968515010414
+      ],
+      "raw_bbox": [
+        690.0,
+        229.0,
+        735.0,
+        358.0
+      ],
+      "point_keys": [
+        "bbox",
+        "center",
+        "confidence",
+        "foot",
+        "motion_speed_bbox_s",
+        "observed",
+        "person_role",
+        "qwen_anchor",
+        "raw_bbox",
+        "raw_center",
+        "raw_foot",
+        "role_reference_frame",
+        "smoothed",
+        "source",
+        "time",
+        "track_id"
+      ],
+      "event_status": "accepted_geometry",
+      "gap_left": {
+        "frame": 81,
+        "source": "detector"
+      },
+      "gap_right": {
+        "frame": 104,
+        "source": "detector"
+      },
+      "role_reference_frame": 42,
+      "cached": true,
+      "elapsed_seconds": 0.071,
+      "source_frame_floor": 163,
+      "lookahead_floor_seconds": 3.0399999999999996,
+      "position_human_validated": false
+    },
+    {
+      "id": "s25-05",
+      "frame": 96,
+      "track_id": 13,
+      "source": "qwen",
+      "observed": true,
+      "confidence": 0.95,
+      "bbox": [
+        1059.9955595378785,
+        379.9931053775721,
+        1205.9955595378785,
+        642.9931053775721
+      ],
+      "raw_bbox": [
+        1060.0,
+        380.0,
+        1206.0,
+        643.0
+      ],
+      "point_keys": [
+        "bbox",
+        "center",
+        "confidence",
+        "foot",
+        "motion_speed_bbox_s",
+        "observed",
+        "person_role",
+        "qwen_anchor",
+        "raw_bbox",
+        "raw_center",
+        "raw_foot",
+        "role_reference_frame",
+        "smoothed",
+        "source",
+        "time",
+        "track_id"
+      ],
+      "event_status": "accepted_geometry",
+      "gap_left": {
+        "frame": 80,
+        "source": "detector"
+      },
+      "gap_right": {
+        "frame": 112,
+        "source": "detector"
+      },
+      "role_reference_frame": 186,
+      "cached": true,
+      "elapsed_seconds": 0.16,
+      "source_frame_floor": 186,
+      "lookahead_floor_seconds": 1.5015,
+      "position_human_validated": false
+    }
+  ],
+  "removed_points": [
+    {
+      "case": "s24-053",
+      "frame": 138,
+      "track_id": 14,
+      "source": "interpolated",
+      "observed": false,
+      "anchors": [
+        137,
+        139
+      ],
+      "role_reference_frame": 168,
+      "person_role": "active_player",
+      "source_file": "tmp/player-recovery/batch-v3/s24-053/players-short.json",
+      "matching_C_gaps": [
+        {
+          "track_id": 14,
+          "start_frame": 138,
+          "end_frame": 138,
+          "missing_frames": 1,
+          "missing_seconds": 0.07999999999999918,
+          "left_anchor": {
+            "frame": 137,
+            "source": "detector"
+          },
+          "right_anchor": {
+            "frame": 139,
+            "source": "detector"
+          },
+          "qwen_candidate": false,
+          "recovery_eligible": true,
+          "remaining_long_gap": false,
+          "motion": {
+            "implied_bbox_s": 2.396961276031351,
+            "allowed_bbox_s": 6.05089254016718,
+            "reason": "ok"
+          },
+          "filled_frames": [
+            138
+          ],
+          "role_rejected": true
+        }
+      ]
+    }
+  ],
+  "working_to_final_event_revisions": [
+    {
+      "id": "s24-007",
+      "frame": 71,
+      "track_id": 1,
+      "working_status": "accepted_geometry",
+      "final_status": "rejected",
+      "working_reason": null,
+      "final_reason": "overlaps_other_track"
+    },
+    {
+      "id": "s24-007",
+      "frame": 77,
+      "track_id": 1,
+      "working_status": "accepted_geometry",
+      "final_status": "rejected",
+      "working_reason": null,
+      "final_reason": "overlaps_other_track"
+    }
+  ],
+  "mismatches": [],
+  "raw_unmatched_examples": [],
+  "limitations": [
+    "Known dependency floor omits complete bidirectional smoothing dependency and request execution; it is only a lower bound in source video time.",
+    "Event elapsed_seconds can describe a cache hit and does not provide original request latency or availability time.",
+    "observed=True includes Qwen anchors; source and transformation flags must be considered together.",
+    "Raw bbox exact matching locates source detections but does not establish true person identity or correct geometry.",
+    "The 56 visual reference boxes are not human-validated and share zero videos with batch-v3.",
+    "No new video visual review, detector run, paid model call, or accuracy experiment is performed by this script."
+  ],
+  "input_files_changed_during_audit": []
+}

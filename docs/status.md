@@ -4,6 +4,8 @@
 
 ## 当前阶段
 
+NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../engineering/research/nba-evidence-study-20261002/README.md)与[交接](../handoffs/chuali-zi/2026-10-02-2135-nba-evidence-study-closeout.md)。完成真实输入审计、来源适配Schema、离线故障/投影/球候选实验与事实门控比较。11个合成错误世界事实中，能力和依赖门控仍放行5个，且损失部分正确候选；实验不能宣称生产准确率。7项独立人类复核、米制真值与真实处理延迟未建立。本次选择性发布研究文件，生产提取及总结生成模块保持原状。
+
 赛事资料与本机数据提取原型开发并行。赛事要求集中在 `requirements/`，代码、设计和技术实验集中在 `engineering/`；完整 Agent 流程、真实身份 / 位置精度验收和 AWS 部署尚未完成。
 
 2026-10-02 20:27 发布记录：当前工作台源码与预计算候选已按授权推送 `main`，GitHub API、ls-remote 与 fetch 实测为 [351292f](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/351292fba6c5e7accafea9f8780a81b93810caba)。四样例 / 17 版所需本机结果复制为 22 份共享 JSON / metadata，库中 11 条路径改指向副本，完整 clip payload 与运行中原路径 API 一致；默认简版、人工资料确认和 13 项能力逻辑保持。本次新运行 144 JS、102 Python及 38 项离线篮球测试通过，视频校验 5 批 / 142 条及 142 文件 / LFS 指针通过。本次最新说明与[发布交接](../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)随本次文档提交同步，具体提交以 Git 日志为准；下方按轮次保留旧同步状态。模型权重、GPU 环境、原缓存、QA 草稿 / 测试成片不在发布范围，没有新增断轨续接或 OCR。

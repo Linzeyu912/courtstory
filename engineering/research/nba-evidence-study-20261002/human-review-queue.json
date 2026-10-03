@@ -1,0 +1,187 @@
+{
+  "status": "pending_human_review_not_labels",
+  "rules": [
+    "Review raw frames or original sequence before seeing detector scores and provisional AI labels.",
+    "Draw an independent visible-ball box or mark occluded/out_of_view/uncertain; do not merely choose detector candidates.",
+    "For identity, mark same/different/uncertain between explicit frame observations; jersey number may remain unknown and is not a name.",
+    "Do not extrapolate sparse identity labels over unviewed intervals.",
+    "Foot visibility does not prove ground contact; allow uncertain.",
+    "Court left/right requires an explicit template/world coordinate convention; if missing, leave orientation unknown.",
+    "Source video PTS and frame index must be retained; do not replace PTS with frame/fps.",
+    "A real human supplies reviewer identity and annotation; these tasks are not completed by their generation."
+  ],
+  "tasks": [
+    {
+      "id": "review-01",
+      "sample": "005",
+      "task": "ball_visible_and_localization",
+      "source_video": "data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4",
+      "video_sha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "frames_zero_based": [
+        0,
+        4,
+        71,
+        117
+      ],
+      "rendered_raw_images": [
+        "visual/005-f0000-raw.jpg",
+        "visual/005-f0004-raw.jpg",
+        "visual/005-f0071-raw.jpg",
+        "visual/005-f0117-raw.jpg"
+      ],
+      "source_sequence_image": null,
+      "review_status": "unreviewed",
+      "reviewer_type": null,
+      "reviewer_id": null,
+      "reviewed_at": null,
+      "annotation": null,
+      "orientation_reference_id": "not_applicable",
+      "adjudication": null
+    },
+    {
+      "id": "review-02",
+      "sample": "006",
+      "task": "ball_visible_and_localization",
+      "source_video": "data/videos/tactics/acceptance/clips/006_SAS_drive_kick.mp4",
+      "video_sha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "frames_zero_based": [
+        242,
+        330
+      ],
+      "rendered_raw_images": [
+        "visual/006-f0242-raw.jpg",
+        "visual/006-f0330-raw.jpg"
+      ],
+      "source_sequence_image": null,
+      "review_status": "unreviewed",
+      "reviewer_type": null,
+      "reviewer_id": null,
+      "reviewed_at": null,
+      "annotation": null,
+      "orientation_reference_id": "not_applicable",
+      "adjudication": null
+    },
+    {
+      "id": "review-03",
+      "sample": "nba-lal-min-005",
+      "task": "identity_continuity",
+      "source_video": "data/videos/nba/2024-25/clips/005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4",
+      "video_sha256": "e76feffb09ede3e1b336c2e470370bcf1ee0937326bdf672e3e7e4bc5b661885",
+      "frames_zero_based": [
+        53,
+        159,
+        212,
+        266
+      ],
+      "rendered_raw_images": [
+        "visual/nba-lal-min-005-f0053-raw.jpg",
+        "visual/nba-lal-min-005-f0159-raw.jpg",
+        "visual/nba-lal-min-005-f0212-raw.jpg",
+        "visual/nba-lal-min-005-f0266-raw.jpg"
+      ],
+      "source_sequence_image": null,
+      "review_status": "unreviewed",
+      "reviewer_type": null,
+      "reviewer_id": null,
+      "reviewed_at": null,
+      "annotation": null,
+      "orientation_reference_id": "not_applicable",
+      "adjudication": null
+    },
+    {
+      "id": "review-04",
+      "sample": "004",
+      "task": "ball_hand_contact_or_flight",
+      "source_video": "data/videos/tactics/acceptance/clips/004_GSW_elevator.mp4",
+      "video_sha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "frames_zero_based": [
+        98,
+        100,
+        102,
+        104,
+        106,
+        108
+      ],
+      "rendered_raw_images": [
+        "visual/004-f0104-raw.jpg"
+      ],
+      "source_sequence_image": "visual/004-flight-sequence.jpg",
+      "review_status": "unreviewed",
+      "reviewer_type": null,
+      "reviewer_id": null,
+      "reviewed_at": null,
+      "annotation": null,
+      "orientation_reference_id": "not_applicable",
+      "adjudication": null
+    },
+    {
+      "id": "review-05",
+      "sample": "005",
+      "task": "foot_visibility_and_contact",
+      "source_video": "data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4",
+      "video_sha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "frames_zero_based": [
+        94
+      ],
+      "rendered_raw_images": [
+        "visual/005-f0094-raw.jpg"
+      ],
+      "source_sequence_image": null,
+      "review_status": "unreviewed",
+      "reviewer_type": null,
+      "reviewer_id": null,
+      "reviewed_at": null,
+      "annotation": null,
+      "orientation_reference_id": "not_applicable",
+      "adjudication": null
+    },
+    {
+      "id": "review-06",
+      "sample": "006",
+      "task": "foot_visibility_and_contact",
+      "source_video": "data/videos/tactics/acceptance/clips/006_SAS_drive_kick.mp4",
+      "video_sha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "frames_zero_based": [
+        153,
+        307
+      ],
+      "rendered_raw_images": [
+        "visual/006-f0153-raw.jpg",
+        "visual/006-f0307-raw.jpg"
+      ],
+      "source_sequence_image": null,
+      "review_status": "unreviewed",
+      "reviewer_type": null,
+      "reviewer_id": null,
+      "reviewed_at": null,
+      "annotation": null,
+      "orientation_reference_id": "not_applicable",
+      "adjudication": null
+    },
+    {
+      "id": "review-07",
+      "sample": "004",
+      "task": "court_orientation_given_declared_reference",
+      "source_video": "data/videos/tactics/acceptance/clips/004_GSW_elevator.mp4",
+      "video_sha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "frames_zero_based": [
+        0,
+        70,
+        139
+      ],
+      "rendered_raw_images": [
+        "visual/004-f0000-raw.jpg",
+        "visual/004-f0070-raw.jpg",
+        "visual/004-f0139-raw.jpg"
+      ],
+      "source_sequence_image": null,
+      "review_status": "unreviewed",
+      "reviewer_type": null,
+      "reviewer_id": null,
+      "reviewed_at": null,
+      "annotation": null,
+      "orientation_reference_id": null,
+      "adjudication": null
+    }
+  ]
+}
