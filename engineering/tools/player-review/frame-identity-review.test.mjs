@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {blankSession,buildTrajectories,confirmFrameIdentity,confirmBinding,exportReview,isHumanIdentitySelected,playerDisplayState} from './trajectory.mjs';
+import {blankSession,buildTrajectories,confirmFrameIdentity,correctFrameIdentity,confirmBinding,exportReview,isHumanIdentitySelected,playerDisplayState} from './trajectory.mjs';
 import {confirmIdentity,confirmUntrackedFrame} from './identity-timeline.mjs';
 import {teamOverlayStyle} from './team-overlay.mjs';
 
@@ -151,4 +151,67 @@ test('an untracked fallback can repair a conflicting frame without resolving or 
   const before=structuredClone(session);
   assert.throws(()=>confirmUntrackedFrame(session,'P1',3,{trackId:2,box:[51,12,71,81]},frames));
   assert.deepEqual(session,before);
+});
+
+test('P8 can explicitly correct overlapping whole-T claims on one frame and obtain a solid blue box',()=>{
+  const ids=[2,7,8,9,10,12,55],records=frames.map(record=>({...record,
+    tracks:ids.map(id=>[id*10,10,id*10+8,80,id,.9,2])}));
+  const session=blankSession('clip'),entity=session.entities[7];
+  for(const item of session.entities)item.identityKeyframes=[];
+  entity.bindings=ids.map((id,index)=>({kind:'track',trackId:id,start:0,end:4,
+    scope:'track_occurrences',order:index+1,exclusive:false,origin:'human_track_assignment'}));
+  const before=structuredClone(session),raw=structuredClone(records);
+  assert(buildTrajectories(session,records).P8.every(point=>point.source==='conflict'));
+  assert.deepEqual(correctFrameIdentity(session,'P8',2,{trackId:8},records),{start:2,end:2});
+  const points=buildTrajectories(session,records).P8,style=teamOverlayStyle(entity,points[2],policy);
+  assert.equal(points[2].trackId,8);assert.deepEqual(points[2].box,[80,10,88,80]);
+  assert.equal(points[2].frameIdentityConfirmed,true);assert.equal(style.dashed,false);
+  assert.equal(style.group,'B');
+  for(const index of [0,1,3,4])assert.equal(points[index].source,'conflict');
+  assert.deepEqual(session.entities[7].bindings.slice(0,ids.length),before.entities[7].bindings);
+  assert.deepEqual(session.entities.slice(0,7),before.entities.slice(0,7));
+  assert.deepEqual(records,raw);
+  const restored=JSON.parse(JSON.stringify(session));
+  assert.deepEqual(buildTrajectories(restored,records),buildTrajectories(session,records));
+});
+
+test('explicit single-frame ownership correction releases a competing player only on that frame',()=>{
+  const session=blankSession('clip');
+  confirmIdentity(session,'P7',0,{trackId:1,box:[10,10,30,80]},frames);
+  bulk(session.entities[7]);const before=buildTrajectories(session,frames),saved=structuredClone(session);
+  assert.equal(before.P8[2].claimedBy,'P7');
+  correctFrameIdentity(session,'P8',2,{trackId:1},frames);
+  const after=buildTrajectories(session,frames);
+  assert.equal(after.P8[2].frameIdentityConfirmed,true);assert.equal(after.P7[2].claimedBy,'P8');
+  for(const id of ['P7','P8'])for(const index of [0,1,3,4])assert.deepEqual(after[id][index],before[id][index]);
+  assert.deepEqual(session.entities[6],saved.entities[6],'the competing player keeps its stored evidence');
+  assert.deepEqual(buildTrajectories(saved,frames),before,'undo restores prior ownership');
+});
+
+test('single-frame correction preserves same-track manual geometry and replaces unrelated or estimated points',()=>{
+  for(const [trackId,source,preserve] of [[1,undefined,true],[2,undefined,false],[null,undefined,false],[1,'manual_path',false]]){
+    const session=blankSession('clip'),entity=session.entities[7];bulk(entity);
+    entity.anchors=[{frame:2,x:55,y:75,box:[50,10,60,80],trackId,source,identityConfirmed:false}];
+    entity.courtAnchors=[{frame:2,x:4,y:5}];const saved=structuredClone(entity);
+    correctFrameIdentity(session,'P8',2,{trackId:1},frames);
+    const point=buildTrajectories(session,frames).P8[2];
+    assert.equal(point.trackId,1);assert.equal(point.frameIdentityConfirmed,true);
+    assert.equal(point.x,preserve?55:20);assert.equal(point.source,preserve?'manual':'tracked');
+    assert.deepEqual(session.entities[7].courtAnchors,saved.courtAnchors);
+    assert.deepEqual(entity,saved,'edits are committed from a copy after validation');
+  }
+});
+
+test('single-frame correction can be changed again and invalid requests leave the draft intact',()=>{
+  const session=blankSession('clip');bulk(session.entities[7]);
+  correctFrameIdentity(session,'P8',2,{trackId:1},frames);
+  correctFrameIdentity(session,'P8',2,{trackId:2},frames);
+  const points=buildTrajectories(session,frames).P8;
+  assert.deepEqual(points.map(point=>point.trackId),[1,1,2,1,1]);
+  assert.deepEqual(points.map(point=>point.frameIdentityConfirmed),[false,false,true,false,false]);
+  assert.equal(session.entities[7].frameConfirmations.length,1);
+  const before=structuredClone(session);
+  for(const [id,frame,proposal] of [['P11',2,{trackId:1}],['P8',8,{trackId:1}],['P8',2,{trackId:99}],['P8',2,{trackId:null}]]){
+    assert.throws(()=>correctFrameIdentity(session,id,frame,proposal,frames));assert.deepEqual(session,before);
+  }
 });

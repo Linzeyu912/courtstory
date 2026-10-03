@@ -905,4 +905,5 @@ body.workbench-shell {
 body[data-step=footage] .detection-legend,body[data-step=footage] .detection-overview{display:none}
 .frame-confirmation{margin:9px 0;padding:9px;border:1px solid #dce5ee;border-radius:6px;background:#f7f9fc}
 .frame-confirmation p{margin:6px 0 0;font-size:11px;line-height:1.5;color:#697b89}
+.identity-conflict p{margin:7px 0}.identity-conflict .field{margin:8px 0}.conflict-actions{display:flex;flex-wrap:wrap;gap:6px}.conflict-actions button{flex:1;font-size:12px}
 .identity-state.state-confirmed{background:#e1efe9;color:#286649}

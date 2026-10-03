@@ -3,7 +3,7 @@ import {mountFootageUI} from './footage-ui.mjs';
 import {manualPathAnchors} from './manual-path.mjs';
 import {editImageAnchor,dragImageEdit} from './image-edit.mjs';
 import {createWorkspace} from './workspace.mjs';
-import {blankSession,ensurePlayerSlots,buildTrajectories,confirmFrameIdentity,reviewTrailCuts,gapRanges,exportReview,isHumanIdentitySelected,isSelected,hasAssociation,entityLabel,playerDisplayState,draftStorageKey,trackingModelSummary,trackCatalog,confirmBinding,continuationSuggestions} from './trajectory.mjs';
+import {blankSession,ensurePlayerSlots,buildTrajectories,confirmFrameIdentity,correctFrameIdentity,reviewTrailCuts,gapRanges,exportReview,isHumanIdentitySelected,isSelected,hasAssociation,entityLabel,playerDisplayState,draftStorageKey,trackingModelSummary,trackCatalog,confirmBinding,continuationSuggestions} from './trajectory.mjs';
 import {IDENTITY_BINDING_MODE,migrateIdentitySession,confirmIdentity,confirmUntrackedFrame,identityInterval,identityConfirmationInterval,identitySuggestionSummary} from './identity-timeline.mjs';
 import {teamOverlayStyle,stabilizePoints,presentationPoint,frameAtMediaTime,frameSeekTime} from './team-overlay.mjs';
 import {personProposals,pickPersonProposal,visibleObjects,personTrail,indexTemporaryTracks,temporaryTrail,mergeSourceCuts,toggleReviewCut} from './tracking-display.mjs';
@@ -84,6 +84,7 @@ const identityUI=mountIdentityUI({select:id=>{active=id;refresh();},setField:(na
   entity().anchors=entity().anchors.filter(item=>item.frame!==at);entity().frameConfirmations=(entity().frameConfirmations||[]).filter(item=>item.frame!==at);session.identitySelection=null;
 }),releaseIdentity:()=>reviewEdit({type:'release_identity',entityId:active,frame}),
 clearPlayer:()=>reviewEdit({type:'clear_player',entityId:active}),
+correctCandidate:(proposal,scope)=>associateProposal(proposal,scope),
 swapPlayers:(sourceId,targetId)=>reviewEdit({type:'swap_players',sourceId,targetId})});
 canvas.width=clip.width;canvas.height=clip.height;
 footageUI=mountFootageUI({clip,sample,variant,qa,session:()=>session,frame:()=>frame,change,seek,toast,next:()=>workspace.switchStep('identity',true)});
@@ -114,7 +115,13 @@ async function reviewEdit(operation){
         else if(active===operation.targetId)active=operation.sourceId;
       }
     });
-    previewTrackId=null;previewBox=null;toast(result.message||'已保存修改，可撤销。');return true;
+    previewTrackId=null;previewBox=null;
+    const assigned=operation.type==='assign_track'?trajectories[operation.entityId]?.[operation.frame]:null;
+    if(operation.type==='assign_track'&&(!assigned?.frameIdentityConfirmed||assigned.trackId!==operation.trackId)){
+      if(active===operation.entityId&&frame===operation.frame)previewTrackId=operation.trackId;
+      toast(`已登记 T${operation.trackId}，但第 ${operation.frame+1} 帧仍有关联冲突或既有人工规则，尚未确认。请预览正确候选并选择纠正范围。`);
+    }else toast(result.message||'已保存修改，可撤销。');
+    return true;
   }catch(error){toast(error.message==='Failed to fetch'?'本地服务暂时不可用，修改未保存；请重试。':error.message);return false;}
   finally{reviewBusy=false;draw();}
 }
@@ -224,16 +231,22 @@ function trackAssignments(){
   }
   return [...grouped.values()].sort((a,b)=>a.trackId-b.trackId);
 }
-async function associateProposal(hit){
+async function associateProposal(hit,scope=associationScope){
   if(!hit)return false;
   if(reviewBusy)return false;
-  if(hit.trackId!=null&&associationScope==='track_occurrences'){
+  pauseVideo();
+  const current=trajectories[active]?.[frame];
+  if(hit.trackId!=null&&scope==='track_occurrences'&&(current?.source==='conflict'||current?.identitySource==='reassigned')){
+    previewTrackId=hit.trackId;previewBox=null;draw();
+    toast(`已预览 T${hit.trackId}；请在右侧选择“仅本帧采用”或“从本帧向后采用”来纠正关联。`);return false;
+  }
+  if(hit.trackId!=null&&scope==='track_occurrences'){
     return reviewEdit({type:'assign_track',entityId:active,trackId:Number(hit.trackId),frame});
   }
-  pauseVideo();let interval;
-  try{change(()=>{interval=hit.trackId==null?confirmUntrackedFrame(session,active,frame,hit,clip.frames):confirmIdentity(session,active,frame,hit,clip.frames);});}catch(error){toast(error.message);return false;}
+  let interval;
+  try{const copy=structuredClone(session);interval=hit.trackId==null?confirmUntrackedFrame(copy,active,frame,hit,clip.frames):scope==='frame'?correctFrameIdentity(copy,active,frame,hit,clip.frames,sourceCuts):confirmIdentity(copy,active,frame,hit,clip.frames);change(()=>session=copy);}catch(error){toast(error.message);return false;}
   const released=session.entities.filter(item=>item.id!==active&&trajectories[item.id].some(point=>point.claimedBy===active&&point.frame>=interval.start&&point.frame<=interval.end)).map(item=>item.id);
-  previewTrackId=null;previewBox=null;draw();toast(hit.trackId==null?`${entityLabel(active)} 已确认当前帧未编号候选；其他帧保持原有关联。`:`${entityLabel(active)} 从第 ${interval.start+1} 帧起关联 T${hit.trackId}，到第 ${interval.end+1} 帧；此前绑定保留。${released.length?` ${released.join('、')} 的重叠错误关联已留空待处理。`:''}`);return true;
+  previewTrackId=null;previewBox=null;draw();toast(hit.trackId==null?`${entityLabel(active)} 已确认当前帧未编号候选；其他帧保持原有关联。`:scope==='frame'?`${entityLabel(active)} 仅第 ${frame+1} 帧已改为 T${hit.trackId} 并确认；其他帧保持原有关联，可撤销。`:`${entityLabel(active)} 从第 ${interval.start+1} 帧起关联 T${hit.trackId}，到第 ${interval.end+1} 帧；此前绑定保留。${released.length?` ${released.join('、')} 的重叠错误关联已留空待处理。`:''}`);return true;
 }
 function confirmCurrentFrame(){
   if(reviewBusy)return false;pauseVideo();

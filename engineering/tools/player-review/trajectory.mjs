@@ -208,6 +208,23 @@ export function confirmFrameIdentity(session,entityId,frame,frames,sourceCuts=[]
   return review;
 }
 
+// A deliberate correction resolves ownership only on the frame being reviewed.
+// Keep the accumulated tracks and neighboring human evidence for later review.
+export function correctFrameIdentity(session,entityId,frame,proposal,frames,sourceCuts=[]) {
+  const trackId=proposal?.trackId;
+  if(!Number.isInteger(frame)||!frames[frame]||!Number.isInteger(trackId)||trackId<1||
+      !frames[frame].tracks.some(row=>Number(row[4])===trackId))throw new Error('请选择当前帧有效的临时编号。');
+  const copy=structuredClone(session),entity=copy.entities.find(item=>item.id===entityId);
+  if(!entity)throw new Error('请先选择球员。');
+  confirmBinding(copy,entityId,{kind:'track',trackId,start:frame,end:frame,origin:'human_frame_correction'},frames);
+  // An old standalone point or an estimate must not hide the newly chosen box.
+  entity.anchors=entity.anchors.filter(anchor=>anchor.frame!==frame||
+    (anchor.trackId===trackId&&anchor.source!=='manual_path'));
+  confirmFrameIdentity(copy,entityId,frame,frames,sourceCuts);
+  Object.assign(session,copy);
+  return {start:frame,end:frame};
+}
+
 export function hasAssociation(entity){return isSelected(entity)||Boolean(!entity.identitySuggestionsDismissed&&entity.modelBindings?.length);}
 
 export function playerDisplayState(entity,point) {
