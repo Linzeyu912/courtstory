@@ -420,7 +420,7 @@ $('findLinks').addEventListener('click',()=>{
 sceneUI=mountSceneObjects({clip,state:()=>({session,frame,video}),change,toast,redraw:draw});
 workspace=createWorkspace({clip,sample,variant,getState:()=>({session,active,frame,mode,trajectories,video}),change,seek,toast,isSelected:hasAssociation,color,setMode,select:id=>{active=id;refresh();},redraw:draw});
 tacticsUI=mountTacticsUI({clip,sample,variant,qa,key,title:sampleInfo?.title||sample,
-  snapshot:()=>{if(!session.entities.some(hasAssociation))throw new Error('请先在球员标定中关联人物，再建立战术草稿。');return JSON.parse(JSON.stringify(exportPlayerIdentities(exportReview(session,clip,null),session)));},
+  snapshot:()=>JSON.parse(JSON.stringify(exportPlayerIdentities(exportReview(session,clip,null),session))),
   frame:()=>frame,pause:pauseVideo,play:()=>videoDisplay?.play(),seek:index=>seek(index,{tactics:true}),
   getPresentedFrame:()=>$('stage').dataset.videoState==='ready'?presentedFrame:null,
   beforeNavigate:saveDraft,openStep:step=>workspace.switchStep(step,true)});

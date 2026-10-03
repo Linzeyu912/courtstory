@@ -12,3 +12,38 @@
 .tactics-route-toolbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:10px}.tactics-route-toolbar .field{margin:0;min-width:180px}.tactics-check{display:flex;align-items:center;gap:6px;font-size:13px}.tactics-check input{width:auto}
 .tactics-background{position:absolute;inset:0;width:100%;height:100%}.tactics-background[hidden]{display:none}.tactics-overlay{position:absolute;inset:0}.tactics-control-handle{cursor:grab}.tactics-control-handle:active{cursor:grabbing}.tactics-overlay svg{touch-action:none}.tactics-canvas{overscroll-behavior:contain}.tactics-scene:has(svg[viewBox^="0 0 28."]){background:#15343d;background-image:linear-gradient(90deg,transparent 49.85%,#47737a 49.85%,#47737a 50.15%,transparent 50.15%);box-shadow:inset 0 0 0 2px #47737a}
 #tacticsPresentationStatus{padding:7px 10px;border-left:3px solid #c6933c;background:#fff9e9;color:#695327;line-height:1.6}#tacticsRouteHint{line-height:1.6;min-height:3.2em}
+
+/* The main workflow is drawing on the footage; evidence tools stay in disclosures. */
+.workbench-shell[data-area="tactics"] .source-toolbar :is(.component-picker,#applyModel,#modelChoiceStatus),
+.workbench-shell[data-area="tactics"] .app-header .header-tools,
+.workbench-shell[data-area="tactics"] .shared-timeline{display:none}
+.workbench-shell[data-area="tactics"] .source-toolbar{padding:5px 10px;align-items:center;flex-wrap:nowrap}
+.workbench-shell[data-area="tactics"] .source-toolbar .video-picker{display:flex;flex-direction:row;align-items:center;gap:12px;white-space:nowrap}
+.workbench-shell[data-area="tactics"] .source-toolbar select{max-width:520px;padding:5px 8px}
+.tactics-panel{padding:12px 14px;background:#f8fafc;scrollbar-gutter:stable}
+.tactics-heading{margin-bottom:6px;flex-wrap:nowrap}.tactics-heading h2{font-size:18px;margin:0}.tactics-subtitle{font-size:11px;color:#738297}
+.tactics-save-state{font-size:11px;color:#557064}.tactics-save-state[data-dirty="true"]{color:#9a6e19}
+#tacticsStatus{padding:5px 9px;margin:6px 0 9px;font-size:12px;line-height:1.5;border-radius:3px}
+.tactics-phases{margin-bottom:9px}.tactics-phases button{padding:5px 10px}
+.tactics-layout{grid-template-columns:minmax(0,1fr) 265px;gap:14px}
+.tactics-author-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.tactics-author-tools button{padding:9px 5px;font-size:12px;white-space:nowrap;background:#fff;border-color:#d3dfe9;display:flex;justify-content:center;align-items:center;gap:7px}
+.tactics-author-tools button span{font-size:18px;line-height:1}.tactics-author-tools button[aria-pressed="true"]{background:#e4f1fc;border-color:#6099c5;color:#174d78;box-shadow:inset 0 0 0 1px #6099c5}
+.tactics-instruction{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:38px}.tactics-instruction p{font-size:12px;line-height:1.5;margin:5px 0;color:#52677a}.tactics-instruction .tactics-buttons{flex-shrink:0}
+.tactics-selection-actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:6px 8px;margin-bottom:6px;min-height:42px;box-sizing:border-box;border:1px solid #b9d5ea;border-radius:6px;background:#eef7fe;font-size:12px}
+/* Reserve the action row so selecting a mark cannot move the canvas mid-drag. */
+.workbench-shell .tactics-selection-actions[hidden]{display:flex!important;visibility:hidden}.tactics-rotation-actions[hidden]{display:none}.tactics-selection-actions>strong{font-size:11px;margin-right:auto;color:#265a7c}.tactics-selection-actions button{padding:6px 8px;font-size:11px;white-space:nowrap}.tactics-rotation-actions{display:flex;align-items:center;gap:3px}.tactics-rotation-actions output{min-width:35px;text-align:center;font-variant-numeric:tabular-nums;color:#265a7c}.tactics-selection-actions .tactics-danger{background:#fff5f3;border-color:#d4a69f;color:#963e33}.tactics-rotation-handle{cursor:grab}.tactics-rotation-handle:active{cursor:grabbing}
+@media(max-width:620px){.tactics-selection-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;min-height:76px}.workbench-shell .tactics-selection-actions[hidden]{display:grid!important}.tactics-selection-actions>strong{grid-column:1;grid-row:1}.tactics-rotation-actions{grid-column:1;grid-row:2}#tacticsQuickDelete{grid-column:2;grid-row:1}#tacticsDeselect{grid-column:2;grid-row:2}}
+.tactics-canvas{display:flex;justify-content:center;align-items:center;overflow:hidden;min-height:120px;border:1px solid #cdd9e4;background:#13212b;touch-action:none}
+.tactics-canvas[data-tool="route"],.tactics-canvas[data-tool="screen"],.tactics-canvas[data-tool="spotlight"]{cursor:crosshair}
+.tactics-transport{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:8px;flex-wrap:wrap}.tactics-transport button{padding:5px 10px}.tactics-transport .small{font-size:11px}
+.tactics-seek{display:flex;align-items:center;gap:10px;font-size:11px;color:#708095;margin-top:6px}.tactics-seek input{flex:1;min-width:0}
+#tacticsPresentationStatus{padding:3px 8px;margin:5px 0 0;border:0;background:transparent;font-size:11px;color:#738092}
+.tactics-controls{padding:12px;position:sticky;top:0;max-height:calc(100vh - 270px);overflow:auto}.tactics-property-heading{display:flex;justify-content:space-between;align-items:center;gap:5px;font-size:13px}.tactics-property-heading .small{font-size:11px}
+.tactics-controls .field{font-size:12px;gap:5px;margin:10px 0}.tactics-controls :is(input,select){font-size:12px;padding:6px 8px}.tactics-controls .small{font-size:11px;line-height:1.6}.tactics-controls .range-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tactics-object-heading{display:flex;justify-content:space-between;align-items:center;margin-top:16px;border-top:1px solid #e1e7ec;padding-top:11px}.tactics-object-heading h3{font-size:12px;margin:0}.tactics-object-list{display:grid;gap:6px;margin-top:8px}
+.tactics-object-list button{text-align:left;font-size:12px;padding:8px;border-color:#e0e7ed;background:#f8fafc}.tactics-object-list button[aria-pressed="true"]{background:#e7f2fc;border-color:#72a0c7;color:#164b75}
+.tactics-danger{color:#a14e47}.tactics-time-settings{margin-top:12px;padding-top:10px}.tactics-secondary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}.tactics-secondary>details{border:1px solid #e0e7ed;border-radius:6px;margin:0;padding:10px;background:#fff;min-width:0}.tactics-secondary>details[open]{grid-column:1/-1}.tactics-secondary summary{font-size:12px;color:#52687b}.tactics-secondary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px;margin-top:10px}.tactics-secondary-grid .field{margin:4px 0}
+.tactics-empty{padding:25px;border:1px dashed #b8cede;border-radius:8px;text-align:center;background:#fff}.tactics-empty .tactics-buttons{justify-content:center}
+@media(max-width:1000px){.tactics-layout{grid-template-columns:1fr}.tactics-controls{position:static;max-height:none}.tactics-object-list{grid-template-columns:repeat(2,minmax(0,1fr))}.tactics-controls .field{max-width:400px}}
+@media(max-width:620px){.tactics-heading .tactics-subtitle{display:none}.tactics-save-state{max-width:100px}.tactics-author-tools button{font-size:11px;gap:3px}.tactics-author-tools button span{font-size:15px}.tactics-instruction{flex-wrap:wrap}.tactics-secondary-grid{grid-template-columns:1fr}.tactics-panel{padding:10px}.tactics-object-list{grid-template-columns:1fr}.workbench-shell[data-area="tactics"] .source-toolbar .video-picker{gap:6px;font-size:0}.tactics-transport .small{width:100%}}
