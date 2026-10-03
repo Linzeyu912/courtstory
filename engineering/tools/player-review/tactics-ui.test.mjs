@@ -33,7 +33,7 @@ function environment(source){
     }
   });
   const ui=mountTacticsUI({key:'player-review:ui-fixture:qa',sample:'test',variant:'test',qa:true,title:'fixture',clip:{video_sha256:source.review.videoSha256},pause(){},snapshot:()=>source.review,frame:()=>12,openStep(){}});
-  return {get,ui,writes,saved,store,get frameRequests(){return frameRequests;},
+  return {get,ui,writes,saved,store,get frameRequests(){return frameRequests;},get pendingWrites(){return releases.length;},
     async load(){await events['workbench-area']();await ui.ready();},
     async event(name,event){for(const fn of get('tacticsCanvas').listeners[name]||[])await fn({button:0,preventDefault(){},...event});},
     selectRoute(){const route=ui.getSceneState().model.routes.find(r=>r.entityId==='P1');get('tacticsRoute').value=route.routeId;get('tacticsRoute').onchange();return route;},
@@ -43,7 +43,7 @@ function environment(source){
   };
 }
 // One mounted session exercises the real UI handlers, asynchronous validation and queued drafts.
-test('mounted UI edits persist, keeps the canvas stable, cancels phase gestures and restores/undoes separately from review',async()=>{
+test('mounted UI edits persist through concurrent notes/title, keeps the canvas stable, cancels phase gestures and restores/undoes separately from review',async()=>{
   const f=await makePresentationDemo(),d={schemaVersion:1,title:'fixture',notes:'',...f},before=structuredClone(d.review),env=environment(d);
   try{
     await env.load();assert.match(env.get('tacticsRouteHint').textContent,/先选择/);
@@ -56,11 +56,25 @@ test('mounted UI edits persist, keeps the canvas stable, cancels phase gestures 
     env.hold();const pending=env.event('pointerup',{pointerId:1});await Promise.resolve();await Promise.resolve();
     assert.equal(env.ui.getSceneState().editBusy,true);
     await env.event('pointerdown',{pointerId:2,target:env.handle(0)});await env.event('pointermove',{pointerId:2,clientX:40,clientY:80});await env.event('pointerup',{pointerId:2});
-    const initialRequests=env.frameRequests;env.release();await pending;
+    for(let i=0;i<50&&!env.pendingWrites;i++)await new Promise(resolve=>setImmediate(resolve));
+    assert.equal(env.pendingWrites,1,'route document is applied and waiting on the deliberately slow draft');
+    env.get('tacticsNotes').value='new notes while route save waits';env.get('tacticsNotes').oninput();
+    env.get('tacticsTitle').value='new title while route save waits';env.get('tacticsTitle').oninput();
+    const initialRequests=env.frameRequests;env.release();await pending;await env.ui.saveDraft();
     let draft=env.writes.at(-1).document;assert.equal(draft.presentation.routes.length,1);
     assert.ok(Math.abs(draft.presentation.routes[0].controlPoints[0].x-point.x-.2)<1e-6);
     assert.deepEqual(draft.review,before);assert.equal(env.ui.getSceneState().background,canvas);
     assert.equal(env.frameRequests,initialRequests,'presentation-only commit reuses the decoded freeze frame');
+    const applied=env.ui.getSceneState().model.routes.find(r=>r.routeId===route.routeId);
+    assert.equal(applied.manual,true,'model must reflect the saved presentation before editing unlocks');
+    assert.ok(Math.abs(applied.controlPoints[0].x-point.x-.2)<1e-6);
+    assert.equal(draft.notes,'new notes while route save waits');assert.equal(draft.title,'new title while route save waits');
+    assert.equal(env.get('tacticsNotes').value,draft.notes);assert.equal(env.get('tacticsTitle').value,draft.title);
+    env.get('tacticsRoutePlayer').value='P2';env.get('tacticsRoutePlayer').onchange();env.get('tacticsRoutePlayer').value='P1';env.get('tacticsRoutePlayer').onchange();env.selectRoute();
+    const internal=applied.controlPoints[1];
+    await env.event('pointerdown',{pointerId:4,target:env.handle(1)});await env.event('pointermove',{pointerId:4,clientX:internal.x*40,clientY:(internal.y+.1)*40});await env.event('pointerup',{pointerId:4});
+    draft=env.writes.at(-1).document;assert.ok(Math.abs(draft.presentation.routes[0].controlPoints[0].x-point.x-.2)<1e-6,'later drag retains the first saved point');
+    assert.equal(draft.notes,'new notes while route save waits');assert.equal(draft.title,'new title while route save waits');
     await env.get('tacticsSave').onclick();assert.equal(env.saved[0].qa,true);assert.equal(env.saved[0].kind,'workspace');assert.deepEqual(env.saved[0].document.presentation,draft.presentation);
     await env.get('tacticsWorkspace').onclick();await env.ui.ready();
     assert.equal(env.ui.getSceneState().model.routes.find(r=>r.routeId===route.routeId).manual,true,'IndexedDB reload retains presentation');

@@ -50,7 +50,12 @@ export function mountTacticsUI(api){
   async function commit(next,captured=stamp(),{reuseScene=false}={}){
     return commitWhenCurrent({next,stamp:captured,getStamp:stamp,validate:validateDocument,apply:async value=>{
       history.push(clone(documentValue));if(history.length>30)history.shift();documentValue=value;revision++;
-      const applied=stamp();await draft();if(Object.keys(applied).some(key=>applied[key]!==stamp()[key]))return;render({reuseScene});await sceneReady;
+      const applied=stamp();await draft();
+      // Title/notes mutate this same document while its draft is queued. Render
+      // the latest document after persistence; metadata revisions do not make
+      // its newly applied presentation model obsolete. Navigation still does.
+      if(applied.document!==documentValue||applied.context!==context||applied.phaseId!==phaseId||loading)return;
+      render({reuseScene});await sceneReady;
     }});
   }
   function render({reuseScene=false}={}){
