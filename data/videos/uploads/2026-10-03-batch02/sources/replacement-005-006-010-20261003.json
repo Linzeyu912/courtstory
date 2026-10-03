@@ -1,0 +1,259 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "user_requested_asset_replacement",
+  "dataset_id": "user-uploads-20261003-batch02",
+  "replaced_at": "2026-10-03T15:00:03+08:00",
+  "timezone": "Asia/Shanghai",
+  "authorization": "用户要求再次查找截图文件；延续此前找到时替换对应编号的授权。",
+  "original_receipt": "data/videos/uploads/2026-10-03-batch02/sources/uploaded-files.json",
+  "previous_replacement_record": "data/videos/uploads/2026-10-03-batch02/sources/replacement-002-20261003.json",
+  "history_note": "初次接收记录及 002 替换记录保留原貌；此前三个文件未找到是当时查找结果，本轮已找到并替换。",
+  "recovery": {
+    "requested_directory_exists": false,
+    "located_in": "本机 Codex 文件预览缓存",
+    "match_basis": "完整文件名一致，按原字节复制；没有宣称从原截图目录取得。"
+  },
+  "replacements": [
+    {
+      "local_id": "005",
+      "clip_id": "user-uploads-20261003-batch02-005",
+      "replaced_at": "2026-10-03T15:00:02+08:00",
+      "before": {
+        "asset": {
+          "path": "clips/05_Warriors_20160605_Finals_G2_Q3_motion_silent.mp4",
+          "bytes": 4221834,
+          "sha256": "d931e4ccdc33831c753eb0e0ed1260fcfc6358288b485e7f533d13745ca228e2",
+          "storage": "git-lfs",
+          "availability": "included"
+        },
+        "source": {
+          "kind": "user_upload",
+          "uploaded_filename": "05_Warriors_20160605_Finals_G2_Q3_motion_silent.mp4",
+          "url": null,
+          "publisher": null,
+          "collected_at": "2026-10-03",
+          "start_seconds": null,
+          "end_seconds": null,
+          "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+        },
+        "video": {
+          "duration_seconds": 23.033333,
+          "width": 756,
+          "height": 414,
+          "fps": 30.0,
+          "fps_fraction": "30/1",
+          "codec": "h264",
+          "frame_count": 691,
+          "audio_stream_count": 0,
+          "measurement_status": "measured",
+          "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+        }
+      },
+      "after": {
+        "asset": {
+          "path": "clips/05_Pacers_20250106_Q2_0m44_team_motion_720p_silent.mp4",
+          "bytes": 8844555,
+          "sha256": "17c36f8d3b3e294f13f7119f23b82ec7f3fbe96d5564db9cbe7d61f49ebbbd7d",
+          "storage": "git-lfs",
+          "availability": "included"
+        },
+        "source": {
+          "kind": "user_upload",
+          "uploaded_filename": "05_Pacers_20250106_Q2_0m44_team_motion_720p_silent.mp4",
+          "url": null,
+          "publisher": null,
+          "collected_at": "2026-10-03",
+          "start_seconds": null,
+          "end_seconds": null,
+          "unknown_reason": "用户要求再次查找并按序号替换，编号 005 的完整同名文件本轮已在本机 Codex 文件预览缓存中找到并按原字节复制。截图指定的 HKS 下“新视频”目录仍不存在；未提供原页面、发布者或来源原片裁切区间，文件名仅为命名线索。",
+          "delivery_method": "local_preview_cache_recovery",
+          "replacement_record": "data/videos/uploads/2026-10-03-batch02/sources/replacement-005-006-010-20261003.json"
+        },
+        "video": {
+          "duration_seconds": 17.5,
+          "width": 1280,
+          "height": 720,
+          "fps": 60.0,
+          "fps_fraction": "60/1",
+          "codec": "h264",
+          "frame_count": 1050,
+          "audio_stream_count": 0,
+          "measurement_status": "measured",
+          "measurement_basis": "2026-10-03T15:00:02+08:00 使用 ffprobe 检查本机预览缓存中找到的用户指定同名替换文件；按原字节复制，未转码。"
+        }
+      },
+      "verification": {
+        "ffprobe_exit_code": 0,
+        "decode_exit_code": 0,
+        "decode_stderr_bytes": 0,
+        "source_sha256": "17c36f8d3b3e294f13f7119f23b82ec7f3fbe96d5564db9cbe7d61f49ebbbd7d",
+        "destination_sha256": "17c36f8d3b3e294f13f7119f23b82ec7f3fbe96d5564db9cbe7d61f49ebbbd7d",
+        "old_backup_sha256": "d931e4ccdc33831c753eb0e0ed1260fcfc6358288b485e7f533d13745ca228e2"
+      },
+      "local_evidence": "artifacts/video-replacement-20261003-005-006-010/005/copy-and-decode-proof.json"
+    },
+    {
+      "local_id": "006",
+      "clip_id": "user-uploads-20261003-batch02-006",
+      "replaced_at": "2026-10-03T15:00:02+08:00",
+      "before": {
+        "asset": {
+          "path": "clips/06_Spurs_20160330_Q3_3m31_weave_slip_silent.mp4",
+          "bytes": 4063562,
+          "sha256": "e69d7260f9c54c407fa37bf6d3e20e1478e0827421fb3208cdb630e69eb792e1",
+          "storage": "git-lfs",
+          "availability": "included"
+        },
+        "source": {
+          "kind": "user_upload",
+          "uploaded_filename": "06_Spurs_20160330_Q3_3m31_weave_slip_silent.mp4",
+          "url": null,
+          "publisher": null,
+          "collected_at": "2026-10-03",
+          "start_seconds": null,
+          "end_seconds": null,
+          "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+        },
+        "video": {
+          "duration_seconds": 15.0,
+          "width": 700,
+          "height": 394,
+          "fps": 30.0,
+          "fps_fraction": "30/1",
+          "codec": "h264",
+          "frame_count": 450,
+          "audio_stream_count": 0,
+          "measurement_status": "measured",
+          "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+        }
+      },
+      "after": {
+        "asset": {
+          "path": "clips/06_Grizzlies_20251202_Q1_6m33_screens_handoffs_native708_silent.mp4",
+          "bytes": 5752539,
+          "sha256": "02c05e54c34a64d3fa174310914d89aa84a6c530e5ad7ffd1e7908684f0bff91",
+          "storage": "git-lfs",
+          "availability": "included"
+        },
+        "source": {
+          "kind": "user_upload",
+          "uploaded_filename": "06_Grizzlies_20251202_Q1_6m33_screens_handoffs_native708_silent.mp4",
+          "url": null,
+          "publisher": null,
+          "collected_at": "2026-10-03",
+          "start_seconds": null,
+          "end_seconds": null,
+          "unknown_reason": "用户要求再次查找并按序号替换，编号 006 的完整同名文件本轮已在本机 Codex 文件预览缓存中找到并按原字节复制。截图指定的 HKS 下“新视频”目录仍不存在；未提供原页面、发布者或来源原片裁切区间，文件名仅为命名线索。",
+          "delivery_method": "local_preview_cache_recovery",
+          "replacement_record": "data/videos/uploads/2026-10-03-batch02/sources/replacement-005-006-010-20261003.json"
+        },
+        "video": {
+          "duration_seconds": 17.766667,
+          "width": 1280,
+          "height": 708,
+          "fps": 30.0,
+          "fps_fraction": "30/1",
+          "codec": "h264",
+          "frame_count": 533,
+          "audio_stream_count": 0,
+          "measurement_status": "measured",
+          "measurement_basis": "2026-10-03T15:00:02+08:00 使用 ffprobe 检查本机预览缓存中找到的用户指定同名替换文件；按原字节复制，未转码。"
+        }
+      },
+      "verification": {
+        "ffprobe_exit_code": 0,
+        "decode_exit_code": 0,
+        "decode_stderr_bytes": 0,
+        "source_sha256": "02c05e54c34a64d3fa174310914d89aa84a6c530e5ad7ffd1e7908684f0bff91",
+        "destination_sha256": "02c05e54c34a64d3fa174310914d89aa84a6c530e5ad7ffd1e7908684f0bff91",
+        "old_backup_sha256": "e69d7260f9c54c407fa37bf6d3e20e1478e0827421fb3208cdb630e69eb792e1"
+      },
+      "local_evidence": "artifacts/video-replacement-20261003-005-006-010/006/copy-and-decode-proof.json"
+    },
+    {
+      "local_id": "010",
+      "clip_id": "user-uploads-20261003-batch02-010",
+      "replaced_at": "2026-10-03T15:00:03+08:00",
+      "before": {
+        "asset": {
+          "path": "clips/10_Spurs_20181124_Q1_4m28_multi_action_silent.mp4",
+          "bytes": 5609576,
+          "sha256": "c01c7f89082a17cef18b1ac3e576423e2a44d655c6bffed55909641e58f050ff",
+          "storage": "git-lfs",
+          "availability": "included"
+        },
+        "source": {
+          "kind": "user_upload",
+          "uploaded_filename": "10_Spurs_20181124_Q1_4m28_multi_action_silent.mp4",
+          "url": null,
+          "publisher": null,
+          "collected_at": "2026-10-03",
+          "start_seconds": null,
+          "end_seconds": null,
+          "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+        },
+        "video": {
+          "duration_seconds": 14.96495,
+          "width": 854,
+          "height": 480,
+          "fps": 59.94005994005994,
+          "fps_fraction": "60000/1001",
+          "codec": "h264",
+          "frame_count": 897,
+          "audio_stream_count": 0,
+          "measurement_status": "measured",
+          "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+        }
+      },
+      "after": {
+        "asset": {
+          "path": "clips/10_Celtics_20231201_Q4_1m01_multi_action_720p_silent.mp4",
+          "bytes": 9060069,
+          "sha256": "474ec96040bde64d169048fcbf1237df025605bde325a12244e201d637f60d2a",
+          "storage": "git-lfs",
+          "availability": "included"
+        },
+        "source": {
+          "kind": "user_upload",
+          "uploaded_filename": "10_Celtics_20231201_Q4_1m01_multi_action_720p_silent.mp4",
+          "url": null,
+          "publisher": null,
+          "collected_at": "2026-10-03",
+          "start_seconds": null,
+          "end_seconds": null,
+          "unknown_reason": "用户要求再次查找并按序号替换，编号 010 的完整同名文件本轮已在本机 Codex 文件预览缓存中找到并按原字节复制。截图指定的 HKS 下“新视频”目录仍不存在；未提供原页面、发布者或来源原片裁切区间，文件名仅为命名线索。",
+          "delivery_method": "local_preview_cache_recovery",
+          "replacement_record": "data/videos/uploads/2026-10-03-batch02/sources/replacement-005-006-010-20261003.json"
+        },
+        "video": {
+          "duration_seconds": 17.45,
+          "width": 1280,
+          "height": 720,
+          "fps": 60.0,
+          "fps_fraction": "60/1",
+          "codec": "h264",
+          "frame_count": 1047,
+          "audio_stream_count": 0,
+          "measurement_status": "measured",
+          "measurement_basis": "2026-10-03T15:00:03+08:00 使用 ffprobe 检查本机预览缓存中找到的用户指定同名替换文件；按原字节复制，未转码。"
+        }
+      },
+      "verification": {
+        "ffprobe_exit_code": 0,
+        "decode_exit_code": 0,
+        "decode_stderr_bytes": 0,
+        "source_sha256": "474ec96040bde64d169048fcbf1237df025605bde325a12244e201d637f60d2a",
+        "destination_sha256": "474ec96040bde64d169048fcbf1237df025605bde325a12244e201d637f60d2a",
+        "old_backup_sha256": "c01c7f89082a17cef18b1ac3e576423e2a44d655c6bffed55909641e58f050ff"
+      },
+      "local_evidence": "artifacts/video-replacement-20261003-005-006-010/010/copy-and-decode-proof.json"
+    }
+  ],
+  "current_requested_replacement_status": {
+    "002": "completed_in_previous_round",
+    "005": "replaced_locally",
+    "006": "replaced_locally",
+    "010": "replaced_locally"
+  },
+  "visual_status": "unverified"
+}
