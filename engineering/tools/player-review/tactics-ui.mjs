@@ -25,7 +25,7 @@ export function mountTacticsUI(api){
   let documentValue=null,phaseId=null,kind='workspace',version=0,history=[],revision=0,epoch=0,context=0,loading=false,lastScene=null,active=false,pendingDraft=Promise.resolve();
   let selectedEntityId=null,selectedRouteId=null,selectedControlFrame=null,temporaryRoute=null,editBusy=false,sceneReady=Promise.resolve(),sceneNodes=null,editingEnabled=true,loadSequence=0;
   const playback=createPhasePlayback(),synchronized=typeof api.seek==='function'&&typeof api.play==='function';
-  let presentedPoint=null;
+  let presentedPoint=null,pendingSceneEpoch=null;
   const base={sample:api.sample,variant:api.variant,qa:api.qa},cacheKey=(space=kind)=>`${api.key}:tactics:${space}`;
   const phase=()=>documentValue?.playDefinition.phases.find(p=>p.phaseId===phaseId)||documentValue?.playDefinition.phases[0];
   const status=text=>{$('tacticsStatus').textContent=text;};
@@ -131,7 +131,7 @@ export function mountTacticsUI(api){
   async function preview({reuseScene=false}={}){
     const d=clone(documentValue),p=clone(phase());
     const cached=reuseScene&&lastScene?.manifest.phaseId===p.phaseId&&lastScene.manifest.freezeFrame===p.freezeFrame&&lastScene.manifest.sourceBinding.videoSha256===d.review.videoSha256?lastScene:null;
-    if(cached)epoch++;else clearPreview();const token=epoch;
+    if(cached)epoch++;else clearPreview();const token=epoch;pendingSceneEpoch=token;
     try{
       const [manifest,model]=await Promise.all([
         cached?.manifest||buildTacticalOverlay({review:d.review,playDefinition:d.playDefinition,phaseId:p.phaseId,freezeFrame:p.freezeFrame}),buildPhaseRoutes(d,p.phaseId)]);
@@ -158,7 +158,7 @@ export function mountTacticsUI(api){
       const labels={identity_needs_review:'人物身份待核对',position_needs_review:'地面位置待核对',calibration_needs_review:'球场映射待核对',tactic_needs_review:'动作或关系待核对',freeze_calibration_unavailable:'冻结帧缺少有效球场标定'};
       $('tacticsIssues').replaceChildren(...[...groups].map(([code,count])=>{const node=document.createElement('p');node.textContent=`${labels[code]||code} · ${count} 项`;return node;}));
     }catch(error){if(token!==epoch)return;lastScene=null;editor.select(null);if(sceneNodes){sceneNodes.overlay.replaceChildren();sceneNodes.background.hidden=true;}$('tacticsFrame').textContent='预览失败，未保留上一阶段的叠加。';status(error.message);}
-    finally{if(token===epoch)playbackControls();}
+    finally{if(pendingSceneEpoch===token)pendingSceneEpoch=null;if(token===epoch)playbackControls();}
   }
   function ensureScene(){
     if(sceneNodes)return sceneNodes;
@@ -332,11 +332,13 @@ export function mountTacticsUI(api){
     getPlaybackState:playback.state,
     togglePlayback(){if(!active)return false;if(playback.state().status==='playing')$('tacticsPause').onclick();else $('tacticsContinue').onclick();return true;},
     externalSeek(frame){
-      if(!active||!synchronized)return;epoch++;cancelEditing();
+      if(!active||!synchronized)return;cancelEditing();
       const commands=playback.externalSeek(frame);runPlayback(commands);
-      // A same-phase seek can supersede a still-building preview. Rebuild that
-      // preparation with the new epoch; ready cached models need no refit.
-      if(!lastScene&&!loading&&!commands.some(c=>c.type==='phase'))render({preserveFrame:true});
+      // Time navigation within one phase does not invalidate its document model.
+      // An in-flight rebuild reads the latest presented frame when it applies;
+      // keep its promise so an editing commit stays busy until that model is ready.
+      // Cross-phase rendering, loads and exit still invalidate obsolete models.
+      if(!lastScene&&!loading&&pendingSceneEpoch!==epoch&&!commands.some(c=>c.type==='phase'))render({preserveFrame:true});
     },
     invalidatePreview(){epoch++;cancelEditing();},
     getSceneState:()=>({model:lastScene?.model,phase:phase(),phaseId,frame:lastScene?.frame,mediaTime:lastScene?.mediaTime,active,loading,editBusy,editingEnabled,selectedEntityId,showAll:$('tacticsShowAll').checked,background:sceneNodes?.background}),
