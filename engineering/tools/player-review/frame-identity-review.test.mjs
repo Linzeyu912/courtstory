@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {blankSession,buildTrajectories,confirmFrameIdentity,correctFrameIdentity,confirmBinding,exportReview,isHumanIdentitySelected,playerDisplayState} from './trajectory.mjs';
-import {confirmIdentity,confirmUntrackedFrame} from './identity-timeline.mjs';
+import {confirmIdentity} from './identity-timeline.mjs';
 import {teamOverlayStyle} from './team-overlay.mjs';
 
 const policy=JSON.parse(readFileSync(new URL('./team-overlay-policy.json',import.meta.url),'utf8'));
@@ -127,12 +127,12 @@ test('splitting the same bulk assignment at a new cut preserves its frame review
   assert.equal(buildTrajectories(session,frames).P1[2].frameIdentityConfirmed,false);
 });
 
-test('an untracked fallback confirms only its own frame and preserves earlier and later tracked identities',()=>{
+test('a saved legacy untracked observation still resolves without changing earlier and later tracks',()=>{
   const session=blankSession('clip'),entity=session.entities[0];
   confirmIdentity(session,'P1',0,{trackId:1,box:[10,10,30,80]},frames);
   const before=buildTrajectories(session,frames).P1,keys=structuredClone(entity.identityKeyframes),raw=structuredClone(frames);
-  assert.deepEqual(confirmUntrackedFrame(session,'P1',2,{trackId:null,box:[51,12,71,81],sourcePartition:'suppressed_detections'},frames),
-    {start:2,end:2});
+  entity.bindings=[{kind:'untracked',trackId:null,start:2,end:2,order:10,exclusive:true,origin:'human_frame_selection'}];
+  entity.anchors.push({frame:2,x:61,y:81,trackId:null,box:[51,12,71,81],detectorBox:[51,12,71,81],footMethod:'bbox_bottom_center',identityConfirmed:true,identityReviewOrder:10,identityReviewSource:'manual_range'});
   const points=buildTrajectories(session,frames).P1;
   assert.equal(points[2].source,'manual');assert.equal(points[2].trackId,null);
   assert.equal(points[2].frameIdentityConfirmed,true);assert.deepEqual(points[2].box,[51,12,71,81]);
@@ -140,17 +140,17 @@ test('an untracked fallback confirms only its own frame and preserves earlier an
   assert.deepEqual(entity.identityKeyframes,keys);assert.deepEqual(frames,raw);
 });
 
-test('an untracked fallback can repair a conflicting frame without resolving or removing neighboring conflicts',()=>{
+test('a saved legacy untracked observation preserves neighboring conflicts',()=>{
   const session=blankSession('clip'),entity=session.entities[0];bulk(entity);
   entity.bindings.push({...entity.bindings[0],trackId:2,order:4});
   assert.equal(buildTrajectories(session,frames).P1[2].source,'conflict');
-  confirmUntrackedFrame(session,'P1',2,{trackId:null,box:[51,12,71,81]},frames);
+  entity.bindings.push({kind:'untracked',trackId:null,start:2,end:2,order:10,exclusive:true,origin:'human_frame_selection'});
+  entity.anchors.push({frame:2,x:61,y:81,trackId:null,box:[51,12,71,81],detectorBox:[51,12,71,81],footMethod:'bbox_bottom_center',identityConfirmed:true,identityReviewOrder:10,identityReviewSource:'manual_range'});
   const points=buildTrajectories(session,frames).P1;
   assert.equal(points[2].frameIdentityConfirmed,true);assert.equal(points[2].trackId,null);
   assert.equal(points[1].source,'conflict');assert.equal(points[3].source,'conflict');
-  const before=structuredClone(session);
-  assert.throws(()=>confirmUntrackedFrame(session,'P1',3,{trackId:2,box:[51,12,71,81]},frames));
-  assert.deepEqual(session,before);
+  const restored=JSON.parse(JSON.stringify(session));
+  assert.deepEqual(buildTrajectories(restored,frames).P1,points);
 });
 
 test('P8 can explicitly correct overlapping whole-T claims on one frame and obtain a solid blue box',()=>{

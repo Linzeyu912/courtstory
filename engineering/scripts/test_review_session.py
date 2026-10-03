@@ -528,7 +528,9 @@ class ReviewEditHttpTests(unittest.TestCase):
             'video': root / 'unread-video.mp4', 'digest': 'video-one', 'frames': 40,
             'defaultVariant': 'original', 'payloads': {'original': cls.clip_bytes}}))
         cls.stack.enter_context(patch('sys.argv', ['serve_player_review.py', '--library', str(library),
-                                                 '--trim-root', str(root / 'trims'), '--state-file', str(root / 'server.json')]))
+                                                 '--trim-root', str(root / 'trims'), '--state-file', str(root / 'server.json'),
+                                                 '--video-folder', str(root / 'inbox'), '--import-cache', str(root / 'imports'),
+                                                 '--tactics-folder', str(root / 'tactics')]))
         cls.thread = threading.Thread(target=serve_player_review.main, daemon=True)
         cls.thread.start()
         if not ready.wait(5):

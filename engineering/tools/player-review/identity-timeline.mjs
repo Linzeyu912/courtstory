@@ -144,27 +144,6 @@ export function confirmIdentity(session, entityId, frame, proposal, frames) {
   return identityConfirmationInterval(session,entity,frame,frames.length);
 }
 
-export function confirmUntrackedFrame(session,entityId,frame,proposal,frames) {
-  const entity=session.entities.find(item=>item.id===entityId),box=proposal?.box;
-  if(!entity||!Number.isInteger(frame)||!frames[frame])throw new Error('人物确认帧不正确。');
-  if(proposal?.trackId!=null||!Array.isArray(box)||box.length!==4||!box.every(Number.isFinite)||
-      box[2]<=box[0]||box[3]<=box[1])throw new Error('请选择当前帧有效的无临时编号候选框。');
-  migrateIdentitySession(session);
-  const order=nextIdentityOrder(session),binding={kind:'untracked',trackId:null,start:frame,end:frame,
-    order,exclusive:true,origin:'human_frame_selection'};
-  entity.bindings||=[];entity.bindings.push(binding);
-  const anchor={frame,x:(box[0]+box[2])/2,y:box[3],trackId:null,box:box.slice(),detectorBox:box.slice(),
-    footMethod:'bbox_bottom_center',identityConfirmed:true,identityReviewOrder:order,identityReviewSource:'manual_range'};
-  entity.anchors=entity.anchors.filter(item=>item.frame!==frame);entity.anchors.push(anchor);
-  const identity=identityAt(entity,frame,session.cuts,frames[frame]);
-  const review={frame,trackId:null,origin:'human_frame_review',identityScope:'manual_position',
-    identityOrder:order,identityToken:identityReviewToken(identity),anchorSignature:anchorReviewSignature(anchor)};
-  entity.frameConfirmations=(entity.frameConfirmations||[]).filter(item=>item.frame!==frame);
-  entity.frameConfirmations.push(review);entity.frameConfirmations.sort((a,b)=>a.frame-b.frame);
-  session.identitySelection=null;
-  return {start:frame,end:frame};
-}
-
 export function identityReviewToken(identity) {
   return JSON.stringify(identity?[identity.identitySource,identity.kind,identity.trackId??null,
     identity.scope==='track_occurrences'?null:identity.start,

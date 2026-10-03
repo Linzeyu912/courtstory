@@ -11,10 +11,10 @@ const rawFingerprint=clip=>clip.tracking_raw_fingerprint||null;
 const frameBasis=frames=>frames.map(row=>[row.frame,row.time,row.source_frame_pts??null,
   row.source_time_base??null,row.source_frame??null,row.source_time??null]);
 
-function role(clip,record,row,pending=false){
+function role(clip,record,row){
   const classes=clip.trackingMetadata?.model_names||clip.trackingMetadata?.class_names||{};
-  const named=classes[row[pending?5:6]];
-  const declared=pending?null:record.track_roles?.[Number(row[4])]||clip.track_roles?.[Number(row[4])];
+  const named=classes[row[6]];
+  const declared=record.track_roles?.[Number(row[4])]||clip.track_roles?.[Number(row[4])];
   if(declared==='referee'||named==='referee')return 'referee';
   if(declared)return declared;
   return named==='player'?'player':'person';
@@ -29,12 +29,6 @@ function roleConflict(record,id){
 function eligible(clip,record,row){
   return validBox(row)&&Number.isInteger(Number(row[4]))&&Number(row[4])>=0&&role(clip,record,row)==='player'
     &&!record.track_evidence?.[Number(row[4])]?.identity_review_required&&!roleConflict(record,Number(row[4]));
-}
-
-function overlap(a,b){
-  const intersection=Math.max(0,Math.min(a[2],b[2])-Math.max(a[0],b[0]))*
-    Math.max(0,Math.min(a[3],b[3])-Math.max(a[1],b[1]));
-  return intersection/((a[2]-a[0])*(a[3]-a[1])+(b[2]-b[0])*(b[3]-b[1])-intersection);
 }
 
 function observedBindings(clip,bindings,cuts,blocked=()=>false){
@@ -185,11 +179,5 @@ export function automaticPlayerCandidates(clip,frame,trajectories={}){
       roleConflict:roleConflict(record,Number(row[4])),
       identityReviewRequired:Boolean(record.track_evidence?.[Number(row[4])]?.identity_review_required),
       reason:roleConflict(record,Number(row[4]))?'role_conflict':'unmatched_identity'}));
-  // Simple-view noise policy applies only to unindexed boxes. Raw detections
-  // and every tracked player, including low scores, remain unchanged.
-  for(const row of record.pending_detections||[])if(validBox(row)&&row[4]>=.5&&role(clip,record,row,true)==='player'
-      &&!(record.tracks||[]).some(tracked=>validBox(tracked)&&overlap(row,tracked)>.5))
-    result.push({box:row.slice(0,4),trackId:null,score:row[4],role:'player',roleConflict:false,
-      identityReviewRequired:false,reason:'unassociated_detection'});
   return result;
 }

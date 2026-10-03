@@ -7,6 +7,7 @@ import math
 import mimetypes
 import os
 import re
+import subprocess
 import threading
 import uuid
 from datetime import datetime, timezone
@@ -29,6 +30,12 @@ def main():
     parser.add_argument("--court-profile", default="engineering/research/vision-player-refinement/clip001-court-expanded.json")
     parser.add_argument("--state-file", default="artifacts/vision-player-refinement/review-server.json")
     parser.add_argument("--trim-root", default="artifacts/player-review-clips")
+    parser.add_argument("--video-folder", default="data/local-videos", help="Local video inbox, scanned from the UI")
+    parser.add_argument("--import-cache", default="artifacts/player-review-imports")
+    parser.add_argument("--shared-video-catalog", default="data/videos/catalog.json")
+    parser.add_argument("--tactics-folder", default="data/local-workbench/tactics")
+    parser.add_argument("--inference-python", default="tmp/model-runtime/Scripts/python.exe")
+    parser.add_argument("--models", default="tmp/models")
     parser.add_argument("--player-data-root", default=str(Path(__file__).resolve().parents[2] / '2K Player Data'),
                         help="Local read-only identity data package (default: repository 2K Player Data)")
     parser.add_argument("--court-model", default="tmp/court-models-v2/best.pt", help="Pinned local 48-point weights; loaded on calibration requests only")
@@ -67,6 +74,18 @@ def main():
     clips={}
     for sample in samples:
         clips[sample['id']]=load_clip(parser,sample)
+    mutation_lock=threading.Lock()
+    def publish_local(sample, clip):
+        with mutation_lock:
+            clips[sample['id']]=clip
+            index=next((i for i,item in enumerate(samples) if item['id']==sample['id']),None)
+            if index is None:samples.append(sample)
+            else:samples[index]=sample
+    from local_video_library import LocalVideoLibrary, MAX_UPLOAD, PRESETS, MODEL_CHOICES
+    local_library=LocalVideoLibrary(args.video_folder,args.import_cache,args.inference_python,args.models,
+                                   publish_local,validated_clip,shared_catalog=args.shared_video_catalog)
+    from tactical_workbench import TacticalWorkbench
+    tactics = TacticalWorkbench(args.tactics_folder)
     cache=Path(args.trim_root).resolve();cache.mkdir(parents=True,exist_ok=True)
     saved_path=cache/'library.json';saved=[]
     if saved_path.is_file():
@@ -77,23 +96,101 @@ def main():
             if any(not Path(v['tracks']).resolve().is_relative_to(cache) or not Path(v['tracks']).is_file() for v in sample.get('trackingVariants',[])):continue
             if any(not Path(sample[k]).resolve().is_relative_to(cache) or not Path(sample[k]).is_file() for k in ['courtCandidates','feetCandidates'] if sample.get(k)):continue
             clips[sample['id']]=load_clip(parser,sample);samples.append(sample);saved.append(sample)
-    mutation_lock=threading.Lock()
     court_models={}
     # The data package is opened only when these optional identity APIs are used.
     from player_identity_data import PlayerIdentityData, PlayerIdentityDataUnavailable
     player_data=PlayerIdentityData(args.player_data_root)
     def library_payload():
-        return json.dumps({"defaultSample":default,"samples":[{
+        return json.dumps({"defaultSample":default,"processingPresets":PRESETS,"modelChoices":MODEL_CHOICES,"samples":[{
             **{k:s.get(k) for k in ['id','title','description','sourceUrl']},
             'defaultVariant':clips[s['id']]['defaultVariant']} for s in samples]},ensure_ascii=False).encode('utf-8')
     static = Path(__file__).resolve().parents[1] / "tools/player-review"
     routes = {"/": static / "index.html"}
     for filename in ["style.css","pipeline.css","app.mjs","player-identity.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","simple-annotation.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
         routes['/'+filename]=static/filename
+    routes['/video-library.mjs']=static/'video-library.mjs'
+    routes['/model-selection.mjs']=static/'model-selection.mjs'
+    for filename in ['tactics-ui.mjs','tactics-document.mjs','tactics-storage.mjs','tactics.css']:
+        routes['/'+filename]=static/filename
+    # Explicit aliases for the independent engine's existing relative imports.
+    for route,path in list(routes.items()):
+        if route.endswith('.mjs'):
+            routes['/player-review'+route]=path
+    for filename in ['overlay.mjs','binding.mjs','validation.mjs','geometry.mjs','render-svg.mjs']:
+        routes['/tactical-overlay/'+filename]=static.parent/'tactical-overlay'/filename
 
     class Handler(BaseHTTPRequestHandler):
+        def json_response(self, status, value, head_only=False):
+            payload=json.dumps(value,ensure_ascii=False,allow_nan=False).encode('utf-8')
+            try:
+                self.send_response(status);self.send_header('Content-Type','application/json; charset=utf-8')
+                self.send_header('Content-Length',str(len(payload)));self.send_header('Cache-Control','no-store')
+                self.end_headers()
+                if not head_only:self.wfile.write(payload)
+            except (BrokenPipeError,ConnectionResetError,ConnectionAbortedError):
+                pass  # A tab can navigate after the atomic save has already completed.
+
         def do_POST(self):
             route=urlsplit(self.path).path
+            if route in {'/api/tactics/save','/api/tactics/frame','/api/tactics/export'}:
+                try:
+                    if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
+                        self.headers.get('Origin',f'http://127.0.0.1:{self.server.server_port}')!=f'http://127.0.0.1:{self.server.server_port}'):
+                        self.send_error(403);return
+                    if self.headers.get('Content-Type','').split(';')[0]!='application/json':
+                        self.send_error(415);return
+                    size=int(self.headers.get('Content-Length','0'))
+                    if not 0<size<=32*1024*1024:raise ValueError('战术请求大小不正确。')
+                    request=json.loads(self.rfile.read(size));finite_json(request,'Request')
+                    if not isinstance(request,dict):raise ValueError('请求必须是 JSON 对象。')
+                    source=clips.get(request.get('sample'));variant=request.get('variant')
+                    if not source or variant not in source['payloads']:raise ValueError('找不到视频或模型版本。')
+                    clip=json.loads(source['payloads'][variant])
+                    if route.endswith('/frame'):
+                        if request.get('videoSha256')!=clip['video_sha256']:raise ValueError('视频来源不匹配。')
+                        result={'frames':tactics.frames(source['video'],clip,request.get('frames'))}
+                    elif route.endswith('/save'):
+                        result=tactics.save(request.get('document'),clip,variant,request.get('qa',False),request.get('kind','workspace'),request.get('expectedVersion'))
+                    else:
+                        document=request.get('document');tactics.check_source(document,clip,request.get('kind','workspace'))
+                        tactics.run('validate',document=document)
+                        frames=tactics.frames(source['video'],clip,[s['freezeFrame'] for s in document['playDefinition']['phases']])
+                        result=tactics.run('export',document=document,frames=frames)
+                    self.json_response(200,result)
+                except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
+                    self.json_response(400,{'error':str(error)})
+                return
+            if route in {'/api/video-library/import','/api/video-library/process'}:
+                origin=self.headers.get('Origin')
+                if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
+                    (origin and origin!=f'http://127.0.0.1:{self.server.server_port}')):
+                    self.send_error(403);return
+                try:
+                    from urllib.parse import unquote
+                    size=int(self.headers.get('Content-Length','0'))
+                    if route.endswith('/import'):
+                        if self.headers.get('Content-Type')!='application/octet-stream':
+                            self.send_error(415);return
+                        if not 0<size<=MAX_UPLOAD:raise ValueError('单次导入上限为 2 GB；更大视频请直接放入文件夹。')
+                        result=local_library.import_stream(unquote(self.headers.get('X-Video-Filename','')),self.rfile,size)
+                    else:
+                        if self.headers.get('Content-Type','').split(';')[0]!='application/json':
+                            self.send_error(415);return
+                        if not 0<size<=4096:raise ValueError('请求大小不正确。')
+                        request=json.loads(self.rfile.read(size))
+                        if not isinstance(request,dict):raise ValueError('请求必须是 JSON 对象。')
+                        selected=request.get('variant') if 'detector' in request or 'tracker' in request else request.get('variant','team-stable')
+                        ident=request.get('id')
+                        if request.get('sample'):
+                            source=clips.get(request['sample'])
+                            if source is None:raise ValueError('找不到当前工作台视频。')
+                            title=next((s.get('title',s['id']) for s in samples if s['id']==request['sample']),request['sample'])
+                            ident=local_library.register_review_source(source['video'],title)
+                        result=local_library.start(ident,selected,request.get('detector'),request.get('tracker'))
+                    self.json_response(200,result)
+                except (ValueError,OSError,TypeError) as error:
+                    self.json_response(400,{'error':str(error)})
+                return
             if route not in {'/api/trim','/api/court-propagate','/api/court-calibrate','/api/review-edit'}:self.send_error(404);return
             origin=self.headers.get('Origin')
             if origin and origin!=f'http://127.0.0.1:{self.server.server_port}':self.send_error(403);return
@@ -173,6 +270,26 @@ def main():
         def respond(self, head_only=False):
             from urllib.parse import parse_qs
             parsed=urlsplit(self.path);route=parsed.path;query=parse_qs(parsed.query)
+            if route=='/api/video-library':
+                inventory=local_library.scan()
+                for entry in inventory['entries']:
+                    source=next(((ident,c) for ident,c in list(clips.items()) if c['digest']==entry['sha256']),None)
+                    if source and not entry['variants']:
+                        ident,clip_source=source
+                        entry.update(sampleId=ident,variants=list(clip_source['payloads']),status='ready',message='已有检测结果，可直接打开')
+                self.json_response(200,inventory,head_only);return
+            if route in {'/api/tactics','/api/tactics/candidate'}:
+                try:
+                    if route.endswith('/candidate'):
+                        result=tactics.candidate()
+                    else:
+                        source=clips[query.get('sample',[default])[0]];variant=query.get('variant',[source['defaultVariant']])[0]
+                        clip=json.loads(source['payloads'][variant])
+                        result=tactics.load(clip,variant,query.get('qa',['0'])[0]=='1',query.get('kind',['workspace'])[0])
+                    self.json_response(200,result,head_only)
+                except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
+                    self.json_response(400,{'error':str(error)},head_only)
+                return
             if route in {'/api/player-identity/options','/api/player-identity/lookup'}:
                 query=parse_qs(parsed.query,keep_blank_values=True)
                 status=200
@@ -251,7 +368,9 @@ def main():
     state_path.write_text(json.dumps(state,indent=2)+'\n',encoding='utf-8');print(json.dumps(state),flush=True)
     try:server.serve_forever()
     except KeyboardInterrupt:pass
-    finally:server.server_close()
+    finally:
+        local_library.close()
+        server.server_close()
 
 
 def read_json(path, context):
@@ -514,6 +633,7 @@ def validated_clip(sample):
                 feet_candidates['trackingFingerprint']==entry['rawFingerprint'] else None,
             'frames':entry['records'],'sourceCuts':sample.get('sourceCuts',[]),
             'liveSelection':sample.get('liveSelection'),'source_video_sha256':sample.get('sourceVideoSha256'),
+            'importSourceSha256':sample.get('importSourceSha256'),
             'supportsCourtCalibration':sample.get('supportsCourtCalibration',True),'tracking_revision':identifier,
             'tracking_fingerprint':entry['fingerprint'],'tracking_raw_fingerprint':entry['rawFingerprint'],
             'trackingMetadata':entry['metadata'],

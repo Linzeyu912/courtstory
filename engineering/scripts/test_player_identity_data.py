@@ -269,7 +269,9 @@ class IdentityHTTPTests(unittest.TestCase):
                             for i, t in enumerate(times)])
         cls.command = [sys.executable, str(SCRIPT_ROOT / 'serve_player_review.py'),
                        '--video', str(video), '--tracks', str(tracks), '--port', '0',
-                       '--trim-root', str(cls.root / 'trim'), '--court-profile', str(cls.root / 'no-court.json')]
+                       '--trim-root', str(cls.root / 'trim'), '--court-profile', str(cls.root / 'no-court.json'),
+                       '--video-folder', str(cls.root / 'inbox'), '--import-cache', str(cls.root / 'imports'),
+                       '--tactics-folder', str(cls.root / 'tactics')]
 
     @classmethod
     def tearDownClass(cls):
