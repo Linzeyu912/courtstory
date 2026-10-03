@@ -47,9 +47,9 @@ async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSe
   }
   const get=id=>{if(!nodes.has(id)){const node=make(),tag=html.match(new RegExp(`<[^>]+\\bid="${id}"[^>]*>`))?.[0]||'';
     node.checked=/\bchecked\b/.test(tag);node.hidden=/\bhidden\b/.test(tag);node.disabled=/\bdisabled\b/.test(tag);nodes.set(id,node);}return nodes.get(id);};
-  const tabs=['footage','identity','repair','export','calibration','events'].map(step=>{const tab=get(`tab-${step}`);tab.dataset.step=step;tab.setAttribute('aria-selected',String(step==='footage'));return tab;});
+  const tabs=['footage','identity','calibration','repair','events'].map(step=>{const tab=get(`tab-${step}`);tab.dataset.step=step;tab.setAttribute('aria-selected',String(step==='footage'));return tab;});
   const body={dataset:{reviewView:'advanced'}};
-  const document={body,activeElement:null,getElementById:get,createElement:make,addEventListener(){},querySelector:()=>get('player-overview'),querySelectorAll:selector=>selector==='[data-step]'?tabs:[]};
+  const document={body,activeElement:null,getElementById:get,createElement:make,addEventListener(){},querySelector:()=>get('player-overview'),querySelectorAll:selector=>selector==='button[data-step]'?tabs:[]};
   const globals=['document','window','devicePixelRatio','location','fetch','localStorage','requestAnimationFrame','setTimeout','clearTimeout'];
   const previous=new Map(globals.map(name=>[name,globalThis[name]]));
   const policy=JSON.parse(readFileSync(new URL('./team-overlay-policy.json',import.meta.url)));

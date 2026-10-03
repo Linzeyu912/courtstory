@@ -1002,3 +1002,9 @@ body[data-step=footage] .review-status-line,body[data-step=footage] .review-lege
 .video-info .review-legend {flex-direction:column;align-items:flex-start;gap:8px;margin:0 0 12px;padding:0;}
 .video-info .annotation-review-summary .section-heading {display:block;font-size:11px;color:#69798b;margin-bottom:16px;}
 body[data-step=footage] .annotation-review-summary {display:none;}
+
+.workflow-summary {margin:12px 0;padding:10px 12px;border-left:3px solid #b2945c;background:#f6f3ec;border-radius:4px;}
+.workflow-summary p {margin:4px 0;font-size:12px;line-height:1.65;color:#475666;}
+#continueData,#continueTactics {margin-top:8px;}
+.trajectory-backup {width:min(100%,660px);margin:20px auto;text-align:left;}
+.trajectory-backup summary {cursor:pointer;font-weight:600;}

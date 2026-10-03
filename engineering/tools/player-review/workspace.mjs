@@ -15,10 +15,11 @@ export function createWorkspace(api){
   const reasonLabel={missing:'位置缺失',conflict:'身份冲突',uncalibrated:clip.supportsCourtCalibration===false?'未提供适配场地模板':'球场待标定'};
   const shades={projected:'#1675b6',court_manual:'#6e4fd0',court_estimated:'#b96a09',missing:'#c83d4c',conflict:'#ae385c',uncalibrated:'#a08bd1',out_of_view:'#8c98a8'};
   const time=i=>`${clip.frames[i].time.toFixed(2)} s`;
-  const shell=mountWorkbenchShell({...api,openExport:()=>switchStep('export',true)});
+  const shell=mountWorkbenchShell(api);
   function switchStep(next,scroll=false){
+    if(next==='export'){shell.showArea('production');return;}
     const session=getState().session;
-    if(['identity','repair','export'].includes(next)&&!session.liveSelection){toast('先在第一步保留并确认直播画面。');next='footage';}
+    if(['identity','calibration','repair'].includes(next)&&!session.liveSelection){toast('先在第一步保留并确认直播画面。');next='footage';}
     if(next==='calibration'&&clip.supportsCourtCalibration===false){toast('这段 NCAA 示例用于原图位置验收；尚未提供适配的球场模板。');return;}
     step=next;pending=null;pointMode=false;$('repairCourt').setAttribute('aria-pressed','false');
     document.body.dataset.step=step;
@@ -30,14 +31,18 @@ export function createWorkspace(api){
     (step==='repair'?$('repairIdentityControls'):$('identityMain')).append($('playerProfilePanel'));
     $('repairBindingControls').append($('bindingControls'));
     $('overlay').hidden=step==='footage';$('pointStatus').hidden=step==='footage';
-    document.querySelectorAll('[data-step]').forEach(tab=>{const on=tab.dataset.step===step;tab.setAttribute('aria-selected',String(on));tab.tabIndex=on?0:-1;$(`panel-${tab.dataset.step}`).hidden=!on;});
+    document.querySelectorAll('button[data-step]').forEach(tab=>{const on=tab.dataset.step===step;tab.setAttribute('aria-selected',String(on));tab.tabIndex=on?0:-1;$(`panel-${tab.dataset.step}`).hidden=!on;});
     api.setMode(step==='repair'?'point':'select',{edit:false});
-    $('videoMode').textContent={footage:'核对直播区间及整体站位',calibration:'核对场地线与参照点',identity:'点击候选人物确认球员 1–10',repair:'续接同一球员，手动补脚下点',events:'核对事件发生时刻',export:'导出位置与未解决区间'}[step];
+    if(['calibration','repair'].includes(step)&&view==='half'){
+      const s=state(),mapping=calibrationAt(s.session.courtCalibration,s.frame,clip.frames,s.session.cuts);
+      if(mapping)setPan(mapping.side==='right'?COURT.length/2:0);
+    }
+    $('videoMode').textContent={footage:'核对直播区间及整体站位',calibration:'核对场地线与参照点',identity:'点击候选人物确认球员 1–10',repair:'核对人物位置与 2D 映射，修正缺口',events:'核对事件发生时刻'}[step];
     $('calibrationHelp').textContent='先在示意图选一个点名，再点原视频中同一个地面交点；看不清可换其他点。';
     api.redraw();
     if(scroll)$('stepPanels').scrollTop=0;
   }
-  const tabs=[...document.querySelectorAll('[data-step]')].filter(tab=>!tab.hidden);
+  const tabs=[...document.querySelectorAll('button[data-step]')].filter(tab=>!tab.hidden);
   tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>switchStep(tab.dataset.step));tab.addEventListener('keydown',event=>{let index;if(event.key==='ArrowRight')index=(i+1)%tabs.length;if(event.key==='ArrowLeft')index=(i+tabs.length-1)%tabs.length;if(event.key==='Home')index=0;if(event.key==='End')index=tabs.length-1;if(index!==undefined){event.preventDefault();event.stopPropagation();tabs[index].focus();switchStep(tabs[index].dataset.step);}});});
   function setView(value){view=value;for(const id of ['halfCourt','fullCourt']){const on=id===(view==='half'?'halfCourt':'fullCourt');$(id).classList.toggle('active',on);$(id).setAttribute('aria-pressed',String(on));}for(const id of ['courtPan','panLeft','panRight','followPlayer'])$(id).disabled=view==='full';draw();}
   $('halfCourt').onclick=()=>setView('half');$('fullCourt').onclick=()=>setView('full');
@@ -47,6 +52,11 @@ export function createWorkspace(api){
 
   $('openCourtCalibration').onclick=()=>switchStep('calibration',true);
   $('returnToRepair').onclick=()=>switchStep('repair',true);
+  $('calibrationPlayers').onclick=$('repairPlayers').onclick=()=>switchStep('identity',true);
+  $('repairCalibration').onclick=()=>switchStep('calibration',true);
+  $('repairCalibration').hidden=clip.supportsCourtCalibration===false;
+  $('continueData').onclick=()=>shell.showArea('data');
+  $('continueTactics').onclick=()=>shell.showArea('tactics');
   $('repairImage').onclick=()=>{pointMode=false;api.setMode('point');$('repairCourt').setAttribute('aria-pressed','false');$('repairHelp').textContent='在原视频中，点击当前球员脚下。';};
   $('repairCourt').onclick=()=>{if(!isSelected(state().entity)){toast('请先对应当前球员。');return;}if(clip.supportsCourtCalibration===false){toast('本示例尚未提供适配的球场模板，请在原视频补位置。');return;}getState().video.pause();api.setMode('select');pointMode=true;$('repairCourt').setAttribute('aria-pressed','true');$('repairHelp').textContent='在下方 2D 球场点击当前帧的位置；只保存当前帧，可撤销。';shell.openData();toast('在 2D 球场点击当前帧的位置，可撤销。');draw();};
   $('repairIdentity').onclick=()=>{$('bindingControls').open=true;$('bindingControls').scrollIntoView({behavior:'smooth',block:'nearest'});};
@@ -140,6 +150,11 @@ export function createWorkspace(api){
   }
   function draw(){
     const s=state(),points=courtPoints[s.active]||[],current=points[s.frame],mapping=calibrationAt(s.session.courtCalibration,s.frame,clip.frames,s.session.cuts);
+    const players=s.session.entities.filter(isSelected).filter(e=>e.role==='player'),humanPlayers=players.filter(isHumanIdentitySelected);
+    const mappedNow=players.filter(e=>courtPoints[e.id]?.[s.frame]?.x!=null).length;
+    $('workflowPlayers').textContent=`球员标定：人工关联 ${humanPlayers.length} / 10 人`;
+    $('workflowCourt').textContent=clip.supportsCourtCalibration===false?'球场标定：此素材尚无适配模板':`球场标定：第 ${s.frame+1} 帧${mapping?'有可用映射':'待标定'}`;
+    $('workflowMapping').textContent=`当前帧 ${mappedNow} 名球员有 2D 位置。${mappedNow?'请对照原视频核对，已有位置不代表人工审核通过。':'补齐人物位置和球场映射后会自动显示；缺失位置留空。'}`;
     shell.refresh();
     drawTimeline(points,s);
     if(lastControlFrame!==s.frame)renderControls();else if(step==='calibration')renderGuide();
@@ -232,7 +247,7 @@ export function createWorkspace(api){
       if(pending.image.length===4){if(!validQuad(pending.image)){pending.image=[];$('calibrationHelp').textContent='四点顺序交叉或过于接近，请重新按 A → B → C → D 点选。';api.redraw();return true;}const k={...pending,source:'human',status:'needs_review'};pending=null;change(()=>storeKey(k));$('calibrationHelp').textContent=`第 ${k.frame+1} 帧四角已保存。请播放检查投影，并在镜头移动处补充标定。`;toast('当前帧标定已保存，可撤销。');}
       else{$('calibrationHelp').textContent=`请点击 ${LANDMARK_NAMES[pending.image.length]}`;api.redraw();}return true;
     }
-    if(['events','export'].includes(step)){toast('当前步骤用于核对画面；修改位置请进入“轨迹补全”。');return true;}
+    if(step==='events'){toast('当前步骤用于核对画面；修改位置请进入“2D 轨迹核对”。');return true;}
     return false;
   }
   function drawImageOverlay(context){
