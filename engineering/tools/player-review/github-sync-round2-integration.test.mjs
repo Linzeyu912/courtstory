@@ -47,10 +47,10 @@ function domFixture(){
     setPointerCapture(){},hasPointerCapture:()=>false,releasePointerCapture(){},
     pause(){this.paused=true;},play(){this.paused=false;return Promise.resolve();},requestVideoFrameCallback(){}});
   const get=id=>{if(!nodes.has(id))nodes.set(id,make());return nodes.get(id);};
-  const tabs=['footage','identity','repair','export','calibration','events'].map(step=>{const node=get(`tab-${step}`);node.dataset.step=step;node.setAttribute('aria-selected',String(step==='identity'));return node;});
+  const tabs=['footage','identity','calibration','repair','events'].map(step=>{const node=get(`tab-${step}`);node.dataset.step=step;node.setAttribute('aria-selected',String(step==='identity'));return node;});
   get('calibrationSide').value='left';get('calibrationLandmark').value='A';
   const document={body:{dataset:{}},activeElement:null,getElementById:get,createElement:make,addEventListener(){},dispatchEvent(){},
-    querySelector:()=>get('player-overview'),querySelectorAll:selector=>selector==='[data-step]'?tabs:[]};
+    querySelector:()=>get('player-overview'),querySelectorAll:selector=>selector==='button[data-step]'?tabs:[]};
   const originals=new Map(['document','window','devicePixelRatio','location','fetch','localStorage','requestAnimationFrame','setTimeout','clearTimeout','MutationObserver','ResizeObserver'].map(key=>[key,globalThis[key]]));
   Object.assign(globalThis,{MutationObserver:class {observe(){} disconnect(){}},ResizeObserver:class {observe(){} disconnect(){}},document,window:{addEventListener(){},history:{replaceState(){}}},devicePixelRatio:1,
     location:{search:'?sample=test&variant=ebard&qa=1',assign(){}},requestAnimationFrame(){},
@@ -149,6 +149,20 @@ test('step navigation preserves stable display while the explicit player edit co
       change:fn=>fn(),redraw(){},seek(){},toast(){},isSelected:hasAssociation,color:()=> '#38bdf8'});
     workspace.switchStep('repair');assert.equal(session.presentationStable,true);
     dom.get('repairImage').onclick();assert.equal(session.presentationStable,false);
+  }finally{dom.restore();}
+});
+
+test('entering 2D review shows the calibrated half without changing player or court data',()=>{
+  const dom=domFixture();
+  try{
+    const session=calibratedSession();session.courtCalibration.keyframes[0].side='right';
+    const before=structuredClone(session);
+    const workspace=createWorkspace({clip,getState:()=>({session,active:'P1',frame:0,video:dom.get('video'),trajectories:buildTrajectories(session,frames)}),
+      setMode(){},change:fn=>fn(),redraw(){},seek(){},toast(){},isSelected:hasAssociation,color:()=> '#38bdf8'});
+    workspace.refresh();workspace.switchStep('repair');
+    assert.equal(dom.get('courtPan').value,1000);assert.deepEqual(session,before);
+    assert.match(dom.get('workflowCourt').textContent,/有可用映射/);
+    assert.match(dom.get('workflowMapping').textContent,/当前帧 1 名球员有 2D 位置/);
   }finally{dom.restore();}
 });
 

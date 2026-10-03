@@ -79,7 +79,7 @@ export function mountWorkbenchShell(api) {
     area = 'video';
     returnArea = 'video';
     // A preview belongs to the current step; tab navigation starts a fresh layout.
-    if (changedStep) drawerState = step === 'calibration' ? 'half' : 'closed';
+    if (changedStep) drawerState = ['calibration','repair'].includes(step) ? 'half' : 'closed';
     else if (drawerState === 'full') drawerState = 'half';
     $('sourceDetails').open = false;
     body.dataset.tools = 'expanded';
@@ -94,7 +94,7 @@ export function mountWorkbenchShell(api) {
     button.addEventListener('click', () => showArea(button.dataset.areaTarget));
   });
   $('backToVideo').onclick = () => showArea('video');
-  $('deliveryData').onclick = () => api.openExport();
+  $('deliveryData').onclick = () => showArea('data');
   $('deliveryTactics').onclick = () => showArea('tactics');
   $('drawerToggle').onclick = () => setDrawer(drawerState === 'closed' ? 'half' : 'closed');
   $('drawerHalf').onclick = () => setDrawer('half');

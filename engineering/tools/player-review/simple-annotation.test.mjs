@@ -41,10 +41,10 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit}={}){
   }
   const get=id=>{if(!nodes.has(id)){const node=make(),tag=html.match(new RegExp(`<[^>]+\\bid="${id}"[^>]*>`))?.[0]||'';
     node.checked=/\bchecked\b/.test(tag);node.hidden=/\bhidden\b/.test(tag);nodes.set(id,node);}return nodes.get(id);};
-  const tabs=['footage','identity','repair','export','calibration','events'].map(step=>{const tab=get(`tab-${step}`);tab.dataset.step=step;tab.setAttribute('aria-selected',String(step==='footage'));return tab;});
+  const tabs=['footage','identity','calibration','repair','events'].map(step=>{const tab=get(`tab-${step}`);tab.dataset.step=step;tab.setAttribute('aria-selected',String(step==='footage'));return tab;});
   const areas=['video','data','tactics','production'].map(area=>{const node=get(`area-${area}`);node.dataset.areaTarget=area;return node;});
   const body={dataset:{},classList:{add(){},remove(){}}},initialView=html.match(/<body[^>]+data-review-view="([^"]+)"/)?.[1];if(initialView)body.dataset.reviewView=initialView;
-  const document={body,activeElement:null,getElementById:get,createElement:make,addEventListener(){},dispatchEvent(){},querySelector:()=>get('player-overview'),querySelectorAll:selector=>selector==='[data-step]'?tabs:selector==='[data-area-target]'?areas:[]};
+  const document={body,activeElement:null,getElementById:get,createElement:make,addEventListener(){},dispatchEvent(){},querySelector:()=>get('player-overview'),querySelectorAll:selector=>selector==='button[data-step]'?tabs:selector==='[data-area-target]'?areas:[]};
   const globals=['document','window','devicePixelRatio','location','fetch','localStorage','requestAnimationFrame','setTimeout','clearTimeout','MutationObserver','ResizeObserver'];
   const previous=new Map(globals.map(name=>[name,globalThis[name]]));
   const policy=JSON.parse(readFileSync(new URL('./team-overlay-policy.json',import.meta.url)));
@@ -144,10 +144,41 @@ test('left navigation and step controls preserve the draft and stable display wh
     const before=structuredClone(app.state().session);assert.equal(app.body.dataset.step,'identity');
     app.get('area-data').click();assert.equal(app.body.dataset.area,'data');assert.equal(app.body.dataset.drawer,'full');
     app.get('tab-repair').click();assert.equal(app.body.dataset.step,'repair');assert.equal(app.body.dataset.area,'video');
-    assert.equal(app.body.dataset.drawer,'closed');assert.equal(app.state().session.presentationStable,true);
-    app.get('drawerToggle').click();assert.equal(app.body.dataset.drawer,'half');
+    assert.equal(app.body.dataset.drawer,'half');assert.equal(app.state().session.presentationStable,true);
+    app.get('drawerToggle').click();assert.equal(app.body.dataset.drawer,'closed');
     app.get('tab-identity').click();assert.equal(app.body.dataset.drawer,'closed');
     assert.deepEqual(app.state().session,before);assert.equal(app.saved.get(app.key),JSON.stringify(before));
+  }finally{app.restore();}
+});
+
+test('court calibration and 2D review continue inside the workbench without changing or downloading the draft',async()=>{
+  const app=await openApp();try{
+    const before=structuredClone(app.state().session),saved=app.saved.get(app.key);
+    app.get('tab-calibration').click();assert.equal(app.body.dataset.step,'calibration');
+    assert.equal(app.body.dataset.drawer,'half','court review opens beside the video before all ten identities are complete');
+    app.get('calibrationPlayers').click();assert.equal(app.body.dataset.step,'identity');
+    app.get('tab-calibration').click();app.get('returnToRepair').click();
+    assert.equal(app.body.dataset.step,'repair');assert.equal(app.body.dataset.drawer,'half');
+    assert.match(app.get('workflowCourt').textContent,/第 1 帧待标定/);
+    app.get('next').click();assert.match(app.get('workflowCourt').textContent,/第 2 帧待标定/);
+    app.get('continueData').click();assert.equal(app.body.dataset.area,'data');assert.equal(app.body.dataset.drawer,'full');
+    app.get('tab-repair').click();app.get('continueTactics').click();assert.equal(app.body.dataset.area,'tactics');
+    app.get('area-production').click();app.get('deliveryData').click();assert.equal(app.body.dataset.area,'data');
+    assert.deepEqual(app.state().session,before);assert.equal(app.saved.get(app.key),saved);
+  }finally{app.restore();}
+});
+
+test('confirming the ten-player roster continues to court calibration and preserves all existing positions',async()=>{
+  const app=await openApp();try{
+    const session=app.state().session;
+    session.entities.filter(entity=>entity.role==='player').forEach((entity,index)=>{
+      entity.anchors=[{frame:0,x:100+index*30,y:200,identityConfirmed:true}];
+    });
+    app.select('P1');const people=structuredClone(session.entities);
+    assert.equal(app.get('identityDone').disabled,false);app.get('identityDone').click();
+    assert.equal(app.body.dataset.step,'calibration');assert.equal(app.body.dataset.drawer,'half');
+    assert.equal(session.identitySelection.playerIds.length,10);assert.deepEqual(session.entities,people);
+    assert.equal(session.courtCalibration?.keyframes?.length||0,0,'continuing cannot invent court mapping');
   }finally{app.restore();}
 });
 
