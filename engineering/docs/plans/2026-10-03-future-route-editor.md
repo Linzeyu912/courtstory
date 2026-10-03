@@ -23,30 +23,30 @@ Spec: `../specs/2026-10-03-future-route-editor.md`
 
 ## Task 1: 稳定的路线数据与展示几何
 
-- [ ] 新增 `engineering/tools/player-review/tactics-presentation.mjs`，测试位于同目录 `.test.mjs`；扩展 `tactics-document.mjs` 及其测试。
-- [ ] 复用 tactical-overlay 的 `createGeometryContext` / `buildActionGeometry` 和 `DEFAULT_OPTIONS`，按阶段参与者的 freezeFrame 到 endFrameExclusive 生成合法分段，无需 actions。
-- [ ] 文档顶层可选 `presentation` 保存有界、可验证的人工控制点及来源绑定；为 UI 提供提取、修改、恢复、验证、显示过期状态的纯函数。旧文档有效；分段/合并/快照刷新后修正被保留但不能误套。
-- [ ] 平滑保留时间锚点，禁止跨段；提供按媒体时间剩余裁剪、当前帧投影及 SVG/几何绘制接口。人字箭头与落点圈先在球场构造再投影，支持选中/全部；到达后路线/圈消失。坐标转换供 UI 编辑调用。
-- [ ] 针对缺测/切镜/身份边界、异常跳跃、人工字段校验、来源更新失效、review 不变、曲线稳定、时间裁剪与透视写有效测试，先红后绿。复用既有 fixture。
-- [ ] 运行相关 Node 测试，记录提供给后续任务的精确 API 与结果，选择性本地提交。
+- [x] 新增 `engineering/tools/player-review/tactics-presentation.mjs`，测试位于同目录 `.test.mjs`；扩展 `tactics-document.mjs` 及其测试。
+- [x] 复用 tactical-overlay 的 `createGeometryContext` / `buildActionGeometry` 和 `DEFAULT_OPTIONS`，按阶段参与者的 freezeFrame 到 endFrameExclusive 生成合法分段，无需 actions。
+- [x] 文档顶层可选 `presentation` 保存有界、可验证的人工控制点及来源绑定；为 UI 提供提取、修改、恢复、验证、显示过期状态的纯函数。旧文档有效；分段/合并/快照刷新后修正被保留但不能误套。
+- [x] 平滑保留时间锚点，禁止跨段；提供按媒体时间剩余裁剪、当前帧投影及 SVG/几何绘制接口。人字箭头与落点圈先在球场构造再投影，支持选中/全部；到达后路线/圈消失。坐标转换供 UI 编辑调用。
+- [x] 针对缺测/切镜/身份边界、异常跳跃、人工字段校验、来源更新失效、review 不变、曲线稳定、时间裁剪与透视写有效测试，先红后绿。复用既有 fixture。
+- [x] 运行相关 Node 测试，记录提供给后续任务的精确 API 与结果，选择性本地提交。
 
 ## Task 2: 人工路线编辑与可靠保存
 
-- [ ] 主要编辑 `tactics-ui.mjs` / `tactics.css`，消费 Task 1 API，在原战术画布展示平滑贴地路线；保留原审核名单/问题入口。默认突出选中球员，可切全部。
-- [ ] 暂停后选合法路线段，拖动/插入/删除控制点、恢复来源、撤销。插点使用时间有序的帧锚点，端点不能随意删除。提示人工展示修正/过期状态。
-- [ ] 坐标按实际 SVG 变换逆映射到球场，支持缩放和滚动；pointerup 单次提交，pointercancel/切阶段/加载时取消，不允许迟到结果写错文档。
-- [ ] 沿用 validateDocument / commit / IndexedDB / CAS 链；增有意义的交互/状态测试。旧草稿与新草稿皆可，未选路线明确提示。
-- [ ] JSON 保留完整修正；冻结报告如果不绘制新展示路线，在 UI 和报告输出中明确范围，不能默默丢弃。
-- [ ] 运行定向测试；记录 Task 3 使用的绘制/缓存接口及现有边界，选择性本地提交。
+- [x] 主要编辑 `tactics-ui.mjs` / `tactics.css`，消费 Task 1 API，在原战术画布展示平滑贴地路线；保留原审核名单/问题入口。默认突出选中球员，可切全部。
+- [x] 暂停后选合法路线段，拖动/插入/删除控制点、恢复来源、撤销。插点使用时间有序的帧锚点，端点不能随意删除。提示人工展示修正/过期状态。
+- [x] 坐标按实际 SVG 变换逆映射到球场，支持缩放和滚动；pointerup 单次提交，pointercancel/切阶段/加载时取消，不允许迟到结果写错文档。
+- [x] 沿用 validateDocument / commit / IndexedDB / CAS 链；增有意义的交互/状态测试。旧草稿与新草稿皆可，未选路线明确提示。
+- [x] JSON 保留完整修正；冻结报告如果不绘制新展示路线，在 UI 和报告输出中明确范围，不能默默丢弃。
+- [x] 运行定向测试；记录 Task 3 使用的绘制/缓存接口及现有边界，选择性本地提交。
 
 ## Task 3: 阶段暂停播放、浏览器验收与文档
 
-- [ ] 扩展 `app.mjs` 到 `tactics-ui.mjs` 的播放器桥接，复用 video-display 的已呈现帧回调及现有 frameAtMediaTime / frameSeekTime。使用一个战术主画布，播放期间本地已解码帧为背景，不逐帧请求 JPEG。
-- [ ] 加入继续/暂停/重播本阶段操作，选阶段定位冻结帧；播放跨过下一冻结点也正确暂停并定位，末段结束停止；支持手动 seek/后退/重播与退出，不重复暂停或意外自动播放。
-- [ ] 每帧只裁剪缓存曲线并用当前帧标定投影；无标定隐藏视频路线并提示。防止旧异步预览覆盖播放/新阶段。
-- [ ] 状态机测试覆盖跳帧、末帧、重播、暂停、外部 seek；运行完整相关 Node 测试和 Python tactical_workbench 集成测试。
-- [ ] 更新 `engineering/docs/workbench-integration.md` 与本次独立 handoff，准确记录交互、来源、导出和已知限制。
-- [ ] 控制器在隔离 QA 页面进行真实视频的改点、保存、刷新、播放消线和下一冻结点暂停验收；独立最终评审，修复阻断问题。选择性本地提交，不推送。
+- [x] 扩展 `app.mjs` 到 `tactics-ui.mjs` 的播放器桥接，复用 video-display 的已呈现帧回调及现有 frameAtMediaTime / frameSeekTime。使用一个战术主画布，播放期间本地已解码帧为背景，不逐帧请求 JPEG。
+- [x] 加入继续/暂停/重播本阶段操作，选阶段定位冻结帧；播放跨过下一冻结点也正确暂停并定位，末段结束停止；支持手动 seek/后退/重播与退出，不重复暂停或意外自动播放。
+- [x] 每帧只裁剪缓存曲线并用当前帧标定投影；无标定隐藏视频路线并提示。防止旧异步预览覆盖播放/新阶段。
+- [x] 状态机测试覆盖跳帧、末帧、重播、暂停、外部 seek；运行完整相关 Node 测试和 Python tactical_workbench 集成测试。
+- [x] 更新 `engineering/docs/workbench-integration.md` 与本次独立 handoff，准确记录交互、来源、导出和已知限制。
+- [x] 控制器在隔离 QA 页面进行真实视频的改点、保存、刷新、播放消线和下一冻结点暂停验收；独立最终评审，修复阻断问题。选择性本地提交，不推送。
 
 ## Preflight rulings
 
@@ -55,5 +55,7 @@ Spec: `../specs/2026-10-03-future-route-editor.md`
 | 新增编辑器或沿用入口 | 沿用战术分析页面及文档，避免双份草稿 |
 | 人工修正是什么 | 独立展示控制点，不是观测或审核证据 |
 | 默认路线来源 | 阶段内合法观测，不依赖人工动作标签 |
-| 播放资源 | 原 video-display 与已呈现帧；精确冻结 JPEG 仅冻结时使用 |
+| 播放资源 | 同步模式统一使用原 video-display 的已呈现帧，冻结和播放均不请求逐帧 JPEG；既有非同步接口保留冻结图能力 |
 | 协作方式 | 按仓库规则直接 main 本地提交；未授权新功能推送 |
+
+用户追加约束（2026-10-03）：视频画面去掉球员姓名、编号和动作说明等可见文字标签；选人和编辑操作保留在画面外。仅显示路线、箭头、落点提示及编辑时的控制点。
