@@ -6,7 +6,7 @@ import {createWorkspace} from './workspace.mjs';
 import {blankSession,ensurePlayerSlots,buildTrajectories,confirmFrameIdentity,correctFrameIdentity,reviewTrailCuts,gapRanges,exportReview,isHumanIdentitySelected,isSelected,hasAssociation,entityLabel,playerDisplayState,draftStorageKey,trackingModelSummary,trackCatalog,confirmBinding,continuationSuggestions} from './trajectory.mjs';
 import {IDENTITY_BINDING_MODE,migrateIdentitySession,confirmIdentity,confirmUntrackedFrame,identityInterval,identityConfirmationInterval,identitySuggestionSummary} from './identity-timeline.mjs';
 import {teamOverlayStyle,stabilizePoints,presentationPoint,frameAtMediaTime,frameSeekTime} from './team-overlay.mjs';
-import {personProposals,pickPersonProposal,visibleObjects,personTrail,indexTemporaryTracks,temporaryTrail,mergeSourceCuts,toggleReviewCut} from './tracking-display.mjs';
+import {personProposals,pickPersonProposal,visibleObjects,personTrail,indexTemporaryTracks,temporaryTrail,mergeSourceCuts,toggleReviewCut,REVIEW_COLORS,trackingReviewState,reviewedPersonTrail} from './tracking-display.mjs';
 import {mountSceneObjects} from './scene-objects-ui.mjs';
 import {feetForPoint,footCandidateAnchor} from './feet-candidates.mjs';
 import {initializeAutomaticAnnotations,automaticPlayerCandidates,automaticAnnotationPointVisible} from './automatic-annotations.mjs';
@@ -146,13 +146,29 @@ function drawPlayer(point,style){
   ctx.font=`bold ${size}px sans-serif`;const width=ctx.measureText(style.label).width;
   ctx.fillStyle='#221910';ctx.fillRect(point.x-width/2-3,y-size-3,width+6,size+7);ctx.fillStyle=style.color;ctx.fillText(style.label,point.x-width/2,y);
 }
+function drawReviewedTrail(trail,points){
+  const {markers,segments}=reviewedPersonTrail(trail,points);
+  ctx.save();ctx.lineCap='round';ctx.lineJoin='round';ctx.setLineDash([]);
+  for(const {from,to,status} of segments){
+    ctx.beginPath();ctx.moveTo(from.x,from.y);ctx.lineTo(to.x,to.y);
+    ctx.strokeStyle='#102133b0';ctx.lineWidth=9;ctx.stroke();
+    ctx.strokeStyle=REVIEW_COLORS[status];ctx.lineWidth=5;ctx.stroke();
+  }
+  for(const point of markers){
+    if(['missing','invalid','out_of_view'].includes(point.review.status))continue;
+    ctx.beginPath();ctx.arc(point.x,point.y,point.review.status==='human'?5.5:3,0,2*Math.PI);
+    ctx.fillStyle=REVIEW_COLORS[point.review.status];ctx.fill();
+    if(point.review.status==='human'){ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();}
+  }
+  ctx.restore();
+}
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   const candidates=proposals(),objects=sceneUI?.objects()||visibleObjects(clip.frames[frame]);
   const pTail=hasAssociation(entity())?personTrail(trajectories[active],clip.frames,frame,playerTrailCuts[active]||session.cuts):[];
   if($('showTrackTrails').checked){
-    for(const candidate of candidates)if(candidate.trackId!=null)drawTrail(temporaryTrail(trackIndex,clip.frames,candidate.trackId,frame,temporaryTrailCuts.get(candidate.trackId)||session.cuts),candidate.role==='referee'?'#6eb3ec':'#b4c2cd');
-    drawTrail(pTail,color(active),true);
+    for(const candidate of candidates)if(candidate.trackId!=null)drawTrail(temporaryTrail(trackIndex,clip.frames,candidate.trackId,frame,temporaryTrailCuts.get(candidate.trackId)||session.cuts),REVIEW_COLORS.machine);
+    drawReviewedTrail(pTail,trajectories[active]);
   }
   if($('showObjects').checked)for(const object of objects){
     const stroke=object.kind==='basketball'?'#ffaf52':'#ff78b7',name=object.kind==='basketball'?'篮球候选':'篮筐候选';
@@ -194,14 +210,23 @@ function draw(){
   descriptions.manual_path='手绘路径的拟补位置，时间沿路径均匀分配；逐帧核对后点击脚点或保存坐标确认。';
   $('pointStatus').textContent=hasAssociation(item)?`${entityLabel(active)} · ${descriptions[point?.source]||''}`:`${entityLabel(active)} · 位置未知。点击候选人物后人工确认。`;
   $('cut').disabled=sourceCuts.includes(frame);
-  $('cut').textContent=sourceCuts.includes(frame)?'固定拼接点 · 轨迹在此断开':session.cuts.includes(frame)?'移除此处切镜标记':'此处标记切镜';drawTimeline();workspace?.draw();workspace?.drawImageOverlay(ctx);identityUI.render({entity:entity(),teamPolicy,display:playerDisplayState(entity(),point),entities:session.entities.map(e=>({id:e.id,name:e.name,role:e.role,teamSide:e.teamSide,selected:isAssigned(e),display:playerDisplayState(e,trajectories[e.id]?.[frame]),hasRecords:['anchors','identityKeyframes','bindings','modelBindings','courtAnchors','events','frameConfirmations'].some(field=>e[field]?.length)})),reviewBusy,releaseRange:identityInterval(session,entity(),frame,clip.frames.length),point:trajectories[active]?.[frame],frame,mode,associationScope,trackAssignments:trackAssignments(),proposals:candidates,previewTrackId,observedIds:[...new Set((trajectories[active]||[]).filter(p=>p.trackId!=null&&p.x!=null).map(p=>p.trackId))],identityRanges:(entity().identityKeyframes||[]).map(item=>({...item,...identityConfirmationInterval(session,entity(),item.frame,clip.frames.length),time:clip.frames[item.frame].time}))});
+  $('cut').textContent=sourceCuts.includes(frame)?'固定拼接点 · 轨迹在此断开':session.cuts.includes(frame)?'移除此处切镜标记':'此处标记切镜';drawTimeline();workspace?.draw();workspace?.drawImageOverlay(ctx);identityUI.render({entity:entity(),teamPolicy,display:playerDisplayState(entity(),point),entities:session.entities.map(e=>({id:e.id,name:e.name,role:e.role,teamSide:e.teamSide,selected:isAssigned(e),display:playerDisplayState(e,trajectories[e.id]?.[frame]),review:trackingReviewState(trajectories[e.id]?.[frame]),hasRecords:['anchors','identityKeyframes','bindings','modelBindings','courtAnchors','events','frameConfirmations'].some(field=>e[field]?.length)})),reviewBusy,releaseRange:identityInterval(session,entity(),frame,clip.frames.length),point:trajectories[active]?.[frame],frame,mode,associationScope,trackAssignments:trackAssignments(),proposals:candidates,previewTrackId,observedIds:[...new Set((trajectories[active]||[]).filter(p=>p.trackId!=null&&p.x!=null).map(p=>p.trackId))],identityRanges:(entity().identityKeyframes||[]).map(item=>({...item,...identityConfirmationInterval(session,entity(),item.frame,clip.frames.length),time:clip.frames[item.frame].time}))});
   const detection=detectionFrameSummary(clip.frames[frame],clip.detectorEvidence);
   $('detectionSummary').textContent=`${detection.label} · 已跟踪 ${detection.trackedCount} / 未跟踪 ${detection.pendingCount} / 已抑制 ${detection.suppressedCount}`;
   $('detectionEvidence').textContent=detection.detail;
   const diagnostic=trackingDiagnostic(clip.frames[frame],point,previewTrackId!=null?candidates.find(item=>item.trackId===previewTrackId):previewBox?.frame===frame?candidates.find(item=>item.sourcePartition===previewBox.sourcePartition&&item.sourceIndex===previewBox.sourceIndex):null,clip.detectorEvidence);$('trackingDiagnosis').textContent=`${diagnostic.label}：${diagnostic.detail}`;
   playerIdentityUI?.render();
 }
-function drawTimeline(){const target=$('timeline'),context=target.getContext('2d');target.width=Math.round(target.clientWidth*devicePixelRatio);target.height=36*devicePixelRatio;const points=trajectories[active]||[];const shades={manual:'#2563eb',tracked:'#c88821',interpolated:'#d99516',missing:'#db737c',conflict:'#ad3156',out_of_view:'#8c98a8'};context.clearRect(0,0,target.width,target.height);if(hasAssociation(entity())){points.forEach((point,index)=>{context.fillStyle=point.identitySource==='model_suggestion'&&point.x!=null?'#c88821':shades[point.source];context.fillRect(index/points.length*target.width,8*devicePixelRatio,target.width/points.length+1,20*devicePixelRatio);});}for(const cut of session.cuts){context.fillStyle='#122034';context.fillRect(cut/clip.frames.length*target.width,0,2*devicePixelRatio,target.height);}context.fillStyle='#122034';context.fillRect(frame/clip.frames.length*target.width,0,3*devicePixelRatio,target.height);}
+function drawTimeline(){
+  const target=$('timeline'),context=target.getContext('2d'),dpr=devicePixelRatio||1,points=trajectories[active]||[];
+  target.width=Math.round(target.clientWidth*dpr);target.height=36*dpr;context.clearRect(0,0,target.width,target.height);
+  if(hasAssociation(entity()))points.forEach((point,index)=>{context.fillStyle=REVIEW_COLORS[trackingReviewState(point).status];context.fillRect(index/points.length*target.width,8*dpr,target.width/points.length+1,20*dpr);});
+  for(const cut of session.cuts){context.fillStyle='#122034';context.fillRect(cut/clip.frames.length*target.width,0,2*dpr,target.height);}
+  context.fillStyle='#122034';context.fillRect(frame/clip.frames.length*target.width,0,2*dpr,target.height);
+  const review=trackingReviewState(points[frame]),badge=$('trackingReviewStatus');badge.dataset.review=review.status;badge.textContent=`人物：${review.label}`;
+  target.title=`第 ${frame+1} 帧 · ${review.label}。绿色只确认本帧人物，脚点与球场标定另行核对。`;
+  target.setAttribute('aria-valuenow',String(frame+1));target.setAttribute('aria-valuemax',String(clip.frames.length));target.setAttribute('aria-valuetext',target.title);
+}
 function refresh(){
   session.cuts=mergeSourceCuts(session.cuts,sourceCuts,clip.frames.length);
   trajectories=buildTrajectories(session,clip.frames,sourceCuts);

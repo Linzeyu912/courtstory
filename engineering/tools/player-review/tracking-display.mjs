@@ -1,4 +1,31 @@
 // Display helpers keep observed image trails separate from estimated trajectories.
+export const REVIEW_COLORS=Object.freeze({machine:'#2563eb',human:'#16834a',pending:'#b97812',missing:'#db737c',invalid:'#ad3156',out_of_view:'#8c98a8',empty:'#e8edf2'});
+export function trackingReviewState(point){
+  if(point?.reviewExcluded)return {status:'missing',label:'已取消关联'};
+  if(point?.source==='out_of_view')return {status:'out_of_view',label:'已标记出画'};
+  if(point?.source==='conflict')return {status:'invalid',label:'身份冲突'};
+  if(point?.x==null||point?.y==null)return {status:'missing',label:'缺少跟踪位置'};
+  if(['interpolated','manual_path'].includes(point.source))return {status:'pending',label:'估计位置，待核对'};
+  if(point.frameIdentityConfirmed===true)return {status:'human',label:'本帧人物已人工确认'};
+  if(point.source==='manual')return {status:'pending',label:'人工修改，人物待确认'};
+  return {status:'machine',label:'机器已跟踪，待人工确认'};
+}
+
+// A reviewed observation colors its own marker. A connecting segment is green
+// only when both adjacent observations have explicit current-frame reviews.
+export function reviewedPersonTrail(trail,points){
+  const markers=trail.map(point=>({...point,review:trackingReviewState(points?.[point.frame])}));
+  const segments=[];
+  for(let i=1;i<markers.length;i++){
+    const from=markers[i-1],to=markers[i];
+    if(to.frame!==from.frame+1)continue;
+    const states=[from.review.status,to.review.status];
+    if(states.some(status=>['missing','invalid','out_of_view'].includes(status)))continue;
+    segments.push({from,to,status:states.every(status=>status==='human')?'human':states.includes('pending')?'pending':'machine'});
+  }
+  return {markers,segments};
+}
+
 export function mergeSourceCuts(cuts=[],sourceCuts=[],frameCount=Infinity) {
   return [...new Set([...cuts,...sourceCuts].filter(frame=>Number.isInteger(frame)&&frame>=0&&frame<frameCount))].sort((a,b)=>a-b);
 }
