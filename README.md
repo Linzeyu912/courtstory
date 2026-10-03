@@ -7,6 +7,8 @@
 
 ## 工作台更新
 
+2026-10-03 16:30 整理发布：视频库与独立 YOLO / 跟踪器组合、THY 战术审核与冻结报告、候选显示和扩大视频布局已分三类提交并推送 `main`，功能提交为 [2eeca0e](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/2eeca0e9f056da606a56d64d651289eb395bebd1)、[ee65937](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/ee65937449017ae5fcb5a25c1ba9386bce9f1943)、[74967ed](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/74967ed576698db9972fee2b9997eb9d6b4b9d1a)。本机视频、处理缓存和人工核验草稿继续保留，正式服务保持运行。前端 314 项通过 / 1 权限跳过，后端 199 项通过；分类范围、数据保留与视频校验限制见[发布交接](handoffs/Linzeyu912/2026-10-03-1630-workbench-updates-publication.md)。此前各轮记录保留当时状态。
+
 2026-10-03 已按用户授权将人物关联冲突纠正、人物 / 球场蓝绿审核状态分成两项功能提交，推送工作分支后与最新 `main` 合并。功能合并提交为 [7ee65bd](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/7ee65bd88694fab6341dac8e0060842958ef58f0)，已核对本地 `main` 与两个远端分支一致；保留队友新增研究归档。241 项前端、216 项后端及构建检查通过。分类提交、冲突处理和数据校验边界见[本次发布交接](handoffs/Linzeyu912/2026-10-03-1005-workbench-main-publication.md)。下文早期分支状态保留对应轮次，后续恢复仓库默认的 main 协作流程。
 
 2026-10-02 的工作分支 `codex/local-workbench-20261002` 保存用户版与 THY 版的选择性整合：保留原 UI、脚点与球场映射，接入多模型及 2K 查询，增加整段 T 归并和待核对提示，红蓝仅表示分队。五个功能提交当日已推送；[更新说明、提交清单与验证结果](engineering/docs/workbench-branch-update-20261002.md)记录完整范围。当时仅更新工作分支，现已随上方合并进入 main。

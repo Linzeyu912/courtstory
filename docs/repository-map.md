@@ -7,6 +7,7 @@
 ```text
 requirements/                 # 赛事要求、培训整理、历史来源与阅读手册
 engineering/                  # 软件、产品设计、技术研究与测量
+  tools/tactical-overlay/    # 独立战术引擎、SVG 与报告构建
   tools/player-review/        # 复核工作台前端、bundle 和 JavaScript 测试
   scripts/                    # Python 服务、视觉处理和实验脚本
   docs/                       # 产品 / 工程设计
@@ -51,3 +52,7 @@ scripts/                      # 仓库维护：视频索引校验、历史手册
 `artifacts/`、`tmp/`、`data/raw/`、依赖环境和浏览器草稿继续排除，不能作为其他成员获取已共享成果的入口。已选成片仅在 `data/videos/` 用 Git LFS 保存，提交前运行 `python scripts/validate_video_data.py --check-index`。云部署、组外分享和赛事提交不在本轮授权范围。
 
 本次分类提交、验证和远端核对结果见[整理同步交接](../handoffs/Linzeyu912/2026-10-02-1109-organize-publish.md)。
+
+## 2026-10-03 工作台整合补充
+
+共享战术候选在 [data/tactics](../data/tactics/README.md)，本机审核数据在 [data/local-workbench](../data/local-workbench/README.md)，本机导入原片在 [data/local-videos](../data/local-videos/README.md)。视频库读取共享 catalog，包含今天新增的两批 15 段上传视频；现共登记 157 段。功能代码留在工程目录；已有推理缓存保持忽略。见[整合说明](../engineering/docs/workbench-integration.md)。
