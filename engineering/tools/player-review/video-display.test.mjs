@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {mountVideoDisplay} from './video-display.mjs';
 import {frameAtMediaTime,frameSeekTime} from './team-overlay.mjs';
+import {createPhasePlayback} from './tactics-playback.mjs';
 
 class FakeEvents {
   listeners=new Map();
@@ -25,14 +26,53 @@ class FakeVideo extends FakeEvents {
   cancelVideoFrameCallback(id){this.callbacks.delete(id);}
   frame(time=this.time){this.time=time;const item=this.callbacks.entries().next().value;if(item){this.callbacks.delete(item[0]);item[1](0,{mediaTime:time});}}
 }
-function setup(t,{initial=0,startTime=0,video=new FakeVideo(),onReady}={}) {
+function setup(t,{initial=0,startTime=0,video=new FakeVideo(),onReady,onFrame}={}) {
   const draws=[],ready=[],presented=[],errors=[],status={hidden:false},message={textContent:''},retry=new FakeEvents(),stage={dataset:{}};
   let target=initial,drawError=null;
   const canvas={width:1920,height:1080,dataset:{},getContext:()=>({drawImage(...args){if(drawError)throw drawError;draws.push({time:video.currentTime,args});}})};
-  const display=mountVideoDisplay({video,canvas,status,message,retry,stage,startTime,getTargetTime:()=>target,onReady:point=>{ready.push(point);onReady?.(point);},onFrame:point=>presented.push(point),onError:error=>errors.push(error)});
+  const display=mountVideoDisplay({video,canvas,status,message,retry,stage,startTime,getTargetTime:()=>target,onReady:point=>{ready.push(point);onReady?.(point);},onFrame:point=>{presented.push(point);onFrame?.(point);},onError:error=>errors.push(error)});
   t.after(()=>display.dispose());
   return {video,canvas,status,message,retry,stage,display,draws,ready,presented,errors,setTarget:value=>target=value,setDrawError:error=>drawError=error};
 }
+
+test('explicit play resumes after a queued seek and pause cancels deferred resume',async t=>{
+  const s=setup(t);s.video.metadata();s.video.data();
+  assert.equal(typeof s.display.play,'function');
+  s.display.seek(3);s.display.play();assert.equal(s.video.plays,0);
+  s.video.finishSeek();await Promise.resolve();assert.equal(s.video.plays,1);
+  s.display.seek(4);s.display.play();s.display.pause();s.video.finishSeek();await Promise.resolve();assert.equal(s.video.plays,1);
+});
+
+test('phase boundary and final frame complete exact-hit seeks inside presented callbacks; skipped freezes decode their target',async t=>{
+  const frames=Array.from({length:61},(_,i)=>({time:i*.1})),p=createPhasePlayback();
+  p.configure([{phaseId:'a',startFrame:0,endFrameExclusive:30,freezeFrame:12},{phaseId:'b',startFrame:30,endFrameExclusive:61,freezeFrame:42}],'a');
+  let s;
+  const run=commands=>{for(const c of commands){if(c.type==='pause')s.display.pause();else if(c.type==='play')s.display.play();else if(c.type==='seek')s.display.seek(frameSeekTime(frames,c.frame));}};
+  s=setup(t,{initial:frameSeekTime(frames,12),onFrame:({time})=>run(p.presented(frameAtMediaTime(frames,time)))});
+  s.video.metadata();s.video.finishSeek();run(p.select('a'));run(p.continue(12));await Promise.resolve();
+  s.video.frame(frameSeekTime(frames,42));await Promise.resolve();assert.equal(p.state().status,'paused');assert.equal(s.stage.dataset.videoState,'ready');assert.equal(frameAtMediaTime(frames,s.presented.at(-1).time),42);
+  run(p.continue(42));await Promise.resolve();s.video.frame(frameSeekTime(frames,60));await Promise.resolve();assert.equal(p.state().status,'ended');assert.equal(s.stage.dataset.videoState,'ready');
+  run(p.select('a'));s.video.finishSeek();run(p.continue(12));await Promise.resolve();s.video.frame(4.8);
+  assert.equal(p.state().status,'seeking');assert.equal(s.video.seeks.at(-1),frameSeekTime(frames,42));s.video.finishSeek();assert.equal(p.state().status,'paused');
+});
+
+test('a direct external seek supersedes a still-pending phase seek instead of restoring its older target',t=>{
+  const s=setup(t);s.video.metadata();s.video.data();s.display.seek(3);
+  s.video.currentTime=5;s.video.finishSeek();assert.equal(s.stage.dataset.videoState,'ready');assert.equal(s.video.currentTime,5);assert.equal(s.presented.at(-1).time,5);
+});
+
+test('a presented last frame with a sub-millisecond lagging media clock performs an exact seek before ending',async t=>{
+  const frames=Array.from({length:143},(_,i)=>({time:i/30})),p=createPhasePlayback();
+  p.configure([{phaseId:'last',startFrame:90,endFrameExclusive:143,freezeFrame:90}],'last');
+  p.select('last');
+  let s;
+  const run=commands=>{for(const c of commands){if(c.type==='pause')s.display.pause();else if(c.type==='play')s.display.play();else if(c.type==='seek')s.display.seek(frameSeekTime(frames,c.frame));}};
+  s=setup(t,{initial:frameSeekTime(frames,108),onFrame:({time})=>run(p.presented(frameAtMediaTime(frames,time)))});
+  s.video.metadata();s.video.finishSeek();p.externalSeek(108);p.presented(108);run(p.continue(108));await Promise.resolve();assert.equal(p.state().status,'playing');
+  s.video.time=4.732785;const [id,callback]=s.video.callbacks.entries().next().value;s.video.callbacks.delete(id);callback(0,{mediaTime:frames[142].time});await Promise.resolve();
+  assert.equal(s.video.currentTime,frameSeekTime(frames,142),'lagging currentTime must cross the frame boundary even when within 1ms');
+  s.video.finishSeek();assert.equal(p.state().status,'ended');assert.equal(frameAtMediaTime(frames,s.presented.at(-1).time),142);
+});
 
 test('annotation frames follow presented media time and never advance on pending or failed draws',t=>{
   const s=setup(t);s.video.metadata();s.video.data();s.display.togglePlayback();

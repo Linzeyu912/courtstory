@@ -4,6 +4,7 @@ import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {readTacticsDraft,writeTacticsDraft} from './tactics-storage.mjs';
 import {buildPhaseRoutes,projectPhaseRoutes,renderPresentationSVG,updateRouteControlPoints,restoreRoute,courtToVideo} from './tactics-presentation.mjs';
 import {createRouteEditor,commitWhenCurrent,screenToCourt} from './tactics-route-editor.mjs';
+import {createPhasePlayback} from './tactics-playback.mjs';
 
 export function mountTacticsUI(api){
   const $=id=>document.getElementById(id),root=$('tacticsPanel');
@@ -13,6 +14,7 @@ export function mountTacticsUI(api){
   <div id="tacticsEditor" hidden><p id="tacticsSource" class="tactics-source"></p>
   <div class="tactics-layout"><section class="tactics-view"><div id="tacticsPhases" class="tactics-phases"></div>
   <div class="tactics-route-toolbar"><label class="field">展示球员<select id="tacticsRoutePlayer"></select></label><label class="tactics-check"><input id="tacticsShowAll" type="checkbox">查看全部路线</label></div>
+  <div class="tactics-buttons"><button id="tacticsContinue">继续本阶段</button><button id="tacticsPause">暂停</button><button id="tacticsReplay">重播本阶段</button></div>
   <div id="tacticsCanvas" class="tactics-canvas"><p>选择阶段后预览。</p></div><p id="tacticsFrame" class="small muted"></p><p id="tacticsPresentationStatus" class="small muted" role="status" aria-live="polite"></p><p class="small muted">浅色衬边表示未来路线；断点保留。人工展示修正不会更改轨迹或审核结论。</p>
   <details><summary>审核名单、待处理问题与来源</summary><div id="tacticsRoster" class="tactics-roster"></div><div id="tacticsIssues"></div></details></section>
   <aside class="tactics-controls"><label class="field">标题<input id="tacticsTitle" maxlength="120"></label><h3>当前阶段</h3><label class="field">阶段名称<input id="tacticsPhaseTitle" maxlength="100"></label><p id="tacticsPhaseRange" class="small muted"></p><div class="range-fields"><label class="field">冻结帧<input id="tacticsFreeze" type="number" min="1"></label><button id="tacticsUseFrame">用播放器当前帧</button></div><button id="tacticsApplyPhase">更新阶段与预览</button><div class="range-fields"><label class="field">从此帧分为下一阶段<input id="tacticsSplitAt" type="number" min="2"></label><button id="tacticsSplit">分段</button></div><button id="tacticsRemovePhase">合并当前阶段</button>
@@ -22,6 +24,8 @@ export function mountTacticsUI(api){
   <label class="field">讲解草稿与审核意见<textarea id="tacticsNotes" rows="5" maxlength="8000" placeholder="记录看到的动作、配合关系和需要改进的地方"></textarea></label></aside></div></div>`;
   let documentValue=null,phaseId=null,kind='workspace',version=0,history=[],revision=0,epoch=0,context=0,loading=false,lastScene=null,active=false,pendingDraft=Promise.resolve();
   let selectedEntityId=null,selectedRouteId=null,selectedControlFrame=null,temporaryRoute=null,editBusy=false,sceneReady=Promise.resolve(),sceneNodes=null,editingEnabled=true,loadSequence=0;
+  const playback=createPhasePlayback(),synchronized=typeof api.seek==='function'&&typeof api.play==='function';
+  let presentedPoint=null;
   const base={sample:api.sample,variant:api.variant,qa:api.qa},cacheKey=(space=kind)=>`${api.key}:tactics:${space}`;
   const phase=()=>documentValue?.playDefinition.phases.find(p=>p.phaseId===phaseId)||documentValue?.playDefinition.phases[0];
   const status=text=>{$('tacticsStatus').textContent=text;};
@@ -46,6 +50,33 @@ export function mountTacticsUI(api){
   const safe=fn=>async()=>{try{await fn();}catch(error){status(error.message);}};
   function selectOptions(id,options,value){const target=$(id);target.replaceChildren(...options.map(([v,text])=>{const o=document.createElement('option');o.value=v;o.textContent=text;return o;}));if(value!==undefined)target.value=value;}
   function cancelEditing(){editor.cancel();temporaryRoute=null;}
+  function playbackControls(){
+    const s=playback.state(),disabled=!synchronized||!active||loading||editBusy||!lastScene||s.status==='seeking';
+    $('tacticsContinue').disabled=disabled||s.status==='playing';$('tacticsReplay').disabled=disabled;
+    $('tacticsPause').disabled=!synchronized||!active||s.status==='inactive'||s.status==='paused'||s.status==='ended';
+  }
+  function runPlayback(commands){
+    for(const c of commands){
+      if(c.type==='pause')api.pause();
+      else if(c.type==='play')api.play();
+      else if(c.type==='seek')api.seek(c.frame);
+      else if(c.type==='phase'){cancelEditing();phaseId=c.phaseId;render({preserveFrame:true});}
+    }
+    playbackControls();
+  }
+  function onPresentedFrame(point){
+    if(!active||!synchronized)return;
+    presentedPoint=point;runPlayback(playback.presented(point.frame));
+    const s=playback.state();
+    if(s.status==='seeking'&&s.targetFrame!==point.frame)return;
+    renderFrame(point.frame,point.time,point.source,{editing:s.status==='paused'||s.status==='ended'});
+    playbackControls();
+  }
+  function selectPhase(id){
+    cancelEditing();phaseId=id;
+    if(synchronized){playback.configure(documentValue.playDefinition.phases,id);const commands=playback.select(id);render({preserveFrame:true});runPlayback(commands);}
+    else render();
+  }
   function clearPreview(){cancelEditing();epoch++;lastScene=null;editor.select(null);if(sceneNodes){sceneNodes.overlay.replaceChildren();sceneNodes.background.hidden=true;}$('tacticsFrame').textContent='正在准备当前阶段…';$('tacticsRoster').replaceChildren();$('tacticsIssues').replaceChildren();}
   async function commit(next,captured=stamp(),{reuseScene=false}={}){
     return commitWhenCurrent({next,stamp:captured,getStamp:stamp,validate:validateDocument,apply:async value=>{
@@ -58,12 +89,16 @@ export function mountTacticsUI(api){
       render({reuseScene});await sceneReady;
     }});
   }
-  function render({reuseScene=false}={}){
+  function render({reuseScene=false,preserveFrame=false}={}){
     $('tacticsEditor').hidden=!documentValue;
     for(const id of ['tacticsSave','tacticsJson','tacticsReport'])$(id).disabled=!documentValue;
     $('tacticsUndo').disabled=!history.length;
     if(!documentValue)return;
     const p=phase();phaseId=p.phaseId;
+    if(synchronized){
+      playback.configure(documentValue.playDefinition.phases,phaseId);
+      if(active&&!reuseScene&&!preserveFrame)runPlayback(playback.select(phaseId));
+    }
     $('tacticsSource').textContent=`${kind==='candidate'?'THY 独立候选快照':'当前视频轨迹快照'} · ${api.title} · ${documentValue.review.trackingRevision} · ${documentValue.playDefinition.participants.length} 名参与者 · ${version?'本机版本 '+version:'尚未保存到本机'}`;
     $('tacticsTitle').value=documentValue.title;$('tacticsNotes').value=documentValue.notes;
     $('tacticsPhaseTitle').value=p.title;$('tacticsFreeze').value=p.freezeFrame+1;
@@ -71,7 +106,7 @@ export function mountTacticsUI(api){
     $('tacticsFreeze').min=p.startFrame+1;$('tacticsFreeze').max=p.endFrameExclusive;
     $('tacticsSplitAt').value=Math.min(p.endFrameExclusive,p.startFrame+Math.max(1,Math.floor((p.endFrameExclusive-p.startFrame)/2)))+1;
     $('tacticsRemovePhase').disabled=documentValue.playDefinition.phases.length===1;
-    $('tacticsPhases').replaceChildren(...documentValue.playDefinition.phases.map(s=>{const b=document.createElement('button');b.textContent=s.title;b.setAttribute('aria-pressed',String(s.phaseId===phaseId));b.onclick=()=>{cancelEditing();phaseId=s.phaseId;render();};return b;}));
+    $('tacticsPhases').replaceChildren(...documentValue.playDefinition.phases.map(s=>{const b=document.createElement('button');b.textContent=s.title;b.setAttribute('aria-pressed',String(s.phaseId===phaseId));b.onclick=()=>selectPhase(s.phaseId);return b;}));
     const people=documentValue.playDefinition.participants.map(p=>[p.id,`${p.id} · ${p.name}`]);
     if(!p.participantIds.includes(selectedEntityId))selectedEntityId=p.participantIds[0]||null;
     selectOptions('tacticsRoutePlayer',people.filter(([id])=>p.participantIds.includes(id)),selectedEntityId);
@@ -80,7 +115,7 @@ export function mountTacticsUI(api){
     const selected=$('tacticsAction').value;
     selectOptions('tacticsAction',[['','＋ 新动作'],...documentValue.playDefinition.actions.map(a=>[a.actionId,`${a.actorId} · ${ACTION_KINDS[a.kind]} · ${a.startFrame+1}–${a.endFrameExclusive}${a.reviewStatus==='reviewed'?' · 已审核':''}`])]);
     if(documentValue.playDefinition.actions.some(a=>a.actionId===selected))$('tacticsAction').value=selected;
-    fillAction();sceneReady=preview({reuseScene});
+    fillAction();sceneReady=preview({reuseScene});playbackControls();
   }
   function fillAction(){
     const a=documentValue.playDefinition.actions.find(a=>a.actionId===$('tacticsAction').value),p=phase();
@@ -102,24 +137,28 @@ export function mountTacticsUI(api){
         cached?.manifest||buildTacticalOverlay({review:d.review,playDefinition:d.playDefinition,phaseId:p.phaseId,freezeFrame:p.freezeFrame}),buildPhaseRoutes(d,p.phaseId)]);
       if(token!==epoch)return;
       if(manifest.status==='refused')throw new Error('来源或阶段定义不匹配，已停止叠加。');
-      const frame=cached?.frame??p.freezeFrame,mediaTime=cached?.mediaTime??manifest.time;
+      const point=synchronized?(api.getPresentedFrame?.()||presentedPoint):null;
+      const target=playback.state().targetFrame,usable=point&&(target===null||point.frame===target);
+      const frame=usable?point.frame:cached?.frame??p.freezeFrame,mediaTime=usable?point.time:cached?.mediaTime??manifest.time;
       const projected=projectPhaseRoutes(model,{frame,mediaTime,selectedEntityId,showAll:$('tacticsShowAll').checked});
-      let background=cached?.background||null,mode=projected.videoAvailable?'video':'court';
-      if(mode==='video'&&!cached){
+      let background=cached?.background||null,mode=synchronized||projected.videoAvailable?'video':'court';
+      if(mode==='video'&&!cached&&!synchronized){
         const result=await request('/api/tactics/frame',{videoSha256:d.review.videoSha256,frames:[p.freezeFrame]});
         background=result.frames[0];
         if(background.frame!==manifest.freezeFrame||background.time!==manifest.time||background.videoSha256!==manifest.sourceBinding.videoSha256||background.sourceFrame!==manifest.sourceFrame||background.sourceTime!==manifest.sourceTime)throw new Error('冻结帧与轨迹不匹配，已停止叠加。');
         const image=new Image();image.src=background.dataUrl;await image.decode();background.image=image;
       }
       if(token!==epoch)return;
-      lastScene={manifest,model,mode,background,frame,mediaTime,backgroundSource:cached?.backgroundSource};temporaryRoute=null;
+      lastScene={manifest,model,mode,background,frame,mediaTime,backgroundSource:usable?point.source:cached?.backgroundSource};temporaryRoute=null;
+      if(synchronized)editingEnabled=['paused','ended'].includes(playback.state().status);
       fillRouteOptions();drawScene();
-      $('tacticsFrame').textContent=`${mode==='video'?'精确冻结帧':'2D 预览 · 当前帧球场投影不可用'} · 第 ${p.freezeFrame+1} 帧 · ${manifest.time.toFixed(3)} 秒 · ${manifest.status==='ok'?'所需证据齐全':'有待核对项'}。下方播放器时间轴与本冻结图独立。`;
+      if(!synchronized)$('tacticsFrame').textContent=`${mode==='video'?'精确冻结帧':'2D 预览 · 当前帧球场投影不可用'} · 第 ${p.freezeFrame+1} 帧 · ${manifest.time.toFixed(3)} 秒 · ${manifest.status==='ok'?'所需证据齐全':'有待核对项'}。`;
       $('tacticsRoster').replaceChildren(...manifest.roster.map(person=>{const node=document.createElement('p');node.textContent=`${person.id} · ${person.name} · ${person.positionState==='visible'?(person.position?.courtPoint?'有球场位置':'有原图位置，球场待标定'):person.positionState==='offscreen'?'出画':'位置缺失'} · ${person.actionStates.map(a=>`${ACTION_KINDS[a.kind]}（${{active:'当前',future:'后续',pending:'后续',completed:'完成'}[a.temporalStatus]||a.temporalStatus}）`).join('、')||({player:'球员',referee:'裁判'}[person.role]||person.role)}`;return node;}));
       const groups=new Map();for(const issue of manifest.issues){const key=issue.code;groups.set(key,(groups.get(key)||0)+1);}
       const labels={identity_needs_review:'人物身份待核对',position_needs_review:'地面位置待核对',calibration_needs_review:'球场映射待核对',tactic_needs_review:'动作或关系待核对',freeze_calibration_unavailable:'冻结帧缺少有效球场标定'};
       $('tacticsIssues').replaceChildren(...[...groups].map(([code,count])=>{const node=document.createElement('p');node.textContent=`${labels[code]||code} · ${count} 项`;return node;}));
     }catch(error){if(token!==epoch)return;lastScene=null;editor.select(null);if(sceneNodes){sceneNodes.overlay.replaceChildren();sceneNodes.background.hidden=true;}$('tacticsFrame').textContent='预览失败，未保留上一阶段的叠加。';status(error.message);}
+    finally{if(token===epoch)playbackControls();}
   }
   function ensureScene(){
     if(sceneNodes)return sceneNodes;
@@ -133,9 +172,13 @@ export function mountTacticsUI(api){
     const {model,frame,mediaTime,background,backgroundSource}=lastScene;
     const renderModel=temporaryRoute?{...model,routes:model.routes.map(r=>r.routeId===temporaryRoute.routeId?temporaryRoute:r)}:model;
     const projected=projectPhaseRoutes(renderModel,{frame,mediaTime,selectedEntityId,showAll:$('tacticsShowAll').checked});
-    const mode=projected.videoAvailable?'video':'court';lastScene.mode=mode;lastScene.projected=projected;
+    const mode=synchronized||backgroundSource||projected.videoAvailable?'video':'court';lastScene.mode=mode;lastScene.projected=projected;
     const width=Math.max(320,$('tacticsCanvas').clientWidth-2),height=width*(mode==='video'?model.height/model.width:15.24/28.6512),nodes=ensureScene();
     nodes.width=width;nodes.canvas.style.width=`${width}px`;nodes.canvas.style.height=`${height}px`;
+    if(synchronized&&!backgroundSource){
+      nodes.background.hidden=true;nodes.overlay.replaceChildren();
+      $('tacticsFrame').textContent='正在定位同步视频画面…';return;
+    }
     nodes.background.hidden=mode!=='video';
     if(mode==='video'){
       if(nodes.background.width!==model.width)nodes.background.width=model.width;
@@ -145,7 +188,8 @@ export function mountTacticsUI(api){
     nodes.overlay.innerHTML=renderPresentationSVG(projected,{space:mode,width,height});drawHandles();
     const ps=model.presentation,manual=ps.applied.length,stale=ps.stale.length;
     const hidden=projected.routes.filter(r=>mode==='video'&&!r.video).length;
-    $('tacticsPresentationStatus').textContent=`${manual?`人工展示修正 ${manual} 段`:'来源平滑路线'}${stale?` · ${stale} 项展示修正已过期，保留在 JSON，未套用`:''}${ps.pending.length?` · 其他阶段修正 ${ps.pending.length} 项`:''}${hidden?` · ${hidden} 段无法在当前帧投影`:''}${mode==='court'?' · 当前帧缺少有效标定，显示 2D 球场':''}`;
+    $('tacticsPresentationStatus').textContent=`${manual?`人工展示修正 ${manual} 段`:'来源平滑路线'}${stale?` · ${stale} 项展示修正已过期，保留在 JSON，未套用`:''}${ps.pending.length?` · 其他阶段修正 ${ps.pending.length} 项`:''}${hidden?` · ${hidden} 段无法在当前帧投影`:''}${!projected.videoAvailable?` · 当前帧缺少有效标定，${mode==='video'?'视频路线已隐藏':'显示 2D 球场'}`:''}`;
+    if(synchronized)$('tacticsFrame').textContent=`同步视频 · 第 ${frame+1} 帧 · ${mediaTime.toFixed(3)} 秒 · ${{playing:'播放中',paused:'已暂停',ended:'末阶段结束',seeking:'正在定位'}[playback.state().status]||'准备中'}。到下一阶段冻结点自动暂停。`;
   }
   function fillRouteOptions(){
     const routes=lastScene?.model.routes.filter(r=>r.entityId===selectedEntityId)||[];
@@ -156,6 +200,7 @@ export function mountTacticsUI(api){
     const pointIndex=editor.controls.findIndex(p=>p.frame===pointFrame);if(pointIndex>=0)editor.selectPoint(pointIndex);fillRouteControls();
   }
   function fillRouteControls(){
+    playbackControls();
     const route=editor.route,points=editor.controls,index=editor.selectedPoint,disabled=loading||editBusy||!editingEnabled||!route;
     selectOptions('tacticsControlPoint',points.map((p,i)=>[String(i),`第 ${p.frame+1} 帧${i===0||i===points.length-1?' · 端点':''}`]),String(index));
     const frames=route?.sourcePoints.filter(p=>p.frame>route.startFrame&&p.frame<route.endFrameExclusive-1&&!points.some(c=>c.frame===p.frame))||[];
@@ -186,6 +231,7 @@ export function mountTacticsUI(api){
     }svg.append(group);
   }
   async function load(nextKind,serverOnly=false){
+    if(synchronized)runPlayback(playback.leave());
     const sequence=++loadSequence;loading=true;clearPreview();const token=epoch;fillRouteControls();await draft();$('tacticsSnapshot').disabled=true;status('正在读取战术草稿…');
     try{
       if(serverOnly&&documentValue)await writeTacticsDraft(`${cacheKey()}:before-reload`,clone({version,document:documentValue,phaseId}));
@@ -201,6 +247,9 @@ export function mountTacticsUI(api){
     }finally{if(sequence===loadSequence){loading=false;$('tacticsSnapshot').disabled=false;fillRouteControls();}}
   }
   $('tacticsWorkspace').onclick=safe(()=>load('workspace'));
+  $('tacticsContinue').onclick=safe(async()=>{if(loading||editBusy||!active||!lastScene)return;await sceneReady;if(!active||loading||editBusy||!lastScene)return;epoch++;cancelEditing();runPlayback(playback.continue(lastScene.frame));});
+  $('tacticsPause').onclick=()=>{runPlayback(playback.pause());const point=api.getPresentedFrame?.()||presentedPoint;if(point)onPresentedFrame(point);};
+  $('tacticsReplay').onclick=safe(async()=>{if(loading||editBusy||!active||!lastScene)return;epoch++;cancelEditing();runPlayback(playback.replay());});
   $('tacticsReload').onclick=safe(()=>load(kind,true));
   $('tacticsSnapshot').onclick=safe(async()=>{
     if(kind!=='workspace')await load('workspace');
@@ -268,18 +317,28 @@ export function mountTacticsUI(api){
   for(const [id,field] of [['tacticsTitle','title'],['tacticsNotes','notes']])$(id).oninput=()=>{if(documentValue){documentValue[field]=$(id).value;revision++;draft();}};
   const resize=new ResizeObserver(()=>{try{drawScene();}catch(error){status(error.message);}});resize.observe($('tacticsCanvas'));
   document.addEventListener('workbench-area',safe(async()=>{
-    active=document.body.dataset.area==='tactics';if(!active){epoch++;cancelEditing();return;}api.pause();editingEnabled=true;
+    active=document.body.dataset.area==='tactics';if(!active){epoch++;cancelEditing();if(synchronized)runPlayback(playback.leave());return;}api.pause();editingEnabled=true;
     if(!documentValue&&!loading)await load(new URLSearchParams(location.search).has('candidate')?'candidate':'workspace');
-    else if(documentValue){drawScene();if(kind==='workspace'){const binding=await createSourceBinding(api.snapshot());if(binding.reviewDigest!==documentValue.playDefinition.sourceBinding.reviewDigest)status('当前人物或球场数据已变化。这里显示已保存的快照；点击「使用当前轨迹建立草稿」更新并重新审核。');}}
+    else if(documentValue){if(synchronized)selectPhase(phaseId);else drawScene();if(kind==='workspace'){const binding=await createSourceBinding(api.snapshot());if(binding.reviewDigest!==documentValue.playDefinition.sourceBinding.reviewDigest)status('当前人物或球场数据已变化。这里显示已保存的快照；点击「使用当前轨迹建立草稿」更新并重新审核。');}}
   }));
-  render();return {saveDraft:draft,ready:()=>sceneReady,cancelEditing,
+  function renderFrame(frame,mediaTime,backgroundSource,{editing=true}={}){
+    if(!lastScene||loading)return false;
+    const modeChanged=editingEnabled!==editing;
+    if(!editing)cancelEditing();editingEnabled=editing;
+    lastScene.frame=frame;lastScene.mediaTime=mediaTime;lastScene.backgroundSource=backgroundSource;
+    drawScene();if(modeChanged)fillRouteControls();return true;
+  }
+  render();return {saveDraft:draft,ready:()=>sceneReady,cancelEditing,onPresentedFrame,
+    getPlaybackState:playback.state,
+    togglePlayback(){if(!active)return false;if(playback.state().status==='playing')$('tacticsPause').onclick();else $('tacticsContinue').onclick();return true;},
+    externalSeek(frame){
+      if(!active||!synchronized)return;epoch++;cancelEditing();
+      const commands=playback.externalSeek(frame);runPlayback(commands);
+      // A same-phase seek can supersede a still-building preview. Rebuild that
+      // preparation with the new epoch; ready cached models need no refit.
+      if(!lastScene&&!loading&&!commands.some(c=>c.type==='phase'))render({preserveFrame:true});
+    },
     invalidatePreview(){epoch++;cancelEditing();},
     getSceneState:()=>({model:lastScene?.model,phase:phase(),phaseId,frame:lastScene?.frame,mediaTime:lastScene?.mediaTime,active,loading,editBusy,editingEnabled,selectedEntityId,showAll:$('tacticsShowAll').checked,background:sceneNodes?.background}),
-    renderFrame(frame,mediaTime,backgroundSource,{editing=true}={}){
-      if(!lastScene||loading)return false;
-      const modeChanged=editingEnabled!==editing;
-      if(!editing)cancelEditing();editingEnabled=editing;
-      lastScene.frame=frame;lastScene.mediaTime=mediaTime;lastScene.backgroundSource=backgroundSource;
-      drawScene();if(modeChanged)fillRouteControls();return true;
-    }};
+    renderFrame};
 }

@@ -2,6 +2,8 @@
 export function mountVideoDisplay({video,canvas,status,message,retry,stage,onReady=()=>{},onFrame=()=>{},onError=()=>{},getTargetTime=()=>video.currentTime,startTime=0}) {
   const context=canvas.getContext('2d');
   const validTime=value=>Number.isFinite(value)&&value>=0?value:null;
+  // Match the annotation lookup's microsecond precision; 1ms can straddle a PTS boundary.
+  const seekTolerance=1e-6+1e-9;
   let targetTime=validTime(getTargetTime())??0,pendingTime=targetTime;
   let state='loading',disposed=false,presenting=false,awaitingSeek=false,reloading=false;
   let wantsPlayback=!video.paused,playPending=false,playSerial=0;
@@ -30,7 +32,7 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,onRea
     return Number.isFinite(video.duration)&&video.duration>=0?Math.min(time,video.duration):time;
   }
   function atTarget() {
-    return pendingTime===null||Math.abs(video.currentTime-boundedTime(pendingTime))<.001;
+    return pendingTime===null||Math.abs(video.currentTime-boundedTime(pendingTime))<seekTolerance;
   }
   function present(mediaTime) {
     if(disposed||presenting||video.error||awaitingSeek||video.seeking||video.readyState<2||!atTarget())return false;
@@ -86,7 +88,7 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,onRea
   function applyPendingSeek() {
     if(disposed||video.readyState<1||pendingTime===null||awaitingSeek)return;
     pendingTime=boundedTime(pendingTime);targetTime=pendingTime;
-    if(Math.abs(video.currentTime-pendingTime)>=.001) {
+    if(Math.abs(video.currentTime-pendingTime)>=seekTolerance) {
       awaitingSeek=true;show('seeking','正在定位视频画面…');
       try {video.currentTime=pendingTime;}
       catch(error){awaitingSeek=false;fail(error,'无法定位视频画面，请重新载入。');return;}
@@ -103,7 +105,15 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,onRea
     targetTime=time;pendingTime=time;awaitingSeek=false;
     // Mark the old canvas as pending before pause/currentTime can emit events.
     show(video.readyState<1?'loading':'seeking',video.readyState<1?'正在载入视频…':'正在定位视频画面…');
-    pause();applyPendingSeek();return true;
+    pause();applyPendingSeek();
+    // A boundary seek may be requested inside onFrame while present() is locked.
+    // If no actual seek is needed, present the target after that callback unwinds.
+    if(presenting)queueMicrotask(()=>{if(!disposed)refresh();});
+    return true;
+  }
+  function play() {
+    if(disposed)return;
+    wantsPlayback=true;applyPendingSeek();present();attemptPlayback();queueFrame();
   }
   function togglePlayback() {
     if(disposed)return;
@@ -134,7 +144,10 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,onRea
     applyPendingSeek();present();attemptPlayback();queueFrame(true);
   });
   listen('seeking',()=>{
-    awaitingSeek=true;pendingTime??=validTime(video.currentTime)??targetTime;
+    awaitingSeek=true;
+    const time=validTime(video.currentTime);
+    // Native/manual navigation may replace a target before its seek completes.
+    if(pendingTime===null||(time!==null&&Math.abs(time-pendingTime)>=seekTolerance))pendingTime=time??targetTime;
     cancelFrames();show('seeking','正在定位视频画面…');queueFrame(true);
   });
   listen('seeked',()=>{
@@ -156,7 +169,7 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,onRea
   retry.addEventListener('click',reload);
   show('loading','正在载入视频…');applyPendingSeek();attemptPlayback();
 
-  return {seek,pause,togglePlayback,refresh,reload,dispose(){
+  return {seek,pause,play,togglePlayback,refresh,reload,dispose(){
     if(disposed)return;
     disposed=true;cancelFrames();playSerial++;playPending=false;
     for(const [type,handler] of listeners)video.removeEventListener(type,handler);
