@@ -1,0 +1,25 @@
+{
+  "defaultVariant": "team-stable",
+  "detectors": [
+    {"id": "ebard", "label": "YOLOv8n · 篮球", "recommended": true, "description": "E-BARD 篮球权重，检测球员。"},
+    {"id": "yolo", "label": "YOLOv8s · 通用", "recommended": false, "description": "通用 COCO 权重，检测人物。"}
+  ],
+  "trackers": [
+    {"id": "botsort-reid", "label": "BoT-SORT · 外观续接", "recommended": true, "description": "利用运动与检测器外观特征续接，包含现有篮球修正和稳定显示。"},
+    {"id": "bytetrack", "label": "ByteTrack", "recommended": false, "description": "按检测框与运动连续关联，不使用外观特征。"}
+  ],
+  "combinations": [
+    {"id": "team-stable", "detector": "ebard", "tracker": "botsort-reid", "profile": "optimized", "stable": true, "rawVariant": "optimized", "recommended": true, "label": "篮球 YOLOv8n + BoT-SORT 外观续接", "description": "默认组合，沿用既有篮球优化和稳定显示。"},
+    {"id": "ebard-byte", "detector": "ebard", "tracker": "bytetrack", "profile": "yolo", "stable": false, "label": "篮球 YOLOv8n + ByteTrack", "description": "篮球检测与运动关联；与旧 E-BARD 样例结果分别保存。"},
+    {"id": "yolo-team", "detector": "yolo", "tracker": "botsort-reid", "profile": "optimized", "stable": true, "rawVariant": "yolo-team-raw", "label": "通用 YOLOv8s + BoT-SORT 外观续接", "description": "通用人物检测与外观续接；包含篮球修正和稳定显示。"},
+    {"id": "yolo", "detector": "yolo", "tracker": "bytetrack", "profile": "yolo", "stable": false, "label": "通用 YOLOv8s + ByteTrack", "description": "保留原通用检测与运动关联结果。"}
+  ],
+  "legacy": [
+    {"id": "optimized", "detector": "ebard", "tracker": "botsort-reid", "profile": "optimized", "label": "篮球 YOLOv8n + BoT-SORT · 原始优化结果", "description": "旧结果，未加稳定显示。"},
+    {"id": "reid", "detector": "ebard", "tracker": "botsort-reid", "profile": "reid", "label": "篮球 YOLOv8n + BoT-SORT · 原生外观续接", "description": "旧外观续接参数。"},
+    {"id": "low", "detector": "ebard", "tracker": "botsort-reid", "profile": "low", "label": "篮球 YOLOv8n + BoT-SORT · 低阈值历史结果", "description": "旧参数，不含 ReID。"},
+    {"id": "baseline", "detector": "ebard", "tracker": "botsort-reid", "profile": "baseline", "label": "篮球 YOLOv8n + BoT-SORT · 基线历史结果", "description": "旧参数，不含 ReID。"},
+    {"id": "ebard", "detector": "ebard", "tracker": "bytetrack", "label": "篮球 YOLOv8n + ByteTrack · 历史结果"},
+    {"id": "yolo-team-raw", "detector": "yolo", "tracker": "botsort-reid", "label": "通用 YOLOv8s + BoT-SORT · 原始优化结果"}
+  ]
+}

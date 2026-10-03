@@ -28,13 +28,15 @@ LABELS = {
 }
 
 
-def inspect_runtime(model_dir):
+def inspect_runtime(model_dir, detector_keys=None):
     import av
     import torch
     import ultralytics
 
     checked = {}
     for key, (filename, expected) in MODELS.items():
+        if detector_keys is not None and key not in detector_keys:
+            continue
         path = model_dir / filename
         actual = sha256(path)
         if actual != expected:

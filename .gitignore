@@ -12,6 +12,9 @@ secrets.json
 *.pfx
 data/private/
 data/raw/
+# Workbench imports remain local; only the folder's instructions are shared.
+data/local-videos/*
+!data/local-videos/README.md
 
 # Local tools and caches
 .codex/
@@ -33,6 +36,8 @@ Desktop.ini
 **/qa-integrated/
 artifacts/
 tmp/
+data/local-workbench/**
+!data/local-workbench/README.md
 *.log
 cdk.out/
 dist/

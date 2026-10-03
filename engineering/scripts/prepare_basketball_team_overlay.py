@@ -57,7 +57,7 @@ def compare_geometry(raw,stable,cuts):
         'box_coordinate_deviation':_statistics(deviation),'raw_foot_motion_residual':_statistics(raw_residual),
         'stable_foot_motion_residual':_statistics(stable_residual)}
 
-def prepare_variant(parent,output,policy):
+def prepare_variant(parent,output,policy,variant='team-stable'):
     parent=Path(parent).resolve();output=Path(output).resolve();parent_meta=parent.with_suffix('.meta.json');output_meta=output.with_suffix('.meta.json')
     if output in (parent,parent_meta) or output_meta in (parent,parent_meta):raise ValueError('Source records/metadata cannot be overwritten.')
     if output.exists() or output_meta.exists():raise FileExistsError('Choose fresh immutable team-stable outputs; existing files are preserved.')
@@ -68,7 +68,7 @@ def prepare_variant(parent,output,policy):
     cuts=meta.get('source_cuts',[]);raw=proposal_points(suggestions,records,cuts)
     stable={key:stabilize_points(points,cuts,meta['width'],meta['height'],policy) for key,points in raw.items()}
     metrics=compare_geometry(raw,stable,cuts)
-    prepared=copy.deepcopy(meta);prepared.update(variant='team-stable',identitySuggestions=suggestions,identity_verified=False,
+    prepared=copy.deepcopy(meta);prepared.update(variant=variant,identitySuggestions=suggestions,identity_verified=False,
         parent_tracking={'variant':meta.get('variant','optimized'),'tracks_sha256':hashlib.sha256(original).hexdigest(),
             'metadata_sha256':hashlib.sha256(meta_bytes).hexdigest(),'source_path':str(parent.relative_to(ROOT)) if parent.is_relative_to(ROOT) else parent.name},
         presentation={'version':1,'policy':copy.deepcopy(policy),'policy_sha256':sha256(POLICY_PATH),

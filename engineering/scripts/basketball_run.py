@@ -95,10 +95,11 @@ def run(args):
     model = YOLO(str(weights))
     model.to("cuda:0")
     names = {int(key): str(value) for key, value in model.names.items()}
-    if args.variant == "yolo":
+    detector = getattr(args, 'detector', None) or ('yolo' if args.variant == 'yolo' else 'ebard')
+    if detector == "yolo":
         person_classes = [key for key, value in names.items() if value.strip().casefold() == "person"]
         if len(person_classes) != 1:
-            raise ValueError("The yolo preset requires exactly one COCO person class.")
+            raise ValueError("The generic YOLO detector requires exactly one COCO person class.")
         player_class = person_classes[0]
     else:
         player_class = player_class_id(names)
@@ -111,7 +112,7 @@ def run(args):
     config_path = ROOT / "engineering/configs/tracking" / config_name
     configuration = YAML.load(str(config_path))
     detector_conf = .25 if args.variant == "baseline" else .10
-    detector_iou = args.iou if args.iou is not None else (.7 if args.variant == "yolo" else .5)
+    detector_iou = args.iou if args.iou is not None else (.7 if detector == "yolo" else .5)
     half = args.precision == "fp16"
     precision_options = {"quantize": 16 if half else 32} if "quantize" in DEFAULT_CFG_DICT else {"half": half}
     previous_botsort = tracker_registration.TRACKER_MAP["botsort"]
@@ -255,7 +256,9 @@ def run(args):
             raise RuntimeError("Source media changed during inference.")
         meta = {
             "version": 1, "created_at_utc": datetime.now(timezone.utc).isoformat(),
-            "variant": args.variant, "video": str(source.relative_to(ROOT)) if source.is_relative_to(ROOT) else source.name,
+            "variant": getattr(args, 'result_variant', None) or args.variant,
+            "model_selection": {"detector": detector, "tracker": "bytetrack" if args.variant == "yolo" else "botsort-reid" if reid else "botsort", "profile": args.variant},
+            "video": str(source.relative_to(ROOT)) if source.is_relative_to(ROOT) else source.name,
             "video_sha256": source_hash, "partial_run": args.max_frames is not None,
             "frames": len(records), "frame_count": len(records), "width": width, "height": height, "fps": fps,
             "frame_time_basis": "decoded_container_pts", "video_start_seconds": pts_values[0],
@@ -327,6 +330,8 @@ def main():
     parser.add_argument("--weights", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--variant", choices=["baseline", "low", "reid", "optimized", "yolo"], default="optimized")
+    parser.add_argument("--detector", choices=['ebard', 'yolo'], help="Detector class family, independent of tracker profile")
+    parser.add_argument("--result-variant", help="Saved workbench combination identifier")
     parser.add_argument("--imgsz", type=int, default=704)
     parser.add_argument("--iou", type=float, help="NMS IoU (THY presets: .5; generic YOLO: .7)")
     parser.add_argument("--precision", choices=["fp32", "fp16"], default="fp16",
