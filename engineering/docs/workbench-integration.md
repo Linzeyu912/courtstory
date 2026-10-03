@@ -1,6 +1,6 @@
 # 工作台整合与战术人工审核
 
-更新：2026-10-03，Asia/Shanghai。本文记录当前实现；分类提交与同步结果见[发布交接](../../handoffs/Linzeyu912/2026-10-03-1630-workbench-updates-publication.md)。人工核验继续使用本机草稿。
+更新：2026-10-03，Asia/Shanghai。本文记录当前实现；人工画布与远端标定更新的同步结果见[最新发布交接](../../handoffs/thy-0629/2026-10-03-2138-tactics-remote-integration.md)，此前分类发布见[16:30 交接](../../handoffs/Linzeyu912/2026-10-03-1630-workbench-updates-publication.md)。人工核验继续使用本机草稿。
 
 ## 完整操作路径
 
