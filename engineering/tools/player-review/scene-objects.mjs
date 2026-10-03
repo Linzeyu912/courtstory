@@ -41,7 +41,8 @@ export function buildBasketballTrajectory(session,frames,cuts=[],dimensions={}){
     .sort(preferredCandidate));
   let previous=null,last=null,segment=-1;
   const trajectory=frames.map((record,frame)=>{
-    const candidates=observations[frame];
+    const detected=observations[frame],candidates=detected.some(point=>point.source==='human_observation')
+      ?detected.filter(point=>point.source==='human_observation'):detected;
     if(cutSet.has(frame)){previous=null;last=null;}
     if(!candidates.length)return {frame,time:record.time,x:null,y:null,source:'missing',reviewRequired:true,groundPoint:false};
     let chosen=candidates[0],gapFrames=last?frame-last.frame:null;
