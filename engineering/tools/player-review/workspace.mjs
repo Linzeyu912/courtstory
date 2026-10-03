@@ -1,6 +1,7 @@
 import {COURT,LANDMARK_NAMES,landmarks,keyframePoints,fitKeyframe,project,calibrationAt,buildCourtTrajectories,courtGaps,pathSegments,validQuad,addCourtAnchor,addEvent} from './court.mjs';
 import {courtLandmarks,courtMarkings} from './court-geometry.mjs';
-import {normalizeCourtCandidates,acceptCourtCandidates,calibrationGuideState,reorientCalibrationKey,confirmCalibrationProjection,calibrationGeometryFingerprint,invalidateCameraDependents,isHumanCalibrationKey} from './calibration-guide.mjs';
+import {normalizeCourtCandidates,acceptCourtCandidates,calibrationGuideState,reorientCalibrationKey,confirmCalibrationProjection,calibrationGeometryFingerprint,invalidateCameraDependents,isHumanCalibrationKey,clearCalibrationProjectionReview,calibrationReviewStates} from './calibration-guide.mjs';
+import {REVIEW_COLORS} from './tracking-display.mjs';
 import {entityLabel,isHumanIdentitySelected} from './trajectory.mjs';
 import {mountWorkbenchShell} from './ui.bundle.mjs';
 
@@ -9,6 +10,7 @@ export function createWorkspace(api){
   const court=$('court'),ctx=court.getContext('2d');
   let step='identity',view='half',pan=0,courtPoints={},pending=null,pointMode=false,transform=null,hits=[],drag=null,lastControlFrame=-1;
   let courtCandidateSettings=clip.courtCandidates||{},courtCandidates=normalizeCourtCandidates(clip.courtCandidates,clip.frames.length),propagating=false,candidateCache=null,candidateValidCount=0;
+  let reviewCache=null,reviewStates=[];
   const state=()=>{const s=getState();return {...s,entity:s.session.entities.find(e=>e.id===s.active)};};
   const reasonLabel={missing:'位置缺失',conflict:'身份冲突',uncalibrated:clip.supportsCourtCalibration===false?'未提供适配场地模板':'球场待标定'};
   const shades={projected:'#1675b6',court_manual:'#6e4fd0',court_estimated:'#b96a09',missing:'#c83d4c',conflict:'#ae385c',uncalibrated:'#a08bd1',out_of_view:'#8c98a8'};
@@ -60,7 +62,7 @@ export function createWorkspace(api){
     const map=calibrationAt(s.session.courtCalibration,s.frame,clip.frames,s.session.cuts);
     return {frame:s.frame,side:map?.side||$('calibrationSide').value,source:'human',points:map?map.image.map((image,i)=>({id:'ABCD'[i],image,source:'interpolated_seed'})):[]};
   }
-  function storeKey(key){const s=state();s.session.courtCalibration||={template:'NBA',videoHash:clip.video_sha256,maxKeyframeGapSeconds:1.2,keyframes:[]};const calibration=s.session.courtCalibration,previous=calibration.keyframes.find(k=>k.frame===key.frame);if(!previous||calibrationGeometryFingerprint(previous)!==calibrationGeometryFingerprint(key))invalidateCameraDependents(calibration,key.frame);if(isHumanCalibrationKey(key))calibration.deletedReferenceFrames=(calibration.deletedReferenceFrames||[]).filter(frame=>frame!==key.frame);calibration.keyframes=calibration.keyframes.filter(k=>k.frame!==key.frame);calibration.keyframes.push(key);}
+  function storeKey(key){const s=state();s.session.courtCalibration||={template:'NBA',videoHash:clip.video_sha256,maxKeyframeGapSeconds:1.2,keyframes:[]};const calibration=s.session.courtCalibration,previous=calibration.keyframes.find(k=>k.frame===key.frame);if(!previous||calibrationGeometryFingerprint(previous)!==calibrationGeometryFingerprint(key)){invalidateCameraDependents(calibration,key.frame);if(previous)key=clearCalibrationProjectionReview(key);}if(key.status==='needs_review')key=clearCalibrationProjectionReview(key);if(isHumanCalibrationKey(key))calibration.deletedReferenceFrames=(calibration.deletedReferenceFrames||[]).filter(frame=>frame!==key.frame);calibration.keyframes=calibration.keyframes.filter(k=>k.frame!==key.frame);calibration.keyframes.push(key);}
   $('pickLandmark').onclick=()=>{const s=state();s.video.pause();pending={kind:'single',frame:s.frame,side:$('calibrationSide').value,id:$('calibrationLandmark').value,image:[]};$('calibrationHelp').textContent=`请在原视频点击 ${$('calibrationLandmark').selectedOptions[0].textContent}。只替换这个点；其他参照点保留。`;renderGuide();api.redraw();};
   $('restoreCalibration').disabled=!clip.courtCalibration;
   $('restoreCalibration').onclick=()=>change(()=>{const s=state(),previous=s.session.courtCalibration,
@@ -178,7 +180,9 @@ export function createWorkspace(api){
     if(step==='calibration')courtLandmarks(pending?.side||$('calibrationSide').value).forEach(({x,y,id})=>{const[a,b]=screen(x,y);ctx.fillStyle=id===(pending?.id||(pending?.image?'ABCD'[pending.image.length]:$('calibrationLandmark').value))?'#d44331':'#fff8e8';ctx.beginPath();ctx.arc(a,b,9,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#796548';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle=id===(pending?.id||(pending?.image?'ABCD'[pending.image.length]:$('calibrationLandmark').value))?'white':'#183739';ctx.font='bold 11px sans-serif';ctx.fillText(id,a-4,b+4);});
     ctx.restore();
     ctx.fillStyle='#766c5e';ctx.font='11px sans-serif';ctx.fillText(view==='half'?'半场窗口 14.33 × 15.24 m · 可横向滑动':'全场 28.65 × 15.24 m',20,h-12);
-    $('courtBadge').textContent=clip.supportsCourtCalibration===false?'仅原图位置验收':mapping?(mapping.referenceOnly?'参考标定 · 待复核':mapping.method==='manual_keyframe'?'人工标定 · 当前关键帧':'关键帧间估计 · 待复核'):'当前帧待标定';
+    const courtReview=reviewStates[s.frame];
+    $('courtBadge').textContent=clip.supportsCourtCalibration===false?'仅原图位置验收':courtReview?.label||'当前帧待标定';
+    $('courtBadge').dataset.review=courtReview?.status||'empty';
     $('courtEmpty').hidden=isSelected(s.entity)&&points.some(p=>p.x!==null);
     $('courtEmpty').textContent=clip.supportsCourtCalibration===false?'本示例未提供适配的球场模板，请修改原图位置。':isSelected(s.entity)?'暂无可用球场轨迹 · 先校准球场，或人工补球场点':'先选择球员，再查看他的轨迹';
     $('courtPointStatus').textContent=current?.x!=null?`当前：${current.source==='court_manual'?'人工球场补点':current.source==='court_estimated'?'前后位置估计后映射':'原图位置映射'}${current.outsideCourt?' · 投影落在界外，请核对脚点 / 标定':''}。坐标精度待复核。`:isSelected(s.entity)?`当前：${reasonLabel[current?.source]||'已确认离开画面'}。没有可用位置时不显示球员圆点。`:'当前目标尚未选定。';
@@ -191,8 +195,23 @@ export function createWorkspace(api){
       for(const text of lines){const p=document.createElement('p');p.textContent=text;inspector.append(p);}
     }
   }
-  function drawTimeline(points,s){const target=$('courtTimeline'),c=target.getContext('2d'),dpr=devicePixelRatio||1;target.width=Math.round(target.clientWidth*dpr);target.height=24*dpr;c.clearRect(0,0,target.width,target.height);if(isSelected(s.entity))points.forEach((p,i)=>{c.fillStyle=shades[p.source];c.fillRect(i/points.length*target.width,3*dpr,target.width/points.length+1,18*dpr);});for(const event of s.entity.events||[]){c.fillStyle='#172336';c.fillRect(event.frame/points.length*target.width,0,2*dpr,6*dpr);}c.fillStyle='#111d2a';c.fillRect(s.frame/clip.frames.length*target.width,0,2*dpr,target.height);}
+  function drawTimeline(points,s){
+    const inputs=[s.session.courtCalibration?.keyframes,s.session.courtCalibration?.deletedReferenceFrames,courtCandidates,s.session.cuts];
+    if(!reviewCache||inputs.some((value,index)=>value!==reviewCache[index])){reviewCache=inputs;reviewStates=calibrationReviewStates(s.session.courtCalibration,courtCandidates,clip.frames,s.session.cuts);}
+    const target=$('courtTimeline'),c=target.getContext('2d'),dpr=devicePixelRatio||1,count=clip.frames.length;
+    target.width=Math.round(target.clientWidth*dpr);target.height=24*dpr;c.clearRect(0,0,target.width,target.height);
+    reviewStates.forEach((review,index)=>{c.fillStyle=REVIEW_COLORS[review.status];c.fillRect(index/count*target.width,3*dpr,target.width/count+1,18*dpr);});
+    for(const cut of s.session.cuts){c.fillStyle='#122034';c.fillRect(cut/count*target.width,0,2*dpr,target.height);}
+    c.fillStyle='#111d2a';c.fillRect(s.frame/count*target.width,0,2*dpr,target.height);
+    const review=reviewStates[s.frame]||{status:'empty',label:'尚无标定结果'},badge=$('calibrationReviewStatus');
+    badge.dataset.review=review.status;badge.textContent=`标定：${clip.supportsCourtCalibration===false?'暂无适配模板':review.label}`;
+    const confirmed=reviewStates.filter(item=>item.status==='human').length,machine=reviewStates.filter(item=>item.status==='machine').length;
+    target.title=`第 ${s.frame+1} 帧 · ${review.label}。机器结果待确认 ${machine} 帧 · 人工确认 ${confirmed} / ${count} 帧。`;
+    target.setAttribute('aria-valuenow',String(s.frame+1));target.setAttribute('aria-valuemax',String(count));target.setAttribute('aria-valuetext',target.title);
+    $('calibrationReviewCount').textContent=`标定人工确认 ${confirmed} / ${count} 帧`;
+  }
   $('courtTimeline').onclick=e=>{const r=e.currentTarget.getBoundingClientRect();seek(Math.floor((e.clientX-r.left)/r.width*clip.frames.length));};
+  for(const id of ['courtTimeline','timeline'])$(id).addEventListener('keydown',event=>{const current=state().frame;const target={ArrowLeft:current-1,ArrowRight:current+1,Home:0,End:clip.frames.length-1}[event.key];if(target!==undefined){event.preventDefault();event.stopPropagation();seek(target);}});
   function clickCourt(event){if(!transform)return;const s=state(),r=court.getBoundingClientRect(),x=event.clientX-r.left,y=event.clientY-r.top;
     if(pointMode){if(s.trajectories[s.active][s.frame].reviewExcluded){toast('这一段已取消关联；请先在原视频重新关联人物，再补球场位置。');return;}if(['conflict','out_of_view'].includes(s.trajectories[s.active][s.frame].source)){toast('请先解决身份冲突或修改出画区间，再补位置。');return;}const xx=(x-transform.ox)/transform.scale+transform.start,yy=(y-transform.oy)/transform.scale;try{change(()=>addCourtAnchor(s.entity,s.frame,xx,yy));pointMode=false;$('repairCourt').setAttribute('aria-pressed','false');$('repairHelp').textContent='已保存当前帧的人工球场点。可删除或撤销。';toast(`${entityLabel(s.active)} 已补当前帧球场位置。`);}catch(error){toast(error.message);}return;}
     const hit=[...hits].reverse().find(p=>Math.hypot(p.x-x,p.y-y)<(p.kind==='player'?16:9));

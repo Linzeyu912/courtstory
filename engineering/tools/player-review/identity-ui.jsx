@@ -1,7 +1,7 @@
 import React, {useRef,useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {flushSync} from 'react-dom';
-import {proposalLabel} from './tracking-display.mjs';
+import {proposalLabel,trackingReviewState} from './tracking-display.mjs';
 
 const isPlayerSlot=id=>/^P(?:[1-9]|10)$/.test(id);
 const slotLabel=id=>isPlayerSlot(id)?id.slice(1):id;
@@ -101,7 +101,7 @@ function EntityRoster({state,api}) {
       onPointerUp={event=>finishPointer(event)} onPointerCancel={event=>finishPointer(event,true)}
       onLostPointerCapture={event=>{if(pointer.current?.pointerId===event.pointerId)finishPointer(event,true);}}
       onClick={()=>chooseSlot(entity.id)}>
-      {slotLabel(entity.id)}<span className="entity-slot-state" aria-hidden="true">{target?'交换':entity.selected?'已关联':entity.display?.identity==='model_proposed'?'待确认':entity.hasRecords?'待关联':'空槽'}</span>
+      {slotLabel(entity.id)}<span className="entity-slot-state" data-review={entity.review?.status||'empty'} title={entity.review?.label} aria-hidden="true">{target?'交换':entity.review?.status==='human'?'本帧确认':entity.review?.status==='machine'?'机器结果':entity.review?.status==='pending'?'待确认':entity.review?.status==='invalid'?'冲突':entity.review?.status==='out_of_view'?'出画':entity.hasRecords?'缺位置':'空槽'}</span>
     </button>;
   }
 
@@ -140,6 +140,7 @@ function IdentityPanel({state,api}) {
   const available=point?.x!=null&&!point?.reviewExcluded;
   const releaseRange=state.releaseRange;
   const confirmed=point?.frameIdentityConfirmed===true;
+  const review=trackingReviewState(point);
   const canConfirm=available&&!['interpolated','manual_path','conflict'].includes(point?.source);
   const needsCorrection=point?.source==='conflict'||point?.identitySource==='reassigned'||
     (state.previewTrackId!=null&&point?.trackId!==state.previewTrackId&&state.trackAssignments?.some(item=>item.trackId===state.previewTrackId));
@@ -147,7 +148,7 @@ function IdentityPanel({state,api}) {
   const fields=[['name','目标名称',40],['team','球队 / 球衣描述',40],['jersey','球衣号码',4]];
   return <>
     <div className="identity-flow"><div><small>正在编辑的固定身份</small><strong>球员 {slotLabel(entity.id)} · {entity.name}</strong></div><span>←</span><div><small>跟踪器临时编号</small><strong>{point?.reviewExcluded?'已取消关联':point?.trackId!=null?`T${point.trackId}`:confirmed?'无 T · 本帧人工确认':'尚未关联'}</strong></div></div>
-    <div className="identity-evidence"><span className={`identity-state state-${point?.reviewExcluded?'unassigned':confirmed?'confirmed':point?.source||'missing'}`}>{evidenceLabel}</span>{state.observedIds.length>0&&<span>此身份对应过 {state.observedIds.map(id=>`T${id}`).join('、')}</span>}</div>
+    <div className="identity-evidence"><span className="identity-state review-status" data-review={review.status}>{evidenceLabel}</span>{state.observedIds.length>0&&<span>此身份对应过 {state.observedIds.map(id=>`T${id}`).join('、')}</span>}</div>
     <p className="small muted">YOLO 逐帧检测人物框，跟踪器分配 T 编号。一个球员可以归并多个 T；每个编号分别选一次，关联后仍需逐帧核对。</p>
     {needsCorrection&&<section className="candidate-warning identity-conflict" aria-label="人物关联冲突">
       <strong>先解决第 {state.frame+1} 帧的关联冲突</strong>
@@ -156,7 +157,7 @@ function IdentityPanel({state,api}) {
       <div className="conflict-actions"><button className="primary" disabled={busy||selected?.trackId==null} onClick={async()=>{if(await api.correctCandidate(selected,'frame'))setCandidate('');}}>{selected?.trackId!=null?`仅本帧采用 T${selected.trackId}`:'仅本帧采用候选'}</button><button disabled={busy||selected?.trackId==null} onClick={async()=>{if(await api.correctCandidate(selected,'forward'))setCandidate('');}}>{selected?.trackId!=null?`从本帧向后采用 T${selected.trackId}`:'从本帧向后采用候选'}</button></div>
       <p>仅本帧：其他帧保持原样。向后纠错：直到下一人工边界或切镜；只把当前帧标为已确认。若此人物属于另一槽位，该槽位在纠正范围内留空，操作可撤销。</p>
     </section>}
-    <div className="frame-confirmation"><button className="primary wide" disabled={busy||!canConfirm||confirmed} onClick={()=>api.confirmCurrent()}>{confirmed?'本帧人物已确认':`确认第 ${state.frame+1} 帧人物`}</button><p>核对画面后确认，当前球员框改为实线。只确认这一帧；脚点和球场位置另行核对。</p></div>
+    <div className="frame-confirmation" data-review={review.status}><button className="primary wide" disabled={busy||!canConfirm||confirmed} onClick={()=>api.confirmCurrent()}>{confirmed?'本帧人物已确认':`确认第 ${state.frame+1} 帧人物`}</button><p>蓝色为机器结果；确认后，本帧的轨迹点与时间轴变绿，人物框改为实线。脚点和球场位置另行核对。</p></div>
     <label className="field">人物关联范围<select aria-label="人物关联范围" disabled={busy} value={state.associationScope} onChange={event=>api.setAssociationScope(event.target.value)}><option value="track_occurrences">整个 T 编号的出现帧（含之前）</option><option value="forward">从当前帧向后纠错</option></select></label>
     <p className="small muted">{state.associationScope==='track_occurrences'?'累计归并这个编号实际出现的帧；缺帧留空，已有人工纠错优先。同帧多个编号冲突时留待处理。':'从当前帧起纠正身份，直到下一次人工边界或切镜。适合编号中途串到其他人的情况。'}</p>
     {point?.identitySource==='model_suggestion'&&available&&point.trackId!=null&&<button className="wide" disabled={busy} onClick={()=>api.associateCurrent()}>{state.associationScope==='track_occurrences'?`归并 T${point.trackId} 的全部出现帧`:'从当前帧向后关联此人物'}</button>}
