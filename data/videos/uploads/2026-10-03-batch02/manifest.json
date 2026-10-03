@@ -1,0 +1,868 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "user-uploads-20261003-batch02",
+  "season": null,
+  "timezone": "Asia/Shanghai",
+  "created_at": "2026-10-03T13:43:16+08:00",
+  "source_manifest": "data/videos/uploads/2026-10-03-batch02/sources/uploaded-files.json",
+  "entries": [
+    {
+      "clip_id": "user-uploads-20261003-batch02-001",
+      "local_id": "001",
+      "asset": {
+        "path": "clips/01_Warriors_20181005_Q2_11m35_motion_silent.mp4",
+        "bytes": 13961759,
+        "sha256": "4d6e76ed515a775d8971ed58ca7fc241abc022cb201e8762a6716290aa215618",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/001.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "01_Warriors_20181005_Q2_11m35_motion_silent.mp4",
+        "url": null,
+        "publisher": null,
+        "collected_at": "2026-10-03",
+        "start_seconds": null,
+        "end_seconds": null,
+        "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": null,
+        "game_id": null,
+        "verification_url": null,
+        "period": null,
+        "clock_start": null,
+        "clock_end": null,
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "尚未独立核对比赛、日期、赛季、球队与比赛时钟；文件名中的日期、球队和动作仅为上传者命名线索。"
+      },
+      "tactic": {
+        "title": "用户上传视频 001（动作待复核）",
+        "tags": [
+          "用户上传",
+          "待复核"
+        ],
+        "description": null,
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "未进行战术或视觉验收，不把文件名动作描述视为已确认标签。",
+        "basis": "本轮用户提供原文件；标签仅表示接收与待复核状态，原文件名保存于 source.uploaded_filename。"
+      },
+      "video": {
+        "duration_seconds": 24.841248,
+        "width": 1280,
+        "height": 720,
+        "fps": 59.940627781663785,
+        "fps_fraction": "46531250/776289",
+        "codec": "h264",
+        "frame_count": 1489,
+        "audio_stream_count": 0,
+        "measurement_status": "measured",
+        "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": null,
+        "decode_status": "passed",
+        "visual_status": "unverified",
+        "reviewed_at": "2026-10-03T13:43:16+08:00",
+        "basis": "FFmpeg 使用 -xerror -err_detect explode 对完整文件全部流解码成功，无报错；未做新的画面、球权或战术复核。"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "byte_status": "unique_against_catalog_and_uploaded_files",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与现有 146 条资产清单及本批其他十段均无相同值；不同编码、裁切或同回合内容重复尚未逐回合比较。"
+      }
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-002",
+      "local_id": "002",
+      "asset": {
+        "path": "clips/02_Spurs_20151223_Q3_5m59_team_motion_silent.mp4",
+        "bytes": 6095629,
+        "sha256": "b97ec97396a300e142a416c65aa44cf5feeae2dc96a46d20a80a3a5f287c262e",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/002.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "02_Spurs_20151223_Q3_5m59_team_motion_silent.mp4",
+        "url": null,
+        "publisher": null,
+        "collected_at": "2026-10-03",
+        "start_seconds": null,
+        "end_seconds": null,
+        "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": null,
+        "game_id": null,
+        "verification_url": null,
+        "period": null,
+        "clock_start": null,
+        "clock_end": null,
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "尚未独立核对比赛、日期、赛季、球队与比赛时钟；文件名中的日期、球队和动作仅为上传者命名线索。"
+      },
+      "tactic": {
+        "title": "用户上传视频 002（动作待复核）",
+        "tags": [
+          "用户上传",
+          "待复核"
+        ],
+        "description": null,
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "未进行战术或视觉验收，不把文件名动作描述视为已确认标签。",
+        "basis": "本轮用户提供原文件；标签仅表示接收与待复核状态，原文件名保存于 source.uploaded_filename。"
+      },
+      "video": {
+        "duration_seconds": 17.5,
+        "width": 792,
+        "height": 440,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "codec": "h264",
+        "frame_count": 525,
+        "audio_stream_count": 0,
+        "measurement_status": "measured",
+        "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": null,
+        "decode_status": "passed",
+        "visual_status": "unverified",
+        "reviewed_at": "2026-10-03T13:43:16+08:00",
+        "basis": "FFmpeg 使用 -xerror -err_detect explode 对完整文件全部流解码成功，无报错；未做新的画面、球权或战术复核。"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "byte_status": "unique_against_catalog_and_uploaded_files",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与现有 146 条资产清单及本批其他十段均无相同值；不同编码、裁切或同回合内容重复尚未逐回合比较。"
+      }
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-003",
+      "local_id": "003",
+      "asset": {
+        "path": "clips/03_Warriors_20181005_Q2_6m13_slip_cut_silent.mp4",
+        "bytes": 10967005,
+        "sha256": "3facca53ec3285f313ec6b3c0d8b1b307e48091cd4ccc93a15d79b38936335d7",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/003.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "03_Warriors_20181005_Q2_6m13_slip_cut_silent.mp4",
+        "url": null,
+        "publisher": null,
+        "collected_at": "2026-10-03",
+        "start_seconds": null,
+        "end_seconds": null,
+        "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": null,
+        "game_id": null,
+        "verification_url": null,
+        "period": null,
+        "clock_start": null,
+        "clock_end": null,
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "尚未独立核对比赛、日期、赛季、球队与比赛时钟；文件名中的日期、球队和动作仅为上传者命名线索。"
+      },
+      "tactic": {
+        "title": "用户上传视频 003（动作待复核）",
+        "tags": [
+          "用户上传",
+          "待复核"
+        ],
+        "description": null,
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "未进行战术或视觉验收，不把文件名动作描述视为已确认标签。",
+        "basis": "本轮用户提供原文件；标签仅表示接收与待复核状态，原文件名保存于 source.uploaded_filename。"
+      },
+      "video": {
+        "duration_seconds": 19.652931,
+        "width": 1280,
+        "height": 720,
+        "fps": 59.94016872088952,
+        "fps_fraction": "1178000000/19652931",
+        "codec": "h264",
+        "frame_count": 1178,
+        "audio_stream_count": 0,
+        "measurement_status": "measured",
+        "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": null,
+        "decode_status": "passed",
+        "visual_status": "unverified",
+        "reviewed_at": "2026-10-03T13:43:16+08:00",
+        "basis": "FFmpeg 使用 -xerror -err_detect explode 对完整文件全部流解码成功，无报错；未做新的画面、球权或战术复核。"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "byte_status": "unique_against_catalog_and_uploaded_files",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与现有 146 条资产清单及本批其他十段均无相同值；不同编码、裁切或同回合内容重复尚未逐回合比较。"
+      }
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-004",
+      "local_id": "004",
+      "asset": {
+        "path": "clips/04_Warriors_20181005_Q1_2m39_post_split_silent.mp4",
+        "bytes": 7992479,
+        "sha256": "f9657e4f703e52506c90b0d38136749e9c31562bacb4f5ab62b148603f1fabd6",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/004.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "04_Warriors_20181005_Q1_2m39_post_split_silent.mp4",
+        "url": null,
+        "publisher": null,
+        "collected_at": "2026-10-03",
+        "start_seconds": null,
+        "end_seconds": null,
+        "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": null,
+        "game_id": null,
+        "verification_url": null,
+        "period": null,
+        "clock_start": null,
+        "clock_end": null,
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "尚未独立核对比赛、日期、赛季、球队与比赛时钟；文件名中的日期、球队和动作仅为上传者命名线索。"
+      },
+      "tactic": {
+        "title": "用户上传视频 004（动作待复核）",
+        "tags": [
+          "用户上传",
+          "待复核"
+        ],
+        "description": null,
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "未进行战术或视觉验收，不把文件名动作描述视为已确认标签。",
+        "basis": "本轮用户提供原文件；标签仅表示接收与待复核状态，原文件名保存于 source.uploaded_filename。"
+      },
+      "video": {
+        "duration_seconds": 17.500817,
+        "width": 1280,
+        "height": 720,
+        "fps": 59.94005994005994,
+        "fps_fraction": "60000/1001",
+        "codec": "h264",
+        "frame_count": 1049,
+        "audio_stream_count": 0,
+        "measurement_status": "measured",
+        "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": null,
+        "decode_status": "passed",
+        "visual_status": "unverified",
+        "reviewed_at": "2026-10-03T13:43:16+08:00",
+        "basis": "FFmpeg 使用 -xerror -err_detect explode 对完整文件全部流解码成功，无报错；未做新的画面、球权或战术复核。"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "byte_status": "unique_against_catalog_and_uploaded_files",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与现有 146 条资产清单及本批其他十段均无相同值；不同编码、裁切或同回合内容重复尚未逐回合比较。"
+      }
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-005",
+      "local_id": "005",
+      "asset": {
+        "path": "clips/05_Warriors_20160605_Finals_G2_Q3_motion_silent.mp4",
+        "bytes": 4221834,
+        "sha256": "d931e4ccdc33831c753eb0e0ed1260fcfc6358288b485e7f533d13745ca228e2",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/005.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "05_Warriors_20160605_Finals_G2_Q3_motion_silent.mp4",
+        "url": null,
+        "publisher": null,
+        "collected_at": "2026-10-03",
+        "start_seconds": null,
+        "end_seconds": null,
+        "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": null,
+        "game_id": null,
+        "verification_url": null,
+        "period": null,
+        "clock_start": null,
+        "clock_end": null,
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "尚未独立核对比赛、日期、赛季、球队与比赛时钟；文件名中的日期、球队和动作仅为上传者命名线索。"
+      },
+      "tactic": {
+        "title": "用户上传视频 005（动作待复核）",
+        "tags": [
+          "用户上传",
+          "待复核"
+        ],
+        "description": null,
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "未进行战术或视觉验收，不把文件名动作描述视为已确认标签。",
+        "basis": "本轮用户提供原文件；标签仅表示接收与待复核状态，原文件名保存于 source.uploaded_filename。"
+      },
+      "video": {
+        "duration_seconds": 23.033333,
+        "width": 756,
+        "height": 414,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "codec": "h264",
+        "frame_count": 691,
+        "audio_stream_count": 0,
+        "measurement_status": "measured",
+        "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": null,
+        "decode_status": "passed",
+        "visual_status": "unverified",
+        "reviewed_at": "2026-10-03T13:43:16+08:00",
+        "basis": "FFmpeg 使用 -xerror -err_detect explode 对完整文件全部流解码成功，无报错；未做新的画面、球权或战术复核。"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "byte_status": "unique_against_catalog_and_uploaded_files",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与现有 146 条资产清单及本批其他十段均无相同值；不同编码、裁切或同回合内容重复尚未逐回合比较。"
+      }
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-006",
+      "local_id": "006",
+      "asset": {
+        "path": "clips/06_Spurs_20160330_Q3_3m31_weave_slip_silent.mp4",
+        "bytes": 4063562,
+        "sha256": "e69d7260f9c54c407fa37bf6d3e20e1478e0827421fb3208cdb630e69eb792e1",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/006.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "06_Spurs_20160330_Q3_3m31_weave_slip_silent.mp4",
+        "url": null,
+        "publisher": null,
+        "collected_at": "2026-10-03",
+        "start_seconds": null,
+        "end_seconds": null,
+        "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": null,
+        "game_id": null,
+        "verification_url": null,
+        "period": null,
+        "clock_start": null,
+        "clock_end": null,
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "尚未独立核对比赛、日期、赛季、球队与比赛时钟；文件名中的日期、球队和动作仅为上传者命名线索。"
+      },
+      "tactic": {
+        "title": "用户上传视频 006（动作待复核）",
+        "tags": [
+          "用户上传",
+          "待复核"
+        ],
+        "description": null,
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "未进行战术或视觉验收，不把文件名动作描述视为已确认标签。",
+        "basis": "本轮用户提供原文件；标签仅表示接收与待复核状态，原文件名保存于 source.uploaded_filename。"
+      },
+      "video": {
+        "duration_seconds": 15.0,
+        "width": 700,
+        "height": 394,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "codec": "h264",
+        "frame_count": 450,
+        "audio_stream_count": 0,
+        "measurement_status": "measured",
+        "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": null,
+        "decode_status": "passed",
+        "visual_status": "unverified",
+        "reviewed_at": "2026-10-03T13:43:16+08:00",
+        "basis": "FFmpeg 使用 -xerror -err_detect explode 对完整文件全部流解码成功，无报错；未做新的画面、球权或战术复核。"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "byte_status": "unique_against_catalog_and_uploaded_files",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与现有 146 条资产清单及本批其他十段均无相同值；不同编码、裁切或同回合内容重复尚未逐回合比较。"
+      }
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-007",
+      "local_id": "007",
+      "asset": {
+        "path": "clips/07_Warriors_20190610_Finals_G5_Q1_give_go_silent.mp4",
+        "bytes": 3588641,
+        "sha256": "3940cce26a81e855cb1aacb71cc5a0c8de13b239b42968fb02b5eaabdddb8b93",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/007.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "07_Warriors_20190610_Finals_G5_Q1_give_go_silent.mp4",
+        "url": null,
+        "publisher": null,
+        "collected_at": "2026-10-03",
+        "start_seconds": null,
+        "end_seconds": null,
+        "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": null,
+        "game_id": null,
+        "verification_url": null,
+        "period": null,
+        "clock_start": null,
+        "clock_end": null,
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "尚未独立核对比赛、日期、赛季、球队与比赛时钟；文件名中的日期、球队和动作仅为上传者命名线索。"
+      },
+      "tactic": {
+        "title": "用户上传视频 007（动作待复核）",
+        "tags": [
+          "用户上传",
+          "待复核"
+        ],
+        "description": null,
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "未进行战术或视觉验收，不把文件名动作描述视为已确认标签。",
+        "basis": "本轮用户提供原文件；标签仅表示接收与待复核状态，原文件名保存于 source.uploaded_filename。"
+      },
+      "video": {
+        "duration_seconds": 12.846667,
+        "width": 1280,
+        "height": 720,
+        "fps": 59.93601635656481,
+        "fps_fraction": "23100000/385411",
+        "codec": "h264",
+        "frame_count": 770,
+        "audio_stream_count": 0,
+        "measurement_status": "measured",
+        "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": null,
+        "decode_status": "passed",
+        "visual_status": "unverified",
+        "reviewed_at": "2026-10-03T13:43:16+08:00",
+        "basis": "FFmpeg 使用 -xerror -err_detect explode 对完整文件全部流解码成功，无报错；未做新的画面、球权或战术复核。"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "byte_status": "unique_against_catalog_and_uploaded_files",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与现有 146 条资产清单及本批其他十段均无相同值；不同编码、裁切或同回合内容重复尚未逐回合比较。"
+      }
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-008",
+      "local_id": "008",
+      "asset": {
+        "path": "clips/08_Lakers_20161104_Q2_10m42_post_split_silent.mp4",
+        "bytes": 9786036,
+        "sha256": "46e92ff52d4f7913205d03be2381c1950d937972fc149e6ad4f85f2947de95fd",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/008.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "08_Lakers_20161104_Q2_10m42_post_split_silent.mp4",
+        "url": null,
+        "publisher": null,
+        "collected_at": "2026-10-03",
+        "start_seconds": null,
+        "end_seconds": null,
+        "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": null,
+        "game_id": null,
+        "verification_url": null,
+        "period": null,
+        "clock_start": null,
+        "clock_end": null,
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "尚未独立核对比赛、日期、赛季、球队与比赛时钟；文件名中的日期、球队和动作仅为上传者命名线索。"
+      },
+      "tactic": {
+        "title": "用户上传视频 008（动作待复核）",
+        "tags": [
+          "用户上传",
+          "待复核"
+        ],
+        "description": null,
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "未进行战术或视觉验收，不把文件名动作描述视为已确认标签。",
+        "basis": "本轮用户提供原文件；标签仅表示接收与待复核状态，原文件名保存于 source.uploaded_filename。"
+      },
+      "video": {
+        "duration_seconds": 10.883333,
+        "width": 1902,
+        "height": 996,
+        "fps": 60.0,
+        "fps_fraction": "60/1",
+        "codec": "h264",
+        "frame_count": 653,
+        "audio_stream_count": 0,
+        "measurement_status": "measured",
+        "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": null,
+        "decode_status": "passed",
+        "visual_status": "unverified",
+        "reviewed_at": "2026-10-03T13:43:16+08:00",
+        "basis": "FFmpeg 使用 -xerror -err_detect explode 对完整文件全部流解码成功，无报错；未做新的画面、球权或战术复核。"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "byte_status": "unique_against_catalog_and_uploaded_files",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与现有 146 条资产清单及本批其他十段均无相同值；不同编码、裁切或同回合内容重复尚未逐回合比较。"
+      }
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-009",
+      "local_id": "009",
+      "asset": {
+        "path": "clips/09_Celtics_20161111_Q1_10m48_screen_screener_silent.mp4",
+        "bytes": 7274898,
+        "sha256": "6fa738be71a1cb224dbd8f9113ebab504f229fcb6d027ed187ba77fe7bf6889b",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/009.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "09_Celtics_20161111_Q1_10m48_screen_screener_silent.mp4",
+        "url": null,
+        "publisher": null,
+        "collected_at": "2026-10-03",
+        "start_seconds": null,
+        "end_seconds": null,
+        "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": null,
+        "game_id": null,
+        "verification_url": null,
+        "period": null,
+        "clock_start": null,
+        "clock_end": null,
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "尚未独立核对比赛、日期、赛季、球队与比赛时钟；文件名中的日期、球队和动作仅为上传者命名线索。"
+      },
+      "tactic": {
+        "title": "用户上传视频 009（动作待复核）",
+        "tags": [
+          "用户上传",
+          "待复核"
+        ],
+        "description": null,
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "未进行战术或视觉验收，不把文件名动作描述视为已确认标签。",
+        "basis": "本轮用户提供原文件；标签仅表示接收与待复核状态，原文件名保存于 source.uploaded_filename。"
+      },
+      "video": {
+        "duration_seconds": 10.9,
+        "width": 1920,
+        "height": 1080,
+        "fps": 60.0,
+        "fps_fraction": "60/1",
+        "codec": "h264",
+        "frame_count": 654,
+        "audio_stream_count": 0,
+        "measurement_status": "measured",
+        "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": null,
+        "decode_status": "passed",
+        "visual_status": "unverified",
+        "reviewed_at": "2026-10-03T13:43:16+08:00",
+        "basis": "FFmpeg 使用 -xerror -err_detect explode 对完整文件全部流解码成功，无报错；未做新的画面、球权或战术复核。"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "byte_status": "unique_against_catalog_and_uploaded_files",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与现有 146 条资产清单及本批其他十段均无相同值；不同编码、裁切或同回合内容重复尚未逐回合比较。"
+      }
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-010",
+      "local_id": "010",
+      "asset": {
+        "path": "clips/10_Spurs_20181124_Q1_4m28_multi_action_silent.mp4",
+        "bytes": 5609576,
+        "sha256": "c01c7f89082a17cef18b1ac3e576423e2a44d655c6bffed55909641e58f050ff",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/010.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "10_Spurs_20181124_Q1_4m28_multi_action_silent.mp4",
+        "url": null,
+        "publisher": null,
+        "collected_at": "2026-10-03",
+        "start_seconds": null,
+        "end_seconds": null,
+        "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": null,
+        "game_id": null,
+        "verification_url": null,
+        "period": null,
+        "clock_start": null,
+        "clock_end": null,
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "尚未独立核对比赛、日期、赛季、球队与比赛时钟；文件名中的日期、球队和动作仅为上传者命名线索。"
+      },
+      "tactic": {
+        "title": "用户上传视频 010（动作待复核）",
+        "tags": [
+          "用户上传",
+          "待复核"
+        ],
+        "description": null,
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "未进行战术或视觉验收，不把文件名动作描述视为已确认标签。",
+        "basis": "本轮用户提供原文件；标签仅表示接收与待复核状态，原文件名保存于 source.uploaded_filename。"
+      },
+      "video": {
+        "duration_seconds": 14.96495,
+        "width": 854,
+        "height": 480,
+        "fps": 59.94005994005994,
+        "fps_fraction": "60000/1001",
+        "codec": "h264",
+        "frame_count": 897,
+        "audio_stream_count": 0,
+        "measurement_status": "measured",
+        "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": null,
+        "decode_status": "passed",
+        "visual_status": "unverified",
+        "reviewed_at": "2026-10-03T13:43:16+08:00",
+        "basis": "FFmpeg 使用 -xerror -err_detect explode 对完整文件全部流解码成功，无报错；未做新的画面、球权或战术复核。"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "byte_status": "unique_against_catalog_and_uploaded_files",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与现有 146 条资产清单及本批其他十段均无相同值；不同编码、裁切或同回合内容重复尚未逐回合比较。"
+      }
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-011",
+      "local_id": "011",
+      "asset": {
+        "path": "clips/nba_primevision_5-25s.mp4",
+        "bytes": 8600520,
+        "sha256": "ae92addbf5bf9e49b05324ea40494b8d10ab37c49c320a10e104b975ae1af998",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/011.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "nba_primevision_5-25s.mp4",
+        "url": null,
+        "publisher": null,
+        "collected_at": "2026-10-03",
+        "start_seconds": null,
+        "end_seconds": null,
+        "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": null,
+        "game_id": null,
+        "verification_url": null,
+        "period": null,
+        "clock_start": null,
+        "clock_end": null,
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "尚未独立核对比赛、日期、赛季、球队与比赛时钟；文件名中的日期、球队和动作仅为上传者命名线索。"
+      },
+      "tactic": {
+        "title": "用户上传视频 011（动作待复核）",
+        "tags": [
+          "用户上传",
+          "待复核"
+        ],
+        "description": null,
+        "label_status": "provisional_from_collector_notes",
+        "confidence_note": "未进行战术或视觉验收，不把文件名动作描述视为已确认标签。",
+        "basis": "本轮用户提供原文件；标签仅表示接收与待复核状态，原文件名保存于 source.uploaded_filename。"
+      },
+      "video": {
+        "duration_seconds": 20.0,
+        "width": 1280,
+        "height": 720,
+        "fps": 30.0,
+        "fps_fraction": "30/1",
+        "codec": "h264",
+        "frame_count": 600,
+        "audio_stream_count": 1,
+        "measurement_status": "measured",
+        "measurement_basis": "2026-10-03 使用 ffprobe 检查用户上传原文件；未转码或修改字节"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "scope": null,
+        "decode_status": "passed",
+        "visual_status": "unverified",
+        "reviewed_at": "2026-10-03T13:43:16+08:00",
+        "basis": "FFmpeg 使用 -xerror -err_detect explode 对完整文件全部流解码成功，无报错；未做新的画面、球权或战术复核。"
+      },
+      "dedup": {
+        "content_status": "unverified",
+        "byte_status": "unique_against_catalog_and_uploaded_files",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与现有 146 条资产清单及本批其他十段均无相同值；不同编码、裁切或同回合内容重复尚未逐回合比较。"
+      }
+    }
+  ]
+}

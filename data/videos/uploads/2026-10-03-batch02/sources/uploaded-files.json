@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "user_upload",
+  "received_at": "2026-10-03T13:43:16+08:00",
+  "authorization": "用户明确要求将当前聊天提供的十一段视频同样加入 HKS 视频文件夹并推送至备赛私有仓库。",
+  "files": [
+    {
+      "local_id": "001",
+      "original_filename": "01_Warriors_20181005_Q2_11m35_motion_silent.mp4",
+      "received_at": "2026-10-03T13:43:16+08:00",
+      "bytes": 13961759,
+      "sha256": "4d6e76ed515a775d8971ed58ca7fc241abc022cb201e8762a6716290aa215618",
+      "kind": "user_upload",
+      "source_url": null,
+      "source_unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+    },
+    {
+      "local_id": "002",
+      "original_filename": "02_Spurs_20151223_Q3_5m59_team_motion_silent.mp4",
+      "received_at": "2026-10-03T13:43:16+08:00",
+      "bytes": 6095629,
+      "sha256": "b97ec97396a300e142a416c65aa44cf5feeae2dc96a46d20a80a3a5f287c262e",
+      "kind": "user_upload",
+      "source_url": null,
+      "source_unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+    },
+    {
+      "local_id": "003",
+      "original_filename": "03_Warriors_20181005_Q2_6m13_slip_cut_silent.mp4",
+      "received_at": "2026-10-03T13:43:16+08:00",
+      "bytes": 10967005,
+      "sha256": "3facca53ec3285f313ec6b3c0d8b1b307e48091cd4ccc93a15d79b38936335d7",
+      "kind": "user_upload",
+      "source_url": null,
+      "source_unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+    },
+    {
+      "local_id": "004",
+      "original_filename": "04_Warriors_20181005_Q1_2m39_post_split_silent.mp4",
+      "received_at": "2026-10-03T13:43:16+08:00",
+      "bytes": 7992479,
+      "sha256": "f9657e4f703e52506c90b0d38136749e9c31562bacb4f5ab62b148603f1fabd6",
+      "kind": "user_upload",
+      "source_url": null,
+      "source_unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+    },
+    {
+      "local_id": "005",
+      "original_filename": "05_Warriors_20160605_Finals_G2_Q3_motion_silent.mp4",
+      "received_at": "2026-10-03T13:43:16+08:00",
+      "bytes": 4221834,
+      "sha256": "d931e4ccdc33831c753eb0e0ed1260fcfc6358288b485e7f533d13745ca228e2",
+      "kind": "user_upload",
+      "source_url": null,
+      "source_unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+    },
+    {
+      "local_id": "006",
+      "original_filename": "06_Spurs_20160330_Q3_3m31_weave_slip_silent.mp4",
+      "received_at": "2026-10-03T13:43:16+08:00",
+      "bytes": 4063562,
+      "sha256": "e69d7260f9c54c407fa37bf6d3e20e1478e0827421fb3208cdb630e69eb792e1",
+      "kind": "user_upload",
+      "source_url": null,
+      "source_unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+    },
+    {
+      "local_id": "007",
+      "original_filename": "07_Warriors_20190610_Finals_G5_Q1_give_go_silent.mp4",
+      "received_at": "2026-10-03T13:43:16+08:00",
+      "bytes": 3588641,
+      "sha256": "3940cce26a81e855cb1aacb71cc5a0c8de13b239b42968fb02b5eaabdddb8b93",
+      "kind": "user_upload",
+      "source_url": null,
+      "source_unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+    },
+    {
+      "local_id": "008",
+      "original_filename": "08_Lakers_20161104_Q2_10m42_post_split_silent.mp4",
+      "received_at": "2026-10-03T13:43:16+08:00",
+      "bytes": 9786036,
+      "sha256": "46e92ff52d4f7913205d03be2381c1950d937972fc149e6ad4f85f2947de95fd",
+      "kind": "user_upload",
+      "source_url": null,
+      "source_unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+    },
+    {
+      "local_id": "009",
+      "original_filename": "09_Celtics_20161111_Q1_10m48_screen_screener_silent.mp4",
+      "received_at": "2026-10-03T13:43:16+08:00",
+      "bytes": 7274898,
+      "sha256": "6fa738be71a1cb224dbd8f9113ebab504f229fcb6d027ed187ba77fe7bf6889b",
+      "kind": "user_upload",
+      "source_url": null,
+      "source_unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+    },
+    {
+      "local_id": "010",
+      "original_filename": "10_Spurs_20181124_Q1_4m28_multi_action_silent.mp4",
+      "received_at": "2026-10-03T13:43:16+08:00",
+      "bytes": 5609576,
+      "sha256": "c01c7f89082a17cef18b1ac3e576423e2a44d655c6bffed55909641e58f050ff",
+      "kind": "user_upload",
+      "source_url": null,
+      "source_unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+    },
+    {
+      "local_id": "011",
+      "original_filename": "nba_primevision_5-25s.mp4",
+      "received_at": "2026-10-03T13:43:16+08:00",
+      "bytes": 8600520,
+      "sha256": "ae92addbf5bf9e49b05324ea40494b8d10ab37c49c320a10e104b975ae1af998",
+      "kind": "user_upload",
+      "source_url": null,
+      "source_unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。"
+    }
+  ]
+}
