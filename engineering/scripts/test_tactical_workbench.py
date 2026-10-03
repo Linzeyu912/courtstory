@@ -1,5 +1,6 @@
 import copy
 import json
+from itertools import combinations
 from pathlib import Path
 import shutil
 import subprocess
@@ -107,6 +108,96 @@ process.stdout.write(JSON.stringify(doc));
             self.store.save(malformed, self.clip, 'test', True, 'workspace', 1)
         restored = self.store.load(self.clip, 'test', True, 'workspace')
         self.assertEqual(restored['version'], 1); self.assertEqual(restored['document'], self.document)
+
+
+class CandidateBasketballCompatibilityTests(unittest.TestCase):
+    """Old candidate snapshots differ only by newly derived basketball exports."""
+    derived_fields = ('basketballTrajectory', 'basketballTrajectoryMethod', 'basketballTrajectoryReviewed')
+
+    def setUp(self):
+        self.node = shutil.which('node')
+        if not self.node: self.skipTest('Node.js is required by the tactical workbench')
+        self.temp = tempfile.TemporaryDirectory(); self.addCleanup(self.temp.cleanup)
+        self.folder = Path(self.temp.name) / 'candidate'
+        script = """
+import {makePresentationDemo} from './engineering/tools/tactical-overlay/fixtures/presentation-demo.mjs';
+import {createAnnotation} from './engineering/tools/player-review/tactics-annotations.mjs';
+import {exportSceneObjects} from './engineering/tools/player-review/scene-objects.mjs';
+import {createSourceBinding} from './engineering/tools/tactical-overlay/binding.mjs';
+const fixture=await makePresentationDemo(),frames=fixture.review.sourceFrameMapping.map(({frame,time})=>({frame,time,objects:[]}));
+const session={sceneObjectEdits:[{id:'ball-observation',kind:'basketball',frame:12,point:[710,360]}]};
+fixture.review.sceneObjects=JSON.parse(JSON.stringify(exportSceneObjects(session,frames,[],{width:1280,height:720})));
+const result={};
+for(const version of ['current','legacy']){
+  let doc={schemaVersion:1,title:'candidate compatibility',notes:'keep manual notes',...structuredClone(fixture),presentation:{schemaVersion:1,routes:[]}};
+  if(version==='legacy')for(const key of ['basketballTrajectory','basketballTrajectoryMethod','basketballTrajectoryReviewed'])delete doc.review.sceneObjects[key];
+  doc.playDefinition.sourceBinding=await createSourceBinding(doc.review);
+  for(const type of ['route','screen','spotlight'])doc=createAnnotation(doc,{id:type,type,phaseId:'setup',entityId:'P1',frame:12,
+    space:'court',points:type==='route'?[{x:18,y:10},{x:22,y:9}]:[{x:18,y:10}]});
+  result[version]=doc;
+}
+process.stdout.write(JSON.stringify(result));
+"""
+        result = subprocess.run([self.node, '--input-type=module', '-e', script], cwd=ROOT,
+            text=True, encoding='utf-8', capture_output=True, check=True,
+            creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+        fixtures = json.loads(result.stdout)
+        self.current, self.legacy = fixtures['current'], fixtures['legacy']
+        review = self.current['review']
+        self.clip = {'video_sha256': review['videoSha256'], 'tracking_fingerprint': review['trackingFingerprint'],
+            'tracking_revision': review['trackingRevision'], 'width': review['width'], 'height': review['height'],
+            'frames': [{'frame': p['frame'], 'time': p['time'], 'source_frame': p['sourceFrame'],
+                       'source_time': p['sourceTime']} for p in review['sourceFrameMapping']]}
+        self.store = TacticalWorkbench(self.folder, node=self.node)
+        self.store.candidate_cache = copy.deepcopy(self.current)
+
+    def test_legacy_candidate_saves_and_restarts_without_rebinding_or_rewriting_any_document_fields(self):
+        before, canonical = copy.deepcopy(self.legacy), copy.deepcopy(self.current)
+        saved = self.store.save(self.legacy, self.clip, 'test', True, 'candidate', 0)
+        self.assertEqual(saved['version'], 1)
+        self.assertEqual(saved['document'], before)
+        self.assertEqual(self.legacy, before)
+        self.assertEqual(self.store.candidate_cache, canonical)
+        restarted = TacticalWorkbench(self.folder, node=self.node)
+        restarted.candidate_cache = copy.deepcopy(self.current)
+        loaded = restarted.load(self.clip, 'test', True, 'candidate')
+        self.assertEqual(loaded['document'], before)
+        saved_again = restarted.save(loaded['document'], self.clip, 'test', True, 'candidate', 1)
+        self.assertEqual(saved_again['version'], 2)
+        self.assertEqual(saved_again['document'], before)
+        self.assertNotEqual(before['playDefinition']['sourceBinding'], canonical['playDefinition']['sourceBinding'])
+        self.assertEqual(saved_again['document']['annotations'], before['annotations'])
+        self.assertEqual(saved_again['document']['presentation'], before['presentation'])
+
+    def test_current_candidate_retains_all_derived_basketball_fields(self):
+        saved = self.store.save(self.current, self.clip, 'test', True, 'candidate', 0)
+        self.assertEqual(saved['document'], self.current)
+        for key in self.derived_fields: self.assertIn(key, saved['document']['review']['sceneObjects'])
+
+    def test_partial_derived_fields_and_changed_source_remain_rejected(self):
+        mutations = []
+        for missing in [subset for count in (1, 2) for subset in combinations(self.derived_fields, count)]:
+            changed = copy.deepcopy(self.current)
+            for key in missing: del changed['review']['sceneObjects'][key]
+            mutations.append(('partial ' + ','.join(missing), changed))
+        for key, value in [('basketballTrajectory', []), ('basketballTrajectoryMethod', 'other'), ('basketballTrajectoryReviewed', True)]:
+            changed = copy.deepcopy(self.current); changed['review']['sceneObjects'][key] = value
+            mutations.append(('derived ' + key, changed))
+        for baseline in [self.current, self.legacy]:
+            changed = copy.deepcopy(baseline); changed['review']['sceneObjects']['manualEdits'][0]['point'][0] += 1
+            mutations.append(('changed manual object', changed))
+            changed = copy.deepcopy(baseline); changed['review']['sceneObjects']['frames'][12]['objects'][0]['point'][0] += 1
+            mutations.append(('changed exported object', changed))
+            changed = copy.deepcopy(baseline); changed['review']['videoSha256'] = 'different-video'
+            mutations.append(('changed video', changed))
+            changed = copy.deepcopy(baseline); changed['review']['entities'][0]['identityConfirmed'] = False
+            mutations.append(('changed source review', changed))
+        with patch.object(self.store, 'run') as validate:
+            for label, changed in mutations:
+                with self.subTest(label=label), self.assertRaisesRegex(ValueError, '来源快照不可改写'):
+                    self.store.save(changed, self.clip, 'test', True, 'candidate', 0)
+            validate.assert_not_called()
+        self.assertIsNone(self.store.load(self.clip, 'test', True, 'candidate')['document'])
 
 
 if __name__ == '__main__': unittest.main()
