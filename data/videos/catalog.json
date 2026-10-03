@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-10-02T07:56:32+08:00",
+  "updated_at": "2026-10-03T12:52:33+08:00",
   "path_base": "repository_root",
   "datasets": [
     {
@@ -47,6 +47,16 @@
       "manifest": "data/videos/tactics/acceptance/manifest.json",
       "entry_count": 3,
       "included_count": 3,
+      "awaiting_upload_count": 0
+    },
+    {
+      "dataset_id": "user-uploads-20261003",
+      "season": null,
+      "purpose": "user_upload",
+      "root": "data/videos/uploads/2026-10-03",
+      "manifest": "data/videos/uploads/2026-10-03/manifest.json",
+      "entry_count": 4,
+      "included_count": 4,
       "awaiting_upload_count": 0
     }
   ],

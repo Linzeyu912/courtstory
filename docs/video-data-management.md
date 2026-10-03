@@ -27,6 +27,8 @@ data/videos/
 
 ## 2. 哪些文件入库
 
+2026-10-03 补充用户直接上传的成片：在 `data/videos/uploads/<接收日期>/` 独立登记，`purpose=user_upload`、`season=null`，每条 `source.kind=user_upload`。必须保存 `uploaded_filename`、接收日期与非空 `source.unknown_reason`；没有原来源网页 / 发布者时用 null，未提供原片裁切区间时起止秒数同时为 null，禁止只缺一端。比赛日期未核实时用 null 并写 `game.unknown_reason`；文件名只能作为线索。现有网络采集批次继续要求有效来源 URL、裁切区间和比赛核对口径，不借上传例外放宽。批次 / 清单 / 标签 / 解码 / 去重 / LFS 与远端实际下载校验仍执行本规范。
+
 | 内容 | 保存方式 |
 |---|---|
 | 经过挑选的成片 MP4 等视频 | `data/videos/`，通过根 `.gitattributes` 使用 Git LFS |
