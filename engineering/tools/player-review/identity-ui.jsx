@@ -133,19 +133,29 @@ function EntityRoster({state,api}) {
 function IdentityPanel({state,api}) {
   const {entity,point,mode,proposals}=state;
   const [candidate,setCandidate]=useState('');
-  const selected=candidate===''?null:proposals[Number(candidate)];
+  const selected=state.previewTrackId!=null?proposals.find(item=>item.trackId===state.previewTrackId):candidate===''?null:proposals[Number(candidate)];
+  const candidateValue=selected?String(proposals.indexOf(selected)):'';
   const busy=!!state.reviewBusy;
   const hasRecords=state.entities.find(item=>item.id===entity.id)?.hasRecords;
   const available=point?.x!=null&&!point?.reviewExcluded;
   const releaseRange=state.releaseRange;
   const confirmed=point?.frameIdentityConfirmed===true;
   const canConfirm=available&&!['interpolated','manual_path','conflict'].includes(point?.source);
+  const needsCorrection=point?.source==='conflict'||point?.identitySource==='reassigned'||
+    (state.previewTrackId!=null&&point?.trackId!==state.previewTrackId&&state.trackAssignments?.some(item=>item.trackId===state.previewTrackId));
   const evidenceLabel=point?.reviewExcluded?'已取消关联':point?.source==='conflict'?'身份冲突':confirmed?'本帧人物已确认 · 实线':point?.identitySource==='model_suggestion'?'模型建议 · 虚线待确认':point?.associationScope==='track_occurrences'?'整段归并 · 虚线待核对':({tracked:'模型位置 · 待核对',manual:'人工位置 · 人物待确认',interpolated:'估计位置',manual_path:'手绘待核对',missing:'缺少位置',conflict:'身份冲突',out_of_view:'已标出画'})[point?.source]||'待关联';
   const fields=[['name','目标名称',40],['team','球队 / 球衣描述',40],['jersey','球衣号码',4]];
   return <>
     <div className="identity-flow"><div><small>正在编辑的固定身份</small><strong>球员 {slotLabel(entity.id)} · {entity.name}</strong></div><span>←</span><div><small>跟踪器临时编号</small><strong>{point?.reviewExcluded?'已取消关联':point?.trackId!=null?`T${point.trackId}`:confirmed?'无 T · 本帧人工确认':'尚未关联'}</strong></div></div>
     <div className="identity-evidence"><span className={`identity-state state-${point?.reviewExcluded?'unassigned':confirmed?'confirmed':point?.source||'missing'}`}>{evidenceLabel}</span>{state.observedIds.length>0&&<span>此身份对应过 {state.observedIds.map(id=>`T${id}`).join('、')}</span>}</div>
     <p className="small muted">YOLO 逐帧检测人物框，跟踪器分配 T 编号。一个球员可以归并多个 T；每个编号分别选一次，关联后仍需逐帧核对。</p>
+    {needsCorrection&&<section className="candidate-warning identity-conflict" aria-label="人物关联冲突">
+      <strong>先解决第 {state.frame+1} 帧的关联冲突</strong>
+      <p>{point?.candidateTrackIds?.length>1?`球员 ${slotLabel(entity.id)} 在这一帧同时关联了 ${point.candidateTrackIds.map(id=>`T${id}`).join('、')}。`:point?.claimedBy?`此人物当前归属球员 ${slotLabel(point.claimedBy)}。`:'当前候选与已有的人物归属重叠。'}重新累计整段编号不会解除冲突。</p>
+      <label className="field">预览正确人物<select aria-label="冲突纠正候选" value={selected?.trackId!=null?candidateValue:''} disabled={busy} onChange={e=>{setCandidate(e.target.value);api.preview(e.target.value===''?null:proposals[Number(e.target.value)]);}}><option value="">点画面中的候选，或在这里选择</option>{proposals.map((p,i)=>p.trackId!=null&&<option key={i} value={i}>{proposalLabel(p)}</option>)}</select></label>
+      <div className="conflict-actions"><button className="primary" disabled={busy||selected?.trackId==null} onClick={async()=>{if(await api.correctCandidate(selected,'frame'))setCandidate('');}}>{selected?.trackId!=null?`仅本帧采用 T${selected.trackId}`:'仅本帧采用候选'}</button><button disabled={busy||selected?.trackId==null} onClick={async()=>{if(await api.correctCandidate(selected,'forward'))setCandidate('');}}>{selected?.trackId!=null?`从本帧向后采用 T${selected.trackId}`:'从本帧向后采用候选'}</button></div>
+      <p>仅本帧：其他帧保持原样。向后纠错：直到下一人工边界或切镜；只把当前帧标为已确认。若此人物属于另一槽位，该槽位在纠正范围内留空，操作可撤销。</p>
+    </section>}
     <div className="frame-confirmation"><button className="primary wide" disabled={busy||!canConfirm||confirmed} onClick={()=>api.confirmCurrent()}>{confirmed?'本帧人物已确认':`确认第 ${state.frame+1} 帧人物`}</button><p>核对画面后确认，当前球员框改为实线。只确认这一帧；脚点和球场位置另行核对。</p></div>
     <label className="field">人物关联范围<select aria-label="人物关联范围" disabled={busy} value={state.associationScope} onChange={event=>api.setAssociationScope(event.target.value)}><option value="track_occurrences">整个 T 编号的出现帧（含之前）</option><option value="forward">从当前帧向后纠错</option></select></label>
     <p className="small muted">{state.associationScope==='track_occurrences'?'累计归并这个编号实际出现的帧；缺帧留空，已有人工纠错优先。同帧多个编号冲突时留待处理。':'从当前帧起纠正身份，直到下一次人工边界或切镜。适合编号中途串到其他人的情况。'}</p>
@@ -159,7 +169,7 @@ function IdentityPanel({state,api}) {
     <div className="identity-fields">{fields.map(([name,label,max])=><label className="field" key={name}>{label}<input key={`${slotLabel(entity.id)}:${name}:${entity[name]||''}`} aria-label={label} defaultValue={entity[name]||''} maxLength={max} disabled={busy} onBlur={e=>{if(!busy&&e.target.value.trim()!==(entity[name]||''))api.setField(name,e.target.value.trim());}} onKeyDown={e=>{if(e.key==='Enter')e.currentTarget.blur();}} /></label>)}</div>
     <div className="mode-switch"><button className={mode==='select'?'active':''} aria-pressed={mode==='select'} onClick={()=>api.setMode('select')}>关联人物</button><button className={mode==='point'?'active':''} aria-pressed={mode==='point'} onClick={()=>api.setMode('point')}>点击补脚下点</button></div>
     <p className="note">{mode==='select'?'点击候选框关联；已选中后，拖动脚下圆点改位置，拖动框边移动人物框，拖动四角调整大小。':'点击球员脚下保存当前帧位置；也可直接拖动已有圆点。'}</p>
-    <label className="field">当前帧候选人物<select aria-label="当前帧候选人物" value={candidate} onChange={e=>{setCandidate(e.target.value);api.preview(e.target.value===''?null:proposals[Number(e.target.value)]);}}><option value="">选择一个候选，先预览</option>{proposals.map((p,i)=><option key={i} value={i}>{proposalLabel(p)} · 置信度 {Math.round((p.score||0)*100)}%</option>)}</select></label>
+    <label className="field">当前帧候选人物<select aria-label="当前帧候选人物" value={candidateValue} onChange={e=>{setCandidate(e.target.value);api.preview(e.target.value===''?null:proposals[Number(e.target.value)]);}}><option value="">选择一个候选，先预览</option>{proposals.map((p,i)=><option key={i} value={i}>{proposalLabel(p)} · 置信度 {Math.round((p.score||0)*100)}%</option>)}</select></label>
     {selected?.roleConflict&&<p className="candidate-warning">这个位置同时有球员与裁判候选，请核对真人和所属角色后关联。</p>}
     {selected?.suppressed&&<p className="candidate-warning">这个框已被模型后处理抑制，可能与其他框重复。核对后可作为当前帧的人工兜底，不会重新生成临时 T 编号。</p>}
     {selected?.role==='referee'&&entity.role==='player'&&<p className="candidate-warning">模型把这个候选标为裁判。若实际是裁判，请先添加 R 编号；误分类的球员仍可人工关联到当前 P。</p>}
