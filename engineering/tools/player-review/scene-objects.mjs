@@ -68,6 +68,7 @@ export function buildBasketballTrajectory(session,frames,cuts=[],dimensions={}){
 export function exportSceneObjects(session,frames,cuts=[],dimensions={}){
   const basketballTrajectory=buildBasketballTrajectory(session,frames,cuts,dimensions);
   return {coordinateSystem:'image_pixels',continuousTracking:false,groundProjection:false,
+    observationSource:dimensions.sceneObjectSource?structuredClone(dimensions.sceneObjectSource):null,
     basketballTrajectoryMethod:'nearest_motion_candidate_v1',basketballTrajectoryReviewed:false,
     basketballTrajectory,
     manualEdits:structuredClone(session.sceneObjectEdits||[]),

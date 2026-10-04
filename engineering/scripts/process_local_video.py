@@ -45,6 +45,26 @@ def prepare_video(source, destination):
         temporary.unlink(missing_ok=True)
 
 
+def prepare_object_variant(video, weights, output_dir):
+    """Reuse the original all-class E-BARD pipeline without altering person IDs.
+
+    The optimized person tracker deliberately filters to the player class. Its
+    companion provides ball/hoop observations and role-isolated referee tracks.
+    Both variants are validated against the same decoded video before publish.
+    """
+    directory = output_dir / 'scene-reference'
+    directory.mkdir(parents=True, exist_ok=True)
+    library = directory / 'library.json'
+    atomic_json(library, {'samples': [{'id': 'scene', 'video': str(video),
+                                    'videoSha256': file_hash(video)}]})
+    subprocess.run([sys.executable, str(Path(__file__).with_name('build_ebard_review_tracks.py')),
+        '--library', str(library), '--model', str(weights), '--output-dir', str(directory),
+        '--suffix', 'ebard', '--report', str(directory / 'report.json'),
+        '--previews', str(directory / 'previews')], check=True, cwd=ROOT)
+    return {'id': 'ebard', 'label': '篮球 / 篮筐与裁判参照 · E-BARD',
+            'tracks': str(directory / 'scene-ebard.json')}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ['source', 'video', 'output-dir', 'models']:
@@ -74,9 +94,12 @@ def main():
         stable = args.output_dir / f'{args.variant}.json'
         prepare_variant(output, stable, load_policy(), variant=args.variant)
         variants.insert(0, {'id': args.variant, 'label': plan['label'], 'recommended': bool(plan.get('recommended')), 'tracks': str(stable)})
+    if plan['detector'] == 'ebard':
+        variants.append(prepare_object_variant(args.video, plan['weights'], args.output_dir))
     sample = {'id': args.id, 'title': args.source.stem, 'description': '本地视频库 · ' + args.source.name,
         'video': str(args.video), 'videoSha256': file_hash(args.video), 'tracks': str(output),
-        'originalLabel': variants[-1]['label'], 'defaultVariant': args.variant, 'trackingVariants': variants,
+        'originalLabel': next(item['label'] for item in variants if item['id'] == variant),
+        'defaultVariant': args.variant, 'trackingVariants': variants,
         'importSourceSha256': args.source_sha256, 'importSourceName': args.source.name}
     from serve_player_review import validated_clip
     validated_clip(sample)  # Reject partial output or mismatched PTS before publishing.

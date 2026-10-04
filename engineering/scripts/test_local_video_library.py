@@ -318,6 +318,7 @@ class LocalLibraryTests(unittest.TestCase):
         process = subprocess.Popen([sys.executable, str(Path(__file__).with_name('serve_player_review.py')),
             '--library', str(library), '--port', '0', '--state-file', str(state),
             '--video-folder', str(self.root / 'http-inbox'), '--import-cache', str(self.root / 'http-cache'),
+            '--inference-python', str(self.root / 'unconfigured-runtime' / 'python.exe'),
             '--trim-root', str(self.root / 'trims'), '--tactics-folder', str(self.root / 'tactics')], stdout=log, stderr=log)
         try:
             deadline = time.monotonic()+15
@@ -329,6 +330,10 @@ class LocalLibraryTests(unittest.TestCase):
             headers = {'Content-Type': 'application/octet-stream', 'X-Video-Filename': 'from-http.mp4', 'Origin': url[:-1]}
             with urlopen(Request(url+'api/video-library/import', data, headers)) as response:
                 result = json.load(response)
+            # Import now queues inference. Keep this HTTP contract test independent
+            # of local GPU/models and leave no real worker behind at teardown.
+            self.assertEqual(result['job']['status'], 'error')
+            self.assertIn('unconfigured-runtime', result['job']['message'])
             with urlopen(url+'api/video-library') as response:
                 self.assertEqual(json.load(response)['entries'][0]['id'], result['id'])
             with self.assertRaises(HTTPError) as caught:

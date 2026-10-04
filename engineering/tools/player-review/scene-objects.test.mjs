@@ -16,3 +16,10 @@ test('excluding and supplementing objects preserves an audit record without extr
  const out=exportSceneObjects(session,[record,{frame:1,time:.1,tracks:[],objects:[]}]);assert.equal(out.frames[0].objects[1].groundPoint,false);assert.equal(out.frames[1].objects.length,0);assert.equal(out.manualEdits[0].action,'exclude');
  const before=JSON.stringify(session);assert.throws(()=>updateSceneObject(session,0,{id:'bad',kind:'basketball'},{box:[1,2,0,3]},100,100));assert.equal(JSON.stringify(session),before);
 });
+
+test('export keeps independent same-video object provenance without relabelling player tracking',()=>{
+ const source={variant:'ebard',videoSha256:'v',trackingRawFingerprint:'object-source',method:'same_video_frame_aligned_objects'};
+ const out=exportSceneObjects(blankSession('v'),[record],[],{sceneObjectSource:source});
+ assert.deepEqual(out.observationSource,source);assert.notEqual(out.observationSource,source);
+ assert.equal(out.groundProjection,false);assert.equal(out.basketballTrajectory[0].source,'model_observation');
+});

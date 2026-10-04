@@ -692,6 +692,18 @@ def validated_clip(sample):
     variants=[{'id':identifier,'label':entry['label'],'recommended':entry['recommended']}
               for identifier,entry in versions.items()]
     for identifier,entry in versions.items():
+        records = entry['records']
+        object_source = None
+        # Player-only variants have no objects field at all. Reuse only the
+        # registered, same-video E-BARD reference; explicit empty observations
+        # mean a real miss and must never be silently filled by another variant.
+        reference = versions.get('ebard')
+        if reference and identifier != 'ebard' and not any('objects' in row for row in records):
+            records = [{**row, 'objects': source.get('objects', [])}
+                       for row, source in zip(records, reference['records'])]
+            object_source = {'variant': 'ebard', 'videoSha256': digest,
+                'trackingRawFingerprint': reference['rawFingerprint'],
+                'method': 'same_video_frame_aligned_objects', 'reviewRequired': True}
         # Grouped presentation may omit identities only for uncertain team colors.
         # Donate ungrouped suggestions only from byte-identical, already validated
         # detector records. This API field is regenerated after trims, never saved
@@ -714,7 +726,8 @@ def validated_clip(sample):
             'courtCalibration':court_profile,'courtCandidates':court_candidates,
             'feetCandidates':feet_candidates if feet_candidates and
                 feet_candidates['trackingFingerprint']==entry['rawFingerprint'] else None,
-            'frames':entry['records'],'sourceCuts':sample.get('sourceCuts',[]),
+            'frames':records,'sourceCuts':sample.get('sourceCuts',[]),
+            'sceneObjectSource':object_source,
             'liveSelection':sample.get('liveSelection'),'source_video_sha256':sample.get('sourceVideoSha256'),
             'importSourceSha256':sample.get('importSourceSha256'),
             'supportsCourtCalibration':sample.get('supportsCourtCalibration',True),'tracking_revision':identifier,
