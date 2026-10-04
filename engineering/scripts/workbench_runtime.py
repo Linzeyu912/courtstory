@@ -5,6 +5,7 @@ import copy
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 import threading
@@ -86,5 +87,11 @@ def worker_failure(log, returncode):
         stream.seek(max(0, stream.tell() - 8192))
         lines = stream.read().decode('utf-8', errors='replace').splitlines()
     significant = [line.strip() for line in lines if line.strip()]
-    reason = significant[-1][:800] if significant else f'进程退出码 {returncode}'
+    exceptions = [line for line in significant
+                  if re.match(r'^[\w.]+(?:Error|Exception):', line)
+                  and not line.startswith(('subprocess.CalledProcessError:', 'CalledProcessError:'))]
+    if any('Weights only load failed' in line for line in significant):
+        reason = '模型权重加载不兼容，受限加载未识别所需的模型类型'
+    else:
+        reason = (exceptions[-1] if exceptions else significant[-1])[:800] if significant else f'进程退出码 {returncode}'
     return f'识别失败：{reason}。可重试；详细日志：{log}'

@@ -2,6 +2,8 @@
 
 2026-10-03 本地更新：前端改为检测器与跟踪器独立选择，新增两种交叉组合，默认仍沿用原篮球优化路线。实际映射、参数和新后端字段见[选择与布局说明](model-selection-layout.md)；下文保留原运行记录。
 
+2026-10-04 导入兼容修复：球场模型加载会启用 `TORCH_FORCE_WEIGHTS_ONLY_LOAD=1`，随后的人物识别子进程会继承该设置。原 `basketball_run.py` 直接构造 YOLO、未注册模型类型，导致完好的 E-BARD 权重报 `DetectionModel` 不在允许列表中。现人物入口与原 E-BARD 检测入口共用 [`yolo_checkpoint.py`](../scripts/yolo_checkpoint.py)，保持受限加载并显式允许既有 YOLOv8 架构；未知类型仍拒绝，不改权重、不切换跟踪器。日志摘要同时优先展示底层异常，避免只显示 `CalledProcessError` 命令包装。模型加载、真实视频与导入验证结果见[本次交接](../../handoffs/Linzeyu912/2026-10-04-2101-import-checkpoint-loading.md)。
+
 核验日期：2026-10-02（Asia/Shanghai）。本轮按用户选择将 THY 完整方案作为默认推荐；推荐标记不代表独立准确率评测结论。
 
 ## 当前部署

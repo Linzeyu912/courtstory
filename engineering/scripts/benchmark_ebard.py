@@ -4,7 +4,6 @@ Outputs are offline proposals, not identity tracks or accuracy measurements.
 No training, scene filter, tracker, calibration or production cache is modified.
 """
 import argparse
-import builtins
 import hashlib
 import json
 import os
@@ -21,23 +20,7 @@ import cv2
 import numpy as np
 import torch
 import ultralytics
-from ultralytics import YOLO
-from ultralytics.nn.modules import Bottleneck, C2f, Concat, Conv, Detect, DFL, SPPF
-from ultralytics.nn.tasks import DetectionModel
-
-
-def load_detector(path):
-    # Explicit known architecture allowlist; never fall back to arbitrary pickle loading.
-    allowed = [DetectionModel, Conv, C2f, Bottleneck, SPPF, Concat, Detect, DFL,
-               torch.nn.ModuleList, torch.nn.Sequential, torch.nn.Upsample,
-               torch.nn.SiLU, torch.nn.MaxPool2d, torch.nn.Conv2d,
-               torch.nn.BatchNorm2d, builtins.getattr]
-    allowed_names = {f'{x.__module__}.{x.__name__}' for x in allowed}
-    unexpected = set(torch.serialization.get_unsafe_globals_in_checkpoint(path)) - allowed_names
-    if unexpected:
-        raise ValueError(f'Unexpected checkpoint globals: {sorted(unexpected)}')
-    with torch.serialization.safe_globals(allowed):
-        return YOLO(str(path))
+from yolo_checkpoint import load_detector
 
 
 def draw(frame, boxes, names, heading):
