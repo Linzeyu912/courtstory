@@ -432,6 +432,17 @@ body[data-step="calibration"].workbench-shell #stage #videoFrame { inset: 20%; w
 .workbench-shell .calibration-automation { padding: 10px; border-radius: 6px; }
 .workbench-shell .calibration-steps { margin: 10px 0; }
 .workbench-shell .calibration-steps span { padding: 4px 6px; font-size: 10px; }
+.workbench-shell .court-flow-step { margin: 8px 0; padding: 10px; border: 1px solid #dce3e9; border-radius: 8px; background: #fafcfd; }
+.workbench-shell .court-flow-step h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 5px; font-size: 13px; }
+.workbench-shell .court-step-number { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; flex: 0 0 22px; border-radius: 50%; background: #e4edf5; color: #315677; font-size: 12px; }
+.workbench-shell .court-flow-step .wide { margin-top: 4px; }
+.workbench-shell .court-flow-step p { margin: 6px 0; line-height: 1.5; }
+.workbench-shell .court-flow-step .note { padding: 0; background: none; }
+.workbench-shell .court-flow-step details { margin-top: 8px; padding-top: 6px; }
+.workbench-shell .court-manual { border-top: 1px solid #e1e6eb; }
+.workbench-shell .court-manual > summary { color: #315677; font-weight: 600; }
+.workbench-shell #calibrationFlowStatus:empty, .workbench-shell #calibrationPreviewStatus:empty { display: none; }
+.workbench-shell #calibrationFlowStatus { margin-bottom: 0; overflow-wrap: anywhere; }
 .workbench-shell .foot-candidates { padding: 9px; border-radius: 6px; }
 .workbench-shell .step-panels .scene-objects h2 { font-size: 13px; }
 .workbench-shell .identity-fields { gap: 5px; }
