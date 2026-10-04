@@ -121,6 +121,7 @@ class ReviewServerTests(unittest.TestCase):
             with urlopen(url+'app.mjs',timeout=3) as response:self.assertEqual(response.status,200)
             for name,mime in [('team-overlay.mjs','text/javascript'),('team-overlay-policy.json','application/json'),
                               ('automatic-annotations.mjs','text/javascript'),('simple-annotation.mjs','text/javascript'),
+                              ('identity-continuation.mjs','text/javascript'),('identity-agent-client.mjs','text/javascript'),
                               ('tracking-display.mjs','text/javascript')]:
                 with self.subTest(asset=name):
                     try:response=urlopen(url+name,timeout=3)

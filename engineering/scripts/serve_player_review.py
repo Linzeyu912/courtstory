@@ -42,6 +42,8 @@ def main():
     parser.add_argument("--tactics-agent-timeout", type=int, default=300)
     parser.add_argument("--tactics-agent-reasoning-effort", choices=('none','minimal','low','medium','high','xhigh','max','ultra'), default='low')
     parser.add_argument("--tactics-agent-max-images", type=int, choices=range(4,25), default=12)
+    parser.add_argument("--identity-agent-provider", choices=('codex', 'multimodal-api'), default='codex',
+                        help="Visual identity provider; multimodal-api is an unconfigured adapter seam")
     parser.add_argument("--player-data-root", default=str(Path(__file__).resolve().parents[2] / '2K Player Data'),
                         help="Local read-only identity data package (default: repository 2K Player Data)")
     parser.add_argument("--court-model", default="tmp/court-models-v2/best.pt", help="Pinned local 48-point weights; loaded on calibration requests only")
@@ -97,6 +99,10 @@ def main():
     from tactics_agent import TacticsAgent
     agent = TacticsAgent(Path(args.tactics_folder)/'agent-jobs',tactics,args.tactics_agent_cli,args.tactics_agent_timeout,
                         reasoning_effort=args.tactics_agent_reasoning_effort,max_images=args.tactics_agent_max_images)
+    from identity_agent import IdentityAgent
+    identity_agent = IdentityAgent(Path(args.tactics_folder)/'identity-jobs',tactics,
+                                  codex_path=args.tactics_agent_cli,timeout=args.tactics_agent_timeout,
+                                  provider=args.identity_agent_provider,reasoning_effort=args.tactics_agent_reasoning_effort)
     cache=Path(args.trim_root).resolve();cache.mkdir(parents=True,exist_ok=True)
     saved_path=cache/'library.json';saved=[]
     if saved_path.is_file():
@@ -136,6 +142,8 @@ def main():
         routes['/'+filename]=static/filename
     routes['/video-library.mjs']=static/'video-library.mjs'
     routes['/model-selection.mjs']=static/'model-selection.mjs'
+    for filename in ['identity-continuation.mjs', 'identity-agent-client.mjs']:
+        routes['/'+filename]=static/filename
     for filename in ['tactics-ui.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','tactics-agent.mjs','tactics.css']:
         routes['/'+filename]=static/filename
     # Explicit aliases for the independent engine's existing relative imports.
@@ -158,7 +166,7 @@ def main():
 
         def do_POST(self):
             route=urlsplit(self.path).path
-            if route=='/api/tactics-agent/jobs' or re.fullmatch(r'/api/tactics-agent/jobs/[a-zA-Z0-9-]+/(cancel|adopt)',route):
+            if re.fullmatch(r'/api/(?:tactics|identity)-agent/jobs(?:/[a-zA-Z0-9-]+/(?:cancel|adopt))?',route):
                 try:
                     if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
                         self.headers.get('Origin',f'http://127.0.0.1:{self.server.server_port}')!=f'http://127.0.0.1:{self.server.server_port}'):
@@ -172,9 +180,11 @@ def main():
                     source=clips.get(request.get('sample'));variant=request.get('variant');qa=request.get('qa',False);kind=request.get('kind','workspace')
                     if not source or variant not in source['payloads'] or type(qa) is not bool:raise ValueError('找不到视频、模型或草稿空间。')
                     clip=json.loads(source['payloads'][variant])
-                    if route.endswith('/adopt'):result=agent.adopt(route.split('/')[-2],request,clip,variant,qa,kind)
-                    elif route.endswith('/cancel'):result=agent.cancel(route.split('/')[-2],clip,variant,qa)
-                    else:result=agent.create(request,clip,source['video'],variant,qa,kind)
+                    selected_agent=identity_agent if route.startswith('/api/identity-agent/') else agent
+                    extra=() if selected_agent is identity_agent else (kind,)
+                    if route.endswith('/adopt'):result=selected_agent.adopt(route.split('/')[-2],request,clip,variant,qa,*extra)
+                    elif route.endswith('/cancel'):result=selected_agent.cancel(route.split('/')[-2],clip,variant,qa)
+                    else:result=selected_agent.create(request,clip,source['video'],variant,qa,*extra)
                     self.json_response(200,result)
                 except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
                     self.json_response(400,{'error':str(error)})
@@ -329,13 +339,22 @@ def main():
             parsed=urlsplit(self.path);route=parsed.path;query=parse_qs(parsed.query)
             if route=='/api/video-library':
                 self.json_response(200,video_inventory(),head_only);return
-            if route=='/api/tactics-agent/status' or re.fullmatch(r'/api/tactics-agent/jobs/[a-zA-Z0-9-]+',route):
+            if re.fullmatch(r'/api/(?:tactics|identity)-agent/(?:status|jobs/[a-zA-Z0-9-]+)',route):
                 try:
-                    if route.endswith('/status'):result=agent.status()
+                    selected_agent=identity_agent if route.startswith('/api/identity-agent/') else agent
+                    if selected_agent is identity_agent:
+                        if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
+                            self.headers.get('Origin',f'http://127.0.0.1:{self.server.server_port}')!=f'http://127.0.0.1:{self.server.server_port}'):
+                            self.send_error(403);return
+                        query=parse_qs(parsed.query,keep_blank_values=True)
+                        if (len(parsed.query)>2048 or any(len(values)!=1 for values in query.values()) or
+                            query.get('qa',['0'])[0] not in {'0','1','false','true'}):
+                            raise ValueError('身份任务查询参数重复或无效。')
+                    if route.endswith('/status'):result=selected_agent.status()
                     else:
                         source=clips[query.get('sample',[default])[0]];variant=query.get('variant',[source['defaultVariant']])[0]
                         clip=json.loads(source['payloads'][variant]);qa=query.get('qa',['0'])[0] in {'1','true'}
-                        result=agent.get(route.split('/')[-1],clip,variant,qa)
+                        result=selected_agent.get(route.split('/')[-1],clip,variant,qa)
                     self.json_response(200,result,head_only)
                 except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
                     self.json_response(400,{'error':str(error)},head_only)
@@ -431,6 +450,7 @@ def main():
     try:server.serve_forever()
     except KeyboardInterrupt:pass
     finally:
+        identity_agent.close()
         agent.close()
         local_library.close()
         server.server_close()

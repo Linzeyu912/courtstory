@@ -285,6 +285,58 @@ class ReviewSessionTests(unittest.TestCase):
                 apply_review_edit(session, {'type': 'clear_player', 'entityId': 'P1'}, clip)
 
 
+class IdentityReferenceTests(unittest.TestCase):
+    def setUp(self):
+        self.session, self.clip = fixture()
+        self.clip['tracking_fingerprint'] = 'tracking-one'
+        self.clip['frames'][5]['tracks'] = [[10.5, 20, 40, 70, 71, .9, 0]]
+        self.reference = {'version': 1, 'videoHash': 'video-one', 'trackingFingerprint': 'tracking-one',
+                          'frame': 5, 'trackId': 71, 'box': [10.5, 20, 40, 70], 'team': '紫队', 'jersey': '00'}
+        self.session['entities'][0]['identityReference'] = deepcopy(self.reference)
+
+    def test_valid_reference_survives_json_roundtrip_without_creating_track_bindings(self):
+        before = deepcopy(self.session)
+        restored = json.loads(json.dumps(self.session))
+        self.assertEqual(validate_session(restored, self.clip), 40)
+        edited = apply_review_edit(restored, {'type': 'clear_player', 'entityId': 'P2'}, self.clip)['session']
+        self.assertEqual(edited['entities'][0], {**before['entities'][0], 'teamSide': 'red'})
+        self.assertEqual(self.session, before)
+
+    def test_reference_source_geometry_schema_and_profile_tampering_is_rejected(self):
+        changes = [{'version': True}, {'version': 2}, {'videoHash': 'other-video'},
+                   {'trackingFingerprint': 'old-tracking'}, {'trackingFingerprint': None},
+                   {'frame': 4}, {'frame': True}, {'frame': 40}, {'trackId': 72}, {'trackId': 0},
+                   {'box': [11, 20, 40, 70]}, {'box': [10.5, 20, float('inf'), 70]},
+                   {'box': [10.5, 20, 40]}, {'team': 'x' * 41}, {'team': 1}, {'team': '紫\x00队'},
+                   {'jersey': '1234'}, {'jersey': '１０'}, {'jersey': 10}, {'arbitrary': True}]
+        for change in changes:
+            candidate = deepcopy(self.session)
+            candidate['entities'][0]['identityReference'].update(change)
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                validate_session(candidate, self.clip)
+        for missing in self.reference:
+            candidate = deepcopy(self.session)
+            del candidate['entities'][0]['identityReference'][missing]
+            with self.subTest(missing=missing), self.assertRaises(ValueError):
+                validate_session(candidate, self.clip)
+
+    def test_clear_removes_reference_but_keeps_confirmed_profile_and_undo_snapshot(self):
+        before = deepcopy(self.session)
+        cleared = apply_review_edit(self.session, {'type': 'clear_player', 'entityId': 'P1'}, self.clip)['session']
+        self.assertNotIn('identityReference', cleared['entities'][0])
+        for field in ('name', 'team', 'jersey'):
+            self.assertEqual(cleared['entities'][0][field], before['entities'][0][field])
+        self.assertEqual(self.session, before)
+
+    def test_swap_moves_reference_with_person_and_can_roundtrip_back(self):
+        moved = apply_review_edit(self.session, {'type': 'swap_players', 'sourceId': 'P1', 'targetId': 'P6'}, self.clip)['session']
+        self.assertNotIn('identityReference', moved['entities'][0])
+        self.assertEqual(moved['entities'][5]['identityReference'], self.reference)
+        restored = apply_review_edit(moved, {'type': 'swap_players', 'sourceId': 'P6', 'targetId': 'P1'}, self.clip)['session']
+        self.assertEqual(restored['entities'][0]['identityReference'], self.reference)
+        self.assertEqual(validate_session(restored, self.clip), 40)
+
+
 class WholeTrackAssignmentTests(unittest.TestCase):
     """An assignment groups observations; it does not certify every frame."""
 
@@ -510,6 +562,8 @@ class ReviewEditHttpTests(unittest.TestCase):
         cls.temp = cls.stack.enter_context(tempfile.TemporaryDirectory())
         root = Path(cls.temp)
         cls.session, cls.clip = fixture()
+        cls.clip['tracking_fingerprint'] = 'tracking-one'
+        cls.clip['tracking_revision'] = 'original'
         for frame in (1, 2, 5, 6, 30, 31):
             cls.clip['frames'][frame]['tracks'].append([1, 2, 20, 40, 71, .9, 0])
         cls.clip_bytes = json.dumps(cls.clip).encode('utf-8')
@@ -530,7 +584,8 @@ class ReviewEditHttpTests(unittest.TestCase):
         cls.stack.enter_context(patch('sys.argv', ['serve_player_review.py', '--library', str(library),
                                                  '--trim-root', str(root / 'trims'), '--state-file', str(root / 'server.json'),
                                                  '--video-folder', str(root / 'inbox'), '--import-cache', str(root / 'imports'),
-                                                 '--tactics-folder', str(root / 'tactics')]))
+                                                 '--tactics-folder', str(root / 'tactics'),
+                                                 '--identity-agent-provider', 'multimodal-api']))
         cls.thread = threading.Thread(target=serve_player_review.main, daemon=True)
         cls.thread.start()
         if not ready.wait(5):
@@ -612,6 +667,74 @@ class ReviewEditHttpTests(unittest.TestCase):
     def test_http_rejects_external_origin_and_wrong_media_type(self):
         self.assertEqual(self.request(self.payload(), {'Origin': 'https://example.com'})[0], 403)
         self.assertEqual(self.request(self.payload(), {'Content-Type': 'text/plain'})[0], 415)
+
+    def identity_request(self, method, route, body=None, headers=None):
+        connection = HTTPConnection('127.0.0.1', self.server.server_port, timeout=5)
+        try:
+            connection.request(method, '/api/identity-agent/' + route,
+                               json.dumps(body) if body is not None else None,
+                               {'Content-Type': 'application/json', **(headers or {})})
+            response = connection.getresponse()
+            return response.status, response.read(), response.getheader('Cache-Control')
+        finally:
+            connection.close()
+
+    def test_identity_unconfigured_provider_is_explicit_and_does_not_change_draft_or_disk(self):
+        status, data, cache = self.identity_request('GET', 'status')
+        self.assertEqual(status, 200)
+        provider = json.loads(data)
+        self.assertEqual(provider['provider'], 'multimodal-api')
+        self.assertFalse(provider['available'])
+        self.assertTrue(provider['message'])
+        self.assertEqual(cache, 'no-store')
+        before = {str(p.relative_to(self.temp)): p.read_bytes() for p in Path(self.temp).rglob('*') if p.is_file()}
+        body = self.payload()
+        body.pop('operation')
+        body.update(clientRevision=1, entityId='P1', purpose='reference', reference={
+            'version': 1, 'videoHash': 'video-one', 'trackingFingerprint': 'tracking-one',
+            'frame': 5, 'trackId': 71, 'box': [1, 2, 20, 40], 'team': '', 'jersey': ''})
+        original = deepcopy(body)
+        status, data, _ = self.identity_request('POST', 'jobs', body)
+        self.assertEqual(status, 400)
+        self.assertEqual(json.loads(data)['error'], provider['message'])
+        self.assertEqual(body, original)
+        after = {str(p.relative_to(self.temp)): p.read_bytes() for p in Path(self.temp).rglob('*') if p.is_file()}
+        self.assertEqual(after, before)
+
+    def test_identity_routes_reject_cross_origin_and_wrong_host_before_dispatch(self):
+        for method, route in [('GET', 'status'), ('GET', 'jobs/missing?sample=qa&variant=original&qa=1'),
+                              ('POST', 'jobs'), ('POST', 'jobs/missing/cancel'), ('POST', 'jobs/missing/adopt')]:
+            for headers in ({'Origin': 'https://example.com'}, {'Host': 'evil.example'}):
+                with self.subTest(method=method, route=route, headers=headers):
+                    self.assertEqual(self.identity_request(method, route, self.payload(), headers)[0], 403)
+
+    def test_identity_routes_reject_malformed_requests_and_source_selectors(self):
+        self.assertEqual(self.identity_request('POST', 'jobs', {}, {'Content-Type': 'text/plain'})[0], 415)
+        self.assertEqual(self.identity_request('POST', 'jobs', {}, {'Content-Length': str(32 * 1024 * 1024 + 1)})[0], 400)
+        for body in ([], {'sample': 'qa', 'variant': 'original', 'qa': '1'},
+                     {'sample': 'missing', 'variant': 'original'}, {'sample': 'qa', 'variant': 'missing'},
+                     {'sample': 'qa', 'variant': 'original', 'clientRevision': float('nan')}):
+            with self.subTest(body=body):
+                status, data, _ = self.identity_request('POST', 'jobs', body)
+                self.assertEqual(status, 400)
+                self.assertIn('error', json.loads(data))
+        for query in ('sample=qa&variant=missing', 'sample=missing&variant=original',
+                      'sample=qa&variant=original&qa=wat', 'sample=qa&sample=other&variant=original'):
+            with self.subTest(query=query):
+                self.assertEqual(self.identity_request('GET', 'jobs/missing?' + query)[0], 400)
+
+    def test_http_rejects_tampered_reference_without_modifying_source(self):
+        body = self.payload()
+        reference = {'version': 1, 'videoHash': 'video-one', 'trackingFingerprint': 'tracking-one',
+                     'frame': 5, 'trackId': 71, 'box': [1, 2, 20, 40], 'team': '紫队', 'jersey': '10'}
+        body['session']['entities'][0]['identityReference'] = reference
+        for change in ({'box': [2, 2, 20, 40]}, {'videoHash': 'other'}, {'trackingFingerprint': 'old'}):
+            invalid = deepcopy(body)
+            invalid['session']['entities'][0]['identityReference'].update(change)
+            with self.subTest(change=change):
+                self.assertEqual(self.request(invalid)[0], 400)
+        self.assertEqual(self.request(body)[0], 200)
+        self.assertNotIn('identityReference', self.session['entities'][0])
 
     def test_calibration_route_stays_available_with_identity_and_edit_routes(self):
         # Exercise the integrated HTTP dispatch without loading GPU weights or

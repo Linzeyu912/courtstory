@@ -1047,3 +1047,45 @@ body[data-step=footage] .annotation-review-summary {display:none;}
 #continueData,#continueTactics {margin-top:8px;}
 .trajectory-backup {width:min(100%,660px);margin:20px auto;text-align:left;}
 .trajectory-backup summary {cursor:pointer;font-weight:600;}
+
+/* Clip-local identity references and bounded, human-reviewed continuations. */
+.identity-agent-panel{margin:0 0 15px;padding:13px 11px;border:1px solid #cbd8e8;border-radius:8px;background:#f7faff;color:#354b61;line-height:1.55;}
+.identity-agent-panel p{margin:7px 0;font-size:11px;overflow-wrap:anywhere;}
+.identity-agent-panel h3{font-size:15px;margin:1px 0 0;color:#263f59;}
+.identity-agent-panel small{font-size:10px;color:#6b7e91;}
+.identity-agent-panel .field{margin:9px 0;font-size:11px;}
+.identity-agent-panel input,.identity-agent-panel select{min-width:0;box-sizing:border-box;}
+.identity-agent-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.identity-agent-label{font-size:10px;white-space:nowrap;padding:3px 5px;background:#fff2d7;color:#886019;border-radius:4px;}
+.identity-agent-reference,.identity-agent-search,.identity-agent-results{margin-top:13px;padding-top:11px;border-top:1px solid #dce5ef;}
+.identity-agent-panel :is(.identity-agent-reference,.identity-agent-search,.identity-agent-results)>strong{font-size:12px;color:#263f59;}
+.identity-agent-fields{display:grid;grid-template-columns:minmax(0,1fr) 64px;gap:8px;}
+.identity-agent-actions{display:flex;flex-wrap:wrap;gap:5px;}
+.identity-agent-actions button{flex:1;min-width:0;padding:6px;font-size:11px;}
+.identity-agent-seek{display:flex;align-items:flex-end;gap:7px;margin-top:9px;}
+.identity-agent-seek label{display:flex;flex:1;align-items:center;gap:7px;font-size:10px;}
+.identity-agent-seek input{width:85px;flex:1;padding:5px;}
+.identity-agent-seek button{font-size:10px;padding:5px 9px;}
+.identity-agent-saved,.identity-agent-suggestion{padding:8px;background:#edf3fc;border-radius:5px;margin-top:9px;font-size:11px;}
+.identity-agent-saved{display:grid;gap:6px;}
+.identity-agent-saved button{font-size:10px;padding:5px;}
+.identity-agent-suggestion strong{font-size:11px;}
+.identity-agent-notice,.identity-agent-error{padding:8px;border-radius:5px;background:#fff4df;color:#825b19;}
+.identity-agent-error{background:#fff0ef;color:#963a41;}
+.identity-agent-job{display:grid;gap:6px;margin:10px 0;font-size:11px;}
+.identity-agent-job button{justify-self:start;font-size:10px;padding:4px 7px;}
+.identity-agent-candidate{padding:9px;margin:10px 0;border:1px solid #d4dfec;border-radius:6px;background:#fff;}
+.identity-agent-candidate[data-selected=true]{border-color:#8badd8;background:#fbfdff;}
+.identity-agent-choice{display:flex;align-items:flex-start;gap:7px;font-size:11px;cursor:pointer;}
+.identity-agent-choice input{margin:3px 0 0;flex-shrink:0;}
+.identity-agent-choice span{display:grid;gap:3px;}
+.identity-agent-choice small{color:#6d7e91;}
+.identity-agent-bounds{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:9px 0;}
+.identity-agent-bounds label{display:grid;gap:4px;font-size:10px;}
+.identity-agent-bounds input{width:100%;padding:5px;}
+.identity-agent-evidence{margin-top:8px;font-size:10px;}
+.identity-agent-evidence summary{cursor:pointer;color:#4d6c8c;}
+.identity-agent-evidence>div{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px;}
+.identity-agent-evidence button{display:grid;gap:4px;padding:4px;font-size:9px;min-width:0;}
+.identity-agent-evidence img{width:100%;max-height:110px;object-fit:contain;background:#e8edf4;}
+.identity-agent-panel>.wide:last-child{margin-top:10px;font-size:11px;}

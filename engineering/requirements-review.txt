@@ -1,3 +1,5 @@
 # Local review server and its crop regression tests; GPU models are optional.
 av==17.0.0
 numpy==2.4.3
+# Reference crops and labeled evidence sheets for identity recognition.
+pillow==11.3.0
