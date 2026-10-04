@@ -4,7 +4,7 @@ import {makePresentationDemo} from '../tactical-overlay/fixtures/presentation-de
 import {mountTacticsUI} from './tactics-ui.mjs';
 import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {courtToVideo} from './tactics-presentation.mjs';
-import {createTacticsDocument} from './tactics-document.mjs';
+import {createTacticsDocument,splitPhase} from './tactics-document.mjs';
 import {adoptAgentCandidate} from './tactics-agent.mjs';
 let environmentId=0;
 // The storage module keeps one IDB connection for the mounted application.
@@ -120,7 +120,7 @@ test('Agent candidate adoption appends editable graphics, preserves manual edits
 
 test('entering tactics synchronizes corrected feet and participants, archives removed player graphics and restores explicitly',async()=>{
   const f=await makePresentationDemo(),d={schemaVersion:1,title:'sync',notes:'',...f},env=environment(d);
-  try{await env.load();await env.get('tacticsToolSpotlight').onclick();await env.event('pointerdown',{pointerId:110,target:env.target(),clientX:720,clientY:400});
+  try{await env.load();await env.get('tacticsToolSpotlight').onclick();env.selectPlayer('P1');await env.event('pointerdown',{pointerId:110,target:env.target(),clientX:720,clientY:400});
     const id=env.ui.getSceneState().annotations.items[0].id;d.review=structuredClone(d.review);d.review.entities[0].trajectory[12].x+=30;d.review.entities.push({...structuredClone(d.review.entities[1]),id:'P9',name:'新参与者'});
     await env.load();await env.ui.ready();let saved=env.writes.at(-1).document;assert.equal(saved.annotations.items[0].sourceBinding.reviewDigest,saved.playDefinition.sourceBinding.reviewDigest);assert.ok(saved.playDefinition.participants.some(p=>p.id==='P9'));
     d.review=structuredClone(d.review);d.review.entities=d.review.entities.filter(e=>e.id!=='P1');await env.load();await env.ui.ready();
@@ -137,7 +137,7 @@ function environment(source,{player=false,empty=false,agent=null}={}){
       setAttribute(k,v){this.attrs[k]=v;},getAttribute(k){return this.attrs[k]??null;},remove(){this.removed=true;},
       querySelector(selector){if(selector==='svg')return this.children.find(n=>n.tag==='svg')||null;return this.children.find(n=>!n.removed&&selector==='[data-edit-handles]'&&n.attrs['data-edit-handles'])||null;},
       addEventListener(name,fn){(this.listeners[name]||=[]).push(fn);},setPointerCapture(id){this.pointer=id;},hasPointerCapture(id){return this.pointer===id;},releasePointerCapture(){this.pointer=null;},click(){},
-      getContext:()=>({drawImage(){}}),getScreenCTM:()=>({inverse:()=>({})}),createSVGPoint:()=>({matrixTransform(){return {x:this.x,y:this.y};}})};
+      drawCalls:[],getContext:()=>({drawImage(...args){node.drawCalls.push(args);},clearRect(){}}),getScreenCTM:()=>({inverse:()=>({})}),createSVGPoint:()=>({matrixTransform(){return {x:this.x,y:this.y};}})};
     Object.defineProperty(node,'innerHTML',{get(){return this.html||'';},set(value){this.html=value;this.children=value.startsWith('<svg')?[make('svg')]:[];}});
     return node;
   }
@@ -168,7 +168,8 @@ function environment(source,{player=false,empty=false,agent=null}={}){
     async load(){await events['workbench-area']();await ui.ready();},
     async exit(){await events['workbench-area']();},
     async event(name,event){for(const fn of get('tacticsCanvas').listeners[name]||[])await fn({button:0,preventDefault(){},...event});},
-    selectRoute(){get('tacticsShowReference').checked=true;get('tacticsShowReference').onchange?.();const route=ui.getSceneState().model.routes.find(r=>r.entityId==='P1');get('tacticsRoute').value=route.routeId;get('tacticsRoute').onchange();return route;},
+    selectPlayer(id){get('tacticsRoutePlayer').value=id;get('tacticsRoutePlayer').onchange();},
+    selectRoute(){get('tacticsRoutePlayer').value='P1';get('tacticsRoutePlayer').onchange();get('tacticsShowReference').checked=true;get('tacticsShowReference').onchange?.();const route=ui.getSceneState().model.routes.find(r=>r.entityId==='P1');get('tacticsRoute').value=route.routeId;get('tacticsRoute').onchange();return route;},
     target(attrs={}){return {closest:selector=>{const key=selector.slice(1,-1);return Object.hasOwn(attrs,key)?{getAttribute:k=>attrs[k]??null}:null;}};},
     async key(key,extra={}){await events.keydown?.({key,target:{tagName:'DIV'},preventDefault(){},...extra});},
     handle(index){return {closest:selector=>selector==='[data-control-index]'?{getAttribute:()=>String(index)}:null};},
@@ -176,6 +177,115 @@ function environment(source,{player=false,empty=false,agent=null}={}){
     restore(){for(const [k,v] of originals){if(v===undefined)delete globalThis[k];else globalThis[k]=v;}}
   };
 }
+
+async function identityFixture(){
+  const f=await makePresentationDemo();
+  for(const e of f.review.entities)for(const p of e.trajectory)p.box=[p.x-20,p.y-80,p.x+20,p.y];
+  const e=f.review.entities[0];e.identityReference={version:1,videoHash:f.review.videoSha256,trackingFingerprint:f.review.trackingFingerprint,
+    frame:12,trackId:1,box:e.trajectory[12].box.slice(),team:'紫衣',jersey:'10'};
+  f.review.entities[1].playerProfile={status:'confirmed',name:'NBA Name',jersey_number:'30'};
+  f.playDefinition.sourceBinding=await createSourceBinding(f.review);return {schemaVersion:1,title:'identity inspection',notes:'',...f};
+}
+
+test('player selectors explain confirmed identity, never substitute NBA metadata, and new drawings start unassociated',async()=>{
+  const d=await identityFixture(),env=environment(d,{player:true});
+  try{
+    await env.load();const options=env.get('tacticsRoutePlayer').children;
+    assert.equal(env.get('tacticsRoutePlayer').value,'');assert.equal(env.ui.getSceneState().selectedEntityId,null);
+    assert.equal(options.find(o=>o.value==='P1').textContent,'紫衣 10 号 · 球员 1');
+    assert.equal(options.find(o=>o.value==='P2').textContent,'球员 2 · 身份待确认');
+    assert.match(env.get('tacticsPersonDescription').textContent,/尚未关联/);
+    await env.get('tacticsToolRoute').onclick();
+    for(const [x,y] of [[600,300],[650,320]])await env.event('pointerdown',{target:env.target(),clientX:x,clientY:y});
+    await env.get('tacticsFinishDrawing').onclick();assert.equal(env.ui.getSceneState().annotations.items[0].entityId,null);
+  }finally{env.restore();}
+});
+
+test('person inspection crops the presented frame and highlights only in the editor without writing a document',async()=>{
+  const d=await identityFixture(),env=environment(d,{player:true});
+  try{
+    await env.load();const writes=env.writes.length;
+    env.get('tacticsRoutePlayer').value='P1';env.get('tacticsRoutePlayer').onchange();
+    assert.equal(env.get('tacticsPersonImage').hidden,false);assert.match(env.get('tacticsPersonReview').textContent,/本帧关联待核对/);
+    const box=d.review.entities[0].trajectory[12].box,crop=env.get('tacticsPersonImage').drawCalls.at(-1);
+    assert.equal(crop[0],env.background);assert.deepEqual(crop.slice(1,5),[box[0],box[1],box[2]-box[0],box[3]-box[1]]);
+    await env.get('tacticsLocatePlayer').onclick();const overlay=env.get('tacticsCanvas').children[0].children[1];
+    assert.match(overlay.innerHTML,/data-player-inspection/);assert.doesNotMatch(overlay.innerHTML,/<text\b|<foreignObject\b/);
+    assert.equal(env.writes.length,writes);assert.equal(env.ui.getSceneState().annotations.items.length,0);
+    await env.get('tacticsContinue').onclick();
+    assert.doesNotMatch(overlay.innerHTML,/data-player-inspection/);assert.equal(env.get('tacticsPersonImage').hidden,true);
+    env.present(13);
+    await env.get('tacticsSave').onclick();assert.equal(env.saved.at(-1).document.annotations?.items?.length||0,0);
+    assert.deepEqual(env.saved.at(-1).document.review,d.review);
+  }finally{env.restore();}
+});
+
+test('missing current crops name their fallback frame and never show an old image during a held seek',async()=>{
+  const d=await identityFixture();d.review.entities[0].trajectory[13]={frame:13,time:1.3,x:null,y:null,source:'missing'};
+  d.playDefinition.sourceBinding=await createSourceBinding(d.review);const env=environment(d,{player:true});
+  try{
+    await env.load();env.present(13);env.get('tacticsRoutePlayer').value='P1';env.get('tacticsRoutePlayer').onchange();
+    assert.equal(env.get('tacticsPersonImage').hidden,true);assert.match(env.get('tacticsPersonDescription').textContent,/当前帧.*无|当前帧.*不可见/);
+    assert.match(env.get('tacticsPersonFrame').textContent,/参考帧.*13/);
+    const writes=env.writes.length,crops=env.get('tacticsPersonImage').drawCalls.length;env.holdSeek();await env.get('tacticsLocatePlayer').onclick();
+    assert.equal(env.get('tacticsPersonImage').hidden,true);assert.equal(env.get('tacticsPersonImage').drawCalls.length,crops);
+    assert.match(env.get('tacticsPersonDescription').textContent,/定位/);
+    env.finishSeek();await env.ui.ready();
+    assert.equal(env.ui.getSceneState().frame,12);assert.equal(env.get('tacticsPersonImage').hidden,false);assert.match(env.get('tacticsPersonFrame').textContent,/参考帧.*13/);
+    assert.equal(env.writes.length,writes);
+  }finally{env.restore();}
+});
+
+test('circles require an explicit player or static choice and inspecting an existing circle never changes its owner',async()=>{
+  const d=await identityFixture(),env=environment(d,{player:true});
+  try{
+    await env.load();await env.get('tacticsToolSpotlight').onclick();
+    await env.event('pointerdown',{target:env.target(),clientX:10,clientY:10});
+    assert.equal(env.ui.getSceneState().annotations.items.length,0);assert.match(env.get('tacticsStatus').textContent,/先选择|点击人物/);
+    env.get('tacticsRoutePlayer').value='__static__';env.get('tacticsRoutePlayer').onchange();
+    await env.event('pointerdown',{target:env.target(),clientX:10,clientY:10});
+    assert.equal(env.ui.getSceneState().annotations.items[0].entityId,null);assert.equal(env.ui.getSceneState().annotations.items[0].followEntity,false);
+    await env.get('tacticsToolSpotlight').onclick();const point=d.review.entities[1].trajectory[12];
+    await env.event('pointerdown',{target:env.target(),clientX:point.x,clientY:point.y-50});
+    const circle=structuredClone(env.ui.getSceneState().annotations.items[1]),writes=env.writes.length;
+    assert.equal(circle.entityId,'P2');assert.match(env.get('tacticsPersonName').textContent,/球员 2/);
+    await env.get('tacticsLocatePlayer').onclick();assert.deepEqual(env.ui.getSceneState().annotations.items[1],circle);assert.equal(env.writes.length,writes);
+  }finally{env.restore();}
+});
+
+test('read-only inspection reaches a reference in another phase even when that phase excludes this player',async()=>{
+  const source=await identityFixture();for(const p of source.review.entities[0].trajectory)if(p.frame>=30){p.source='missing';p.x=null;p.y=null;p.box=null;}
+  let d=await createTacticsDocument(source.review);d=splitPhase(d,d.playDefinition.phases[0].phaseId,30);
+  d.playDefinition.phases[0].participantIds=d.playDefinition.phases[0].participantIds.filter(id=>id!=='P1');
+  const env=environment(d,{player:true});
+  try{
+    await env.load();env.get('tacticsPhases').children[1].onclick();await env.ui.ready();env.selectPlayer('P1');
+    assert.equal(env.ui.getSceneState().frame,30);assert.equal(env.get('tacticsPersonImage').hidden,true);
+    const writes=env.writes.length;env.holdSeek();await env.get('tacticsLocatePlayer').onclick();await env.ui.ready();
+    assert.equal(env.get('tacticsPersonImage').hidden,true);assert.match(env.get('tacticsPersonName').textContent,/紫衣 10 号/);
+    env.finishSeek();await env.ui.ready();
+    assert.equal(env.ui.getSceneState().frame,12);assert.equal(env.get('tacticsPersonImage').hidden,false);
+    assert.match(env.get('tacticsPersonName').textContent,/紫衣 10 号/);assert.match(env.get('tacticsPersonFrame').textContent,/参考帧.*13/);
+    const overlay=env.get('tacticsCanvas').children[0].children[1];assert.match(overlay.innerHTML,/data-player-inspection/);
+    assert.equal(env.writes.length,writes);await env.get('tacticsSave').onclick();
+    assert.deepEqual(env.saved.at(-1).document.playDefinition,d.playDefinition);assert.deepEqual(env.saved.at(-1).document.review,d.review);
+    assert.equal(env.saved.at(-1).document.annotations?.items?.length||0,0);
+  }finally{env.restore();}
+});
+
+test('synchronizing new review positions discards the old inspection crop and track label',async()=>{
+  const d=await identityFixture(),env=environment(d,{player:true});
+  try{
+    await env.load();env.selectPlayer('P1');await env.get('tacticsLocatePlayer').onclick();
+    d.review=structuredClone(d.review);Object.assign(d.review.entities[0].trajectory[12],{x:920,y:280,box:[900,200,940,280],trackId:62});
+    await env.load();await env.ui.ready();
+    const crop=env.get('tacticsPersonImage').drawCalls.at(-1);
+    assert.equal(env.get('tacticsPersonImage').hidden,false);assert.deepEqual(crop.slice(1,5),[900,200,40,80]);
+    assert.match(env.get('tacticsPersonFrame').textContent,/T62/);
+    const overlay=env.get('tacticsCanvas').children[0].children[1];assert.doesNotMatch(overlay.innerHTML,/data-player-inspection/);
+    assert.deepEqual(env.writes.at(-1).document.review,d.review);assert.equal(env.writes.at(-1).document.annotations?.items?.length||0,0);
+  }finally{env.restore();}
+});
 // One mounted session exercises the real UI handlers, asynchronous validation and queued drafts.
 test('mounted UI edits persist through concurrent notes/title, keeps the canvas stable, cancels phase gestures and restores/undoes separately from review',async()=>{
   const f=await makePresentationDemo(),d={schemaVersion:1,title:'fixture',notes:'',...f},before=structuredClone(d.review),env=environment(d);
@@ -263,7 +373,7 @@ test('screen and player spotlight are visible independent objects; playback and 
     const overlay=env.get('tacticsCanvas').children[0].children[1];assert.match(overlay.innerHTML,/data-annotation-id/);
     env.get('tacticsAnnotationAngle').value='45';await env.get('tacticsAnnotationAngle').onchange();
     assert.equal(env.writes.at(-1).document.annotations.items[0].style.angle,45);
-    await env.get('tacticsToolSpotlight').onclick();await env.event('pointerdown',{pointerId:42,target:env.target(),clientX:720,clientY:410});
+    await env.get('tacticsToolSpotlight').onclick();env.selectPlayer('P1');await env.event('pointerdown',{pointerId:42,target:env.target(),clientX:720,clientY:410});
     items=env.writes.at(-1).document.annotations.items;assert.equal(items[1].type,'spotlight');assert.equal(items[1].followEntity,true);
     assert.match(overlay.innerHTML,/<(?:ellipse|polygon|path)\b/);assert.doesNotMatch(overlay.innerHTML,/<text\b/);
     await env.get('tacticsAnnotationDelete').onclick();assert.equal(env.writes.at(-1).document.annotations.items.length,1);
@@ -302,7 +412,7 @@ test('selected marker actions stay beside the canvas and rotate/delete/undo/save
     assert.equal(env.ui.getSceneState().selectedAnnotationId,null);assert.equal(env.get('tacticsSelectionActions').hidden,true);
     await env.event('pointerdown',{pointerId:62,target:env.target({'data-annotation-id':id}),clientX:650,clientY:300});await env.event('pointerup',{pointerId:62});
     await env.key('Delete');assert.equal(env.ui.getSceneState().annotations.items.length,0);await env.get('tacticsUndo').onclick();
-    await env.get('tacticsToolSpotlight').onclick();await env.event('pointerdown',{pointerId:63,target:env.target(),clientX:720,clientY:400});
+    await env.get('tacticsToolSpotlight').onclick();env.selectPlayer('P1');await env.event('pointerdown',{pointerId:63,target:env.target(),clientX:720,clientY:400});
     assert.equal(env.get('tacticsSelectionRotation').hidden,true);assert.equal(env.get('tacticsQuickDelete').disabled,false);
     await env.get('tacticsQuickDelete').onclick();assert.equal(env.ui.getSceneState().annotations.items.length,1);
   }finally{env.restore();}
