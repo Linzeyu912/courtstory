@@ -2,11 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {draftStorageKey} from './trajectory.mjs';
 import {mountVideoLibrary} from './video-library.mjs';
+import {readFileSync} from 'node:fs';
+const choices=JSON.parse(readFileSync(new URL('../../configs/tracking/workbench-models.json',import.meta.url)));
 
-function setup({localVideo=true,variant='yolo',ready=['yolo'],save=()=>{},search='?sample=local-video&qa=1'}={}){
+function setup({localVideo=true,variant='yolo',ready=['yolo'],save=()=>{},search='?sample=local-video&qa=1',respond=null,modelChoices=null}={}){
   const nodes=new Map(),navigated=[],events=[],before=[];
   const make=()=>({textContent:'',value:'',children:[],options:[],listeners:{},disabled:false,open:false,
-    append(...items){this.children.push(...items);this.options.push(...items);},replaceChildren(){this.children=[];},
+    append(...items){this.children.push(...items);this.options.push(...items);},replaceChildren(...items){this.children=[...items];this.options=[...items];},
     addEventListener(name,fn){this.listeners[name]=fn;},showModal(){this.open=true;},close(){this.open=false;this.listeners.close?.();}});
   const get=id=>{if(!nodes.has(id))nodes.set(id,make());return nodes.get(id);};
   const presets=[{id:'team-stable',label:'THY 完整方案 · 推荐'},{id:'yolo',label:'原 YOLO'}];
@@ -15,8 +17,8 @@ function setup({localVideo=true,variant='yolo',ready=['yolo'],save=()=>{},search
   const inventory={folder:'D:/HKS/data/local-videos',entries:[{id:'local-video',filename:'test.mp4',bytes:12,
     sampleId:'local-video',variants:ready,status:'ready',message:'已处理'}],presets,runtimeAvailable:true};
   Object.assign(globalThis,{document:{getElementById:get,createElement:make},location:{search,assign:url=>navigated.push(url)},
-    fetch:async(url,options)=>{events.push({url,options});return {ok:true,json:async()=>structuredClone(inventory)};}});
-  mountVideoLibrary({sample:'local-video',variant,localVideo,presets,beforeNavigate:()=>{before.push('save');return save();}});
+    fetch:async(url,options)=>{events.push({url,options});const result=respond?.(url,options,inventory);return {ok:result?.ok!==false,json:async()=>structuredClone(result?.data||inventory)};}});
+  mountVideoLibrary({sample:'local-video',variant,localVideo,presets,modelChoices,beforeNavigate:()=>{before.push('save');return save();}});
   const flush=()=>new Promise(resolve=>setImmediate(resolve));
   return {get,navigated,events,before,inventory,flush,restore(){get('videoLibraryDialog').close();for(const [key,value] of old){if(value===undefined)delete globalThis[key];else globalThis[key]=value;}}};
 }
@@ -76,4 +78,88 @@ test('upload failures are visible and let the user choose the file again',async(
     await input.onchange({target:input});assert.equal(input.disabled,false);assert.equal(input.value,'');
     assert.match(app.get('videoLibraryStatus').textContent,/连接中断/);
   }finally{app.restore();}
+});
+
+test('import starts default detection, displays queued state and opens player checks after ready',async()=>{
+  const app=setup({ready:[]});try{
+    app.inventory.entries[0].status='queued';app.inventory.entries[0].jobVariant='team-stable';
+    globalThis.XMLHttpRequest=class{constructor(){this.upload={};}open(){}setRequestHeader(){}send(){this.status=200;this.responseText=JSON.stringify({id:'local-video',duplicate:false,job:{status:'queued',variant:'team-stable',sampleId:'local-video'}});this.onload();}};
+    const input=app.get('importVideos');input.files=[{name:'new.mp4',size:123}];app.get('videoLibraryDialog').showModal();
+    await input.onchange({target:input});
+    assert.match(app.get('videoLibraryStatus').textContent,/识别/);assert.deepEqual(app.navigated,[]);
+    app.inventory.entries[0].status='ready';app.inventory.entries[0].variants=['team-stable'];
+    app.get('refreshVideoLibrary').onclick();await app.flush();await app.flush();
+    assert.equal(app.navigated[0],'/?sample=local-video&qa=1&variant=team-stable&step=players');
+  }finally{app.restore();}
+});
+
+test('failed new job remains retryable when old precomputed variants are present',async()=>{
+  const app=setup({ready:['team-stable'],respond:(url)=>url.endsWith('/process')?{data:{status:'queued',variant:'team-stable',sampleId:'local-video'}}:null});
+  try{
+    Object.assign(app.inventory.entries[0],{status:'error',jobVariant:'team-stable',message:'CUDA out of memory'});
+    app.get('openVideoLibrary').onclick();await app.flush();
+    const row=app.get('localVideoList').children[0],button=row.children[1];
+    assert.match(row.children[0].children[1].textContent,/CUDA out of memory/);
+    assert.match(button.textContent,/重试/);await button.onclick();
+    assert.ok(app.events.some(event=>event.url.endsWith('/process')));assert.deepEqual(app.navigated,[]);
+  }finally{app.restore();}
+});
+
+test('missing selected weights disable processing with the actual reason',async()=>{
+  const app=setup({ready:[]});try{
+    app.inventory.runtime={available:true,reason:'',variants:{'team-stable':{available:false,reason:'缺少 BODD_yolov8n_0001.pt'}}};
+    app.get('openVideoLibrary').onclick();await app.flush();
+    const button=app.get('localVideoList').children[0].children[1];
+    assert.equal(button.disabled,true);assert.match(button.title,/BODD_yolov8n_0001.pt/);
+    assert.equal(app.get('importPreset').options.find(option=>option.value==='team-stable').disabled,true);
+  }finally{app.restore();}
+});
+
+test('archive and restore use collection endpoints and busy jobs cannot be archived',async()=>{
+  const app=setup({respond:(url,options,inventory)=>{
+    if(url.endsWith('/archive')){inventory.archivedEntries=[{...inventory.entries[0],archived:true}];inventory.entries=[];return {data:{archived:true}};}
+    if(url.endsWith('/restore')){inventory.entries=inventory.archivedEntries;inventory.archivedEntries=[];return {data:{archived:false}};}
+    return null;
+  }});
+  try{
+    app.get('openVideoLibrary').onclick();await app.flush();
+    let row=app.get('localVideoList').children[0];
+    const archive=row.children.find(child=>child.textContent==='归档');assert.ok(archive);
+    await archive.onclick();assert.equal(app.get('localVideoList').children[0].className,'library-empty');
+    app.get('videoLibraryScope').value='archived';app.get('videoLibraryScope').onchange();
+    row=app.get('localVideoList').children[0];const restore=row.children.find(child=>child.textContent==='恢复');assert.ok(restore);
+    await restore.onclick();
+    const event=app.events.find(event=>event.url.endsWith('/restore'));assert.deepEqual(JSON.parse(event.options.body),{id:'local-video'});
+    app.inventory.entries[0].status='running';app.get('videoLibraryScope').value='active';app.get('refreshVideoLibrary').onclick();await app.flush();
+    assert.equal(app.get('localVideoList').children[0].children.find(child=>child.textContent==='归档').disabled,true);
+  }finally{app.restore();}
+});
+
+test('primary import opens the chooser and cancellation sends no processing request',async()=>{
+  const app=setup();try{
+    let clicked=0;app.get('importVideos').click=()=>clicked++;
+    assert.equal(typeof app.get('startVideoImport').onclick,'function');
+    app.get('startVideoImport').onclick();await app.flush();
+    assert.equal(clicked,1);assert.equal(app.get('videoLibraryDialog').open,true);
+    const input=app.get('importVideos');input.files=[];await input.onchange({target:input});
+    assert.equal(app.events.filter(event=>event.options?.method==='POST').length,0);
+  }finally{app.restore();}
+});
+
+test('model picker selection during import renders each row once',async()=>{
+  const app=setup({modelChoices:choices});try{
+    await app.flush();app.get('importVideos').click=()=>{};
+    app.get('startVideoImport').onclick();await app.flush();
+    assert.equal(app.get('localVideoList').children.length,1);
+  }finally{app.restore();}
+});
+
+test('a refresh after mutation waits for the in-flight inventory before reading new state',async()=>{
+  const app=setup();const originalFetch=globalThis.fetch;let release;const held=new Promise(resolve=>{release=resolve;});let reads=0;
+  try{
+    globalThis.fetch=async(...args)=>{if(++reads===1)await held;return originalFetch(...args);};
+    app.get('openVideoLibrary').onclick();app.get('refreshVideoLibrary').onclick();
+    await app.flush();assert.equal(reads,1);
+    release();await app.flush();await app.flush();assert.equal(reads,2);
+  }finally{release();await app.flush();app.restore();}
 });

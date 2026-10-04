@@ -168,7 +168,7 @@ test('court calibration and 2D review continue inside the workbench without chan
   const app=await openApp();try{
     const before=structuredClone(app.state().session),saved=app.saved.get(app.key);
     app.get('tab-calibration').click();assert.equal(app.body.dataset.step,'calibration');
-    assert.equal(app.body.dataset.drawer,'half','court review opens beside the video before all ten identities are complete');
+    assert.equal(app.body.dataset.drawer,'closed','court calibration starts in the original video, before opening 2D review');
     app.get('calibrationPlayers').click();assert.equal(app.body.dataset.step,'identity');
     app.get('tab-calibration').click();app.get('returnToRepair').click();
     assert.equal(app.body.dataset.step,'repair');assert.equal(app.body.dataset.drawer,'half');
@@ -189,7 +189,7 @@ test('confirming the ten-player roster continues to court calibration and preser
     });
     app.select('P1');const people=structuredClone(session.entities);
     assert.equal(app.get('identityDone').disabled,false);app.get('identityDone').click();
-    assert.equal(app.body.dataset.step,'calibration');assert.equal(app.body.dataset.drawer,'half');
+    assert.equal(app.body.dataset.step,'calibration');assert.equal(app.body.dataset.drawer,'closed');
     assert.equal(session.identitySelection.playerIds.length,10);assert.deepEqual(session.entities,people);
     assert.equal(session.courtCalibration?.keyframes?.length||0,0,'continuing cannot invent court mapping');
   }finally{app.restore();}

@@ -160,7 +160,8 @@ export function automaticAnnotationPointVisible(clip,frame,point){
       ['interpolated','conflict','missing','out_of_view'].includes(point.source))return false;
   // Explicit review releases only this visible observation from model gating.
   // The detector's risk evidence remains intact for the diagnostic display.
-  if(point.frameIdentityConfirmed===true)return ['manual','tracked'].includes(point.source);
+  if(point.frameIdentityConfirmed===true)return ['manual','tracked','manual_range'].includes(point.source);
+  if(point.source==='manual_range')return ['tracked','manual'].includes(point.rangeCorrection?.originalSource);
   if(['manual_forward','manual_range','manual_track_occurrences'].includes(point.identitySource))return true;
   if(point.identitySource==='model_suggestion'){
     const record=clip.frames?.[frame],row=record?.tracks?.find(value=>Number(value[4])===Number(point.trackId));

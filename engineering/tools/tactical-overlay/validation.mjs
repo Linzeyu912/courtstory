@@ -46,7 +46,8 @@ export function validateInputs({review,playDefinition:p,phaseId,freezeFrame,opti
         if(!object(point)||!frame(point.frame)||point.frame>=count||seen.has(point.frame)){bad(`entity.${e.id}.trajectory.frame`,null);continue;}seen.add(point.frame);
         if(!((point.x===null&&point.y===null)||(finite(point.x)&&finite(point.y))))bad(`entity.${e.id}.trajectory.coordinates`,null);
         if(!finite(point.time))bad(`entity.${e.id}.trajectory.time`,null);
-        if(!['manual','tracked','missing','conflict','out_of_view','interpolated','manual_path','projected','court_manual','court_estimated','uncalibrated'].includes(point.source))bad(`entity.${e.id}.trajectory.source`,null);
+        if(!['manual','manual_range','tracked','missing','conflict','out_of_view','interpolated','manual_path','projected','court_manual','court_estimated','uncalibrated'].includes(point.source))bad(`entity.${e.id}.trajectory.source`,null);
+        if(point.source==='manual_range'&&(!object(point.rangeCorrection)||!['tracked','manual'].includes(point.rangeCorrection.originalSource)||!text(point.rangeCorrection.operationId)||!Array.isArray(point.rangeCorrection.supportFrames)||!point.rangeCorrection.supportFrames.length||point.rangeCorrection.supportFrames.some(f=>!frame(f)||f>=count)))bad(`entity.${e.id}.trajectory.rangeCorrection`,null);
       }
     }
   }

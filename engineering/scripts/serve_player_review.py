@@ -36,6 +36,12 @@ def main():
     parser.add_argument("--tactics-folder", default="data/local-workbench/tactics")
     parser.add_argument("--inference-python", default="tmp/model-runtime/Scripts/python.exe")
     parser.add_argument("--models", default="tmp/models")
+    parser.add_argument("--workspace-collection", help="Service-local active/archive manifest; defaults to import cache")
+    parser.add_argument("--keep-sample", default="005", help="Initially retained prepared example")
+    parser.add_argument("--tactics-agent-cli", help="Codex CLI executable (otherwise discover the installed runtime)")
+    parser.add_argument("--tactics-agent-timeout", type=int, default=300)
+    parser.add_argument("--tactics-agent-reasoning-effort", choices=('none','minimal','low','medium','high','xhigh','max','ultra'), default='low')
+    parser.add_argument("--tactics-agent-max-images", type=int, choices=range(4,25), default=12)
     parser.add_argument("--player-data-root", default=str(Path(__file__).resolve().parents[2] / '2K Player Data'),
                         help="Local read-only identity data package (default: repository 2K Player Data)")
     parser.add_argument("--court-model", default="tmp/court-models-v2/best.pt", help="Pinned local 48-point weights; loaded on calibration requests only")
@@ -81,11 +87,16 @@ def main():
             index=next((i for i,item in enumerate(samples) if item['id']==sample['id']),None)
             if index is None:samples.append(sample)
             else:samples[index]=sample
-    from local_video_library import LocalVideoLibrary, MAX_UPLOAD, PRESETS, MODEL_CHOICES
+    from local_video_library import LocalVideoLibrary, MAX_UPLOAD, PRESETS, MODEL_CHOICES, WorkspaceCollection, merge_review_sources
+    retained=args.keep_sample if args.keep_sample in clips else default
+    collection=WorkspaceCollection(args.workspace_collection or Path(args.import_cache)/'workspace.json', retained_ids=(retained,))
     local_library=LocalVideoLibrary(args.video_folder,args.import_cache,args.inference_python,args.models,
-                                   publish_local,validated_clip,shared_catalog=args.shared_video_catalog)
+                                   publish_local,validated_clip,shared_catalog=args.shared_video_catalog,collection=collection)
     from tactical_workbench import TacticalWorkbench
     tactics = TacticalWorkbench(args.tactics_folder)
+    from tactics_agent import TacticsAgent
+    agent = TacticsAgent(Path(args.tactics_folder)/'agent-jobs',tactics,args.tactics_agent_cli,args.tactics_agent_timeout,
+                        reasoning_effort=args.tactics_agent_reasoning_effort,max_images=args.tactics_agent_max_images)
     cache=Path(args.trim_root).resolve();cache.mkdir(parents=True,exist_ok=True)
     saved_path=cache/'library.json';saved=[]
     if saved_path.is_file():
@@ -100,17 +111,32 @@ def main():
     # The data package is opened only when these optional identity APIs are used.
     from player_identity_data import PlayerIdentityData, PlayerIdentityDataUnavailable
     player_data=PlayerIdentityData(args.player_data_root)
+    for sample_item in samples:
+        if Path(clips[sample_item['id']]['video']).is_file():
+            local_library.register_review_source(clips[sample_item['id']]['video'],sample_item.get('title',sample_item['id']))
+    def video_inventory():
+        inventory=merge_review_sources(local_library.scan(),dict(clips))
+        collection.reconcile(samples,inventory['entries'])
+        all_entries=inventory['entries']
+        inventory['entries']=collection.filter_entries(all_entries)
+        inventory['archivedEntries']=collection.filter_entries(all_entries,'archived')
+        return inventory
+    video_inventory()
+    default=retained
     def library_payload():
-        return json.dumps({"defaultSample":default,"processingPresets":PRESETS,"modelChoices":MODEL_CHOICES,"samples":[{
+        video_inventory()
+        active_samples=collection.filter_samples(samples)
+        current_default=default if any(s['id']==default for s in active_samples) else active_samples[0]['id'] if active_samples else default
+        return json.dumps({"defaultSample":current_default,"processingPresets":PRESETS,"modelChoices":MODEL_CHOICES,"samples":[{
             **{k:s.get(k) for k in ['id','title','description','sourceUrl']},
-            'defaultVariant':clips[s['id']]['defaultVariant']} for s in samples]},ensure_ascii=False).encode('utf-8')
+            'defaultVariant':clips[s['id']]['defaultVariant']} for s in active_samples]},ensure_ascii=False).encode('utf-8')
     static = Path(__file__).resolve().parents[1] / "tools/player-review"
     routes = {"/": static / "index.html"}
     for filename in ["style.css","pipeline.css","app.mjs","player-identity.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","simple-annotation.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
         routes['/'+filename]=static/filename
     routes['/video-library.mjs']=static/'video-library.mjs'
     routes['/model-selection.mjs']=static/'model-selection.mjs'
-    for filename in ['tactics-ui.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','tactics.css']:
+    for filename in ['tactics-ui.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','tactics-agent.mjs','tactics.css']:
         routes['/'+filename]=static/filename
     # Explicit aliases for the independent engine's existing relative imports.
     for route,path in list(routes.items()):
@@ -132,6 +158,27 @@ def main():
 
         def do_POST(self):
             route=urlsplit(self.path).path
+            if route=='/api/tactics-agent/jobs' or re.fullmatch(r'/api/tactics-agent/jobs/[a-zA-Z0-9-]+/(cancel|adopt)',route):
+                try:
+                    if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
+                        self.headers.get('Origin',f'http://127.0.0.1:{self.server.server_port}')!=f'http://127.0.0.1:{self.server.server_port}'):
+                        self.send_error(403);return
+                    if self.headers.get('Content-Type','').split(';')[0]!='application/json':
+                        self.send_error(415);return
+                    size=int(self.headers.get('Content-Length','0'))
+                    if not 0<size<=32*1024*1024:raise ValueError('Agent 请求大小不正确。')
+                    request=json.loads(self.rfile.read(size));finite_json(request,'Agent request')
+                    if not isinstance(request,dict):raise ValueError('请求必须是 JSON 对象。')
+                    source=clips.get(request.get('sample'));variant=request.get('variant');qa=request.get('qa',False);kind=request.get('kind','workspace')
+                    if not source or variant not in source['payloads'] or type(qa) is not bool:raise ValueError('找不到视频、模型或草稿空间。')
+                    clip=json.loads(source['payloads'][variant])
+                    if route.endswith('/adopt'):result=agent.adopt(route.split('/')[-2],request,clip,variant,qa,kind)
+                    elif route.endswith('/cancel'):result=agent.cancel(route.split('/')[-2],clip,variant,qa)
+                    else:result=agent.create(request,clip,source['video'],variant,qa,kind)
+                    self.json_response(200,result)
+                except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
+                    self.json_response(400,{'error':str(error)})
+                return
             if route in {'/api/tactics/save','/api/tactics/frame','/api/tactics/export'}:
                 try:
                     if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
@@ -160,7 +207,7 @@ def main():
                 except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
                     self.json_response(400,{'error':str(error)})
                 return
-            if route in {'/api/video-library/import','/api/video-library/process'}:
+            if route in {'/api/video-library/import','/api/video-library/process','/api/video-library/archive','/api/video-library/restore'}:
                 origin=self.headers.get('Origin')
                 if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
                     (origin and origin!=f'http://127.0.0.1:{self.server.server_port}')):
@@ -172,13 +219,16 @@ def main():
                         if self.headers.get('Content-Type')!='application/octet-stream':
                             self.send_error(415);return
                         if not 0<size<=MAX_UPLOAD:raise ValueError('单次导入上限为 2 GB；更大视频请直接放入文件夹。')
-                        result=local_library.import_stream(unquote(self.headers.get('X-Video-Filename','')),self.rfile,size)
+                        result=local_library.import_and_start(unquote(self.headers.get('X-Video-Filename','')),self.rfile,size)
                     else:
                         if self.headers.get('Content-Type','').split(';')[0]!='application/json':
                             self.send_error(415);return
                         if not 0<size<=4096:raise ValueError('请求大小不正确。')
                         request=json.loads(self.rfile.read(size))
                         if not isinstance(request,dict):raise ValueError('请求必须是 JSON 对象。')
+                        if route.endswith('/archive') or route.endswith('/restore'):
+                            result=local_library.archive(request.get('id')) if route.endswith('/archive') else local_library.restore(request.get('id'))
+                            self.json_response(200,result);return
                         selected=request.get('variant') if 'detector' in request or 'tracker' in request else request.get('variant','team-stable')
                         ident=request.get('id')
                         if request.get('sample'):
@@ -253,6 +303,8 @@ def main():
                         'description':f"保留 {len(result['retainedRanges'])} 个直播区间；区间之间断开轨迹。人工剪辑当前不含音轨；原片音轨保留。",'sourceUrl':parent.get('sourceUrl'),
                         'liveSelection':selection,'parentSample':source_id,'parentVideoSha256':clips[source_id]['digest']}
                     clips[ident]=load_clip(parser,sample);samples.append(sample)
+                    local_library.register_review_source(clips[ident]['video'],sample.get('title',ident))
+                    collection.activate(ident)
                     if request.get('qa') is not True:
                         saved.append(sample)
                         temporary=cache/('library-'+uuid.uuid4().hex+'.json')
@@ -276,13 +328,18 @@ def main():
             from urllib.parse import parse_qs
             parsed=urlsplit(self.path);route=parsed.path;query=parse_qs(parsed.query)
             if route=='/api/video-library':
-                inventory=local_library.scan()
-                for entry in inventory['entries']:
-                    source=next(((ident,c) for ident,c in list(clips.items()) if c['digest']==entry['sha256']),None)
-                    if source and not entry['variants']:
-                        ident,clip_source=source
-                        entry.update(sampleId=ident,variants=list(clip_source['payloads']),status='ready',message='已有检测结果，可直接打开')
-                self.json_response(200,inventory,head_only);return
+                self.json_response(200,video_inventory(),head_only);return
+            if route=='/api/tactics-agent/status' or re.fullmatch(r'/api/tactics-agent/jobs/[a-zA-Z0-9-]+',route):
+                try:
+                    if route.endswith('/status'):result=agent.status()
+                    else:
+                        source=clips[query.get('sample',[default])[0]];variant=query.get('variant',[source['defaultVariant']])[0]
+                        clip=json.loads(source['payloads'][variant]);qa=query.get('qa',['0'])[0] in {'1','true'}
+                        result=agent.get(route.split('/')[-1],clip,variant,qa)
+                    self.json_response(200,result,head_only)
+                except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
+                    self.json_response(400,{'error':str(error)},head_only)
+                return
             if route in {'/api/tactics','/api/tactics/candidate'}:
                 try:
                     if route.endswith('/candidate'):
@@ -374,6 +431,7 @@ def main():
     try:server.serve_forever()
     except KeyboardInterrupt:pass
     finally:
+        agent.close()
         local_library.close()
         server.server_close()
 

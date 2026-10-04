@@ -4,13 +4,132 @@ import {makePresentationDemo} from '../tactical-overlay/fixtures/presentation-de
 import {mountTacticsUI} from './tactics-ui.mjs';
 import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {courtToVideo} from './tactics-presentation.mjs';
+import {createTacticsDocument} from './tactics-document.mjs';
+import {adoptAgentCandidate} from './tactics-agent.mjs';
 let environmentId=0;
 // The storage module keeps one IDB connection for the mounted application.
 // Route that connection to each test's transaction store rather than the first fixture.
 let activeDatabase;
 const connection={transaction(...args){return activeDatabase.transaction(...args);}};
+test('a slow Agent cancellation keeps generation locked throughout draft reload',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review);let jobs=0,releaseCancel,cancelStarted;
+  const started=new Promise(resolve=>cancelStarted=resolve),cancelled=new Promise(resolve=>releaseCancel=resolve);
+  const env=environment(d,{agent:async(path)=>{
+    if(path.endsWith('/status'))return {available:true,message:'ready'};
+    if(path.endsWith('/cancel')){cancelStarted();await cancelled;return {jobId:'job-1',status:'cancelled'};}
+    if(path.endsWith('/jobs')){jobs++;return {jobId:`job-${jobs}`,status:'queued',message:'queued'};}
+    return {jobId:`job-${jobs}`,status:'queued',message:'queued'};
+  }});
+  try{
+    await env.load();await env.get('tacticsAgentRun').onclick();
+    const reload=env.get('tacticsWorkspace').onclick();await started;
+    assert.equal(env.get('tacticsAgentRun').disabled,true,'reload must lock before waiting for cancellation');
+    await env.get('tacticsAgentRun').onclick();assert.equal(jobs,1);
+    releaseCancel();await reload;
+    assert.equal(env.get('tacticsAgentRun').disabled,false);assert.equal(env.get('tacticsAgentCancel').hidden,true);
+  }finally{releaseCancel();await env.get('tacticsWorkspace').onclick();await env.ui.ready();env.restore();}
+});
 
-function environment(source,{player=false,empty=false}={}){
+test('a stale Agent adoption response cannot unlock or relabel a newer queued job',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review);let jobs=0,releaseAdopt,adoptStarted;
+  const started=new Promise(resolve=>adoptStarted=resolve),response=new Promise(resolve=>releaseAdopt=resolve);
+  const output={summary:'路线建议',issues:[],phases:[{title:'切入',startFrame:0,endFrameExclusive:61,freezeFrame:0,reason:'跑位',evidenceFrames:[0,20],actions:[],annotations:[{type:'route',entityId:'P1',space:'video',anchorFrame:0,startFrame:0,endFrameExclusive:30,points:[{x:600,y:400},{x:700,y:300}],angle:0,size:1,color:'#26baff',explanation:'切入',evidenceFrames:[0,20]}]}]};
+  const env=environment(d,{agent:async(path,payload)=>{
+    if(path.endsWith('/status'))return {available:true,message:'ready'};
+    if(path.endsWith('/cancel'))return {jobId:`job-${jobs}`,status:'cancelled'};
+    if(path.endsWith('/adopt')){adoptStarted();return response;}
+    if(path.endsWith('/jobs')){
+      jobs++;if(jobs>1)return {jobId:`job-${jobs}`,status:'queued',message:'new job queued'};
+      return {jobId:'job-1',status:'ready',message:'ready',candidate:output,previewFrames:[],previewDocument:await adoptAgentCandidate(payload.document,output,{jobId:'job-1',scope:payload.scope,phaseId:payload.phaseId})};
+    }
+    return {jobId:`job-${jobs}`,status:'queued',message:'new job queued'};
+  }});
+  try{
+    await env.load();await env.get('tacticsAgentRun').onclick();const adoption=env.get('tacticsAgentAdopt').onclick();await started;
+    await env.get('tacticsWorkspace').onclick();await env.get('tacticsAgentRun').onclick();
+    releaseAdopt({document:d});await adoption;
+    assert.equal(env.get('tacticsAgentRun').disabled,true);assert.equal(env.get('tacticsAgentCancel').hidden,false);
+    assert.equal(env.get('tacticsAgentStatus').textContent,'new job queued');assert.equal(env.ui.getSceneState().annotations.items.length,0);
+  }finally{releaseAdopt({document:d});await env.get('tacticsWorkspace').onclick();await env.ui.ready();env.restore();}
+});
+
+test('reloading a draft while Agent is generating cancels only the captured job and unlocks a fresh generation',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review);let jobs=0,cancels=0;
+  const env=environment(d,{agent:async(path)=>{
+    if(path.endsWith('/status'))return {available:true,message:'ready'};
+    if(path.endsWith('/cancel')){cancels++;return {jobId:'old-job',status:'cancelled'};}
+    if(path.endsWith('/jobs')){jobs++;return {jobId:'old-job',status:'queued',message:'queued'};}
+    return {jobId:'old-job',status:'queued',message:'queued'};
+  }});
+  try{
+    await env.load();await env.get('tacticsAgentRun').onclick();
+    assert.equal(env.get('tacticsAgentRun').disabled,true);
+    await env.get('tacticsWorkspace').onclick();
+    assert.equal(env.get('tacticsAgentRun').disabled,false);assert.equal(env.get('tacticsAgentCancel').hidden,true);
+    assert.equal(cancels,1);await env.get('tacticsAgentRun').onclick();assert.equal(jobs,2);
+  }finally{env.restore();}
+});
+
+test('saving waits until an Agent adoption has committed the editable graphics',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review);let releaseAdopt,adoptStarted,preview;
+  const started=new Promise(resolve=>adoptStarted=resolve),response=new Promise(resolve=>releaseAdopt=resolve);
+  const output={summary:'路线建议',issues:[],phases:[{title:'切入',startFrame:0,endFrameExclusive:61,freezeFrame:0,reason:'跑位',evidenceFrames:[0,20],actions:[],annotations:[{type:'route',entityId:'P1',space:'video',anchorFrame:0,startFrame:0,endFrameExclusive:30,points:[{x:600,y:400},{x:700,y:300}],angle:0,size:1,color:'#26baff',explanation:'切入',evidenceFrames:[0,20]}]}]};
+  const env=environment(d,{agent:async(path,payload)=>{
+    if(path.endsWith('/status'))return {available:true,message:'ready'};
+    if(path.endsWith('/adopt')){adoptStarted();return response;}
+    preview=await adoptAgentCandidate(payload.document,output,{jobId:'job-1',scope:payload.scope,phaseId:payload.phaseId});
+    return {jobId:'job-1',status:'ready',message:'ready',candidate:output,previewDocument:preview,previewFrames:[]};
+  }});
+  try{
+    await env.load();await env.get('tacticsAgentRun').onclick();const adoption=env.get('tacticsAgentAdopt').onclick();await started;
+    assert.equal(env.get('tacticsSave').disabled,true);await env.get('tacticsSave').onclick();assert.equal(env.saved.length,0);
+    releaseAdopt({document:preview});await adoption;assert.equal(env.get('tacticsSave').disabled,false);
+    await env.get('tacticsSave').onclick();assert.equal(env.saved.at(-1).document.annotations.items.length,1);
+  }finally{releaseAdopt({document:preview});await env.ui.ready();env.restore();}
+});
+
+test('circle clicks a player box, follows feet at zero offset and changing the player snaps again',async()=>{
+  const f=await makePresentationDemo();for(const e of f.review.entities)for(const p of e.trajectory)p.box=[p.x-20,p.y-80,p.x+20,p.y];
+  f.playDefinition.sourceBinding=await createSourceBinding(f.review);
+  const env=environment({schemaVersion:1,title:'foot',notes:'',...f});
+  try{await env.load();const p=f.review.entities[1].trajectory[12];
+    await env.get('tacticsToolSpotlight').onclick();await env.event('pointerdown',{pointerId:100,target:env.target(),clientX:p.x,clientY:p.y-50});
+    let a=env.ui.getSceneState().annotations.items[0];assert.equal(a.entityId,'P2');assert.equal(a.anchorMode,'player_foot');assert.deepEqual(a.offset,{x:0,y:0});
+    assert.match(env.get('tacticsAnnotationPlayerLabel').textContent,/跟随谁/);assert.equal(env.get('tacticsSnapFoot').disabled,false);
+    assert.equal(env.get('tacticsSave').disabled,false,'manual graphic completion leaves Save available');
+    env.get('tacticsAnnotationPlayer').value='P1';await env.get('tacticsAnnotationPlayer').onchange();a=env.ui.getSceneState().annotations.items[0];assert.equal(a.entityId,'P1');assert.deepEqual(a.offset,{x:0,y:0});
+    assert.equal(a.space,'video');await env.get('tacticsSave').onclick();assert.equal(env.saved.at(-1).document.annotations.items[0].anchorMode,'player_foot');
+  }finally{env.restore();}
+});
+
+test('Agent candidate adoption appends editable graphics, preserves manual edits and refuses a stale generation',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review);let captured,preview,job=0,adopts=0;
+  const output={summary:'路线建议',issues:[],phases:[{title:'切入',startFrame:0,endFrameExclusive:61,freezeFrame:0,reason:'跑位',evidenceFrames:[0,20],actions:[],annotations:[{type:'route',entityId:'P1',space:'video',anchorFrame:0,startFrame:0,endFrameExclusive:30,points:[{x:600,y:400},{x:700,y:300}],angle:0,size:1,color:'#26baff',explanation:'切入',evidenceFrames:[0,20]}]}]};
+  const env=environment(d,{agent:async(path,payload)=>{
+    if(path.endsWith('/status'))return {available:true,message:'就绪'};
+    if(path.endsWith('/jobs')){captured=payload;job++;preview=await adoptAgentCandidate(payload.document,output,{jobId:`job-${job}`,scope:payload.scope,phaseId:payload.phaseId});return {jobId:`job-${job}`,status:'ready',base:{expectedVersion:payload.expectedVersion,clientRevision:payload.clientRevision,documentDigest:payload.documentDigest},candidate:output,previewDocument:preview,previewFrames:[]};}
+    if(path.endsWith('/adopt')){adopts++;return {document:preview};}throw new Error(path);
+  }});
+  try{await env.load();env.get('tacticsAgentScope').value='play';await env.get('tacticsAgentRun').onclick();assert.equal(env.get('tacticsAgentAdopt').disabled,false);
+    await env.get('tacticsAgentAdopt').onclick();assert.equal(env.ui.getSceneState().annotations.items.length,1);assert.equal(adopts,1);assert.deepEqual(env.writes.at(-1).document.review,d.review);
+    env.get('tacticsAgentScope').value='phase';await env.get('tacticsAgentRun').onclick();env.get('tacticsNotes').value='人工新增意见';env.get('tacticsNotes').oninput();
+    await env.get('tacticsAgentAdopt').onclick();assert.equal(adopts,1);assert.equal(env.ui.getSceneState().annotations.items.length,1);assert.match(env.get('tacticsAgentStatus').textContent,/变化|修改/);
+    await env.get('tacticsSave').onclick();assert.equal(env.saved.at(-1).document.notes,'人工新增意见');assert.ok(captured.documentDigest);
+  }finally{env.restore();}
+});
+
+test('entering tactics synchronizes corrected feet and participants, archives removed player graphics and restores explicitly',async()=>{
+  const f=await makePresentationDemo(),d={schemaVersion:1,title:'sync',notes:'',...f},env=environment(d);
+  try{await env.load();await env.get('tacticsToolSpotlight').onclick();await env.event('pointerdown',{pointerId:110,target:env.target(),clientX:720,clientY:400});
+    const id=env.ui.getSceneState().annotations.items[0].id;d.review=structuredClone(d.review);d.review.entities[0].trajectory[12].x+=30;d.review.entities.push({...structuredClone(d.review.entities[1]),id:'P9',name:'新参与者'});
+    await env.load();await env.ui.ready();let saved=env.writes.at(-1).document;assert.equal(saved.annotations.items[0].sourceBinding.reviewDigest,saved.playDefinition.sourceBinding.reviewDigest);assert.ok(saved.playDefinition.participants.some(p=>p.id==='P9'));
+    d.review=structuredClone(d.review);d.review.entities=d.review.entities.filter(e=>e.id!=='P1');await env.load();await env.ui.ready();
+    saved=env.writes.at(-1).document;assert.equal(saved.annotations.items.length,0);assert.equal(saved.archivedTactics.annotations[0].id,id);assert.equal(env.get('tacticsArchive').hidden,false);
+    env.get('tacticsArchivePlayer').value='P2';await env.get('tacticsArchiveList').children[0].onclick();saved=env.writes.at(-1).document;assert.equal(saved.annotations.items[0].id,id);assert.equal(saved.annotations.items[0].entityId,'P2');assert.equal(saved.archivedTactics.annotations.length,0);
+  }finally{env.restore();}
+});
+
+function environment(source,{player=false,empty=false,agent=null}={}){
   const nodes=new Map(),events={},writes=[],saved=[],store=new Map();let hold=false,releases=[],frameRequests=0;
   function make(tag='div'){
     const node={tag,children:[],attrs:{},listeners:{},style:{},value:'',checked:false,clientWidth:800,hidden:false,textContent:'',
@@ -36,6 +155,7 @@ function environment(source,{player=false,empty=false}={}){
       let value;if(path.startsWith('/api/tactics?'))value={version:0,document:empty?null:source};
       else if(path==='/api/tactics/frame'){frameRequests++;value={frames:JSON.parse(options.body).frames.map(frame=>({...source.review.sourceFrameMapping[frame],videoSha256:source.review.videoSha256,dataUrl:'data:image/jpeg;base64,/9j/'}))};}
       else if(path==='/api/tactics/save'){const payload=JSON.parse(options.body);saved.push(payload);value={version:payload.expectedVersion+1};}
+      else if(path.startsWith('/api/tactics-agent/')&&agent)value=await agent(path,options?JSON.parse(options.body):null);
       else throw new Error(path);return {ok:true,json:async()=>value};
     }
   });
@@ -288,6 +408,69 @@ test('mounted playback reuses decoded frames, trims cached routes, pauses on ski
     assert.ok(env.ui.getSceneState().model,'external seek during same-phase preparation must keep a current model');assert.equal(env.ui.getSceneState().frame,50);
     assert.equal(env.frameRequests,0);const plays=env.playerCalls.filter(c=>c[0]==='play').length;
     globalThis.document.body.dataset.area='footage';await env.exit();env.present(60);assert.equal(env.ui.getPlaybackState().status,'inactive');assert.equal(env.playerCalls.filter(c=>c[0]==='play').length,plays);
+  }finally{env.restore();}
+});
+
+test('canvas progress seeks decoded frames, blocks pending edits, and leaves external seek as notification only',async()=>{
+  const f=await makePresentationDemo(),env=environment({schemaVersion:1,title:'canvas seek',notes:'',...f},{player:true});
+  try{
+    await env.load();assert.equal(env.ui.getSceneState().frame,12);
+    await env.get('tacticsToolRoute').onclick();await env.event('pointerdown',{pointerId:91,target:env.target(),clientX:650,clientY:300});
+    const calls=env.playerCalls.length,writes=env.writes.length;
+    env.holdSeek();env.get('tacticsSeek').value='20';env.get('tacticsSeek').oninput();
+    assert.deepEqual(env.playerCalls.slice(calls),[['pause'],['seek',20]]);
+    assert.deepEqual(env.ui.getPlaybackState(),{phaseId:'setup',status:'seeking',targetFrame:20});
+    assert.equal(env.ui.getSceneState().frame,12,'do not label the old decoded frame as the requested frame');
+    assert.equal(env.ui.getSceneState().editingEnabled,false);assert.equal(env.get('tacticsToolRoute').disabled,true);
+    assert.equal(env.ui.getSceneState().drawingPoints,0);
+    await env.event('pointerdown',{pointerId:92,target:env.target(),clientX:650,clientY:300});
+    assert.equal(env.ui.getSceneState().drawingPoints,0);assert.equal(env.writes.length,writes);
+    env.ui.onPresentedFrame({frame:12,time:1.2,source:env.background,paused:true});
+    assert.equal(env.ui.getPlaybackState().status,'seeking');assert.equal(env.ui.getSceneState().editingEnabled,false);
+    env.finishSeek();assert.equal(env.ui.getSceneState().frame,20);assert.equal(env.ui.getPlaybackState().status,'paused');
+    assert.equal(env.get('tacticsToolRoute').disabled,false);assert.equal(env.ui.getSceneState().editingEnabled,true);
+    const sameFrameCalls=env.playerCalls.length;
+    env.get('tacticsSeek').value='20';env.get('tacticsSeek').oninput();await Promise.resolve();
+    assert.deepEqual(env.playerCalls.slice(sameFrameCalls),[['pause'],['seek',20]]);
+    assert.equal(env.ui.getPlaybackState().status,'paused');assert.equal(env.ui.getSceneState().frame,20);
+    const externalCalls=env.playerCalls.length;
+    env.ui.externalSeek(24);assert.deepEqual(env.playerCalls.slice(externalCalls),[['pause']]);
+    assert.equal(env.ui.getSceneState().editingEnabled,false);
+    env.present(24);assert.equal(env.ui.getSceneState().frame,24);assert.equal(env.ui.getSceneState().editingEnabled,true);
+  }finally{env.restore();}
+});
+
+test('canvas requested seeks change phase without substituting its freeze frame or enabling undecoded edits',async()=>{
+  const f=await makePresentationDemo(),env=environment({schemaVersion:1,title:'phase canvas seek',notes:'',...f},{player:true});
+  try{
+    await env.load();env.holdSeek();const calls=env.playerCalls.length;
+    env.get('tacticsSeek').value='35';env.get('tacticsSeek').oninput();await env.ui.ready();
+    assert.deepEqual(env.playerCalls.slice(calls),[['pause'],['seek',35]]);
+    assert.deepEqual(env.ui.getPlaybackState(),{phaseId:'finish',status:'seeking',targetFrame:35});
+    assert.equal(env.ui.getSceneState().phaseId,'finish');assert.equal(env.get('tacticsToolScreen').disabled,true);
+    assert.equal(env.ui.getSceneState().background.hidden,true);
+    env.finishSeek();assert.equal(env.ui.getSceneState().frame,35);assert.equal(env.ui.getPlaybackState().status,'paused');
+    assert.equal(env.get('tacticsToolScreen').disabled,false);assert.equal(env.ui.getSceneState().background.hidden,false);
+  }finally{env.restore();}
+});
+
+test('selecting a hidden frame-only object seeks its actual anchor and keeps the saved drawing unchanged',async()=>{
+  const f=await makePresentationDemo();f.review.court.calibration.keyframes=[];f.playDefinition.sourceBinding=await createSourceBinding(f.review);
+  const env=environment({schemaVersion:1,title:'return to object',notes:'',...f},{player:true});
+  try{
+    await env.load();await env.get('tacticsToolScreen').onclick();
+    await env.event('pointerdown',{pointerId:93,target:env.target(),clientX:650,clientY:300});
+    const annotation=structuredClone(env.ui.getSceneState().annotations.items[0]),writes=env.writes.length;
+    assert.equal(annotation.space,'video');assert.equal(annotation.anchorFrame,12);
+    env.ui.externalSeek(20);env.present(20);assert.equal(env.ui.getSceneState().frame,20);
+    env.holdSeek();const calls=env.playerCalls.length;
+    env.get('tacticsObjectList').children[0].onclick();
+    assert.deepEqual(env.playerCalls.slice(calls),[['pause'],['seek',12]]);
+    assert.equal(env.get('tacticsQuickDelete').disabled,true);
+    env.finishSeek();assert.equal(env.ui.getSceneState().frame,12);assert.equal(env.ui.getPlaybackState().status,'paused');
+    assert.equal(env.get('tacticsQuickDelete').disabled,false);assert.equal(env.ui.getSceneState().selectedAnnotationId,annotation.id);
+    assert.deepEqual(env.ui.getSceneState().annotations.items[0],annotation);assert.equal(env.writes.length,writes);
+    assert.match(env.get('tacticsCanvas').children[0].children[1].innerHTML,/data-part="screen-bar"/);
   }finally{env.restore();}
 });
 

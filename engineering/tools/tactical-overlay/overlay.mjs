@@ -50,7 +50,7 @@ export async function buildTacticalOverlay(input={}) {
       positionState:'missing',position:null,renderability:'unavailable',quality:{identity:notApplicable(),position:notApplicable(),calibration:notApplicable(),tactic:notApplicable()}};
     if(!e){issues.push(issue('entity_missing_from_review','warning','participant',{entityId:participant.id}));return item;}
     const found=observedPoint(c,participant.id,freezeFrame);item.position=found.point;
-    item.positionState=raw?.source==='out_of_view'?'offscreen':found.point||raw&&Number.isFinite(raw.x)&&Number.isFinite(raw.y)&&['manual','tracked'].includes(raw.source)?'visible':'missing';
+    item.positionState=raw?.source==='out_of_view'?'offscreen':found.point||raw&&Number.isFinite(raw.x)&&Number.isFinite(raw.y)&&['manual','tracked','manual_range'].includes(raw.source)?'visible':'missing';
     item.quality={identity:evidenceQuality(c,'identity',{entityId:participant.id},freezeFrame,freezeFrame+1),
       position:evidenceQuality(c,'position',{entityId:participant.id},freezeFrame,freezeFrame+1),
       calibration:evidenceQuality(c,'calibration',{},freezeFrame,freezeFrame+1),tactic:notApplicable()};

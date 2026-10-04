@@ -7,7 +7,7 @@ export function mountWorkbenchShell(api) {
   const drawer = $('dataDrawer');
   const handle = $('drawerResize');
   const videoCard = document.querySelector('.video-card');
-  const titles = {video:'视频处理', data:'数据核对与处理', tactics:'战术分析与讲解', production:'导出与交付'};
+  const titles = {video:'球员与球场检查', data:'球场位置核对', tactics:'战术制作', production:'保存与导出'};
   let area = 'video', drawerState = 'closed', returnArea = 'video', halfRatio = .45;
   let videoStep = null;
   let drag = null, layoutFrame = 0, entitySignature = '';
@@ -17,6 +17,12 @@ export function mountWorkbenchShell(api) {
     body.dataset.drawer = drawerState;
     content.style.setProperty('--drawer-height', `${halfRatio * 100}%`);
     $('areaTitle').textContent = titles[area];
+    const workflow=area==='tactics'?'tactics':area==='production'?'production':'check';
+    document.querySelectorAll('[data-workflow-target]').forEach(button=>{
+      if(button.dataset.workflowTarget===workflow)button.setAttribute('aria-current','step');
+      else button.removeAttribute('aria-current');
+    });
+    if($('workflowHelp'))$('workflowHelp').textContent={check:'选择球员和时间段，纠正身份、框或脚点；核对球场后进入战术制作。',tactics:'先让 Agent 给出方案，或手动画路线、放挡拆标记和脚底圈。',production:'保存当前草稿，也可导出完整战术数据。'}[workflow];
     document.querySelectorAll('[data-area-target]').forEach(button => {
       if (button.dataset.areaTarget === area) button.setAttribute('aria-current', 'page');
       else button.removeAttribute('aria-current');
@@ -92,6 +98,14 @@ export function mountWorkbenchShell(api) {
 
   document.querySelectorAll('[data-area-target]').forEach(button => {
     button.addEventListener('click', () => showArea(button.dataset.areaTarget));
+  });
+  document.querySelectorAll('[data-workflow-target]').forEach(button=>{
+    button.addEventListener('click',()=>{
+      const target=button.dataset.workflowTarget;
+      if(target==='import')$('openVideoLibrary').click();
+      else if(target==='check')$('tab-identity').click();
+      else showArea(target);
+    });
   });
   $('backToVideo').onclick = () => showArea('video');
   $('deliveryData').onclick = () => showArea('data');

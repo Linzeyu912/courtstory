@@ -84,6 +84,36 @@ def _identity_record(record, frame_count, interval=False):
         _integer(record.get('trackId'), '临时编号', low=1)
     if 'selectionFrame' in record:
         _integer(record['selectionFrame'], '选取帧', high=frame_count - 1)
+    if record.get('origin') == 'human_range_replacement':
+        if not interval or record['kind'] != 'track' or record.get('exclusive') is not True or 'scope' in record:
+            raise ValueError('完整区间替换必须是有限的独占人物关联。')
+        _integer(record.get('order'), '区间替换顺序', low=1)
+
+
+def _range_correction(record, frames):
+    """A relative edit carries original observations, not an invented detection."""
+    evidence = record.get('rangeCorrection')
+    if not isinstance(evidence, dict) or evidence.get('originalSource') not in ('tracked', 'manual'):
+        raise ValueError('区间位置修正必须保留合法原始来源。')
+    if not isinstance(evidence.get('operationId'), str) or not 0 < len(evidence['operationId']) <= 256:
+        raise ValueError('区间位置修正缺少操作编号。')
+    if evidence.get('method') != 'relative_keyframe_interpolation' or evidence.get('mode') not in ('box', 'foot'):
+        raise ValueError('区间位置修正方法不正确。')
+    support = evidence.get('supportFrames')
+    if not isinstance(support, list) or not 1 <= len(support) <= 2:
+        raise ValueError('区间位置修正须保留一或两个依据帧。')
+    for frame in support:
+        _integer(frame, '区间修正依据帧', high=len(frames) - 1)
+    if len(set(support)) != len(support) or type(evidence.get('keyframe')) is not bool:
+        raise ValueError('区间位置修正依据帧或关键帧标记不正确。')
+    if evidence['keyframe'] != (record['frame'] in support):
+        raise ValueError('区间位置修正关键帧标记与依据帧不符。')
+    track_id = record.get('trackId')
+    if evidence.get('originalTrackId') != track_id or (track_id is None and evidence['originalSource'] != 'manual'):
+        raise ValueError('区间位置修正的原始人物编号不正确。')
+    if track_id is not None and not any(isinstance(row, (list, tuple)) and len(row) > 4 and row[4] == track_id
+                                       for row in frames[record['frame']].get('tracks', [])):
+        raise ValueError('区间位置修正不能在缺测帧假造人物框。')
 
 
 def _frame_confirmation(record, frame_count):
@@ -168,6 +198,10 @@ def validate_session(session, clip):
                         _number(value, '人物框坐标')
                     if box[0] > box[2] or box[1] > box[3]:
                         raise ValueError('人物框坐标顺序不正确。')
+                if record.get('source') == 'manual_range':
+                    if field != 'anchors':
+                        raise ValueError('区间相对位置修正只适用于原图位置。')
+                    _range_correction(record, frames)
         for key in _list(entity, 'identityKeyframes'):
             _identity_record(key, frame_count)
         for binding in _list(entity, 'bindings'):
@@ -269,6 +303,22 @@ def _dismiss_observations(entity, records):
             dismissed.append(deepcopy(record))
 
 
+def _release_boundaries(entity, start, cuts):
+    records = [{**key, 'start': key['frame'], 'end': math.inf} for key in entity['identityKeyframes']]
+    records += [binding for binding in entity.get('bindings', []) if binding.get('scope') != TRACK_OCCURRENCES_SCOPE]
+    active = [record for record in records if record['start'] <= start <= record['end']]
+    ordinary = max((record for record in active if record.get('origin') != 'human_range_replacement'),
+                   key=lambda record: (record['start'], record.get('order', 0)), default=None)
+    replacement = max((record for record in active if record.get('origin') == 'human_range_replacement'),
+                      key=lambda record: record.get('order', 0), default=None)
+    if replacement and (not ordinary or replacement['order'] >= ordinary.get('order', 0)):
+        return [replacement['end'] + 1, *cuts, *[record['start'] for record in records
+                                               if record.get('order', 0) > replacement['order']]]
+    return ([key['frame'] for key in entity['identityKeyframes']] +
+            [binding['start'] for binding in entity.get('bindings', [])] +
+            [binding['end'] + 1 for binding in _bulk_bindings(entity)] + cuts)
+
+
 def apply_review_edit(session, operation, clip):
     """Return a complete edited draft; inputs and server/library data stay intact."""
     frame_count = validate_session(session, clip)
@@ -339,9 +389,7 @@ def apply_review_edit(session, operation, clip):
     elif kind == 'release_identity':
         entity = _entity(draft, operation.get('entityId'))
         start = _integer(operation.get('frame'), '取消关联帧', high=frame_count - 1)
-        boundaries = ([key['frame'] for key in entity['identityKeyframes']] +
-                      [binding['start'] for binding in entity.get('bindings', [])] +
-                      [binding['end'] + 1 for binding in _bulk_bindings(entity)] + draft['cuts'])
+        boundaries = _release_boundaries(entity, start, draft['cuts'])
         end = min([frame_count] + [frame for frame in boundaries if frame > start]) - 1
         order = _next_identity_order(draft)
         entity.setdefault('bindings', []).append({

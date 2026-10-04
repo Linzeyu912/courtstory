@@ -12,10 +12,25 @@ import subprocess
 import threading
 import uuid
 from workbench_models import PRESETS, MODEL_CHOICES, resolve_selection
+from workspace_collection import WorkspaceCollection
+from workbench_runtime import RuntimeProbe, worker_failure
 
 ROOT = Path(__file__).resolve().parents[2]
 EXTENSIONS = {'.mp4', '.mov', '.mkv', '.webm', '.avi'}
 MAX_UPLOAD = 2 * 1024 ** 3
+
+
+def merge_review_sources(inventory, clips):
+    """Attach old result choices without turning a newer failed/running job into ready."""
+    inventory = copy.deepcopy(inventory)
+    for entry in inventory['entries']:
+        source = next(((ident, clip) for ident, clip in clips.items() if clip['digest'] == entry['sha256']), None)
+        if source and not entry['variants']:
+            ident, clip = source
+            entry.update(sampleId=ident, variants=list(clip['payloads']))
+            if entry['status'] not in {'queued', 'running', 'error'}:
+                entry.update(status='ready', message='已有检测结果，可直接打开')
+    return inventory
 
 
 def file_hash(path):
@@ -44,7 +59,8 @@ def check_video(path):
 
 
 class LocalVideoLibrary:
-    def __init__(self, folder, cache, python, models, publish, validate, runner=None, shared_catalog=None):
+    def __init__(self, folder, cache, python, models, publish, validate, runner=None, shared_catalog=None,
+                 collection=None, runtime_probe=None):
         self.folder, self.cache = Path(folder).resolve(), Path(cache).resolve()
         self.folder.mkdir(parents=True, exist_ok=True)
         self.cache.mkdir(parents=True, exist_ok=True)
@@ -53,8 +69,17 @@ class LocalVideoLibrary:
         self.lock = threading.RLock()
         self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix='video-inference')
         self.runner = runner or self._run
+        self.collection = collection
+        self.runtime_probe = runtime_probe or RuntimeProbe(self.python, self.models)
         self.shared_catalog = Path(shared_catalog).resolve() if shared_catalog else None
         self.paths, self.hashes, self.jobs = {}, {}, {}
+        self.jobs_manifest = self.cache / 'jobs.json'
+        if self.jobs_manifest.exists():
+            self.jobs = json.loads(self.jobs_manifest.read_text(encoding='utf-8'))
+            for job in self.jobs.values():
+                if job['status'] in {'queued', 'running'}:
+                    job.update(status='error', message='上次识别因服务停止而中断，请重试；已有结果和标注均保留。')
+            atomic_json(self.jobs_manifest, self.jobs)
         self.review_sources = {}
         self.manifest = self.cache / 'library.json'
         self.saved = json.loads(self.manifest.read_text(encoding='utf-8')) if self.manifest.exists() else {}
@@ -114,6 +139,9 @@ class LocalVideoLibrary:
                 sample = self.saved.get(ident)
                 ready = sample is not None and ident not in self.restore_errors
                 job = self.jobs.get(ident)
+                if ident in self.restore_errors and (not job or job['status'] == 'ready'):
+                    # A historical success cannot validate files that failed this startup's checks.
+                    job = {**(job or {}), 'status': 'error', 'message': self.restore_errors[ident]}
                 entries[ident] = {'id': ident, 'filename': path.name, 'relativePath': relative,
                     'origin': origin, 'available': not unavailable,
                     'bytes': asset['bytes'] if unavailable else stat.st_size, 'sha256': asset['sha256'] if unavailable else digest, 'copies': 1, 'sampleId': ident if ready else None,
@@ -122,8 +150,9 @@ class LocalVideoLibrary:
                     'message': '共享视频尚未完整下载，请先下载 Git LFS 成片' if unavailable else job['message'] if job else self.restore_errors.get(ident, '已处理，可打开' if ready else '选择方案后开始处理'),
                     'jobVariant': job.get('variant') if job else None}
             self.paths = paths
+            runtime = self.runtime_probe()
             return {'folder': str(self.folder), 'entries': list(entries.values()), 'presets': copy.deepcopy(PRESETS), 'modelChoices': copy.deepcopy(MODEL_CHOICES),
-                    'maxUploadBytes': MAX_UPLOAD, 'runtimeAvailable': self.python.is_file() and self.models.is_dir()}
+                    'maxUploadBytes': MAX_UPLOAD, 'runtimeAvailable': runtime['available'], 'runtime': runtime}
 
     def import_stream(self, filename, stream, size):
         if (not isinstance(filename, str) or not filename or len(filename) > 180
@@ -158,9 +187,37 @@ class LocalVideoLibrary:
                         import shutil
                         shutil.copyfileobj(source, output)
                     self.scan()
+                if self.collection:
+                    self.collection.activate(ident)
             return {'id': ident, 'duplicate': duplicate}
         finally:
             temporary.unlink(missing_ok=True)
+
+    def import_and_start(self, filename, stream, size, variant='team-stable'):
+        imported = self.import_stream(filename, stream, size)
+        ident = imported['id']
+        with self.lock:
+            try:
+                job = self.start(ident, variant)
+            except ValueError as error:
+                job = {'status': 'error', 'variant': variant, 'message': str(error), 'sampleId': ident}
+                self.jobs[ident] = job
+                atomic_json(self.jobs_manifest, self.jobs)
+        return {**imported, 'job': copy.deepcopy(job)}
+
+    def archive(self, ident):
+        with self.lock:
+            if not self.collection: raise ValueError('当前服务没有配置工作集合。')
+            key = self.collection.key(ident)
+            if any(self.collection.key(job_id) == key and job['status'] in {'queued', 'running'}
+                   for job_id, job in self.jobs.items()):
+                raise ValueError('这个视频正在处理，请等待任务结束后归档。')
+            return self.collection.archive(ident)
+
+    def restore(self, ident):
+        with self.lock:
+            if not self.collection: raise ValueError('当前服务没有配置工作集合。')
+            return self.collection.restore(ident)
 
     def start(self, ident, variant=None, detector=None, tracker=None):
         if detector is not None or tracker is not None:
@@ -168,7 +225,7 @@ class LocalVideoLibrary:
         if variant not in {p['id'] for p in PRESETS}:
             raise ValueError('请选择有效的处理方案。')
         with self.lock:
-            self.scan()
+            inventory = self.scan()
             if ident not in self.paths:
                 raise ValueError('视频已移走或尚未扫描到，请刷新文件夹。')
             job = self.jobs.get(ident)
@@ -177,9 +234,12 @@ class LocalVideoLibrary:
             sample = self.saved.get(ident)
             if ident not in self.restore_errors and sample and any(v['id'] == variant for v in sample.get('trackingVariants', [])):
                 return {'status': 'ready', 'sampleId': ident, 'variant': variant, 'message': '这个方案已有结果'}
-            if not self.python.is_file() or not self.models.is_dir():
-                raise ValueError('本机推理环境未配置，请按模型部署说明设置 --inference-python 和 --models。')
+            availability = inventory['runtime'].get('variants', {}).get(variant, inventory['runtime'])
+            if not availability['available']:
+                raise ValueError(availability.get('reason') or '当前模型不可用，请检查推理环境与模型权重。')
+            if self.collection: self.collection.activate(ident)
             self.jobs[ident] = {'status': 'queued', 'variant': variant, 'message': '排队中，等待本机处理', 'sampleId': ident}
+            atomic_json(self.jobs_manifest, self.jobs)
             self.executor.submit(self._process, ident, variant, self.paths[ident])
             return copy.deepcopy(self.jobs[ident])
 
@@ -196,6 +256,7 @@ class LocalVideoLibrary:
         try:
             with self.lock:
                 self.jobs[ident].update(status='running', message='正在准备视频并运行检测与跟踪…')
+                atomic_json(self.jobs_manifest, self.jobs)
             if file_hash(source) != ident[6:]:
                 raise ValueError('视频在处理前发生变化，请刷新后重新选择。')
             result = self.runner(ident, variant, source)
@@ -214,9 +275,11 @@ class LocalVideoLibrary:
                 self.publish(result, clip)
                 self.restore_errors.pop(ident, None)
                 self.jobs[ident].update(status='ready', message='处理完成，可以打开')
+                atomic_json(self.jobs_manifest, self.jobs)
         except Exception as error:
             with self.lock:
                 self.jobs[ident].update(status='error', message=str(error))
+                atomic_json(self.jobs_manifest, self.jobs)
 
     def _run(self, ident, variant, source):
         destination = self.cache / ident
@@ -231,7 +294,7 @@ class LocalVideoLibrary:
             completed = subprocess.run(command, cwd=ROOT, stdout=output, stderr=subprocess.STDOUT,
                                        creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
         if completed.returncode:
-            raise ValueError(f'处理失败，可重试。详细日志：{log}')
+            raise ValueError(worker_failure(log, completed.returncode))
         return json.loads((run_dir / 'sample.json').read_text(encoding='utf-8'))
 
     def close(self):

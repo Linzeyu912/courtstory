@@ -65,8 +65,15 @@ export function identityAt(entity, frame, cuts=[], availableTracks=null) {
   }
   for (const binding of entity.bindings||[]) {
     if(binding.scope==='track_occurrences')continue;
+    if(binding.origin==='human_range_replacement')continue;
     consider({...binding,identitySource:binding.kind==='unassigned'?'human_unassigned':'manual_range'});
   }
+  // A finite, deliberate range replacement shadows older boundaries only in
+  // this interval. Outside it the exact old rule/token resumes unchanged.
+  // A later single-frame or forward correction can still supersede the range.
+  const replacement=(entity.bindings||[]).filter(b=>b.origin==='human_range_replacement'&&b.start<=frame&&b.end>=frame)
+    .sort((a,b)=>(b.order||0)-(a.order||0))[0];
+  if(replacement&&(!active||(replacement.order||0)>=(active.order||0)))active={...replacement,identitySource:'manual_range'};
   if(active&&active.kind!=='unassigned'&&cuts.some(cut=>cut>active.start&&cut<=frame))active=null;
   // A legacy forward claim can leave a real gap after its T disappears. An
   // explicitly reviewed range or a hand-edited position must remain protected.
@@ -105,6 +112,11 @@ export function identityBoundaries(entity) {
 }
 
 export function identityInterval(session, entity, start, frameCount) {
+  const active=identityAt(entity,start,session.cuts);
+  if(active?.origin==='human_range_replacement'){
+    const newer=[...identityKeyframes(entity).map(key=>({...key,start:key.frame})),...(entity.bindings||[])].filter(record=>(record.order||0)>(active.order||0)).map(record=>record.start);
+    return {start,end:Math.min(frameCount,active.end+1,...[...newer,...session.cuts].filter(frame=>frame>start))-1};
+  }
   const boundaries = [...identityKeyframes(entity).map(key=>key.frame),
     ...(entity.bindings||[]).flatMap(binding=>binding.scope==='track_occurrences'?
       [binding.start,binding.end+1]:[binding.start]),...session.cuts];
@@ -158,7 +170,7 @@ export function anchorReviewSignature(anchor) {
 // A track assignment and a frame review are different facts. Reviews apply only
 // to the observation and identity that were actually shown to the reviewer.
 export function frameIdentityConfirmed(entity,point,identity) {
-  if(!point||point.x==null||point.y==null||!['manual','tracked'].includes(point.source)||
+  if(!point||point.x==null||point.y==null||!['manual','tracked','manual_range'].includes(point.source)||
       point.reviewExcluded||['conflict','unassigned','out_of_view'].includes(identity?.kind))return false;
   const anchor=(entity.anchors||[]).find(item=>item.frame===point.frame);
   const scope=identity?.scope==='track_occurrences'?'track_occurrences':identity?.identitySource||'manual_position';
@@ -290,7 +302,10 @@ export function resolveIdentityOwners(result, entities, frames) {
       // Explicit human corrections stay authoritative. A single frame review
       // wins over unreviewed propagation only at this frame; two reviewed
       // claims still conflict. Merely clicking later never resolves that tie.
-      const eligible=explicit.length?explicit:reviewed.length?reviewed:bulk.length?bulk:group;
+      let eligible=explicit.length?explicit:reviewed.length?reviewed:bulk.length?bulk:group;
+      if(eligible.some(owner=>owner.point.identityOrigin==='human_range_replacement')){
+        const order=Math.max(...eligible.map(owner=>owner.point.identityOrder||0));eligible=eligible.filter(owner=>(owner.point.identityOrder||0)===order);
+      }
       if(eligible.length===1&&eligible.length<group.length)winner=eligible[0];
       if (!winner && eligible.some(owner=>owner.point.identityExclusive)) {
         const start = Math.max(...eligible.map(owner=>owner.point.identityStartFrame??-1));

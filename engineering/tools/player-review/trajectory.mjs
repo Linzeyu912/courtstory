@@ -72,17 +72,17 @@ export function buildTrajectories(session, frames, sourceCuts=[]) {
       if (identity?.kind==='conflict') return {frame,time:record.time,x:null,y:null,trackId:null,
         source:'conflict',...identityProvenance(identity)};
       // An old position tied to a replaced ID must not override a new identity.
-      const independentEdit=manual?.identityConfirmed===false&&
+      const independentEdit=manual?.source!=='manual_range'&&manual?.identityConfirmed===false&&
         ['model_suggestion','manual_track_occurrences'].includes(identity?.identitySource);
       if (manual && (manual.trackId==null || independentEdit || (identity?.kind==='track' && Number(manual.trackId)===Number(identity.trackId)))) {
         return {frame,time:record.time,x:manual.x,y:manual.y,box:manual.box||null,
-          source:manual.source==='manual_path'?'manual_path':'manual',trackId:independentEdit&&Number(manual.trackId)!==Number(identity.trackId)?null:manual.trackId??null,
+          source:['manual_path','manual_range'].includes(manual.source)?manual.source:'manual',trackId:independentEdit&&Number(manual.trackId)!==Number(identity.trackId)?null:manual.trackId??null,
           ...identityProvenance(identity),
           footMethod:manual.footMethod||(manual.box?'bbox_bottom_center':'human_image_anchor'),
           boxMethod:manual.boxMethod,detectorBox:manual.detectorBox,method:manual.method,
           ...(manual.footCandidate?{footCandidate:manual.footCandidate}:{}),
           ...(manual.groundContactConfirmed===false?{groundContactConfirmed:false}:{}),
-          supportFrames:manual.supportFrames,reviewRequired:true};
+          supportFrames:manual.supportFrames,...(manual.rangeCorrection?{rangeCorrection:structuredClone(manual.rangeCorrection)}:{}),reviewRequired:true};
       }
       if (identity?.kind==='track') {
         const box=lookup[frame].get(Number(identity.trackId));
@@ -129,7 +129,7 @@ export function buildTrajectories(session, frames, sourceCuts=[]) {
     if(point.source==='interpolated' && point.supportFrames.some(index=>points[index].x==null)) {
       points[frame]={frame,time:point.time,x:null,y:null,source:point.supportFrames.some(index=>points[index].source==='conflict')?'conflict':'missing'};
     }
-    if(points[frame].x==null||!['manual','tracked'].includes(points[frame].source))
+    if(points[frame].x==null||!['manual','tracked','manual_range'].includes(points[frame].source))
       Object.assign(points[frame],{frameIdentityConfirmed:false,identityConfirmed:false,identityReviewRequired:true});
   }
   return result;
@@ -157,16 +157,16 @@ export function gapRanges(points) {
   return ranges;
 }
 
-export function exportReview(session, clip, confirmedAt) {
+export function exportReview(session, clip, confirmedAt, {allowEmpty=false}={}) {
   const sourceCuts=mergeSourceCuts([],clip.sourceCuts,clip.frames.length);
   session=normalizeTeamColorMetadata({...session,cuts:mergeSourceCuts(session.cuts,sourceCuts,clip.frames.length)});
   const trajectories = buildTrajectories(session, clip.frames, sourceCuts);
   const entities = session.entities.filter(hasAssociation);
-  if (!entities.length) throw new Error('Select at least one target before confirming');
+  if (!entities.length&&!allowEmpty) throw new Error('Select at least one target before confirming');
   const {court,courtTrajectories}=exportCourtData(session,clip.frames,trajectories);
   if(clip.supportsCourtCalibration===false){court.template=null;court.applicability='unsupported_source_court';}
   return {schemaVersion:2,videoSha256:clip.video_sha256,coordinateSystem:'image_pixels',court,
-    width:clip.width,height:clip.height,selectionConfirmed:entities.every(isHumanIdentitySelected),confirmedAt,
+    width:clip.width,height:clip.height,selectionConfirmed:entities.length>0&&entities.every(isHumanIdentitySelected),confirmedAt,
     trackingRevision:clip.tracking_revision||clip.variant||'original',trackingFingerprint:clip.tracking_fingerprint||null,
     trackingMetadata:clip.trackingMetadata||null,modelSuggestionLoad:session.modelSuggestionLoad||null,
     allFramesManuallyVerified:false,liveSelection:session.liveSelection||null,identitySelection:session.identitySelection||null,
@@ -193,7 +193,7 @@ export function confirmFrameIdentity(session,entityId,frame,frames,sourceCuts=[]
   const entity=session.entities.find(item=>item.id===entityId);
   if(!entity||!Number.isInteger(frame)||!frames[frame])throw new Error('人物确认帧不正确。');
   const point=buildTrajectories(session,frames,sourceCuts)[entityId][frame];
-  if(point.x==null||point.y==null||!['manual','tracked'].includes(point.source)||point.reviewExcluded)
+  if(point.x==null||point.y==null||!['manual','tracked','manual_range'].includes(point.source)||point.reviewExcluded)
     throw new Error('请先选定当前帧可见的人物；缺失、冲突和估计位置不能确认。');
   const cuts=mergeSourceCuts(session.cuts,sourceCuts,frames.length),identity=identityAt(entity,frame,cuts,frames[frame]);
   const manualPosition=point.trackId==null,anchor=(entity.anchors||[]).find(item=>item.frame===frame);
@@ -234,6 +234,7 @@ export function playerDisplayState(entity,point) {
   if(point?.source==='out_of_view')return {status:'out_of_view',label:'已离开画面',identity};
   if(point?.source==='conflict')return {status:'conflict',label:'身份冲突',identity};
   if(['interpolated','manual_path'].includes(point?.source))return {status:'estimated',label:'估计 · 待复核',identity};
+  if(point?.source==='manual_range'&&point.x!=null)return {status:'manual_range',label:point.frameIdentityConfirmed?'当前帧人物已确认 · 区间修正':'区间修正 · 当前帧待核对',identity};
   if(point?.x!=null)return {status:point.source==='manual'?'manual':'tracked',
     label:point.frameIdentityConfirmed?'当前帧人物已确认':point.source==='manual'?'人工位置 · 人物待核对':point.associationScope==='track_occurrences'?
       '整段归并 · 待逐帧核对':identity==='model_proposed'?'模型建议 · 待确认':'模型跟踪',identity};
@@ -268,6 +269,26 @@ export function confirmBinding(session,entityId,binding,frames){
   migrateIdentitySession(session);
   Object.assign(copy.bindings.at(-1),{exclusive:true,order:nextIdentityOrder(session)});
   entity.bindings=copy.bindings;session.identitySelection=null;
+}
+
+/** Pure preview/application: the finite override preserves every outside rule. */
+export function replaceIdentityRange(session,{entityId,trackId,start,end},frames,sourceCuts=[]){
+  if(!session.entities.some(e=>e.id===entityId)||!Number.isInteger(trackId)||trackId<1||!Number.isInteger(start)||!Number.isInteger(end)||start<0||end>=frames.length||start>end)throw new Error('请选择球员、有效临时编号和起止区间。');
+  if(!frames.slice(start,end+1).some(f=>f.tracks.some(b=>Number(b[4])===trackId)))throw new Error('所选时间段没有这个临时编号的观测。');
+  const before=buildTrajectories(session,frames,sourceCuts),draft=structuredClone(session),entity=draft.entities.find(e=>e.id===entityId);
+  migrateIdentitySession(draft);const order=nextIdentityOrder(draft),cuts=mergeSourceCuts(draft.cuts,sourceCuts,frames.length);
+  const boundaries=[start,...cuts.filter(f=>f>start&&f<=end),end+1];entity.bindings||=[];
+  for(let i=0;i<boundaries.length-1;i++)entity.bindings.push({kind:'track',trackId,start:boundaries[i],end:boundaries[i+1]-1,origin:'human_range_replacement',order,exclusive:true,reviewRequired:true});
+  // A point from the replaced person, or a missing-position sketch, must not
+  // obscure the newly selected observation. Undo retains the complete input.
+  entity.anchors=entity.anchors.filter(a=>a.frame<start||a.frame>end||(a.trackId===trackId&&a.source!=='manual_path'));
+  entity.frameConfirmations=(entity.frameConfirmations||[]).filter(a=>a.frame<start||a.frame>end);draft.identitySelection=null;
+  const after=buildTrajectories(draft,frames,sourceCuts),preview={start,end,changed:0,missing:0,segments:boundaries.length-1,affectedPlayers:{}};
+  for(let f=start;f<=end;f++){
+    if(after[entityId][f].x==null)preview.missing++;else preview.changed++;
+    for(const id of Object.keys(after))if(id!==entityId&&after[id][f].claimedBy===entityId&&before[id][f].x!=null)preview.affectedPlayers[id]=(preview.affectedPlayers[id]||0)+1;
+  }
+  return {session:draft,preview};
 }
 
 export function continuationSuggestions(points,frames,cuts=[]){

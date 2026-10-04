@@ -40,7 +40,8 @@ class LocalLibraryTests(unittest.TestCase):
 
     def make_library(self, runner=None):
         return LocalVideoLibrary(self.root / 'inbox', self.root / 'cache', sys.executable, self.root,
-            lambda sample, clip: self.published.update({sample['id']: clip}), validated_clip, runner or self.run_fixture)
+            lambda sample, clip: self.published.update({sample['id']: clip}), validated_clip, runner or self.run_fixture,
+            runtime_probe=lambda: {'available': True, 'reason': '', 'variants': {}})
 
     def run_fixture(self, ident, variant, source):
         folder = self.root / 'cache' / ident
@@ -191,6 +192,92 @@ class LocalLibraryTests(unittest.TestCase):
             self.assertEqual(len(calls), 1)
         finally: release.set()
         self.assertEqual(self.wait(ident)['status'], 'ready')
+
+    def test_import_and_start_uses_default_and_reactivates_duplicate(self):
+        self.assertTrue(hasattr(self.library, 'import_and_start'), 'import must start detection')
+        from workspace_collection import WorkspaceCollection
+        self.library.collection = WorkspaceCollection(self.root / 'workspace.json')
+        self.library.collection.reconcile([], [])
+        data = self.source.read_bytes()
+        first = self.library.import_and_start('new.mp4', io.BytesIO(data), len(data))
+        self.assertEqual(first['job']['variant'], 'team-stable')
+        self.assertEqual(self.wait(first['id'])['status'], 'ready')
+        self.library.archive(first['id'])
+        self.assertEqual(self.library.collection.filter_entries(self.library.scan()['entries']), [])
+        second = self.library.import_and_start('same.mp4', io.BytesIO(data), len(data))
+        self.assertTrue(second['duplicate']); self.assertEqual(second['job']['status'], 'ready')
+        self.assertEqual(len(self.library.collection.filter_entries(self.library.scan()['entries'])), 1)
+
+    def test_archive_rejects_queued_or_running_jobs(self):
+        self.assertTrue(hasattr(self.library, 'archive'), 'archive operation is missing')
+        from workspace_collection import WorkspaceCollection
+        self.library.collection = WorkspaceCollection(self.root / 'workspace.json')
+        self.library.collection.reconcile([], [])
+        ident = self.upload()['id']
+        self.library.collection.activate(ident)
+        for state in ['queued', 'running']:
+            self.library.jobs[ident] = {'status': state, 'variant': 'team-stable', 'message': state}
+            with self.assertRaisesRegex(ValueError, '处理'): self.library.archive(ident)
+        self.library.jobs[ident]['status'] = 'error'
+        self.library.archive(ident)
+        self.assertTrue(self.library.paths[ident].is_file())
+
+    def test_runtime_failure_is_recorded_after_import_and_can_retry(self):
+        self.assertTrue(hasattr(self.library, 'import_and_start'), 'import must report a detection failure')
+        self.library.runtime_probe = lambda: {'available': False, 'reason': '缺少 BODD_yolov8n_0001.pt',
+            'variants': {'team-stable': {'available': False, 'reason': '缺少 BODD_yolov8n_0001.pt'}}}
+        data = self.source.read_bytes()
+        result = self.library.import_and_start('new.mp4', io.BytesIO(data), len(data))
+        self.assertEqual(result['job']['status'], 'error')
+        self.assertIn('BODD_yolov8n_0001.pt', self.library.scan()['entries'][0]['message'])
+        self.assertTrue(self.library.paths[result['id']].is_file())
+        self.library.runtime_probe = lambda: {'available': True, 'reason': '', 'variants': {}}
+        self.library.start(result['id'], 'team-stable')
+        self.assertEqual(self.wait(result['id'])['status'], 'ready')
+
+    def test_failed_jobs_remain_visible_after_restart_with_older_ready_results(self):
+        ident = self.upload()['id']
+        self.library.start(ident, 'yolo'); self.wait(ident)
+        def fail(*args): raise ValueError('CUDA out of memory')
+        self.library.runner = fail
+        self.library.start(ident, 'team-stable'); self.wait(ident)
+        restored = self.make_library(); self.addCleanup(restored.close)
+        entry = restored.scan()['entries'][0]
+        self.assertEqual(entry['status'], 'error')
+        self.assertEqual(entry['jobVariant'], 'team-stable')
+        self.assertIn('CUDA out of memory', entry['message'])
+        self.assertEqual(entry['variants'], ['yolo'])
+
+    def test_restarted_pending_job_is_interrupted_and_retryable(self):
+        ident = self.upload()['id']
+        (self.library.cache / 'jobs.json').write_text(json.dumps({ident: {
+            'status': 'running', 'variant': 'team-stable', 'message': 'running', 'sampleId': ident}}))
+        restored = self.make_library(); self.addCleanup(restored.close)
+        row = restored.scan()['entries'][0]
+        self.assertEqual(row['status'], 'error'); self.assertIn('中断', row['message'])
+        self.assertEqual(row['jobVariant'], 'team-stable')
+
+    def test_restore_validation_error_wins_over_a_persisted_ready_job(self):
+        ident = self.upload()['id']
+        self.library.start(ident, 'yolo'); self.wait(ident)
+        tracks = Path(self.library.saved[ident]['tracks'])
+        tracks.with_suffix('.meta.json').write_text('{}')
+        restored = self.make_library(); self.addCleanup(restored.close)
+        entry = restored.scan()['entries'][0]
+        self.assertEqual(entry['status'], 'error')
+        self.assertEqual(entry['variants'], [])
+        self.assertIn('metadata does not match source', entry['message'])
+        self.assertNotIn('处理完成', entry['message'])
+        # The failed cache remains retryable; loading it did not rewrite the user's source.
+        self.assertEqual(self.source.read_bytes(), self.library.paths[ident].read_bytes())
+
+    def test_restore_validation_error_without_job_history_is_still_an_error(self):
+        ident = self.upload()['id']
+        self.library.start(ident, 'yolo'); self.wait(ident)
+        Path(self.library.saved[ident]['tracks']).with_suffix('.meta.json').write_text('{}')
+        self.library.jobs_manifest.unlink()
+        restored = self.make_library(); self.addCleanup(restored.close)
+        self.assertEqual(restored.scan()['entries'][0]['status'], 'error')
 
     def test_unknown_ids_and_models_rejected_without_jobs(self):
         with self.assertRaises(ValueError): self.library.start('missing', 'yolo')

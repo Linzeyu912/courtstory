@@ -36,18 +36,47 @@ body[data-step=footage] .tracking-evidence{display:none}
 .scene-objects{margin-top:18px;border-top:1px solid #dce3e9;padding-top:14px}.scene-objects h2{font-size:14px}.scene-objects h3{font-size:12px;margin:10px 0 6px}.scene-object{display:block;width:100%;text-align:left;font-size:12px;margin:4px 0;border-color:#d8e1e7}.scene-object.selected{background:#fff5c7;border-color:#c69127}.scene-objects input{width:100%}.scene-objects details{margin-top:10px}.scene-objects .range-fields{margin:9px 0}.calibration-steps{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.calibration-steps span{font-size:11px;border-radius:5px;background:#e7eef6;color:#355977;padding:6px 8px}#calibrationDiagram{display:block;width:100%;height:auto;max-height:240px;border-radius:8px;background:#f7f4ed;margin:10px 0}.landmark-buttons{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0}.landmark-buttons button{min-width:33px;padding:6px}.landmark-buttons button.active{background:#c75632;color:white;border-color:#c75632}.calibration-automation{margin:16px 0;padding:12px;border:1px solid #dce3e9;border-radius:8px;background:#f8fafb}.calibration-automation h3{margin-top:0}.calibration-automation .gap-controls{flex-wrap:wrap}.foot-candidates{margin:12px 0;padding:10px;border:1px solid #dce3e9;border-radius:8px;background:#f7fafc}.foot-candidates .gap-controls{flex-wrap:wrap}
 
 /* Workbench shell: icon rail and data drawer */
-.source-toolbar{display:flex;align-items:end;gap:10px;flex-wrap:wrap;padding:7px 10px;background:white;border:1px solid #dce3eb;border-radius:8px;flex-shrink:0}
+.source-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;align-items:end;gap:10px;padding:7px 10px;background:white;border:1px solid #dce3eb;border-radius:8px;flex-shrink:0}
 .source-toolbar .field{flex:1 1 230px;min-width:0;margin:0;font-size:11px;gap:4px}
 .source-toolbar .model-picker{flex:1 1 270px}.source-toolbar select{width:100%;min-width:0;padding:7px;border:1px solid #ccd6e3;border-radius:5px;background:#fff;color:#24364d}
 .source-toolbar>button{margin-bottom:1px;white-space:nowrap;font-size:12px;padding:8px 12px}
-.source-toolbar #openVideoLibrary{background:#2a5c85;color:white;border-color:#2a5c85}
+.source-toolbar #startVideoImport{background:#2a5c85;color:white;border-color:#2a5c85}
+.source-model-settings{position:relative;min-width:0;margin:0;padding:0;border:0}
+.source-model-settings>summary{padding:8px 10px;border:1px solid #d4dde9;border-radius:6px;background:#f7f9fc;color:#536a80;font-size:12px;font-weight:400;white-space:nowrap}
+.source-model-settings>summary:hover,.source-model-settings[open]>summary{background:#edf3f9;border-color:#b8cbdc}
+.source-model-controls{position:absolute;top:calc(100% + 8px);right:0;z-index:60;display:grid;gap:10px;width:min(520px,calc(100vw - 100px));max-height:calc(100dvh - 190px);overflow:auto;padding:14px;background:white;border:1px solid #dce3eb;border-radius:8px;box-shadow:0 10px 30px #243c5826}
+.source-model-controls>button{justify-self:start;font-size:12px;padding:7px 12px}
+.source-model-controls .model-choice-status{overflow-wrap:anywhere;line-height:1.6}
+body.workbench-shell[data-area="tactics"] .source-toolbar{grid-template-columns:minmax(0,1fr) auto auto}
+body.workbench-shell[data-area="tactics"] .source-toolbar>.source-model-settings{display:none}
+.workflow-progress{display:flex;align-items:center;gap:7px;flex:0 0 auto;min-height:38px}
+.workflow-progress button{display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid #d8e1eb;background:#f7f9fc;white-space:nowrap;color:#54677c}
+.workflow-progress button span{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#e6edf5;font-size:11px}
+.workflow-progress button[aria-current="step"]{background:white;border-color:#2a5c85;color:#214e75;font-weight:600}
+.workflow-progress button[aria-current="step"] span{background:#2a5c85;color:white}
+.workflow-progress p{font-size:11px;color:#69798b;margin:0 0 0 6px;line-height:1.5}
+.import-model-settings{border-top:1px solid #e1e7ef;padding-top:9px;margin:12px 0}
+.import-model-settings summary{cursor:pointer;color:#5b6e84;margin-bottom:9px}
+.library-scope{max-width:190px}
+.identity-range-editor{border:1px solid #d5e0ed;background:#f6f9fd;border-radius:7px;padding:12px;margin:10px 0}
+.identity-range-editor h3{font-size:14px;margin:0 0 9px;color:#254d75}
+.identity-range-editor input[type="range"]{width:100%;accent-color:#2a5c85}
+.identity-range-editor .range-fields{gap:8px}
+.range-preview{background:white;border:1px solid #e0e7ef;padding:8px;border-radius:5px;font-size:12px;line-height:1.6;margin:8px 0}
+.range-keyframes{display:flex;flex-wrap:wrap;gap:6px;max-width:100%}
+.range-keyframes button{font-size:11px;padding:5px 7px}
+@media(max-width:1200px){.workflow-progress p{display:none}}
+@media(max-width:760px){.workflow-progress{overflow-x:auto}.workflow-progress button{font-size:11px;padding:6px}.workflow-progress button span{width:16px;height:16px}}
 #videoLibraryDialog{width:min(760px,calc(100vw - 40px));max-height:85dvh;overflow:auto;padding:24px;border:1px solid #dce3eb;border-radius:12px;color:#24364a;box-shadow:0 20px 80px #17365445}
 #videoLibraryDialog::backdrop{background:#172c4766}.library-heading{display:flex;justify-content:space-between;align-items:center;gap:12px}.library-heading h2{margin:5px 0 12px}
 .library-folder{display:flex;align-items:center;gap:8px;background:#edf2f7;padding:10px;border-radius:7px}.library-folder code{flex:1;overflow-wrap:anywhere;user-select:all;font-size:12px}.library-folder button{flex-shrink:0}
 .library-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:15px 0}.library-import{position:relative;border:1px solid #2a5c85;border-radius:6px;background:#2a5c85;color:white;padding:8px 12px;cursor:pointer;overflow:hidden}
 .library-import input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.library-import:focus-within{outline:2px solid #2a5c85;outline-offset:3px}
 #videoLibraryStatus{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;max-height:150px;overflow:auto}.local-video-list{max-height:38dvh;overflow:auto;border-top:1px solid #e1e7ef}.local-video-row{display:flex;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid #e1e7ef}.local-video-row>div{flex:1;min-width:0;overflow-wrap:anywhere}.local-video-row p{margin:5px 0 0;white-space:pre-wrap}.local-video-row button{flex-shrink:0}.library-empty{padding:22px 6px;color:#69798b}
-@media(max-width:760px){.source-toolbar{gap:7px}.source-toolbar .field{flex-basis:calc(100% - 130px)}.source-toolbar>button{width:120px}#videoLibraryDialog{padding:16px}.local-video-row{align-items:start}}
+@media(max-width:760px){.source-toolbar{gap:7px}.source-toolbar>button{padding:8px 10px}#videoLibraryDialog{padding:16px}.local-video-row{align-items:start}}
+@media(max-width:600px){.source-toolbar{grid-template-columns:1fr auto auto}.source-toolbar>.video-picker{grid-column:1/-1}.source-toolbar #startVideoImport{justify-self:start}.source-model-controls .component-picker{grid-template-columns:1fr}}
+@media(max-width:600px){body.workbench-shell[data-area="tactics"] .source-toolbar{grid-template-columns:minmax(0,1fr) auto}}
+@media(max-width:420px){.source-toolbar{grid-template-columns:minmax(0,1fr) auto}.source-toolbar>.source-model-settings{grid-column:1/-1;justify-self:end}}
 /* The shell owns layout only. Video, annotation and data controls keep their
    existing IDs and behavior in app.mjs / workspace.mjs. */
 body.workbench-shell {
@@ -1006,11 +1035,6 @@ body[data-step=footage] .review-status-line,body[data-step=footage] .review-lege
   .workbench-shell[data-info="open"] .video-info {position:absolute;inset:0 auto 0 0;z-index:18;display:flex;width:210px;box-shadow:6px 0 20px #243c581a;}
 }
 @media(max-width:720px) {
-  .source-toolbar {display:grid;grid-template-columns:minmax(0,1fr) auto;}
-  .source-toolbar .component-picker {grid-column:1/-1;}
-  .source-toolbar>button {width:auto;}
-  .source-toolbar #applyModel {grid-column:1/-1;}
-  .model-choice-status {grid-column:1/-1;}
   .workbench-shell .operation-body,.workbench-shell[data-step="repair"] .operation-body,.workbench-shell[data-info="closed"] .operation-body {grid-template-columns:minmax(0,1fr);}
 }
 
