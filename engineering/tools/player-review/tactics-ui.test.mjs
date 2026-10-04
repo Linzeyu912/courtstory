@@ -6,6 +6,7 @@ import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {courtToVideo} from './tactics-presentation.mjs';
 import {createTacticsDocument,splitPhase} from './tactics-document.mjs';
 import {adoptAgentCandidate} from './tactics-agent.mjs';
+import {createAnnotation} from './tactics-annotations.mjs';
 let environmentId=0;
 // The storage module keeps one IDB connection for the mounted application.
 // Route that connection to each test's transaction store rather than the first fixture.
@@ -115,6 +116,93 @@ test('Agent candidate adoption appends editable graphics, preserves manual edits
     env.get('tacticsAgentScope').value='phase';await env.get('tacticsAgentRun').onclick();env.get('tacticsNotes').value='人工新增意见';env.get('tacticsNotes').oninput();
     await env.get('tacticsAgentAdopt').onclick();assert.equal(adopts,1);assert.equal(env.ui.getSceneState().annotations.items.length,1);assert.match(env.get('tacticsAgentStatus').textContent,/变化|修改/);
     await env.get('tacticsSave').onclick();assert.equal(env.saved.at(-1).document.notes,'人工新增意见');assert.ok(captured.documentDigest);
+  }finally{env.restore();}
+});
+
+test('adopted frame-only Agent marks become exact preview stops and read-only jump buttons without replacing a manual draft',async()=>{
+  const {review}=await makePresentationDemo();review.court.calibration.keyframes=[];
+  let d=await createTacticsDocument(review);const phaseId=d.playDefinition.phases[0].phaseId;
+  d=createAnnotation(d,{id:'manual-screen',type:'screen',phaseId,frame:0,space:'video',points:[{x:480,y:320}],style:{angle:25}});
+  const manual=structuredClone(d.annotations.items[0]);let preview;
+  const output={summary:'证据帧标记',issues:['无标定，仅参考画面显示'],phases:[{title:'当前阶段',startFrame:0,endFrameExclusive:61,freezeFrame:0,reason:'证据帧讲解',evidenceFrames:[20,35,45],actions:[],annotations:[20,20,35,45].map((frame,index)=>({type:'screen',entityId:null,space:'video',anchorFrame:frame,startFrame:frame,endFrameExclusive:frame+1,points:[{x:600+index*25,y:340}],angle:0,size:1,color:'#ffd45c',explanation:'仅此参考帧有可靠位置',evidenceFrames:[frame]}))}]};
+  const env=environment(d,{player:true,agent:async(path,payload)=>{
+    if(path.endsWith('/status'))return {available:true,message:'ready'};
+    if(path.endsWith('/adopt'))return {document:preview};
+    preview=await adoptAgentCandidate(payload.document,output,{jobId:'cue-job',scope:payload.scope,phaseId:payload.phaseId});
+    return {jobId:'cue-job',status:'ready',candidate:output,previewDocument:preview,previewFrames:[]};
+  }});
+  try{
+    await env.load();env.get('tacticsAgentScope').value='phase';await env.get('tacticsAgentRun').onclick();await env.get('tacticsAgentAdopt').onclick();
+    assert.equal(env.ui.getSceneState().annotations.items.length,5);assert.deepEqual(env.ui.getSceneState().annotations.items[0],manual);
+    assert.match(env.get('tacticsAgentStatus').textContent,/4 个图形.*3 个.*暂停点/);
+    assert.match(env.get('tacticsCueStatus').textContent,/4 个标记讲解暂停点/);
+    const buttons=env.get('tacticsCueList').children;assert.equal(buttons.length,4);assert.match(buttons[1].textContent,/2\.00 秒.*2 个图形/);
+    const writes=env.writes.length;await env.get('tacticsContinue').onclick();env.holdSeek();env.present(22);
+    assert.equal(env.ui.getPlaybackState().status,'seeking');assert.equal(env.ui.getPlaybackState().targetFrame,20);
+    const overlay=env.get('tacticsCanvas').children[0].children[1];assert.equal(overlay.children.length,0,'a skipped marker frame cannot draw on the wrong decoded picture');
+    assert.doesNotMatch(env.get('tacticsCueStatus').textContent,/已停在/);assert.equal(env.get('tacticsCueList').children[1].disabled,true);
+    env.finishSeek();assert.equal(env.ui.getSceneState().frame,20);assert.equal(env.ui.getPlaybackState().status,'paused');
+    assert.match(overlay.innerHTML,/cue-job-annotation-0/);assert.match(overlay.innerHTML,/cue-job-annotation-1/);
+    assert.match(env.get('tacticsCueStatus').textContent,/已停在标记画面.*继续播放/);assert.equal(env.get('tacticsContinue').textContent,'继续播放');
+    assert.equal(env.get('tacticsCueList').children[1].attrs['aria-pressed'],'true');
+    await env.get('tacticsContinue').onclick();env.present(36);await Promise.resolve();assert.equal(env.ui.getSceneState().frame,35);
+    await env.get('tacticsContinue').onclick();env.present(46);await Promise.resolve();assert.equal(env.ui.getSceneState().frame,45);
+    assert.equal(env.writes.length,writes);env.holdSeek();env.get('tacticsCueList').children[1].onclick();
+    assert.equal(env.ui.getPlaybackState().targetFrame,20);assert.equal(env.get('tacticsContinue').disabled,true);env.finishSeek();
+    assert.equal(env.ui.getSceneState().frame,20);assert.equal(env.writes.length,writes);
+    await env.get('tacticsSave').onclick();const saved=env.saved.at(-1).document;
+    assert.deepEqual(saved.annotations,preview.annotations);assert.deepEqual(saved.review,d.review);assert.equal(saved.playDefinition.phases.length,1);assert.equal(saved.playDefinition.phases[0].freezeFrame,0);
+  }finally{env.restore();}
+});
+
+for(const variant of ['server report','legacy without images','empty report']){
+  test(`Agent preview uses actual marker frames and exposes unavailable previews: ${variant}`,async()=>{
+    const {review}=await makePresentationDemo();review.court.calibration.keyframes=[];const d=await createTacticsDocument(review);
+    const annotations=variant==='empty report'?[]:[12,24].map(frame=>({type:'screen',entityId:null,space:'video',anchorFrame:frame,startFrame:frame,endFrameExclusive:frame+1,points:[{x:600,y:320}],angle:0,size:1,color:'#ffd45c',explanation:'参考画面',evidenceFrames:[frame]}));
+    const output={summary:'逐帧标记预览',issues:[],phases:[{title:'当前阶段',startFrame:0,endFrameExclusive:61,freezeFrame:0,reason:'参考帧不同于阶段暂停帧',evidenceFrames:[0,12,24],actions:[],annotations}]};
+    const env=environment(d,{player:true,agent:async(path,payload)=>{
+      if(path.endsWith('/status'))return {available:true,message:'ready'};
+      const previewDocument=annotations.length?await adoptAgentCandidate(payload.document,output,{jobId:'preview-job',scope:payload.scope,phaseId:payload.phaseId}):d;
+      const items=annotations.map((a,index)=>({id:`preview-job-annotation-${index}`,phaseId:previewDocument.playDefinition.phases[0].phaseId,frame:a.anchorFrame,mode:'reference_frame',visible:true,reason:null}));
+      const presentation={items,pausePoints:items.map(item=>({phaseId:item.phaseId,frame:item.frame,annotationIds:[item.id]}))};
+      return {jobId:'preview-job',status:'ready',candidate:output,previewDocument,...(variant.startsWith('legacy')?{}:{presentation}),previewFrames:variant==='server report'?[12,24].map(frame=>({...review.sourceFrameMapping[frame],videoSha256:review.videoSha256,dataUrl:'data:image/jpeg;base64,/9j/'})):[]};
+    }});
+    const walk=node=>[node,...node.children.flatMap(walk)],words=node=>walk(node).map(item=>item.textContent||'').join(' ');
+    try{
+      await env.load();await env.get('tacticsAgentRun').onclick();const tree=walk(env.get('tacticsAgentPreview'));
+      const points=tree.filter(node=>node.attrs['data-preview-frame']!==undefined),images=tree.filter(node=>node.tag==='img');
+      assert.deepEqual(points.map(node=>Number(node.attrs['data-preview-frame'])),variant==='empty report'?[0]:[0,12,24]);
+      if(variant==='server report'){
+        assert.equal(images.length,2);assert.match(images[0].alt,/13/);assert.match(images[1].alt,/25/);
+        assert.match(words(points[1]),/1\.20 秒.*本帧可见 1 个/);assert.match(words(points[2]),/2\.40 秒.*本帧可见 1 个/);
+        assert.ok(walk(points[1]).some(node=>node.innerHTML?.includes('preview-job-annotation-0')));
+        assert.ok(walk(points[2]).some(node=>node.innerHTML?.includes('preview-job-annotation-1')));
+        assert.match(words(points[0]),/缺少.*预览图/);
+        images[1].onerror();assert.match(words(points[2]),/预览图加载失败/);assert.equal(walk(points[2]).filter(node=>node.tag==='img').length,0);
+      }else{
+        assert.equal(images.length,0);for(const point of points)assert.match(words(point),/缺少.*预览图/);
+        if(variant==='empty report')assert.match(words(env.get('tacticsAgentPreview')),/没有可展示的标记/);
+        else assert.match(words(points[1]),/本帧可见 1 个/);
+      }
+    }finally{env.restore();}
+  });
+}
+
+test('marker cue navigation respects a phase cue before its freeze and refreshes its read-only list after edits',async()=>{
+  const f=await makePresentationDemo();f.review.court.calibration.keyframes=[];f.playDefinition.sourceBinding=await createSourceBinding(f.review);
+  let d={schemaVersion:1,title:'phase cues',notes:'',...f};
+  for(const [id,phaseId,frame] of [['early','setup',5],['later','finish',35]])d=createAnnotation(d,{id,type:'screen',phaseId,frame,space:'video',points:[{x:600,y:320}]});
+  const env=environment(d,{player:true});
+  try{
+    await env.load();assert.equal(env.ui.getSceneState().frame,5);assert.match(env.get('tacticsCueList').children[0].textContent,/0\.50 秒/);
+    const writes=env.writes.length;await env.get('tacticsContinue').onclick();env.present(16);await Promise.resolve();assert.equal(env.ui.getSceneState().frame,12);
+    await env.get('tacticsContinue').onclick();env.present(39);await env.ui.ready();await Promise.resolve();
+    assert.equal(env.ui.getSceneState().phaseId,'finish');assert.equal(env.ui.getSceneState().frame,35);assert.match(env.get('tacticsCueList').children[0].textContent,/3\.50 秒/);
+    assert.equal(env.writes.length,writes);await env.get('tacticsReplay').onclick();await Promise.resolve();assert.equal(env.ui.getSceneState().frame,35);
+    env.get('tacticsPause').onclick();env.get('tacticsObjectList').children[0].onclick();await env.get('tacticsQuickDelete').onclick();
+    assert.equal(env.get('tacticsCueList').children.length,0);assert.match(env.get('tacticsCueStatus').textContent,/0 个标记讲解暂停点/);
+    await env.get('tacticsUndo').onclick();assert.equal(env.get('tacticsCueList').children.length,1);
+    assert.deepEqual(env.writes.at(-1).document.review,d.review);assert.deepEqual(env.writes.at(-1).document.playDefinition,d.playDefinition);
   }finally{env.restore();}
 });
 

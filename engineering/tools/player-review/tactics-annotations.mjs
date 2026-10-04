@@ -11,7 +11,7 @@ export const ANNOTATION_REASONS=Object.freeze({phase_changed:'阶段已调整，
   court_reference_mismatch:'镜头已切换，请在当前镜头重新绘制',identity_conflict:'当前球员身份冲突，脚圈暂时隐藏',
   out_of_view:'球员已离开画面，脚圈暂时隐藏',missing_position:'当前没有球员脚点，脚圈暂时隐藏',
   estimated_point:'当前脚点仅为估计，脚圈暂时隐藏',anchor_position_unavailable:'绘制帧没有合法脚点，仅显示绘制位置',
-  projection_unavailable:'当前无法投影到画面',source_cut:'镜头已切换，脚圈暂时隐藏'});
+  projection_unavailable:'当前无法投影到画面',outside_viewport:'图形完全位于视频画面之外',source_cut:'镜头已切换，脚圈暂时隐藏'});
 const copy=v=>structuredClone(v),object=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const finite=v=>typeof v==='number'&&Number.isFinite(v),frame=v=>Number.isSafeInteger(v)&&v>=0&&v<=10000000;
 const text=v=>typeof v==='string'&&v.length>0&&v.length<=256;
@@ -175,6 +175,109 @@ function equallySpacedDots(curve,spacing){
     result.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t});
   }
   return result;
+}
+
+function clipToViewport(a,b,width,height,padding=0){
+  let enter=0,leave=1;
+  for(const [axis,bound] of [['x',width],['y',height]]){
+    const delta=b[axis]-a[axis];
+    if(delta===0){if(a[axis]<-padding||a[axis]>bound+padding)return null;continue;}
+    const first=(-padding-a[axis])/delta,last=(bound+padding-a[axis])/delta;
+    enter=Math.max(enter,Math.min(first,last));leave=Math.min(leave,Math.max(first,last));
+    if(enter>leave)return null;
+  }
+  return [enter,leave];
+}
+const viewportCorners=(width,height)=>[{x:0,y:0},{x:width,y:0},{x:width,y:height},{x:0,y:height}];
+const viewportDistance=(p,width,height)=>Math.hypot(Math.max(0,-p.x,p.x-width),Math.max(0,-p.y,p.y-height));
+function paintedSegmentVisible(a,b,width,height,radius){
+  return !!clipToViewport(a,b,width,height)||viewportDistance(a,width,height)<=radius||viewportDistance(b,width,height)<=radius||
+    viewportCorners(width,height).some(p=>segmentDistance(p,a,b)<=radius);
+}
+function paintedPathVisible(points,width,height,radius,dash){
+  if(!points?.length)return false;
+  if(!dash)return points.slice(1).some((b,i)=>paintedSegmentVisible(points[i],b,width,height,radius));
+  const period=dash.reduce((total,n)=>total+n,0);let phase=0;
+  for(let i=1;i<points.length;i++){
+    const a=points[i-1],b=points[i],length=distance(a,b),clip=clipToViewport(a,b,width,height,radius);
+    if(clip&&length>0){
+      // Skip all offscreen dash cycles instead of walking arbitrarily long projections.
+      const start=clip[0]*length,span=Math.min((clip[1]-clip[0])*length,Math.hypot(width+2*radius,height+2*radius));
+      let local=(phase+start%period)%period,index=0,position=0;
+      while(local>=dash[index]){local-=dash[index];index=(index+1)%dash.length;}
+      let remaining=dash[index]-local;
+      while(position<=span){
+        const step=Math.min(remaining,span-position),point=offset=>({x:a.x+(b.x-a.x)*((start+offset)/length),y:a.y+(b.y-a.y)*((start+offset)/length)});
+        if(index%2===0&&paintedSegmentVisible(point(position),point(position+step),width,height,radius))return true;
+        if(position+step>=span)break;
+        position+=step;index=(index+1)%dash.length;remaining=dash[index];
+      }
+    }
+    phase=(phase+length%period)%period;
+  }
+  return false;
+}
+function paintedPolygonVisible(points,width,height,radius){
+  if(!points?.length)return false;
+  const closed=[...points,points[0]];
+  if(paintedPathVisible(closed,width,height,radius))return true;
+  // SVG polygons have fill as well as stroke: an enclosing ring/arrow can be visible
+  // even when all its vertices and boundary segments are outside the viewport.
+  return viewportCorners(width,height).some(point=>{
+    let winding=0;
+    for(let i=1;i<closed.length;i++){
+      const a=closed[i-1],b=closed[i],cross=(b.x-a.x)*(point.y-a.y)-(point.x-a.x)*(b.y-a.y);
+      if(a.y<=point.y&&b.y>point.y&&cross>0)winding++;
+      else if(a.y>point.y&&b.y<=point.y&&cross<0)winding--;
+    }
+    return winding!==0;
+  });
+}
+function annotationIntersectsViewport(item,width,height){
+  const g=item.video,unit=height/1080,outline=g.strokeWidth+3*unit;
+  if(item.type==='route'){
+    if(g.pattern==='dots')return g.dots.some(p=>viewportDistance(p,width,height)<=g.dotRadius+.75*unit);
+    return paintedPathVisible(g.curve,width,height,outline/2,g.pattern==='dashed'?g.dashArray:null)||
+      paintedPolygonVisible(g.arrow,width,height,.75*unit);
+  }
+  if(item.type==='screen')return g.paths.some(path=>paintedPathVisible(path,width,height,(outline+g.strokeWidth*.4)/2));
+  return paintedPolygonVisible(g.ring,width,height,outline/2);
+}
+
+/** Derive displayability from the same exact-frame geometry used by the editor. */
+export function annotationPresentation(document,{annotationIds}={}){
+  assertAnnotations(document.annotations,document);
+  const selected=annotationIds===undefined?null:new Set(annotationIds),status=annotationStatus(document);
+  const stale=new Map(status.stale.map(item=>[item.id,item.reason])),scenes=new Map(),grouped=new Map(),items=[];
+  for(const a of document.annotations?.items??[]){
+    if(selected&&!selected.has(a.id))continue;
+    const mode=a.space==='video'&&!a.followEntity||a.endFrameExclusive-a.startFrame===1?'reference_frame':'timeline';
+    let reason=stale.get(a.id)??null,visible=false;
+    if(!reason){
+      if(!scenes.has(a.phaseId))scenes.set(a.phaseId,new Map());
+      const phaseScenes=scenes.get(a.phaseId);
+      if(!phaseScenes.has(a.anchorFrame)){
+        const scene=projectAnnotations(document,{phaseId:a.phaseId,frame:a.anchorFrame,editing:true});
+        phaseScenes.set(a.anchorFrame,new Map(scene.items.map(item=>[item.id,item])));
+      }
+      const projected=phaseScenes.get(a.anchorFrame).get(a.id);
+      if(projected?.video){
+        visible=annotationIntersectsViewport(projected,document.review.width,document.review.height);
+        reason=visible?null:'outside_viewport';
+      }else reason=projected?.hiddenReason??'projection_unavailable';
+    }
+    items.push({id:a.id,phaseId:a.phaseId,frame:a.anchorFrame,mode,visible,reason});
+    if(!visible)continue;
+    if(!grouped.has(a.phaseId))grouped.set(a.phaseId,new Map());
+    const frames=grouped.get(a.phaseId);
+    if(!frames.has(a.anchorFrame))frames.set(a.anchorFrame,{phaseId:a.phaseId,frame:a.anchorFrame,annotationIds:[]});
+    frames.get(a.anchorFrame).annotationIds.push(a.id);
+  }
+  const pausePoints=document.playDefinition.phases.flatMap(p=>[...(grouped.get(p.phaseId)?.values()??[])].sort((a,b)=>a.frame-b.frame));
+  return {items,pausePoints};
+}
+export function annotationPausePoints(document){
+  return annotationPresentation(document).pausePoints;
 }
 function routePatternGeometry(geometry,pattern,size,space,height){
   const result={...geometry,pattern},unit=space==='court'?1:height/1080;

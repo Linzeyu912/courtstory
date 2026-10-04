@@ -1,6 +1,6 @@
 import {canonicalJSON} from '../tactical-overlay/binding.mjs';
 import {validateDocument,reindexPhases} from './tactics-document.mjs';
-import {createAnnotation} from './tactics-annotations.mjs';
+import {createAnnotation,annotationPresentation,ANNOTATION_REASONS} from './tactics-annotations.mjs';
 import {calibrationAt} from './court.mjs';
 
 const object=properties=>({type:'object',additionalProperties:false,required:Object.keys(properties),properties});
@@ -76,5 +76,12 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
   if(!annotationCount)throw new Error('Agent 未生成可用图形，请缩小范围或人工标注。');
   reindexPhases(d.playDefinition);d.playDefinition.revision++;
   d.agentRuns=[...(d.agentRuns??[]),{jobId,summary:candidate.summary,issues:structuredClone(candidate.issues)}];
-  await validateDocument(d);return d;
+  await validateDocument(d);
+  const presentation=annotationPresentation(d,{annotationIds:Array.from({length:annotationCount},(_,i)=>`${jobId}-annotation-${i}`)});
+  const invisible=presentation.items.findIndex(item=>!item.visible);
+  if(invisible!==-1){
+    const item=presentation.items[invisible],reason=item.reason==='completed'?'路线控制点未形成可见图形':ANNOTATION_REASONS[item.reason]??item.reason;
+    throw new Error(`Agent 第 ${invisible+1} 个图形在参考帧 ${item.frame+1} 无法展示：${reason}（${item.reason}）。请调整参考帧或图形。`);
+  }
+  return d;
 }
