@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-10-03T15:00:03+08:00",
+  "updated_at": "2026-10-04T09:06:36+08:00",
   "path_base": "repository_root",
   "datasets": [
     {
@@ -67,6 +67,16 @@
       "manifest": "data/videos/uploads/2026-10-03-batch02/manifest.json",
       "entry_count": 11,
       "included_count": 11,
+      "awaiting_upload_count": 0
+    },
+    {
+      "dataset_id": "user-uploads-20261004",
+      "season": null,
+      "purpose": "user_upload",
+      "root": "data/videos/uploads/2026-10-04",
+      "manifest": "data/videos/uploads/2026-10-04/manifest.json",
+      "entry_count": 18,
+      "included_count": 18,
       "awaiting_upload_count": 0
     }
   ],

@@ -1,0 +1,90 @@
+{
+  "id": "011",
+  "clip_id": "user-uploads-20261004-011",
+  "season": null,
+  "file": "clips/微信视频2026-10-04_085444_597.mp4",
+  "asset_path": "clips/微信视频2026-10-04_085444_597.mp4",
+  "sha256": "55114e4b491d96ecdc5e6a2a63978bb1b1dce578ad078378830b94b21c44cfa2",
+  "size_bytes": 9244812,
+  "source": {
+    "kind": "user_upload",
+    "uploaded_filename": "微信视频2026-10-04_085444_597.mp4",
+    "url": null,
+    "publisher": null,
+    "collected_at": "2026-10-04",
+    "start_seconds": null,
+    "end_seconds": null,
+    "unknown_reason": "用户提供本地文件夹中的成片并授权共享；未提供原网页、发布者或原片裁切区间。可见水印不等于已经核实原来源网页。微信文件名日期为文件命名线索，不当作比赛日期。"
+  },
+  "game": {
+    "season": null,
+    "date_local": null,
+    "date_beijing": null,
+    "matchup": "SAS at NYK",
+    "game_id": null,
+    "verification_url": null,
+    "verification_status": "unverified",
+    "verified_at": null,
+    "verification_basis": "仅按抽帧登记可见对阵、第四节和起点时钟。比赛日期 / 赛季按用户要求待核实；外部匹配保存在 candidate_game。",
+    "period": 4,
+    "clock_start": "01:30",
+    "clock_end": null,
+    "clock_precision": "起点来自首帧比分牌人工读数；终点未作最后一帧精确读数，保存 null。分组比对见 sources/game-candidates.md。",
+    "offense_team": null,
+    "defense_team": null,
+    "unknown_reason": "用户未提供比赛日期或来源，并明确要求先标赛季待核实；官方记录匹配仅作为候选，未提升正式标签。"
+  },
+  "candidate_game": {
+    "season": "2025-26",
+    "date_local": "2026-06-10",
+    "date_beijing": null,
+    "matchup": "SAS at NYK",
+    "game_id": "0042500404",
+    "verification_url": "https://statsdmz.nba.com/pdfs/20260610/20260610_SASNYK_book.pdf",
+    "verification_status": "candidate_pending_confirmation",
+    "verified_at": "2026-10-04T09:06:36+08:00",
+    "verification_basis": "画面 Finals、NY leads 2-1、SA/NY 与第四节比分一致；03:31 SAS 至 104，02:21 NYK 至 103，01:22 NYK 至 105，最后一攻后 NYK 107/SAS 106、时钟 1.2；官方逐回合第 19–20 页。",
+    "period": 4,
+    "clock_start": "01:30",
+    "clock_end": null,
+    "clock_precision": "起点来自首帧比分牌人工读数；终点未作最后一帧精确读数，保存 null。分组比对见 sources/game-candidates.md。",
+    "offense_team": null,
+    "defense_team": null,
+    "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
+    "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+  },
+  "tactic": {
+    "title": "SAS at NYK 第四节上传片段 011（动作待复核）",
+    "tags": [
+      "用户上传",
+      "待复核"
+    ],
+    "description": null,
+    "label_status": "provisional_from_collector_notes",
+    "confidence_note": "画面对阵与候选比赛匹配不等于正式赛季确认、完整球权、速度、清晰度或战术验收。",
+    "basis": "按文件接收及首中尾抽帧登记可见对阵；官方比分时钟匹配仅作为候选，正式赛季按用户要求待核实。"
+  },
+  "measured_video": {
+    "duration_seconds": 11.266666666666667,
+    "width": 958,
+    "height": 538,
+    "fps": 30.0,
+    "fps_fraction": "30",
+    "codec": "hevc",
+    "frame_count": 338,
+    "audio_stream_count": 1,
+    "measurement_status": "measured",
+    "measurement_basis": "2026-10-04 使用 PyAV 17.0.0 / FFmpeg 库读取原文件视频流元数据；未转码"
+  },
+  "review": {
+    "normal_speed": null,
+    "original_broadcast": null,
+    "full_possession": null,
+    "scope": null,
+    "decode_status": "passed",
+    "visual_status": "unverified",
+    "reviewed_at": "2026-10-04T09:06:36+08:00",
+    "basis": "FFmpeg -xerror -err_detect explode 完整音视频解码通过；已查看首帧、中间帧及结束前 0.25 秒抽帧，仅用于对阵与比赛核对。未完成连续运动、画质与战术验收。",
+    "resolution_note": "低于720p，保留原始尺寸，未放大"
+  }
+}

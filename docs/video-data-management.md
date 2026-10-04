@@ -1,6 +1,6 @@
 # 视频数据管理规范
 
-更新日期：2026-10-01，Asia/Shanghai。依据：用户要求统一管理视频数据，并将已有成片通过 Git LFS 上传至本私有仓库。这里规定团队练习素材的管理方式；赛事要求以[培训资料](../requirements/BroadcastCode赛事资料整理.md)及后续正式通知为准。
+更新日期：2026-10-04，Asia/Shanghai。依据：用户要求统一管理视频数据，并将已有成片通过 Git LFS 上传至本私有仓库。这里规定团队练习素材的管理方式；赛事要求以[培训资料](../requirements/BroadcastCode赛事资料整理.md)及后续正式通知为准。
 
 ## 1. 目录与唯一编号
 
@@ -26,6 +26,8 @@ data/videos/
 2026-10-02 用户要求另外按经典战术寻找验收素材，新增 `data/videos/tactics/acceptance/`，不归入两个赛季。该批次 `purpose=tactic_acceptance`、`season=null`；未核实比赛日期时必须写 `game.unknown_reason`。资产 / 标签路径相对于该批次根目录。用户随后明确拒绝讲解剪辑：验收素材同样要求普通直播、正常速度、连续进攻配合，不能放宽为教学字幕、人工停帧、慢放或非直播镜头；按本次无解说要求移除成片音轨，来源原片不改。完整前场配合和完整原始球权分别记录，未包含取得原始球权过程时不得标 `full_possession=true`。详见[样例范围与来源](../data/videos/tactics/acceptance/README.md)。
 
 ## 2. 哪些文件入库
+
+2026-10-04 本次用户要求先标赛季待核实：18 段放入 `uploads/2026-10-04/`，正式 `season` 与比赛日期继续为 null。可见对阵可以按画面登记；官方比分 / 时钟匹配保存在 `candidate_game` 及独立[候选线索](../data/videos/uploads/2026-10-04/sources/game-candidates.md)，不能冒充已确认赛季，也不能将比赛核对 URL 当作原视频来源 URL。是否转入赛季目录在后续确认时处理，保持批次 ID 与原始文件字节。
 
 2026-10-03 补充用户直接上传的成片：在 `data/videos/uploads/<接收日期>/` 独立登记，`purpose=user_upload`、`season=null`，每条 `source.kind=user_upload`。必须保存 `uploaded_filename`、接收日期与非空 `source.unknown_reason`；没有原来源网页 / 发布者时用 null，未提供原片裁切区间时起止秒数同时为 null，禁止只缺一端。比赛日期未核实时用 null 并写 `game.unknown_reason`；文件名只能作为线索。现有网络采集批次继续要求有效来源 URL、裁切区间和比赛核对口径，不借上传例外放宽。批次 / 清单 / 标签 / 解码 / 去重 / LFS 与远端实际下载校验仍执行本规范。
 
@@ -104,6 +106,8 @@ python scripts/validate_video_data.py
 仅查看目录时，可运行 `python scripts/validate_video_data.py --metadata-only`。该模式不证明视频文件已经存在或画质合格。校验脚本不代替 FFmpeg 解码和人工观察。
 
 ## 7. 当前登记状态
+
+2026-10-04 总计 8 批 / **175 个文件**：2024–25 100 个，2025–26 39 个（30 + 历史 9），THY 交接的两批未核实赛季上传 15 个，本次未核实赛季上传 18 个，独立验收样例 3 个。入口与存放方式见[总览](../data/videos/README.md)。本次新增文件完整解码与复制哈希通过；文件数不代表新增独立球权数。
 
 - 2024–25：100段成片，16场、17队；3段1080p、97段720p，14段完整球权。首批3段已包含其中。
 - 2025–26：39 个成片已通过 Git LFS 共享（batch030 三十段 + 历史 8 段 + 历史单段，各自独立登记；历史批次与三十段对应关系未确认，不相加计数）。字节与哈希已入库核对，尺寸、帧率、时长以 ffprobe 实测为准；标签仍为草案，画面复核待看片完成。
