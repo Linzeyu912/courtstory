@@ -89,9 +89,9 @@
 | 报告与复检 | [43a13f5](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/43a13f5) | 视频播放器及篮球 / 人物 / 球场 / 2D 审计 |
 | 同步兼容与测试 | [dd34088](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/dd34088) | PATH 查找 Node、测试取消清理、隔离共享素材库 |
 | 外部方案调研 | [67d3e2a](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/67d3e2a) | 全场开源工具对照及研究索引 |
-| 共享入口与进度 | 本报告所在文档提交 | README 摘要、问题清单、复现入口和发布交接 |
+| 共享入口与进度 | [72d0eee](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/72d0eee) | README 摘要、问题清单、复现入口和发布交接 |
 
-这些提交整理的是本聊天已授权的积累工作。早期记录中的“未提交 / 未推送”保留当时事实，后续以本轮发布交接为准；没有创建任务分支或 PR。
+这九类提交已正常推送 `main`，2026-10-04 22:03:02 核对本地 HEAD、origin/main 与远端 SHA 均为 `72d0eee73baa0c4b83f89c6ad6f693dfd3e76ac9`；推送核对记录另作文档收尾。这些提交整理的是本聊天已授权的积累工作。早期记录中的“未提交 / 未推送”保留当时事实，后续以本轮发布交接为准；没有创建任务分支或 PR。
 
 ## 6. 本轮验证与接手运行
 
