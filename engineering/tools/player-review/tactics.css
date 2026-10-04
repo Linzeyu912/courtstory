@@ -39,6 +39,8 @@
 .tactics-canvas[data-tool="route"],.tactics-canvas[data-tool="screen"],.tactics-canvas[data-tool="spotlight"]{cursor:crosshair}
 .tactics-transport{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:8px;flex-wrap:wrap}.tactics-transport button{padding:5px 10px}.tactics-transport .small{font-size:11px}
 .tactics-seek{display:flex;align-items:center;gap:10px;font-size:11px;color:#708095;margin-top:6px}.tactics-seek input{flex:1;min-width:0}
+.tactics-cue-controls{margin-top:7px}.tactics-cue-controls p{font-size:11px;line-height:1.55;margin:4px 0}.tactics-cue-controls button{padding:4px 8px;font-size:11px}.tactics-cue-controls button[aria-pressed="true"]{background:#e5f2fd;border-color:#639dcb;color:#194b72}
+.tactics-agent-point{margin-top:10px;padding-top:8px;border-top:1px solid #dce5ee}.tactics-agent-point>strong{font-size:11px;line-height:1.5}.tactics-agent-point>p{margin:4px 0}
 #tacticsPresentationStatus{padding:3px 8px;margin:5px 0 0;border:0;background:transparent;font-size:11px;color:#738092}
 .tactics-controls{padding:12px;position:sticky;top:0;max-height:calc(100vh - 270px);overflow:auto}.tactics-property-heading{display:flex;justify-content:space-between;align-items:center;gap:5px;font-size:13px}.tactics-property-heading .small{font-size:11px}
 .tactics-person-card{margin:10px 0;padding:10px;border:1px solid #c9dbe8;border-radius:6px;background:#f4f8fc;overflow-wrap:anywhere}

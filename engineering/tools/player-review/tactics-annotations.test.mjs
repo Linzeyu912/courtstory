@@ -8,6 +8,11 @@ import {buildPhaseRoutes} from './tactics-presentation.mjs';
 const api=await import('./tactics-annotations.mjs').catch(error=>{if(error.code!=='ERR_MODULE_NOT_FOUND')throw error;return {};});
 const requireAPI=()=>assert.equal(typeof api.createAnnotation,'function','the manual tactical annotation module is required');
 const fixture=async()=>({schemaVersion:1,title:'Annotations',notes:'',...await makePresentationDemo()});
+const projectedFixture=async({scale=1,x=0,y=0}={})=>{
+  const doc=await fixture();
+  for(const key of doc.review.court.calibration.keyframes)for(const point of key.points)point.image=[point.image[0]*scale+x,point.image[1]*scale+y];
+  doc.playDefinition.sourceBinding=await createSourceBinding(doc.review);return doc;
+};
 const route={id:'route-a',phaseId:'setup',type:'route',entityId:'P1',frame:12,space:'court',points:[{x:18,y:10},{x:20,y:9},{x:22,y:9}]};
 
 test('authored route, screen and spotlight persist independently of tracks and legacy presentation',async()=>{
@@ -133,6 +138,129 @@ test('a video with no detected or associated players can still start a complete 
   await validateDocument(doc);const model=await buildPhaseRoutes(doc,'phase-1');
   assert.deepEqual(model.routes,[]);assert.ok(api.projectAnnotations(doc,{phaseId:'phase-1',frame:0,model}).items.every(i=>i.video));
   assert.equal(doc.annotations.items.find(i=>i.type==='spotlight').followEntity,false);
+});
+
+test('pause points group all visible anchors in phase order without changing the document',async()=>{
+  assert.equal(typeof api.annotationPausePoints,'function');let doc=await fixture();
+  const marker={type:'screen',entityId:null,space:'video',points:[{x:400,y:400}]};
+  doc=api.createAnnotation(doc,{...marker,id:'later-phase',phaseId:'finish',frame:35});
+  doc=api.createAnnotation(doc,{...marker,id:'late',phaseId:'setup',frame:20,endFrameExclusive:21});
+  doc=api.createAnnotation(doc,{...marker,id:'early',phaseId:'setup',frame:2});
+  doc=api.createAnnotation(doc,{...marker,id:'same-frame',phaseId:'setup',frame:20});
+  doc=api.createAnnotation(doc,{...route,id:'court-route'});
+  doc=api.createAnnotation(doc,{...marker,id:'following',type:'spotlight',entityId:'P1',phaseId:'setup',frame:8});
+  const before=structuredClone(doc);
+  assert.deepEqual(api.annotationPausePoints(doc),[
+    {phaseId:'setup',frame:2,annotationIds:['early']},
+    {phaseId:'setup',frame:8,annotationIds:['following']},
+    {phaseId:'setup',frame:12,annotationIds:['court-route']},
+    {phaseId:'setup',frame:20,annotationIds:['late','same-frame']},
+    {phaseId:'finish',frame:35,annotationIds:['later-phase']}]);
+  assert.deepEqual(doc,before);
+  assert.equal(api.projectAnnotations(doc,{phaseId:'setup',frame:21}).items.find(a=>a.id==='late').hiddenReason,'outside_time');
+  assert.equal(api.projectAnnotations(doc,{phaseId:'setup',frame:21}).items.find(a=>a.id==='same-frame').hiddenReason,'reference_frame_only');
+  assert.deepEqual(api.annotationPausePoints(await fixture()),[]);
+});
+
+test('presentation reports actual anchor visibility and includes single-frame court and following markers',async()=>{
+  assert.equal(typeof api.annotationPresentation,'function');
+  let doc=await fixture();doc.review.entities.find(e=>e.id==='P2').trajectory=[];
+  doc.playDefinition.sourceBinding=await createSourceBinding(doc.review);
+  const marker={type:'screen',phaseId:'setup',entityId:null,space:'video',points:[{x:400,y:400}]};
+  doc=api.createAnnotation(doc,{...marker,id:'empty-route',type:'route',frame:11,points:[{x:400,y:400},{x:400,y:400}]});
+  doc=api.createAnnotation(doc,{...marker,id:'court-one',space:'court',frame:12,endFrameExclusive:13,points:[{x:18,y:10}]});
+  doc=api.createAnnotation(doc,{...marker,id:'missing-foot',type:'spotlight',entityId:'P2',anchorMode:'player_foot',frame:13});
+  doc=api.createAnnotation(doc,{...marker,id:'follow-one',type:'spotlight',entityId:'P1',anchorMode:'player_foot',frame:14,endFrameExclusive:15});
+  doc=api.createAnnotation(doc,{...marker,id:'court-timeline',space:'court',frame:15,points:[{x:19,y:10}]});
+  doc=api.createAnnotation(doc,{...marker,id:'pixel-one',frame:20});
+  const before=structuredClone(doc),report=api.annotationPresentation(doc);
+  assert.deepEqual(report.items.map(({id,visible,reason,mode})=>({id,visible,reason,mode})),[
+    {id:'empty-route',visible:false,reason:'completed',mode:'reference_frame'},
+    {id:'court-one',visible:true,reason:null,mode:'reference_frame'},
+    {id:'missing-foot',visible:false,reason:'missing_position',mode:'timeline'},
+    {id:'follow-one',visible:true,reason:null,mode:'reference_frame'},
+    {id:'court-timeline',visible:true,reason:null,mode:'timeline'},
+    {id:'pixel-one',visible:true,reason:null,mode:'reference_frame'}]);
+  assert.deepEqual(report.pausePoints.map(p=>p.frame),[12,14,15,20]);
+  assert.deepEqual(api.annotationPausePoints(doc),report.pausePoints);
+  assert.deepEqual(api.annotationPresentation(doc,{annotationIds:['court-one','missing-foot']}),{
+    items:report.items.filter(i=>['court-one','missing-foot'].includes(i.id)),pausePoints:[report.pausePoints[0]]});
+  assert.deepEqual(api.annotationPresentation(doc,{annotationIds:[]}),{items:[],pausePoints:[]});
+  assert.deepEqual(doc,before);
+  const stale=splitPhase(doc,'setup',22),staleReport=api.annotationPresentation(stale);
+  assert.equal(staleReport.items.length,6);assert.ok(staleReport.items.every(i=>!i.visible&&i.reason==='phase_changed'));
+  assert.deepEqual(staleReport.pausePoints,[]);
+});
+
+test('finite court projection entirely outside the video is not a presentable cue',async()=>{
+  let doc=await projectedFixture({x:1000});
+  for(const type of ['screen','spotlight','route'])doc=api.createAnnotation(doc,{id:type,type,entityId:null,phaseId:'setup',frame:20,space:'court',
+    points:type==='route'?[{x:26,y:7},{x:27,y:7}]:[{x:26,y:7}]});
+  const scene=api.projectAnnotations(doc,{phaseId:'setup',frame:20,editing:true});
+  assert.ok(scene.items.every(i=>i.video),'existing render output stays unchanged');
+  assert.ok(scene.items.find(i=>i.id==='screen').video.paths.flat().every(p=>p.x>1280));
+  const report=api.annotationPresentation(doc);
+  assert.ok(report.items.every(i=>!i.visible&&i.reason==='outside_viewport'));
+  assert.deepEqual(report.pausePoints,[]);
+});
+
+test('viewport visibility preserves a crossing line, partial marker, stroke-only edge, arrow and dots',async()=>{
+  let doc=await projectedFixture({x:1000});
+  const base={entityId:null,phaseId:'setup',frame:12,space:'court'};
+  for(const [id,x] of [['partial-screen',7],['stroke-screen',7.6]])doc=api.createAnnotation(doc,{...base,id,type:'screen',points:[{x,y:7}]});
+  doc=api.createAnnotation(doc,{...base,id:'arrow',type:'route',points:[{x:7.3,y:6},{x:7.3,y:10}]});
+  doc=api.createAnnotation(doc,{...base,id:'dots',type:'route',points:[{x:7.1,y:6},{x:7.1,y:10}],style:{pattern:'dots'}});
+  const geometry=new Map(api.projectAnnotations(doc,{phaseId:'setup',frame:12,editing:true}).items.map(i=>[i.id,i.video]));
+  assert.ok(geometry.get('stroke-screen').paths.flat().every(p=>p.x>1280));
+  assert.ok(geometry.get('arrow').curve.every(p=>p.x>1280+geometry.get('arrow').strokeWidth));
+  assert.ok(geometry.get('arrow').arrow.some(p=>p.x<1280));
+  assert.ok(geometry.get('dots').dots.every(p=>p.x>1280));
+  assert.ok(api.annotationPresentation(doc).items.every(i=>i.visible));
+  let across=await projectedFixture({scale:2,x:-500});
+  across=api.createAnnotation(across,{...base,id:'crossing',type:'route',points:[{x:0,y:3},{x:28,y:3}]});
+  const line=api.projectAnnotations(across,{phaseId:'setup',frame:12,editing:true}).items[0].video.curve;
+  assert.ok(line[0].x<0&&line.at(-1).x>1280);
+  assert.equal(api.annotationPresentation(across).items[0].visible,true);
+});
+
+test('a dotted path crossing the viewport is invisible when every painted circle misses it',async()=>{
+  let doc=await projectedFixture({x:-1000,y:-400});
+  doc=api.createAnnotation(doc,{id:'gap',type:'route',entityId:null,phaseId:'setup',frame:12,space:'court',
+    points:[{x:24.25,y:10.75},{x:25.25,y:9.75}],style:{pattern:'dots'}});
+  const geometry=api.projectAnnotations(doc,{phaseId:'setup',frame:12,editing:true}).items[0].video;
+  assert.equal(geometry.dots.length,3);
+  assert.ok(geometry.dots.every(p=>Math.hypot(Math.max(0,-p.x),Math.max(0,-p.y))>geometry.dotRadius+1));
+  assert.equal(api.annotationPresentation(doc).items[0].reason,'outside_viewport');
+});
+
+test('a dash gap at the viewport corner does not count as painted line or arrow',async()=>{
+  let doc=await projectedFixture({x:-1000,y:-400});
+  const input={type:'route',entityId:null,phaseId:'setup',frame:12,space:'court',points:[{x:24.5,y:10.35},{x:26,y:8.85}]};
+  doc=api.createAnnotation(doc,{...input,id:'solid'});
+  doc=api.createAnnotation(doc,{...input,id:'dashed',style:{pattern:'dashed'}});
+  const report=api.annotationPresentation(doc);
+  assert.equal(report.items[0].visible,true,'the continuous stroke grazes the corner');
+  assert.equal(report.items[1].reason,'outside_viewport','only the unpainted gap grazes the corner');
+});
+
+test('a filled spotlight enclosing the viewport remains visible when all ring vertices lie outside it',async()=>{
+  let doc=await projectedFixture({scale:100,x:640-72000,y:360-40000});
+  doc=api.createAnnotation(doc,{id:'enclosing-ring',type:'spotlight',entityId:null,phaseId:'setup',frame:12,space:'court',points:[{x:18,y:10}]});
+  const ring=api.projectAnnotations(doc,{phaseId:'setup',frame:12,editing:true}).items[0].video.ring;
+  assert.ok(ring.every(p=>p.x<0||p.x>1280||p.y<0||p.y>720));
+  assert.equal(api.annotationPresentation(doc).items[0].visible,true);
+});
+
+test('pause points exclude archived phase, source and player bindings',async()=>{
+  assert.equal(typeof api.annotationPausePoints,'function');
+  const input={...route,type:'screen',space:'video',points:[{x:400,y:400}]};
+  const doc=api.createAnnotation(await fixture(),input);
+  assert.deepEqual(api.annotationPausePoints(splitPhase(doc,'setup',20)),[]);
+  assert.deepEqual(api.annotationPausePoints(removePhase(doc,'setup')),[]);
+  const source=structuredClone(doc);source.playDefinition.sourceBinding.reviewDigest='0'.repeat(64);
+  assert.deepEqual(api.annotationPausePoints(source),[]);
+  const player=structuredClone(doc);player.playDefinition.participants=player.playDefinition.participants.filter(p=>p.id!=='P1');
+  assert.deepEqual(api.annotationPausePoints(player),[]);
 });
 
 test('straight route patterns keep legacy defaults and reject incompatible imports or extra control points',async()=>{

@@ -11,7 +11,7 @@ from unittest.mock import patch
 
 from tactical_workbench import TacticalWorkbench, ROOT
 try:
-    from tactics_agent import TacticsAgent, build_codex_command, isolated_cli_environment, trusted_model_settings, agent_entity_inputs
+    from tactics_agent import TacticsAgent, build_codex_command, isolated_cli_environment, trusted_model_settings, agent_entity_inputs, agent_prompt
 except ImportError:
     TacticsAgent = build_codex_command = None
 
@@ -56,6 +56,57 @@ class AgentTests(unittest.TestCase):
         self.assertEqual(adopted, agent.adopt(job['jobId'], self.request, self.clip, 'demo', True))
         self.assertEqual(adopted['document']['review'], self.doc['review'])
         self.assertEqual(self.tactics.load(self.clip, 'demo', True, 'workspace')['version'], 0)
+
+    def test_preview_uses_new_presentation_anchors_and_phase_freezes_in_batches_of_at_most_40(self):
+        annotations=[]
+        for frame in range(42):
+            annotations.append({**deepcopy(self.output['phases'][0]['annotations'][0]), 'type':'screen', 'entityId':None,
+                                'anchorFrame':frame, 'startFrame':frame, 'endFrameExclusive':frame+1,
+                                'points':[{'x':300,'y':300}], 'evidenceFrames':[frame]})
+        first={**deepcopy(self.output['phases'][0]),'startFrame':0,'endFrameExclusive':30,'freezeFrame':29,
+               'evidenceFrames':[0,29],'annotations':annotations[:30]}
+        second={**deepcopy(self.output['phases'][0]),'startFrame':30,'endFrameExclusive':61,'freezeFrame':60,
+                'evidenceFrames':[30,60],'annotations':annotations[30:]}
+        self.output['phases']=[first,second]
+        calls=[];frames=self.tactics.frames
+        def decode(video, clip, indices):
+            self.assertLessEqual(len(indices),40);calls.append(list(indices))
+            return frames(video,clip,indices)
+        self.tactics.frames=decode
+        agent=self.make_agent();job=agent.create(self.request,self.clip,self.folder/'video.mp4','demo',True)
+        done=self.wait(agent,job);self.assertEqual(done['status'],'ready',done)
+        expected=[*range(42),60]
+        self.assertEqual([f['frame'] for f in done['previewFrames']],expected)
+        self.assertEqual([len(batch) for batch in calls[1:]],[40,3])
+        self.assertEqual([p['frame'] for p in done['presentation']['pausePoints']],list(range(42)))
+        self.assertTrue(all(item['visible'] for item in done['presentation']['items']))
+        self.assertEqual(len(done['presentation']['items']),42)
+
+    def test_cli_presentation_contains_only_this_jobs_drawings(self):
+        self.doc['annotations']={'schemaVersion':1,'items':[]}
+        prior=self.tactics.run('agent-adopt',document=self.doc,candidate=self.output,
+                              options={'jobId':'prior','scope':'play','phaseId':'phase-1'})['document']
+        phase_id=prior['playDefinition']['phases'][0]['phaseId']
+        candidate=deepcopy(self.output);candidate['phases'][0]['annotations'][0]['anchorFrame']=20
+        result=self.tactics.run('agent-adopt',document=prior,candidate=candidate,
+                               options={'jobId':'current','scope':'phase','phaseId':phase_id})
+        self.assertEqual(len(result['document']['annotations']['items']),2)
+        self.assertEqual([i['id'] for i in result['presentation']['items']],['current-annotation-0'])
+        self.assertEqual([p['frame'] for p in result['presentation']['pausePoints']],[20])
+
+    def test_invisible_model_output_fails_before_ready_and_never_saves(self):
+        self.output['phases'][0]['annotations'][0]['points']=[{'x':400,'y':400}]*2
+        agent=self.make_agent();job=agent.create(self.request,self.clip,self.folder/'video.mp4','demo',True)
+        done=self.wait(agent,job);self.assertEqual(done['status'],'failed')
+        self.assertIn('第 1 个图形',done['message']);self.assertIn('completed',done['message'])
+        self.assertNotIn('previewDocument',done)
+        self.assertEqual(self.tactics.load(self.clip,'demo',True,'workspace')['version'],0)
+
+    def test_prompt_explains_anchor_pause_and_following_position_contract(self):
+        prompt=agent_prompt({})
+        self.assertIn('anchorFrame',prompt);self.assertIn('暂停',prompt)
+        self.assertIn('跟随圈',prompt);self.assertIn('位置',prompt)
+        self.assertIn('不必',prompt);self.assertIn('freezeFrame',prompt)
 
     def test_unsaved_revision_digest_saved_version_and_foreign_video_cannot_adopt(self):
         agent = self.make_agent(); job = agent.create(self.request, self.clip, self.folder/'video.mp4', 'demo', True)

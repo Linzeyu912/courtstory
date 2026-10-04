@@ -133,6 +133,9 @@ def agent_prompt(pack):
             'source、identitySource、trackId与逐帧确认/待核对字段含义保持独立；临时T编号和球衣参考不证明其他帧是同一人。'
             'identityReference只提供经来源校验的参考帧球队/号码，不改变rows中的人工确认标记。'
             '已有 existingAnnotations 必须保留且不要重复添加。先选关键暂停帧，再用少量控制点提前标示后续证据中已经发生的实际跑位。video 坐标使用原图像素；court 坐标使用米，只有有效标定时可用。'
+            '每个图形的 anchorFrame 会成为暂停讲解点，必须在该帧实际可显示，不必与阶段 freezeFrame 重合；像素图形只在参考帧显示是合法的。'
+            '跟随圈的 anchorFrame 必须有该 entityId 的有效观测位置，缺测时改选有位置的参考帧，或用 entityId:null 标记该帧可见局部；不能假装跟随。'
+            '路线控制点必须形成非零长度；每个新增图形都会单独校验，已有图形或其他可见图形不能替代失败图形通过。'
             '圈跟随球员脚底，挡拆用 screen。看不清楚的内容放 issues，不要编造证据。必须有 evidenceFrames；不确定时可以不给图形。'
             '不输出任何代码、命令、文件修改或工具调用，只返回 JSON。输入如下：\n' + json.dumps(pack, ensure_ascii=False, separators=(',', ':')))
 
@@ -250,7 +253,7 @@ class TacticsAgent:
 
     @staticmethod
     def _public(job):
-        return deepcopy({key: job[key] for key in ('jobId', 'status', 'message', 'base', 'candidate', 'previewDocument', 'previewFrames', 'adopted') if key in job})
+        return deepcopy({key: job[key] for key in ('jobId', 'status', 'message', 'base', 'candidate', 'presentation', 'previewDocument', 'previewFrames', 'adopted') if key in job})
 
     def get(self, job_id, clip, variant, qa):
         with self.lock:
@@ -313,14 +316,21 @@ class TacticsAgent:
             if not isinstance(output, dict) or len(json.dumps(output, ensure_ascii=False)) > 1_000_000:
                 raise ValueError('Agent 未返回有效的战术 JSON。')
             converted = self.tactics.run('agent-adopt', document=job['document'], candidate=output,
-                                        options={k: job['request'][k] for k in ('scope', 'phaseId')} | {'jobId': job['jobId']})['document']
-            freezes = sorted(set(p['freezeFrame'] for p in output['phases']))
-            previews = self.tactics.frames(job['video'], job['clip'], freezes)
+                                        options={k: job['request'][k] for k in ('scope', 'phaseId')} | {'jobId': job['jobId']})
+            presentation = converted['presentation']
+            freezes = sorted({p['freezeFrame'] for p in output['phases']} |
+                             {point['frame'] for point in presentation['pausePoints']})
+            previews = []
+            for offset in range(0, len(freezes), 40):
+                if job['cancel'].is_set():
+                    return
+                previews.extend(self.tactics.frames(job['video'], job['clip'], freezes[offset:offset + 40]))
             atomic_json(directory / 'candidate.json', output)
             with self.lock:
                 if job['cancel'].is_set():
                     return
-                job.update(status='ready', message='建议已生成；预览后采用到草稿，仍可手工修改。', candidate=output, previewDocument=converted, previewFrames=previews)
+                job.update(status='ready', message='建议已生成；预览后采用到草稿，仍可手工修改。', candidate=output,
+                           presentation=presentation, previewDocument=converted['document'], previewFrames=previews)
         except Exception as exc:
             self._state(job, 'failed', '生成失败：' + str(exc)[:2000])
 
