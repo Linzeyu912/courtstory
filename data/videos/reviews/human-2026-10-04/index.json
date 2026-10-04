@@ -1,0 +1,289 @@
+{
+  "schema_version": "1.0.0",
+  "completed_count": 40,
+  "keep_count": 28,
+  "discard_count": 12,
+  "labeling_origin": "human_review_ui",
+  "clips": [
+    {
+      "clip_id": "nba-2024-25-library100-001",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-001.json",
+      "retention": "keep",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T12:40:22-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-015",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-015.json",
+      "retention": "keep",
+      "review_revision": 2,
+      "completed_at": "2026-10-04T11:02:50-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-016",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-016.json",
+      "retention": "keep",
+      "review_revision": 5,
+      "completed_at": "2026-10-04T11:11:20-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-017",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-017.json",
+      "retention": "keep",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T11:12:34-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-018",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-018.json",
+      "retention": "keep",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T11:13:59-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-019",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-019.json",
+      "retention": "keep",
+      "review_revision": 2,
+      "completed_at": "2026-10-04T11:15:16-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-020",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-020.json",
+      "retention": "keep",
+      "review_revision": 7,
+      "completed_at": "2026-10-04T11:25:08-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-021",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-021.json",
+      "retention": "keep",
+      "review_revision": 4,
+      "completed_at": "2026-10-04T11:27:01-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-022",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-022.json",
+      "retention": "keep",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T11:33:35-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-023",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-023.json",
+      "retention": "keep",
+      "review_revision": 6,
+      "completed_at": "2026-10-04T11:37:08-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-024",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-024.json",
+      "retention": "keep",
+      "review_revision": 6,
+      "completed_at": "2026-10-04T11:38:11-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-025",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-025.json",
+      "retention": "keep",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T11:38:48-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-038",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-038.json",
+      "retention": "discard",
+      "review_revision": 4,
+      "completed_at": "2026-10-04T12:40:54-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-045",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-045.json",
+      "retention": "discard",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T12:41:11-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-052",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-052.json",
+      "retention": "keep",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T12:41:54-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-065",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-065.json",
+      "retention": "keep",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T12:42:51-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-078",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-078.json",
+      "retention": "keep",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T12:43:20-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-089",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-089.json",
+      "retention": "keep",
+      "review_revision": 13,
+      "completed_at": "2026-10-04T12:44:36-04:00"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-100",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-100.json",
+      "retention": "keep",
+      "review_revision": 12,
+      "completed_at": "2026-10-04T12:46:52-04:00"
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-006",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2025-26-batch-008-006.json",
+      "retention": "discard",
+      "review_revision": 7,
+      "completed_at": "2026-10-04T12:56:25-04:00"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-001",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2025-26-batch030-001.json",
+      "retention": "keep",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T12:48:09-04:00"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-006",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2025-26-batch030-006.json",
+      "retention": "keep",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T12:51:27-04:00"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-011",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2025-26-batch030-011.json",
+      "retention": "keep",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T12:52:18-04:00"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-022",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2025-26-batch030-022.json",
+      "retention": "keep",
+      "review_revision": 7,
+      "completed_at": "2026-10-04T12:53:31-04:00"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-028",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2025-26-batch030-028.json",
+      "retention": "discard",
+      "review_revision": 10,
+      "completed_at": "2026-10-04T12:54:29-04:00"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-030",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2025-26-batch030-030.json",
+      "retention": "discard",
+      "review_revision": 4,
+      "completed_at": "2026-10-04T12:55:54-04:00"
+    },
+    {
+      "clip_id": "nba-2025-26-sample-001-001",
+      "record": "data/videos/reviews/human-2026-10-04/records/nba-2025-26-sample-001-001.json",
+      "retention": "keep",
+      "review_revision": 2,
+      "completed_at": "2026-10-04T12:57:07-04:00"
+    },
+    {
+      "clip_id": "tactics-acceptance-004",
+      "record": "data/videos/reviews/human-2026-10-04/records/tactics-acceptance-004.json",
+      "retention": "discard",
+      "review_revision": 4,
+      "completed_at": "2026-10-04T13:04:17-04:00"
+    },
+    {
+      "clip_id": "tactics-acceptance-005",
+      "record": "data/videos/reviews/human-2026-10-04/records/tactics-acceptance-005.json",
+      "retention": "keep",
+      "review_revision": 9,
+      "completed_at": "2026-10-04T13:05:07-04:00"
+    },
+    {
+      "clip_id": "tactics-acceptance-006",
+      "record": "data/videos/reviews/human-2026-10-04/records/tactics-acceptance-006.json",
+      "retention": "keep",
+      "review_revision": 6,
+      "completed_at": "2026-10-04T13:05:56-04:00"
+    },
+    {
+      "clip_id": "user-uploads-20261003-001",
+      "record": "data/videos/reviews/human-2026-10-04/records/user-uploads-20261003-001.json",
+      "retention": "keep",
+      "review_revision": 11,
+      "completed_at": "2026-10-04T12:58:52-04:00"
+    },
+    {
+      "clip_id": "user-uploads-20261003-004",
+      "record": "data/videos/reviews/human-2026-10-04/records/user-uploads-20261003-004.json",
+      "retention": "keep",
+      "review_revision": 6,
+      "completed_at": "2026-10-04T12:59:47-04:00"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-001",
+      "record": "data/videos/reviews/human-2026-10-04/records/user-uploads-20261003-batch02-001.json",
+      "retention": "keep",
+      "review_revision": 5,
+      "completed_at": "2026-10-04T13:00:43-04:00"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-006",
+      "record": "data/videos/reviews/human-2026-10-04/records/user-uploads-20261003-batch02-006.json",
+      "retention": "discard",
+      "review_revision": 5,
+      "completed_at": "2026-10-04T13:01:36-04:00"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-011",
+      "record": "data/videos/reviews/human-2026-10-04/records/user-uploads-20261003-batch02-011.json",
+      "retention": "keep",
+      "review_revision": 3,
+      "completed_at": "2026-10-04T13:02:03-04:00"
+    },
+    {
+      "clip_id": "user-uploads-20261004-001",
+      "record": "data/videos/reviews/human-2026-10-04/records/user-uploads-20261004-001.json",
+      "retention": "discard",
+      "review_revision": 4,
+      "completed_at": "2026-10-04T13:02:22-04:00"
+    },
+    {
+      "clip_id": "user-uploads-20261004-004",
+      "record": "data/videos/reviews/human-2026-10-04/records/user-uploads-20261004-004.json",
+      "retention": "discard",
+      "review_revision": 4,
+      "completed_at": "2026-10-04T13:02:41-04:00"
+    },
+    {
+      "clip_id": "user-uploads-20261004-007",
+      "record": "data/videos/reviews/human-2026-10-04/records/user-uploads-20261004-007.json",
+      "retention": "discard",
+      "review_revision": 5,
+      "completed_at": "2026-10-04T13:03:07-04:00"
+    },
+    {
+      "clip_id": "user-uploads-20261004-011",
+      "record": "data/videos/reviews/human-2026-10-04/records/user-uploads-20261004-011.json",
+      "retention": "discard",
+      "review_revision": 4,
+      "completed_at": "2026-10-04T13:03:34-04:00"
+    },
+    {
+      "clip_id": "user-uploads-20261004-015",
+      "record": "data/videos/reviews/human-2026-10-04/records/user-uploads-20261004-015.json",
+      "retention": "discard",
+      "review_revision": 5,
+      "completed_at": "2026-10-04T13:04:01-04:00"
+    }
+  ]
+}

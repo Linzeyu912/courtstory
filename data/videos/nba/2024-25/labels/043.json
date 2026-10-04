@@ -57,5 +57,194 @@
     "059",
     "079"
   ],
-  "repeat_reason": "同属「协防与追防封盖」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+  "repeat_reason": "同属「协防与追防封盖」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
+  "material_review": {
+    "clip_id": "nba-2024-25-library100-043",
+    "decision": "retain",
+    "quality": "clear",
+    "usefulness": "适合背身后突破、篮下协防和封盖动作识别。",
+    "action_tags": [
+      "背身持球",
+      "转身突破",
+      "篮下投篮",
+      "协防封盖"
+    ],
+    "action_description": "红衣队员在左侧背身持球后转向篮下突破，起跳近筐出手；蓝衣队员从侧面补防起跳抬手阻挡，球离开进攻者控制。",
+    "difficulty_tags": [
+      "稳定镜头",
+      "局部半场画面",
+      "遮挡"
+    ],
+    "camera": "高位侧面转播广角，半场构图基本稳定",
+    "scope": "前场配合",
+    "issue_intervals": [
+      {
+        "start": 7,
+        "end": 8.5,
+        "issue": "出手和补防时手臂、球与多人身体重叠"
+      }
+    ],
+    "reason": "补帧可见补防者侧面起跳及进攻出手位置，篮下重叠属于可用困难样本。",
+    "review_method": "ai_dense_frame_review_2fps",
+    "reviewer_model": "gpt-6.1-sol",
+    "sha256": "23835f4652b2a72ae61538ddc1a5b4edf4c75ad6fac4c3c1dab9556bd2d9be73",
+    "reviewed_at": "2026-10-03T21:19:41-04:00",
+    "human_reviewed": false,
+    "sample_count": 20,
+    "evidence_location": "contact sheets and extra frames are local under artifacts/",
+    "selection_scope": "use_catalog_only; original asset remains available",
+    "tier": "primary",
+    "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+  },
+  "material_labels": {
+    "schema_version": "1.0.0",
+    "clip_id": "nba-2024-25-library100-043",
+    "asset": {
+      "video_path": "data/videos/nba/2024-25/clips/043_OKC-MEM_Q4_block_9.9s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/043.json",
+      "sha256": "23835f4652b2a72ae61538ddc1a5b4edf4c75ad6fac4c3c1dab9556bd2d9be73"
+    },
+    "source": {
+      "manifest_path": "data/videos/nba/2024-25/manifest.json",
+      "url": "https://v.qq.com/x/cover/mzc00200f1ybsna/i4101av326b.html",
+      "publisher": "腾讯视频 NBA 栏目",
+      "source_id": "i4101av326b",
+      "kind": null,
+      "collected_at": "2026-09-30",
+      "unknown_reason": null,
+      "source_start_seconds": 0.0,
+      "source_end_seconds": 9.9,
+      "uploaded_filename": null,
+      "season": "2024-25",
+      "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+    },
+    "quality": {
+      "clarity": "clear",
+      "core_actions_visible": true,
+      "reason": "宽景中球员轮廓、场线及关键传接/出手过程可辨；短时肢体重叠或移动尾部不妨碍主要动作判断。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 6.75,
+            "end": 9.75
+          }
+        ],
+        "note": "末段浅蓝禁区横纵尺寸、篮架广告及替补席人物共同持续增大，近侧坐席退出画缘。"
+      },
+      "full_court_movement": {
+        "value": false,
+        "intervals": [],
+        "note": "所见有效动作停留在一端；未观察到持球动作连续跨中线进入另一半场。"
+      },
+      "image_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "宽景中核心球员及场地关系可辨，未见持续模糊、明显压缩发虚或影响分析的运动拖影。"
+      },
+      "closeup_insertion": {
+        "value": false,
+        "intervals": [],
+        "note": "完整时间序列持续为场上转播宽景，未切入球员、教练、裁判或替补席特写。"
+      },
+      "view_switch": {
+        "value": false,
+        "intervals": [],
+        "note": "全段密集时间序列未见明确机位或视角切换；平移和推拉仍属于同一转播视角。"
+      },
+      "half_court_only": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 9.8
+          }
+        ],
+        "note": "有效配合集中在一个进攻半场；虽有退防或开始转换，未观察到连续持球跨中线进入另一半场。"
+      },
+      "motion_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "未见持续影响关键动作辨识的运动拖影；正常快速动作的瞬时轻微模糊未单独算异常。"
+      },
+      "occlusion": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.5,
+            "end": 2.5
+          },
+          {
+            "start": 6.5,
+            "end": 8.5
+          }
+        ],
+        "note": "所列时段球或持球人被近侧防守者、掩护者或篮下聚集人群短暂遮挡；连续前后帧能恢复动作关系。"
+      },
+      "players_out_of_frame": {
+        "value": false,
+        "intervals": [],
+        "note": "所见主要配合和防守参与者留在宽景内，未见明显影响本段关系判断的球员出框。"
+      },
+      "replay_or_teaching": {
+        "value": false,
+        "intervals": [],
+        "note": "时间序列为连续比赛转播；未见回放重复、定格、教学箭头或讲解图，比分/统计叠图不计教学。"
+      }
+    },
+    "content": {
+      "scope": "frontcourt_sequence",
+      "action_tags": [
+        "背身持球",
+        "转身突破",
+        "篮下投篮",
+        "协防封盖"
+      ],
+      "description": "红衣队员在左侧背身持球后转向篮下突破，起跳近筐出手；蓝衣队员从侧面补防起跳抬手阻挡，球离开进攻者控制。",
+      "usable_intervals": [
+        {
+          "start": 0.0,
+          "end": 9.8
+        }
+      ]
+    },
+    "selection": {
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "gpt-6.1-sol",
+      "review_method": "ai_dense_frame_review_2fps",
+      "human_reviewed": false,
+      "reviewed_at": "2026-10-04T06:39:10-04:00",
+      "sample_count": 20,
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-043/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-043/contact-02.jpg"
+      ],
+      "extra_frames": [],
+      "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+      "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片",
+      "camera_zoom_recheck": {
+        "reviewed_at": "2026-10-04T13:40:13-04:00",
+        "reviewer_model": "gpt-6.1-sol",
+        "method": "两名不同子Agent先后实际查看全部2fps序列；主Agent核对人工纠错与合并。",
+        "initial_value": true,
+        "independent_value": true,
+        "confidence": "high",
+        "independent_reason": "已独立逐张查看该素材全部contact sheets，以固定篮架、场地字样、禁区及背景坐席的共同尺度变化复核，排除人物跑近和横向跟拍。区间为片段相对秒的近似定位，未验证精确边界。",
+        "evidence_sheets": [
+          "artifacts/material-review-20261003/frames/nba-2024-25-library100-043/contact-01.jpg",
+          "artifacts/material-review-20261003/frames/nba-2024-25-library100-043/contact-02.jpg"
+        ],
+        "timestamp_note": "采样间隔0.5秒；区间为近似定位，未验证逐帧边界误差上界。",
+        "human_instruction_applied": false
+      },
+      "labeling_origin": "ai_visual_review"
+    }
+  }
 }

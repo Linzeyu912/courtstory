@@ -81,7 +81,6 @@
         "similar_to": [
           "nba-2024-25-library100-003",
           "nba-2024-25-library100-014",
-          "nba-2024-25-library100-038",
           "nba-2024-25-library100-046",
           "nba-2024-25-library100-053",
           "nba-2024-25-library100-066",
@@ -92,6 +91,36 @@
         "reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球掩护",
+          "突破回传",
+          "外弹接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -168,7 +197,6 @@
         "action_group": "nba-2024-25-library100:G02",
         "similar_to": [
           "nba-2024-25-library100-010",
-          "nba-2024-25-library100-045",
           "nba-2024-25-library100-051",
           "nba-2024-25-library100-058",
           "nba-2024-25-library100-078",
@@ -178,6 +206,38 @@
         "reason": "同属「突破分球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "底线突破",
+          "吸引协防",
+          "突破分球",
+          "外线接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断",
+          "遮挡"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -254,7 +314,6 @@
         "similar_to": [
           "nba-2024-25-library100-001",
           "nba-2024-25-library100-014",
-          "nba-2024-25-library100-038",
           "nba-2024-25-library100-046",
           "nba-2024-25-library100-053",
           "nba-2024-25-library100-066",
@@ -265,6 +324,36 @@
         "reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球掩护",
+          "短顺下",
+          "中距离跳投"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -354,6 +443,35 @@
         "reason": "同属「持球单打与跳投」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球单打",
+          "撤步三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -445,6 +563,38 @@
         "reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "篮板争抢",
+          "外传重组",
+          "外围传导",
+          "底角接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断",
+          "遮挡"
+        ],
+        "reason": "补看原尺寸帧确认篮下争抢与外传重组清晰；既有底线发球后推进描述不受本片段支持，应按当前可见过程修正。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -536,6 +686,37 @@
         "reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "推进",
+          "跨场分球",
+          "外围转移",
+          "接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -619,6 +800,38 @@
         "reason": "同属「前场篮板与二次进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "罚球",
+          "进攻篮板",
+          "篮下补篮"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断",
+          "遮挡",
+          "图形遮挡"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -710,6 +923,38 @@
         "reason": "同属「持球突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球掩护",
+          "突破分球",
+          "外围转移",
+          "底角接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断",
+          "短暂亮度变化"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -799,6 +1044,37 @@
         "reason": "同属「持球单打与跳投」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球单打",
+          "突破",
+          "篮下终结"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断",
+          "遮挡"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -876,7 +1152,6 @@
         "action_group": "nba-2024-25-library100:G02",
         "similar_to": [
           "nba-2024-25-library100-002",
-          "nba-2024-25-library100-045",
           "nba-2024-25-library100-051",
           "nba-2024-25-library100-058",
           "nba-2024-25-library100-078",
@@ -886,6 +1161,37 @@
         "reason": "同属「突破分球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "突破分球",
+          "底线切入",
+          "篮下终结"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断",
+          "遮挡"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -977,6 +1283,35 @@
         "reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围传导",
+          "接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1068,6 +1403,36 @@
         "reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "推进",
+          "外围传导",
+          "底角接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1159,6 +1524,35 @@
         "reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围传导",
+          "底角接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1237,7 +1631,6 @@
         "similar_to": [
           "nba-2024-25-library100-001",
           "nba-2024-25-library100-003",
-          "nba-2024-25-library100-038",
           "nba-2024-25-library100-046",
           "nba-2024-25-library100-053",
           "nba-2024-25-library100-066",
@@ -1248,6 +1641,36 @@
         "reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球掩护",
+          "顺下",
+          "传球",
+          "扣篮"
+        ],
+        "difficulty_tags": [
+          "推近拉远",
+          "遮挡",
+          "局部半场画面"
+        ],
+        "reason": "密集抽帧中球员位置、关键动作与防守关系均可辨，未见严重模糊或用特写替代关键过程，保留分析价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1333,6 +1756,37 @@
         "reason": "同属「防守夺回球权后反击」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "usable",
+        "action_tags": [
+          "断传",
+          "攻防转换",
+          "快攻上篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "推近拉远",
+          "人物出画",
+          "遮挡",
+          "运动拖影"
+        ],
+        "reason": "独立复核全部两页密集帧及2.8、4.1秒原尺寸帧：断传附近的球与抬手动作可辨，反击平移虽有拖影，红衣前跑、传球方向和篮下上篮仍连续可辨；保留为usable及平移难例。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1424,6 +1878,35 @@
         "reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "高位掩护",
+          "持球横移",
+          "回传",
+          "接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面"
+        ],
+        "reason": "高位掩护后回传与外线出手的站位及防守移动可辨。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1503,6 +1986,38 @@
         "reason": "当前集合未发现同类标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "usable",
+        "action_tags": [
+          "外围掩护",
+          "传球失误",
+          "反击推进",
+          "追防干扰"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "推近拉远",
+          "人物出画",
+          "遮挡",
+          "运动拖影"
+        ],
+        "reason": "独立复核全部两页及4.4、7.4秒原尺寸帧：球权争夺附近多人重叠且有拖影，无法精确断言切球方式，但红衣持球推进和篮下追防起跳仍清楚；并非核心过程不可辨，保留usable。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1594,6 +2109,34 @@
         "reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围传导",
+          "接球三分",
+          "扑防"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面"
+        ],
+        "reason": "传球路线、接球出手和扑防距离可辨。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1677,6 +2220,35 @@
         "reason": "同属「推进三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "usable",
+        "action_tags": [
+          "篮板后推进",
+          "转换进攻",
+          "持球三分"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "人物出画",
+          "运动拖影"
+        ],
+        "reason": "独立复核整页及2.8、5.5秒原尺寸帧：中场快速跟随造成球员边缘拖影，但持球人、两侧跑位与三分出手姿态可辨；终结阶段清晰度恢复，保留usable。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1767,6 +2339,34 @@
         "reason": "同属「低位进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围传球",
+          "背身持球",
+          "转身跳投"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面"
+        ],
+        "reason": "背身接球、转身出手与弱侧站位均清楚。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1851,6 +2451,35 @@
         "reason": "同属「协防与追防封盖」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "背身单打",
+          "篮下出手",
+          "举手干扰"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "低位对抗和起跳干扰可辨；补帧可见手臂位置，但接触球的瞬间不足以单凭抽帧强认盖帽。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1942,6 +2571,37 @@
         "reason": "同属「持球突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球突破",
+          "协防收缩",
+          "篮下出手",
+          "倒地"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "推近拉远",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "突破路线、协防收缩与篮下对抗可辨，可用于突破及防守困难样本。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -2027,6 +2687,38 @@
         "reason": "同属「防守夺回球权后反击」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "高位掩护",
+          "持球突破",
+          "内线传球",
+          "球权变化",
+          "转换推进"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "人物出画",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "包含挡人、突破分球、内线争抢和转换；补帧支持球权变化，但抢断或篮板的精确归因不强认，片尾下一回合未结束。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -2110,6 +2802,38 @@
         "reason": "同属「前场篮板与二次进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线投篮",
+          "进攻篮板",
+          "二次进攻",
+          "回传外线",
+          "接球三分"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "推近拉远",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "多次争抢、续攻和内外传导过程完整可辨；补帧确认篮下遮挡属局部困难，不影响主要配合用途。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -2195,6 +2919,36 @@
         "reason": "同属「转换传球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "usable",
+        "action_tags": [
+          "球权变化",
+          "快攻推进",
+          "前传",
+          "篮下终结"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "人物出画",
+          "运动拖影"
+        ],
+        "reason": "独立复核整页及2.8、5秒原尺寸帧：中场运动拖影明显，球与前跑接应仍可区分；进入篮下后接球起跳终结和追防位置可辨，保留usable。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -2284,6 +3038,36 @@
         "reason": "同属「持球单打与跳投」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球单打",
+          "突破急停",
+          "中距离跳投",
+          "篮板争抢"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "单打突破到中投过程和防守收缩可辨。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -2374,6 +3158,34 @@
         "reason": "同属「低位进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "背身单打",
+          "转身中投",
+          "篮板争抢"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面"
+        ],
+        "reason": "背身推进和转身出手连贯可辨，前场队友分布清楚。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -2465,6 +3277,36 @@
         "reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "边线发球",
+          "外围传导",
+          "持球掩护",
+          "回传",
+          "接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面"
+        ],
+        "reason": "边线发球至外线出手的传导、掩护与防守移动清楚。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -2556,6 +3398,35 @@
         "reason": "同属「持球突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "高位掩护",
+          "持球突破",
+          "篮下上篮"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "掩护位置、突破路线及篮下终结可辨，适合前场配合分析。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -2647,6 +3518,36 @@
         "reason": "同属「持球突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围传导",
+          "高位接球",
+          "持球突破",
+          "篮下终结"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "前场传导、高位持球突破和收缩防守都能辨认，单帧亮度闪动很短，不影响过程。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -2732,6 +3633,35 @@
         "reason": "同属「转换传球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "usable",
+        "action_tags": [
+          "防守篮板",
+          "长传快攻",
+          "接球扣篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "人物出画",
+          "运动拖影"
+        ],
+        "reason": "独立复核整页及2.5、4.6秒原尺寸帧：长传时背景和跑动者拖影较强，但空中球、白衣前跑与蓝衣回追可定位，随后接球扣篮仍可辨；短暂平移模糊作为难点保留usable。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -2822,6 +3752,35 @@
         "reason": "同属「低位进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "内线传球",
+          "低位接球",
+          "转身勾手"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "传球到内线后的站位、转身及出手均可辨，篮下短暂重叠不影响主要动作。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -2907,6 +3866,38 @@
         "reason": "同属「防守夺回球权后反击」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "usable",
+        "action_tags": [
+          "持球突破",
+          "篮下协防",
+          "封盖争球",
+          "转换推进",
+          "外围传球",
+          "接球三分"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "遮挡",
+          "人物出画"
+        ],
+        "reason": "独立复核两页及5.5、9.5秒原尺寸帧：转换中场时拖影明显，但黑衣持球者与回防队员分离可辨；两端篮下协防和后续外线传接出手仍有可用动作证据，保留usable。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -2989,6 +3980,36 @@
         "reason": "同属「空切接球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球运球",
+          "空切",
+          "传球",
+          "接球上篮"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "持球组织、空切线路和传球终结均清楚，足以作为配合素材。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -3071,6 +4092,37 @@
         "reason": "同属「空切接球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球推进",
+          "持球掩护",
+          "传球",
+          "空切接球",
+          "上篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "原尺寸补帧显示终结者、篮筐和防守位置可辨，接触表单帧叠影未破坏主动作。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -3162,6 +4214,36 @@
         "reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "篮下投篮",
+          "前场篮板",
+          "回传外线",
+          "接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "补帧确认外线接球投篮，前面的篮下攻防虽重叠但二次进攻关系可辨。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -3245,95 +4327,36 @@
         "reason": "同属「推进三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
-      }
-    },
-    {
-      "clip_id": "nba-2024-25-library100-038",
-      "local_id": "038",
-      "asset": {
-        "path": "clips/038_CLE-IND_Q3_roll-pass_6.5s_720p.mp4",
-        "bytes": 5251620,
-        "sha256": "15ee797856136f1511d50a4425d0ef84695648fedbe87a9463829f899d7fbeb4",
-        "storage": "git-lfs",
-        "availability": "included"
       },
-      "annotation_path": "labels/038.json",
-      "source": {
-        "url": "https://v.qq.com/x/cover/mzc002009xnmkyn/x4101vcl1bb.html",
-        "publisher": "腾讯视频 NBA 栏目",
-        "source_id": "x4101vcl1bb",
-        "collected_at": "2026-09-30",
-        "start_seconds": 14.9,
-        "end_seconds": 21.4
-      },
-      "game": {
-        "key": "CLE-IND-G4",
-        "date_local": "2025-05-11",
-        "date_beijing": "2025-05-12",
-        "tipoff_utc": "2025-05-12T00:00:00+00:00",
-        "tipoff_beijing": "2025-05-12T08:00:00+08:00",
-        "matchup": "CLE-IND",
-        "stage": "东部半决赛G4",
-        "final_score": {
-          "IND": 129,
-          "CLE": 109
-        },
-        "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401769742",
-        "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250511",
-        "season": "2024-25",
-        "period": 3,
-        "clock_start": null,
-        "clock_end": "5:19",
-        "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
-        "offense_team": "CLE",
-        "defense_team": "IND"
-      },
-      "tactic": {
-        "title": "莫布利顺下接球扣篮",
-        "tags": [
-          "持球掩护与挡拆",
-          "莫布利顺下接球扣篮"
+      "material_review": {
+        "decision": "retain",
+        "quality": "usable",
+        "action_tags": [
+          "持球推进",
+          "转换传球",
+          "跟进接球",
+          "三分投篮"
         ],
-        "description": "莫布利顺下接球扣篮",
-        "label_status": "reviewed_visible_actions",
-        "confidence_note": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
-        "basis": "此前采集复核的连续画面及成片首、中、尾帧；仅描述可见动作，非球队内部战术名"
-      },
-      "video": {
-        "duration_seconds": 6.52,
-        "width": 1280,
-        "height": 720,
-        "fps": 25.0,
-        "measurement_status": "measured"
-      },
-      "reported_video": null,
-      "review": {
-        "normal_speed": true,
-        "original_broadcast": true,
-        "full_possession": false,
-        "scope": "前场回合",
-        "decode_status": "passed",
-        "visual_status": "reviewed",
-        "reviewed_at": "2026-10-01",
-        "basis": "此前100段采集记录；本次LFS准备重新核对字节、大小和SHA-256"
-      },
-      "dedup": {
-        "content_status": "reviewed_distinct",
-        "action_group": "nba-2024-25-library100:G01",
-        "similar_to": [
-          "nba-2024-25-library100-001",
-          "nba-2024-25-library100-003",
-          "nba-2024-25-library100-014",
-          "nba-2024-25-library100-046",
-          "nba-2024-25-library100-053",
-          "nba-2024-25-library100-066",
-          "nba-2024-25-library100-068",
-          "nba-2024-25-library100-077",
-          "nba-2024-25-library100-083"
+        "difficulty_tags": [
+          "镜头平移",
+          "人物出画",
+          "运动拖影"
         ],
-        "reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
-        "source_overlaps": [],
-        "related_context": []
+        "reason": "独立复核两页及2.7、5.5秒原尺寸帧：推进平移造成轻度边缘模糊，持球者、跟进人和防守分布清楚；外线接球出手与干扰动作可辨，保留usable。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -3413,6 +4436,37 @@
         "reason": "当前集合未发现同类标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "usable",
+        "action_tags": [
+          "持球推进",
+          "高位接球",
+          "转移球",
+          "接球三分"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "人物出画",
+          "运动拖影"
+        ],
+        "reason": "独立复核两页及1、4.5秒原尺寸帧：开头推进有平移拖影，但球、持球人与回防位置仍能区分；高位转移及外围投篮的核心动作清晰，保留usable。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -3498,6 +4552,36 @@
         "reason": "同属「转换突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球推进",
+          "外围传球",
+          "接球突破",
+          "上篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "接球后的突破路线、对位与终结均可辨，能够分析前场进攻。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -3589,6 +4673,36 @@
         "reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围传球",
+          "持球突破",
+          "突破分球",
+          "接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "较长前场组织和最终分球投篮均在广角画面，队员相对位置明确。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -3678,6 +4792,34 @@
         "reason": "同属「持球单打与跳投」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球单打",
+          "运球变向",
+          "撤步跳投"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面"
+        ],
+        "reason": "主要对位、持球移动与跳投全过程清楚，可观察其余队员拉开位置。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -3762,6 +4904,36 @@
         "reason": "同属「协防与追防封盖」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "背身持球",
+          "转身突破",
+          "篮下投篮",
+          "协防封盖"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "补帧可见补防者侧面起跳及进攻出手位置，篮下重叠属于可用困难样本。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -3851,93 +5023,35 @@
         "reason": "同属「持球单打与跳投」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
-      }
-    },
-    {
-      "clip_id": "nba-2024-25-library100-045",
-      "local_id": "045",
-      "asset": {
-        "path": "clips/045_OKC-MEM_Q4_drive-pass_6.2s_720p.mp4",
-        "bytes": 4081132,
-        "sha256": "8564d304b80a83041ab7c42af6de6b0d3c7485402fa8e05e63463840c8b71804",
-        "storage": "git-lfs",
-        "availability": "included"
       },
-      "annotation_path": "labels/045.json",
-      "source": {
-        "url": "https://v.qq.com/x/cover/mzc00200f1ybsna/i4101t7vfvk.html",
-        "publisher": "腾讯视频 NBA 栏目",
-        "source_id": "i4101t7vfvk",
-        "collected_at": "2026-09-30",
-        "start_seconds": 10.9,
-        "end_seconds": 17.1
-      },
-      "game": {
-        "key": "OKC-MEM-G4",
-        "date_local": "2025-04-26",
-        "date_beijing": "2025-04-27",
-        "tipoff_utc": "2025-04-26T19:30:00+00:00",
-        "tipoff_beijing": "2025-04-27T03:30:00+08:00",
-        "matchup": "OKC-MEM",
-        "stage": "西部首轮G4",
-        "final_score": {
-          "MEM": 115,
-          "OKC": 117
-        },
-        "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401767905",
-        "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250426",
-        "season": "2024-25",
-        "period": 4,
-        "clock_start": "5:49",
-        "clock_end": "5:43",
-        "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
-        "offense_team": "OKC",
-        "defense_team": "MEM"
-      },
-      "tactic": {
-        "title": "杰伦威廉姆斯接突破分球三分",
-        "tags": [
-          "突破分球",
-          "杰伦威廉姆斯接突破分球三分"
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球运球",
+          "持球掩护",
+          "突破",
+          "急停跳投"
         ],
-        "description": "杰伦威廉姆斯接突破分球三分",
-        "label_status": "reviewed_visible_actions",
-        "confidence_note": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
-        "basis": "此前采集复核的连续画面及成片首、中、尾帧；仅描述可见动作，非球队内部战术名"
-      },
-      "video": {
-        "duration_seconds": 6.2,
-        "width": 1280,
-        "height": 720,
-        "fps": 25.0,
-        "measurement_status": "measured"
-      },
-      "reported_video": null,
-      "review": {
-        "normal_speed": true,
-        "original_broadcast": true,
-        "full_possession": false,
-        "scope": "前场回合",
-        "decode_status": "passed",
-        "visual_status": "reviewed",
-        "reviewed_at": "2026-10-01",
-        "basis": "此前100段采集记录；本次LFS准备重新核对字节、大小和SHA-256"
-      },
-      "dedup": {
-        "content_status": "reviewed_distinct",
-        "action_group": "nba-2024-25-library100:G02",
-        "similar_to": [
-          "nba-2024-25-library100-002",
-          "nba-2024-25-library100-010",
-          "nba-2024-25-library100-051",
-          "nba-2024-25-library100-058",
-          "nba-2024-25-library100-078",
-          "nba-2024-25-library100-082",
-          "nba-2024-25-library100-095"
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面"
         ],
-        "reason": "同属「突破分球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
-        "source_overlaps": [],
-        "related_context": []
+        "reason": "持球者、掩护队友和出手点可辨；底部统计图未遮住主要配合区域。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -4017,7 +5131,6 @@
           "nba-2024-25-library100-001",
           "nba-2024-25-library100-003",
           "nba-2024-25-library100-014",
-          "nba-2024-25-library100-038",
           "nba-2024-25-library100-053",
           "nba-2024-25-library100-066",
           "nba-2024-25-library100-068",
@@ -4027,6 +5140,35 @@
         "reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线传球",
+          "持球掩护",
+          "外线跳投"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -4118,6 +5260,35 @@
         "reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球突破",
+          "突破分球",
+          "底角接球投篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -4208,6 +5379,36 @@
         "reason": "同属「低位进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线传球",
+          "低位接球",
+          "背身推进",
+          "转身近筐投篮"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -4293,6 +5494,35 @@
         "reason": "同属「转换突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "运球推进",
+          "持球突破",
+          "篮下上篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -4378,6 +5608,36 @@
         "reason": "同属「转换突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "防守篮板",
+          "运球推进",
+          "持球突破",
+          "上篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "推近拉远",
+          "遮挡"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -4456,7 +5716,6 @@
         "similar_to": [
           "nba-2024-25-library100-002",
           "nba-2024-25-library100-010",
-          "nba-2024-25-library100-045",
           "nba-2024-25-library100-058",
           "nba-2024-25-library100-078",
           "nba-2024-25-library100-082",
@@ -4465,6 +5724,35 @@
         "reason": "同属「突破分球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球突破",
+          "突破分球",
+          "底角接球投篮"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -4550,6 +5838,36 @@
         "reason": "同属「转换突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "防守篮板",
+          "转换推进",
+          "持球突破",
+          "篮下出手"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -4629,7 +5947,6 @@
           "nba-2024-25-library100-001",
           "nba-2024-25-library100-003",
           "nba-2024-25-library100-014",
-          "nba-2024-25-library100-038",
           "nba-2024-25-library100-046",
           "nba-2024-25-library100-066",
           "nba-2024-25-library100-068",
@@ -4639,6 +5956,36 @@
         "reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球掩护",
+          "运球突破",
+          "篮下传球",
+          "近筐终结"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -4724,6 +6071,36 @@
         "reason": "同属「防守夺回球权后反击」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "usable",
+        "action_tags": [
+          "抢断",
+          "转换推进",
+          "快攻上篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "推近拉远",
+          "遮挡",
+          "运动拖影"
+        ],
+        "reason": "独立复核两页及6.5、8.5秒原尺寸帧：快速反击平移有明显拖影，但黑衣持球者与白衣追防仍分离可辨；到篮下持球收球、起跳及后续取球有清楚位置证据，保留usable。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -4814,6 +6191,36 @@
         "reason": "同属「低位进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线传球",
+          "低位接球",
+          "背身单打",
+          "转身上篮"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -4898,6 +6305,37 @@
         "reason": "同属「协防与追防封盖」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球突破",
+          "底线突破",
+          "协防干扰",
+          "封盖"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -4988,6 +6426,36 @@
         "reason": "同属「低位进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线传球",
+          "低位接球",
+          "背身单打",
+          "转身后仰投篮"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -5066,7 +6534,6 @@
         "similar_to": [
           "nba-2024-25-library100-002",
           "nba-2024-25-library100-010",
-          "nba-2024-25-library100-045",
           "nba-2024-25-library100-051",
           "nba-2024-25-library100-078",
           "nba-2024-25-library100-082",
@@ -5075,6 +6542,36 @@
         "reason": "同属「突破分球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球掩护",
+          "持球突破",
+          "内线传球",
+          "近筐终结"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -5159,6 +6656,36 @@
         "reason": "同属「协防与追防封盖」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球掩护",
+          "运球突破",
+          "追防封盖",
+          "防守收球"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -5248,6 +6775,35 @@
         "reason": "同属「持球单打与跳投」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线传球",
+          "持球单打",
+          "撤步投篮",
+          "防守篮板"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面"
+        ],
+        "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -5339,6 +6895,36 @@
         "reason": "同属「持球突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围传球",
+          "持球突破",
+          "篮下上篮"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "传球、突破路线及防守收缩均可辨，未展示取得本次球权的起点。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -5430,6 +7016,36 @@
         "reason": "同属「持球突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围持球",
+          "变向突破",
+          "篮下出手"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "主要持球者、突破路径与协防位置清晰，可用于突破识别。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -5520,6 +7136,36 @@
         "reason": "同属「低位进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围传球",
+          "背身持球",
+          "转身跳投"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "接球、背身及转身投篮过程可辨，起点已处于前场。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -5603,6 +7249,36 @@
         "reason": "同属「推进三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "推进",
+          "持球吸引防守",
+          "外传",
+          "接球三分"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "推进、外传和接球投篮的空间关系清楚。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -5692,6 +7368,37 @@
         "reason": "同属「持球单打与跳投」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围接球",
+          "持球单打",
+          "突破",
+          "篮下上篮"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "单打启动、突破方向及篮下协防可观察。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -5771,7 +7478,6 @@
           "nba-2024-25-library100-001",
           "nba-2024-25-library100-003",
           "nba-2024-25-library100-014",
-          "nba-2024-25-library100-038",
           "nba-2024-25-library100-046",
           "nba-2024-25-library100-053",
           "nba-2024-25-library100-068",
@@ -5781,6 +7487,37 @@
         "reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围传球",
+          "借掩护切入",
+          "持球突破",
+          "篮下上篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "可观察传球、队友挡位及突破终结，核心行动可辨。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -5872,6 +7609,35 @@
         "reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围持球",
+          "传球",
+          "接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "持球吸引防守及外传后的投篮可用于动作和空间识别。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -5951,7 +7717,6 @@
           "nba-2024-25-library100-001",
           "nba-2024-25-library100-003",
           "nba-2024-25-library100-014",
-          "nba-2024-25-library100-038",
           "nba-2024-25-library100-046",
           "nba-2024-25-library100-053",
           "nba-2024-25-library100-066",
@@ -5961,6 +7726,37 @@
         "reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围传球",
+          "持球掩护",
+          "持球突破",
+          "抛投"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "掩护附近持球路径、突破和抛投动作可辨。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -6044,6 +7840,35 @@
         "reason": "同属「推进三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球推进",
+          "外围持球",
+          "三分投篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "推进到投篮的动作连贯，球队站位和投篮位置清楚。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -6129,6 +7954,37 @@
         "reason": "同属「转换传球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "转换推进",
+          "连续传球",
+          "切入",
+          "篮下上篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "转换中的多次传球及攻筐过程可辨，具有防守回位困难样本价值。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -6208,6 +8064,37 @@
         "reason": "当前集合未发现同类标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外围持球",
+          "掩护",
+          "传球",
+          "接球中距离投篮"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "外围组织、接球及中距离出手可辨。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -6293,6 +8180,35 @@
         "reason": "同属「转换传球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "防守篮板",
+          "转换推进",
+          "传球",
+          "跟进扣篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "遮挡"
+        ],
+        "reason": "可见篮下取得球权、转换出球和另一端终结，支持该反击球权完整链条。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -6378,6 +8294,35 @@
         "reason": "同属「转换突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球推进",
+          "持球突破",
+          "抛投"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "推进、突破及近框抛投过程清楚，保留其局部球权属性。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -6463,6 +8408,35 @@
         "reason": "同属「防守夺回球权后反击」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "防守夺回球权",
+          "转换推进",
+          "回传",
+          "篮下上篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "遮挡"
+        ],
+        "reason": "夺回球权到推进和终结均在画面内，可用于转换链条与回传识别。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -6546,6 +8520,36 @@
         "reason": "同属「前场篮板与二次进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "防守夺回球权",
+          "转换推进",
+          "空接尝试",
+          "前场篮板",
+          "二次进攻"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "遮挡"
+        ],
+        "reason": "画面与两张原尺寸帧支持快攻高传攻筐、篮下再次控制及二次出手；核心动作清楚。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -6631,6 +8635,36 @@
         "reason": "同属「转换传球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "推进",
+          "向前传球",
+          "篮下接球",
+          "篮下终结"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "球员位置、持球移动及上述关键动作可辨，具备真实比赛转播分析价值。开头未显示本次进攻最初取得球权，保守标前场配合。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -6710,7 +8744,6 @@
           "nba-2024-25-library100-001",
           "nba-2024-25-library100-003",
           "nba-2024-25-library100-014",
-          "nba-2024-25-library100-038",
           "nba-2024-25-library100-046",
           "nba-2024-25-library100-053",
           "nba-2024-25-library100-066",
@@ -6720,6 +8753,36 @@
         "reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球掩护",
+          "突破",
+          "顺下",
+          "篮下接球终结"
+        ],
+        "difficulty_tags": [
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "球员位置、持球移动及上述关键动作可辨，具备真实比赛转播分析价值。开头未显示本次进攻最初取得球权，保守标前场配合。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -6798,7 +8861,6 @@
         "similar_to": [
           "nba-2024-25-library100-002",
           "nba-2024-25-library100-010",
-          "nba-2024-25-library100-045",
           "nba-2024-25-library100-051",
           "nba-2024-25-library100-058",
           "nba-2024-25-library100-082",
@@ -6807,6 +8869,36 @@
         "reason": "同属「突破分球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "推进",
+          "突破",
+          "分球",
+          "底角接球投篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "球员位置、持球移动及上述关键动作可辨，具备真实比赛转播分析价值。开头未显示本次进攻最初取得球权，保守标前场配合。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -6891,6 +8983,36 @@
         "reason": "同属「协防与追防封盖」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球掩护",
+          "突破",
+          "追防干扰",
+          "篮板争抢"
+        ],
+        "difficulty_tags": [
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "球员位置、持球移动及上述关键动作可辨，具备真实比赛转播分析价值。开头未显示本次进攻最初取得球权，保守标前场配合。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -6976,6 +9098,37 @@
         "reason": "同属「防守夺回球权后反击」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "usable",
+        "action_tags": [
+          "断球",
+          "转换推进",
+          "快攻上篮",
+          "篮下争抢"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "过程截断",
+          "运动拖影"
+        ],
+        "reason": "独立复核两页及6、9秒原尺寸帧：转换平移背景拖影明显，但蓝衣运球者和球清楚可定位；篮下终结及随后球权争抢仍可辨，保留usable，局部遮挡不等于画质失效。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -7065,6 +9218,36 @@
         "reason": "同属「持球单打与跳投」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球单打",
+          "运球调整",
+          "外线跳投",
+          "贴身防守"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "球员位置、持球移动及上述关键动作可辨，具备真实比赛转播分析价值。开头未显示本次进攻最初取得球权，保守标前场配合。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -7143,7 +9326,6 @@
         "similar_to": [
           "nba-2024-25-library100-002",
           "nba-2024-25-library100-010",
-          "nba-2024-25-library100-045",
           "nba-2024-25-library100-051",
           "nba-2024-25-library100-058",
           "nba-2024-25-library100-078",
@@ -7152,6 +9334,36 @@
         "reason": "同属「突破分球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "推进",
+          "突破",
+          "分球",
+          "侧翼接球投篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "球员位置、持球移动及上述关键动作可辨，具备真实比赛转播分析价值。开头未显示本次进攻最初取得球权，保守标前场配合。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -7231,7 +9443,6 @@
           "nba-2024-25-library100-001",
           "nba-2024-25-library100-003",
           "nba-2024-25-library100-014",
-          "nba-2024-25-library100-038",
           "nba-2024-25-library100-046",
           "nba-2024-25-library100-053",
           "nba-2024-25-library100-066",
@@ -7241,6 +9452,37 @@
         "reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球掩护",
+          "突破",
+          "传球",
+          "篮下接球终结"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "球员位置、持球移动及上述关键动作可辨，具备真实比赛转播分析价值。开头未显示本次进攻最初取得球权，保守标前场配合。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -7332,6 +9574,35 @@
         "reason": "同属「持球突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球突破",
+          "篮下上篮",
+          "协防干扰"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "球员位置、持球移动及上述关键动作可辨，具备真实比赛转播分析价值。片段较短且前序过程被截断，适合局部动作而非完整球权分析。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -7423,6 +9694,35 @@
         "reason": "同属「持球突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "usable",
+        "action_tags": [
+          "篮下持球",
+          "近篮起跳投篮",
+          "篮下对抗"
+        ],
+        "difficulty_tags": [
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "独立复核整页及0.6、1.5秒原尺寸帧：蓝衣篮下持球者与白衣包围者可区分，手臂快动有局部拖影并伴身体遮挡；近篮调整与起跳出手整体可辨，保留usable及遮挡难例。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -7508,6 +9808,37 @@
         "reason": "同属「转换传球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "推进",
+          "突破",
+          "内传",
+          "篮下接球终结"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "球员位置、持球移动及上述关键动作可辨，具备真实比赛转播分析价值。开头未显示本次进攻最初取得球权，保守标前场配合。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -7591,6 +9922,38 @@
         "reason": "同属「前场篮板与二次进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "usable",
+        "action_tags": [
+          "外围持球",
+          "掩护配合",
+          "持球跳投",
+          "前场篮板争抢",
+          "二次进攻"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "独立复核两页及2.5、7.5秒原尺寸帧：半场画面中人物和持球清楚，篮下快动肢体有拖影且多人重叠，单次触球先后不宜细判；外围持球、投篮与连续篮下进攻仍可辨，保留usable。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -7682,6 +10045,37 @@
         "reason": "同属「持球突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线传球",
+          "高位接球",
+          "持球突破",
+          "篮下终结"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "球员位置、持球移动及上述关键动作可辨，具备真实比赛转播分析价值。开头未显示本次进攻最初取得球权，保守标前场配合。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -7772,6 +10166,37 @@
         "reason": "同属「低位进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "低位传球",
+          "背身持球",
+          "转身",
+          "近篮投篮"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "球员位置、持球移动及上述关键动作可辨，具备真实比赛转播分析价值。开头未显示本次进攻最初取得球权，保守标前场配合。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -7863,6 +10288,36 @@
         "reason": "同属「持球突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "高位持球",
+          "持球单打",
+          "突破",
+          "篮下终结"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "球员位置、持球移动及上述关键动作可辨，具备真实比赛转播分析价值。开头未显示本次进攻最初取得球权，保守标前场配合。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -7953,6 +10408,35 @@
         "reason": "同属「低位进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线传入",
+          "背身推进",
+          "转身篮下出手"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "前场传球与篮下连续动作可辨，起点已是半场组织，不能认定完整球权。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -8043,6 +10527,36 @@
         "reason": "同属「低位进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "内外传球",
+          "接球突破",
+          "篮下出手"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "人物位置、向外传球和突破路径可辨；末尾靠近出手时裁切。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -8125,6 +10639,35 @@
         "reason": "同属「空切接球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "高位传球",
+          "空切接球",
+          "篮下扣篮"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "切入、接球和起跳路径连续可辨，半场站位可用。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -8216,6 +10759,35 @@
         "reason": "同属「持球突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "接球",
+          "底线突破",
+          "篮下上篮"
+        ],
+        "difficulty_tags": [
+          "局部半场画面",
+          "遮挡",
+          "过程截断"
+        ],
+        "reason": "短暂过曝不覆盖全部核心动作，突破方向和起跳可辨。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "challenge",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -8294,7 +10866,6 @@
         "similar_to": [
           "nba-2024-25-library100-002",
           "nba-2024-25-library100-010",
-          "nba-2024-25-library100-045",
           "nba-2024-25-library100-051",
           "nba-2024-25-library100-058",
           "nba-2024-25-library100-078",
@@ -8303,6 +10874,37 @@
         "reason": "同属「突破分球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球突破",
+          "外传",
+          "接球跳投",
+          "篮下争抢",
+          "二次出手"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "外传和外线跳投清楚，篮下仍可识别续攻起跳；不直接沿用旧内线分球标签。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -8388,6 +10990,37 @@
         "reason": "同属「转换突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "高位掩护",
+          "持球突破",
+          "传给顺下队友",
+          "篮下终结"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "推近拉远",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "掩护、持球前进及队友向篮下移动清楚，末尾有发球准备。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -8477,6 +11110,34 @@
         "reason": "同属「持球单打与跳投」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线持球",
+          "横向运球",
+          "远距离跳投"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面"
+        ],
+        "reason": "投篮准备、出手和球飞行阶段可辨，未展示球权取得。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -8568,6 +11229,36 @@
         "reason": "同属「持球突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线接球",
+          "持球突破",
+          "篮下起跳终结"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "推近拉远",
+          "遮挡",
+          "局部半场画面"
+        ],
+        "reason": "突破路径、协防收缩和篮下起跳仍可辨，画质可用。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -8658,6 +11349,35 @@
         "reason": "同属「低位进攻」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线接球",
+          "背身运球",
+          "转身",
+          "后仰跳投"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面"
+        ],
+        "reason": "两页覆盖接球、背身、转身出手及结束阶段，人物和防守距离清楚。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -8747,7 +11467,41 @@
         "reason": "同属「持球单打与跳投」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
         "source_overlaps": [],
         "related_context": []
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线传球",
+          "接球持球",
+          "撤步跳投"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "过程截断"
+        ],
+        "reason": "撤步与起跳动作可辨，但结尾未展示篮筐结果。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     }
-  ]
+  ],
+  "material_labels_summary": {
+    "clear": 83,
+    "challenge": 15
+  },
+  "human_discard_archive": "data/videos/classification/discarded/index.json"
 }

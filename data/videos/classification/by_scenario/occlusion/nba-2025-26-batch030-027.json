@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "nba-2025-26-batch030-027__occlusion",
+  "clip_id": "nba-2025-26-batch030-027",
+  "scenario": "occlusion",
+  "video_path": "data/videos/nba/2025-26/clips/027_2025-11-03_DAL_Q4.mp4",
+  "annotation_path": "data/videos/nba/2025-26/labels/027.json",
+  "sha256": "3371c67f128f96fc5f3ba720a5c43e0ce68e420e0927926d3a6580500f1b396b",
+  "selection": {
+    "status": "clear",
+    "recommended": true,
+    "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "source": {
+    "manifest_path": "data/videos/nba/2025-26/manifest.json",
+    "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+    "publisher": "manuelmazon",
+    "source_id": null,
+    "kind": null,
+    "collected_at": "2026-09-30",
+    "unknown_reason": null,
+    "source_start_seconds": 6062.5,
+    "source_end_seconds": 6082.5,
+    "uploaded_filename": null,
+    "season": "2025-26",
+    "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 13.0,
+      "end": 14.5
+    }
+  ],
+  "source_intervals_seconds": [
+    {
+      "start": 6075.5,
+      "end": 6077.0
+    }
+  ],
+  "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+  "note": "掩护、突破或篮下争抢中多名球员重叠，持球手/球短暂被身体挡住。"
+}

@@ -1,0 +1,400 @@
+{
+  "schema_version": "1.0.0",
+  "clip_id": "nba-2024-25-library100-038",
+  "discarded_at": "2026-10-04T13:21:59-04:00",
+  "decision_origin": "human_review_ui",
+  "retention": {
+    "decision": "discard",
+    "reason": ""
+  },
+  "former_asset": {
+    "video_path": "data/videos/nba/2024-25/clips/038_CLE-IND_Q3_roll-pass_6.5s_720p.mp4",
+    "annotation_path": "data/videos/nba/2024-25/labels/038.json",
+    "sha256": "15ee797856136f1511d50a4425d0ef84695648fedbe87a9463829f899d7fbeb4"
+  },
+  "former_manifest_entry": {
+    "clip_id": "nba-2024-25-library100-038",
+    "local_id": "038",
+    "asset": {
+      "path": "clips/038_CLE-IND_Q3_roll-pass_6.5s_720p.mp4",
+      "bytes": 5251620,
+      "sha256": "15ee797856136f1511d50a4425d0ef84695648fedbe87a9463829f899d7fbeb4",
+      "storage": "git-lfs",
+      "availability": "included"
+    },
+    "annotation_path": "labels/038.json",
+    "source": {
+      "url": "https://v.qq.com/x/cover/mzc002009xnmkyn/x4101vcl1bb.html",
+      "publisher": "腾讯视频 NBA 栏目",
+      "source_id": "x4101vcl1bb",
+      "collected_at": "2026-09-30",
+      "start_seconds": 14.9,
+      "end_seconds": 21.4
+    },
+    "game": {
+      "key": "CLE-IND-G4",
+      "date_local": "2025-05-11",
+      "date_beijing": "2025-05-12",
+      "tipoff_utc": "2025-05-12T00:00:00+00:00",
+      "tipoff_beijing": "2025-05-12T08:00:00+08:00",
+      "matchup": "CLE-IND",
+      "stage": "东部半决赛G4",
+      "final_score": {
+        "IND": 129,
+        "CLE": 109
+      },
+      "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401769742",
+      "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250511",
+      "season": "2024-25",
+      "period": 3,
+      "clock_start": null,
+      "clock_end": "5:19",
+      "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+      "offense_team": "CLE",
+      "defense_team": "IND"
+    },
+    "tactic": {
+      "title": "莫布利顺下接球扣篮",
+      "tags": [
+        "持球掩护与挡拆",
+        "莫布利顺下接球扣篮"
+      ],
+      "description": "莫布利顺下接球扣篮",
+      "label_status": "reviewed_visible_actions",
+      "confidence_note": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+      "basis": "此前采集复核的连续画面及成片首、中、尾帧；仅描述可见动作，非球队内部战术名"
+    },
+    "video": {
+      "duration_seconds": 6.52,
+      "width": 1280,
+      "height": 720,
+      "fps": 25.0,
+      "measurement_status": "measured"
+    },
+    "reported_video": null,
+    "review": {
+      "normal_speed": true,
+      "original_broadcast": true,
+      "full_possession": false,
+      "scope": "前场回合",
+      "decode_status": "passed",
+      "visual_status": "reviewed",
+      "reviewed_at": "2026-10-01",
+      "basis": "此前100段采集记录；本次LFS准备重新核对字节、大小和SHA-256"
+    },
+    "dedup": {
+      "content_status": "reviewed_distinct",
+      "action_group": "nba-2024-25-library100:G01",
+      "similar_to": [
+        "nba-2024-25-library100-001",
+        "nba-2024-25-library100-003",
+        "nba-2024-25-library100-014",
+        "nba-2024-25-library100-046",
+        "nba-2024-25-library100-053",
+        "nba-2024-25-library100-066",
+        "nba-2024-25-library100-068",
+        "nba-2024-25-library100-077",
+        "nba-2024-25-library100-083"
+      ],
+      "reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
+      "source_overlaps": [],
+      "related_context": []
+    },
+    "material_review": {
+      "decision": "retain",
+      "quality": "clear",
+      "action_tags": [
+        "持球掩护",
+        "顺下",
+        "内线传球",
+        "接球扣篮"
+      ],
+      "difficulty_tags": [
+        "局部半场画面",
+        "稳定镜头",
+        "遮挡",
+        "镜头平移"
+      ],
+      "reason": "配合发生在广角半场画面中，接球与终结可见，后段平移发生在主要动作之后。",
+      "review_method": "ai_dense_frame_review_2fps",
+      "reviewer_model": "gpt-6.1-sol",
+      "human_reviewed": false,
+      "reviewed_at": "2026-10-03T21:19:41-04:00",
+      "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+    },
+    "material_labels": {
+      "schema_version": "1.0.0",
+      "status": "clear",
+      "recommended": true,
+      "annotation_field": "material_labels",
+      "classification_index": "data/videos/classification/index.json"
+    }
+  },
+  "annotation_snapshot": {
+    "id": "038",
+    "season": "2024-25",
+    "game": {
+      "key": "CLE-IND-G4",
+      "date_local": "2025-05-11",
+      "date_beijing": "2025-05-12",
+      "tipoff_utc": "2025-05-12T00:00:00+00:00",
+      "tipoff_beijing": "2025-05-12T08:00:00+08:00",
+      "matchup": "CLE-IND",
+      "stage": "东部半决赛G4",
+      "final_score": {
+        "IND": 129,
+        "CLE": 109
+      },
+      "verification_url": "https://www.espn.com/nba/boxscore/_/gameId/401769742",
+      "verification_api": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20250511"
+    },
+    "quarter": 3,
+    "clock_start": null,
+    "clock_end": "5:19",
+    "clock_precision": "画面人工读数，约±1秒；被原转播图层遮住时为null",
+    "title": "莫布利顺下接球扣篮",
+    "tags": [
+      "持球掩护与挡拆",
+      "莫布利顺下接球扣篮"
+    ],
+    "description": "莫布利顺下接球扣篮",
+    "label_confidence": "动作人工观察；标签为可见行为描述，未核实球队内部战术叫法",
+    "family": "roll-pass",
+    "offense": "CLE",
+    "defense": "IND",
+    "scope": "前场回合",
+    "full_possession": false,
+    "source_url": "https://v.qq.com/x/cover/mzc002009xnmkyn/x4101vcl1bb.html",
+    "source_publisher": "腾讯视频 NBA 栏目",
+    "source_vid": "x4101vcl1bb",
+    "source_start_seconds": 14.9,
+    "source_end_seconds": 21.4,
+    "file": "clips/038_CLE-IND_Q3_roll-pass_6.5s_720p.mp4",
+    "normal_speed": true,
+    "original_broadcast": true,
+    "collected_at": "2026-09-30",
+    "width": 1280,
+    "height": 720,
+    "fps": 25.0,
+    "decode_check": "passed",
+    "duration_seconds": 6.52,
+    "sha256": "15ee797856136f1511d50a4425d0ef84695648fedbe87a9463829f899d7fbeb4",
+    "size_bytes": 5251620,
+    "content_duplicate": false,
+    "tactic_repeat_group": "G01",
+    "tactic_repeat": true,
+    "similar_to": [
+      "001",
+      "003",
+      "014",
+      "046",
+      "053",
+      "066",
+      "068",
+      "077",
+      "083"
+    ],
+    "repeat_reason": "同属「持球掩护与挡拆」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
+    "material_review": {
+      "clip_id": "nba-2024-25-library100-038",
+      "decision": "retain",
+      "quality": "clear",
+      "usefulness": "适合持球配合、向篮下移动接球和内线终结识别。",
+      "action_tags": [
+        "持球掩护",
+        "顺下",
+        "内线传球",
+        "接球扣篮"
+      ],
+      "action_description": "黑衣队外围持球与靠近的队友配合，内线队员向篮下移动，接到传球后在篮筐附近起跳扣篮。",
+      "difficulty_tags": [
+        "局部半场画面",
+        "稳定镜头",
+        "遮挡",
+        "镜头平移"
+      ],
+      "camera": "高位侧面转播广角，随球平移，前场阶段覆盖主要攻防队员",
+      "scope": "前场配合",
+      "issue_intervals": [
+        {
+          "start": 2,
+          "end": 3,
+          "issue": "篮下终结时攻防人员重叠"
+        },
+        {
+          "start": 5.5,
+          "end": 6.52,
+          "issue": "回防时镜头快速平移"
+        }
+      ],
+      "reason": "配合发生在广角半场画面中，接球与终结可见，后段平移发生在主要动作之后。",
+      "review_method": "ai_dense_frame_review_2fps",
+      "reviewer_model": "gpt-6.1-sol",
+      "sha256": "15ee797856136f1511d50a4425d0ef84695648fedbe87a9463829f899d7fbeb4",
+      "reviewed_at": "2026-10-03T21:19:41-04:00",
+      "human_reviewed": false,
+      "sample_count": 13,
+      "evidence_location": "contact sheets and extra frames are local under artifacts/",
+      "selection_scope": "use_catalog_only; original asset remains available",
+      "tier": "primary",
+      "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+    },
+    "material_labels": {
+      "schema_version": "1.0.0",
+      "clip_id": "nba-2024-25-library100-038",
+      "asset": {
+        "video_path": "data/videos/nba/2024-25/clips/038_CLE-IND_Q3_roll-pass_6.5s_720p.mp4",
+        "annotation_path": "data/videos/nba/2024-25/labels/038.json",
+        "sha256": "15ee797856136f1511d50a4425d0ef84695648fedbe87a9463829f899d7fbeb4"
+      },
+      "source": {
+        "manifest_path": "data/videos/nba/2024-25/manifest.json",
+        "url": "https://v.qq.com/x/cover/mzc002009xnmkyn/x4101vcl1bb.html",
+        "publisher": "腾讯视频 NBA 栏目",
+        "source_id": "x4101vcl1bb",
+        "kind": null,
+        "collected_at": "2026-09-30",
+        "unknown_reason": null,
+        "source_start_seconds": 14.9,
+        "source_end_seconds": 21.4,
+        "uploaded_filename": null,
+        "season": "2024-25",
+        "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+      },
+      "quality": {
+        "clarity": "clear",
+        "core_actions_visible": true,
+        "reason": "宽景中球员轮廓、场线及关键传接/出手过程可辨；短时肢体重叠或移动尾部不妨碍主要动作判断。"
+      },
+      "scenarios": {
+        "camera_zoom": {
+          "value": false,
+          "intervals": [],
+          "note": "仅随球平移或保持相近景别，未见明确推近/拉远。"
+        },
+        "full_court_movement": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 5.5,
+              "end": 6.52
+            }
+          ],
+          "note": "尾部连续跟球移向中线并跨入另一半场，持球人向左推进；只覆盖短转换，不代表完整回合或抵达另一篮筐。"
+        },
+        "image_blur": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 5.5,
+              "end": 6.52
+            }
+          ],
+          "note": "在这些时段可见追拍或球员快速运动造成的拖影/发虚；关键动作仍可辨，保留作为真实运动模糊场景。"
+        },
+        "closeup_insertion": {
+          "value": false,
+          "intervals": [],
+          "note": "完整时间序列持续为场上转播宽景，未切入球员、教练、裁判或替补席特写。"
+        },
+        "view_switch": {
+          "value": false,
+          "intervals": [],
+          "note": "全段密集时间序列未见明确机位或视角切换；平移和推拉仍属于同一转播视角。"
+        },
+        "half_court_only": {
+          "value": false,
+          "intervals": [],
+          "note": "尾部可见跨中线的两半场转换，故不属于只有半场。"
+        },
+        "motion_blur": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 5.5,
+              "end": 6.52
+            }
+          ],
+          "note": "所列追拍或快速移动阶段出现肢体/背景拖影，运动方向和主要球员关系仍可辨。"
+        },
+        "occlusion": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 1.5,
+              "end": 4.0
+            }
+          ],
+          "note": "所列时段球或持球人被近侧防守者、掩护者或篮下聚集人群短暂遮挡；连续前后帧能恢复动作关系。"
+        },
+        "players_out_of_frame": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 5.5,
+              "end": 6.52
+            }
+          ],
+          "note": "跟球取景时远侧翼、身后推进球员或退防者位于画外/画缘；持球及主要终结仍保留，不能据此认为十人全程同框。"
+        },
+        "replay_or_teaching": {
+          "value": false,
+          "intervals": [],
+          "note": "时间序列为连续比赛转播；未见回放重复、定格、教学箭头或讲解图，比分/统计叠图不计教学。"
+        }
+      },
+      "content": {
+        "scope": "partial_action",
+        "action_tags": [
+          "持球掩护",
+          "顺下",
+          "内线传球",
+          "接球扣篮"
+        ],
+        "description": "黑衣队外围持球与靠近的队友配合，内线队员向篮下移动，接到传球后在篮筐附近起跳扣篮。",
+        "usable_intervals": [
+          {
+            "start": 0.0,
+            "end": 6.52
+          }
+        ]
+      },
+      "selection": {
+        "status": "excluded",
+        "recommended": false,
+        "reason": "人工决定丢弃：用户明确选择丢弃，未填写原因；不推测原因。"
+      },
+      "content_relations": [],
+      "provenance": {
+        "reviewer_model": "gpt-6.1-sol",
+        "review_method": "ai_dense_frame_review_2fps",
+        "human_reviewed": true,
+        "reviewed_at": "2026-10-04T06:39:10-04:00",
+        "sample_count": 13,
+        "evidence_sheets": [
+          "artifacts/material-review-20261003/frames/nba-2024-25-library100-038/contact-01.jpg"
+        ],
+        "extra_frames": [],
+        "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+        "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片",
+        "labeling_origin": "human_reviewed",
+        "human_review": {
+          "completed_at": "2026-10-04T12:40:54-04:00",
+          "applied_at": "2026-10-04T13:21:59-04:00",
+          "review_revision": 4,
+          "retention": {
+            "decision": "discard",
+            "reason": ""
+          },
+          "corrected_fields": [],
+          "source": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-038.json",
+          "reviewed_label_fingerprint": "9f6aed29546f50c77e9837d9f428e8ed71355fd220a01b6392687a087987bc0d",
+          "note": "用户逐项人工审核及纠错；后续AI推拉复核另记，不冒充重新人工确认。"
+        }
+      }
+    }
+  },
+  "human_review_record": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-038.json",
+  "media_state": "removed_from_registered_library",
+  "note": "原视频与活动标签已从数据目录移除；此处仅保留元数据供追溯，历史来源快照不改写。"
+}

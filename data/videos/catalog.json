@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-10-04T09:06:36+08:00",
+  "updated_at": "2026-10-04T13:21:59-04:00",
   "path_base": "repository_root",
   "datasets": [
     {
@@ -8,8 +8,8 @@
       "season": "2024-25",
       "root": "data/videos/nba/2024-25",
       "manifest": "data/videos/nba/2024-25/manifest.json",
-      "entry_count": 100,
-      "included_count": 100,
+      "entry_count": 98,
+      "included_count": 98,
       "awaiting_upload_count": 0
     },
     {
@@ -17,8 +17,8 @@
       "season": "2025-26",
       "root": "data/videos/nba/2025-26",
       "manifest": "data/videos/nba/2025-26/manifest.json",
-      "entry_count": 30,
-      "included_count": 30,
+      "entry_count": 28,
+      "included_count": 28,
       "awaiting_upload_count": 0
     },
     {
@@ -26,8 +26,8 @@
       "season": "2025-26",
       "root": "data/videos/nba/2025-26",
       "manifest": "data/videos/nba/2025-26/manifest-batch-008.json",
-      "entry_count": 8,
-      "included_count": 8,
+      "entry_count": 7,
+      "included_count": 7,
       "awaiting_upload_count": 0
     },
     {
@@ -45,8 +45,8 @@
       "purpose": "tactic_acceptance",
       "root": "data/videos/tactics/acceptance",
       "manifest": "data/videos/tactics/acceptance/manifest.json",
-      "entry_count": 3,
-      "included_count": 3,
+      "entry_count": 2,
+      "included_count": 2,
       "awaiting_upload_count": 0
     },
     {
@@ -65,8 +65,8 @@
       "purpose": "user_upload",
       "root": "data/videos/uploads/2026-10-03-batch02",
       "manifest": "data/videos/uploads/2026-10-03-batch02/manifest.json",
-      "entry_count": 11,
-      "included_count": 11,
+      "entry_count": 10,
+      "included_count": 10,
       "awaiting_upload_count": 0
     },
     {
@@ -75,8 +75,8 @@
       "purpose": "user_upload",
       "root": "data/videos/uploads/2026-10-04",
       "manifest": "data/videos/uploads/2026-10-04/manifest.json",
-      "entry_count": 18,
-      "included_count": 18,
+      "entry_count": 13,
+      "included_count": 13,
       "awaiting_upload_count": 0
     }
   ],
@@ -89,5 +89,9 @@
       "path": "data/videos/nba/2025-26/sources/sample-001.json",
       "note": "历史单段清单；与后续批次关系待确认，不计新增独立素材"
     }
-  ]
+  ],
+  "classification_index": "data/videos/classification/index.json",
+  "material_label_schema": "data/videos/classification/label-schema.json",
+  "human_review_index": "data/videos/reviews/human-2026-10-04/index.json",
+  "discarded_index": "data/videos/classification/discarded/index.json"
 }

@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "nba-2025-26-batch030-001__full_court_movement",
+  "clip_id": "nba-2025-26-batch030-001",
+  "scenario": "full_court_movement",
+  "video_path": "data/videos/nba/2025-26/clips/001_2025-11-03_DAL_Q3.mp4",
+  "annotation_path": "data/videos/nba/2025-26/labels/001.json",
+  "sha256": "86b386660b5ffa1b2fb7bfba56e02fcca2c407ac9ddfddc8775f964db637f4df",
+  "selection": {
+    "status": "clear",
+    "recommended": true,
+    "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "source": {
+    "manifest_path": "data/videos/nba/2025-26/manifest.json",
+    "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+    "publisher": "manuelmazon",
+    "source_id": null,
+    "kind": null,
+    "collected_at": "2026-09-30",
+    "unknown_reason": null,
+    "source_start_seconds": 3548,
+    "source_end_seconds": 3571,
+    "uploaded_filename": null,
+    "season": "2025-26",
+    "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 1.5,
+      "end": 6.0
+    }
+  ],
+  "source_intervals_seconds": [
+    {
+      "start": 3549.5,
+      "end": 3554.0
+    }
+  ],
+  "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+  "note": "序列实际看见镜头跟随持球与攻防队员跨越中线进入另一端，区间约涵盖该推进。"
+}

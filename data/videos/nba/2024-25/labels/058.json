@@ -60,5 +60,198 @@
     "082",
     "095"
   ],
-  "repeat_reason": "同属「突破分球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+  "repeat_reason": "同属「突破分球」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
+  "material_review": {
+    "clip_id": "nba-2024-25-library100-058",
+    "decision": "retain",
+    "quality": "clear",
+    "usefulness": "适合掩护后突破分球、内线接应和篮下终结辨识。",
+    "action_tags": [
+      "持球掩护",
+      "持球突破",
+      "内线传球",
+      "近筐终结"
+    ],
+    "action_description": "黄衣持球人在左侧外线借队友站位掩护进入禁区边缘，将球传给向篮下移动的队友；接球人于篮下起跳出手，蓝衣防守收缩，之后蓝衣取得球向另一端推进。",
+    "difficulty_tags": [
+      "稳定镜头",
+      "局部半场画面",
+      "遮挡"
+    ],
+    "camera": "高位转播半场广角，随持球动作轻微平移或推近。",
+    "scope": "前场配合",
+    "issue_intervals": [],
+    "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+    "review_method": "ai_dense_frame_review_2fps",
+    "reviewer_model": "gpt-6.1-sol",
+    "sha256": "c1a536bedf42916f66b9c9719532a5369f690e771f573aa0f420231680d36a21",
+    "reviewed_at": "2026-10-03T21:19:41-04:00",
+    "human_reviewed": false,
+    "sample_count": 18,
+    "evidence_location": "contact sheets and extra frames are local under artifacts/",
+    "selection_scope": "use_catalog_only; original asset remains available",
+    "tier": "primary",
+    "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+  },
+  "material_labels": {
+    "schema_version": "1.0.0",
+    "clip_id": "nba-2024-25-library100-058",
+    "asset": {
+      "video_path": "data/videos/nba/2024-25/clips/058_NYK-IND_Q3_drive-pass_8.9s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/058.json",
+      "sha256": "c1a536bedf42916f66b9c9719532a5369f690e771f573aa0f420231680d36a21"
+    },
+    "source": {
+      "manifest_path": "data/videos/nba/2024-25/manifest.json",
+      "url": "https://v.qq.com/x/cover/mzc00200zuwdjc0/g4101enf31a.html",
+      "publisher": "腾讯视频 NBA 栏目",
+      "source_id": "g4101enf31a",
+      "kind": null,
+      "collected_at": "2026-09-30",
+      "unknown_reason": null,
+      "source_start_seconds": 0.0,
+      "source_end_seconds": 8.9,
+      "uploaded_filename": null,
+      "season": "2024-25",
+      "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+    },
+    "quality": {
+      "clarity": "clear",
+      "core_actions_visible": true,
+      "reason": "宽景中球员轮廓、场线及关键传接/出手过程可辨；短时肢体重叠或移动尾部不妨碍主要动作判断。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": null,
+        "intervals": [],
+        "note": "右摇过程中禁区投影变宽，但篮板、支架与看台缺少一致缩放证据，无法排除透视。"
+      },
+      "full_court_movement": {
+        "value": false,
+        "intervals": [],
+        "note": "所见有效动作停留在一端；未观察到持球动作连续跨中线进入另一半场。"
+      },
+      "image_blur": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 8.0,
+            "end": 8.8
+          }
+        ],
+        "note": "在这些时段可见追拍或球员快速运动造成的拖影/发虚；关键动作仍可辨，保留作为真实运动模糊场景。"
+      },
+      "closeup_insertion": {
+        "value": false,
+        "intervals": [],
+        "note": "完整时间序列持续为场上转播宽景，未切入球员、教练、裁判或替补席特写。"
+      },
+      "view_switch": {
+        "value": false,
+        "intervals": [],
+        "note": "全段密集时间序列未见明确机位或视角切换；平移和推拉仍属于同一转播视角。"
+      },
+      "half_court_only": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 8.8
+          }
+        ],
+        "note": "有效配合集中在一个进攻半场；虽有退防或开始转换，未观察到连续持球跨中线进入另一半场。"
+      },
+      "motion_blur": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 8.0,
+            "end": 8.8
+          }
+        ],
+        "note": "所列追拍或快速移动阶段出现肢体/背景拖影，运动方向和主要球员关系仍可辨。"
+      },
+      "occlusion": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 1.5,
+            "end": 2.0
+          },
+          {
+            "start": 6.0,
+            "end": 7.0
+          }
+        ],
+        "note": "所列时段球或持球人被近侧防守者、掩护者或篮下聚集人群短暂遮挡；连续前后帧能恢复动作关系。"
+      },
+      "players_out_of_frame": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 6.0,
+            "end": 8.8
+          }
+        ],
+        "note": "跟球取景时远侧翼、身后推进球员或退防者位于画外/画缘；持球及主要终结仍保留，不能据此认为十人全程同框。"
+      },
+      "replay_or_teaching": {
+        "value": false,
+        "intervals": [],
+        "note": "时间序列为连续比赛转播；未见回放重复、定格、教学箭头或讲解图，比分/统计叠图不计教学。"
+      }
+    },
+    "content": {
+      "scope": "frontcourt_sequence",
+      "action_tags": [
+        "持球掩护",
+        "持球突破",
+        "内线传球",
+        "近筐终结"
+      ],
+      "description": "黄衣持球人在左侧外线借队友站位掩护进入禁区边缘，将球传给向篮下移动的队友；接球人于篮下起跳出手，蓝衣防守收缩，之后蓝衣取得球向另一端推进。",
+      "usable_intervals": [
+        {
+          "start": 0.0,
+          "end": 8.8
+        }
+      ]
+    },
+    "selection": {
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "gpt-6.1-sol",
+      "review_method": "ai_dense_frame_review_2fps",
+      "human_reviewed": false,
+      "reviewed_at": "2026-10-04T06:39:10-04:00",
+      "sample_count": 18,
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-058/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-058/contact-02.jpg"
+      ],
+      "extra_frames": [],
+      "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+      "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片",
+      "camera_zoom_recheck": {
+        "reviewed_at": "2026-10-04T13:40:13-04:00",
+        "reviewer_model": "gpt-6.1-sol",
+        "method": "两名不同子Agent先后实际查看全部2fps序列；主Agent核对人工纠错与合并。",
+        "initial_value": true,
+        "independent_value": null,
+        "confidence": "low",
+        "independent_reason": "已独立查看全部接触表，微小尺度变化无法可靠排除横摇透视，因此保留不确定。",
+        "evidence_sheets": [
+          "artifacts/material-review-20261003/frames/nba-2024-25-library100-058/contact-01.jpg",
+          "artifacts/material-review-20261003/frames/nba-2024-25-library100-058/contact-02.jpg"
+        ],
+        "timestamp_note": "采样间隔0.5秒；区间为近似定位，未验证逐帧边界误差上界。",
+        "human_instruction_applied": false
+      },
+      "labeling_origin": "ai_visual_review"
+    }
+  }
 }

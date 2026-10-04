@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "nba-2024-25-library100-034__occlusion",
+  "clip_id": "nba-2024-25-library100-034",
+  "scenario": "occlusion",
+  "video_path": "data/videos/nba/2024-25/clips/034_CLE-IND_Q3_cut-pass_9.5s_720p.mp4",
+  "annotation_path": "data/videos/nba/2024-25/labels/034.json",
+  "sha256": "21a0f69af7fa7f1b4875e05cc2712182aa336b4cf161821ee327101a3ab03281",
+  "selection": {
+    "status": "clear",
+    "recommended": true,
+    "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "source": {
+    "manifest_path": "data/videos/nba/2024-25/manifest.json",
+    "url": "https://v.qq.com/x/cover/mzc002009xnmkyn/g4101gwmk3e.html",
+    "publisher": "腾讯视频 NBA 栏目",
+    "source_id": "g4101gwmk3e",
+    "kind": null,
+    "collected_at": "2026-09-30",
+    "unknown_reason": null,
+    "source_start_seconds": 0.0,
+    "source_end_seconds": 9.5,
+    "uploaded_filename": null,
+    "season": "2024-25",
+    "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 2.0,
+      "end": 3.0
+    },
+    {
+      "start": 6.0,
+      "end": 8.0
+    }
+  ],
+  "source_intervals_seconds": [
+    {
+      "start": 2.0,
+      "end": 3.0
+    },
+    {
+      "start": 6.0,
+      "end": 8.0
+    }
+  ],
+  "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+  "note": "所列时段球或持球人被近侧防守者、掩护者或篮下聚集人群短暂遮挡；连续前后帧能恢复动作关系。"
+}

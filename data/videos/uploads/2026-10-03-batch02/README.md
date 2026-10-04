@@ -1,5 +1,7 @@
 # 2026-10-03 第二批用户上传视频
 
+2026-10-04 人工审核更新：本目录当前保留 **10 段**。已按用户决定删除 006；活动清单以本目录 manifest 和[正式场景目录](../../classification/README.md)为准；下文原始收集数量、统计与来源说明保留历史口径。人工记录见[本轮审核](../../reviews/human-2026-10-04/README.md)。
+
 本批最初接收十一段 MP4，使用 Git LFS。2026-10-03 按用户要求分两轮以找到的同名文件替换 002、005、006、010；编号与片段 ID 保持不变，所有当前成片按原字节保存，没有转码。
 
 批次 ID：`user-uploads-20261003-batch02`。接收时间：2026-10-03T13:43:16+08:00，Asia/Shanghai。资产与规格见 [manifest.json](manifest.json)，初次接收记录见 [sources/uploaded-files.json](sources/uploaded-files.json)，该历史快照保留原貌；002 的当前来源、替换前后哈希与查找结果见 [002 替换记录](sources/replacement-002-20261003.json)；本轮三个文件见 [005 / 006 / 010 替换记录](sources/replacement-005-006-010-20261003.json)。
@@ -11,7 +13,7 @@
 | 003 | [03_Warriors_20181005_Q2_6m13_slip_cut_silent.mp4](clips/03_Warriors_20181005_Q2_6m13_slip_cut_silent.mp4) | 1280×720，1178000000/19652931 fps | 19.652931 秒 / 1178 帧 |
 | 004 | [04_Warriors_20181005_Q1_2m39_post_split_silent.mp4](clips/04_Warriors_20181005_Q1_2m39_post_split_silent.mp4) | 1280×720，60000/1001 fps | 17.500817 秒 / 1049 帧 |
 | 005 | [05_Pacers_20250106_Q2_0m44_team_motion_720p_silent.mp4](clips/05_Pacers_20250106_Q2_0m44_team_motion_720p_silent.mp4) | 1280×720，60/1 fps | 17.5 秒 / 1050 帧 |
-| 006 | [06_Grizzlies_20251202_Q1_6m33_screens_handoffs_native708_silent.mp4](clips/06_Grizzlies_20251202_Q1_6m33_screens_handoffs_native708_silent.mp4) | 1280×708，30/1 fps | 17.766667 秒 / 533 帧 |
+| 006 | [06_Grizzlies_20251202_Q1_6m33_screens_handoffs_native708_silent.mp4（人工已删除）](../../classification/discarded/user-uploads-20261003-batch02-006.json) | 1280×708，30/1 fps | 17.766667 秒 / 533 帧 |
 | 007 | [07_Warriors_20190610_Finals_G5_Q1_give_go_silent.mp4](clips/07_Warriors_20190610_Finals_G5_Q1_give_go_silent.mp4) | 1280×720，23100000/385411 fps | 12.846667 秒 / 770 帧 |
 | 008 | [08_Lakers_20161104_Q2_10m42_post_split_silent.mp4](clips/08_Lakers_20161104_Q2_10m42_post_split_silent.mp4) | 1902×996，60/1 fps | 10.883333 秒 / 653 帧 |
 | 009 | [09_Celtics_20161111_Q1_10m48_screen_screener_silent.mp4](clips/09_Celtics_20161111_Q1_10m48_screen_screener_silent.mp4) | 1920×1080，60/1 fps | 10.9 秒 / 654 帧 |

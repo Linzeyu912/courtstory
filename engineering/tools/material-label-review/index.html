@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>篮球素材 · 人工标签审核</title>
+  <link rel="stylesheet" href="/review.css">
+  <script type="module" src="/review.mjs"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><button id="menu-toggle" class="mobile-menu" aria-label="打开视频目录">☰</button><span class="brand-mark">B</span><div><strong>篮球素材审核</strong><span>逐段看视频，核对标签与去留</span></div></div>
+    <div class="overall-progress"><span id="progress-label">正在读取素材…</span><progress id="progress" value="0" max="175"></progress></div>
+    <button id="export" class="quiet">导出审核备份</button>
+  </header>
+  <div class="app-shell">
+    <aside class="library" id="library">
+      <div class="library-heading"><h2>审核队列 <span id="total-count"></span></h2><button id="menu-close" class="mobile-menu" aria-label="关闭目录">×</button></div>
+      <select id="queue-mode" aria-label="审核范围"><option value="sample">分层抽检40段</option><option value="all">全部175段</option></select>
+      <label class="search"><span>⌕</span><input id="search" type="search" placeholder="搜编号、动作、文件名" aria-label="搜索视频"></label>
+      <select id="review-filter" aria-label="筛选审核状态"><option value="all">全部 · 包含排除与重复片段</option><option value="pending">未审完</option><option value="completed">已审完</option><option value="issues">有标错／待处理</option><option value="excluded">机器建议排除／重复</option></select>
+      <select id="batch-filter" aria-label="筛选素材批次"><option value="all">所有批次</option></select>
+      <p class="library-hint" id="queue-hint">抽检包含已审片段；完成后只跳转队列内尚未审完的片段。</p>
+      <nav id="clip-list" aria-label="视频列表"></nav>
+      <div class="library-footer"><span id="list-count"></span><span>点击任一视频继续审核</span></div>
+    </aside>
+    <main class="viewer">
+      <div class="clip-heading"><span id="clip-position" class="eyebrow"></span><h1 id="clip-title">正在加载视频</h1><p id="clip-context"></p></div>
+      <div class="video-wrap"><video id="video" controls playsinline preload="metadata"></video><div id="video-error" hidden>本机视频未能播放。请检查素材是否已完整下载。</div></div>
+      <div class="playback-tools">
+        <button id="frame-prev" title="前一帧">前一帧</button><button id="back-two">−2秒</button><button id="forward-two">+2秒</button><button id="frame-next" title="后一帧">后一帧</button>
+        <label>速度 <select id="speed" aria-label="播放速度"><option value="0.5">0.5×</option><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label>
+      </div>
+      <div class="time-strip"><span id="play-time">00:00.00</span><span id="active-span">点击右侧时间段，可定位查看</span><button id="loop" class="quiet" aria-pressed="false">循环区间：关</button><button id="whole" class="quiet">看完整视频</button></div>
+      <div class="machine-note"><span id="machine-badge"></span><p id="machine-reason"></p></div>
+      <section class="retention"><h2>这段视频，最后要不要留下？</h2><p>标签是否正确与视频去留，分别记录。</p><div id="retention-options" class="retention-options"><button data-decision="keep">保留</button><button data-decision="discard">建议丢弃</button><button data-decision="unsure">暂不确定</button></div><textarea id="retention-reason" rows="2" placeholder="去留原因（可选），例如画面太糊、与另一段重复…" aria-label="去留原因"></textarea></section>
+      <section class="general-notes"><label for="general-notes">整段补充意见</label><textarea id="general-notes" rows="2" placeholder="漏了什么标签，或需要我最后怎么改？"></textarea></section>
+      <details class="source-details"><summary>原文件与审核说明</summary><p id="filename"></p><a id="source-link" target="_blank" rel="noreferrer" hidden>查看原始来源网页 ↗</a><p id="timing-note"></p><p id="output-path"></p><p>选择“建议丢弃”只保存你的决定。原视频会保留，等最终处理。</p></details>
+    </main>
+    <section class="inspector" aria-label="逐项标签审核">
+      <div class="inspector-heading"><div><span class="eyebrow">核对当前视频</span><h2>标签是否正确？</h2></div><span id="field-progress"></span></div>
+      <div class="confirm-strip"><button id="all-correct" class="primary">一键：全部标签正确</button><p>有错就点该项“不正确”，可写正确标签或时间。</p></div>
+      <div id="stale-notice" class="notice" hidden>这段标签已更新，上次评价保留在文件中。请核对当前版本。</div>
+      <div id="applied-notice" class="notice" hidden>你的审核意见已处理。下方显示当前标签，已修正项附有原意见；再次修改评价时才保存新版本。</div>
+      <div id="recovery-notice" class="notice" hidden>已恢复未落盘的本机草稿，请点“重试保存”。</div>
+      <div id="fields" class="fields"></div>
+    </section>
+  </div>
+  <footer class="review-footer">
+    <div class="save-status"><span id="save-dot" class="save-dot"></span><div><strong id="save-label">准备就绪</strong><span id="save-detail">评价自动保存到本机</span></div><button id="retry" class="quiet" hidden>重试保存</button></div>
+    <div class="navigation"><button id="previous" class="quiet">上一段</button><button id="browse-next" class="quiet">下一段</button><button id="complete" class="secondary">完成本段并下一段</button><button id="quick-complete" class="primary">全对 · 保留 · 下一段</button></div>
+  </footer>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+  <div id="load-error" hidden><h2>页面暂时无法连接本机服务</h2><p>请保持启动窗口中的本机服务运行，再刷新页面。</p><button onclick="location.reload()">重新连接</button></div>
+</body>
+</html>

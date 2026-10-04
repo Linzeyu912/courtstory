@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "user-uploads-20261004-012__players_out_of_frame",
+  "clip_id": "user-uploads-20261004-012",
+  "scenario": "players_out_of_frame",
+  "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085448_203.mp4",
+  "annotation_path": "data/videos/uploads/2026-10-04/labels/012.json",
+  "sha256": "83ce18a1bdf04f89a4ab26c702e8b75e05b70ca2a7d5ed6f9f976c9056cb5da9",
+  "selection": {
+    "status": "clear",
+    "recommended": true,
+    "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "source": {
+    "manifest_path": "data/videos/uploads/2026-10-04/manifest.json",
+    "url": null,
+    "publisher": null,
+    "source_id": null,
+    "kind": "user_upload",
+    "collected_at": "2026-10-04",
+    "unknown_reason": "用户提供本地文件夹中的成片并授权共享；未提供原网页、发布者或原片裁切区间。可见水印不等于已经核实原来源网页。微信文件名日期为文件命名线索，不当作比赛日期。",
+    "source_start_seconds": null,
+    "source_end_seconds": null,
+    "uploaded_filename": "微信视频2026-10-04_085448_203.mp4",
+    "season": null,
+    "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 20.0,
+      "end": 23.0
+    }
+  ],
+  "source_intervals_seconds": null,
+  "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+  "note": "推进或镜头收紧时部分远端/侧翼球员离开画幅，局部动作继续可见。"
+}

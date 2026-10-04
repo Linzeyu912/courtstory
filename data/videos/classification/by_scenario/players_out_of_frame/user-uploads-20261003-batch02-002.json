@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "user-uploads-20261003-batch02-002__players_out_of_frame",
+  "clip_id": "user-uploads-20261003-batch02-002",
+  "scenario": "players_out_of_frame",
+  "video_path": "data/videos/uploads/2026-10-03-batch02/clips/02_Warriors_20240316_Q3_4m17_team_motion_1080class_silent.mp4",
+  "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/002.json",
+  "sha256": "2435960f79e85859e31650204e110a25c79d6bc6cede0ea29c25af2881215df0",
+  "selection": {
+    "status": "clear",
+    "recommended": true,
+    "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "source": {
+    "manifest_path": "data/videos/uploads/2026-10-03-batch02/manifest.json",
+    "url": null,
+    "publisher": null,
+    "source_id": null,
+    "kind": "user_upload",
+    "collected_at": "2026-10-03",
+    "unknown_reason": "用户要求用截图所列同名文件替换编号 002；截图指定的 HKS 下“新视频”目录在本机不存在，本次从本机 Codex 文件预览缓存找到同名文件并按原字节复制。未提供原页面、发布者或来源原片裁切区间；文件名仅为命名线索。",
+    "source_start_seconds": null,
+    "source_end_seconds": null,
+    "uploaded_filename": "02_Warriors_20240316_Q3_4m17_team_motion_1080class_silent.mp4",
+    "season": null,
+    "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 0.0,
+      "end": 1.0
+    }
+  ],
+  "source_intervals_seconds": null,
+  "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+  "note": "推进或镜头收紧时部分远端/侧翼球员离开画幅，局部动作继续可见。"
+}

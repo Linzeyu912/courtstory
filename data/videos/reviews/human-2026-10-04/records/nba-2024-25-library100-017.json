@@ -1,0 +1,304 @@
+{
+  "schema_version": "1.0.0",
+  "clip_id": "nba-2024-25-library100-017",
+  "video_path": "data/videos/nba/2024-25/clips/017_LAC-DEN_Q1_steal_10.5s_720p.mp4",
+  "annotation_path": "data/videos/nba/2024-25/labels/017.json",
+  "video_sha256": "5acd540537f84f687464779e7e9629db7542d63bcf09aa5b48bdcbee05a47802",
+  "label_fingerprint": "7fc5315b0fe15489741c6da39c9ae2a7a3b10fcb2cb0e04b3587dd8756c44fbc",
+  "annotation_snapshot": {
+    "schema_version": "1.0.0",
+    "clip_id": "nba-2024-25-library100-017",
+    "asset": {
+      "video_path": "data/videos/nba/2024-25/clips/017_LAC-DEN_Q1_steal_10.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/017.json",
+      "sha256": "5acd540537f84f687464779e7e9629db7542d63bcf09aa5b48bdcbee05a47802"
+    },
+    "source": {
+      "manifest_path": "data/videos/nba/2024-25/manifest.json",
+      "url": "https://v.qq.com/x/cover/mzc00200ovlb8t5/t4101d81zih.html",
+      "publisher": "腾讯视频 NBA 栏目",
+      "source_id": "t4101d81zih",
+      "kind": null,
+      "collected_at": "2026-09-30",
+      "unknown_reason": null,
+      "source_start_seconds": 0.0,
+      "source_end_seconds": 10.5,
+      "uploaded_filename": null,
+      "season": "2024-25",
+      "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+    },
+    "quality": {
+      "clarity": "soft",
+      "core_actions_visible": true,
+      "reason": "追拍推进阶段球员肢体与背景有连续运动拖影；仍能辨认持球方、传接方向及主要防守位置，核心动作可分析。已补看两张原尺寸帧核对清晰度。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 7.0,
+            "end": 10.4
+          }
+        ],
+        "note": "转播镜头在这些近似时段调整景别，球员与篮架/场线在画面中的尺度变化；包含轻微推近或拉远。"
+      },
+      "full_court_movement": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 4.0,
+            "end": 8.0
+          }
+        ],
+        "note": "已实际看到连续跟球追拍越过中线，推进到另一端半场；时间为密集帧近似范围。"
+      },
+      "image_blur": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 4.0,
+            "end": 7.0
+          }
+        ],
+        "note": "在这些时段可见追拍或球员快速运动造成的拖影/发虚；关键动作仍可辨，保留作为真实运动模糊场景。"
+      },
+      "closeup_insertion": {
+        "value": false,
+        "intervals": [],
+        "note": "完整时间序列持续为场上转播宽景，未切入球员、教练、裁判或替补席特写。"
+      },
+      "view_switch": {
+        "value": false,
+        "intervals": [],
+        "note": "全段密集时间序列未见明确机位或视角切换；平移和推拉仍属于同一转播视角。"
+      },
+      "half_court_only": {
+        "value": false,
+        "intervals": [],
+        "note": "连续宽景可见球员随球跨越中线，从一侧半场推进到另一侧；不是只有半场。"
+      },
+      "motion_blur": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 4.0,
+            "end": 7.0
+          }
+        ],
+        "note": "所列追拍或快速移动阶段出现肢体/背景拖影，运动方向和主要球员关系仍可辨。"
+      },
+      "occlusion": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 3.5,
+            "end": 4.5
+          },
+          {
+            "start": 7.0,
+            "end": 8.0
+          }
+        ],
+        "note": "所列时段球或持球人被近侧防守者、掩护者或篮下聚集人群短暂遮挡；连续前后帧能恢复动作关系。"
+      },
+      "players_out_of_frame": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 1.0
+          },
+          {
+            "start": 6.5,
+            "end": 10.4
+          }
+        ],
+        "note": "跟球取景时远侧翼、身后推进球员或退防者位于画外/画缘；持球及主要终结仍保留，不能据此认为十人全程同框。"
+      },
+      "replay_or_teaching": {
+        "value": false,
+        "intervals": [],
+        "note": "时间序列为连续比赛转播；未见回放重复、定格、教学箭头或讲解图，比分/统计叠图不计教学。"
+      }
+    },
+    "content": {
+      "scope": "partial_action",
+      "action_tags": [
+        "外围掩护",
+        "传球失误",
+        "反击推进",
+        "追防干扰"
+      ],
+      "description": "深色队外围组织后球权转至红色队，红色持球人快速推进左侧篮筐，深色追防者从侧后方伸手干扰，球到篮下后死球。",
+      "usable_intervals": [
+        {
+          "start": 0.0,
+          "end": 10.4
+        }
+      ]
+    },
+    "selection": {
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "gpt-6.1-sol",
+      "review_method": "ai_dense_frame_review_2fps",
+      "human_reviewed": false,
+      "reviewed_at": "2026-10-04T06:39:10-04:00",
+      "sample_count": 21,
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-017/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-017/contact-02.jpg"
+      ],
+      "extra_frames": [
+        "artifacts/material-labels-20261003/extra-frames/batch-01/017-2s.png",
+        "artifacts/material-labels-20261003/extra-frames/batch-01/017-3s.png"
+      ],
+      "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+      "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片"
+    }
+  },
+  "revision": 3,
+  "origin": "human_review_ui",
+  "status": "completed",
+  "evaluations": {
+    "quality.clarity": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "quality.core_actions_visible": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.scope": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.camera_zoom": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.full_court_movement": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.image_blur": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.closeup_insertion": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.view_switch": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.half_court_only": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.motion_blur": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.occlusion": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.players_out_of_frame": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.replay_or_teaching": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.action_tags.0": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.action_tags.1": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.action_tags.2": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.action_tags.3": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.description": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.usable_intervals": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "source": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "selection": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    }
+  },
+  "retention": {
+    "decision": "keep",
+    "reason": ""
+  },
+  "comments": "",
+  "created_at": "2026-10-04T11:12:27-04:00",
+  "updated_at": "2026-10-04T11:12:34-04:00",
+  "completed_at": "2026-10-04T11:12:34-04:00"
+}

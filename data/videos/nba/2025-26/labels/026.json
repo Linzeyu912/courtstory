@@ -79,5 +79,232 @@
   "fps": 30.0,
   "measurement_status": "measured",
   "measurement_basis": "本次入库由 ffprobe 实测；未做画面视觉复核"
+ },
+ "material_review": {
+  "clip_id": "nba-2025-26-batch030-026",
+  "decision": "retain",
+  "quality": "clear",
+  "usefulness": "可用于观察半场掩护组织和急停远投，攻防站位及关键动作可辨。",
+  "action_tags": [
+   "半场组织",
+   "持球掩护",
+   "持球跳投",
+   "三分出手"
+  ],
+  "action_description": "红衣方推进后组织，外围持球者反复借队友掩护调整到左翼，运球后起跳远投，随后蓝衣方发球推进。",
+  "difficulty_tags": [
+   "镜头平移",
+   "局部半场画面",
+   "中途特写",
+   "过程截断"
+  ],
+  "camera": "高位侧向转播全景，随球平移，前场阶段保持半场画面，回合结束后短暂切特写。",
+  "scope": "前场配合",
+  "issue_intervals": [
+   {
+    "start": 18.5,
+    "end": 21,
+    "issue": "得分后切替补席和球员特写"
+   }
+  ],
+  "reason": "球员轮廓、攻防位置和传球突破投篮过程清楚，具有可用前场配合；开头已在推进或组织，不据此宣称完整球权。特写集中在主体动作结束后，保留并标注区间。",
+  "review_method": "ai_dense_frame_review_2fps",
+  "reviewer_model": "gpt-6.1-sol",
+  "sha256": "6218b4919f75060180c4110c0f60b0bf250d3ecaad7b5b89ac920e6e5429a655",
+  "reviewed_at": "2026-10-03T21:19:41-04:00",
+  "human_reviewed": false,
+  "sample_count": 42,
+  "evidence_location": "contact sheets and extra frames are local under artifacts/",
+  "selection_scope": "use_catalog_only; original asset remains available",
+  "tier": "primary",
+  "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+ },
+ "material_labels": {
+  "schema_version": "1.0.0",
+  "clip_id": "nba-2025-26-batch030-026",
+  "asset": {
+   "video_path": "data/videos/nba/2025-26/clips/026_2025-11-03_HOU_Q4.mp4",
+   "annotation_path": "data/videos/nba/2025-26/labels/026.json",
+   "sha256": "6218b4919f75060180c4110c0f60b0bf250d3ecaad7b5b89ac920e6e5429a655"
+  },
+  "source": {
+   "manifest_path": "data/videos/nba/2025-26/manifest.json",
+   "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+   "publisher": "manuelmazon",
+   "source_id": null,
+   "kind": null,
+   "collected_at": "2026-09-30",
+   "unknown_reason": null,
+   "source_start_seconds": 6039.0,
+   "source_end_seconds": 6060.0,
+   "uploaded_filename": null,
+   "season": "2025-26",
+   "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "quality": {
+   "clarity": "clear",
+   "core_actions_visible": true,
+   "reason": "连续画面中球员轮廓、球场线及主要持球/传递动作可辨；快速移动与多人重叠时的局部困难另行记录。"
+  },
+  "scenarios": {
+   "camera_zoom": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 2.25,
+      "end": 8.75
+     },
+     {
+      "start": 14.75,
+      "end": 17.25
+     }
+    ],
+    "note": "中场进入阵地段，固定红色禁区、篮架及看台整体缩小；末段投篮篮下连续镜头整体放大。末尾替补席切镜不算。"
+   },
+   "full_court_movement": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 0.0,
+      "end": 5.0
+     }
+    ],
+    "note": "所列时段机位随实际推进/攻防转换跨中线至另一端。"
+   },
+   "image_blur": {
+    "value": false,
+    "intervals": [],
+    "note": "未见持续模糊或明显压缩发虚；不能仅凭标称分辨率判定。"
+   },
+   "closeup_insertion": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 18.5,
+      "end": 21.0
+     }
+    ],
+    "note": "所列时段切入球员/替补席紧景，动作广角被打断。"
+   },
+   "view_switch": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 18.5,
+      "end": 21.0
+     }
+    ],
+    "note": "广角切入紧景并在部分片段返回广角。"
+   },
+   "half_court_only": {
+    "value": false,
+    "intervals": [],
+    "note": "序列可见持球或攻防转换跨中线；具体全场移动时间见full_court_movement。"
+   },
+   "motion_blur": {
+    "value": false,
+    "intervals": [],
+    "note": "未见影响动作判断的明显运动拖影。"
+   },
+   "occlusion": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 16.0,
+      "end": 17.0
+     }
+    ],
+    "note": "掩护、突破或篮下争抢中多名球员重叠，持球手/球短暂被身体挡住。"
+   },
+   "players_out_of_frame": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 0.0,
+      "end": 2.0
+     }
+    ],
+    "note": "推进或镜头收紧时部分远端/侧翼球员离开画幅，局部动作继续可见。"
+   },
+   "replay_or_teaching": {
+    "value": false,
+    "intervals": [],
+    "note": "未见回放转场、教学图形或人工定格。"
+   }
+  },
+  "content": {
+   "scope": "frontcourt_sequence",
+   "action_tags": [
+    "半场组织",
+    "持球掩护",
+    "持球跳投",
+    "三分出手"
+   ],
+   "description": "红衣方推进后组织，外围持球者反复借队友掩护调整到左翼，运球后起跳远投，随后蓝衣方发球推进。",
+   "usable_intervals": [
+    {
+     "start": 0.0,
+     "end": 18.5
+    }
+   ]
+  },
+  "selection": {
+   "status": "clear",
+   "recommended": true,
+   "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "content_relations": [
+   {
+    "clip_ids": [
+     "nba-2025-26-batch-008-008",
+     "nba-2025-26-batch030-026"
+    ],
+    "relation": "different",
+    "visual_basis": "额外同节时钟候选完整序列：两段皆Q4约5:22，但008-008为DAL91/HOU99、火箭白衣/独行侠深蓝、球场星形图案，030-026为DAL94/HOU96、火箭红衣/独行侠亮蓝、标准火箭场地。008-008右侧突破终结，030-026左翼组织后外围三分，不是同一画面。",
+    "evidence_sheets": [
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch-008-008/contact-01.jpg",
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch-008-008/contact-02.jpg",
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch030-026/contact-01.jpg",
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch030-026/contact-02.jpg",
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch030-026/contact-03.jpg"
+    ],
+    "review_method": "view_image_full_contact_sheet_sequence_2fps",
+    "reviewed_at": "2026-10-04",
+    "reviewer_model": "gpt-6.1-sol",
+    "scope_note": "已读取2025目录3份manifest共39条game/source用于候选筛选。本文件只声称这5对完成完整视觉去重核对；未声称历史8段与全部030逐对排除。历史metadata的dedup.unverified未修改。"
+   }
+  ],
+  "provenance": {
+   "reviewer_model": "gpt-6.1-sol",
+   "review_method": "ai_dense_frame_review_2fps",
+   "human_reviewed": false,
+   "reviewed_at": "2026-10-04T06:39:10-04:00",
+   "sample_count": 42,
+   "evidence_sheets": [
+    "artifacts/material-review-20261003/frames/nba-2025-26-batch030-026/contact-01.jpg",
+    "artifacts/material-review-20261003/frames/nba-2025-26-batch030-026/contact-02.jpg",
+    "artifacts/material-review-20261003/frames/nba-2025-26-batch030-026/contact-03.jpg"
+   ],
+   "extra_frames": [],
+   "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+   "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片",
+   "camera_zoom_recheck": {
+    "reviewed_at": "2026-10-04T13:40:13-04:00",
+    "reviewer_model": "gpt-6.1-sol",
+    "method": "两名不同子Agent先后实际查看全部2fps序列；主Agent核对人工纠错与合并。",
+    "initial_value": true,
+    "independent_value": true,
+    "confidence": "medium",
+    "independent_reason": "独立实际查看本条全部contact sheets，以固定场景整体尺度为依据。中场进入阵地段，固定红色禁区、篮架及看台整体缩小；末段投篮篮下连续镜头整体放大。末尾替补席切镜不算。 区间为片段相对秒的采样近似定位，未逐帧核实精确边界。",
+    "evidence_sheets": [
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch030-026/contact-01.jpg",
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch030-026/contact-02.jpg",
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch030-026/contact-03.jpg"
+    ],
+    "timestamp_note": "采样间隔0.5秒；区间为近似定位，未验证逐帧边界误差上界。",
+    "human_instruction_applied": false
+   },
+   "labeling_origin": "ai_visual_review"
+  }
  }
 }

@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "user-uploads-20261003-batch02-011__occlusion",
+  "clip_id": "user-uploads-20261003-batch02-011",
+  "scenario": "occlusion",
+  "video_path": "data/videos/uploads/2026-10-03-batch02/clips/nba_primevision_5-25s.mp4",
+  "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/011.json",
+  "sha256": "ae92addbf5bf9e49b05324ea40494b8d10ab37c49c320a10e104b975ae1af998",
+  "selection": {
+    "status": "challenge",
+    "recommended": true,
+    "reason": "人工明确保留。教学定格、箭头与加工可用于教学/加工干扰增强，普通连续球权测试需按replay_or_teaching筛除。"
+  },
+  "source": {
+    "manifest_path": "data/videos/uploads/2026-10-03-batch02/manifest.json",
+    "url": null,
+    "publisher": null,
+    "source_id": null,
+    "kind": "user_upload",
+    "collected_at": "2026-10-03",
+    "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。",
+    "source_start_seconds": null,
+    "source_end_seconds": null,
+    "uploaded_filename": "nba_primevision_5-25s.mp4",
+    "season": null,
+    "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 2.0,
+      "end": 4.0
+    },
+    {
+      "start": 12.0,
+      "end": 14.0
+    }
+  ],
+  "source_intervals_seconds": null,
+  "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+  "note": "掩护、突破或篮下争抢中多名球员重叠，持球手/球短暂被身体挡住。"
+}

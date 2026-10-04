@@ -58,5 +58,183 @@
     "052",
     "073"
   ],
-  "repeat_reason": "同属「转换突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+  "repeat_reason": "同属「转换突破」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
+  "material_review": {
+    "clip_id": "nba-2024-25-library100-096",
+    "decision": "retain",
+    "quality": "clear",
+    "usefulness": "可用于掩护后突分和顺下接球样本。",
+    "action_tags": [
+      "高位掩护",
+      "持球突破",
+      "传给顺下队友",
+      "篮下终结"
+    ],
+    "action_description": "黑衣持球者借高位队友掩护向右突入，球转给顺下的内线队友，后者在篮下起跳终结。",
+    "difficulty_tags": [
+      "镜头平移",
+      "推近拉远",
+      "局部半场画面",
+      "遮挡"
+    ],
+    "camera": "高位侧面主转播镜头，随球小幅平移或推近",
+    "scope": "前场配合",
+    "issue_intervals": [],
+    "reason": "掩护、持球前进及队友向篮下移动清楚，末尾有发球准备。",
+    "review_method": "ai_dense_frame_review_2fps",
+    "reviewer_model": "gpt-6.1-sol",
+    "sha256": "26b5009877d1e6c750fcead21a5cba3741eb513cda563426371cc79b6183f10b",
+    "reviewed_at": "2026-10-03T21:19:41-04:00",
+    "human_reviewed": false,
+    "sample_count": 11,
+    "evidence_location": "contact sheets and extra frames are local under artifacts/",
+    "selection_scope": "use_catalog_only; original asset remains available",
+    "tier": "primary",
+    "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+  },
+  "material_labels": {
+    "schema_version": "1.0.0",
+    "clip_id": "nba-2024-25-library100-096",
+    "asset": {
+      "video_path": "data/videos/nba/2024-25/clips/096_CLE-MIA_Q1_transition-drive_5.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/096.json",
+      "sha256": "26b5009877d1e6c750fcead21a5cba3741eb513cda563426371cc79b6183f10b"
+    },
+    "source": {
+      "manifest_path": "data/videos/nba/2024-25/manifest.json",
+      "url": "https://v.qq.com/x/page/j4101ixceoi.html",
+      "publisher": "腾讯视频 NBA 栏目",
+      "source_id": "j4101ixceoi",
+      "kind": null,
+      "collected_at": "2026-09-30",
+      "unknown_reason": null,
+      "source_start_seconds": 25.4,
+      "source_end_seconds": 30.8,
+      "uploaded_filename": null,
+      "season": "2024-25",
+      "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+    },
+    "quality": {
+      "clarity": "clear",
+      "core_actions_visible": true,
+      "reason": "实际时间序列中球员轮廓、队服颜色与主要持球、传接或出手路径可辨；局部人员重叠不影响整体动作识别。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 3.25,
+            "end": 5.25
+          }
+        ],
+        "note": "篮下終结时篮板、禁区与对侧替补席、广告牌一起明显放大。"
+      },
+      "full_court_movement": {
+        "value": false,
+        "intervals": [],
+        "note": "可用主镜头动作停留在一侧进攻半场，未见连续跨中线到另一端。"
+      },
+      "image_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "实看序列未发现明显持续发虚、压缩模糊或影响识别的运动拖影。"
+      },
+      "closeup_insertion": {
+        "value": false,
+        "intervals": [],
+        "note": "全部序列未见切入人物、教练或替补席特写，篮下渐进推近仍属主比赛镜头。"
+      },
+      "view_switch": {
+        "value": false,
+        "intervals": [],
+        "note": "整段为连续高位主转播视角，平移和渐进变焦不算机位切换。"
+      },
+      "half_court_only": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 5.372
+          }
+        ],
+        "note": "可用动作围绕同一进攻半场展开，未见连续跨越中线到另一端；起止球权是否完整另由scope表示。"
+      },
+      "motion_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "逐段序列未见明显影响主要动作识别的持续运动模糊；快速动作的轻微帧内模糊不足以单独标记。"
+      },
+      "occlusion": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 3.0,
+            "end": 5.0
+          }
+        ],
+        "note": "对抗、掩护或篮下聚集时球与部分肢体短时被其他球员遮住；整体动作连续，保留这些区间。"
+      },
+      "players_out_of_frame": {
+        "value": false,
+        "intervals": [],
+        "note": "主要攻防动作期间相关球员和目标篮筐保持在画面内，未见明确离画影响。"
+      },
+      "replay_or_teaching": {
+        "value": false,
+        "intervals": [],
+        "note": "连续比赛转播序列，无重复回放、定格讲解或战术示意插入；比分及统计字幕不算教学。"
+      }
+    },
+    "content": {
+      "scope": "frontcourt_sequence",
+      "action_tags": [
+        "高位掩护",
+        "持球突破",
+        "传给顺下队友",
+        "篮下终结"
+      ],
+      "description": "黑衣持球者借高位队友掩护向右突入，球转给顺下的内线队友，后者在篮下起跳终结。",
+      "usable_intervals": [
+        {
+          "start": 0.0,
+          "end": 5.372
+        }
+      ]
+    },
+    "selection": {
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "gpt-6.1-sol",
+      "review_method": "ai_dense_frame_review_2fps",
+      "human_reviewed": false,
+      "reviewed_at": "2026-10-04T06:39:10-04:00",
+      "sample_count": 11,
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-096/contact-01.jpg"
+      ],
+      "extra_frames": [],
+      "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+      "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片",
+      "camera_zoom_recheck": {
+        "reviewed_at": "2026-10-04T13:40:13-04:00",
+        "reviewer_model": "gpt-6.1-sol",
+        "method": "两名不同子Agent先后实际查看全部2fps序列；主Agent核对人工纠错与合并。",
+        "initial_value": true,
+        "independent_value": true,
+        "confidence": "medium",
+        "independent_reason": "独立实际查看本条全部contact sheets，以固定场景整体尺度为依据。篮下終结时篮板、禁区与对侧替补席、广告牌一起明显放大。 区间为片段相对秒的采样近似定位，未逐帧核实精确边界。",
+        "evidence_sheets": [
+          "artifacts/material-review-20261003/frames/nba-2024-25-library100-096/contact-01.jpg"
+        ],
+        "timestamp_note": "采样间隔0.5秒；区间为近似定位，未验证逐帧边界误差上界。",
+        "human_instruction_applied": false
+      },
+      "labeling_origin": "ai_visual_review"
+    }
+  }
 }

@@ -62,5 +62,207 @@
     "097",
     "100"
   ],
-  "repeat_reason": "同属「持球单打与跳投」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+  "repeat_reason": "同属「持球单打与跳投」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
+  "material_review": {
+    "clip_id": "nba-2024-25-library100-065",
+    "decision": "retain",
+    "quality": "clear",
+    "usefulness": "适合广播比赛动作识别及球员站位、攻防转换分析。",
+    "action_tags": [
+      "外围接球",
+      "持球单打",
+      "突破",
+      "篮下上篮"
+    ],
+    "action_description": "白衣队从右侧传给弧顶球员，持球者面对单人防守运球观察，随后从左侧切入禁区并向篮下出手。",
+    "difficulty_tags": [
+      "稳定镜头",
+      "局部半场画面",
+      "遮挡",
+      "过程截断"
+    ],
+    "camera": "高位侧面广播镜头，主要覆盖前场半场，轻微跟随持球者。",
+    "scope": "前场配合",
+    "issue_intervals": [
+      {
+        "start": 7,
+        "end": 9.2,
+        "issue": "突破终结时篮下有防守遮挡，未完整展示后续争球。"
+      }
+    ],
+    "reason": "单打启动、突破方向及篮下协防可观察。",
+    "review_method": "ai_dense_frame_review_2fps",
+    "reviewer_model": "gpt-6.1-sol",
+    "sha256": "a4304499883c619aa15337306d07d2235225b58a99c7ba7ca7f8b3ebaedecc89",
+    "reviewed_at": "2026-10-03T21:19:41-04:00",
+    "human_reviewed": false,
+    "sample_count": 19,
+    "evidence_location": "contact sheets and extra frames are local under artifacts/",
+    "selection_scope": "use_catalog_only; original asset remains available",
+    "tier": "primary",
+    "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+  },
+  "material_labels": {
+    "schema_version": "1.0.0",
+    "clip_id": "nba-2024-25-library100-065",
+    "asset": {
+      "video_path": "data/videos/nba/2024-25/clips/065_BOS-ORL_Q4_isolation_9.3s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/065.json",
+      "sha256": "a4304499883c619aa15337306d07d2235225b58a99c7ba7ca7f8b3ebaedecc89"
+    },
+    "source": {
+      "manifest_path": "data/videos/nba/2024-25/manifest.json",
+      "url": "https://v.qq.com/x/cover/mzc00200h7ytuv2/d41017jvsy7.html",
+      "publisher": "腾讯视频 NBA 栏目",
+      "source_id": "d41017jvsy7",
+      "kind": null,
+      "collected_at": "2026-09-30",
+      "unknown_reason": null,
+      "source_start_seconds": 0.0,
+      "source_end_seconds": 9.3,
+      "uploaded_filename": null,
+      "season": "2024-25",
+      "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+    },
+    "quality": {
+      "clarity": "clear",
+      "core_actions_visible": true,
+      "reason": "实际时间序列中球员轮廓、队服颜色与主要持球、传接或出手路径可辨；局部人员重叠不影响整体动作识别。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": null,
+        "intervals": [],
+        "note": "右半场持续随球横摇，禁区及篮架变化微小，统一尺度变化不明确。"
+      },
+      "full_court_movement": {
+        "value": false,
+        "intervals": [],
+        "note": "可用主镜头动作停留在一侧进攻半场，未见连续跨中线到另一端。"
+      },
+      "image_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "实看序列未发现明显持续发虚、压缩模糊或影响识别的运动拖影。"
+      },
+      "closeup_insertion": {
+        "value": false,
+        "intervals": [],
+        "note": "全部序列未见切入人物、教练或替补席特写，篮下渐进推近仍属主比赛镜头。"
+      },
+      "view_switch": {
+        "value": false,
+        "intervals": [],
+        "note": "整段为连续高位主转播视角，平移和渐进变焦不算机位切换。"
+      },
+      "half_court_only": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 9.2
+          }
+        ],
+        "note": "可用动作围绕同一进攻半场展开，未见连续跨越中线到另一端；起止球权是否完整另由scope表示。"
+      },
+      "motion_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "逐段序列未见明显影响主要动作识别的持续运动模糊；快速动作的轻微帧内模糊不足以单独标记。"
+      },
+      "occlusion": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 6.5,
+            "end": 8.5
+          }
+        ],
+        "note": "对抗、掩护或篮下聚集时球与部分肢体短时被其他球员遮住；整体动作连续，保留这些区间。"
+      },
+      "players_out_of_frame": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 8.5,
+            "end": 9.2
+          }
+        ],
+        "note": "推进、镜头收紧或退防期间部分外围球员位于边缘并离画；核心持球动作仍可见。特写区间也缺少完整站位。"
+      },
+      "replay_or_teaching": {
+        "value": false,
+        "intervals": [],
+        "note": "连续比赛转播序列，无重复回放、定格讲解或战术示意插入；比分及统计字幕不算教学。"
+      }
+    },
+    "content": {
+      "scope": "frontcourt_sequence",
+      "action_tags": [
+        "外围接球",
+        "持球单打",
+        "突破",
+        "篮下上篮"
+      ],
+      "description": "白衣队从右侧传给弧顶球员，持球者面对单人防守运球观察，随后从左侧切入禁区并向篮下出手。",
+      "usable_intervals": [
+        {
+          "start": 0.0,
+          "end": 9.2
+        }
+      ]
+    },
+    "selection": {
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "gpt-6.1-sol",
+      "review_method": "ai_dense_frame_review_2fps",
+      "human_reviewed": true,
+      "reviewed_at": "2026-10-04T06:39:10-04:00",
+      "sample_count": 19,
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-065/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-065/contact-02.jpg"
+      ],
+      "extra_frames": [],
+      "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+      "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片",
+      "labeling_origin": "human_reviewed",
+      "human_review": {
+        "completed_at": "2026-10-04T12:42:51-04:00",
+        "applied_at": "2026-10-04T13:21:59-04:00",
+        "review_revision": 3,
+        "retention": {
+          "decision": "keep",
+          "reason": ""
+        },
+        "corrected_fields": [],
+        "source": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-065.json",
+        "reviewed_label_fingerprint": "bd464bab21204e48758f8459b0851bb8d409892c2364e83e39e3a74ea4eda9ee",
+        "note": "用户逐项人工审核及纠错；后续AI推拉复核另记，不冒充重新人工确认。",
+        "post_review_ai_modified_fields": [
+          "scenarios.camera_zoom"
+        ]
+      },
+      "camera_zoom_recheck": {
+        "reviewed_at": "2026-10-04T13:40:13-04:00",
+        "reviewer_model": "gpt-6.1-sol",
+        "method": "两名不同子Agent先后实际查看全部2fps序列；主Agent核对人工纠错与合并。",
+        "initial_value": true,
+        "independent_value": null,
+        "confidence": "medium",
+        "independent_reason": "已独立逐张查看该素材全部contact sheets，以固定篮架、场地字样、禁区及背景坐席的共同尺度变化复核，排除人物跑近和横向跟拍。区间为片段相对秒的近似定位，未验证精确边界。",
+        "evidence_sheets": [
+          "artifacts/material-review-20261003/frames/nba-2024-25-library100-065/contact-01.jpg",
+          "artifacts/material-review-20261003/frames/nba-2024-25-library100-065/contact-02.jpg"
+        ],
+        "timestamp_note": "采样间隔0.5秒；区间为近似定位，未验证逐帧边界误差上界。",
+        "human_instruction_applied": false
+      }
+    }
+  }
 }

@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "nba-2024-25-library100-006__half_court_only",
+  "clip_id": "nba-2024-25-library100-006",
+  "scenario": "half_court_only",
+  "video_path": "data/videos/nba/2024-25/clips/006_LAL-MIN_Q2_catch-shoot_6.5s_720p.mp4",
+  "annotation_path": "data/videos/nba/2024-25/labels/006.json",
+  "sha256": "ab427ee9fc26fc2c4080dfcf4c0dbe65b3092d08e1493c86ab4e806507bf06b1",
+  "selection": {
+    "status": "clear",
+    "recommended": true,
+    "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "source": {
+    "manifest_path": "data/videos/nba/2024-25/manifest.json",
+    "url": "https://v.qq.com/x/cover/mzc00200eygk9jw/z4101496vp8.html",
+    "publisher": "腾讯视频 NBA 栏目",
+    "source_id": "z4101496vp8",
+    "kind": null,
+    "collected_at": "2026-09-30",
+    "unknown_reason": null,
+    "source_start_seconds": 0.0,
+    "source_end_seconds": 6.5,
+    "uploaded_filename": null,
+    "season": "2024-25",
+    "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 0.0,
+      "end": 6.4
+    }
+  ],
+  "source_intervals_seconds": [
+    {
+      "start": 0.0,
+      "end": 6.4
+    }
+  ],
+  "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+  "note": "有效配合集中在一个进攻半场；虽有退防或开始转换，未观察到连续持球跨中线进入另一半场。"
+}

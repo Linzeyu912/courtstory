@@ -1,0 +1,1220 @@
+{
+  "schema_version": "1.0.0",
+  "applied_at": "2026-10-04T13:40:13-04:00",
+  "review_count": 40,
+  "retained_review_count": 28,
+  "discarded_count": 12,
+  "corrected_clip_count": 12,
+  "reviews": [
+    {
+      "clip_id": "nba-2024-25-library100-001",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T12:40:22-04:00",
+      "original_label_fingerprint": "1dc10ed51da2cb3a99ac3e2aba7a6123d4db164d3ef385ff831c7594f80d66e0",
+      "result_label_fingerprint": "6710b9fd623504413d35e48109d67aedc944e204462891fc63b15760302854ab",
+      "video_sha256": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": null,
+          "intervals": [],
+          "note": "突破中画面向左跟拍，禁区形状随视角改变；篮板和远侧观众未呈现足够明确的统一比例放大。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-015",
+      "review_revision": 2,
+      "review_updated_at": "2026-10-04T11:02:50-04:00",
+      "original_label_fingerprint": "6093b970336042af95444e7aa27d72927fc96ac409c2dccab8e5376a8f2627f5",
+      "result_label_fingerprint": "b6def01b9f81a38b56607aee5575914be6661f00f8deab20ad543483e2c79cac",
+      "video_sha256": "2f4a4a26c085fdd6a9751746e2b6f36c14c4b9299df758e070cba789f2aa26dc",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 3.75,
+              "end": 5.25
+            },
+            {
+              "start": 6.75,
+              "end": 8.75
+            }
+          ],
+          "note": "转换初段中圈徽标与远侧广告共同缩小；左篮终结段篮架广告、底线字和背景观众明显同步放大。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-016",
+      "review_revision": 5,
+      "review_updated_at": "2026-10-04T11:11:20-04:00",
+      "original_label_fingerprint": "1e6ca55514dc43f678bce2ce582642507b6f207938e70956be9466c7fe4cbdfa",
+      "result_label_fingerprint": "dd06cb97ab762025e0b3adfb1b38486dcf53dbfaec48f1831b1765828bcb7df5",
+      "video_sha256": "dbedcc4b57b49318ee761a77c9aaa0a2e9e92197d6a7cdb55463611712ebac5f",
+      "resolved_keys": [
+        "scenarios.camera_zoom"
+      ],
+      "original_opinions": {
+        "scenarios.camera_zoom": {
+          "verdict": "incorrect",
+          "comment": "没有推拉",
+          "issue_type": "label",
+          "observed_at_seconds": 3.082
+        }
+      },
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": false,
+          "intervals": [],
+          "note": "人工明确无推拉；篮架及场地字样稳定，保持该判断。"
+        }
+      },
+      "post_review_ai_modified_fields": []
+    },
+    {
+      "clip_id": "nba-2024-25-library100-017",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T11:12:34-04:00",
+      "original_label_fingerprint": "7fc5315b0fe15489741c6da39c9ae2a7a3b10fcb2cb0e04b3587dd8756c44fbc",
+      "result_label_fingerprint": "340d96327ffe37ea49183db157177211902f8943050e4ea26f9f4a39311d3c74",
+      "video_sha256": "5acd540537f84f687464779e7e9629db7542d63bcf09aa5b48bdcbee05a47802",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 7.0,
+              "end": 9.0
+            }
+          ],
+          "note": "前半场与跨中线轻微尺度变化不认定；落至左篮后篮板、黄色篮架、底线字样及观众明显整体放大。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-018",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T11:13:59-04:00",
+      "original_label_fingerprint": "b20c2742256469d4a7d94e2593106b092aef3c3157376895c56dbed620ff047f",
+      "result_label_fingerprint": "aa21a3dd3007b2049cfad15336c045dfe199ae73fc7f3af2a55fae6903887a21",
+      "video_sha256": "4cc7810b412a4d368730b98a1e43af8971d404bfbaba7eb9e0a09df010b581d7",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 2.75,
+              "end": 4.75
+            }
+          ],
+          "note": "投篮前后黄色篮架、底线字体、固定罚球线及背景观众共同放大，近侧坐席逐渐出框。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-019",
+      "review_revision": 2,
+      "review_updated_at": "2026-10-04T11:15:16-04:00",
+      "original_label_fingerprint": "398593548b73b5a70fefc40dc79080902dbc846f03d4eca592540c737e93ffb5",
+      "result_label_fingerprint": "d05d8ff40e6f7eddebb6735313e1f9166f7959695b5c7bca4c2819c04def23cb",
+      "video_sha256": "ba073e8798140765a8234ecd74f871fd9241f7ae18edc103c27345bd1c911462",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": null,
+          "intervals": [],
+          "note": "跨场快速左摇后到左前场，罚球区因视角改变变宽；左篮架和背景尺度只呈细微变化。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-020",
+      "review_revision": 7,
+      "review_updated_at": "2026-10-04T11:25:08-04:00",
+      "original_label_fingerprint": "867726d8d1220198209b6ed7a674bba21b651dd259569497bef0a33371451168",
+      "result_label_fingerprint": "d23fcbe263fd160fe767062cecfb1171119cf3b63d4a49ce7da7e001458db7c2",
+      "video_sha256": "43ebf0c21b50a09faa35284d3872ab8bbdfa8ba5b9493854219d716a9c1d00e6",
+      "resolved_keys": [
+        "content.action_tags.0"
+      ],
+      "original_opinions": {
+        "content.action_tags.0": {
+          "verdict": "incorrect",
+          "comment": "整体就没出现传球",
+          "issue_type": "label",
+          "observed_at_seconds": 3.698
+        }
+      },
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 1.5,
+              "end": 4.5
+            }
+          ],
+          "note": "篮板、黄色篮架臂、罚球区和近侧看台连续放大，确认推近；后续仅小幅摇摄。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-021",
+      "review_revision": 4,
+      "review_updated_at": "2026-10-04T11:27:01-04:00",
+      "original_label_fingerprint": "605e9de5efe486c16dddecd9df0a011e4936ae4f294f9870ba23a79117ff8a39",
+      "result_label_fingerprint": "16bb912db593e017be1e217152607dac849074aead9c0c9d06277aa719a6d7bc",
+      "video_sha256": "6d9f5126659a31e369c21353478cffbb74fc5c99477d3129c3246bda695ae2c9",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": null,
+          "intervals": [],
+          "note": "低位跟拍时篮架及后方观众尺度近似恒定，罚球区投影随横摇改变；独立推近证据不充分。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-022",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T11:33:35-04:00",
+      "original_label_fingerprint": "9cc11dbda4ce163ab61d9817e50971ac149e527d80dc328e3c70adc03ab80e39",
+      "result_label_fingerprint": "7e453355a408646dc8388a2354b2d6f9010b5348ce2c970396cd4466885096ac",
+      "video_sha256": "5f888b6b6fc44be2788534a2b2ae0e5aaf7be2c4fdb6f3ad8efb9341a0ab8bb9",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 4.75,
+              "end": 8.25
+            }
+          ],
+          "note": "绿色禁区、篮板、底线字及背景观众同步明显放大，确认推近。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-023",
+      "review_revision": 6,
+      "review_updated_at": "2026-10-04T11:37:08-04:00",
+      "original_label_fingerprint": "b2b3a4f7367ea741b499ce5b0cb243f7476a3bf627cd96b65553ffa50c44df2f",
+      "result_label_fingerprint": "bf05b829de63d1ed02cd7e960070e5f63fb1871ce8cf61ed73d156d84f6ee1b5",
+      "video_sha256": "ce1d758fc195a27ba69ec1cc655a7b337df4cd134b16661cd68b374cfd41a8bb",
+      "resolved_keys": [
+        "scenarios.camera_zoom"
+      ],
+      "original_opinions": {
+        "scenarios.camera_zoom": {
+          "verdict": "incorrect",
+          "comment": "只有横排没有明显的推进拉远",
+          "issue_type": "label",
+          "observed_at_seconds": 2.067
+        }
+      },
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": false,
+          "intervals": [],
+          "note": "人工明确指出只有横移、没有明显推拉；复看主要为右摇与跨场左摇，禁区形状和人物大小随画面位置改变。"
+        }
+      },
+      "post_review_ai_modified_fields": []
+    },
+    {
+      "clip_id": "nba-2024-25-library100-024",
+      "review_revision": 6,
+      "review_updated_at": "2026-10-04T11:38:11-04:00",
+      "original_label_fingerprint": "aca2be4fa91415b5dcc4e25e96a0798cecc8f3aa1a13561d64e475afdca3c34d",
+      "result_label_fingerprint": "7252f435bfc23d6f7cba81bcfbefa6ea97bd06bf5eb6dc59240f6a7346b9d3f0",
+      "video_sha256": "5e71a89da84ad3484ea44715d92c5b5b8fb1ee281d642074331153cb0c8f5bd0",
+      "resolved_keys": [
+        "scenarios.players_out_of_frame"
+      ],
+      "original_opinions": {
+        "scenarios.players_out_of_frame": {
+          "verdict": "incorrect",
+          "comment": "中间有球员出画",
+          "issue_type": "label",
+          "observed_at_seconds": 6.371
+        }
+      },
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 1.25,
+              "end": 3.25
+            },
+            {
+              "start": 3.75,
+              "end": 5.25
+            },
+            {
+              "start": 6.25,
+              "end": 8.75
+            },
+            {
+              "start": 9.25,
+              "end": 10.75
+            }
+          ],
+          "note": "两次篮下争抢时绿色禁区与篮架标牌共同增大，外传后同步缩小；背景替补席也对应改变尺度。"
+        },
+        "scenarios.players_out_of_frame": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 1.5,
+              "end": 4.5
+            },
+            {
+              "start": 6,
+              "end": 9.5
+            }
+          ],
+          "note": "第一次篮下收紧时远侧外线球员出框；第二次突破6.25秒采样中远侧左翼不在画面内，覆盖人工6.371秒位置，至外传并拉回外线后恢复。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-025",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T11:38:48-04:00",
+      "original_label_fingerprint": "b4e23844ffbbed82935e14f7c922140371c8017f45368404ebfebcf55beeeb89",
+      "result_label_fingerprint": "75af2015a16efe81c3b479808d9748ef0503743ec9596aaa2492bf0b4e50e9c2",
+      "video_sha256": "6d3912c3cb619c4cca84e1d64e0a8dccb5c790c39c746698d862c9865b239e6b",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 0.75,
+              "end": 2.75
+            }
+          ],
+          "note": "转换起步右篮板、远侧广告牌及禁区高度一起缩小，视野纵向也扩大。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-052",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T12:41:54-04:00",
+      "original_label_fingerprint": "fcce442cbfa605c72eb1f2e0367e0cf3dcf4d626988684ff491c2ed7d620c356",
+      "result_label_fingerprint": "d0d72cadb3cb96073875d2fba88d816691d09cb6cc8f39721a80113b777bf4e5",
+      "video_sha256": "a89a24dc353d6ae21bab3f8b589bfce65a1df10e483a9f0b9cbe8833c0106b40",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 6.0,
+              "end": 8.68
+            }
+          ],
+          "note": "人工确认存在推拉；左侧终结阶段篮板支架、禁区和看台广告共同放大，前段横移中的微小变化不另标。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-065",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T12:42:51-04:00",
+      "original_label_fingerprint": "bd464bab21204e48758f8459b0851bb8d409892c2364e83e39e3a74ea4eda9ee",
+      "result_label_fingerprint": "4fe743f979e8758b26a268e5ac562853c9cc4e4dcecb3a0d8d9eda9a785b39b3",
+      "video_sha256": "a4304499883c619aa15337306d07d2235225b58a99c7ba7ca7f8b3ebaedecc89",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": null,
+          "intervals": [],
+          "note": "右半场持续随球横摇，禁区及篮架变化微小，统一尺度变化不明确。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-078",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T12:43:20-04:00",
+      "original_label_fingerprint": "76bd76ce72a04879cc650bb4a9b990822cf66093d4e09ef0d25efccb3f453aa8",
+      "result_label_fingerprint": "818821ffa517b4a3d82bc71a20862380cffcbe96dc82050ddd5190fc5d0b5cf8",
+      "video_sha256": "038e9f586caa5147d600d8d1a611bb43decce3b509be4a25fb2c256304603524",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": null,
+          "intervals": [],
+          "note": "右半场取景改变时禁区宽度变化，但篮板与背景整体尺度变化不够明确，难与摇摄分离。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-089",
+      "review_revision": 13,
+      "review_updated_at": "2026-10-04T12:44:36-04:00",
+      "original_label_fingerprint": "9ebcd82c77ba8b3d1aafc005d7dabfd81b5a382726aea27987425a3373fa70b2",
+      "result_label_fingerprint": "5c7c3a6050edf9be6d9473492c5548e3df797cac068f3dc4f45e6e53171e8e46",
+      "video_sha256": "ea73dc9fc9f2e9094421ab224ec64f8a1fcadeb2758aa3181d360a5a484dcb20",
+      "resolved_keys": [
+        "scenarios.camera_zoom",
+        "content.action_tags.0"
+      ],
+      "original_opinions": {
+        "scenarios.camera_zoom": {
+          "verdict": "incorrect",
+          "comment": "有明显的退后镜头移动",
+          "issue_type": "label",
+          "observed_at_seconds": 3.833
+        },
+        "content.action_tags.0": {
+          "verdict": "incorrect",
+          "comment": "高位传球",
+          "issue_type": "label",
+          "observed_at_seconds": 9.4
+        }
+      },
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 1.25,
+              "end": 4.25
+            },
+            {
+              "start": 6.75,
+              "end": 8.75
+            }
+          ],
+          "note": "前段篮架、青色禁区及看台共同缩小，符合人工退后判断；末段这些固定参照共同扩大。"
+        },
+        "content.action_tags.0": "高位传球"
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2024-25-library100-100",
+      "review_revision": 12,
+      "review_updated_at": "2026-10-04T12:46:52-04:00",
+      "original_label_fingerprint": "37c8188ebe7022da3ec5e4079e6ef005f18207ac929c31c52e4476cb0bb13aa7",
+      "result_label_fingerprint": "c064aff3b7707bec197344d4e147ce74d89b7cf2794e56262baa4833e2704e9f",
+      "video_sha256": "b4b529b0d893ecb2d7c5826ba6a70edd9d036509c1fe54e2c722c5e160746bad",
+      "resolved_keys": [
+        "scenarios.players_out_of_frame",
+        "content.action_tags.0"
+      ],
+      "original_opinions": {
+        "scenarios.players_out_of_frame": {
+          "verdict": "incorrect",
+          "comment": "几乎没出画",
+          "issue_type": "label",
+          "observed_at_seconds": 1.251
+        },
+        "content.action_tags.0": {
+          "verdict": "incorrect",
+          "comment": "内侧传球给高位",
+          "issue_type": "label",
+          "observed_at_seconds": 5.72
+        }
+      },
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 0.0,
+              "end": 2.0
+            }
+          ],
+          "note": "人工确认推拉；开头篮板支架、底线字样与座席共同缩小，符合拉远。"
+        },
+        "scenarios.players_out_of_frame": {
+          "value": false,
+          "intervals": [],
+          "note": "有效进攻阶段主要参与球员基本在画幅内，没有原标签所称持续出画。"
+        },
+        "content.action_tags.0": "内侧传球给高位",
+        "content.description": "蓝色队左侧内线持球后把球传给高位外线队友，接球者运球调整后撤步跳投。"
+      },
+      "post_review_ai_modified_fields": []
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-001",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T12:48:09-04:00",
+      "original_label_fingerprint": "c46b986c9eba86514bdf9e7d3a3a583459a1ff0bb7df505f102d767a15078784",
+      "result_label_fingerprint": "934948ce0a4be41f65df19a3f1bfb475fed63d9dd5f044e1ebc89f132587d095",
+      "video_sha256": "86b386660b5ffa1b2fb7bfba56e02fcca2c407ac9ddfddc8775f964db637f4df",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 7.25,
+              "end": 11.75
+            },
+            {
+              "start": 16.25,
+              "end": 19.25
+            }
+          ],
+          "note": "两段攻框时红色禁区、ROCKETS底线字、篮架广告及后方坐席同步扩大；片头片尾切机位不算推拉。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-006",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T12:51:27-04:00",
+      "original_label_fingerprint": "089d8bfba5d7299aa6d56c640baa24f42240f3b218778ef52feba75a9f90cad6",
+      "result_label_fingerprint": "3fec5eab8ab982c8222a026b8c40df57fa5b90774194eb091a1b011d120fd10a",
+      "video_sha256": "6e7dc6fd2fba6bb68ef6d3b2c15a227c50df7750437c67a41e15cfd03f420d10",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 4.0,
+              "end": 8.0
+            },
+            {
+              "start": 16.5,
+              "end": 19.0
+            }
+          ],
+          "note": "人工确认两段推拉；前段场地文字、广告与红禁区共同缩小，后段篮板支架、禁区与篮后座席明显共同放大。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-011",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T12:52:18-04:00",
+      "original_label_fingerprint": "708a816a3a8ed6f853f67c11cc93d2db8a10be033d29223737f07bc8e1d019e6",
+      "result_label_fingerprint": "61917f2a6ef3f154431d8b09f7e1a9273a47e5e1821e74d35a86cf97da141890",
+      "video_sha256": "ee87912152ace70a799272c6840eff139b994eb00843bd9981b4c6c5d09748fc",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 6.75,
+              "end": 12.25
+            },
+            {
+              "start": 20.75,
+              "end": 23.25
+            }
+          ],
+          "note": "落位时场地及对侧替补席缩小；终结时篮板、禁区和席位明显放大。底线近景为切镜。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-022",
+      "review_revision": 7,
+      "review_updated_at": "2026-10-04T12:53:31-04:00",
+      "original_label_fingerprint": "805a02285ae6c9689e6f91c338d92ff83f91ba60f724e6b831972a0e7d86f55a",
+      "result_label_fingerprint": "ad683f0a7c7939dcce25740612136d34ea71d6c2bdd656a2ea6913559d895b19",
+      "video_sha256": "fc43f39a54b3f51bc18eeb0b6c27dff80c579411d54f75260155569ba431a389",
+      "resolved_keys": [
+        "scenarios.camera_zoom"
+      ],
+      "original_opinions": {
+        "scenarios.camera_zoom": {
+          "verdict": "incorrect",
+          "comment": "有明显拉远",
+          "issue_type": "label",
+          "observed_at_seconds": 3.328
+        }
+      },
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 0.25,
+              "end": 3.25
+            },
+            {
+              "start": 17.25,
+              "end": 20.75
+            }
+          ],
+          "note": "前场推进前固定场线与广告、看台共同缩小；右篮终结时绿色禁区、篮架、底线MILWAUKEE字和坐席同步扩大。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "nba-2025-26-sample-001-001",
+      "review_revision": 2,
+      "review_updated_at": "2026-10-04T12:57:07-04:00",
+      "original_label_fingerprint": "0fc5a0bfcde7cc85c599a374e8c4d4bacdbb4dc427a858f7761475a518f31b84",
+      "result_label_fingerprint": "41e39984a71e6ce6321ec5904bdb18437997a096d7f9858ca5734ea483ff31c9",
+      "video_sha256": "a6de1a73b3ca1f29603995aade53acaeb970801257104edec088673f0e84c93f",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": false,
+          "intervals": [],
+          "note": "人工确认无推拉；固定篮板、禁区及看台基本保持尺度，仅小幅跟拍和特写切换。"
+        }
+      },
+      "post_review_ai_modified_fields": []
+    },
+    {
+      "clip_id": "tactics-acceptance-005",
+      "review_revision": 9,
+      "review_updated_at": "2026-10-04T13:05:07-04:00",
+      "original_label_fingerprint": "4d8a376a92fb0fb6029636e01765c0cbc59f5cc5a54d11cd2e3ff4effcafff50",
+      "result_label_fingerprint": "56ceab2b569464a02a3221b20042ab0efb1ed873ae61cab0a4b6d632ad26666f",
+      "video_sha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "resolved_keys": [
+        "quality.clarity",
+        "scenarios.camera_zoom"
+      ],
+      "original_opinions": {
+        "quality.clarity": {
+          "verdict": "incorrect",
+          "comment": "不那么清晰",
+          "issue_type": "label",
+          "observed_at_seconds": 4.767
+        },
+        "scenarios.camera_zoom": {
+          "verdict": "incorrect",
+          "comment": "明显的推拉",
+          "issue_type": "label",
+          "observed_at_seconds": 4.767
+        }
+      },
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 3.25,
+              "end": 4.75
+            }
+          ],
+          "note": "末段篮板和广告、SPURS底线字、黑色禁区与看台同步扩大。"
+        },
+        "quality.clarity": "soft",
+        "quality.reason": "人工指出不那么清晰；复看原抽帧，细节偏软，但持球、传球与篮下动作仍可辨认。"
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "tactics-acceptance-006",
+      "review_revision": 6,
+      "review_updated_at": "2026-10-04T13:05:56-04:00",
+      "original_label_fingerprint": "350d5b9ae1e3c62bec07adc6af262d2837f1707652bf104d9d7c82332909be58",
+      "result_label_fingerprint": "aa9f2df062b137f67def4bc87aaf2b4b2fd3a540725ba598fc4ae6aa41b00f1a",
+      "video_sha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "resolved_keys": [
+        "scenarios.camera_zoom"
+      ],
+      "original_opinions": {
+        "scenarios.camera_zoom": {
+          "verdict": "incorrect",
+          "comment": "明显的镜头推拉",
+          "issue_type": "label",
+          "observed_at_seconds": 3.915
+        }
+      },
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 5.25,
+              "end": 6.75
+            },
+            {
+              "start": 9.75,
+              "end": 12.25
+            },
+            {
+              "start": 12.25,
+              "end": 13.25
+            }
+          ],
+          "note": "以人工明确有推拉为基准；左篮架、底线SPURS字样与后方广告整体放大，末段又明显回拉。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "user-uploads-20261003-001",
+      "review_revision": 11,
+      "review_updated_at": "2026-10-04T12:58:52-04:00",
+      "original_label_fingerprint": "d748c11cd93f0bac8256ae26bb815804a7bdb4061c53c18c2749e5409190ec95",
+      "result_label_fingerprint": "7a46aa900103bab38a89baa92a0b509f145ef4071e5747d1e7dfd70f9212972f",
+      "video_sha256": "428cec5536dd6bf1490bc99d683c95106c2cd502fb08ae4eca7e338adb7df80b",
+      "resolved_keys": [
+        "scenarios.camera_zoom",
+        "scenarios.players_out_of_frame"
+      ],
+      "original_opinions": {
+        "scenarios.camera_zoom": {
+          "verdict": "incorrect",
+          "comment": "有明显的推",
+          "issue_type": "label",
+          "observed_at_seconds": 3.085
+        },
+        "scenarios.players_out_of_frame": {
+          "verdict": "incorrect",
+          "comment": "最后有明显出画",
+          "issue_type": "label",
+          "observed_at_seconds": 4.113
+        }
+      },
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 3.0,
+              "end": 7.0
+            }
+          ],
+          "note": "人工明确指出有推进；复看篮板支架、绿色禁区、底线字样和座席共同放大，核实为连续收紧。"
+        },
+        "scenarios.players_out_of_frame": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 7.25,
+              "end": 7.75
+            }
+          ],
+          "note": "末段转换时左侧退防球员被画幅边缘截断并离开画面。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "user-uploads-20261003-004",
+      "review_revision": 6,
+      "review_updated_at": "2026-10-04T12:59:47-04:00",
+      "original_label_fingerprint": "facb2398d55559abe8b4e73d9a505c19741d2ba28dfed78666b74ff8a896307c",
+      "result_label_fingerprint": "2ff80eb4d7e2f7f32768f2db7476821a64e943450a722232f01e5d7002c662d2",
+      "video_sha256": "31d3308c897f578a7c7e20ef26e5832fd86b164855a023cf3cfec510bdece73a",
+      "resolved_keys": [
+        "scenarios.players_out_of_frame"
+      ],
+      "original_opinions": {
+        "scenarios.players_out_of_frame": {
+          "verdict": "incorrect",
+          "comment": "显然的球员出画",
+          "issue_type": "label",
+          "observed_at_seconds": 8.575
+        }
+      },
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": false,
+          "intervals": [],
+          "note": "人工确认无推拉；主要左摇跟球，禁区投影变化来自横向视角，篮板和座席尺度基本稳定。"
+        },
+        "scenarios.players_out_of_frame": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 6.75,
+              "end": 8.25
+            }
+          ],
+          "note": "投篮后转为退防，右边缘黄色球员逐步被截断并离开画面。"
+        }
+      },
+      "post_review_ai_modified_fields": []
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-001",
+      "review_revision": 5,
+      "review_updated_at": "2026-10-04T13:00:43-04:00",
+      "original_label_fingerprint": "05230765a519ad6ab094a0a857ac844d6b6a3bcd186fe494e056db9975c211df",
+      "result_label_fingerprint": "9e1f92c417da3a9b6015122ac478bec3b8e51fbf90e5f6fe9aff7ab42fe99c4d",
+      "video_sha256": "4d6e76ed515a775d8971ed58ca7fc241abc022cb201e8762a6716290aa215618",
+      "resolved_keys": [
+        "scenarios.camera_zoom"
+      ],
+      "original_opinions": {
+        "scenarios.camera_zoom": {
+          "verdict": "incorrect",
+          "comment": "有明显的镜头推拉",
+          "issue_type": "label",
+          "observed_at_seconds": 24.841
+        }
+      },
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": true,
+          "intervals": [
+            {
+              "start": 1.75,
+              "end": 5.75
+            },
+            {
+              "start": 19.25,
+              "end": 22.75
+            }
+          ],
+          "note": "转换时广告、看台与固定场区共同缩小；右篮终结时篮架、SEATTLE STORM底线字、禁区及看台同步扩大。"
+        }
+      },
+      "post_review_ai_modified_fields": [
+        "scenarios.camera_zoom"
+      ]
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-011",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T13:02:03-04:00",
+      "original_label_fingerprint": "f4e78a9faf52104503993d64bdfa70764f405fa1a340a19832a98fead70c20f2",
+      "result_label_fingerprint": "fa890feb34e6d6291533cfe814b3e7a0a33ac1949c2ffa211a761740ba769d56",
+      "video_sha256": "ae92addbf5bf9e49b05324ea40494b8d10ab37c49c320a10e104b975ae1af998",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "keep",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "changes": {
+        "scenarios.camera_zoom": {
+          "value": false,
+          "intervals": [],
+          "note": "两段战术画面主要随球左右摇摄，篮架、场边广告与看台尺度保持；片头动画和中段换场是图形及切换，不算镜头推拉。"
+        }
+      },
+      "post_review_ai_modified_fields": []
+    },
+    {
+      "clip_id": "nba-2024-25-library100-038",
+      "review_revision": 4,
+      "review_updated_at": "2026-10-04T12:40:54-04:00",
+      "original_label_fingerprint": "9f6aed29546f50c77e9837d9f428e8ed71355fd220a01b6392687a087987bc0d",
+      "result_label_fingerprint": null,
+      "video_sha256": "15ee797856136f1511d50a4425d0ef84695648fedbe87a9463829f899d7fbeb4",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "discard",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "media_removed": true,
+      "archive": "data/videos/classification/discarded/nba-2024-25-library100-038.json"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-045",
+      "review_revision": 3,
+      "review_updated_at": "2026-10-04T12:41:11-04:00",
+      "original_label_fingerprint": "5e69aaf13e0ec3248584b81995e8ca39777c644254bf953e51f265b3def3638f",
+      "result_label_fingerprint": null,
+      "video_sha256": "8564d304b80a83041ab7c42af6de6b0d3c7485402fa8e05e63463840c8b71804",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "discard",
+        "reason": ""
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "media_removed": true,
+      "archive": "data/videos/classification/discarded/nba-2024-25-library100-045.json"
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-006",
+      "review_revision": 7,
+      "review_updated_at": "2026-10-04T12:56:25-04:00",
+      "original_label_fingerprint": "b5835cbaf8eb5c2552e534fd9727c76b6bab6402377951140dc2a2f56fb4563c",
+      "result_label_fingerprint": null,
+      "video_sha256": "b0e428f7c043ce58e360653972231dd5ad7189c2f1a68b7aadde73c8df3066c0",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "discard",
+        "reason": "多剪了丢了吧"
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "media_removed": true,
+      "archive": "data/videos/classification/discarded/nba-2025-26-batch-008-006.json"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-028",
+      "review_revision": 10,
+      "review_updated_at": "2026-10-04T12:54:29-04:00",
+      "original_label_fingerprint": "d2a37c4854dcdd5f22bc6845f9f8070083306624805ab0b07261c3fa4b7ccbcf",
+      "result_label_fingerprint": null,
+      "video_sha256": "e93a1c2db72cb1a83ed6c30e1a4affa4df50c8a2161fc1c96ee428885def967f",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "discard",
+        "reason": "后面剪歪了反正素材多直接丢了吧"
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "media_removed": true,
+      "archive": "data/videos/classification/discarded/nba-2025-26-batch030-028.json"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-030",
+      "review_revision": 4,
+      "review_updated_at": "2026-10-04T12:55:54-04:00",
+      "original_label_fingerprint": "53283743f9c88e547b4ba518484ddb28d805eb01e6a0f957cc8ec86f212f94ee",
+      "result_label_fingerprint": null,
+      "video_sha256": "b36796e8e78f8045d6b2cb3495483c80eb8c36a227f64fce033e86128321b1b8",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "discard",
+        "reason": "多剪了直接丢了吧"
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "media_removed": true,
+      "archive": "data/videos/classification/discarded/nba-2025-26-batch030-030.json"
+    },
+    {
+      "clip_id": "tactics-acceptance-004",
+      "review_revision": 4,
+      "review_updated_at": "2026-10-04T13:04:17-04:00",
+      "original_label_fingerprint": "b7a5383ca69cf535c5f1d1a25401132d28ca0f9583c2fb9557fba161a7f74818",
+      "result_label_fingerprint": null,
+      "video_sha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "discard",
+        "reason": "帧数太低了"
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "media_removed": true,
+      "archive": "data/videos/classification/discarded/tactics-acceptance-004.json"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-006",
+      "review_revision": 5,
+      "review_updated_at": "2026-10-04T13:01:36-04:00",
+      "original_label_fingerprint": "5e35c6436d284bf0f4dc2e745810c785ee18a802dbf1092ef72eee34c870f4cb",
+      "result_label_fingerprint": null,
+      "video_sha256": "02c05e54c34a64d3fa174310914d89aa84a6c530e5ad7ffd1e7908684f0bff91",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "discard",
+        "reason": "太糊了"
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "media_removed": true,
+      "archive": "data/videos/classification/discarded/user-uploads-20261003-batch02-006.json"
+    },
+    {
+      "clip_id": "user-uploads-20261004-001",
+      "review_revision": 4,
+      "review_updated_at": "2026-10-04T13:02:22-04:00",
+      "original_label_fingerprint": "8be74e92f714226ca58b750672b040509e06c68a3d88dbe6d4216a8af492b1b1",
+      "result_label_fingerprint": null,
+      "video_sha256": "d3eeb277e4772abd33c3353e90c149bfa17b5633942595406b5cd47a5be028dd",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "discard",
+        "reason": "帧数太低了"
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "media_removed": true,
+      "archive": "data/videos/classification/discarded/user-uploads-20261004-001.json"
+    },
+    {
+      "clip_id": "user-uploads-20261004-004",
+      "review_revision": 4,
+      "review_updated_at": "2026-10-04T13:02:41-04:00",
+      "original_label_fingerprint": "092c31c6109e9da6a3306de580fcfbb6c37e723fe93b2c344091afce6573cd99",
+      "result_label_fingerprint": null,
+      "video_sha256": "994c43388a2c31a44fcc8259bba1d4d71abab0dd439aed46da09c22e14012b23",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "discard",
+        "reason": "帧数太低了"
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "media_removed": true,
+      "archive": "data/videos/classification/discarded/user-uploads-20261004-004.json"
+    },
+    {
+      "clip_id": "user-uploads-20261004-007",
+      "review_revision": 5,
+      "review_updated_at": "2026-10-04T13:03:07-04:00",
+      "original_label_fingerprint": "08a138b586edc443e2c46b76ecdd65ba293deb7a7a2b720792eb9c69af72b06b",
+      "result_label_fingerprint": null,
+      "video_sha256": "8f74f41ec6d10dc857e40932f711c198faea8374fd28443f2971b63681cdf144",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "discard",
+        "reason": "就1s这是什么东西，扔了"
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "media_removed": true,
+      "archive": "data/videos/classification/discarded/user-uploads-20261004-007.json"
+    },
+    {
+      "clip_id": "user-uploads-20261004-011",
+      "review_revision": 4,
+      "review_updated_at": "2026-10-04T13:03:34-04:00",
+      "original_label_fingerprint": "406dbb41ded3163b27526d96395bfdeea5ff701ff1a49fd51d3abd5a7786150d",
+      "result_label_fingerprint": null,
+      "video_sha256": "55114e4b491d96ecdc5e6a2a63978bb1b1dce578ad078378830b94b21c44cfa2",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "discard",
+        "reason": "帧数太低了"
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "media_removed": true,
+      "archive": "data/videos/classification/discarded/user-uploads-20261004-011.json"
+    },
+    {
+      "clip_id": "user-uploads-20261004-015",
+      "review_revision": 5,
+      "review_updated_at": "2026-10-04T13:04:01-04:00",
+      "original_label_fingerprint": "24ab34dc66d35b446253c4bfcf277cfac3487ca59bfcbb462f63d53722800de0",
+      "result_label_fingerprint": null,
+      "video_sha256": "740a881327f2545fcd7fbaf6a5b853d3f541d4bc30f58a24f76b1695ee03278f",
+      "resolved_keys": [],
+      "original_opinions": {},
+      "retention": {
+        "decision": "discard",
+        "reason": "帧数太低了"
+      },
+      "applied_at": "2026-10-04T13:40:13-04:00",
+      "media_removed": true,
+      "archive": "data/videos/classification/discarded/user-uploads-20261004-015.json"
+    }
+  ]
+}

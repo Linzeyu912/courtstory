@@ -57,5 +57,198 @@
     "059",
     "079"
   ],
-  "repeat_reason": "同属「协防与追防封盖」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+  "repeat_reason": "同属「协防与追防封盖」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
+  "material_review": {
+    "clip_id": "nba-2024-25-library100-056",
+    "decision": "retain",
+    "quality": "clear",
+    "usefulness": "可用于底线突破及篮下协防封盖位置分析。",
+    "action_tags": [
+      "持球突破",
+      "底线突破",
+      "协防干扰",
+      "封盖"
+    ],
+    "action_description": "黄衣持球人在右侧边线运球，沿底线突破到篮筐下方，蓝衣防守人从禁区移动起跳干扰并碰离出手球；末段停球，未呈现后续发球。",
+    "difficulty_tags": [
+      "镜头平移",
+      "局部半场画面",
+      "遮挡",
+      "过程截断"
+    ],
+    "camera": "高位转播半场广角，随持球动作轻微平移或推近。",
+    "scope": "前场配合",
+    "issue_intervals": [
+      {
+        "start": 6,
+        "end": 7.28,
+        "issue": "封盖后停球，球的最终归属及后续回合未呈现。"
+      }
+    ],
+    "reason": "逐页2fps密集帧中球员站位、持球移动与关键出手可辨，具有可用比赛动作序列；局部遮挡或镜头变化未妨碍主要动作理解。",
+    "review_method": "ai_dense_frame_review_2fps",
+    "reviewer_model": "gpt-6.1-sol",
+    "sha256": "47232c5956dcd9392e4185a8f235fe2059770fcd692108d99e1ab3e1d5805e69",
+    "reviewed_at": "2026-10-03T21:19:41-04:00",
+    "human_reviewed": false,
+    "sample_count": 15,
+    "evidence_location": "contact sheets and extra frames are local under artifacts/",
+    "selection_scope": "use_catalog_only; original asset remains available",
+    "tier": "primary",
+    "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+  },
+  "material_labels": {
+    "schema_version": "1.0.0",
+    "clip_id": "nba-2024-25-library100-056",
+    "asset": {
+      "video_path": "data/videos/nba/2024-25/clips/056_NYK-IND_Q4_block_7.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/056.json",
+      "sha256": "47232c5956dcd9392e4185a8f235fe2059770fcd692108d99e1ab3e1d5805e69"
+    },
+    "source": {
+      "manifest_path": "data/videos/nba/2024-25/manifest.json",
+      "url": "https://v.qq.com/x/cover/mzc00200zuwdjc0/y4101ll4vzi.html",
+      "publisher": "腾讯视频 NBA 栏目",
+      "source_id": "y4101ll4vzi",
+      "kind": null,
+      "collected_at": "2026-09-30",
+      "unknown_reason": null,
+      "source_start_seconds": 0.0,
+      "source_end_seconds": 7.4,
+      "uploaded_filename": null,
+      "season": "2024-25",
+      "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+    },
+    "quality": {
+      "clarity": "clear",
+      "core_actions_visible": true,
+      "reason": "宽景中球员轮廓、场线及关键传接/出手过程可辨；短时肢体重叠或移动尾部不妨碍主要动作判断。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 3.75,
+            "end": 6.25
+          }
+        ],
+        "note": "右篮动作阶段篮架标牌、底线字样和油漆区同步放大，看台人物也增大。"
+      },
+      "full_court_movement": {
+        "value": false,
+        "intervals": [],
+        "note": "所见有效动作停留在一端；未观察到持球动作连续跨中线进入另一半场。"
+      },
+      "image_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "宽景中核心球员及场地关系可辨，未见持续模糊、明显压缩发虚或影响分析的运动拖影。"
+      },
+      "closeup_insertion": {
+        "value": false,
+        "intervals": [],
+        "note": "完整时间序列持续为场上转播宽景，未切入球员、教练、裁判或替补席特写。"
+      },
+      "view_switch": {
+        "value": false,
+        "intervals": [],
+        "note": "全段密集时间序列未见明确机位或视角切换；平移和推拉仍属于同一转播视角。"
+      },
+      "half_court_only": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 7.28
+          }
+        ],
+        "note": "有效配合集中在一个进攻半场；虽有退防或开始转换，未观察到连续持球跨中线进入另一半场。"
+      },
+      "motion_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "未见持续影响关键动作辨识的运动拖影；正常快速动作的瞬时轻微模糊未单独算异常。"
+      },
+      "occlusion": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 2.0
+          },
+          {
+            "start": 4.0,
+            "end": 6.0
+          }
+        ],
+        "note": "所列时段球或持球人被近侧防守者、掩护者或篮下聚集人群短暂遮挡；连续前后帧能恢复动作关系。"
+      },
+      "players_out_of_frame": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 5.0,
+            "end": 7.28
+          }
+        ],
+        "note": "跟球取景时远侧翼、身后推进球员或退防者位于画外/画缘；持球及主要终结仍保留，不能据此认为十人全程同框。"
+      },
+      "replay_or_teaching": {
+        "value": false,
+        "intervals": [],
+        "note": "时间序列为连续比赛转播；未见回放重复、定格、教学箭头或讲解图，比分/统计叠图不计教学。"
+      }
+    },
+    "content": {
+      "scope": "frontcourt_sequence",
+      "action_tags": [
+        "持球突破",
+        "底线突破",
+        "协防干扰",
+        "封盖"
+      ],
+      "description": "黄衣持球人在右侧边线运球，沿底线突破到篮筐下方，蓝衣防守人从禁区移动起跳干扰并碰离出手球；末段停球，未呈现后续发球。",
+      "usable_intervals": [
+        {
+          "start": 0.0,
+          "end": 7.28
+        }
+      ]
+    },
+    "selection": {
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "gpt-6.1-sol",
+      "review_method": "ai_dense_frame_review_2fps",
+      "human_reviewed": false,
+      "reviewed_at": "2026-10-04T06:39:10-04:00",
+      "sample_count": 15,
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-056/contact-01.jpg"
+      ],
+      "extra_frames": [],
+      "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+      "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片",
+      "camera_zoom_recheck": {
+        "reviewed_at": "2026-10-04T13:40:13-04:00",
+        "reviewer_model": "gpt-6.1-sol",
+        "method": "两名不同子Agent先后实际查看全部2fps序列；主Agent核对人工纠错与合并。",
+        "initial_value": true,
+        "independent_value": true,
+        "confidence": "high",
+        "independent_reason": "已独立逐张查看该素材全部contact sheets，以固定篮架、场地字样、禁区及背景坐席的共同尺度变化复核，排除人物跑近和横向跟拍。区间为片段相对秒的近似定位，未验证精确边界。",
+        "evidence_sheets": [
+          "artifacts/material-review-20261003/frames/nba-2024-25-library100-056/contact-01.jpg"
+        ],
+        "timestamp_note": "采样间隔0.5秒；区间为近似定位，未验证逐帧边界误差上界。",
+        "human_instruction_applied": false
+      },
+      "labeling_origin": "ai_visual_review"
+    }
+  }
 }

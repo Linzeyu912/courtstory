@@ -86,5 +86,151 @@
     "reviewed_at": "2026-10-04T09:06:36+08:00",
     "basis": "FFmpeg -xerror -err_detect explode 完整音视频解码通过；已查看首帧、中间帧及结束前 0.25 秒抽帧，仅用于对阵与比赛核对。未完成连续运动、画质与战术验收。",
     "resolution_note": "低于720p，保留原始尺寸，未放大"
+  },
+  "material_labels": {
+    "schema_version": "1.0.0",
+    "clip_id": "user-uploads-20261004-010",
+    "asset": {
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085441_490.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/010.json",
+      "sha256": "5a396859c281669b93be215d45bf10988ba94368851308b2f97db459d009438e"
+    },
+    "source": {
+      "manifest_path": "data/videos/uploads/2026-10-04/manifest.json",
+      "url": null,
+      "publisher": null,
+      "source_id": null,
+      "kind": "user_upload",
+      "collected_at": "2026-10-04",
+      "unknown_reason": "用户提供本地文件夹中的成片并授权共享；未提供原网页、发布者或原片裁切区间。可见水印不等于已经核实原来源网页。微信文件名日期为文件命名线索，不当作比赛日期。",
+      "source_start_seconds": null,
+      "source_end_seconds": null,
+      "uploaded_filename": "微信视频2026-10-04_085441_490.mp4",
+      "season": null,
+      "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+    },
+    "quality": {
+      "clarity": "clear",
+      "core_actions_visible": true,
+      "reason": "连续画面中球员轮廓、球场线及主要持球/传递动作可辨；快速移动与多人重叠时的局部困难另行记录。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 5.75,
+            "end": 8.75
+          }
+        ],
+        "note": "投篮篮板段左篮架、底线文字、蓝色禁区与后排观众连续整体放大，确认短推近。"
+      },
+      "full_court_movement": {
+        "value": false,
+        "intervals": [],
+        "note": "未见有效动作镜头连续跟随球员跨中线或在两半场间转换。"
+      },
+      "image_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "未见持续模糊或明显压缩发虚；不能仅凭标称分辨率判定。"
+      },
+      "closeup_insertion": {
+        "value": false,
+        "intervals": [],
+        "note": "已查看全部序列，未见独立球员或替补席特写插入。"
+      },
+      "view_switch": {
+        "value": false,
+        "intervals": [],
+        "note": "未見不同机位或视角切换；随球平移/推拉仍为原侧线机位。"
+      },
+      "half_court_only": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 9.833
+          }
+        ],
+        "note": "有效动作集中于同一前场；没有连续跨中线到另一端的动作。"
+      },
+      "motion_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "未见影响动作判断的明显运动拖影。"
+      },
+      "occlusion": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 4.0,
+            "end": 5.5
+          }
+        ],
+        "note": "掩护、突破或篮下争抢中多名球员重叠，持球手/球短暂被身体挡住。"
+      },
+      "players_out_of_frame": {
+        "value": false,
+        "intervals": [],
+        "note": "主要参与球员保持在画幅内，无明显关键跑位出框。"
+      },
+      "replay_or_teaching": {
+        "value": false,
+        "intervals": [],
+        "note": "未见回放转场、教学图形或人工定格。"
+      }
+    },
+    "content": {
+      "scope": "frontcourt_sequence",
+      "action_tags": [
+        "持球掩护",
+        "突破分球",
+        "中距离投篮"
+      ],
+      "description": "深色队左前场挡拆后向左侧突破并回传右肘区队友，接球者跳投，白队收球准备推进。",
+      "usable_intervals": [
+        {
+          "start": 0.0,
+          "end": 9.833
+        }
+      ]
+    },
+    "selection": {
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "gpt-6.1-sol",
+      "review_method": "ai_dense_frame_review_2fps",
+      "human_reviewed": false,
+      "reviewed_at": "2026-10-04T06:39:10-04:00",
+      "sample_count": 20,
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/user-uploads-20261004-010/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/user-uploads-20261004-010/contact-02.jpg"
+      ],
+      "extra_frames": [],
+      "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+      "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片",
+      "camera_zoom_recheck": {
+        "reviewed_at": "2026-10-04T13:40:13-04:00",
+        "reviewer_model": "gpt-6.1-sol",
+        "method": "两名不同子Agent先后实际查看全部2fps序列；主Agent核对人工纠错与合并。",
+        "initial_value": null,
+        "independent_value": true,
+        "confidence": "medium",
+        "independent_reason": "独立实际查看本条全部contact sheets，以固定场景整体尺度为依据。投篮篮板段左篮架、底线文字、蓝色禁区与后排观众连续整体放大，确认短推近。 区间为片段相对秒的采样近似定位，未逐帧核实精确边界。",
+        "evidence_sheets": [
+          "artifacts/material-review-20261003/frames/user-uploads-20261004-010/contact-01.jpg",
+          "artifacts/material-review-20261003/frames/user-uploads-20261004-010/contact-02.jpg"
+        ],
+        "timestamp_note": "采样间隔0.5秒；区间为近似定位，未验证逐帧边界误差上界。",
+        "human_instruction_applied": false
+      },
+      "labeling_origin": "ai_visual_review"
+    }
   }
 }

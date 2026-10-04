@@ -1,0 +1,174 @@
+{
+  "schema_version": "1.0.0",
+  "pairs": [
+    {
+      "clip_ids": [
+        "user-uploads-20261004-012",
+        "nba-2025-26-sample-001-001"
+      ],
+      "relation": "partial_overlap",
+      "visual_basis": "新012约29至40秒与旧sample001广角段共享白队28号左肘接球背身推进、转身到右篮下出手，周围队友和防守者位置序列一致。新012前面还有深色队进攻与白队跨中线；旧sample末尾独有白28与替补席特写，新012没有这些画面，故只局部重叠。"
+    },
+    {
+      "clip_ids": [
+        "user-uploads-20261004-002",
+        "user-uploads-20261004-018"
+      ],
+      "relation": "different",
+      "visual_basis": "002为深蓝对白衣、左侧边线发球后左篮突破，再转白衣向右篮推进；018为蓝衣对红衣，从右侧半场组织后转红衣推进。球衣、场上站位与连续动作均不同，非同一画面序列。"
+    },
+    {
+      "clip_ids": [
+        "user-uploads-20261004-006",
+        "user-uploads-20261004-017"
+      ],
+      "relation": "different",
+      "visual_basis": "006为白衣对深蓝、右篮半场白衣外围传球及挡拆后底线突破；017为蓝衣对红衣，蓝衣跨中线至左篮组织进攻后红衣反向推进。球衣配色、篮筐方向和动作序列不同。"
+    },
+    {
+      "clip_ids": [
+        "user-uploads-20261004-002",
+        "user-uploads-20261004-013"
+      ],
+      "relation": "different",
+      "visual_basis": "002从左下侧边线深蓝发球开始，深蓝突破左篮后白衣转向右篮并终结；013从右侧近中线边线深蓝发球开始，随后左侧挡拆突破及白衣持球结束。发球位置和连续攻防序列不同，完整联系表中未见共享画面。"
+    },
+    {
+      "clip_ids": [
+        "user-uploads-20261004-018",
+        "user-uploads-20261004-013"
+      ],
+      "relation": "different",
+      "visual_basis": "018为蓝衣对红衣的连续攻防转换；013为深蓝对白衣的边线发球及左篮进攻。不同球衣及站位动作序列，未见共享画面。"
+    },
+    {
+      "clip_ids": [
+        "nba-2025-26-batch030-020",
+        "nba-2025-26-batch030-021"
+      ],
+      "relation": "partial_overlap",
+      "visual_basis": "完整时间序列核实：020约23–25s与021约0–2s相同，Q2 7:59→7:57、DAL34/HOU37，红队左侧投篮、蓝队31/25抢下篮板、蓝队5位置与裁判及球场背景一致。021约0.25s对应020约23.25s，约1.25s对应020约24.25s。020前段红队进攻与021后段蓝队推进、掩护、上篮不同，因此不是full_containment。",
+      "source_basis": "同源zzBe3XfzUNI，登记源区间2405–2430与2428–2448，交集2428–2430。",
+      "recommendation": "保留两段独立动作，登记2秒边界重叠；不整段删除。",
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-020/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-020/contact-02.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-020/contact-03.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-020/contact-04.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-021/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-021/contact-02.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-021/contact-03.jpg"
+      ],
+      "review_method": "view_image_full_contact_sheet_sequence_2fps",
+      "reviewed_at": "2026-10-04",
+      "reviewer_model": "gpt-6.1-sol",
+      "scope_note": "已读取2025目录3份manifest共39条game/source用于候选筛选。本文件只声称这5对完成完整视觉去重核对；未声称历史8段与全部030逐对排除。历史metadata的dedup.unverified未修改。",
+      "clip_overlap_intervals_seconds": {
+        "nba-2025-26-batch030-020": [
+          {
+            "start": 23.0,
+            "end": 25.0
+          }
+        ],
+        "nba-2025-26-batch030-021": [
+          {
+            "start": 0.0,
+            "end": 2.0
+          }
+        ]
+      },
+      "interval_precision": "approximate; 源区间交集与2fps序列实际画面共同支持，边界近似至采样级"
+    },
+    {
+      "clip_ids": [
+        "nba-2025-26-batch-008-003",
+        "nba-2025-26-batch030-021"
+      ],
+      "relation": "different",
+      "visual_basis": "完整序列：008-003为Q1 7:59、DAL6/HOU4，火箭白衣、独行侠深蓝衣，球场可见星形/特殊底线图案；030-021为Q2 7:59、DAL34/HOU37，火箭红衣、独行侠亮蓝衣，标准红色ROCKETS底线，进攻与篮板顺序不同。时钟相同但不是相同画面。",
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch-008-003/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch-008-003/contact-02.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-021/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-021/contact-02.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-021/contact-03.jpg"
+      ],
+      "review_method": "view_image_full_contact_sheet_sequence_2fps",
+      "reviewed_at": "2026-10-04",
+      "reviewer_model": "gpt-6.1-sol",
+      "scope_note": "已读取2025目录3份manifest共39条game/source用于候选筛选。本文件只声称这5对完成完整视觉去重核对；未声称历史8段与全部030逐对排除。历史metadata的dedup.unverified未修改。"
+    },
+    {
+      "clip_ids": [
+        "user-uploads-20261004-016",
+        "nba-2025-26-batch030-022"
+      ],
+      "relation": "different",
+      "visual_basis": "完整序列：上传016为DAL主场蓝色禁区，Q4 3:11→2:48，HOU105/DAL116→118，深色独行侠推进后半场终结。030-022为MIL主场绿色禁区与fiserv forum/雄鹿中心标志，Q4 3:07→2:47、HOU110/MIL111，雄鹿白衣进攻篮下并倒地。不是同一比赛画面。",
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/user-uploads-20261004-016/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/user-uploads-20261004-016/contact-02.jpg",
+        "artifacts/material-review-20261003/frames/user-uploads-20261004-016/contact-03.jpg",
+        "artifacts/material-review-20261003/frames/user-uploads-20261004-016/contact-04.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-022/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-022/contact-02.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-022/contact-03.jpg"
+      ],
+      "review_method": "view_image_full_contact_sheet_sequence_2fps",
+      "reviewed_at": "2026-10-04",
+      "reviewer_model": "gpt-6.1-sol",
+      "scope_note": "已读取2025目录3份manifest共39条game/source用于候选筛选。本文件只声称这5对完成完整视觉去重核对；未声称历史8段与全部030逐对排除。历史metadata的dedup.unverified未修改。"
+    },
+    {
+      "clip_ids": [
+        "nba-2025-26-batch-008-008",
+        "nba-2025-26-batch030-026"
+      ],
+      "relation": "different",
+      "visual_basis": "额外同节时钟候选完整序列：两段皆Q4约5:22，但008-008为DAL91/HOU99、火箭白衣/独行侠深蓝、球场星形图案，030-026为DAL94/HOU96、火箭红衣/独行侠亮蓝、标准火箭场地。008-008右侧突破终结，030-026左翼组织后外围三分，不是同一画面。",
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch-008-008/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch-008-008/contact-02.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-026/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-026/contact-02.jpg",
+        "artifacts/material-review-20261003/frames/nba-2025-26-batch030-026/contact-03.jpg"
+      ],
+      "review_method": "view_image_full_contact_sheet_sequence_2fps",
+      "reviewed_at": "2026-10-04",
+      "reviewer_model": "gpt-6.1-sol",
+      "scope_note": "已读取2025目录3份manifest共39条game/source用于候选筛选。本文件只声称这5对完成完整视觉去重核对；未声称历史8段与全部030逐对排除。历史metadata的dedup.unverified未修改。"
+    },
+    {
+      "clip_ids": [
+        "tactics-acceptance-005",
+        "user-uploads-20261003-003"
+      ],
+      "relation": "different",
+      "visual_basis": "完整联系表中，acceptance005为马刺主场黑色禁区、白衣对黑衣、右篮进攻，白20号外线持球后传右侧切入者上篮；上传003为MSG蓝色禁区、白衣老鹰对深蓝尼克斯、左篮突破。球场、球衣和连续动作不同。"
+    },
+    {
+      "clip_ids": [
+        "tactics-acceptance-006",
+        "user-uploads-20261003-003"
+      ],
+      "relation": "different",
+      "visual_basis": "acceptance006为马刺主场黑色禁区白衣对红衣，在左篮前外围长时间传导、掩护后左底角接球出手；上传003为MSG蓝色禁区白衣对深蓝，右侧持球切入左篮。完整序列无共享画面。"
+    },
+    {
+      "clip_ids": [
+        "tactics-acceptance-005",
+        "tactics-acceptance-006"
+      ],
+      "relation": "different",
+      "visual_basis": "005白衣对黑衣向右篮的快速传切上篮；006白衣对红衣向左篮的多次外围传导与底角出手。对手球衣及整段动作序列不同，不能依据同为SAS–MIA认作重叠。"
+    },
+    {
+      "clip_ids": [
+        "user-uploads-20261004-014",
+        "nba-2025-26-batch030-005"
+      ],
+      "relation": "different",
+      "visual_basis": "主Agent实际对比两段contact-01：新014白衣对深色球员、独行侠主场紫色禁区、第四节84:96；旧005蓝衣对红衣、火箭主场红色禁区、第三节65:62。虽然开头比赛时钟约7:47/7:46相近，球場、球衣、节次及连续动作不同，不能按时钟近似去重。"
+    }
+  ]
+}

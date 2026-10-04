@@ -85,7 +85,42 @@
     "reason": "历史单段；与 batch-008 八段及 batch030 三十段的对应关系未确认，入库时未做内容去重",
     "source_overlaps": [],
     "related_context": []
+   },
+   "material_review": {
+    "decision": "retain",
+    "quality": "clear",
+    "action_tags": [
+     "高位配合",
+     "持球突破",
+     "低位单打",
+     "篮下终结"
+    ],
+    "difficulty_tags": [
+     "稳定镜头",
+     "局部半场画面",
+     "遮挡",
+     "中途特写"
+    ],
+    "reason": "前约九秒保留清楚的持球对抗到篮下终结，后段特写不妨碍主体使用。",
+    "review_method": "ai_dense_frame_review_2fps",
+    "reviewer_model": "gpt-6.1-sol",
+    "human_reviewed": false,
+    "reviewed_at": "2026-10-03T21:19:41-04:00",
+    "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+   },
+   "material_labels": {
+    "schema_version": "1.0.0",
+    "status": "clear",
+    "recommended": true,
+    "annotation_field": "material_labels",
+    "human_reviewed": true,
+    "labeling_origin": "human_reviewed",
+    "classification_index": "data/videos/classification/index.json"
    }
   }
- ]
+ ],
+ "material_labels_summary": {
+  "clear": 1
+ },
+ "human_discard_archive": "data/videos/classification/discarded/index.json"
 }

@@ -82,5 +82,205 @@
   "fps": 30.0,
   "measurement_status": "measured",
   "measurement_basis": "本次入库由 ffprobe 实测；未做画面视觉复核"
+ },
+ "material_review": {
+  "clip_id": "nba-2025-26-batch030-002",
+  "decision": "retain",
+  "quality": "clear",
+  "usefulness": "适合完整发球进攻到防守篮板的球权边界和高位配合识别。",
+  "action_tags": [
+   "底线发球",
+   "后场推进",
+   "高位接球",
+   "掩护配合",
+   "禁区出手",
+   "防守篮板"
+  ],
+  "action_description": "红衣队从底线发球后推进，高位队友接球并与外线配合，球进入禁区后出手，蓝衣队控制篮板并推进。",
+  "difficulty_tags": [
+   "镜头平移",
+   "局部半场画面",
+   "遮挡"
+  ],
+  "camera": "高位侧面主转播镜头，随推进平移，半场较稳定，首尾部分特写",
+  "scope": "完整球权",
+  "issue_intervals": [
+   {
+    "start": 15.5,
+    "end": 17.5,
+    "issue": "篮下多人遮挡部分球路"
+   }
+  ],
+  "reason": "底线发球起点到对方控制篮板均可见，主镜头持续，核心站位与配合可辨。",
+  "review_method": "ai_dense_frame_review_2fps",
+  "reviewer_model": "gpt-6.1-sol",
+  "sha256": "a08da340970b367edf28148add645ec901da79753e8009f3f4c79a42ae1af065",
+  "reviewed_at": "2026-10-03T21:19:41-04:00",
+  "human_reviewed": false,
+  "sample_count": 42,
+  "evidence_location": "contact sheets and extra frames are local under artifacts/",
+  "selection_scope": "use_catalog_only; original asset remains available",
+  "tier": "primary",
+  "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+ },
+ "material_labels": {
+  "schema_version": "1.0.0",
+  "clip_id": "nba-2025-26-batch030-002",
+  "asset": {
+   "video_path": "data/videos/nba/2025-26/clips/002_2025-11-03_HOU_Q3.mp4",
+   "annotation_path": "data/videos/nba/2025-26/labels/002.json",
+   "sha256": "a08da340970b367edf28148add645ec901da79753e8009f3f4c79a42ae1af065"
+  },
+  "source": {
+   "manifest_path": "data/videos/nba/2025-26/manifest.json",
+   "url": "https://www.youtube.com/watch?v=zzBe3XfzUNI",
+   "publisher": "manuelmazon",
+   "source_id": null,
+   "kind": null,
+   "collected_at": "2026-09-30",
+   "unknown_reason": null,
+   "source_start_seconds": 3611,
+   "source_end_seconds": 3632,
+   "uploaded_filename": null,
+   "season": "2025-26",
+   "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "quality": {
+   "clarity": "clear",
+   "core_actions_visible": true,
+   "reason": "实际时间序列中球员轮廓、队服颜色与主要持球、传接或出手路径可辨；局部人员重叠不影响整体动作识别。"
+  },
+  "scenarios": {
+   "camera_zoom": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 4.75,
+      "end": 11.75
+     },
+     {
+      "start": 15.75,
+      "end": 18.25
+     }
+    ],
+    "note": "中圈及对侧座席持续缩小形成拉远；终结时篮板、禁区、底线字同步放大形成推近。"
+   },
+   "full_court_movement": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 2.0,
+      "end": 8.0
+     }
+    ],
+    "note": "序列实际看见镜头跟随持球与攻防队员跨越中线进入另一端，区间约涵盖该推进。"
+   },
+   "image_blur": {
+    "value": false,
+    "intervals": [],
+    "note": "实看序列未发现明显持续发虚、压缩模糊或影响识别的运动拖影。"
+   },
+   "closeup_insertion": {
+    "value": false,
+    "intervals": [],
+    "note": "全部序列未见切入人物、教练或替补席特写，篮下渐进推近仍属主比赛镜头。"
+   },
+   "view_switch": {
+    "value": false,
+    "intervals": [],
+    "note": "整段为连续高位主转播视角，平移和渐进变焦不算机位切换。"
+   },
+   "half_court_only": {
+    "value": false,
+    "intervals": [],
+    "note": "时间序列可见推进穿越中线或双向攻守转换，并非仅一侧半场。"
+   },
+   "motion_blur": {
+    "value": false,
+    "intervals": [],
+    "note": "逐段序列未见明显影响主要动作识别的持续运动模糊；快速动作的轻微帧内模糊不足以单独标记。"
+   },
+   "occlusion": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 15.0,
+      "end": 18.0
+     }
+    ],
+    "note": "对抗、掩护或篮下聚集时球与部分肢体短时被其他球员遮住；整体动作连续，保留这些区间。"
+   },
+   "players_out_of_frame": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 0.0,
+      "end": 6.0
+     }
+    ],
+    "note": "推进、镜头收紧或退防期间部分外围球员位于边缘并离画；核心持球动作仍可见。特写区间也缺少完整站位。"
+   },
+   "replay_or_teaching": {
+    "value": false,
+    "intervals": [],
+    "note": "连续比赛转播序列，无重复回放、定格讲解或战术示意插入；比分及统计字幕不算教学。"
+   }
+  },
+  "content": {
+   "scope": "full_possession",
+   "action_tags": [
+    "底线发球",
+    "后场推进",
+    "高位接球",
+    "掩护配合",
+    "禁区出手",
+    "防守篮板"
+   ],
+   "description": "红衣队从底线发球后推进，高位队友接球并与外线配合，球进入禁区后出手，蓝衣队控制篮板并推进。",
+   "usable_intervals": [
+    {
+     "start": 0.0,
+     "end": 21.0
+    }
+   ]
+  },
+  "selection": {
+   "status": "clear",
+   "recommended": true,
+   "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "content_relations": [],
+  "provenance": {
+   "reviewer_model": "gpt-6.1-sol",
+   "review_method": "ai_dense_frame_review_2fps",
+   "human_reviewed": false,
+   "reviewed_at": "2026-10-04T06:39:10-04:00",
+   "sample_count": 42,
+   "evidence_sheets": [
+    "artifacts/material-review-20261003/frames/nba-2025-26-batch030-002/contact-01.jpg",
+    "artifacts/material-review-20261003/frames/nba-2025-26-batch030-002/contact-02.jpg",
+    "artifacts/material-review-20261003/frames/nba-2025-26-batch030-002/contact-03.jpg"
+   ],
+   "extra_frames": [],
+   "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+   "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片",
+   "camera_zoom_recheck": {
+    "reviewed_at": "2026-10-04T13:40:13-04:00",
+    "reviewer_model": "gpt-6.1-sol",
+    "method": "两名不同子Agent先后实际查看全部2fps序列；主Agent核对人工纠错与合并。",
+    "initial_value": true,
+    "independent_value": true,
+    "confidence": "medium",
+    "independent_reason": "独立实际查看本条全部contact sheets，以固定场景整体尺度为依据。中圈及对侧座席持续缩小形成拉远；终结时篮板、禁区、底线字同步放大形成推近。 区间为片段相对秒的采样近似定位，未逐帧核实精确边界。",
+    "evidence_sheets": [
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch030-002/contact-01.jpg",
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch030-002/contact-02.jpg",
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch030-002/contact-03.jpg"
+    ],
+    "timestamp_note": "采样间隔0.5秒；区间为近似定位，未验证逐帧边界误差上界。",
+    "human_instruction_applied": false
+   },
+   "labeling_origin": "ai_visual_review"
+  }
  }
 }

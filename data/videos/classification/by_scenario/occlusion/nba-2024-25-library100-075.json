@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "nba-2024-25-library100-075__occlusion",
+  "clip_id": "nba-2024-25-library100-075",
+  "scenario": "occlusion",
+  "video_path": "data/videos/nba/2024-25/clips/075_OKC-IND_Q1_offensive-rebound_10.6s_720p.mp4",
+  "annotation_path": "data/videos/nba/2024-25/labels/075.json",
+  "sha256": "c254c6466da71865bff3038033a62487aa0a178d5420cd51db4f68700f9a49f2",
+  "selection": {
+    "status": "clear",
+    "recommended": true,
+    "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "source": {
+    "manifest_path": "data/videos/nba/2024-25/manifest.json",
+    "url": "https://v.qq.com/x/cover/mzc00200bq3obnv/w41017ie0yf.html",
+    "publisher": "腾讯视频 NBA 栏目",
+    "source_id": "w41017ie0yf",
+    "kind": null,
+    "collected_at": "2026-09-30",
+    "unknown_reason": null,
+    "source_start_seconds": 0.0,
+    "source_end_seconds": 10.6,
+    "uploaded_filename": null,
+    "season": "2024-25",
+    "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 7.0,
+      "end": 9.0
+    }
+  ],
+  "source_intervals_seconds": [
+    {
+      "start": 7.0,
+      "end": 9.0
+    }
+  ],
+  "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+  "note": "对抗、掩护或篮下聚集时球与部分肢体短时被其他球员遮住；整体动作连续，保留这些区间。"
+}

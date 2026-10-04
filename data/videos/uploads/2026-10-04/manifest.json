@@ -7,114 +7,6 @@
   "source_manifest": "data/videos/uploads/2026-10-04/sources/uploaded-files.json",
   "entries": [
     {
-      "clip_id": "user-uploads-20261004-001",
-      "local_id": "001",
-      "asset": {
-        "path": "clips/微信视频2026-10-04_085404_648.mp4",
-        "bytes": 47990823,
-        "sha256": "d3eeb277e4772abd33c3353e90c149bfa17b5633942595406b5cd47a5be028dd",
-        "storage": "git-lfs",
-        "availability": "included"
-      },
-      "annotation_path": "labels/001.json",
-      "source": {
-        "kind": "user_upload",
-        "uploaded_filename": "微信视频2026-10-04_085404_648.mp4",
-        "url": null,
-        "publisher": null,
-        "collected_at": "2026-10-04",
-        "start_seconds": null,
-        "end_seconds": null,
-        "unknown_reason": "用户提供本地文件夹中的成片并授权共享；未提供原网页、发布者或原片裁切区间。可见水印不等于已经核实原来源网页。微信文件名日期为文件命名线索，不当作比赛日期。"
-      },
-      "game": {
-        "season": null,
-        "date_local": null,
-        "date_beijing": null,
-        "matchup": "DAL at HOU",
-        "game_id": null,
-        "verification_url": null,
-        "verification_status": "unverified",
-        "verified_at": null,
-        "verification_basis": "仅按抽帧登记可见对阵、第四节和起点时钟。比赛日期 / 赛季按用户要求待核实；外部匹配保存在 candidate_game。",
-        "period": 4,
-        "clock_start": "01:47",
-        "clock_end": null,
-        "clock_precision": "起点来自首帧比分牌人工读数；终点未作最后一帧精确读数，保存 null。分组比对见 sources/game-candidates.md。",
-        "offense_team": null,
-        "defense_team": null,
-        "unknown_reason": "用户未提供比赛日期或来源，并明确要求先标赛季待核实；官方记录匹配仅作为候选，未提升正式标签。"
-      },
-      "tactic": {
-        "title": "DAL at HOU 第四节上传片段 001（动作待复核）",
-        "tags": [
-          "用户上传",
-          "待复核"
-        ],
-        "description": null,
-        "label_status": "provisional_from_collector_notes",
-        "confidence_note": "画面对阵与候选比赛匹配不等于正式赛季确认、完整球权、速度、清晰度或战术验收。",
-        "basis": "按文件接收及首中尾抽帧登记可见对阵；官方比分时钟匹配仅作为候选，正式赛季按用户要求待核实。"
-      },
-      "video": {
-        "duration_seconds": 51.56666666666667,
-        "width": 1552,
-        "height": 870,
-        "fps": 30.0,
-        "fps_fraction": "30",
-        "codec": "hevc",
-        "frame_count": 1547,
-        "audio_stream_count": 1,
-        "measurement_status": "measured",
-        "measurement_basis": "2026-10-04 使用 PyAV 17.0.0 / FFmpeg 库读取原文件视频流元数据；未转码"
-      },
-      "review": {
-        "normal_speed": null,
-        "original_broadcast": null,
-        "full_possession": null,
-        "scope": null,
-        "decode_status": "passed",
-        "visual_status": "unverified",
-        "reviewed_at": "2026-10-04T09:06:36+08:00",
-        "basis": "FFmpeg -xerror -err_detect explode 完整音视频解码通过；已查看首帧、中间帧及结束前 0.25 秒抽帧，仅用于对阵与比赛核对。未完成连续运动、画质与战术验收。",
-        "resolution_note": "保留实测非标准尺寸，未放大或统一转码"
-      },
-      "dedup": {
-        "content_status": "unverified",
-        "byte_status": "unique_against_catalog_and_uploaded_files",
-        "action_group": null,
-        "similar_to": [],
-        "source_overlaps": [],
-        "related_context": [
-          {
-            "clip_id": "nba-2025-26-batch-008-006",
-            "relation": "candidate_game_clock_overlap",
-            "basis": "本段首中抽帧覆盖第四节 01:47–01:25，历史清单记录 01:42–01:34；相同比赛时段，未逐帧对齐。"
-          }
-        ],
-        "reason": "18 个 SHA-256 互不相同，未命中既有 157 条资产；同一场比赛分段、端点停表或跨来源可能有重叠，不等于 18 个新增独立球权。原片时间轴未知，未虚构源区间交集秒数。"
-      },
-      "candidate_game": {
-        "season": "2025-26",
-        "date_local": "2026-01-31",
-        "date_beijing": null,
-        "matchup": "DAL at HOU",
-        "game_id": "0022500701",
-        "verification_url": "https://statsdmz.nba.com/pdfs/20260131/20260131_DALHOU_book.pdf",
-        "verification_status": "candidate_pending_confirmation",
-        "verified_at": "2026-10-04T09:06:36+08:00",
-        "verification_basis": "第四节 DAL/HOU 比分及末段时钟一致；03:05 DAL 罚球由 97 至 99，02:14 至 103，01:54 HOU 至 107，00:28.6 HOU 至 109，00:14.4 至 111；官方逐回合第 19 页。",
-        "period": 4,
-        "clock_start": "01:47",
-        "clock_end": null,
-        "clock_precision": "起点来自首帧比分牌人工读数；终点未作最后一帧精确读数，保存 null。分组比对见 sources/game-candidates.md。",
-        "offense_team": null,
-        "defense_team": null,
-        "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
-        "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
-      }
-    },
-    {
       "clip_id": "user-uploads-20261004-002",
       "local_id": "002",
       "asset": {
@@ -214,6 +106,15 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -316,108 +217,15 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
-      }
-    },
-    {
-      "clip_id": "user-uploads-20261004-004",
-      "local_id": "004",
-      "asset": {
-        "path": "clips/微信视频2026-10-04_085417_263.mp4",
-        "bytes": 33195419,
-        "sha256": "994c43388a2c31a44fcc8259bba1d4d71abab0dd439aed46da09c22e14012b23",
-        "storage": "git-lfs",
-        "availability": "included"
       },
-      "annotation_path": "labels/004.json",
-      "source": {
-        "kind": "user_upload",
-        "uploaded_filename": "微信视频2026-10-04_085417_263.mp4",
-        "url": null,
-        "publisher": null,
-        "collected_at": "2026-10-04",
-        "start_seconds": null,
-        "end_seconds": null,
-        "unknown_reason": "用户提供本地文件夹中的成片并授权共享；未提供原网页、发布者或原片裁切区间。可见水印不等于已经核实原来源网页。微信文件名日期为文件命名线索，不当作比赛日期。"
-      },
-      "game": {
-        "season": null,
-        "date_local": null,
-        "date_beijing": null,
-        "matchup": "DAL at HOU",
-        "game_id": null,
-        "verification_url": null,
-        "verification_status": "unverified",
-        "verified_at": null,
-        "verification_basis": "仅按抽帧登记可见对阵、第四节和起点时钟。比赛日期 / 赛季按用户要求待核实；外部匹配保存在 candidate_game。",
-        "period": 4,
-        "clock_start": "03:05",
-        "clock_end": null,
-        "clock_precision": "起点来自首帧比分牌人工读数；终点未作最后一帧精确读数，保存 null。分组比对见 sources/game-candidates.md。",
-        "offense_team": null,
-        "defense_team": null,
-        "unknown_reason": "用户未提供比赛日期或来源，并明确要求先标赛季待核实；官方记录匹配仅作为候选，未提升正式标签。"
-      },
-      "tactic": {
-        "title": "DAL at HOU 第四节上传片段 004（动作待复核）",
-        "tags": [
-          "用户上传",
-          "待复核"
-        ],
-        "description": null,
-        "label_status": "provisional_from_collector_notes",
-        "confidence_note": "画面对阵与候选比赛匹配不等于正式赛季确认、完整球权、速度、清晰度或战术验收。",
-        "basis": "按文件接收及首中尾抽帧登记可见对阵；官方比分时钟匹配仅作为候选，正式赛季按用户要求待核实。"
-      },
-      "video": {
-        "duration_seconds": 36.0,
-        "width": 1552,
-        "height": 872,
-        "fps": 30.0,
-        "fps_fraction": "30",
-        "codec": "hevc",
-        "frame_count": 1080,
-        "audio_stream_count": 1,
-        "measurement_status": "measured",
-        "measurement_basis": "2026-10-04 使用 PyAV 17.0.0 / FFmpeg 库读取原文件视频流元数据；未转码"
-      },
-      "review": {
-        "normal_speed": null,
-        "original_broadcast": null,
-        "full_possession": null,
-        "scope": null,
-        "decode_status": "passed",
-        "visual_status": "unverified",
-        "reviewed_at": "2026-10-04T09:06:36+08:00",
-        "basis": "FFmpeg -xerror -err_detect explode 完整音视频解码通过；已查看首帧、中间帧及结束前 0.25 秒抽帧，仅用于对阵与比赛核对。未完成连续运动、画质与战术验收。",
-        "resolution_note": "保留实测非标准尺寸，未放大或统一转码"
-      },
-      "dedup": {
-        "content_status": "unverified",
-        "byte_status": "unique_against_catalog_and_uploaded_files",
-        "action_group": null,
-        "similar_to": [],
-        "source_overlaps": [],
-        "related_context": [],
-        "reason": "18 个 SHA-256 互不相同，未命中既有 157 条资产；同一场比赛分段、端点停表或跨来源可能有重叠，不等于 18 个新增独立球权。原片时间轴未知，未虚构源区间交集秒数。"
-      },
-      "candidate_game": {
-        "season": "2025-26",
-        "date_local": "2026-01-31",
-        "date_beijing": null,
-        "matchup": "DAL at HOU",
-        "game_id": "0022500701",
-        "verification_url": "https://statsdmz.nba.com/pdfs/20260131/20260131_DALHOU_book.pdf",
-        "verification_status": "candidate_pending_confirmation",
-        "verified_at": "2026-10-04T09:06:36+08:00",
-        "verification_basis": "第四节 DAL/HOU 比分及末段时钟一致；03:05 DAL 罚球由 97 至 99，02:14 至 103，01:54 HOU 至 107，00:28.6 HOU 至 109，00:14.4 至 111；官方逐回合第 19 页。",
-        "period": 4,
-        "clock_start": "03:05",
-        "clock_end": null,
-        "clock_precision": "起点来自首帧比分牌人工读数；终点未作最后一帧精确读数，保存 null。分组比对见 sources/game-candidates.md。",
-        "offense_team": null,
-        "defense_team": null,
-        "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
-        "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -520,6 +328,15 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -622,108 +439,15 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
-      }
-    },
-    {
-      "clip_id": "user-uploads-20261004-007",
-      "local_id": "007",
-      "asset": {
-        "path": "clips/微信视频2026-10-04_085431_379.mp4",
-        "bytes": 1183795,
-        "sha256": "8f74f41ec6d10dc857e40932f711c198faea8374fd28443f2971b63681cdf144",
-        "storage": "git-lfs",
-        "availability": "included"
       },
-      "annotation_path": "labels/007.json",
-      "source": {
-        "kind": "user_upload",
-        "uploaded_filename": "微信视频2026-10-04_085431_379.mp4",
-        "url": null,
-        "publisher": null,
-        "collected_at": "2026-10-04",
-        "start_seconds": null,
-        "end_seconds": null,
-        "unknown_reason": "用户提供本地文件夹中的成片并授权共享；未提供原网页、发布者或原片裁切区间。可见水印不等于已经核实原来源网页。微信文件名日期为文件命名线索，不当作比赛日期。"
-      },
-      "game": {
-        "season": null,
-        "date_local": null,
-        "date_beijing": null,
-        "matchup": "SAS at NYK",
-        "game_id": null,
-        "verification_url": null,
-        "verification_status": "unverified",
-        "verified_at": null,
-        "verification_basis": "仅按抽帧登记可见对阵、第四节和起点时钟。比赛日期 / 赛季按用户要求待核实；外部匹配保存在 candidate_game。",
-        "period": 4,
-        "clock_start": "03:28",
-        "clock_end": null,
-        "clock_precision": "起点来自首帧比分牌人工读数；终点未作最后一帧精确读数，保存 null。分组比对见 sources/game-candidates.md。",
-        "offense_team": null,
-        "defense_team": null,
-        "unknown_reason": "用户未提供比赛日期或来源，并明确要求先标赛季待核实；官方记录匹配仅作为候选，未提升正式标签。"
-      },
-      "tactic": {
-        "title": "SAS at NYK 第四节上传片段 007（动作待复核）",
-        "tags": [
-          "用户上传",
-          "待复核"
-        ],
-        "description": null,
-        "label_status": "provisional_from_collector_notes",
-        "confidence_note": "画面对阵与候选比赛匹配不等于正式赛季确认、完整球权、速度、清晰度或战术验收。",
-        "basis": "按文件接收及首中尾抽帧登记可见对阵；官方比分时钟匹配仅作为候选，正式赛季按用户要求待核实。"
-      },
-      "video": {
-        "duration_seconds": 1.3333333333333333,
-        "width": 960,
-        "height": 540,
-        "fps": 30.0,
-        "fps_fraction": "30",
-        "codec": "hevc",
-        "frame_count": 40,
-        "audio_stream_count": 1,
-        "measurement_status": "measured",
-        "measurement_basis": "2026-10-04 使用 PyAV 17.0.0 / FFmpeg 库读取原文件视频流元数据；未转码"
-      },
-      "review": {
-        "normal_speed": null,
-        "original_broadcast": null,
-        "full_possession": false,
-        "scope": "partial_clip",
-        "decode_status": "passed",
-        "visual_status": "unverified",
-        "reviewed_at": "2026-10-04T09:06:36+08:00",
-        "basis": "FFmpeg -xerror -err_detect explode 完整音视频解码通过；已查看首帧、中间帧及结束前 0.25 秒抽帧，仅用于对阵与比赛核对。未完成连续运动、画质与战术验收。 007 仅 1.333 秒，只见推进片段，非完整球权。",
-        "resolution_note": "低于720p，保留原始尺寸，未放大"
-      },
-      "dedup": {
-        "content_status": "unverified",
-        "byte_status": "unique_against_catalog_and_uploaded_files",
-        "action_group": null,
-        "similar_to": [],
-        "source_overlaps": [],
-        "related_context": [],
-        "reason": "18 个 SHA-256 互不相同，未命中既有 157 条资产；同一场比赛分段、端点停表或跨来源可能有重叠，不等于 18 个新增独立球权。原片时间轴未知，未虚构源区间交集秒数。"
-      },
-      "candidate_game": {
-        "season": "2025-26",
-        "date_local": "2026-06-10",
-        "date_beijing": null,
-        "matchup": "SAS at NYK",
-        "game_id": "0042500404",
-        "verification_url": "https://statsdmz.nba.com/pdfs/20260610/20260610_SASNYK_book.pdf",
-        "verification_status": "candidate_pending_confirmation",
-        "verified_at": "2026-10-04T09:06:36+08:00",
-        "verification_basis": "画面 Finals、NY leads 2-1、SA/NY 与第四节比分一致；03:31 SAS 至 104，02:21 NYK 至 103，01:22 NYK 至 105，最后一攻后 NYK 107/SAS 106、时钟 1.2；官方逐回合第 19–20 页。",
-        "period": 4,
-        "clock_start": "03:28",
-        "clock_end": null,
-        "clock_precision": "起点来自首帧比分牌人工读数；终点未作最后一帧精确读数，保存 null。分组比对见 sources/game-candidates.md。",
-        "offense_team": null,
-        "defense_team": null,
-        "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
-        "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -826,6 +550,15 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -928,6 +661,15 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1030,108 +772,15 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
-      }
-    },
-    {
-      "clip_id": "user-uploads-20261004-011",
-      "local_id": "011",
-      "asset": {
-        "path": "clips/微信视频2026-10-04_085444_597.mp4",
-        "bytes": 9244812,
-        "sha256": "55114e4b491d96ecdc5e6a2a63978bb1b1dce578ad078378830b94b21c44cfa2",
-        "storage": "git-lfs",
-        "availability": "included"
       },
-      "annotation_path": "labels/011.json",
-      "source": {
-        "kind": "user_upload",
-        "uploaded_filename": "微信视频2026-10-04_085444_597.mp4",
-        "url": null,
-        "publisher": null,
-        "collected_at": "2026-10-04",
-        "start_seconds": null,
-        "end_seconds": null,
-        "unknown_reason": "用户提供本地文件夹中的成片并授权共享；未提供原网页、发布者或原片裁切区间。可见水印不等于已经核实原来源网页。微信文件名日期为文件命名线索，不当作比赛日期。"
-      },
-      "game": {
-        "season": null,
-        "date_local": null,
-        "date_beijing": null,
-        "matchup": "SAS at NYK",
-        "game_id": null,
-        "verification_url": null,
-        "verification_status": "unverified",
-        "verified_at": null,
-        "verification_basis": "仅按抽帧登记可见对阵、第四节和起点时钟。比赛日期 / 赛季按用户要求待核实；外部匹配保存在 candidate_game。",
-        "period": 4,
-        "clock_start": "01:30",
-        "clock_end": null,
-        "clock_precision": "起点来自首帧比分牌人工读数；终点未作最后一帧精确读数，保存 null。分组比对见 sources/game-candidates.md。",
-        "offense_team": null,
-        "defense_team": null,
-        "unknown_reason": "用户未提供比赛日期或来源，并明确要求先标赛季待核实；官方记录匹配仅作为候选，未提升正式标签。"
-      },
-      "tactic": {
-        "title": "SAS at NYK 第四节上传片段 011（动作待复核）",
-        "tags": [
-          "用户上传",
-          "待复核"
-        ],
-        "description": null,
-        "label_status": "provisional_from_collector_notes",
-        "confidence_note": "画面对阵与候选比赛匹配不等于正式赛季确认、完整球权、速度、清晰度或战术验收。",
-        "basis": "按文件接收及首中尾抽帧登记可见对阵；官方比分时钟匹配仅作为候选，正式赛季按用户要求待核实。"
-      },
-      "video": {
-        "duration_seconds": 11.266666666666667,
-        "width": 958,
-        "height": 538,
-        "fps": 30.0,
-        "fps_fraction": "30",
-        "codec": "hevc",
-        "frame_count": 338,
-        "audio_stream_count": 1,
-        "measurement_status": "measured",
-        "measurement_basis": "2026-10-04 使用 PyAV 17.0.0 / FFmpeg 库读取原文件视频流元数据；未转码"
-      },
-      "review": {
-        "normal_speed": null,
-        "original_broadcast": null,
-        "full_possession": null,
-        "scope": null,
-        "decode_status": "passed",
-        "visual_status": "unverified",
-        "reviewed_at": "2026-10-04T09:06:36+08:00",
-        "basis": "FFmpeg -xerror -err_detect explode 完整音视频解码通过；已查看首帧、中间帧及结束前 0.25 秒抽帧，仅用于对阵与比赛核对。未完成连续运动、画质与战术验收。",
-        "resolution_note": "低于720p，保留原始尺寸，未放大"
-      },
-      "dedup": {
-        "content_status": "unverified",
-        "byte_status": "unique_against_catalog_and_uploaded_files",
-        "action_group": null,
-        "similar_to": [],
-        "source_overlaps": [],
-        "related_context": [],
-        "reason": "18 个 SHA-256 互不相同，未命中既有 157 条资产；同一场比赛分段、端点停表或跨来源可能有重叠，不等于 18 个新增独立球权。原片时间轴未知，未虚构源区间交集秒数。"
-      },
-      "candidate_game": {
-        "season": "2025-26",
-        "date_local": "2026-06-10",
-        "date_beijing": null,
-        "matchup": "SAS at NYK",
-        "game_id": "0042500404",
-        "verification_url": "https://statsdmz.nba.com/pdfs/20260610/20260610_SASNYK_book.pdf",
-        "verification_status": "candidate_pending_confirmation",
-        "verified_at": "2026-10-04T09:06:36+08:00",
-        "verification_basis": "画面 Finals、NY leads 2-1、SA/NY 与第四节比分一致；03:31 SAS 至 104，02:21 NYK 至 103，01:22 NYK 至 105，最后一攻后 NYK 107/SAS 106、时钟 1.2；官方逐回合第 19–20 页。",
-        "period": 4,
-        "clock_start": "01:30",
-        "clock_end": null,
-        "clock_precision": "起点来自首帧比分牌人工读数；终点未作最后一帧精确读数，保存 null。分组比对见 sources/game-candidates.md。",
-        "offense_team": null,
-        "defense_team": null,
-        "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
-        "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1240,6 +889,15 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1342,6 +1000,15 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1444,108 +1111,15 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
-      }
-    },
-    {
-      "clip_id": "user-uploads-20261004-015",
-      "local_id": "015",
-      "asset": {
-        "path": "clips/微信视频2026-10-04_085458_352.mp4",
-        "bytes": 32552298,
-        "sha256": "740a881327f2545fcd7fbaf6a5b853d3f541d4bc30f58a24f76b1695ee03278f",
-        "storage": "git-lfs",
-        "availability": "included"
       },
-      "annotation_path": "labels/015.json",
-      "source": {
-        "kind": "user_upload",
-        "uploaded_filename": "微信视频2026-10-04_085458_352.mp4",
-        "url": null,
-        "publisher": null,
-        "collected_at": "2026-10-04",
-        "start_seconds": null,
-        "end_seconds": null,
-        "unknown_reason": "用户提供本地文件夹中的成片并授权共享；未提供原网页、发布者或原片裁切区间。可见水印不等于已经核实原来源网页。微信文件名日期为文件命名线索，不当作比赛日期。"
-      },
-      "game": {
-        "season": null,
-        "date_local": null,
-        "date_beijing": null,
-        "matchup": "HOU at DAL",
-        "game_id": null,
-        "verification_url": null,
-        "verification_status": "unverified",
-        "verified_at": null,
-        "verification_basis": "仅按抽帧登记可见对阵、第四节和起点时钟。比赛日期 / 赛季按用户要求待核实；外部匹配保存在 candidate_game。",
-        "period": 4,
-        "clock_start": "06:37",
-        "clock_end": null,
-        "clock_precision": "起点来自首帧比分牌人工读数；终点未作最后一帧精确读数，保存 null。分组比对见 sources/game-candidates.md。",
-        "offense_team": null,
-        "defense_team": null,
-        "unknown_reason": "用户未提供比赛日期或来源，并明确要求先标赛季待核实；官方记录匹配仅作为候选，未提升正式标签。"
-      },
-      "tactic": {
-        "title": "HOU at DAL 第四节上传片段 015（动作待复核）",
-        "tags": [
-          "用户上传",
-          "待复核"
-        ],
-        "description": null,
-        "label_status": "provisional_from_collector_notes",
-        "confidence_note": "画面对阵与候选比赛匹配不等于正式赛季确认、完整球权、速度、清晰度或战术验收。",
-        "basis": "按文件接收及首中尾抽帧登记可见对阵；官方比分时钟匹配仅作为候选，正式赛季按用户要求待核实。"
-      },
-      "video": {
-        "duration_seconds": 35.166666666666664,
-        "width": 1792,
-        "height": 1010,
-        "fps": 30.0,
-        "fps_fraction": "30",
-        "codec": "hevc",
-        "frame_count": 1055,
-        "audio_stream_count": 1,
-        "measurement_status": "measured",
-        "measurement_basis": "2026-10-04 使用 PyAV 17.0.0 / FFmpeg 库读取原文件视频流元数据；未转码"
-      },
-      "review": {
-        "normal_speed": null,
-        "original_broadcast": null,
-        "full_possession": null,
-        "scope": null,
-        "decode_status": "passed",
-        "visual_status": "unverified",
-        "reviewed_at": "2026-10-04T09:06:36+08:00",
-        "basis": "FFmpeg -xerror -err_detect explode 完整音视频解码通过；已查看首帧、中间帧及结束前 0.25 秒抽帧，仅用于对阵与比赛核对。未完成连续运动、画质与战术验收。",
-        "resolution_note": "保留实测非标准尺寸，未放大或统一转码"
-      },
-      "dedup": {
-        "content_status": "unverified",
-        "byte_status": "unique_against_catalog_and_uploaded_files",
-        "action_group": null,
-        "similar_to": [],
-        "source_overlaps": [],
-        "related_context": [],
-        "reason": "18 个 SHA-256 互不相同，未命中既有 157 条资产；同一场比赛分段、端点停表或跨来源可能有重叠，不等于 18 个新增独立球权。原片时间轴未知，未虚构源区间交集秒数。"
-      },
-      "candidate_game": {
-        "season": "2025-26",
-        "date_local": "2025-12-06",
-        "date_beijing": null,
-        "matchup": "HOU at DAL",
-        "game_id": "0022500356",
-        "verification_url": "https://statsdmz.nba.com/pdfs/20251206/20251206_HOUDAL_book.pdf",
-        "verification_status": "candidate_pending_confirmation",
-        "verified_at": "2026-10-04T09:06:36+08:00",
-        "verification_basis": "第四节 06:37 至 06:02 附近 HOU 94/DAL 109；03:11 HOU 105/DAL 116，02:49 DAL 至 118，与官方逐回合第 16–17 页一致。",
-        "period": 4,
-        "clock_start": "06:37",
-        "clock_end": null,
-        "clock_precision": "起点来自首帧比分牌人工读数；终点未作最后一帧精确读数，保存 null。分组比对见 sources/game-candidates.md。",
-        "offense_team": null,
-        "defense_team": null,
-        "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
-        "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1648,6 +1222,15 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1750,6 +1333,15 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -1852,7 +1444,20 @@
         "defense_team": null,
         "unknown_reason": "北京时间、逐回合攻守和精确末帧时钟未另行确认；部分片段包含多次攻守转换。未取得的官方 game_id 保持 null。",
         "status_note": "官方比分时钟匹配线索；用户于本轮明确要求先标赛季待核实，暂不提升正式赛季或比赛日期标签。"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     }
-  ]
+  ],
+  "material_labels_summary": {
+    "clear": 13
+  },
+  "human_discard_archive": "data/videos/classification/discarded/index.json"
 }

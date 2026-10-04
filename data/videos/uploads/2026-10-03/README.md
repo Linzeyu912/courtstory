@@ -1,5 +1,7 @@
 # 2026-10-03 用户上传视频
 
+2026-10-04 人工审核更新：本目录当前保留 **4 段**。已按用户决定删除 006；活动清单以本目录 manifest 和[正式场景目录](../../classification/README.md)为准；下文原始收集数量、统计与来源说明保留历史口径。人工记录见[本轮审核](../../reviews/human-2026-10-04/README.md)。
+
 用户明确要求将聊天附件的四段 MP4 放入 HKS 视频目录并推送至备赛私有仓库。本批次保留原文件名和原始字节，使用 Git LFS；未做转码、裁切、配音或画面叠加。
 
 批次 ID：`user-uploads-20261003`。接收日期：2026-10-03，Asia/Shanghai。资产与规格见 [manifest.json](manifest.json)，原文件接收记录见 [sources/uploaded-files.json](sources/uploaded-files.json)。

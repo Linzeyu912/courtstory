@@ -62,5 +62,225 @@
     "visual_status": "unverified",
     "reviewed_at": "2026-10-03T13:43:16+08:00",
     "basis": "FFmpeg 使用 -xerror -err_detect explode 对完整文件全部流解码成功，无报错；未做新的画面、球权或战术复核。"
+  },
+  "material_review": {
+    "decision": "exclude",
+    "quality": "usable",
+    "usefulness": "可用于教学图示案例，作为普通转播动作素材用途有限。",
+    "action_tags": [
+      "突破分球",
+      "外线接球",
+      "跳投"
+    ],
+    "action_description": "两段不同球场画面组成教学比较：持球人进入禁区吸引多人后向外线传球，外线队友投篮；画面持续叠加脚下圆环，并两次停留展示Gravity区域和高亮柱。",
+    "difficulty_tags": [
+      "回放",
+      "局部半场画面",
+      "遮挡",
+      "过程截断",
+      "教学图示",
+      "定格"
+    ],
+    "camera": "高位侧面比赛画面经教学回放加工，中间叠化切换不同片段。",
+    "scope": "局部动作",
+    "issue_intervals": [
+      {
+        "start": 0,
+        "end": 1,
+        "issue": "教学节目片头遮挡比赛。"
+      },
+      {
+        "start": 1,
+        "end": 10,
+        "issue": "第一段带跟踪圆环及Gravity教学图示，约4.5至7秒明显定格。"
+      },
+      {
+        "start": 10,
+        "end": 10.6,
+        "issue": "叠化切换至另一个比赛片段。"
+      },
+      {
+        "start": 10.6,
+        "end": 20,
+        "issue": "第二段带跟踪圆环及教学标注，约14至17秒明显定格，末尾截断。"
+      }
+    ],
+    "reason": "排除依据是全段教学回放加工与长时间定格，而非清晰度。已查看5.5秒和15秒两张原尺寸帧，确认两段均有大面积Gravity区域及跟踪圆环；没有独立连续普通转播段可供目标素材使用。",
+    "clip_id": "user-uploads-20261003-batch02-011",
+    "review_method": "ai_dense_frame_review_2fps",
+    "reviewer_model": "gpt-6.1-sol",
+    "sha256": "ae92addbf5bf9e49b05324ea40494b8d10ab37c49c320a10e104b975ae1af998",
+    "reviewed_at": "2026-10-03T21:19:41-04:00",
+    "human_reviewed": false,
+    "sample_count": 40,
+    "evidence_location": "contact sheets and extra frames are local under artifacts/",
+    "selection_scope": "use_catalog_only; original asset remains available",
+    "tier": "exclude",
+    "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+  },
+  "material_labels": {
+    "schema_version": "1.0.0",
+    "clip_id": "user-uploads-20261003-batch02-011",
+    "asset": {
+      "video_path": "data/videos/uploads/2026-10-03-batch02/clips/nba_primevision_5-25s.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/011.json",
+      "sha256": "ae92addbf5bf9e49b05324ea40494b8d10ab37c49c320a10e104b975ae1af998"
+    },
+    "source": {
+      "manifest_path": "data/videos/uploads/2026-10-03-batch02/manifest.json",
+      "url": null,
+      "publisher": null,
+      "source_id": null,
+      "kind": "user_upload",
+      "collected_at": "2026-10-03",
+      "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。",
+      "source_start_seconds": null,
+      "source_end_seconds": null,
+      "uploaded_filename": "nba_primevision_5-25s.mp4",
+      "season": null,
+      "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+    },
+    "quality": {
+      "clarity": "clear",
+      "core_actions_visible": true,
+      "reason": "连续画面中球员轮廓、球场线及主要持球/传递动作可辨；快速移动与多人重叠时的局部困难另行记录。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": false,
+        "intervals": [],
+        "note": "两段战术画面主要随球左右摇摄，篮架、场边广告与看台尺度保持；片头动画和中段换场是图形及切换，不算镜头推拉。"
+      },
+      "full_court_movement": {
+        "value": false,
+        "intervals": [],
+        "note": "未见有效动作镜头连续跟随球员跨中线或在两半场间转换。"
+      },
+      "image_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "未见持续模糊或明显压缩发虚；不能仅凭标称分辨率判定。"
+      },
+      "closeup_insertion": {
+        "value": false,
+        "intervals": [],
+        "note": "已查看全部序列，未见独立球员或替补席特写插入。"
+      },
+      "view_switch": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 1.0
+          },
+          {
+            "start": 10.0,
+            "end": 11.0
+          }
+        ],
+        "note": "片头转入教学场景，约10秒叠化到另一比赛场景。"
+      },
+      "half_court_only": {
+        "value": null,
+        "intervals": [],
+        "note": "全段教学加工、定格及多个场景拼接，无有效普通比赛段可评估单一半场范围。"
+      },
+      "motion_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "未见影响动作判断的明显运动拖影。"
+      },
+      "occlusion": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 2.0,
+            "end": 4.0
+          },
+          {
+            "start": 12.0,
+            "end": 14.0
+          }
+        ],
+        "note": "掩护、突破或篮下争抢中多名球员重叠，持球手/球短暂被身体挡住。"
+      },
+      "players_out_of_frame": {
+        "value": false,
+        "intervals": [],
+        "note": "主要参与球员保持在画幅内，无明显关键跑位出框。"
+      },
+      "replay_or_teaching": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 20.0
+          }
+        ],
+        "note": "圆环、Gravity标识、定格与两场景拼接贯穿教学剪辑。"
+      }
+    },
+    "content": {
+      "scope": "partial_action",
+      "action_tags": [
+        "突破分球",
+        "外线接球",
+        "跳投"
+      ],
+      "description": "两段不同球场画面组成教学比较：持球人进入禁区吸引多人后向外线传球，外线队友投篮；画面持续叠加脚下圆环，并两次停留展示Gravity区域和高亮柱。",
+      "usable_intervals": []
+    },
+    "selection": {
+      "status": "challenge",
+      "recommended": true,
+      "reason": "人工明确保留。教学定格、箭头与加工可用于教学/加工干扰增强，普通连续球权测试需按replay_or_teaching筛除。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "gpt-6.1-sol",
+      "review_method": "ai_dense_frame_review_2fps",
+      "human_reviewed": true,
+      "reviewed_at": "2026-10-04T06:39:10-04:00",
+      "sample_count": 40,
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/user-uploads-20261003-batch02-011/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/user-uploads-20261003-batch02-011/contact-02.jpg",
+        "artifacts/material-review-20261003/frames/user-uploads-20261003-batch02-011/contact-03.jpg"
+      ],
+      "extra_frames": [],
+      "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+      "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片",
+      "labeling_origin": "human_reviewed",
+      "human_review": {
+        "completed_at": "2026-10-04T13:02:03-04:00",
+        "applied_at": "2026-10-04T13:21:59-04:00",
+        "review_revision": 3,
+        "retention": {
+          "decision": "keep",
+          "reason": ""
+        },
+        "corrected_fields": [],
+        "source": "data/videos/reviews/human-2026-10-04/records/user-uploads-20261003-batch02-011.json",
+        "reviewed_label_fingerprint": "f4e78a9faf52104503993d64bdfa70764f405fa1a340a19832a98fead70c20f2",
+        "note": "用户逐项人工审核及纠错；后续AI推拉复核另记，不冒充重新人工确认。",
+        "post_review_ai_modified_fields": []
+      },
+      "camera_zoom_recheck": {
+        "reviewed_at": "2026-10-04T13:40:13-04:00",
+        "reviewer_model": "gpt-6.1-sol",
+        "method": "两名不同子Agent先后实际查看全部2fps序列；主Agent核对人工纠错与合并。",
+        "initial_value": true,
+        "independent_value": false,
+        "confidence": "high",
+        "independent_reason": "已独立逐张查看该素材全部contact sheets，以固定篮架、场地字样、禁区及背景坐席的共同尺度变化复核，排除人物跑近和横向跟拍。区间为片段相对秒的近似定位，未验证精确边界。",
+        "evidence_sheets": [
+          "artifacts/material-review-20261003/frames/user-uploads-20261003-batch02-011/contact-01.jpg",
+          "artifacts/material-review-20261003/frames/user-uploads-20261003-batch02-011/contact-02.jpg",
+          "artifacts/material-review-20261003/frames/user-uploads-20261003-batch02-011/contact-03.jpg"
+        ],
+        "timestamp_note": "采样间隔0.5秒；区间为近似定位，未验证逐帧边界误差上界。",
+        "human_instruction_applied": false
+      }
+    }
   }
 }

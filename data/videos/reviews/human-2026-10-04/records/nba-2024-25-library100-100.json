@@ -1,0 +1,279 @@
+{
+  "schema_version": "1.0.0",
+  "clip_id": "nba-2024-25-library100-100",
+  "video_path": "data/videos/nba/2024-25/clips/100_NYK-DET_Q4_isolation_5.7s_720p.mp4",
+  "annotation_path": "data/videos/nba/2024-25/labels/100.json",
+  "video_sha256": "b4b529b0d893ecb2d7c5826ba6a70edd9d036509c1fe54e2c722c5e160746bad",
+  "label_fingerprint": "37c8188ebe7022da3ec5e4079e6ef005f18207ac929c31c52e4476cb0bb13aa7",
+  "annotation_snapshot": {
+    "schema_version": "1.0.0",
+    "clip_id": "nba-2024-25-library100-100",
+    "asset": {
+      "video_path": "data/videos/nba/2024-25/clips/100_NYK-DET_Q4_isolation_5.7s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/100.json",
+      "sha256": "b4b529b0d893ecb2d7c5826ba6a70edd9d036509c1fe54e2c722c5e160746bad"
+    },
+    "source": {
+      "manifest_path": "data/videos/nba/2024-25/manifest.json",
+      "url": "https://v.qq.com/x/page/b41019bl0j4.html",
+      "publisher": "腾讯视频 NBA 栏目",
+      "source_id": "b41019bl0j4",
+      "kind": null,
+      "collected_at": "2026-09-30",
+      "unknown_reason": null,
+      "source_start_seconds": 13.2,
+      "source_end_seconds": 18.9,
+      "uploaded_filename": null,
+      "season": "2024-25",
+      "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+    },
+    "quality": {
+      "clarity": "clear",
+      "core_actions_visible": true,
+      "reason": "实际时间序列中球员轮廓、队服颜色与主要持球、传接或出手路径可辨；局部人员重叠不影响整体动作识别。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 2.0
+          }
+        ],
+        "note": "连续帧中球员及场地标记的画面尺度发生变化，主镜头渐进推近或拉远；区间为约数。"
+      },
+      "full_court_movement": {
+        "value": false,
+        "intervals": [],
+        "note": "可用主镜头动作停留在一侧进攻半场，未见连续跨中线到另一端。"
+      },
+      "image_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "实看序列未发现明显持续发虚、压缩模糊或影响识别的运动拖影。"
+      },
+      "closeup_insertion": {
+        "value": false,
+        "intervals": [],
+        "note": "全部序列未见切入人物、教练或替补席特写，篮下渐进推近仍属主比赛镜头。"
+      },
+      "view_switch": {
+        "value": false,
+        "intervals": [],
+        "note": "整段为连续高位主转播视角，平移和渐进变焦不算机位切换。"
+      },
+      "half_court_only": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 5.68
+          }
+        ],
+        "note": "可用动作围绕同一进攻半场展开，未见连续跨越中线到另一端；起止球权是否完整另由scope表示。"
+      },
+      "motion_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "逐段序列未见明显影响主要动作识别的持续运动模糊；快速动作的轻微帧内模糊不足以单独标记。"
+      },
+      "occlusion": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 2.0,
+            "end": 3.0
+          },
+          {
+            "start": 4.0,
+            "end": 5.68
+          }
+        ],
+        "note": "对抗、掩护或篮下聚集时球与部分肢体短时被其他球员遮住；整体动作连续，保留这些区间。"
+      },
+      "players_out_of_frame": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 1.0
+          }
+        ],
+        "note": "推进、镜头收紧或退防期间部分外围球员位于边缘并离画；核心持球动作仍可见。特写区间也缺少完整站位。"
+      },
+      "replay_or_teaching": {
+        "value": false,
+        "intervals": [],
+        "note": "连续比赛转播序列，无重复回放、定格讲解或战术示意插入；比分及统计字幕不算教学。"
+      }
+    },
+    "content": {
+      "scope": "partial_action",
+      "action_tags": [
+        "外线传球",
+        "接球持球",
+        "撤步跳投"
+      ],
+      "description": "球从左侧传到右侧外线，接球者运球调整并向后撤步跳投。",
+      "usable_intervals": [
+        {
+          "start": 0.0,
+          "end": 5.68
+        }
+      ]
+    },
+    "selection": {
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "gpt-6.1-sol",
+      "review_method": "ai_dense_frame_review_2fps",
+      "human_reviewed": false,
+      "reviewed_at": "2026-10-04T06:39:10-04:00",
+      "sample_count": 11,
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-100/contact-01.jpg"
+      ],
+      "extra_frames": [],
+      "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+      "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片"
+    }
+  },
+  "revision": 12,
+  "origin": "human_review_ui",
+  "status": "completed",
+  "evaluations": {
+    "quality.clarity": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "quality.core_actions_visible": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.scope": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.camera_zoom": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.full_court_movement": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.image_blur": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.closeup_insertion": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.view_switch": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.half_court_only": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.motion_blur": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.occlusion": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.players_out_of_frame": {
+      "verdict": "incorrect",
+      "comment": "几乎没出画",
+      "issue_type": "label",
+      "observed_at_seconds": 1.251
+    },
+    "scenarios.replay_or_teaching": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.action_tags.0": {
+      "verdict": "incorrect",
+      "comment": "内侧传球给高位",
+      "issue_type": "label",
+      "observed_at_seconds": 5.72
+    },
+    "content.action_tags.1": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.action_tags.2": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.description": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.usable_intervals": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "source": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "selection": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    }
+  },
+  "retention": {
+    "decision": "keep",
+    "reason": ""
+  },
+  "comments": "",
+  "created_at": "2026-10-04T12:45:14-04:00",
+  "updated_at": "2026-10-04T12:46:52-04:00",
+  "completed_at": "2026-10-04T12:46:52-04:00"
+}

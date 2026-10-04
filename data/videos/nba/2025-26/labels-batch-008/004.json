@@ -60,5 +60,189 @@
  "source_start_seconds": 605.7,
  "source_end_seconds": 616.6,
  "expected_video_path": "data/raw/nba-batch-008/04-dal-drive-corner-three.mp4",
- "reviewed_at": "2026-10-01T23:06:01+08:00"
+ "reviewed_at": "2026-10-01T23:06:01+08:00",
+ "material_review": {
+  "clip_id": "nba-2025-26-batch-008-004",
+  "decision": "retain",
+  "quality": "clear",
+  "usefulness": "可用于观察突破吸引防守与侧翼接球投篮，攻防站位及关键动作可辨。",
+  "action_tags": [
+   "持球掩护",
+   "持球突破",
+   "外线分球",
+   "接球三分"
+  ],
+  "action_description": "白衣方从中场推进并借外围掩护，持球人向禁区推进吸引防守后将球分给右侧外线队友，接球人起跳远投。",
+  "difficulty_tags": [
+   "镜头平移",
+   "局部半场画面",
+   "过程截断"
+  ],
+  "camera": "高位侧向转播全景，随球平移，前场阶段保持半场画面。",
+  "scope": "前场配合",
+  "issue_intervals": [],
+  "reason": "球员轮廓、攻防位置和传球突破投篮过程清楚，具有可用前场配合；开头已在推进或组织，不据此宣称完整球权。",
+  "review_method": "ai_dense_frame_review_2fps",
+  "reviewer_model": "gpt-6.1-sol",
+  "sha256": "39a1957f065ab081339b37c68e5a9c1c0c79a431573c0ccfa1f4de4e0b42aa76",
+  "reviewed_at": "2026-10-03T21:19:41-04:00",
+  "human_reviewed": false,
+  "sample_count": 22,
+  "evidence_location": "contact sheets and extra frames are local under artifacts/",
+  "selection_scope": "use_catalog_only; original asset remains available",
+  "tier": "primary",
+  "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+ },
+ "material_labels": {
+  "schema_version": "1.0.0",
+  "clip_id": "nba-2025-26-batch-008-004",
+  "asset": {
+   "video_path": "data/videos/nba/2025-26/clips/04-dal-drive-corner-three.mp4",
+   "annotation_path": "data/videos/nba/2025-26/labels-batch-008/004.json",
+   "sha256": "39a1957f065ab081339b37c68e5a9c1c0c79a431573c0ccfa1f4de4e0b42aa76"
+  },
+  "source": {
+   "manifest_path": "data/videos/nba/2025-26/manifest-batch-008.json",
+   "url": "https://www.youtube.com/watch?v=UG9E636IzfE",
+   "publisher": "NBA",
+   "source_id": null,
+   "kind": null,
+   "collected_at": "2026-09-30",
+   "unknown_reason": null,
+   "source_start_seconds": 605.7,
+   "source_end_seconds": 616.6,
+   "uploaded_filename": null,
+   "season": "2025-26",
+   "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "quality": {
+   "clarity": "clear",
+   "core_actions_visible": true,
+   "reason": "连续画面中球员轮廓、球场线及主要持球/传递动作可辨；快速移动与多人重叠时的局部困难另行记录。"
+  },
+  "scenarios": {
+   "camera_zoom": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 2.25,
+      "end": 9.25
+     }
+    ],
+    "note": "连续右半场镜头中篮架、底线字、禁区和后方观众整体逐渐放大，变化明显超过横摇透视。"
+   },
+   "full_court_movement": {
+    "value": false,
+    "intervals": [],
+    "note": "未见有效动作镜头连续跟随球员跨中线或在两半场间转换。"
+   },
+   "image_blur": {
+    "value": false,
+    "intervals": [],
+    "note": "未见持续模糊或明显压缩发虚；不能仅凭标称分辨率判定。"
+   },
+   "closeup_insertion": {
+    "value": false,
+    "intervals": [],
+    "note": "已查看全部序列，未见独立球员或替补席特写插入。"
+   },
+   "view_switch": {
+    "value": false,
+    "intervals": [],
+    "note": "未見不同机位或视角切换；随球平移/推拉仍为原侧线机位。"
+   },
+   "half_court_only": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 0.0,
+      "end": 10.911
+     }
+    ],
+    "note": "有效动作集中于同一前场；没有连续跨中线到另一端的动作。"
+   },
+   "motion_blur": {
+    "value": false,
+    "intervals": [],
+    "note": "未见影响动作判断的明显运动拖影。"
+   },
+   "occlusion": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 6.0,
+      "end": 7.0
+     }
+    ],
+    "note": "掩护、突破或篮下争抢中多名球员重叠，持球手/球短暂被身体挡住。"
+   },
+   "players_out_of_frame": {
+    "value": true,
+    "intervals": [
+     {
+      "start": 0.0,
+      "end": 1.0
+     }
+    ],
+    "note": "推进或镜头收紧时部分远端/侧翼球员离开画幅，局部动作继续可见。"
+   },
+   "replay_or_teaching": {
+    "value": false,
+    "intervals": [],
+    "note": "未见回放转场、教学图形或人工定格。"
+   }
+  },
+  "content": {
+   "scope": "frontcourt_sequence",
+   "action_tags": [
+    "持球掩护",
+    "持球突破",
+    "外线分球",
+    "接球三分"
+   ],
+   "description": "白衣方从中场推进并借外围掩护，持球人向禁区推进吸引防守后将球分给右侧外线队友，接球人起跳远投。",
+   "usable_intervals": [
+    {
+     "start": 0.0,
+     "end": 10.911
+    }
+   ]
+  },
+  "selection": {
+   "status": "clear",
+   "recommended": true,
+   "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "content_relations": [],
+  "provenance": {
+   "reviewer_model": "gpt-6.1-sol",
+   "review_method": "ai_dense_frame_review_2fps",
+   "human_reviewed": false,
+   "reviewed_at": "2026-10-04T06:39:10-04:00",
+   "sample_count": 22,
+   "evidence_sheets": [
+    "artifacts/material-review-20261003/frames/nba-2025-26-batch-008-004/contact-01.jpg",
+    "artifacts/material-review-20261003/frames/nba-2025-26-batch-008-004/contact-02.jpg"
+   ],
+   "extra_frames": [],
+   "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+   "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片",
+   "camera_zoom_recheck": {
+    "reviewed_at": "2026-10-04T13:40:13-04:00",
+    "reviewer_model": "gpt-6.1-sol",
+    "method": "两名不同子Agent先后实际查看全部2fps序列；主Agent核对人工纠错与合并。",
+    "initial_value": true,
+    "independent_value": true,
+    "confidence": "medium",
+    "independent_reason": "独立实际查看本条全部contact sheets，以固定场景整体尺度为依据。连续右半场镜头中篮架、底线字、禁区和后方观众整体逐渐放大，变化明显超过横摇透视。 区间为片段相对秒的采样近似定位，未逐帧核实精确边界。",
+    "evidence_sheets": [
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch-008-004/contact-01.jpg",
+     "artifacts/material-review-20261003/frames/nba-2025-26-batch-008-004/contact-02.jpg"
+    ],
+    "timestamp_note": "采样间隔0.5秒；区间为近似定位，未验证逐帧边界误差上界。",
+    "human_instruction_applied": false
+   },
+   "labeling_origin": "ai_visual_review"
+  }
+ }
 }

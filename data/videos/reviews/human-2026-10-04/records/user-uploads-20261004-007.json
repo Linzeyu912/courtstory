@@ -1,0 +1,251 @@
+{
+  "schema_version": "1.0.0",
+  "clip_id": "user-uploads-20261004-007",
+  "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085431_379.mp4",
+  "annotation_path": "data/videos/uploads/2026-10-04/labels/007.json",
+  "video_sha256": "8f74f41ec6d10dc857e40932f711c198faea8374fd28443f2971b63681cdf144",
+  "label_fingerprint": "08a138b586edc443e2c46b76ecdd65ba293deb7a7a2b720792eb9c69af72b06b",
+  "annotation_snapshot": {
+    "schema_version": "1.0.0",
+    "clip_id": "user-uploads-20261004-007",
+    "asset": {
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085431_379.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/007.json",
+      "sha256": "8f74f41ec6d10dc857e40932f711c198faea8374fd28443f2971b63681cdf144"
+    },
+    "source": {
+      "manifest_path": "data/videos/uploads/2026-10-04/manifest.json",
+      "url": null,
+      "publisher": null,
+      "source_id": null,
+      "kind": "user_upload",
+      "collected_at": "2026-10-04",
+      "unknown_reason": "用户提供本地文件夹中的成片并授权共享；未提供原网页、发布者或原片裁切区间。可见水印不等于已经核实原来源网页。微信文件名日期为文件命名线索，不当作比赛日期。",
+      "source_start_seconds": null,
+      "source_end_seconds": null,
+      "uploaded_filename": "微信视频2026-10-04_085431_379.mp4",
+      "season": null,
+      "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+    },
+    "quality": {
+      "clarity": "clear",
+      "core_actions_visible": true,
+      "reason": "连续画面中球员轮廓、球场线及主要持球/传递动作可辨；快速移动与多人重叠时的局部困难另行记录。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": false,
+        "intervals": [],
+        "note": "观察球员与场线画面尺度变化；未见明显推拉，随球平移另行记录。"
+      },
+      "full_court_movement": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 1.333
+          }
+        ],
+        "note": "连续跟随白衣持球跨中线，1.33秒仅短推进开头。"
+      },
+      "image_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "未见持续模糊或明显压缩发虚；不能仅凭标称分辨率判定。"
+      },
+      "closeup_insertion": {
+        "value": false,
+        "intervals": [],
+        "note": "已查看全部序列，未见独立球员或替补席特写插入。"
+      },
+      "view_switch": {
+        "value": false,
+        "intervals": [],
+        "note": "未見不同机位或视角切换；随球平移/推拉仍为原侧线机位。"
+      },
+      "half_court_only": {
+        "value": false,
+        "intervals": [],
+        "note": "可见持球跨中线，非仅单侧半场。"
+      },
+      "motion_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "未见影响动作判断的明显运动拖影。"
+      },
+      "occlusion": {
+        "value": false,
+        "intervals": [],
+        "note": "未见明显遮住核心动作的身体重叠。"
+      },
+      "players_out_of_frame": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 1.333
+          }
+        ],
+        "note": "推进或镜头收紧时部分远端/侧翼球员离开画幅，局部动作继续可见。"
+      },
+      "replay_or_teaching": {
+        "value": false,
+        "intervals": [],
+        "note": "未见回放转场、教学图形或人工定格。"
+      }
+    },
+    "content": {
+      "scope": "partial_action",
+      "action_tags": [
+        "推进"
+      ],
+      "description": "白衣持球由中线左侧推进至右侧，镜头连续随之右移；1.33秒仅推进开头，可用于真实场景增强，不适合完整回合分析。",
+      "usable_intervals": [
+        {
+          "start": 0.0,
+          "end": 1.333
+        }
+      ]
+    },
+    "selection": {
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "gpt-6.1-sol",
+      "review_method": "ai_dense_frame_review_2fps",
+      "human_reviewed": false,
+      "reviewed_at": "2026-10-04T06:39:10-04:00",
+      "sample_count": 3,
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/user-uploads-20261004-007/contact-01.jpg"
+      ],
+      "extra_frames": [],
+      "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+      "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片"
+    }
+  },
+  "revision": 5,
+  "origin": "human_review_ui",
+  "status": "completed",
+  "evaluations": {
+    "quality.clarity": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "quality.core_actions_visible": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.scope": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.camera_zoom": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.full_court_movement": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.image_blur": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.closeup_insertion": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.view_switch": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.half_court_only": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.motion_blur": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.occlusion": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.players_out_of_frame": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "scenarios.replay_or_teaching": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.action_tags.0": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.description": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "content.usable_intervals": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "source": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    },
+    "selection": {
+      "verdict": "correct",
+      "comment": "",
+      "issue_type": "label",
+      "observed_at_seconds": null
+    }
+  },
+  "retention": {
+    "decision": "discard",
+    "reason": "就1s这是什么东西，扔了"
+  },
+  "comments": "",
+  "created_at": "2026-10-04T13:02:49-04:00",
+  "updated_at": "2026-10-04T13:03:07-04:00",
+  "completed_at": "2026-10-04T13:03:07-04:00"
+}

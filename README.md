@@ -1,5 +1,7 @@
 # BroadcastCode Team Hub
 
+2026-10-04 素材标签更新：40段人工抽检已完成，保留28、删除12，当前活动库163段。每段正式标签记录人工/AI来源；全库推拉完成两轮独立复核，125确认、7未见、31待确认。后续Agent从[结构化素材目录](data/videos/classification/README.md)与[人工审核记录](data/videos/reviews/human-2026-10-04/README.md)接手；历史发布记录中的175段为当时口径。
+
 三人参加 BroadcastCode「深度赛场」比赛的共享资料与协作仓库。资料正文使用中文，仓库名及新增目录使用英文。
 
 **GitHub 仓库**：https://github.com/Linzeyu912/broadcastcode-team-hub  

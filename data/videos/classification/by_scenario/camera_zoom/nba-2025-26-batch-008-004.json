@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "nba-2025-26-batch-008-004__camera_zoom",
+  "clip_id": "nba-2025-26-batch-008-004",
+  "scenario": "camera_zoom",
+  "video_path": "data/videos/nba/2025-26/clips/04-dal-drive-corner-three.mp4",
+  "annotation_path": "data/videos/nba/2025-26/labels-batch-008/004.json",
+  "sha256": "39a1957f065ab081339b37c68e5a9c1c0c79a431573c0ccfa1f4de4e0b42aa76",
+  "selection": {
+    "status": "clear",
+    "recommended": true,
+    "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "source": {
+    "manifest_path": "data/videos/nba/2025-26/manifest-batch-008.json",
+    "url": "https://www.youtube.com/watch?v=UG9E636IzfE",
+    "publisher": "NBA",
+    "source_id": null,
+    "kind": null,
+    "collected_at": "2026-09-30",
+    "unknown_reason": null,
+    "source_start_seconds": 605.7,
+    "source_end_seconds": 616.6,
+    "uploaded_filename": null,
+    "season": "2025-26",
+    "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 2.25,
+      "end": 9.25
+    }
+  ],
+  "source_intervals_seconds": [
+    {
+      "start": 607.95,
+      "end": 614.95
+    }
+  ],
+  "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+  "note": "连续右半场镜头中篮架、底线字、禁区和后方观众整体逐渐放大，变化明显超过横摇透视。"
+}

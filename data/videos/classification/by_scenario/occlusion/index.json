@@ -1,0 +1,965 @@
+{
+  "schema_version": "1.0.0",
+  "scenario": "occlusion",
+  "title": "遮挡",
+  "path_base": "repository_root",
+  "count": 159,
+  "usable_count": 159,
+  "default_count": 159,
+  "samples": [
+    {
+      "clip_id": "nba-2024-25-library100-001",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-002",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-002.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-003",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-003.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-004",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-004.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-005",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-005.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-006",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-006.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-007",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-007.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-008",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-008.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-009",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-009.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-010",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-010.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-011",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-011.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-012",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-012.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-013",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-013.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-014",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-014.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-015",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-015.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-016",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-016.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-017",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-017.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-018",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-018.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-019",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-019.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-020",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-020.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-021",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-021.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-022",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-022.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-023",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-023.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-024",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-024.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-025",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-025.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-026",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-026.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-027",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-027.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-028",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-028.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-029",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-029.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-030",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-030.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-031",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-031.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-032",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-032.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-033",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-033.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-034",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-034.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-035",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-035.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-036",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-036.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-037",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-037.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-039",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-039.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-040",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-040.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-041",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-041.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-042",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-042.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-043",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-043.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-044",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-044.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-046",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-046.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-047",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-047.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-048",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-048.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-049",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-049.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-050",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-050.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-051",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-051.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-052",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-052.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-053",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-053.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-054",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-054.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-055",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-055.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-056",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-056.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-057",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-057.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-058",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-058.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-059",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-059.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-060",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-060.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-061",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-061.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-062",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-062.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-063",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-063.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-065",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-065.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-066",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-066.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-067",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-067.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-068",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-068.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-070",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-070.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-071",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-071.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-072",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-072.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-073",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-073.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-074",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-074.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-075",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-075.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-076",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-076.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-077",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-077.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-078",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-078.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-079",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-079.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-080",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-080.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-081",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-081.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-082",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-082.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-083",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-083.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-084",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-084.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-085",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-085.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-086",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-086.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-087",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-087.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-088",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-088.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-089",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-089.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-090",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-090.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-091",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-091.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-092",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-092.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-093",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-093.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-094",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-094.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-095",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-095.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-096",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-096.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-098",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-098.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-099",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-099.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2024-25-library100-100",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2024-25-library100-100.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-001",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-002",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-002.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-003",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-003.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-004",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-004.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-005",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-005.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-006",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-006.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-007",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-007.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-008",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-008.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-009",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-009.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-010",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-010.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-011",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-011.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-012",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-012.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-013",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-013.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-014",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-014.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-015",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-015.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-016",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-016.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-017",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-017.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-018",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-018.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-019",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-019.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-020",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-020.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-021",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-021.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-022",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-022.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-023",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-023.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-024",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-024.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-025",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-025.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-026",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-026.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-027",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-027.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-029",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch030-029.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-001",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch-008-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-002",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch-008-002.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-003",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch-008-003.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-004",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch-008-004.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-005",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch-008-005.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-007",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch-008-007.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-008",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-batch-008-008.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-sample-001-001",
+      "path": "data/videos/classification/by_scenario/occlusion/nba-2025-26-sample-001-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "tactics-acceptance-005",
+      "path": "data/videos/classification/by_scenario/occlusion/tactics-acceptance-005.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "tactics-acceptance-006",
+      "path": "data/videos/classification/by_scenario/occlusion/tactics-acceptance-006.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-001",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-002",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-002.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-003",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-003.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-001",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-batch02-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-002",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-batch02-002.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-003",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-batch02-003.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-004",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-batch02-004.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-005",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-batch02-005.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-007",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-batch02-007.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-008",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-batch02-008.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-009",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-batch02-009.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-010",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-batch02-010.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-011",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261003-batch02-011.json",
+      "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-002",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-002.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-003",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-003.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-005",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-005.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-006",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-006.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-008",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-008.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-009",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-009.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-010",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-010.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-012",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-012.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-013",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-013.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-014",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-014.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-016",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-016.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-017",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-017.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261004-018",
+      "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-018.json",
+      "status": "clear",
+      "recommended": true
+    }
+  ]
+}

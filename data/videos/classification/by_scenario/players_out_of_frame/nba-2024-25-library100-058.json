@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "nba-2024-25-library100-058__players_out_of_frame",
+  "clip_id": "nba-2024-25-library100-058",
+  "scenario": "players_out_of_frame",
+  "video_path": "data/videos/nba/2024-25/clips/058_NYK-IND_Q3_drive-pass_8.9s_720p.mp4",
+  "annotation_path": "data/videos/nba/2024-25/labels/058.json",
+  "sha256": "c1a536bedf42916f66b9c9719532a5369f690e771f573aa0f420231680d36a21",
+  "selection": {
+    "status": "clear",
+    "recommended": true,
+    "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "source": {
+    "manifest_path": "data/videos/nba/2024-25/manifest.json",
+    "url": "https://v.qq.com/x/cover/mzc00200zuwdjc0/g4101enf31a.html",
+    "publisher": "腾讯视频 NBA 栏目",
+    "source_id": "g4101enf31a",
+    "kind": null,
+    "collected_at": "2026-09-30",
+    "unknown_reason": null,
+    "source_start_seconds": 0.0,
+    "source_end_seconds": 8.9,
+    "uploaded_filename": null,
+    "season": "2024-25",
+    "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 6.0,
+      "end": 8.8
+    }
+  ],
+  "source_intervals_seconds": [
+    {
+      "start": 6.0,
+      "end": 8.8
+    }
+  ],
+  "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+  "note": "跟球取景时远侧翼、身后推进球员或退防者位于画外/画缘；持球及主要终结仍保留，不能据此认为十人全程同框。"
+}

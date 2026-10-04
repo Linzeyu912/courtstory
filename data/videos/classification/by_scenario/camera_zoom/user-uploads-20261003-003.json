@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "user-uploads-20261003-003__camera_zoom",
+  "clip_id": "user-uploads-20261003-003",
+  "scenario": "camera_zoom",
+  "video_path": "data/videos/uploads/2026-10-03/clips/2026-04-20_ATL_Q3_0313_side_pick_roll_hook_silent.mp4",
+  "annotation_path": "data/videos/uploads/2026-10-03/labels/003.json",
+  "sha256": "1b44b6271d72c5ee0516d0c745afeacc76757c54134b3a031b506b90c5510d89",
+  "selection": {
+    "status": "clear",
+    "recommended": true,
+    "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "source": {
+    "manifest_path": "data/videos/uploads/2026-10-03/manifest.json",
+    "url": null,
+    "publisher": null,
+    "source_id": null,
+    "kind": "user_upload",
+    "collected_at": "2026-10-03",
+    "unknown_reason": "用户在当前聊天直接提供 MP4 成片，未提供原页面、发布者或来源原片裁切区间；原文件名仅作为线索，未据此补猜来源。",
+    "source_start_seconds": null,
+    "source_end_seconds": null,
+    "uploaded_filename": "2026-04-20_ATL_Q3_0313_side_pick_roll_hook_silent.mp4",
+    "season": null,
+    "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 5.75,
+      "end": 8.75
+    }
+  ],
+  "source_intervals_seconds": null,
+  "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+  "note": "篮下进攻时篮架、底线字样、禁区及后排观众同步放大；开头快速水平跟拍不计。"
+}

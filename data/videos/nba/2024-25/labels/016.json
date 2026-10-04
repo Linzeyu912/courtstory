@@ -64,5 +64,203 @@
     "047",
     "067"
   ],
-  "repeat_reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。"
+  "repeat_reason": "同属「接球三分」；比赛/比赛时钟不同，不是同一球权。具体变化见各段动作标签。",
+  "material_review": {
+    "clip_id": "nba-2024-25-library100-016",
+    "decision": "retain",
+    "quality": "clear",
+    "usefulness": "可用于高位掩护、持球横移、回传的可见动作与球员空间关系分析。",
+    "action_tags": [
+      "高位掩护",
+      "持球横移",
+      "回传",
+      "接球三分"
+    ],
+    "action_description": "深色队在弧顶掩护后向右运球，球回到左侧高位队友，接球者举球调整后远投，随后双方转换。",
+    "difficulty_tags": [
+      "稳定镜头",
+      "局部半场画面"
+    ],
+    "camera": "转播高位侧视半场广角，轻微跟随持球移动，无中途特写或回放。",
+    "scope": "前场配合",
+    "issue_intervals": [],
+    "reason": "高位掩护后回传与外线出手的站位及防守移动可辨。",
+    "review_method": "ai_dense_frame_review_2fps",
+    "reviewer_model": "gpt-6.1-sol",
+    "sha256": "dbedcc4b57b49318ee761a77c9aaa0a2e9e92197d6a7cdb55463611712ebac5f",
+    "reviewed_at": "2026-10-03T21:19:41-04:00",
+    "human_reviewed": false,
+    "sample_count": 17,
+    "evidence_location": "contact sheets and extra frames are local under artifacts/",
+    "selection_scope": "use_catalog_only; original asset remains available",
+    "tier": "primary",
+    "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+  },
+  "material_labels": {
+    "schema_version": "1.0.0",
+    "clip_id": "nba-2024-25-library100-016",
+    "asset": {
+      "video_path": "data/videos/nba/2024-25/clips/016_LAC-DEN_Q1_catch-shoot_8.6s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/016.json",
+      "sha256": "dbedcc4b57b49318ee761a77c9aaa0a2e9e92197d6a7cdb55463611712ebac5f"
+    },
+    "source": {
+      "manifest_path": "data/videos/nba/2024-25/manifest.json",
+      "url": "https://v.qq.com/x/cover/mzc00200ovlb8t5/y4101mk17nc.html",
+      "publisher": "腾讯视频 NBA 栏目",
+      "source_id": "y4101mk17nc",
+      "kind": null,
+      "collected_at": "2026-09-30",
+      "unknown_reason": null,
+      "source_start_seconds": 0.0,
+      "source_end_seconds": 8.6,
+      "uploaded_filename": null,
+      "season": "2024-25",
+      "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+    },
+    "quality": {
+      "clarity": "clear",
+      "core_actions_visible": true,
+      "reason": "宽景中球员轮廓、场线及关键传接/出手过程可辨；短时肢体重叠或移动尾部不妨碍主要动作判断。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": false,
+        "intervals": [],
+        "note": "人工明确无推拉；篮架及场地字样稳定，保持该判断。"
+      },
+      "full_court_movement": {
+        "value": false,
+        "intervals": [],
+        "note": "所见有效动作停留在一端；未观察到持球动作连续跨中线进入另一半场。"
+      },
+      "image_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "宽景中核心球员及场地关系可辨，未见持续模糊、明显压缩发虚或影响分析的运动拖影。"
+      },
+      "closeup_insertion": {
+        "value": false,
+        "intervals": [],
+        "note": "完整时间序列持续为场上转播宽景，未切入球员、教练、裁判或替补席特写。"
+      },
+      "view_switch": {
+        "value": false,
+        "intervals": [],
+        "note": "全段密集时间序列未见明确机位或视角切换；平移和推拉仍属于同一转播视角。"
+      },
+      "half_court_only": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 8.48
+          }
+        ],
+        "note": "有效配合集中在一个进攻半场；虽有退防或开始转换，未观察到连续持球跨中线进入另一半场。"
+      },
+      "motion_blur": {
+        "value": false,
+        "intervals": [],
+        "note": "未见持续影响关键动作辨识的运动拖影；正常快速动作的瞬时轻微模糊未单独算异常。"
+      },
+      "occlusion": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 2.0
+          },
+          {
+            "start": 6.0,
+            "end": 7.0
+          }
+        ],
+        "note": "所列时段球或持球人被近侧防守者、掩护者或篮下聚集人群短暂遮挡；连续前后帧能恢复动作关系。"
+      },
+      "players_out_of_frame": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 7.0,
+            "end": 8.48
+          }
+        ],
+        "note": "跟球取景时远侧翼、身后推进球员或退防者位于画外/画缘；持球及主要终结仍保留，不能据此认为十人全程同框。"
+      },
+      "replay_or_teaching": {
+        "value": false,
+        "intervals": [],
+        "note": "时间序列为连续比赛转播；未见回放重复、定格、教学箭头或讲解图，比分/统计叠图不计教学。"
+      }
+    },
+    "content": {
+      "scope": "frontcourt_sequence",
+      "action_tags": [
+        "高位掩护",
+        "持球横移",
+        "回传",
+        "接球三分"
+      ],
+      "description": "深色队在弧顶掩护后向右运球，球回到左侧高位队友，接球者举球调整后远投，随后双方转换。",
+      "usable_intervals": [
+        {
+          "start": 0.0,
+          "end": 8.48
+        }
+      ]
+    },
+    "selection": {
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "gpt-6.1-sol",
+      "review_method": "ai_dense_frame_review_2fps",
+      "human_reviewed": true,
+      "reviewed_at": "2026-10-04T06:39:10-04:00",
+      "sample_count": 17,
+      "evidence_sheets": [
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-016/contact-01.jpg",
+        "artifacts/material-review-20261003/frames/nba-2024-25-library100-016/contact-02.jpg"
+      ],
+      "extra_frames": [],
+      "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+      "evidence_location": "抽帧证据在本机忽略目录artifacts/；共享标签可直接读取，无需这些图片",
+      "human_review": {
+        "completed_at": "2026-10-04T11:11:20-04:00",
+        "applied_at": "2026-10-04T13:21:59-04:00",
+        "review_revision": 5,
+        "retention": {
+          "decision": "keep",
+          "reason": ""
+        },
+        "corrected_fields": [
+          "scenarios.camera_zoom"
+        ],
+        "source": "data/videos/reviews/human-2026-10-04/records/nba-2024-25-library100-016.json",
+        "reviewed_label_fingerprint": "1e6ca55514dc43f678bce2ce582642507b6f207938e70956be9466c7fe4cbdfa",
+        "note": "用户逐项人工审核及纠错；后续AI推拉复核另记，不冒充重新人工确认。",
+        "post_review_ai_modified_fields": []
+      },
+      "labeling_origin": "human_reviewed",
+      "camera_zoom_recheck": {
+        "reviewed_at": "2026-10-04T13:40:13-04:00",
+        "reviewer_model": "gpt-6.1-sol",
+        "method": "两名不同子Agent先后实际查看全部2fps序列；主Agent核对人工纠错与合并。",
+        "initial_value": false,
+        "independent_value": false,
+        "confidence": "high",
+        "independent_reason": "独立实际查看本条全部contact sheets，以固定场景整体尺度为依据。人工明确无推拉；篮架及场地字样稳定，保持该判断。 同时遵循本条人工明确判断。 区间为片段相对秒的采样近似定位，未逐帧核实精确边界。",
+        "evidence_sheets": [
+          "artifacts/material-review-20261003/frames/nba-2024-25-library100-016/contact-01.jpg",
+          "artifacts/material-review-20261003/frames/nba-2024-25-library100-016/contact-02.jpg"
+        ],
+        "timestamp_note": "采样间隔0.5秒；区间为近似定位，未验证逐帧边界误差上界。",
+        "human_instruction_applied": true
+      }
+    }
+  }
 }

@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "nba-2024-25-library100-029__camera_zoom",
+  "clip_id": "nba-2024-25-library100-029",
+  "scenario": "camera_zoom",
+  "video_path": "data/videos/nba/2024-25/clips/029_NYK-BOS_Q2_drive-finish_6.6s_720p.mp4",
+  "annotation_path": "data/videos/nba/2024-25/labels/029.json",
+  "sha256": "420ebbe70ab48630bb01c993ca58ecb651db85b4b4d09e782efc25d2db2d8775",
+  "selection": {
+    "status": "clear",
+    "recommended": true,
+    "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。"
+  },
+  "source": {
+    "manifest_path": "data/videos/nba/2024-25/manifest.json",
+    "url": "https://v.qq.com/x/cover/mzc002000vxb85h/o410186nm0n.html",
+    "publisher": "腾讯视频 NBA 栏目",
+    "source_id": "o410186nm0n",
+    "kind": null,
+    "collected_at": "2026-09-30",
+    "unknown_reason": null,
+    "source_start_seconds": 11.8,
+    "source_end_seconds": 18.4,
+    "uploaded_filename": null,
+    "season": "2024-25",
+    "source_time_note": "来源时间有记录时按成片偏移估算；未知上传来源保留null，不把文件接收时间当比赛时间。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 2.0,
+      "end": 5.5
+    }
+  ],
+  "source_intervals_seconds": [
+    {
+      "start": 13.8,
+      "end": 17.3
+    }
+  ],
+  "timestamp_precision": "2fps采样间隔0.5秒，区间为人工阅读抽帧后的近似定位；未验证精确边界误差，裁剪前需补看逐帧画面",
+  "note": "篮板、篮架底座、禁区及底线文字持续共同放大，短推近清楚；早期左右摇摄不计。"
+}

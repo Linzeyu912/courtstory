@@ -82,6 +82,36 @@
         "source_overlaps": [],
         "related_context": [],
         "reason": "SHA-256 与现有 142 条资产清单、已下载本地成片及本批其他三段均无相同值；转码、不同裁切或同回合内容重复尚未逐回合比较。"
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "持球掩护",
+          "突破分球",
+          "低位背身",
+          "转身出手"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "持球挡拆与低位终结可见，不能只凭文件名命名球队战术。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -160,6 +190,35 @@
         "source_overlaps": [],
         "related_context": [],
         "reason": "SHA-256 与现有 142 条资产清单、已下载本地成片及本批其他三段均无相同值；转码、不同裁切或同回合内容重复尚未逐回合比较。"
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "手递手配合",
+          "持球突破",
+          "急停转身投篮"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "交球、持球对抗及转身出手可辨认；抽帧不足以精确断言后仰幅度。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -238,6 +297,36 @@
         "source_overlaps": [],
         "related_context": [],
         "reason": "SHA-256 与现有 142 条资产清单、已下载本地成片及本批其他三段均无相同值；转码、不同裁切或同回合内容重复尚未逐回合比较。"
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "运球推进",
+          "侧翼掩护",
+          "持球突破",
+          "近篮单手出手"
+        ],
+        "difficulty_tags": [
+          "镜头平移",
+          "局部半场画面",
+          "遮挡"
+        ],
+        "reason": "侧翼掩护到禁区终结的移动清楚，出手具体手型不作过细判定。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
       }
     },
     {
@@ -316,7 +405,39 @@
         "source_overlaps": [],
         "related_context": [],
         "reason": "SHA-256 与现有 142 条资产清单、已下载本地成片及本批其他三段均无相同值；转码、不同裁切或同回合内容重复尚未逐回合比较。"
+      },
+      "material_review": {
+        "decision": "retain",
+        "quality": "clear",
+        "action_tags": [
+          "外线传递",
+          "无球移动",
+          "接球三分"
+        ],
+        "difficulty_tags": [
+          "稳定镜头",
+          "局部半场画面"
+        ],
+        "reason": "传球、重新接应及外线投篮清楚，保留为无球重新站位样例。",
+        "review_method": "ai_dense_frame_review_2fps",
+        "reviewer_model": "gpt-6.1-sol",
+        "human_reviewed": false,
+        "reviewed_at": "2026-10-03T21:19:41-04:00",
+        "catalog_path": "data/videos/reviews/2026-10-03/review.json"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": true,
+        "labeling_origin": "human_reviewed",
+        "classification_index": "data/videos/classification/index.json"
       }
     }
-  ]
+  ],
+  "material_labels_summary": {
+    "clear": 4
+  },
+  "human_discard_archive": "data/videos/classification/discarded/index.json"
 }

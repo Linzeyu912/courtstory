@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0.0",
+  "scenario": "closeup_insertion",
+  "title": "特写打断",
+  "path_base": "repository_root",
+  "count": 26,
+  "usable_count": 26,
+  "default_count": 26,
+  "samples": [
+    {
+      "clip_id": "nba-2025-26-batch030-001",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-003",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-003.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-004",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-004.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-005",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-005.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-006",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-006.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-007",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-007.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-008",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-008.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-009",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-009.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-011",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-011.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-012",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-012.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-015",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-015.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-016",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-016.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-017",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-017.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-018",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-018.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-019",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-019.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-020",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-020.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-021",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-021.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-022",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-022.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-023",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-023.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-025",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-025.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-026",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-026.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-027",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-027.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-029",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch030-029.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-002",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-batch-008-002.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "nba-2025-26-sample-001-001",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/nba-2025-26-sample-001-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-004",
+      "path": "data/videos/classification/by_scenario/closeup_insertion/user-uploads-20261003-batch02-004.json",
+      "status": "clear",
+      "recommended": true
+    }
+  ]
+}
