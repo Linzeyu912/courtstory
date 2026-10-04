@@ -1,0 +1,7 @@
+# Optional offline court-only benchmark runtime, verified 2026-10-04.
+# Existing player detection / tracking environments do not need to change.
+numpy==2.4.3
+scipy==1.17.1
+opencv-python==5.0.0.93
+av==17.0.0
+Pillow==12.1.1
