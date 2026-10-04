@@ -14,12 +14,8 @@
 #tacticsPresentationStatus{padding:7px 10px;border-left:3px solid #c6933c;background:#fff9e9;color:#695327;line-height:1.6}#tacticsRouteHint{line-height:1.6;min-height:3.2em}
 
 /* The main workflow is drawing on the footage; evidence tools stay in disclosures. */
-.workbench-shell[data-area="tactics"] .source-toolbar :is(.component-picker,#applyModel,#modelChoiceStatus),
 .workbench-shell[data-area="tactics"] .app-header .header-tools,
 .workbench-shell[data-area="tactics"] .shared-timeline{display:none}
-.workbench-shell[data-area="tactics"] .source-toolbar{padding:5px 10px;align-items:center;flex-wrap:nowrap}
-.workbench-shell[data-area="tactics"] .source-toolbar .video-picker{display:flex;flex-direction:row;align-items:center;gap:12px;white-space:nowrap}
-.workbench-shell[data-area="tactics"] .source-toolbar select{max-width:520px;padding:5px 8px}
 .tactics-panel{padding:12px 14px;background:#f8fafc;scrollbar-gutter:stable}
 .tactics-heading{margin-bottom:6px;flex-wrap:nowrap}.tactics-heading h2{font-size:18px;margin:0}.tactics-subtitle{font-size:11px;color:#738297}
 .tactics-save-state{font-size:11px;color:#557064}.tactics-save-state[data-dirty="true"]{color:#9a6e19}
