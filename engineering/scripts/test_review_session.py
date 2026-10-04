@@ -570,6 +570,9 @@ class ReviewEditHttpTests(unittest.TestCase):
         library = root / 'library.json'
         library.write_text(json.dumps({'defaultSample': 'qa', 'samples': [{'id': 'qa',
             'video': str(root / 'unread-video.mp4'), 'tracks': str(root / 'unread-tracks.json')}]}), encoding='utf-8')
+        # This HTTP fixture must not hash a contributor's full shared video library.
+        catalog = root / 'catalog.json'
+        catalog.write_text(json.dumps({'datasets': []}), encoding='utf-8')
         ready = threading.Event()
 
         def server_factory(address, handler):
@@ -582,6 +585,7 @@ class ReviewEditHttpTests(unittest.TestCase):
             'video': root / 'unread-video.mp4', 'digest': 'video-one', 'frames': 40,
             'defaultVariant': 'original', 'payloads': {'original': cls.clip_bytes}}))
         cls.stack.enter_context(patch('sys.argv', ['serve_player_review.py', '--library', str(library),
+                                                 '--shared-video-catalog', str(catalog),
                                                  '--trim-root', str(root / 'trims'), '--state-file', str(root / 'server.json'),
                                                  '--video-folder', str(root / 'inbox'), '--import-cache', str(root / 'imports'),
                                                  '--tactics-folder', str(root / 'tactics'),

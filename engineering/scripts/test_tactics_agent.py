@@ -2,6 +2,7 @@ import base64
 from copy import deepcopy
 import json
 from pathlib import Path
+import shutil
 import subprocess
 import tempfile
 import threading
@@ -22,9 +23,11 @@ class AgentTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.folder = Path(self.temp.name)
-        self.tactics = TacticalWorkbench(self.folder / 'saved', node='D:/node.exe')
+        self.node = shutil.which('node')
+        self.assertIsNotNone(self.node, 'Node.js is required for the real tactical validator')
+        self.tactics = TacticalWorkbench(self.folder / 'saved', node=self.node)
         script = "import {makePresentationDemo} from './engineering/tools/tactical-overlay/fixtures/presentation-demo.mjs';import {createTacticsDocument} from './engineering/tools/player-review/tactics-document.mjs';console.log(JSON.stringify(await createTacticsDocument((await makePresentationDemo()).review)));"
-        self.doc = json.loads(subprocess.check_output(['D:/node.exe', '--input-type=module', '-e', script], cwd=ROOT))
+        self.doc = json.loads(subprocess.check_output([self.node, '--input-type=module', '-e', script], cwd=ROOT))
         review = self.doc['review']
         self.clip = {'video_sha256': review['videoSha256'], 'tracking_fingerprint': review['trackingFingerprint'],
                      'tracking_revision': review['trackingRevision'], 'width': review['width'], 'height': review['height'],
@@ -34,7 +37,7 @@ class AgentTests(unittest.TestCase):
         self.request = dict(document=self.doc, expectedVersion=0, clientRevision=7, documentDigest=self.tactics.run('agent-digest', document=self.doc)['digest'], scope='play', phaseId='phase-1', goal='讲清楚切入')
 
     def make_agent(self, execute=None):
-        agent = TacticsAgent(self.folder / 'agent', self.tactics, codex_path='D:/node.exe', execute=execute or (lambda **_kwargs: self.output))
+        agent = TacticsAgent(self.folder / 'agent', self.tactics, codex_path=self.node, execute=execute or (lambda **_kwargs: self.output))
         self.addCleanup(agent.close)
         return agent
 
