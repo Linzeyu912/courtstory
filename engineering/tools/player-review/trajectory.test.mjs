@@ -66,7 +66,10 @@ test('scene object export preserves per-frame evidence without becoming player o
   records[3].objects=[{kind:'basketball',box:[20,30,28,38],score:.73,source:'model',groundPoint:false},
     {kind:'hoop',box:[80,50,120,68],score:.91,source:'model',groundPoint:false}];
   const session=scenario([{frame:0,x:100,y:300,trackId:null}]);
-  const exported=exportReview(session,{video_sha256:'sample',width:1920,height:1080,frames:records},'test-time');
+  const sceneObjectSource={variant:'ebard',videoSha256:'sample',trackingRawFingerprint:'object-reference',method:'same_video_frame_aligned_objects',reviewRequired:true};
+  const exported=exportReview(session,{video_sha256:'sample',width:1920,height:1080,frames:records,sceneObjectSource},'test-time');
+  assert.deepEqual(exported.sceneObjects.observationSource,sceneObjectSource);
+  assert.notEqual(exported.sceneObjects.observationSource,sceneObjectSource);
   assert.equal(exported.sceneObjects.coordinateSystem,'image_pixels');
   assert.equal(exported.sceneObjects.continuousTracking,false);assert.equal(exported.sceneObjects.groundProjection,false);
   assert.deepEqual(exported.sceneObjects.frames[3],{frame:3,time:.3,objects:records[3].objects});

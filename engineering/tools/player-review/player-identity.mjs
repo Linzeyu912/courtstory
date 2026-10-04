@@ -1,3 +1,4 @@
+import {mountIdentityOCR} from './identity-ocr.mjs';
 const RATING_GROUPS=[
   ['投篮',[['three_point_shot','三分'],['mid_range_shot','中投'],['close_shot','近投']]],
   ['突破',[['layup','上篮'],['driving_dunk','突破扣篮'],['ball_handle','控球'],['speed_with_ball','持球速度']]],
@@ -54,6 +55,7 @@ export function exportPlayerIdentities(review,session){
 export function mountPlayerIdentityUI(api){
   const doc=document,$=id=>doc.getElementById(id);
   let stateSignature='',cardSignature='',catalog=null,lookup=null,lookupEpoch=0,teamEpoch=0,catalogEpoch=0;
+  let ocrUI=null;
   const value=rating=>rating==null?'未知':String(rating);
   const state=()=>api.getState();
   const entity=()=>state().session.entities.find(item=>item.id===state().active);
@@ -121,9 +123,9 @@ export function mountPlayerIdentityUI(api){
     }catch(error){if(token!==catalogEpoch)return;$('profileLookupStatus').textContent=error.message;$('profileRetry').hidden=false;}
   }
   function render(){
-    const current=state(),item=entity();const signature=JSON.stringify([current.active,item?.playerProfile,item?.ratingReference,current.session.gameContext?.season]);
+    const current=state(),item=entity();const signature=JSON.stringify([current.active,item?.playerProfile,item?.ratingReference,item?.jersey,item?.team,current.session.gameContext?.season]);
     if(signature!==stateSignature){stateSignature=signature;seedForm();}
-    $('profileLookup').disabled=!ready();card();
+    $('profileLookup').disabled=!ready();card();ocrUI?.render();
   }
   $('profileSeason').onchange=()=>{invalidate();void loadTeams($('profileSeason').value);};
   $('profileTeam').onchange=invalidate;$('profileJersey').oninput=invalidate;
@@ -156,5 +158,6 @@ export function mountPlayerIdentityUI(api){
   };
   $('profileClear').onclick=()=>{const current=state(),copy=clone(current.session);if(!clearPlayerProfile(copy,current.active))return;api.commit(copy);$('profileLookupStatus').textContent='身份资料已清除，原编号与手工记录保留，可撤销。';api.toast('身份资料已清除，可撤销。');};
   $('profileSeason').replaceChildren(option('','选择视频赛季'));clearCandidates();render();void loadCatalog();
+  ocrUI=mountIdentityOCR({...api,onJersey:value=>{$('profileJersey').value=value;invalidate();},onTeam:()=>seedForm()});
   return {render};
 }

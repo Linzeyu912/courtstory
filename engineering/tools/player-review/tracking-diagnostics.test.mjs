@@ -79,7 +79,7 @@ test('estimation, unassignment, out-of-view and owner conflicts describe review 
     assert.match(trackingDiagnostic(record, {...point, source}).label, /估计位置/);
   }
   assert.match(trackingDiagnostic(record, {...point, reviewExcluded: true}).label, /取消关联/);
-  assert.match(trackingDiagnostic(record, {...point, source: 'out_of_view'}).label, /标记为出画/);
+  assert.match(trackingDiagnostic(record, {...point, source: 'out_of_view'}).label, /镜头外.*无需补点/);
   assert.match(trackingDiagnostic(record, {...point, source: 'conflict'}).detail, /不能据此认定/);
   assert.match(trackingDiagnostic(record, {...point, identitySource: 'reassigned'}).label, /改归其他球员/);
 });

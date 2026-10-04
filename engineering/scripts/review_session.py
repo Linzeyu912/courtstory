@@ -9,7 +9,7 @@ IDENTITY_BINDING_MODE = 'forward_only_v1'
 TRACK_OCCURRENCES_SCOPE = 'track_occurrences'
 PLAYER_IDS = {f'P{i}' for i in range(1, 11)}
 IDENTITY_KINDS = {'track', 'untracked', 'out_of_view', 'unassigned'}
-PERSON_RECORDS = ('anchors', 'identityKeyframes', 'bindings', 'modelBindings', 'courtAnchors', 'events', 'frameConfirmations')
+PERSON_RECORDS = ('anchors', 'identityKeyframes', 'bindings', 'modelBindings', 'courtAnchors', 'events', 'frameConfirmations', 'visibilityRanges')
 FRAME_CONFIRMATION_SCOPES = {'track_occurrences', 'manual_forward', 'manual_range', 'model_suggestion', 'manual_position'}
 
 
@@ -242,6 +242,15 @@ def validate_session(session, clip):
             _identity_record(binding, frame_count, interval=True)
         for confirmation in _list(entity, 'frameConfirmations'):
             _frame_confirmation(confirmation, frame_count)
+        visibility_end = -1
+        for record in _list(entity, 'visibilityRanges'):
+            if not isinstance(record, dict) or record.get('state') not in ('visible', 'occluded', 'out_of_view'):
+                raise ValueError('球员画面状态不正确。')
+            start = _integer(record.get('start'), '画面状态起点', high=frame_count - 1)
+            end = _integer(record.get('end'), '画面状态终点', high=frame_count - 1)
+            if start > end or start <= visibility_end:
+                raise ValueError('画面状态区间必须按帧排序，且不能重叠。')
+            visibility_end = end
         for field in ('modelBindings', 'dismissedModelBindings'):
             for binding in _list(entity, field):
                 _identity_record(binding, frame_count, interval=True)

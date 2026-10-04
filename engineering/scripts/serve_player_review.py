@@ -48,6 +48,7 @@ def main():
                         help="Local read-only identity data package (default: repository 2K Player Data)")
     parser.add_argument("--court-model", default="tmp/court-models-v2/best.pt", help="Pinned local 48-point weights; loaded on calibration requests only")
     parser.add_argument("--court-imgsz", type=int, choices=(640, 960), default=640)
+    parser.add_argument("--ground-comparison-root", help="Optional read-only pose comparison directory")
     args = parser.parse_args()
     if args.library:
         if args.video or args.tracks or args.alternative_tracks:
@@ -83,6 +84,8 @@ def main():
     for sample in samples:
         clips[sample['id']]=load_clip(parser,sample)
     mutation_lock=threading.Lock()
+    from identity_ocr import IdentityOCR, OCRUnavailable
+    identity_ocr=IdentityOCR()
     def publish_local(sample, clip):
         with mutation_lock:
             clips[sample['id']]=clip
@@ -138,10 +141,11 @@ def main():
             'defaultVariant':clips[s['id']]['defaultVariant']} for s in active_samples]},ensure_ascii=False).encode('utf-8')
     static = Path(__file__).resolve().parents[1] / "tools/player-review"
     routes = {"/": static / "index.html"}
-    for filename in ["style.css","pipeline.css","app.mjs","player-identity.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","simple-annotation.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
+    for filename in ["ball-court.mjs","ground-position.mjs","ground-comparison-ui.mjs","identity-ocr.mjs","style.css","pipeline.css","app.mjs","player-identity.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","simple-annotation.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
         routes['/'+filename]=static/filename
     routes['/video-library.mjs']=static/'video-library.mjs'
     routes['/model-selection.mjs']=static/'model-selection.mjs'
+    routes['/court-trails.mjs']=static/'court-trails.mjs'
     for filename in ['identity-continuation.mjs', 'identity-agent-client.mjs']:
         routes['/'+filename]=static/filename
     for filename in ['tactics-ui.mjs','tactics-player-identity.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','tactics-agent.mjs','tactics.css']:
@@ -251,7 +255,7 @@ def main():
                 except (ValueError,OSError,TypeError) as error:
                     self.json_response(400,{'error':str(error)})
                 return
-            if route not in {'/api/trim','/api/court-propagate','/api/court-calibrate','/api/review-edit'}:self.send_error(404);return
+            if route not in {'/api/trim','/api/court-propagate','/api/court-calibrate','/api/review-edit','/api/identity-ocr'}:self.send_error(404);return
             origin=self.headers.get('Origin')
             if origin and origin!=f'http://127.0.0.1:{self.server.server_port}':self.send_error(403);return
             if self.headers.get('Content-Type','').split(';')[0]!='application/json':self.send_error(415);return
@@ -263,6 +267,13 @@ def main():
                 finite_json(request,'Request')
                 source_id=request.get('sample');variant=request.get('variant',clips.get(source_id,{}).get('defaultVariant','original'))
                 if source_id not in clips or variant not in clips[source_id]['payloads']:raise ValueError('找不到源视频或跟踪版本。')
+                if route=='/api/identity-ocr':
+                    try:
+                        result=identity_ocr.recognize(clips[source_id]['video'],json.loads(clips[source_id]['payloads'][variant]),request)
+                        self.json_response(200,result)
+                    except OCRUnavailable as error:self.json_response(503,{'error':str(error)})
+                    except (OSError,RuntimeError) as error:self.json_response(400,{'error':str(error)})
+                    return
                 if route=='/api/review-edit':
                     result=apply_review_edit(request.get('session'),request.get('operation'),json.loads(clips[source_id]['payloads'][variant]))
                     data=json.dumps(result,ensure_ascii=False,allow_nan=False).encode('utf-8')
@@ -396,6 +407,33 @@ def main():
                 if not head_only:self.wfile.write(payload)
                 return
             sample_id=query.get('sample',[default])[0]
+            if route=='/api/ground-comparison':
+                try:
+                    if sample_id not in clips:raise ValueError('找不到视频。')
+                    selected=query.get('variant',[clips[sample_id]['defaultVariant']])[0]
+                    if selected not in clips[sample_id]['payloads']:raise ValueError('找不到跟踪版本。')
+                    clip=json.loads(clips[sample_id]['payloads'][selected]);models=[]
+                    if args.ground_comparison_root:
+                        root=Path(args.ground_comparison_root).resolve()
+                        from compare_ground_models import MODELS
+                        for model in MODELS:
+                            path=(root/f'{sample_id}-{model}.json').resolve()
+                            if not path.is_relative_to(root) or not path.is_file():continue
+                            data=read_json(path,'Pose comparison')
+                            if data.get('videoHash')!=clip['video_sha256'] or data.get('trackingFingerprint')!=clip.get('tracking_raw_fingerprint',clip.get('tracking_fingerprint')):continue
+                            frames=[];usable=0;observations=0
+                            for row in data['frames']:
+                                people=[]
+                                for person in row['people']:
+                                    points=person.get('keypoints',[]);scores=person.get('scores',[])
+                                    wrists=[{'x':points[i][0],'y':points[i][1],'score':scores[i]} for i in (9,10) if len(points)>i and len(scores)>i and scores[i]>=.3]
+                                    people.append({key:person.get(key) for key in ('trackId','anchor','anchorMethod') }|{'wrists':wrists})
+                                    observations+=1;usable+=person.get('anchor') is not None
+                                frames.append({'frame':row['frame'],'time':row['time'],'people':people})
+                            models.append({key:data[key] for key in ('model','videoHash','trackingFingerprint')}|{'frames':frames,'usable':usable,'observations':observations})
+                    self.json_response(200,{'models':models},head_only)
+                except (ValueError,KeyError,TypeError,OSError) as error:self.json_response(400,{'error':str(error)},head_only)
+                return
             if route in {"/api/clip","/video.mp4"} and sample_id not in clips:
                 self.send_error(404,"Unknown sample");return
             if route in {"/api/clip","/api/library"}:

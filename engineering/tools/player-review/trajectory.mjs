@@ -1,4 +1,5 @@
 import {exportCourtData,courtGaps} from './court.mjs';
+import {buildBallCourtTrajectory} from './ball-court.mjs';
 import {IDENTITY_BINDING_MODE,identityAt,identityKeyframes,identityBoundaries,identityProvenance,resolveIdentityOwners,migrateIdentitySession,nextIdentityOrder,entityTeamSide,normalizeTeamColorMetadata,frameIdentityConfirmed,identityReviewToken,anchorReviewSignature} from './identity-timeline.mjs';
 import {mergeSourceCuts} from './tracking-display.mjs';
 import {exportSceneObjects} from './scene-objects.mjs';
@@ -65,7 +66,10 @@ export function buildTrajectories(session, frames, sourceCuts=[]) {
     const boundaries = identityBoundaries(entity);
     const points = frames.map((record, frame) => {
       const manual = anchors.find(anchor => anchor.frame === frame);
+      const visibility = playerVisibilityAt(entity,frame);
       const identity = identityAt(entity,frame,session.cuts,record);
+      if (visibility?.state==='out_of_view') return {frame,time:record.time,x:null,y:null,
+        source:'out_of_view',...identityProvenance(identity)};
       if (identity?.kind==='unassigned') return {frame,time:record.time,x:null,y:null,trackId:null,
         source:'missing',reviewExcluded:true,...identityProvenance(identity)};
       if (identity?.kind==='out_of_view') return {frame,time:record.time,x:null,y:null,source:'out_of_view',...identityProvenance(identity)};
@@ -84,6 +88,8 @@ export function buildTrajectories(session, frames, sourceCuts=[]) {
           ...(manual.groundContactConfirmed===false?{groundContactConfirmed:false}:{}),
           supportFrames:manual.supportFrames,...(manual.rangeCorrection?{rangeCorrection:structuredClone(manual.rangeCorrection)}:{}),reviewRequired:true};
       }
+      if (visibility?.state==='occluded') return {frame,time:record.time,source:'missing',x:null,y:null,
+        trackId:identity?.trackId??null,visibility:'occluded_waiting',...identityProvenance(identity)};
       if (identity?.kind==='track') {
         const box=lookup[frame].get(Number(identity.trackId));
         if (box) return {frame,time:record.time,x:(box[0]+box[2])/2,y:box[3],box:box.slice(0,4),
@@ -132,7 +138,36 @@ export function buildTrajectories(session, frames, sourceCuts=[]) {
     if(points[frame].x==null||!['manual','tracked','manual_range'].includes(points[frame].source))
       Object.assign(points[frame],{frameIdentityConfirmed:false,identityConfirmed:false,identityReviewRequired:true});
   }
+  for (const entity of session.entities) for (const point of result[entity.id]) {
+    const visibility=playerVisibilityAt(entity,point.frame),outside=point.source==='out_of_view';
+    point.observationState=outside?'out_of_view':visibility?.state==='occluded'?'occluded':
+      ['manual','tracked'].includes(point.source)?'visible':'unknown';
+    point.positionRequired=!outside;
+    if(visibility)point.visibilitySource='human_range';
+    if(outside)Object.assign(point,{identityReviewRequired:false,reviewRequired:false});
+  }
   return result;
+}
+
+export function playerVisibilityAt(entity,frame) {
+  return (entity.visibilityRanges||[]).find(range=>range.start<=frame&&range.end>=frame)||null;
+}
+
+// Store non-overlapping, inclusive frame ranges without changing identity or
+// deleting observations. Undo and restoring normal recording reveal originals.
+export function setPlayerVisibility(session,entityId,start,end,state,frames) {
+  const entity=session.entities.find(item=>item.id===entityId);
+  if(!entity)throw new Error('请先选择球员。');
+  if(!Number.isInteger(start)||!Number.isInteger(end)||start<0||start>end||end>=frames.length)
+    throw new Error('状态区间的起止帧不正确。');
+  if(!['visible','occluded','out_of_view'].includes(state))throw new Error('球员画面状态不正确。');
+  const ranges=(entity.visibilityRanges||[]).flatMap(range=>{
+    if(range.end<start||range.start>end)return [range];
+    return [...(range.start<start?[{...range,end:start-1}]:[]),...(range.end>end?[{...range,start:end+1}]:[])];
+  });
+  ranges.push({start,end,state,origin:'human_visibility_review'});
+  entity.visibilityRanges=ranges.sort((a,b)=>a.start-b.start);
+  return {start,end,state};
 }
 
 // Display trails may not imply continuity across an identity change or a
@@ -163,9 +198,12 @@ export function exportReview(session, clip, confirmedAt, {allowEmpty=false}={}) 
   const trajectories = buildTrajectories(session, clip.frames, sourceCuts);
   const entities = session.entities.filter(hasAssociation);
   if (!entities.length&&!allowEmpty) throw new Error('Select at least one target before confirming');
-  const {court,courtTrajectories}=exportCourtData(session,clip.frames,trajectories);
+  const {court,courtTrajectories,...coordinateData}=exportCourtData(session,clip.frames,trajectories,clip);
   if(clip.supportsCourtCalibration===false){court.template=null;court.applicability='unsupported_source_court';}
-  return {schemaVersion:2,videoSha256:clip.video_sha256,coordinateSystem:'image_pixels',court,
+  return {schemaVersion:2,videoSha256:clip.video_sha256,coordinateSystem:'image_pixels',court,...coordinateData,
+    teamIdentities:session.teamIdentities||null,
+    ballStateEdits:session.ballStateEdits||[],ballGroundAnchors:session.ballGroundAnchors||[],
+    ballCourtTrajectory:buildBallCourtTrajectory(session,clip.frames,trajectories,courtTrajectories,clip),
     width:clip.width,height:clip.height,selectionConfirmed:entities.length>0&&entities.every(isHumanIdentitySelected),confirmedAt,
     trackingRevision:clip.tracking_revision||clip.variant||'original',trackingFingerprint:clip.tracking_fingerprint||null,
     trackingMetadata:clip.trackingMetadata||null,modelSuggestionLoad:session.modelSuggestionLoad||null,
@@ -225,19 +263,20 @@ export function correctFrameIdentity(session,entityId,frame,proposal,frames,sour
   return {start:frame,end:frame};
 }
 
-export function hasAssociation(entity){return isSelected(entity)||Boolean(!entity.identitySuggestionsDismissed&&entity.modelBindings?.length);}
+export function hasAssociation(entity){return isSelected(entity)||Boolean(entity.visibilityRanges?.length)||Boolean(!entity.identitySuggestionsDismissed&&entity.modelBindings?.length);}
 
 export function playerDisplayState(entity,point) {
   const identity=point?.frameIdentityConfirmed?'human_locked':point?.identitySource==='model_suggestion'?'model_proposed':
     ['manual_forward','manual_range','manual_track_occurrences'].includes(point?.identitySource)?'human_locked':'unassigned';
   if(point?.reviewExcluded)return {status:'unassigned',label:'已取消关联',identity:'unassigned'};
-  if(point?.source==='out_of_view')return {status:'out_of_view',label:'已离开画面',identity};
+  if(point?.source==='out_of_view')return {status:'out_of_view',label:'镜头外 · 无需补点',identity};
   if(point?.source==='conflict')return {status:'conflict',label:'身份冲突',identity};
   if(['interpolated','manual_path'].includes(point?.source))return {status:'estimated',label:'估计 · 待复核',identity};
   if(point?.source==='manual_range'&&point.x!=null)return {status:'manual_range',label:point.frameIdentityConfirmed?'当前帧人物已确认 · 区间修正':'区间修正 · 当前帧待核对',identity};
   if(point?.x!=null)return {status:point.source==='manual'?'manual':'tracked',
     label:point.frameIdentityConfirmed?'当前帧人物已确认':point.source==='manual'?'人工位置 · 人物待核对':point.associationScope==='track_occurrences'?
       '整段归并 · 待逐帧核对':identity==='model_proposed'?'模型建议 · 待确认':'模型跟踪',identity};
+  if(point?.observationState==='occluded')return {status:'occluded_waiting',label:'遮挡 / 漏识别 · 待恢复',identity};
   if(point?.visibility==='occluded_waiting')return {status:'occluded_waiting',label:'遮挡 / 断轨待续接',identity};
   return {status:'missing',label:'位置未知',identity};
 }

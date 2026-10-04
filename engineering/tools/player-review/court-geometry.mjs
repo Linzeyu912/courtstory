@@ -32,3 +32,21 @@ export function fitHomography(from,to){
   }
   const v=a.map(r=>r[8]);return [v[0]*sy/sx,v[1]*sy/sx,v[2]*sy,v[3]*sy/sx,v[4]*sy/sx,v[5]*sy,v[6]/sx,v[7]/sx,1];
 }
+
+// Keep all observations. A rejected automatic point is reported, never deleted.
+export function fitHomographyRobust(from,to,threshold=5){
+  const full=fitHomography(from,to);if(!full)return null;
+  const errors=h=>from.map(([x,y],i)=>{const w=h[6]*x+h[7]*y+h[8];return Math.abs(w)<1e-9?Infinity:Math.hypot((h[0]*x+h[1]*y+h[2])/w-to[i][0],(h[3]*x+h[4]*y+h[5])/w-to[i][1]);});
+  const original=errors(full),all=from.map((_,i)=>i);
+  if(from.length<6||original.every(e=>e<=threshold))return {matrix:full,inliers:all,rejected:[],method:'all_controls'};
+  let best=null;
+  for(let a=0;a<from.length-3;a++)for(let b=a+1;b<from.length-2;b++)for(let c=b+1;c<from.length-1;c++)for(let d=c+1;d<from.length;d++){
+    const ids=[a,b,c,d],h=fitHomography(ids.map(i=>from[i]),ids.map(i=>to[i]));if(!h)continue;
+    const e=errors(h),inliers=all.filter(i=>e[i]<=threshold),loss=e.reduce((s,v)=>s+Math.min(v*v,threshold*threshold),0);
+    if(inliers.length<Math.max(5,Math.ceil(from.length*.7)))continue;
+    if(!best||inliers.length>best.inliers.length||inliers.length===best.inliers.length&&loss<best.loss)best={inliers,loss};
+  }
+  if(!best)return {matrix:full,inliers:all,rejected:[],method:'all_controls_no_consensus'};
+  const matrix=fitHomography(best.inliers.map(i=>from[i]),best.inliers.map(i=>to[i]));
+  return {matrix:matrix||full,inliers:best.inliers,rejected:all.filter(i=>!best.inliers.includes(i)),method:'automatic_control_consensus'};
+}

@@ -1,4 +1,5 @@
-import {courtLandmarks,fitHomography,invertHomography} from './court-geometry.mjs';
+import {courtLandmarks,fitHomography,fitHomographyRobust,invertHomography} from './court-geometry.mjs';
+import {groundImagePoint} from './ground-position.mjs';
 // NBA template in metres. Origin: left baseline / far sideline in the plan view.
 export const COURT={length:28.6512,width:15.24,template:'NBA',units:'metres',origin:'left_baseline_far_sideline'};
 export const LANDMARK_NAMES=['A · 底线 × 远侧禁区线','B · 罚球线 × 远侧禁区线','C · 罚球线 × 近侧禁区线','D · 底线 × 近侧禁区线'];
@@ -40,11 +41,12 @@ export function fitKeyframe(key){
   if(new Set(all.map(p=>p.id)).size!==all.length)return null;
   const points=all.filter(p=>p.role!=='check'),checks=all.filter(p=>p.role==='check');
   const floor=points.map(p=>{const c=catalog.find(c=>c.id===p.id);return [c.x,c.y];}),image=points.map(p=>p.image);
-  const toImage=fitHomography(floor,image),toCourt=toImage&&invertHomography(toImage);if(!toCourt)return null;
+  const robust=key.source!=='human'&&!points.some(p=>p.source==='human')?fitHomographyRobust(floor,image):null;
+  const toImage=robust?.matrix||fitHomography(floor,image),toCourt=toImage&&invertHomography(toImage);if(!toCourt)return null;
   const predicted=floor.map(p=>project(toImage,...p));if(predicted.some(p=>!p))return null;
   const residuals=points.map((p,i)=>({id:p.id,pixels:Math.hypot(predicted[i].x-p.image[0],predicted[i].y-p.image[1])}));
   const checkResiduals=checks.map(p=>{const c=catalog.find(c=>c.id===p.id),q=project(toImage,c.x,c.y),back=project(toCourt,...p.image);return {id:p.id,pixels:q?Math.hypot(q.x-p.image[0],q.y-p.image[1]):null,metres:back?Math.hypot(back.x-c.x,back.y-c.y):null};});
-  return {toImage,toCourt,points,residuals,checkResiduals,supportHull:convexHull(floor),fitRmsePixels:Math.sqrt(residuals.reduce((n,r)=>n+r.pixels**2,0)/points.length)};
+  return {toImage,toCourt,points,residuals,checkResiduals,excludedControlIds:(robust?.rejected||[]).map(i=>points[i].id),fitMethod:robust?.method||'all_human_controls',supportHull:convexHull(floor.filter((_,i)=>!robust?.rejected.includes(i))),fitRmsePixels:Math.sqrt(residuals.reduce((n,r)=>n+r.pixels**2,0)/points.length)};
 }
 export function calibrationAt(calibration,frame,frames,cuts=[]){
   const keys=[...(calibration?.keyframes||[])].filter(k=>Number.isInteger(k.frame)&&frames[k.frame]).sort((a,b)=>a.frame-b.frame);
@@ -71,6 +73,7 @@ export function calibrationAt(calibration,frame,frames,cuts=[]){
     quality:left===right?left.quality||null:{left:left.quality||null,right:right.quality||null},
     referenceOnly:[...a.points,...b.points].some(p=>p.source!=='human'),reviewRequired:true,
     fitRmsePixels:left===right?a.fitRmsePixels:null,residuals:left===right?a.residuals:[],
+    excludedControlIds:left===right?a.excludedControlIds:[],fitMethod:left===right?a.fitMethod:'interpolated_landmarks',
     controlCount:left===right?a.points.length:Math.min(a.points.length,b.points.length),
     checkResiduals:left===right?a.checkResiduals:[],supportHulls:left===right?[a.supportHull]:[a.supportHull,b.supportHull]};
 }
@@ -91,12 +94,13 @@ export function footPointSensitivity(h,x,y,pixelRadius=5){
   const trace=a*a+b*b+c*c+e*e,det=(a*e-b*c)**2,maxEigen=(trace+Math.sqrt(Math.max(0,trace*trace-4*det)))/2;
   const approxMaxMetres=pixelRadius*Math.sqrt(maxEigen);return Number.isFinite(approxMaxMetres)?{assumedPixelError:pixelRadius,approxMaxMetres,method:'local_linear_sensitivity',excludesCalibrationError:true}:null;
 }
-export function buildCourtTrajectories(session,frames,imageTrajectories){
-  const maps=frames.map((_,i)=>calibrationAt(session.courtCalibration,i,frames,session.cuts));
+export function buildCourtTrajectories(session,frames,imageTrajectories,{clip=null,maps=null}={}){
+  maps??=frames.map((_,i)=>calibrationAt(session.courtCalibration,i,frames,session.cuts));
   const result={};
   for(const entity of session.entities){
     result[entity.id]=imageTrajectories[entity.id].map((p,i)=>{
-      const base={frame:i,time:p.time,x:null,y:null,imageSource:p.source,...(p.rangeCorrection?{rangeCorrection:structuredClone(p.rangeCorrection)}:{})};
+      const base={frame:i,time:p.time,x:null,y:null,imageSource:p.source,
+        observationState:p.observationState,positionRequired:p.positionRequired,visibilitySource:p.visibilitySource,...(p.rangeCorrection?{rangeCorrection:structuredClone(p.rangeCorrection)}:{})};
       if(p.reviewExcluded)return {...base,source:'missing',reviewExcluded:true,
         identitySource:p.identitySource,identityStartFrame:p.identityStartFrame,identityEndFrame:p.identityEndFrame,
         identityOrder:p.identityOrder,identityExclusive:p.identityExclusive,identityOrigin:p.identityOrigin};
@@ -104,16 +108,17 @@ export function buildCourtTrajectories(session,frames,imageTrajectories){
       const anchor=(entity.courtAnchors||[]).find(a=>a.frame===i);
       if(anchor)return {...base,x:anchor.x,y:anchor.y,source:'court_manual',footMethod:'human_court_anchor',reviewRequired:true};
       if(p.x===null)return {...base,source:'missing'};
-      const mapping=maps[i],point=mapping&&project(mapping.toCourt,p.x,p.y);
+      const selected=groundImagePoint(session,p,i,clip),mapping=maps[i],point=mapping&&project(mapping.toCourt,selected.x,selected.y);
       if(!point)return {...base,source:'uncalibrated'};
       return {...base,...point,source:['interpolated','manual_path'].includes(p.source)?'court_estimated':'projected',
         mappingMethod:mapping.method,calibrationFrames:mapping.supportFrames,referenceCalibration:mapping.referenceOnly,
         calibrationQuality:mapping.quality,
-        footMethod:p.footMethod||(p.source==='interpolated'?'interpolated_image_point':p.source==='manual'&&!p.box?'human_image_anchor':'bbox_bottom_center'),reviewRequired:true,
-        ...(p.footCandidate?{footCandidate:p.footCandidate}:{}),
-        ...(p.groundContactConfirmed===false?{groundContactConfirmed:false}:{}),
+        footMethod:selected.footMethod||(p.source==='interpolated'?'interpolated_image_point':p.source==='manual'&&!p.box?'human_image_anchor':'bbox_bottom_center'),reviewRequired:true,
+        imagePoint:[selected.x,selected.y],rawImagePoint:[p.x,p.y],groundModel:selected.groundModel||null,groundCandidateMissing:selected.groundCandidateMissing||false,
+        ...(selected.footCandidate?{footCandidate:selected.footCandidate}:{}),
+        ...(selected.groundContactConfirmed===false?{groundContactConfirmed:false}:{}),
         calibrationSupport:mapping.supportHulls.every(hull=>insideHull(hull,point.x,point.y))?'inside_controls':'outside_controls',
-        sensitivity:footPointSensitivity(mapping.toCourt,p.x,p.y),
+        sensitivity:footPointSensitivity(mapping.toCourt,selected.x,selected.y),
         outsideCourt:point.x<0||point.x>COURT.length||point.y<0||point.y>COURT.width};
     });
   }
@@ -164,7 +169,13 @@ export function addEvent(entity,frame,type,note,frames){
   const event={id:globalThis.crypto.randomUUID(),frame,time:frames[frame].time,type,note:String(note||'').trim().slice(0,240),source:'human'};
   entity.events||=[];entity.events.push(event);return event;
 }
-export function exportCourtData(session,frames,trajectories){
-  const court=buildCourtTrajectories(session,frames,trajectories);
-  return {court:{...COURT,calibration:session.courtCalibration||null,metricAccuracyValidated:false},courtTrajectories:court};
+export function exportCourtData(session,frames,trajectories,clip=null){
+  const court=buildCourtTrajectories(session,frames,trajectories,{clip});
+  return {court:{...COURT,calibration:session.courtCalibration||null,metricAccuracyValidated:false},courtTrajectories:court,
+    courtMappings:frames.map((record,frame)=>{const map=calibrationAt(session.courtCalibration,frame,frames,session.cuts);return {frame,time:record.time,
+      imageToCourt:map?.toCourt||null,courtToImage:map?.toImage||null,method:map?.method||'unavailable',supportFrames:map?.supportFrames||[],
+      independentChecks:map?.checkResiduals||[],excludedControlIds:map?.excludedControlIds||[],fitMethod:map?.fitMethod||null,
+      fitRmsePixels:map?.fitRmsePixels??null,metricAccuracyValidated:false};}),
+    coordinatePolicy:{rawObservationsPreserved:true,displaySmoothingApplied:false,selectedGroundModel:session.groundComparison?.model||'ankle_midpoint_or_bbox_bottom_center',
+      videoPersonTrail:'historical_ground_to_court_to_current_image',missingCalibrationPolicy:'break_trail'}};
 }
