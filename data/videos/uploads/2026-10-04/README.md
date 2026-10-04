@@ -42,4 +42,4 @@ git lfs pull --include="data/videos/uploads/2026-10-04/clips/**" origin
 python scripts/validate_video_data.py
 ```
 
-先保存未提交工作并同步 main；共享提交与独立远端下载状态见本次交接和 Git 历史。
+本批已随 [ba9d2b0](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/ba9d2b00ebf1cd988f91ae85daf6773c6736cc29) 推送 main；2026-10-04T09:25:28+08:00（Asia/Shanghai）从独立空缓存下载 18/18 成片，大小与 SHA-256 全部匹配。见[交接记录](../../../../handoffs/Linzeyu912/2026-10-04-0918-user-video-upload.md)。先保存未提交工作并同步 main，再执行上方下载命令。
