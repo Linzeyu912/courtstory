@@ -2,10 +2,14 @@ import {validateDocument} from '../player-review/tactics-document.mjs';
 import {makeCandidateFixture} from './fixtures/005-candidate/generate.mjs';
 import {buildTacticalOverlay} from './overlay.mjs';
 import {buildPreviewHtml} from './preview.mjs';
+import {AGENT_SCHEMA,documentDigest,adoptAgentCandidate} from '../player-review/tactics-agent.mjs';
 let input='';for await(const chunk of process.stdin)input+=chunk;
 try{
   const request=JSON.parse(input);
-  if(request.operation==='candidate'){
+  if(request.operation==='agent-schema')process.stdout.write(JSON.stringify(AGENT_SCHEMA));
+  else if(request.operation==='agent-digest')process.stdout.write(JSON.stringify({digest:await documentDigest(request.document)}));
+  else if(request.operation==='agent-adopt')process.stdout.write(JSON.stringify({document:await adoptAgentCandidate(request.document,request.candidate,request.options)}));
+  else if(request.operation==='candidate'){
     const {review,playDefinition}=await makeCandidateFixture();
     process.stdout.write(JSON.stringify({schemaVersion:1,title:'THY · 005 SAS–MIA 三阶段候选',notes:'六名参与者及动作均待人工复核。此快照独立于当前工作台草稿。',review,playDefinition}));
   }else{

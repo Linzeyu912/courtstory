@@ -114,6 +114,9 @@ export function trackingDiagnostic(record, point, previewProposal = null, detect
     label: '估计位置 · 待复核',
     detail: `${point.source === 'manual_path' ? '当前位置来自手绘路径' : '当前位置来自插值'}，不是当前帧的检测证据，不能用于判断 YOLO 是否检出了该球员。`,
   };
+  if (!preview && point?.source === 'manual_range' && hasPosition(point)) return {
+    label:'区间位置修正 · 待核对',detail:'在各帧原始位置上按关键帧传播修正量；保留检测框来源，传播帧不是逐帧人工测量。'+(observed?observationEvidence(record,trackId,null,frameConfirmed,detectorEvidence).detail:'当前没有对应跟踪观测，请检查原始位置来源。'),
+  };
   if (!preview && point?.source === 'manual' && hasPosition(point)) {
     if (observed) {
       const result = observationEvidence(record, trackId, null, frameConfirmed, detectorEvidence);

@@ -7,6 +7,7 @@ export function trackingReviewState(point){
   if(point?.x==null||point?.y==null)return {status:'missing',label:'缺少跟踪位置'};
   if(['interpolated','manual_path'].includes(point.source))return {status:'pending',label:'估计位置，待核对'};
   if(point.frameIdentityConfirmed===true)return {status:'human',label:'本帧人物已人工确认'};
+  if(point.source==='manual_range')return {status:'pending',label:'区间修正，当前帧待核对'};
   if(point.source==='manual')return {status:'pending',label:'人工修改，人物待确认'};
   return {status:'machine',label:'机器已跟踪，待人工确认'};
 }
@@ -124,7 +125,7 @@ function continuousTrail(pointAt,frames,current,cuts,options={}) {
 export function personTrail(points,frames,current,cuts=[],options={}) {
   return continuousTrail(index=>{
     const point=points?.[index];
-    return point&&['manual','tracked'].includes(point.source)?point:null;
+    return point&&['manual','tracked','manual_range'].includes(point.source)?point:null;
   },frames,current,cuts,options);
 }
 

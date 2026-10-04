@@ -31,7 +31,7 @@ export function createWorkspace(api){
     (step==='repair'?$('repairRoster'):$('identityRoster')).append(roster);
     (step==='repair'?$('repairIdentityControls'):$('identityMain')).append($('identityControls'));
     (step==='repair'?$('repairIdentityControls'):$('identityMain')).append($('playerProfilePanel'));
-    $('repairBindingControls').append($('bindingControls'));
+    (step==='repair'?$('repairBindingControls'):$('identityMain')).append($('bindingControls'));
     $('overlay').hidden=step==='footage';$('pointStatus').hidden=step==='footage';
     document.querySelectorAll('button[data-step]').forEach(tab=>{const on=tab.dataset.step===step;tab.setAttribute('aria-selected',String(on));tab.tabIndex=on?0:-1;$(`panel-${tab.dataset.step}`).hidden=!on;});
     api.setMode(step==='repair'?'point':'select',{edit:false});

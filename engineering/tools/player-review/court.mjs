@@ -96,7 +96,7 @@ export function buildCourtTrajectories(session,frames,imageTrajectories){
   const result={};
   for(const entity of session.entities){
     result[entity.id]=imageTrajectories[entity.id].map((p,i)=>{
-      const base={frame:i,time:p.time,x:null,y:null,imageSource:p.source};
+      const base={frame:i,time:p.time,x:null,y:null,imageSource:p.source,...(p.rangeCorrection?{rangeCorrection:structuredClone(p.rangeCorrection)}:{})};
       if(p.reviewExcluded)return {...base,source:'missing',reviewExcluded:true,
         identitySource:p.identitySource,identityStartFrame:p.identityStartFrame,identityEndFrame:p.identityEndFrame,
         identityOrder:p.identityOrder,identityExclusive:p.identityExclusive,identityOrigin:p.identityOrigin};

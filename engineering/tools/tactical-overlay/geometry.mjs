@@ -17,7 +17,7 @@ export function crossCutCompatible(c,frame) {
   return typeof c.review.court?.referenceId==='string'&&c.review.court.referenceId.length>0&&
     evidenceQuality(c,'calibration',{},start,end).state==='reviewed';
 }
-const observed=source=>['tracked','manual'].includes(source);
+const observed=source=>['tracked','manual','manual_range'].includes(source);
 const pointReason=p=>!p?'missing_position':p.source==='conflict'?'identity_conflict':p.source==='out_of_view'?'out_of_view':
   ['interpolated','manual_path','court_estimated'].includes(p.source)?'estimated_point':!observed(p.source)||p.x===null||p.y===null?'missing_position':null;
 

@@ -2,6 +2,7 @@ import React, {useRef,useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {flushSync} from 'react-dom';
 import {proposalLabel,trackingReviewState} from './tracking-display.mjs';
+import {IdentityRangeEditor} from './identity-range-ui.jsx';
 
 const isPlayerSlot=id=>/^P(?:[1-9]|10)$/.test(id);
 const slotLabel=id=>isPlayerSlot(id)?id.slice(1):id;
@@ -144,9 +145,11 @@ function IdentityPanel({state,api}) {
   const canConfirm=available&&!['interpolated','manual_path','conflict'].includes(point?.source);
   const needsCorrection=point?.source==='conflict'||point?.identitySource==='reassigned'||
     (state.previewTrackId!=null&&point?.trackId!==state.previewTrackId&&state.trackAssignments?.some(item=>item.trackId===state.previewTrackId));
-  const evidenceLabel=point?.reviewExcluded?'已取消关联':point?.source==='conflict'?'身份冲突':confirmed?'本帧人物已确认 · 实线':point?.identitySource==='model_suggestion'?'模型建议 · 虚线待确认':point?.associationScope==='track_occurrences'?'整段归并 · 虚线待核对':({tracked:'模型位置 · 待核对',manual:'人工位置 · 人物待确认',interpolated:'估计位置',manual_path:'手绘待核对',missing:'缺少位置',conflict:'身份冲突',out_of_view:'已标出画'})[point?.source]||'待关联';
+  const evidenceLabel=point?.reviewExcluded?'已取消关联':point?.source==='conflict'?'身份冲突':confirmed?'本帧人物已确认 · 实线':point?.source==='manual_range'?'区间修正 · 当前帧待核对':point?.identitySource==='model_suggestion'?'模型建议 · 虚线待确认':point?.associationScope==='track_occurrences'?'整段归并 · 虚线待核对':({tracked:'模型位置 · 待核对',manual:'人工位置 · 人物待确认',interpolated:'估计位置',manual_path:'手绘待核对',missing:'缺少位置',conflict:'身份冲突',out_of_view:'已标出画'})[point?.source]||'待关联';
   const fields=[['name','目标名称',40],['team','球队 / 球衣描述',40],['jersey','球衣号码',4]];
   return <>
+    <IdentityRangeEditor state={state} api={api}/>
+    <details className="identity-single-frame"><summary>单帧确认与高级身份操作</summary>
     <div className="identity-flow"><div><small>正在编辑的固定身份</small><strong>球员 {slotLabel(entity.id)} · {entity.name}</strong></div><span>←</span><div><small>跟踪器临时编号</small><strong>{point?.reviewExcluded?'已取消关联':point?.trackId!=null?`T${point.trackId}`:confirmed?'无 T · 本帧人工确认':'尚未关联'}</strong></div></div>
     <div className="identity-evidence"><span className="identity-state review-status" data-review={review.status}>{evidenceLabel}</span>{state.observedIds.length>0&&<span>此身份对应过 {state.observedIds.map(id=>`T${id}`).join('、')}</span>}</div>
     <p className="small muted">YOLO 逐帧检测人物框，跟踪器分配 T 编号。一个球员可以归并多个 T；每个编号分别选一次，关联后仍需逐帧核对。</p>
@@ -188,6 +191,7 @@ function IdentityPanel({state,api}) {
       {point?.box&&<div className="box-fields">{['x1','y1','x2','y2'].map((k,i)=><label className="field" key={k}>{k.toUpperCase()}<input aria-label={`人物框 ${k.toUpperCase()}`} name={k} type="number" step="any" defaultValue={point.box[i]} disabled={busy||!available}/></label>)}</div>}
       <button disabled={busy||!available}>保存当前帧坐标</button>
     </form></details>
+    </details>
   </>;
 }
 

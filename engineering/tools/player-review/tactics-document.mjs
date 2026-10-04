@@ -1,7 +1,7 @@
 import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {validateInputs} from '../tactical-overlay/validation.mjs';
 import {validatePresentation} from './tactics-presentation.mjs';
-import {validateAnnotations} from './tactics-annotations.mjs';
+import {validateAnnotations,updateAnnotation} from './tactics-annotations.mjs';
 
 export const ACTION_KINDS={move:'跑位',cut:'切入',roll:'顺下',pop:'外弹',hold:'持位',space:'拉开',screen:'掩护'};
 export const clone=value=>JSON.parse(JSON.stringify(value));
@@ -21,6 +21,11 @@ export async function validateDocument(document){
   if(presentationIssues.length)throw new Error(`展示修正无效：${presentationIssues.map(i=>i.details.field).join('、')}`);
   const annotationIssues=validateAnnotations(document.annotations,document);
   if(annotationIssues.length)throw new Error(`画布标注无效：${annotationIssues.map(i=>i.details.field).join('、')}`);
+  if(document.archivedTactics){
+    const a=document.archivedTactics;
+    if(a.schemaVersion!==1||!['annotations','participants','actions','relations'].every(k=>Array.isArray(a[k]))||
+      validateAnnotations({schemaVersion:1,items:a.annotations},document).length)throw new Error('归档图形记录无效。');
+  }
   const {review,playDefinition:play}=document;
   const issues=validateInputs({review,playDefinition:play,phaseId:play?.phases?.[0]?.phaseId,freezeFrame:play?.phases?.[0]?.freezeFrame});
   const errors=issues.filter(i=>i.severity==='fatal');
@@ -88,7 +93,28 @@ export function reviewAction(document,id,reviewer,reviewed){
 export async function refreshSnapshot(document,review){
   const d=clone(document),p=d.playDefinition;
   if(d.review.videoSha256!==review.videoSha256||d.review.trackingFingerprint!==review.trackingFingerprint||JSON.stringify(d.review.sourceFrameMapping)!==JSON.stringify(review.sourceFrameMapping))throw new Error('视频或模型版本不同，请在对应视频下新建战术草稿。');
-  if(p.participants.some(p=>!review.entities.some(e=>e.id===p.id)))throw new Error('部分参与者已从轨迹中移除，请先恢复关联或在战术页移除相关动作后新建草稿。');
+  const ids=new Set(review.entities.map(e=>e.id)),removed=p.participants.filter(person=>!ids.has(person.id));
+  if(removed.length){
+    const archive=d.archivedTactics??={schemaVersion:1,participants:[],annotations:[],actions:[],relations:[]};
+    for(const person of removed)if(!archive.participants.some(e=>e.id===person.id))archive.participants.push({...clone(person),entity:clone(d.review.entities.find(e=>e.id===person.id)??null)});
+    const lostActions=p.actions.filter(a=>!ids.has(a.actorId)||a.participantIds.some(id=>!ids.has(id))),lostIds=new Set(lostActions.map(a=>a.actionId));
+    archive.actions.push(...lostActions);p.actions=p.actions.filter(a=>!lostIds.has(a.actionId));
+    const lostRelations=p.relations.filter(r=>lostIds.has(r.actionId)||[r.screenerId,r.beneficiaryId,r.defenderId].some(id=>id&&!ids.has(id)));
+    archive.relations.push(...lostRelations);p.relations=p.relations.filter(r=>!lostRelations.includes(r));
+    if(d.annotations){archive.annotations.push(...d.annotations.items.filter(a=>a.entityId&&!ids.has(a.entityId)));d.annotations.items=d.annotations.items.filter(a=>!a.entityId||ids.has(a.entityId));}
+  }
+  p.participants=review.entities.map(e=>({id:e.id,name:e.name||e.id,role:e.role||'player'}));reindexPhases(p);
   d.review=clone(review);p.sourceBinding=await createSourceBinding(d.review);p.reviewEvidence=[];
+  for(const a of d.annotations?.items??[])if(a.anchorMode==='player_foot'&&ids.has(a.entityId))a.sourceBinding={videoSha256:review.videoSha256,trackingFingerprint:review.trackingFingerprint,reviewDigest:p.sourceBinding.reviewDigest};
   for(const a of [...p.actions,...p.relations])a.reviewStatus='needs_review';p.revision++;return d;
+}
+
+export function restoreArchivedAnnotation(document,id,{entityId=null,phaseId,frame}){
+  const d=clone(document),annotation=d.archivedTactics?.annotations.find(a=>a.id===id);
+  if(!annotation)throw new Error('未找到待恢复图形。');
+  d.annotations??={schemaVersion:1,items:[]};
+  if(d.annotations.items.some(a=>a.id===id))throw new Error('当前画布已有同名图形。');
+  d.annotations.items.push(clone(annotation));
+  const result=updateAnnotation(d,id,{entityId,phaseId,frame,...(annotation.anchorMode==='player_foot'&&entityId?{anchorMode:'player_foot',space:'video'}:{})});
+  result.archivedTactics.annotations=result.archivedTactics.annotations.filter(a=>a.id!==id);return result;
 }

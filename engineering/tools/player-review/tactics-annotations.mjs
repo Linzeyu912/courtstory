@@ -29,7 +29,7 @@ export function validateAnnotations(annotations,document){
   if(!fields(annotations,['schemaVersion','items'])||annotations.schemaVersion!==1||!Array.isArray(annotations.items)||annotations.items.length>ANNOTATION_LIMITS.items){bad('annotations');return issues;}
   const ids=new Set();
   for(const a of annotations.items){
-    if(!fields(a,['id','type','phaseId','entityId','startFrame','endFrameExclusive','anchorFrame','space','points','style','followEntity','phaseSnapshot','sourceBinding'])||
+    if(!fields(a,['id','type','phaseId','entityId','startFrame','endFrameExclusive','anchorFrame','space','points','style','followEntity','phaseSnapshot','sourceBinding'],['anchorMode','offset','origin'])||
       !text(a.id)||ids.has(a.id)||!text(a.phaseId)||a.entityId!==null&&!text(a.entityId)||!['route','screen','spotlight'].includes(a.type)||!['court','video'].includes(a.space)){
       bad('annotation_identifiers');continue;
     }
@@ -45,6 +45,10 @@ export function validateAnnotations(annotations,document){
       a.points.some(p=>!fields(p,['x','y'])||!finite(p.x)||!finite(p.y)||p.x<0||p.y<0||p.x>bounds.x||p.y>bounds.y))bad('annotation_points');
     if(!fields(a.style,['angle','size','color'])||!finite(a.style.angle)||Math.abs(a.style.angle)>360||!finite(a.style.size)||a.style.size<.5||a.style.size>3||!/^#[a-f0-9]{6}$/i.test(a.style.color))bad('annotation_style');
     if(typeof a.followEntity!=='boolean'||a.followEntity&&(a.type!=='spotlight'||!a.entityId))bad('annotation_follow');
+    if(a.anchorMode!==undefined&&!['manual_offset','player_foot'].includes(a.anchorMode))bad('annotation_anchor_mode');
+    if(a.anchorMode==='player_foot'&&(a.type!=='spotlight'||a.space!=='video'||!a.entityId||!a.followEntity))bad('annotation_foot_anchor');
+    if(a.offset!==undefined&&(!fields(a.offset,['x','y'])||!finite(a.offset.x)||!finite(a.offset.y)||Math.abs(a.offset.x)>bounds.x||Math.abs(a.offset.y)>bounds.y))bad('annotation_offset');
+    if(a.origin!==undefined&&(!fields(a.origin,['kind','jobId','sourceFrames','note'])||!['agent','human_modified'].includes(a.origin.kind)||!text(a.origin.jobId)||typeof a.origin.note!=='string'||a.origin.note.length>2000||!Array.isArray(a.origin.sourceFrames)||a.origin.sourceFrames.length>40||a.origin.sourceFrames.some(f=>!frame(f)||f>=document.review.sourceFrameMapping.length)))bad('annotation_origin');
   }
   return issues;
 }
@@ -68,17 +72,25 @@ export function createAnnotation(document,input){
     endFrameExclusive:input.endFrameExclusive??p.endFrameExclusive,anchorFrame:input.frame,space:input.space,points:copy(input.points),
     style:{angle:0,size:1,color:input.type==='screen'?'#ffd45c':input.type==='spotlight'?'#ffd45c':'#19a9e1',...input.style},
     followEntity:input.followEntity??(input.type==='spotlight'&&entityId!==null),phaseSnapshot:phaseSnapshot(p),sourceBinding:sourceSnapshot(document)};
+  if(input.anchorMode!==undefined)annotation.anchorMode=input.anchorMode;
+  if(input.anchorMode==='player_foot'){annotation.space='video';annotation.offset=copy(input.offset??{x:0,y:0});}
+  if(input.origin)annotation.origin=copy(input.origin);
   const annotations={schemaVersion:1,items:[...(document.annotations?.items??[]),annotation]};assertAnnotations(annotations,document);
   const result=copy(document);result.annotations=copy(annotations);return result;
 }
 export function updateAnnotation(document,id,patch){
   assertAnnotations(document.annotations,document);
   const previous=document.annotations?.items.find(a=>a.id===id);if(!previous)throw new Error('未找到要修改的画布标注。');
-  if(!fields(patch,[],['phaseId','entityId','frame','startFrame','endFrameExclusive','points','style','followEntity','space']))throw new Error('画布标注修改字段不正确。');
-  if(Object.hasOwn(patch,'space')&&patch.space!==previous.space)throw new Error('修改控制点时不能更换坐标空间，请重新绘制。');
+  if(!fields(patch,[],['phaseId','entityId','frame','startFrame','endFrameExclusive','points','style','followEntity','space','anchorMode','offset']))throw new Error('画布标注修改字段不正确。');
+  if(Object.hasOwn(patch,'space')&&patch.space!==previous.space&&patch.anchorMode!=='player_foot')throw new Error('修改控制点时不能更换坐标空间，请重新绘制。');
   const a={...copy(previous),...copy(patch),style:{...previous.style,...patch.style}};delete a.frame;
   if(Object.hasOwn(patch,'entityId'))assertEntity(document,a.entityId);
-  if(a.entityId===null)a.followEntity=false;
+  if(a.entityId===null||patch.followEntity===false){a.followEntity=false;if(a.anchorMode==='player_foot')a.anchorMode='manual_offset';}
+  if(a.anchorMode==='player_foot'){
+    a.space='video';a.followEntity=true;
+    if(Object.hasOwn(patch,'entityId')||patch.anchorMode==='player_foot')a.offset={x:0,y:0};
+  }
+  if(a.origin)a.origin.kind='human_modified';
   // An explicit frame/phase rebind is required to reactivate stale drawings.
   if(Object.hasOwn(patch,'frame')||Object.hasOwn(patch,'phaseId')){
     const p=activePhase(document,a.phaseId);a.anchorFrame=patch.frame??p.freezeFrame;
@@ -181,11 +193,27 @@ function rawFoot(context,entityId,frameNumber){
   if(evidenceQuality(context,'identity',{entityId},frameNumber,frameNumber+1).state==='invalid')return {reason:'identity_conflict'};
   if(evidenceQuality(context,'position',{entityId},frameNumber,frameNumber+1).state==='invalid')return {reason:'missing_position'};
   const p=context.pointMaps.get(entityId)?.get(frameNumber);
+  const observed=p&&(['tracked','manual'].includes(p.source)||p.source==='manual_range'&&p.rangeCorrection?.method==='relative_keyframe_interpolation'&&['tracked','manual'].includes(p.rangeCorrection.originalSource));
   const reason=!p?'missing_position':p.source==='conflict'?'identity_conflict':p.source==='out_of_view'?'out_of_view':
-    ['interpolated','manual_path','court_estimated'].includes(p.source)?'estimated_point':!['tracked','manual'].includes(p.source)||!finite(p.x)||!finite(p.y)?'missing_position':null;
+    ['interpolated','manual_path','court_estimated'].includes(p.source)?'estimated_point':!observed||!finite(p.x)||!finite(p.y)?'missing_position':null;
   return reason?{reason}:{point:{x:p.x,y:p.y},reason:null};
 }
+export function playerFoot(document,entityId,frameNumber,{phaseId,model}={}){
+  return rawFoot(geometryContext(document,phaseId??document.playDefinition.phases[0].phaseId,model),entityId,frameNumber);
+}
+export function playersAtVideoPoint(document,frameNumber,point,{phaseId,model}={}){
+  const context=geometryContext(document,phaseId??document.playDefinition.phases[0].phaseId,model);
+  return document.playDefinition.participants.filter(person=>{
+    const p=context.pointMaps.get(person.id)?.get(frameNumber),b=p?.box;
+    return rawFoot(context,person.id,frameNumber).point&&Array.isArray(b)&&b.length===4&&point.x>=b[0]&&point.x<=b[2]&&point.y>=b[1]&&point.y<=b[3];
+  });
+}
 function followingCenter(a,context,currentFrame){
+  if(a.anchorMode==='player_foot'){
+    if(context.cuts.some(cut=>cut>Math.min(currentFrame,a.anchorFrame)&&cut<=Math.max(currentFrame,a.anchorFrame)))return {reason:'source_cut'};
+    const foot=rawFoot(context,a.entityId,currentFrame);
+    return foot.point?{point:{x:foot.point.x+(a.offset?.x??0),y:foot.point.y+(a.offset?.y??0)},reason:null}:foot;
+  }
   if(!a.followEntity||currentFrame===a.anchorFrame)return {point:a.points[0],reason:null};
   if(context.cuts.some(cut=>cut>Math.min(currentFrame,a.anchorFrame)&&cut<=Math.max(currentFrame,a.anchorFrame)))return {reason:'source_cut'};
   const locate=f=>a.space==='court'?observedPoint({...context,freezeFrame:a.anchorFrame},a.entityId,f):rawFoot(context,a.entityId,f);
@@ -220,7 +248,18 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
       if(!mapping){item.hiddenReason='calibration_unavailable';continue;}
       if(!crossCutCompatible({...context,freezeFrame:a.anchorFrame},currentFrame)){item.hiddenReason='court_reference_mismatch';continue;}
       item.video=mapGeometry(geometry,mapping,height,a.style.size,a.type);
-    }else item.video=geometry;
+    }else{
+      item.video=geometry;
+      // A valid mapping shapes the circle on the floor; its center remains the
+      // observed image foot. Missing mapping never removes an image foot circle.
+      if(a.anchorMode==='player_foot'&&mapping){
+        const center=project(mapping.toCourt,geometry.center.x,geometry.center.y);
+        if(center&&finite(center.x)&&finite(center.y)){
+          const court=markerGeometry({...a,space:'court'},center,height),video=mapGeometry(court,mapping,height,a.style.size,a.type);
+          if(video){video.center=geometry.center;item.video=video;item.court=court;}
+        }
+      }
+    }
     if(!item.video){item.hiddenReason='projection_unavailable';continue;}
     const handles=a.type==='spotlight'?[geometry.center]:a.points;
     item.handles=handles.map((p,index)=>({...a.space==='court'?project(mapping.toImage,p.x,p.y):p,index})).filter(p=>finite(p.x)&&finite(p.y));
