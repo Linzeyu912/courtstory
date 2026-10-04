@@ -177,6 +177,45 @@ class ReviewServerTests(unittest.TestCase):
         self.assertEqual(payload['frames'][0]['tracks'][0][4], 7)
         self.assertNotEqual(payload['tracking_fingerprint'], self.load()['tracking_fingerprint'])
 
+    def test_player_only_variant_receives_same_video_objects_without_changing_tracks_or_fingerprint(self):
+        source = copy.deepcopy(self.records)
+        for row in source:
+            row['objects'] = [{'kind': 'basketball', 'box': [3, 4, 8, 9], 'score': .8, 'groundPoint': False}]
+        source[1]['objects'] = []
+        ebard = self.write_variant('ebard', source)
+        team = self.write_variant('team-stable')
+        self.sample.update(defaultVariant='team-stable', trackingVariants=[
+            {'id': 'ebard', 'label': 'Objects', 'tracks': str(ebard)},
+            {'id': 'team-stable', 'label': 'People', 'tracks': str(team)}])
+        original_bytes = team.read_bytes()
+        before = self.load('team-stable')
+        self.assertEqual([r['objects'] for r in before['frames']], [r['objects'] for r in source])
+        self.assertEqual([r['tracks'] for r in before['frames']], [r['tracks'] for r in self.records])
+        self.assertEqual(before['sceneObjectSource']['variant'], 'ebard')
+        self.assertEqual(team.read_bytes(), original_bytes)
+        # Reference content is independently identified, not folded into the
+        # historic person-draft key. No T IDs or manual identities are borrowed.
+        source[0]['objects'] = []
+        ebard.write_text(json.dumps(source), encoding='utf-8')
+        after = self.load('team-stable')
+        self.assertEqual(before['tracking_fingerprint'], after['tracking_fingerprint'])
+        self.assertNotEqual(before['sceneObjectSource'], after['sceneObjectSource'])
+
+    def test_explicit_empty_object_observations_are_not_filled_and_bad_reference_time_is_rejected(self):
+        source = copy.deepcopy(self.records)
+        for row in source:
+            row['objects'] = [{'kind': 'hoop', 'box': [3, 4, 8, 9], 'score': .8}]
+        ebard = self.write_variant('ebard', source)
+        explicit = [{**row, 'objects': []} for row in self.records]
+        team = self.write_variant('team-stable', explicit)
+        self.sample.update(trackingVariants=[{'id': 'ebard', 'label': 'Objects', 'tracks': str(ebard)},
+            {'id': 'team-stable', 'label': 'Explicit misses', 'tracks': str(team)}])
+        self.assertTrue(all(row['objects'] == [] for row in self.load('team-stable')['frames']))
+        self.assertIsNone(self.load('team-stable')['sceneObjectSource'])
+        source[0]['time'] += .5
+        ebard.write_text(json.dumps(source), encoding='utf-8')
+        with self.assertRaises(ValueError): self.load('team-stable')
+
     def test_actual_http_defaults_and_multiversion_trim_preserve_metadata_and_reject_escaped_cache_paths(self):
         ebard = self.write_variant('ebard', pipeline_version='ebard-yolov8n-bytetrack-v1', detector_id='ebard_yolov8n')
         team = self.write_variant('team-stable', presentation={'version': 1, 'default_stable': True},
