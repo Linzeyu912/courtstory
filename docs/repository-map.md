@@ -55,4 +55,6 @@ scripts/                      # 仓库维护：视频索引校验、历史手册
 
 ## 2026-10-03 工作台整合补充
 
+2026-10-04 素材更新：共享 catalog 现为 175 个文件。本次 18 段按用户要求保留赛季待核实，放入 `data/videos/uploads/2026-10-04/`；THY 两批 15 段也继续在 `uploads/`。当前完整分组见[视频入口](../data/videos/README.md)，下段 157 条为 10 月 3 日当时状态。
+
 共享战术候选在 [data/tactics](../data/tactics/README.md)，本机审核数据在 [data/local-workbench](../data/local-workbench/README.md)，本机导入原片在 [data/local-videos](../data/local-videos/README.md)。视频库读取共享 catalog，包含今天新增的两批 15 段上传视频；现共登记 157 段。功能代码留在工程目录；已有推理缓存保持忽略。见[整合说明](../engineering/docs/workbench-integration.md)。
