@@ -68,7 +68,7 @@ test('reloading a draft while Agent is generating cancels only the captured job 
     await env.get('tacticsWorkspace').onclick();
     assert.equal(env.get('tacticsAgentRun').disabled,false);assert.equal(env.get('tacticsAgentCancel').hidden,true);
     assert.equal(cancels,1);await env.get('tacticsAgentRun').onclick();assert.equal(jobs,2);
-  }finally{env.restore();}
+  }finally{await env.get('tacticsWorkspace').onclick();await env.ui.ready();env.restore();}
 });
 
 test('saving waits until an Agent adoption has committed the editable graphics',async()=>{
