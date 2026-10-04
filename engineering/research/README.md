@@ -20,6 +20,7 @@ THY 的 20:27 [发布记录](player-workbench-publish-20261002.md)和[交接](..
 | 裁剪及人工身份规则 | [身份绑定核查](vision-player-refinement/identity-binding-review.md)、[工作台](../tools/player-review/README.md) | 多区间拼接、从确认帧向后绑定、重复 ID 错段释放；46 项 JavaScript 与 4 项裁切回归通过，真人身份仍需复核 |
 | 当前数据提取流程 | [三步流程](vision-player-refinement/data-extraction-workflow.md) | 先筛直播、再标人、再补轨迹；战术分析与讲解后续处理 |
 | 脚点、场地和相机 | [专项实验](vision-player-refinement/court-calibration-research.md) | 多点拟合、核验及局部敏感度；姿态与 KaliCalib 仅离线抽样，米制精度未验收 |
+| 球场边线与自动标定 | [边线注册调研](vision-player-refinement/court-line-registration-survey-20261003.md) | 公开专用线分割方案仍待样片评估；工作台先以关键点加 Canny 可见线缘做保守局部修正并展示边缘距离，不代表实测精度 |
 | 漏检与跨帧身份 | [实验和诊断](vision-player-refinement/README.md) | 五种跟踪配置和球衣约束对照，仍有串号；单片段调参不能推广准确率 |
 | 本机与 AWS 可行性 | [部署评估](vision-local-aws-deployment.md)、[测量摘要](vision-deployment-benchmark/README.md) | 一个 8.1 秒片段十次运行；完整成片和云部署未验证 |
 | 原视频叠加与关系模型 | [RelateAnything 评估](video-overlay-vision-assessment.md) | 源码和接口研究；关系模型尚未运行，不作为现成能力 |
