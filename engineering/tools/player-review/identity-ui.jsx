@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client';
 import {flushSync} from 'react-dom';
 import {proposalLabel,trackingReviewState} from './tracking-display.mjs';
 import {IdentityRangeEditor} from './identity-range-ui.jsx';
+import {IdentityAgentPanel} from './identity-agent-ui.jsx';
 
 const isPlayerSlot=id=>/^P(?:[1-9]|10)$/.test(id);
 const slotLabel=id=>isPlayerSlot(id)?id.slice(1):id;
@@ -200,10 +201,10 @@ export function mountIdentityUI(api) {
   const panel=createRoot(document.getElementById('identityControls'));
   let signature='';
   return {render(state){
-    const next=JSON.stringify(state);if(next===signature)return;signature=next;
+    const next=JSON.stringify(state,(key,value)=>key==='dataUrl'?value?.length:value);if(next===signature)return;signature=next;
     flushSync(()=>{
       grid.render(<EntityRoster state={state} api={api}/>);
-      panel.render(<IdentityPanel key={state.entity.id+':'+state.frame} state={state} api={api}/>);
+      panel.render(<><IdentityAgentPanel key={`agent:${state.entity.id}`} state={state} api={api}/><IdentityPanel key={state.entity.id+':'+state.frame} state={state} api={api}/></>);
     });
   }};
 }

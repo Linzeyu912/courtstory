@@ -140,6 +140,38 @@ def _frame_confirmation(record, frame_count):
                 raise ValueError(f'逐帧确认的 {field} 必须是 1–8192 字符的文本。')
 
 
+def validate_identity_reference(reference, clip):
+    """A saved visual reference identifies one registered observation only."""
+    fields = {'version', 'videoHash', 'trackingFingerprint', 'frame', 'trackId', 'box', 'team', 'jersey'}
+    if (not isinstance(reference, dict) or set(reference) != fields or
+            type(reference.get('version')) is not int or reference['version'] != 1):
+        raise ValueError('身份参考字段或版本不正确。')
+    for field, source in (('videoHash', 'video_sha256'), ('trackingFingerprint', 'tracking_fingerprint')):
+        value = reference[field]
+        if not isinstance(value, str) or not value or value != clip.get(source):
+            raise ValueError('身份参考与当前视频或跟踪版本不匹配。')
+    frames = clip.get('frames')
+    if not isinstance(frames, list) or not frames:
+        raise ValueError('身份参考的视频帧不可用。')
+    frame = _integer(reference['frame'], '身份参考帧', high=len(frames) - 1)
+    track_id = _integer(reference['trackId'], '身份参考临时编号', low=1)
+    box = reference['box']
+    if not isinstance(box, list) or len(box) != 4:
+        raise ValueError('身份参考框须包含四个坐标。')
+    for value in box:
+        _number(value, '身份参考框坐标')
+    rows = [row for row in frames[frame].get('tracks', [])
+            if isinstance(row, (list, tuple)) and len(row) > 4 and row[4] == track_id]
+    if len(rows) != 1 or box != list(rows[0][:4]) or box[0] >= box[2] or box[1] >= box[3]:
+        raise ValueError('身份参考必须使用所选帧的实际人物检测框。')
+    team, jersey = reference['team'], reference['jersey']
+    if not isinstance(team, str) or len(team) > 40 or re.search(r'[\x00-\x1f\x7f]', team):
+        raise ValueError('参考球队或球衣描述须为不超过 40 字的文本。')
+    if not isinstance(jersey, str) or not re.fullmatch(r'[0-9]{0,3}', jersey):
+        raise ValueError('参考球衣号码须为空或 1–3 位数字。')
+    return reference
+
+
 def validate_session(session, clip):
     """Validate the supported draft contract before making a private copy."""
     if not isinstance(session, dict) or type(session.get('version')) is not int or session['version'] != 1:
@@ -175,6 +207,8 @@ def validate_session(session, clip):
         for field in ('name', 'team', 'jersey', 'description'):
             if field in entity and not isinstance(entity[field], str):
                 raise ValueError(f'{ident} 的 {field} 必须是文本。')
+        if 'identityReference' in entity:
+            validate_identity_reference(entity['identityReference'], clip)
         if 'teamSide' in entity and entity['teamSide'] not in (None, 'red', 'blue'):
             raise ValueError('队伍颜色必须是 red 或 blue。')
         if ('identitySuggestionsDismissed' in entity and
@@ -381,11 +415,11 @@ def apply_review_edit(session, operation, clip):
         # The browser reloads model proposals on startup. Persist the user's
         # deliberate clearing so those proposals cannot silently fill it again.
         entity['identitySuggestionsDismissed'] = True
-        for field in ('modelTeamGroup', 'modelTeamHint', 'automaticTeamEvidence'):
+        for field in ('modelTeamGroup', 'modelTeamHint', 'automaticTeamEvidence', 'identityReference'):
             entity.pop(field, None)
         draft['identitySelection'] = None
         affected = {'start': 0, 'end': frame_count - 1}
-        message = f"{_label(entity)} 的整段关联与位置已清空，姓名和球队资料保留。"
+        message = f"{_label(entity)} 的整段关联、位置与身份参考已清空，姓名和球队资料保留。"
     elif kind == 'release_identity':
         entity = _entity(draft, operation.get('entityId'))
         start = _integer(operation.get('frame'), '取消关联帧', high=frame_count - 1)

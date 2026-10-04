@@ -343,3 +343,69 @@ test('the actual app gives scene picking priority over an existing P path mode w
     assert.ok(after.sceneObjectEdits[0].point.every((value,index)=>Math.abs(value-[18.25,28.75][index])<1e-9));
   }finally{dom.restore();}
 });
+
+test('identity reference actions in the actual app require the decoded target frame and confirm only that frame',async()=>{
+  const dom=domFixture();
+  try{
+    const session=blankSession(clip.video_sha256);
+    for(const entity of session.entities)entity.identitySuggestionsDismissed=true;
+    const key=draftStorageKey(clip,'ebard',true),saved=new Map([[key,JSON.stringify(session)]]),jobRequests=[];
+    const policy=JSON.parse(readFileSync(new URL('./team-overlay-policy.json',import.meta.url)));
+    Object.assign(globalThis,{localStorage:{getItem:key=>saved.get(key)||null,setItem:(key,value)=>saved.set(key,value)},
+      fetch:async(url,options)=>{
+        let value;
+        if(url==='/api/library')value={defaultSample:'test',samples:[{id:'test',defaultVariant:'ebard'}]};
+        else if(url==='/team-overlay-policy.json')value=policy;
+        else if(url==='/api/identity-agent/status')value={available:true,provider:'test-fixture'};
+        else if(url==='/api/identity-agent/jobs'){
+          jobRequests.push(JSON.parse(options.body));
+          value={jobId:'reference-test',status:'ready',purpose:'reference',entityId:'P1',candidate:{team:'紫衣',jersey:'10',segments:[]},previewFrames:[]};
+        }else value=clip;
+        return {ok:true,json:async()=>value};
+      }});
+    let uiApi,uiState,workspaceApi,presentFrame;
+    const source=readFileSync(new URL('./app.mjs',import.meta.url),'utf8'),imports=[...source.matchAll(/^import \{([^}]+)\} from '([^']+)';$/gm)],dependencies={};
+    for(const match of imports){
+      if(match[2]==='./ui.bundle.mjs'){
+        dependencies.mountIdentityUI=api=>{uiApi=api;return {render:state=>{uiState=state;}};};
+        dependencies.mountVideoDisplay=({video,stage,startTime,onFrame})=>{
+          presentFrame=time=>{stage.dataset.videoState='ready';video.currentTime=time;onFrame({time});};
+          stage.dataset.videoState='ready';video.currentTime=startTime;
+          return {pause:()=>video.pause(),seek:time=>{video.pause();video.currentTime=time;stage.dataset.videoState='seeking';},
+            reload:()=>{stage.dataset.videoState='seeking';},togglePlayback:()=>video.paused?video.play():video.pause()};
+        };continue;
+      }
+      if(match[2]==='./footage-ui.mjs'){dependencies.mountFootageUI=()=>({render(){}});continue;}
+      if(match[2]==='./workspace.mjs'){dependencies.createWorkspace=api=>{workspaceApi=api;return {refresh(){},draw(){},drawImageOverlay(){},switchStep(){},handleImageClick:()=>false};};continue;}
+      const module=await import(new URL(match[2],import.meta.url));
+      for(const specifier of match[1].split(',')){const [name,alias=name]=specifier.trim().split(/\s+as\s+/);dependencies[alias]=module[name];}
+    }
+    const AsyncFunction=Object.getPrototypeOf(async function(){}).constructor;
+    await new AsyncFunction(...Object.keys(dependencies),source.replace(/^import .*;\r?\n/gm,''))(...Object.values(dependencies));
+    presentFrame(frames[0].time);
+    assert.equal(uiState.referenceFrameReady,true);
+    const before=structuredClone(workspaceApi.getState().session),persistedBefore=saved.get(key),input={trackId:7,team:'紫衣',jersey:'10'};
+    uiApi.seek(4);
+    assert.equal(workspaceApi.getState().frame,4,'the logical frame has moved before decoding');
+    assert.equal(uiState.referenceFrameReady,false);
+    uiApi.saveIdentityReference(input);await uiApi.recognizeIdentity(input);
+    assert.deepEqual(workspaceApi.getState().session,before);
+    assert.equal(saved.get(key),persistedBefore);assert.equal(uiState.canUndo,false);
+    assert.equal(jobRequests.length,0,'no model job may use a frame the user has not seen');
+    dom.get('stage').dataset.videoState='ready';uiApi.identityReferenceCandidate(7);
+    assert.equal(uiState.referenceFrameReady,false,'ready status alone cannot certify the old decoded frame');
+    uiApi.saveIdentityReference(input);assert.deepEqual(workspaceApi.getState().session,before);
+    presentFrame(frames[4].time);
+    assert.equal(uiState.referenceFrameReady,true,'onFrame must publish its decoded frame before rendering controls');
+    uiApi.saveIdentityReference(input);
+    const after=workspaceApi.getState().session,player=after.entities.find(entity=>entity.id==='P1');
+    assert.equal(player.identityReference.frame,4);assert.equal(player.identityReference.trackId,7);
+    assert.deepEqual(player.frameConfirmations.map(review=>review.frame),[4]);
+    assert.deepEqual(buildTrajectories(after,frames).P1.filter(point=>point.frameIdentityConfirmed).map(point=>point.frame),[4]);
+    assert.equal(uiState.canUndo,true);
+    await uiApi.recognizeIdentity(input);
+    assert.equal(jobRequests.length,1);assert.equal(jobRequests[0].reference.frame,4);
+    dom.get('undo').click=()=>{for(const handler of dom.get('undo').listeners.click||[])handler({});};
+    uiApi.undo();assert.deepEqual(workspaceApi.getState().session,before,'one undo restores the complete pre-reference draft');
+  }finally{dom.restore();}
+});
