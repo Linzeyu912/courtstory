@@ -6,7 +6,7 @@ import {createWorkspace} from './workspace.mjs';
 import {blankSession,ensurePlayerSlots,buildTrajectories,confirmFrameIdentity,correctFrameIdentity,replaceIdentityRange,reviewTrailCuts,gapRanges,exportReview,isHumanIdentitySelected,isSelected,hasAssociation,entityLabel,playerDisplayState,draftStorageKey,trackingModelSummary,trackCatalog,confirmBinding,continuationSuggestions} from './trajectory.mjs';
 import {IDENTITY_BINDING_MODE,migrateIdentitySession,confirmIdentity,identityInterval,identityConfirmationInterval,identitySuggestionSummary} from './identity-timeline.mjs';
 import {teamOverlayStyle,candidateOverlayColor,stabilizePoints,presentationPoint,frameAtMediaTime,frameSeekTime} from './team-overlay.mjs';
-import {trackedPersonProposals,pickPersonProposal,visibleObjects,personTrail,indexTemporaryTracks,temporaryTrail,mergeSourceCuts,toggleReviewCut,REVIEW_COLORS,trackingReviewState,reviewedPersonTrail} from './tracking-display.mjs';
+import {trackedPersonProposals,pickPersonProposal,visibleObjects,indexTemporaryTracks,mergeSourceCuts,toggleReviewCut,REVIEW_COLORS,trackingReviewState,reviewedPersonTrail} from './tracking-display.mjs';
 import {mountSceneObjects} from './scene-objects-ui.mjs';
 import {buildBasketballTrajectory} from './scene-objects.mjs';
 import {feetForPoint,footCandidateAnchor} from './feet-candidates.mjs';
@@ -15,6 +15,7 @@ import {mountPlayerIdentityUI,exportPlayerIdentities} from './player-identity.mj
 import {trackingDiagnostic,detectionFrameSummary} from './tracking-diagnostics.mjs';
 import {mountVideoLibrary} from './video-library.mjs';
 import {modelResultLabel} from './model-selection.mjs';
+import {setPlayerVisibility,playerVisibilityAt} from './trajectory.mjs';
 import {mountTacticsUI} from './tactics-ui.mjs';
 import {migrateLegacyTacticsDrafts} from './tactics-storage.mjs';
 import {createIdentityAgentClient} from './identity-agent-client.mjs';
@@ -104,6 +105,15 @@ removeRangeKey:index=>{rangeEdit.keyframes.splice(index,1);clearRangePreview();d
   entity().anchors=entity().anchors.filter(item=>item.frame!==at);entity().frameConfirmations=(entity().frameConfirmations||[]).filter(item=>item.frame!==at);session.identitySelection=null;
 }),releaseIdentity:()=>reviewEdit({type:'release_identity',entityId:active,frame}),
 clearPlayer:()=>reviewEdit({type:'clear_player',entityId:active}),
+setVisibility:(state,start,end)=>{
+  if(reviewBusy)return;pauseVideo();
+  try{const copy=structuredClone(session);setPlayerVisibility(copy,active,start,end,state,clip.frames);
+    change(()=>session=copy);previewTrackId=null;draw();
+    toast(`${entityLabel(active)} 第 ${start+1}–${end+1} 帧：${{visible:'恢复正常记录，无观测时仍留空',occluded:'遮挡 / 漏识别，等待恢复追踪',out_of_view:'镜头外，允许无位置，无需补点'}[state]}。可撤销。`);
+  }catch(error){toast(error.message);}
+},
+removeVisibility:start=>{if(!reviewBusy)change(()=>entity().visibilityRanges=entity().visibilityRanges.filter(range=>range.start!==start));},
+setGapSeconds:value=>{if(!reviewBusy)change(()=>session.maxGapSeconds=value);},
 correctCandidate:(proposal,scope)=>associateProposal(proposal,scope),
 swapPlayers:(sourceId,targetId)=>reviewEdit({type:'swap_players',sourceId,targetId})});
 canvas.width=clip.width;canvas.height=clip.height;
@@ -296,9 +306,9 @@ function draw(){
   const drawingSession=rangePreviewData?.result.session||session,drawingTrajectories=rangePreviewData?.trajectories||trajectories;
   const annotations=drawingSession.entities.filter(hasAssociation).map(entity=>({entity,point:drawingTrajectories[entity.id]?.[frame]}))
     .filter(({point})=>point&&point.x!==null&&automaticAnnotationPointVisible(clip,frame,point));
-  const pTail=hasAssociation(entity())?personTrail(trajectories[active],clip.frames,frame,playerTrailCuts[active]||session.cuts):[];
+  const pTail=hasAssociation(entity())?(workspace?.imagePlayerTrail?.(active,frame,playerTrailCuts[active]||session.cuts)||[]):[];
   if($('showTrackTrails').checked){
-    for(const candidate of candidates)if(candidate.trackId!=null)drawTrail(temporaryTrail(trackIndex,clip.frames,candidate.trackId,frame,temporaryTrailCuts.get(candidate.trackId)||session.cuts),REVIEW_COLORS.machine);
+    for(const candidate of candidates)if(candidate.trackId!=null)drawTrail(workspace?.imageTemporaryTrail?.(trackIndex,candidate.trackId,frame,temporaryTrailCuts.get(candidate.trackId)||session.cuts)||[],REVIEW_COLORS.machine);
     drawReviewedTrail(pTail,trajectories[active]);
   }
   if($('showBallTrajectory').checked)drawBasketballTrail(basketballTrajectory,frame);
@@ -327,14 +337,15 @@ function draw(){
   $('adoptLeftFoot').disabled=!feet?.left;$('adoptRightFoot').disabled=!feet?.right;
   if(feet&&$('showFeetCandidates').checked)for(const side of ['left','right'])if(feet[side]){const p=feet[side];ctx.beginPath();ctx.arc(p.x,p.y,9,0,2*Math.PI);ctx.strokeStyle=side==='left'?'#ffda70':'#cf9dff';ctx.lineWidth=3;ctx.stroke();ctx.fillStyle=ctx.strokeStyle;ctx.font='bold 17px sans-serif';ctx.fillText(side==='left'?'左脚?':'右脚?',p.x+12,p.y);}
   const visibleCount=candidates.filter(p=>p.trackId!=null).length;
-  $('trackingContinuity').textContent=`当前 ${visibleCount} 个临时 T 编号${hasAssociation(item)?` · ${entityLabel(active)} ${point?.trackId!=null?`关联 T${point.trackId}`:'当前无临时编号'} · 连续原图位置 ${pTail.length} 帧`:''}。尾迹为最近 1.2 秒的原图位置，受镜头移动影响；缺失、估计、身份确认、人工补点与切镜处断开。`;
+  $('trackingContinuity').textContent=`当前 ${visibleCount} 个临时 T 编号${hasAssociation(item)?` · ${entityLabel(active)} ${point?.trackId!=null?`关联 T${point.trackId}`:'当前无临时编号'} · 连续球场位置 ${pTail.length} 帧`:''}。${workspace?.hasCourtMapping?.(frame)?'尾迹由最近 1.2 秒的脚下点逐帧映射到球场，再投回当前画面；准确性取决于标定。':'当前帧缺少可用球场标定，暂不显示人物尾迹；人物框与脚点仍保留。'}缺失、估计、切镜和异常跳变处断开。`;
   const basketballs=objects.filter(o=>o.kind==='basketball').length,hoops=objects.filter(o=>o.kind==='hoop').length;
   const ballPointCount=basketballTrajectory.filter(point=>point.x!=null).length;
   $('objectStatus').textContent=`当前帧：篮球 ${basketballs} 个候选 · 篮筐 ${hoops} 个候选。已串接 ${ballPointCount} 个篮球图像观测${ballPointCount?'，仅作待核对路线；空中球不投影到地面。':'；当前版本没有可用的篮球观测。'}`;
   footageUI?.render();sceneUI?.render();
-  const descriptions={manual:'这一帧的位置由你确认。',tracked:'这一帧有已关联编号的位置；是否为同一个真人、脚点是否准确，仍需逐帧核对。',interpolated:'这一帧由前后位置估计；不是模型直接检出的结果。',missing:'这一帧尚未关联到位置；可以找回新编号、补点，或标记离开画面。',out_of_view:'这一帧已由你标记为离开画面，不计算位置。',conflict:'这一帧存在身份冲突，需要你重新点选确认。'};
+  const descriptions={manual:'这一帧的位置由你确认。',tracked:'这一帧有已关联编号的位置；是否为同一个真人、脚点是否准确，仍需逐帧核对。',interpolated:'这一帧由前后位置估计；不是模型直接检出的结果。',missing:'这一帧尚未关联到位置；可以找回新编号、补点，或标记离开画面。',out_of_view:'镜头外：保留身份，位置允许为空，不计入待恢复缺口，无需补点。',conflict:'这一帧存在身份冲突，需要你重新点选确认。'};
   if(point?.source==='manual')descriptions.manual=point.footMethod==='bbox_bottom_center'?'这一帧已人工选人；位置仍取框底边中心，尚未确认地面脚点。':point.footMethod==='pose_candidate_human_adopted'?'这一帧由你采用脚部模型候选，来源已保留，接地尚未验证。':'这一帧使用人工点选的原图参考位置，仍需核对地面接触与标定。';
   if(point?.identitySource==='reassigned')descriptions.missing=`原关联在这一段已由人工确认归到 ${entityLabel(point.claimedBy)}；请重新关联当前球员。`;
+  else if(point?.observationState==='occluded')descriptions.missing='遮挡 / 漏识别：需要恢复追踪，可结合前后帧短缺口估计或人工补点。';
   else if(point?.visibility==='occluded_waiting')descriptions.missing='遮挡 / 断轨待续接：身份关联保留，当前没有可靠位置，不生成框。';
   if(point?.identitySource==='model_suggestion')descriptions.tracked='当前是模型建议的位置与身份，尚未人工确认；检查后可锁定当前球员。';
   if(point?.frameIdentityConfirmed===true&&point.source==='tracked')descriptions.tracked='本帧人物已人工确认，球员框用实线；位置来自检测框，脚点仍需核对。';
@@ -343,7 +354,7 @@ function draw(){
   descriptions.manual_range='这一帧沿用原有运动并应用区间位置修正；当前帧人物、脚点仍需核对。';
   $('pointStatus').textContent=hasAssociation(item)?`${entityLabel(active)} · ${descriptions[point?.source]||''}`:`${entityLabel(active)} · 位置未知。点击候选人物后人工确认。`;
   $('cut').disabled=sourceCuts.includes(frame);
-  $('cut').textContent=sourceCuts.includes(frame)?'固定拼接点 · 轨迹在此断开':session.cuts.includes(frame)?'移除此处切镜标记':'此处标记切镜';drawTimeline();workspace?.draw();workspace?.drawImageOverlay(ctx);identityUI.render({entity:entity(),referenceFrameReady:identityReferenceFrameReady(),identityAgent:identityAgent?.state(),referenceCandidate:candidates.find(p=>p.trackId===(previewTrackId??point?.trackId))||null,range:{...rangeEdit,preview:rangePreviewData?.result.preview||null},frameTimes:clip.frames.map(f=>f.time),trackCatalog:catalog,canUndo:history.length>0,teamPolicy,display:playerDisplayState(entity(),point),entities:session.entities.map(e=>({id:e.id,name:e.name,role:e.role,teamSide:e.teamSide,selected:isAssigned(e),display:playerDisplayState(e,trajectories[e.id]?.[frame]),review:trackingReviewState(trajectories[e.id]?.[frame]),hasRecords:['anchors','identityKeyframes','bindings','modelBindings','courtAnchors','events','frameConfirmations'].some(field=>e[field]?.length)})),reviewBusy,releaseRange:identityInterval(session,entity(),frame,clip.frames.length),point:trajectories[active]?.[frame],frame,mode,associationScope,trackAssignments:trackAssignments(),proposals:candidates,previewTrackId,observedIds:[...new Set((trajectories[active]||[]).filter(p=>p.trackId!=null&&p.x!=null).map(p=>p.trackId))],identityRanges:(entity().identityKeyframes||[]).map(item=>({...item,...identityConfirmationInterval(session,entity(),item.frame,clip.frames.length),time:clip.frames[item.frame].time}))});
+  $('cut').textContent=sourceCuts.includes(frame)?'固定拼接点 · 轨迹在此断开':session.cuts.includes(frame)?'移除此处切镜标记':'此处标记切镜';drawTimeline();workspace?.draw();workspace?.drawImageOverlay(ctx);identityUI.render({entity:entity(),frameCount:clip.frames.length,maxGapSeconds:session.maxGapSeconds,visibilityRange:playerVisibilityAt(entity(),frame)||gapRanges(trajectories[active]||[]).find(range=>range.start<=frame&&range.end>=frame),referenceFrameReady:identityReferenceFrameReady(),identityAgent:identityAgent?.state(),referenceCandidate:candidates.find(p=>p.trackId===(previewTrackId??point?.trackId))||null,range:{...rangeEdit,preview:rangePreviewData?.result.preview||null},frameTimes:clip.frames.map(f=>f.time),trackCatalog:catalog,canUndo:history.length>0,teamPolicy,display:playerDisplayState(entity(),point),entities:session.entities.map(e=>({id:e.id,name:e.name,role:e.role,teamSide:e.teamSide,selected:isAssigned(e),display:playerDisplayState(e,trajectories[e.id]?.[frame]),review:trackingReviewState(trajectories[e.id]?.[frame]),hasRecords:['anchors','identityKeyframes','bindings','modelBindings','courtAnchors','events','frameConfirmations','visibilityRanges'].some(field=>e[field]?.length)})),reviewBusy,releaseRange:identityInterval(session,entity(),frame,clip.frames.length),point:trajectories[active]?.[frame],frame,mode,associationScope,trackAssignments:trackAssignments(),proposals:candidates,previewTrackId,observedIds:[...new Set((trajectories[active]||[]).filter(p=>p.trackId!=null&&p.x!=null).map(p=>p.trackId))],identityRanges:(entity().identityKeyframes||[]).map(item=>({...item,...identityConfirmationInterval(session,entity(),item.frame,clip.frames.length),time:clip.frames[item.frame].time}))});
   const detection=detectionFrameSummary(clip.frames[frame],clip.detectorEvidence);
   $('detectionSummary').textContent=`本帧跟踪候选 ${candidates.length} · ${detection.complete?'检测来源已核验':'检测来源证据有限'}`;
   $('detectionEvidence').textContent='当前只显示带 T 编号的跟踪候选。T 由跟踪器跨帧关联产生，球员身份仍需核对。';
@@ -375,7 +386,7 @@ function refresh(){
   $('summary').textContent=`人工关联 ${human.filter(item=>item.role==='player').length} / 10${proposed?` · 建议待确认 ${proposed}`:''}${qa?' · 测试模式':''}`;
   $('maxGap').value=String(session.maxGapSeconds);$('undo').disabled=!history.length;$('export').disabled=!bound.length;
   const points=trajectories[active],counts={};points.forEach(point=>counts[point.source]=(counts[point.source]||0)+1);
-  $('coverage').textContent=hasAssociation(entity())?`人物已逐帧确认 ${points.filter(point=>point.frameIdentityConfirmed).length} / ${points.length} 帧 · 人工位置 ${counts.manual||0} · 区间修正 ${counts.manual_range||0} · 模型位置 ${counts.tracked||0} · 估计 ${(counts.interpolated||0)+(counts.manual_path||0)} · 缺失 / 冲突 ${(counts.missing||0)+(counts.conflict||0)} · 出画 ${counts.out_of_view||0}`:'先在右侧选择球员 1–10，再点画面中的候选人物';
+  $('coverage').textContent=hasAssociation(entity())?`人物已逐帧确认 ${points.filter(point=>point.frameIdentityConfirmed).length} / ${points.length} 帧 · 人工位置 ${counts.manual||0} · 区间修正 ${counts.manual_range||0} · 模型位置 ${counts.tracked||0} · 估计 ${(counts.interpolated||0)+(counts.manual_path||0)} · 缺失 / 冲突 ${(counts.missing||0)+(counts.conflict||0)} · 镜头外（无需补点）${counts.out_of_view||0}`:'先在右侧选择球员 1–10，再点画面中的候选人物';
   $('anchorList').replaceChildren();for(const anchor of [...entity().anchors].sort((a,b)=>a.frame-b.frame)){const row=document.createElement('div');row.className='anchor';const jump=document.createElement('button');jump.textContent=`位置 · 第 ${anchor.frame+1} 帧 · ${clip.frames[anchor.frame].time.toFixed(2)} s`;jump.addEventListener('click',()=>seek(anchor.frame));const remove=document.createElement('button');remove.textContent='删除位置';remove.addEventListener('click',()=>change(()=>entity().anchors=entity().anchors.filter(item=>item.frame!==anchor.frame)));row.append(jump,remove);$('anchorList').append(row);}
   const playerCount=human.filter(e=>e.role==='player').length;
   $('identityProgress').textContent=`人工关联 ${playerCount} / 10 名球员${session.identitySelection?' · 十人关联已登记':''}${proposed?` · 模型建议待确认 ${proposed} 名`:''}。关联数量不代表逐帧审核通过；位置未知留空。`;
@@ -462,7 +473,7 @@ canvas.addEventListener('click',event=>{if(suppressClick){suppressClick=false;re
     else toast('请拖动当前球员的框边缘或四角来调整关键帧。');return;
   }
   if(mode==='select'){if(!$('showCandidates').checked){toast('先打开“跟踪候选”，或在右侧候选列表预览并确认。');return;}const hit=pickPersonProposal(proposals(),x,y);if(!hit){toast('此处没有带 T 编号的跟踪候选；请在右侧选择当前帧已有的 T 编号。');return;}associateProposal(hit);}
-  else {const point=trajectories[active]?.[frame];if(point?.reviewExcluded){toast('这一段已取消关联；请先点击“关联人物”重新选人，再补位置。');return;}prepareGeometryEdit();change(()=>{entity().anchors=entity().anchors.filter(a=>a.frame!==frame);entity().anchors.push({frame,x,y,trackId:point?.trackId??null,box:point?.box||null,footMethod:'human_image_anchor',identityConfirmed:false,detectorBox:point?.detectorBox||point?.box||null});});toast(`${entityLabel(active)} 当前帧脚下点已保存。`);}
+  else {const point=trajectories[active]?.[frame];if(point?.source==='out_of_view'){toast('当前球员在镜头外，无需补点；重新入画后先改为正常记录。');return;}if(point?.reviewExcluded){toast('这一段已取消关联；请先点击“关联人物”重新选人，再补位置。');return;}prepareGeometryEdit();change(()=>{entity().anchors=entity().anchors.filter(a=>a.frame!==frame);entity().anchors.push({frame,x,y,trackId:point?.trackId??null,box:point?.box||null,footMethod:'human_image_anchor',identityConfirmed:false,detectorBox:point?.detectorBox||point?.box||null});});toast(`${entityLabel(active)} 当前帧脚下点已保存。`);}
 });
 function setMode(value,{edit=true}={}){mode=value;if(value!=='path')pathStroke=null;if(edit&&(value==='point'||value==='path'))prepareGeometryEdit();else draw();}
 for(const id of ['pathStart','pathEnd'])$(id).max=clip.frames.length;
@@ -530,11 +541,6 @@ $('applyLink').addEventListener('click',()=>{
   const binding={kind:'track',trackId:Number($('linkTrack').value),start:Number($('linkStart').value)-1,end:Number($('linkEnd').value)-1};
   try{const copy=structuredClone(session);confirmBinding(copy,active,binding,clip.frames);change(()=>session=copy);previewTrackId=null;$('linkSuggestions').replaceChildren();draw();toast(`${entityLabel(active)} 已关联临时 ${binding.trackId} 的第 ${binding.start+1}–${binding.end+1} 帧；保留后续确认边界。`);}catch(error){toast(error.message);}
 });
-$('markOut').addEventListener('click',()=>{
-  if(!hasAssociation(entity())){toast('请先关联这个球员或载入待确认建议。');return;}
-  change(()=>confirmBinding(session,active,{kind:'out_of_view',start:frame,end:clip.frames.length-1},clip.frames));
-  toast(`${entityLabel(active)} 从第 ${frame+1} 帧起标为离开画面。重新入画时可用新的关联区间覆盖。`);
-});
 $('findLinks').addEventListener('click',()=>{
   const suggestions=continuationSuggestions(trajectories[active],clip.frames,session.cuts);
   $('linkSuggestions').replaceChildren();
@@ -549,7 +555,7 @@ tacticsUI=mountTacticsUI({clip,sample,variant,qa,key,title:sampleInfo?.title||sa
   frame:()=>frame,pause:pauseVideo,play:()=>videoDisplay?.play(),seek:index=>seek(index,{tactics:true}),
   getPresentedFrame:()=>$('stage').dataset.videoState==='ready'?presentedFrame:null,
   beforeNavigate:saveDraft,openStep:step=>workspace.switchStep(step,true)});
-playerIdentityUI=mountPlayerIdentityUI({getState:()=>({session,active,frame,clip,point:annotationPoint(trajectories[active]?.[frame])}),commit:copy=>change(()=>session=copy),pause:pauseVideo,toast});
+playerIdentityUI=mountPlayerIdentityUI({getState:()=>({session,active,frame,clip,sample,variant,trajectories,point:annotationPoint(trajectories[active]?.[frame])}),commit:copy=>change(()=>session=copy),pause:pauseVideo,seek,toast});
 if(clip.supportsCourtCalibration===false){$('tab-calibration').disabled=true;$('repairCourt').disabled=true;$('identityDone').textContent='十名球员已选好，继续轨迹核对';}
 identityAgent=createIdentityAgentClient({context:{sample,variant,qa},snapshot:()=>({session,revision:sessionRevision,entityId:active}),onChange:()=>draw()});
 await identityAgent.init();

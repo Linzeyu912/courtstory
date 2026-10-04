@@ -132,6 +132,35 @@ function EntityRoster({state,api}) {
   </div>;
 }
 
+function PlayerVisibilityPanel({state,api}) {
+  const [start,setStart]=useState(state.frame+1),[end,setEnd]=useState(state.frame+1);
+  const point=state.point,outside=point?.source==='out_of_view',occluded=point?.observationState==='occluded';
+  const normal=!outside&&!occluded&&['manual','tracked'].includes(point?.source)&&point?.x!=null;
+  const label=outside?'镜头外 · 允许无位置，无需补点':occluded?
+    (point?.x==null?'遮挡 / 漏识别 · 待恢复追踪':'遮挡 / 漏识别 · 已补位置，待核对'):
+    normal?'画面内 · 正常记录':point?.x!=null?'位置估计 · 待核对':'位置未知 · 请对照画面判断';
+  const valid=Number.isInteger(start)&&Number.isInteger(end)&&start>=1&&end>=start&&end<=state.frameCount;
+  const gap=state.visibilityRange;
+  return <section className="player-visibility" aria-label="球员画面状态">
+    <h3>球员画面状态</h3><p className="visibility-current" role="status">{label}</p>
+    <div className="range-fields">
+      <label className="field">起始帧<input aria-label="画面状态起始帧" type="number" min="1" max={state.frameCount} value={start} onChange={e=>setStart(Number(e.target.value))}/></label>
+      <label className="field">结束帧<input aria-label="画面状态结束帧" type="number" min="1" max={state.frameCount} value={end} onChange={e=>setEnd(Number(e.target.value))}/></label>
+    </div>
+    <div className="gap-controls"><button disabled={state.reviewBusy} onClick={()=>{setStart(state.frame+1);setEnd(state.frame+1);}}>仅当前帧</button><button disabled={state.reviewBusy||!gap} onClick={()=>{setStart(gap.start+1);setEnd(gap.end+1);}}>选取当前整段缺口 / 状态</button></div>
+    <p className="small muted">{valid?`应用到第 ${start}–${end} 帧，其他帧保留。`:'请输入有效的起止帧。'}</p>
+    <div className="visibility-actions">
+      <button disabled={state.reviewBusy||!valid} aria-pressed={normal} onClick={()=>api.setVisibility('visible',start-1,end-1)}>正常记录</button>
+      <button disabled={state.reviewBusy||!valid} aria-pressed={occluded} onClick={()=>api.setVisibility('occluded',start-1,end-1)}>遮挡 / 漏识别</button>
+      <button disabled={state.reviewBusy||!valid} aria-pressed={outside} onClick={()=>api.setVisibility('out_of_view',start-1,end-1)}>镜头外</button>
+    </div>
+    <p className="small muted">正常记录沿用已有观测；遮挡或漏识别需要恢复追踪；镜头外保留身份，原图与 2D 位置留空。重新入画后，将对应区间改为正常记录并核对关联。</p>
+    <label className="field">前后帧短缺口补点<select aria-label="前后帧短缺口补点" value={state.maxGapSeconds} disabled={state.reviewBusy} onChange={e=>api.setGapSeconds(Number(e.target.value))}><option value="0">关闭，保留待恢复缺口</option><option value="0.2">最多 0.2 秒</option><option value="0.5">最多 0.5 秒</option><option value="1">最多 1 秒</option></select></label>
+    <p className="small muted">有前后位置且身份连续时才估计，结果仍需核对；镜头外区间始终不补点。</p>
+    {!!state.entity.visibilityRanges?.length&&<details><summary>已标记的画面状态</summary>{state.entity.visibilityRanges.map(range=><div className="anchor" key={range.start}><button onClick={()=>api.seek(range.start)}>{({visible:'正常记录',occluded:'遮挡 / 漏识别',out_of_view:'镜头外'})[range.state]} · {range.start+1}–{range.end+1} 帧</button><button disabled={state.reviewBusy} aria-label={`移除第 ${range.start+1}–${range.end+1} 帧画面状态`} onClick={()=>api.removeVisibility(range.start)}>移除</button></div>)}</details>}
+  </section>;
+}
+
 function IdentityPanel({state,api}) {
   const {entity,point,mode,proposals}=state;
   const [candidate,setCandidate]=useState('');
@@ -152,7 +181,8 @@ function IdentityPanel({state,api}) {
     <IdentityRangeEditor state={state} api={api}/>
     <details className="identity-single-frame"><summary>单帧确认与高级身份操作</summary>
     <div className="identity-flow"><div><small>正在编辑的固定身份</small><strong>球员 {slotLabel(entity.id)} · {entity.name}</strong></div><span>←</span><div><small>跟踪器临时编号</small><strong>{point?.reviewExcluded?'已取消关联':point?.trackId!=null?`T${point.trackId}`:confirmed?'无 T · 本帧人工确认':'尚未关联'}</strong></div></div>
-    <div className="identity-evidence"><span className="identity-state review-status" data-review={review.status}>{evidenceLabel}</span>{state.observedIds.length>0&&<span>此身份对应过 {state.observedIds.map(id=>`T${id}`).join('、')}</span>}</div>
+    <PlayerVisibilityPanel state={state} api={api}/>
+    <div className="identity-evidence"><span className="identity-state review-status" data-review={review.status}>{point?.source==='out_of_view'?'镜头外 · 无需补点':evidenceLabel}</span>{state.observedIds.length>0&&<span>此身份对应过 {state.observedIds.map(id=>`T${id}`).join('、')}</span>}</div>
     <p className="small muted">YOLO 逐帧检测人物框，跟踪器分配 T 编号。一个球员可以归并多个 T；每个编号分别选一次，关联后仍需逐帧核对。</p>
     {needsCorrection&&<section className="candidate-warning identity-conflict" aria-label="人物关联冲突">
       <strong>先解决第 {state.frame+1} 帧的关联冲突</strong>

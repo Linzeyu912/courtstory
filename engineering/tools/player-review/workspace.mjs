@@ -4,6 +4,10 @@ import {normalizeCourtCandidates,acceptCourtCandidates,calibrationGuideState,reo
 import {REVIEW_COLORS} from './tracking-display.mjs';
 import {entityLabel,isHumanIdentitySelected} from './trajectory.mjs';
 import {mountWorkbenchShell} from './ui.bundle.mjs';
+import {mountGroundComparison} from './ground-comparison-ui.mjs';
+import {buildBallCourtTrajectory,mountBallCourt} from './ball-court.mjs';
+import {groundImagePoint} from './ground-position.mjs';
+import {playerCourtTrail,temporaryCourtTrail} from './court-trails.mjs';
 
 export function createWorkspace(api){
   const $=id=>document.getElementById(id),{clip,sample,variant,getState,change,seek,toast,isSelected,color}=api;
@@ -17,12 +21,15 @@ export function createWorkspace(api){
   const shades={projected:'#1675b6',court_manual:'#6e4fd0',court_estimated:'#b96a09',missing:'#c83d4c',conflict:'#ae385c',uncalibrated:'#a08bd1',out_of_view:'#8c98a8'};
   const time=i=>`${clip.frames[i].time.toFixed(2)} s`;
   const shell=mountWorkbenchShell(api);
+  const groundUI=mountGroundComparison({sample,variant,clip,state,change});
+  let ballPoints=[],courtMaps=[];
+  const ballUI=mountBallCourt({clip,state,change,redraw:api.redraw});
   function switchStep(next,scroll=false){
     if(next==='export'){shell.showArea('production');return;}
     const session=getState().session;
     if(['identity','calibration','repair'].includes(next)&&!session.liveSelection){toast('先在第一步保留并确认直播画面。');next='footage';}
     if(next==='calibration'&&clip.supportsCourtCalibration===false){toast('这段 NCAA 示例用于原图位置验收；尚未提供适配的球场模板。');return;}
-    step=next;pending=null;pointMode=false;$('repairCourt').setAttribute('aria-pressed','false');
+    step=next;pending=null;pointMode=false;ballUI.cancelPick();$('repairCourt').setAttribute('aria-pressed','false');
     document.body.dataset.step=step;
     shell.enterVideo(step);
     if(step==='calibration')shell.showArea('video');
@@ -217,7 +224,10 @@ export function createWorkspace(api){
     }
   }
   function refresh(){
-    const s=state();courtPoints=buildCourtTrajectories(s.session,clip.frames,s.trajectories);const points=courtPoints[s.active]||[],selected=isSelected(s.entity),gaps=selected?courtGaps(points):[];
+    groundUI.render();
+    const s=state();courtMaps=clip.frames.map((_,i)=>calibrationAt(s.session.courtCalibration,i,clip.frames,s.session.cuts));
+    courtPoints=buildCourtTrajectories(s.session,clip.frames,s.trajectories,{clip,maps:courtMaps});const points=courtPoints[s.active]||[],selected=isSelected(s.entity),gaps=selected?courtGaps(points):[];
+    ballPoints=buildBallCourtTrajectory(s.session,clip.frames,s.trajectories,courtPoints,clip);
     $('playerHeading').textContent=`${entityLabel(s.active)}${s.entity.name!==entityLabel(s.active)?` · ${s.entity.name}`:''}`;
     $('playerIdentity').textContent=[s.entity.team||'球队待填写',s.entity.jersey?`#${s.entity.jersey}`:'号码待填写'].join(' · ');
 
@@ -237,6 +247,7 @@ export function createWorkspace(api){
     draw();
   }
   function draw(){
+    ballUI.render(ballPoints[state().frame]);
     const s=state(),points=courtPoints[s.active]||[],displayPoints=$('smoothCourtPath').checked?smoothCourtTrajectory(points,s.session.cuts):points,
       current=points[s.frame],displayCurrent=displayPoints[s.frame],mapping=calibrationAt(s.session.courtCalibration,s.frame,clip.frames,s.session.cuts);
     const players=s.session.entities.filter(isSelected).filter(e=>e.role==='player'),humanPlayers=players.filter(isHumanIdentitySelected);
@@ -282,6 +293,10 @@ export function createWorkspace(api){
     for(const e of s.entity.events||[]){const p=displayPoints[e.frame];if(p?.x==null)continue;const[x,y]=screen(p.x,p.y);ctx.save();ctx.translate(x,y);ctx.rotate(Math.PI/4);ctx.fillStyle='#f2d58c';ctx.fillRect(-5,-5,10,10);ctx.restore();ctx.fillStyle='#f2d58c';ctx.font='11px sans-serif';ctx.fillText(e.type,x+9,y+14);if(p.x>=start&&p.x<=start+span)hits.push({x,y,frame:e.frame,id:s.active,kind:'event'});}
     for(const entity of s.session.entities){if(!isSelected(entity))continue;const p=entity.id===s.active?displayCurrent:courtPoints[entity.id]?.[s.frame];if(p?.x==null)continue;const[x,y]=screen(p.x,p.y),selected=entity.id===s.active,tentative=s.trajectories[entity.id]?.[s.frame]?.frameIdentityConfirmed!==true;ctx.beginPath();ctx.arc(x,y,selected?13:10,0,Math.PI*2);ctx.fillStyle=color(entity.id);ctx.fill();ctx.strokeStyle=selected?'#fff':'#12363a';ctx.lineWidth=selected?3:1.5;ctx.setLineDash(tentative?[3,2]:[]);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#09272d';ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(entity.role==='player'?entity.id.slice(1):entity.id,x,y+3);ctx.textAlign='left';if(p.x>=start&&p.x<=start+span&&p.y>=0&&p.y<=COURT.width)hits.push({x,y,frame:s.frame,id:entity.id,kind:'player'});}
     if(step==='calibration')courtLandmarks(pending?.side||$('calibrationSide').value).forEach(({x,y,id})=>{const[a,b]=screen(x,y);ctx.fillStyle=id===(pending?.id||(pending?.image?'ABCD'[pending.image.length]:$('calibrationLandmark').value))?'#d44331':'#fff8e8';ctx.beginPath();ctx.arc(a,b,9,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#796548';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle=id===(pending?.id||(pending?.image?'ABCD'[pending.image.length]:$('calibrationLandmark').value))?'white':'#183739';ctx.font='bold 11px sans-serif';ctx.fillText(id,a-4,b+4);});
+    const ball=ballPoints[s.frame];
+    if(ball?.displayX!=null&&ball?.displayY!=null){const [x,y]=screen(ball.displayX,ball.displayY);ctx.save();ctx.strokeStyle='#ec7118';ctx.fillStyle='#b64d06';ctx.lineWidth=3;
+      ctx.setLineDash(ball.positionKind==='possession_proxy'?[4,3]:[]);ctx.beginPath();ctx.arc(x,y,ball.positionKind==='possession_proxy'?19:6,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+      ctx.font='11px sans-serif';ctx.fillText(ball.positionKind==='possession_proxy'?'持球关联':'球地面投影',x+22,y+4);ctx.restore();}
     ctx.restore();
     ctx.fillStyle='#766c5e';ctx.font='11px sans-serif';ctx.fillText(view==='half'?'半场窗口 14.33 × 15.24 m · 可横向滑动':'全场 28.65 × 15.24 m',20,h-12);
     const courtReview=reviewStates[s.frame];
@@ -293,8 +308,11 @@ export function createWorkspace(api){
     if($('smoothCourtPath').checked&&displayCurrent?.displaySmoothed)$('courtPointStatus').textContent+=' 当前轨迹仅在显示层做了前后各 2 帧的中值平滑；原始点和导出坐标不变。';
     const inspector=$('coordinateInspector'),imagePoint=s.trajectories[s.active]?.[s.frame];inspector.replaceChildren();inspector.hidden=!isSelected(s.entity)||current?.x==null;
     if(!inspector.hidden){
-      const origin={bbox_bottom_center:'人物框底边中心（近似）',human_image_anchor:'人工原图补点',interpolated_image_point:'前后原图点估计',human_court_anchor:'人工球场补点',pose_candidate_human_adopted:'人工采用脚部模型候选（接地未验证）'};
-      const lines=[`原图：${imagePoint?.x!=null?`${imagePoint.x.toFixed(1)}, ${imagePoint.y.toFixed(1)} px`:'无可用点'} → 球场：${current.x.toFixed(2)}, ${current.y.toFixed(2)} 米`,`位置来源：${origin[current.footMethod]||'待核对'}`];
+      const origin={bbox_bottom_center:'人物框底边中心（近似）',pose_ground_proposal:`${current.groundModel} 脚部候选（接地未验证）`,human_image_anchor:'人工原图补点',interpolated_image_point:'前后原图点估计',human_court_anchor:'人工球场补点',pose_candidate_human_adopted:'人工采用脚部模型候选（接地未验证）'};
+      const xy=current.imagePoint||(imagePoint?.x!=null?[imagePoint.x,imagePoint.y]:null);
+      const lines=[`映射输入：${xy?`${xy[0].toFixed(1)}, ${xy[1].toFixed(1)} px`:'无可用原图点'} → 球场：${current.x.toFixed(2)}, ${current.y.toFixed(2)} 米`,`位置来源：${origin[current.footMethod]||'待核对'}`];
+      if(current.groundCandidateMissing)lines.push('本帧脚部候选缺失，使用原有位置。');
+      if(mapping?.excludedControlIds?.length)lines.push(`本帧拟合未采用异常自动参照点：${mapping.excludedControlIds.join('、')}；原始点保留，请复核。`);
       if(current.calibrationSupport)lines.push(current.calibrationSupport==='outside_controls'?'位于标定点包围范围外，建议补附近参照。':'位于标定点包围范围内，仍需核验。');
       if(current.sensitivity)lines.push(`误差示例：脚点偏 5 px，局部可偏约 ${current.sensitivity.approxMaxMetres.toFixed(2)} 米；不含标定误差。`);
       for(const text of lines){const p=document.createElement('p');p.textContent=text;inspector.append(p);}
@@ -328,6 +346,7 @@ export function createWorkspace(api){
   court.onpointerup=e=>{const moved=drag?.moved;drag=null;if(court.hasPointerCapture(e.pointerId))court.releasePointerCapture(e.pointerId);if(!moved)clickCourt(e);};court.onpointercancel=()=>drag=null;
   court.onkeydown=e=>{if(['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();e.stopPropagation();$('followPlayer').checked=false;setPan(pan+(e.key==='ArrowRight'?1:-1));}};
   function handleImageClick(x,y){
+    if(ballUI.handleImageClick(x,y))return true;
     if(step==='calibration'){
       if(!pending){toast('先选择参照点并点击“在原视频重选这个点”，或重新点选整组禁区四角。');return true;}
       if(pending.kind==='single'){
@@ -342,6 +361,12 @@ export function createWorkspace(api){
     return false;
   }
   function drawImageOverlay(context){
+    if(step==='repair'){
+      const s=state(),p=s.trajectories[s.active]?.[s.frame],candidate=p&&groundImagePoint(s.session,p,s.frame,clip);
+      if(candidate?.groundModel&&candidate.x!=null){context.save();context.strokeStyle='#16ced1';context.fillStyle='#083d46';context.lineWidth=4;context.setLineDash([]);
+        context.beginPath();context.moveTo(p.x,p.y);context.lineTo(candidate.x,candidate.y);context.stroke();context.beginPath();context.arc(candidate.x,candidate.y,12,0,Math.PI*2);context.stroke();
+        context.font='bold 20px sans-serif';context.fillText(`${s.active} 脚部候选`,candidate.x+16,candidate.y-12);context.restore();}
+    }
     if(step!=='calibration')return;const s=state(),key=currentCourtKey(),fit=key?.status!=='invalid'&&!key?.invalidReason&&key&&fitKeyframe(key),map=key?(fit?{toImage:fit.toImage}:null):calibrationAt(s.session.courtCalibration,s.frame,clip.frames,s.session.cuts);
     const manual=key?.source==='human'||keyframePoints(key||{}).some(p=>p.source==='human');
     const evidence=manual?null:key?.quality;
@@ -370,5 +395,8 @@ export function createWorkspace(api){
     context.setLineDash([]);
   }
   window.addEventListener('resize',draw);
-  return {refresh,draw,handleImageClick,drawImageOverlay,switchStep,showArea:shell.showArea,gaps:()=>courtGaps(courtPoints[state().active]||[])};
+  return {refresh,draw,handleImageClick,drawImageOverlay,switchStep,showArea:shell.showArea,gaps:()=>courtGaps(courtPoints[state().active]||[]),
+    hasCourtMapping:frame=>Boolean(courtMaps[frame]),
+    imagePlayerTrail:(id,frame,cuts)=>playerCourtTrail(courtPoints[id],clip.frames,courtMaps,frame,cuts),
+    imageTemporaryTrail:(index,id,frame,cuts)=>temporaryCourtTrail(index,clip,state().session,courtMaps,id,frame,cuts)};
 }

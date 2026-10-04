@@ -51,11 +51,15 @@ export function nextIdentityOrder(session) {
 }
 
 export function identityAt(entity, frame, cuts=[], availableTracks=null) {
+  const visibility=(entity.visibilityRanges||[]).find(range=>range.start<=frame&&range.end>=frame);
   const records=availableTracks?.tracks??availableTracks;
   const present=records==null?null:new Set([...(records instanceof Map?records.keys():records)]
     .map(value=>Number(Array.isArray(value)?value[4]:value)));
   let active = null;
   const consider = event => {
+    // A new explicit in-picture interval supersedes legacy identity-based exit
+    // markers without deleting the original P/T assignments or review records.
+    if(event.kind==='out_of_view'&&visibility&&visibility.state!=='out_of_view')return;
     if (event.start > frame || event.end < frame) return;
     if (!active || event.start > active.start ||
         (event.start === active.start && (event.order||0) >= (active.order||0))) active = event;

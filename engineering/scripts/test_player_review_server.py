@@ -122,7 +122,7 @@ class ReviewServerTests(unittest.TestCase):
             for name,mime in [('team-overlay.mjs','text/javascript'),('team-overlay-policy.json','application/json'),
                               ('automatic-annotations.mjs','text/javascript'),('simple-annotation.mjs','text/javascript'),
                               ('identity-continuation.mjs','text/javascript'),('identity-agent-client.mjs','text/javascript'),
-                              ('tracking-display.mjs','text/javascript')]:
+                              ('tracking-display.mjs','text/javascript'),('court-trails.mjs','text/javascript')]:
                 with self.subTest(asset=name):
                     try:response=urlopen(url+name,timeout=3)
                     except HTTPError as error:response=error

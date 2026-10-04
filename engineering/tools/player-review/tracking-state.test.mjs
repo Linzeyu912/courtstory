@@ -159,7 +159,7 @@ test('human out-of-view and finite repair ranges override model proposals withou
   assert.equal(points[3].source,'out_of_view');assert.equal(points[3].x,null);
   assert.equal(points[6].trackId,20);assert.equal(points[6].identitySource,'manual_range');
   assert.equal(points[8].source,'out_of_view');assert.equal(points[0].identitySource,'model_suggestion');
-  assert.equal(trajectory.playerDisplayState(s.entities[0],points[3]).label,'已离开画面');
+  assert.equal(trajectory.playerDisplayState(s.entities[0],points[3]).label,'镜头外 · 无需补点');
 });
 
 test('manual unnumbered selection keeps its human lock while future positions remain unknown',()=>{

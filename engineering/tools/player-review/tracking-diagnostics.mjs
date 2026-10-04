@@ -107,8 +107,12 @@ export function trackingDiagnostic(record, point, previewProposal = null, detect
     detail: '这是审核中的球员与轨迹归属问题，不能据此认定 YOLO 或跟踪器出错。请核对同帧的球员关联。',
   };
   if (!preview && point?.source === 'out_of_view') return {
-    label: '当前标记为出画',
-    detail: '出画标记是当前审核状态；它本身不能证明检测或跟踪环节发生错误。',
+    label: '镜头外 · 无需补点',
+    detail: '已人工标记不在镜头内，位置允许为空，不计入待恢复缺口。再次入画后恢复正常记录。',
+  };
+  if (!preview && point?.observationState === 'occluded' && !hasPosition(point)) return {
+    label: '遮挡 / 漏识别 · 待恢复追踪',
+    detail: '已标记球员仍在画面内。可核对前后帧、关联续接编号，或启用短缺口估计；估计位置仍需复核。',
   };
   if (!preview && ['interpolated', 'manual_path'].includes(point?.source)) return {
     label: '估计位置 · 待复核',

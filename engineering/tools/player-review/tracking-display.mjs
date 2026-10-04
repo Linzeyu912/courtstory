@@ -2,9 +2,9 @@
 export const REVIEW_COLORS=Object.freeze({machine:'#2563eb',human:'#16834a',pending:'#b97812',missing:'#db737c',invalid:'#ad3156',out_of_view:'#8c98a8',empty:'#e8edf2'});
 export function trackingReviewState(point){
   if(point?.reviewExcluded)return {status:'missing',label:'已取消关联'};
-  if(point?.source==='out_of_view')return {status:'out_of_view',label:'已标记出画'};
+  if(point?.source==='out_of_view')return {status:'out_of_view',label:'镜头外 · 无需补点'};
   if(point?.source==='conflict')return {status:'invalid',label:'身份冲突'};
-  if(point?.x==null||point?.y==null)return {status:'missing',label:'缺少跟踪位置'};
+  if(point?.x==null||point?.y==null)return {status:'missing',label:point?.observationState==='occluded'?'遮挡 / 漏识别 · 待恢复':'位置未知 · 待核对'};
   if(['interpolated','manual_path'].includes(point.source))return {status:'pending',label:'估计位置，待核对'};
   if(point.frameIdentityConfirmed===true)return {status:'human',label:'本帧人物已人工确认'};
   if(point.source==='manual_range')return {status:'pending',label:'区间修正，当前帧待核对'};
