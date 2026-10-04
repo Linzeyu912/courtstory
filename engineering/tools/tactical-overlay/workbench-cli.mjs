@@ -5,6 +5,8 @@ import {buildPreviewHtml} from './preview.mjs';
 import {AGENT_SCHEMA,documentDigest,adoptAgentCandidate} from '../player-review/tactics-agent.mjs';
 import {annotationPresentation} from '../player-review/tactics-annotations.mjs';
 import {compileProduction,renderProductionSvg,importAuthoredProduction} from '../player-review/tactics-production.mjs';
+// Keep partial UTF-8 code points between pipe chunks, including large Chinese drafts.
+process.stdin.setEncoding('utf8');
 let input='';for await(const chunk of process.stdin)input+=chunk;
 try{
   const request=JSON.parse(input);

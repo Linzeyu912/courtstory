@@ -1,8 +1,8 @@
-import {canonicalJSON} from '../tactical-overlay/binding.mjs';
+import {canonicalJSON,createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {validQuad} from './court.mjs';
 import {createAnnotation,updateAnnotation,annotationStatus,annotationPausePoints,projectAnnotations,renderAnnotationsSVG} from './tactics-annotations.mjs';
 import {validateDocument,reindexPhases} from './tactics-document.mjs';
-import {DEFAULT_RIBBON,productionPhaseSnapshot,productionSourceSnapshot,productionEqual,productionCameraDigest,productionCameraAt} from './tactics-authored-geometry.mjs';
+import {DEFAULT_RIBBON,productionPhaseSnapshot,productionSourceSnapshot,productionEqual,productionCameraDigest,productionCameraAt,sha256} from './tactics-authored-geometry.mjs';
 export {DEFAULT_RIBBON,productionPhaseSnapshot,productionCameraDigest};
 export const DEFAULT_PRODUCTION_CUE=Object.freeze({settleFrames:5,drawFrames:0,holdFrames:40});
 export function productionCue(document,{phaseId,frame}){
@@ -13,15 +13,55 @@ const clone=v=>structuredClone(v),finite=n=>typeof n==='number'&&Number.isFinite
 const exact=(o,keys,optional=[])=>o&&typeof o==='object'&&!Array.isArray(o)&&keys.every(k=>Object.hasOwn(o,k))&&Object.keys(o).every(k=>keys.includes(k)||optional.includes(k));
 const snapshotValid=s=>exact(s,['phaseId','startFrame','endFrameExclusive','freezeFrame'])&&typeof s.phaseId==='string'&&[s.startFrame,s.endFrameExclusive,s.freezeFrame].every(frame)&&s.startFrame<=s.freezeFrame&&s.freezeFrame<s.endFrameExclusive;
 const phaseFor=(d,id)=>{const p=d.playDefinition.phases.find(p=>p.phaseId===id);if(!p)throw new Error('未找到编排阶段。');return p;};
-const emptyProduction=d=>({schemaVersion:1,sourceBinding:productionSourceSnapshot(d),cameras:[],timeline:{timebaseFps:30,cues:[],endHoldFrames:0}});
+const mediaSnapshot=d=>({version:1,videoSha256:d.review.videoSha256,width:d.review.width,height:d.review.height,
+  frameMappingDigest:sha256(canonicalJSON(d.review.sourceFrameMapping)),phaseDigest:sha256(canonicalJSON(d.playDefinition.phases.map(productionPhaseSnapshot))),cutsDigest:sha256(canonicalJSON(d.review.settings?.cuts??[]))});
+const emptyProduction=d=>({schemaVersion:1,sourceBinding:productionSourceSnapshot(d),mediaBinding:mediaSnapshot(d),cameras:[],timeline:{timebaseFps:30,cues:[],endHoldFrames:0}});
 const fail=issues=>{if(issues.length)throw new Error(`视频编排无效：${issues.map(i=>i.details.field).join('、')}`);};
+
+/** Preserve evidence before refresh replaces review. This never makes stale routes active. */
+export async function preserveProductionMediaBinding(document){
+  const d=clone(document);
+  if(d.production&&!d.production.mediaBinding&&productionEqual(d.production.sourceBinding,await createSourceBinding(d.review)))d.production.mediaBinding=mediaSnapshot(d);
+  return d;
+}
+
+/** Explicit recovery only; independent authored illustrations do not re-confirm tracked players. */
+export async function rebindIndependentProduction(document,{referenceDocument=null}={}){
+  await validateDocument(document);if(!document.production)throw new Error('没有可重新绑定的成片编排。');
+  const d=clone(document),old=d.production.sourceBinding;
+  let proof=d.production.mediaBinding;
+  if(!proof){
+    if(!referenceDocument?.review||!productionEqual(old,await createSourceBinding(referenceDocument.review)))throw new Error('缺少与原编排一致的来源凭据，请保留原稿，或移除编排后重新制作。');
+    proof=mediaSnapshot(referenceDocument);
+  }
+  if(!productionEqual(proof,mediaSnapshot(d))||old.videoSha256!==d.review.videoSha256||old.sourceVideoSha256!==d.playDefinition.sourceBinding.sourceVideoSha256||old.frameMappingDigest!==proof.frameMappingDigest)throw new Error('视频、尺寸、帧映射、阶段或切镜已变化，不能重新绑定此视频编排。');
+  for(const item of [...d.production.cameras,...d.production.timeline.cues]){
+    const phase=phaseFor(d,item.phaseId);if(!productionEqual(item.phaseSnapshot,productionPhaseSnapshot(phase)))throw new Error('编排阶段已变化，不能自动重新绑定。');
+    if(item.keyframes&&item.digest!==productionCameraDigest(item))throw new Error('示意相机已变化，请先核对相机。');
+  }
+  const targets=(d.annotations?.items??[]).filter(a=>a.authoredPath&&a.entityId===null),cuts=d.review.settings?.cuts??[];
+  const oldNonTargets=new Set(annotationStatus(d).stale.filter(a=>!targets.some(t=>t.id===a.id)).map(a=>a.id));
+  for(const a of targets){
+    const camera=d.production.cameras.find(c=>c.id===a.authoredPath.cameraId),phase=phaseFor(d,a.phaseId);
+    const sourceMatches=[old,d.playDefinition.sourceBinding].some(b=>productionEqual(a.sourceBinding,{videoSha256:b.videoSha256,trackingFingerprint:b.trackingFingerprint,reviewDigest:b.reviewDigest}));
+    if(a.space!=='video'||a.followEntity||!productionEqual(a.phaseSnapshot,productionPhaseSnapshot(phase))||!sourceMatches)throw new Error('独立路线的参考阶段或来源已变化。');
+    if(!camera||camera.phaseId!==a.phaseId||camera.digest!==productionCameraDigest(camera)||camera.digest!==a.authoredPath.cameraDigest||
+      !productionCameraAt(camera,a.anchorFrame,cuts)||!productionCameraAt(camera,a.startFrame,cuts)||!productionCameraAt(camera,a.endFrameExclusive-1,cuts)||cuts.some(c=>c>Math.min(a.startFrame,a.anchorFrame)&&c<=Math.max(a.endFrameExclusive-1,a.anchorFrame)))throw new Error('路线的示意相机或完整显示区间已变化，请先核对相机。');
+    a.sourceBinding={videoSha256:d.review.videoSha256,trackingFingerprint:d.review.trackingFingerprint,reviewDigest:d.playDefinition.sourceBinding.reviewDigest};
+  }
+  d.production.sourceBinding=productionSourceSnapshot(d);d.production.mediaBinding=clone(proof);
+  const after=annotationStatus(d);
+  if(after.active.some(a=>oldNonTargets.has(a.id)))throw new Error('恢复会影响非独立图形，请分别核对其人物与来源。');
+  await validateDocument(d);return d;
+}
 
 /** Structural validation preserves stale records for explicit recovery instead of rebinding implicitly. */
 export function validateProduction(document){
   const p=document.production;if(p===undefined)return [];
   const issues=[],bad=field=>issues.push({code:'invalid_production',severity:'fatal',details:{field}});
   try{canonicalJSON(p);}catch{bad('finite_json');return issues;}
-  if(!exact(p,['schemaVersion','sourceBinding','cameras','timeline'])||p.schemaVersion!==1||!exact(p.sourceBinding,Object.keys(document.playDefinition.sourceBinding))||Object.values(p.sourceBinding).some(v=>typeof v!=='string')||!Array.isArray(p.cameras)||p.cameras.length>40){bad('production');return issues;}
+  if(!exact(p,['schemaVersion','sourceBinding','cameras','timeline'],['mediaBinding'])||p.schemaVersion!==1||!exact(p.sourceBinding,Object.keys(document.playDefinition.sourceBinding))||Object.values(p.sourceBinding).some(v=>typeof v!=='string')||!Array.isArray(p.cameras)||p.cameras.length>40){bad('production');return issues;}
+  if(p.mediaBinding!==undefined){const m=p.mediaBinding;if(!exact(m,['version','videoSha256','width','height','frameMappingDigest','phaseDigest','cutsDigest'])||m.version!==1||!frame(m.width)||!m.width||!frame(m.height)||!m.height||typeof m.videoSha256!=='string'||!m.videoSha256.length||!['frameMappingDigest','phaseDigest','cutsDigest'].every(k=>/^[a-f0-9]{64}$/.test(m[k]))||m.videoSha256!==p.sourceBinding.videoSha256||m.frameMappingDigest!==p.sourceBinding.frameMappingDigest)bad('production_media_binding');}
   const n=document.review.sourceFrameMapping.length,ids=new Set(),cuts=document.review.settings?.cuts??[];
   for(const c of p.cameras){
     if(!exact(c,['id','phaseId','phaseSnapshot','approximate','groundQuad','keyframes','digest'],['origin'])||typeof c.id!=='string'||!c.id.length||c.id.length>256||ids.has(c.id)||c.approximate!==true||typeof c.phaseId!=='string'||!snapshotValid(c.phaseSnapshot)||c.phaseId!==c.phaseSnapshot.phaseId||!validQuad(c.groundQuad)||c.groundQuad.flat().some(v=>Math.abs(v)>1000)||!/^[a-f0-9]{64}$/.test(c.digest??'')||!Array.isArray(c.keyframes)||!c.keyframes.length||c.keyframes.length>120){bad('production_camera');continue;}
@@ -51,7 +91,8 @@ export function updateProductionCamera(document,id,patch,{rebindRoutes=false}={}
   const phase=phaseFor(d,patch.phaseId??old?.phaseId),camera={...old,...clone(patch),id,phaseId:phase.phaseId,phaseSnapshot:productionPhaseSnapshot(phase),approximate:patch.approximate??old?.approximate??true};
   if(camera.origin)camera.origin.kind='human_modified';camera.digest=productionCameraDigest(camera);
   if(old)d.production.cameras=d.production.cameras.map(c=>c.id===id?camera:c);else d.production.cameras.push(camera);
-  if(rebindRoutes){d.production.sourceBinding=productionSourceSnapshot(d);for(const a of d.annotations?.items??[])if(a.authoredPath?.cameraId===id){a.authoredPath.cameraDigest=camera.digest;if(a.origin)a.origin.kind='human_modified';}}
+  // A camera adjustment can rebind its geometry, but only explicit media recovery may replace its source proof.
+  if(rebindRoutes){for(const a of d.annotations?.items??[])if(a.authoredPath?.cameraId===id){a.authoredPath.cameraDigest=camera.digest;if(a.origin)a.origin.kind='human_modified';}}
   fail(validateProduction(d));return d;
 }
 export function updateProductionCue(document,input){

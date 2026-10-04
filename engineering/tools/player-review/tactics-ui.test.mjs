@@ -4,7 +4,7 @@ import {makePresentationDemo} from '../tactical-overlay/fixtures/presentation-de
 import {mountTacticsUI} from './tactics-ui.mjs';
 import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {courtToVideo} from './tactics-presentation.mjs';
-import {createTacticsDocument,splitPhase} from './tactics-document.mjs';
+import {createTacticsDocument,splitPhase,refreshSnapshot} from './tactics-document.mjs';
 import {adoptAgentCandidate} from './tactics-agent.mjs';
 import {createAnnotation} from './tactics-annotations.mjs';
 import {updateProductionCamera,productionPhaseSnapshot,DEFAULT_RIBBON,compileProduction} from './tactics-production.mjs';
@@ -35,6 +35,33 @@ test('production guards stage changes and explicit removal preserves static grap
     await env.get('tacticsUndo').onclick();await env.get('tacticsUndo').onclick();await env.get('tacticsSave').onclick();
     assert.deepEqual(env.saved.at(-1).document.production,original.production);assert.deepEqual(env.saved.at(-1).document.annotations,original.annotations);
   }finally{env.restore();}
+});
+test('same-video review refresh stays stale until explicit production rebind, which saves and undoes without changing evidence',async()=>{
+  const d=await productionFixture(),env=environment(d,{player:true});
+  try{
+    await env.load();d.review=structuredClone(d.review);d.review.exportCompatibility='updated export';await env.load();await env.get('tacticsSave').onclick();
+    const stale=env.saved.at(-1).document;assert.throws(()=>compileProduction(stale),/来源/);
+    const evidence=structuredClone(stale.review);await env.get('tacticsRebindProduction').onclick();await env.get('tacticsSave').onclick();
+    const restored=env.saved.at(-1).document;assert.deepEqual(restored.review,evidence);assert.ok(compileProduction(restored).totalFrames>0);
+    assert.deepEqual(restored.production.cameras,stale.production.cameras);assert.match(env.get('tacticsProductionRebindHint').textContent,/核对/);
+    await env.get('tacticsUndo').onclick();await env.get('tacticsSave').onclick();assert.deepEqual(env.saved.at(-1).document.production,stale.production);
+    assert.deepEqual(env.saved.at(-1).document.annotations,stale.annotations);
+  }finally{env.restore();}
+});
+test('legacy production recovery reads matching saved provenance and refuses an already-replaced saved review',async()=>{
+  const original=await productionFixture(),review=structuredClone(original.review);review.exportCompatibility='updated export';
+  const stale=await refreshSnapshot(original,review);delete stale.production.mediaBinding;
+  for(const reference of [original,stale]){
+    let reads=0;const env=environment(stale,{player:true,loadDocument:()=>++reads===1?stale:reference});
+    try{
+      await env.load();const writes=env.writes.length;await env.get('tacticsRebindProduction').onclick();assert.equal(reads,2);
+      if(reference===stale){assert.equal(env.writes.length,writes);assert.match(env.get('tacticsStatus').textContent,/来源凭据/);}
+      await env.get('tacticsSave').onclick();const result=env.saved.at(-1).document;
+      assert.deepEqual(result.review,stale.review);
+      if(reference===original){assert.ok(compileProduction(result).totalFrames>0);assert.equal(result.production.mediaBinding.width,original.review.width);}
+      else {assert.deepEqual(result.production,stale.production);assert.throws(()=>compileProduction(result),/来源/);}
+    }finally{env.restore();}
+  }
 });
 test('explicit production removal also recovers a previously saved stale stage layout without dropping drawings',async()=>{
   const d=splitPhase(await productionFixture(),'phase-1',30),env=environment(d,{player:true});
@@ -334,7 +361,7 @@ test('entering tactics synchronizes corrected feet and participants, archives re
   }finally{env.restore();}
 });
 
-function environment(source,{player=false,empty=false,agent=null,renderJob=null}={}){
+function environment(source,{player=false,empty=false,agent=null,renderJob=null,loadDocument=null}={}){
   const nodes=new Map(),events={},writes=[],saved=[],store=new Map();let hold=false,releases=[],frameRequests=0;
   function make(tag='div'){
     const node={tag,children:[],attrs:{},listeners:{},style:{},value:'',checked:false,clientWidth:800,hidden:false,textContent:'',
@@ -357,7 +384,7 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null}
     window:{history:{replaceState(){}}},location:{search:'?sample=test&qa=1'},Image:class{async decode(){}},ResizeObserver:class{observe(){}},
     localStorage:{getItem:()=>null},indexedDB:{open(){const r={};queueMicrotask(()=>{r.result=connection;r.onsuccess();});return r;}},
     fetch:async(path,options)=>{
-      let value;if(path.startsWith('/api/tactics?'))value={version:0,document:empty?null:source};
+      let value;if(path.startsWith('/api/tactics?'))value={version:0,document:empty?null:loadDocument?await loadDocument():source};
       else if(path==='/api/tactics/frame'){frameRequests++;value={frames:JSON.parse(options.body).frames.map(frame=>({...source.review.sourceFrameMapping[frame],videoSha256:source.review.videoSha256,dataUrl:'data:image/jpeg;base64,/9j/'}))};}
       else if(path==='/api/tactics/save'){const payload=JSON.parse(options.body);saved.push(payload);value={version:payload.expectedVersion+1};}
       else if(path.startsWith('/api/tactics-agent/')&&agent)value=await agent(path,options?JSON.parse(options.body):null);

@@ -1,4 +1,5 @@
 import copy
+import hashlib
 import json
 from itertools import combinations
 from pathlib import Path
@@ -11,6 +12,7 @@ import av
 import numpy as np
 from local_video_library import file_hash
 from tactical_workbench import TacticalWorkbench, ROOT
+import tactical_workbench as workbench
 
 
 class TacticalWorkbenchTests(unittest.TestCase):
@@ -111,7 +113,7 @@ process.stdout.write(JSON.stringify(doc));
 
 
 class CandidateBasketballCompatibilityTests(unittest.TestCase):
-    """Old candidate snapshots differ only by newly derived basketball exports."""
+    """Only complete server-registered historical snapshots retain candidate trust."""
     derived_fields = ('basketballTrajectory', 'basketballTrajectoryMethod', 'basketballTrajectoryReviewed')
 
     def setUp(self):
@@ -143,8 +145,15 @@ process.stdout.write(JSON.stringify(result));
             creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
         fixtures = json.loads(result.stdout)
         self.current, self.legacy = fixtures['current'], fixtures['legacy']
+        # A self-contained fixture stands in for a fixed, independently verified
+        # historical snapshot; production never learns hashes from a request/file.
+        digest = hashlib.sha256(json.dumps(self.legacy['review'], sort_keys=True,
+            separators=(',', ':'), ensure_ascii=False, allow_nan=False).encode('utf-8')).hexdigest()
+        trusted = patch.object(workbench, 'LEGACY_CANDIDATE_REVIEW_SHA256', frozenset({digest}), create=True)
+        trusted.start(); self.addCleanup(trusted.stop)
         review = self.current['review']
         self.clip = {'video_sha256': review['videoSha256'], 'tracking_fingerprint': review['trackingFingerprint'],
+            'source_video_sha256': review['sourceVideoSha256'],
             'tracking_revision': review['trackingRevision'], 'width': review['width'], 'height': review['height'],
             'frames': [{'frame': p['frame'], 'time': p['time'], 'source_frame': p['sourceFrame'],
                        'source_time': p['sourceTime']} for p in review['sourceFrameMapping']]}
@@ -173,6 +182,35 @@ process.stdout.write(JSON.stringify(result));
         saved = self.store.save(self.current, self.clip, 'test', True, 'candidate', 0)
         self.assertEqual(saved['document'], self.current)
         for key in self.derived_fields: self.assertIn(key, saved['document']['review']['sceneObjects'])
+
+    def test_unregistered_old_shape_and_json_scalar_type_changes_are_rejected(self):
+        with patch.object(workbench, 'LEGACY_CANDIDATE_REVIEW_SHA256', frozenset(), create=True):
+            with self.assertRaisesRegex(ValueError, '来源快照不可改写'):
+                self.store.check_source(self.legacy, self.clip, 'candidate')
+        changed = copy.deepcopy(self.current)
+        changed['review']['sceneObjects']['continuousTracking'] = 0  # Python equality alone treats this as False.
+        with self.assertRaisesRegex(ValueError, '来源快照不可改写'):
+            self.store.check_source(changed, self.clip, 'candidate')
+
+    def test_historical_full_hash_does_not_bypass_video_dimensions_or_mapping_checks(self):
+        for key, value in [('video_sha256', 'foreign'), ('source_video_sha256', 'foreign'), ('width', 1290), ('height', 721)]:
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError, '视频或逐帧时间映射'):
+                self.store.check_source(self.legacy, {**self.clip, key: value}, 'candidate')
+        clip = copy.deepcopy(self.clip); clip['frames'][12]['time'] += .01
+        with self.assertRaisesRegex(ValueError, '视频或逐帧时间映射'):
+            self.store.check_source(self.legacy, clip, 'candidate')
+
+    def test_uncropped_candidate_accepts_null_or_missing_source_video_hash_fallback(self):
+        document = copy.deepcopy(self.current)
+        document['review']['sourceVideoSha256'] = document['review']['videoSha256']
+        self.store.candidate_cache = copy.deepcopy(document)
+        clip = {**self.clip, 'source_video_sha256': None}
+        self.store.check_source(document, clip, 'candidate')
+        del clip['source_video_sha256']
+        self.store.check_source(document, clip, 'candidate')
+        clip['source_video_sha256'] = 'foreign-nonempty-source'
+        with self.assertRaisesRegex(ValueError, '视频或逐帧时间映射'):
+            self.store.check_source(document, clip, 'candidate')
 
     def test_partial_derived_fields_and_changed_source_remain_rejected(self):
         mutations = []
