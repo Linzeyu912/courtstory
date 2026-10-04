@@ -27,13 +27,13 @@ export function mountWorkbenchShell(api) {
     if (future) {
       $('deliveryVideo').href = `/video.mp4?sample=${encodeURIComponent(api.sample)}`;
       $('deliveryVideo').download = `${api.sample}.mp4`;
-      $('deliveryContext').textContent = `${api.clip.frames.length} 帧 · ${api.clip.width} × ${api.clip.height} · ${api.variant}。下载的是当前素材；如已裁切，则为裁切后的副本。`;
+      $('deliveryContext').textContent = `来源素材：${api.clip.frames.length} 帧 · ${api.clip.width} × ${api.clip.height} · ${api.variant}。冻结讲解会增加成片时长。`;
     }
     if (future) {
       $('futureTitle').textContent = titles[area];
       $('futureDescription').textContent = area === 'tactics'
         ? '在完成位置与轨迹核对后，分析场上关系，整理战术判断和讲解。'
-        : '下载当前素材，导出轨迹数据和战术审核报告。';
+        : '将当前草稿中的路线、标记和冻结动画编码为 MP4。生成过程不修改草稿。';
     }
     const open = drawerState !== 'closed';
     $('drawerBody').hidden = !open;

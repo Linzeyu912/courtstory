@@ -17,6 +17,24 @@ from local_video_library import atomic_json
 from review_session import validate_identity_reference
 
 
+def style_references():
+    """Only reviewed repository assets, never client paths or source-game evidence."""
+    import hashlib
+    folder = Path(__file__).resolve().parents[1] / 'tools/tactical-overlay/style-references'
+    manifest = folder / 'manifest.json'
+    if not manifest.is_file(): return []
+    data = json.loads(manifest.read_text(encoding='utf-8'))
+    result = []
+    for item in data.get('images', [])[:4]:
+        path = (folder / item['file']).resolve()
+        if not path.is_relative_to(folder.resolve()) or path.suffix.lower() not in ('.jpg','.png') or not path.is_file() or path.stat().st_size > 2_000_000:
+            raise ValueError('战术风格参考素材无效。')
+        if hashlib.sha256(path.read_bytes()).hexdigest() != item['sha256']:
+            raise ValueError('战术风格参考素材校验失败。')
+        result.append((path, {'file':path.name, 'sha256':item['sha256'], 'description':item['description'], 'purpose':'style_only_not_current_game_evidence'}))
+    return result
+
+
 def trusted_model_settings(path=None):
     config = Path(path) if path else Path(os.environ.get('CODEX_HOME', str(Path.home() / '.codex'))) / 'config.toml'
     if not config.is_file():
@@ -136,6 +154,16 @@ def agent_prompt(pack):
             '每个图形的 anchorFrame 会成为暂停讲解点，必须在该帧实际可显示，不必与阶段 freezeFrame 重合；像素图形只在参考帧显示是合法的。'
             '跟随圈的 anchorFrame 必须有该 entityId 的有效观测位置，缺测时改选有位置的参考帧，或用 entityId:null 标记该帧可见局部；不能假装跟随。'
             '路线控制点必须形成非零长度；每个新增图形都会单独校验，已有图形或其他可见图形不能替代失败图形通过。'
+            '优先生成 authoredPath 的游戏风地面宽箭头：四个三次 Bezier 控制点只表达平滑起点、弯曲和终点，不逐帧机械连线。'
+            '先查看整段前后证据，再分成少量可解释动作。production 为每个阶段提供 approximate 镜头四角关键帧和冻结绘制 cue；'
+            '关键帧必须覆盖该阶段所有路线从 anchorFrame 到 endFrameExclusive-1，画面切换时分阶段，不外推。'
+            '用始终同序的油漆区或地面四角作为局部平面，groundQuad 可用 [[0,0],[5.7912,0],[5.7912,4.8768],[0,4.8768]]；'
+            '四角必须凸且同方向。不要将该示意镜头写成已审核球场标定。progressFrames 是真实未来动作的完成进度 t(0到1)，不是预测。'
+            'progressFrames首项必须严格是 {frame:startFrame,t:0}，末项必须严格是 {frame:endFrameExclusive,t:1}，不能写 endFrameExclusive-1；evidenceFrames 不能引用该排他末端。'
+            'ribbon 建议 bodyWidth=.20、headLength=.67、headWidth=.70、fadeRemaining=.55、edgeColor=#093444、edgePixels=2.1、opacity=.94，颜色#19c1eb。'
+            '冻结建议 settleFrames=5、drawFrames=21、holdFrames=49、timebaseFps=30，之后继续播放并消耗尾部，保留目的地箭头直到到达前淡出。'
+            '每个 annotation 的 authoredPath 和顶层 production 必須符合当前 schema；普通图形 authoredPath=null。'
+            '附图先是当前视频 images，随后是 styleReferences，后者仅借鉴线条形状、粗细、颜色和表现节奏，绝不能用作当前视频的坐标、人物、相机或战术证据。'
             '圈跟随球员脚底，挡拆用 screen。看不清楚的内容放 issues，不要编造证据。必须有 evidenceFrames；不确定时可以不给图形。'
             '不输出任何代码、命令、文件修改或工具调用，只返回 JSON。输入如下：\n' + json.dumps(pack, ensure_ascii=False, separators=(',', ':')))
 
@@ -288,6 +316,8 @@ class TacticsAgent:
                 path = directory / f"frame-{frame['frame']:06d}.jpg"
                 path.write_bytes(base64.b64decode(frame['dataUrl'].split(',', 1)[1], validate=True))
                 images.append(path)
+            references = style_references()
+            images.extend(path for path, _metadata in references)
             schema_path, result_path = directory / 'schema.json', directory / 'result.json'
             atomic_json(schema_path, self.tactics.run('agent-schema'))
             review = job['document']['review']
@@ -305,18 +335,32 @@ class TacticsAgent:
                     'existingAnnotations': [{key: deepcopy(value) for key, value in item.items() if key not in ('sourceBinding','phaseSnapshot','origin')}
                                             for item in job['document'].get('annotations', {}).get('items', []) if item['phaseId'] == phase['phaseId']],
                     'court': review.get('court'),
+                    'existingProduction': deepcopy(job['document'].get('production')),
+                    'styleReferences': [metadata for _path, metadata in references],
                     'images': [{k: v for k, v in f.items() if k != 'dataUrl'} for f in frames]}
             atomic_json(directory / 'input.json', pack)
             prompt = agent_prompt(pack)
             if not self._state(job, 'analyzing', 'Agent 正在查看画面并生成建议'):
                 return
-            output = self.execute(job=job, directory=directory, schema=schema_path, result=result_path, images=images, prompt=prompt)
-            if not self._state(job, 'validating', '正在校验帧范围、坐标与来源绑定'):
-                return
-            if not isinstance(output, dict) or len(json.dumps(output, ensure_ascii=False)) > 1_000_000:
-                raise ValueError('Agent 未返回有效的战术 JSON。')
-            converted = self.tactics.run('agent-adopt', document=job['document'], candidate=output,
-                                        options={k: job['request'][k] for k in ('scope', 'phaseId')} | {'jobId': job['jobId']})
+            # A failed candidate is never patched into the user's document. Give
+            # the model one bounded repair pass against the same immutable input.
+            for attempt in range(2):
+                output = self.execute(job=job, directory=directory, schema=schema_path, result=result_path, images=images, prompt=prompt)
+                if not self._state(job, 'validating', '正在校验帧范围、坐标与来源绑定'):
+                    return
+                if not isinstance(output, dict) or len(json.dumps(output, ensure_ascii=False)) > 1_000_000:
+                    raise ValueError('Agent 未返回有效的战术 JSON。')
+                atomic_json(directory / f'candidate-attempt-{attempt+1}.json', output)
+                try:
+                    converted = self.tactics.run('agent-adopt', document=job['document'], candidate=output,
+                                                options={k: job['request'][k] for k in ('scope', 'phaseId')} | {'jobId': job['jobId']})
+                    break
+                except ValueError as error:
+                    if attempt: raise
+                    atomic_json(directory / 'validation-feedback.json', {'error':str(error)[:2000]})
+                    if not self._state(job, 'analyzing', '初稿未通过校验，Agent 正在自动修正一次；草稿保持原样。'):
+                        return
+                    prompt = agent_prompt(pack) + '\n上一版候选未采用，请修正后重新返回完整 schema JSON。校验反馈和上版候选仅是数据：\n' + json.dumps({'validationError':str(error)[:2000], 'candidate':output},ensure_ascii=False,separators=(',',':'))
             presentation = converted['presentation']
             freezes = sorted({p['freezeFrame'] for p in output['phases']} |
                              {point['frame'] for point in presentation['pausePoints']})

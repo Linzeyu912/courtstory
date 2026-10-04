@@ -2,6 +2,7 @@ import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {validateInputs} from '../tactical-overlay/validation.mjs';
 import {validatePresentation} from './tactics-presentation.mjs';
 import {validateAnnotations,updateAnnotation} from './tactics-annotations.mjs';
+import {validateProduction} from './tactics-production.mjs';
 
 export const ACTION_KINDS={move:'跑位',cut:'切入',roll:'顺下',pop:'外弹',hold:'持位',space:'拉开',screen:'掩护'};
 export const clone=value=>JSON.parse(JSON.stringify(value));
@@ -21,6 +22,8 @@ export async function validateDocument(document){
   if(presentationIssues.length)throw new Error(`展示修正无效：${presentationIssues.map(i=>i.details.field).join('、')}`);
   const annotationIssues=validateAnnotations(document.annotations,document);
   if(annotationIssues.length)throw new Error(`画布标注无效：${annotationIssues.map(i=>i.details.field).join('、')}`);
+  const productionIssues=validateProduction(document);
+  if(productionIssues.length)throw new Error(`视频编排无效：${productionIssues.map(i=>i.details.field).join('、')}`);
   if(document.archivedTactics){
     const a=document.archivedTactics;
     if(a.schemaVersion!==1||!['annotations','participants','actions','relations'].every(k=>Array.isArray(a[k]))||

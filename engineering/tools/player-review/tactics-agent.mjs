@@ -2,16 +2,25 @@ import {canonicalJSON} from '../tactical-overlay/binding.mjs';
 import {validateDocument,reindexPhases} from './tactics-document.mjs';
 import {createAnnotation,annotationPresentation,ANNOTATION_REASONS} from './tactics-annotations.mjs';
 import {calibrationAt} from './court.mjs';
+import {updateProductionCamera,updateProductionCue,DEFAULT_RIBBON} from './tactics-production.mjs';
 
 const object=properties=>({type:'object',additionalProperties:false,required:Object.keys(properties),properties});
 const string={type:'string',maxLength:2000},frame={type:'integer',minimum:0},frames={type:'array',items:frame,minItems:1,maxItems:40};
 const person={type:['string','null'],maxLength:100},point=object({x:{type:'number'},y:{type:'number'}});
-export const AGENT_SCHEMA=object({summary:string,issues:{type:'array',items:string,maxItems:30},phases:{type:'array',minItems:1,maxItems:12,items:object({
+export const AGENT_SCHEMA_V1=object({summary:string,issues:{type:'array',items:string,maxItems:30},phases:{type:'array',minItems:1,maxItems:12,items:object({
   title:{type:'string',minLength:1,maxLength:100},startFrame:frame,endFrameExclusive:frame,freezeFrame:frame,reason:string,evidenceFrames:frames,
   actions:{type:'array',maxItems:40,items:object({kind:{type:'string',enum:['move','cut','roll','pop','hold','space','screen']},entityId:{type:'string',maxLength:100},startFrame:frame,endFrameExclusive:frame,beneficiaryId:person,defenderId:person,note:string,evidenceFrames:frames})},
   annotations:{type:'array',maxItems:40,items:object({type:{type:'string',enum:['route','screen','spotlight']},entityId:person,space:{type:'string',enum:['video','court']},anchorFrame:frame,startFrame:frame,endFrameExclusive:frame,
     points:{type:'array',minItems:1,maxItems:6,items:point},angle:{type:'number',minimum:-360,maximum:360},size:{type:'number',minimum:.5,maximum:3},color:{type:'string',pattern:'^#[a-fA-F0-9]{6}$'},explanation:string,evidenceFrames:frames})}
 })}});
+const nullable=s=>({...s,type:[s.type,'null']}),number={type:'number'},quad={type:'array',minItems:4,maxItems:4,items:{type:'array',minItems:2,maxItems:2,items:number}};
+const ribbon=object(Object.fromEntries(Object.entries(DEFAULT_RIBBON).map(([k,v])=>[k,typeof v==='string'?{type:'string',pattern:'^#[a-fA-F0-9]{6}$'}:{type:'number',minimum:k==='edgePixels'?0:.000001,maximum:k==='opacity'?1:k==='edgePixels'?12:5}])));
+const authoredPath=object({version:{type:'integer',enum:[1]},curve:{type:'string',enum:['cubic_bezier']},cameraId:{type:'string',minLength:1,maxLength:100},progressFrames:{type:'array',minItems:2,maxItems:80,items:object({frame,t:{type:'number',minimum:0,maximum:1}})},ribbon});
+const phaseV2=structuredClone(AGENT_SCHEMA_V1.properties.phases.items);phaseV2.properties.annotations.items.properties.authoredPath=nullable(authoredPath);phaseV2.properties.annotations.items.required.push('authoredPath');
+export const AGENT_SCHEMA=object({schemaVersion:{type:'integer',enum:[2]},summary:string,issues:AGENT_SCHEMA_V1.properties.issues,phases:{...AGENT_SCHEMA_V1.properties.phases,items:phaseV2},production:nullable(object({
+  cameras:{type:'array',maxItems:40,items:object({id:{type:'string',minLength:1,maxLength:100,pattern:'^[a-zA-Z0-9_-]+$'},phaseIndex:{type:'integer',minimum:0,maximum:11},approximate:{type:'boolean',enum:[true]},groundQuad:quad,keyframes:{type:'array',minItems:1,maxItems:120,items:object({frame,quad,evidenceFrames:frames})}})},
+  timeline:object({timebaseFps:{type:'number',minimum:1,maximum:120},cues:{type:'array',maxItems:256,items:object({phaseIndex:{type:'integer',minimum:0,maximum:11},frame,settleFrames:{...frame,maximum:3600},drawFrames:{...frame,maximum:3600},holdFrames:{...frame,maximum:3600},easing:{type:'string',enum:['smoothstep']}})},endHoldFrames:{...frame,maximum:3600}})
+}))});
 
 export async function documentDigest(document){
   const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(canonicalJSON(document)));
@@ -33,10 +42,10 @@ function schemaCheck(value,schema,path='方案'){
 export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseId}){
   if(typeof jobId!=='string'||!/^[a-zA-Z0-9-]{1,80}$/.test(jobId)||!['phase','play'].includes(scope))throw new Error('Agent 任务绑定无效。');
   if(document.agentRuns?.some(run=>run.jobId===jobId))return structuredClone(document);
-  await validateDocument(document);schemaCheck(candidate,AGENT_SCHEMA);canonicalJSON(candidate);
+  await validateDocument(document);schemaCheck(candidate,Object.hasOwn(candidate,'schemaVersion')?AGENT_SCHEMA:AGENT_SCHEMA_V1);canonicalJSON(candidate);
   let d=structuredClone(document);const p=d.playDefinition,target=p.phases.find(s=>s.phaseId===phaseId),ids=new Set(p.participants.map(e=>e.id));
   if(!target)throw new Error('分析阶段已不存在。');
-  const empty=!(d.annotations?.items.length||p.actions.length||p.relations.length||p.phases.length>1||d.presentation?.routes.length);
+  const empty=!(d.annotations?.items.length||p.actions.length||p.relations.length||p.phases.length>1||d.presentation?.routes.length||d.production);
   if(scope==='play'&&!empty)throw new Error('已有人工内容时仅可补充当前阶段。');
   const range=scope==='play'?p:target,checkRange=a=>{
     if(a.startFrame<range.startFrame||a.endFrameExclusive>range.endFrameExclusive||a.startFrame>=a.endFrameExclusive)throw new Error('Agent 时间超出所选区间。');
@@ -51,6 +60,26 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
   }
   if(end!==range.endFrameExclusive)throw new Error('Agent 阶段未覆盖所选区间。');
   if(scope==='play')p.phases=candidate.phases.map((s,i)=>({phaseId:`${jobId}-phase-${i}`,order:i,title:s.title,startFrame:s.startFrame,endFrameExclusive:s.endFrameExclusive,freezeFrame:s.freezeFrame,participantIds:[...ids],actionIds:[],relationIds:[]}));
+  const cameraIds=new Map();
+  if(candidate.production){
+    const input=candidate.production;
+    if(scope==='phase'&&d.production&&(input.timeline.timebaseFps!==d.production.timeline.timebaseFps||input.timeline.endHoldFrames!==d.production.timeline.endHoldFrames))throw new Error('补充方案不能覆盖已有人工成片时长设置。');
+    for(const camera of input.cameras){
+      const phase=scope==='play'?d.playDefinition.phases[camera.phaseIndex]:camera.phaseIndex===0?target:null;
+      if(!phase||cameraIds.has(camera.id))throw new Error('Agent 示意相机阶段或编号不正确。');
+      const id=`${jobId}-camera-${camera.id}`;cameraIds.set(camera.id,id);
+      d=updateProductionCamera(d,id,{phaseId:phase.phaseId,approximate:camera.approximate,groundQuad:camera.groundQuad,keyframes:camera.keyframes});
+      d.production.cameras.find(c=>c.id===id).origin={kind:'agent',jobId,sourceFrames:[...new Set(camera.keyframes.flatMap(k=>k.evidenceFrames))].slice(0,40),note:'Agent 近似展示相机，不构成人工球场标定。'};
+    }
+    for(const cue of input.timeline.cues){
+      const phase=scope==='play'?d.playDefinition.phases[cue.phaseIndex]:cue.phaseIndex===0?target:null;
+      if(!phase)throw new Error('Agent 冻结编排阶段不正确。');
+      if(d.production?.timeline.cues.some(c=>c.phaseId===phase.phaseId&&c.frame===cue.frame))throw new Error('补充方案不能覆盖已有人工冻结编排。');
+      const {phaseIndex,easing,...values}=cue;d=updateProductionCue(d,{...values,phaseId:phase.phaseId});
+    }
+    if(!d.production)d.production={schemaVersion:1,sourceBinding:structuredClone(d.playDefinition.sourceBinding),cameras:[],timeline:{timebaseFps:30,cues:[],endHoldFrames:0}};
+    d.production.timeline.timebaseFps=input.timeline.timebaseFps;d.production.timeline.endHoldFrames=input.timeline.endHoldFrames;
+  }
   for(const [index,s] of candidate.phases.entries()){
     const phase=scope==='play'?p.phases[index]:target;
     for(const a of s.annotations){
@@ -59,8 +88,12 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
       evidence(a.evidenceFrames,s.startFrame,s.endFrameExclusive);
       if(a.type==='route'&&a.points.length<2||a.type!=='route'&&a.points.length!==1)throw new Error('图形控制点数量不正确。');
       if(a.space==='court'&&!calibrationAt(d.review.court?.calibration,a.anchorFrame,d.review.sourceFrameMapping,d.review.settings?.cuts??[]))throw new Error('Agent 地面图形没有有效参考标定。');
+      let path;
+      if(a.authoredPath){const id=cameraIds.get(a.authoredPath.cameraId),camera=d.production?.cameras.find(c=>c.id===id);if(!camera)throw new Error('Agent 路线没有对应的示意相机。');
+        if(camera.phaseId!==phase.phaseId||camera.keyframes[0].frame>a.startFrame||camera.keyframes.at(-1).frame<a.endFrameExclusive-1)throw new Error('Agent 示意相机必须覆盖路线完整显示区间。');
+        path={...structuredClone(a.authoredPath),cameraId:id,cameraDigest:camera.digest};}
       d=createAnnotation(d,{id:`${jobId}-annotation-${annotationCount++}`,type:a.type,entityId:a.entityId,phaseId:phase.phaseId,frame:a.anchorFrame,startFrame:a.startFrame,endFrameExclusive:a.endFrameExclusive,space:a.space,points:a.points,
-        ...(a.type==='spotlight'&&a.entityId?{anchorMode:'player_foot'}:{}),style:{angle:a.angle,size:a.size,color:a.color},origin:{kind:'agent',jobId,sourceFrames:a.evidenceFrames,note:a.explanation}});
+        ...(a.type==='spotlight'&&a.entityId?{anchorMode:'player_foot'}:{}),...(path?{authoredPath:path}:{}),style:{angle:a.angle,size:a.size,color:a.color},origin:{kind:'agent',jobId,sourceFrames:a.evidenceFrames,note:a.explanation}});
     }
     for(const [i,a] of s.actions.entries()){
       checkRange(a);evidence(a.evidenceFrames,s.startFrame,s.endFrameExclusive);

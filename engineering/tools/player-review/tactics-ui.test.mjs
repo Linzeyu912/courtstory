@@ -7,11 +7,128 @@ import {courtToVideo} from './tactics-presentation.mjs';
 import {createTacticsDocument,splitPhase} from './tactics-document.mjs';
 import {adoptAgentCandidate} from './tactics-agent.mjs';
 import {createAnnotation} from './tactics-annotations.mjs';
+import {updateProductionCamera,productionPhaseSnapshot,DEFAULT_RIBBON,compileProduction} from './tactics-production.mjs';
 let environmentId=0;
 // The storage module keeps one IDB connection for the mounted application.
 // Route that connection to each test's transaction store rather than the first fixture.
 let activeDatabase;
 const connection={transaction(...args){return activeDatabase.transaction(...args);}};
+async function productionFixture(){
+  let d=await createTacticsDocument((await makePresentationDemo()).review);
+  d=updateProductionCamera(d,'cam',{id:'cam',phaseId:'phase-1',phaseSnapshot:productionPhaseSnapshot(d.playDefinition.phases[0]),approximate:true,groundQuad:[[0,0],[10,0],[10,10],[0,10]],keyframes:[{frame:0,quad:[[100,100],[1100,100],[1100,650],[100,650]],evidenceFrames:[0]},{frame:60,quad:[[120,100],[1120,100],[1120,650],[120,650]],evidenceFrames:[60]}]});
+  return createAnnotation(d,{id:'bezier',type:'route',phaseId:'phase-1',frame:10,startFrame:10,endFrameExclusive:50,space:'video',points:[{x:250,y:500},{x:450,y:300},{x:650,y:300},{x:850,y:500}],authoredPath:{version:1,curve:'cubic_bezier',cameraId:'cam',cameraDigest:d.production.cameras[0].digest,progressFrames:[{frame:10,t:0},{frame:30,t:.5},{frame:50,t:1}],ribbon:DEFAULT_RIBBON}});
+}
+test('production guards stage changes and explicit removal preserves static graphics, allows splitting and can undo',async()=>{
+  let d=await productionFixture();d=createAnnotation(d,{id:'manual-screen',type:'screen',phaseId:'phase-1',frame:10,space:'video',points:[{x:400,y:400}],style:{color:'#ffd34e'}});
+  const original=structuredClone(d),env=environment(d,{player:true});
+  try{
+    await env.load();const writes=env.writes.length;
+    env.get('tacticsSplitAt').value='31';await env.get('tacticsSplit').onclick();assert.equal(env.get('tacticsPhases').children.length,1);
+    assert.match(env.get('tacticsStatus').textContent,/先移除成片编排/);await env.get('tacticsRemovePhase').onclick();assert.match(env.get('tacticsStatus').textContent,/先移除成片编排/);
+    env.get('tacticsFreeze').value='11';await env.get('tacticsApplyPhase').onclick();assert.equal(env.ui.getSceneState().phase.freezeFrame,0);assert.equal(env.writes.length,writes);
+    env.get('tacticsFreeze').value='1';env.get('tacticsPhaseTitle').value='可改阶段名称';await env.get('tacticsApplyPhase').onclick();assert.equal(env.ui.getSceneState().phase.title,'可改阶段名称');
+    await env.get('tacticsRemoveProduction').onclick();await env.get('tacticsSave').onclick();const stripped=env.saved.at(-1).document;
+    assert.equal(stripped.production,undefined);assert.equal(stripped.annotations.items[0].authoredPath,undefined);
+    assert.deepEqual(stripped.annotations.items[0].points,original.annotations.items[0].points);assert.deepEqual(stripped.annotations.items[0].style,original.annotations.items[0].style);
+    assert.deepEqual(stripped.annotations.items[1],original.annotations.items[1]);assert.deepEqual(stripped.review,original.review);
+    env.get('tacticsSplitAt').value='31';await env.get('tacticsSplit').onclick();assert.equal(env.get('tacticsPhases').children.length,2);
+    await env.get('tacticsUndo').onclick();await env.get('tacticsUndo').onclick();await env.get('tacticsSave').onclick();
+    assert.deepEqual(env.saved.at(-1).document.production,original.production);assert.deepEqual(env.saved.at(-1).document.annotations,original.annotations);
+  }finally{env.restore();}
+});
+test('explicit production removal also recovers a previously saved stale stage layout without dropping drawings',async()=>{
+  const d=splitPhase(await productionFixture(),'phase-1',30),env=environment(d,{player:true});
+  assert.throws(()=>compileProduction(d));
+  try{
+    await env.load();assert.equal(env.get('tacticsRemoveProduction').disabled,false);
+    await env.get('tacticsRemoveProduction').onclick();await env.get('tacticsSave').onclick();
+    const result=env.saved.at(-1).document;assert.equal(result.annotations.items.length,d.annotations.items.length);assert.equal(result.production,undefined);
+    assert.throws(()=>compileProduction(result),/失效图形/,'removing production must not silently rebind stale drawings');
+    env.get('tacticsSeek').value='10';env.get('tacticsSeek').oninput();await env.ui.ready();await Promise.resolve();
+    env.get('tacticsObjectList').children[0].onclick();await env.get('tacticsAnnotationRebind').onclick();await env.get('tacticsSave').onclick();
+    assert.ok(compileProduction(env.saved.at(-1).document).totalFrames>0,'existing explicit rebind can recover the retained static drawing');
+  }finally{env.restore();}
+});
+test('authored Bezier exposes four fixed controls and progress edits persist with undo',async()=>{
+  const d=await productionFixture(),env=environment(d,{player:true});
+  try{
+    await env.load();env.get('tacticsObjectList').children[0].onclick();await env.ui.ready();await Promise.resolve();
+    assert.equal(env.ui.getSceneState().frame,10);assert.equal(env.get('tacticsAnnotationPoint').children.length,4);
+    assert.equal(env.get('tacticsAnnotationAddPoint').disabled,true);assert.equal(env.get('tacticsAnnotationDeletePoint').disabled,true);
+    assert.match(env.get('tacticsAnnotationPoint').children[1].textContent,/手柄/);
+    await env.event('pointerdown',{pointerId:20,target:env.target({'data-annotation-id':'bezier','data-annotation-control-index':'1'}),clientX:450,clientY:300});
+    await env.event('pointermove',{pointerId:20,clientX:470,clientY:320});await env.event('pointerup',{pointerId:20});
+    assert.deepEqual(env.ui.getSceneState().annotations.items[0].points[1],{x:470,y:320});
+    env.get('tacticsProgressPoint').value='1';env.get('tacticsProgressPoint').onchange();env.get('tacticsProgressValue').value='65';await env.get('tacticsProgressApply').onclick();
+    await env.get('tacticsSave').onclick();assert.equal(env.saved.at(-1).document.annotations.items[0].authoredPath.progressFrames[1].t,.65);
+    await env.get('tacticsUndo').onclick();assert.equal(env.ui.getSceneState().annotations.items[0].authoredPath.progressFrames[1].t,.5);
+    await env.get('tacticsUndo').onclick();assert.deepEqual(env.ui.getSceneState().annotations.items[0].points[1],{x:450,y:300});
+    assert.deepEqual(env.saved.at(-1).document.review,d.review);
+  }finally{env.restore();}
+});
+test('approximate camera corner edits wait for decoded reference and preserve reviewed calibration on save and undo',async()=>{
+  const d=await productionFixture(),env=environment(d,{player:true});
+  try{
+    await env.load();env.get('tacticsCameraFrame').value='60';env.get('tacticsCameraFrame').onchange();env.holdSeek();env.get('tacticsEditCamera').onclick();
+    const writes=env.writes.length;await env.event('pointerdown',{pointerId:21,target:env.target({'data-camera-corner':'0'}),clientX:120,clientY:100});
+    await env.event('pointermove',{pointerId:21,clientX:145,clientY:105});await env.event('pointerup',{pointerId:21});assert.equal(env.writes.length,writes);
+    env.finishSeek();await env.ui.ready();assert.equal(env.ui.getSceneState().frame,60);
+    await env.event('pointerdown',{pointerId:22,target:env.target({'data-camera-corner':'0'}),clientX:120,clientY:100});
+    await env.event('pointermove',{pointerId:22,clientX:145,clientY:105});await env.event('pointerup',{pointerId:22});await env.get('tacticsSave').onclick();
+    const result=env.saved.at(-1).document;assert.deepEqual(result.production.cameras[0].keyframes[1].quad[0],[145,105]);assert.deepEqual(result.review,d.review);
+    assert.equal(result.annotations.items[0].authoredPath.cameraDigest,result.production.cameras[0].digest);
+    await env.get('tacticsUndo').onclick();await env.get('tacticsSave').onclick();assert.deepEqual(env.saved.at(-1).document.production.cameras[0].keyframes[1].quad[0],[120,100]);
+  }finally{env.restore();}
+});
+test('authored duration and progress endpoints update together instead of locking each other',async()=>{
+  const d=await productionFixture(),env=environment(d,{player:true});
+  try{
+    await env.load();env.get('tacticsObjectList').children[0].onclick();await env.ui.ready();await Promise.resolve();
+    env.get('tacticsAnnotationEnd').value='55';await env.get('tacticsAnnotationApplyTime').onclick();
+    let a=env.ui.getSceneState().annotations.items[0];assert.equal(a.endFrameExclusive,55);assert.equal(a.authoredPath.progressFrames.at(-1).frame,55);
+    env.get('tacticsProgressPoint').value='0';env.get('tacticsProgressPoint').onchange();env.get('tacticsProgressFrame').value='10';await env.get('tacticsProgressApply').onclick();
+    a=env.ui.getSceneState().annotations.items[0];assert.equal(a.startFrame,9);assert.equal(a.authoredPath.progressFrames[0].frame,9);
+    await env.get('tacticsUndo').onclick();assert.equal(env.ui.getSceneState().annotations.items[0].startFrame,10);
+    await env.get('tacticsUndo').onclick();assert.equal(env.ui.getSceneState().annotations.items[0].endFrameExclusive,50);
+  }finally{env.restore();}
+});
+test('authored projected selection seeks its anchor without writing old-frame coordinates and reload keeps edits',async()=>{
+  const d=await productionFixture(),env=environment(d,{player:true});
+  try{
+    await env.load();env.ui.externalSeek(30);env.present(30);await env.ui.ready();env.holdSeek();
+    const before=structuredClone(env.ui.getSceneState().annotations.items[0].points),writes=env.writes.length;
+    await env.event('pointerdown',{pointerId:25,target:env.target({'data-annotation-id':'bezier'}),clientX:650,clientY:300});
+    await env.event('pointermove',{pointerId:25,clientX:700,clientY:330});await env.event('pointerup',{pointerId:25});
+    assert.equal(env.ui.getPlaybackState().targetFrame,10);assert.deepEqual(env.ui.getSceneState().annotations.items[0].points,before);assert.equal(env.writes.length,writes);
+    env.finishSeek();await env.ui.ready();env.get('tacticsProgressPoint').value='1';env.get('tacticsProgressPoint').onchange();env.get('tacticsProgressValue').value='60';await env.get('tacticsProgressApply').onclick();
+    await env.get('tacticsSave').onclick();await env.get('tacticsWorkspace').onclick();await env.ui.ready();
+    assert.equal(env.ui.getSceneState().annotations.items[0].authoredPath.progressFrames[1].t,.6);
+  }finally{env.restore();}
+});
+test('freeze animation timing edits share the draft undo and save path',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),env=environment(d);
+  try{
+    await env.load();assert.deepEqual(['tacticsCueSettle','tacticsCueDraw','tacticsCueHold'].map(id=>Math.round(Number(env.get(id).value)*30)),[5,0,40]);
+    env.get('tacticsCueSettle').value='0.5';env.get('tacticsCueDraw').value='1.2';env.get('tacticsCueHold').value='2';
+    await env.get('tacticsApplyCue').onclick();await env.get('tacticsSave').onclick();
+    const cue=env.saved.at(-1).document.production.timeline.cues[0];assert.deepEqual([cue.settleFrames,cue.drawFrames,cue.holdFrames],[15,36,60]);
+    await env.get('tacticsUndo').onclick();await env.get('tacticsSave').onclick();assert.equal(env.saved.at(-1).document.production,undefined);
+  }finally{env.restore();}
+});
+test('canvas and delivery preview the same encoded MP4 and changed graphics require regeneration',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),calls=[];
+  const env=environment(d,{renderJob:async(path,body)=>{calls.push({path,body});return {id:'movie-1',status:'succeeded',documentDigest:body.documentDigest,videoUrl:'/api/tactics-render/jobs/movie-1/video?sample=test',duration:3,fps:30,totalFrames:90,width:1280,height:720};}});
+  try{
+    await env.load();await env.get('tacticsRenderStart').onclick();await env.get('deliveryRenderStart').onclick();
+    assert.equal(calls.length,1);assert.equal(calls[0].body.expectedVersion,0);
+    assert.equal(env.get('tacticsRenderVideo').getAttribute('src'),env.get('deliveryRenderVideo').getAttribute('src'));
+    assert.equal(env.get('deliveryRenderDownload').href,env.get('tacticsRenderVideo').getAttribute('src'));
+    await env.get('tacticsToolScreen').onclick();await env.event('pointerdown',{pointerId:1,target:env.target(),clientX:650,clientY:300});
+    assert.match(env.get('tacticsRenderStatus').textContent,/草稿已修改/);assert.match(env.get('deliveryRenderDownload').textContent,/旧快照/);
+    await env.get('deliveryRenderStart').onclick();assert.equal(calls.length,2);assert.equal(calls[1].body.document.annotations.items.length,1);
+    assert.match(env.get('tacticsRenderMetadata').textContent,/静音/);
+  }finally{env.restore();}
+});
 test('a slow Agent cancellation keeps generation locked throughout draft reload',async()=>{
   const d=await createTacticsDocument((await makePresentationDemo()).review);let jobs=0,releaseCancel,cancelStarted;
   const started=new Promise(resolve=>cancelStarted=resolve),cancelled=new Promise(resolve=>releaseCancel=resolve);
@@ -217,7 +334,7 @@ test('entering tactics synchronizes corrected feet and participants, archives re
   }finally{env.restore();}
 });
 
-function environment(source,{player=false,empty=false,agent=null}={}){
+function environment(source,{player=false,empty=false,agent=null,renderJob=null}={}){
   const nodes=new Map(),events={},writes=[],saved=[],store=new Map();let hold=false,releases=[],frameRequests=0;
   function make(tag='div'){
     const node={tag,children:[],attrs:{},listeners:{},style:{},value:'',checked:false,clientWidth:800,hidden:false,textContent:'',
@@ -244,6 +361,7 @@ function environment(source,{player=false,empty=false,agent=null}={}){
       else if(path==='/api/tactics/frame'){frameRequests++;value={frames:JSON.parse(options.body).frames.map(frame=>({...source.review.sourceFrameMapping[frame],videoSha256:source.review.videoSha256,dataUrl:'data:image/jpeg;base64,/9j/'}))};}
       else if(path==='/api/tactics/save'){const payload=JSON.parse(options.body);saved.push(payload);value={version:payload.expectedVersion+1};}
       else if(path.startsWith('/api/tactics-agent/')&&agent)value=await agent(path,options?JSON.parse(options.body):null);
+      else if(path.startsWith('/api/tactics-render/')&&renderJob)value=await renderJob(path,options?JSON.parse(options.body):null);
       else throw new Error(path);return {ok:true,json:async()=>value};
     }
   });
