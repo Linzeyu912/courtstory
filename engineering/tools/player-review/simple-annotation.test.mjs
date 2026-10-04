@@ -92,6 +92,41 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit,tactic
   }catch(error){for(const [name,value] of previous){if(value===undefined)delete globalThis[name];else globalThis[name]=value;}throw error;}
 }
 
+test('visibility actions share state across player and repair panels, persist drafts, and undo without modifying identities',async()=>{
+  const app=await openApp();try{
+    const before=structuredClone(app.state().session);
+    app.actions.setVisibility('out_of_view',0,1);
+    assert.equal(app.state().trajectories.P1[0].source,'out_of_view');
+    assert.deepEqual(app.identityState().visibilityRange,{start:0,end:1,state:'out_of_view',origin:'human_visibility_review'});
+    assert.equal(JSON.parse(app.saved.get(app.key)).entities[0].visibilityRanges[0].state,'out_of_view');
+    app.workbench.switchStep('repair');
+    assert.equal(app.identityState().point.source,'out_of_view');
+    assert(app.get('repairIdentityControls').children.includes(app.get('identityControls')));
+    const anchors=structuredClone(app.state().session.entities[0].anchors);
+    app.clickBox(120,200);
+    assert.deepEqual(app.state().session.entities[0].anchors,anchors,'offscreen image clicks cannot save hidden points');
+    app.actions.setGapSeconds(.5);
+    assert.equal(app.state().trajectories.P1[0].source,'out_of_view');
+    app.get('undo').click();app.get('undo').click();
+    assert.deepEqual(app.state().session,before);
+    assert.equal(app.identityState().point.source,'manual');
+    app.actions.setVisibility('out_of_view',0,0);
+    app.actions.removeVisibility(0);
+    assert.equal(app.state().trajectories.P1[0].source,'manual');
+    assert.deepEqual(app.state().session.entities[0].identityKeyframes,before.entities[0].identityKeyframes);
+  }finally{app.restore();}
+});
+
+test('visibility range validation leaves the app draft and undo history unchanged',async()=>{
+  const app=await openApp();try{
+    const before=structuredClone(app.state().session);
+    app.actions.setVisibility('out_of_view',2,99);
+    assert.deepEqual(app.state().session,before);
+    assert.equal(app.get('undo').disabled,true);
+    assert.match(app.get('toast').textContent,/起止帧不正确/);
+  }finally{app.restore();}
+});
+
 test('app tactics bridge publishes decoded canvas frames and separates phase seeks from external navigation',async()=>{
   const app=await openApp({tacticsBridge:true});try{
     app.tacticsApi.seek(3);assert.equal(app.tacticsCalls.filter(c=>c[0]==='external').length,0);

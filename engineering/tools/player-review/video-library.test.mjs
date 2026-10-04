@@ -7,16 +7,17 @@ const choices=JSON.parse(readFileSync(new URL('../../configs/tracking/workbench-
 
 function setup({localVideo=true,variant='yolo',ready=['yolo'],save=()=>{},search='?sample=local-video&qa=1',respond=null,modelChoices=null}={}){
   const nodes=new Map(),navigated=[],events=[],before=[];
-  const make=()=>({textContent:'',value:'',children:[],options:[],listeners:{},disabled:false,open:false,
+  const make=()=>({textContent:'',value:'',children:[],options:[],listeners:{},attributes:{},classList:{toggle(){}},disabled:false,open:false,
+    setAttribute(name,value){this.attributes[name]=value;},getAttribute(name){return this.attributes[name]??null;},removeAttribute(name){delete this.attributes[name];},focus(){},
     append(...items){this.children.push(...items);this.options.push(...items);},replaceChildren(...items){this.children=[...items];this.options=[...items];},
     addEventListener(name,fn){this.listeners[name]=fn;},showModal(){this.open=true;},close(){this.open=false;this.listeners.close?.();}});
-  const get=id=>{if(!nodes.has(id))nodes.set(id,make());return nodes.get(id);};
+  const get=id=>{if(!nodes.has(id)){const node=make();node.id=id;node.parentElement=make();nodes.set(id,node);}return nodes.get(id);};
   const presets=[{id:'team-stable',label:'THY 完整方案 · 推荐'},{id:'yolo',label:'原 YOLO'}];
   get('trackingVersion').options=ready.map(value=>({value}));get('trackingVersion').value=variant;
   const old=new Map(['document','location','fetch','XMLHttpRequest'].map(key=>[key,globalThis[key]]));
   const inventory={folder:'D:/HKS/data/local-videos',entries:[{id:'local-video',filename:'test.mp4',bytes:12,
     sampleId:'local-video',variants:ready,status:'ready',message:'已处理'}],presets,runtimeAvailable:true};
-  Object.assign(globalThis,{document:{getElementById:get,createElement:make},location:{search,assign:url=>navigated.push(url)},
+  Object.assign(globalThis,{document:{getElementById:get,createElement:make,addEventListener(){}},location:{search,assign:url=>navigated.push(url)},
     fetch:async(url,options)=>{events.push({url,options});const result=respond?.(url,options,inventory);return {ok:result?.ok!==false,json:async()=>structuredClone(result?.data||inventory)};}});
   mountVideoLibrary({sample:'local-video',variant,localVideo,presets,modelChoices,beforeNavigate:()=>{before.push('save');return save();}});
   const flush=()=>new Promise(resolve=>setImmediate(resolve));
