@@ -1,7 +1,7 @@
 """Propagate named floor controls within one camera shot; outputs stay reviewable.
 
-Anchor SIFT matching avoids cumulative drift. LK is an explicitly labelled
-fallback and stops at experimental quality gates. Neither measures accuracy.
+Fixed and recent floor references limit long camera-following gaps. Matching
+and optical flow retain explicit quality gates; neither measures accuracy.
 """
 import copy
 import time
@@ -212,6 +212,18 @@ def flow_transform(old, new, mask, scale):
     return estimate_transform(pts[valid].reshape(-1, 2), nxt[valid].reshape(-1, 2), old.shape, scale)
 
 
+def match_floor_features(matcher, anchor_keys, anchor_descriptors, now_keys, now_descriptors, shape, scale):
+    """Match distinct floor locations; keep the same RANSAC quality gates."""
+    if anchor_descriptors is None or len(anchor_descriptors) < 12 or now_descriptors is None or len(now_descriptors) < 2:
+        return None, {'reason': '可匹配的地面纹理不足', 'matches': 0}
+    matches = [m for pair in matcher.knnMatch(anchor_descriptors, now_descriptors, k=2)
+               if len(pair) == 2 for m, n in [pair] if m.distance < .72*n.distance]
+    matches = list({m.trainIdx: m for m in sorted(matches, key=lambda m: m.distance, reverse=True)}.values())
+    a = np.float32([anchor_keys[m.queryIdx].pt for m in matches])
+    b = np.float32([now_keys[m.trainIdx].pt for m in matches])
+    return estimate_transform(a, b, shape, scale)
+
+
 def propagate_court(video, payload, seed, cuts=(), max_seconds=20., max_fallback_frames=12,
                     predictor=None, object_records=None, unavailable_error=None,
                     refresh_interval_seconds=1.):
@@ -309,8 +321,17 @@ def propagate_court(video, payload, seed, cuts=(), max_seconds=20., max_fallback
     anchor_quality = {'referenceFrame': frame, 'independentAccuracyValidated': False}
     for sequence in (range(frame+1, end+1), range(frame-1, start-1, -1)):
         previous = frame; previous_h = h_seed; previous_basis = frame; fallback_run = 0; active = True
+        # These are image-motion references, not newly inferred court controls.
+        # A fixed seed may leave the field of view during a pan. Retain recent,
+        # measured floor appearances with their already established geometry.
+        motion_anchors = []
+        anchor_interval = .3
         for index in sequence:
             gray = grays[index]; camera = None; detail = {}; method = 'sift_anchor'; motion = None
+            now_keys = now_descriptors = None
+            motion_anchor_frame = frame
+            anchor_depth = 0
+            adjacent_step = adjacent_detail = None
             basis = frame
             recovery_proposal = None
             refresh = refresh_diagnostics.get(index)
@@ -340,12 +361,71 @@ def propagate_court(video, payload, seed, cuts=(), max_seconds=20., max_fallback
                     cv2.rectangle(image_mask, (int(x1)-8, int(y1)-8), (int(x2)+8, int(y2)+8), 0, -1)
                 now_keys, now_descriptors = sift.detectAndCompute(gray, image_mask)
                 if now_descriptors is not None and len(now_descriptors) >= 2:
-                    matches = [m for pair in matcher.knnMatch(anchor_descriptors, now_descriptors, k=2) if len(pair) == 2 for m, n in [pair] if m.distance < .72*n.distance]
-                    # Repeated court markings can map several anchors onto one location.
-                    matches = list({m.trainIdx: m for m in sorted(matches, key=lambda m: m.distance, reverse=True)}.values())
-                    a = np.float32([anchor_keys[m.queryIdx].pt for m in matches]); b = np.float32([now_keys[m.trainIdx].pt for m in matches])
-                    motion, detail = estimate_transform(a, b, gray.shape, scale)
-                    if motion is not None: camera = motion@h_seed; fallback_run = 0
+                    motion, detail = match_floor_features(matcher, anchor_keys, anchor_descriptors,
+                        now_keys, now_descriptors, gray.shape, scale)
+                    if motion is not None:
+                        camera = motion@h_seed
+                        if active:
+                            previous_mask = floor_mask(gray.shape, previous_h, records[previous]['tracks'], scale)
+                            adjacent_step, adjacent_detail = flow_transform(grays[previous], gray, previous_mask, scale)
+                            if adjacent_step is not None:
+                                ys, xs = np.nonzero(previous_mask[::20, ::20])
+                                probes = np.column_stack((xs*20, ys*20)).astype(float)
+                                if len(probes):
+                                    expected = project(adjacent_step, probes)
+                                    actual = project(camera @ np.linalg.inv(previous_h), probes)
+                                    agreement = float(np.quantile(np.linalg.norm(actual-expected, axis=1)/scale, .9))
+                                    detail['adjacentAgreementP90Pixels'] = agreement
+                                    if not np.isfinite(agreement) or agreement > max(2., width/320.):
+                                        camera = None
+                                        detail['reason'] = '地面特征匹配与邻帧运动不一致'
+                        if camera is not None:
+                            fallback_run = 0
+            if camera is None and now_descriptors is not None:
+                # Prefer the oldest still-visible reference to reduce chained
+                # transforms. Never reuse a matrix without new image evidence.
+                for anchor in motion_anchors:
+                    step, local_detail = match_floor_features(matcher, anchor['keys'], anchor['descriptors'],
+                        now_keys, now_descriptors, gray.shape, scale)
+                    local_method = 'sift_local_anchor'
+                    if step is None and abs(records[index]['time']-records[anchor['frame']]['time']) <= .6:
+                        # Weakly textured painted floors can have many trackable
+                        # corners but few distinctive SIFT descriptors. Re-track
+                        # directly from a recent reference, not a frozen matrix
+                        # or an indefinitely extended adjacent-flow chain.
+                        step, local_detail = flow_transform(grays[anchor['frame']], gray, anchor['mask'], scale)
+                        local_method = 'lk_local_anchor'
+                    if step is None:
+                        continue
+                    proposed_camera = step @ anchor['camera']
+                    # Repeated floor patterns can pass RANSAC with the wrong
+                    # correspondence. Check recovery against separate adjacent
+                    # optical flow wherever a continuous observation exists.
+                    agreement = None
+                    if active:
+                        previous_mask = floor_mask(gray.shape, previous_h, records[previous]['tracks'], scale)
+                        if adjacent_detail is None:
+                            adjacent_step, adjacent_detail = flow_transform(grays[previous], gray, previous_mask, scale)
+                        if adjacent_step is not None:
+                            ys, xs = np.nonzero(previous_mask[::20, ::20])
+                            probes = np.column_stack((xs*20, ys*20)).astype(float)
+                            if len(probes):
+                                expected = project(adjacent_step, probes)
+                                actual = project(proposed_camera @ np.linalg.inv(previous_h), probes)
+                                disagreement = np.linalg.norm(actual-expected, axis=1)/scale
+                                agreement = float(np.quantile(disagreement, .9))
+                                if not np.isfinite(agreement) or agreement > max(2., width/320.):
+                                    continue
+                    camera = proposed_camera
+                    motion = camera @ np.linalg.inv(h_seed)
+                    detail = {**local_detail, 'fixedAnchorFailure': detail.get('reason'),
+                              'adjacentAgreementP90Pixels': agreement}
+                    method = local_method
+                    motion_anchor_frame = anchor['frame']
+                    anchor_depth = anchor['depth'] + 1
+                    basis = anchor['basis']
+                    fallback_run = 0
+                    break
             if recovery_proposal is not None:
                 if camera is None:
                     camera, detail = recovery_proposal
@@ -362,7 +442,8 @@ def propagate_court(video, payload, seed, cuts=(), max_seconds=20., max_fallback
             if camera is None and active and fallback_run < max_fallback_frames:
                 method = 'lk_adjacent'
                 mask = floor_mask(gray.shape, previous_h, records[previous]['tracks'], scale)
-                step, detail = flow_transform(grays[previous], gray, mask, scale)
+                step, detail = ((adjacent_step, adjacent_detail) if adjacent_detail is not None
+                                else flow_transform(grays[previous], gray, mask, scale))
                 if step is not None:
                     camera = step@previous_h; motion = camera@np.linalg.inv(h_seed); fallback_run += 1
                     basis = previous_basis
@@ -378,7 +459,10 @@ def propagate_court(video, payload, seed, cuts=(), max_seconds=20., max_fallback
                     gray, camera, records[index]['tracks'], scale)
             if camera is None:
                 keys[index] = {'frame': index, 'side': seed['side'], 'points': [], 'status': 'invalid',
-                               'reason': detail.get('reason', '镜头匹配失败，请补标定'), 'quality': {**detail, **anchor_quality}}
+                               'reason': detail.get('reason', '镜头匹配失败，请补标定'),
+                               'quality': {**detail, **anchor_quality,
+                                           'fallbackLimitReached': fallback_run >= max_fallback_frames,
+                                           'motionReferenceCount': len(motion_anchors)}}
                 active = False
             else:
                 pts = [{**p, 'image': [round(float(v), 4) for v in xy], 'source': 'camera_propagation', 'reviewRequired': True}
@@ -386,9 +470,28 @@ def propagate_court(video, payload, seed, cuts=(), max_seconds=20., max_fallback
                 keys[index] = {'frame': index, 'side': seed['side'], 'source': 'camera_propagation', 'points': pts,
                                'status': 'needs_review', 'reviewRequired': True,
                                'quality': {**detail, **anchor_quality, 'method': method, 'adjacentFallbackFrames': fallback_run,
+                                           'motionAnchorSourceFrame': records[motion_anchor_frame].get('source_frame', motion_anchor_frame),
+                                           'motionAnchorDepth': anchor_depth,
                                            'calibrationBasisFrame': basis},
                                'courtToImage': (inv_scale@camera).reshape(-1).tolist()}
                 previous_h = camera; previous_basis = basis; active = True
+                # A well-supported short flow step may supply a fresh image
+                # reference, but later recovery still needs fresh image matches
+                # and agreement with separately measured adjacent motion.
+                strong_flow = (method == 'lk_adjacent' and detail.get('inliers', 0) >= 24
+                               and detail.get('inlierRatio', 0) >= .8
+                               and detail.get('imageAreaCoverage', 0) >= .05)
+                strong_local_flow = (method == 'lk_local_anchor' and detail.get('inliers', 0) >= 24
+                                     and detail.get('inlierRatio', 0) >= .8
+                                     and detail.get('imageAreaCoverage', 0) >= .05)
+                if (method in ('sift_anchor', 'sift_local_anchor', 'court48_reinitialization') or strong_flow or strong_local_flow) and (
+                        not motion_anchors or abs(records[index]['time']-records[motion_anchors[-1]['frame']]['time']) >= anchor_interval):
+                    mask = floor_mask(gray.shape, camera, records[index]['tracks'], scale)
+                    local_keys, local_descriptors = sift.detectAndCompute(gray, mask)
+                    if local_descriptors is not None and len(local_descriptors) >= 12:
+                        motion_anchors.append({'frame': index, 'keys': local_keys, 'descriptors': local_descriptors,
+                            'camera': camera.copy(), 'basis': basis, 'depth': anchor_depth, 'mask': mask})
+                        motion_anchors = motion_anchors[-8:]
             previous = index
     from court_temporal_refinement import refine_tracked_shot
     temporal_fit = refine_tracked_shot(grays, keys, records, frame, scale, manual=manual_seed)
@@ -406,6 +509,7 @@ def propagate_court(video, payload, seed, cuts=(), max_seconds=20., max_fallback
             'notes': ['人工初始点的误差会保留；匹配残差不是独立地面精度。',
                       '最多在参考帧前后20秒、同一镜头内处理，切镜处停止。',
                       '屏蔽已有检测框与画面底部25%；字幕位置不同或移动广告仍可能影响结果。',
+                      '固定参照匹配失败时，用近期已定位的地面特征重新匹配；不重复旧矩阵，不延长光流盲推上限。',
                       '自动参照可用同镜头多帧标线联合校正；近边线及遮挡端点无证据时只作推算，不增加实测控制点。',
                       ('每秒尝试用已有48点模型按锁定篮侧重估；不确定时才沿用通过门限的镜头匹配。'
                        if refresh_indices else '此入口未启用本地48点模型重估，只提供原有镜头匹配。'),

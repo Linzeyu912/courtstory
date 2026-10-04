@@ -1,0 +1,18 @@
+{
+  "sourceHash": "994c43388a2c31a44fcc8259bba1d4d71abab0dd439aed46da09c22e14012b23",
+  "dimensions": [1552, 872],
+  "frameIndexBase": 0,
+  "annotationSource": "Agent visual reading of unannotated source frames; approximate, not human-validated ground truth",
+  "purpose": "Evaluation only; never loaded by calibration or parameter fitting",
+  "estimatedReadingUncertaintyPixels": 5,
+  "selection": "Three non-keyframes in each of the two midcourt traversals",
+  "line": "center_line",
+  "checks": [
+    {"frame": 195, "pixels": [[1112, 660], [1111, 730]]},
+    {"frame": 211, "pixels": [[862, 650], [863, 730]]},
+    {"frame": 225, "pixels": [[667, 650], [669, 730]]},
+    {"frame": 705, "pixels": [[565, 650], [566, 710]]},
+    {"frame": 721, "pixels": [[790, 630], [791, 690]]},
+    {"frame": 735, "pixels": [[1013, 645], [1015, 680]]}
+  ]
+}
