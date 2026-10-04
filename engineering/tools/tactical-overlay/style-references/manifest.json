@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "purpose": "style_only_not_current_game_evidence",
+  "source": "User-approved 005_future_routes_authored_v2.mp4",
+  "sourceSha256": "495eafc5350a79de2b8347b23c8bd5a2be7d0d8449a0e5020df85e106e05fd3f",
+  "images": [
+    {
+      "file": "wide-curves.jpg",
+      "sha256": "9d4ae460341dc91585fd3e09856101002f8a5bbf6b12b625aca1597bacc4bcae",
+      "description": "暂停后完整展示少量宽曲线，每条一个大箭头；不用球员标签。"
+    },
+    {
+      "file": "remaining-route.jpg",
+      "sha256": "f711761af7080009afe5f78a4bb6a6f774b6a8370feb9def85014721dae66115",
+      "description": "恢复播放后只保留尚未完成的路线，箭头目的地固定，尾部随动作消耗。"
+    }
+  ]
+}

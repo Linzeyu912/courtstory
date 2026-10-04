@@ -2,6 +2,7 @@ import {canonicalJSON} from '../tactical-overlay/binding.mjs';
 import {createGeometryContext,observedPoint,crossCutCompatible} from '../tactical-overlay/geometry.mjs';
 import {DEFAULT_OPTIONS,evidenceQuality} from '../tactical-overlay/validation.mjs';
 import {COURT,project} from './court.mjs';
+import {validateAuthoredPath,authoredBindingReason,authoredRouteGeometry} from './tactics-authored-geometry.mjs';
 
 // Authored illustrations are separate from observations and their review status.
 export const ANNOTATION_LIMITS=Object.freeze({items:256,points:6,dots:160});
@@ -11,7 +12,8 @@ export const ANNOTATION_REASONS=Object.freeze({phase_changed:'阶段已调整，
   court_reference_mismatch:'镜头已切换，请在当前镜头重新绘制',identity_conflict:'当前球员身份冲突，脚圈暂时隐藏',
   out_of_view:'球员已离开画面，脚圈暂时隐藏',missing_position:'当前没有球员脚点，脚圈暂时隐藏',
   estimated_point:'当前脚点仅为估计，脚圈暂时隐藏',anchor_position_unavailable:'绘制帧没有合法脚点，仅显示绘制位置',
-  projection_unavailable:'当前无法投影到画面',outside_viewport:'图形完全位于视频画面之外',source_cut:'镜头已切换，脚圈暂时隐藏'});
+  projection_unavailable:'当前无法投影到画面',outside_viewport:'图形完全位于视频画面之外',source_cut:'镜头已切换，脚圈暂时隐藏',
+  camera_changed:'示意相机已修改，请核对后重新绑定路线',camera_missing:'未找到路线使用的示意相机',production_source_changed:'编排来源已变化，请重新绑定',production_camera_unavailable:'当前帧没有可用示意相机'});
 const copy=v=>structuredClone(v),object=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const finite=v=>typeof v==='number'&&Number.isFinite(v),frame=v=>Number.isSafeInteger(v)&&v>=0&&v<=10000000;
 const text=v=>typeof v==='string'&&v.length>0&&v.length<=256;
@@ -29,7 +31,7 @@ export function validateAnnotations(annotations,document){
   if(!fields(annotations,['schemaVersion','items'])||annotations.schemaVersion!==1||!Array.isArray(annotations.items)||annotations.items.length>ANNOTATION_LIMITS.items){bad('annotations');return issues;}
   const ids=new Set();
   for(const a of annotations.items){
-    if(!fields(a,['id','type','phaseId','entityId','startFrame','endFrameExclusive','anchorFrame','space','points','style','followEntity','phaseSnapshot','sourceBinding'],['anchorMode','offset','origin'])||
+    if(!fields(a,['id','type','phaseId','entityId','startFrame','endFrameExclusive','anchorFrame','space','points','style','followEntity','phaseSnapshot','sourceBinding'],['anchorMode','offset','origin','authoredPath'])||
       !text(a.id)||ids.has(a.id)||!text(a.phaseId)||a.entityId!==null&&!text(a.entityId)||!['route','screen','spotlight'].includes(a.type)||!['court','video'].includes(a.space)){
       bad('annotation_identifiers');continue;
     }
@@ -52,6 +54,7 @@ export function validateAnnotations(annotations,document){
     if(a.anchorMode==='player_foot'&&(a.type!=='spotlight'||a.space!=='video'||!a.entityId||!a.followEntity))bad('annotation_foot_anchor');
     if(a.offset!==undefined&&(!fields(a.offset,['x','y'])||!finite(a.offset.x)||!finite(a.offset.y)||Math.abs(a.offset.x)>bounds.x||Math.abs(a.offset.y)>bounds.y))bad('annotation_offset');
     if(a.origin!==undefined&&(!fields(a.origin,['kind','jobId','sourceFrames','note'])||!['agent','human_modified'].includes(a.origin.kind)||!text(a.origin.jobId)||typeof a.origin.note!=='string'||a.origin.note.length>2000||!Array.isArray(a.origin.sourceFrames)||a.origin.sourceFrames.length>40||a.origin.sourceFrames.some(f=>!frame(f)||f>=document.review.sourceFrameMapping.length)))bad('annotation_origin');
+    if(!validateAuthoredPath(a))bad('annotation_authored_path');
   }
   return issues;
 }
@@ -78,13 +81,14 @@ export function createAnnotation(document,input){
   if(input.anchorMode!==undefined)annotation.anchorMode=input.anchorMode;
   if(input.anchorMode==='player_foot'){annotation.space='video';annotation.offset=copy(input.offset??{x:0,y:0});}
   if(input.origin)annotation.origin=copy(input.origin);
+  if(input.authoredPath)annotation.authoredPath=copy(input.authoredPath);
   const annotations={schemaVersion:1,items:[...(document.annotations?.items??[]),annotation]};assertAnnotations(annotations,document);
   const result=copy(document);result.annotations=copy(annotations);return result;
 }
 export function updateAnnotation(document,id,patch){
   assertAnnotations(document.annotations,document);
   const previous=document.annotations?.items.find(a=>a.id===id);if(!previous)throw new Error('未找到要修改的画布标注。');
-  if(!fields(patch,[],['phaseId','entityId','frame','startFrame','endFrameExclusive','points','style','followEntity','space','anchorMode','offset']))throw new Error('画布标注修改字段不正确。');
+  if(!fields(patch,[],['phaseId','entityId','frame','startFrame','endFrameExclusive','points','style','followEntity','space','anchorMode','offset','authoredPath']))throw new Error('画布标注修改字段不正确。');
   if(Object.hasOwn(patch,'space')&&patch.space!==previous.space&&patch.anchorMode!=='player_foot')throw new Error('修改控制点时不能更换坐标空间，请重新绘制。');
   const a={...copy(previous),...copy(patch),style:{...previous.style,...patch.style}};delete a.frame;
   if(Object.hasOwn(patch,'entityId'))assertEntity(document,a.entityId);
@@ -114,7 +118,7 @@ export function annotationStatus(document,{phaseId}={}){
     const p=document.playDefinition.phases.find(p=>p.phaseId===original.phaseId);
     const reason=!p?'phase_missing':!same(original.phaseSnapshot,phaseSnapshot(p))?'phase_changed':
       !same(original.sourceBinding,sourceSnapshot(document))?'source_changed':
-      original.entityId&&!document.playDefinition.participants.some(p=>p.id===original.entityId)?'entity_missing':null;
+      original.entityId&&!document.playDefinition.participants.some(p=>p.id===original.entityId)?'entity_missing':authoredBindingReason(document,original);
     if(reason)result.stale.push({id:original.id,original,reason});
     else if(!phaseId||original.phaseId===phaseId)result.active.push(original);else result.pending.push(original);
   }
@@ -236,6 +240,7 @@ function paintedPolygonVisible(points,width,height,radius){
 function annotationIntersectsViewport(item,width,height){
   const g=item.video,unit=height/1080,outline=g.strokeWidth+3*unit;
   if(item.type==='route'){
+    if(g.ribbon)return g.opacity>0&&paintedPolygonVisible(g.ribbon,width,height,g.strokeWidth);
     if(g.pattern==='dots')return g.dots.some(p=>viewportDistance(p,width,height)<=g.dotRadius+.75*unit);
     return paintedPathVisible(g.curve,width,height,outline/2,g.pattern==='dashed'?g.dashArray:null)||
       paintedPolygonVisible(g.arrow,width,height,.75*unit);
@@ -251,7 +256,7 @@ export function annotationPresentation(document,{annotationIds}={}){
   const stale=new Map(status.stale.map(item=>[item.id,item.reason])),scenes=new Map(),grouped=new Map(),items=[];
   for(const a of document.annotations?.items??[]){
     if(selected&&!selected.has(a.id))continue;
-    const mode=a.space==='video'&&!a.followEntity||a.endFrameExclusive-a.startFrame===1?'reference_frame':'timeline';
+    const mode=a.space==='video'&&!a.followEntity&&!a.authoredPath||a.endFrameExclusive-a.startFrame===1?'reference_frame':'timeline';
     let reason=stale.get(a.id)??null,visible=false;
     if(!reason){
       if(!scenes.has(a.phaseId))scenes.set(a.phaseId,new Map());
@@ -354,7 +359,7 @@ function followingCenter(a,context,currentFrame){
   const p=a.space==='court'?initial.point.courtPoint:initial.point,q=a.space==='court'?current.point.courtPoint:current.point;
   return {point:{x:q.x+a.points[0].x-p.x,y:q.y+a.points[0].y-p.y},reason:null};
 }
-export function projectAnnotations(document,{phaseId,frame:currentFrame,model,selectedId,editing=false}={}){
+export function projectAnnotations(document,{phaseId,frame:currentFrame,model,selectedId,editing=false,reveal=1}={}){
   assertAnnotations(document.annotations,document);
   const status=annotationStatus(document,{phaseId}),context=geometryContext(document,phaseId,model);
   if(!frame(currentFrame)||!context.frames[currentFrame])throw new Error('当前帧超出视频范围。');
@@ -362,6 +367,13 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
   for(const a of status.active){
     const item={id:a.id,type:a.type,entityId:a.entityId,original:a,selected:a.id===selectedId,video:null,court:null,handles:[],hiddenReason:null};items.push(item);
     if(currentFrame<a.startFrame||currentFrame>=a.endFrameExclusive){item.hiddenReason='outside_time';continue;}
+    if(a.authoredPath){
+      // A new explanation cue must not erase or redraw earlier unfinished routes.
+      const result=authoredRouteGeometry(document,a,currentFrame,{reveal:editing||a.anchorFrame!==currentFrame?1:reveal,editing});
+      item.video=result.geometry??null;item.hiddenReason=result.reason??null;
+      if(item.video&&currentFrame===a.anchorFrame)item.handles=a.points.map((p,index)=>({...p,index}));
+      continue;
+    }
     if(a.space==='video'&&!a.followEntity&&currentFrame!==a.anchorFrame){item.hiddenReason='reference_frame_only';continue;}
     let geometry;
     if(a.type==='route'){
@@ -408,7 +420,12 @@ export function renderAnnotationsSVG(scene,{space='video',width=scene.width,heig
     const color=item.original.style.color,stroke=g.strokeWidth,outline=stroke+(space==='court'?.07:3*(scene.height/1080));
     parts.push(`<g data-annotation-id="${escape(item.id)}" data-type="${item.type}" fill="none" stroke-linecap="round" stroke-linejoin="round">`);
     if(item.type==='route'){
-      if(g.pattern==='dots'){
+      if(g.ribbon){
+        // Draw the full fill over the inner half of a doubled edge, matching the
+        // authored raster pipeline. Group opacity composites both layers once.
+        const polygon=coordinates(g.ribbon);
+        parts.push(`<g data-part="authored-ribbon" opacity="${g.opacity}"><polygon points="${polygon}" fill="none" stroke="${g.edgeColor}" stroke-width="${2*g.strokeWidth}"/><polygon points="${polygon}" fill="${color}" stroke="none"/></g>`);
+      }else if(g.pattern==='dots'){
         parts.push(...g.dots.map(point=>`<circle data-part="route-dot" cx="${point.x.toFixed(4)}" cy="${point.y.toFixed(4)}" r="${g.dotRadius}" fill="${color}" stroke="#5a4105" stroke-opacity=".88" stroke-width="${space==='court'?.03:1.5*(scene.height/1080)}"/>`));
       }else{
         const line=coordinates(g.curve),arrow=coordinates(g.arrow),dash=g.pattern==='dashed'?` stroke-dasharray="${g.dashArray.map(n=>n.toFixed(4)).join(' ')}"`:'';
@@ -431,13 +448,21 @@ function segmentDistance(point,a,b){
   const dx=b.x-a.x,dy=b.y-a.y,n=dx*dx+dy*dy,t=n?Math.max(0,Math.min(1,((point.x-a.x)*dx+(point.y-a.y)*dy)/n)):0;
   return distance(point,{x:a.x+dx*t,y:a.y+dy*t});
 }
+function polygonContains(point,polygon){
+  let winding=0;
+  for(let i=0;i<polygon.length;i++){const a=polygon[i],b=polygon[(i+1)%polygon.length],cross=(b.x-a.x)*(point.y-a.y)-(point.x-a.x)*(b.y-a.y);
+    if(a.y<=point.y&&b.y>point.y&&cross>0)winding++;else if(a.y>point.y&&b.y<=point.y&&cross<0)winding--;
+  }
+  return winding!==0;
+}
 export function hitTestAnnotation(scene,point,tolerance=16){
   if(!finite(point?.x)||!finite(point?.y)||!finite(tolerance)||tolerance<0)return null;
   const items=[...scene.items].reverse();
   for(const item of items)for(const h of item.handles??[])if(distance(point,h)<=tolerance)return {id:item.id,index:h.index};
   for(const item of items){
     const g=item.video;if(!g)continue;
-    const paths=[...(g.curve?[g.curve]:[]),...(g.arrow?[g.arrow]:[]),...(g.paths??[]),...(g.ring?[g.ring]:[])];
+    if(g.ribbon&&polygonContains(point,g.ribbon))return {id:item.id,index:null};
+    const paths=[...(g.curve?[g.curve]:[]),...(g.arrow?[g.arrow]:[]),...(g.paths??[]),...(g.ring?[g.ring]:[]),...(g.ribbon?[[...g.ribbon,g.ribbon[0]]]:[])];
     if(paths.some(path=>path.slice(1).some((p,i)=>segmentDistance(point,path[i],p)<=tolerance)))return {id:item.id,index:null};
   }
   return null;

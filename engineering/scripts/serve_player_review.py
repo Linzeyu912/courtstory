@@ -42,6 +42,7 @@ def main():
     parser.add_argument("--tactics-agent-timeout", type=int, default=300)
     parser.add_argument("--tactics-agent-reasoning-effort", choices=('none','minimal','low','medium','high','xhigh','max','ultra'), default='low')
     parser.add_argument("--tactics-agent-max-images", type=int, choices=range(4,25), default=12)
+    parser.add_argument("--tactics-ffmpeg", help="FFmpeg executable for finished tactical MP4s (or TACTICS_FFMPEG / PATH)")
     parser.add_argument("--identity-agent-provider", choices=('codex', 'multimodal-api'), default='codex',
                         help="Visual identity provider; multimodal-api is an unconfigured adapter seam")
     parser.add_argument("--player-data-root", default=str(Path(__file__).resolve().parents[2] / '2K Player Data'),
@@ -99,6 +100,8 @@ def main():
                                    publish_local,validated_clip,shared_catalog=args.shared_video_catalog,collection=collection)
     from tactical_workbench import TacticalWorkbench
     tactics = TacticalWorkbench(args.tactics_folder)
+    from tactics_render import TacticsRenderer
+    renderer = TacticsRenderer(Path(args.tactics_folder)/'render-jobs', tactics, args.tactics_ffmpeg)
     from tactics_agent import TacticsAgent
     agent = TacticsAgent(Path(args.tactics_folder)/'agent-jobs',tactics,args.tactics_agent_cli,args.tactics_agent_timeout,
                         reasoning_effort=args.tactics_agent_reasoning_effort,max_images=args.tactics_agent_max_images)
@@ -150,6 +153,8 @@ def main():
         routes['/'+filename]=static/filename
     for filename in ['tactics-ui.mjs','tactics-player-identity.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','tactics-agent.mjs','tactics.css']:
         routes['/'+filename]=static/filename
+    for filename in ['tactics-production.mjs','tactics-authored-geometry.mjs','tactics-production-ui.mjs']:
+        routes['/'+filename]=static/filename
     # Explicit aliases for the independent engine's existing relative imports.
     for route,path in list(routes.items()):
         if route.endswith('.mjs'):
@@ -170,6 +175,26 @@ def main():
 
         def do_POST(self):
             route=urlsplit(self.path).path
+            if re.fullmatch(r'/api/tactics-render/jobs(?:/[a-zA-Z0-9-]+/cancel)?',route):
+                try:
+                    origin=f'http://127.0.0.1:{self.server.server_port}'
+                    if self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or self.headers.get('Origin',origin)!=origin:
+                        self.send_error(403);return
+                    if self.headers.get('Content-Type','').split(';')[0]!='application/json':
+                        self.send_error(415);return
+                    size=int(self.headers.get('Content-Length','0'))
+                    if not 0<size<=32*1024*1024:raise ValueError('成片请求大小不正确。')
+                    request=json.loads(self.rfile.read(size));finite_json(request,'Render request')
+                    if not isinstance(request,dict):raise ValueError('请求必须是 JSON 对象。')
+                    source=clips.get(request.get('sample'));variant=request.get('variant');qa=request.get('qa',False);kind=request.get('kind','workspace')
+                    if not source or variant not in source['payloads'] or type(qa) is not bool:raise ValueError('找不到视频、模型或草稿空间。')
+                    clip=json.loads(source['payloads'][variant])
+                    result=(renderer.cancel(route.split('/')[-2],clip,variant,qa,kind) if route.endswith('/cancel')
+                            else renderer.create(request,clip,source['video'],variant,qa,kind))
+                    self.json_response(200,result)
+                except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
+                    self.json_response(400,{'error':str(error)})
+                return
             if re.fullmatch(r'/api/(?:tactics|identity)-agent/jobs(?:/[a-zA-Z0-9-]+/(?:cancel|adopt))?',route):
                 try:
                     if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
@@ -348,6 +373,23 @@ def main():
         def respond(self, head_only=False):
             from urllib.parse import parse_qs
             parsed=urlsplit(self.path);route=parsed.path;query=parse_qs(parsed.query)
+            render_path=None
+            if re.fullmatch(r'/api/tactics-render/jobs/[a-zA-Z0-9-]+(?:/video)?',route):
+                try:
+                    origin=f'http://127.0.0.1:{self.server.server_port}'
+                    if self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or self.headers.get('Origin',origin)!=origin:
+                        self.send_error(403);return
+                    query=parse_qs(parsed.query,keep_blank_values=True)
+                    if len(parsed.query)>2048 or any(len(v)!=1 for v in query.values()) or query.get('qa',['0'])[0] not in ('0','1','true','false'):
+                        raise ValueError('成片查询参数不正确。')
+                    source=clips[query.get('sample',[default])[0]];variant=query.get('variant',[source['defaultVariant']])[0]
+                    clip=json.loads(source['payloads'][variant]);qa=query.get('qa',['0'])[0] in ('1','true');kind=query.get('kind',['workspace'])[0]
+                    ident=route.split('/')[4]
+                    if route.endswith('/video'):render_path=renderer.video(ident,clip,variant,qa,kind)
+                    else:
+                        self.json_response(200,renderer.get(ident,clip,variant,qa,kind),head_only);return
+                except (ValueError,TypeError,KeyError,OSError) as error:
+                    self.json_response(400,{'error':str(error)},head_only);return
             if route=='/api/video-library':
                 self.json_response(200,video_inventory(),head_only);return
             if re.fullmatch(r'/api/(?:tactics|identity)-agent/(?:status|jobs/[a-zA-Z0-9-]+)',route):
@@ -447,7 +489,7 @@ def main():
                 self.end_headers()
                 if not head_only:self.wfile.write(payload)
                 return
-            path=clips[sample_id]['video'] if route=="/video.mp4" else routes.get(route)
+            path=render_path or (clips[sample_id]['video'] if route=="/video.mp4" else routes.get(route))
             if path is None or not path.is_file():
                 self.send_error(404);return
             size=path.stat().st_size;start,end,status=0,size-1,200
@@ -488,6 +530,7 @@ def main():
     try:server.serve_forever()
     except KeyboardInterrupt:pass
     finally:
+        renderer.close()
         identity_agent.close()
         agent.close()
         local_library.close()

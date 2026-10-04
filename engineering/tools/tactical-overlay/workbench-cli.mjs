@@ -4,11 +4,15 @@ import {buildTacticalOverlay} from './overlay.mjs';
 import {buildPreviewHtml} from './preview.mjs';
 import {AGENT_SCHEMA,documentDigest,adoptAgentCandidate} from '../player-review/tactics-agent.mjs';
 import {annotationPresentation} from '../player-review/tactics-annotations.mjs';
+import {compileProduction,renderProductionSvg,importAuthoredProduction} from '../player-review/tactics-production.mjs';
 let input='';for await(const chunk of process.stdin)input+=chunk;
 try{
   const request=JSON.parse(input);
   if(request.operation==='agent-schema')process.stdout.write(JSON.stringify(AGENT_SCHEMA));
   else if(request.operation==='agent-digest')process.stdout.write(JSON.stringify({digest:await documentDigest(request.document)}));
+  else if(request.operation==='production-compile'){await validateDocument(request.document);process.stdout.write(JSON.stringify(compileProduction(request.document,request.options)));}
+  else if(request.operation==='production-svg'){await validateDocument(request.document);process.stdout.write(JSON.stringify({svg:renderProductionSvg(request.document,request.frameState)}));}
+  else if(request.operation==='production-import-authored')process.stdout.write(JSON.stringify({document:await importAuthoredProduction(request.document,request.legacyConfig)}));
   else if(request.operation==='agent-adopt'){
     const document=await adoptAgentCandidate(request.document,request.candidate,request.options);
     const annotationIds=(document.annotations?.items??[]).filter(a=>a.origin?.jobId===request.options.jobId).map(a=>a.id);

@@ -111,6 +111,19 @@ class AgentTests(unittest.TestCase):
         self.assertIn('跟随圈',prompt);self.assertIn('位置',prompt)
         self.assertIn('不必',prompt);self.assertIn('freezeFrame',prompt)
 
+    def test_failed_candidate_gets_one_model_repair_without_patching_draft(self):
+        calls=[]
+        invalid=deepcopy(self.output);invalid['phases'][0]['annotations'][0]['points']=[{'x':400,'y':400}]*2
+        def execute(**kwargs):
+            calls.append(kwargs['prompt'])
+            return invalid if len(calls)==1 else self.output
+        agent=self.make_agent(execute)
+        done=self.wait(agent,agent.create(self.request,self.clip,self.folder/'video.mp4','demo',True))
+        self.assertEqual(done['status'],'ready',done)
+        self.assertEqual(len(calls),2)
+        self.assertIn('validationError',calls[1])
+        self.assertEqual(self.tactics.load(self.clip,'demo',True,'workspace')['version'],0)
+
     def test_unsaved_revision_digest_saved_version_and_foreign_video_cannot_adopt(self):
         agent = self.make_agent(); job = agent.create(self.request, self.clip, self.folder/'video.mp4', 'demo', True)
         self.assertEqual(self.wait(agent, job)['status'], 'ready')

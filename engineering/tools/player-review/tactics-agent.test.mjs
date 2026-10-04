@@ -4,6 +4,7 @@ import {makePresentationDemo} from '../tactical-overlay/fixtures/presentation-de
 import {createTacticsDocument,validateDocument} from './tactics-document.mjs';
 import {createAnnotation} from './tactics-annotations.mjs';
 import * as annotations from './tactics-annotations.mjs';
+import {DEFAULT_RIBBON} from './tactics-authored-geometry.mjs';
 const agent=await import('./tactics-agent.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
 const setup=async()=>{const {review}=await makePresentationDemo();return createTacticsDocument(review);};
 const result={summary:'P1 向篮下切入',issues:[],phases:[{title:'切入',startFrame:0,endFrameExclusive:61,freezeFrame:12,reason:'观察到切入',evidenceFrames:[12,20],actions:[],annotations:[{type:'route',entityId:'P1',space:'video',anchorFrame:12,startFrame:12,endFrameExclusive:30,points:[{x:600,y:400},{x:720,y:320}],angle:0,size:1.5,color:'#26baff',explanation:'概括未来切入',evidenceFrames:[12,20]}]}]};
@@ -71,4 +72,20 @@ test('Agent adoption rejects a finite court drawing whose projected paint is ent
   const doc=await createTacticsDocument(review),candidate=structuredClone(result);
   candidate.phases[0].annotations[0]={...candidate.phases[0].annotations[0],type:'screen',entityId:null,space:'court',anchorFrame:20,points:[{x:26,y:7}]};
   await assert.rejects(()=>agent.adoptAgentCandidate(doc,candidate,{jobId:'offscreen',scope:'play',phaseId:'phase-1'}),/第 1 个图形.*outside_viewport/);
+});
+
+const v2=()=>{const candidate=structuredClone(result);candidate.schemaVersion=2;
+  candidate.production={cameras:[{id:'view',phaseIndex:0,approximate:true,groundQuad:[[0,0],[10,0],[10,10],[0,10]],keyframes:[{frame:0,quad:[[100,100],[1100,100],[1100,650],[100,650]],evidenceFrames:[0]},{frame:60,quad:[[120,100],[1120,100],[1120,650],[120,650]],evidenceFrames:[60]}]}],timeline:{timebaseFps:30,cues:[{phaseIndex:0,frame:12,settleFrames:5,drawFrames:21,holdFrames:49,easing:'smoothstep'}],endHoldFrames:18}};
+  candidate.phases[0].annotations[0].points=[{x:250,y:500},{x:450,y:300},{x:650,y:300},{x:850,y:500}];
+  candidate.phases[0].annotations[0].authoredPath={version:1,curve:'cubic_bezier',cameraId:'view',progressFrames:[{frame:12,t:0},{frame:30,t:1}],ribbon:structuredClone(DEFAULT_RIBBON)};return candidate;
+};
+test('Agent V2 binds approximate production cameras on host and preserves V1 strict compatibility',async()=>{
+  const doc=await setup(),candidate=v2(),adopted=await agent.adoptAgentCandidate(doc,candidate,{jobId:'v2',scope:'play',phaseId:'phase-1'});
+  assert.equal(adopted.production.cameras[0].id,'v2-camera-view');assert.equal(adopted.production.cameras[0].origin.kind,'agent');
+  assert.equal(adopted.annotations.items[0].authoredPath.cameraDigest,adopted.production.cameras[0].digest);assert.deepEqual(adopted.review,doc.review);
+  assert.ok(annotations.projectAnnotations(adopted,{phaseId:'v2-phase-0',frame:20}).items[0].video.ribbon);await validateDocument(adopted);
+  for(const change of [c=>delete c.production,c=>delete c.phases[0].annotations[0].authoredPath,c=>c.production.cameras[0].approximate=false,c=>c.phases[0].annotations[0].authoredPath.cameraDigest='0'.repeat(64),c=>c.production.cameras[0].phaseIndex=2,
+    c=>c.production.cameras[0].keyframes=[{...c.production.cameras[0].keyframes[0],frame:12}],c=>c.phases[0].annotations[0].authoredPath.progressFrames[1].t=.5]){const bad=v2();change(bad);await assert.rejects(agent.adoptAgentCandidate(doc,bad,{jobId:'bad-v2',scope:'play',phaseId:'phase-1'}));}
+  const nullable=structuredClone(result);nullable.schemaVersion=2;nullable.production=null;nullable.phases[0].annotations[0].authoredPath=null;
+  assert.equal((await agent.adoptAgentCandidate(doc,nullable,{jobId:'v2-null',scope:'play',phaseId:'phase-1'})).annotations.items.length,1);
 });
