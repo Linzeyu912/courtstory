@@ -47,7 +47,9 @@ export function calibrationReviewStates(calibration,candidates,frames,cuts=[]){
   const key=saved.get(frame)||incoming.get(frame);
   if(!key)return calibrationAt(calibration,frame,frames,cuts)?{status:'pending',label:'关键帧间估计，待人工确认'}:{status:'empty',label:'尚无标定结果'};
   const reference=cameraReference(key),hasReference=reference!==null;
-  const changedReference=hasReference&&reference!==frame&&saved.has(reference)&&incoming.has(reference)&&
+  // Saved propagation is invalidated when its saved reference is edited. An
+  // older library proposal must not invalidate a newer adopted shot on reload.
+  const changedReference=!saved.has(frame)&&hasReference&&reference!==frame&&saved.has(reference)&&incoming.has(reference)&&
    calibrationGeometryFingerprint(saved.get(reference))!==calibrationGeometryFingerprint(incoming.get(reference));
   const brokenReference=hasReference&&(!Number.isInteger(reference)||reference<0||reference>=frames.length||
    cuts.some(cut=>cut>Math.min(reference,frame)&&cut<=Math.max(reference,frame)));

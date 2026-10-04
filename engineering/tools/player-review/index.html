@@ -37,19 +37,44 @@
           <button id="liveApply" class="primary wide">应用剪辑，进入球员标定</button><p class="small muted">生成实际剪辑与对应候选。各区间之间断开轨迹；原视频和草稿保留。没有预设战术结论。</p>
         </section>
         <section id="panel-calibration" role="tabpanel" aria-labelledby="tab-calibration" hidden>
-          <div class="gap-controls"><button id="calibrationPlayers">核对球员标定</button><button id="returnToRepair">查看 2D 轨迹</button></div>
-          <h2>标定球场，让人物位置对应到 2D</h2><p class="small muted">球员标定与球场标定可以交替核对。球员位置和本帧球场映射齐备后，算法会自动生成 2D 位置，供工作台继续处理。球篮中心有高度，不作地面参照。</p>
-          <div class="calibration-steps"><span>① 选篮侧</span><span>② 点地面交点</span><span>③ 核对投影线</span><span>④ 预览 2D</span></div>
-          <label class="field">当前画面对应球场哪一侧<select id="calibrationSide" aria-label="标定球篮方向"><option value="left">全场左侧球篮</option><option value="right">全场右侧球篮</option></select></label>
-          <p class="small muted">左右指下面 2D 球场的两端；远侧是示意图上边，近侧是下边。更换篮侧后重新核对点名。</p>
-          <canvas id="calibrationDiagram" width="420" height="240" aria-label="场地参照点示意：高亮点是当前要在原视频点击的位置"></canvas>
-          <p id="guideInstruction" class="note"></p><div id="guideLandmarks" class="landmark-buttons"></div>
-          <label class="field">当前要标注的地面交点<select id="calibrationLandmark" aria-label="要编辑的场地参照点"></select></label><button id="pickLandmark" class="primary wide">在原视频点选这个交点</button><div class="gap-controls"><button id="guideNext">下一个未标注点</button><button id="cancelCalibration">取消本次点选</button></div><p id="calibrationHelp" class="note"></p>
-          <div class="note">ABCD 仅围住禁区（5.79 × 4.88 米），不是整个球场。标定时原视频会缩到中间，四周可点击画外标点区，延长边线来估计出画的交点。画外点会单独标记，建议至少用一个可见交点核验；估计点不算实测。</div>
-          <label class="check"><input id="showCourtLines" type="checkbox" checked>核对原图中的反投影场地线</label><p class="small muted">蓝：禁区 · 红：三分线 · 青：边线 · 橙：底线 · 紫：中线。多条线应同时贴合；不贴合就重选相关交点。</p><div id="calibrationQuality" class="note"></div><p id="checkQuality" class="small muted"></p>
-          <button id="confirmCalibration" class="primary wide">我已核对投影线，预览当前帧 2D</button><p id="calibrationPreviewStatus" class="small muted"></p>
-          <section class="calibration-automation"><h3>跟随镜头更新标定</h3><p class="small muted">镜头摆动时，一帧标定只能说明这一帧。先人工校准，再生成同镜头各帧候选；失效帧留空。</p><button id="propagateCalibration" class="wide">跟随镜头生成标定候选</button><p id="candidateStatus" class="note"></p><p id="candidateReferenceDescription" class="small muted"></p><button id="jumpCourtReference" class="wide">跳到参考帧</button><div class="gap-controls"><button id="loadCourtCandidate">载入当前帧候选，检查投影</button><button id="acceptCourtCandidates">采用候选并预览 2D（精度待核对）</button></div></section>
-          <details><summary>查看 / 修改全部参照点与标定帧</summary><div id="controlPointList" class="scroll-list"></div><button id="startCalibration">依次标注禁区 A → B → C → D</button><h3>标定关键帧</h3><div id="calibrationList" class="scroll-list"></div><button id="restoreCalibration">载入扩展参照点（保留人工帧）</button></details>
+          <h2>球场标定</h2>
+          <section class="court-flow-step" aria-labelledby="courtAutoHeading">
+            <h3 id="courtAutoHeading"><span class="court-step-number">1</span>自动标定</h3>
+            <p class="small muted">暂停在球场线清楚的一帧。</p>
+            <button id="autoCalibrateCourt" class="primary wide">自动标定本镜头</button>
+            <p id="calibrationFlowStatus" class="note" role="status" aria-live="polite"></p>
+          </section>
+          <section class="court-flow-step" aria-labelledby="courtReviewHeading">
+            <h3 id="courtReviewHeading"><span class="court-step-number">2</span>核对画面</h3>
+            <label class="check"><input id="showCourtLines" type="checkbox" checked>显示场地线与点位</label>
+            <p class="small muted">播放或拖动视频，看看边线、禁区和三分线是否贴合。黄色虚线 / 空心点是推算。</p>
+            <details id="manualCalibration" class="court-manual"><summary>不准确？人工选点修正</summary>
+              <p class="small muted">点击下方点名，再点原视频中的同一地面交点。遮挡点可跳过；从头标定至少需要 4 个分散的有效点。</p>
+              <label class="field">画面对应哪一侧球篮<select id="calibrationSide" aria-label="标定球篮方向"><option value="left">全场左侧球篮</option><option value="right">全场右侧球篮</option></select></label>
+              <canvas id="calibrationDiagram" width="420" height="240" aria-label="场地参照点示意：高亮点是当前要在原视频点击的位置"></canvas>
+              <div id="guideLandmarks" class="landmark-buttons"></div><p id="guideInstruction" class="small muted"></p>
+              <p id="calibrationHelp" class="note" aria-live="polite"></p>
+              <button id="cancelCalibration" class="wide">取消本次点选</button>
+              <button id="propagateCalibration" class="primary wide">确认修正并跟随镜头</button>
+              <details><summary>其他选点方式</summary>
+                <label class="field">地面交点<select id="calibrationLandmark" aria-label="要编辑的场地参照点"></select></label><button id="pickLandmark" class="wide">在原视频点选这个交点</button><button id="guideNext" class="wide">下一个未标注点</button>
+                <button id="startCalibration" class="wide">依次标注禁区 A → B → C → D</button>
+                <p class="small muted">A–D 是禁区四角。画外区域也可点选，画外点按估计参照保存；近侧遮挡时无需强行补 G/H。篮筐有高度，不能当作地面点。</p>
+                <button id="confirmCalibration" class="wide">只确认当前帧，预览 2D</button>
+              </details>
+            </details>
+          </section>
+          <section class="court-flow-step" aria-labelledby="courtUseHeading">
+            <h3 id="courtUseHeading"><span class="court-step-number">3</span>进入 2D</h3>
+            <button id="acceptCourtCandidates" class="primary wide">采用结果并进入 2D</button>
+            <p class="small muted">保留人工修正与缺失帧。采用结果不等于整段已人工确认。</p><p id="calibrationPreviewStatus" class="small muted"></p>
+          </section>
+          <div class="gap-controls"><button id="calibrationPlayers">返回球员标定</button><button id="returnToRepair">查看已有 2D</button></div>
+          <details id="calibrationDetails"><summary>标定详情与历史参照</summary>
+            <p id="candidateStatus" class="note"></p><div id="calibrationQuality" class="note"></div><p id="checkQuality" class="small muted"></p><p id="candidateReferenceDescription" class="small muted"></p>
+            <button id="jumpCourtReference" class="wide">跳到参考帧</button><button id="loadCourtCandidate" class="wide">载入当前帧候选</button>
+            <h3>参照点</h3><div id="controlPointList" class="scroll-list"></div><h3>标定关键帧</h3><div id="calibrationList" class="scroll-list"></div><button id="restoreCalibration" class="wide">载入扩展参照点（保留人工帧）</button>
+          </details>
         </section>
         <section id="panel-identity" role="tabpanel" aria-labelledby="tab-identity" hidden>
           <h2>核对场上球员与红蓝分队</h2><p class="small muted">上排红队对应红色 T 与人物框，下排蓝队对应蓝色 T 与人物框，2D 球员同步队色。模型先提供编号建议，再逐个人工核对，拖动球员可交换整段记录。</p><div class="model-suggestion-load"><button id="loadIdentitySuggestions" class="wide">重新检查自动编号</button><p id="suggestionSource" class="small muted"></p><p id="suggestionLoadStatus" class="small muted"></p></div><div id="identityRoster" class="identity-roster">    <section class="review-card player-overview"><div class="section-heading"><h2>跟踪目标</h2><button id="addReferee" class="text-button">＋ 裁判</button></div><div id="entities" class="entity-grid"></div><details id="sceneObjectPanel" class="scene-objects"><summary>篮球 / 篮筐目标</summary><p class="small muted">与 P 球员身份分开保存。篮球候选会按相邻帧运动串成待核对图像路线；点击当前帧篮球点可逐帧修正。空中位置不能投影到地面。</p><div id="sceneObjectList"></div><div class="gap-controls"><button id="add-basketball">＋ 补篮球点</button><button id="add-hoop">＋ 补篮筐点</button><button id="objectCancelPick">取消点选</button></div><p id="objectPickHelp" class="small muted"></p><div id="sceneObjectEditor" hidden><strong id="objectSelection"></strong><div class="range-fields"><label class="field">图像 X<input id="objectX" type="number" step="0.1" aria-label="对象图像X"></label><label class="field">图像 Y<input id="objectY" type="number" step="0.1" aria-label="对象图像Y"></label></div><button id="objectSavePoint">保存对象点</button><button id="objectPickPoint">在原图重新点选</button><details><summary>修正对象框</summary><div class="range-fields"><label class="field">左 X<input id="objectX1" type="number" step="0.1"></label><label class="field">上 Y<input id="objectY1" type="number" step="0.1"></label><label class="field">右 X<input id="objectX2" type="number" step="0.1"></label><label class="field">下 Y<input id="objectY2" type="number" step="0.1"></label></div><button id="objectSaveBox">保存对象框</button></details><div class="gap-controls"><button id="objectExclude">排除这个误检</button><button id="objectRestore">恢复模型候选 / 删除补点</button></div></div></details><details class="foot-candidates"><summary>所选球员的脚部候选（未确认接地）</summary><p id="feetCandidateStatus" class="small muted"></p><label class="check"><input id="showFeetCandidates" type="checkbox">在原图显示左右脚候选圈</label><div class="gap-controls"><button id="adoptLeftFoot">采用左脚候选到当前帧</button><button id="adoptRightFoot">采用右脚候选到当前帧</button></div><p class="small muted">先核对候选是否属于当前球员、是否接触地面。采用只修改当前帧，仍标记接地未验证，可撤销。</p></details></section></div>

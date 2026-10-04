@@ -58,6 +58,69 @@ function domFixture(){
   return {get,restore(){for(const [key,value] of originals){if(value===undefined)delete globalThis[key];else globalThis[key]=value;}}};
 }
 
+function automaticCourtFixture(dom,session=blankSession('video')){
+  const automatic={...structuredClone(reference),source:'hoop_constrained_court48',status:'needs_review',
+    points:reference.points.map(point=>({...point,source:'yolo11n-court48'}))};
+  const result={videoHash:'video',referenceFrame:0,keyframes:[automatic],reviewRequired:true,metricAccuracyValidated:false};
+  const workspace=createWorkspace({clip,sample:'test',variant:'ebard',
+    getState:()=>({session,active:'P1',frame:0,video:dom.get('video'),trajectories:buildTrajectories(session,frames)}),
+    setMode(){},change:fn=>fn(),redraw(){},seek(){},toast(){},isSelected:hasAssociation,color:()=> '#38bdf8'});
+  return {session,result,workspace};
+}
+
+test('automatic court button calls the local backend and loads unconfirmed points',async()=>{
+  const dom=domFixture();
+  try{
+    const {session,result}=automaticCourtFixture(dom);let request;
+    globalThis.fetch=async(url,options)=>{request={url,body:JSON.parse(options.body)};return {ok:true,json:async()=>result};};
+    await dom.get('autoCalibrateCourt').onclick();
+    assert.equal(request.url,'/api/court-calibrate');
+    assert.deepEqual(request.body,{sample:'test',variant:'ebard',frame:0,cuts:[],propagate:true,qa:true});
+    const key=session.courtCalibration.keyframes.find(key=>key.frame===0);
+    assert.equal(key.status,'needs_review');assert.equal(key.source,'hoop_constrained_court48');
+    assert.equal(key.projectionReviewedAt,undefined);assert.equal(dom.get('autoCalibrateCourt').disabled,false);
+  }finally{dom.restore();}
+});
+
+test('manual points entered during automatic inference survive its response',async()=>{
+  const dom=domFixture();
+  try{
+    const {session,result}=automaticCourtFixture(dom);let complete,calls=0;
+    globalThis.fetch=()=>{calls++;return new Promise(resolve=>{complete=resolve;});};
+    const pending=dom.get('autoCalibrateCourt').onclick();
+    await dom.get('autoCalibrateCourt').onclick();assert.equal(calls,1);
+    const manual={...structuredClone(reference),source:'human',status:'needs_review'};
+    session.courtCalibration={keyframes:[manual],maxKeyframeGapSeconds:0};
+    complete({ok:true,json:async()=>result});await pending;
+    assert.deepEqual(session.courtCalibration.keyframes,[manual]);
+  }finally{dom.restore();}
+});
+
+test('failed automatic initialisation preserves calibration and shows the manual fallback',async()=>{
+  const dom=domFixture();
+  try{
+    const session=calibratedSession(),before=structuredClone(session.courtCalibration);
+    const {workspace}=automaticCourtFixture(dom,session);
+    globalThis.fetch=async()=>({ok:true,json:async()=>({keyframes:[],initialization:{status:'invalid'}})});
+    await dom.get('autoCalibrateCourt').onclick();workspace.refresh();
+    assert.deepEqual(session.courtCalibration,before);
+    assert.match(dom.get('candidateStatus').textContent,/人工补点/);
+    assert.equal(dom.get('autoCalibrateCourt').disabled,false);
+  }finally{dom.restore();}
+});
+
+test('a cut changed while automatic inference runs rejects the stale response',async()=>{
+  const dom=domFixture();
+  try{
+    const {session,result}=automaticCourtFixture(dom);let complete;
+    globalThis.fetch=()=>new Promise(resolve=>{complete=resolve;});
+    const pending=dom.get('autoCalibrateCourt').onclick();session.cuts=[3];
+    complete({ok:true,json:async()=>result});await pending;
+    assert.equal(session.courtCalibration?.keyframes?.length||0,0);
+    assert.match(dom.get('candidateStatus').textContent,/切镜位置已改变/);
+  }finally{dom.restore();}
+});
+
 test('the real 2D player renderer uses frame review for dashed and solid circles',()=>{
   const dom=domFixture();
   try{
