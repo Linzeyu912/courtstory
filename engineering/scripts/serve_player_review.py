@@ -144,7 +144,7 @@ def main():
     routes['/model-selection.mjs']=static/'model-selection.mjs'
     for filename in ['identity-continuation.mjs', 'identity-agent-client.mjs']:
         routes['/'+filename]=static/filename
-    for filename in ['tactics-ui.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','tactics-agent.mjs','tactics.css']:
+    for filename in ['tactics-ui.mjs','tactics-player-identity.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','tactics-agent.mjs','tactics.css']:
         routes['/'+filename]=static/filename
     # Explicit aliases for the independent engine's existing relative imports.
     for route,path in list(routes.items()):

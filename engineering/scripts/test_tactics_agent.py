@@ -96,16 +96,93 @@ class AgentTests(unittest.TestCase):
         self.assertEqual(child,{'PATH':'runtime','CODEX_HOME':'auth-directory'})
         self.assertEqual(original['CODEX_THREAD_ID'],'parent-session')
 
+    def test_cli_timeout_distinguishes_network_failure_without_exposing_raw_logs(self):
+        agent=self.make_agent()
+        for log, expected in [('failed to refresh available models: request timed out; secret-fixture-value', '模型服务网络超时'),
+                              ('failed to refresh available models: 401 Unauthorized; secret-fixture-value', 'Agent 超时'),
+                              ('Reading prompt from stdin... secret-fixture-value', 'Agent 超时')]:
+            class TimedOutProcess:
+                def __init__(self, _command, **kwargs):
+                    kwargs['stderr'].write(log);kwargs['stderr'].flush();self.calls=0
+                def communicate(self, _prompt=None, timeout=None):
+                    self.calls+=1
+                    if self.calls==1:raise subprocess.TimeoutExpired('codex',timeout)
+                    return '', ''
+                def kill(self):pass
+            job={'cancel':threading.Event(),'process':None}
+            with patch('tactics_agent.subprocess.Popen',TimedOutProcess):
+                with self.assertRaisesRegex(ValueError,expected) as caught:
+                    agent._execute_cli(job=job,directory=self.folder,schema=self.folder/'schema.json',
+                                       result=self.folder/'result.json',images=[],prompt='fixture')
+            self.assertNotIn('secret-fixture-value',str(caught.exception))
+            if 'request timed out' in log:self.assertNotIn('缩小',str(caught.exception))
+            self.assertEqual((self.folder/'stderr.txt').read_text(encoding='utf-8'),log)
+            self.assertIsNone(job['process'])
+
     def test_vision_input_keeps_motion_and_review_uncertainty_without_duplicate_audit_data(self):
         entities=[{'id':'P1','name':'player','role':'player','teamSide':'red','automaticTeamEvidence':[{'frame':0}]*1000,'courtTrajectory':[{'frame':1}]*1000,
                    'trajectory':[{'frame':1,'time':.1,'x':12,'y':34,'box':[1,2,3,4],'source':'manual_range','trackId':7,'frameIdentityConfirmed':False,'reviewRequired':True,'footMethod':'manual_range','rangeCorrection':{'operationId':'unchanged'}},
                                  {'frame':2,'time':.2,'x':None,'y':None,'source':'missing'}]}]
         before=deepcopy(entities);packed=agent_entity_inputs(entities,{1})
-        self.assertEqual(entities,before);self.assertEqual(packed[0]['id'],'P1')
-        self.assertNotIn('automaticTeamEvidence',packed[0]);self.assertNotIn('courtTrajectory',packed[0])
-        point=packed[0]['trajectory'][0];self.assertEqual(point['frame'],1);self.assertEqual(point['box'],[1,2,3,4])
+        self.assertIsInstance(packed,dict,'Sparse evidence must expose a shared row contract')
+        self.assertEqual(entities,before);entity=packed['entities'][0];self.assertEqual(entity['id'],'P1')
+        self.assertNotIn('automaticTeamEvidence',entity);self.assertNotIn('courtTrajectory',entity)
+        point=dict(zip(packed['trajectoryInput']['columns'],entity['rows'][0]));self.assertEqual(point['frame'],1);self.assertEqual(point['box'],[1,2,3,4])
         self.assertEqual(point['source'],'manual_range');self.assertFalse(point['frameIdentityConfirmed']);self.assertTrue(point['reviewRequired'])
-        self.assertEqual(len(packed[0]['trajectory']),1)
+        self.assertEqual(len(entity['rows']),1)
+        self.assertEqual(entity['missingFrames'],[])
+
+    def test_sparse_input_preserves_confirmed_missing_excluded_and_conflict_semantics(self):
+        ordinary={'x':None,'y':None,'source':'missing','frameIdentityConfirmed':False,
+                  'identityConfirmed':False,'identityReviewRequired':True}
+        points=[dict(frame=0,time=0,**ordinary),
+                dict(frame=1,time=.1,**ordinary,reviewExcluded=True),
+                {**ordinary,'frame':2,'time':.2,'frameIdentityConfirmed':True,'identityConfirmed':True,'identityReviewRequired':False},
+                {'frame':3,'time':.3,'source':'conflict','x':None,'y':None,'identitySource':'human_range_replacement','reviewRequired':True},
+                {'frame':4,'time':.4,'source':'tracked','x':10.123456,'y':20.654321,'box':[1,2,3,4],'trackId':7,
+                 'identitySource':'human','frameIdentityConfirmed':True,'identityConfirmed':True,'identityReviewRequired':False}]
+        before=deepcopy(points);packed=agent_entity_inputs([{'id':'P1','trajectory':points}],set(range(5)))
+        self.assertIsInstance(packed,dict,'Sparse evidence must expose a shared row contract')
+        self.assertEqual(points,before)
+        self.assertEqual(packed['entities'][0]['missingFrames'],[0])
+        self.assertEqual(packed['trajectoryInput']['missingFrameValues'],ordinary)
+        rows=[dict(zip(packed['trajectoryInput']['columns'],row)) for row in packed['entities'][0]['rows']]
+        self.assertEqual([p['frame'] for p in rows],[1,2,3,4])
+        self.assertTrue(rows[0]['reviewExcluded'])
+        self.assertTrue(rows[1]['frameIdentityConfirmed']);self.assertFalse(rows[1]['identityReviewRequired'])
+        self.assertEqual(rows[2]['source'],'conflict');self.assertEqual(rows[2]['identitySource'],'human_range_replacement')
+        self.assertEqual(rows[3]['x'],10.123456);self.assertEqual(rows[3]['trackId'],7)
+        self.assertTrue(rows[3]['identityConfirmed']);self.assertFalse(rows[3]['identityReviewRequired'])
+
+    def test_sparse_input_reduces_long_missing_sequences_without_dropping_observed_frames(self):
+        points=[dict(frame=f,time=f/30,x=None,y=None,source='missing',frameIdentityConfirmed=False,
+                     identityConfirmed=False,identityReviewRequired=True) for f in range(1000)]
+        for f in range(0,1000,5):
+            points[f].update(x=f+.25,y=f+.5,box=[1,2,3,4],trackId=7,source='tracked',
+                             identitySource='model_suggestion',reviewRequired=True,footMethod='bbox_bottom_center')
+        entities=[{'id':'P1','trajectory':points}]
+        packed=agent_entity_inputs(entities,set(range(1000)))
+        self.assertIsInstance(packed,dict,'Sparse evidence must expose a shared row contract')
+        self.assertEqual(len(packed['entities'][0]['rows']),200)
+        self.assertEqual(len(packed['entities'][0]['missingFrames']),800)
+        self.assertLess(len(json.dumps(packed)),len(json.dumps(entities))*.4)
+
+    def test_identity_reference_is_source_checked_and_does_not_change_frame_confirmation(self):
+        self.clip['frames'][1]['tracks']=[[1,2,3,4,7,.8,2]]
+        reference=dict(version=1,videoHash=self.clip['video_sha256'],trackingFingerprint=self.clip['tracking_fingerprint'],
+                       frame=1,trackId=7,box=[1,2,3,4],team='purple',jersey='10')
+        entity=dict(id='P1',identityReference=reference,trajectory=[dict(frame=2,time=.2,x=5,y=6,trackId=7,
+                    source='tracked',frameIdentityConfirmed=False,identityConfirmed=False,identityReviewRequired=True)])
+        try:
+            packed=agent_entity_inputs([entity],{2},clip=self.clip)
+        except TypeError as exc:
+            self.fail(f'Source validation must accept the registered clip: {exc}')
+        self.assertEqual(packed['entities'][0]['identityReference'],reference)
+        point=dict(zip(packed['trajectoryInput']['columns'],packed['entities'][0]['rows'][0]))
+        self.assertFalse(point['frameIdentityConfirmed']);self.assertTrue(point['identityReviewRequired'])
+        for changed in ({**reference,'videoHash':'foreign'},{**reference,'box':[0,2,3,4]}):
+            entity['identityReference']=changed
+            self.assertNotIn('identityReference',agent_entity_inputs([entity],{2},clip=self.clip)['entities'][0])
 
     def test_only_trusted_model_fields_and_child_proxy_are_loaded(self):
         config=self.folder/'config.toml';config.write_text('model="gpt-6-astra"\nmodel_reasoning_effort="medium"\napproval_policy="never"\nsandbox_mode="danger-full-access"\n',encoding='utf-8')
