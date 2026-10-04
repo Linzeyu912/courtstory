@@ -2,7 +2,7 @@ import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {validateInputs} from '../tactical-overlay/validation.mjs';
 import {validatePresentation} from './tactics-presentation.mjs';
 import {validateAnnotations,updateAnnotation} from './tactics-annotations.mjs';
-import {validateProduction} from './tactics-production.mjs';
+import {validateProduction,preserveProductionMediaBinding} from './tactics-production.mjs';
 
 export const ACTION_KINDS={move:'跑位',cut:'切入',roll:'顺下',pop:'外弹',hold:'持位',space:'拉开',screen:'掩护'};
 export const clone=value=>JSON.parse(JSON.stringify(value));
@@ -94,8 +94,8 @@ export function reviewAction(document,id,reviewer,reviewed){
   p.revision++;return d;
 }
 export async function refreshSnapshot(document,review){
-  const d=clone(document),p=d.playDefinition;
-  if(d.review.videoSha256!==review.videoSha256||d.review.trackingFingerprint!==review.trackingFingerprint||JSON.stringify(d.review.sourceFrameMapping)!==JSON.stringify(review.sourceFrameMapping))throw new Error('视频或模型版本不同，请在对应视频下新建战术草稿。');
+  const d=await preserveProductionMediaBinding(document),p=d.playDefinition;
+  if(d.review.videoSha256!==review.videoSha256||d.review.width!==review.width||d.review.height!==review.height||d.review.trackingFingerprint!==review.trackingFingerprint||JSON.stringify(d.review.sourceFrameMapping)!==JSON.stringify(review.sourceFrameMapping))throw new Error('视频、尺寸或模型版本不同，请在对应视频下新建战术草稿。');
   const ids=new Set(review.entities.map(e=>e.id)),removed=p.participants.filter(person=>!ids.has(person.id));
   if(removed.length){
     const archive=d.archivedTactics??={schemaVersion:1,participants:[],annotations:[],actions:[],relations:[]};

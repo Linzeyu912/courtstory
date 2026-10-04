@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {makePresentationDemo} from '../tactical-overlay/fixtures/presentation-demo.mjs';
-import {createTacticsDocument,validateDocument,splitPhase} from './tactics-document.mjs';
+import {createTacticsDocument,validateDocument,splitPhase,refreshSnapshot} from './tactics-document.mjs';
+import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {createAnnotation,projectAnnotations,annotationStatus,updateAnnotation,annotationPresentation,hitTestAnnotation} from './tactics-annotations.mjs';
 const api=await import('./tactics-production.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
 const geometry=await import('./tactics-authored-geometry.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
@@ -12,6 +13,57 @@ async function authored(){
   let d=await fixture();assert.equal(typeof api.updateProductionCamera,'function');d=api.updateProductionCamera(d,'cam',camera(d));
   return createAnnotation(d,{id:'bezier',type:'route',phaseId:'phase-1',frame:10,startFrame:10,endFrameExclusive:50,space:'video',points:[{x:250,y:500},{x:450,y:300},{x:650,y:300},{x:850,y:500}],authoredPath:{version:1,curve:'cubic_bezier',cameraId:'cam',cameraDigest:d.production.cameras[0].digest,progressFrames:[{frame:10,t:0},{frame:30,t:.5},{frame:50,t:1}],ribbon:geometry.DEFAULT_RIBBON}});
 }
+test('explicit same-video production recovery rebinds independent routes without changing review, geometry or ordinary court graphics',async()=>{
+  const original=await authored(),review=structuredClone(original.review);review.exportCompatibility='new-review-shape';
+  const stale=await refreshSnapshot(original,review),before=structuredClone(stale);
+  assert.equal(typeof api.rebindIndependentProduction,'function');
+  assert.ok(annotationStatus(stale).stale.some(a=>a.id==='bezier'));
+  const restored=await api.rebindIndependentProduction(stale);
+  assert.deepEqual(restored.review,review);assert.deepEqual(stale,before);assert.deepEqual(restored.production.cameras,original.production.cameras);
+  assert.deepEqual(restored.annotations.items[0].points,original.annotations.items[0].points);
+  assert.deepEqual(restored.annotations.items[0].authoredPath,original.annotations.items[0].authoredPath);
+  assert.equal(annotationStatus(restored).active.find(a=>a.id==='bezier').id,'bezier');assert.ok(api.compileProduction(restored).totalFrames>0);await validateDocument(restored);
+  const withCourt=createAnnotation(original,{id:'court-mark',type:'screen',phaseId:'phase-1',frame:10,space:'court',points:[{x:10,y:5}]}),courtStale=await refreshSnapshot(withCourt,review),courtRestored=await api.rebindIndependentProduction(courtStale);
+  assert.deepEqual(courtRestored.annotations.items.find(a=>a.id==='court-mark'),courtStale.annotations.items.find(a=>a.id==='court-mark'));
+  assert.ok(annotationStatus(courtRestored).stale.some(a=>a.id==='court-mark'));
+});
+test('production recovery refuses different media, changed stages, camera support and cuts; legacy proof must match the old binding',async()=>{
+  const original=await authored(),review=structuredClone(original.review);review.exportCompatibility='new';
+  const stale=await refreshSnapshot(original,review);
+  for(const mutate of [d=>d.review.videoSha256='0'.repeat(64),d=>d.review.sourceVideoSha256='0'.repeat(64),d=>d.review.width++,d=>d.review.height++,d=>d.review.sourceFrameMapping[20].time+=.001,d=>d.playDefinition.phases[0].freezeFrame=1,d=>d.review.settings.cuts.push(25)]){
+    const changed=structuredClone(stale);mutate(changed);changed.playDefinition.sourceBinding=await createSourceBinding(changed.review);
+    await assert.rejects(api.rebindIndependentProduction(changed));
+  }
+  const short=structuredClone(stale);short.production.cameras[0].keyframes=short.production.cameras[0].keyframes.slice(0,1);short.production.cameras[0].digest=api.productionCameraDigest(short.production.cameras[0]);short.annotations.items[0].authoredPath.cameraDigest=short.production.cameras[0].digest;
+  await assert.rejects(api.rebindIndependentProduction(short),/相机/);
+  const legacy=structuredClone(stale);delete legacy.production.mediaBinding;
+  await assert.rejects(api.rebindIndependentProduction(legacy),/原.*来源|凭据/);
+  await assert.rejects(api.rebindIndependentProduction(legacy,{referenceDocument:stale}),/来源|凭据/);
+  const restored=await api.rebindIndependentProduction(legacy,{referenceDocument:original});assert.equal(annotationStatus(restored).active.length,1);
+});
+test('refresh captures legacy media proof before replacing review and never recovers player-linked authored routes',async()=>{
+  let d=await authored();delete d.production.mediaBinding;
+  const route=d.annotations.items[0];d=createAnnotation(d,{id:'player-route',type:'route',phaseId:route.phaseId,frame:route.anchorFrame,startFrame:route.startFrame,endFrameExclusive:route.endFrameExclusive,space:'video',entityId:'P1',points:route.points,authoredPath:route.authoredPath});
+  const review=structuredClone(d.review);review.exportCompatibility='new';
+  const stale=await refreshSnapshot(d,review),before=structuredClone(stale);
+  assert.equal(stale.production.mediaBinding.width,d.review.width);assert.equal(annotationStatus(stale).stale.length,2);
+  const restored=await api.rebindIndependentProduction(stale);
+  assert.deepEqual(stale,before);assert.ok(annotationStatus(restored).active.some(a=>a.id==='bezier'));
+  assert.deepEqual(restored.annotations.items[1],stale.annotations.items[1]);assert.ok(annotationStatus(restored).stale.some(a=>a.id==='player-route'));
+  const lost=structuredClone(stale);delete lost.production.mediaBinding;
+  const rerefreshed=await refreshSnapshot(lost,review);assert.equal(rerefreshed.production.mediaBinding,undefined,'new review cannot establish old dimensions');
+});
+test('explicit recovery still works after a stale independent route camera is manually adjusted',async()=>{
+  const original=await authored(),review=structuredClone(original.review);review.exportCompatibility='new';
+  const stale=await refreshSnapshot(original,review),keyframes=structuredClone(stale.production.cameras[0].keyframes);keyframes[0].quad[0][0]+=5;
+  const edited=api.updateProductionCamera(stale,'cam',{keyframes},{rebindRoutes:true});
+  assert.deepEqual(edited.production.sourceBinding,stale.production.sourceBinding,'camera edits cannot silently replace the original source proof');
+  assert.equal(annotationStatus(edited).stale.length,1);
+  const restored=await api.rebindIndependentProduction(edited);
+  assert.equal(annotationStatus(restored).active.length,1);assert.deepEqual(restored.production.cameras,edited.production.cameras);assert.ok(api.compileProduction(restored).totalFrames>0);
+  const foreign=structuredClone(edited);foreign.annotations.items[0].sourceBinding.videoSha256='0'.repeat(64);
+  await assert.rejects(api.rebindIndependentProduction(foreign),/来源/);
+});
 test('camera digest is stable SHA256, production stays separate from reviewed calibration',async()=>{
   const base=await fixture(),review=structuredClone(base.review),d=await authored();
   assert.deepEqual(d.review,review);await validateDocument(d);

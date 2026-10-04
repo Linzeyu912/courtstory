@@ -13,6 +13,24 @@ from local_video_library import atomic_json, file_hash
 
 ROOT = Path(__file__).resolve().parents[2]
 
+# Complete, independently verified 005 review snapshots; never populate this
+# list from requests, saved drafts, or files discovered at runtime. Hash encoding
+# is sorted-key, compact UTF-8 JSON (ensure_ascii=False, allow_nan=False).
+LEGACY_CANDIDATE_REVIEW_SHA256 = frozenset({
+    # bedad2c canonical exported before the real production API save:
+    # artifacts/tactics-production-20261004/old-blank.json -> review.
+    '754f32aa8c9714c2582ee850398e5ab19ac510fb373a5302276ee4a55b75f273',
+    # Original saved candidate (same complete review before the three derived
+    # basketball fields): artifacts/remote-integration-20261003/qa/tactics/qa/
+    # 3c2623a9f7ee56191ee37e2cc466f5ab5344d9be101aec6fc08de027bf0f151e.json.
+    '4466c751b84ac7278bee51ebe0d56849ed8880027f5a58400e53816ffbed1210',
+})
+
+
+def _review_sha256(review):
+    value = json.dumps(review, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False)
+    return hashlib.sha256(value.encode('utf-8')).hexdigest()
+
 
 class TacticalWorkbench:
     def __init__(self, folder, node=None):
@@ -55,22 +73,21 @@ class TacticalWorkbench:
         review = document['review']
         if kind == 'candidate':
             original = self.candidate()['review']
-            if review != original:
-                # Older snapshots predate these derived exports. Compare against
-                # that exact server-side shape without rewriting the saved review
-                # or its source bindings, and never discard client-supplied fields.
-                derived = {'basketballTrajectory', 'basketballTrajectoryMethod', 'basketballTrajectoryReviewed'}
-                objects = original.get('sceneObjects')
-                legacy = ({**original, 'sceneObjects': {key: value for key, value in objects.items() if key not in derived}}
-                          if isinstance(objects, dict) and derived.issubset(objects) else None)
-                if review != legacy:
-                    raise ValueError('THY 示例的来源快照不可改写；请在当前视频草稿中修改轨迹。')
+            try:
+                digest = _review_sha256(review)
+                trusted = digest == _review_sha256(original) or digest in LEGACY_CANDIDATE_REVIEW_SHA256
+            except (TypeError, ValueError):
+                trusted = False
+            if not trusted:
+                raise ValueError('THY 示例的来源快照不可改写；请在当前视频草稿中修改轨迹。')
         elif review.get('trackingFingerprint') != clip['tracking_fingerprint'] or review.get('trackingRevision') != clip['tracking_revision']:
             raise ValueError('战术快照属于另一个模型版本。')
         expected = [{'frame': f['frame'], 'time': f['time'], 'sourceFrame': f.get('source_frame', f['frame']),
                      'sourceTime': f.get('source_time', f['time'])} for f in clip['frames']]
         if (review.get('videoSha256') != clip['video_sha256'] or review.get('sourceFrameMapping') != expected
-                or review.get('width') != clip['width'] or review.get('height') != clip['height']):
+                or review.get('width') != clip['width'] or review.get('height') != clip['height']
+                or kind == 'candidate' and review.get('sourceVideoSha256')
+                != (clip.get('source_video_sha256') or clip['video_sha256'])):
             raise ValueError('战术快照与视频或逐帧时间映射不匹配。')
 
     def save(self, document, clip, variant, qa, kind, expected_version):
