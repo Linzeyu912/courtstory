@@ -49,6 +49,8 @@ scripts/                      # 仓库维护：视频索引校验、历史手册
 
 ## 本机文件与共享状态
 
+视频场景目录为 [data/videos/classification](../data/videos/classification/README.md)，正式逐段标签在原有 `labels/*.json` 的 `material_labels` 中。分类目录按真实难点、动作及使用状态建立文件夹，采用仓库相对路径引用唯一原视频，供后续 Agent 选增强样本。当前覆盖163条保留素材，40条人工审核及12条删除依据另有共享记录；低画质、推拉与切镜分别标注，筛选不等于物理删除。历史 HTML / CSV 阅读目录保留。读取契约见[视频 Agent 约定](../data/videos/AGENTS.md)。
+
 `artifacts/`、`tmp/`、`data/raw/`、依赖环境和浏览器草稿继续排除，不能作为其他成员获取已共享成果的入口。已选成片仅在 `data/videos/` 用 Git LFS 保存，提交前运行 `python scripts/validate_video_data.py --check-index`。云部署、组外分享和赛事提交不在本轮授权范围。
 
 本次分类提交、验证和远端核对结果见[整理同步交接](../handoffs/Linzeyu912/2026-10-02-1109-organize-publish.md)。

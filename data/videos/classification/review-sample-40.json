@@ -1,0 +1,185 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-10-04T11:50:31-04:00",
+  "target_count": 40,
+  "population": 175,
+  "clip_ids": [
+    "nba-2024-25-library100-001",
+    "nba-2024-25-library100-015",
+    "nba-2024-25-library100-016",
+    "nba-2024-25-library100-017",
+    "nba-2024-25-library100-018",
+    "nba-2024-25-library100-019",
+    "nba-2024-25-library100-020",
+    "nba-2024-25-library100-021",
+    "nba-2024-25-library100-022",
+    "nba-2024-25-library100-023",
+    "nba-2024-25-library100-024",
+    "nba-2024-25-library100-025",
+    "nba-2024-25-library100-038",
+    "nba-2024-25-library100-045",
+    "nba-2024-25-library100-052",
+    "nba-2024-25-library100-065",
+    "nba-2024-25-library100-078",
+    "nba-2024-25-library100-089",
+    "nba-2024-25-library100-100",
+    "nba-2025-26-batch030-001",
+    "nba-2025-26-batch030-006",
+    "nba-2025-26-batch030-011",
+    "nba-2025-26-batch030-022",
+    "nba-2025-26-batch030-028",
+    "nba-2025-26-batch030-030",
+    "nba-2025-26-batch-008-006",
+    "nba-2025-26-sample-001-001",
+    "user-uploads-20261003-001",
+    "user-uploads-20261003-004",
+    "user-uploads-20261003-batch02-001",
+    "user-uploads-20261003-batch02-006",
+    "user-uploads-20261003-batch02-011",
+    "user-uploads-20261004-001",
+    "user-uploads-20261004-004",
+    "user-uploads-20261004-007",
+    "user-uploads-20261004-011",
+    "user-uploads-20261004-015",
+    "tactics-acceptance-004",
+    "tactics-acceptance-005",
+    "tactics-acceptance-006"
+  ],
+  "groups": [
+    {
+      "id": "season_2024_25",
+      "title": "24–25赛季",
+      "population": 100,
+      "count": 19,
+      "clip_ids": [
+        "nba-2024-25-library100-001",
+        "nba-2024-25-library100-015",
+        "nba-2024-25-library100-016",
+        "nba-2024-25-library100-017",
+        "nba-2024-25-library100-018",
+        "nba-2024-25-library100-019",
+        "nba-2024-25-library100-020",
+        "nba-2024-25-library100-021",
+        "nba-2024-25-library100-022",
+        "nba-2024-25-library100-023",
+        "nba-2024-25-library100-024",
+        "nba-2024-25-library100-025",
+        "nba-2024-25-library100-038",
+        "nba-2024-25-library100-045",
+        "nba-2024-25-library100-052",
+        "nba-2024-25-library100-065",
+        "nba-2024-25-library100-078",
+        "nba-2024-25-library100-089",
+        "nba-2024-25-library100-100"
+      ],
+      "already_reviewed": 11
+    },
+    {
+      "id": "season_2025_26",
+      "title": "25–26赛季",
+      "population": 39,
+      "count": 8,
+      "clip_ids": [
+        "nba-2025-26-batch030-001",
+        "nba-2025-26-batch030-006",
+        "nba-2025-26-batch030-011",
+        "nba-2025-26-batch030-022",
+        "nba-2025-26-batch030-028",
+        "nba-2025-26-batch030-030",
+        "nba-2025-26-batch-008-006",
+        "nba-2025-26-sample-001-001"
+      ],
+      "already_reviewed": 0
+    },
+    {
+      "id": "thy_uploads",
+      "title": "THY补充上传",
+      "population": 15,
+      "count": 5,
+      "clip_ids": [
+        "user-uploads-20261003-001",
+        "user-uploads-20261003-004",
+        "user-uploads-20261003-batch02-001",
+        "user-uploads-20261003-batch02-006",
+        "user-uploads-20261003-batch02-011"
+      ],
+      "already_reviewed": 0
+    },
+    {
+      "id": "user_uploads",
+      "title": "本次上传",
+      "population": 18,
+      "count": 5,
+      "clip_ids": [
+        "user-uploads-20261004-001",
+        "user-uploads-20261004-004",
+        "user-uploads-20261004-007",
+        "user-uploads-20261004-011",
+        "user-uploads-20261004-015"
+      ],
+      "already_reviewed": 0
+    },
+    {
+      "id": "acceptance",
+      "title": "独立验收样例",
+      "population": 3,
+      "count": 3,
+      "clip_ids": [
+        "tactics-acceptance-004",
+        "tactics-acceptance-005",
+        "tactics-acceptance-006"
+      ],
+      "already_reviewed": 0
+    }
+  ],
+  "coverage": {
+    "camera_zoom": 21,
+    "half_court_only": 19,
+    "occlusion": 38,
+    "players_out_of_frame": 29,
+    "full_court_movement": 20,
+    "image_blur": 14,
+    "motion_blur": 12,
+    "closeup_insertion": 7,
+    "view_switch": 8,
+    "replay_or_teaching": 1
+  },
+  "completed_included_at_selection": [
+    "nba-2024-25-library100-015",
+    "nba-2024-25-library100-016",
+    "nba-2024-25-library100-017",
+    "nba-2024-25-library100-018",
+    "nba-2024-25-library100-019",
+    "nba-2024-25-library100-020",
+    "nba-2024-25-library100-021",
+    "nba-2024-25-library100-022",
+    "nba-2024-25-library100-023",
+    "nba-2024-25-library100-024",
+    "nba-2024-25-library100-025"
+  ],
+  "dataset_counts": {
+    "nba-2024-25-library100": 19,
+    "nba-2025-26-batch030": 6,
+    "nba-2025-26-batch-008": 1,
+    "nba-2025-26-sample-001": 1,
+    "user-uploads-20261003": 2,
+    "user-uploads-20261003-batch02": 3,
+    "user-uploads-20261004": 5,
+    "tactics-acceptance": 3
+  },
+  "quality_counts": {
+    "clear": 33,
+    "soft": 7
+  },
+  "reason": "固定分层覆盖抽检；已有11段审核计入40段，每个来源部分和8个批次均覆盖，兼顾场景、画质、比赛与片段位置，含排除与重复备选。",
+  "method": "固定批次配额，保留已审核和去杂备选，按未覆盖场景及比赛多样性补足；固定种子20261004用于平分选择。",
+  "scope_note": "用于人工抽检和发现标注错误；未抽中的135段保持AI初筛，不推算全库准确率。",
+  "result": {
+    "status": "completed",
+    "completed_count": 40,
+    "retained_count": 28,
+    "discarded_count": 12,
+    "active_library_count": 163,
+    "human_review_index": "data/videos/reviews/human-2026-10-04/index.json"
+  }
+}

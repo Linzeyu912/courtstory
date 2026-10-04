@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "scenario": "replay_or_teaching",
+  "title": "回放或教学加工",
+  "path_base": "repository_root",
+  "count": 1,
+  "usable_count": 1,
+  "default_count": 1,
+  "samples": [
+    {
+      "clip_id": "user-uploads-20261003-batch02-011",
+      "path": "data/videos/classification/by_scenario/replay_or_teaching/user-uploads-20261003-batch02-011.json",
+      "status": "challenge",
+      "recommended": true
+    }
+  ]
+}

@@ -1,0 +1,2289 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-10-04T13:40:16-04:00",
+  "path_base": "repository_root",
+  "annotation_field": "material_labels",
+  "registry_count": 163,
+  "counts": {
+    "clear": 144,
+    "challenge": 19
+  },
+  "clips": [
+    {
+      "clip_id": "nba-2024-25-library100-001",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/IND-OKC_Q4_pick-pop_8.1s_1080p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/001.json",
+      "sha256": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-002",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/IND-OKC_Q4_drive-kick_11.4s_1080p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/002.json",
+      "sha256": "64d9aafbcb6557fbab5d30b254a8abda608ae04011e4087e80bc4292ee5791fc",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-003",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/IND-OKC_Q4_short-roll_9.6s_1080p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/003.json",
+      "sha256": "958159c72918943a3e19e095ff59a203bd409a83d2d6f386427a5b9463809198",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-004",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/004_LAL-MIN_Q2_isolation_9.2s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/004.json",
+      "sha256": "69cb6da0a6bcd62dd4ccdfc71f8f755f66b0e0a93bbc035798f0dd62af2dff64",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-005",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/005.json",
+      "sha256": "e76feffb09ede3e1b336c2e470370bcf1ee0937326bdf672e3e7e4bc5b661885",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-006",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/006_LAL-MIN_Q2_catch-shoot_6.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/006.json",
+      "sha256": "ab427ee9fc26fc2c4080dfcf4c0dbe65b3092d08e1493c86ab4e806507bf06b1",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-007",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/007_LAL-MIN_Q2_offensive-rebound_6.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/007.json",
+      "sha256": "086a96eeb370fbf703fe2097dbeac15827bbe9cd66e879badeac856faefc444e",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-008",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/008_LAL-MIN_Q1_drive-finish_9.6s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/008.json",
+      "sha256": "f0557bab7d3d5489d60562ec49e0c8f38061bb5a41ab474ddf777e7fd32c7c36",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-009",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/009_LAL-MIN_Q1_pullup_7.9s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/009.json",
+      "sha256": "ef6be4eb90c3d69ea921f366371a6266d6459aa8a403e9214cdfc88ea2e35a15",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-010",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/010_LAL-MIN_Q1_drive-pass_8.0s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/010.json",
+      "sha256": "402090ec19fc6f9040ba256a49a57e2fe48fb6fe0e7409b38f948dd75f757734",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-011",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/011_LAL-MIN_Q1_catch-shoot_6.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/011.json",
+      "sha256": "d09cdca925565f07505a7bb3bdadd858855dd499b337fea46914009d45010564",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-012",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/012_LAL-MIN_Q1_catch-shoot_8.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/012.json",
+      "sha256": "348c9012cd00107cd6c76aa53c5b7ea8fa10d0e8b3495d4d1a8634302792dabe",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-013",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/013_LAC-DEN_Q2_catch-shoot_8.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/013.json",
+      "sha256": "1c6441b4ccbd67c559bf86da26a71570cdffdc4018b310611895c418f6f1bb58",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-014",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/014_LAC-DEN_Q2_roll-pass_8.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/014.json",
+      "sha256": "f9595373a63df9f68964999a728855fb133512bdcb5f4682166e43585f5d7f13",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-015",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/015_LAC-DEN_Q2_defense-transition_10.2s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/015.json",
+      "sha256": "2f4a4a26c085fdd6a9751746e2b6f36c14c4b9299df758e070cba789f2aa26dc",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-016",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/016_LAC-DEN_Q1_catch-shoot_8.6s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/016.json",
+      "sha256": "dbedcc4b57b49318ee761a77c9aaa0a2e9e92197d6a7cdb55463611712ebac5f",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-017",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/017_LAC-DEN_Q1_steal_10.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/017.json",
+      "sha256": "5acd540537f84f687464779e7e9629db7542d63bcf09aa5b48bdcbee05a47802",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-018",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/018_LAC-DEN_Q1_catch-shoot_5.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/018.json",
+      "sha256": "4cc7810b412a4d368730b98a1e43af8971d404bfbaba7eb9e0a09df010b581d7",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-019",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/019_LAC-DEN_Q1_transition-three_7.7s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/019.json",
+      "sha256": "ba073e8798140765a8234ecd74f871fd9241f7ae18edc103c27345bd1c911462",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-020",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/020_LAC-DEN_Q1_post-up_7.6s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/020.json",
+      "sha256": "43ebf0c21b50a09faa35284d3872ab8bbdfa8ba5b9493854219d716a9c1d00e6",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-021",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/021_LAC-DEN_Q1_block_5.2s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/021.json",
+      "sha256": "6d9f5126659a31e369c21353478cffbb74fc5c99477d3129c3246bda695ae2c9",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-022",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/022_NYK-BOS_Q3_drive-finish_8.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/022.json",
+      "sha256": "5f888b6b6fc44be2788534a2b2ae0e5aaf7be2c4fdb6f3ad8efb9341a0ab8bb9",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-023",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/023_NYK-BOS_Q2_defense-transition_15.0s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/023.json",
+      "sha256": "ce1d758fc195a27ba69ec1cc655a7b337df4cd134b16661cd68b374cfd41a8bb",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-024",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/024_NYK-BOS_Q2_offensive-rebound_13.1s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/024.json",
+      "sha256": "5e71a89da84ad3484ea44715d92c5b5b8fb1ee281d642074331153cb0c8f5bd0",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-025",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/025_NYK-BOS_Q2_transition-pass_6.3s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/025.json",
+      "sha256": "6d3912c3cb619c4cca84e1d64e0a8dccb5c790c39c746698d862c9865b239e6b",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-026",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/026_NYK-BOS_Q2_isolation_8.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/026.json",
+      "sha256": "d30dc13fcd1aca265e2cfd7a6174c193962bc09fdc38f13e640832eeedbb4e86",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-027",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/027_NYK-BOS_Q2_post-up_6.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/027.json",
+      "sha256": "a6d867828974b63bacca5b497ec613136654acf04b897bd5f61bf4a8ad614f2e",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-028",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/028_NYK-BOS_Q2_catch-shoot_9.2s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/028.json",
+      "sha256": "80120617e9f0188b0185948eb7f6c610685c1814c17d8bbe273ef5e02f8d4aae",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-029",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/029_NYK-BOS_Q2_drive-finish_6.6s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/029.json",
+      "sha256": "420ebbe70ab48630bb01c993ca58ecb651db85b4b4d09e782efc25d2db2d8775",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-030",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/030_NYK-BOS_Q1_drive-finish_11.1s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/030.json",
+      "sha256": "6a3abb7637453dcccf04c5f1f43948eceb6308011aa3e4c031bdff156fb257f5",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-031",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/031_NYK-BOS_Q1_transition-pass_6.1s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/031.json",
+      "sha256": "017f6b108d6e4a75c0ec285592ccb1dbe95a864fd46171f544472fe6602464b3",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-032",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/032_CLE-IND_Q4_post-up_5.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/032.json",
+      "sha256": "de38b7073d0d7786d8e45edee68904bf323970666d4d22fabfab4c230e560f0f",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-033",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/033_CLE-IND_Q4_block-transition_11.3s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/033.json",
+      "sha256": "527ed16f84a4d753c324735a9bf6171f4f18d9ebba209e5008f49e9e04c9889a",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-034",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/034_CLE-IND_Q3_cut-pass_9.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/034.json",
+      "sha256": "21a0f69af7fa7f1b4875e05cc2712182aa336b4cf161821ee327101a3ab03281",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-035",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/035_CLE-IND_Q3_cut-pass_9.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/035.json",
+      "sha256": "506a8f160bc20c6e59f4705e924c7f8a57b6c64bb8ca716d2745f5ba01aae496",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-036",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/036_CLE-IND_Q3_catch-shoot_6.0s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/036.json",
+      "sha256": "78dd9b4c08158eb959dad96f32ca1eb8127821809be5256013b528ccb1e058f1",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-037",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/037_CLE-IND_Q3_transition-three_9.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/037.json",
+      "sha256": "374c1a1b44331c716408d2cbd09bb7fdfee30476434b29121694e248115591dc",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-039",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/039_CLE-IND_Q3_high-post-pass_8.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/039.json",
+      "sha256": "3038482ea19099d4aa251009ec7d188dd99c7b528c7b8294a1ff7fb593ce6c60",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-040",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/040_CLE-IND_Q3_transition-drive_8.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/040.json",
+      "sha256": "8feb394f76fbd05b6fe82ae0f79402cd2144dd89fe078e119dc4130769e0fe3e",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-041",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/041_OKC-MEM_Q4_catch-shoot_10.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/041.json",
+      "sha256": "2a62086740ba0609162f6751c708841e5119176743f1ad90351faddfd0db1f16",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-042",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/042_OKC-MEM_Q4_isolation_9.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/042.json",
+      "sha256": "f14298660ed53c9156f05ac218ef4ca6fde14f0a4bb75ca1d3f6705b4916b718",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-043",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/043_OKC-MEM_Q4_block_9.9s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/043.json",
+      "sha256": "23835f4652b2a72ae61538ddc1a5b4edf4c75ad6fac4c3c1dab9556bd2d9be73",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-044",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/044_OKC-MEM_Q4_pullup_8.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/044.json",
+      "sha256": "edf35db381ca94ab6ba7a8c4ebe854dbba4c1779ca9e5ad7af079195013c5e1c",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-046",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/046_OKC-MEM_Q4_screen-three_8.1s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/046.json",
+      "sha256": "f4f410df6388213bb4eedfd0ef56878c6db8dcec58012f838c54fcb288cc99ff",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-047",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/047_OKC-MEM_Q4_catch-shoot_7.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/047.json",
+      "sha256": "09fe2f1d096c7b512813d274176f129469c958c5191c10531de79a04541fe559",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-048",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/048_OKC-MEM_Q3_post-up_10.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/048.json",
+      "sha256": "43edecf984b114d95688e0a1459ab822b6b2c8c79b92b15e072e776740049ba4",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-049",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/049_OKC-MEM_Q3_transition-drive_9.3s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/049.json",
+      "sha256": "1f640369795fed7f4e962803f248cadf6fe5e5627e8f05984119f387c9dcdf5e",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-050",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/050_MIL-IND_Q2_transition-drive_10.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/050.json",
+      "sha256": "f59d236436ce8a833ecdcf6018c3774312c1b13a34aabd511752273648274bdc",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-051",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/051_MIL-IND_Q2_drive-pass_8.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/051.json",
+      "sha256": "7493f2d88174f9cb0dd2cb1b660b3dee06a9ef30a088988984b4171dc0154f67",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-052",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/052_MIL-IND_Q2_transition-drive_8.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/052.json",
+      "sha256": "a89a24dc353d6ae21bab3f8b589bfce65a1df10e483a9f0b9cbe8833c0106b40",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-053",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/053_MIL-IND_Q1_roll-pass_8.6s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/053.json",
+      "sha256": "32b510eb11c5e8b9df64749b5528745ef3030d0fcc3370bba80921d5d5ae7c2a",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-054",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/054_MIL-IND_Q1_defense-transition_13.7s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/054.json",
+      "sha256": "cd25fecfebdf296271abe3122e0bcb07fd7c5e4c0438fb8ebc6a1bead4899228",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-055",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/055_MIL-IND_Q1_post-up_10.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/055.json",
+      "sha256": "fc687c05d79ef35143a3798a4ca15aeed2429cd744e4fecd3d5b30c51cea4e8a",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-056",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/056_NYK-IND_Q4_block_7.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/056.json",
+      "sha256": "47232c5956dcd9392e4185a8f235fe2059770fcd692108d99e1ab3e1d5805e69",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-057",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/057_NYK-IND_Q4_post-up_10.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/057.json",
+      "sha256": "be84fb3e45b298bd0854b18728cf76a943b08c63533c1caff1b306e9c3907b25",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-058",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/058_NYK-IND_Q3_drive-pass_8.9s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/058.json",
+      "sha256": "c1a536bedf42916f66b9c9719532a5369f690e771f573aa0f420231680d36a21",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-059",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/059_NYK-IND_Q3_block_9.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/059.json",
+      "sha256": "fc8f097f0e5cd57c1809581cbd948bf68674644ecac1633abbc8f877acf5040b",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-060",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/060_NYK-IND_Q3_isolation_8.9s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/060.json",
+      "sha256": "832baf3d3ce26662e5c40e15732c20bd985470dc0de3658505076e8ab5e8dcf4",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-061",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/061_BOS-ORL_Q4_drive-finish_10.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/061.json",
+      "sha256": "c3ee20dea1bdca6adc40ee3764bd0fc6e5432c74be4fc9607e746323027703f1",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-062",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/062_BOS-ORL_Q4_drive-finish_8.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/062.json",
+      "sha256": "2ead429630318c5984fef36b5dad9ce08aa23f94ec1de628730ed6c4fa0f589b",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-063",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/063_BOS-ORL_Q4_post-up_8.1s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/063.json",
+      "sha256": "f42257903bd6e2529514fd5babf8775ca2bf10098cda9fa013394689fb6cba42",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-064",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/064_BOS-ORL_Q4_transition-three_8.3s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/064.json",
+      "sha256": "a86e6ef08950b6ee0b7c3178f907666ac9bfacc80d9e60aa1d1c2adaffc2a543",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-065",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/065_BOS-ORL_Q4_isolation_9.3s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/065.json",
+      "sha256": "a4304499883c619aa15337306d07d2235225b58a99c7ba7ca7f8b3ebaedecc89",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-066",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/066_BOS-ORL_Q3_screen-drive_8.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/066.json",
+      "sha256": "223e507622362ec008e55b9924ff3b71838aca342c70d76d137297a61e81a7ee",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-067",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/067_BOS-ORL_Q2_catch-shoot_8.6s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/067.json",
+      "sha256": "cb2f1ed0319a9a7bbeae21f229234523fd7e0d27f4703a7fd9de011937f6f199",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-068",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/068_OKC-IND_Q2_screen-drive_10.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/068.json",
+      "sha256": "f9474d4b2a24b72e767d0530844772849bf19e592faf3dc20e348861ac004589",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-069",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/069_OKC-IND_Q2_transition-three_8.9s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/069.json",
+      "sha256": "2f23be0791d3b605ecbc94c28915fa2aeffc23a245fb7719b5ba56d4c4e8c570",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-070",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/070_OKC-IND_Q2_transition-pass_8.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/070.json",
+      "sha256": "d8bc8ad4cd9e9a1cfb324a441adf5d354951ea9c8c39c85172483dbd88f2986c",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-071",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/071_OKC-IND_Q1_catch-midrange_10.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/071.json",
+      "sha256": "fb660ae4b8b1e380fa0b5fbbc276043e1add51898a2f02204af5bc008d58d9ef",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-072",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/072_OKC-IND_Q1_transition-pass_7.6s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/072.json",
+      "sha256": "98005058f3a1f595b95841d106fd134efaa13adaaacecfceb98502dc55a4f7e0",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-073",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/073_OKC-IND_Q1_transition-drive_7.6s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/073.json",
+      "sha256": "2a73054ad0120868837739410e5687b5a80c62df4e4defdccaef45da23eaa1d8",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-074",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/074_OKC-IND_Q1_defense-transition_13.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/074.json",
+      "sha256": "6911001c78d346c29992d48543f4dda0a42a91ce93dc2646f9b6fe0bf4af9a5d",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-075",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/075_OKC-IND_Q1_offensive-rebound_10.6s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/075.json",
+      "sha256": "c254c6466da71865bff3038033a62487aa0a178d5420cd51db4f68700f9a49f2",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-076",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/076_OKC-IND_Q1_transition-pass_8.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/076.json",
+      "sha256": "ae8aefe77f2bb6bd6d01c89c03ef94750b8d4146ecb1d5e68981433b68eec179",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-077",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/077_OKC-IND_Q1_roll-pass_9.2s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/077.json",
+      "sha256": "65776954b02f050b7ae88f0ca06826b1ab70287e96fdaadc4c9b1f9359793002",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-078",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/078_OKC-IND_Q1_drive-pass_9.2s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/078.json",
+      "sha256": "038e9f586caa5147d600d8d1a611bb43decce3b509be4a25fb2c256304603524",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-079",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/079_OKC-IND_Q1_block_8.2s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/079.json",
+      "sha256": "d7141995283477023cdd1b6d7217eba1897162d150758c0c1d38f05bb2328713",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-080",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/080_OKC-IND_Q1_defense-transition_11.0s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/080.json",
+      "sha256": "eb49967f2570a97ff3f1c1d0c87bda1abd9d3ab4c7c21987b1b6687796179cce",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-081",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/081_ORL-BOS_Q4_isolation_8.0s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/081.json",
+      "sha256": "1ddc57f8244484207845161b2bcffa68eec6a2506cdc871e31cfdf8f3699ef92",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-082",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/082_ORL-BOS_Q4_drive-pass_11.2s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/082.json",
+      "sha256": "263c49fbae5b01349b9a2698a68155ff1a8e4a2a97023a275a51f28775ddf2c1",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-083",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/083_ATL-ORL_Q1_roll-pass_8.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/083.json",
+      "sha256": "8109ddf16244a8453ab3b17d0ba0fb0f425d27ba371d193f2c9ef3c41bd4dd0c",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-084",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/084_ATL-ORL_Q1_drive-finish_3.2s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/084.json",
+      "sha256": "8283d60f600f9144cb8f6c6487d3bce6f31bd8ec5c78e49963b2ff4f45472211",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-085",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/085_ATL-ORL_Q1_drive-finish_4.0s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/085.json",
+      "sha256": "182aab2081b938ea241bbd88643948e505ace1c0375cbd01621645c2238a70b3",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-086",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/086_ATL-ORL_Q2_transition-pass_5.7s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/086.json",
+      "sha256": "4dd643060c77994fc05a4704868cfb2880043fd85698fadca34f7895f04f7f8f",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-087",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/087_DAL-MEM_Q1_offensive-rebound_11.3s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/087.json",
+      "sha256": "6e8e0be42a9988289b7578bd459367e8c95b5b6013149e7072e4c55cda2a5746",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-088",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/088_DAL-MEM_Q2_drive-finish_9.2s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/088.json",
+      "sha256": "44197067b208b50da5a03cb65765b7d578928251adfde19ce3ce6cdf111fc3b1",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-089",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/089_DAL-MEM_Q1_post-up_9.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/089.json",
+      "sha256": "ea73dc9fc9f2e9094421ab224ec64f8a1fcadeb2758aa3181d360a5a484dcb20",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-090",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/090_DAL-MEM_Q2_drive-finish_8.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/090.json",
+      "sha256": "ea6f4e0e2b219f030d277df1bb64b219e186cf6cbfe4eecad574404c8cd91810",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-091",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/091_GSW-MIN_Q1_post-up_4.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/091.json",
+      "sha256": "1c40584119bf95b2c9b59787c020976f7f84612c3b2273a2fce02963ce00ca8a",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-092",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/092_GSW-MIN_Q1_post-up_4.2s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/092.json",
+      "sha256": "5cb850156b922cc74d7277adc6f9d86a5b2fff2c1ba03fa3554e661ad1479745",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-093",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/093_GSW-MIN_Q2_cut-pass_5.1s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/093.json",
+      "sha256": "b270d3c06157996c9ffdbf2559a30a45dfe3421a366aed330cf21fbb794f1482",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-094",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/094_GSW-MIN_Q3_drive-finish_3.0s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/094.json",
+      "sha256": "7b4efe023829000767e2978d03a4423cae7f33e6e37bc7bb4f7b0e3d5c8fb41d",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-095",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/095_CLE-MIA_Q1_drive-pass_4.8s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/095.json",
+      "sha256": "fa26076331d6cf83e251783361853b75847ef1d63a2698999be6028f45552de7",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-096",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/096_CLE-MIA_Q1_transition-drive_5.4s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/096.json",
+      "sha256": "26b5009877d1e6c750fcead21a5cba3741eb513cda563426371cc79b6183f10b",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-097",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/097_CLE-MIA_Q1_pullup_4.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/097.json",
+      "sha256": "587fcbe93a07042b8445a5fd0a9bb0571d9b30ef35d4aeecdaaef8aa089eaf7d",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-098",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/098_CLE-MIA_Q2_drive-finish_5.5s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/098.json",
+      "sha256": "403e548dbccd15df78ffaa7ae3625012b4fcd8d1d224fc83d237ce9487fd8a04",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-099",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/099_NYK-DET_Q4_post-up_9.2s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/099.json",
+      "sha256": "1f08849fd46bda28d1ab119d0b953626dd82aad39318df03b89d763022157f3d",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-100",
+      "dataset_id": "nba-2024-25-library100",
+      "video_path": "data/videos/nba/2024-25/clips/100_NYK-DET_Q4_isolation_5.7s_720p.mp4",
+      "annotation_path": "data/videos/nba/2024-25/labels/100.json",
+      "sha256": "b4b529b0d893ecb2d7c5826ba6a70edd9d036509c1fe54e2c722c5e160746bad",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-001",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/001_2025-11-03_DAL_Q3.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/001.json",
+      "sha256": "86b386660b5ffa1b2fb7bfba56e02fcca2c407ac9ddfddc8775f964db637f4df",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-002",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/002_2025-11-03_HOU_Q3.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/002.json",
+      "sha256": "a08da340970b367edf28148add645ec901da79753e8009f3f4c79a42ae1af065",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-003",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/003_2025-11-03_HOU_Q3.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/003.json",
+      "sha256": "0f6eb70a1ae9117e4df6d077634123a443b343de7250ec50e7440e508cf5561d",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-004",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/004_2025-11-03_HOU_Q3.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/004.json",
+      "sha256": "486f8abba46906e8414fff05b99f3f1b1ad98f5f8d964dd8c9da25834bed7d38",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-005",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/005_2025-11-03_HOU_Q3.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/005.json",
+      "sha256": "907b605f660d40817ce593f28ae2e553cec7cb045f1b918cde08ee9d26a59e84",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-006",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/006_2025-11-03_HOU_Q3.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/006.json",
+      "sha256": "6e7dc6fd2fba6bb68ef6d3b2c15a227c50df7750437c67a41e15cfd03f420d10",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-007",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/007_2025-11-03_HOU_Q3.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/007.json",
+      "sha256": "5d6ca5b1b55c4c40d219701dadd49c9b103668bb935226ba569aa907db4d1a65",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-008",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/008_2025-11-03_DAL_Q3.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/008.json",
+      "sha256": "66ae865b3c817c3114a4b77c965d6c4cf80122a0cfff18c1a346068067137d29",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-009",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/009_2025-11-03_HOU_Q3.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/009.json",
+      "sha256": "421840edb5583d66d71b8f7c5622ee1f5ed245847978920877ee6f5a2b071c3f",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-010",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/010_2025-11-03_DAL_Q4.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/010.json",
+      "sha256": "181de4b0d3588cbe014547ff83dd14fb40319ec8a3b52939e273395faac3a133",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-011",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/011_2025-11-03_HOU_Q4.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/011.json",
+      "sha256": "ee87912152ace70a799272c6840eff139b994eb00843bd9981b4c6c5d09748fc",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-012",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/012_2025-11-03_DAL_Q4.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/012.json",
+      "sha256": "6c27a3032cf9f025bc9829ac1a4a3af83f6dd3acffeaeb364d9dc075bcbd6b9f",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-013",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/013_2025-11-03_DAL_Q1.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/013.json",
+      "sha256": "0386abb7d6fd791dfd78bfdc20e0e3817d9638231182640320edb31c39d04ca0",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-014",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/014_2025-11-03_HOU_Q4.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/014.json",
+      "sha256": "afc1a054a8233089dfd3f8030b01847df1ec9c286f608b92c66b9f73345551ea",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-015",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/015_2025-11-03_DAL_Q3.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/015.json",
+      "sha256": "b238d4d0b3f01476fee755bfef038089ffa7084bf7b71ffd37efcdc05f03bf4a",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-016",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/016_2025-11-03_DAL_Q1.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/016.json",
+      "sha256": "930ca25ddc2d929e8d0cddb0029425a27133b46ff540ccc2ffab05da9bf4e9e3",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-017",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/017_2025-11-03_HOU_Q4.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/017.json",
+      "sha256": "a52f237f90d8a875de3497234bc4f0e7408a55c83bf2a0ffc1037abb1eb83922",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-018",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/018_2025-11-03_HOU_Q3.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/018.json",
+      "sha256": "2437fdf127ba5a967716ddc6f2d8895faa6f980267c4fff0e391f85cd3c4d6b9",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-019",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/019_2025-11-03_HOU_Q2.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/019.json",
+      "sha256": "3f9960c881abc8b87c1d8c6f44cc46363d134db8d253d09ec2cd4cf974bea0f0",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-020",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/020_2025-11-03_HOU_Q2.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/020.json",
+      "sha256": "2300bf3701fd6c4bf9715af01c215e22525942bcfca82a69fffd1e84ee20c52a",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-021",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/021_2025-11-03_DAL_Q2.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/021.json",
+      "sha256": "0179d35dbc5b992e81579ca7e22874c9b9e0e0e4c555a5c6c3addd27e4774c94",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-022",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/022_2025-11-09_MIL_Q4.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/022.json",
+      "sha256": "fc43f39a54b3f51bc18eeb0b6c27dff80c579411d54f75260155569ba431a389",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-023",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/023_2025-11-09_MIL_Q4.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/023.json",
+      "sha256": "112dd50f89dc9c8e8caeedecacd05b281bb818cfd334c287b71b936175e5e3f3",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-024",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/024_2025-11-03_HOU_Q4.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/024.json",
+      "sha256": "3ae04715ba5004c147f585ff791416befad7578b12602dda5270530ed95603c5",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-025",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/025_2025-11-03_HOU_Q4.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/025.json",
+      "sha256": "3c7e857298dbb3cd6197485c6285421aad984ebf74d21e46251ed431645f0923",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-026",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/026_2025-11-03_HOU_Q4.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/026.json",
+      "sha256": "6218b4919f75060180c4110c0f60b0bf250d3ecaad7b5b89ac920e6e5429a655",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-027",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/027_2025-11-03_DAL_Q4.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/027.json",
+      "sha256": "3371c67f128f96fc5f3ba720a5c43e0ce68e420e0927926d3a6580500f1b396b",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-029",
+      "dataset_id": "nba-2025-26-batch030",
+      "video_path": "data/videos/nba/2025-26/clips/029_2025-11-09_HOU_Q4.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels/029.json",
+      "sha256": "6672b83f6e11ea2efa7db2f4d5de5ef07275f88fc935b7d1496756b0ba66a552",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-001",
+      "dataset_id": "nba-2025-26-batch-008",
+      "video_path": "data/videos/nba/2025-26/clips/01-hou-screen-drive-kick.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels-batch-008/001.json",
+      "sha256": "534b9abd4ca9d0d2b1ccc5c8bb0c23ef0ad0ec0eb397e034ea7d71e75f92841e",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-002",
+      "dataset_id": "nba-2025-26-batch-008",
+      "video_path": "data/videos/nba/2025-26/clips/02-dal-flagg-screen-drive.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels-batch-008/002.json",
+      "sha256": "31764549ed2064d34110bc50ed76b20d9acc63a012f405b3b8ad6f6aabf2bb93",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-003",
+      "dataset_id": "nba-2025-26-batch-008",
+      "video_path": "data/videos/nba/2025-26/clips/03-hou-catch-attack.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels-batch-008/003.json",
+      "sha256": "14d75e451e3d4e47fed0bfdbcb34d7ff49a7216121424da51e7c1ef04b3f1588",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-004",
+      "dataset_id": "nba-2025-26-batch-008",
+      "video_path": "data/videos/nba/2025-26/clips/04-dal-drive-corner-three.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels-batch-008/004.json",
+      "sha256": "39a1957f065ab081339b37c68e5a9c1c0c79a431573c0ccfa1f4de4e0b42aa76",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-005",
+      "dataset_id": "nba-2025-26-batch-008",
+      "video_path": "data/videos/nba/2025-26/clips/05-hou-drive-smith-corner.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels-batch-008/005.json",
+      "sha256": "f57e920e5bc6e5232f6f16401c9d0d82df22143f7db21c6dad1fe88cdadeec61",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-007",
+      "dataset_id": "nba-2025-26-batch-008",
+      "video_path": "data/videos/nba/2025-26/clips/07-dal-turnover-hou-transition.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels-batch-008/007.json",
+      "sha256": "767d63eccde3268c7350d86670aef3ddd573468fc34901147fbdd8652db90195",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-008",
+      "dataset_id": "nba-2025-26-batch-008",
+      "video_path": "data/videos/nba/2025-26/clips/08-hou-screen-crowded-paint.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels-batch-008/008.json",
+      "sha256": "5f6992a815d7afc3a7bd8020c494b99d6326d26ccdf9eea0fa0ca9c7a2d3d145",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "nba-2025-26-sample-001-001",
+      "dataset_id": "nba-2025-26-sample-001",
+      "video_path": "data/videos/nba/2025-26/clips/2026-01-31-dal-hou-q4-sengun-001.mp4",
+      "annotation_path": "data/videos/nba/2025-26/labels-sample-001/001.json",
+      "sha256": "a6de1a73b3ca1f29603995aade53acaeb970801257104edec088673f0e84c93f",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "tactics-acceptance-005",
+      "dataset_id": "tactics-acceptance",
+      "video_path": "data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4",
+      "annotation_path": "data/videos/tactics/acceptance/labels/005.json",
+      "sha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "人工指出清晰度偏软但决定保留；主要配合仍可辨，作为困难场景样本。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "tactics-acceptance-006",
+      "dataset_id": "tactics-acceptance",
+      "video_path": "data/videos/tactics/acceptance/clips/006_SAS_drive_kick.mp4",
+      "annotation_path": "data/videos/tactics/acceptance/labels/006.json",
+      "sha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "user-uploads-20261003-001",
+      "dataset_id": "user-uploads-20261003",
+      "video_path": "data/videos/uploads/2026-10-03/clips/2025-11-09_MIL_Q3_0518_elbow_entry_guard_screen_dunk_silent.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03/labels/001.json",
+      "sha256": "428cec5536dd6bf1490bc99d683c95106c2cd502fb08ae4eca7e338adb7df80b",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "user-uploads-20261003-002",
+      "dataset_id": "user-uploads-20261003",
+      "video_path": "data/videos/uploads/2026-10-03/clips/2026-04-20_ATL_Q1_1030_handoff_fadeaway_silent.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03/labels/002.json",
+      "sha256": "eca43aa904dc90f1e0d121ca9643692ec1bfcb9cd859dff4a10ca033de35835a",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261003-003",
+      "dataset_id": "user-uploads-20261003",
+      "video_path": "data/videos/uploads/2026-10-03/clips/2026-04-20_ATL_Q3_0313_side_pick_roll_hook_silent.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03/labels/003.json",
+      "sha256": "1b44b6271d72c5ee0516d0c745afeacc76757c54134b3a031b506b90c5510d89",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261003-004",
+      "dataset_id": "user-uploads-20261003",
+      "video_path": "data/videos/uploads/2026-10-03/clips/01_20250523_IND_NYK_Q1_pass_relocate_three.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03/labels/004.json",
+      "sha256": "31d3308c897f578a7c7e20ef26e5832fd86b164855a023cf3cfec510bdece73a",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-001",
+      "dataset_id": "user-uploads-20261003-batch02",
+      "video_path": "data/videos/uploads/2026-10-03-batch02/clips/01_Warriors_20181005_Q2_11m35_motion_silent.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/001.json",
+      "sha256": "4d6e76ed515a775d8971ed58ca7fc241abc022cb201e8762a6716290aa215618",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-002",
+      "dataset_id": "user-uploads-20261003-batch02",
+      "video_path": "data/videos/uploads/2026-10-03-batch02/clips/02_Warriors_20240316_Q3_4m17_team_motion_1080class_silent.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/002.json",
+      "sha256": "2435960f79e85859e31650204e110a25c79d6bc6cede0ea29c25af2881215df0",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-003",
+      "dataset_id": "user-uploads-20261003-batch02",
+      "video_path": "data/videos/uploads/2026-10-03-batch02/clips/03_Warriors_20181005_Q2_6m13_slip_cut_silent.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/003.json",
+      "sha256": "3facca53ec3285f313ec6b3c0d8b1b307e48091cd4ccc93a15d79b38936335d7",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-004",
+      "dataset_id": "user-uploads-20261003-batch02",
+      "video_path": "data/videos/uploads/2026-10-03-batch02/clips/04_Warriors_20181005_Q1_2m39_post_split_silent.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/004.json",
+      "sha256": "f9657e4f703e52506c90b0d38136749e9c31562bacb4f5ab62b148603f1fabd6",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-005",
+      "dataset_id": "user-uploads-20261003-batch02",
+      "video_path": "data/videos/uploads/2026-10-03-batch02/clips/05_Pacers_20250106_Q2_0m44_team_motion_720p_silent.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/005.json",
+      "sha256": "17c36f8d3b3e294f13f7119f23b82ec7f3fbe96d5564db9cbe7d61f49ebbbd7d",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-007",
+      "dataset_id": "user-uploads-20261003-batch02",
+      "video_path": "data/videos/uploads/2026-10-03-batch02/clips/07_Warriors_20190610_Finals_G5_Q1_give_go_silent.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/007.json",
+      "sha256": "3940cce26a81e855cb1aacb71cc5a0c8de13b239b42968fb02b5eaabdddb8b93",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-008",
+      "dataset_id": "user-uploads-20261003-batch02",
+      "video_path": "data/videos/uploads/2026-10-03-batch02/clips/08_Lakers_20161104_Q2_10m42_post_split_silent.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/008.json",
+      "sha256": "46e92ff52d4f7913205d03be2381c1950d937972fc149e6ad4f85f2947de95fd",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-009",
+      "dataset_id": "user-uploads-20261003-batch02",
+      "video_path": "data/videos/uploads/2026-10-03-batch02/clips/09_Celtics_20161111_Q1_10m48_screen_screener_silent.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/009.json",
+      "sha256": "6fa738be71a1cb224dbd8f9113ebab504f229fcb6d027ed187ba77fe7bf6889b",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-010",
+      "dataset_id": "user-uploads-20261003-batch02",
+      "video_path": "data/videos/uploads/2026-10-03-batch02/clips/10_Celtics_20231201_Q4_1m01_multi_action_720p_silent.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/010.json",
+      "sha256": "474ec96040bde64d169048fcbf1237df025605bde325a12244e201d637f60d2a",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-011",
+      "dataset_id": "user-uploads-20261003-batch02",
+      "video_path": "data/videos/uploads/2026-10-03-batch02/clips/nba_primevision_5-25s.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-03-batch02/labels/011.json",
+      "sha256": "ae92addbf5bf9e49b05324ea40494b8d10ab37c49c320a10e104b975ae1af998",
+      "status": "challenge",
+      "recommended": true,
+      "reason": "人工明确保留。教学定格、箭头与加工可用于教学/加工干扰增强，普通连续球权测试需按replay_or_teaching筛除。",
+      "human_reviewed": true,
+      "labeling_origin": "human_reviewed"
+    },
+    {
+      "clip_id": "user-uploads-20261004-002",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085410_266.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/002.json",
+      "sha256": "a440567ae34c44bd7b07ad9b75767d5ed566941f541331d211d34a9f9deec262",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261004-003",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085413_888.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/003.json",
+      "sha256": "8de14371b79e6be8fe53644ef756a35a2e183c2df1c4e60a2dad1a271e06882e",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261004-005",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085424_606.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/005.json",
+      "sha256": "19015a0ff83c5beaf15b6bf73945ea9fd9e0adeabed64f15ab53ca8610b786fb",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261004-006",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085428_087.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/006.json",
+      "sha256": "5b3cc8c816b4257e4e783b42091f8797aeedf3a6be5a900e67ebe46bfdc5e562",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261004-008",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085434_762.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/008.json",
+      "sha256": "8076f0ba605edf50432e50c695a99c0e6bdbfd024f9ddaf9ea0f3e21bc08be20",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261004-009",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085437_903.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/009.json",
+      "sha256": "7976f6699a67594a0c4134541f53c9898e0a3dc0242b404a19dec12c761e4a17",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261004-010",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085441_490.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/010.json",
+      "sha256": "5a396859c281669b93be215d45bf10988ba94368851308b2f97db459d009438e",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261004-012",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085448_203.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/012.json",
+      "sha256": "83ce18a1bdf04f89a4ab26c702e8b75e05b70ca2a7d5ed6f9f976c9056cb5da9",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261004-013",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085451_533.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/013.json",
+      "sha256": "aadaf86107bd53fbae3e4619192f634ee707c5a8c0ff5622dad58ddd70c4d411",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261004-014",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085454_653.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/014.json",
+      "sha256": "dd9c73d131b16e8a3606c0268d269216169b69e7f3e93312ac4d7e41e56c916d",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261004-016",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085501_517.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/016.json",
+      "sha256": "9417d94a9a76baf56cc748c338288fcca8f3f212faf6b21bd6f1d9790265211d",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261004-017",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085505_138.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/017.json",
+      "sha256": "33880961c11f60d5c5230d084c2fd536e522b29d8975a734c74dd63fb203f75a",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    },
+    {
+      "clip_id": "user-uploads-20261004-018",
+      "dataset_id": "user-uploads-20261004",
+      "video_path": "data/videos/uploads/2026-10-04/clips/微信视频2026-10-04_085508_792.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-04/labels/018.json",
+      "sha256": "f789bea3a0de34fd5e12d5b2f21ad2f124f1c97a72eefcb57838d85fe4911b7a",
+      "status": "clear",
+      "recommended": true,
+      "reason": "保留真实转播场景；模糊、推拉、特写及切镜均可用于后续增强。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review"
+    }
+  ],
+  "unresolved_scenarios": [
+    {
+      "clip_id": "nba-2024-25-library100-001",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "突破中画面向左跟拍，禁区形状随视角改变；篮板和远侧观众未呈现足够明确的统一比例放大。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-006",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "0至2.5秒镜头左摇，篮架从画缘移入、场区透视改变；看台整体放大量不明确，不能仅按球员进入近侧判推近。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-012",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "跨中线左摇时禁区从画缘进入中央，场线横向投影改变；背景和篮架的统一尺度变化不足以与云台旋转区分。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-019",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "跨场快速左摇后到左前场，罚球区因视角改变变宽；左篮架和背景尺度只呈细微变化。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-021",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "低位跟拍时篮架及后方观众尺度近似恒定，罚球区投影随横摇改变；独立推近证据不充分。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-030",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "7秒后篮下取景存在轻微收紧，但篮架标牌与背景替补席的整体放大量很小，同时横摇改变禁区投影；不足以可靠确认独立推近。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-032",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "篮下跟球时禁区横向形状改变、球员接近镜头；篮板及远侧广告只出现细微变化。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-034",
+      "scenario": "view_switch",
+      "intervals": [
+        {
+          "start": 0.0,
+          "end": 0.5
+        }
+      ],
+      "note": "开头短叠化残影提示剪辑交界，原始前镜头不足以确认是否换机位；0.5秒后为连续同侧高位宽景。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-036",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "两次攻框主要伴小幅右摇和上下重新构图；篮架标牌宽度与远侧观众尺度近似恒定，禁区变化很细微，无法确认推近。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-039",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "跨场左摇后左半场禁区形状变宽，但篮板、远侧替补席尺度变化很小。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-040",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "进入左半场的主要变化是篮架从画缘移入和场线投影改变；5至7秒跟球时固定篮架及远侧广告大小近似不变，无法排除微小尺度差来自摇摄。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-042",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "持球阶段轻微右摇，禁区宽度略变；篮架和远侧广告没有足够明确的共同放大。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-058",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "右摇过程中禁区投影变宽，但篮板、支架与看台缺少一致缩放证据，无法排除透视。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-059",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "突破阶段主要右摇，禁区投影有所变化但篮架与背景尺度差很小，无法可靠确认独立推近。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-060",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "半场横移时禁区形状变化，篮板与背景没有足够清楚的同步尺度变化，细微推拉难分。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-063",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "场地随横摇改变透视，篮板与远侧席位尺度差异很小，证据不足。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-065",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "右半场持续随球横摇，禁区及篮架变化微小，统一尺度变化不明确。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-069",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "跨场横摇后半场参照变化较轻，无法独立确认整体推拉。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-078",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "右半场取景改变时禁区宽度变化，但篮板与背景整体尺度变化不够明确，难与摇摄分离。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-081",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "篮板和禁区仅小幅变化且伴随横摇，远侧看台未呈清楚同步缩放。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-085",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "篮下轻微调整主要表现为位置漂移，篮板与禁区没有充分一致的缩放，细微推拉不能确认。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-088",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "左右摇摄中禁区投影有变化，但篮板和支架基本同尺度，无法排除透视造成的宽度变化。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-092",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "末段向左摇摄并伴禁区投影改变，篮架与看台尺度变化较弱，难以排除转动透视。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-093",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "横移及禁区透视变化明显，但篮板与背景整体缩放轻微，不足确认。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-094",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "左摇时禁区变化不大，支架、广告与看台没有明确共同缩放；不凭人物进入篮下确认推近。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-095",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "左右跟拍中黄色禁区形状变化明显，但后方固定广告及看台尺度没有清楚一致放大，独立推拉证据不足。"
+    },
+    {
+      "clip_id": "nba-2024-25-library100-099",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "主要向左摇摄跟随投篮；篮板及背景尺度仅轻微变化，无法排除云台透视影响。"
+    },
+    {
+      "clip_id": "nba-2025-26-batch030-003",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "长段右摇跟进阵地，禁区投影变形但篮板、远侧座席未见明确共同放大；两端特写切换不算推拉。"
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-005",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "禁区随左右跟拍略变形，篮板支架和后排座席没有明确统一尺度变化，微小推拉证据不足。"
+    },
+    {
+      "clip_id": "nba-2025-26-batch-008-008",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "随进攻右移时禁区轮廓改变，篮架及背景尺度变化很小，无法可靠区分轻微推近与横摇透视。"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-002",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "场地与篮架有轻微尺度变化，但主要伴随右移和上下重构，固定背景未显示明确一致的整体缩放，难排除云台透视。"
+    },
+    {
+      "clip_id": "user-uploads-20261003-batch02-011",
+      "scenario": "half_court_only",
+      "intervals": [],
+      "note": "全段教学加工、定格及多个场景拼接，无有效普通比赛段可评估单一半场范围。"
+    },
+    {
+      "clip_id": "user-uploads-20261004-008",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "右摇及轻微俯仰使禁区投影变化，篮板与篮后席位缩放不够明确，不能据球员聚向篮下断言推进。"
+    }
+  ],
+  "selections": {
+    "default": {
+      "path": "data/videos/classification/selections/default/index.json",
+      "count": 163
+    },
+    "all_usable": {
+      "path": "data/videos/classification/selections/all_usable/index.json",
+      "count": 163
+    },
+    "clear": {
+      "path": "data/videos/classification/selections/clear/index.json",
+      "count": 144
+    },
+    "challenge": {
+      "path": "data/videos/classification/selections/challenge/index.json",
+      "count": 19
+    },
+    "excluded": {
+      "path": "data/videos/classification/selections/excluded/index.json",
+      "count": 0
+    },
+    "needs_review": {
+      "path": "data/videos/classification/selections/needs_review/index.json",
+      "count": 0
+    },
+    "redundant": {
+      "path": "data/videos/classification/selections/redundant/index.json",
+      "count": 0
+    }
+  },
+  "by_scenario": {
+    "camera_zoom": {
+      "path": "data/videos/classification/by_scenario/camera_zoom/index.json",
+      "count": 125
+    },
+    "full_court_movement": {
+      "path": "data/videos/classification/by_scenario/full_court_movement/index.json",
+      "count": 71
+    },
+    "image_blur": {
+      "path": "data/videos/classification/by_scenario/image_blur/index.json",
+      "count": 39
+    },
+    "closeup_insertion": {
+      "path": "data/videos/classification/by_scenario/closeup_insertion/index.json",
+      "count": 26
+    },
+    "view_switch": {
+      "path": "data/videos/classification/by_scenario/view_switch/index.json",
+      "count": 27
+    },
+    "half_court_only": {
+      "path": "data/videos/classification/by_scenario/half_court_only/index.json",
+      "count": 91
+    },
+    "motion_blur": {
+      "path": "data/videos/classification/by_scenario/motion_blur/index.json",
+      "count": 32
+    },
+    "occlusion": {
+      "path": "data/videos/classification/by_scenario/occlusion/index.json",
+      "count": 159
+    },
+    "players_out_of_frame": {
+      "path": "data/videos/classification/by_scenario/players_out_of_frame/index.json",
+      "count": 116
+    },
+    "replay_or_teaching": {
+      "path": "data/videos/classification/by_scenario/replay_or_teaching/index.json",
+      "count": 1
+    }
+  },
+  "by_action": {
+    "screen": {
+      "path": "data/videos/classification/by_action/screen/index.json",
+      "count": 64
+    },
+    "drive": {
+      "path": "data/videos/classification/by_action/drive/index.json",
+      "count": 92
+    },
+    "pass": {
+      "path": "data/videos/classification/by_action/pass/index.json",
+      "count": 108
+    },
+    "cut": {
+      "path": "data/videos/classification/by_action/cut/index.json",
+      "count": 7
+    },
+    "shot": {
+      "path": "data/videos/classification/by_action/shot/index.json",
+      "count": 124
+    },
+    "rebound": {
+      "path": "data/videos/classification/by_action/rebound/index.json",
+      "count": 30
+    },
+    "transition": {
+      "path": "data/videos/classification/by_action/transition/index.json",
+      "count": 65
+    },
+    "defense": {
+      "path": "data/videos/classification/by_action/defense/index.json",
+      "count": 22
+    },
+    "post": {
+      "path": "data/videos/classification/by_action/post/index.json",
+      "count": 25
+    },
+    "inbound": {
+      "path": "data/videos/classification/by_action/inbound/index.json",
+      "count": 9
+    }
+  },
+  "human_reviewed_count": 28
+}

@@ -1,0 +1,3 @@
+# Contact-sheet preparation and structured video-label validation.
+Pillow
+jsonschema

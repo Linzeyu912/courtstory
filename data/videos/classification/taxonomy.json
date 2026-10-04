@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "scenarios": {
+    "camera_zoom": "镜头推拉",
+    "full_court_movement": "全场移动",
+    "image_blur": "画面模糊",
+    "closeup_insertion": "特写打断",
+    "view_switch": "视角切换",
+    "half_court_only": "仅半场画面",
+    "motion_blur": "运动拖影",
+    "occlusion": "遮挡",
+    "players_out_of_frame": "球员出画",
+    "replay_or_teaching": "回放或教学加工"
+  },
+  "action_keyword_groups": {
+    "screen": [
+      "掩护",
+      "挡拆",
+      "挡人"
+    ],
+    "drive": [
+      "突破",
+      "持球冲",
+      "切入"
+    ],
+    "pass": [
+      "传",
+      "分球",
+      "手递手"
+    ],
+    "cut": [
+      "空切",
+      "跑位",
+      "无球切",
+      "后门"
+    ],
+    "shot": [
+      "投",
+      "出手",
+      "上篮",
+      "扣篮",
+      "三分"
+    ],
+    "rebound": [
+      "篮板"
+    ],
+    "transition": [
+      "转换",
+      "反击",
+      "推进"
+    ],
+    "defense": [
+      "防守",
+      "封盖",
+      "抢断",
+      "换防"
+    ],
+    "post": [
+      "背身",
+      "低位"
+    ],
+    "inbound": [
+      "发球"
+    ]
+  },
+  "action_group_note": "只对本轮可见动作标签分组，不由文件名推测战术。",
+  "value_semantics": {
+    "true": "观察到",
+    "false": "本轮采样未见",
+    "null": "无法判断；参见note"
+  },
+  "content_relation_types": {
+    "full_containment": "较完整片段包含短段画面",
+    "partial_overlap": "部分画面相同，但双方有独有内容",
+    "different": "候选已核对为不同画面",
+    "uncertain": "未能确认"
+  },
+  "retention_policy": "保留真实困难场景，清晰度等级不直接决定剔除。去杂针对无价值素材和已确认包含的重复画面。"
+}
