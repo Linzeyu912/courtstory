@@ -227,11 +227,16 @@ def main():
                     self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
                 if route=='/api/court-propagate':
                     from court_propagation import propagate_court
+                    from court_calibration import CourtKeypointModel, CourtModelUnavailable, object_source_payload
                     cuts=request.get('cuts',[])
                     if not isinstance(cuts,list):raise ValueError('切镜边界必须是数组。')
                     with mutation_lock:
+                        if 'court48' not in court_models:
+                            court_models['court48']=CourtKeypointModel(args.court_model,args.court_imgsz)
                         result=propagate_court(clips[source_id]['video'],json.loads(clips[source_id]['payloads'][variant]),
-                                               request.get('seed'),cuts)
+                            request.get('seed'),cuts,predictor=court_models['court48'],
+                            object_records=object_source_payload(clips[source_id],variant).get('frames'),
+                            unavailable_error=CourtModelUnavailable)
                     data=json.dumps(result,ensure_ascii=False,allow_nan=False).encode('utf-8')
                     self.send_response(200);self.send_header('Content-Type','application/json; charset=utf-8')
                     self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return

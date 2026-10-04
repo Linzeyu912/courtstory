@@ -64,6 +64,14 @@ class CameraTests(unittest.TestCase):
         h,quality=flow_transform(blank,blank,np.full_like(blank,255),1.)
         self.assertIsNone(h);self.assertIn('reason',quality)
 
+    def test_manual_reference_is_not_replaced_by_model_refresh(self):
+        def unexpected_model_call(image):
+            self.fail('A manually corrected reference must keep its camera-following geometry')
+        result=propagate_court(self.video,self.payload,self.seed,predictor=unexpected_model_call,
+                               object_records=[{'objects':[]} for _ in self.payload['frames']])
+        self.assertEqual(result['summary']['court48RefreshFrames'],0)
+        self.assertEqual(result['summary']['validFrames'],3)
+
     def test_propagated_seed_cannot_silently_cross_a_new_cut(self):
         self.seed.update(frame=2,source='camera_propagation',quality={'referenceFrame':0})
         with self.assertRaises(ValueError):propagate_court(self.video,self.payload,self.seed,cuts=[1])

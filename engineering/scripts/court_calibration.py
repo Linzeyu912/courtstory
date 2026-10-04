@@ -127,12 +127,39 @@ def calibrate_court(video, payload, frame, predictor, cuts=(), propagate=False,
         raise ValueError('无法解码匹配的标定帧。')
     keypoints = predictor(image)
     estimate = estimate_court(keypoints, object_records[frame].get('objects', []), width, height)
+    import cv2
+    import numpy as np
+    from court_propagation import LANDMARKS, LENGTH, project, refine_from_court_lines
+    scale = min(1., 960/width)
+    dimensions = (round(width*scale), round(height*scale))
+    scaled = np.diag([scale, scale, 1.])
+    inverse_scaled = np.linalg.inv(scaled)
+    gray = cv2.cvtColor(cv2.resize(image, dimensions), cv2.COLOR_BGR2GRAY)
+    h_scaled = scaled @ np.asarray(estimate['courtToImage'], np.float64).reshape(3, 3) if estimate['courtToImage'] else None
+    line_fit = None
+    if h_scaled is not None:
+        refined, line_fit = refine_from_court_lines(gray, h_scaled, estimate['side'],
+            records[frame]['tracks'], scale, estimate.get('points', []))
+        if line_fit.get('refinementApplied'):
+            h_full = inverse_scaled @ refined
+            h_full /= h_full[2, 2]
+            image_to_court = np.linalg.inv(h_full)
+            image_to_court /= image_to_court[2, 2]
+            estimate['courtToImage'] = h_full.reshape(-1).tolist()
+            estimate['imageToCourt'] = image_to_court.reshape(-1).tolist()
+            for point in estimate['points']:
+                point['modelImage'] = list(point['image'])
+                x, y = LANDMARKS[point['id']]
+                if estimate['side'] == 'right':
+                    x = LENGTH-x
+                point['image'] = project(h_full, [(x, y)])[0].tolist()
     source_frame = records[frame].get('source_frame', frame)
     source_time = records[frame].get('source_time', records[frame]['time'])
     orientation = {**copy.deepcopy(estimate['orientation']), 'sourceFrame': source_frame, 'sourceTime': source_time,
                    'objectTrackingFingerprint': objects_from.get('tracking_fingerprint'),
                    'objectVariant': objects_from.get('variant'),
-                   'coordinateConvention': 'same_sideline_broadcast_view', 'reviewRequired': True}
+                   'coordinateConvention': 'same_sideline_broadcast_view', 'reviewRequired': True,
+                   'courtLineFit': line_fit}
     initial = {'frame': frame, 'sourceFrame': source_frame, 'sourceTime': source_time,
                'side': estimate['side'], 'status': estimate['status'], 'reason': estimate.get('reason'),
                'orientation': orientation, 'model': copy.deepcopy(getattr(predictor, 'metadata', {}))}
@@ -151,11 +178,13 @@ def calibrate_court(video, payload, frame, predictor, cuts=(), propagate=False,
                 'source': 'hoop_constrained_court48', 'status': 'needs_review', 'reviewRequired': True,
                 'courtToImage': estimate['courtToImage'], 'imageToCourt': estimate['imageToCourt'],
                 'orientation': orientation,
-                'quality': {'method': 'hoop_constrained_court48', 'referenceFrame': frame,
-                            'cameraSupportFrame': frame, 'independentAccuracyValidated': False}}
+                'quality': {'method': 'hoop_constrained_court48_point_line_fit', 'referenceFrame': frame,
+                            'cameraSupportFrame': frame, 'courtLineFit': line_fit,
+                            'projectedLines': line_fit, 'independentAccuracyValidated': False}}
         if propagate:
             from court_propagation import propagate_court
-            propagated = propagate_court(video, payload, seed, cuts, max_fallback_frames=max_fallback_frames)
+            propagated = propagate_court(video, payload, seed, cuts, max_fallback_frames=max_fallback_frames,
+                predictor=predictor, object_records=object_records, unavailable_error=CourtModelUnavailable)
             result.update({key: propagated[key] for key in ('keyframes', 'invalidFrames', 'summary')})
             result['notes'].extend(propagated.get('notes', []))
             result['propagationSource'] = propagated['source']
