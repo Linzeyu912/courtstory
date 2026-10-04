@@ -26,9 +26,10 @@
 #tacticsStatus{padding:5px 9px;margin:6px 0 9px;font-size:12px;line-height:1.5;border-radius:3px}
 .tactics-phases{margin-bottom:9px}.tactics-phases button{padding:5px 10px}
 .tactics-layout{grid-template-columns:minmax(0,1fr) 265px;gap:14px}
-.tactics-author-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.tactics-author-tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:6px}
 .tactics-author-tools button{padding:9px 5px;font-size:12px;white-space:nowrap;background:#fff;border-color:#d3dfe9;display:flex;justify-content:center;align-items:center;gap:7px}
 .tactics-author-tools button span{font-size:18px;line-height:1}.tactics-author-tools button[aria-pressed="true"]{background:#e4f1fc;border-color:#6099c5;color:#174d78;box-shadow:inset 0 0 0 1px #6099c5}
+#tacticsToolDashed span{color:#168ab9}#tacticsToolDots span{color:#c89712;letter-spacing:1px}
 .tactics-instruction{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:38px}.tactics-instruction p{font-size:12px;line-height:1.5;margin:5px 0;color:#52677a}.tactics-instruction .tactics-buttons{flex-shrink:0}
 .tactics-selection-actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:6px 8px;margin-bottom:6px;min-height:42px;box-sizing:border-box;border:1px solid #b9d5ea;border-radius:6px;background:#eef7fe;font-size:12px}
 /* Reserve the action row so selecting a mark cannot move the canvas mid-drag. */

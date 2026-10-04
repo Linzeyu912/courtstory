@@ -363,6 +363,50 @@ test('canvas creates and edits an independent route with no detected route, save
   }finally{env.restore();}
 });
 
+for(const [tool,pattern,name,color] of [['tacticsToolDashed','dashed','虚线箭头','#19a9e1'],['tacticsToolDots','dots','传球路线','#ffd45c']]){
+  test(`${name} completes at two points, supports endpoint and whole-line edits, and persists its pattern without player assignment`,async()=>{
+    const f=await makePresentationDemo(),d={schemaVersion:1,title:name,notes:'',...f},env=environment(d,{player:true});
+    try{
+      await env.load();assert.equal(typeof env.get(tool).onclick,'function');await env.get(tool).onclick();
+      assert.match(env.get('tacticsToolHint').textContent,/起点.*终点/);
+      const writes=env.writes.length;
+      await env.event('pointerdown',{pointerId:200,target:env.target(),clientX:600,clientY:300});
+      assert.equal(env.ui.getSceneState().drawingPoints,1);assert.equal(env.writes.length,writes);
+      assert.equal(env.get('tacticsFinishDrawing').hidden,true);
+      await env.event('pointerdown',{pointerId:200,target:env.target(),clientX:600,clientY:300});
+      assert.equal(env.ui.getSceneState().drawingPoints,1);assert.equal(env.ui.getSceneState().annotations.items.length,0);
+      assert.match(env.get('tacticsStatus').textContent,/起点.*终点.*重合/);assert.equal(env.writes.length,writes);
+      await env.event('pointermove',{pointerId:200,clientX:720,clientY:350});
+      const overlay=env.get('tacticsCanvas').children[0].children[1];
+      assert.match(overlay.innerHTML,new RegExp(`data-drawing-pattern="${pattern}"`));assert.ok(overlay.innerHTML.includes(color));
+      if(pattern==='dots')assert.doesNotMatch(overlay.innerHTML,/data-drawing-arrow/);else assert.match(overlay.innerHTML,/data-drawing-arrow/);
+      await env.event('pointerdown',{pointerId:201,target:env.target(),clientX:720,clientY:350});
+      let a=env.ui.getSceneState().annotations.items[0];assert.equal(a.type,'route');assert.equal(a.points.length,2);
+      assert.equal(a.style.pattern,pattern);assert.equal(a.style.color,color);assert.equal(a.entityId,null);
+      assert.equal(env.ui.getSceneState().drawingPoints,0);assert.match(env.get('tacticsSelectedTitle').textContent,new RegExp(name));
+      assert.match(env.get('tacticsObjectList').children[0].textContent,new RegExp(name));
+      assert.equal(env.get('tacticsAnnotationAddPoint').disabled,true);assert.equal(env.get('tacticsAnnotationDeletePoint').disabled,true);
+      await env.get('tacticsAnnotationAddPoint').onclick();assert.doesNotMatch(env.get('tacticsToolHint').textContent,/新的转弯/);
+      const id=a.id,before=structuredClone(a.points),position=a.space==='court'?courtToVideo(env.ui.getSceneState().model,12,a.points[0]):a.points[0];
+      await env.event('pointerdown',{pointerId:202,target:env.target({'data-annotation-control-index':'0','data-annotation-id':id}),clientX:position.x,clientY:position.y});
+      await env.event('pointermove',{pointerId:202,clientX:position.x+20,clientY:position.y+10});await env.event('pointerup',{pointerId:202});
+      a=env.ui.getSceneState().annotations.items[0];assert.notDeepEqual(a.points[0],before[0]);assert.deepEqual(a.points[1],before[1]);
+      const endpoints=structuredClone(a.points),start=a.space==='court'?courtToVideo(env.ui.getSceneState().model,12,a.points[0]):a.points[0];
+      await env.event('pointerdown',{pointerId:203,target:env.target({'data-annotation-id':id}),clientX:start.x,clientY:start.y});
+      await env.event('pointermove',{pointerId:203,clientX:start.x+12,clientY:start.y+8});await env.event('pointerup',{pointerId:203});
+      a=env.ui.getSceneState().annotations.items[0];assert.notDeepEqual(a.points[0],endpoints[0]);assert.notDeepEqual(a.points[1],endpoints[1]);assert.equal(a.points.length,2);
+      env.get('tacticsAnnotationSize').value='1.8';await env.get('tacticsAnnotationSize').onchange();
+      env.get('tacticsAnnotationColor').value='#f05a33';await env.get('tacticsAnnotationColor').onchange();
+      env.get('tacticsAnnotationStart').value='13';env.get('tacticsAnnotationEnd').value='22';await env.get('tacticsAnnotationApplyTime').onclick();
+      const changed=structuredClone(env.ui.getSceneState().annotations.items[0]);assert.equal(changed.style.size,1.8);assert.equal(changed.style.color,'#f05a33');assert.equal(changed.endFrameExclusive,22);
+      await env.get('tacticsQuickDelete').onclick();assert.equal(env.ui.getSceneState().annotations.items.length,0);
+      await env.get('tacticsUndo').onclick();assert.deepEqual(env.ui.getSceneState().annotations.items[0],changed);
+      await env.get('tacticsSave').onclick();assert.deepEqual(env.saved.at(-1).document.review,d.review);assert.equal(env.saved.at(-1).document.annotations.items[0].style.pattern,pattern);
+      await env.get('tacticsWorkspace').onclick();await env.ui.ready();assert.deepEqual(env.ui.getSceneState().annotations.items[0],changed);
+    }finally{env.restore();}
+  });
+}
+
 test('screen and player spotlight are visible independent objects; playback and phase changes discard incomplete gestures',async()=>{
   const f=await makePresentationDemo(),env=environment({schemaVersion:1,title:'marks',notes:'',...f},{player:true});
   try{
