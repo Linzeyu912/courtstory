@@ -4,7 +4,7 @@ import {DEFAULT_OPTIONS,evidenceQuality} from '../tactical-overlay/validation.mj
 import {COURT,project} from './court.mjs';
 
 // Authored illustrations are separate from observations and their review status.
-export const ANNOTATION_LIMITS=Object.freeze({items:256,points:6});
+export const ANNOTATION_LIMITS=Object.freeze({items:256,points:6,dots:160});
 export const ANNOTATION_REASONS=Object.freeze({phase_changed:'阶段已调整，请重新绑定',phase_missing:'原阶段已合并，请重新绑定',
   source_changed:'轨迹快照已更新，请重新绑定',entity_missing:'关联球员已移除',outside_time:'不在显示时间内',
   reference_frame_only:'仅在绘制的参考帧显示',completed:'这条路线已走完',calibration_unavailable:'当前帧无可用球场映射',
@@ -43,7 +43,10 @@ export function validateAnnotations(annotations,document){
     const bounds=a.space==='court'?{x:COURT.length,y:COURT.width}:{x:document?.review?.width??65536,y:document?.review?.height??65536};
     if(!Array.isArray(a.points)||(a.type==='route'?(a.points.length<2||a.points.length>ANNOTATION_LIMITS.points):a.points.length!==1)||
       a.points.some(p=>!fields(p,['x','y'])||!finite(p.x)||!finite(p.y)||p.x<0||p.y<0||p.x>bounds.x||p.y>bounds.y))bad('annotation_points');
-    if(!fields(a.style,['angle','size','color'])||!finite(a.style.angle)||Math.abs(a.style.angle)>360||!finite(a.style.size)||a.style.size<.5||a.style.size>3||!/^#[a-f0-9]{6}$/i.test(a.style.color))bad('annotation_style');
+    if(!fields(a.style,['angle','size','color'],['pattern'])||!finite(a.style.angle)||Math.abs(a.style.angle)>360||!finite(a.style.size)||a.style.size<.5||a.style.size>3||!/^#[a-f0-9]{6}$/i.test(a.style.color))bad('annotation_style');
+    if(a.style?.pattern!==undefined&&(a.type!=='route'||!['solid','dashed','dots'].includes(a.style.pattern)))bad('annotation_pattern');
+    if(['dashed','dots'].includes(a.style?.pattern)&&(!Array.isArray(a.points)||a.points.length!==2||
+      !object(a.points[0])||!object(a.points[1])||distance(a.points[0],a.points[1])<=1e-6))bad('annotation_straight_points');
     if(typeof a.followEntity!=='boolean'||a.followEntity&&(a.type!=='spotlight'||!a.entityId))bad('annotation_follow');
     if(a.anchorMode!==undefined&&!['manual_offset','player_foot'].includes(a.anchorMode))bad('annotation_anchor_mode');
     if(a.anchorMode==='player_foot'&&(a.type!=='spotlight'||a.space!=='video'||!a.entityId||!a.followEntity))bad('annotation_foot_anchor');
@@ -70,7 +73,7 @@ export function createAnnotation(document,input){
   if(document.annotations?.items.some(a=>a.id===id))throw new Error('该标注已存在。');
   const annotation={id,type:input.type,phaseId:p.phaseId,entityId,startFrame:input.startFrame??input.frame,
     endFrameExclusive:input.endFrameExclusive??p.endFrameExclusive,anchorFrame:input.frame,space:input.space,points:copy(input.points),
-    style:{angle:0,size:1,color:input.type==='screen'?'#ffd45c':input.type==='spotlight'?'#ffd45c':'#19a9e1',...input.style},
+    style:{angle:0,size:1,color:input.type==='screen'||input.type==='spotlight'||input.type==='route'&&input.style?.pattern==='dots'?'#ffd45c':'#19a9e1',...input.style},
     followEntity:input.followEntity??(input.type==='spotlight'&&entityId!==null),phaseSnapshot:phaseSnapshot(p),sourceBinding:sourceSnapshot(document)};
   if(input.anchorMode!==undefined)annotation.anchorMode=input.anchorMode;
   if(input.anchorMode==='player_foot'){annotation.space='video';annotation.offset=copy(input.offset??{x:0,y:0});}
@@ -160,14 +163,36 @@ function trimCurve(points,progress){
   }
   return null;
 }
-function routeGeometry(curve,size,space,height){
+function equallySpacedDots(curve,spacing){
+  const distances=curve.slice(1).map((point,index)=>distance(point,curve[index])),length=distances.reduce((sum,n)=>sum+n,0);
+  const count=Math.min(ANNOTATION_LIMITS.dots,Math.max(2,Math.floor(length/spacing)+1)),result=[];
+  let index=0,walked=0;
+  for(let i=0;i<count;i++){
+    if(i===count-1){result.push(copy(curve.at(-1)));break;}
+    const target=length*i/(count-1);
+    while(index<distances.length-1&&walked+distances[index]<target){walked+=distances[index];index++;}
+    const t=distances[index]>0?(target-walked)/distances[index]:0,a=curve[index],b=curve[index+1];
+    result.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t});
+  }
+  return result;
+}
+function routePatternGeometry(geometry,pattern,size,space,height){
+  const result={...geometry,pattern},unit=space==='court'?1:height/1080;
+  if(pattern==='dots'){
+    delete result.arrow;
+    result.dotRadius=(space==='court'?.16:8)*size*unit;
+    result.dots=equallySpacedDots(result.curve,(space==='court'?.6:30)*size*unit);
+  }else if(pattern==='dashed')result.dashArray=[space==='court'?.6:30*unit,space==='court'?.45:24*unit].map(n=>n*size);
+  return result;
+}
+function routeGeometry(curve,size,space,height,pattern='solid'){
   if(!curve||curve.length<2)return null;
   const end=curve.at(-1);let previous=curve.length-2;while(previous>0&&distance(curve[previous],end)<1e-7)previous--;
   const d=distance(curve[previous],end);if(d<1e-7)return null;
   const ux=(end.x-curve[previous].x)/d,uy=(end.y-curve[previous].y)/d;
   const length=curve.slice(1).reduce((total,p,i)=>total+distance(p,curve[i]),0),unit=space==='court'?1:height/1080;
   const head=Math.min((space==='court'?.7:46)*size*unit,length*.6),half=Math.min((space==='court'?.4:25)*size*unit,length*.4);
-  return {curve,arrow:[{x:end.x-ux*head-uy*half,y:end.y-uy*head+ux*half},end,{x:end.x-ux*head+uy*half,y:end.y-uy*head-ux*half}],strokeWidth:(space==='court'?.18:12)*size*unit};
+  return routePatternGeometry({curve,arrow:[{x:end.x-ux*head-uy*half,y:end.y-uy*head+ux*half},end,{x:end.x-ux*head+uy*half,y:end.y-uy*head-ux*half}],strokeWidth:(space==='court'?.18:12)*size*unit},pattern,size,space,height);
 }
 function markerGeometry(a,center,height){
   const unit=a.space==='court'?1:height/1080,size=a.style.size,angle=a.style.angle*Math.PI/180;
@@ -187,7 +212,10 @@ function mapGeometry(geometry,mapping,height,size,type){
   if(geometry.ring)mapped.ring=list(geometry.ring);
   if(geometry.center)mapped.center=point(geometry.center);
   if([...(mapped.curve??[]),...(mapped.arrow??[]),...(mapped.paths?.flat()??[]),...(mapped.ring??[]),...(geometry.center?[mapped.center]:[])].some(p=>!p||!finite(p.x)||!finite(p.y)))return null;
-  mapped.strokeWidth=(type==='route'?12:type==='screen'?8:5)*(height/1080)*size;return mapped;
+  mapped.strokeWidth=(type==='route'?12:type==='screen'?8:5)*(height/1080)*size;
+  // Re-sample after projection so perspective cannot stretch the dot spacing
+  // or turn small passing markers into large ellipses on the video surface.
+  return type==='route'?routePatternGeometry(mapped,geometry.pattern??'solid',size,'video',height):mapped;
 }
 function rawFoot(context,entityId,frameNumber){
   if(evidenceQuality(context,'identity',{entityId},frameNumber,frameNumber+1).state==='invalid')return {reason:'identity_conflict'};
@@ -236,7 +264,7 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
     if(a.type==='route'){
       const start=context.frames[a.startFrame].time,end=context.frames[a.endFrameExclusive-1].time;
       const progress=editing||end<=start?0:(context.frames[currentFrame].time-start)/(end-start);
-      geometry=routeGeometry(trimCurve(smooth(a.points),progress),a.style.size,a.space,height);
+      geometry=routeGeometry(trimCurve(smooth(a.points),progress),a.style.size,a.space,height,a.style.pattern??'solid');
       if(!geometry){item.hiddenReason='completed';continue;}
     }else{
       const center=followingCenter(a,context,currentFrame);
@@ -277,9 +305,13 @@ export function renderAnnotationsSVG(scene,{space='video',width=scene.width,heig
     const color=item.original.style.color,stroke=g.strokeWidth,outline=stroke+(space==='court'?.07:3*(scene.height/1080));
     parts.push(`<g data-annotation-id="${escape(item.id)}" data-type="${item.type}" fill="none" stroke-linecap="round" stroke-linejoin="round">`);
     if(item.type==='route'){
-      const line=coordinates(g.curve),arrow=coordinates(g.arrow);
-      parts.push(`<polyline points="${line}" stroke="#ffffff" stroke-opacity=".88" stroke-width="${outline}"/><polyline data-part="route" points="${line}" stroke="${color}" stroke-width="${stroke}"/>`);
-      parts.push(`<polygon data-part="arrow" points="${arrow}" fill="${color}" stroke="#ffffff" stroke-opacity=".88" stroke-width="${space==='court'?.035:1.5*(scene.height/1080)}"/>`);
+      if(g.pattern==='dots'){
+        parts.push(...g.dots.map(point=>`<circle data-part="route-dot" cx="${point.x.toFixed(4)}" cy="${point.y.toFixed(4)}" r="${g.dotRadius}" fill="${color}" stroke="#5a4105" stroke-opacity=".88" stroke-width="${space==='court'?.03:1.5*(scene.height/1080)}"/>`));
+      }else{
+        const line=coordinates(g.curve),arrow=coordinates(g.arrow),dash=g.pattern==='dashed'?` stroke-dasharray="${g.dashArray.map(n=>n.toFixed(4)).join(' ')}"`:'';
+        parts.push(`<polyline points="${line}" stroke="#ffffff" stroke-opacity=".88" stroke-width="${outline}"${dash}/><polyline data-part="route" points="${line}" stroke="${color}" stroke-width="${stroke}"${dash}/>`);
+        parts.push(`<polygon data-part="arrow" points="${arrow}" fill="${color}" stroke="#ffffff" stroke-opacity=".88" stroke-width="${space==='court'?.035:1.5*(scene.height/1080)}"/>`);
+      }
     }else if(item.type==='screen'){
       const paths=g.paths.map(path=>coordinates(path));
       parts.push(...paths.map(points=>`<polyline points="${points}" stroke="#493611" stroke-opacity=".7" stroke-width="${outline+stroke*.4}"/>`));

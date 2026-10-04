@@ -134,3 +134,75 @@ test('a video with no detected or associated players can still start a complete 
   assert.deepEqual(model.routes,[]);assert.ok(api.projectAnnotations(doc,{phaseId:'phase-1',frame:0,model}).items.every(i=>i.video));
   assert.equal(doc.annotations.items.find(i=>i.type==='spotlight').followEntity,false);
 });
+
+test('straight route patterns keep legacy defaults and reject incompatible imports or extra control points',async()=>{
+  const base=await fixture(),points=[{x:18,y:10},{x:23,y:8}];
+  const legacy=api.createAnnotation(base,route);await validateDocument(JSON.parse(JSON.stringify(legacy)));
+  assert.equal(legacy.annotations.items[0].style.pattern,undefined);
+  for(const pattern of ['solid','dashed','dots']){
+    const doc=api.createAnnotation(base,{...route,points,style:{pattern}});
+    await validateDocument(JSON.parse(JSON.stringify(doc)));
+    assert.equal(doc.annotations.items[0].style.color,pattern==='dots'?'#ffd45c':'#19a9e1');
+    const moved=api.updateAnnotation(doc,'route-a',{points:[{x:17,y:9},{x:22,y:7}],style:{size:1.5}});
+    assert.equal(moved.annotations.items[0].style.pattern,pattern);assert.equal(moved.annotations.items[0].points.length,2);
+    assert.deepEqual(doc.annotations.items[0].points,points);
+    const split=splitPhase(moved,'setup',20),rebound=api.updateAnnotation(split,'route-a',{frame:12,endFrameExclusive:20});
+    await validateDocument(rebound);assert.equal(rebound.annotations.items[0].style.pattern,pattern);
+    if(pattern!=='solid'){
+      assert.throws(()=>api.updateAnnotation(doc,'route-a',{points:route.points}));
+      assert.throws(()=>api.updateAnnotation(doc,'route-a',{points:[points[0],points[0]]}));
+      assert.throws(()=>api.createAnnotation(base,{...route,points:[points[0],points[0]],style:{pattern}}));
+    }
+  }
+  for(const input of [{...route,style:{pattern:'dashed'}},{...route,style:{pattern:'dots'}},
+    {...route,points,style:{pattern:'invented'}},
+    {...route,type:'screen',points:[points[0]],style:{pattern:'solid'}},
+    {...route,type:'spotlight',points:[points[0]],style:{pattern:'dots'}}])assert.throws(()=>api.createAnnotation(base,input));
+  const imported=structuredClone(legacy);imported.annotations.items[0].style.pattern='dots';
+  await assert.rejects(validateDocument(imported),/画布标注/);
+});
+
+test('dashed arrows use matching gaps in the white outline and colored line while keeping the head solid',async()=>{
+  const doc=api.createAnnotation(await fixture(),{...route,points:[{x:17,y:10},{x:24,y:10}],style:{pattern:'dashed'}});
+  const first=api.projectAnnotations(doc,{phaseId:'setup',frame:12}),later=api.projectAnnotations(doc,{phaseId:'setup',frame:20});
+  const svg=api.renderAnnotationsSVG(first),lines=[...svg.matchAll(/<polyline\b[^>]*>/g)].map(match=>match[0]);
+  assert.equal(lines.length,2);assert.ok(lines.every(line=>/stroke-dasharray="[^"]+"/.test(line)));
+  assert.equal(lines[0].match(/stroke-dasharray="([^"]+)"/)[1],lines[1].match(/stroke-dasharray="([^"]+)"/)[1]);
+  const arrow=svg.match(/<polygon\b[^>]*data-part="arrow"[^>]*>/)?.[0];assert.ok(arrow);assert.doesNotMatch(arrow,/stroke-dasharray/);
+  assert.ok(later.items[0].video.curve[0].x>first.items[0].video.curve[0].x);
+  assert.ok(first.items[0].video.curve.every(point=>Math.abs(point.y-first.items[0].video.curve[0].y)<1e-6));
+  assert.equal(api.projectAnnotations(doc,{phaseId:'setup',frame:29}).items[0].hiddenReason,'completed');
+});
+
+test('passing dots remain equally spaced after perspective projection and gaps select the entire route',async()=>{
+  const base=await fixture();
+  for(const key of base.review.court.calibration.keyframes)for(const point of key.points){
+    const [x,y]=point.image;point.image=[x/(1+x*.0005),y/(1+x*.0005)];
+  }
+  base.playDefinition.sourceBinding=await createSourceBinding(base.review);
+  const doc=api.createAnnotation(base,{...route,points:[{x:4,y:4},{x:26,y:11}],style:{pattern:'dots'}});
+  const scene=api.projectAnnotations(doc,{phaseId:'setup',frame:12}),geometry=scene.items[0].video;
+  assert.ok(geometry.dots.length>5);assert.equal(geometry.arrow,undefined);
+  const gaps=geometry.dots.slice(1).map((point,index)=>Math.hypot(point.x-geometry.dots[index].x,point.y-geometry.dots[index].y));
+  assert.ok(Math.max(...gaps)-Math.min(...gaps)<1e-6);
+  assert.ok(geometry.dotRadius>=5&&geometry.dotRadius<=6,'projected dots must remain visible when the video is shown at reduced size');
+  assert.ok(gaps.every(gap=>gap>=20-1e-6),'passing markers need enough space to remain separate at the default size');
+  const middle=Math.floor(geometry.dots.length/2),a=geometry.dots[middle],b=geometry.dots[middle+1];
+  assert.deepEqual(api.hitTestAnnotation(scene,{x:(a.x+b.x)/2,y:(a.y+b.y)/2},1),{id:'route-a',index:null});
+  const svg=api.renderAnnotationsSVG(scene);
+  assert.equal((svg.match(/<circle\b/g)||[]).length,geometry.dots.length);
+  assert.doesNotMatch(svg,/<polyline|data-part="arrow"/);assert.match(svg,/fill="#ffd45c"/);
+  assert.ok([...svg.matchAll(/<circle\b[^>]*>/g)].every(match=>/stroke="#5a4105"/.test(match[0])&&/stroke-width="1"/.test(match[0])));
+  const larger=api.projectAnnotations(api.updateAnnotation(doc,'route-a',{style:{size:2}}),{phaseId:'setup',frame:12}).items[0].video;
+  assert.equal(larger.dotRadius,geometry.dotRadius*2);assert.ok(larger.dots.length<geometry.dots.length);
+  const later=api.projectAnnotations(doc,{phaseId:'setup',frame:20}).items[0].video;
+  assert.ok(later.dots.length<geometry.dots.length);assert.deepEqual(later.dots.at(-1),geometry.dots.at(-1));
+});
+
+test('extreme visible passing lines have a bounded number of circles and keep video frame visibility rules',async()=>{
+  const base=await fixture();base.review.width=65000;base.playDefinition.sourceBinding=await createSourceBinding(base.review);
+  const doc=api.createAnnotation(base,{...route,space:'video',points:[{x:0,y:500},{x:64999,y:500}],style:{pattern:'dots',size:.5}});
+  const scene=api.projectAnnotations(doc,{phaseId:'setup',frame:12}),dots=scene.items[0].video.dots;
+  assert.ok(dots.length>1&&dots.length<=160);assert.deepEqual(dots[0],{x:0,y:500});assert.deepEqual(dots.at(-1),{x:64999,y:500});
+  assert.equal(api.projectAnnotations(doc,{phaseId:'setup',frame:13}).items[0].hiddenReason,'reference_frame_only');
+});
