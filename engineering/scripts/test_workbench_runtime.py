@@ -36,5 +36,18 @@ class RuntimeTests(unittest.TestCase):
             self.assertIn('CUDA out of memory', message)
             self.assertLess(len(message), 1600)
 
+    def test_nested_worker_failure_keeps_the_underlying_reason(self):
+        with tempfile.TemporaryDirectory() as folder:
+            log = Path(folder) / 'processing.log'
+            log.write_text('Traceback (most recent call last):\nRuntimeError: CUDA out of memory\n'
+                           'Traceback (most recent call last):\n'
+                           'subprocess.CalledProcessError: Command [python, worker] returned non-zero exit status 1.\n')
+            message = local_video_library.worker_failure(log, 1)
+            self.assertIn('CUDA out of memory', message)
+            self.assertNotIn('CalledProcessError', message)
+            log.write_text('_pickle.UnpicklingError: Weights only load failed.\n'
+                           'subprocess.CalledProcessError: Command failed\n')
+            self.assertIn('模型权重加载不兼容', local_video_library.worker_failure(log, 1))
+
 
 if __name__ == '__main__': unittest.main()

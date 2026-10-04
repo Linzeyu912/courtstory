@@ -22,6 +22,7 @@ import statistics
 import tempfile
 import time
 from detector_evidence import build_detector_evidence
+from yolo_checkpoint import load_detector
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -75,7 +76,6 @@ def run(args):
     import numpy as np
     import torch
     import ultralytics
-    from ultralytics import YOLO
     from ultralytics.cfg import DEFAULT_CFG_DICT
     from ultralytics.nn.modules.head import Detect
     from ultralytics.trackers import track as tracker_registration
@@ -92,7 +92,7 @@ def run(args):
     torch.cuda.set_device(0)
     torch.cuda.reset_peak_memory_stats(0)
     started = time.perf_counter()
-    model = YOLO(str(weights))
+    model = load_detector(weights)
     model.to("cuda:0")
     names = {int(key): str(value) for key, value in model.names.items()}
     detector = getattr(args, 'detector', None) or ('yolo' if args.variant == 'yolo' else 'ebard')
