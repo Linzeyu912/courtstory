@@ -1,6 +1,8 @@
 # 工程入口
 
-更新：2026-10-02，Asia/Shanghai。这里集中软件、产品设计与技术实验；[赛事要求](../requirements/README.md)、[视频数据](../data/videos/README.md)和[团队协作](../docs/workflow.md)分别维护。
+更新：2026-10-04，Asia/Shanghai。这里集中软件、产品设计与技术实验；[赛事要求](../requirements/README.md)、[视频数据](../data/videos/README.md)和[团队协作](../docs/workflow.md)分别维护。
+
+优先阅读[当前成果、问题与调研汇总](docs/progress-and-open-issues-20261004.md)：包含分类提交、THY 整合、已知失败、最新回归与接续建议。离线全场标定尚未接入工作台默认后端，矩阵覆盖和人物联合准确性分别记录。
 
 | 部分 | 位置 | 当前作用 |
 |---|---|---|
@@ -30,4 +32,4 @@ python -m venv .venv
 & .venv/Scripts/python.exe -m unittest discover -s engineering/scripts -p "test_*.py"
 ```
 
-Python 运行依赖见[requirements-review.txt](requirements-review.txt)，视觉模型实验的额外环境见[本机测量说明](research/vision-local-aws-deployment.md)。目前工作台是本机原型：未实现自动直播分类、球衣 OCR、完整战术讲解或云部署，检测身份与米制坐标仍需人工核对。字段是内部原型约定，不是赛事官方数据格式。
+Python 运行依赖见[requirements-review.txt](requirements-review.txt)，视觉模型实验的额外环境见[本机测量说明](research/vision-local-aws-deployment.md)，离线全场求解另见[可选依赖](requirements-court-fullcourt.txt)。目前工作台已支持 OCR 候选证据、身份续接候选、战术 Agent 生成 / 预览 / 采用和人工图形编辑，但真实调用成功、身份与米制精度仍需逐项核对。自动直播分类、完整战术讲解和云部署尚未完成；当前导入不会自动运行姿态模型。字段是内部原型约定，不是赛事官方数据格式。

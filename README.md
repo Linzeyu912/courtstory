@@ -7,6 +7,17 @@
 
 ## 工作台更新
 
+**2026-10-04 晚间成果整理：** 当前成果、已知问题、实验指标和开源方案已集中写入[工作台成果、问题与调研报告](engineering/docs/progress-and-open-issues-20261004.md)，并按类别独立提交。THY 的身份续接、区间修正和最新战术参考帧更新已保留；最新同步与推送核对见[发布交接](handoffs/Linzeyu912/2026-10-04-2200-classified-publication.md)。
+
+| 类别 | 当前结果 | 待继续处理 |
+|---|---|---|
+| 识别与导入 | 保留 YOLOv8n + BoT-SORT，修复权重加载与球 / 篮筐数据缺失 | 旧缓存可能需重处理，人物身份接续仍需复核 |
+| 轨迹与数据 | 球场相对尾迹、脚点来源、OCR 证据和画面状态已接入 | 导入尚不自动运行姿态，接地精度未独立验收 |
+| 球场与 2D | 保留半场线优化；离线全场矩阵覆盖 99.17% | 全场算法未接入默认后端，联合人物覆盖仍未达到 90%，不能把矩阵覆盖当准确率 |
+| 界面与报告 | 单一左导航、模型选择与展开推荐标记、对比视频播放修复 | 完整 Agent、跨比赛泛化和云部署仍待验收 |
+
+本轮完整回归：前端 508 通过 / 1 环境跳过，Python 285 通过，175 个视频哈希 / LFS 索引检查通过。源码与报告共享；模型、处理中间文件和本机对比成片不随 Git 上传。下方保留历史发布记录，详细分类提交与验证边界见上述报告。
+
 2026-10-04 09:46 分类发布：球场多帧点线联合标定、人工参照保护与镜头跟随已提交为 [1219baf](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1219baf4716e4b24ad0c62dfb8e31769544c5550)，三步标定 UI 与人工兜底为 [f07f136](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/f07f13621292860dd361f00878090224226ed29c)，公开模型 / 旋转镜头调研为 [5850fe9](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/5850fe9592eadae5889302a6f5246df756671510)，均已正常推送 `main` 并核对远端；流程决策与本轮发布记录另作协作文档提交。18 段用户上传视频此前已独立共享，现全库 175 个视频的哈希与 LFS 指针检查通过。部分播放器定位卡顿、独立标定精度和云部署仍待处理；本轮未重跑测试套件。完整分类、验证范围与接续事项见[发布交接](handoffs/Linzeyu912/2026-10-04-0946-court-work-publication.md)。
 
 2026-10-03 16:30 整理发布：视频库与独立 YOLO / 跟踪器组合、THY 战术审核与冻结报告、候选显示和扩大视频布局已分三类提交并推送 `main`，功能提交为 [2eeca0e](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/2eeca0e9f056da606a56d64d651289eb395bebd1)、[ee65937](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/ee65937449017ae5fcb5a25c1ba9386bce9f1943)、[74967ed](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/74967ed576698db9972fee2b9997eb9d6b4b9d1a)。本机视频、处理缓存和人工核验草稿继续保留，正式服务保持运行。前端 314 项通过 / 1 权限跳过，后端 199 项通过；分类范围、数据保留与视频校验限制见[发布交接](handoffs/Linzeyu912/2026-10-03-1630-workbench-updates-publication.md)。此前各轮记录保留当时状态。
@@ -26,6 +37,7 @@
 | 仓库各目录的用途、数据入口与开发内容边界 | [目录说明](docs/repository-map.md) |
 | 最新赛事要求、评分、交付清单、对标视频 | [赛事资料整理](requirements/BroadcastCode赛事资料整理.md) |
 | 当前进度和待认领事项 | [团队状态](docs/status.md) |
+| 工作台最新成果、问题、模型调研与分类提交 | [共享汇总报告](engineering/docs/progress-and-open-issues-20261004.md) |
 | 三位成员与建议分工 | [团队成员](docs/team.md) |
 | 首次克隆、直接在 main 修改和同步 | [协作流程](docs/workflow.md) |
 | 已确定的协作方式和待定技术选择 | [决策记录](docs/decisions.md) |
