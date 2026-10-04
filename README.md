@@ -7,6 +7,8 @@
 
 ## 工作台更新
 
+2026-10-04 09:46 分类发布：球场多帧点线联合标定、人工参照保护与镜头跟随已提交为 [1219baf](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1219baf4716e4b24ad0c62dfb8e31769544c5550)，三步标定 UI 与人工兜底为 [f07f136](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/f07f13621292860dd361f00878090224226ed29c)，公开模型 / 旋转镜头调研为 [5850fe9](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/5850fe9592eadae5889302a6f5246df756671510)，均已正常推送 `main` 并核对远端；流程决策与本轮发布记录另作协作文档提交。18 段用户上传视频此前已独立共享，现全库 175 个视频的哈希与 LFS 指针检查通过。部分播放器定位卡顿、独立标定精度和云部署仍待处理；本轮未重跑测试套件。完整分类、验证范围与接续事项见[发布交接](handoffs/Linzeyu912/2026-10-04-0946-court-work-publication.md)。
+
 2026-10-03 16:30 整理发布：视频库与独立 YOLO / 跟踪器组合、THY 战术审核与冻结报告、候选显示和扩大视频布局已分三类提交并推送 `main`，功能提交为 [2eeca0e](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/2eeca0e9f056da606a56d64d651289eb395bebd1)、[ee65937](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/ee65937449017ae5fcb5a25c1ba9386bce9f1943)、[74967ed](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/74967ed576698db9972fee2b9997eb9d6b4b9d1a)。本机视频、处理缓存和人工核验草稿继续保留，正式服务保持运行。前端 314 项通过 / 1 权限跳过，后端 199 项通过；分类范围、数据保留与视频校验限制见[发布交接](handoffs/Linzeyu912/2026-10-03-1630-workbench-updates-publication.md)。此前各轮记录保留当时状态。
 
 2026-10-03 已按用户授权将人物关联冲突纠正、人物 / 球场蓝绿审核状态分成两项功能提交，推送工作分支后与最新 `main` 合并。功能合并提交为 [7ee65bd](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/7ee65bd88694fab6341dac8e0060842958ef58f0)，已核对本地 `main` 与两个远端分支一致；保留队友新增研究归档。241 项前端、216 项后端及构建检查通过。分类提交、冲突处理和数据校验边界见[本次发布交接](handoffs/Linzeyu912/2026-10-03-1005-workbench-main-publication.md)。下文早期分支状态保留对应轮次，后续恢复仓库默认的 main 协作流程。
