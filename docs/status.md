@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-05（America/New_York）2D 主画布工作流：按用户明确授权实现 T0–T8 的源 PTS / V2 契约、全片身份续接队列、独立 2D 准备与保守平滑、秒级手绘、讲解关键帧、同几何 MP4 及选区 Agent V3，保留旧稿与候选读取。491 项工作台测试、71 项相关 Python 测试和合成 Chromium / 258 帧实际 MP4 链路通过；独立引擎 56 通过、5 因 005 为 LFS 指针失败。实际 Codex 调用因本环境运行目录只读失败，真实 005 / Warriors / 移动镜头与模型成功验收按用户指示交接本地；未宣称全计划真实验收完成或新增定位精度结论。详见 [工程指南](../engineering/docs/2d-first-tactics-workbench-guide.md)与 [本轮交接](../handoffs/chuali-zi/2026-10-05-0127-2d-first-tactics-workbench.md)，最终推送哈希以交接及完成报告为准。
+
 2026-10-05（America/New_York）源码研究发布：用户明确要求先提交并 push 已有成果；[OpenCode / Codex 协议研究](../engineering/research/agent-video-understanding-20261005/README.md)、46 段既有摘录、来源 / 许可证、离线验证与交接纳入本次 main 文档提交。46 段逐字节核验和 10 项离线断言通过，未改工作台功能或视频。最终推送与远端 SHA 核对结果见本次完成报告；下方“未提交 / 未推送”保留此前状态。用户已明确下一轮研究重点为视频模型如何理解时序、提取球员轨迹并映射到 2D 球场，不继续硬拆不存在的模块。
 
 2026-10-05 04:10（Etc/UTC，本地，未提交 / 未推送）：已快进同步远端 `main@42a1d60`，另行克隆 OpenCode `dev@907b3bc5`、Codex `main@7f892275`，完成[多模态视频源码研究](../engineering/research/agent-video-understanding-20261005/README.md)。拆出 46 段附固定版本 / 行号 / 哈希的源码，核实 OpenCode 的 Gemini 底层视频路径与默认附件入口限制、Codex 图片 / 音频协议及外部抽帧要求，并对照现有 PyAV / 身份 / 战术输入代码。真实 MP4 附件检测与 Google SDK 请求封装的 10 项离线断言通过；没有真实模型推理、产品接入或新增精度结论。本轮研究文件及[交接](../handoffs/chuali-zi/2026-10-05-0410-agent-video-source-study.md)留在本地，未推送。
