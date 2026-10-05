@@ -31,9 +31,7 @@ export function mountWorkbenchShell(api) {
     }
     if (future) {
       $('futureTitle').textContent = titles[area];
-      $('futureDescription').textContent = area === 'tactics'
-        ? '在完成位置与轨迹核对后，分析场上关系，整理战术判断和讲解。'
-        : '将当前草稿中的路线、标记和冻结动画编码为 MP4。生成过程不修改草稿。';
+      $('futureDescription').textContent = '将当前草稿中的路线、标记和冻结动画编码为 MP4。生成过程不修改草稿。';
     }
     const open = drawerState !== 'closed';
     $('drawerBody').hidden = !open;

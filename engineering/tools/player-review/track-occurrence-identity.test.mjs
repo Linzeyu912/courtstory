@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import {blankSession,buildTrajectories,exportReview,isHumanIdentitySelected,playerDisplayState,reviewTrailCuts} from './trajectory.mjs';
 import {confirmIdentity,identityAt,identityInterval,identityConfirmationInterval} from './identity-timeline.mjs';
 import {initializeAutomaticAnnotations,automaticAnnotationPointVisible} from './automatic-annotations.mjs';
-import {personTrail} from './tracking-display.mjs';
+import {playerCourtTrail} from './court-trails.mjs';
+import {buildCourtTrajectories} from './court.mjs';
 import {pathSegments} from './court.mjs';
 
 const records=ids=>ids.map((values,frame)=>({frame,time:frame/25,
@@ -156,7 +157,9 @@ test('adding a camera cut preserves every assigned observation while splitting i
   assert.deepEqual(points,before,'a new cut does not erase already assigned observations');
   assert(points.every(point=>point.trackId===1&&point.x!=null));
   const cuts=reviewTrailCuts([entity],session.cuts,frames.length);
-  assert.deepEqual(personTrail(points,frames,4,cuts).map(point=>point.frame),[2,3,4]);
+  const maps=frames.map(()=>({toCourt:[.01,0,0,0,.01,0,0,0,1],toImage:[100,0,0,0,100,0,0,0,1],supportHulls:[[[0,0],[29,0],[29,16],[0,16]]]}));
+  const court=buildCourtTrajectories({...session,entities:[entity]},frames,{P1:points},{maps}).P1;
+  assert.deepEqual(playerCourtTrail(court,frames,maps,4,cuts).map(point=>point.frame),[2,3,4]);
   assert.deepEqual(pathSegments(points,cuts).map(segment=>segment.map(point=>point.frame)),[[0,1],[2,3,4]]);
   assert.deepEqual(identityInterval(session,entity,0,frames.length),{start:0,end:1});
   assert.deepEqual(identityInterval(session,entity,2,frames.length),{start:2,end:4});
