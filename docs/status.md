@@ -1,6 +1,14 @@
 # 团队状态
 
+2026-10-05 06:10（Etc/UTC）Qwen 准备资料发布整理：按用户授权将背景研究、当前 API / Agent 讨论、固定来源、详细计划和交接集中提交到 main。同步接收远端 `0bda1e9` / `6d914d7` 的 2D 工作流，保留双方状态记录，并将 Qwen 计划更新为扩展已有 courtPreparation / preparedByPlayer 与服务端重放，不重复建设准备层。本任务没有新增产品代码或真实模型调用；素材与模型效果仍待验证。发布提交及远端核对结果见[同步日志](../handoffs/chuali-zi/2026-10-05-0610-qwen-preparation-publication.md)，下方未提交描述保留当时状态。
+
 2026-10-05（America/New_York）2D 主画布工作流：按用户明确授权实现 T0–T8 的源 PTS / V2 契约、全片身份续接队列、独立 2D 准备与保守平滑、秒级手绘、讲解关键帧、同几何 MP4 及选区 Agent V3，保留旧稿与候选读取。491 项工作台测试、71 项相关 Python 测试和合成 Chromium / 258 帧实际 MP4 链路通过；独立引擎 56 通过、5 因 005 为 LFS 指针失败。实际 Codex 调用因本环境运行目录只读失败，真实 005 / Warriors / 移动镜头与模型成功验收按用户指示交接本地；未宣称全计划真实验收完成或新增定位精度结论。详见 [工程指南](../engineering/docs/2d-first-tactics-workbench-guide.md)与 [本轮交接](../handoffs/chuali-zi/2026-10-05-0127-2d-first-tactics-workbench.md)，最终推送哈希以交接及完成报告为准。
+
+2026-10-05 05:54（Etc/UTC，本地，未提交 / 未推送）：用户要求在现有工作台内制定 Qwen3.8-Max 地面轨迹首版详细实现方案。已形成[实施计划](../engineering/docs/plans/2026-10-05-qwen-ground-trajectory-agent-v1.md)，核查原始投影 / 显示平滑 / 导出与战术消费者、草稿采用撤销和任务流程，建议固定 Pi SDK 1.0.2，以主动取帧、改锚点、拟合、读绘制反馈形成循环。核实阿里云官方北京兼容端点及图像 / 工具文档；选中库内 LAL–MIN 10.68 秒样片并读取远端 267 帧跟踪时间。视频 LFS 下载受当前 shell 私库凭据不可用限制，尚未获得二进制；当前环境未提供 QWEN_KEY。未实现产品、调用模型或进行效果测试。见[本轮交接](../handoffs/chuali-zi/2026-10-05-0554-qwen-ground-trajectory-plan.md)。
+
+2026-10-05 05:22（Etc/UTC，本地，未提交 / 未推送）：用户明确进入方案讨论，指定现有 Qwen3.8-Max API（`QWEN_KEY`）辅助修正跳跃 / 地面移动混淆、斜视角定位及轨迹抖动，要求 Agent 反复取帧、读图和处理。已拉取 Pi 当前官方 `earendil-works/pi@b2b5c42f`，对照 Codex / OpenCode 工具图片回传及循环，补查帧拼图、迭代视频 Agent 和跳跃纠正项目，形成[讨论稿](../engineering/research/qwen-video-trajectory-agent-20261005.md)和固定来源。前轮模型图谱转为背景；Pi 只是优先候选，未确立团队实施决策。未调用模型、配置 key、修改工作台或运行推理。见[交接](../handoffs/chuali-zi/2026-10-05-0522-qwen-trajectory-agent-discussion.md)。
+
+2026-10-05 00:45（America/New_York，本地，新增研究未提交 / 未推送）：完成[视频模型到篮球 2D 轨迹研究](../engineering/research/video-model-to-court-20261005/README.md)，核实 20 个项目固定版本 README 和 7 份本地源码。重点核对 Qwen3-VL 采样 / 时空定位、Sa2VA 前 5 帧语言输入与 SEG → SAM3、UFVideo 参考 mask 与分割传播、SoccerNet 身份 + 2D 几何路径，结合现有工具提出三路线同片比较。未下载大模型权重、未推理、未新增精度结论或工程接入。此前现有 Agent 研究已按用户要求先推送 `5725940`，当时核对 HEAD、origin/main 与远端实际 SHA 一致；本新增包的状态与那次发布区分。见[本轮交接](../handoffs/chuali-zi/2026-10-05-0045-video-model-court-study.md)。
 
 2026-10-05（America/New_York）源码研究发布：用户明确要求先提交并 push 已有成果；[OpenCode / Codex 协议研究](../engineering/research/agent-video-understanding-20261005/README.md)、46 段既有摘录、来源 / 许可证、离线验证与交接纳入本次 main 文档提交。46 段逐字节核验和 10 项离线断言通过，未改工作台功能或视频。最终推送与远端 SHA 核对结果见本次完成报告；下方“未提交 / 未推送”保留此前状态。用户已明确下一轮研究重点为视频模型如何理解时序、提取球员轨迹并映射到 2D 球场，不继续硬拆不存在的模块。
 
