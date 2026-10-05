@@ -9,6 +9,8 @@
 
 ## 工作台更新
 
+**2026-10-05 仓库清理：** 已分类推送旧标注入口与像素尾迹清理、候选数据去重及兼容、七个历史脚本归档；默认验收样例改为 005，减少重复候选 7.23 MiB。现有版本接口结果和草稿保持不变，Node 541 项 / Python 303 项通过，3 项因环境限制跳过；163 段视频和标签校验通过。说明与交接单独提交，见[清理记录](engineering/docs/repository-cleanup-20261005.md)和[分类发布交接](handoffs/Linzeyu912/2026-10-05-1014-cleanup-classified-publication.md)。
+
 **2026-10-04 晚间成果整理：** 当前成果、已知问题、实验指标和开源方案已集中写入[工作台成果、问题与调研报告](engineering/docs/progress-and-open-issues-20261004.md)，九类提交已正常推送 `main`，22:03 核对本地与远端一致。THY 的身份续接、区间修正和最新战术参考帧更新已保留；最新同步与推送核对见[发布交接](handoffs/Linzeyu912/2026-10-04-2200-classified-publication.md)。
 
 | 类别 | 当前结果 | 待继续处理 |
