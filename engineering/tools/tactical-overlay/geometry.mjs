@@ -44,6 +44,12 @@ export function observedPoint(c,entityId,frame) {
   const raw=c.pointMaps.get(entityId)?.get(frame),courtRaw=c.courtPointMaps.get(entityId)?.get(frame);
   if(evidenceQuality(c,'identity',{entityId},frame,frame+1).state==='invalid')return {point:null,reason:'identity_conflict'};
   if(evidenceQuality(c,'position',{entityId},frame,frame+1).state==='invalid')return {point:null,reason:'missing_position'};
+  if(c.review.courtPreparation){
+    const p=c.review.courtPreparation.preparedByPlayer[entityId]?.[frame],mapping=c.maps[frame],freeze=c.maps[c.freezeFrame];
+    if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y))return {point:null,reason:p?.source??'missing_position'};
+    const courtPoint={x:p.x,y:p.y};
+    return {reason:null,projectionReason:crossCutCompatible(c,frame)?null:'court_reference_mismatch',point:{frame,time:c.frames[frame].time,sourceFrame:c.frames[frame].sourceFrame,sourceTime:c.frames[frame].sourceTime,entityId,trackId:raw?.trackId??null,imageSource:raw?.source??p.source,imagePoint:mapping&&project(mapping.toImage,p.x,p.y),courtPoint,freezePoint:freeze&&project(freeze.toImage,p.x,p.y),footMethod:p.footMethod??null,identity:{source:raw?.identitySource??null,startFrame:raw?.identityStartFrame??null,order:raw?.identityOrder??null,exclusive:raw?.identityExclusive??false},calibration:{method:mapping?.method??'unavailable',supportFrames:mapping?.supportFrames??[],referenceOnly:mapping?.referenceOnly??true,provenance:calibrationProvenance(c,mapping)},preparedRevision:c.review.courtPreparation.revision}};
+  }
   let reason=pointReason(raw),courtPoint=null,imagePoint=null;
   // A court anchor requires an explicit original-frame observation and a reviewed ground-point interval.
   const manualCourt=courtRaw?.source==='court_manual'&&courtRaw.observation?.frame===frame&&observed(courtRaw.observation?.source)&&

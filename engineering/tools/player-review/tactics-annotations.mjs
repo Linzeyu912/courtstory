@@ -1,8 +1,9 @@
+import {sourceProgress,validateFrameRange} from './tactics-time-range.mjs';
 import {canonicalJSON} from '../tactical-overlay/binding.mjs';
 import {createGeometryContext,observedPoint,crossCutCompatible} from '../tactical-overlay/geometry.mjs';
 import {DEFAULT_OPTIONS,evidenceQuality} from '../tactical-overlay/validation.mjs';
 import {COURT,project} from './court.mjs';
-import {validateAuthoredPath,authoredBindingReason,authoredRouteGeometry} from './tactics-authored-geometry.mjs';
+import {validateAuthoredPath,authoredBindingReason,authoredRouteGeometry,cubicBezier} from './tactics-authored-geometry.mjs';
 
 // Authored illustrations are separate from observations and their review status.
 export const ANNOTATION_LIMITS=Object.freeze({items:256,points:6,dots:160});
@@ -31,7 +32,7 @@ export function validateAnnotations(annotations,document){
   if(!fields(annotations,['schemaVersion','items'])||annotations.schemaVersion!==1||!Array.isArray(annotations.items)||annotations.items.length>ANNOTATION_LIMITS.items){bad('annotations');return issues;}
   const ids=new Set();
   for(const a of annotations.items){
-    if(!fields(a,['id','type','phaseId','entityId','startFrame','endFrameExclusive','anchorFrame','space','points','style','followEntity','phaseSnapshot','sourceBinding'],['anchorMode','offset','origin','authoredPath'])||
+    if(!fields(a,['id','type','phaseId','entityId','startFrame','endFrameExclusive','anchorFrame','space','points','style','followEntity','phaseSnapshot','sourceBinding'],['anchorMode','offset','origin','authoredPath','actionRange','cueFrame','progressFrames','displayMode','curve','meaning','preparationBinding'])||
       !text(a.id)||ids.has(a.id)||!text(a.phaseId)||a.entityId!==null&&!text(a.entityId)||!['route','screen','spotlight'].includes(a.type)||!['court','video'].includes(a.space)){
       bad('annotation_identifiers');continue;
     }
@@ -50,8 +51,15 @@ export function validateAnnotations(annotations,document){
     if(['dashed','dots'].includes(a.style?.pattern)&&(!Array.isArray(a.points)||a.points.length!==2||
       !object(a.points[0])||!object(a.points[1])||distance(a.points[0],a.points[1])<=1e-6))bad('annotation_straight_points');
     if(typeof a.followEntity!=='boolean'||a.followEntity&&(a.type!=='spotlight'||!a.entityId))bad('annotation_follow');
-    if(a.anchorMode!==undefined&&!['manual_offset','player_foot'].includes(a.anchorMode))bad('annotation_anchor_mode');
+    if(a.anchorMode!==undefined&&!['manual_offset','player_foot','court_player_foot'].includes(a.anchorMode))bad('annotation_anchor_mode');
     if(a.anchorMode==='player_foot'&&(a.type!=='spotlight'||a.space!=='video'||!a.entityId||!a.followEntity))bad('annotation_foot_anchor');
+    if(a.anchorMode==='court_player_foot'&&(a.type!=='spotlight'||a.space!=='court'||!a.entityId||!a.followEntity))bad('annotation_court_foot');
+    if(a.actionRange!==undefined){
+      try{validateFrameRange(document.review.sourceFrameMapping,a.actionRange);}catch{bad('annotation_action_range');}
+      if(!['remaining','full'].includes(a.displayMode)||!['polyline','cubic_bezier'].includes(a.curve)||a.curve==='cubic_bezier'&&(a.type!=='route'||a.points.length!==4)||!['current_action','later_observed_action','pass','screen','focus'].includes(a.meaning)||!frame(a.cueFrame)||a.cueFrame<a.startFrame||a.cueFrame>=a.endFrameExclusive)bad('annotation_v2');
+      const keys=a.progressFrames;
+      if(!Array.isArray(keys)||keys.length<2||keys.length>80||keys.some((k,i)=>!fields(k,['frame','t'])||!frame(k.frame)||!finite(k.t)||k.t<0||k.t>1||k.frame<a.actionRange.startFrame||k.frame>a.actionRange.endFrameExclusive||i&&(k.frame<=keys[i-1].frame||k.t<keys[i-1].t))||keys[0].frame!==a.actionRange.startFrame||keys[0].t!==0||keys.at(-1).frame!==a.actionRange.endFrameExclusive||keys.at(-1).t!==1)bad('annotation_progress');
+    }
     if(a.offset!==undefined&&(!fields(a.offset,['x','y'])||!finite(a.offset.x)||!finite(a.offset.y)||Math.abs(a.offset.x)>bounds.x||Math.abs(a.offset.y)>bounds.y))bad('annotation_offset');
     if(a.origin!==undefined&&(!fields(a.origin,['kind','jobId','sourceFrames','note'])||!['agent','human_modified'].includes(a.origin.kind)||!text(a.origin.jobId)||typeof a.origin.note!=='string'||a.origin.note.length>2000||!Array.isArray(a.origin.sourceFrames)||a.origin.sourceFrames.length>40||a.origin.sourceFrames.some(f=>!frame(f)||f>=document.review.sourceFrameMapping.length)))bad('annotation_origin');
     if(!validateAuthoredPath(a))bad('annotation_authored_path');
@@ -80,6 +88,7 @@ export function createAnnotation(document,input){
     followEntity:input.followEntity??(input.type==='spotlight'&&entityId!==null),phaseSnapshot:phaseSnapshot(p),sourceBinding:sourceSnapshot(document)};
   if(input.anchorMode!==undefined)annotation.anchorMode=input.anchorMode;
   if(input.anchorMode==='player_foot'){annotation.space='video';annotation.offset=copy(input.offset??{x:0,y:0});}
+  for(const key of ['actionRange','cueFrame','progressFrames','displayMode','curve','meaning','preparationBinding'])if(input[key]!==undefined)annotation[key]=copy(input[key]);
   if(input.origin)annotation.origin=copy(input.origin);
   if(input.authoredPath)annotation.authoredPath=copy(input.authoredPath);
   const annotations={schemaVersion:1,items:[...(document.annotations?.items??[]),annotation]};assertAnnotations(annotations,document);
@@ -88,7 +97,7 @@ export function createAnnotation(document,input){
 export function updateAnnotation(document,id,patch){
   assertAnnotations(document.annotations,document);
   const previous=document.annotations?.items.find(a=>a.id===id);if(!previous)throw new Error('未找到要修改的画布标注。');
-  if(!fields(patch,[],['phaseId','entityId','frame','startFrame','endFrameExclusive','points','style','followEntity','space','anchorMode','offset','authoredPath']))throw new Error('画布标注修改字段不正确。');
+  if(!fields(patch,[],['phaseId','entityId','frame','startFrame','endFrameExclusive','points','style','followEntity','space','anchorMode','offset','authoredPath','actionRange','cueFrame','progressFrames','displayMode','curve','meaning','preparationBinding']))throw new Error('画布标注修改字段不正确。');
   if(Object.hasOwn(patch,'space')&&patch.space!==previous.space&&patch.anchorMode!=='player_foot')throw new Error('修改控制点时不能更换坐标空间，请重新绘制。');
   const a={...copy(previous),...copy(patch),style:{...previous.style,...patch.style}};delete a.frame;
   if(Object.hasOwn(patch,'entityId'))assertEntity(document,a.entityId);
@@ -110,6 +119,7 @@ export function updateAnnotation(document,id,patch){
 export function removeAnnotation(document,id){
   const result=copy(document);
   if(result.annotations){result.annotations.items=result.annotations.items.filter(a=>a.id!==id);if(!result.annotations.items.length)delete result.annotations;}
+  if(result.tacticKeyframes){for(const k of result.tacticKeyframes.items)k.annotationIds=k.annotationIds.filter(ref=>ref!==id);result.tacticKeyframes.items=result.tacticKeyframes.items.filter(k=>k.annotationIds.length);}
   return result;
 }
 export function annotationStatus(document,{phaseId}={}){
@@ -317,6 +327,7 @@ function mapGeometry(geometry,mapping,height,size,type){
   if(geometry.curve)mapped.curve=list(geometry.curve);
   if(geometry.arrow)mapped.arrow=list(geometry.arrow);
   if(geometry.paths)mapped.paths=geometry.paths.map(list);
+  if(geometry.ribbon)mapped.ribbon=list(geometry.ribbon);
   if(geometry.ring)mapped.ring=list(geometry.ring);
   if(geometry.center)mapped.center=point(geometry.center);
   if([...(mapped.curve??[]),...(mapped.arrow??[]),...(mapped.paths?.flat()??[]),...(mapped.ring??[]),...(geometry.center?[mapped.center]:[])].some(p=>!p||!finite(p.x)||!finite(p.y)))return null;
@@ -345,6 +356,10 @@ export function playersAtVideoPoint(document,frameNumber,point,{phaseId,model}={
   });
 }
 function followingCenter(a,context,currentFrame){
+  if(a.anchorMode==='court_player_foot'){
+    const point=context.review.courtPreparation?.preparedByPlayer[a.entityId]?.[currentFrame]??context.courtPointMaps.get(a.entityId)?.get(currentFrame);
+    return point&&Number.isFinite(point.x)&&Number.isFinite(point.y)?{point:{x:point.x+(a.offset?.x??0),y:point.y+(a.offset?.y??0)}}:{reason:point?.source==='out_of_view'?'out_of_view':'missing_position'};
+  }
   if(a.anchorMode==='player_foot'){
     if(context.cuts.some(cut=>cut>Math.min(currentFrame,a.anchorFrame)&&cut<=Math.max(currentFrame,a.anchorFrame)))return {reason:'source_cut'};
     const foot=rawFoot(context,a.entityId,currentFrame);
@@ -359,7 +374,7 @@ function followingCenter(a,context,currentFrame){
   const p=a.space==='court'?initial.point.courtPoint:initial.point,q=a.space==='court'?current.point.courtPoint:current.point;
   return {point:{x:q.x+a.points[0].x-p.x,y:q.y+a.points[0].y-p.y},reason:null};
 }
-export function projectAnnotations(document,{phaseId,frame:currentFrame,model,selectedId,editing=false,reveal=1}={}){
+export function projectAnnotations(document,{phaseId,frame:currentFrame,model,selectedId,editing=false,reveal=1,freeze=false}={}){
   assertAnnotations(document.annotations,document);
   const status=annotationStatus(document,{phaseId}),context=geometryContext(document,phaseId,model);
   if(!frame(currentFrame)||!context.frames[currentFrame])throw new Error('当前帧超出视频范围。');
@@ -378,8 +393,10 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
     let geometry;
     if(a.type==='route'){
       const start=context.frames[a.startFrame].time,end=context.frames[a.endFrameExclusive-1].time;
-      const progress=editing||end<=start?0:(context.frames[currentFrame].time-start)/(end-start);
-      geometry=routeGeometry(trimCurve(smooth(a.points),progress),a.style.size,a.space,height,a.style.pattern??'solid');
+      const explaining=freeze&&(a.cueFrame===currentFrame||document.tacticKeyframes?.items.some(k=>k.frame===currentFrame&&k.annotationIds.includes(a.id)));
+      const progress=editing||explaining||a.displayMode==='full'?0:a.actionRange?annotationProgress(document,a,currentFrame):end<=start?0:(context.frames[currentFrame].time-start)/(end-start);
+      const curve=a.curve==='cubic_bezier'?Array.from({length:97},(_,i)=>cubicBezier(a.points,(explaining?reveal:1)*i/96)):smooth(a.points);
+      geometry=routeGeometry(trimCurve(curve,progress),a.style.size,a.space,height,a.style.pattern??'solid');
       if(!geometry){item.hiddenReason='completed';continue;}
     }else{
       const center=followingCenter(a,context,currentFrame);
@@ -387,7 +404,9 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
       geometry=markerGeometry(a,center.point,height);
     }
     if(a.space==='court'){
+      if(a.curve==='cubic_bezier')geometry=wideRouteGeometry(geometry,a.style.size);
       item.court=geometry;
+      if(a.actionRange)item.handles=a.points.map((p,index)=>({...p,index,space:'court'}));
       if(!mapping){item.hiddenReason='calibration_unavailable';continue;}
       if(!crossCutCompatible({...context,freezeFrame:a.anchorFrame},currentFrame)){item.hiddenReason='court_reference_mismatch';continue;}
       item.video=mapGeometry(geometry,mapping,height,a.style.size,a.type);
@@ -405,7 +424,7 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
     }
     if(!item.video){item.hiddenReason='projection_unavailable';continue;}
     const handles=a.type==='spotlight'?[geometry.center]:a.points;
-    item.handles=handles.map((p,index)=>({...a.space==='court'?project(mapping.toImage,p.x,p.y):p,index})).filter(p=>finite(p.x)&&finite(p.y));
+    if(!a.actionRange||a.space!=='court')item.handles=handles.map((p,index)=>({...a.space==='court'?project(mapping.toImage,p.x,p.y):p,index})).filter(p=>finite(p.x)&&finite(p.y));
   }
   return {width,height,frame:currentFrame,phaseId,items,stale:status.stale};
 }
@@ -466,4 +485,19 @@ export function hitTestAnnotation(scene,point,tolerance=16){
     if(paths.some(path=>path.slice(1).some((p,i)=>segmentDistance(point,path[i],p)<=tolerance)))return {id:item.id,index:null};
   }
   return null;
+}
+
+export function annotationProgress(document,a,frame){
+  const m=document.review.sourceFrameMapping,keys=a.progressFrames;
+  const time=f=>f===m.length?document.review.mediaEndTime:m[f].time,now=time(frame);
+  if(now<=time(keys[0].frame))return 0;if(now>=time(keys.at(-1).frame))return 1;
+  const i=keys.findIndex(k=>time(k.frame)>=now),l=keys[i-1],r=keys[i];return l.t+(r.t-l.t)*(now-time(l.frame))/(time(r.frame)-time(l.frame));
+}
+function wideRouteGeometry(g,size){
+  if(!g)return g;const points=g.curve,tip=points.at(-1),base={x:(g.arrow[0].x+g.arrow[2].x)/2,y:(g.arrow[0].y+g.arrow[2].y)/2},head=Math.hypot(tip.x-base.x,tip.y-base.y),half=.14*size;
+  let remaining=0,index=points.length-1;while(index>0&&remaining<head){remaining+=Math.hypot(points[index].x-points[index-1].x,points[index].y-points[index-1].y);index--;}
+  const curve=[...points.slice(0,index+1),base];
+  const normals=curve.map((p,i)=>{const a=curve[Math.max(0,i-1)],b=curve[Math.min(curve.length-1,i+1)],d=Math.hypot(b.x-a.x,b.y-a.y)||1;return {x:-(b.y-a.y)/d,y:(b.x-a.x)/d};});
+  const side=sign=>curve.map((p,i)=>({x:p.x+normals[i].x*half*sign,y:p.y+normals[i].y*half*sign}));
+  return {...g,ribbon:[...side(1),...g.arrow,...side(-1).reverse()],edgeColor:'#093444',opacity:.94,strokeWidth:.04};
 }

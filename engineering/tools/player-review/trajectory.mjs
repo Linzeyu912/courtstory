@@ -1,3 +1,4 @@
+import {courtPreparationStatus,preparationDependencies} from './court-preparation.mjs';
 import {exportCourtData,courtGaps} from './court.mjs';
 import {buildBallCourtTrajectory} from './ball-court.mjs';
 import {IDENTITY_BINDING_MODE,identityAt,identityKeyframes,identityBoundaries,identityProvenance,resolveIdentityOwners,migrateIdentitySession,nextIdentityOrder,entityTeamSide,normalizeTeamColorMetadata,frameIdentityConfirmed,identityReviewToken,anchorReviewSignature} from './identity-timeline.mjs';
@@ -198,9 +199,11 @@ export function exportReview(session, clip, confirmedAt, {allowEmpty=false}={}) 
   const trajectories = buildTrajectories(session, clip.frames, sourceCuts);
   const entities = session.entities.filter(hasAssociation);
   if (!entities.length&&!allowEmpty) throw new Error('Select at least one target before confirming');
+  const prepared=session.courtPreparation&&courtPreparationStatus(session.courtPreparation,preparationDependencies(session,clip)).current?session.courtPreparation:null;
   const {court,courtTrajectories,...coordinateData}=exportCourtData(session,clip.frames,trajectories,clip);
   if(clip.supportsCourtCalibration===false){court.template=null;court.applicability='unsupported_source_court';}
-  return {schemaVersion:2,videoSha256:clip.video_sha256,coordinateSystem:'image_pixels',court,...coordinateData,
+  return {schemaVersion:2,...(Number.isFinite(clip.mediaEndTime)?{mediaEndTime:clip.mediaEndTime}:{}),videoSha256:clip.video_sha256,coordinateSystem:'image_pixels',court,...coordinateData,
+    ...(prepared?{courtPreparation:structuredClone(prepared),coordinatePolicy:{...coordinateData.coordinatePolicy,displaySmoothingApplied:prepared.smoothingPatches.length>0,preparedCourtRevision:prepared.revision}}:{}),
     teamIdentities:session.teamIdentities||null,
     ballStateEdits:session.ballStateEdits||[],ballGroundAnchors:session.ballGroundAnchors||[],
     ballCourtTrajectory:buildBallCourtTrajectory(session,clip.frames,trajectories,courtTrajectories,clip),
@@ -212,7 +215,7 @@ export function exportReview(session, clip, confirmedAt, {allowEmpty=false}={}) 
     sourceFrameMapping:clip.frames.map(f=>({frame:f.frame,time:f.time,sourceFrame:f.source_frame??f.frame,sourceTime:f.source_time??f.time})),
     settings:{maxGapSeconds:session.maxGapSeconds,cuts:[...session.cuts],sourceCuts,identityBindingMode:IDENTITY_BINDING_MODE},
     sceneObjects:exportSceneObjects(session,clip.frames,session.cuts,clip),
-    entities:entities.map(entity => ({...entity,teamSide:entityTeamSide(entity),identityConfirmed:isHumanIdentitySelected(entity),trajectory:trajectories[entity.id],unresolved:gapRanges(trajectories[entity.id]),unverifiedPathFrames:trajectories[entity.id].filter(p=>p.source==='manual_path').map(p=>p.frame),courtTrajectory:courtTrajectories[entity.id],courtUnresolved:courtGaps(courtTrajectories[entity.id])}))};
+    entities:entities.map(entity => ({...entity,teamSide:entityTeamSide(entity),identityConfirmed:isHumanIdentitySelected(entity),trajectory:trajectories[entity.id],unresolved:gapRanges(trajectories[entity.id]),unverifiedPathFrames:trajectories[entity.id].filter(p=>p.source==='manual_path').map(p=>p.frame),courtTrajectory:prepared?.preparedByPlayer[entity.id]??courtTrajectories[entity.id],courtUnresolved:courtGaps(courtTrajectories[entity.id])}))};
 }
 
 export function isSelected(entity){return Boolean(entity.anchors?.length||entity.courtAnchors?.length||entity.identityKeyframes?.some(key=>key.kind==='track')||(entity.bindings||[]).some(item=>item.kind==='track'));}

@@ -1,8 +1,10 @@
+import {buildCourtPreparation,validateCourtPreparation,preparationDigest} from '../player-review/court-preparation.mjs';
+import {replayCourtSmoothing} from '../player-review/court-smoothing.mjs';
 import {validateDocument} from '../player-review/tactics-document.mjs';
 import {makeCandidateFixture} from './fixtures/005-candidate/generate.mjs';
 import {buildTacticalOverlay} from './overlay.mjs';
 import {buildPreviewHtml} from './preview.mjs';
-import {AGENT_SCHEMA,documentDigest,adoptAgentCandidate} from '../player-review/tactics-agent.mjs';
+import {AGENT_SCHEMA,AGENT_SCHEMA_V3,documentDigest,adoptAgentCandidate} from '../player-review/tactics-agent.mjs';
 import {annotationPresentation} from '../player-review/tactics-annotations.mjs';
 import {compileProduction,renderProductionSvg,importAuthoredProduction} from '../player-review/tactics-production.mjs';
 // Keep partial UTF-8 code points between pipe chunks, including large Chinese drafts.
@@ -10,7 +12,14 @@ process.stdin.setEncoding('utf8');
 let input='';for await(const chunk of process.stdin)input+=chunk;
 try{
   const request=JSON.parse(input);
-  if(request.operation==='agent-schema')process.stdout.write(JSON.stringify(AGENT_SCHEMA));
+  if(request.operation==='preparation-digest')process.stdout.write(JSON.stringify({digest:preparationDigest(request.preparation)}));
+  else if(request.operation==='court-preparation-validate'){
+    validateCourtPreparation(request.preparation);
+    if(request.session.videoHash!==request.clip.video_sha256)throw new Error('准备来源视频不匹配。');
+    const expected=replayCourtSmoothing(buildCourtPreparation({session:request.session,clip:request.clip}),request.preparation.smoothingPatches);
+    if(preparationDigest(expected)!==preparationDigest(request.preparation))throw new Error('准备数据与原始来源或平滑记录不一致。');
+    process.stdout.write(JSON.stringify({valid:true}));
+  }else if(request.operation==='agent-schema')process.stdout.write(JSON.stringify(request.version===3?AGENT_SCHEMA_V3:AGENT_SCHEMA));
   else if(request.operation==='agent-digest')process.stdout.write(JSON.stringify({digest:await documentDigest(request.document)}));
   else if(request.operation==='production-compile'){await validateDocument(request.document);process.stdout.write(JSON.stringify(compileProduction(request.document,request.options)));}
   else if(request.operation==='production-svg'){await validateDocument(request.document);process.stdout.write(JSON.stringify({svg:renderProductionSvg(request.document,request.frameState)}));}

@@ -100,6 +100,7 @@ def main():
                                    publish_local,validated_clip,shared_catalog=args.shared_video_catalog,collection=collection)
     from tactical_workbench import TacticalWorkbench
     tactics = TacticalWorkbench(args.tactics_folder)
+    preparations = tactics.preparations
     from tactics_render import TacticsRenderer
     renderer = TacticsRenderer(Path(args.tactics_folder)/'render-jobs', tactics, args.tactics_ffmpeg)
     from tactics_agent import TacticsAgent
@@ -155,6 +156,8 @@ def main():
     for filename in ['tactics-ui.mjs','tactics-player-identity.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','tactics-agent.mjs','tactics.css']:
         routes['/'+filename]=static/filename
     for filename in ['tactics-production.mjs','tactics-authored-geometry.mjs','tactics-production-ui.mjs']:
+        routes['/'+filename]=static/filename
+    for filename in ['tactics-time-range.mjs','court-preparation.mjs','court-smoothing.mjs','court-preparation-ui.mjs','identity-coverage.mjs','tactics-court-editor.mjs','tactics-keyframes.mjs','tactics-court-projection.mjs','tactics-timeline-ui.mjs']:
         routes['/'+filename]=static/filename
     # Explicit aliases for the independent engine's existing relative imports.
     for route,path in list(routes.items()):
@@ -219,7 +222,7 @@ def main():
                 except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
                     self.json_response(400,{'error':str(error)})
                 return
-            if route in {'/api/tactics/save','/api/tactics/frame','/api/tactics/export'}:
+            if route in {'/api/tactics/save','/api/tactics/frame','/api/tactics/export','/api/court-preparation/save'}:
                 try:
                     if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
                         self.headers.get('Origin',f'http://127.0.0.1:{self.server.server_port}')!=f'http://127.0.0.1:{self.server.server_port}'):
@@ -233,7 +236,9 @@ def main():
                     source=clips.get(request.get('sample'));variant=request.get('variant')
                     if not source or variant not in source['payloads']:raise ValueError('找不到视频或模型版本。')
                     clip=json.loads(source['payloads'][variant])
-                    if route.endswith('/frame'):
+                    if route == '/api/court-preparation/save':
+                        result=preparations.save(request.get('preparation'),request.get('session'),clip,variant,request.get('qa',False),request.get('expectedVersion'))
+                    elif route.endswith('/frame'):
                         if request.get('videoSha256')!=clip['video_sha256']:raise ValueError('视频来源不匹配。')
                         result={'frames':tactics.frames(source['video'],clip,request.get('frames'))}
                     elif route.endswith('/save'):
@@ -413,14 +418,14 @@ def main():
                 except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
                     self.json_response(400,{'error':str(error)},head_only)
                 return
-            if route in {'/api/tactics','/api/tactics/candidate'}:
+            if route in {'/api/tactics','/api/tactics/candidate','/api/court-preparation'}:
                 try:
                     if route.endswith('/candidate'):
                         result=tactics.candidate()
                     else:
                         source=clips[query.get('sample',[default])[0]];variant=query.get('variant',[source['defaultVariant']])[0]
                         clip=json.loads(source['payloads'][variant])
-                        result=tactics.load(clip,variant,query.get('qa',['0'])[0]=='1',query.get('kind',['workspace'])[0])
+                        result=preparations.load(clip,variant,query.get('qa',['0'])[0]=='1') if route=='/api/court-preparation' else tactics.load(clip,variant,query.get('qa',['0'])[0]=='1',query.get('kind',['workspace'])[0])
                     self.json_response(200,result,head_only)
                 except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
                     self.json_response(400,{'error':str(error)},head_only)
@@ -690,7 +695,7 @@ def validate_identity_suggestions(suggestions, frame_count, context):
                 raise ValueError(f'{location}: binding needs an in-range inclusive start/end and positive integer trackId')
 
 
-def video_source_info(video):
+def video_source_info(video, *, include_end=False):
     """Read source PTS from the untouched video; never infer times from frame rate."""
     import av
     try:
@@ -708,7 +713,15 @@ def video_source_info(video):
                 raise ValueError('source timestamps must be nonempty and strictly increasing')
         with video.open('rb') as source:
             digest=hashlib.file_digest(source,'sha256').hexdigest()
-        return width,height,times,digest
+        media_end = None
+        duration = getattr(frame, 'duration', 0)
+        if duration and frame.time_base:
+            media_end = times[-1] + float(duration * frame.time_base)
+        elif stream.duration is not None and stream.time_base:
+            candidate = float((stream.start_time or 0) * stream.time_base + stream.duration * stream.time_base)
+            if times[-1] < candidate and candidate - times[-1] <= 1:
+                media_end = candidate
+        return (width,height,times,digest,media_end) if include_end else (width,height,times,digest)
     except (OSError,ValueError) as error:
         raise ValueError(f'Cannot decode source video {video}: {error}') from error
 
@@ -727,7 +740,7 @@ def validated_clip(sample):
     video=Path(sample['video']).resolve()
     if not video.is_file():
         raise ValueError(f'Source video must exist locally: {video}')
-    width,height,times,digest=video_source_info(video)
+    width,height,times,digest,media_end=video_source_info(video, include_end=True)
     if sample.get('videoSha256') and sample['videoSha256']!=digest:
         raise ValueError('Library video hash mismatch')
     versions={}
@@ -811,7 +824,7 @@ def validated_clip(sample):
                         record.get('source_time_base'),record.get('source_frame'),record.get('source_time')]
                         for record in value['records']],
                     'identitySuggestions':value['suggestions']}
-        payloads[identifier]=json.dumps({'video_sha256':digest,'width':width,'height':height,
+        payloads[identifier]=json.dumps({'video_sha256':digest,'width':width,'height':height,'mediaEndTime':media_end,
             'courtCalibration':court_profile,'courtCandidates':court_candidates,
             'feetCandidates':feet_candidates if feet_candidates and
                 feet_candidates['trackingFingerprint']==entry['rawFingerprint'] else None,

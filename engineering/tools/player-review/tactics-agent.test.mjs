@@ -89,3 +89,13 @@ test('Agent V2 binds approximate production cameras on host and preserves V1 str
   const nullable=structuredClone(result);nullable.schemaVersion=2;nullable.production=null;nullable.phases[0].annotations[0].authoredPath=null;
   assert.equal((await agent.adoptAgentCandidate(doc,nullable,{jobId:'v2-null',scope:'play',phaseId:'phase-1'})).annotations.items.length,1);
 });
+
+test('V3 range candidates bind prepared points, support dashed/dotted styles and selected adoption without changing manual objects',async()=>{
+  const {adoptAgentCandidate}=await import('./tactics-agent.mjs');
+  const {makeV2Fixture}=await import('./tactics-v2-fixture.mjs');const {preparationDigest}=await import('./court-preparation.mjs');const {createCourtAnnotation}=await import('./tactics-court-editor.mjs');
+  let {document:d}=await makeV2Fixture();d=createCourtAnnotation(d,{id:'human',type:'screen',phaseId:'phase-1',range:{startFrame:30,endFrameExclusive:50},points:[{x:10,y:8}]});
+  const candidate={schemaVersion:3,summary:'synthetic contract test',issues:[],range:{startFrame:30,endFrameExclusive:50},preparationDigest:preparationDigest(d.review.courtPreparation),annotations:['dashed','dots'].map((pattern,i)=>({id:'a'+i,phaseId:'phase-1',type:'route',entityId:'P1',startFrame:30,endFrameExclusive:50,cueFrame:30,points:[{x:10,y:8},{x:18,y:6}],curve:'polyline',style:{angle:0,size:1,color:pattern==='dots'?'#ffd45c':'#19a9e1',pattern},meaning:pattern==='dots'?'pass':'later_observed_action',progressFrames:[{frame:30,t:0},{frame:50,t:1}],evidenceFrames:[30,40],explanation:'synthetic evidence'})),keyframes:[{frame:30,annotationIds:['a0','a1'],freeze:true,holdSeconds:2.5}]};
+  const options={jobId:'v3-test',scope:'range',phaseId:'phase-1',range:candidate.range};
+  const next=await adoptAgentCandidate(d,candidate,{...options,selectedIds:['a1']});assert.equal(next.annotations.items.length,2);assert.deepEqual(next.annotations.items[0],d.annotations.items[0]);assert.equal(next.annotations.items[1].style.pattern,'dots');assert.equal(next.tacticKeyframes.items[0].annotationIds.length,1);
+  for(const patch of [{preparationDigest:'0'.repeat(64)},{range:{startFrame:0,endFrameExclusive:60}},{annotations:[{...candidate.annotations[0],endFrameExclusive:60}]}])await assert.rejects(adoptAgentCandidate(d,{...candidate,...patch},options));
+});

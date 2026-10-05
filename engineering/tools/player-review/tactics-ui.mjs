@@ -1,3 +1,8 @@
+import {mountTacticsTimeline} from './tactics-timeline-ui.mjs';
+import {createCourtAnnotation} from './tactics-court-editor.mjs';
+import {compileTacticKeyframes} from './tactics-keyframes.mjs';
+import {migrateTacticsDocument} from './tactics-document.mjs';
+import {COURT} from './court.mjs';
 import {createTacticsDocument,validateDocument,splitPhase,removePhase,upsertAction,removeAction,reviewAction,refreshSnapshot,restoreArchivedAnnotation,ACTION_KINDS,clone} from './tactics-document.mjs';
 import {documentDigest} from './tactics-agent.mjs';
 import {buildTacticalOverlay} from '../tactical-overlay/overlay.mjs';
@@ -13,17 +18,17 @@ import {updateProductionCamera,updateProductionCue,updateAuthoredProgress,produc
 
 export function mountTacticsUI(api){
   const $=id=>document.getElementById(id),root=$('tacticsPanel');
-  root.innerHTML=`<div class="tactics-heading"><div><h2>战术画布</h2><span class="tactics-subtitle">暂停画图 · 拖点修正 · 预览保存</span></div><div class="tactics-buttons"><span id="tacticsSaveState" class="tactics-save-state">正在读取</span><button id="tacticsUndo" title="撤销上一次修改（Ctrl / ⌘ Z）">撤销</button><button id="tacticsSave" class="primary">保存</button></div></div>
+  root.innerHTML=`<div class="tactics-heading"><div><h2>战术画布</h2><span class="tactics-subtitle">暂停画图 · 拖点修正 · 预览保存</span></div><div class="tactics-buttons"><span id="tacticsSaveState" class="tactics-save-state">正在读取</span><button id="tacticsUndo" title="撤销上一次修改（Ctrl / ⌘ Z）">撤销</button><button id="tacticsRedo">重做</button><button id="tacticsSave" class="primary">保存</button></div></div>
   <p id="tacticsStatus" role="status" aria-live="polite">正在读取当前视频的战术草稿。</p>
   <details class="tactics-production-panel"><summary>成片预览</summary><section id="tacticsRender" class="tactics-production"></section></details>
-  <details id="tacticsAgentPanel" class="tactics-agent-panel" open><summary>Agent 战术初稿</summary><p class="small muted">Agent 根据视频与轨迹编排大曲线、剩余路线、冻结绘制和近似地面镜头；你核对并采用后，再手工修改。生成失败也可继续手工编辑。</p><div class="tactics-agent-inputs"><label class="field">分析范围<select id="tacticsAgentScope"><option value="play">整段视频，建立阶段</option><option value="phase">当前阶段，追加初稿</option></select></label><label class="field">希望讲清楚什么<input id="tacticsAgentGoal" maxlength="2000" placeholder="例如：持球掩护后切入与弱侧跑位"></label><button id="tacticsAgentRun" class="primary">生成战术初稿</button><button id="tacticsAgentCancel" hidden>取消生成</button></div><p id="tacticsAgentStatus" role="status" aria-live="polite">先生成初稿，再核对修改；当前人工草稿会保留。</p><div id="tacticsAgentPreview" class="tactics-agent-preview"></div><button id="tacticsAgentAdopt" class="primary" hidden disabled>采用到草稿，继续编辑</button></details>
+  <details id="tacticsAgentPanel" class="tactics-agent-panel"><summary>Agent 战术初稿</summary><p class="small muted">Agent 根据已采用的 2D 轨迹和所选时间段生成路线与讲解点；你核对并采用后，再手工修改。生成失败也可继续手工编辑。</p><div class="tactics-agent-inputs"><label class="field">分析范围<select id="tacticsAgentScope"><option value="range">所选秒级区间，追加初稿</option><option value="play">整段视频，建立阶段</option><option value="phase">当前阶段，追加初稿</option></select></label><label class="field">希望讲清楚什么<input id="tacticsAgentGoal" maxlength="2000" placeholder="例如：持球掩护后切入与弱侧跑位"></label><button id="tacticsAgentRun" class="primary">生成战术初稿</button><button id="tacticsAgentCancel" hidden>取消生成</button></div><p id="tacticsAgentStatus" role="status" aria-live="polite">先生成初稿，再核对修改；当前人工草稿会保留。</p><div id="tacticsAgentPreview" class="tactics-agent-preview"></div><button id="tacticsAgentAdopt" class="primary" hidden disabled>采用到草稿，继续编辑</button></details>
   <div id="tacticsEmpty" class="tactics-empty" hidden><strong>先建立这个视频的战术画布</strong><p>没有识别结果也能画路线、虚线箭头、传球路线，或放挡拆标记和重点球员圈。</p><div id="tacticsEmptyActions" class="tactics-buttons"><button id="tacticsCreateCanvas" class="primary">建立画布，开始手工标注</button></div></div>
   <div id="tacticsEditor" hidden><div id="tacticsPhases" class="tactics-phases" aria-label="选择战术阶段"></div>
   <div class="tactics-layout"><section class="tactics-view"><div class="tactics-author-tools" role="toolbar" aria-label="画布工具">
   <button id="tacticsToolSelect" aria-pressed="true"><span aria-hidden="true">↖</span>选择 / 修改</button><button id="tacticsToolRoute" aria-pressed="false"><span aria-hidden="true">↗</span>画路线</button><button id="tacticsToolDashed" aria-pressed="false"><span aria-hidden="true">⇢</span>虚线箭头</button><button id="tacticsToolDots" aria-pressed="false"><span aria-hidden="true">•••</span>传球路线</button><button id="tacticsToolScreen" aria-pressed="false"><span aria-hidden="true">⊣</span>挡拆标记</button><button id="tacticsToolSpotlight" aria-pressed="false"><span aria-hidden="true">◯</span>重点球员圈</button></div>
   <div class="tactics-instruction"><p id="tacticsToolHint" role="status" aria-live="polite">选择一个工具，在视频画面上直接操作。</p><div class="tactics-buttons"><button id="tacticsFinishDrawing" class="primary" hidden>完成绘制</button><button id="tacticsCancelDrawing" hidden>取消</button></div></div>
   <div id="tacticsSelectionActions" class="tactics-selection-actions" role="toolbar" aria-label="选中图形操作" hidden><strong id="tacticsSelectionName"></strong><div id="tacticsSelectionRotation" class="tactics-rotation-actions"><button id="tacticsRotateLeft" title="向左旋转 15 度">↶ 左转 15°</button><output id="tacticsQuickAngle" aria-label="挡拆朝向"></output><button id="tacticsRotateRight" title="向右旋转 15 度">右转 15° ↷</button></div><button id="tacticsQuickDelete" class="tactics-danger" title="删除选中的图形（Delete）">删除图形</button><button id="tacticsDeselect">取消选择</button></div>
-  <div id="tacticsCanvas" class="tactics-canvas" tabindex="0" aria-label="战术画布，使用上方工具在视频上添加或修改图形"><p>选择阶段后预览。</p></div>
+  <div class="tactics-buttons"><button id="tacticsCourtView">2D 主画布</button><button id="tacticsVideoView">实拍投影预览</button><button id="tacticsMigrate">迁移旧稿到 2D 工作流（保留副本）</button></div><canvas id="tacticsSyncVideo" width="320" height="180" aria-label="原视频同步核对窗"></canvas><div id="tacticsCanvas" class="tactics-canvas" tabindex="0" aria-label="战术画布，使用上方工具在视频上添加或修改图形"><p>选择阶段后预览。</p></div>
   <div class="tactics-transport"><div class="tactics-buttons"><button id="tacticsContinue" class="primary">逐点检查</button><button id="tacticsPause">暂停</button><button id="tacticsReplay">重播本段</button></div><span id="tacticsFrame" class="small muted"></span></div><label class="tactics-seek"><span>本段进度</span><input id="tacticsSeek" type="range" min="0" max="1" value="0" aria-label="当前阶段视频进度"></label>
   <div class="tactics-cue-controls"><p id="tacticsCueStatus" class="small muted" role="status" aria-live="polite"></p><div id="tacticsCueList" class="tactics-buttons" aria-label="跳到标记讲解画面"></div></div>
   <p id="tacticsPresentationStatus" class="small muted" role="status" aria-live="polite"></p></section>
@@ -36,7 +41,7 @@ export function mountTacticsUI(api){
   <div id="tacticsAnnotationProperties" hidden>
   <div id="tacticsAnnotationRouteFields"><label class="field">当前控制点<select id="tacticsAnnotationPoint"></select></label><div class="tactics-buttons"><button id="tacticsAnnotationAddPoint">＋ 加转弯点</button><button id="tacticsAnnotationDeletePoint">删此点</button></div></div>
   <div id="tacticsAuthoredFields" hidden><p class="small muted">四点曲线：起点、出发手柄、到达手柄、终点。只调整展示，不修改人物轨迹。</p><button id="tacticsAuthoredReference">回参考帧调曲线</button><details><summary>路线完成进度</summary><p class="small muted">视频到达此帧时，路线已完成对应比例；成片只显示剩余路线。缩短显示时间会移除区间外进度点。</p><label class="field">进度关键点<select id="tacticsProgressPoint"></select></label><div class="range-fields"><label class="field">原视频帧<input id="tacticsProgressFrame" type="number" min="1"></label><label class="field">完成百分比<input id="tacticsProgressValue" type="number" min="0" max="100" step="1"></label></div><div class="tactics-buttons"><button id="tacticsProgressApply">应用进度</button><button id="tacticsProgressAdd">增加关键点</button><button id="tacticsProgressDelete">删除关键点</button></div></details></div>
-  <label id="tacticsAnnotationAngleField" class="field">挡拆朝向（度）<input id="tacticsAnnotationAngle" type="number" min="0" max="359" step="5"></label>
+  <label id="tacticsDisplayModeField" class="field" hidden>播放时的路线<select id="tacticsDisplayMode"><option value="remaining">仅剩余路线</option><option value="full">完整路线</option></select></label><label id="tacticsAnnotationAngleField" class="field">挡拆朝向（度）<input id="tacticsAnnotationAngle" type="number" min="0" max="359" step="5"></label>
   <label id="tacticsAnnotationFollowField" class="tactics-check"><input id="tacticsAnnotationFollow" type="checkbox">跟随关联球员</label>
   <div id="tacticsFootControls" class="tactics-foot-controls" hidden><p id="tacticsFootStatus" class="small muted"></p><div class="tactics-buttons"><button id="tacticsSnapFoot">重新贴脚</button><button id="tacticsOffsetMode" aria-pressed="false">微调偏移</button></div></div>
   <div class="range-fields"><label class="field">大小<select id="tacticsAnnotationSize"><option value="0.75">较小</option><option value="1">标准</option><option value="1.5">较大</option><option value="2">醒目</option></select></label><label class="field">颜色<select id="tacticsAnnotationColor"><option value="#26baff">蓝色</option><option value="#ffd34e">黄色</option><option value="#ff7b55">橙色</option><option value="#8fe3b0">绿色</option></select></label></div>
@@ -49,21 +54,22 @@ export function mountTacticsUI(api){
   <details id="tacticsReferenceDetails"><summary>识别路线参考</summary><p class="small muted">需要参考机器识别时再打开。手绘路线独立保存，不要求先有识别路线。</p><label class="tactics-check"><input id="tacticsShowReference" type="checkbox">在画面显示识别路线</label><label class="tactics-check"><input id="tacticsShowAll" type="checkbox">显示全部球员参考路线</label><label class="field">原始路线段<select id="tacticsRoute"></select></label><p id="tacticsRouteHint" class="small muted" role="status"></p><label class="field">参考路线控制点<select id="tacticsControlPoint"></select></label><label class="field">插入控制点的帧<select id="tacticsInsertFrame"></select></label><div class="tactics-buttons"><button id="tacticsInsertPoint">插入控制点</button><button id="tacticsDeletePoint">删除控制点</button><button id="tacticsRestoreRoute">恢复来源路线</button></div></details>
   <details id="tacticsActionReview"><summary>动作审核与讲解</summary><div class="tactics-secondary-grid"><label class="field">选择动作<select id="tacticsAction"></select></label><label class="field">执行球员<select id="tacticsActor"></select></label><label class="field">动作类型<select id="tacticsKind"></select></label><div class="range-fields"><label class="field">起始帧<input id="tacticsStart" type="number" min="1"></label><label class="field">结束帧（包含）<input id="tacticsEnd" type="number" min="1"></label></div><div id="tacticsScreenFields"><label class="field">受掩护球员<select id="tacticsBeneficiary"></select></label><label class="field">相关防守者<select id="tacticsDefender"></select></label><p class="small muted">这里记录动作关系；画面上的挡拆符号用上方「挡拆标记」添加。</p></div><label class="field">动作说明<input id="tacticsActionNote" maxlength="300"></label><div class="tactics-buttons"><button id="tacticsApplyAction">保存动作记录</button><button id="tacticsDeleteAction">删除动作</button></div><label class="field">审核人<input id="tacticsReviewer" maxlength="80" placeholder="你的姓名或账号"></label><div class="tactics-buttons"><button id="tacticsConfirmAction">我已核对本动作</button><button id="tacticsUnconfirmAction">撤回动作审核</button></div><p id="tacticsActionStatus" class="small muted"></p><label class="field">讲解草稿与审核意见<textarea id="tacticsNotes" rows="4" maxlength="8000" placeholder="记录看到的动作、配合关系和需要改进的地方"></textarea></label></div></details>
   <details id="tacticsAdvanced"><summary>来源、草稿与导出</summary><p id="tacticsSource" class="tactics-source"></p><div class="tactics-buttons"><button id="tacticsSnapshot">使用当前轨迹建立草稿</button><button id="tacticsCandidate">THY 三阶段示例</button><button id="tacticsWorkspace">当前视频草稿</button><button id="tacticsReload">重新读取已保存版本</button><button id="tacticsIdentity">核对球员</button><button id="tacticsCalibration">核对球场</button><button id="tacticsJson">导出完整数据 JSON</button><button id="tacticsReport">导出审核冻结报告</button></div><p class="small muted">完整数据含所有手绘路线、挡拆标记和重点球员圈。审核冻结报告仅包含原有动作与审核，不包含新画布图形。</p><div id="tacticsRoster" class="tactics-roster"></div><div id="tacticsIssues"></div></details></div>`;
-  let documentValue=null,phaseId=null,kind='workspace',version=0,history=[],revision=0,epoch=0,context=0,loading=false,lastScene=null,active=false,pendingDraft=Promise.resolve();
-  let selectedEntityId=null,selectedRouteId=null,selectedControlFrame=null,temporaryRoute=null,editBusy=false,sceneReady=Promise.resolve(),sceneNodes=null,editingEnabled=true,loadSequence=0;
+  let documentValue=null,phaseId=null,kind='workspace',version=0,history=[],redo=[],revision=0,epoch=0,context=0,loading=false,lastScene=null,active=false,pendingDraft=Promise.resolve();
+  let selectedEntityId=api.selectedEntityId?.()??null,selectedRouteId=null,selectedControlFrame=null,temporaryRoute=null,editBusy=false,sceneReady=Promise.resolve(),sceneNodes=null,editingEnabled=true,loadSequence=0;
   const playback=createPhasePlayback(),synchronized=typeof api.seek==='function'&&typeof api.play==='function';
   let presentedPoint=null,pendingSceneEpoch=null;
   let annotationTool='select',selectedAnnotationId=null,selectedAnnotationPoint=0,drawing=null,annotationDrag=null,annotationPreview=null,annotationScene=null,addingAnnotationPoint=false;
   let offsetMode=false,footCandidates=[],agentJob=null,agentCapture=null,agentTimer=null,agentBusy=false,agentAdopting=false,agentAvailable=null;
-  let staticSpotlight=false,personInspection=null;
+  let staticSpotlight=false,personInspection=null,agentSelectedIds=new Set();
   let cameraEditing=null,cameraDrag=null,productionPreview=null,progressIndex=0;
+  let canvasView='court',rangePlayback=null,holdTimer=null;
   let cueDocument=null,markerCues=[],cueListSignature='';
   const base={sample:api.sample,variant:api.variant,qa:api.qa},cacheKey=(space=kind)=>`${api.key}:tactics:${space}`;
   const phase=()=>documentValue?.playDefinition.phases.find(p=>p.phaseId===phaseId)||documentValue?.playDefinition.phases[0];
   const status=text=>{$('tacticsStatus').textContent=text;};
   const stamp=()=>({document:documentValue,context,phaseId,revision,loading});
   const annotations=()=>documentValue?.annotations?.items||[];
-  function pausePoints(){if(cueDocument!==documentValue){cueDocument=documentValue;markerCues=documentValue?annotationPausePoints(documentValue):[];}return markerCues;}
+  function pausePoints(){if(cueDocument!==documentValue){cueDocument=documentValue;markerCues=documentValue?(documentValue.schemaVersion===2&&!documentValue.legacyTiming?compileTacticKeyframes(documentValue):annotationPausePoints(documentValue)):[];}return markerCues;}
   const annotationInPanel=a=>a.phaseId===phaseId||!documentValue.playDefinition.phases.some(p=>p.phaseId===a.phaseId);
   const selectedAnnotation=()=>annotations().find(a=>a.id===selectedAnnotationId&&annotationInPanel(a))||null;
   const typeNames={route:'路线',dashed:'虚线箭头',dots:'传球路线',screen:'挡拆标记',spotlight:'重点球员圈'};
@@ -151,13 +157,14 @@ export function mountTacticsUI(api){
     const associationLabel=type=>type==='spotlight'?'脚圈跟随谁':type==='screen'?'掩护由谁执行（可选）':'路线属于谁（可选）';
     $('tacticsNewPlayerLabel').textContent=associationLabel(annotationTool);$('tacticsAnnotationPlayerLabel').textContent=associationLabel(a?.type);
     $('tacticsFootCandidates').hidden=!footCandidates.length;$('tacticsFootCandidates').replaceChildren(...footCandidates.map(person=>{const button=document.createElement('button');button.textContent=`跟随 ${playerLabel(person.id)}`;button.onclick=safe(()=>placeSpotlight(person.id));return button;}));
+    $('tacticsDisplayModeField').hidden=!a?.actionRange||a.type!=='route';$('tacticsDisplayMode').value=a?.displayMode??'remaining';$('tacticsDisplayMode').disabled=disabled||!a;
     $('tacticsAnnotationProperties').hidden=!a;$('tacticsNewPlayerField').hidden=!!a;$('tacticsExistingPlayerField').hidden=!a;
     $('tacticsAnnotationRouteFields').hidden=a?.type!=='route';$('tacticsAnnotationAngleField').hidden=a?.type!=='screen';$('tacticsAnnotationFollowField').hidden=a?.type!=='spotlight';
     const people=(documentValue?.playDefinition.participants||[]).filter(p=>phase()?.participantIds.includes(p.id)).map(p=>[p.id,playerLabel(p.id)]);
     selectOptions('tacticsRoutePlayer',[['',annotationTool==='spotlight'?'先选球员，或点击画面中的人':'不关联球员'],...(annotationTool==='spotlight'?[['__static__','静态圈（不跟随球员）']]:[]),...people],annotationTool==='spotlight'&&staticSpotlight?'__static__':selectedEntityId||'');
     if(a){
       selectOptions('tacticsAnnotationPlayer',[['','不关联球员'],...people],a.entityId||'');
-      selectedAnnotationPoint=Math.min(selectedAnnotationPoint,a.points.length-1);selectOptions('tacticsAnnotationPoint',a.points.map((_p,i)=>[String(i),a.authoredPath?['起点','出发手柄','到达手柄','终点'][i]:i===0?'起点':i===a.points.length-1?'终点':`转弯 ${i}`]),String(selectedAnnotationPoint));
+      selectedAnnotationPoint=Math.min(selectedAnnotationPoint,a.points.length-1);selectOptions('tacticsAnnotationPoint',a.points.map((_p,i)=>[String(i),(a.authoredPath||a.curve==='cubic_bezier')?['起点','出发手柄','到达手柄','终点'][i]:i===0?'起点':i===a.points.length-1?'终点':`转弯 ${i}`]),String(selectedAnnotationPoint));
       $('tacticsAnnotationAngle').value=a.style?.angle||0;$('tacticsAnnotationSize').value=String(a.style?.size||1);$('tacticsAnnotationColor').value=a.style?.color||'#26baff';
       $('tacticsAnnotationFollow').checked=!!a.followEntity;$('tacticsAnnotationFollow').disabled=disabled||!a.entityId;
       $('tacticsAnnotationStart').value=a.startFrame+1;$('tacticsAnnotationEnd').value=a.endFrameExclusive;
@@ -168,8 +175,8 @@ export function mountTacticsUI(api){
       if(a.anchorMode==='player_foot')$('tacticsSelectionHint').textContent=stale?reason:'按当前球员脚底自动跟随；无有效位置、身份冲突或镜头切换时隐藏。球场标定用于圈的透视外形。';
     }else{$('tacticsSelectionHint').textContent='选择关联球员后，在画面上放置图形。画面不显示球员文字标签。';}
     for(const id of ['tacticsAnnotationPlayer','tacticsAnnotationPoint','tacticsAnnotationAddPoint','tacticsAnnotationDeletePoint','tacticsAnnotationAngle','tacticsAnnotationSize','tacticsAnnotationColor','tacticsAnnotationDelete','tacticsAnnotationApplyTime','tacticsAnnotationRebind'])$(id).disabled=disabled||!a;
-    $('tacticsAnnotationDeletePoint').disabled=disabled||a?.type!=='route'||!!a?.authoredPath||a.points.length<=2;
-    $('tacticsAnnotationAddPoint').disabled=disabled||a?.type!=='route'||!!a?.authoredPath||straightRoute(a)||a.points.length>=ANNOTATION_LIMITS.points;
+    $('tacticsAnnotationDeletePoint').disabled=disabled||a?.type!=='route'||!!a?.authoredPath||a?.curve==='cubic_bezier'||a.points.length<=2;
+    $('tacticsAnnotationAddPoint').disabled=disabled||a?.type!=='route'||!!a?.authoredPath||a?.curve==='cubic_bezier'||straightRoute(a)||a.points.length>=ANNOTATION_LIMITS.points;
     $('tacticsObjectList').replaceChildren(...items.map(item=>{
       const b=document.createElement('button'),entity=people.find(([id])=>id===item.entityId)?.[1];
       b.textContent=`${straightRoute(item)?item.style.pattern==='dots'?'•••':'⇢':{route:'↗',screen:'⊣',spotlight:'◯'}[item.type]} ${annotationName(item)}${entity?` · ${entity}`:''}${item.origin?item.origin.kind==='agent'?' · Agent 建议':' · 人工修改':''}${item.phaseId!==phaseId?' · 待重新定位':''}`;
@@ -183,7 +190,7 @@ export function mountTacticsUI(api){
     const archived=documentValue?.archivedTactics?.annotations||[];$('tacticsArchive').hidden=!archived.length;$('tacticsArchiveTitle').textContent=`已移除球员的图形 · ${archived.length}`;
     const restorePerson=$('tacticsArchivePlayer').value;selectOptions('tacticsArchivePlayer',[['','不关联球员'],...people],people.some(([id])=>id===restorePerson)?restorePerson:'');
     $('tacticsArchiveList').replaceChildren(...archived.map(item=>{const button=document.createElement('button');button.textContent=`恢复 ${annotationName(item)} · ${item.entityId||'未关联'}`;button.disabled=disabled;button.onclick=safe(async()=>{const next=restoreArchivedAnnotation(documentValue,item.id,{entityId:$('tacticsArchivePlayer').value||null,phaseId,frame:lastScene.frame});selectedAnnotationId=item.id;await saveAnnotation(next);});return button;}));
-    fillPersonCard();fillProductionControls();
+    fillPersonCard();fillProductionControls();timeline.render();if(root.dataset)root.dataset.documentVersion=documentValue?.schemaVersion??1;
   }
   const productionCamera=()=>documentValue?.production?.cameras.find(c=>c.id===$('tacticsProductionCamera').value);
   function fillProductionControls(){
@@ -226,20 +233,28 @@ export function mountTacticsUI(api){
     return `<g data-camera-edit="true"><polygon points="${key.quad.map(p=>p.join(',')).join(' ')}" fill="#ffd45c" fill-opacity=".08" stroke="#ffd45c" stroke-width="${2*ratio}" stroke-dasharray="${6*ratio} ${4*ratio}" pointer-events="none"/>${key.quad.map(([x,y],i)=>`<g data-camera-corner="${i}" class="tactics-control-handle"><circle cx="${x}" cy="${y}" r="${15*ratio}" fill="transparent"/><circle cx="${x}" cy="${y}" r="${8*ratio}" fill="#ffd45c" stroke="#543e14" stroke-width="${2*ratio}"/><text x="${x+12*ratio}" y="${y-8*ratio}" font-size="${14*ratio}" fill="#ffd45c" stroke="#172a35" stroke-width="${.5*ratio}" pointer-events="none">${i+1}</text></g>`).join('')}</g>`;
   }
   async function placeSpotlight(entityId,point=null){
-    if(!editAllowed())return;const foot=entityId?playerFoot(documentValue,entityId,lastScene.frame,{phaseId,model:lastScene.model}).point:null;
+    if(!editAllowed())return;
+    if(documentValue.schemaVersion===2&&lastScene.mode==='court'){
+      const p=entityId?(documentValue.review.courtPreparation?.preparedByPlayer[entityId]?.[lastScene.frame]??documentValue.review.entities.find(e=>e.id===entityId)?.courtTrajectory?.[lastScene.frame]):point;
+      if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y)){status('当前球员没有有效 2D 位置。');return;}
+      const id=`draw-${crypto.randomUUID()}`;selectedAnnotationId=id;annotationTool='select';await saveAnnotation(makeAnnotation({id,type:'spotlight',phaseId,entityId,space:'court',points:[{x:p.x,y:p.y}],style:{color:'#ffd34e'}}));return;
+    }
+    const foot=entityId?playerFoot(documentValue,entityId,lastScene.frame,{phaseId,model:lastScene.model}).point:null;
     if(entityId&&!foot){status('这个球员在本帧没有有效脚底位置。请定位到可见帧，或选择不关联球员放静态圈。');return;}
-    const id=`draw-${crypto.randomUUID()}`,located=foot?{space:'video',point:foot}:annotationPointFromVideo(lastScene.model,lastScene.frame,point);
+    const id=`draw-${crypto.randomUUID()}`,located=foot?{space:'video',point:foot}:locatedPoint(point);
     const next=createAnnotation(documentValue,{id,type:'spotlight',phaseId,entityId,frame:lastScene.frame,space:located.space,points:[located.point],...(foot?{anchorMode:'player_foot',offset:{x:0,y:0}}:{}),style:{color:'#ffd34e'}});
     footCandidates=[];selectedAnnotationId=id;selectedAnnotationPoint=0;annotationTool='select';await saveAnnotation(next);
   }
+  function locatedPoint(point){return lastScene.mode==='court'?{space:'court',point}:annotationPointFromVideo(lastScene.model,lastScene.frame,point);}
+  function makeAnnotation(input){return documentValue.schemaVersion===2&&input.space==='court'?createCourtAnnotation(documentValue,{...input,range:timeline.range(),pattern:input.style?.pattern??'solid'}):createAnnotation(documentValue,input);}
   function canvasPoint(event){
     const svg=sceneNodes?.overlay.querySelector('svg');if(!svg)return null;
     try{const m=svg.getScreenCTM();if(!m)return null;const p=svg.createSVGPoint();p.x=event.clientX;p.y=event.clientY;const point=p.matrixTransform(m.inverse());
-      if(lastScene.mode==='court')return courtToVideo(lastScene.model,lastScene.frame,point);
+      if(lastScene.mode==='court')return point.x>=0&&point.x<=COURT.length&&point.y>=0&&point.y<=COURT.width?{x:point.x,y:point.y}:null;
       return point.x>=0&&point.y>=0&&point.x<=lastScene.model.width&&point.y<=lastScene.model.height?{x:point.x,y:point.y}:null;
     }catch{return null;}
   }
-  function originalPoint(point,space){return space==='video'?{x:point.x,y:point.y}:videoToCourt(lastScene.model,lastScene.frame,point);}
+  function originalPoint(point,space){return space===lastScene.mode?{x:point.x,y:point.y}:space==='court'?videoToCourt(lastScene.model,lastScene.frame,point):courtToVideo(lastScene.model,lastScene.frame,point);}
   async function saveAnnotation(next,captured=stamp()){
     editBusy=true;fillAnnotationControls();
     try{const accepted=await commit(next,captured,{reuseScene:true});if(accepted)status('图形已写入浏览器草稿。预览满意后点击「保存」。');return accepted;}
@@ -256,8 +271,8 @@ export function mountTacticsUI(api){
   function deselectAnnotation(){cancelEditing();selectedAnnotationId=null;selectedEntityId=null;personInspection=null;staticSpotlight=false;selectedRouteId=null;editor.select(null);fillAnnotationControls();drawScene();}
   async function finishDrawing(){
     if(!drawing||drawing.points.length<2||!editAllowed())return;
-    const pending=drawing,id=`draw-${crypto.randomUUID()}`,next=createAnnotation(documentValue,{id,type:'route',phaseId,entityId:selectedEntityId||null,frame:pending.frame,space:pending.space,points:pending.points,style:pending.pattern==='solid'?{color:'#26baff'}:{pattern:pending.pattern}});
-    drawing=null;selectedAnnotationId=id;selectedAnnotationPoint=0;annotationTool='select';await saveAnnotation(next,pending.stamp);
+    const pending=drawing,id=`draw-${crypto.randomUUID()}`,next=makeAnnotation({id,type:'route',phaseId,entityId:selectedEntityId||null,frame:pending.frame,space:pending.space,points:pending.points,style:pending.pattern==='solid'?{color:'#26baff'}:{pattern:pending.pattern}});
+    drawing=null;selectedAnnotationId=id;selectedAnnotationPoint=0;annotationTool='select';if(await saveAnnotation(next,pending.stamp)&&documentValue.schemaVersion===2)seekCanvas(documentValue.annotations.items.find(a=>a.id===id).anchorFrame);
   }
   function seekCanvas(frame,{inspect=false,camera=false}={}){
     if(!camera)cameraEditing=null;
@@ -299,6 +314,16 @@ export function mountTacticsUI(api){
     const summary=document.createElement('p');summary.textContent=job.candidate.summary;host.append(summary);
     for(const issue of job.candidate.issues||[]){const item=document.createElement('p');item.className='small muted';item.textContent=`待核对：${issue}`;host.append(item);}
     const doc=job.previewDocument,ids=doc?.annotations?.items.filter(a=>a.origin?.jobId===job.jobId).map(a=>a.id)||[];
+    if(job.candidate.schemaVersion===3){
+      const range=job.candidate.range,text=document.createElement('p');text.textContent=`候选范围 [${range.startFrame},${range.endFrameExclusive}) · 准备版本 ${job.previewDocument?.review.courtPreparation?.revision} · 勾选采用后可拖动编辑`;host.append(text);
+      for(const a of job.candidate.annotations){const label=document.createElement('label'),checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=agentSelectedIds.has(a.id);checkbox.onchange=()=>{if(checkbox.checked)agentSelectedIds.add(a.id);else agentSelectedIds.delete(a.id);};label.append(checkbox,`${a.type} · ${a.entityId??'独立示意'} · ${a.explanation}`);host.append(label);}
+      if(doc)for(const at of [...new Set(job.candidate.annotations.map(a=>a.cueFrame))]){
+        const phase=doc.playDefinition.phases.find(p=>at>=p.startFrame&&at<p.endFrameExclusive),surface=document.createElement('div');surface.className='tactics-agent-court-preview';
+        const scene=projectAnnotations(doc,{phaseId:phase.phaseId,frame:at,editing:true});scene.items=scene.items.filter(a=>ids.includes(a.id));
+        surface.innerHTML=renderAnnotationsSVG(scene,{space:'court',width:560,height:298});host.append(surface);
+      }
+      return;
+    }
     const presentation=job.presentation||(doc?annotationPresentation(doc,{annotationIds:ids}):null);
     for(const [index,phaseSuggestion] of job.candidate.phases.entries()){
       const card=document.createElement('section'),title=document.createElement('strong');card.className='tactics-agent-card';title.textContent=`${index+1} · ${phaseSuggestion.title}`;card.append(title);
@@ -334,6 +359,7 @@ export function mountTacticsUI(api){
       if(['queued','preparing','analyzing','validating'].includes(job.status))await request(`/api/tactics-agent/jobs/${job.jobId}/cancel`,{}).catch(()=>{});
       return;
     }
+    if((agentJob?.jobId!==job.jobId||!agentJob?.candidate)&&job.candidate?.schemaVersion===3)agentSelectedIds=new Set(job.candidate.annotations.map(a=>a.id));
     agentJob=job;agentBusy=['queued','preparing','analyzing','validating'].includes(job.status);agentStatus(job.message||job.status);agentControls();previewAgent(job);
     if(agentBusy){clearTimeout(agentTimer);agentTimer=setTimeout(async()=>{try{await receiveAgent(await request(`/api/tactics-agent/jobs/${job.jobId}?${new URLSearchParams({...base,kind})}`),captured);}catch(error){if(agentCapture===captured){agentBusy=false;agentStatus(error.message);agentControls();}}},1000);}
   }
@@ -346,7 +372,7 @@ export function mountTacticsUI(api){
       const digest=await documentDigest(snapshot);
       if(revision!==captured.revision||context!==captured.context)throw new Error('草稿已有修改，请重新生成。');
       captured.digest=digest;
-      const result=await request('/api/tactics-agent/jobs',{document:snapshot,expectedVersion:captured.version,clientRevision:captured.revision,documentDigest:digest,scope,phaseId,goal:$('tacticsAgentGoal').value||''});
+      const result=await request('/api/tactics-agent/jobs',{document:snapshot,expectedVersion:captured.version,clientRevision:captured.revision,documentDigest:digest,scope,phaseId,...(scope==='range'?{range:timeline.range()}:{}),goal:$('tacticsAgentGoal').value||''});
       await receiveAgent(result,captured);
     }catch(error){if(agentCapture===captured){agentBusy=false;agentStatus(error.message);agentControls();}}
   }
@@ -358,7 +384,7 @@ export function mountTacticsUI(api){
       const digest=await documentDigest(snapshot);
       if(agentCapture!==captured||loading||context!==captured.context||revision!==captured.revision||version!==captured.version||digest!==captured.digest)throw new Error('生成后草稿已有修改或版本变化，请重新生成建议。');
       agentBusy=true;agentControls();
-      const response=await request(`/api/tactics-agent/jobs/${job.jobId}/adopt`,{document:snapshot,expectedVersion:version,clientRevision:revision,documentDigest:digest});
+      const response=await request(`/api/tactics-agent/jobs/${job.jobId}/adopt`,{document:snapshot,expectedVersion:version,clientRevision:revision,documentDigest:digest,...(job.candidate.schemaVersion===3?{selectedIds:[...agentSelectedIds]}:{})});
       if(agentCapture!==captured||revision!==current.revision||context!==current.context||version!==captured.version)throw new Error('等待采用时草稿已有修改，建议未覆盖当前内容。');
       if(!await commit(response.document,current))throw new Error('草稿状态已变化，请重新生成。');
       if(agentCapture===captured){
@@ -380,7 +406,7 @@ export function mountTacticsUI(api){
   function playbackControls(){
     const s=playback.state(),disabled=!synchronized||!active||loading||editBusy||!lastScene||s.status==='seeking';
     $('tacticsContinue').disabled=disabled||s.status==='playing';$('tacticsReplay').disabled=disabled;
-    $('tacticsPause').disabled=!synchronized||!active||s.status==='inactive'||s.status==='paused'||s.status==='ended';
+    $('tacticsPause').disabled=rangePlayback?false:!synchronized||!active||s.status==='inactive'||s.status==='paused'||s.status==='ended';
     const cues=pausePoints().filter(c=>c.phaseId===phaseId),point=api.getPresentedFrame?.()||presentedPoint;
     const stopped=!disabled&&s.status==='paused'&&point?.frame===lastScene?.frame&&cues.some(c=>c.frame===lastScene.frame);
     $('tacticsContinue').textContent=stopped?'继续播放':'逐点检查';
@@ -420,14 +446,14 @@ export function mountTacticsUI(api){
     playbackControls();
   }
   function selectPhase(id){
-    personInspection=null;cameraEditing=null;cancelEditing();phaseId=id;
+    rangePlayback=null;clearTimeout(holdTimer);personInspection=null;cameraEditing=null;cancelEditing();phaseId=id;
     if(synchronized){playback.configure(documentValue.playDefinition.phases,id,pausePoints());const commands=playback.select(id);render({preserveFrame:true});runPlayback(commands);}
     else render();
   }
   function clearPreview(){cancelEditing();epoch++;lastScene=null;editor.select(null);fillPersonCard();if(sceneNodes){sceneNodes.overlay.replaceChildren();sceneNodes.background.hidden=true;}$('tacticsFrame').textContent='正在准备当前阶段…';$('tacticsRoster').replaceChildren();$('tacticsIssues').replaceChildren();}
   async function commit(next,captured=stamp(),{reuseScene=false}={}){
     return commitWhenCurrent({next,stamp:captured,getStamp:stamp,validate:validateDocument,apply:async value=>{
-      history.push({document:clone(documentValue),selectedAnnotationId});if(history.length>30)history.shift();documentValue=value;personInspection=null;revision++;markUnsaved();
+      redo=[];history.push({document:clone(documentValue),selectedAnnotationId});if(history.length>30)history.shift();documentValue=value;personInspection=null;revision++;markUnsaved();
       const applied=stamp();await draft();
       // Title/notes mutate this same document while its draft is queued. Render
       // the latest document after persistence; metadata revisions do not make
@@ -447,7 +473,8 @@ export function mountTacticsUI(api){
     for(const id of ['tacticsJson','tacticsReport'])$(id).disabled=!documentValue;
     $('tacticsUndo').disabled=!history.length;
     if(!documentValue)return;
-    if(annotations().length||documentValue.playDefinition.actions.length||documentValue.playDefinition.phases.length>1||documentValue.presentation?.routes.length)$('tacticsAgentScope').value='phase';
+    if(documentValue.schemaVersion!==2&&(annotations().length||documentValue.playDefinition.actions.length||documentValue.playDefinition.phases.length>1||documentValue.presentation?.routes.length))$('tacticsAgentScope').value='phase';
+    $('tacticsMigrate').hidden=documentValue.schemaVersion===2;
     const p=phase();phaseId=p.phaseId;
     if(synchronized){
       playback.configure(documentValue.playDefinition.phases,phaseId,pausePoints());
@@ -526,14 +553,14 @@ export function mountTacticsUI(api){
     const {model,frame,mediaTime,background,backgroundSource}=lastScene;
     const renderModel=temporaryRoute?{...model,routes:model.routes.map(r=>r.routeId===temporaryRoute.routeId?temporaryRoute:r)}:model;
     const projected=projectPhaseRoutes(renderModel,{frame,mediaTime,selectedEntityId,showAll:$('tacticsShowAll').checked});
-    const mode=synchronized||backgroundSource||projected.videoAvailable?'video':'court';lastScene.mode=mode;lastScene.projected=projected;
+    const mode=documentValue.schemaVersion===2?canvasView:synchronized||backgroundSource||projected.videoAvailable?'video':'court';lastScene.mode=mode;lastScene.projected=projected;
     const ratio=mode==='video'?model.height/model.width:15.24/28.6512;
     const actionsHeight=($('tacticsSelectionActions').offsetHeight||42)+6;
     const availableHeight=typeof window!=='undefined'&&Number.isFinite(window.innerHeight)?Math.max(160,window.innerHeight-400-actionsHeight):Infinity;
     const width=Math.max(200,Math.min($('tacticsCanvas').clientWidth-2,availableHeight/ratio)),height=width*ratio,nodes=ensureScene();
     nodes.width=width;nodes.canvas.style.width=`${width}px`;nodes.canvas.style.height=`${height}px`;
     const playbackState=playback.state(),decoded=api.getPresentedFrame?.()||presentedPoint;
-    if(synchronized&&(!backgroundSource||playbackState.status==='seeking'&&decoded?.frame!==playbackState.targetFrame)){
+    if(mode==='video'&&synchronized&&(!backgroundSource||playbackState.status==='seeking'&&decoded?.frame!==playbackState.targetFrame)){
       nodes.background.hidden=true;nodes.overlay.replaceChildren();
       $('tacticsFrame').textContent='正在定位同步视频画面…';return;
     }
@@ -543,10 +570,12 @@ export function mountTacticsUI(api){
       if(nodes.background.height!==model.height)nodes.background.height=model.height;
       const source=backgroundSource||background?.image;if(source)nodes.background.getContext('2d').drawImage(source,0,0,model.width,model.height);
     }
-    annotationScene=projectAnnotations(productionPreview||annotationPreview||documentValue,{phaseId,frame,model,selectedId:selectedAnnotationId,editing:editingEnabled});
+    annotationScene=projectAnnotations(productionPreview||annotationPreview||documentValue,{phaseId,frame,model,selectedId:selectedAnnotationId,editing:editingEnabled,freeze:rangePlayback?.holding===frame});
     const sourceSvg=renderPresentationSVG($('tacticsShowReference').checked?projected:{...projected,routes:[]},{space:mode,width,height});
     const marks=renderAnnotationsSVG(annotationScene,{space:mode,width,height}).replace(/^<svg\b[^>]*>/,'').replace(/<\/svg>\s*$/,'');
-    nodes.overlay.innerHTML=sourceSvg.replace('</svg>',`${marks}${drawingMarkup()}${personInspectionMarkup()}${cameraMarkup()}</svg>`);drawHandles();drawAnnotationHandles();fillPersonCard();
+    const source=backgroundSource||background?.image,check=$('tacticsSyncVideo');if(source){check.width=model.width;check.height=model.height;check.getContext('2d').drawImage(source,0,0,model.width,model.height);}
+    const playerMarks=mode==='court'?documentValue.review.entities.map(e=>{const p=documentValue.review.courtPreparation?.preparedByPlayer[e.id]?.[frame]??e.courtTrajectory?.[frame];return p&&Number.isFinite(p.x)&&Number.isFinite(p.y)?`<g data-player-id="${e.id}"><circle cx="${p.x}" cy="${p.y}" r=".24" fill="${e.id===selectedEntityId?'#ffd45c':'#7ec8ed'}"/><text x="${p.x+.28}" y="${p.y}" fill="#ffffff" font-size=".28">${e.id}</text></g>`:'';}).join(''):'';
+    nodes.overlay.innerHTML=sourceSvg.replace('</svg>',`${playerMarks}${marks}${drawingMarkup()}${personInspectionMarkup()}${cameraMarkup()}</svg>`);drawHandles();drawAnnotationHandles();fillPersonCard();
     const ps=model.presentation,manual=ps.applied.length,stale=ps.stale.length;
     const hidden=projected.routes.filter(r=>mode==='video'&&!r.video).length;
     const authoredVisible=annotationScene.items.filter(a=>a[mode]).length;
@@ -580,7 +609,7 @@ export function mountTacticsUI(api){
     const group=document.createElementNS('http://www.w3.org/2000/svg','g'),ratio=(lastScene.mode==='video'?lastScene.model.width:28.6512)/sceneNodes.width;
     group.setAttribute('data-annotation-handles','true');
     for(const handle of item.handles){
-      const p=lastScene.mode==='video'?handle:videoToCourt(lastScene.model,lastScene.frame,handle);if(!p)continue;
+      const p=lastScene.mode===handle.space||lastScene.mode==='video'&&!handle.space?handle:lastScene.mode==='court'?videoToCourt(lastScene.model,lastScene.frame,handle):courtToVideo(lastScene.model,lastScene.frame,handle);if(!p)continue;
       const control=document.createElementNS('http://www.w3.org/2000/svg','g');control.setAttribute('data-annotation-id',item.id);control.setAttribute('data-annotation-control-index',String(handle.index));control.setAttribute('class','tactics-control-handle');
       for(const [r,fill,stroke] of [[15,'transparent','none'],[handle.index===selectedAnnotationPoint?7:5.5,handle.index===selectedAnnotationPoint?'#ffe88a':'#ffffff','#173d55']]){
         const circle=document.createElementNS('http://www.w3.org/2000/svg','circle');for(const [key,value] of Object.entries({cx:p.x,cy:p.y,r:r*ratio,fill,stroke,'stroke-width':2*ratio}))circle.setAttribute(key,String(value));control.append(circle);
@@ -668,14 +697,14 @@ export function mountTacticsUI(api){
       if(!next&&nextKind==='candidate')next=await request('/api/tactics/candidate');
       if(next){await validateDocument(next);if(next.review.videoSha256!==api.clip.video_sha256)throw new Error('此战术草稿属于另一段视频。');}
       if(token!==epoch)return;
-      kind=nextKind;documentValue=next;version=saved.version||0;phaseId=stored?.phaseId||next?.playDefinition.phases[0].phaseId;history=[];revision++;context++;selectedRouteId=null;selectedControlFrame=null;selectedAnnotationId=null;selectedEntityId=null;staticSpotlight=false;personInspection=null;annotationTool='select';
+      kind=nextKind;documentValue=next;version=saved.version||0;phaseId=stored?.phaseId||next?.playDefinition.phases[0].phaseId;history=[];redo=[];revision++;context++;selectedRouteId=null;selectedControlFrame=null;selectedAnnotationId=null;selectedEntityId=api.selectedEntityId?.()??selectedEntityId;staticSpotlight=false;personInspection=null;annotationTool='select';
       const params=new URLSearchParams(location.search);if(kind==='candidate')params.set('candidate','1');else params.delete('candidate');window.history.replaceState(null,'',`/?${params}`);
       await draft();render();$('tacticsSaveState').textContent=stored?'已恢复浏览器草稿':version?`已保存 · 版本 ${version}`:'浏览器草稿';status(next?'先选阶段和工具，在画面直接标注。检查播放会在下一个讲解点暂停。':'点击「建立画布，开始手工标注」，没有识别结果也可以开始。');
     }finally{if(sequence===loadSequence){loading=false;$('tacticsSnapshot').disabled=false;$('tacticsCreateCanvas').disabled=false;fillRouteControls();fillAnnotationControls();agentControls();}}
   }
   $('tacticsWorkspace').onclick=safe(()=>load('workspace'));
   $('tacticsContinue').onclick=safe(async()=>{if(loading||editBusy||!active||!lastScene)return;await sceneReady;if(!active||loading||editBusy||!lastScene)return;epoch++;cancelEditing();runPlayback(playback.continue(lastScene.frame));});
-  $('tacticsPause').onclick=()=>{runPlayback(playback.pause());const point=api.getPresentedFrame?.()||presentedPoint;if(point)onPresentedFrame(point);};
+  $('tacticsPause').onclick=()=>{rangePlayback=null;clearTimeout(holdTimer);runPlayback(playback.pause());const point=api.getPresentedFrame?.()||presentedPoint;if(point)onPresentedFrame(point);};
   $('tacticsReplay').onclick=safe(async()=>{if(loading||editBusy||!active||!lastScene)return;epoch++;cancelEditing();runPlayback(playback.replay());});
   $('tacticsReload').onclick=safe(()=>load(kind,true));
   $('tacticsSnapshot').onclick=safe(async()=>{
@@ -702,8 +731,8 @@ export function mountTacticsUI(api){
   function download(content,name,type){const url=URL.createObjectURL(new Blob([content],{type})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
   $('tacticsJson').onclick=safe(async()=>{const d=clone(documentValue);await validateDocument(d);download(JSON.stringify(d,null,2),`tactics-${api.sample}-${kind}.json`,'application/json');status('已导出全部手绘图形、展示修正、轨迹快照与审核数据。');});
   $('tacticsReport').onclick=safe(async()=>{const d=clone(documentValue);status('正在生成冻结帧报告：仅既有动作与审核，平滑路线和人工展示修正保留在 JSON。');const result=await request('/api/tactics/export',{document:d});download(result.html,`tactics-${api.sample}-${kind}.html`,'text/html');status('已导出冻结帧报告；其中不包含平滑路线或人工展示修正，完整修正请同时导出审核数据 JSON。');});
-  $('tacticsUndo').onclick=safe(async()=>{if(editBusy)return;if(drawing?.points.length){drawing.points.pop();if(!drawing.points.length)drawing=null;fillAnnotationControls();drawScene();return;}if(!history.length)return;personInspection=null;cancelEditing();const previous=history.pop();documentValue=previous.document;selectedAnnotationId=previous.selectedAnnotationId;revision++;markUnsaved();await draft();render({reuseScene:true});await sceneReady;fillAnnotationControls();status('已撤销上一次修改。');});
-  $('tacticsRoutePlayer').onchange=()=>{const value=$('tacticsRoutePlayer').value;cancelEditing();staticSpotlight=value==='__static__';selectedEntityId=staticSpotlight?null:value||null;personInspection=null;selectedRouteId=null;selectedControlFrame=null;fillRouteOptions();fillAnnotationControls();drawScene();};
+  $('tacticsUndo').onclick=safe(async()=>{if(editBusy)return;if(drawing?.points.length){drawing.points.pop();if(!drawing.points.length)drawing=null;fillAnnotationControls();drawScene();return;}if(!history.length)return;personInspection=null;cancelEditing();const previous=history.pop();redo.push({document:clone(documentValue),selectedAnnotationId});documentValue=previous.document;selectedAnnotationId=previous.selectedAnnotationId;revision++;markUnsaved();await draft();render({reuseScene:true});await sceneReady;fillAnnotationControls();status('已撤销上一次修改。');});
+  $('tacticsRoutePlayer').onchange=()=>{const value=$('tacticsRoutePlayer').value;cancelEditing();staticSpotlight=value==='__static__';selectedEntityId=staticSpotlight?null:value||null;if(selectedEntityId)api.selectEntity?.(selectedEntityId);personInspection=null;selectedRouteId=null;selectedControlFrame=null;fillRouteOptions();fillAnnotationControls();drawScene();};
   $('tacticsLocatePlayer').onclick=()=>{const details=inspectionDetails();if(!editAllowed()||!details?.target)return;personInspection={entityId:inspectedPlayer(),target:details.target};if(lastScene.frame===details.target.frame&&decodedPersonSource())drawScene();else if(synchronized)seekCanvas(details.target.frame,{inspect:true});else status(`请在视频中定位到第 ${details.target.frame+1} 帧后查看此人物。`);};
   $('tacticsShowReference').onchange=()=>{cancelEditing();if(!$('tacticsShowReference').checked){selectedRouteId=null;editor.select(null);}drawScene();};
   $('tacticsShowAll').onchange=()=>drawScene();
@@ -718,19 +747,20 @@ export function mountTacticsUI(api){
   for(const [id,tool] of toolButtons)$(id).onclick=()=>chooseTool(tool);
   $('tacticsFinishDrawing').onclick=safe(finishDrawing);
   $('tacticsCancelDrawing').onclick=()=>{cancelAnnotationGesture();annotationTool='select';fillAnnotationControls();drawScene();};
+  $('tacticsDisplayMode').onchange=safe(()=>patchAnnotation({displayMode:$('tacticsDisplayMode').value}));
   $('tacticsAnnotationPoint').onchange=()=>{selectedAnnotationPoint=Number($('tacticsAnnotationPoint').value);fillAnnotationControls();drawScene();};
-  $('tacticsAnnotationAddPoint').onclick=()=>{const a=selectedAnnotation();if(!editAllowed()||a?.type!=='route'||a.authoredPath||straightRoute(a))return;addingAnnotationPoint=true;fillAnnotationControls();};
+  $('tacticsAnnotationAddPoint').onclick=()=>{const a=selectedAnnotation();if(!editAllowed()||a?.type!=='route'||a.authoredPath||a.curve==='cubic_bezier'||straightRoute(a))return;addingAnnotationPoint=true;fillAnnotationControls();};
   $('tacticsAnnotationDeletePoint').onclick=safe(async()=>{
-    const a=selectedAnnotation();if(!a||a.type!=='route'||a.authoredPath||straightRoute(a)||a.points.length<=2||!editAllowed())return;
+    const a=selectedAnnotation();if(!a||a.type!=='route'||a.authoredPath||a.curve==='cubic_bezier'||straightRoute(a)||a.points.length<=2||!editAllowed())return;
     const points=a.points.filter((_p,i)=>i!==selectedAnnotationPoint);selectedAnnotationPoint=Math.min(selectedAnnotationPoint,points.length-1);await patchAnnotation({points});
   });
   $('tacticsAnnotationDelete').onclick=safe(deleteSelectedAnnotation);$('tacticsQuickDelete').onclick=safe(deleteSelectedAnnotation);
   $('tacticsRotateLeft').onclick=safe(()=>patchAnnotation({style:{angle:normalizedAngle((selectedAnnotation()?.style.angle||0)-15)}}));
   $('tacticsRotateRight').onclick=safe(()=>patchAnnotation({style:{angle:normalizedAngle((selectedAnnotation()?.style.angle||0)+15)}}));
   $('tacticsDeselect').onclick=deselectAnnotation;
-  $('tacticsAnnotationPlayer').onchange=safe(()=>{const entityId=$('tacticsAnnotationPlayer').value||null,a=selectedAnnotation(),foot=entityId&&a?.type==='spotlight'?playerFoot(documentValue,entityId,lastScene.frame,{phaseId,model:lastScene.model}).point:null;return patchAnnotation({entityId,...(a?.type==='spotlight'&&entityId?{anchorMode:'player_foot',offset:{x:0,y:0},...(foot?{points:[foot]}:{})}:{})});});
+  $('tacticsAnnotationPlayer').onchange=safe(()=>{const entityId=$('tacticsAnnotationPlayer').value||null,a=selectedAnnotation();if(documentValue.schemaVersion===2&&a?.space==='court')return patchAnnotation({entityId,...(a.type==='spotlight'?{anchorMode:entityId?'court_player_foot':'manual_offset',followEntity:!!entityId}:{})});const foot=entityId&&a?.type==='spotlight'?playerFoot(documentValue,entityId,lastScene.frame,{phaseId,model:lastScene.model}).point:null;return patchAnnotation({entityId,...(a?.type==='spotlight'&&entityId?{anchorMode:'player_foot',offset:{x:0,y:0},...(foot?{points:[foot]}:{})}:{})});});
   $('tacticsAnnotationFollow').onchange=safe(()=>patchAnnotation({followEntity:$('tacticsAnnotationFollow').checked}));
-  $('tacticsSnapFoot').onclick=safe(async()=>{const a=selectedAnnotation();if(!a?.entityId)return;const foot=playerFoot(documentValue,a.entityId,lastScene.frame,{phaseId,model:lastScene.model}).point;if(!foot){status('此帧没有有效脚底位置，请定位到球员可见帧。');return;}offsetMode=false;await patchAnnotation({anchorMode:'player_foot',points:[foot],offset:{x:0,y:0}});});
+  $('tacticsSnapFoot').onclick=safe(async()=>{const a=selectedAnnotation();if(!a?.entityId)return;if(documentValue.schemaVersion===2&&a.space==='court'){const p=documentValue.review.courtPreparation?.preparedByPlayer[a.entityId]?.[lastScene.frame]??documentValue.review.entities.find(e=>e.id===a.entityId)?.courtTrajectory?.[lastScene.frame];if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y))throw new Error('此帧没有有效 2D 脚底位置。');return patchAnnotation({anchorMode:'court_player_foot',followEntity:true,points:[{x:p.x,y:p.y}]});}const foot=playerFoot(documentValue,a.entityId,lastScene.frame,{phaseId,model:lastScene.model}).point;if(!foot){status('此帧没有有效脚底位置，请定位到球员可见帧。');return;}offsetMode=false;await patchAnnotation({anchorMode:'player_foot',points:[foot],offset:{x:0,y:0}});});
   $('tacticsOffsetMode').onclick=()=>{if(selectedAnnotation()?.anchorMode!=='player_foot'||!editAllowed())return;offsetMode=!offsetMode;fillAnnotationControls();};
   $('tacticsAgentRun').onclick=generateAgent;$('tacticsAgentAdopt').onclick=adoptAgent;
   $('tacticsAgentCancel').onclick=async()=>{if(!agentJob||agentAdopting)return;const job=agentJob,captured=agentCapture;try{clearTimeout(agentTimer);await receiveAgent(await request(`/api/tactics-agent/jobs/${job.jobId}/cancel`,{}),captured);}catch(error){if(agentCapture===captured)agentStatus(error.message);}};
@@ -793,12 +823,12 @@ export function mountTacticsUI(api){
         if(handle&&camera&&lastScene.frame===cameraEditing.frame){cameraDrag={pointerId:event.pointerId,index:Number(handle.getAttribute('data-camera-corner')),id:camera.id,frame:cameraEditing.frame,keyframes:clone(camera.keyframes),stamp:stamp()};host.setPointerCapture(event.pointerId);event.preventDefault();}return;
       }
       if(point&&addingAnnotationPoint){
-        const a=selectedAnnotation();if(!a||a.type!=='route'||a.authoredPath||straightRoute(a))return;
+        const a=selectedAnnotation();if(!a||a.type!=='route'||a.authoredPath||a.curve==='cubic_bezier'||straightRoute(a))return;
         const p=originalPoint(point,a.space);if(!p){status('当前画面无法定位这个控制点，请回到绘制帧再试。');return;}
         const points=structuredClone(a.points),index=selectedAnnotationPoint+1;points.splice(index,0,{x:p.x,y:p.y});addingAnnotationPoint=false;selectedAnnotationPoint=index;await patchAnnotation({points});return;
       }
       if(point&&['route','dashed','dots'].includes(annotationTool)){
-        if(!drawing){const located=annotationPointFromVideo(lastScene.model,lastScene.frame,point);drawing={space:located.space,points:[located.point],frame:lastScene.frame,stamp:stamp(),pattern:annotationTool==='route'?'solid':annotationTool};}
+        if(!drawing){const located=locatedPoint(point);drawing={space:located.space,points:[located.point],frame:lastScene.frame,stamp:stamp(),pattern:annotationTool==='route'?'solid':annotationTool};}
         else if(drawing.points.length>=ANNOTATION_LIMITS.points){status(`一条路线最多 ${ANNOTATION_LIMITS.points} 个点，点「完成绘制」后可继续拖动调整。`);return;}
         else{
           const p=originalPoint(point,drawing.space);if(!p){status('这个位置暂时不能对应到球场，请选择画面内的球场位置。');return;}
@@ -806,30 +836,30 @@ export function mountTacticsUI(api){
           drawing.points.push({x:p.x,y:p.y});
         }
         $('tacticsUndo').disabled=false;event.preventDefault();
-        if(drawing.pattern!=='solid'&&drawing.points.length===2){await finishDrawing();return;}
+        if((drawing.pattern!=='solid'||documentValue.schemaVersion===2)&&drawing.points.length===2){await finishDrawing();return;}
         fillAnnotationControls();drawScene();return;
       }
       if(point&&['screen','spotlight'].includes(annotationTool)){
         if(annotationTool==='spotlight'){
           if(staticSpotlight){await placeSpotlight(null,point);event.preventDefault();return;}
-          const hits=playersAtVideoPoint(documentValue,lastScene.frame,point,{phaseId,model:lastScene.model});
+          const hits=lastScene.mode==='court'?documentValue.review.entities.filter(e=>{const p=documentValue.review.courtPreparation?.preparedByPlayer[e.id]?.[lastScene.frame]??e.courtTrajectory?.[lastScene.frame];return p&&Number.isFinite(p.x)&&Math.hypot(p.x-point.x,p.y-point.y)<.6;}):playersAtVideoPoint(documentValue,lastScene.frame,point,{phaseId,model:lastScene.model});
           if(hits.length>1){footCandidates=hits;fillAnnotationControls();status('这里有多个球员重叠，请在右侧选择脚圈跟随谁。');return;}
           const personId=hits[0]?.id??selectedEntityId;if(!personId){status('请先选择球员或点击人物；若只需静态圈，请明确选择“静态圈（不跟随球员）”。');return;}
           await placeSpotlight(personId,point);event.preventDefault();return;
         }
-        const located=annotationPointFromVideo(lastScene.model,lastScene.frame,point),id=`draw-${crypto.randomUUID()}`;
-        const next=createAnnotation(documentValue,{id,type:annotationTool,phaseId,entityId:selectedEntityId||null,frame:lastScene.frame,space:located.space,points:[located.point],style:{color:'#ffd34e'}});
+        const located=locatedPoint(point),id=`draw-${crypto.randomUUID()}`;
+        const next=makeAnnotation({id,type:annotationTool,phaseId,entityId:selectedEntityId||null,frame:lastScene.frame,space:located.space,points:[located.point],style:{color:'#ffd34e'}});
         selectedAnnotationId=id;selectedAnnotationPoint=0;annotationTool='select';event.preventDefault();await saveAnnotation(next);return;
       }
       if(point&&annotationTool==='select'){
         const rotate=event.target.closest('[data-annotation-rotate]'),handle=event.target.closest('[data-annotation-control-index]'),annotationId=event.target.closest('[data-annotation-id]')?.getAttribute('data-annotation-id');
-        const hit=annotationId?{id:annotationId,index:handle?Number(handle.getAttribute('data-annotation-control-index')):null}:hitTestAnnotation(annotationScene,point,12*lastScene.model.width/sceneNodes.width);
+        const hit=annotationId?{id:annotationId,index:handle?Number(handle.getAttribute('data-annotation-control-index')):null}:hitTestAnnotation(lastScene.mode==='court'?{...annotationScene,items:annotationScene.items.map(i=>({...i,video:i.court}))}:annotationScene,point,12*(lastScene.mode==='court'?COURT.length:lastScene.model.width)/sceneNodes.width);
         if(hit){
           const adjustingOffset=offsetMode&&selectedAnnotationId===hit.id;selectAnnotation(hit.id);offsetMode=adjustingOffset;selectedAnnotationPoint=hit.index??0;
           const a=selectedAnnotation(),start=originalPoint(point,a.space),item=annotationScene.items.find(item=>item.id===a.id);
           if(a.authoredPath&&lastScene.frame!==a.anchorFrame){seekCanvas(a.anchorFrame);status('已定位路线参考帧，画面就绪后可拖动四个控制点。');return;}
-          if(a.anchorMode==='player_foot'&&!offsetMode){fillAnnotationControls();drawScene();return;}
-          if(start&&item?.video){
+          if(['player_foot','court_player_foot'].includes(a.anchorMode)&&!offsetMode){fillAnnotationControls();drawScene();return;}
+          if(start&&item?.[lastScene.mode]){
             const center=a.points[0],rotating=!!rotate&&a.type==='screen';
             annotationDrag={pointerId:event.pointerId,id:a.id,kind:rotating?'rotate':a.anchorMode==='player_foot'?'offset':'move',offset:{...(a.offset||{x:0,y:0})},index:hit.index,start,points:structuredClone(a.points),space:a.space,stamp:stamp(),angleOffset:rotating?a.style.angle-Math.atan2(start.y-center.y,start.x-center.x)*180/Math.PI:0};
             host.setPointerCapture(event.pointerId);event.preventDefault();
@@ -903,7 +933,7 @@ export function mountTacticsUI(api){
   for(const [id,field] of [['tacticsTitle','title'],['tacticsNotes','notes']])$(id).oninput=()=>{if(documentValue){documentValue[field]=$(id).value;revision++;markUnsaved();draft();}};
   const resize=new ResizeObserver(()=>{try{drawScene();}catch(error){status(error.message);}});resize.observe($('tacticsCanvas'));
   document.addEventListener('workbench-area',safe(async()=>{
-    active=document.body.dataset.area==='tactics';productionUI.pause();if(!active){epoch++;cancelEditing();if(synchronized)runPlayback(playback.leave());if(document.body.dataset.area==='production'&&!documentValue&&!loading)await load('workspace');return;}api.pause();editingEnabled=true;
+    active=document.body.dataset.area==='tactics';productionUI.pause();if(!active){rangePlayback=null;clearTimeout(holdTimer);epoch++;cancelEditing();if(synchronized)runPlayback(playback.leave());if(document.body.dataset.area==='production'&&!documentValue&&!loading)await load('workspace');return;}api.pause();editingEnabled=true;
     if(!documentValue&&!loading)await load(new URLSearchParams(location.search).has('candidate')?'candidate':'workspace');
     else if(documentValue){if(synchronized)selectPhase(phaseId);else drawScene();}
     await syncSnapshot();agentControls();
@@ -911,17 +941,34 @@ export function mountTacticsUI(api){
   }));
   function renderFrame(frame,mediaTime,backgroundSource,{editing=true}={}){
     if(!lastScene||loading)return false;
+    if(rangePlayback){
+      editing=false;
+      if(rangePlayback.pendingStart&&frame!==rangePlayback.range.startFrame)return false;
+      if(frame>=rangePlayback.range.endFrameExclusive){api.pause();rangePlayback=null;clearTimeout(holdTimer);editing=true;}
+      else{
+        const started=rangePlayback.pendingStart;rangePlayback.pendingStart=false;
+        const cue=compileTacticKeyframes(documentValue).find(k=>k.frame>=rangePlayback.range.startFrame&&k.frame<=frame&&!rangePlayback.seen.has(k.frame));
+        if(cue){const current=rangePlayback;current.seen.add(cue.frame);current.holding=cue.frame;api.pause();api.seek(cue.frame);clearTimeout(holdTimer);holdTimer=setTimeout(()=>{if(rangePlayback===current){current.holding=null;api.play();}},cue.holdSeconds*1000);if(frame!==cue.frame)return false;}
+        else if(started)api.play();
+      }
+    }
     const modeChanged=editingEnabled!==editing;
     if(!editing){personInspection=null;cancelEditing();}editingEnabled=editing;
     lastScene.frame=frame;lastScene.mediaTime=mediaTime;lastScene.backgroundSource=backgroundSource;
     drawScene();if(modeChanged){fillRouteControls();fillAnnotationControls();}return true;
   }
-  window.addEventListener?.('pagehide',()=>productionUI.dispose(),{once:true});
+  window.addEventListener?.('pagehide',()=>{clearTimeout(holdTimer);productionUI.dispose();},{once:true});
+  let timelineInstance=null;const timeline={range:()=>timelineInstance?.range()??documentValue.newDrawingRange??{startFrame:documentValue.playDefinition.startFrame,endFrameExclusive:documentValue.playDefinition.endFrameExclusive},render(){if(documentValue?.schemaVersion!==2)return;if(!timelineInstance)timelineInstance=mountTacticsTimeline({host:root.querySelector('.tactics-view'),getDocument:()=>documentValue,getSelected:selectedAnnotation,getFrame:()=>lastScene?.frame??api.frame(),commit:next=>saveAnnotation(next),seek:seekCanvas,commitRange:async range=>{history.push({document:clone(documentValue),selectedAnnotationId});redo=[];documentValue={...documentValue,newDrawingRange:{...range}};revision++;markUnsaved();await draft();},thumbnail:async frame=>{const value=await request('/api/tactics/frame',{...base,videoSha256:documentValue.review.videoSha256,frames:[frame]});return value.frames[0]?.dataUrl;},play:range=>{clearTimeout(holdTimer);rangePlayback={range,seen:new Set(),holding:null,pendingStart:true};seekCanvas(range.startFrame);},status});timelineInstance.render();}};
+  root.querySelector?.('.tactics-controls')?.prepend($('tacticsSyncVideo'));
+  root.querySelector?.('.tactics-controls')?.append($('tacticsAgentPanel'));$('tacticsAgentPanel').open=true;
+  $('tacticsCourtView').onclick=()=>{canvasView='court';drawScene();};$('tacticsVideoView').onclick=()=>{canvasView='video';drawScene();};
+  $('tacticsMigrate').onclick=safe(async()=>{const result=await migrateTacticsDocument(documentValue,api.clip.mediaEndTime);await writeTacticsDraft(cacheKey()+':before-v2',result.backup);await commit(result.document);});
+  $('tacticsRedo').onclick=safe(async()=>{if(!redo.length||editBusy)return;const next=redo.pop();history.push({document:clone(documentValue),selectedAnnotationId});documentValue=next.document;selectedAnnotationId=next.selectedAnnotationId;revision++;await draft();render({reuseScene:true});});
   render();return {saveDraft:draft,ready:()=>sceneReady,cancelEditing,onPresentedFrame,
     getPlaybackState:playback.state,
-    togglePlayback(){if(!active)return false;if(playback.state().status==='playing')$('tacticsPause').onclick();else $('tacticsContinue').onclick();return true;},
+    togglePlayback(){if(!active)return false;if(rangePlayback){$('tacticsPause').onclick();return true;}if(playback.state().status==='playing')$('tacticsPause').onclick();else $('tacticsContinue').onclick();return true;},
     externalSeek(frame){
-      if(!active||!synchronized)return;personInspection=null;cameraEditing=null;cancelEditing();
+      if(!active||!synchronized)return;rangePlayback=null;clearTimeout(holdTimer);personInspection=null;cameraEditing=null;cancelEditing();
       const commands=playback.externalSeek(frame);runPlayback(commands);
       // Time navigation within one phase does not invalidate its document model.
       // An in-flight rebuild reads the latest presented frame when it applies;

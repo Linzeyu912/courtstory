@@ -1,3 +1,6 @@
+import {rangeToSeconds} from './tactics-time-range.mjs';
+import {compileTacticKeyframes} from './tactics-keyframes.mjs';
+import {courtProjectionGaps} from './tactics-court-projection.mjs';
 import {canonicalJSON,createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {validQuad} from './court.mjs';
 import {createAnnotation,updateAnnotation,annotationStatus,annotationPausePoints,projectAnnotations,renderAnnotationsSVG} from './tactics-annotations.mjs';
@@ -107,7 +110,9 @@ export function updateAuthoredProgress(document,id,progressFrames){
 }
 
 export function compileProduction(document,{fps=30}={}){
+  const v2Timing=document.schemaVersion===2&&!document.legacyTiming;
   if(!finite(fps)||fps<1||fps>120)throw new Error('导出帧率不正确。');fail(validateProduction(document));
+  if(document.schemaVersion===2){const gaps=courtProjectionGaps(document);if(gaps.length)throw new Error('实拍投影缺口：'+gaps.map(g=>`${g.annotationId} [${g.startFrame},${g.endFrameExclusive})`).join('、'));}
   const production=document.production,phases=document.playDefinition.phases,mapping=document.review.sourceFrameMapping;
   if(production&&!productionEqual(production.sourceBinding,productionSourceSnapshot(document)))throw new Error('编排来源已变化，请重新绑定。');
   if(annotationStatus(document).stale.length)throw new Error('含失效图形，请重新绑定后导出。');
@@ -118,10 +123,11 @@ export function compileProduction(document,{fps=30}={}){
   for(const c of [...(production?.cameras??[]),...(production?.timeline.cues??[])]){const phase=phases.find(p=>p.phaseId===c.phaseId);if(!phase||!productionEqual(c.phaseSnapshot,productionPhaseSnapshot(phase)))throw new Error('编排阶段已变化，请重新绑定。');}
   const timeline=production?.timeline??{timebaseFps:30,cues:[],endHoldFrames:0},explicit=new Map(timeline.cues.map(c=>[`${c.phaseId}:${c.frame}`,c]));
   // Ordinary reference-only annotations also receive a stable explanatory hold.
-  const points=annotationPausePoints(document),all=[...phases.map(p=>({phaseId:p.phaseId,frame:p.freezeFrame})),...points];
+  const points=v2Timing?[]:annotationPausePoints(document),all=v2Timing?[]:[...phases.map(p=>({phaseId:p.phaseId,frame:p.freezeFrame})),...points];
+  for(const cue of compileTacticKeyframes(document))explicit.set(`${cue.phaseId}:${cue.frame}`,{...cue,settleFrames:0,drawFrames:Math.min(15,Math.round(cue.holdSeconds*timeline.timebaseFps)),holdFrames:Math.max(0,Math.round(cue.holdSeconds*timeline.timebaseFps)-15)});
   for(const c of all)if(!explicit.has(`${c.phaseId}:${c.frame}`))explicit.set(`${c.phaseId}:${c.frame}`,productionCue(document,c));
   const frames=[],start=document.playDefinition.startFrame,end=document.playDefinition.endFrameExclusive,first=mapping[start].time;
-  const step=end-start>1?mapping[end-1].time-mapping[end-2].time:1/fps,duration=mapping[end-1].time-first+step,total=Math.max(1,Math.round(duration*fps)),seen=new Set();let local=start;
+  const step=end-start>1?mapping[end-1].time-mapping[end-2].time:1/fps,duration=v2Timing?rangeToSeconds(mapping,{startFrame:start,endFrameExclusive:end},document.review.mediaEndTime).endSeconds-first:mapping[end-1].time-first+step,total=Math.max(1,Math.round(duration*fps)),seen=new Set();let local=start;
   const add=(f,state,reveal)=>{const phase=phases.find(p=>f>=p.startFrame&&f<p.endFrameExclusive);frames.push({sourceFrame:f,sourceTime:mapping[f].time,state,reveal,phaseId:phase.phaseId});if(frames.length>108000)throw new Error('导出时长超出一小时限制。');};
   const addCue=cue=>{
     seen.add(`${cue.phaseId}:${cue.frame}`);const scale=fps/timeline.timebaseFps,settle=Math.round(cue.settleFrames*scale),draw=Math.round(cue.drawFrames*scale),hold=Math.round(cue.holdFrames*scale);
@@ -142,7 +148,7 @@ export function compileProduction(document,{fps=30}={}){
 export function sampleProduction(plan,index){if(!frame(index)||index>=plan.frames.length)throw new Error('成片帧超出范围。');return clone(plan.frames[index]);}
 export function renderProductionSvg(document,frameState){
   if(!frame(frameState?.sourceFrame)||!finite(frameState.reveal)||frameState.reveal<0||frameState.reveal>1)throw new Error('成片显示状态无效。');
-  return renderAnnotationsSVG(projectAnnotations(document,{phaseId:frameState.phaseId,frame:frameState.sourceFrame,reveal:frameState.reveal,production:true}));
+  return renderAnnotationsSVG(projectAnnotations(document,{phaseId:frameState.phaseId,frame:frameState.sourceFrame,reveal:frameState.reveal,production:true,freeze:document.schemaVersion===2&&frameState.state!=='source'}));
 }
 
 /** Explicit source-locked migration: these become ordinary editable annotations, never a second routes list. */
