@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-05 14:30（America/New_York）：用户认可动态对照并授权发布；Qwen 地面轨迹实测修复、视频／2D 同步回放、复跑脚本和两片轻量逐帧示例已作为 `b503573` 推送 main，本机 HEAD、origin/main 与实际远端完整 SHA 一致。服务默认读取共享回放示例，拉取代码与官方视频 LFS 后无需重新调用模型即可查看。30 项 Node、34 项 Python 检查及 165 段视频／LFS 索引校验通过；002 误删与未人工确认的标定／身份限制保留。见[发布交接](../handoffs/chuali-zi/2026-10-05-1430-qwen-replay-publication.md)。
+
 2026-10-05 14:15（America/New_York，本地，未提交／未推送）：为已有 Qwen 官方两片实测结果增加工作台动态对照入口 `/trajectory-replay`，同步原视频、脚部放大、地面回投与 2D 路径；支持慢放、循环、逐帧、时间轴和问题帧跳转。复用最终真实候选，保留 002 的误删与全部缺口，未新增模型调用或采用候选。3 项新逻辑、33 项现有服务检查及实际浏览器回放通过。见[操作说明](../engineering/docs/qwen-ground-trajectory-agent.md#查看官方实测的动态对照)与[本轮交接](../handoffs/chuali-zi/2026-10-05-1415-qwen-trajectory-replay.md)。
 
 2026-10-05 13:45（America/New_York，本地，未提交／未推送）：Qwen 地面轨迹 Agent 已用用户指定官方 ZIP 的两段同字节原片完成真实 API 和多轮视觉循环实测；修复任务目录、实际思考开关、重复上下文、裁图预算与像素坐标换算，并增加坐标刻度及原点／候选回投对照。最终单人约 5 秒片段分别耗时 174.5 秒／10 轮、101.9 秒／7 轮。001 的 5 帧 AI 参照诊断有改善，002 的 4 帧配对结果接近原始且误删一个可见参照帧，视觉质量尚未全面通过；没有宣称人工真值精度。27 项 Node、1 项 Python 检查及两份真实候选的隔离 QA 保存／重读通过。见[实测与复跑](../research/agents/qwen-ground-official-20261005/README.md)、[本轮交接](../handoffs/chuali-zi/2026-10-05-1345-qwen-official-live-tests.md)。
