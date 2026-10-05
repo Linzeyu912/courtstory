@@ -1,6 +1,30 @@
 # 团队状态
 
+2026-10-05 22:50（Asia/Shanghai）：用户已授权将全部现有本地成果按主题提交并推送。目录与运行路径迁移、篮球模型调研及视频诊断、赛事要求、环境准备、作品上云说明五个提交已推送 main，22:49 实际远端为 68227ef；最后一条提交同步四类目录入口、成果总览、协作规范和本轮交接。163 段视频与 LFS 索引、迁移证据、来源摘要及链接检查通过；此前资料中的“未提交”保留历史含义。提交明细与验证范围见[分类发布交接](../handoffs/Linzeyu912/2026-10-05-2250-classified-publication.md)，从[成果与接续总览](work-index.md)进入各专题。
+
+2026-10-05 22:33（Asia/Shanghai，本地未提交 / 未推送）：按用户关于 AWS 流程及插件代操作的询问，补充[代码推送、文件上传与应用部署的说明](../engineering/docs/aws-workbench-deployment-guide.md)。实际完成本队 S3 临时文本写入、下载摘要核对和清理，以及 Bedrock Qwen 单次文本请求（返回 CLOUD_OK，19 / 4 tokens）。未上传视频、部署工作台或改为纯对话产品；AgentCore / CloudFront 仍无应用记录。事实范围、下一步和同步情况见[交接](../handoffs/Linzeyu912/2026-10-05-2233-s3-bedrock-connectivity.md)。
+
+2026-10-05 22:31（Asia/Shanghai）：已从远端快进拉取 THY 的 13923fd / 82a8257，HEAD、origin/main 与实际远端一致；保留本地四类目录及研究 / 环境资料，status 冲突双方记录已合并。新增[成果与接续总览](work-index.md)，串联 chuali-zi 的 2D / Qwen / 视频研究、THY 的 005 成片基准与导入视频诊断及本机模型 / 环境成果；区别身份待核对和仅作者本机的草稿 / 成片。195 个原有代码 / 数据、157 个研究快照及新增 7 个归档文件哈希通过，入口无新增失效链接；一条并行会话文档登记标待落盘。目录与入口仍未提交 / 未推送，见[同步整理交接](../handoffs/Linzeyu912/2026-10-05-2231-collaborator-sync-and-index.md)。
+
+2026-10-05 22:20（Asia/Shanghai，本地未提交 / 未推送）：按用户要求将调研、赛事要求、环境准备、作品工程分成 research / requirements / environment / engineering 四个主目录；243 个文件迁移，八个纯视觉探针和历史研究配套归入专题，工作台读取路径与文档链接同步。原始证据和素材保持，真实 005 的 143 帧 / 7 方案及相关前后端检查通过；既有测试环境问题与验证范围见[整理交接](../handoffs/Linzeyu912/2026-10-05-2220-repository-content-separation.md)。新入口见[目录规范](repository-map.md)；另一会话新增的 CDK / 训练片核验已保留，远端两条资料提交仍待妥善整合。
+
+2026-10-05 22:03（Asia/Shanghai，本地未提交 / 未推送）：按用户要求安装 AWS CDK CLI 2.1144.0，命令与 npm 包版本核对通过；使用用户指定桌面 train_video.zip 核验两段 1080p、约 59.94 fps、有音轨训练片，21.55 / 22.89 秒，2662 视频帧完整解码，包内无独立指标文件。现有正式成片已用 CPU 编码，自动检测仍强制 CUDA；已写[工作台上云说明](../engineering/docs/aws-workbench-deployment-guide.md)及[素材核验](../requirements/training-package-check-20261005.md)。未改生产代码、调用模型或创建云资源；原片仅留忽略目录。远端两条资料提交已读取，工作区保留待整合，见[交接](../handoffs/Linzeyu912/2026-10-05-2203-cdk-workbench-cloud-guide.md)。
+
+2026-10-05 21:48（Asia/Shanghai，本地未提交 / 未推送）：用户完成登录后，实际 STS 核对 `nba` 为 Team25 参赛角色。只读盘点确认本队 S3 桶与 CDK 资产桶已存在，CDKToolkit / risk-health-probe / team-access 三栈均 CREATE_COMPLETE；AgentCore Runtime 与 CloudFront 分发列表为空。本机 Node / npm 可用、cdk 未在 PATH。下一步建议准备 CDK 工程、官方片/指标与最小 AgentCore→渲染→CloudFront 演示；未调用模型或创建资源。见[盘点交接](../handoffs/Linzeyu912/2026-10-05-2148-aws-readiness-inventory.md)。
+
+2026-10-05 21:40（Asia/Shanghai，本地未提交 / 未推送）：按用户要求新建本机用户级 AWS config，写入 Team25 Portal 的 nba-sso / nba 双 profile，CLI 解析与 10 项配置逐项核对通过；尚未执行 SSO 登录或 STS 身份验证。同次 Portal 只读观察已显示现有私有仓库锁定绑定，作品 URL 仍为空；本轮未操作绑定或创建资源。敏感配置仅留本机，见[配置交接](../handoffs/Linzeyu912/2026-10-05-2140-aws-cli-profiles.md)。
+
+2026-10-05 21:35（Asia/Shanghai，本地未提交 / 未推送）：按用户要求完成本机 AWS CLI v2 当前用户安装，AWS 官方 MSI 签名有效、安装退出码 0，`aws --version` 实测为 2.37.9，用户 PATH 已登记。只完成本机工具安装，尚未配置赛事双 profile / 登录验证，也未安装 CDK。远端新增两个提交且涉及已有本地改动的 status.md，保留工作区未拉取；来源与验证见[安装交接](../handoffs/Linzeyu912/2026-10-05-2135-aws-cli-v2-install.md)。
+
+2026-10-05 21:12（Asia/Shanghai，本地未提交 / 未推送）：在用户已登录的 Chrome 实读 Team25 Portal、10 月 5 日终极指南、有效双语 Quick Start 与服务示例。确认 AgentCore / CloudFront-Web / CDK、us-east-1、GPU 配额 0、CLI 双 profile、一次性仓库绑定和 20:00 截止 / 22:20 审核可用期；官方仅有出手瞬间点位，不做跑动轨迹复原，解说可选。Team25 仍未绑定 GitHub，作品 URL 为空；当前 shell 未找到 aws/cdk。已更新[正式要求核验](../requirements/portal-access-20261005.md)及[工程接续建议](../engineering/docs/contest-readiness-20261005.md)，保留原工作台和研究。未绑定、部署或提交，见[交接](../handoffs/Linzeyu912/2026-10-05-2101-portal-readiness-review.md)。
+
 2026-10-05 21:07（Asia/Shanghai，本机）：用户明确认可 005 V2 的平滑大箭头效果并要求保留流程。已整理[制作流程与 Agent 指令](../engineering/docs/005-authored-v2-workflow.md)，按字节归档原路线配置、渲染脚本、编码命令与验收资料；本轮核对成片/原片摘要一致，没有重新渲染或改变工作台功能。后续以此作为视觉基准，用当前视频证据和 2D 数据编排，不复制旧坐标。见[本轮交接](../handoffs/thy-0629/2026-10-05-2107-approved-005-workflow.md)；本机已有其他任务明确未推送提交，本轮资料暂不随之发布。
+
+2026-10-05 20:45（Asia/Shanghai，本地未提交 / 未推送）：完成[三项 Hoop 模型发布专项核查](../research/basketball-models/mentor-components-20261005/OPEN_SOURCE_AUDIT.md)，补查 58 个核心仓库历史提交及已关闭 Issue。发现 HoopTransformer 作者权重 / Colab 分享，notebook 可下载、权重当前匿名访问受限；HoopEval 旧提交的 17.36 MB checkpoint 已下载，132 项模型状态严格加载，CPU / GPU 合成输入前向成功。该文件 EMA 未初始化，尚未确认论文最终版本 / 业务前处理 / 实际评分精度；Hoop-MSSL 仍未确认官方实现与权重。已修正前两份当前报告的笼统权重结论，历史证据保留，未改生产功能。见[本轮交接](../handoffs/Linzeyu912/2026-10-05-2045-hoop-model-release-audit.md)。
+
+2026-10-05 16:36（Asia/Shanghai，本地未提交 / 未推送）：按用户追加问题扩查并完成[14 篇篮球论文的逐篇功能说明](../research/basketball-models/mentor-components-20261005/PAPER_GUIDE.md)，逐项解释问题、输入、模型、输出及项目位置。核实 HoopTransformer 的 592 回合 / 14 类标注与分类头训练，以及 Hoop-MSSL 的回合战术、配合动作、挡拆参与角色三类下游任务；扩查传球网络、得分高潮、球员画像、风格、胜负背景与负荷研究。功能匹配优先指向战术 / 动作 / 角色识别；前轮 HoopPad 权重可用性不替代该目标。未新增模型实测或生产接入，来源与限制见[本轮交接](../handoffs/Linzeyu912/2026-10-05-1636-paper-functions-guide.md)。
+
+2026-10-05 16:15（Asia/Shanghai，本地未提交 / 未推送）：完成用户提供综述中张绍良 / Xing Wang 的[详细组件调研](../research/basketball-models/mentor-components-20261005/README.md)。发现 HoopPad 公开防守生成及 qSQ 权重并完成 4 模型 × 11 作者样例测试；HoopTransformer / HoopEval 随机参数核心 CPU / GPU 前向、90,524 条公开向量检索和 HoopEval 可视化验证完成。原综述论文归属与 Workshop 级别已纠正，第三方 MSSL 前向失败已记录。建议先做可靠 2D 后的空间指标，再离线评估替代防守路线；未改工作台生产代码、草稿或视频，不代表新视频精度验收或团队采用。成果与源码 / 权重测试边界见报告及[本轮交接](../handoffs/Linzeyu912/2026-10-05-1615-mentor-components-research.md)。
 
 2026-10-05 06:51（Etc/UTC）Qwen 地面轨迹首版代码已发布：用户授权实现计划并要求多个子 Agent 协作，真实测试留给本地。`0dd6687` 已推送 main，06:51:52 核对本地 HEAD、origin/main 和实际远端 refs/heads/main 完整 SHA 一致。实现固定 Pi SDK 1.0.2／阿里云 QWEN_KEY、多轮帧拼图／裁图／锚点／拟合／读反馈，接入现有 2D 准备的预览、采用、撤销、可信保存、导出及战术坐标；未新增工作台或动作事件模块。18 个 JS 模块语法、4 个 Python 文件编译、离线导入、主 app 打包和现有前端构建通过；未调用真实模型、解码试验视频、跑浏览器或完整回归，定位效果未验收。安装、限制和本地待验收项见[实现指南](../engineering/docs/qwen-ground-trajectory-agent.md)，本轮过程和远端核对见[交接](../handoffs/chuali-zi/2026-10-05-0651-qwen-ground-trajectory-implementation.md)。本段和交接作为后续文档提交同步；下方历史状态保留当时事实。
 
@@ -10,13 +34,13 @@
 
 2026-10-05 05:54（Etc/UTC，本地，未提交 / 未推送）：用户要求在现有工作台内制定 Qwen3.8-Max 地面轨迹首版详细实现方案。已形成[实施计划](../engineering/docs/plans/2026-10-05-qwen-ground-trajectory-agent-v1.md)，核查原始投影 / 显示平滑 / 导出与战术消费者、草稿采用撤销和任务流程，建议固定 Pi SDK 1.0.2，以主动取帧、改锚点、拟合、读绘制反馈形成循环。核实阿里云官方北京兼容端点及图像 / 工具文档；选中库内 LAL–MIN 10.68 秒样片并读取远端 267 帧跟踪时间。视频 LFS 下载受当前 shell 私库凭据不可用限制，尚未获得二进制；当前环境未提供 QWEN_KEY。未实现产品、调用模型或进行效果测试。见[本轮交接](../handoffs/chuali-zi/2026-10-05-0554-qwen-ground-trajectory-plan.md)。
 
-2026-10-05 05:22（Etc/UTC，本地，未提交 / 未推送）：用户明确进入方案讨论，指定现有 Qwen3.8-Max API（`QWEN_KEY`）辅助修正跳跃 / 地面移动混淆、斜视角定位及轨迹抖动，要求 Agent 反复取帧、读图和处理。已拉取 Pi 当前官方 `earendil-works/pi@b2b5c42f`，对照 Codex / OpenCode 工具图片回传及循环，补查帧拼图、迭代视频 Agent 和跳跃纠正项目，形成[讨论稿](../engineering/research/qwen-video-trajectory-agent-20261005.md)和固定来源。前轮模型图谱转为背景；Pi 只是优先候选，未确立团队实施决策。未调用模型、配置 key、修改工作台或运行推理。见[交接](../handoffs/chuali-zi/2026-10-05-0522-qwen-trajectory-agent-discussion.md)。
+2026-10-05 05:22（Etc/UTC，本地，未提交 / 未推送）：用户明确进入方案讨论，指定现有 Qwen3.8-Max API（`QWEN_KEY`）辅助修正跳跃 / 地面移动混淆、斜视角定位及轨迹抖动，要求 Agent 反复取帧、读图和处理。已拉取 Pi 当前官方 `earendil-works/pi@b2b5c42f`，对照 Codex / OpenCode 工具图片回传及循环，补查帧拼图、迭代视频 Agent 和跳跃纠正项目，形成[讨论稿](../research/agents/qwen-video-trajectory-agent-20261005.md)和固定来源。前轮模型图谱转为背景；Pi 只是优先候选，未确立团队实施决策。未调用模型、配置 key、修改工作台或运行推理。见[交接](../handoffs/chuali-zi/2026-10-05-0522-qwen-trajectory-agent-discussion.md)。
 
-2026-10-05 00:45（America/New_York，本地，新增研究未提交 / 未推送）：完成[视频模型到篮球 2D 轨迹研究](../engineering/research/video-model-to-court-20261005/README.md)，核实 20 个项目固定版本 README 和 7 份本地源码。重点核对 Qwen3-VL 采样 / 时空定位、Sa2VA 前 5 帧语言输入与 SEG → SAM3、UFVideo 参考 mask 与分割传播、SoccerNet 身份 + 2D 几何路径，结合现有工具提出三路线同片比较。未下载大模型权重、未推理、未新增精度结论或工程接入。此前现有 Agent 研究已按用户要求先推送 `5725940`，当时核对 HEAD、origin/main 与远端实际 SHA 一致；本新增包的状态与那次发布区分。见[本轮交接](../handoffs/chuali-zi/2026-10-05-0045-video-model-court-study.md)。
+2026-10-05 00:45（America/New_York，本地，新增研究未提交 / 未推送）：完成[视频模型到篮球 2D 轨迹研究](../research/agents/video-model-to-court-20261005/README.md)，核实 20 个项目固定版本 README 和 7 份本地源码。重点核对 Qwen3-VL 采样 / 时空定位、Sa2VA 前 5 帧语言输入与 SEG → SAM3、UFVideo 参考 mask 与分割传播、SoccerNet 身份 + 2D 几何路径，结合现有工具提出三路线同片比较。未下载大模型权重、未推理、未新增精度结论或工程接入。此前现有 Agent 研究已按用户要求先推送 `5725940`，当时核对 HEAD、origin/main 与远端实际 SHA 一致；本新增包的状态与那次发布区分。见[本轮交接](../handoffs/chuali-zi/2026-10-05-0045-video-model-court-study.md)。
 
-2026-10-05（America/New_York）源码研究发布：用户明确要求先提交并 push 已有成果；[OpenCode / Codex 协议研究](../engineering/research/agent-video-understanding-20261005/README.md)、46 段既有摘录、来源 / 许可证、离线验证与交接纳入本次 main 文档提交。46 段逐字节核验和 10 项离线断言通过，未改工作台功能或视频。最终推送与远端 SHA 核对结果见本次完成报告；下方“未提交 / 未推送”保留此前状态。用户已明确下一轮研究重点为视频模型如何理解时序、提取球员轨迹并映射到 2D 球场，不继续硬拆不存在的模块。
+2026-10-05（America/New_York）源码研究发布：用户明确要求先提交并 push 已有成果；[OpenCode / Codex 协议研究](../research/agents/agent-video-understanding-20261005/README.md)、46 段既有摘录、来源 / 许可证、离线验证与交接纳入本次 main 文档提交。46 段逐字节核验和 10 项离线断言通过，未改工作台功能或视频。最终推送与远端 SHA 核对结果见本次完成报告；下方“未提交 / 未推送”保留此前状态。用户已明确下一轮研究重点为视频模型如何理解时序、提取球员轨迹并映射到 2D 球场，不继续硬拆不存在的模块。
 
-2026-10-05 04:10（Etc/UTC，本地，未提交 / 未推送）：已快进同步远端 `main@42a1d60`，另行克隆 OpenCode `dev@907b3bc5`、Codex `main@7f892275`，完成[多模态视频源码研究](../engineering/research/agent-video-understanding-20261005/README.md)。拆出 46 段附固定版本 / 行号 / 哈希的源码，核实 OpenCode 的 Gemini 底层视频路径与默认附件入口限制、Codex 图片 / 音频协议及外部抽帧要求，并对照现有 PyAV / 身份 / 战术输入代码。真实 MP4 附件检测与 Google SDK 请求封装的 10 项离线断言通过；没有真实模型推理、产品接入或新增精度结论。本轮研究文件及[交接](../handoffs/chuali-zi/2026-10-05-0410-agent-video-source-study.md)留在本地，未推送。
+2026-10-05 04:10（Etc/UTC，本地，未提交 / 未推送）：已快进同步远端 `main@42a1d60`，另行克隆 OpenCode `dev@907b3bc5`、Codex `main@7f892275`，完成[多模态视频源码研究](../research/agents/agent-video-understanding-20261005/README.md)。拆出 46 段附固定版本 / 行号 / 哈希的源码，核实 OpenCode 的 Gemini 底层视频路径与默认附件入口限制、Codex 图片 / 音频协议及外部抽帧要求，并对照现有 PyAV / 身份 / 战术输入代码。真实 MP4 附件检测与 Google SDK 请求封装的 10 项离线断言通过；没有真实模型推理、产品接入或新增精度结论。本轮研究文件及[交接](../handoffs/chuali-zi/2026-10-05-0410-agent-video-source-study.md)留在本地，未推送。
 
 2026-10-05 11:39（Asia/Shanghai）新工作流计划：按本聊天用户要求整理[以 2D 球场为主画布的 PLAN](../engineering/docs/plans/2026-10-05-2d-first-tactics-workbench-plan.md)，顺序为全片球员身份、2D 映射和平滑、关键帧战术制作、Agent 初稿与人工调整、投影回实拍成片。明确 3–5 秒区间操作、前端精简、版本契约及分阶段验收。当前是待用户审阅的实施计划，未开始新功能实现；不是团队共同决策或完成报告。源码核查、边界与交接见[本轮记录](../handoffs/thy-0629/2026-10-05-1139-2d-first-tactics-plan.md)。
 
@@ -32,7 +56,7 @@
 
 2026-10-04 22:00 分类整理与发布：按用户授权，将此前积累工作拆为模型运行、篮球对象数据、地面轨迹与身份、界面、球场实验、报告复检、THY 兼容、开源调研及共享入口九类提交，已正常推送 main；22:03 核对本地与远端均为 `72d0eee`。开始及推送前远端最新仍是已在本地的 `bedad2c`，未发现另一批尚未合入的 THY 更新，详情见[本轮交接](../handoffs/Linzeyu912/2026-10-04-2200-classified-publication.md)。前端 508 通过 / 1 Windows 符号链接环境跳过，Python 285 全部通过，175 个视频哈希 / LFS 索引通过。根 README 增加分类摘要与[成果、问题和调研报告](../engineering/docs/progress-and-open-issues-20261004.md)。全场联合算法仍未接入默认后端、完整人物联合覆盖未达 90%，本轮未新增模型精度或真实 Agent 成功结论。下方“未提交 / 未推送”保留各轮历史，发布状态由本轮交接更新。
 
-2026-10-04 21:28 球场相对尾迹与全场调研（本机、未提交 / 未推送）：T / P 视频尾迹改为历史脚下点逐帧投影到球场，再投回当前镜头，与 2D / 导出共用来源；人工位置优先，可靠双踝中点可用时采用，否则框底中点，无标定不画像素替代轨迹。保留 YOLOv8n + BoT-SORT。新增[实现说明](../engineering/docs/court-relative-trajectories.md)与[开源方案比较](../engineering/research/fullcourt-tools-and-camera-tracking-20261004.md)；明确全场联合求解仍是离线候选，尚未接入默认标定后端或通过精度验收。完整前端 445 项、后端相关 44 项通过，真实浏览器确认视频可见及无标定提示。先保留本地工作并快进同步远端战术提交 `bedad2c`，无冲突；详细验证和限制见[本次交接](../handoffs/Linzeyu912/2026-10-04-2128-court-relative-trails.md)。
+2026-10-04 21:28 球场相对尾迹与全场调研（本机、未提交 / 未推送）：T / P 视频尾迹改为历史脚下点逐帧投影到球场，再投回当前镜头，与 2D / 导出共用来源；人工位置优先，可靠双踝中点可用时采用，否则框底中点，无标定不画像素替代轨迹。保留 YOLOv8n + BoT-SORT。新增[实现说明](../engineering/docs/court-relative-trajectories.md)与[开源方案比较](../research/vision/fullcourt-tools-and-camera-tracking-20261004.md)；明确全场联合求解仍是离线候选，尚未接入默认标定后端或通过精度验收。完整前端 445 项、后端相关 44 项通过，真实浏览器确认视频可见及无标定提示。先保留本地工作并快进同步远端战术提交 `bedad2c`，无冲突；详细验证和限制见[本次交接](../handoffs/Linzeyu912/2026-10-04-2128-court-relative-trails.md)。
 
 2026-10-04 21:01 导入识别恢复（本机、未提交 / 未推送）：修复球场标定的受限模型加载设置被人物子进程继承后，YOLO 权重因缺少已知架构允许列表而加载失败。沿用篮球 YOLOv8n + BoT-SORT；用户 36 秒全场视频已完整生成 1080 帧人物结果及球 / 筐配套参照，27 项相关测试通过，8903 重启、结果恢复和实际播放验证通过。未改球场算法或增加精度结论，见[修复交接](../handoffs/Linzeyu912/2026-10-04-2101-import-checkpoint-loading.md)。
 
@@ -42,9 +66,9 @@
 
 2026-10-04 19:10 THY 更新整合（本机）：已将远端四个提交快进拉取至 `290b80d`，与本地 OCR、画面状态、地面候选和球场工作合并，六个冲突文件已处理。修复提前绘制时轨迹未初始化的问题，408 项工作台 Node 与 276 项 Python 回归通过；独立预览视频播放、画面状态和撤销通过。全场脚本和成片哈希保持不变，继续先做球场标定。原未提交工作和本轮兼容修复仍未提交 / 未推送，详情见[整合说明](../engineering/docs/thy-sync-20261004.md)及[交接](../handoffs/Linzeyu912/2026-10-04-1910-thy-local-integration.md)。
 
-2026-10-04 18:56 全场标定离线修复（本地，未提交推送）：按用户最新顺序，先完成球场专用联合候选，保留人物、脚下点及篮球流程。两端禁区、可见中线和地板运动统一求解，原片 / 三增强条件的标定覆盖为 99.17% / 99.81% / 96.76% / 98.89%；6 帧目视中线抽查由约 96 像素降至约 4 像素，未经人工真值复核。中圈被队徽遮挡不作观测，降亮度中场仍约 15 像素偏差。8 项测试及完整视频验证通过，球场专用前后对比已保存；未接入工作台默认后端，不把覆盖率当精度。见[研究记录](../engineering/research/court-fullcourt-20261004.md)与[本轮交接](../handoffs/Linzeyu912/2026-10-04-1856-fullcourt-joint-calibration.md)。
+2026-10-04 18:56 全场标定离线修复（本地，未提交推送）：按用户最新顺序，先完成球场专用联合候选，保留人物、脚下点及篮球流程。两端禁区、可见中线和地板运动统一求解，原片 / 三增强条件的标定覆盖为 99.17% / 99.81% / 96.76% / 98.89%；6 帧目视中线抽查由约 96 像素降至约 4 像素，未经人工真值复核。中圈被队徽遮挡不作观测，降亮度中场仍约 15 像素偏差。8 项测试及完整视频验证通过，球场专用前后对比已保存；未接入工作台默认后端，不把覆盖率当精度。见[研究记录](../research/vision/court-fullcourt-20261004.md)与[本轮交接](../handoffs/Linzeyu912/2026-10-04-1856-fullcourt-joint-calibration.md)。
 
-2026-10-04 16:41 泛化压力测试（本地，未提交推送）：用户指定的 36 秒全场移动视频及三种增强条件已处理。Court48 输入 960 改善初始化，分段参照改善两端半场投影，但中场重叠处两套坐标仍不一致；排除接续冲突后的实际显示覆盖为 88.52%–88.89%，尚未达到之前超过 90% 的目标。保留原 YOLOv8n，RTMW 在固定 3 Hz 抽样上双脚候选覆盖约 96%–97%。完整原速对比与失败区间已保存；这是一段源视频的探索性测试，没有训练或宣称泛化已完成。见[研究记录](../engineering/research/court-generalization-20261004.md)和[本轮交接](../handoffs/Linzeyu912/2026-10-04-1641-generalization-stress-test.md)。
+2026-10-04 16:41 泛化压力测试（本地，未提交推送）：用户指定的 36 秒全场移动视频及三种增强条件已处理。Court48 输入 960 改善初始化，分段参照改善两端半场投影，但中场重叠处两套坐标仍不一致；排除接续冲突后的实际显示覆盖为 88.52%–88.89%，尚未达到之前超过 90% 的目标。保留原 YOLOv8n，RTMW 在固定 3 Hz 抽样上双脚候选覆盖约 96%–97%。完整原速对比与失败区间已保存；这是一段源视频的探索性测试，没有训练或宣称泛化已完成。见[研究记录](../research/vision/court-generalization-20261004.md)和[本轮交接](../handoffs/Linzeyu912/2026-10-04-1641-generalization-stress-test.md)。
 
 2026-10-04 16:10 本地修复（未提交推送）：对比报告中后段 2D 长时间空白来自固定球场参照失配后传播停止。新增同镜头近期地面参照和运动一致性检查，004 / 005 / 006 映射覆盖分别为 210/210、143/143、461/462；六种姿态候选实际黄圈 / 青点的逐帧覆盖均超过 90%，006 第 418 帧仍留空。43 项球场测试、九段成片完整解码及来源哈希检查通过，原报告与视频已更新。覆盖率不等于定位精度，006 场线偏差仍需真值核验；正式草稿和原 YOLOv8n 保留。见[本轮交接](../handoffs/Linzeyu912/2026-10-04-1610-court-mapping-recovery.md)。
 
@@ -102,7 +126,7 @@
 
 ## 当前阶段
 
-NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../engineering/research/nba-evidence-study-20261002/README.md)与[交接](../handoffs/chuali-zi/2026-10-02-2135-nba-evidence-study-closeout.md)。完成真实输入审计、来源适配Schema、离线故障/投影/球候选实验与事实门控比较。11个合成错误世界事实中，能力和依赖门控仍放行5个，且损失部分正确候选；实验不能宣称生产准确率。7项独立人类复核、米制真值与真实处理延迟未建立。本次选择性发布研究文件，生产提取及总结生成模块保持原状。
+NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../research/evidence/nba-evidence-study-20261002/README.md)与[交接](../handoffs/chuali-zi/2026-10-02-2135-nba-evidence-study-closeout.md)。完成真实输入审计、来源适配Schema、离线故障/投影/球候选实验与事实门控比较。11个合成错误世界事实中，能力和依赖门控仍放行5个，且损失部分正确候选；实验不能宣称生产准确率。7项独立人类复核、米制真值与真实处理延迟未建立。本次选择性发布研究文件，生产提取及总结生成模块保持原状。
 
 赛事资料与本机数据提取原型开发并行。赛事要求集中在 `requirements/`，代码、设计和技术实验集中在 `engineering/`；完整 Agent 流程、真实身份 / 位置精度验收和 AWS 部署尚未完成。
 
@@ -131,24 +155,24 @@ NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../engin
 | 成果 | 文件 / 入口 | 状态 |
 |---|---|---|
 | 多人分阶段战术轨迹 | [接口 / 复现说明](../engineering/tools/tactical-overlay/README.md)、[批准规格](../engineering/docs/specs/2026-10-02-tactical-trajectory-overlay-design.md)、[实现交接](../handoffs/thy-0629/2026-10-03-0055-tactical-overlay-engine.md)、[同步交接](../handoffs/thy-0629/2026-10-03-1103-tactical-overlay-sync.md) | 首版功能已推送 main（21d24df）：来源绑定 manifest、SVG、三阶段真实候选、多人实虚线与掩护关系；标签避让路线、窄画布滚动及 8 场景实际验证通过，最终独立复核通过。真实精度与前端接入待完成；预览、图像与 QA 仍仅在本地 |
-| 人工身份资料与初步 2K 匹配 | [实测记录](../engineering/research/player-identity-2k-20261002.md)、[使用说明](../engineering/tools/player-review/README.md#2026-10-02人工身份资料与-2k-能力) | 本地折叠面板、精确名单候选、明确确认和13项能力卡；整季名单不证明当场阵容，null不补值、轨道不升级。144 JS / 102 Python全量通过，真实QA与独立产品审查通过；850项原文件 / 67备份 / 17版clip字节保持。正式草稿及真实下载未操作，代码 / 文档未提交推送 |
-| 默认球员单标注与漏框修复 | [原因与同片结果](../engineering/research/player-annotation-simple-20261002.md)、[操作说明](../engineering/tools/player-review/README.md)、[交接](../handoffs/thy-0629/2026-10-02-1745-player-annotation-simple.md) | 简版视频、固定数字与可撤销纠正，自动补空编号，未知队色不删身份；004第178帧原被隐藏的三个球员框重新可见。最终127JS / 80Python、独立代码 / 数据 / API与真实浏览器验证通过，原检测重复与同队串人未解决；未提交推送 |
+| 人工身份资料与初步 2K 匹配 | [实测记录](../research/vision/player-identity-2k-20261002.md)、[使用说明](../engineering/tools/player-review/README.md#2026-10-02人工身份资料与-2k-能力) | 本地折叠面板、精确名单候选、明确确认和13项能力卡；整季名单不证明当场阵容，null不补值、轨道不升级。144 JS / 102 Python全量通过，真实QA与独立产品审查通过；850项原文件 / 67备份 / 17版clip字节保持。正式草稿及真实下载未操作，代码 / 文档未提交推送 |
+| 默认球员单标注与漏框修复 | [原因与同片结果](../research/vision/player-annotation-simple-20261002.md)、[操作说明](../engineering/tools/player-review/README.md)、[交接](../handoffs/thy-0629/2026-10-02-1745-player-annotation-simple.md) | 简版视频、固定数字与可撤销纠正，自动补空编号，未知队色不删身份；004第178帧原被隐藏的三个球员框重新可见。最终127JS / 80Python、独立代码 / 数据 / API与真实浏览器验证通过，原检测重复与同队串人未解决；未提交推送 |
 | 最新工作台同步与兼容整合 | [同步交接](../handoffs/thy-0629/2026-10-02-1657-workbench-remote-sync.md)、[当前工作台](../engineering/tools/player-review/README.md) | 本机main与origin/main同为72c74e0；四个新增提交已同步，本机两队 / 稳定展示 / 精确人工标注与新对象 / 脚部 / 球场工具共同保留；105JS、78Python及独立验收通过，原始视频 / 数据保留，本机整合未提交推送 |
-| 两队颜色、稳定框与脚下编号 | [实现 / 同片指标](../engineering/research/player-team-overlay-20261002.md)、[操作说明](../engineering/tools/player-review/README.md) | 本地四段team-stable、两组五人槽位及蓝 / 橙框色，独立人工分队、稳定展示与脚下编号；149项回归、最终17项输入相关回归、独立代码 / 媒体 / 数据验证及真实QA通过。LAL仅4+4个未确认分队建议，脚环为图像近似，身份串号未解决；原数据 / 草稿保留，未提交推送 |
-| 篮球模型与固定十人工作台 | [实施 / 同片对照](../engineering/research/player-tracking-workbench-20261002.md)、[操作说明](../engineering/tools/player-review/README.md) | 本地四段接入篮球专用模型和原生外观追踪，固定显示球员 1–10；建议与人工记录分开，保留原版本 / 草稿。127 项回归、真实 HTTP / QA 界面及成片 PTS / 原 AAC 独立验证通过。重复 / 完整框有具体改善，T21 / T12 跨队错误排除建议、自动片段连接为 0，仍需人工确认；本轮未提交推送 / 云部署 |
-| E-BARD 篮球专用模型单片段测试 | [005 实测报告](../engineering/research/player-test-20261002.md) | 2026-10-02 本机 RTX 5060 已完整处理 267 帧并导出 H.264 标注视频；候选 6–11 个、存在漏检 / 重复框 / 跨队串 ID，不能直接绑定姓名。独立解码、帧记录及音画起点检查通过；这次报告和产物仍在本地，未推送或云部署 |
+| 两队颜色、稳定框与脚下编号 | [实现 / 同片指标](../research/vision/player-team-overlay-20261002.md)、[操作说明](../engineering/tools/player-review/README.md) | 本地四段team-stable、两组五人槽位及蓝 / 橙框色，独立人工分队、稳定展示与脚下编号；149项回归、最终17项输入相关回归、独立代码 / 媒体 / 数据验证及真实QA通过。LAL仅4+4个未确认分队建议，脚环为图像近似，身份串号未解决；原数据 / 草稿保留，未提交推送 |
+| 篮球模型与固定十人工作台 | [实施 / 同片对照](../research/vision/player-tracking-workbench-20261002.md)、[操作说明](../engineering/tools/player-review/README.md) | 本地四段接入篮球专用模型和原生外观追踪，固定显示球员 1–10；建议与人工记录分开，保留原版本 / 草稿。127 项回归、真实 HTTP / QA 界面及成片 PTS / 原 AAC 独立验证通过。重复 / 完整框有具体改善，T21 / T12 跨队错误排除建议、自动片段连接为 0，仍需人工确认；本轮未提交推送 / 云部署 |
+| E-BARD 篮球专用模型单片段测试 | [005 实测报告](../research/vision/player-test-20261002.md) | 2026-10-02 本机 RTX 5060 已完整处理 267 帧并导出 H.264 标注视频；候选 6–11 个、存在漏检 / 重复框 / 跨队串 ID，不能直接绑定姓名。独立解码、帧记录及音画起点检查通过；这次报告和产物仍在本地，未推送或云部署 |
 | 9 月 28 日培训内容、评分和交付要求 | [赛事资料整理](../requirements/BroadcastCode赛事资料整理.md) | 已整理，转写疑点有单独标注 |
 | 腾讯体育「深度赛场」官方参考片段 | 同上第 8 节 | G1–G4 链接已核验；日期为 2026 年 6 月 |
-| 官网与报名渠道核验、扩展调研、Word 手册 | [调研索引](../engineering/research/README.md) | 已归档；主要采集于 9 月 17 日 |
+| 官网与报名渠道核验、扩展调研、Word 手册 | [调研索引](../research/README.md) | 已归档；主要采集于 9 月 17 日 |
 | 共享文档结构、Agent 指引与交接模板 | [协作流程](workflow.md)、[交接目录](../handoffs/README.md) | 已准备 |
 | GitHub 私有仓库与首次同步 | [broadcastcode-team-hub](https://github.com/Linzeyu912/broadcastcode-team-hub) | 已创建并推送，已核对私有状态及本地与远端提交一致 |
-| TypeSafe Jev 珠海与澳门可用性调研 | [调研结论与验证步骤](../engineering/research/jev-regional-availability.md) | 已发邮件向厂商确认，等待答复；未实测，尚未决定采用 |
+| TypeSafe Jev 珠海与澳门可用性调研 | [调研结论与验证步骤](../research/runtime/jev-regional-availability.md) | 已发邮件向厂商确认，等待答复；未实测，尚未决定采用 |
 | 解说 Agent 方案总结与直播纪要核对 | [方案讨论稿](../engineering/docs/agent-concept-review.md) | 已同步至 main（8bb3611）；按数据采集、数据处理、内容呈现整理；重点为战术意图、行为动因与声画同步；球员引力待验证，另两项核心指标后续再议 |
-| E-BARD 检测模型接入与评估 | [源码核查与本机对照](../engineering/research/vision-player-refinement/ebard-assessment.md)、[工作台说明](../engineering/tools/player-review/README.md)、[管线测量](../engineering/research/vision-player-refinement/ebard-tracking-probe.json) | 2026-10-02 三个样例已接入通用 YOLOv8s / E-BARD YOLOv8n 可选，默认推荐后者；独立草稿、篮球 / 篮筐显示与导出、多版本裁切已实现。815 帧解码检测跟踪共 15.83 秒，不含渲染或人工修正，身份与地面位置精度未验收。用户要求先提交此状态；ByteTrack 后续交另一合作者，脚点 / 2D 映射调研单独整理 |
-| 原视频战术叠加与位置提取调研 | [关系与球场映射评估](../engineering/research/video-overlay-vision-assessment.md)、[本机实测与 AWS 部署评估](../engineering/research/vision-local-aws-deployment.md)、[预览与复现](../handoffs/Linzeyu912/2026-10-01-2026-vision-tracking-preview.md) | 本机已完成一个 8.1 秒片段的 10 次检测跟踪测量；YOLOv8s + ByteTrack 约 2.7 秒，BoT-SORT 约 6.5 秒。已本地生成并打开带人物框和 ID 的视频预览；准确率、完整战术成片的 10 分钟目标及云部署待验证，选型仍为建议 |
-| 人工选人与遮挡复核原型 | [改进实验及编号中断诊断](../engineering/research/vision-player-refinement/README.md)、[本地界面说明](../engineering/tools/player-review/README.md)、[身份绑定核查](../engineering/research/vision-player-refinement/identity-binding-review.md) | 本地已实现固定 P 编号、关键帧修正、短缺口估计、续接候选、按区间关联新旧编号、出画标记及导出。2026-10-02 选人改为从确认帧向后生效，位置编辑独立；重复 ID 只释放受影响错段，保留前段及后续正确确认，旧草稿原样备份。46 项 JavaScript、4 项裁切测试及独立浏览器 QA 通过；模型串号和旧草稿推断分界仍需复核，未接入 Agent 或云部署，分类共享状态见本次整理交接 |
-| 2D 球场数据工作台 | [界面与坐标说明](../engineering/tools/player-review/README.md)、[脚部实测](../engineering/research/vision-player-refinement/feet-model-comparison.md)、[场地比较](../engineering/research/vision-player-refinement/court-model-comparison.md)、[传播核查](../engineering/research/vision-player-refinement/propagation-validation.md) | 支持球 / 筐目标修正、RTMPose-s左右脚人工采用、具名点标定向导、投影检查与SIFT / LK镜头跟随。三个样例有逐帧待复核候选，采用后接通2D，失败留空；004/005/006分别可映射102/210、139/143、300/462帧，这些不是准确率。模型左右误认、固定字幕干扰及遮挡错脚均已记录；真实地面精度、Agent和云部署未完成 |
-| 直播画面筛选与人工轨迹提取 | [三步流程](../engineering/research/vision-player-refinement/data-extraction-workflow.md)、[替换样例](../data/videos/tactics/acceptance/README.md)、[操作说明](../engineering/tools/player-review/README.md) | 按用户要求先筛普通直播区间，再对应 P1–P10、归并多个 T 编号并手动补轨迹；实际裁切保留来源帧 / 时间，删除段之间断开，缓存重启可恢复；第三步直接显示同步 2D 球场并可补当前帧，校准独立；裁判和米制球场坐标可选。旧教学001–003已退回，004–006为三个正常速度、无音轨的前场配合，不冒充完整原始球权；界面不预设战术。当前46项JavaScript、6项Python及浏览器流程通过；自动画面分类、身份OCR、独立位置精度、战术分析与讲解未完成，分类共享状态见本次整理交接 |
+| E-BARD 检测模型接入与评估 | [源码核查与本机对照](../research/vision/vision-player-refinement/ebard-assessment.md)、[工作台说明](../engineering/tools/player-review/README.md)、[管线测量](../research/vision/vision-player-refinement/ebard-tracking-probe.json) | 2026-10-02 三个样例已接入通用 YOLOv8s / E-BARD YOLOv8n 可选，默认推荐后者；独立草稿、篮球 / 篮筐显示与导出、多版本裁切已实现。815 帧解码检测跟踪共 15.83 秒，不含渲染或人工修正，身份与地面位置精度未验收。用户要求先提交此状态；ByteTrack 后续交另一合作者，脚点 / 2D 映射调研单独整理 |
+| 原视频战术叠加与位置提取调研 | [关系与球场映射评估](../research/vision/video-overlay-vision-assessment.md)、[本机实测与 AWS 部署评估](../research/runtime/vision-local-aws-deployment.md)、[预览与复现](../handoffs/Linzeyu912/2026-10-01-2026-vision-tracking-preview.md) | 本机已完成一个 8.1 秒片段的 10 次检测跟踪测量；YOLOv8s + ByteTrack 约 2.7 秒，BoT-SORT 约 6.5 秒。已本地生成并打开带人物框和 ID 的视频预览；准确率、完整战术成片的 10 分钟目标及云部署待验证，选型仍为建议 |
+| 人工选人与遮挡复核原型 | [改进实验及编号中断诊断](../research/vision/vision-player-refinement/README.md)、[本地界面说明](../engineering/tools/player-review/README.md)、[身份绑定核查](../research/vision/vision-player-refinement/identity-binding-review.md) | 本地已实现固定 P 编号、关键帧修正、短缺口估计、续接候选、按区间关联新旧编号、出画标记及导出。2026-10-02 选人改为从确认帧向后生效，位置编辑独立；重复 ID 只释放受影响错段，保留前段及后续正确确认，旧草稿原样备份。46 项 JavaScript、4 项裁切测试及独立浏览器 QA 通过；模型串号和旧草稿推断分界仍需复核，未接入 Agent 或云部署，分类共享状态见本次整理交接 |
+| 2D 球场数据工作台 | [界面与坐标说明](../engineering/tools/player-review/README.md)、[脚部实测](../research/vision/vision-player-refinement/feet-model-comparison.md)、[场地比较](../research/vision/vision-player-refinement/court-model-comparison.md)、[传播核查](../research/vision/vision-player-refinement/propagation-validation.md) | 支持球 / 筐目标修正、RTMPose-s左右脚人工采用、具名点标定向导、投影检查与SIFT / LK镜头跟随。三个样例有逐帧待复核候选，采用后接通2D，失败留空；004/005/006分别可映射102/210、139/143、300/462帧，这些不是准确率。模型左右误认、固定字幕干扰及遮挡错脚均已记录；真实地面精度、Agent和云部署未完成 |
+| 直播画面筛选与人工轨迹提取 | [三步流程](../research/vision/vision-player-refinement/data-extraction-workflow.md)、[替换样例](../data/videos/tactics/acceptance/README.md)、[操作说明](../engineering/tools/player-review/README.md) | 按用户要求先筛普通直播区间，再对应 P1–P10、归并多个 T 编号并手动补轨迹；实际裁切保留来源帧 / 时间，删除段之间断开，缓存重启可恢复；第三步直接显示同步 2D 球场并可补当前帧，校准独立；裁判和米制球场坐标可选。旧教学001–003已退回，004–006为三个正常速度、无音轨的前场配合，不冒充完整原始球权；界面不预设战术。当前46项JavaScript、6项Python及浏览器流程通过；自动画面分类、身份OCR、独立位置精度、战术分析与讲解未完成，分类共享状态见本次整理交接 |
 | NBA 2K25 / 2K26 季后赛球队球员能力数据 | [Agent 数据包](../2K%20Player%20Data/manifest.json)、[读取指引](../2K%20Player%20Data/AGENTS.md)、[覆盖说明](../2K%20Player%20Data/README.md) | 补采版 1.1 已推送 main（[a417fa7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/a417fa749e51edb8b82fff07cc7b33afc69bd563)），独立验收 42/42 通过；635 条赛季记录、472 人、42 项能力，613 条有总评；仅原 2K26 空值新增 4,792 个值，2K26 为 318 条有总评、314 条个人能力完整、4 条仅总评，防守综合原值 195/318；2K25 保持 22 条评分缺失。已有评分、球队及号码不改，逐字段记录混合来源，剩余 null 保留；验证与远端同步见[补采交接](../handoffs/thy-0629/2026-10-01-1129-nba2k-null-remediation.md) |
 | 2024–25 NBA 训练素材100段 | [素材说明](../data/videos/nba/2024-25/collection-report.md)、[播放目录](../data/videos/nba/2024-25/INDEX.md) | 已推送main（[ef840fb](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/ef840fb1a0d73b13363e64becccb08d1770f6db4)）：100段LFS成片，共647,393,804字节，独立远端下载及哈希核验100/100通过；16场、17队，14段完整球权；同类动作16组，包含首批3段；见[交接](../handoffs/Linzeyu912/2026-10-01-0848-video-lfs-management.md) |
 | 2025–26 赛季 NBA 备赛视频素材（30 段+历史9段） | [赛季清单](../data/videos/nba/2025-26/manifest.json)、[标签与要求复核](../data/videos/nba/2025-26/review.md) | 39个成片已于2026-10-01入库Git LFS并推送main（见[交接](../handoffs/Linzeyu912/2026-10-01-2307-raw-clips-lfs-upload.md)）：batch030三十段字节与原采集记录逐一相符，尺寸/帧率/时长ffprobe实测；历史8段与单段独立登记，与三十段对应关系未确认；标签均为草案，画面复核待看片 |
@@ -162,21 +186,22 @@ NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../engin
 | 优先级 | 任务 | 完成标准 | 负责人 / Issue |
 |---|---|---|---|
 | 后续 | 队友接入（按用户要求暂缓） | 两位队友接受邀请、完成克隆并能按协作流程同步 main | 等待后续安排 |
-| P0 | 核实技术硬性要求 | 指定区域、Agent 服务名称、模型 ID 有正式来源 | 待认领 |
+| P0 | 落实正式技术要求与应用联通 | CLI / CDK 安装、绑定与身份已有完成记录；仍需模型实际调用、权限与部署验收 | 见[环境状态](../environment/aws/README.md)及[正式要求](../requirements/portal-access-20261005.md) |
 | P0 | 核实素材发放与数据结构 | 记录下载入口、权限、格式、字段、单位、视频时间对齐方式 | 待认领 |
 | P1 | 拆解官方参考视频 | 记录预期命中率、球员引力、胜率影响力的呈现方式及可借鉴点 | 待认领 |
 | P1 | 确定最小演示范围和三人接口 | 明确输入、输出、模块边界、负责人和验收样例 | 待认领 |
-| P1 | 验证部署流程 | 在允许使用的环境中验证 CDK、Agent 服务与 CloudFront 页面 | 待认领 |
+| P0 | 验证部署流程 | 在赛事 us-east-1 以 CDK 部署 AgentCore 和 CloudFront/Web；按 CPU + Bedrock 路线跑通官方片 | 待认领；当前优先级为本轮建议 |
 
 ## 关键时间
 
 - 10 月 9 日：珠海签到。
-- 10 月 10 日 08:00：考试视频抽签。
+- 10 月 10 日 07:40–08:00：签到与练习视频抽签（10 月 5 日指南更新）。
 - 10 月 10 日 18:00：考试视频发布。
 - **10 月 10 日 20:00：代码与作品 URL 提交截止。**
+- 10 月 10 日 20:00–22:20：作品链接须保持可访问。
 - 10 月 11 日：澳门决赛路演。
 
-以上来自培训纪要；后续正式通知有变化时更新出处及日期。
+以上以培训纪要为基础，已按[10 月 5 日正式指南](../requirements/portal-access-20261005.md)更新；具体现场安排以最终通知为准。
 
 ## 交接记录
 
