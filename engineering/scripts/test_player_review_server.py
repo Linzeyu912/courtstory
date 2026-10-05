@@ -15,7 +15,7 @@ from pathlib import Path
 import av
 import numpy as np
 
-from serve_player_review import load_clip, missing_sample_files
+from serve_player_review import load_clip, missing_sample_files, video_source_info
 from detector_evidence import build_detector_evidence
 
 
@@ -74,6 +74,17 @@ class ReviewServerTests(unittest.TestCase):
         self.assertEqual(payload['video_sha256'], self.digest)
         self.assertEqual(self.video.read_bytes(), Path(self.sample['video']).read_bytes())
         self.assertFalse(payload['detectorEvidence']['partition_complete'])
+
+    def test_decoded_tail_duration_is_published_without_using_the_previous_pts_delta(self):
+        payload = self.load()
+        with av.open(str(self.video)) as container:
+            decoded = list(container.decode(video=0))
+            last = decoded[-1]
+            expected_end = float(last.time) + float(last.duration * last.time_base)
+        self.assertGreater(last.duration, 0)
+        self.assertEqual(payload['mediaEndTime'], expected_end)
+        self.assertEqual(video_source_info(self.video, include_end=True)[-1], expected_end)
+        self.assertEqual(len(video_source_info(self.video)), 4)
 
     def test_detector_evidence_is_derived_without_mutating_records_or_legacy_fingerprints(self):
         for row in self.records:
@@ -157,7 +168,8 @@ class ReviewServerTests(unittest.TestCase):
             for name,mime in [('team-overlay.mjs','text/javascript'),('team-overlay-policy.json','application/json'),
                               ('automatic-annotations.mjs','text/javascript'),
                               ('identity-continuation.mjs','text/javascript'),('identity-agent-client.mjs','text/javascript'),
-                              ('tracking-display.mjs','text/javascript'),('court-trails.mjs','text/javascript')]:
+                              ('tracking-display.mjs','text/javascript'),('court-trails.mjs','text/javascript'),
+                              *[(name,'text/javascript') for name in ('tactics-time-range.mjs','court-preparation.mjs','court-smoothing.mjs','court-preparation-ui.mjs','identity-coverage.mjs','tactics-court-editor.mjs','tactics-keyframes.mjs','tactics-court-projection.mjs','tactics-timeline-ui.mjs')]]:
                 with self.subTest(asset=name):
                     try:response=urlopen(url+name,timeout=3)
                     except HTTPError as error:response=error

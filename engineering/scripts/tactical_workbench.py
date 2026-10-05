@@ -39,6 +39,8 @@ class TacticalWorkbench:
         self.node = node or shutil.which('node')
         self.lock = threading.RLock()
         self.candidate_cache = None
+        from court_preparation_store import CourtPreparationStore
+        self.preparations = CourtPreparationStore(self.folder / 'court-preparations', self)
 
     def run(self, operation, **payload):
         if not self.node:
@@ -82,6 +84,8 @@ class TacticalWorkbench:
                 raise ValueError('THY 示例的来源快照不可改写；请在当前视频草稿中修改轨迹。')
         elif review.get('trackingFingerprint') != clip['tracking_fingerprint'] or review.get('trackingRevision') != clip['tracking_revision']:
             raise ValueError('战术快照属于另一个模型版本。')
+        if document.get('schemaVersion') == 2 and (clip.get('mediaEndTime') is None or review.get('mediaEndTime') != clip.get('mediaEndTime')):
+            raise ValueError('素材片尾未确认或与解码来源不匹配。')
         expected = [{'frame': f['frame'], 'time': f['time'], 'sourceFrame': f.get('source_frame', f['frame']),
                      'sourceTime': f.get('source_time', f['time'])} for f in clip['frames']]
         if (review.get('videoSha256') != clip['video_sha256'] or review.get('sourceFrameMapping') != expected
@@ -89,6 +93,7 @@ class TacticalWorkbench:
                 or kind == 'candidate' and review.get('sourceVideoSha256')
                 != (clip.get('source_video_sha256') or clip['video_sha256'])):
             raise ValueError('战术快照与视频或逐帧时间映射不匹配。')
+        self.preparations.verify_document(review, clip, clip['tracking_revision'])
 
     def save(self, document, clip, variant, qa, kind, expected_version):
         self.check_source(document, clip, kind)

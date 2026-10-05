@@ -7,7 +7,7 @@ export function mountWorkbenchShell(api) {
   const drawer = $('dataDrawer');
   const handle = $('drawerResize');
   const videoCard = document.querySelector('.video-card');
-  const titles = {video:'球员与球场检查', data:'数据核对与处理', tactics:'战术制作', production:'保存与导出'};
+  const titles = {video:'① 球员标定', data:'② 2D 轨迹准备', tactics:'③ 战术制作', production:'④ 成片'};
   let area = 'video', drawerState = 'closed', returnArea = 'video', halfRatio = .45;
   let videoStep = null;
   let drag = null, layoutFrame = 0, entitySignature = '';

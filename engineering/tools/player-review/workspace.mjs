@@ -1,3 +1,5 @@
+import {mountCourtPreparationUI} from './court-preparation-ui.mjs';
+import {courtPreparationStatus,preparationDependencies} from './court-preparation.mjs';
 import {COURT,LANDMARK_NAMES,landmarks,keyframePoints,fitKeyframe,project,calibrationAt,buildCourtTrajectories,courtGaps,pathSegments,smoothCourtTrajectory,validQuad,addCourtAnchor,addEvent} from './court.mjs';
 import {courtLandmarks,courtMarkings} from './court-geometry.mjs';
 import {normalizeCourtCandidates,acceptCourtCandidates,calibrationGuideState,reorientCalibrationKey,confirmCalibrationProjection,calibrationGeometryFingerprint,invalidateCameraDependents,isHumanCalibrationKey,clearCalibrationProjectionReview,calibrationReviewStates} from './calibration-guide.mjs';
@@ -18,9 +20,10 @@ export function createWorkspace(api){
   let automaticCalibrating=false,candidateNotice='',previewCandidates=false;
   const state=()=>{const s=getState();return {...s,entity:s.session.entities.find(e=>e.id===s.active)};};
   const reasonLabel={missing:'位置缺失',conflict:'身份冲突',uncalibrated:clip.supportsCourtCalibration===false?'未提供适配场地模板':'球场待标定'};
-  const shades={projected:'#1675b6',court_manual:'#6e4fd0',court_estimated:'#b96a09',missing:'#c83d4c',conflict:'#ae385c',uncalibrated:'#a08bd1',out_of_view:'#8c98a8'};
+  const shades={projected:'#1675b6',court_manual:'#6e4fd0',court_estimated:'#b96a09',qwen_refined:'#087f83',missing:'#c83d4c',conflict:'#ae385c',uncalibrated:'#a08bd1',out_of_view:'#8c98a8'};
   const time=i=>`${clip.frames[i].time.toFixed(2)} s`;
   const shell=mountWorkbenchShell(api);
+  const preparationUI=Number.isFinite(clip.mediaEndTime)?mountCourtPreparationUI({host:$('drawerBody'),clip,sample,variant,state,change,redraw:api.redraw,next:()=>shell.showArea('tactics'),seek,undo:api.undo}):{render(){},display(){},raw(){},compare(){return false;}};
   const groundUI=mountGroundComparison({sample,variant,clip,state,change});
   let ballPoints=[],courtMaps=[];
   const ballUI=mountBallCourt({clip,state,change,redraw:api.redraw});
@@ -224,9 +227,9 @@ export function createWorkspace(api){
     }
   }
   function refresh(){
-    groundUI.render();
+    groundUI.render();preparationUI.render();
     const s=state();courtMaps=clip.frames.map((_,i)=>calibrationAt(s.session.courtCalibration,i,clip.frames,s.session.cuts));
-    courtPoints=buildCourtTrajectories(s.session,clip.frames,s.trajectories,{clip,maps:courtMaps});const points=courtPoints[s.active]||[],selected=isSelected(s.entity),gaps=selected?courtGaps(points):[];
+    courtPoints=buildCourtTrajectories(s.session,clip.frames,s.trajectories,{clip,maps:courtMaps});if(courtPreparationStatus(s.session.courtPreparation,preparationDependencies(s.session,clip)).current)courtPoints=s.session.courtPreparation.preparedByPlayer;const points=courtPoints[s.active]||[],selected=isSelected(s.entity),gaps=selected?courtGaps(points):[];
     ballPoints=buildBallCourtTrajectory(s.session,clip.frames,s.trajectories,courtPoints,clip);
     $('playerHeading').textContent=`${entityLabel(s.active)}${s.entity.name!==entityLabel(s.active)?` · ${s.entity.name}`:''}`;
     $('playerIdentity').textContent=[s.entity.team||'球队待填写',s.entity.jersey?`#${s.entity.jersey}`:'号码待填写'].join(' · ');
@@ -248,7 +251,7 @@ export function createWorkspace(api){
   }
   function draw(){
     ballUI.render(ballPoints[state().frame]);
-    const s=state(),points=courtPoints[s.active]||[],displayPoints=$('smoothCourtPath').checked?smoothCourtTrajectory(points,s.session.cuts):points,
+    const s=state(),points=courtPoints[s.active]||[],displayByPlayer=preparationUI.display(),displayPoints=displayByPlayer?.[s.active]??points,
       current=points[s.frame],displayCurrent=displayPoints[s.frame],mapping=calibrationAt(s.session.courtCalibration,s.frame,clip.frames,s.session.cuts);
     const players=s.session.entities.filter(isSelected).filter(e=>e.role==='player'),humanPlayers=players.filter(isHumanIdentitySelected);
     const mappedNow=players.filter(e=>courtPoints[e.id]?.[s.frame]?.x!=null).length;
@@ -283,7 +286,7 @@ export function createWorkspace(api){
     // Draw each adjacent observed pair separately. A missing frame or cut breaks the line.
     for(const segment of pathSegments(displayPoints,s.session.cuts))for(let i=1;i<segment.length;i++){
       const a=segment[i-1],b=segment[i];
-      ctx.strokeStyle=b.source==='court_estimated'||a.source==='court_estimated'?shades.court_estimated:shades.projected;ctx.globalAlpha=b.frame > s.frame ? 0.40 : 0.95;ctx.lineWidth=2.5;ctx.setLineDash(b.source==='court_estimated'||a.source==='court_estimated'?[4,4]:[]);line(a.x,a.y,b.x,b.y);
+      ctx.strokeStyle=b.source==='qwen_refined'||a.source==='qwen_refined'?shades.qwen_refined:b.source==='court_estimated'||a.source==='court_estimated'?shades.court_estimated:shades.projected;ctx.globalAlpha=b.frame > s.frame ? 0.40 : 0.95;ctx.lineWidth=2.5;ctx.setLineDash(['court_estimated','qwen_refined'].includes(b.source)||['court_estimated','qwen_refined'].includes(a.source)?[4,4]:[]);line(a.x,a.y,b.x,b.y);
     }ctx.globalAlpha=1;ctx.setLineDash([]);
     for(const p of displayPoints)if(p.x!==null){const[x,y]=screen(p.x,p.y);if(p.x>=start&&p.x<=start+span&&p.y>=0&&p.y<=COURT.width)hits.push({x,y,frame:p.frame,id:s.active,kind:'trail'});if(p.source==='court_manual'){ctx.fillStyle=shades.court_manual;ctx.fillRect(x-4,y-4,8,8);}}
     for(const gap of isSelected(s.entity)?courtGaps(points):[]){
@@ -291,7 +294,9 @@ export function createWorkspace(api){
       endpoints.forEach((p,i)=>{const[x,y]=screen(p.x,p.y);ctx.beginPath();ctx.arc(x,y,7,0,Math.PI*2);ctx.stroke();if(i===0){ctx.fillStyle='#a52f42';ctx.font='11px sans-serif';ctx.fillText(`${time(gap.start)} 缺口`,x+10,y-10);}if(p.x>=start&&p.x<=start+span)hits.push({x,y,frame:gap.start,id:s.active,kind:'gap',reason:gap.reason});});
     }
     for(const e of s.entity.events||[]){const p=displayPoints[e.frame];if(p?.x==null)continue;const[x,y]=screen(p.x,p.y);ctx.save();ctx.translate(x,y);ctx.rotate(Math.PI/4);ctx.fillStyle='#f2d58c';ctx.fillRect(-5,-5,10,10);ctx.restore();ctx.fillStyle='#f2d58c';ctx.font='11px sans-serif';ctx.fillText(e.type,x+9,y+14);if(p.x>=start&&p.x<=start+span)hits.push({x,y,frame:e.frame,id:s.active,kind:'event'});}
-    for(const entity of s.session.entities){if(!isSelected(entity))continue;const p=entity.id===s.active?displayCurrent:courtPoints[entity.id]?.[s.frame];if(p?.x==null)continue;const[x,y]=screen(p.x,p.y),selected=entity.id===s.active,tentative=s.trajectories[entity.id]?.[s.frame]?.frameIdentityConfirmed!==true;ctx.beginPath();ctx.arc(x,y,selected?13:10,0,Math.PI*2);ctx.fillStyle=color(entity.id);ctx.fill();ctx.strokeStyle=selected?'#fff':'#12363a';ctx.lineWidth=selected?3:1.5;ctx.setLineDash(tentative?[3,2]:[]);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#09272d';ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(entity.role==='player'?entity.id.slice(1):entity.id,x,y+3);ctx.textAlign='left';if(p.x>=start&&p.x<=start+span&&p.y>=0&&p.y<=COURT.width)hits.push({x,y,frame:s.frame,id:entity.id,kind:'player'});}
+    for(const id of preparationUI.previewEntityIds?.()??[]){if(id===s.active)continue;const candidatePoints=displayByPlayer?.[id]??[];ctx.strokeStyle=color(id);ctx.lineWidth=1.8;ctx.setLineDash([4,4]);ctx.globalAlpha=.75;for(const segment of pathSegments(candidatePoints,s.session.cuts)){ctx.beginPath();segment.forEach((p,i)=>{const [x,y]=screen(p.x,p.y);if(i)ctx.lineTo(x,y);else ctx.moveTo(x,y);});ctx.stroke();}ctx.globalAlpha=1;ctx.setLineDash([]);}
+    if(preparationUI.compare()){for(const id of new Set([s.active,...preparationUI.previewEntityIds?.()??[]])){const raw=preparationUI.raw()?.[id]??[];ctx.strokeStyle='#9aa3ae';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);for(const segment of pathSegments(raw,s.session.cuts)){ctx.beginPath();segment.forEach((p,i)=>{const [x,y]=screen(p.x,p.y);if(i)ctx.lineTo(x,y);else ctx.moveTo(x,y);});ctx.stroke();}}ctx.setLineDash([]);}
+    for(const entity of s.session.entities){if(!isSelected(entity))continue;const p=displayByPlayer?.[entity.id]?.[s.frame]??courtPoints[entity.id]?.[s.frame];if(p?.x==null)continue;const[x,y]=screen(p.x,p.y),selected=entity.id===s.active,tentative=s.trajectories[entity.id]?.[s.frame]?.frameIdentityConfirmed!==true;ctx.beginPath();ctx.arc(x,y,selected?13:10,0,Math.PI*2);ctx.fillStyle=color(entity.id);ctx.fill();ctx.strokeStyle=selected?'#fff':'#12363a';ctx.lineWidth=selected?3:1.5;ctx.setLineDash(tentative?[3,2]:[]);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#09272d';ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(entity.role==='player'?entity.id.slice(1):entity.id,x,y+3);ctx.textAlign='left';if(p.x>=start&&p.x<=start+span&&p.y>=0&&p.y<=COURT.width)hits.push({x,y,frame:s.frame,id:entity.id,kind:'player'});}
     if(step==='calibration')courtLandmarks(pending?.side||$('calibrationSide').value).forEach(({x,y,id})=>{const[a,b]=screen(x,y);ctx.fillStyle=id===(pending?.id||(pending?.image?'ABCD'[pending.image.length]:$('calibrationLandmark').value))?'#d44331':'#fff8e8';ctx.beginPath();ctx.arc(a,b,9,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#796548';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle=id===(pending?.id||(pending?.image?'ABCD'[pending.image.length]:$('calibrationLandmark').value))?'white':'#183739';ctx.font='bold 11px sans-serif';ctx.fillText(id,a-4,b+4);});
     const ball=ballPoints[s.frame];
     if(ball?.displayX!=null&&ball?.displayY!=null){const [x,y]=screen(ball.displayX,ball.displayY);ctx.save();ctx.strokeStyle='#ec7118';ctx.fillStyle='#b64d06';ctx.lineWidth=3;
@@ -304,17 +309,25 @@ export function createWorkspace(api){
     $('courtBadge').dataset.review=courtReview?.status||'empty';
     $('courtEmpty').hidden=isSelected(s.entity)&&points.some(p=>p.x!==null);
     $('courtEmpty').textContent=clip.supportsCourtCalibration===false?'本示例未提供适配的球场模板，请修改原图位置。':isSelected(s.entity)?'暂无可用球场轨迹 · 先校准球场，或人工补球场点':'先选择球员，再查看他的轨迹';
-    $('courtPointStatus').textContent=current?.x!=null?`当前：${current.source==='court_manual'?'人工球场补点':current.source==='court_estimated'?'前后位置估计后映射':'原图位置映射'}${current.outsideCourt?' · 投影落在界外，请核对脚点 / 标定':''}。坐标精度待复核。`:isSelected(s.entity)?`当前：${reasonLabel[current?.source]||'已确认离开画面'}。没有可用位置时不显示球员圆点。`:'当前目标尚未选定。';
+    $('courtPointStatus').textContent=current?.x!=null?`当前：${current.source==='court_manual'?'人工球场补点':current.source==='qwen_refined'?'Qwen 地面位置估计（待复核）':current.source==='court_estimated'?'前后位置估计后映射':'原图位置映射'}${current.outsideCourt?current.source==='qwen_refined'?' · 估计位置落在界外，请核对视频证据':' · 投影落在界外，请核对脚点 / 标定':''}。坐标精度待复核。`:isSelected(s.entity)?`当前：${reasonLabel[current?.source]||'已确认离开画面'}。没有可用位置时不显示球员圆点。`:'当前目标尚未选定。';
+    if(displayCurrent?.refinementState==='unknown')$('courtPointStatus').textContent=`当前：Qwen 无法定位 · ${displayCurrent.groundEstimationBasis||'证据不足'}。此帧不绘制位置。`;
+    if(displayCurrent?.source==='qwen_refined'&&displayCurrent!==current)$('courtPointStatus').textContent+=' 正在预览 Qwen 候选，尚未采用。';
     if($('smoothCourtPath').checked&&displayCurrent?.displaySmoothed)$('courtPointStatus').textContent+=' 当前轨迹仅在显示层做了前后各 2 帧的中值平滑；原始点和导出坐标不变。';
     const inspector=$('coordinateInspector'),imagePoint=s.trajectories[s.active]?.[s.frame];inspector.replaceChildren();inspector.hidden=!isSelected(s.entity)||current?.x==null;
     if(!inspector.hidden){
       const origin={bbox_bottom_center:'人物框底边中心（近似）',pose_ground_proposal:`${current.groundModel} 脚部候选（接地未验证）`,human_image_anchor:'人工原图补点',interpolated_image_point:'前后原图点估计',human_court_anchor:'人工球场补点',pose_candidate_human_adopted:'人工采用脚部模型候选（接地未验证）'};
       const xy=current.imagePoint||(imagePoint?.x!=null?[imagePoint.x,imagePoint.y]:null);
-      const lines=[`映射输入：${xy?`${xy[0].toFixed(1)}, ${xy[1].toFixed(1)} px`:'无可用原图点'} → 球场：${current.x.toFixed(2)}, ${current.y.toFixed(2)} 米`,`位置来源：${origin[current.footMethod]||'待核对'}`];
+      const refined=current.source==='qwen_refined';
+      const lines=refined?[
+        `Qwen 地面位置估计：${current.x.toFixed(2)}, ${current.y.toFixed(2)} 米（待复核）`,
+        `定位依据：${current.groundEstimationBasis||'待核对'}`,
+        `证据帧：${(current.evidenceFrames??[]).map(f=>f+1).join('、')||'无'}`,
+        `原始图像观察：${xy?`${xy[0].toFixed(1)}, ${xy[1].toFixed(1)} px`:'无可用原图点'} · ${origin[current.footMethod]||'待核对'}`
+      ]:[`映射输入：${xy?`${xy[0].toFixed(1)}, ${xy[1].toFixed(1)} px`:'无可用原图点'} → 球场：${current.x.toFixed(2)}, ${current.y.toFixed(2)} 米`,`位置来源：${origin[current.footMethod]||'待核对'}`];
       if(current.groundCandidateMissing)lines.push('本帧脚部候选缺失，使用原有位置。');
       if(mapping?.excludedControlIds?.length)lines.push(`本帧拟合未采用异常自动参照点：${mapping.excludedControlIds.join('、')}；原始点保留，请复核。`);
-      if(current.calibrationSupport)lines.push(current.calibrationSupport==='outside_controls'?'位于标定点包围范围外，建议补附近参照。':'位于标定点包围范围内，仍需核验。');
-      if(current.sensitivity)lines.push(`误差示例：脚点偏 5 px，局部可偏约 ${current.sensitivity.approxMaxMetres.toFixed(2)} 米；不含标定误差。`);
+      if(current.calibrationSupport)lines.push(`${refined?'原始数学映射：':''}${current.calibrationSupport==='outside_controls'?'位于标定点包围范围外，建议补附近参照。':'位于标定点包围范围内，仍需核验。'}`);
+      if(current.sensitivity)lines.push(`${refined?'原始数学映射的':''}误差示例：脚点偏 5 px，局部可偏约 ${current.sensitivity.approxMaxMetres.toFixed(2)} 米；不含标定误差${refined?'，不代表 Qwen 估计精度':''}。`);
       for(const text of lines){const p=document.createElement('p');p.textContent=text;inspector.append(p);}
     }
   }

@@ -1,0 +1,22 @@
+    },
+    capabilities: {
+      temperature: model.temperature ?? false,
+      reasoning: model.reasoning ?? false,
+      attachment: model.attachment ?? false,
+      toolcall: model.tool_call ?? true,
+      input: {
+        text: model.modalities?.input?.includes("text") ?? false,
+        audio: model.modalities?.input?.includes("audio") ?? false,
+        image: model.modalities?.input?.includes("image") ?? false,
+        video: model.modalities?.input?.includes("video") ?? false,
+        pdf: model.modalities?.input?.includes("pdf") ?? false,
+      },
+      output: {
+        text: model.modalities?.output?.includes("text") ?? false,
+        audio: model.modalities?.output?.includes("audio") ?? false,
+        image: model.modalities?.output?.includes("image") ?? false,
+        video: model.modalities?.output?.includes("video") ?? false,
+        pdf: model.modalities?.output?.includes("pdf") ?? false,
+      },
+      interleaved: typeof model.interleaved === "string" ? { field: model.interleaved } : (model.interleaved ?? false),
+    },

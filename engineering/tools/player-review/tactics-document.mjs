@@ -1,3 +1,6 @@
+import {validateTacticKeyframes} from './tactics-keyframes.mjs';
+import {validateCourtPreparation} from './court-preparation.mjs';
+import {validateFrameMapping} from './tactics-time-range.mjs';
 import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {validateInputs} from '../tactical-overlay/validation.mjs';
 import {validatePresentation} from './tactics-presentation.mjs';
@@ -10,14 +13,18 @@ export async function createTacticsDocument(review){
   review=clone(review);
   const count=review.sourceFrameMapping.length;
   const participants=review.entities.map(e=>({id:e.id,name:e.name||e.id,role:e.role||'player'}));
-  return {schemaVersion:1,title:'当前视频 · 战术审核',notes:'',review,
+  return {schemaVersion:Number.isFinite(review.mediaEndTime)?2:1,title:'当前视频 · 战术审核',notes:'',review,
     playDefinition:{schemaVersion:1,synthetic:review.synthetic===true,playId:'manual-play',revision:1,
       sourceBinding:await createSourceBinding(review),startFrame:0,endFrameExclusive:count,participants,
       phases:[{phaseId:'phase-1',order:0,title:'阶段 1',startFrame:0,endFrameExclusive:count,freezeFrame:0,
         participantIds:participants.map(p=>p.id),actionIds:[],relationIds:[]}],actions:[],relations:[],reviewEvidence:[]}};
 }
 export async function validateDocument(document){
-  if(document?.schemaVersion!==1||typeof document.title!=='string'||typeof document.notes!=='string')throw new Error('战术文件格式不正确。');
+  if(![1,2].includes(document?.schemaVersion)||typeof document.title!=='string'||typeof document.notes!=='string')throw new Error('战术文件格式不正确。');
+  if(document.schemaVersion===2)validateFrameMapping(document.review.sourceFrameMapping,document.review.mediaEndTime);
+  if(document.legacyTiming!==undefined&&(document.schemaVersion!==2||document.legacyTiming!==true))throw new Error('旧稿时间兼容标记无效。');
+  validateTacticKeyframes(document);
+  if(document.review.courtPreparation)validateCourtPreparation(document.review.courtPreparation);
   const presentationIssues=validatePresentation(document.presentation);
   if(presentationIssues.length)throw new Error(`展示修正无效：${presentationIssues.map(i=>i.details.field).join('、')}`);
   const annotationIssues=validateAnnotations(document.annotations,document);
@@ -108,7 +115,7 @@ export async function refreshSnapshot(document,review){
   }
   p.participants=review.entities.map(e=>({id:e.id,name:e.name||e.id,role:e.role||'player'}));reindexPhases(p);
   d.review=clone(review);p.sourceBinding=await createSourceBinding(d.review);p.reviewEvidence=[];
-  for(const a of d.annotations?.items??[])if(a.anchorMode==='player_foot'&&ids.has(a.entityId))a.sourceBinding={videoSha256:review.videoSha256,trackingFingerprint:review.trackingFingerprint,reviewDigest:p.sourceBinding.reviewDigest};
+  for(const a of d.annotations?.items??[])if(['player_foot','court_player_foot'].includes(a.anchorMode)&&ids.has(a.entityId))a.sourceBinding={videoSha256:review.videoSha256,trackingFingerprint:review.trackingFingerprint,reviewDigest:p.sourceBinding.reviewDigest};
   for(const a of [...p.actions,...p.relations])a.reviewStatus='needs_review';p.revision++;return d;
 }
 
@@ -120,4 +127,18 @@ export function restoreArchivedAnnotation(document,id,{entityId=null,phaseId,fra
   d.annotations.items.push(clone(annotation));
   const result=updateAnnotation(d,id,{entityId,phaseId,frame,...(annotation.anchorMode==='player_foot'&&entityId?{anchorMode:'player_foot',space:'video'}:{})});
   result.archivedTactics.annotations=result.archivedTactics.annotations.filter(a=>a.id!==id);return result;
+}
+
+export async function migrateTacticsDocument(document,mediaEndTime){
+  await validateDocument(document);const next=clone(document);
+  validateFrameMapping(next.review.sourceFrameMapping,mediaEndTime);
+  next.review.mediaEndTime=mediaEndTime;next.schemaVersion=2;next.legacyTiming=true;
+  const previous=next.playDefinition.sourceBinding;
+  next.playDefinition.sourceBinding=await createSourceBinding(next.review);
+  const binding=next.playDefinition.sourceBinding;
+  for(const a of next.annotations?.items??[])if(a.sourceBinding.reviewDigest===previous.reviewDigest)a.sourceBinding={videoSha256:binding.videoSha256,trackingFingerprint:binding.trackingFingerprint,reviewDigest:binding.reviewDigest};
+  if(next.production?.sourceBinding.reviewDigest===previous.reviewDigest)next.production.sourceBinding=clone(binding);
+  // Preserve the legacy document outside the editable copy; never overwrite the input.
+  await validateDocument(next);
+  return {document:next,backup:clone(document)};
 }
