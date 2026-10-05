@@ -15,7 +15,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--video',required=True)
     parser.add_argument('--cache',required=True)
-    parser.add_argument('--profile',default='engineering/research/vision-player-refinement/clip001-profile.json')
+    parser.add_argument('--profile',default='research/vision/vision-player-refinement/clip001-profile.json')
     parser.add_argument('--model',default='tmp/vision-deploy-bench/yolov8m.pt')
     parser.add_argument('--output-dir',default='artifacts/vision-tracking-repair')
     parser.add_argument('--only',help='Run only the named tracking configuration')

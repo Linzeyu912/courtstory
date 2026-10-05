@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 标准库 HTTP 服务与 unittest；原生 JavaScript ESM、现有 HTML/CSS、Node test runner；现有 JSON/JSONL 数据包与浏览器草稿。
 
-**Spec:** 用户已授权本轮直接实施；设计与实施计划合并于本文的[设计](#设计)。历史基线见 [17:45 交接](../../../handoffs/thy-0629/2026-10-02-1745-player-annotation-simple.md)，数据读取规则见 [2K 数据说明](../../../2K%20Player%20Data/AGENTS.md)。产品实现、本机验收与文档独立复核已完成，实测见[本轮记录](../../research/player-identity-2k-20261002.md)，最终依据见[独立报告](../../../artifacts/player-identity-2k-20261002/final-independent-verification.md)。
+**Spec:** 用户已授权本轮直接实施；设计与实施计划合并于本文的[设计](#设计)。历史基线见 [17:45 交接](../../../handoffs/thy-0629/2026-10-02-1745-player-annotation-simple.md)，数据读取规则见 [2K 数据说明](../../../2K%20Player%20Data/AGENTS.md)。产品实现、本机验收与文档独立复核已完成，实测见[本轮记录](../../../research/vision/player-identity-2k-20261002.md)，最终依据见[独立报告](../../../artifacts/player-identity-2k-20261002/final-independent-verification.md)。
 
 ## Global Constraints
 

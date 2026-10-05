@@ -24,7 +24,7 @@
 
 2026-10-03 发布补充：下方两项蓝绿审核改进与 P8 冲突纠正已分类提交，随 `7ee65bd` 合入并推送 main。工作分支与主分支的功能内容已一致，后续按 main 协作；验证与同步详情见[发布交接](../../../handoffs/Linzeyu912/2026-10-03-1005-workbench-main-publication.md)。此前日期段落保留各轮当时状态。
 
-更新：2026-10-02（Asia/Shanghai）。当前按用户要求优先做好数据提取。本轮独立整合预览为 `http://127.0.0.1:8890/?sample=004`，原用户版 8876 服务保留。三个[普通转播样例](../../../data/videos/tactics/acceptance/README.md)及 THY 的 LAL–MIN 对照样例按对阵 / 节次命名。具体优先级与边界见[工作流程](../../research/vision-player-refinement/data-extraction-workflow.md)。
+更新：2026-10-02（Asia/Shanghai）。当前按用户要求优先做好数据提取。本轮独立整合预览为 `http://127.0.0.1:8890/?sample=004`，原用户版 8876 服务保留。三个[普通转播样例](../../../data/videos/tactics/acceptance/README.md)及 THY 的 LAL–MIN 对照样例按对阵 / 节次命名。具体优先级与边界见[工作流程](../../../research/vision/vision-player-refinement/data-extraction-workflow.md)。
 
 本轮在用户版 `fffb6ea` 上选择性接入 THY `1839dcd`：保留左侧导航、分步操作和底部 2D 抽屉；上排红队、下排蓝队，仅表示颜色分组；默认推荐 THY 完整方案，原 YOLO 继续可选；加入球员身份 / 2K 展示。整合功能已分类推送到 `codex/local-workbench-20261002`，未合入 main；[本次分支记录](../../docs/workbench-branch-update-20261002.md)包含提交与验证结果。范围和验收见[整合记录](../../docs/plans/2026-10-02-selected-integration.md)与[本轮交接](../../../handoffs/Linzeyu912/2026-10-02-2229-selected-integration.md)。
 
@@ -129,7 +129,7 @@
 
 **快速验收**：打开样例 005，保留整段并关联一个球员。在“球场标定 → 2D”点“跳到参考帧”，先核对原图场地线，再点“采用候选并预览 2D（精度待核对）”。上方会出现该 P 的球场轨迹及缺口。004 的参考在界面第 71 帧，来自 AI 目视点选，D 点有遮挡，需重点核对；005 / 006 的首帧参考来自经方向筛选的模型候选。已有人工标定不会被这些候选覆盖。
 
-模型已在本机实际下载、比较并运行：[脚部对照](../../research/vision-player-refinement/feet-model-comparison.md)、[场地模型对照](../../research/vision-player-refinement/court-model-comparison.md)、[移动镜头核验](../../research/vision-player-refinement/propagation-validation.md)。YOLO11n 场地点在 12 帧中有 7 帧认反半场，保留作待核对参考；KaliCalib 使用原生 FIBA 模板，保留离线对照。工作台当前选择“可审阅参考点 + 地面特征跟随”，不能称为自动精确标定。
+模型已在本机实际下载、比较并运行：[脚部对照](../../../research/vision/vision-player-refinement/feet-model-comparison.md)、[场地模型对照](../../../research/vision/vision-player-refinement/court-model-comparison.md)、[移动镜头核验](../../../research/vision/vision-player-refinement/propagation-validation.md)。YOLO11n 场地点在 12 帧中有 7 帧认反半场，保留作待核对参考；KaliCalib 使用原生 FIBA 模板，保留离线对照。工作台当前选择“可审阅参考点 + 地面特征跟随”，不能称为自动精确标定。
 
 本机 API `POST /api/court-propagate` 在参考帧前后各最多 20 秒、同一镜头内计算。屏蔽检测框与画面底部 25%，是针对这三个转播样例的启发式；其他字幕位置仍需适配。每秒重估受现有球场 48 点模型与已登记篮筐检测覆盖限制；本机模型不可用时手工传播会回退到 SIFT / LK。回投影线缘来自 Canny 边缘，不是专用语义分割模型；球员、广告与纹理会产生干扰。脚部候选和场地候选严格绑定视频，脚部另绑定检测文件字节哈希；裁切同时重映射帧、时间和来源。修改或删除参考几何、补切镜后，依赖旧参考的映射停止生效，需重新核对或生成；独立人工标定保留。当前没有自动直播 / 回放分类，也没有任意上传视频的全自动推理入口。
 
@@ -148,9 +148,9 @@
 复现预计算候选（仓库根目录）：
 
 ```powershell
-tmp/vision-deploy-bench-venv/Scripts/python.exe engineering/scripts/build_court_review_candidates.py --sample 004 --seed engineering/research/vision-player-refinement/court-seed-004.json --fallback-frames 60 --output artifacts/court-004-new-run.json
-tmp/vision-deploy-bench-venv/Scripts/python.exe engineering/scripts/build_court_review_candidates.py --sample 005 --seed engineering/research/vision-player-refinement/court-seed-005.json --output artifacts/court-005-new-run.json
-tmp/vision-deploy-bench-venv/Scripts/python.exe engineering/scripts/build_court_review_candidates.py --sample 006 --seed engineering/research/vision-player-refinement/court-seed-006.json --output artifacts/court-006-new-run.json
+tmp/vision-deploy-bench-venv/Scripts/python.exe engineering/scripts/build_court_review_candidates.py --sample 004 --seed research/vision/vision-player-refinement/court-seed-004.json --fallback-frames 60 --output artifacts/court-004-new-run.json
+tmp/vision-deploy-bench-venv/Scripts/python.exe engineering/scripts/build_court_review_candidates.py --sample 005 --seed research/vision/vision-player-refinement/court-seed-005.json --output artifacts/court-005-new-run.json
+tmp/vision-deploy-bench-venv/Scripts/python.exe engineering/scripts/build_court_review_candidates.py --sample 006 --seed research/vision/vision-player-refinement/court-seed-006.json --output artifacts/court-006-new-run.json
 ```
 
 ### 检测与跟踪方案选择（当前整合版）
@@ -171,11 +171,11 @@ tmp/vision-deploy-bench-venv/Scripts/python.exe engineering/scripts/build_court_
 
 **可复核例子**：004 的蓝衣 30 号在零基第 0 帧为 T2，零基第 100 帧为 T23；界面对应第 1 / 101 帧。把这两个确认点归入 P1，早段继续 T2，后段使用 T23，中间缺口保持空。白衣 15 号 T1 可作稳定输出对照。这里只核对了若干可辨认画面，不能据此宣称整段真人身份准确；其他编号也观察到串人。
 
-本机 RTX 5070 Laptop 上，三段 815 帧的解码、检测、分角色跟踪和结果收集共 **15.83 秒**；加载与预热另为 0.52 秒，不含结果渲染、JSON 写盘或人工修正。参数和逐段结果见[运行记录](../../research/vision-player-refinement/ebard-tracking-probe.json)。已有性能不能承诺未知长度视频的完整处理一定少于十分钟。
+本机 RTX 5070 Laptop 上，三段 815 帧的解码、检测、分角色跟踪和结果收集共 **15.83 秒**；加载与预热另为 0.52 秒，不含结果渲染、JSON 写盘或人工修正。参数和逐段结果见[运行记录](../../../research/vision/vision-player-refinement/ebard-tracking-probe.json)。已有性能不能承诺未知长度视频的完整处理一定少于十分钟。
 
 RF-DETR Nano 仍为调研候选，未加入本轮选择器；它同样逐帧检测，需要后接跟踪器。真实脚地接触、移动镜头自动标定和米制位置精度仍待验证。
 
-用户在该轮收尾时将 ByteTrack 后续工作交给另一位合作者，保留已完成代码与样例，不再追加持续跟踪开发。双检测模型接入已随 `aa2ba4f` 推送；随后独立整理[脚下地面点和 2D 球场转换调研](../../research/vision-player-refinement/ground-tools-survey.md)，本轮进一步实测和接入的范围见上节。
+用户在该轮收尾时将 ByteTrack 后续工作交给另一位合作者，保留已完成代码与样例，不再追加持续跟踪开发。双检测模型接入已随 `aa2ba4f` 推送；随后独立整理[脚下地面点和 2D 球场转换调研](../../../research/vision/vision-player-refinement/ground-tools-survey.md)，本轮进一步实测和接入的范围见上节。
 
 ### 球员身份与 2K 能力
 
@@ -203,9 +203,9 @@ RF-DETR Nano 仍为调研候选，未加入本轮选择器；它同样逐帧检�
 4. 旧手工关键帧方案在同侧间隔不超过 1.2 秒时，按时间估计四个图像参照点。新镜头跟随候选使用逐帧变换，`maxKeyframeGapSeconds: 0`；失效帧、待核对帧和切镜边界不靠插值填满。二者都需要投影线核验。
 5. “轨迹补全”优先允许在原图脚下补点，也支持在 2D 球场补当前帧。球场点另存 `courtAnchors`，不改写原图锚点；当前帧有冲突 / 出画状态时先修身份或区间。球场补点不自动插值长缺口。
 
-为已入库的 001 片段提供 [9 帧扩展参考](../../research/vision-player-refinement/clip001-court-expanded.json)：0、30、60、90、120、150、180、210、242；首帧 6 点，其余 5 点。服务仅在视频 SHA-256 相符时提供；已有草稿没有标定字段时加载参考值。旧草稿可点击“载入扩展参照点（保留人工帧）”，手工编辑过的整帧保留。原始[四角快照](../../research/vision-player-refinement/clip001-court-reference.json)保持原值，用户修正只写本机草稿。
+为已入库的 001 片段提供 [9 帧扩展参考](../../../research/vision/vision-player-refinement/clip001-court-expanded.json)：0、30、60、90、120、150、180、210、242；首帧 6 点，其余 5 点。服务仅在视频 SHA-256 相符时提供；已有草稿没有标定字段时加载参考值。旧草稿可点击“载入扩展参照点（保留人工帧）”，手工编辑过的整帧保留。原始[四角快照](../../../research/vision/vision-player-refinement/clip001-court-reference.json)保持原值，用户修正只写本机草稿。
 
-**准确性边界**：这些参照点由画面目视读取，尚无独立地面点误差验收；前端关键帧之间仍使用近似插值。默认投影点是人物框底边中心，遮挡、起跳、脚点偏移与角点误差都会影响位置。拟合及数值往返测试仅验证计算，不代表物理位置准确。所有映射和人工球场点保留待复核标记，`metricAccuracyValidated: false`；不计算跑动距离或速度。非 YOLO 场地识别调研、离线光流实测及漂移问题见[专项记录](../../research/vision-player-refinement/court-calibration-research.md)。
+**准确性边界**：这些参照点由画面目视读取，尚无独立地面点误差验收；前端关键帧之间仍使用近似插值。默认投影点是人物框底边中心，遮挡、起跳、脚点偏移与角点误差都会影响位置。拟合及数值往返测试仅验证计算，不代表物理位置准确。所有映射和人工球场点保留待复核标记，`metricAccuracyValidated: false`；不计算跑动距离或速度。非 YOLO 场地识别调研、离线光流实测及漂移问题见[专项记录](../../../research/vision/vision-player-refinement/court-calibration-research.md)。
 
 ## 操作
 
@@ -225,7 +225,7 @@ RF-DETR Nano 仍为调研候选，未加入本轮选择器；它同样逐帧检�
 - 新确认的 ID 若仍被另一 P 使用，时间较晚的身份分界优先；同一分界帧以最新确认操作为准。旧身份只在实际重复占用该 ID 的区间变成待关联，保留 `previousTrackId` / `claimedBy`。另一 P 后续确认的正确身份保持，不自动猜测替代 ID，也不交换整段身份。旧草稿中未经过新确认的重复绑定仍标冲突。
 - 旧草稿第一次加载新规则时，原始 JSON 备份在同一浏览器原草稿键的 `:before-forward-identity` 项；原人工位置和区间记录保留。旧版没有明确区分身份确认与位置编辑，因此连续相同 ID 的旧锚点合并为一个推断分界，仍需查看迁移后的时间轴；之后的身份确认单独记录。备份保存在本机浏览器，不上传。
 
-原因、规则及验证见[裁剪与身份绑定核查](../../research/vision-player-refinement/identity-binding-review.md)。
+原因、规则及验证见[裁剪与身份绑定核查](../../../research/vision/vision-player-refinement/identity-binding-review.md)。
 
 ### 找回新编号与分段纠正
 
@@ -235,7 +235,7 @@ RF-DETR Nano 仍为调研候选，未加入本轮选择器；它同样逐帧检�
 - 球员确实出画时，点击“从当前帧起标记离开画面”。时间轴显示灰色，导出状态为 `out_of_view`。再次入画时用新的编号关联区间覆盖；不向画外推算脚下位置。
 - 切镜处不自动延续编号。重复编号经新人工确认后只释放受影响的旧关联；无法确定先后的旧重复绑定仍标冲突。桌面下方步骤面板可独立滚动，原视频保持在左侧。
 
-旧单视频实验继续提供“原跟踪”和“球衣约束实验”两个版本；当前验收库提供本页所述的 THY 推荐方案和通用 / E-BARD 对照。原跟踪保持已有 ID、坐标和草稿；实验版拥有独立草稿，不把旧 ID 直接套用到新跟踪结果。球衣实验只局部改善串号，仍需复核，见[原因及对照](../../research/vision-player-refinement/README.md#后续诊断编号中断与纠正)。
+旧单视频实验继续提供“原跟踪”和“球衣约束实验”两个版本；当前验收库提供本页所述的 THY 推荐方案和通用 / E-BARD 对照。原跟踪保持已有 ID、坐标和草稿；实验版拥有独立草稿，不把旧 ID 直接套用到新跟踪结果。球衣实验只局部改善串号，仍需复核，见[原因及对照](../../../research/vision/vision-player-refinement/README.md#后续诊断编号中断与纠正)。
 
 修改会自动保存在当前浏览器的本机草稿中。视频 SHA-256 相同时可继续编辑；换浏览器或清理站点存储会失去该草稿。导出的 JSON 是下游数据，当前页面尚不支持重新导入。`?qa=1` 使用独立测试草稿，禁止正式确认与导出。
 
@@ -268,11 +268,11 @@ P1–P10 是内部片段身份槽位，界面显示球员 1–10；自动填入�
 - 新视频的顶部模型菜单也显示尚未处理的方案，标注「需处理」；选择后在视频库启动。已有方案直接打开，各自保留草稿。重新导入相同视频也不会读取旧样例的草稿。
 - 原文件保留在本地视频文件夹，兼容 H.264 / AAC MP4 的副本保持字节；其他格式通过已有 FFmpeg 生成工作台 MP4。结果放在 `artifacts/player-review-imports/`，重启后恢复。两个目录中的媒体与缓存不自动提交或上传。
 
-新视频推理需要[模型部署说明](../../docs/model-deployment.md)中的环境和权重。本机已把此前整合目录中的已核验版本复制到标准 `tmp/model-runtime/`、`tmp/models/`；没有重新下载或升级旧环境。完整接口、限制和验收见[本地视频库说明](../../docs/local-video-library.md)。
+新视频推理需要[模型部署说明](../../../environment/local/model-runtime.md)中的环境和权重。本机已把此前整合目录中的已核验版本复制到标准 `tmp/model-runtime/`、`tmp/models/`；没有重新下载或升级旧环境。完整接口、限制和验收见[本地视频库说明](../../docs/local-video-library.md)。
 
 ## 本地启动
 
-仓库根目录运行。依赖和模型准备见[本机环境记录](../../research/vision-local-aws-deployment.md)，候选数据生成见[改进实验](../../research/vision-player-refinement/README.md)。当前多视频入口：
+仓库根目录运行。依赖和模型准备见[本机环境记录](../../../research/runtime/vision-local-aws-deployment.md)，候选数据生成见[改进实验](../../../research/vision/vision-player-refinement/README.md)。当前多视频入口：
 
 ```powershell
 & tmp/vision-deploy-bench-venv/Scripts/python.exe engineering/scripts/serve_player_review.py --library data/videos/tactics/acceptance/review-library.json --port 8876
@@ -323,7 +323,7 @@ npm.cmd test
 - `calibrationSupport`：`inside_controls` / `outside_controls`，描述控制点在地面上的凸包范围。
 - `sensitivity`：包含假定像素偏移、局部近似米数和 `excludesCalibrationError: true`。人工直接球场点没有图像投影敏感度。
 
-上述字段帮助追查误差来源；`metricAccuracyValidated` 继续为 false。实验结果与位置验收建议见[脚点与场地实测](../../research/vision-player-refinement/court-calibration-research.md#脚点与场地网络补充实测2026-10-01)。
+上述字段帮助追查误差来源；`metricAccuracyValidated` 继续为 false。实验结果与位置验收建议见[脚点与场地实测](../../../research/vision/vision-player-refinement/court-calibration-research.md#脚点与场地网络补充实测2026-10-01)。
 
 导出含视频 SHA-256、原图尺寸、固定身份、人工锚点、逐帧位置来源、待处理区间及补点设置。`selectionConfirmed: true` 仅代表所选目标经过确认；`allFramesManuallyVerified: false` 明确保留逐帧未核验状态。字段为本原型内部约定，不是赛事官方数据格式。
 

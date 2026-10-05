@@ -277,6 +277,6 @@
 
 ## 13. 来源与文档状态
 
-事实核对入口：工作台 [README](../../tools/player-review/README.md)、[最新发布交接](../../../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)、[场地接入交接](../../../handoffs/Linzeyu912/2026-10-02-1604-scene-ground-workbench.md)、[样例库](../../../data/videos/tactics/acceptance/review-library.json)、[005 场地候选](../../research/vision-player-refinement/court-candidates-005.json)。本规格引用的是当前本地可读源码/资料，不将历史测试数量当作本功能测试结果。
+事实核对入口：工作台 [README](../../tools/player-review/README.md)、[最新发布交接](../../../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)、[场地接入交接](../../../handoffs/Linzeyu912/2026-10-02-1604-scene-ground-workbench.md)、[样例库](../../../data/videos/tactics/acceptance/review-library.json)、[005 场地候选](../../../research/vision/vision-player-refinement/court-candidates-005.json)。本规格引用的是当前本地可读源码/资料，不将历史测试数量当作本功能测试结果。
 
 本文件为已批准的本地设计；按[实施计划](../plans/2026-10-02-tactical-overlay.md)实现了独立引擎与静态预览，实际进度、验证和恢复步骤见[本轮交接](../../../handoffs/thy-0629/2026-10-03-0055-tactical-overlay-engine.md)。真实候选仍有质量和缺口限制，尚未完成人工精度验收或播放器接入，未提交/推送。本轮继续执行已获授权，无新增用户批准环节；对外发布和提交推送不在本次实施范围内。

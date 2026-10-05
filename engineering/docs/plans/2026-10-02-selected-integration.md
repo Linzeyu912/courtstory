@@ -56,7 +56,7 @@
 ## 最终模型与界面验收（22:39，Asia/Shanghai）
 
 - 004 / 005 / 006 各有 original、ebard、baseline、low、reid、optimized、team-stable 七项；LAL 有原 THY 基线 original、low、reid、optimized、team-stable 与通用 YOLO yolo 六项。所有样例默认且唯一推荐项为 team-stable，合计 27 个组合逐一 HTTP 校验视频 SHA、帧数与版本标识通过。
-- 独立模型环境锁定 Ultralytics 8.4.171，复用 CUDA Torch，部署 E-BARD 与 YOLOv8s 权重；五种配置及旧 E-BARD / ByteTrack 实际 GPU 短帧验证通过。新补 10 组、2,712 帧完整候选。原 THY 22 份 JSON 均与 1839dcd 原字节一致。见[部署复现](../model-deployment.md)、[机器可读核验](../../research/model-integration-20261002.json)与[新增候选](../../../data/videos/tactics/acceptance/tracks/integration-20261002/README.md)。
+- 独立模型环境锁定 Ultralytics 8.4.171，复用 CUDA Torch，部署 E-BARD 与 YOLOv8s 权重；五种配置及旧 E-BARD / ByteTrack 实际 GPU 短帧验证通过。新补 10 组、2,712 帧完整候选。原 THY 22 份 JSON 均与 1839dcd 原字节一致。见[部署复现](../../../environment/local/model-runtime.md)、[机器可读核验](../../../research/vision/model-integration-20261002.json)与[新增候选](../../../data/videos/tactics/acceptance/tracks/integration-20261002/README.md)。
 - JavaScript 171 项全部通过（使用仓库共享快照，0 跳过）；151 项后端 Python 通过；46 项跟踪 / 渲染 / 展示测试通过（后者部分也在后端集合内，不相加作为独立总数）。前端 bundle 构建与 app / workspace 语法检查通过。
 - 浏览器 QA 完成直播筛选门禁、两行固定红蓝及无攻守选择器、底部 2D 抽屉、2K 实际查询与能力展示、清除测试资料、模型建议确认、取消后刷新及重新检查不复活、主动重选、跨队交换 / 撤销、模型切换草稿隔离、视频结束重播与重新加载恢复。浏览器控制台无错误；这些操作只在 QA 草稿中进行。
 - 视频校验 `python scripts/validate_video_data.py --metadata-only --check-index` 通过：5 个数据集、142 条、142 个索引 LFS 指针；本轮没有新视频。Git 补丁空白检查通过。

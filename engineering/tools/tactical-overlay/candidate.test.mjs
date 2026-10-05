@@ -11,8 +11,8 @@ const root=fileURLToPath(new URL('../../../',import.meta.url));
 const sourcePaths=[
   'data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4',
   'data/videos/tactics/acceptance/tracks/005-ebard.json',
-  'engineering/research/vision-player-refinement/feet-candidates-005.json',
-  'engineering/research/vision-player-refinement/court-candidates-005.json'
+  'research/vision/vision-player-refinement/feet-candidates-005.json',
+  'research/vision/vision-player-refinement/court-candidates-005.json'
 ];
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const hashes=()=>Promise.all(sourcePaths.map(async p=>hash(await readFile(path.join(root,p)))));

@@ -116,7 +116,7 @@ tmp/vision-deploy-bench-venv/Scripts/python.exe engineering/scripts/audit_compar
 
 服务只在首次自动标定或镜头重估请求时加载模型。可用 `--court-model` 指定这份权重的其他本地路径，用 `--court-imgsz 640` 或 `960` 选择输入尺寸，默认 640。自动初始化缺少权重、哈希不符或推理依赖不可用时返回明确错误，不自动下载或安装。手工传播在本机模型不可用时保留旧的 SIFT / LK 路径和线缘诊断；如果传播中模型不可用，会记录原因，不中断这次传播。
 
-依赖使用已有视觉环境，见[运行环境记录](../research/vision-local-aws-deployment.md)。共享仓库不包含模型权重。
+依赖使用已有视觉环境，见[运行环境记录](../../research/runtime/vision-local-aws-deployment.md)。共享仓库不包含模型权重。
 
 ## HTTP 接口
 
@@ -169,10 +169,10 @@ tmp/vision-deploy-bench-venv/Scripts/python.exe engineering/scripts/audit_compar
 - [E-BARD 模型卡](https://huggingface.co/GabrieleGiudici/E-BARD-detection-models)：球员、裁判、篮球和篮筐检测；2026-10-02 复核。
 - [48 点模型卡](https://huggingface.co/koppolusameer/yolo11n-basketball-court-keypoints)：输出像素关键点，地面映射为后续步骤；2026-10-02 复核。
 - [OpenCV 单应教程](https://docs.opencv.org/4.x/d9/dab/tutorial_homography.html)：平面映射；2026-10-02 复核。
-- [既有模型对照](../research/vision-player-refinement/court-model-comparison.md)：部分点序依据、原样例和原实验限制。
+- [既有模型对照](../../research/vision/vision-player-refinement/court-model-comparison.md)：部分点序依据、原样例和原实验限制。
 
 回归入口为 `test_court_orientation.py`、`test_court_calibration.py`、`test_court_initialization_trim.py`，并与原有场地、剪辑和多检测版本检查共同运行。合成样例只说明几何关系和接口保护；旧样例复测只说明这些画面中的变化，不构成独立定位准确率。
 
 2026-10-02 本机验证：后端 60 项回归、前端现有球场契约 23 项及实际 HTTP 9 项检查通过。新命令实际从005第0帧自动初始化并传播，得到139/143帧待复核映射；现有前端采用函数接收139帧，4帧保留失效。该结果验证接口和处理流程，不能解读为139帧位置均准确。完整范围、旧帧对照和同步状态见[本轮交接](../../handoffs/Linzeyu912/2026-10-02-2010-hoop-court-backend.md)。
 
-另复用原实验的12帧关键点输出及同帧E-BARD篮筐，隔离比较方向选择逻辑：640输入保留4帧、拒绝8帧；960输入保留7帧、拒绝5帧。006第308帧的640输出从旧右侧改为左侧；004前段的错误镜像场地被拒绝。该对照没有重新推理关键点，不能将候选数量当准确率或把不同输入尺寸当同一模型输出。逐帧结果、失败原因与输入哈希见[本轮验证记录](../research/vision-player-refinement/hoop-constrained-calibration.json)。
+另复用原实验的12帧关键点输出及同帧E-BARD篮筐，隔离比较方向选择逻辑：640输入保留4帧、拒绝8帧；960输入保留7帧、拒绝5帧。006第308帧的640输出从旧右侧改为左侧；004前段的错误镜像场地被拒绝。该对照没有重新推理关键点，不能将候选数量当准确率或把不同输入尺寸当同一模型输出。逐帧结果、失败原因与输入哈希见[本轮验证记录](../../research/vision/vision-player-refinement/hoop-constrained-calibration.json)。

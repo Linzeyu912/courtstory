@@ -10,14 +10,14 @@
   "sourceFiles": {
     "video": "data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4",
     "tracks": "data/videos/tactics/acceptance/tracks/005-ebard.json",
-    "feet": "engineering/research/vision-player-refinement/feet-candidates-005.json",
-    "court": "engineering/research/vision-player-refinement/court-candidates-005.json"
+    "feet": "research/vision/vision-player-refinement/feet-candidates-005.json",
+    "court": "research/vision/vision-player-refinement/court-candidates-005.json"
   },
   "sourceHashes": {
     "data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
     "data/videos/tactics/acceptance/tracks/005-ebard.json": "e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e",
-    "engineering/research/vision-player-refinement/feet-candidates-005.json": "9e54439058c79e9e77094785b1e516d2acd30f6ec9bf7a5bd749ad25dcf25525",
-    "engineering/research/vision-player-refinement/court-candidates-005.json": "a5ec52f6aac0ca87d5c43df07d3d7b0e06767ebfdff3b2b594b6c8de3aca6988"
+    "research/vision/vision-player-refinement/feet-candidates-005.json": "9e54439058c79e9e77094785b1e516d2acd30f6ec9bf7a5bd749ad25dcf25525",
+    "research/vision/vision-player-refinement/court-candidates-005.json": "a5ec52f6aac0ca87d5c43df07d3d7b0e06767ebfdff3b2b594b6c8de3aca6988"
   },
   "playRange": {
     "startFrame": 0,

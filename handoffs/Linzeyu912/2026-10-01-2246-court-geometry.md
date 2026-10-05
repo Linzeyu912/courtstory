@@ -12,8 +12,8 @@
 - [工作台说明](../../engineering/tools/player-review/README.md)：浅枫木色球场、灰蓝禁区；默认进入球场标定；明确 ABCD 只是禁区。
 - [几何模块](../../engineering/tools/player-review/court-geometry.mjs)提供 A–J 语义点、全场线模板、多点单应矩阵和求逆。[计算](../../engineering/tools/player-review/court.mjs)支持新旧标定格式及不同控制点集合之间的关键帧估计。
 - [界面](../../engineering/tools/player-review/workspace.mjs)支持单点新增、重选、停用、删除、撤销；不足四点时停止映射；原视频显示禁区、三分线、边线、底线、中线的投影，显示用于拟合的点残差。
-- [扩展参考](../../engineering/research/vision-player-refinement/clip001-court-expanded.json)新增远侧边界交点，首帧 6 点，其余 8 帧各 5 点；旧四角原始快照保持原值。重载参考保留手工编辑过的整帧，球员锚点另存。
-- [离线诊断脚本](../../engineering/scripts/analyze_court_geometry.py)、[研究结论](../../engineering/research/vision-player-refinement/court-calibration-research.md)、[实测摘要](../../engineering/research/vision-player-refinement/court-geometry-audit.json)。更新团队状态及调研索引。
+- [扩展参考](../../research/vision/vision-player-refinement/clip001-court-expanded.json)新增远侧边界交点，首帧 6 点，其余 8 帧各 5 点；旧四角原始快照保持原值。重载参考保留手工编辑过的整帧，球员锚点另存。
+- [离线诊断脚本](../../research/vision/scripts/analyze_court_geometry.py)、[研究结论](../../research/vision/vision-player-refinement/court-calibration-research.md)、[实测摘要](../../research/vision/vision-player-refinement/court-geometry-audit.json)。更新团队状态及调研索引。
 - 本机服务增加新模块路由并使用扩展参考；`http://127.0.0.1:8876/` 已打开新版。进程记录在 `artifacts/vision-player-refinement/review-server.json`，图像和逐帧中间数据在 `artifacts/court-calibration-audit/`，均为被忽略的本机产物。
 
 ## 结论与依据

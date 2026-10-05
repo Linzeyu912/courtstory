@@ -26,7 +26,7 @@
 
 ## 本次实验接入前须保留的边界
 
-- [本次 LAL–MIN 检测](../../engineering/research/player-test-20261002.md)尚未导入工作台，不替换库内 sample `005`。库内 `005` 是 SAS–MIA、143 帧；本次是 LAL–MIN、267 帧，哈希与身份草稿不同。
+- [本次 LAL–MIN 检测](../../research/vision/player-test-20261002.md)尚未导入工作台，不替换库内 sample `005`。库内 `005` 是 SAS–MIA、143 帧；本次是 LAL–MIN、267 帧，哈希与身份草稿不同。
 - 实验 `frames.json` 是对象包裹的帧数组；工作台需要顶层数组，每帧含 `frame/time/tracks/pending_detections/candidate_count`。
 - tracks 行为 `[x1,y1,x2,y2,trackId,confidence,classId]`，无 ID 候选另放 `pending_detections`；保留篮球模型 player class 2，不能沿用通用 COCO 的 class 0 处理。
 - 原 LAL–MIN 视频首帧为 0.120 秒，须使用实测容器时间，不能把 `i / 25` 直接作为输入 `time`。

@@ -12,7 +12,7 @@
 - [工作台](../../engineering/tools/player-review/README.md)调整为上方球场和当前目标，下方共享时间轴、五个步骤 Tab 及原视频核对区。支持拖动半场窗口、横向滑块、左 / 右半场、全场总览和跟随所选球员。
 - 新增 [球场计算模块](../../engineering/tools/player-review/court.mjs)与[界面模块](../../engineering/tools/player-review/workspace.mjs)。点击轨迹跳时间，点击球员选身份；缺口保留断线和端点，问题列表跳转到身份、补全或标定步骤。
 - 原有临时编号分段关联、脚下补点、出画与撤销功能保留。新增球队 / 描述、号码、直接球场补当前帧、人工时间事件；新增内容也可撤销。
-- 新增 [001 片段参考四角](../../engineering/research/vision-player-refinement/clip001-court-reference.json)，9 个关键帧；[服务](../../engineering/scripts/serve_player_review.py)按视频 SHA-256 匹配后提供，并增加模块静态路由。服务继续只监听本机 127.0.0.1:8876。
+- 新增 [001 片段参考四角](../../research/vision/vision-player-refinement/clip001-court-reference.json)，9 个关键帧；[服务](../../engineering/scripts/serve_player_review.py)按视频 SHA-256 匹配后提供，并增加模块静态路由。服务继续只监听本机 127.0.0.1:8876。
 - 导出升级 schemaVersion 2，保留原图轨迹，新增米制球场轨迹、标定来源、待处理区间、身份字段和事件；已有 version 1 草稿兼容。实验跟踪与 QA 草稿保持隔离。
 - 更新方案讨论、团队状态和调研入口，区分后台 2D 数据整理与最终原视频叠加讲解。
 

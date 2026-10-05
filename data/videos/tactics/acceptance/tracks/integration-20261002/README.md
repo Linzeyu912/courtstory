@@ -4,7 +4,7 @@
 
 使用 RTX 5070 Laptop GPU、Torch 2.11.0+cu128、Ultralytics 8.4.171、PyAV 17.0.0。以下 10 组共 2,712 帧，逐帧核对源视频 SHA、解码帧数、PTS 和帧内唯一编号。相邻 `.gitattributes` 保留 JSON 原字节，防止换行转换改变草稿指纹。
 
-部署和复现见[模型说明](../../../../../../engineering/docs/model-deployment.md)，运行环境、权重、配置与完整核验见[JSON 记录](../../../../../../engineering/research/model-integration-20261002.json)。候选仅供人工核对，不代表真实身份准确率已经验收。
+部署和复现见[模型说明](../../../../../../environment/local/model-runtime.md)，运行环境、权重、配置与完整核验见[JSON 记录](../../../../../../research/vision/model-integration-20261002.json)。候选仅供人工核对，不代表真实身份准确率已经验收。
 
 | 结果 | 帧数 | tracks SHA-256 | metadata SHA-256 |
 |---|---:|---|---|

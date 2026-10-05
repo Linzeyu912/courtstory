@@ -13,7 +13,7 @@
 - 新模型建议按可靠多帧队色归到P1–P5/P6–P10，不足 / 冲突 / 超额留待确认；原人工编号、姓名、球队描述、号码、身份锚点与人工坐标保留。
 - 有观测框确定性展示滤波；切镜、缺失、身份 / 来源边界和人工点不穿越。编辑自动退出稳定显示，任意有效小数可精确保存；导出及球场投影保持原始 / 人工坐标。
 - 四段新准备数据和LAL预览保存在本机 `artifacts/player-team-overlay-20261002/r3/`，旧optimized / baseline / r1 / r2及源视频保留。使用已有篮球候选，未重新跑检测或训练。
-- 共享[实现 / 指标 / 复现](../../engineering/research/player-team-overlay-20261002.md)与[工作台操作说明](../../engineering/tools/player-review/README.md)已更新。
+- 共享[实现 / 指标 / 复现](../../research/vision/player-team-overlay-20261002.md)与[工作台操作说明](../../engineering/tools/player-review/README.md)已更新。
 
 ## 结论与依据
 

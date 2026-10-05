@@ -9,9 +9,9 @@
 
 ## 本次完成
 
-- [研究总览与恢复点](../../engineering/research/nba-evidence-study-20261002/README.md)：真实输入baseline、原始来源/展示/推断区分、故障与纠错比较、球候选、身份参考、投影敏感性、一手文献。
-- [规范化Schema](../../engineering/research/nba-evidence-study-20261002/adapter/observation.schema.json)及10条真实来源样例；14字段故障检查、路径/旧契约时轴篡改/重复副本校验。
-- [事实门控实验](../../engineering/research/nba-evidence-study-20261002/fact-gate/README.md)：30个解析候选、14个真实来源语义挑战，返回确定/带不确定/不说，不生成总结或解说文本。
+- [研究总览与恢复点](../../research/evidence/nba-evidence-study-20261002/README.md)：真实输入baseline、原始来源/展示/推断区分、故障与纠错比较、球候选、身份参考、投影敏感性、一手文献。
+- [规范化Schema](../../research/evidence/nba-evidence-study-20261002/adapter/observation.schema.json)及10条真实来源样例；14字段故障检查、路径/旧契约时轴篡改/重复副本校验。
+- [事实门控实验](../../research/evidence/nba-evidence-study-20261002/fact-gate/README.md)：30个解析候选、14个真实来源语义挑战，返回确定/带不确定/不说，不生成总结或解说文本。
 - 原始项目既有未提交工作保留；在独立main工作副本选择性发布研究产物，不改生产代码、检测器或ByteTrack。
 
 ## 结论与依据

@@ -11,7 +11,7 @@
 
 - 准备默认简版、ID 1–10、队色 / 脚下编号、人工身份资料与 13 项 2K 原值及旧高级工具兼容实现的代码、测试和验收文档。
 - 原字节复制 22 份篮球候选 / metadata 至[共享目录](../../data/videos/tactics/acceptance/tracks/basketball-20261002/README.md)，库中 11 条路径改共享副本；来源、帧 / PTS、SHA 与草稿指纹保留。原 LFS 视频沿用，无新增视频上传。
-- 工作台 / 素材 README、研究索引与 status 顶部新增最新发布说明；[短发布记录](../../engineering/research/player-workbench-publish-20261002.md)说明范围、验证和运行边界。历史段落 / 交接原“未提交”文字保留。
+- 工作台 / 素材 README、研究索引与 status 顶部新增最新发布说明；[短发布记录](../../research/vision/player-workbench-publish-20261002.md)说明范围、验证和运行边界。历史段落 / 交接原“未提交”文字保留。
 
 ## 结论与依据
 
@@ -38,4 +38,4 @@
 
 ## 同步状态
 
-- 当前源码 / 数据已发布为 `351292fba6c5e7accafea9f8780a81b93810caba`，父提交 `72c74e041fd673de81488ebdf48cb97d39427bda`，共 72 个文件；远端核对一致。最新说明与交接随本次文档提交同步，具体提交以 Git 日志为准。状态以本交接及[发布记录](../../engineering/research/player-workbench-publish-20261002.md)为准，历史验收报告保持当时状态。
+- 当前源码 / 数据已发布为 `351292fba6c5e7accafea9f8780a81b93810caba`，父提交 `72c74e041fd673de81488ebdf48cb97d39427bda`，共 72 个文件；远端核对一致。最新说明与交接随本次文档提交同步，具体提交以 Git 日志为准。状态以本交接及[发布记录](../../research/vision/player-workbench-publish-20261002.md)为准，历史验收报告保持当时状态。

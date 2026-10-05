@@ -9,8 +9,8 @@
 
 ## 本次完成
 
-- 新增 [边线注册调研](../../engineering/research/vision-player-refinement/court-line-registration-survey-20261003.md)，记录本机 48 点模型与当前点式拟合约束、HF / GitHub 开源候选、许可提示及建议验收路径。
-- 在[技术研究索引](../../engineering/research/README.md)增加入口。
+- 新增 [边线注册调研](../../research/vision/vision-player-refinement/court-line-registration-survey-20261003.md)，记录本机 48 点模型与当前点式拟合约束、HF / GitHub 开源候选、许可提示及建议验收路径。
+- 在[技术研究索引](../../research/README.md)增加入口。
 - 根据用户补充，核对并记录现有 E-BARD YOLOv8n 篮球 / 篮筐检测、对应本机权重哈希与逐帧复用路径；后续优先级收敛为球场标定，不重复建设检测器。
 - 根据用户澄清镜头是旋转式转播机位，补充 PTZ 下“固定标准球场坐标 + 随帧变化的单应映射”方案，以及重投影、帧间传播与失效重初始化规则。
 - 本机工作区原有模型、视频、草稿和服务未改动；没有推送或创建分支。

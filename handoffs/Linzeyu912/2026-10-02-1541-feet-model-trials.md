@@ -9,8 +9,8 @@
 
 ## 本次完成
 
-- [脚本](../../engineering/scripts/probe_feet_models.py)：复用 E-BARD 框运行 RTMPose-s Halpe26，抽样对照 YOLOv8s-pose / 框底中心；`--cache-only` 生成全部 815 帧候选。
-- [对照结论](../../engineering/research/vision-player-refinement/feet-model-comparison.md)、[抽样数值](../../engineering/research/vision-player-refinement/feet-model-comparison.json)、[全量运行](../../engineering/research/vision-player-refinement/feet-model-full-run.json)。
+- [脚本](../../research/vision/scripts/probe_feet_models.py)：复用 E-BARD 框运行 RTMPose-s Halpe26，抽样对照 YOLOv8s-pose / 框底中心；`--cache-only` 生成全部 815 帧候选。
+- [对照结论](../../research/vision/vision-player-refinement/feet-model-comparison.md)、[抽样数值](../../research/vision/vision-player-refinement/feet-model-comparison.json)、[全量运行](../../research/vision/vision-player-refinement/feet-model-full-run.json)。
 - `engineering/research/vision-player-refinement/feet-candidates-{004,005,006}.json`：独立候选缓存，绑定视频和原 E-BARD 文件 SHA-256，不修改正式人物位置。
 - 本机看图页 `artifacts/feet-models-v2/index.html`，原图叠加与逐人鞋部放大图；模型 / 依赖只在被忽略的 `tmp/`。
 

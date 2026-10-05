@@ -52,8 +52,8 @@
       ],
       "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
       "originalLabel": "通用 YOLOv8s · ByteTrack",
-      "feetCandidates": "engineering/research/vision-player-refinement/feet-candidates-005.json",
-      "courtCandidates": "engineering/research/vision-player-refinement/court-candidates-005.json"
+      "feetCandidates": "research/vision/vision-player-refinement/feet-candidates-005.json",
+      "courtCandidates": "research/vision/vision-player-refinement/court-candidates-005.json"
     },
     {
       "id": "006",
@@ -106,8 +106,8 @@
       ],
       "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
       "originalLabel": "通用 YOLOv8s · ByteTrack",
-      "feetCandidates": "engineering/research/vision-player-refinement/feet-candidates-006.json",
-      "courtCandidates": "engineering/research/vision-player-refinement/court-candidates-006.json"
+      "feetCandidates": "research/vision/vision-player-refinement/feet-candidates-006.json",
+      "courtCandidates": "research/vision/vision-player-refinement/court-candidates-006.json"
     },
     {
       "id": "nba-lal-min-005",

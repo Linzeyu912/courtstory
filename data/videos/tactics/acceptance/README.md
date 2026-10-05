@@ -25,7 +25,7 @@
 
 采集与复核：2026-10-02，Asia/Shanghai。用户退回教学素材后，改为普通转播、正常速度、连续前场配合，并按无解说要求移除全部音轨。独立于两个赛季目录。
 
-当前优先级是 **直播画面筛选 → 球员标定 → 轨迹补全**。界面按对阵 / 节次命名，动作标签仅是采集参考；战术分析放在轨迹提取之后，见[工作流程](../../../../engineering/research/vision-player-refinement/data-extraction-workflow.md)。
+当前优先级是 **直播画面筛选 → 球员标定 → 轨迹补全**。界面按对阵 / 节次命名，动作标签仅是采集参考；战术分析放在轨迹提取之后，见[工作流程](../../../../research/vision/vision-player-refinement/data-extraction-workflow.md)。
 
 2026-10-02 远端模型选择与本机分队版本已登记到同一个工作台：004–006 保留 original、共享 ebard 和可选 optimized / team-stable；LAL–MIN 保留本机各对照版本。当前本机默认 team-stable，缺少其可选产物时三个基础样例回退 ebard。后文按轮次保留此前默认版本描述；当前入口与代码分工见[工作台合并说明](../../../../engineering/tools/player-review/README.md)。
 
@@ -43,7 +43,7 @@
 & tmp/player-identity-test/.venv/Scripts/python.exe engineering/scripts/serve_player_review.py --library data/videos/tactics/acceptance/review-library.json --port 8876
 ```
 
-新样例测试地址为 `http://127.0.0.1:8876/?sample=nba-lal-min-005&variant=optimized&qa=1`。模型权重及 GPU 环境也在 Git 忽略的 `tmp/player-identity-test/`，不能把克隆代码视为已获得模型或新候选；本机推理命令、模型路径和各版本说明见[工作台本轮补充](../../../../engineering/tools/player-review/README.md)。本轮最终对照结果入口为[实测记录](../../../../engineering/research/player-tracking-workbench-20261002.md)，这里不新增身份准确率结论。
+新样例测试地址为 `http://127.0.0.1:8876/?sample=nba-lal-min-005&variant=optimized&qa=1`。模型权重及 GPU 环境也在 Git 忽略的 `tmp/player-identity-test/`，不能把克隆代码视为已获得模型或新候选；本机推理命令、模型路径和各版本说明见[工作台本轮补充](../../../../engineering/tools/player-review/README.md)。本轮最终对照结果入口为[实测记录](../../../../research/vision/player-tracking-workbench-20261002.md)，这里不新增身份准确率结论。
 
 **音轨边界**：LAL–MIN 未裁切版本保留源音轨，原 004–006 已按此前要求移除音轨。选择非整段区间并应用人工剪辑时，当前子视频只编码视频而无音轨，原片音轨保留。剪辑候选保存模型来源与根来源帧 / 时间，模型建议只在可见保留帧重映射并按切镜 / 缺口分段；用户原草稿中的人工身份与补点不自动转移到子片段。
 
@@ -78,13 +78,13 @@
 
 球场坐标是可选操作，不影响先提取像素轨迹；尚无自动直播分类、球衣 OCR、战术分析或讲解生成。详见[工作台说明](../../../../engineering/tools/player-review/README.md)。原视频与原草稿保留；旧 IND–OKC 实验可按工作台文档独立启动，当前验收库仅含新三段。
 
-2026-10-02 新增：`review-library.json` 显式登记三个样例的场地和 RTMPose-s 脚部候选，文件位于 `engineering/research/vision-player-refinement/`。球 / 篮筐可单独选择、补点和改框；脚部候选在 E-BARD 版本按所选 P/T 展示。球场标定页可“跳到参考帧”（004 为界面第71帧，005 / 006 为第1帧），核对后采用并查看2D轨迹。候选有失败区间，精度未经独立验收；实际裁切会同步重映射候选帧与时间，不直接套用源视频编号。
+2026-10-02 新增：`review-library.json` 显式登记三个样例的场地和 RTMPose-s 脚部候选，文件位于 `research/vision/vision-player-refinement/`。球 / 篮筐可单独选择、补点和改框；脚部候选在 E-BARD 版本按所选 P/T 展示。球场标定页可“跳到参考帧”（004 为界面第71帧，005 / 006 为第1帧），核对后采用并查看2D轨迹。候选有失败区间，精度未经独立验收；实际裁切会同步重映射候选帧与时间，不直接套用源视频编号。
 
 ## 候选、验证与共享
 
 `tracks/004.json`、`005.json`、`006.json` 是原有 YOLOv8s 通用人物候选 + ByteTrack 临时编号，使用 `--min-foot-y-ratio .3`。新增 `*-ebard.json` 是 E-BARD YOLOv8n 的球员 / 裁判分别跟踪结果，含逐帧篮球和篮筐候选，不套用该图像区域筛选或球衣条件。两类 `.meta.json` 均绑定视频哈希 / 帧数；新模型仍可能误分类、重复、遮挡遗漏或串号，不限制输出人数为十人。
 
-顶部默认推荐 E-BARD，可切回通用模型；各自草稿隔离。实际裁剪同步保留两种版本，旧 T 编号不会自动迁移。新管线参数、耗时见[测量 JSON](../../../../engineering/research/vision-player-refinement/ebard-tracking-probe.json)，操作与限制见[工作台说明](../../../../engineering/tools/player-review/README.md)。新增候选已随 `aa2ba4f` 推送；三个候选文件按仓库 LF 换行保存，提交字节与 metadata SHA-256 一致，不影响下方历史成片记录。
+顶部默认推荐 E-BARD，可切回通用模型；各自草稿隔离。实际裁剪同步保留两种版本，旧 T 编号不会自动迁移。新管线参数、耗时见[测量 JSON](../../../../research/vision/vision-player-refinement/ebard-tracking-probe.json)，操作与限制见[工作台说明](../../../../engineering/tools/player-review/README.md)。新增候选已随 `aa2ba4f` 推送；三个候选文件按仓库 LF 换行保存，提交字节与 metadata SHA-256 一致，不影响下方历史成片记录。
 
 2026-10-02：三个实际成片的字节 / SHA-256、全片解码、候选帧数 / 时间戳及零音轨检查通过；连续帧与比赛时钟逐段复核。35 项 JavaScript、4 项 Python 裁切测试通过。浏览器验证了三步流程、P1 脚点 / 框编辑、两个 T 的分段归并、手绘待核对点、跨视频草稿恢复、三段播放和 720px 布局；接口的剪辑重启恢复及 Range 播放通过。测试编号只验证交互，不验证真人身份。
 

@@ -131,7 +131,7 @@ def main():
     parser.add_argument('--output-dir', default='data/videos/tactics/acceptance/tracks')
     parser.add_argument('--suffix', default='ebard')
     parser.add_argument('--imgsz', type=int, default=704)
-    parser.add_argument('--report', default='engineering/research/vision-player-refinement/ebard-tracking-probe.json')
+    parser.add_argument('--report', default='research/vision/vision-player-refinement/ebard-tracking-probe.json')
     parser.add_argument('--previews', default='artifacts/ebard-tracking-probe')
     args = parser.parse_args()
     from benchmark_ebard import load_detector

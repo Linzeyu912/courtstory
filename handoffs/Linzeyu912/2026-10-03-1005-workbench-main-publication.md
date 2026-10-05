@@ -23,7 +23,7 @@
 - 本轮用户授权覆盖此前“只在非主分支本地改进”的限制；这是当前发布任务例外，后续恢复 [main 协作流程](../../docs/workflow.md)。未新建分支、未创建 PR、未使用 force push。
 - 开始时工作分支为 `38ce2fb`，远端 main 拉取到 `b50532a`。其中 `1839dcd` 的工作台源码已在此前[选择性整合](../../engineering/docs/plans/2026-10-02-selected-integration.md)中处理；`b50532a` 新增研究资料，未新增工作台实现。
 - 共 31 个冲突文件：30 个文件的 main 内容逐字节确认与此前整合来源 `1839dcd` 相同，沿用用户验收后的工作分支实现及入口；`docs/status.md` 合并双方历史段落并保留研究状态。自动合并保留主分支的 3 处测试配置赋值。
-- 新增 [NBA 研究目录](../../engineering/research/nba-evidence-study-20261002/README.md) 与[研究交接](../chuali-zi/2026-10-02-2135-nba-evidence-study-closeout.md)在合并索引中和原远端 main 无差异。研究成果仍是离线实验，未擅自接入生产逻辑。
+- 新增 [NBA 研究目录](../../research/evidence/nba-evidence-study-20261002/README.md) 与[研究交接](../chuali-zi/2026-10-02-2135-nba-evidence-study-closeout.md)在合并索引中和原远端 main 无差异。研究成果仍是离线实验，未擅自接入生产逻辑。
 
 ## 验证
 

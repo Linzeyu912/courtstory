@@ -22,7 +22,7 @@
 - 用户先明确拒绝讲解剪辑 / 非直播镜头，随后指定三个数据提取步骤，并要求轨迹出来后才分析环境、站位与战术。当前实现按此优先级工作，没有做自动战术解释。
 - 来源与采集日期：2026-10-02，Asia/Shanghai。004：[Warriors Nation](https://www.facebook.com/TheWarriorNation/videos/the-signature-elevator-doors-play-by-the-warriors/186346969187899/)，156.8–165.6秒，8.76秒 / 210帧 / 720p / 23.97fps。005、006：[用过皮球](https://www.bilibili.com/video/BV1zqgd6DEPQ/)，0–4.7666秒、373.8667–389.2666秒，4.77秒 / 143帧、15.40秒 / 462帧，1080p / 30fps。
 - 来源是集锦，仅采用已逐段复核的普通直播区间，移除音轨，不采用其中的教学编辑/回放/切入其他回合。只保留发球重新开始或连续前场配合，没有取得原始球权之前的全部过程，三个 `full_possession` 保持false；日期/赛季未知不猜测。006首帧时钟为第二节3:58。
-- 操作顺序与当前边界见[三步流程](../../engineering/research/vision-player-refinement/data-extraction-workflow.md)；当前画面筛选、姓名/号码及身份对应仍是人工，不是自动分类 / OCR 结果。
+- 操作顺序与当前边界见[三步流程](../../research/vision/vision-player-refinement/data-extraction-workflow.md)；当前画面筛选、姓名/号码及身份对应仍是人工，不是自动分类 / OCR 结果。
 
 ## 验证
 

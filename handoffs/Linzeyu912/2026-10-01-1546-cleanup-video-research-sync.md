@@ -10,14 +10,14 @@
 ## 本次完成
 
 - 删除尚未入库的评分审计文档、候选快照、来源与异常记录、CSV表格及THY原包摘要，连同三份相关交接，共29份文本文件。删除范围为 `research/nba2k-rating-provenance/`、`research/nba2k-rating-snapshots/`、`research/nba2k-rating-tables/` 内的文本文件、`research/nba2k-ratings-audit-2026-10-01.md` 及0920、0940、1010三份评分交接。
-- 从[调研索引](../../engineering/research/README.md)和[团队状态](../../docs/status.md)移除上述本地评分成果入口，新增视频叠层调研入口。
-- 保留并准备共享[视频位置与关系模型评估](../../engineering/research/video-overlay-vision-assessment.md)、[方案补充](../../engineering/docs/agent-concept-review.md)、[原调研交接](2026-10-01-0953-video-overlay-vision.md)及0805、1505两份同步历史记录；历史状态后附本次后续说明。
+- 从[调研索引](../../research/README.md)和[团队状态](../../docs/status.md)移除上述本地评分成果入口，新增视频叠层调研入口。
+- 保留并准备共享[视频位置与关系模型评估](../../research/vision/video-overlay-vision-assessment.md)、[方案补充](../../engineering/docs/agent-concept-review.md)、[原调研交接](2026-10-01-0953-video-overlay-vision.md)及0805、1505两份同步历史记录；历史状态后附本次后续说明。
 - 已入库的THY `2K Player Data/` 1.1版及视频资产不在删除范围内。
 
 ## 结论与依据
 
 - 删除与上传范围来自本轮用户指令；29份已删除文件及剩余Excel均为未提交的本地产出，删除前逐项确认不属于Git跟踪文件。
-- 视频调研来源于2026-10-01读取的RelateAnything固定提交 `06766fdf56752ca535fc9b971fca99ce563676d0`、OpenCV与Ultralytics官方文档；URL及核验范围保留在[评估文档](../../engineering/research/video-overlay-vision-assessment.md#来源与核验范围)。本轮只整理并共享已有研究，没有新增网页核验或模型实验。
+- 视频调研来源于2026-10-01读取的RelateAnything固定提交 `06766fdf56752ca535fc9b971fca99ce563676d0`、OpenCV与Ultralytics官方文档；URL及核验范围保留在[评估文档](../../research/vision/video-overlay-vision-assessment.md#来源与核验范围)。本轮只整理并共享已有研究，没有新增网页核验或模型实验。
 - 研究建议先验证检测跟踪、脚下锚点和球场映射，再测试关系模型；尚未确定模型选型，接口与验证顺序仍为建议。
 
 ## 验证

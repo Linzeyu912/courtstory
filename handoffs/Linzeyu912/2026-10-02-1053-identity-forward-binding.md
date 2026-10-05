@@ -18,7 +18,7 @@
 ## 结论与依据
 
 - 用户确认：裁剪删除中间片段；P1 的 ID10→ID60→ID70 在人工确认帧之后生效，前面的身份不被后来的操作替换。按用户给出的从前往后顺序处理；已有后续人工确认也作为边界。
-- 本机旧代码的问题是重算时使用未来锚点，及旧区间优先于新普通选人；不是简单的全局删除过去锚点。实现和事实依据见[核查记录](../../engineering/research/vision-player-refinement/identity-binding-review.md)。
+- 本机旧代码的问题是重算时使用未来锚点，及旧区间优先于新普通选人；不是简单的全局删除过去锚点。实现和事实依据见[核查记录](../../research/vision/vision-player-refinement/identity-binding-review.md)。
 - 来源 / 采集日期：2026-10-02，本轮用户描述、本机未提交代码、真实候选及独立 QA；仓库来源 URL：https://github.com/Linzeyu912/broadcastcode-team-hub 。新增字段为内部原型约定，不是赛事官方数据格式。
 - 错误若始于第 5 秒，应在第 5 秒确认；第 6 秒确认不会向前修第 5–6 秒。旧版没有区分身份和位置操作，迁移合并连续相同 ID 的锚点并标为 legacy 推断，不能保证还原每次旧人工操作的意图。
 

@@ -12,7 +12,7 @@
 - 同步远端七个新提交，保留先前完整 demo 设计草案和已有工程代码。
 - 在忽略的 `tmp/player-identity-test/` 创建独立环境、固定 revision 篮球专用权重和临时 runner；未修改全局 Python 包。
 - 输入仓库现有 005 湖人—森林狼片段，在 RTX 5060 上执行 E-BARD BODD YOLOv8n + BoT-SORT。输出 `artifacts/player-test-005-20261002/tracked.mp4`、逐帧 JSON、6 张预览、额外重复框证据、版本清单和独立审核记录。
-- [测试计划](../../engineering/docs/plans/2026-10-02-single-video-model-test.md)、[实测报告](../../engineering/research/player-test-20261002.md)记录测量口径、来源与局限。更新工程研究索引和团队状态，明确这些新增内容仍在本地。
+- [测试计划](../../engineering/docs/plans/2026-10-02-single-video-model-test.md)、[实测报告](../../research/vision/player-test-20261002.md)记录测量口径、来源与局限。更新工程研究索引和团队状态，明确这些新增内容仍在本地。
 
 ## 结论与依据
 

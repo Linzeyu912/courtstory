@@ -55,7 +55,7 @@
 | 脚点与球场 | 保留用户版脚点、框编辑、球场标定、初始化及 2D 投影；未确认的位置和精度继续明确标记。 |
 | 视频与裁切 | 保留黑屏恢复、重载和结束重播；按实际解码帧同步标记，修复微秒量化造成的逐帧倒退。裁切保留模型版本、原片 PTS 与场地来源。 |
 
-详细记录：[整合取舍](plans/2026-10-02-selected-integration.md)、[编号归并与审核接口](track-identity-review.md)、[运行与模型准备](model-deployment.md)、[工作台操作](../tools/player-review/README.md)。
+详细记录：[整合取舍](plans/2026-10-02-selected-integration.md)、[编号归并与审核接口](track-identity-review.md)、[运行与模型准备](../../environment/local/model-runtime.md)、[工作台操作](../tools/player-review/README.md)。
 
 ## 数据与可复现范围
 

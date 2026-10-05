@@ -11,7 +11,7 @@
 
 - 新增全场联合标定、四条件基准、运动异常独立核验、报告和验收脚本：`engineering/scripts/court_fullcourt.py`、`benchmark_fullcourt.py`、`audit_fullcourt_motion.py`、`report_fullcourt.py`、`validate_fullcourt_benchmark.py`、`test_court_fullcourt.py`。
 - 新增独立可选依赖 `engineering/requirements-court-fullcourt.txt`；没有安装或替换任何现有环境。
-- 工程说明：[court-fullcourt-calibration.md](../../engineering/docs/court-fullcourt-calibration.md)。结果与边界：[研究记录](../../engineering/research/court-fullcourt-20261004.md)。仅报告使用的[目视中线参考](../../engineering/research/court-fullcourt-20261004-line-checks.json)。
+- 工程说明：[court-fullcourt-calibration.md](../../engineering/docs/court-fullcourt-calibration.md)。结果与边界：[研究记录](../../research/vision/court-fullcourt-20261004.md)。仅报告使用的[目视中线参考](../../research/vision/court-fullcourt-20261004-line-checks.json)。
 - 本机成片：`artifacts/court-fullcourt-20261004/court-before-after.mp4`、`court-augmentations.mp4`，均完整 36 秒 / 1080 帧，只有球场叠加，没有联合投影人物或球。
 - 报告：`artifacts/court-fullcourt-20261004/index.html`，本地服务 `http://127.0.0.1:8902/`。服务通过隐藏进程启动，父 PID 56412；原有 8890/8896/8897/8898/8899/8901 服务未重启。
 

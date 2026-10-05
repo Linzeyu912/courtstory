@@ -2,13 +2,13 @@
 
 2026-10-04，Asia/Shanghai。范围是球场标定；现有 E-BARD YOLOv8n 检测、人物轨迹、身份、脚下点、篮球与人工标定都保持原样。当前新增独立的离线模块和验收入口，尚未替换工作台的默认标定后端。
 
-后续更新：工作台人物尾迹已改为[逐帧球场坐标再投回当前画面](court-relative-trajectories.md)，该修复不代表默认后端已接入本文件的全场联合求解。新增[开源工具比较与接入建议](../research/fullcourt-tools-and-camera-tracking-20261004.md)，覆盖篮球场线识别和广播镜头跟踪两个环节。
+后续更新：工作台人物尾迹已改为[逐帧球场坐标再投回当前画面](court-relative-trajectories.md)，该修复不代表默认后端已接入本文件的全场联合求解。新增[开源工具比较与接入建议](../../research/vision/fullcourt-tools-and-camera-tracking-20261004.md)，覆盖篮球场线识别和广播镜头跟踪两个环节。
 
 ## 当前保留基线与验收重点（2026-10-04 用户补充）
 
 - 用户认可样例 005（SAS–MIA 第四节）第一帧的场线贴合，要求保留既有边线、多帧点线拟合和中场约束。此评价作为回归参照，不扩展为整段视频或全场精度已通过。
 - 半场点线优化与全场两端 / 中线联合求解均保留；中圈模板与圆弧残差接口也保留。仍区分“几何约束已实现”和“真实圆弧自动识别待验证”，不把队徽边缘当成中圈观测。
-- 本次再次提供的视频经 SHA-256 核对，与[既有全场测试](../research/court-fullcourt-20261004.md)完全一致，哈希为 `994c43388a2c31a44fcc8259bba1d4d71abab0dd439aed46da09c22e14012b23`，无需重复登记成新样本。
+- 本次再次提供的视频经 SHA-256 核对，与[既有全场测试](../../research/vision/court-fullcourt-20261004.md)完全一致，哈希为 `994c43388a2c31a44fcc8259bba1d4d71abab0dd439aed46da09c22e14012b23`，无需重复登记成新样本。
 - 下一次改进同时以 005 半场效果和全场连续镜头为回归依据，重点检查半场 → 中线 / 中圈区域 → 另一半场 → 返回时的场线贴合、坐标一致性、跳变及缺口。先验收球场，再分别验收人物和脚点，最后联合到 2D；本轮界面修改未改球场算法或重新生成精度结果。
 
 ## 为什么独立半场参照不够
@@ -54,7 +54,7 @@ python engineering/scripts/serve_comparison_report.py --directory artifacts/cour
 
 另外用合成地板纹理视频检验：实际 LK 光流能纠正插入的 50 像素孤立矩阵错误，原候选不变，原缺失帧继续留空。
 
-真实视频的覆盖率、模型点拟合残差、相邻相机一致性、增强前后的一致性均不是独立真值精度。另有 [6 个中场抽查帧的目视参考](../research/court-fullcourt-20261004-line-checks.json)，只用于报告，不进入拟合；由 Agent 从原图读取，约 ±5 像素，未经用户人工复核。增强的三个版本都来自同一片段，不能当作四场比赛的泛化证据。
+真实视频的覆盖率、模型点拟合残差、相邻相机一致性、增强前后的一致性均不是独立真值精度。另有 [6 个中场抽查帧的目视参考](../../research/vision/court-fullcourt-20261004-line-checks.json)，只用于报告，不进入拟合；由 Agent 从原图读取，约 ±5 像素，未经用户人工复核。增强的三个版本都来自同一片段，不能当作四场比赛的泛化证据。
 
 球场标定复核完成后，再分别验收人物轨迹和脚下点。人物 / 球的 2D 联合量化、持球判断和显示平滑仍是后续工作。
 
@@ -62,4 +62,4 @@ python engineering/scripts/serve_comparison_report.py --directory artifacts/cour
 
 - [NBA 官方球场尺寸与设备规则](https://official.nba.com/rule-no-1-court-dimensions-equipment/)，2026-10-04 访问；本仓库既有 NBA 尺寸约定保持不变。
 - [现用 YOLO11n 球场 48 点模型卡](https://huggingface.co/koppolusameer/yolo11n-basketball-court-keypoints)，2026-10-04 访问：模型输出像素关键点，球场坐标转换另行处理。
-- [上一轮全场移动镜头实验](../research/court-generalization-20261004.md)，2026-10-04 本地结果，是本次失败定位和对照基线，不是独立真值。
+- [上一轮全场移动镜头实验](../../research/vision/court-generalization-20261004.md)，2026-10-04 本地结果，是本次失败定位和对照基线，不是独立真值。
