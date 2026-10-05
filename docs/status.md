@@ -1,5 +1,9 @@
 # 团队状态
 
+2026-10-05（America/New_York）源码研究发布：用户明确要求先提交并 push 已有成果；[OpenCode / Codex 协议研究](../engineering/research/agent-video-understanding-20261005/README.md)、46 段既有摘录、来源 / 许可证、离线验证与交接纳入本次 main 文档提交。46 段逐字节核验和 10 项离线断言通过，未改工作台功能或视频。最终推送与远端 SHA 核对结果见本次完成报告；下方“未提交 / 未推送”保留此前状态。用户已明确下一轮研究重点为视频模型如何理解时序、提取球员轨迹并映射到 2D 球场，不继续硬拆不存在的模块。
+
+2026-10-05 04:10（Etc/UTC，本地，未提交 / 未推送）：已快进同步远端 `main@42a1d60`，另行克隆 OpenCode `dev@907b3bc5`、Codex `main@7f892275`，完成[多模态视频源码研究](../engineering/research/agent-video-understanding-20261005/README.md)。拆出 46 段附固定版本 / 行号 / 哈希的源码，核实 OpenCode 的 Gemini 底层视频路径与默认附件入口限制、Codex 图片 / 音频协议及外部抽帧要求，并对照现有 PyAV / 身份 / 战术输入代码。真实 MP4 附件检测与 Google SDK 请求封装的 10 项离线断言通过；没有真实模型推理、产品接入或新增精度结论。本轮研究文件及[交接](../handoffs/chuali-zi/2026-10-05-0410-agent-video-source-study.md)留在本地，未推送。
+
 2026-10-05 11:39（Asia/Shanghai）新工作流计划：按本聊天用户要求整理[以 2D 球场为主画布的 PLAN](../engineering/docs/plans/2026-10-05-2d-first-tactics-workbench-plan.md)，顺序为全片球员身份、2D 映射和平滑、关键帧战术制作、Agent 初稿与人工调整、投影回实拍成片。明确 3–5 秒区间操作、前端精简、版本契约及分阶段验收。当前是待用户审阅的实施计划，未开始新功能实现；不是团队共同决策或完成报告。源码核查、边界与交接见[本轮记录](../handoffs/thy-0629/2026-10-05-1139-2d-first-tactics-plan.md)。
 
 2026-10-05 10:14（Asia/Shanghai）分类发布：按用户授权，将本聊天清理拆为旧工作台代码 `e4654e5`、候选去重与兼容 `6774081`、历史脚本归档 `9a0dc07` 三条提交，均已推送 main；10:13:39 核对本地与远端均为 `9a0dc07`。共享说明与本轮交接作为第四类独立文档提交。发布前重验 163 段视频哈希 / LFS 索引和正式标签通过，完整回归沿用清理轮已验证结果；未增加工程改动。详见[分类发布交接](../handoffs/Linzeyu912/2026-10-05-1014-cleanup-classified-publication.md)。下方未提交等文字保留当时状态，由本条更新。

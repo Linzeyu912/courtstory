@@ -1,0 +1,49 @@
+{
+  "collected_date": "2026-10-05",
+  "kind": "offline_real_code_boundary_probe",
+  "opencode_commit": "907b3bc518fa48e90e8ec24dd327d13eee71c36c",
+  "sdk": "@ai-sdk/google@3.0.73",
+  "runtime": "v24.19.0",
+  "model_inference": false,
+  "network_requests": 0,
+  "synthetic_video": {
+    "bytes": 8280,
+    "duration_seconds": 1
+  },
+  "attachment_detection": [
+    {
+      "case": "fixture.mp4",
+      "mime": "video/mp4",
+      "detected": null
+    },
+    {
+      "case": "fixture-no-mime.mp4",
+      "mime": "",
+      "detected": null
+    },
+    {
+      "case": "fixture-octet.mp4",
+      "mime": "application/octet-stream",
+      "detected": null
+    },
+    {
+      "case": "frame.jpg",
+      "mime": "image/jpeg",
+      "detected": "image/jpeg"
+    },
+    {
+      "case": "main.ts",
+      "mime": "video/mp2t",
+      "detected": "text/plain"
+    }
+  ],
+  "sdk_video_inline": {
+    "mime": "video/mp4",
+    "roundtrip_bytes_equal": true
+  },
+  "sdk_video_url": {
+    "fileData": true
+  },
+  "assertions": 10,
+  "status": "passed"
+}
