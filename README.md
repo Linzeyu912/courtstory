@@ -28,7 +28,7 @@
 | 各轮工作与验证记录 | [handoffs](handoffs/README.md) |
 | 工作台历次更新 | [历史摘要](engineering/docs/workbench-history-20261005.md)、[成果与问题](engineering/docs/progress-and-open-issues-20261004.md) |
 
-视频当前活动库为 163 段；40 段人工抽检保留 28、删除 12，见[结构化目录](data/videos/classification/README.md)。历史记录中的数量保留当时口径。
+视频当前活动库为 165 段，新增两段[官方训练重点素材](data/videos/uploads/2026-10-05-official-training/README.md)，工作台可直接打开；此前 40 段人工抽检保留 28、删除 12，见[结构化目录](data/videos/classification/README.md)。历史记录中的数量保留当时口径。
 
 ## 协作与存放约定
 
