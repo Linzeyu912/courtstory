@@ -1,6 +1,6 @@
 # Qwen 地面轨迹 Agent 首版
 
-2026-10-05，Etc/UTC。按用户授权完成代码实现；真实 Qwen 调用、视频效果及浏览器验收留给本地。本指南对应[详细计划](plans/2026-10-05-qwen-ground-trajectory-agent-v1.md)，扩展现有工作台和 courtPreparation。
+2026-10-05，Etc/UTC 首版；2026-10-05，America/New_York 补充本地实测修复。本指南对应[详细计划](plans/2026-10-05-qwen-ground-trajectory-agent-v1.md)，扩展现有工作台和 courtPreparation。官方两片的真实 API、多轮读图及效果对照见[实测记录](../../research/agents/qwen-ground-official-20261005/README.md)；浏览器采用／撤销的完整人工操作验收仍需单列。
 
 ## 已实现的路线
 
@@ -44,9 +44,39 @@ Windows 使用现有虚拟环境的 `python.exe`，并在启动它的 PowerShell
 
 其他固定预算：最多 96 次工具执行，单次结果最多 8 张图片；读取原帧一次最多 12 帧，反投影一次最多 7 帧。裁图／拼图可合并多帧。使用真实 PTS／time，不按 frame/fps 推算。费用未估算，报告中的 `costEstimate` 为 `null`。
 
-官方北京兼容端点依据：[阿里云 Chat Completions 文档](https://help.aliyun.com/zh/model-studio/qwen-api-via-openai-chat-completions)。如 key 属于其他地域或专属业务空间，按其官方地址设置 `QWEN_BASE_URL`；模型是否在该空间开放、是否支持图片与工具图片续读，需要本地真实请求确认。此版没有完成这项真实兼容验收。
+官方北京兼容端点依据：[阿里云 Chat Completions 文档](https://help.aliyun.com/zh/model-studio/qwen-api-via-openai-chat-completions)。如 key 属于其他地域或专属业务空间，按其官方地址设置 `QWEN_BASE_URL`；这些空间的模型开放情况及图片、工具图片续读兼容性需使用对应账号确认。
+
+本地更新：当前账号的 `qwen3.8-max` 已通过真实文本、图像、Function Calling 和工具图片续读。Provider 使用 Pi 的 `thinkingFormat: 'qwen'`，使 Agent 的 `thinkingLevel: 'off'` 实际发送 `enable_thinking: false`；仅声明 `reasoning: false` 不会关闭云端默认思考。依据：[阿里云深度思考文档](https://help.aliyun.com/zh/model-studio/deep-thinking)，核验于 2026-10-05。
+
+可单独运行显式探针（会调用真实 API）：
+
+```bash
+node engineering/tools/player-review/agents/probe-qwen.mjs frame.jpg artifacts/qwen-api-probe.json
+```
+
+`set_ground_anchors` 仍是同一个工具，新增两种像素输入：`imagePoint: {x, y}` 表示原始视频像素；`imagePoint: {assetId, x, y}` 表示工具返回图片上的像素，程序按该帧图片的裁剪、标题高度、缩放和拼图格位置还原。后者优先使用，避免模型心算坐标。两种方式最终均用当前帧的 `toCourt` 映射成米制锚点；原有米制 `x/y` 仍兼容，不能与 `imagePoint` 同时给。裁图每 50 像素有刻度，回投图显示蓝色原准备点、彩色候选点及位移连线。
 
 ## 操作顺序
+
+### 查看官方实测的动态对照
+
+本地工作台增加“Qwen 实测回放”入口，也可打开 `/trajectory-replay`。左侧是原视频与脚部放大，右侧是同步 2D 球场；蓝色为原始投影，浅绿色为 Qwen 候选。统一时间轴支持播放／暂停、0.25×／0.5×／1×、循环、逐帧和关键位置跳转，可切换半场／全场、已播放路径／最近 1.5 秒／整段总览。
+
+回放按解码得到的源时间戳选择帧，界面的源帧号从 0 开始；原视频中的历史路线用**当前帧**的球场映射回投，随镜头移动。无标定、原始缺测和 Qwen 未知区间均保留断段，不跨缺口连线。橙色覆盖条表示该版本缺少可用坐标。播放器限制在实测区间内。
+
+先完成[官方两片实测](../../research/agents/qwen-ground-official-20261005/README.md)，再从已有结果导出轻量回放数据；以下命令不调用模型：
+
+```bash
+python research/agents/qwen-ground-official-20261005/export_replay.py
+```
+
+导出默认写入被忽略的 `artifacts/player-review-replays/`；查看新导出结果时用服务启动参数 `--trajectory-replay-root artifacts/player-review-replays`。仓库已包含本次两片的轻量回放数据 `research/agents/qwen-ground-official-20261005/replay/`，服务默认读取这份示例，拉取代码与官方视频 LFS 后可直接查看，无需重新调用 API。页面仍使用服务已有的 `/video.mp4` 原视频和范围请求，不生成重复视频，不读写浏览器标注草稿，不自动采用候选。索引与单片读取均核对当前素材摘要，防止把另一视频的轨迹叠上来。
+
+本机默认展示最终 `optimized-v4`，两段各 300 帧／约 5 秒／一名球员。001 可用点 296，002 为 163；002 的“检查误删”跳到 1155 帧，展示球员仍可见但候选未知的问题。场地、身份关联和候选均未经过人工真值验收。这是查看已有结果的入口，不表示重新运行了 Qwen 或解决了第二段质量问题。
+
+2026-10-05（America/New_York）验证：实际浏览器播放、时间／源帧同步、逐帧、范围末尾停止、两片切换、标定缺口和误删跳转、全场切换、慢放与整段总览通过；3 项回放逻辑检查和 33 项现有服务检查通过。原编辑工作流的采用／撤销完整验收仍沿用上文的未验证状态。
+
+### 编辑与采用新的候选
 
 1. 打开当前样例，核对 P 身份、球场标定和原始地面位置。所选区间至少要有可用米制观测；全缺测区间应先完成这些准备。
 2. 在当前“2D 轨迹准备”点击“建立 / 更新 2D 准备”，设置开始／结束秒数。首轮建议一名球员、约 10 秒；随后再扩为两名有相对运动的球员。
@@ -72,11 +102,11 @@ Windows 使用现有虚拟环境的 `python.exe`，并在启动它的 PowerShell
 
 首版不会桥接原始缺失观测，不跨切镜、身份分界和未知段连线，不修改人工锁点。只采用创建任务时选定的完整候选范围；想缩小范围应重新创建任务。空中脚点不会被当成确认接地点；模型只能估计水平地面位置。跳跃／投篮等动作事件的自动识别与统计留给后续。
 
-建议本地按以下顺序验收，当前均未实测：
+首版提出的验收顺序如下，最新已测范围与未通过项以[本地实测记录](../../research/agents/qwen-ground-official-20261005/README.md)为准：
 
 1. 确认当前模型／地域的文本、图像、Function Calling，以及“工具返回图片后模型继续读取”兼容性，确认任务能正常结束。
 2. 同一段、同一 P 比较原始投影、现有程序平滑和 Qwen 候选。用视频中的已知相对位置和移动方向判断正确性，不能仅凭曲线更平滑判断成功。
 3. 查看起跳、遮挡、急停／折返、镜头移动区间，再检查未知段、人工点、范围边界、采用／撤销、刷新恢复和保存后战术坐标一致。
 4. 单人确认后再试两人。用任务审计确认存在真实多轮取证及读绘图过程，记录耗时和实际 token；不要把一次局部试跑扩写为全场精度结论。
 
-本轮仅完成 JS／Python 语法、依赖离线导入、静态接口审查和前端构建；没有真实 API、视频解码、浏览器流程、完整回归或定位精度测试。
+首版实现轮仅完成 JS／Python 语法、依赖离线导入、静态接口审查和前端构建。后续本地实测已补真实 API、官方原片解码、模型视觉循环和小样本定位对照；这些结果不能替代全场、多球员及人工真值验收。

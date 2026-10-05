@@ -1,0 +1,1927 @@
+{
+  "date": "2026-10-05",
+  "timezone": "America/New_York",
+  "model": "qwen3.8-max",
+  "baseCommit": "1e26b63450cfd601b2d410f435807c05b1d981e8",
+  "zipSha256": "5fc44b719e610c19c4c3d04885db4119784c892dd0be7cb38ec630f2af16465e",
+  "videos": [
+    {
+      "id": "official-training-001",
+      "video": "data/videos/uploads/2026-10-05-official-training/clips/训练_弗拉格2月1日.mp4",
+      "sha256": "9c3e4606d04e7f79e29a112952fcf069ebab202af207af500bfbc3338bc079ce",
+      "frames": 1291,
+      "time_range": [
+        0.0,
+        21.521522222222224
+      ]
+    },
+    {
+      "id": "official-training-002",
+      "video": "data/videos/uploads/2026-10-05-official-training/clips/训练_阿门1月4日 .mp4",
+      "sha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+      "frames": 1371,
+      "time_range": [
+        0.0,
+        22.856188888888887
+      ]
+    }
+  ],
+  "apiProbe": {
+    "model": "qwen3.8-max",
+    "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    "frame": "frame-0300.jpg",
+    "stages": [
+      {
+        "name": "text",
+        "elapsedMs": 721,
+        "stopReason": "stop",
+        "usage": {
+          "input": 19,
+          "output": 4,
+          "totalTokens": 23
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "QWEN_OK"
+          }
+        ],
+        "error": null
+      },
+      {
+        "name": "image",
+        "elapsedMs": 2973,
+        "stopReason": "stop",
+        "usage": {
+          "input": 2090,
+          "output": 46,
+          "totalTokens": 2136
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "- **球场**：木质地板，红色油漆区，可见“TOYOTA CENTER”字样。\n- **球衣颜色**：一队白色，一队深蓝色。\n- **可见篮筐**：左侧。"
+          }
+        ],
+        "error": null
+      },
+      {
+        "name": "function_call",
+        "elapsedMs": 820,
+        "stopReason": "toolUse",
+        "usage": {
+          "input": 300,
+          "output": 14,
+          "totalTokens": 314
+        },
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_844a4e30c4d14d589f31a775",
+            "name": "read_video_frame",
+            "arguments": {}
+          }
+        ],
+        "error": null
+      },
+      {
+        "name": "tool_image_followup",
+        "elapsedMs": 2692,
+        "stopReason": "stop",
+        "usage": {
+          "input": 2401,
+          "output": 62,
+          "totalTokens": 2463
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "根据图片内容，报告如下：\n\n*   **两队简称**：DAL（达拉斯独行侠） vs HOU（休斯顿火箭）\n*   **比分**：DAL 103 - 107 HOU\n*   **篮筐所在侧**：画面左侧"
+          }
+        ],
+        "error": null
+      }
+    ],
+    "completed": true
+  },
+  "adoptionChecks": [
+    {
+      "case": "001",
+      "jobId": "adaab7c2-5915-4eb6-a2b2-4e967c649d0f",
+      "staleRejected": true,
+      "sourceUnchanged": true,
+      "outsideRangeUnchanged": true,
+      "originalGapsPreserved": true,
+      "saveReloadIdentical": true,
+      "localQaSnapshotVersion": 1,
+      "candidateFiniteFrames": 296
+    },
+    {
+      "case": "002",
+      "jobId": "3212a480-b57a-4f3f-92d7-2be97a4b90b7",
+      "staleRejected": true,
+      "sourceUnchanged": true,
+      "outsideRangeUnchanged": true,
+      "originalGapsPreserved": true,
+      "saveReloadIdentical": true,
+      "localQaSnapshotVersion": 1,
+      "candidateFiniteFrames": 163
+    }
+  ],
+  "evaluation": [
+    {
+      "case": "001",
+      "metric": "pixel distance to AI visual ground reference; diagnostic only",
+      "rows": [
+        {
+          "frame": 810,
+          "reference": [
+            542,
+            702
+          ],
+          "referenceType": "AI visual support-foot estimate, not human truth",
+          "errorsPx": {
+            "raw": 38.55879314455777,
+            "optimized-v1": 100.49603764686624,
+            "optimized-v2": 30.226113689274158,
+            "optimized-v4": 28.841253419739264,
+            "smooth": 38.582333826898385
+          },
+          "errorsM": {
+            "raw": 0.3177264658107322,
+            "optimized-v1": 0.7555635535561954,
+            "optimized-v2": 0.28085215191166,
+            "optimized-v4": 0.4261023187922388,
+            "smooth": 0.3197282884650186
+          },
+          "predicted": {
+            "raw": [
+              580.2272644999999,
+              707.0454709999999
+            ],
+            "optimized-v1": [
+              642.3526559668219,
+              707.3663789583895
+            ],
+            "optimized-v2": [
+              571.5711193255376,
+              708.2583424795824
+            ],
+            "optimized-v4": [
+              566.5134700511506,
+              686.8043530946208
+            ],
+            "smooth": [
+              580.23015085912,
+              707.2011584112724
+            ]
+          }
+        },
+        {
+          "frame": 870,
+          "reference": [
+            353,
+            766
+          ],
+          "referenceType": "AI visual support-foot estimate, not human truth",
+          "errorsPx": {
+            "raw": 45.41239852857168,
+            "optimized-v1": 60.06391387438254,
+            "optimized-v2": 38.79872792466137,
+            "optimized-v4": 45.550265834585524,
+            "smooth": 45.41239852857168
+          },
+          "errorsM": {
+            "raw": 0.3743981280735463,
+            "optimized-v1": 0.4282179607210043,
+            "optimized-v2": 0.2686770513133385,
+            "optimized-v4": 0.4196610999218501,
+            "smooth": 0.3743981280735463
+          },
+          "predicted": {
+            "raw": [
+              397.8409115000001,
+              773.181824
+            ],
+            "optimized-v1": [
+              412.6410677799049,
+              758.885452650939
+            ],
+            "optimized-v2": [
+              391.79793498135314,
+              765.7519480808528
+            ],
+            "optimized-v4": [
+              396.4326895152839,
+              752.2730848669355
+            ],
+            "smooth": [
+              397.8409115000001,
+              773.181824
+            ]
+          }
+        },
+        {
+          "frame": 930,
+          "reference": [
+            430,
+            808
+          ],
+          "referenceType": "AI visual support-foot estimate, not human truth",
+          "errorsPx": {
+            "raw": 39.67329210862581,
+            "optimized-v1": 113.64351605164535,
+            "optimized-v2": 43.510722545823306,
+            "optimized-v4": 29.309918062935903,
+            "smooth": 39.73197883697763
+          },
+          "errorsM": {
+            "raw": 0.3200939050231952,
+            "optimized-v1": 0.7707961537927029,
+            "optimized-v2": 0.5110245581529392,
+            "optimized-v4": 0.3413897190504975,
+            "smooth": 0.3159770479684837
+          },
+          "predicted": {
+            "raw": [
+              469.09092699999997,
+              814.772705
+            ],
+            "optimized-v1": [
+              543.480652634564,
+              801.9180415807075
+            ],
+            "optimized-v2": [
+              469.58048632076554,
+              826.0711947328147
+            ],
+            "optimized-v4": [
+              456.0065759469539,
+              794.4822596425536
+            ],
+            "smooth": [
+              469.2152042198752,
+              814.3873234062102
+            ]
+          }
+        },
+        {
+          "frame": 960,
+          "reference": [
+            630,
+            830
+          ],
+          "referenceType": "AI visual support-foot estimate, not human truth",
+          "errorsPx": {
+            "raw": 24.292693934928046,
+            "optimized-v1": 17.215215390072178,
+            "optimized-v2": 29.309448076032787,
+            "optimized-v4": 55.62569887660516,
+            "smooth": 24.267829432962905
+          },
+          "errorsM": {
+            "raw": 0.17894573394904756,
+            "optimized-v1": 0.13303710981715022,
+            "optimized-v2": 0.3917003793875312,
+            "optimized-v4": 0.45278046926948046,
+            "smooth": 0.17863040990110873
+          },
+          "predicted": {
+            "raw": [
+              606.1363525000002,
+              834.545471
+            ],
+            "optimized-v1": [
+              613.056689665299,
+              826.9523983481116
+            ],
+            "optimized-v2": [
+              606.2062733903495,
+              847.1143892834909
+            ],
+            "optimized-v4": [
+              575.5920165951374,
+              818.4246072495598
+            ],
+            "smooth": [
+              606.1581809049505,
+              834.5271633089956
+            ]
+          }
+        },
+        {
+          "frame": 1065,
+          "reference": [
+            902,
+            763
+          ],
+          "referenceType": "AI visual support-foot estimate, not human truth",
+          "errorsPx": {
+            "raw": 13.778975946757013,
+            "optimized-v1": 36.437087465397866,
+            "optimized-v2": 18.3666445625136,
+            "optimized-v4": 2.9816261144085883,
+            "smooth": 13.752380685217432
+          },
+          "errorsM": {
+            "raw": 0.2751253554305681,
+            "optimized-v1": 0.7515920157345224,
+            "optimized-v2": 0.2139885304684876,
+            "optimized-v4": 0.035087628421904174,
+            "smooth": 0.2741352203018378
+          },
+          "predicted": {
+            "raw": [
+              906.8181764999997,
+              775.9091189999999
+            ],
+            "optimized-v1": [
+              894.7625646124851,
+              798.7110749204305
+            ],
+            "optimized-v2": [
+              917.8877996579988,
+              772.2147411527944
+            ],
+            "optimized-v4": [
+              904.6062339907861,
+              761.5516772903133
+            ],
+            "smooth": [
+              906.8705907120483,
+              775.860999985493
+            ]
+          }
+        }
+      ],
+      "medianPx": {
+        "raw": 38.6,
+        "optimized-v1": 60.1,
+        "optimized-v2": 30.2,
+        "optimized-v4": 29.3,
+        "smooth": 38.6
+      },
+      "pairedMedianPx": {
+        "optimized-v1": {
+          "count": 5,
+          "totalReferences": 5,
+          "raw": 38.6,
+          "smooth": 38.6,
+          "optimized-v1": 60.1
+        },
+        "optimized-v2": {
+          "count": 5,
+          "totalReferences": 5,
+          "raw": 38.6,
+          "smooth": 38.6,
+          "optimized-v2": 30.2
+        },
+        "optimized-v4": {
+          "count": 5,
+          "totalReferences": 5,
+          "raw": 38.6,
+          "smooth": 38.6,
+          "optimized-v4": 29.3
+        }
+      },
+      "runs": {
+        "optimized-v1": {
+          "jobId": "836c4578-a9c5-46f9-8847-238a1110617d",
+          "status": "ready",
+          "usage": {
+            "input": 212505,
+            "output": 2984,
+            "cacheRead": 380928,
+            "cacheWrite": 0,
+            "totalTokens": 596417,
+            "requests": 10,
+            "costEstimate": null,
+            "toolCalls": 10,
+            "imagesReturned": 36,
+            "uniqueFrames": 12,
+            "elapsedMs": 154087
+          },
+          "unknownRanges": []
+        },
+        "optimized-v2": {
+          "jobId": "3bdd51ca-5a99-4705-8c02-c993da9dd8a3",
+          "status": "partial",
+          "usage": {
+            "input": 229116,
+            "output": 4273,
+            "cacheRead": 455680,
+            "cacheWrite": 0,
+            "totalTokens": 689069,
+            "requests": 11,
+            "costEstimate": null,
+            "toolCalls": 10,
+            "imagesReturned": 38,
+            "uniqueFrames": 12,
+            "elapsedMs": 128429
+          },
+          "unknownRanges": []
+        },
+        "optimized-v4": {
+          "jobId": "adaab7c2-5915-4eb6-a2b2-4e967c649d0f",
+          "status": "ready",
+          "usage": {
+            "input": 247934,
+            "output": 3891,
+            "cacheRead": 395392,
+            "cacheWrite": 0,
+            "totalTokens": 647217,
+            "requests": 10,
+            "costEstimate": null,
+            "toolCalls": 11,
+            "imagesReturned": 40,
+            "uniqueFrames": 18,
+            "elapsedMs": 174502
+          },
+          "unknownRanges": []
+        }
+      }
+    },
+    {
+      "case": "002",
+      "metric": "pixel distance to AI visual ground reference; diagnostic only",
+      "rows": [
+        {
+          "frame": 930,
+          "reference": [
+            309,
+            801
+          ],
+          "referenceType": "AI visual support-foot estimate, not human truth",
+          "errorsPx": {
+            "raw": 41.36159370436269,
+            "optimized-v1": 67.169972467927,
+            "optimized-v2": 64.5101386385943,
+            "optimized-v3": 86.14252253570245,
+            "optimized-v4": 53.255653506783155,
+            "smooth": 41.36159370436269
+          },
+          "errorsM": {
+            "raw": 0.3431114248725162,
+            "optimized-v1": 0.4787657190727637,
+            "optimized-v2": 0.6195020800804972,
+            "optimized-v3": 0.8831297396314086,
+            "optimized-v4": 0.38177344578239364,
+            "smooth": 0.3431114248725162
+          },
+          "predicted": {
+            "raw": [
+              349.77273549999967,
+              807.9545290000001
+            ],
+            "optimized-v1": [
+              376.1635010928124,
+              800.0676254519462
+            ],
+            "optimized-v2": [
+              371.076194782714,
+              818.552892310648
+            ],
+            "optimized-v3": [
+              390.6375387373491,
+              828.4926618886174
+            ],
+            "optimized-v4": [
+              362.170500554578,
+              797.9896011543041
+            ],
+            "smooth": [
+              349.77273549999967,
+              807.9545290000001
+            ]
+          }
+        },
+        {
+          "frame": 960,
+          "reference": [
+            511,
+            796
+          ],
+          "referenceType": "AI visual support-foot estimate, not human truth",
+          "errorsPx": {
+            "raw": 10.124541326007556,
+            "optimized-v1": 7.046788863596448,
+            "optimized-v2": 52.8529001567613,
+            "optimized-v3": 63.37597540461142,
+            "optimized-v4": 17.416187396546334,
+            "smooth": 10.124541326007556
+          },
+          "errorsM": {
+            "raw": 0.17156709356816824,
+            "optimized-v1": 0.14146492472811406,
+            "optimized-v2": 1.1680946852892886,
+            "optimized-v3": 1.419617656290211,
+            "optimized-v4": 0.15036481346306427,
+            "smooth": 0.17156709356816824
+          },
+          "predicted": {
+            "raw": [
+              503.8636324999998,
+              803.181824
+            ],
+            "optimized-v1": [
+              514.786682143429,
+              801.9429177709895
+            ],
+            "optimized-v2": [
+              500.5618071457752,
+              847.8119019619874
+            ],
+            "optimized-v3": [
+              511.8856793141824,
+              859.3697864178059
+            ],
+            "optimized-v4": [
+              494.12034931613,
+              800.2896359078768
+            ],
+            "smooth": [
+              503.8636324999998,
+              803.181824
+            ]
+          }
+        },
+        {
+          "frame": 990,
+          "reference": [
+            716,
+            788
+          ],
+          "referenceType": "AI visual support-foot estimate, not human truth",
+          "errorsPx": {
+            "raw": 58.551546374165355,
+            "optimized-v1": 47.42646205147639,
+            "optimized-v2": 62.05916355324362,
+            "optimized-v3": 67.92133411523018,
+            "optimized-v4": 51.27116036479746,
+            "smooth": 58.551546374165355
+          },
+          "errorsM": {
+            "raw": 0.4365126112815654,
+            "optimized-v1": 0.32600467259947624,
+            "optimized-v2": 0.8286017619109571,
+            "optimized-v3": 0.955169291184478,
+            "optimized-v4": 0.35253402382727717,
+            "smooth": 0.4365126112815654
+          },
+          "predicted": {
+            "raw": [
+              657.9545594999998,
+              795.6818240000001
+            ],
+            "optimized-v1": [
+              668.5735581265087,
+              788.0437486054949
+            ],
+            "optimized-v2": [
+              662.992324159422,
+              820.2726832306897
+            ],
+            "optimized-v3": [
+              659.6912699649531,
+              825.9820293011437
+            ],
+            "optimized-v4": [
+              664.7289254095862,
+              787.9062156889513
+            ],
+            "smooth": [
+              657.9545594999998,
+              795.6818240000001
+            ]
+          }
+        },
+        {
+          "frame": 1125,
+          "reference": [
+            389,
+            775
+          ],
+          "referenceType": "AI visual support-foot estimate, not human truth",
+          "errorsPx": {
+            "raw": 47.361902244478145,
+            "optimized-v1": 71.4680904213883,
+            "optimized-v2": 62.5473322484568,
+            "optimized-v3": 60.74613339344801,
+            "optimized-v4": 37.341332553108025,
+            "smooth": 47.00393807319139
+          },
+          "errorsM": {
+            "raw": 0.32418277189938244,
+            "optimized-v1": 0.5966492075548816,
+            "optimized-v2": 0.8737239867839018,
+            "optimized-v3": 1.1450114225588401,
+            "optimized-v4": 0.29918658455239255,
+            "smooth": 0.3280363678815592
+          },
+          "predicted": {
+            "raw": [
+              342.27271999999914,
+              782.7272949999999
+            ],
+            "optimized-v1": [
+              320.49600429986856,
+              795.368861568485
+            ],
+            "optimized-v2": [
+              338.9028414454898,
+              812.4492119565033
+            ],
+            "optimized-v3": [
+              355.9527431485903,
+              825.9703005371906
+            ],
+            "optimized-v4": [
+              352.9343453422295,
+              784.6769659991261
+            ],
+            "smooth": [
+              342.7343560565008,
+              783.2982157649562
+            ]
+          }
+        },
+        {
+          "frame": 1155,
+          "reference": [
+            116,
+            857
+          ],
+          "referenceType": "AI visual support-foot estimate, not human truth",
+          "errorsPx": {
+            "raw": 6.905745485675777,
+            "optimized-v1": 6.644281997611354,
+            "optimized-v2": 22.787815092312247,
+            "optimized-v3": null,
+            "optimized-v4": null,
+            "smooth": 6.905745485675777
+          },
+          "errorsM": {
+            "raw": 0.15318874844103295,
+            "optimized-v1": 0.06743125832239356,
+            "optimized-v2": 0.49417637456914004,
+            "optimized-v3": null,
+            "optimized-v4": null,
+            "smooth": 0.15318874844103295
+          },
+          "predicted": {
+            "raw": [
+              116.76136099999975,
+              863.8636470000001
+            ],
+            "optimized-v1": [
+              122.23895730309897,
+              859.2851466110275
+            ],
+            "optimized-v2": [
+              121.1811247987513,
+              879.1909995831909
+            ],
+            "optimized-v3": null,
+            "optimized-v4": null,
+            "smooth": [
+              116.76136099999975,
+              863.8636470000001
+            ]
+          }
+        }
+      ],
+      "medianPx": {
+        "raw": 41.4,
+        "optimized-v1": 47.4,
+        "optimized-v2": 62.1,
+        "optimized-v3": 65.6,
+        "optimized-v4": 44.3,
+        "smooth": 41.4
+      },
+      "pairedMedianPx": {
+        "optimized-v1": {
+          "count": 5,
+          "totalReferences": 5,
+          "raw": 41.4,
+          "smooth": 41.4,
+          "optimized-v1": 47.4
+        },
+        "optimized-v2": {
+          "count": 5,
+          "totalReferences": 5,
+          "raw": 41.4,
+          "smooth": 41.4,
+          "optimized-v2": 62.1
+        },
+        "optimized-v3": {
+          "count": 4,
+          "totalReferences": 5,
+          "raw": 44.4,
+          "smooth": 44.2,
+          "optimized-v3": 65.6
+        },
+        "optimized-v4": {
+          "count": 4,
+          "totalReferences": 5,
+          "raw": 44.4,
+          "smooth": 44.2,
+          "optimized-v4": 44.3
+        }
+      },
+      "runs": {
+        "optimized-v1": {
+          "jobId": "0f9de248-94bc-4cb5-b586-386a23391bf1",
+          "status": "ready",
+          "usage": {
+            "input": 172399,
+            "output": 3217,
+            "cacheRead": 412800,
+            "cacheWrite": 0,
+            "totalTokens": 588416,
+            "requests": 11,
+            "costEstimate": null,
+            "toolCalls": 11,
+            "imagesReturned": 31,
+            "uniqueFrames": 15,
+            "elapsedMs": 148525
+          },
+          "unknownRanges": [
+            {
+              "entityId": "P1",
+              "startFrame": 1055,
+              "endFrameExclusive": 1108,
+              "reason": "P1起跳投篮空中阶段，脚部图显示frame 1054双脚着地，frame 1072起跳中，frame 1090空中，frame 1108已落地。空中脚点不是地面真值。",
+              "evidenceFrames": [
+                1054,
+                1072,
+                1090,
+                1108
+              ]
+            },
+            {
+              "entityId": "P1",
+              "startFrame": 1172,
+              "endFrameExclusive": 1200,
+              "reason": "P1不在画面中，原始数据标记为missing",
+              "evidenceFrames": [
+                1172,
+                1199
+              ]
+            }
+          ]
+        },
+        "optimized-v2": {
+          "jobId": "d292bfb3-2a8e-4b85-a8e2-d15a4ab21701",
+          "status": "partial",
+          "usage": {
+            "input": 205253,
+            "output": 5762,
+            "cacheRead": 538752,
+            "cacheWrite": 0,
+            "totalTokens": 749767,
+            "requests": 12,
+            "costEstimate": null,
+            "toolCalls": 12,
+            "imagesReturned": 42,
+            "uniqueFrames": 26,
+            "elapsedMs": 160396
+          },
+          "unknownRanges": [
+            {
+              "entityId": "P1",
+              "startFrame": 1036,
+              "endFrameExclusive": 1100,
+              "reason": "起跳上篮期间，球员在空中。frame 1035 为最后地面接触，frame 1080-1090 仍在空中（球举过头顶/出手），frame 1095 开始落地缓冲，frame 1100 确认双脚着地。空中水平位置无法从脚部可靠估计。",
+              "evidenceFrames": [
+                1035,
+                1040,
+                1045,
+                1050,
+                1080,
+                1085,
+                1090,
+                1095,
+                1100
+              ]
+            },
+            {
+              "entityId": "P1",
+              "startFrame": 1172,
+              "endFrameExclusive": 1200,
+              "reason": "P1 不在画面中，跟踪缺失（missing），无法定位。",
+              "evidenceFrames": [
+                1172,
+                1199
+              ]
+            }
+          ]
+        },
+        "optimized-v3": {
+          "jobId": "ca667eaa-3320-4d36-9707-7efc766e6eaf",
+          "status": "partial",
+          "usage": {
+            "input": 144287,
+            "output": 6180,
+            "cacheRead": 315392,
+            "cacheWrite": 0,
+            "totalTokens": 465859,
+            "requests": 9,
+            "costEstimate": null,
+            "toolCalls": 9,
+            "imagesReturned": 24,
+            "uniqueFrames": 15,
+            "elapsedMs": 126624
+          },
+          "unknownRanges": [
+            {
+              "entityId": "P1",
+              "startFrame": 1015,
+              "endFrameExclusive": 1095,
+              "reason": "P1起跳投篮在空中，脚部不接触地面，无法确定水平地面投影位置",
+              "evidenceFrames": [
+                1036,
+                1063,
+                1090
+              ]
+            },
+            {
+              "entityId": "P1",
+              "startFrame": 1155,
+              "endFrameExclusive": 1200,
+              "reason": "P1出画或无法追踪，检测缺失(missing)",
+              "evidenceFrames": [
+                1172,
+                1199
+              ]
+            }
+          ]
+        },
+        "optimized-v4": {
+          "jobId": "3212a480-b57a-4f3f-92d7-2be97a4b90b7",
+          "status": "partial",
+          "usage": {
+            "input": 137500,
+            "output": 1840,
+            "cacheRead": 221184,
+            "cacheWrite": 0,
+            "totalTokens": 360524,
+            "requests": 7,
+            "costEstimate": null,
+            "toolCalls": 8,
+            "imagesReturned": 22,
+            "uniqueFrames": 12,
+            "elapsedMs": 101912
+          },
+          "unknownRanges": [
+            {
+              "entityId": "P1",
+              "startFrame": 1036,
+              "endFrameExclusive": 1117,
+              "reason": "起跳上篮空中段(1063/1090双脚离地)，水平投影无法由脚部地面点确定；保留落地帧1117为锚点",
+              "evidenceFrames": [
+                1036,
+                1063,
+                1090,
+                1117
+              ]
+            },
+            {
+              "entityId": "P1",
+              "startFrame": 1145,
+              "endFrameExclusive": 1200,
+              "reason": "1145后跟踪缺失/标定不可用，1172-1199无可靠观测",
+              "evidenceFrames": [
+                1145,
+                1172,
+                1199
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "runs": [
+    {
+      "case": "001",
+      "jobId": "3bdd51ca-5a99-4705-8c02-c993da9dd8a3",
+      "status": "partial",
+      "range": {
+        "startFrame": 780,
+        "endFrameExclusive": 1080
+      },
+      "usage": {
+        "input": 229116,
+        "output": 4273,
+        "cacheRead": 455680,
+        "cacheWrite": 0,
+        "totalTokens": 689069,
+        "requests": 11,
+        "costEstimate": null,
+        "toolCalls": 10,
+        "imagesReturned": 38,
+        "uniqueFrames": 12,
+        "elapsedMs": 128429
+      },
+      "feedbackRevisions": [
+        1,
+        2
+      ],
+      "summary": "已为球员 P1（深蓝球衣、白色头带的 T10）设置 12 个地面锚点，覆盖帧范围 [780, 1079]。轨迹显示球员从罚球线附近开始，向左移动到底线进行防守，然后向右回到篮下区域。所有锚点基于脚部裁图的原始视频像素坐标设置，程序精确映射到米制坐标。存在 4 个未标定帧（884, 989, 990, 1050），这些帧的轨迹保留原始断段。Frame 997 的锚点不确定性较高，因为球员可能在跳起。整体轨迹反映了球员在篮下的横向移动与防守动作。",
+      "budgetReason": null,
+      "anchors": [
+        {
+          "entityId": "P1",
+          "frame": 780,
+          "x": 3.1383944429740933,
+          "y": 8.133809910641084,
+          "evidenceFrames": [
+            780
+          ],
+          "basis": "从脚部裁图可见球员双脚在地面上，白色球鞋接触地面，取脚底中心位置 [source imagePoint 743,696; frame 780 calibration]",
+          "turn": false,
+          "uncertainty": "脚部裁图清晰，但球员在移动中，可能有轻微误差"
+        },
+        {
+          "entityId": "P1",
+          "frame": 807,
+          "x": 2.338244200152772,
+          "y": 8.57602194966772,
+          "evidenceFrames": [
+            807
+          ],
+          "basis": "从脚部裁图可见球员双脚在地面上，取脚底中心位置 [source imagePoint 588,706; frame 807 calibration]",
+          "turn": false,
+          "uncertainty": "球员在移动中，脚部位置可能有轻微变化"
+        },
+        {
+          "entityId": "P1",
+          "frame": 834,
+          "x": 1.974638859964818,
+          "y": 9.33354205419253,
+          "evidenceFrames": [
+            834
+          ],
+          "basis": "从脚部裁图可见球员在移动中，双脚在地面上，取脚底中心位置 [source imagePoint 463,734; frame 834 calibration]",
+          "turn": false,
+          "uncertainty": "球员在移动中，脚部位置可能有轻微变化"
+        },
+        {
+          "entityId": "P1",
+          "frame": 862,
+          "x": 1.8613501284667102,
+          "y": 10.00537015536313,
+          "evidenceFrames": [
+            862
+          ],
+          "basis": "从脚部裁图可见球员双脚在地面上，取脚底中心位置 [source imagePoint 401,760; frame 862 calibration]",
+          "turn": false,
+          "uncertainty": "球员在移动中，脚部位置可能有轻微变化"
+        },
+        {
+          "entityId": "P1",
+          "frame": 889,
+          "x": 1.6782400021291324,
+          "y": 10.526984661415543,
+          "evidenceFrames": [
+            889
+          ],
+          "basis": "从脚部裁图可见球员双脚在地面上，靠近底线，取脚底中心位置 [source imagePoint 380,780; frame 889 calibration]",
+          "turn": false,
+          "uncertainty": "脚部裁图清晰，位置相对确定"
+        },
+        {
+          "entityId": "P1",
+          "frame": 916,
+          "x": 2.048881613920949,
+          "y": 11.323713378590696,
+          "evidenceFrames": [
+            916
+          ],
+          "basis": "从脚部裁图可见球员双脚在地面上，取脚底中心位置 [source imagePoint 441,817; frame 916 calibration]",
+          "turn": false,
+          "uncertainty": "球员在移动中，脚部位置可能有轻微变化"
+        },
+        {
+          "entityId": "P1",
+          "frame": 943,
+          "x": 2.1995782761632747,
+          "y": 11.479364190000016,
+          "evidenceFrames": [
+            943
+          ],
+          "basis": "从脚部裁图可见球员双脚在地面上，取脚底中心位置 [source imagePoint 508,833; frame 943 calibration]",
+          "turn": false,
+          "uncertainty": "球员在移动中，脚部位置可能有轻微变化"
+        },
+        {
+          "entityId": "P1",
+          "frame": 970,
+          "x": 2.9037059235484097,
+          "y": 11.188476162906024,
+          "evidenceFrames": [
+            970
+          ],
+          "basis": "从脚部裁图可见球员双脚在地面上，取脚底中心位置 [source imagePoint 672,854; frame 970 calibration]",
+          "turn": false,
+          "uncertainty": "球员在移动中，脚部位置可能有轻微变化"
+        },
+        {
+          "entityId": "P1",
+          "frame": 997,
+          "x": 3.2750185482327105,
+          "y": 10.235113147645968,
+          "evidenceFrames": [
+            997
+          ],
+          "basis": "从脚部裁图可见球员似乎在跳起或移动中，取脚底投影位置 [source imagePoint 814,839; frame 997 calibration]",
+          "turn": false,
+          "uncertainty": "球员可能在跳起，脚部位置不太清晰，不确定性较高"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1025,
+          "x": 3.439484129726522,
+          "y": 9.521719239591482,
+          "evidenceFrames": [
+            1025
+          ],
+          "basis": "从脚部裁图可见球员双脚在地面上，取脚底中心位置 [source imagePoint 901,832; frame 1025 calibration]",
+          "turn": false,
+          "uncertainty": "球员在移动中，脚部位置可能有轻微变化"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1052,
+          "x": 3.002348708482361,
+          "y": 8.205938606780666,
+          "evidenceFrames": [
+            1052
+          ],
+          "basis": "从脚部裁图可见球员双脚在地面上，在篮下区域，取脚底中心位置 [source imagePoint 905,780; frame 1052 calibration]",
+          "turn": false,
+          "uncertainty": "脚部裁图清晰，位置相对确定"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1079,
+          "x": 3.109846529003834,
+          "y": 7.895949882160642,
+          "evidenceFrames": [
+            1079
+          ],
+          "basis": "从脚部裁图可见球员在移动中，双脚在地面上，取脚底中心位置 [source imagePoint 939,769; frame 1079 calibration]",
+          "turn": false,
+          "uncertainty": "球员在移动中，脚部位置可能有轻微变化"
+        }
+      ],
+      "unknownRanges": [],
+      "sourceFiniteFrames": 296,
+      "candidateFiniteFrames": 296,
+      "errors": []
+    },
+    {
+      "case": "001",
+      "jobId": "836c4578-a9c5-46f9-8847-238a1110617d",
+      "status": "ready",
+      "range": {
+        "startFrame": 780,
+        "endFrameExclusive": 1080
+      },
+      "usage": {
+        "input": 212505,
+        "output": 2984,
+        "cacheRead": 380928,
+        "cacheWrite": 0,
+        "totalTokens": 596417,
+        "requests": 10,
+        "costEstimate": null,
+        "toolCalls": 10,
+        "imagesReturned": 36,
+        "uniqueFrames": 12,
+        "elapsedMs": 154087
+      },
+      "feedbackRevisions": [
+        1,
+        2
+      ],
+      "summary": "核对全段拼图、feet crop 与回投图后，确认原 bbox_bottom_center 投影在多帧偏离真实支撑脚（尤其 889/997 落在身后空地）。据可见脚底接触点设 7 个地面锚点修正 P1 水平位置：油漆区内横向防守往返（780→834→889 向左靠近篮下，943 横移，997→1052→1079 向右回撤并跨步补防）。1079 大幅跨步/可能腾空，保留水平位移未冻结。迭代两轮：revision1 后发现 889/997 偏深偏左，revision2 上调修正，回投均落到脚底合理范围（不确定度 0.25–0.4m）。2D 轨迹连续无异常尖刺。剩余：884/989/990/1050 为标定传播间隙由曲线插值覆盖；场地与身份为 AI 实测参照未经人工确认，估计仍需复核。",
+      "budgetReason": null,
+      "anchors": [
+        {
+          "entityId": "P1",
+          "frame": 780,
+          "x": 3.3,
+          "y": 8,
+          "evidenceFrames": [
+            780
+          ],
+          "basis": "feet crop 与全景：球员双脚落地于油漆区右侧偏外，支撑脚接触点在红区右缘；bbox 底中点偏前，按可见脚底修正。",
+          "turn": false,
+          "uncertainty": "约0.25m，脚部被部分遮挡"
+        },
+        {
+          "entityId": "P1",
+          "frame": 834,
+          "x": 2.4,
+          "y": 9,
+          "evidenceFrames": [
+            834
+          ],
+          "basis": "feet crop：球员向左横移到油漆区中部，单脚支撑可见，接触点在红区中线附近。",
+          "turn": false,
+          "uncertainty": "约0.25m"
+        },
+        {
+          "entityId": "P1",
+          "frame": 889,
+          "x": 2.5,
+          "y": 9.6,
+          "evidenceFrames": [
+            889
+          ],
+          "basis": "回投 revision1：圆圈落在球员左后方空地；全景中球员背号21站在油漆区左侧靠近罚球圈，支撑脚更靠右且没那么深。上调 x、减小 y。",
+          "turn": false,
+          "uncertainty": "约0.3m"
+        },
+        {
+          "entityId": "P1",
+          "frame": 943,
+          "x": 2.4,
+          "y": 11,
+          "evidenceFrames": [
+            943
+          ],
+          "basis": "feet crop 与全景：横向防守移动，支撑脚在油漆区底部偏左，保留水平位移。",
+          "turn": false,
+          "uncertainty": "约0.3m，运动中"
+        },
+        {
+          "entityId": "P1",
+          "frame": 997,
+          "x": 3.6,
+          "y": 9.6,
+          "evidenceFrames": [
+            997
+          ],
+          "basis": "回投 revision1：圆圈落在球员身后明显偏左下；全景中球员在罚球线右侧较高处单脚支撑。增大 x、减小 y。",
+          "turn": false,
+          "uncertainty": "约0.3m"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1052,
+          "x": 3,
+          "y": 8.6,
+          "evidenceFrames": [
+            1052
+          ],
+          "basis": "feet crop 与全景：回到油漆区中部防守 stance，双脚落地，接触点在红区中部。当前圆圈偏后。",
+          "turn": false,
+          "uncertainty": "约0.25m"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1079,
+          "x": 3.4,
+          "y": 8,
+          "evidenceFrames": [
+            1079
+          ],
+          "basis": "feet crop：球员大幅跨步/可能起跳补防，保留水平位移不冻结；支撑/蹬地脚在油漆区右侧。当前圆圈落在身侧空地。",
+          "turn": false,
+          "uncertainty": "约0.4m，跨步/腾空，水平位移保留"
+        }
+      ],
+      "unknownRanges": [],
+      "sourceFiniteFrames": 296,
+      "candidateFiniteFrames": 296,
+      "errors": []
+    },
+    {
+      "case": "001",
+      "jobId": "854507e6-ca3e-4136-84a9-4c3e7d5c84ef",
+      "status": "interrupted",
+      "range": {
+        "startFrame": 780,
+        "endFrameExclusive": 1080
+      },
+      "usage": {
+        "input": 258107,
+        "output": 10654,
+        "cacheRead": 1024,
+        "cacheWrite": 0,
+        "totalTokens": 269785,
+        "requests": 4,
+        "costEstimate": null
+      },
+      "feedbackRevisions": [],
+      "summary": null,
+      "budgetReason": null,
+      "anchors": null,
+      "unknownRanges": null,
+      "sourceFiniteFrames": 296,
+      "candidateFiniteFrames": 0,
+      "errors": []
+    },
+    {
+      "case": "001",
+      "jobId": "adaab7c2-5915-4eb6-a2b2-4e967c649d0f",
+      "status": "ready",
+      "range": {
+        "startFrame": 780,
+        "endFrameExclusive": 1080
+      },
+      "usage": {
+        "input": 247934,
+        "output": 3891,
+        "cacheRead": 395392,
+        "cacheWrite": 0,
+        "totalTokens": 647217,
+        "requests": 10,
+        "costEstimate": null,
+        "toolCalls": 11,
+        "imagesReturned": 40,
+        "uniqueFrames": 18,
+        "elapsedMs": 174502
+      },
+      "feedbackRevisions": [
+        1,
+        2
+      ],
+      "summary": "基于7个地面锚点（frames 780, 834, 889, 943, 997, 1052, 1079）修正了P1的地面轨迹。所有锚点均通过feet crop图像中的坐标网格定位脚底接触点。轨迹显示P1在左侧篮下油漆区进行横向防守移动：从油漆区中部(3.06, 7.66)向左移至边缘(1.73, 8.66)，继续外移到木地板(1.54, 10.17)→(1.92, 10.89)，然后回收至油漆区(3.15, 9.83)→(2.86, 7.85)→(2.98, 7.75)。回投图验证各锚点帧的黄色圆圈与P1实际脚底位置吻合。保留了原始标定断段(frames 884, 989-990, 1050)未填补。P1在整个范围内均未跳起，无需标记未知区间。场地标定和身份为AI实测参照，尚未人工确认。",
+      "budgetReason": null,
+      "anchors": [
+        {
+          "entityId": "P1",
+          "frame": 780,
+          "x": 3.0632132089807,
+          "y": 7.655167694853257,
+          "evidenceFrames": [
+            780
+          ],
+          "basis": "双脚在红色油漆区内，左脚约x=85,y=155右脚约x=120,y=148，取中间接触点 [source imagePoint 753,678; frame 780 calibration; asset bf8275ccd478e2080655da7dad8e1397bed9364f31c9b468e0e5ad5e498c3e85]",
+          "turn": false,
+          "uncertainty": "双脚间距小，中间点估计±10px"
+        },
+        {
+          "entityId": "P1",
+          "frame": 834,
+          "x": 1.732684743404327,
+          "y": 8.660825783134717,
+          "evidenceFrames": [
+            834
+          ],
+          "basis": "双脚在红色区域边缘附近，左脚约x=80,y=155右脚约x=120,y=145，取中间 [source imagePoint 463,706; frame 834 calibration; asset 519f36117abd78de02c0c45783ffd8da0b0938ac2d81af01c01f0deb44d45b6c]",
+          "turn": false,
+          "uncertainty": "脚底可见但部分被遮挡±15px"
+        },
+        {
+          "entityId": "P1",
+          "frame": 889,
+          "x": 1.5396735437092857,
+          "y": 10.171829047076,
+          "evidenceFrames": [
+            889
+          ],
+          "basis": "双脚站在木地板上油漆区外，左脚约x=85,y=175右脚约x=115,y=170，取中间 [source imagePoint 380,764; frame 889 calibration; asset d762117a5e7c0e45897c813ebe5a44b277efbc700fed2b945cf82aa4c3a7310c]",
+          "turn": false,
+          "uncertainty": "脚底清晰可见±10px"
+        },
+        {
+          "entityId": "P1",
+          "frame": 943,
+          "x": 1.9160275051649784,
+          "y": 10.893935088254294,
+          "evidenceFrames": [
+            943
+          ],
+          "basis": "双脚在木地板上，左脚约x=65,y=175右脚约x=155,y=165，取中间 [source imagePoint 498,805; frame 943 calibration; asset 89a7cb37cd914d10db3aa3f71c5650b7e3acfbdc9f64cd59fe19414a1184d398]",
+          "turn": false,
+          "uncertainty": "步幅较大，中间点估计±15px"
+        },
+        {
+          "entityId": "P1",
+          "frame": 997,
+          "x": 3.148124294021293,
+          "y": 9.833234639298741,
+          "evidenceFrames": [
+            995,
+            997,
+            1000
+          ],
+          "basis": "双脚在红色油漆区内地面接触，左脚约x=75,y=175右脚约x=130,y=160，取中间。player crop确认985-1010期间P1一直在地面 [source imagePoint 814,819; frame 997 calibration; asset 73a1ace95e268726fd2572a6c9dcff510780c2d1fc6fc64c166ae7195ee44b35]",
+          "turn": false,
+          "uncertainty": "脚底可见±12px"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1052,
+          "x": 2.864295705224596,
+          "y": 7.845449063756085,
+          "evidenceFrames": [
+            1052
+          ],
+          "basis": "双脚在红色油漆区内，左脚约x=80,y=175右脚约x=155,y=165，取中间 [source imagePoint 900,762; frame 1052 calibration; asset 5013c3b39467cde454940c32da2a879853176b5158898030b4fc3a2620b30aa3]",
+          "turn": false,
+          "uncertainty": "脚底可见±10px"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1079,
+          "x": 2.9793611334741357,
+          "y": 7.752298132256485,
+          "evidenceFrames": [
+            1079
+          ],
+          "basis": "双脚在红色油漆区内，左脚约x=100,y=210右脚约x=210,y=195，取中间 [source imagePoint 924,761; frame 1079 calibration; asset 7f362255f7dea2a0965a1718c4cbc0bb298e19be37314bedb4ac8772844079b7]",
+          "turn": false,
+          "uncertainty": "步幅大，中间点估计±15px"
+        }
+      ],
+      "unknownRanges": [],
+      "sourceFiniteFrames": 296,
+      "candidateFiniteFrames": 296,
+      "errors": []
+    },
+    {
+      "case": "002",
+      "jobId": "0f9de248-94bc-4cb5-b586-386a23391bf1",
+      "status": "ready",
+      "range": {
+        "startFrame": 900,
+        "endFrameExclusive": 1200
+      },
+      "usage": {
+        "input": 172399,
+        "output": 3217,
+        "cacheRead": 412800,
+        "cacheWrite": 0,
+        "totalTokens": 588416,
+        "requests": 11,
+        "costEstimate": null,
+        "toolCalls": 11,
+        "imagesReturned": 31,
+        "uniqueFrames": 15,
+        "elapsedMs": 148525
+      },
+      "feedbackRevisions": [
+        2
+      ],
+      "summary": "修正了P1（白色1号）从左侧往右篮筐突破的地面轨迹。设置了6个地面锚点（frame 900, 954, 1009, 1054, 1108, 1145），均基于脚部着地的视频证据。将空中投篮阶段（frame 1055-1107）标记为未知，因为脚部图显示frame 1054双脚着地、frame 1072起跳中、frame 1090空中、frame 1108已落地。将frame 1172-1199标记为未知（球员不在画面中）。拟合后的轨迹显示了合理的突破-起跳-落地-回走路径，回投图验证所有锚点位置在球员脚下。剩余问题：场地标定和身份尚未人工确认，锚点位置基于bbox底部中心估计有约0.11-0.13米误差。",
+      "budgetReason": null,
+      "anchors": [
+        {
+          "entityId": "P1",
+          "frame": 900,
+          "x": 16.03,
+          "y": 9.23,
+          "evidenceFrames": [
+            900
+          ],
+          "basis": "P1在左侧三分线外，双脚着地，从回投图看标记点在脚下位置合理",
+          "turn": false,
+          "uncertainty": "bbox底部中心估计，约0.12米误差"
+        },
+        {
+          "entityId": "P1",
+          "frame": 954,
+          "x": 18.78,
+          "y": 10.2,
+          "evidenceFrames": [
+            954
+          ],
+          "basis": "P1在三分线附近运球突破，双脚着地，回投图标记点在脚下",
+          "turn": false,
+          "uncertainty": "bbox底部中心估计，约0.12米误差"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1009,
+          "x": 21.49,
+          "y": 10,
+          "evidenceFrames": [
+            1009
+          ],
+          "basis": "P1在罚球线附近突破，双脚着地，回投图标记点在脚下",
+          "turn": false,
+          "uncertainty": "bbox底部中心估计，约0.12米误差"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1054,
+          "x": 22.4,
+          "y": 8.3,
+          "evidenceFrames": [
+            1036,
+            1054
+          ],
+          "basis": "P1在篮下准备起跳，脚部图显示双脚着地，这是起跳前最后可靠地面点",
+          "turn": false,
+          "uncertainty": "脚部图确认着地，约0.13米误差"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1108,
+          "x": 22.1,
+          "y": 7.9,
+          "evidenceFrames": [
+            1108,
+            1117
+          ],
+          "basis": "P1已落地，脚部图显示双脚着地，在篮下左侧区域",
+          "turn": false,
+          "uncertainty": "脚部图确认着地，约0.12米误差"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1145,
+          "x": 21.01,
+          "y": 7.94,
+          "evidenceFrames": [
+            1145
+          ],
+          "basis": "P1落地后往回走，双脚着地，回投图标记点在脚下",
+          "turn": false,
+          "uncertainty": "bbox底部中心估计，约0.11米误差"
+        }
+      ],
+      "unknownRanges": [
+        {
+          "entityId": "P1",
+          "startFrame": 1055,
+          "endFrameExclusive": 1108,
+          "reason": "P1起跳投篮空中阶段，脚部图显示frame 1054双脚着地，frame 1072起跳中，frame 1090空中，frame 1108已落地。空中脚点不是地面真值。",
+          "evidenceFrames": [
+            1054,
+            1072,
+            1090,
+            1108
+          ]
+        },
+        {
+          "entityId": "P1",
+          "startFrame": 1172,
+          "endFrameExclusive": 1200,
+          "reason": "P1不在画面中，原始数据标记为missing",
+          "evidenceFrames": [
+            1172,
+            1199
+          ]
+        }
+      ],
+      "sourceFiniteFrames": 271,
+      "candidateFiniteFrames": 218,
+      "errors": [
+        {
+          "sequence": 4,
+          "tool": "inspect_frames",
+          "revision": 0,
+          "request": 5,
+          "error": "工具图片为空或超过单次 8 张预算，请减少帧数或球员数。"
+        }
+      ]
+    },
+    {
+      "case": "002",
+      "jobId": "21bb1893-5307-4e63-a558-7880d748ae89",
+      "status": "interrupted",
+      "range": {
+        "startFrame": 900,
+        "endFrameExclusive": 1200
+      },
+      "usage": {
+        "input": 87466,
+        "output": 9086,
+        "cacheRead": 3072,
+        "cacheWrite": 0,
+        "totalTokens": 99624,
+        "requests": 4,
+        "costEstimate": null
+      },
+      "feedbackRevisions": [],
+      "summary": null,
+      "budgetReason": null,
+      "anchors": null,
+      "unknownRanges": null,
+      "sourceFiniteFrames": 271,
+      "candidateFiniteFrames": 0,
+      "errors": []
+    },
+    {
+      "case": "002",
+      "jobId": "3212a480-b57a-4f3f-92d7-2be97a4b90b7",
+      "status": "partial",
+      "range": {
+        "startFrame": 900,
+        "endFrameExclusive": 1200
+      },
+      "usage": {
+        "input": 137500,
+        "output": 1840,
+        "cacheRead": 221184,
+        "cacheWrite": 0,
+        "totalTokens": 360524,
+        "requests": 7,
+        "costEstimate": null,
+        "toolCalls": 8,
+        "imagesReturned": 22,
+        "uniqueFrames": 12,
+        "elapsedMs": 101912
+      },
+      "feedbackRevisions": [
+        2
+      ],
+      "summary": "基于脚部裁图取地面接触点，建立 4 个地面锚点：900(中圈弧顶,16.1,9.3)、954(突破支撑脚,18.6,10.1)、1009(接近罚球区前脚,21.6,9.9)、1117(起跳后落地,22.2,7.7)。拟合后 2D 图与回投图显示突破曲线从左往右篮筐推进、贴合可见鞋底。按要求未把空中脚部当地面点：1036–1116 起跳上篮空中段(1063/1090双脚离地)标为未知；1145–1199 因跟踪缺失/标定不可用标为未知，断段未被曲线填补。剩余问题：空中段水平投影无法由脚部确定故留空；1145 后无可靠观测；标定与身份为 AI 实测参照、未经人工确认，米制位置仍需复核，未给出独立测量的误差保证。",
+      "budgetReason": null,
+      "anchors": [
+        {
+          "entityId": "P1",
+          "frame": 900,
+          "x": 16.11155717953537,
+          "y": 9.296839200603213,
+          "evidenceFrames": [
+            900
+          ],
+          "basis": "feet crop: both feet on floor near center-circle arc, midpoint of鞋底接触点 [source imagePoint 251,782; frame 900 calibration; asset 315a709b5055dc50e09ad5cd5e58f17b2d35a8fb7984856e9895c6eb1b31cb80]",
+          "turn": false,
+          "uncertainty": "轻微运动模糊，约±0.15m"
+        },
+        {
+          "entityId": "P1",
+          "frame": 954,
+          "x": 18.6432488044357,
+          "y": 10.12158944353515,
+          "evidenceFrames": [
+            954
+          ],
+          "basis": "feet crop: 突破中支撑脚鞋底接触地板 [source imagePoint 460,801; frame 954 calibration; asset a97170d67a1ba364ed45f6a2adff64805db19d64cd49d70032944f65a120f56d]",
+          "turn": false,
+          "uncertainty": "运动模糊，约±0.15m"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1009,
+          "x": 21.589086828569123,
+          "y": 9.868089981300834,
+          "evidenceFrames": [
+            1009
+          ],
+          "basis": "feet crop: 突破接近罚球区，前脚鞋底触地 [source imagePoint 732,771; frame 1009 calibration; asset 7b7f8e715030adc2559c5747c25d6e918afbd0463de7c72170da3613ac17c9e5]",
+          "turn": false,
+          "uncertainty": "约±0.15m"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1117,
+          "x": 22.18091378603143,
+          "y": 7.678612823522371,
+          "evidenceFrames": [
+            1117
+          ],
+          "basis": "feet crop: 起跳后落地，双脚接触地板取中点 [source imagePoint 422,760; frame 1117 calibration; asset d48906559ecd70ad65d6f857ba5774b991aa4297534f1cd67b4c58b4f3308b31]",
+          "turn": false,
+          "uncertainty": "落地瞬间略模糊，约±0.2m"
+        }
+      ],
+      "unknownRanges": [
+        {
+          "entityId": "P1",
+          "startFrame": 1036,
+          "endFrameExclusive": 1117,
+          "reason": "起跳上篮空中段(1063/1090双脚离地)，水平投影无法由脚部地面点确定；保留落地帧1117为锚点",
+          "evidenceFrames": [
+            1036,
+            1063,
+            1090,
+            1117
+          ]
+        },
+        {
+          "entityId": "P1",
+          "startFrame": 1145,
+          "endFrameExclusive": 1200,
+          "reason": "1145后跟踪缺失/标定不可用，1172-1199无可靠观测",
+          "evidenceFrames": [
+            1145,
+            1172,
+            1199
+          ]
+        }
+      ],
+      "sourceFiniteFrames": 271,
+      "candidateFiniteFrames": 163,
+      "errors": []
+    },
+    {
+      "case": "002",
+      "jobId": "ca667eaa-3320-4d36-9707-7efc766e6eaf",
+      "status": "partial",
+      "range": {
+        "startFrame": 900,
+        "endFrameExclusive": 1200
+      },
+      "usage": {
+        "input": 144287,
+        "output": 6180,
+        "cacheRead": 315392,
+        "cacheWrite": 0,
+        "totalTokens": 465859,
+        "requests": 9,
+        "costEstimate": null,
+        "toolCalls": 9,
+        "imagesReturned": 24,
+        "uniqueFrames": 15,
+        "elapsedMs": 126624
+      },
+      "feedbackRevisions": [
+        2
+      ],
+      "summary": "基于脚部裁剪图设置了7个地面锚点（frame 900/954/982/1009/1100/1117/1145），覆盖P1从左侧三分线突破到篮下起跳前、以及落地后走动的全过程。起跳空中段(1015-1094)和出画段(1155-1199)标记为未知。回投图验证各锚点黄色标记均在P1脚部附近，2D轨迹显示从左(x≈16)向右(x≈22)突破后起跳、落地后略回退(x≈21)，与动作描述一致。剩余问题：标定未经人工确认；frame 982大步幅中间点估计有±10px不确定性；起跳精确起止帧可能有几帧偏差。",
+      "budgetReason": null,
+      "anchors": [
+        {
+          "entityId": "P1",
+          "frame": 900,
+          "x": 16.05229981456021,
+          "y": 9.829413269880334,
+          "evidenceFrames": [
+            900
+          ],
+          "basis": "双脚着地站在油漆区边缘，左脚底和右脚底取中间点 [source imagePoint 248,804; frame 900 calibration; asset 8c9c0acab46ddfe00911c753d6db8ec40a18d47fb7ad46de2fb3f22bc3a7fe6d]",
+          "turn": false,
+          "uncertainty": "脚部裁剪清晰，±5px"
+        },
+        {
+          "entityId": "P1",
+          "frame": 954,
+          "x": 18.649616056354628,
+          "y": 11.273495026994441,
+          "evidenceFrames": [
+            954
+          ],
+          "basis": "运球突破中双脚着地，两脚底取中间 [source imagePoint 485,851; frame 954 calibration; asset 98d971a7dc813c96c435af05b0bc0dbec16aa254d87fc1914f0b49bbf0a821a1]",
+          "turn": false,
+          "uncertainty": "运动中略有模糊，±8px"
+        },
+        {
+          "entityId": "P1",
+          "frame": 982,
+          "x": 19.65791254233864,
+          "y": 12.029426725896087,
+          "evidenceFrames": [
+            982
+          ],
+          "basis": "大步突破双脚着地，两脚底取中间 [source imagePoint 614,875; frame 982 calibration; asset ad86ab3d6a6941f5714203afbfb5ea9791b049a0d893cd1d369256fff117aaa7]",
+          "turn": false,
+          "uncertainty": "大步幅两脚间距大，±10px"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1009,
+          "x": 21.05552468388508,
+          "y": 11.038539773340657,
+          "evidenceFrames": [
+            1009
+          ],
+          "basis": "禁区内即将起跳但仍在地面，脚底接触点 [source imagePoint 692,826; frame 1009 calibration; asset 6810359f2f486364d35bae09376f53dc3a929d819d0b5258675380de0ffc3bd4]",
+          "turn": false,
+          "uncertainty": "即将起跳姿态，±8px"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1100,
+          "x": 22.41604619607425,
+          "y": 8.448088636414123,
+          "evidenceFrames": [
+            1100
+          ],
+          "basis": "已落地站稳，脚底接触点 [source imagePoint 532,761; frame 1100 calibration; asset 66a5f9922d7f65180789eae55277350d15ec399a0303459caf1536f1c83190f8]",
+          "turn": false,
+          "uncertainty": "落地后稳定，±6px"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1117,
+          "x": 21.967023464895597,
+          "y": 8.637076890389826,
+          "evidenceFrames": [
+            1117
+          ],
+          "basis": "双脚着地走动，脚底接触点 [source imagePoint 422,803; frame 1117 calibration; asset bcd8cce861c2315ac515a75af79400c03d345b6c4fa5365ccf56557d3ee6fe5b]",
+          "turn": false,
+          "uncertainty": "走动中，±6px"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1145,
+          "x": 20.861180161893632,
+          "y": 8.697415890765308,
+          "evidenceFrames": [
+            1145
+          ],
+          "basis": "走动中双脚着地，两脚底取中间 [source imagePoint 189,876; frame 1145 calibration; asset 9272619473d6abdcbd899eb4006ea43ef8bf3f3c44cf4f43cd584ca0cb240924]",
+          "turn": false,
+          "uncertainty": "走动中，±8px"
+        }
+      ],
+      "unknownRanges": [
+        {
+          "entityId": "P1",
+          "startFrame": 1015,
+          "endFrameExclusive": 1095,
+          "reason": "P1起跳投篮在空中，脚部不接触地面，无法确定水平地面投影位置",
+          "evidenceFrames": [
+            1036,
+            1063,
+            1090
+          ]
+        },
+        {
+          "entityId": "P1",
+          "startFrame": 1155,
+          "endFrameExclusive": 1200,
+          "reason": "P1出画或无法追踪，检测缺失(missing)",
+          "evidenceFrames": [
+            1172,
+            1199
+          ]
+        }
+      ],
+      "sourceFiniteFrames": 271,
+      "candidateFiniteFrames": 174,
+      "errors": [
+        {
+          "sequence": 9,
+          "tool": "set_ground_anchors",
+          "revision": 0,
+          "request": 5,
+          "error": "像素点必须位于该帧图片内容内，不能落在标题或其他拼图格。"
+        }
+      ]
+    },
+    {
+      "case": "002",
+      "jobId": "d292bfb3-2a8e-4b85-a8e2-d15a4ab21701",
+      "status": "partial",
+      "range": {
+        "startFrame": 900,
+        "endFrameExclusive": 1200
+      },
+      "usage": {
+        "input": 205253,
+        "output": 5762,
+        "cacheRead": 538752,
+        "cacheWrite": 0,
+        "totalTokens": 749767,
+        "requests": 12,
+        "costEstimate": null,
+        "toolCalls": 12,
+        "imagesReturned": 42,
+        "uniqueFrames": 26,
+        "elapsedMs": 160396
+      },
+      "feedbackRevisions": [
+        2,
+        4
+      ],
+      "summary": "任务未完整结束；保留最近一次成功绘制的候选供人工检查。",
+      "budgetReason": "call_budget",
+      "anchors": [
+        {
+          "entityId": "P1",
+          "frame": 900,
+          "x": 16.000893073451515,
+          "y": 9.601281020714874,
+          "evidenceFrames": [
+            900
+          ],
+          "basis": "双脚着地在蓝色三分线弧顶区域，脚底接触点中间。feet crop [156,622,322,811] 中脚底约 crop y≈173，原始 y≈795。双脚中间 x≈239。 [source imagePoint 239,795; frame 900 calibration]",
+          "turn": false,
+          "uncertainty": "bbox底部中心估计，可能有5-10像素误差"
+        },
+        {
+          "entityId": "P1",
+          "frame": 954,
+          "x": 18.584689548629132,
+          "y": 11.01428932091423,
+          "evidenceFrames": [
+            954
+          ],
+          "basis": "运球突破中双脚着地。feet crop [325,624,639,862] 中脚底约 crop y≈216，原始 y≈840。双脚中间 x≈470。 [source imagePoint 470,840; frame 954 calibration]",
+          "turn": false,
+          "uncertainty": "运动模糊，脚底位置有约10像素不确定性"
+        },
+        {
+          "entityId": "P1",
+          "frame": 982,
+          "x": 19.749187194903698,
+          "y": 11.759093789511763,
+          "evidenceFrames": [
+            982
+          ],
+          "basis": "大步突破，左脚在前右脚在后。feet crop [399,605,844,889] 中前脚约 crop(180,265)→原始(579,870)，后脚约 crop(350,250)→原始(749,855)。取中间 x≈620, y≈862。 [source imagePoint 620,862; frame 982 calibration]",
+          "turn": false,
+          "uncertainty": "大步姿态，两脚间距大，中间点有约15像素不确定性"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1009,
+          "x": 21.20807195862663,
+          "y": 10.589063811879223,
+          "evidenceFrames": [
+            1009,
+            1015
+          ],
+          "basis": "接近篮下仍在地面突破。feet crop [572,614,870,833] 中脚底约 crop y≈191，原始 y≈805。player crop frame 1015 确认仍在地面。x≈700。 [source imagePoint 700,805; frame 1009 calibration]",
+          "turn": false,
+          "uncertainty": "有防守人遮挡部分视野，约10像素不确定性"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1035,
+          "x": 22.112360339250134,
+          "y": 8.941111659851934,
+          "evidenceFrames": [
+            1030,
+            1035,
+            1040
+          ],
+          "basis": "最后的地面接触帧或起跳瞬间。player crop [594,429,765,750] 中脚底约 crop y≈310，原始 y≈739。frame 1030 仍在地面，frame 1040 已明显腾空。 [source imagePoint 670,739; frame 1035 calibration]",
+          "turn": false,
+          "uncertainty": "起跳过渡帧，脚底位置不确定约15像素；可能是最后触地帧"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1100,
+          "x": 22.36353372870896,
+          "y": 8.333077350760584,
+          "evidenceFrames": [
+            1095,
+            1100,
+            1105
+          ],
+          "basis": "已落地双脚着地。player crop [422,347,611,768] 中脚底约 crop y≈410，原始 y≈757。frame 1095 显示落地缓冲，frame 1105 确认已稳定着地。双脚中间 x≈520。 [source imagePoint 520,757; frame 1100 calibration]",
+          "turn": false,
+          "uncertainty": "落地缓冲中，脚底位置约10像素不确定性"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1117,
+          "x": 21.90129883274869,
+          "y": 8.310347678420309,
+          "evidenceFrames": [
+            1117
+          ],
+          "basis": "双脚着地往回走。feet crop [302,603,508,809] 中脚底约 crop y≈187，原始 y≈790。双脚中间 x≈400。 [source imagePoint 400,790; frame 1117 calibration]",
+          "turn": false,
+          "uncertainty": "清晰可见双脚着地，约8像素不确定性"
+        },
+        {
+          "entityId": "P1",
+          "frame": 1145,
+          "x": 20.91229525765211,
+          "y": 8.465572069561208,
+          "evidenceFrames": [
+            1145
+          ],
+          "basis": "双脚着地继续往回走。feet crop [67,660,313,887] 中脚底约 crop y≈205，原始 y≈865。双脚中间 x≈190。 [source imagePoint 190,865; frame 1145 calibration]",
+          "turn": false,
+          "uncertainty": "清晰可见，约8像素不确定性"
+        }
+      ],
+      "unknownRanges": [
+        {
+          "entityId": "P1",
+          "startFrame": 1036,
+          "endFrameExclusive": 1100,
+          "reason": "起跳上篮期间，球员在空中。frame 1035 为最后地面接触，frame 1080-1090 仍在空中（球举过头顶/出手），frame 1095 开始落地缓冲，frame 1100 确认双脚着地。空中水平位置无法从脚部可靠估计。",
+          "evidenceFrames": [
+            1035,
+            1040,
+            1045,
+            1050,
+            1080,
+            1085,
+            1090,
+            1095,
+            1100
+          ]
+        },
+        {
+          "entityId": "P1",
+          "startFrame": 1172,
+          "endFrameExclusive": 1200,
+          "reason": "P1 不在画面中，跟踪缺失（missing），无法定位。",
+          "evidenceFrames": [
+            1172,
+            1199
+          ]
+        }
+      ],
+      "sourceFiniteFrames": 271,
+      "candidateFiniteFrames": 207,
+      "errors": []
+    }
+  ]
+}

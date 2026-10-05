@@ -17,11 +17,11 @@ export function createQwenProvider(env=process.env){
      !endpoint.hostname.endsWith('.aliyuncs.com'))throw new Error('QWEN_BASE_URL 必须使用阿里云官方 HTTPS 兼容端点。');
   const model={id:env.QWEN_MODEL||'qwen3.8-max',name:env.QWEN_MODEL||'qwen3.8-max',provider:'qwen',
     api:'openai-completions',baseUrl:endpoint.href.replace(/\/$/,''),input:['text','image'],
-    reasoning:false,contextWindow:131072,maxTokens:8192,
+    reasoning:true,contextWindow:131072,maxTokens:8192,
     // The SDK requires rates. These are placeholders, never presented as a cost estimate.
     cost:{input:0,output:0,cacheRead:0,cacheWrite:0},
     compat:{supportsStore:false,supportsDeveloperRole:false,supportsReasoningEffort:false,
-      supportsUsageInStreaming:true,maxTokensField:'max_tokens',supportsStrictMode:false}};
+      supportsUsageInStreaming:true,maxTokensField:'max_tokens',supportsStrictMode:false,thinkingFormat:'qwen'}};
   return {model,streamFn:(selected,context,options)=>streamSimple(selected,context,{
     ...options,apiKey,maxRetries:0,timeoutMs:90000,maxTokens:8192,
   })};

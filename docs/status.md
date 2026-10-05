@@ -1,5 +1,9 @@
 # 团队状态
 
+2026-10-05 14:15（America/New_York，本地，未提交／未推送）：为已有 Qwen 官方两片实测结果增加工作台动态对照入口 `/trajectory-replay`，同步原视频、脚部放大、地面回投与 2D 路径；支持慢放、循环、逐帧、时间轴和问题帧跳转。复用最终真实候选，保留 002 的误删与全部缺口，未新增模型调用或采用候选。3 项新逻辑、33 项现有服务检查及实际浏览器回放通过。见[操作说明](../engineering/docs/qwen-ground-trajectory-agent.md#查看官方实测的动态对照)与[本轮交接](../handoffs/chuali-zi/2026-10-05-1415-qwen-trajectory-replay.md)。
+
+2026-10-05 13:45（America/New_York，本地，未提交／未推送）：Qwen 地面轨迹 Agent 已用用户指定官方 ZIP 的两段同字节原片完成真实 API 和多轮视觉循环实测；修复任务目录、实际思考开关、重复上下文、裁图预算与像素坐标换算，并增加坐标刻度及原点／候选回投对照。最终单人约 5 秒片段分别耗时 174.5 秒／10 轮、101.9 秒／7 轮。001 的 5 帧 AI 参照诊断有改善，002 的 4 帧配对结果接近原始且误删一个可见参照帧，视觉质量尚未全面通过；没有宣称人工真值精度。27 项 Node、1 项 Python 检查及两份真实候选的隔离 QA 保存／重读通过。见[实测与复跑](../research/agents/qwen-ground-official-20261005/README.md)、[本轮交接](../handoffs/chuali-zi/2026-10-05-1345-qwen-official-live-tests.md)。
+
 2026-10-06 00:14（Asia/Shanghai）：006 人工视频战术制作已实现并从空白通过真实界面导出：不用 AI / JSON / 2D 前置，可画多个跑位、方向传球、挡拆，独立原片时间、讲解暂停、点击路线校正、保存刷新及正式 MP4。固定画面和合成移动映射成片 393 帧 / 13.1 秒，真实 VFR 392 帧 / 13.066667 秒；500 前端、74 Python 及保存/整合回归通过。功能 `873b11a` 已推送 main 并核对，保留远端新官方训练入口；本记录随交接同步。真实 005 回归和全仓视频检查受 LFS 未下载限制，真实比赛镜头精度/历史迁移未验证。见[实际操作](../engineering/docs/manual-tactics-workbench-guide.md)、[验收及限制](../engineering/docs/manual-tactics-workbench-acceptance.md)、[交接](../handoffs/chuali-zi/2026-10-06-0014-manual-tactics-workbench.md)。
 
 2026-10-05 23:18（Asia/Shanghai）：用户指定的官方训练包两段原片已按 chuali-zi 的 2fps / 10 维标准完成 AI 场景初筛，并作为重点回归素材入库，当前 9 批 165 段；此前 163 段标签及 28 段真人复核保持不变。两片原始 1080p / 约 59.94 fps / AAC 音轨完整保留，工作台默认可选「官方训练 001 / 002」，2662 帧检测候选已共享，仍需人工身份与标定核对。数据和工作台两个提交已推送 main 至 `0ffb9fe`；171 MB 的两个 LFS 对象已从远端下载到独立空缓存，大小与 SHA-256 全部一致。相关 30 项测试、165 段索引检查和两片实际播放通过，见[素材入口](../data/videos/uploads/2026-10-05-official-training/README.md)及[入库与远端校验交接](../handoffs/Linzeyu912/2026-10-05-2318-official-training-ingestion.md)。

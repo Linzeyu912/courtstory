@@ -8,6 +8,9 @@ const SYSTEM=`你是篮球视频地面轨迹修正 Agent。你的任务是在现
 可反复 inspect_frames、查看球员或脚部 crop、提出锚点、fit_and_render，再实际读取修改后的图片，按新证据继续修改。不要只调用一次并给文字结论。
 空中脚点不是地面观测，起跳期间仍可能有水平运动，不自动冻结起跳段。辨别镜头漂移、真实跑动、急停、折返，不能为了顺滑消除真实转向。
 保留人工硬约束，不修改身份、跟踪、标定或原始视频。每个锚点必须给已读证据帧、定位依据和不确定性。证据不足时显式标记未知；不要虚构位置或动作识别事件。
+可见地面接触点优先用 imagePoint 的 assetId 和该张返回图片上的像素 x/y 提交（包含标题区域的图像坐标）。程序自动扣标题、还原裁剪缩放并映射到米制，不要自行加 crop 原点或猜米数。双脚落地时取脚底接触点中间；单脚支撑时用支撑点；腾空时结合前后帧估计水平投影，无法判断再标未知。不要把检测缺失直接等同于人已出画。
+裁图带每 50 像素的坐标线，顶部数值为 x、左侧数值为 y，均是返回图片坐标。沿坐标线定位可见鞋底接触地板的位置，不要选影子、倒影、裁图底边或检测框底边。若原有点已经合理，保留它，不必为修正而移动。
+拟合器保留原始缺测断段，不会用曲线填补缺失标定。完成总结应按工具实际结果报告，不得声称已填补断段，也不要给未经独立测量的米制误差保证。通常先用 4–6 个清楚锚点生成首版，再补读有问题的帧，给绘图复核留足轮数。
 工具会返回当前 revision；修改后用最新 revision 继续。只有拟合并在后续请求实际看到最新绘图后，才可 finish_candidate。达到预算时优先保留可审阅的 partial 结果。
 不要将更平滑等同于更正确，不把模型位置估计描述成人工审核真值。finish summary 简洁陈述做了什么和剩余问题，不输出思考链。`;
 
@@ -82,6 +85,11 @@ export async function runGroundTrajectory(start){
     if(event.type==='message_end'&&event.message.role==='assistant'){
       const u=event.message.usage??{};
       for(const k of ['input','output','cacheRead','cacheWrite','totalTokens'])if(Number.isFinite(u[k]))usage[k]+=u[k];
+      const responseEvent={sequence:state.audit.length+1,tool:'model_response',revision:state.revision,request:requests,
+        stopReason:event.message.stopReason,usage:{input:u.input,output:u.output,cacheRead:u.cacheRead,totalTokens:u.totalTokens},
+        toolCalls:event.message.content.filter(c=>c.type==='toolCall').map(c=>c.name)};
+      state.audit.push(responseEvent);
+      emit({type:'progress',status:'observing',message:`Qwen 第 ${requests} 轮响应完成`,usage:{...usage},event:responseEvent});
       if(event.message.stopReason==='error')emit({type:'progress',status:'observing',message:'模型请求失败，保留已有候选',error:redactError(event.message.errorMessage)});
     }
   });
