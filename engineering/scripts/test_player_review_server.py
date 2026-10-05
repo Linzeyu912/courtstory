@@ -25,6 +25,21 @@ class RaisingParser:
 
 
 class ReviewServerTests(unittest.TestCase):
+    def test_vfr_media_end_uses_stream_tail_instead_of_nominal_decoded_frame_duration(self):
+        video=self.root/'vfr.mp4'
+        with av.open(str(video),'w') as container:
+            stream=container.add_stream('libx264',rate=10);stream.width=64;stream.height=48;stream.pix_fmt='yuv420p'
+            stream.time_base=Fraction(1,1000);stream.codec_context.time_base=Fraction(1,1000)
+            pts_values=sorted([i*100 for i in range(81)]+[i*100+50 for i in range(80) if i%2==0])
+            for i,pts in enumerate(pts_values):
+                frame=av.VideoFrame.from_ndarray(np.full((48,64,3),i,np.uint8),format='rgb24');frame.pts=pts;frame.time_base=Fraction(1,1000)
+                for packet in stream.encode(frame):container.mux(packet)
+            for packet in stream.encode():container.mux(packet)
+        with av.open(str(video)) as container:
+            stream=container.streams.video[0];decoded=list(container.decode(video=0));expected=float(((stream.start_time or 0)+stream.duration)*stream.time_base)
+            self.assertNotAlmostEqual(expected,float(decoded[-1].time+decoded[-1].duration*decoded[-1].time_base))
+        info=video_source_info(video,include_end=True);self.assertAlmostEqual(info[-1],expected);self.assertEqual(len(info[2]),121)
+
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
@@ -75,12 +90,12 @@ class ReviewServerTests(unittest.TestCase):
         self.assertEqual(self.video.read_bytes(), Path(self.sample['video']).read_bytes())
         self.assertFalse(payload['detectorEvidence']['partition_complete'])
 
-    def test_decoded_tail_duration_is_published_without_using_the_previous_pts_delta(self):
+    def test_video_stream_tail_is_published_without_using_the_previous_pts_delta(self):
         payload = self.load()
         with av.open(str(self.video)) as container:
             decoded = list(container.decode(video=0))
-            last = decoded[-1]
-            expected_end = float(last.time) + float(last.duration * last.time_base)
+            last = decoded[-1];stream=container.streams.video[0]
+            expected_end = float(((stream.start_time or 0)+stream.duration)*stream.time_base)
         self.assertGreater(last.duration, 0)
         self.assertEqual(payload['mediaEndTime'], expected_end)
         self.assertEqual(video_source_info(self.video, include_end=True)[-1], expected_end)

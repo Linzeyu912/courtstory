@@ -18,6 +18,7 @@ from workbench_runtime import RuntimeProbe, worker_failure
 ROOT = Path(__file__).resolve().parents[2]
 EXTENSIONS = {'.mp4', '.mov', '.mkv', '.webm', '.avi'}
 MAX_UPLOAD = 2 * 1024 ** 3
+MANUAL_PRESET={'id':'manual','label':'直接人工制作（不识别）','description':'读取视频真实帧时间，不运行模型；固定画面标注可直接保存和导出。'}
 
 
 def merge_review_sources(inventory, clips):
@@ -151,8 +152,9 @@ class LocalVideoLibrary:
                     'message': '共享视频尚未完整下载，请先下载 Git LFS 成片' if unavailable else job['message'] if job else self.restore_errors.get(ident, '已处理，可打开' if ready else '选择方案后开始处理'),
                     'jobVariant': job.get('variant') if job else None}
             self.paths = paths
-            runtime = self.runtime_probe()
-            return {'folder': str(self.folder), 'entries': list(entries.values()), 'presets': copy.deepcopy(PRESETS), 'modelChoices': copy.deepcopy(MODEL_CHOICES),
+            runtime = copy.deepcopy(self.runtime_probe())
+            runtime.setdefault('variants',{})['manual']={'available':True,'reason':''}
+            return {'folder': str(self.folder), 'entries': list(entries.values()), 'presets': copy.deepcopy(PRESETS)+[MANUAL_PRESET], 'modelChoices': copy.deepcopy(MODEL_CHOICES),
                     'maxUploadBytes': MAX_UPLOAD, 'runtimeAvailable': runtime['available'], 'runtime': runtime}
 
     def import_stream(self, filename, stream, size):
@@ -223,7 +225,7 @@ class LocalVideoLibrary:
     def start(self, ident, variant=None, detector=None, tracker=None):
         if detector is not None or tracker is not None:
             variant = resolve_selection(detector, tracker, variant)
-        if variant not in {p['id'] for p in PRESETS}:
+        if variant not in {p['id'] for p in PRESETS} | {'manual'}:
             raise ValueError('请选择有效的处理方案。')
         with self.lock:
             inventory = self.scan()
@@ -256,7 +258,7 @@ class LocalVideoLibrary:
     def _process(self, ident, variant, source):
         try:
             with self.lock:
-                self.jobs[ident].update(status='running', message='正在准备视频并运行检测与跟踪…')
+                self.jobs[ident].update(status='running', message='正在读取视频帧时间…' if variant=='manual' else '正在准备视频并运行检测与跟踪…')
                 atomic_json(self.jobs_manifest, self.jobs)
             if file_hash(source) != ident[6:]:
                 raise ValueError('视频在处理前发生变化，请刷新后重新选择。')
@@ -287,6 +289,9 @@ class LocalVideoLibrary:
         destination.mkdir(exist_ok=True)
         run_dir = destination / uuid.uuid4().hex
         run_dir.mkdir()
+        if variant=='manual':
+            from process_local_video import prepare_manual_sample
+            return prepare_manual_sample(source,destination/'video.mp4',run_dir,ident)
         command = [str(self.python), str(Path(__file__).with_name('process_local_video.py')),
             '--source', str(source), '--source-sha256', ident[6:], '--video', str(destination / 'video.mp4'),
             '--output-dir', str(run_dir), '--variant', variant, '--models', str(self.models), '--id', ident]

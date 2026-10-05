@@ -147,7 +147,7 @@ test('canvas and delivery preview the same encoded MP4 and changed graphics requ
   const env=environment(d,{renderJob:async(path,body)=>{calls.push({path,body});return {id:'movie-1',status:'succeeded',documentDigest:body.documentDigest,videoUrl:'/api/tactics-render/jobs/movie-1/video?sample=test',duration:3,fps:30,totalFrames:90,width:1280,height:720};}});
   try{
     await env.load();await env.get('tacticsRenderStart').onclick();await env.get('deliveryRenderStart').onclick();
-    assert.equal(calls.length,1);assert.equal(calls[0].body.expectedVersion,0);
+    assert.equal(calls.length,1);assert.equal(calls[0].body.expectedVersion,1);
     assert.equal(env.get('tacticsRenderVideo').getAttribute('src'),env.get('deliveryRenderVideo').getAttribute('src'));
     assert.equal(env.get('deliveryRenderDownload').href,env.get('tacticsRenderVideo').getAttribute('src'));
     await env.get('tacticsToolScreen').onclick();await env.event('pointerdown',{pointerId:1,target:env.target(),clientX:650,clientY:300});
@@ -596,7 +596,7 @@ test('canvas creates and edits an independent route with no detected route, save
   }finally{env.restore();}
 });
 
-for(const [tool,pattern,name,color] of [['tacticsToolDashed','dashed','虚线箭头','#19a9e1'],['tacticsToolDots','dots','传球路线','#ffd45c']]){
+for(const [tool,pattern,name,color] of [['tacticsToolDashed','dashed','传球','#19a9e1'],['tacticsToolDots','dots','圆点传球','#ffd45c']]){
   test(`${name} completes at two points, supports endpoint and whole-line edits, and persists its pattern without player assignment`,async()=>{
     const f=await makePresentationDemo(),d={schemaVersion:1,title:name,notes:'',...f},env=environment(d,{player:true});
     try{

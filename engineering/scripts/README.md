@@ -5,6 +5,7 @@
 | 类型 | 脚本 | 说明 |
 |---|---|---|
 | 工作台服务与裁剪 | `serve_player_review.py`、`review_video_trim.py` | 使用明确登记的视频与候选，只监听本机回环地址 |
+| 人工制作浏览器验收 | `smoke_manual_tactics.py` | 只准备基础视频/PTS/可选映射，从空白通过真实 UI 完成多个对象、暂停、校正、保存、失败重试及 MP4 下载；[结果与限制](../docs/manual-tactics-workbench-acceptance.md) |
 | 通用候选和匹配 | `build_review_tracks.py`、`player_proposals.py` | 模型候选不等于真实球员；生成新文件，不覆盖已确认身份 |
 | 篮球专用检测对照 | `benchmark_ebard.py` | E-BARD YOLOv8n 与通用 YOLOv8s 的同素材离线对照；不修改正式候选或草稿 |
 | 篮球专用候选生成 | `build_ebard_review_tracks.py`、`render_ebard_tracking_demo.py` | 已完成的新模型样例生成与人工指定区间演示；保留原候选，已有输出拒绝覆盖，复跑需指定新输出路径。ByteTrack 后续由另一合作者接手 |
