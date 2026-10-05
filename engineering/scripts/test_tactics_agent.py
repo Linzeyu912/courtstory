@@ -265,4 +265,41 @@ class AgentTests(unittest.TestCase):
         self.assertEqual(existing['https_proxy'],'http://chosen:80');self.assertNotIn('HTTPS_PROXY',existing)
 
 
+class RangeAgentV3Tests(unittest.TestCase):
+    def setUp(self):
+        self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup);self.folder=Path(self.temp.name)
+        script="import {makeV2Fixture} from './engineering/tools/player-review/tactics-v2-fixture.mjs';process.stdout.write(JSON.stringify(await makeV2Fixture()));"
+        fixture=json.loads(subprocess.check_output(['node','--input-type=module','-e',script],cwd=ROOT))
+        self.clip,self.doc,self.session=fixture['clip'],fixture['document'],fixture['session'];self.variant=self.clip['tracking_revision']
+        self.tactics=TacticalWorkbench(self.folder/'saved');self.tactics.preparations.save(self.session['courtPreparation'],self.session,self.clip,self.variant,True,0)
+        self.tactics.frames=lambda _video,_clip,indices:[dict(frame=f,time=self.clip['frames'][f]['time'],dataUrl='data:image/jpeg;base64,'+base64.b64encode(b'synthetic decoder boundary').decode()) for f in indices]
+        self.request=dict(document=self.doc,expectedVersion=0,clientRevision=1,documentDigest=self.tactics.run('agent-digest',document=self.doc)['digest'],scope='range',phaseId='phase-1',range={'startFrame':30,'endFrameExclusive':50},goal='synthetic contract test')
+        self.calls=[]
+        def execute(**kwargs):
+            pack=json.loads(kwargs['prompt'].split('输入如下：\n',1)[1]);self.calls.append(pack)
+            return dict(schemaVersion=3,summary='synthetic V3',issues=[],range=pack['range'],preparationDigest=pack['preparationDigest'],annotations=[dict(id='pass',phaseId='phase-1',type='route',entityId='P1',startFrame=30,endFrameExclusive=50,cueFrame=30,points=[{'x':10,'y':8},{'x':18,'y':6}],curve='polyline',style={'angle':0,'size':1,'color':'#ffd45c','pattern':'dots'},meaning='pass',progressFrames=[{'frame':30,'t':0},{'frame':50,'t':1}],evidenceFrames=[30,40],explanation='synthetic')],keyframes=[dict(frame=30,annotationIds=['pass'],freeze=True,holdSeconds=2.5)])
+        self.agent=TacticsAgent(self.folder/'jobs',self.tactics,codex_path=shutil.which('node'),execute=execute);self.addCleanup(self.agent.close)
+
+    def test_real_v3_validator_preview_and_selective_adoption_read_the_saved_preparation(self):
+        job=self.agent.create(self.request,self.clip,self.folder/'video.mp4',self.variant,True)
+        deadline=time.monotonic()+5
+        while time.monotonic()<deadline:
+            done=self.agent.get(job['jobId'],self.clip,self.variant,True)
+            if done['status'] in ('ready','failed'):break
+            time.sleep(.03)
+        self.assertEqual(done['status'],'ready',done)
+        pack=self.calls[0];self.assertEqual(pack['candidateVersion'],3);self.assertEqual(pack['range'],self.request['range'])
+        self.assertTrue(all(30<=image['frame']<50 for image in pack['images']))
+        point=pack['entities'][0]['courtTrajectory'][0]
+        self.assertEqual(point['x'],self.doc['review']['courtPreparation']['preparedByPlayer']['P1'][point['frame']]['x'])
+        adopted=self.agent.adopt(job['jobId'],{**self.request,'selectedIds':['pass']},self.clip,self.variant,True)
+        self.assertEqual(adopted['document']['annotations']['items'][0]['style']['pattern'],'dots')
+        self.assertEqual(self.tactics.load(self.clip,self.variant,True,'workspace')['version'],0)
+
+    def test_v3_prompt_has_its_own_range_and_metre_contract(self):
+        prompt=agent_prompt({'candidateVersion':3,'range':self.request['range']})
+        self.assertIn('球场米制',prompt);self.assertIn('preparationDigest',prompt)
+        self.assertNotIn('production 为每个阶段',prompt)
+
+
 if __name__ == '__main__':unittest.main()

@@ -1,0 +1,126 @@
+{
+  "collected_at": "2026-10-05T05:22:43.475663+00:00",
+  "scope": "Discussion-phase research: existing Qwen3.8-Max API, iterative frame/image tools and 2D trajectory correction. No model requests or production edits.",
+  "repositories": [
+    {
+      "repository": "imagegridworth/IG-VLM",
+      "commit": "00d11ab4f835d4930cd19376a2dc5f73b7206f5a",
+      "branch": "main",
+      "license_hint": "BSD-3-Clause",
+      "readme_sha256": "1854fc86f5fb9b60218669c871136e070fa69dd7b3f69eca9d5d014e05452a6f",
+      "readme_utf8_bytes": 5666,
+      "scope": "Local clone; grid generator, frame processor and API payload inspected.",
+      "readme_url": "https://github.com/imagegridworth/IG-VLM/blob/00d11ab4f835d4930cd19376a2dc5f73b7206f5a/README.md"
+    },
+    {
+      "repository": "yuanyunchen/VideoAgent",
+      "commit": "81400d43ead0b75065d3bff79e8558bf6cc6c79d",
+      "branch": "main",
+      "license_hint": null,
+      "readme_sha256": "a7f618401720cad0de1eab8399e9002ae2478b71a4cc370dd2b1e6ede310f29b",
+      "readme_utf8_bytes": 19135,
+      "scope": "Local clone; agent/tools graph, direct frame image results and next-turn multimodal messages inspected.",
+      "readme_url": "https://github.com/yuanyunchen/VideoAgent/blob/81400d43ead0b75065d3bff79e8558bf6cc6c79d/README.md"
+    },
+    {
+      "repository": "wxh1996/VideoAgent",
+      "commit": "119be7c3e440502034099fa56344f16901684c1c",
+      "branch": "master",
+      "license_hint": null,
+      "readme_sha256": "618b45bce4a07128fc6cb4f9e5e509f8fa68d33142f515084c6eb7d2befbce2f",
+      "readme_utf8_bytes": 5174,
+      "scope": "Pinned README and main.py inspected; caption/retrieval loop, no basketball implementation.",
+      "readme_url": "https://github.com/wxh1996/VideoAgent/blob/119be7c3e440502034099fa56344f16901684c1c/README.md"
+    },
+    {
+      "repository": "YueFan1014/VideoAgent",
+      "commit": "42e1b70d947d4ae6ee627a3e9dda4898844e97b1",
+      "branch": "main",
+      "license_hint": "Apache-2.0",
+      "readme_sha256": "5e59585d9218e19eb1f9407c051b333896f9266e091e7057af3d3969f22cf9f2",
+      "readme_utf8_bytes": 3687,
+      "scope": "Pinned README only; architecture/dependency claims not runtime-verified.",
+      "readme_url": "https://github.com/YueFan1014/VideoAgent/blob/42e1b70d947d4ae6ee627a3e9dda4898844e97b1/README.md"
+    },
+    {
+      "repository": "mayhugotong/VideoINSTA",
+      "commit": "3fe1e83aaf6d843634325eb0b3fd6a66fdee493d",
+      "branch": "publication",
+      "license_hint": null,
+      "readme_sha256": "f56ab1ec8183a061587b49b68ddc3a6b459d5bd86c34743351bd19a5314d1631",
+      "readme_utf8_bytes": 25280,
+      "scope": "Pinned README and selected decision module; not a full implementation audit.",
+      "readme_url": "https://github.com/mayhugotong/VideoINSTA/blob/3fe1e83aaf6d843634325eb0b3fd6a66fdee493d/README.md"
+    },
+    {
+      "repository": "Ziyang412/VideoTree",
+      "commit": "605ec8e917f9a0f95d37a73a0b50bf0e8cfe076e",
+      "branch": "main",
+      "license_hint": "MIT",
+      "readme_sha256": "d52118952ecd568db1e18e5f79ffd537bee595c2d25ec1c98d1d54577e2f3b94",
+      "readme_utf8_bytes": 5286,
+      "scope": "Pinned README only; no inference run.",
+      "readme_url": "https://github.com/Ziyang412/VideoTree/blob/605ec8e917f9a0f95d37a73a0b50bf0e8cfe076e/README.md"
+    },
+    {
+      "repository": "CeeZh/VTS",
+      "commit": "184310c5eec2193060a5c95bbda4ad443dae4e25",
+      "branch": "main",
+      "license_hint": "MIT",
+      "readme_sha256": "859490d46989446ee14d0325d8b118d8abf8b77e0687db634356e1f35cd924b6",
+      "readme_utf8_bytes": 15541,
+      "scope": "Pinned README and selected inference action/loop code; no SFT/RL replication.",
+      "readme_url": "https://github.com/CeeZh/VTS/blob/184310c5eec2193060a5c95bbda4ad443dae4e25/README.md"
+    },
+    {
+      "repository": "yinmayoo185/SportsJumpMotion",
+      "commit": "597c8a9fe97b4c777d5c9fda9d29dbb9154de2b2",
+      "branch": "main",
+      "license_hint": null,
+      "readme_sha256": "a26f8b2d1b02769da64a1e5710f42dc16867000f11b0dba4e4ca4dbbf101a406",
+      "readme_utf8_bytes": 4129,
+      "scope": "Pinned dataset README only; no dataset access or algorithm implementation found/verified.",
+      "readme_url": "https://github.com/yinmayoo185/SportsJumpMotion/blob/597c8a9fe97b4c777d5c9fda9d29dbb9154de2b2/README.md"
+    },
+    {
+      "repository": "earendil-works/pi",
+      "commit": "b2b5c42f6138b73ec4b2f49ec0ca468800f88586",
+      "license_hint": "MIT",
+      "readme_url": "https://github.com/earendil-works/pi/blob/b2b5c42f6138b73ec4b2f49ec0ca468800f88586/README.md",
+      "readme_sha256": "63d76d96fbd1f98b670a9f3e746102343e04b2d026bd05c9fe06700ceb95a0f2",
+      "readme_utf8_bytes": 9211,
+      "scope": "Local clone; core tool loop, image result types, OpenAI compatibility serializer and custom model docs."
+    },
+    {
+      "repository": "openai/codex",
+      "commit": "7f892275e31002f0422477c6219189284560e689",
+      "license_hint": null,
+      "readme_url": "https://github.com/openai/codex/blob/7f892275e31002f0422477c6219189284560e689/README.md",
+      "readme_sha256": "ba4e1f69ff48386e72a9c5e1edaf76aad64a475c2d51af79ccba6d1128261ba7",
+      "readme_utf8_bytes": 3334,
+      "scope": "Previously cloned fixed source; view_image image output path inspected in this round."
+    },
+    {
+      "repository": "anomalyco/opencode",
+      "commit": "907b3bc518fa48e90e8ec24dd327d13eee71c36c",
+      "license_hint": null,
+      "readme_url": "https://github.com/anomalyco/opencode/blob/907b3bc518fa48e90e8ec24dd327d13eee71c36c/README.md",
+      "readme_sha256": "400890a3082e225c440561825270a911cd7df90a9f64f85166aed330201e50ba",
+      "readme_utf8_bytes": 5402,
+      "scope": "Previously cloned fixed source; prompt continuation and tool-image message serialization inspected in this round."
+    }
+  ],
+  "official_references": [
+    {
+      "url": "https://www.alibabacloud.com/help/en/model-studio/qwen-function-calling",
+      "scope": "Official search-indexed API example and previous API research; direct page fetch timed out in this round, runtime interoperability unverified."
+    },
+    {
+      "url": "https://openaccess.thecvf.com/content/CVPR2025W/CVSPORTS/html/Oo_Jump-Aware_Player_Position_Rectification_and_Identification_in_Dynamic_Sports_Using_CVPRW_2025_paper.html",
+      "scope": "Official search-indexed publication and dataset README; full paper page and PDF returned 403, no full algorithm audit."
+    }
+  ],
+  "credential_env": "QWEN_KEY",
+  "authenticated_model_requests": 0,
+  "license_note": "License hints apply to repository code/metadata only. Unknown entries are not treated as permissive grants."
+}

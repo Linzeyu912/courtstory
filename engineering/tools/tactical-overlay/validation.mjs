@@ -40,13 +40,24 @@ export function validateInputs({review,playDefinition:p,phaseId,freezeFrame,opti
   for(const e of review.entities){
     if(!object(e)||!text(e.id)||entities.has(e.id)||!Array.isArray(e.trajectory)){bad('review.entities',null);continue;}entities.add(e.id);
     if(e.courtTrajectory!==undefined&&!Array.isArray(e.courtTrajectory)){bad(`entity.${e.id}.courtTrajectory`,null);continue;}
-    for(const list of [e.trajectory,e.courtTrajectory??[]]){
+    for(const [listIndex,list] of [e.trajectory,e.courtTrajectory??[]].entries()){
       const seen=new Set();
       for(const point of list){
         if(!object(point)||!frame(point.frame)||point.frame>=count||seen.has(point.frame)){bad(`entity.${e.id}.trajectory.frame`,null);continue;}seen.add(point.frame);
         if(!((point.x===null&&point.y===null)||(finite(point.x)&&finite(point.y))))bad(`entity.${e.id}.trajectory.coordinates`,null);
         if(!finite(point.time))bad(`entity.${e.id}.trajectory.time`,null);
-        if(!['manual','manual_range','tracked','missing','conflict','out_of_view','interpolated','manual_path','projected','court_manual','court_estimated','uncalibrated'].includes(point.source))bad(`entity.${e.id}.trajectory.source`,null);
+        if(!['manual','manual_range','tracked','missing','conflict','out_of_view','interpolated','manual_path','projected','court_manual','court_estimated','uncalibrated','qwen_refined'].includes(point.source))bad(`entity.${e.id}.trajectory.source`,null);
+        if(point.source==='qwen_refined'){
+          const prepared=review.courtPreparation;
+          const candidate=prepared?.operations?.find(operation=>operation.type==='qwen_ground_fit'&&
+            `${operation.candidate?.jobId}:${operation.candidate?.revision}`===point.versionId)?.candidate;
+          if(listIndex!==1||!candidate||!candidate.entityIds?.includes(e.id)||point.frame<candidate.range?.startFrame||point.frame>=candidate.range?.endFrameExclusive||
+            candidate.sourceBinding?.videoSha256!==review.videoSha256||candidate.sourceBinding?.dependencyDigest!==prepared.dependencyDigest||
+            candidate.sourceBinding?.frameMappingDigest!==prepared.dependencies?.mapping||point.reviewRequired!==true||point.groundObservationUsable!==false||
+            point.refinementState!=='estimated'||!text(point.groundEstimationBasis)||
+            !Array.isArray(point.evidenceFrames)||point.evidenceFrames.some(f=>!frame(f)||f>=count||!candidate.evidenceFrames?.includes(f))||
+            !Array.isArray(point.fitSupportFrames)||point.fitSupportFrames.some(f=>!frame(f)||f>=count))bad(`entity.${e.id}.courtTrajectory.refinement`,null);
+        }
         if(point.source==='manual_range'&&(!object(point.rangeCorrection)||!['tracked','manual'].includes(point.rangeCorrection.originalSource)||!text(point.rangeCorrection.operationId)||!Array.isArray(point.rangeCorrection.supportFrames)||!point.rangeCorrection.supportFrames.length||point.rangeCorrection.supportFrames.some(f=>!frame(f)||f>=count)))bad(`entity.${e.id}.trajectory.rangeCorrection`,null);
       }
     }

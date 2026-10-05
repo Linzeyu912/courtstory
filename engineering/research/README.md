@@ -1,11 +1,22 @@
 # 技术研究与实验索引
 
-更新：2026-10-04，Asia/Shanghai。此目录集中软件方案依据、技术研究和测量；[赛事规则与历史来源](../../requirements/README.md)单独保存，实验结果不代替赛事要求。
+2026-10-05 发布更新：本次用户授权同步前轮背景研究、Qwen API / Agent 讨论及[首版详细计划](../docs/plans/2026-10-05-qwen-ground-trajectory-agent-v1.md)。计划已结合新远端的 2D 准备层更新；[发布日志](../../handoffs/chuali-zi/2026-10-05-0610-qwen-preparation-publication.md)记录范围、方向澄清、验证和推送核对。下方“本地未提交 / 未推送”是原准备轮次的历史状态，不表示新功能或模型效果已验收。
+
+更新：2026-10-05。本轮智能体源码研究使用 Etc/UTC；历史测量保留各自时区。此目录集中软件方案依据、技术研究和测量；[赛事规则与历史来源](../../requirements/README.md)单独保存，实验结果不代替赛事要求。
+
+## 智能体多模态视频专题
+
+[Qwen3.8-Max 视频轨迹 Agent 讨论稿](qwen-video-trajectory-agent-20261005.md)：当前主线按用户纠正，使用现有 API，通过 Agent 反复取帧、放大、读图、修改地面轨迹和查看渲染结果，处理跳跃 / 真实移动混淆及抖动。已拉取 Pi，核实 Codex / OpenCode / Pi 图片工具结果和多轮循环，补查 IG-VLM、VideoAgent 系列、VideoINSTA、VideoTree、VTS 和 Jump-Aware。仅调研与讨论，未定实施方案、未调用 Qwen、未改产品。以下视频模型图谱转为背景资料，不再作为当前模型选择主线。
+
+[前轮视频模型与篮球映射背景研究](video-model-to-court-20261005/README.md)：核实 20 个主仓库、固定 README 提交 / 哈希和 7 份本地源码。比较 Qwen3-VL、Sa2VA、UFVideo、SAM3、点跟踪和 SoccerNet GSR，核实采样时间、语言分支可见帧、掩码传播、身份与脚点几何。用户随后明确指定 Qwen3.8-Max API 与 Agent 迭代处理，上述模型图谱及原三路线建议不作当前实施共识。仅资料 / 源码研究，未下载权重或推理；当前本地未提交 / 未推送。
+
+[OpenCode / Codex 视频理解源码拆解](agent-video-understanding-20261005/README.md)：固定提交克隆、46 段原样源码与哈希、中文调用链报告和真实代码离线验证。OpenCode 底层 Gemini 视频协议与附件入口限制分别核实；Codex 当前没有原生视频类型，现有工作台已通过 PyAV 抽帧、轨迹证据和 CLI 图片输入分析视频。未做真实模型推理、精度 / 时延测量或工作台功能接入。本专题按用户后续授权纳入 main 发布；同步核对见团队状态及本次交接。用户澄清的下一轮核心是模型直接读取视频、球员时序轨迹与 2D 球场映射，不继续硬拆不存在的 Agent 视频模块。
 
 ## 当前球场与轨迹专题
 
 | 专题 | 入口 | 结论与边界 |
 |---|---|---|
+| Qwen 主动修正地面轨迹 | [前置讨论与源码研究](qwen-video-trajectory-agent-20261005.md)、[首版详细实施计划](../docs/plans/2026-10-05-qwen-ground-trajectory-agent-v1.md) | 利用既有 Qwen3.8-Max API 和 Pi 工具循环，接入现有 2D / 草稿 / 任务 / 导出，反复取帧、改锚点、拟合与读图。已选 10.68 秒远端样片；LFS 二进制下载受凭据限制，未实现或真实推理 |
 | 全场开源工具与镜头跟踪 | [候选比较及接入顺序](fullcourt-tools-and-camera-tracking-20261004.md) | 比较 Court48、DeepSportRadar、KaliCalib、NBA 场地配准、BroadTrack、TVCalib；区分篮球识别、相机时序约束和现成权重可复现性，没有新增模型胜出的实测结论 |
 | 全场联合求解 | [实验记录](court-fullcourt-20261004.md)、[实现与复现](../docs/court-fullcourt-calibration.md) | 两端 / 中线 / 地板运动共用一个全场坐标系，原片矩阵候选覆盖 99.17%；尚未接入工作台默认后端，米制精度与跨比赛泛化未验收 |
 | 连续镜头与数据增强 | [压力测试](court-generalization-20261004.md) | 一段 36 秒视频和三种增强；揭示独立半场参照的坐标冲突，不把增强版本算成独立比赛 |

@@ -3,9 +3,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "esbuild identity-ui.jsx --bundle --format=esm --minify --legal-comments=linked --outfile=ui.bundle.mjs",
+    "build": "esbuild identity-ui.jsx --bundle --format=esm --minify --legal-comments=linked --outfile=ui.bundle.mjs --external:node:crypto",
     "test": "node --test *.test.mjs"
   },
-  "dependencies": {"react": "19.2.0", "react-dom": "19.2.0"},
-  "devDependencies": {"esbuild": "0.25.11"}
+  "dependencies": {
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.11"
+  }
 }
