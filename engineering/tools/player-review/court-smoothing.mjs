@@ -7,7 +7,9 @@ export function previewCourtSmoothing(preparation,{entityIds,range,preset='light
   if(!presets[preset]||!Array.isArray(entityIds)||!entityIds.length||new Set(entityIds).size!==entityIds.length||entityIds.some(id=>!preparation.rawByPlayer[id]))throw new Error('平滑球员或强度无效。');
   const candidate={version:1,algorithm:'conservative-time-median-v1',baseDigest:preparationDigest(preparation),entityIds:[...entityIds],range:{...range},preset,parameters:presets[preset],pointsByPlayer:{}},diff={changed:0,maxDisplacement:0},issues=[];
   for(const id of entityIds){
-    const points=preparation.rawByPlayer[id],next=structuredClone(points),breaks=new Set(preparation.breaksByPlayer[id].map(b=>b.frame));
+    // Old snapshots replay the original raw-based algorithm exactly. Once an
+    // ordered model operation exists, smoothing works on its effective output.
+    const points=preparation.operations?preparation.preparedByPlayer[id]:preparation.rawByPlayer[id],next=structuredClone(points),breaks=new Set(preparation.breaksByPlayer[id].map(b=>b.frame));
     for(let i=range.startFrame;i<range.endFrameExclusive;i++){
       const p=points[i];if(!Number.isFinite(p.x)){issues.push({entityId:id,frame:i,reason:p.source});continue;}
       if(preset==='off'||p.locked||i===range.startFrame||i===range.endFrameExclusive-1||breaks.has(i))continue;
@@ -32,7 +34,9 @@ export function adoptCourtSmoothing(preparation,candidate){
   if(preparationDigest(candidate)!==preparationDigest(expected))throw new Error('平滑候选与算法结果不一致。');
   const next=structuredClone(preparation);
   for(const id of candidate.entityIds)for(let f=candidate.range.startFrame;f<candidate.range.endFrameExclusive;f++)next.preparedByPlayer[id][f]=structuredClone(candidate.pointsByPlayer[id][f]);
-  next.revision++;next.smoothingPatches.push({algorithm:candidate.algorithm,entityIds:candidate.entityIds,range:candidate.range,preset:candidate.preset,parameters:candidate.parameters});
+  const patch={algorithm:candidate.algorithm,entityIds:candidate.entityIds,range:candidate.range,preset:candidate.preset,parameters:candidate.parameters};
+  next.revision++;next.smoothingPatches.push(patch);
+  if(next.operations)next.operations.push({type:'smoothing',patch:structuredClone(patch)});
   return next;
 }
 export function replayCourtSmoothing(preparation,patches){let p=preparation;for(const patch of patches)p=adoptCourtSmoothing(p,previewCourtSmoothing(p,patch).candidate);return p;}

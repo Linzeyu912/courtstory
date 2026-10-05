@@ -1,5 +1,7 @@
 # 球场数据工作台
 
+2026-10-05：现有“2D 轨迹准备”新增 [Qwen 地面轨迹 Agent](../../docs/qwen-ground-trajectory-agent.md)：Pi SDK 多轮取帧／裁图、修正锚点、拟合绘图及反馈续读；支持候选预览、采用／撤销，并复用准备存储、导出和战术坐标。设置后端 `QWEN_KEY`，安装独立 agents 依赖。代码与基本构建已完成，真实模型和视频效果留待本地验收；现有 Codex 战术 Agent 配置保持独立。
+
 2026-10-05：新增 [2D 主画布工作流指南](../../docs/2d-first-tactics-workbench-guide.md)，覆盖独立准备 / 平滑采用、秒级绘图、讲解关键帧、Agent V3、统一 MP4 和本地接续验收。真实视频 / 真实模型最终验收状态见 [本轮交接](../../../handoffs/chuali-zi/2026-10-05-0127-2d-first-tactics-workbench.md)。下方历史验证保留当时范围。
 
 2026-10-05 清理：默认共享样例为 005；004 已随人工素材去杂退出活动清单。移除未接入的旧简版标注模块和旧像素尾迹，只使用当前分步工作台与球场相对尾迹。`optimized` 和 `team-stable` 共用观测 JSON，通过 `trackingVariants[].metadata` 保留独立侧车；未指定时仍读取相邻 `.meta.json`，现有版本、草稿及裁剪流程兼容。旧实验见[工程归档](../../archive/README.md)。

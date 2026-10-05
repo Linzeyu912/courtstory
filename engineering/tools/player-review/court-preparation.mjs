@@ -44,11 +44,12 @@ export function preparedPoint(preparation,entityId,frame){
 }
 export function validateCourtPreparation(p){
   canonicalJSON(p);validateFrameMapping(p.frameMapping,p.mediaEndTime);
-  if(p.schemaVersion!==1||!Number.isSafeInteger(p.revision)||p.revision<1||typeof p.videoSha256!=='string'||p.dependencyDigest!==preparationDigest(p.dependencies)||!Array.isArray(p.smoothingPatches))throw new Error('2D 准备版本无效。');
+  if(p.schemaVersion!==1||!Number.isSafeInteger(p.revision)||p.revision<1||typeof p.videoSha256!=='string'||p.dependencyDigest!==preparationDigest(p.dependencies)||!Array.isArray(p.smoothingPatches)||p.operations!==undefined&&!Array.isArray(p.operations))throw new Error('2D 准备版本无效。');
   const ids=Object.keys(p.rawByPlayer);
   if(ids.join('|')!==Object.keys(p.preparedByPlayer).join('|'))throw new Error('2D 球员引用无效。');
   for(const id of ids)for(const points of [p.rawByPlayer[id],p.preparedByPlayer[id]]){
     if(points.length!==p.frameMapping.length||points.some((point,i)=>point.frame!==i||point.time!==p.frameMapping[i].time||!((point.x===null&&point.y===null)||(Number.isFinite(point.x)&&Number.isFinite(point.y)))))throw new Error('2D 逐帧位置无效。');
   }
+  for(const id of ids)for(let i=0;i<p.rawByPlayer[id].length;i++)if(p.rawByPlayer[id][i].locked&&preparationDigest(p.rawByPlayer[id][i])!==preparationDigest(p.preparedByPlayer[id][i]))throw new Error('2D 准备不能改写人工锁定点。');
   return p;
 }

@@ -39,7 +39,7 @@ function samePropagatedReference(a,b) {
   return chain(a)&&chain(b)&&JSON.stringify(a[0])===JSON.stringify(b[0]);
 }
 
-/** Recompute from the source image. Exported projected points are never trusted without recomputation. */
+/** Saved preparation points are authoritative estimates; raw observations still reproject through H. */
 export function observedPoint(c,entityId,frame) {
   const raw=c.pointMaps.get(entityId)?.get(frame),courtRaw=c.courtPointMaps.get(entityId)?.get(frame);
   if(evidenceQuality(c,'identity',{entityId},frame,frame+1).state==='invalid')return {point:null,reason:'identity_conflict'};
@@ -48,7 +48,14 @@ export function observedPoint(c,entityId,frame) {
     const p=c.review.courtPreparation.preparedByPlayer[entityId]?.[frame],mapping=c.maps[frame],freeze=c.maps[c.freezeFrame];
     if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y))return {point:null,reason:p?.source??'missing_position'};
     const courtPoint={x:p.x,y:p.y};
-    return {reason:null,projectionReason:crossCutCompatible(c,frame)?null:'court_reference_mismatch',point:{frame,time:c.frames[frame].time,sourceFrame:c.frames[frame].sourceFrame,sourceTime:c.frames[frame].sourceTime,entityId,trackId:raw?.trackId??null,imageSource:raw?.source??p.source,imagePoint:mapping&&project(mapping.toImage,p.x,p.y),courtPoint,freezePoint:freeze&&project(freeze.toImage,p.x,p.y),footMethod:p.footMethod??null,identity:{source:raw?.identitySource??null,startFrame:raw?.identityStartFrame??null,order:raw?.identityOrder??null,exclusive:raw?.identityExclusive??false},calibration:{method:mapping?.method??'unavailable',supportFrames:mapping?.supportFrames??[],referenceOnly:mapping?.referenceOnly??true,provenance:calibrationProvenance(c,mapping)},preparedRevision:c.review.courtPreparation.revision}};
+    return {reason:null,projectionReason:crossCutCompatible(c,frame)?null:'court_reference_mismatch',point:{frame,time:c.frames[frame].time,sourceFrame:c.frames[frame].sourceFrame,sourceTime:c.frames[frame].sourceTime,entityId,trackId:raw?.trackId??null,imageSource:raw?.source??p.source,
+      imagePoint:mapping&&project(mapping.toImage,p.x,p.y),rawImagePoint:raw&&Number.isFinite(raw.x)&&Number.isFinite(raw.y)?{x:raw.x,y:raw.y}:null,
+      courtPoint,freezePoint:freeze&&project(freeze.toImage,p.x,p.y),footMethod:p.footMethod??null,
+      positionSource:p.source,groundContactConfirmed:p.source==='qwen_refined'?false:p.groundContactConfirmed??null,
+      ...(p.source==='qwen_refined'?{reviewRequired:true,refinement:{versionId:p.versionId,state:p.refinementState,
+        basis:p.groundEstimationBasis,evidenceFrames:[...(p.evidenceFrames??[])],fitSupportFrames:[...(p.fitSupportFrames??[])]}}:{}),
+      identity:{source:raw?.identitySource??null,startFrame:raw?.identityStartFrame??null,order:raw?.identityOrder??null,exclusive:raw?.identityExclusive??false},
+      calibration:{method:mapping?.method??'unavailable',supportFrames:mapping?.supportFrames??[],referenceOnly:mapping?.referenceOnly??true,provenance:calibrationProvenance(c,mapping)},preparedRevision:c.review.courtPreparation.revision}};
   }
   let reason=pointReason(raw),courtPoint=null,imagePoint=null;
   // A court anchor requires an explicit original-frame observation and a reviewed ground-point interval.

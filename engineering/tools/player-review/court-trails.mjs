@@ -19,7 +19,8 @@ export function courtRelativeTrail(pointAt,frames,maps,current,cuts=[],options={
     const image=project(map.toImage,p.x,p.y),depth=map.toImage[6]*p.x+map.toImage[7]*p.y+map.toImage[8];
     if(!image||Math.abs(image.x)>50000||Math.abs(image.y)>50000||(depthSign!==null&&depthSign!==Math.sign(depth)))break;
     depthSign=Math.sign(depth);
-    result.unshift({frame,time,...image,courtX:p.x,courtY:p.y,trackId:p.trackId??null,footMethod:p.footMethod});
+    result.unshift({frame,time,...image,courtX:p.x,courtY:p.y,trackId:p.trackId??null,footMethod:p.footMethod,
+      ...(p.source==='qwen_refined'?{positionSource:p.source,versionId:p.versionId,reviewRequired:true}:{} )});
     newer={...p,time};
   }
   return result;
@@ -32,7 +33,8 @@ export function playerCourtTrail(points,frames,maps,current,cuts=[],options={}){
   }
   return courtRelativeTrail(frame=>{
     const p=points?.[frame];
-    return p&&(p.source==='court_manual'||(p.source==='projected'&&['manual','manual_range','tracked'].includes(p.imageSource)))?p:null;
+    return p&&(p.source==='court_manual'||(p.source==='projected'&&['manual','manual_range','tracked'].includes(p.imageSource))||
+      (p.source==='qwen_refined'&&p.refinementState==='estimated'&&p.reviewRequired===true&&typeof p.versionId==='string'))?p:null;
   },frames,maps,current,boundaries,options);
 }
 

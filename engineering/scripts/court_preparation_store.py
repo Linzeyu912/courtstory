@@ -2,6 +2,7 @@
 import hashlib
 import json
 import threading
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from local_video_library import atomic_json
@@ -24,9 +25,54 @@ class CourtPreparationStore:
             path = self.path(clip, variant, qa)
             return json.loads(path.read_text(encoding='utf-8')) if path.is_file() else {'version': 0, 'preparation': None}
 
+    def _candidate_path(self, candidate):
+        if (not isinstance(candidate, dict) or not isinstance(candidate.get('jobId'), str)
+                or not re.fullmatch(r'[a-zA-Z0-9-]{1,80}', candidate['jobId'])
+                or type(candidate.get('revision')) is not int or candidate['revision'] < 1):
+            raise ValueError('模型候选缺少有效的任务编号和版本。')
+        return self.folder / 'ground-candidates' / candidate['jobId'] / f'{candidate["revision"]}.json'
+
+    def register_candidate(self, candidate, context, adopted=False):
+        """Only the backend worker/adopt path calls this; no HTTP journal-write API."""
+        with self.lock:
+            path = self._candidate_path(candidate)
+            current = json.loads(path.read_text(encoding='utf-8')) if path.is_file() else None
+            if current and current.get('adopted') and (current['candidate'] != candidate or current['context'] != context):
+                raise ValueError('已经采用的模型候选不可改写。')
+            if adopted and (not current or current['candidate'] != candidate or current['context'] != context):
+                raise ValueError('采用候选与后台已生成记录不一致。')
+            path.parent.mkdir(parents=True, exist_ok=True)
+            atomic_json(path, {'candidate': candidate, 'context': context,
+                'adopted': bool(adopted or current and current.get('adopted'))})
+
+    def validate(self, preparation, session, clip, require_adopted=True, variant=None, qa=None):
+        if not isinstance(preparation, dict):
+            raise ValueError('2D 准备结果必须是对象。')
+        operations = preparation.get('operations', [])
+        if not isinstance(operations, list):
+            raise ValueError('2D 准备操作记录必须是列表。')
+        for operation in operations:
+            if not isinstance(operation, dict):
+                raise ValueError('准备操作格式不正确。')
+            if operation.get('type') != 'qwen_ground_fit':
+                continue  # Existing smoothing still uses the shared replay validator.
+            candidate = operation.get('candidate')
+            path = self._candidate_path(candidate)
+            with self.lock:
+                value = json.loads(path.read_text(encoding='utf-8')) if path.is_file() else None
+            if not value or value.get('candidate') != candidate or require_adopted and not value.get('adopted'):
+                raise ValueError('模型修正不属于后端已生成并采用的可信候选。')
+            context = value.get('context')
+            if (not isinstance(context, list) or len(context) != 5
+                    or context[:3] != [clip['video_sha256'], clip['tracking_fingerprint'], clip['tracking_revision']]):
+                raise ValueError('模型候选与当前视频或跟踪来源不一致。')
+            if variant is not None and context[3:] != [variant, qa]:
+                raise ValueError('模型候选不属于当前模型及草稿空间。')
+        self.tactics.run('court-preparation-validate', preparation=preparation, session=session, clip=clip)
+
     def save(self, preparation, session, clip, variant, qa, expected_version):
         # Node uses exactly the browser's projection and smoothing algorithms.
-        self.tactics.run('court-preparation-validate', preparation=preparation, session=session, clip=clip)
+        self.validate(preparation, session, clip, require_adopted=True, variant=variant, qa=qa)
         with self.lock:
             current = self.load(clip, variant, qa)
             if type(expected_version) is not int or expected_version != current['version']:
