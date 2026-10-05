@@ -1,10 +1,13 @@
 # 赛事要求与来源资料
 
-更新：2026-10-02，Asia/Shanghai。此目录保存官方要求的整理、来源快照和有日期的历史准备资料；软件实现与技术建议在[工程目录](../engineering/README.md)。
+更新：2026-10-05，Asia/Shanghai。此目录保存官方要求的整理、来源快照和有日期的历史准备资料；软件实现与技术建议在[工程目录](../engineering/README.md)。优先读取本次 Portal 与正式指南核验，旧培训纪要的未知项和赛程以较新来源补充。
 
 | 内容 | 入口 | 使用口径 |
 |---|---|---|
-| 9 月 28 日培训要求、评分与交付清单 | [赛事资料整理](BroadcastCode赛事资料整理.md) | 优先读取，转写疑点与团队建议单列；后续正式通知有变化时更新依据 |
+| 部署、机器重跑与人工评审 | 评测操作澄清（待落盘：`judging-operation-clarification-20261005.md`） | 另一会话登记为“10 月 5 日 22:22 原文复核；区分官方事实、接口缺项与工程推论，补充 SageMaker GPU 申请路径”；同步检查时未见目标文档，内容待核对 |
+| 10 月 5 日已有训练 ZIP 实测 | [训练包核验](training-package-check-20261005.md) | 两段 1080p 视频完整解码；包内无独立指标表，年份与官方事件关联待核对 |
+| 10 月 5 日 Team25 Portal 与正式指南 | [Portal 记录](portal-access-20261005.md) | 已实读：AgentCore / CloudFront / CDK、us-east-1、GPU 0、双 profile、一次性绑定、题目边界与提交；后续资源与接通实测见 [AWS 环境记录](../environment/aws/README.md) |
+| 培训要求、评分与交付清单 | [赛事资料整理](BroadcastCode赛事资料整理.md) | 9 月 28 日纪要为基础，10 月 5 日正式指南补充/修正已标明；原始历史资料不改写 |
 | 9 月 17 日官网与报名资料 | [赛事与报名资料](archive/broadcast-code-12/赛事与报名资料.md)、[报名准备指南](archive/broadcast-code-12/报名准备指南.md) | 历史资料，不替代后续要求，不含个人报名材料 |
 | 报名渠道核验及旧手册更正 | [渠道核验](archive/broadcast-code-12/expanded/报名渠道核验与更正.md) | 区分普通报名与其他推荐通道 |
 | NBA 指标及其他赛事案例 | [扩展资料](archive/broadcast-code-12/expanded/扩展调研与团队讨论资料.md)、[NBA 图表核验](references/nba-china-xfg-chart.md) | 参考资料；其他赛事规则不能替代本届要求 |
