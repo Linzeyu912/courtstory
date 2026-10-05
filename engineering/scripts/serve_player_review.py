@@ -20,6 +20,17 @@ from review_session import apply_review_edit
 from detector_evidence import validate_frame_evidence, detector_evidence_for_clip
 
 
+def initially_active_samples(library, retained):
+    """Opt important shared samples into new workspaces without undoing user archives."""
+    extra = library.get('initiallyActiveSamples', [])
+    if not isinstance(extra, list) or any(not isinstance(item, str) or not item for item in extra):
+        raise ValueError('initiallyActiveSamples must be a list of sample IDs')
+    known = {sample.get('id') for sample in library.get('samples', [])}
+    if set(extra) - known:
+        raise ValueError('initiallyActiveSamples contains an unknown sample ID')
+    return list(dict.fromkeys([retained, *extra]))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--video")
@@ -95,7 +106,11 @@ def main():
             else:samples[index]=sample
     from local_video_library import LocalVideoLibrary, MAX_UPLOAD, PRESETS, MODEL_CHOICES, WorkspaceCollection, merge_review_sources
     retained=args.keep_sample if args.keep_sample in clips else default
-    collection=WorkspaceCollection(args.workspace_collection or Path(args.import_cache)/'workspace.json', retained_ids=(retained,))
+    try:
+        active_ids=initially_active_samples(library, retained)
+    except ValueError as error:
+        parser.error(str(error))
+    collection=WorkspaceCollection(args.workspace_collection or Path(args.import_cache)/'workspace.json', retained_ids=active_ids)
     local_library=LocalVideoLibrary(args.video_folder,args.import_cache,args.inference_python,args.models,
                                    publish_local,validated_clip,shared_catalog=args.shared_video_catalog,collection=collection)
     from tactical_workbench import TacticalWorkbench

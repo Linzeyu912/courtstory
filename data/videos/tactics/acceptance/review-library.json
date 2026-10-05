@@ -155,6 +155,72 @@
       ],
       "videoSha256": "e76feffb09ede3e1b336c2e470370bcf1ee0937326bdf672e3e7e4bc5b661885",
       "optional": true
+    },
+    {
+      "id": "official-training-001",
+      "title": "官方训练 001 · 弗拉格片 · DAL–HOU 第四节",
+      "description": "21.55 秒 · 官方训练重点样例 · 1080p / 59.94 fps / 原声；场景已打标，检测身份和坐标仍需复核。",
+      "sourceUrl": "https://comfile.csdnimg.cn/file/train_video.zip",
+      "video": "data/videos/uploads/2026-10-05-official-training/clips/训练_弗拉格2月1日.mp4",
+      "videoSha256": "9c3e4606d04e7f79e29a112952fcf069ebab202af207af500bfbc3338bc079ce",
+      "tracks": "data/videos/uploads/2026-10-05-official-training/tracks/001-team-stable.json",
+      "originalLabel": "篮球 YOLOv8n + BoT-SORT 原始观测",
+      "defaultVariant": "team-stable",
+      "trackingVariants": [
+        {
+          "id": "team-stable",
+          "label": "篮球 YOLOv8n + BoT-SORT · 稳定显示",
+          "tracks": "data/videos/uploads/2026-10-05-official-training/tracks/001-team-stable.json",
+          "recommended": true
+        },
+        {
+          "id": "optimized",
+          "label": "篮球 YOLOv8n + BoT-SORT · 原始观测",
+          "tracks": "data/videos/uploads/2026-10-05-official-training/tracks/001-team-stable.json",
+          "metadata": "data/videos/uploads/2026-10-05-official-training/tracks/001-optimized.meta.json"
+        },
+        {
+          "id": "ebard",
+          "label": "篮球 / 篮筐与裁判参照 · E-BARD",
+          "tracks": "data/videos/uploads/2026-10-05-official-training/tracks/001-ebard.json"
+        }
+      ],
+      "optional": true
+    },
+    {
+      "id": "official-training-002",
+      "title": "官方训练 002 · 阿门片 · HOU–DAL 第三节",
+      "description": "22.89 秒 · 官方训练重点样例 · 1080p / 59.94 fps / 原声；场景已打标，检测身份和坐标仍需复核。",
+      "sourceUrl": "https://comfile.csdnimg.cn/file/train_video.zip",
+      "video": "data/videos/uploads/2026-10-05-official-training/clips/训练_阿门1月4日 .mp4",
+      "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+      "tracks": "data/videos/uploads/2026-10-05-official-training/tracks/002-team-stable.json",
+      "originalLabel": "篮球 YOLOv8n + BoT-SORT 原始观测",
+      "defaultVariant": "team-stable",
+      "trackingVariants": [
+        {
+          "id": "team-stable",
+          "label": "篮球 YOLOv8n + BoT-SORT · 稳定显示",
+          "tracks": "data/videos/uploads/2026-10-05-official-training/tracks/002-team-stable.json",
+          "recommended": true
+        },
+        {
+          "id": "optimized",
+          "label": "篮球 YOLOv8n + BoT-SORT · 原始观测",
+          "tracks": "data/videos/uploads/2026-10-05-official-training/tracks/002-team-stable.json",
+          "metadata": "data/videos/uploads/2026-10-05-official-training/tracks/002-optimized.meta.json"
+        },
+        {
+          "id": "ebard",
+          "label": "篮球 / 篮筐与裁判参照 · E-BARD",
+          "tracks": "data/videos/uploads/2026-10-05-official-training/tracks/002-ebard.json"
+        }
+      ],
+      "optional": true
     }
+  ],
+  "initiallyActiveSamples": [
+    "official-training-001",
+    "official-training-002"
   ]
 }
