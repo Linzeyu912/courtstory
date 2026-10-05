@@ -1,6 +1,6 @@
 # Qwen 地面轨迹：官方两片真实实测
 
-2026-10-05，America/New_York。范围仅为专用 Qwen 地面轨迹 Agent；基于 main `1e26b63450cfd601b2d410f435807c05b1d981e8`。用户已授权将本次修复、动态回放及轻量示例发布到 main；早期实测交接中的“未提交”保留当时状态。
+2026-10-05，America/New_York。范围仅为专用 Qwen 地面轨迹 Agent；基于 main `1e26b63450cfd601b2d410f435807c05b1d981e8`。用户认可回放并授权发布，本次修复、动态回放及轻量示例已作为 `b503573` 推送 main，见[发布交接](../../../handoffs/chuali-zi/2026-10-05-1430-qwen-replay-publication.md)。早期实测交接中的“未提交”保留当时状态。
 
 ## 结论
 
