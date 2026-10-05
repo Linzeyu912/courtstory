@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,existsSync} from 'node:fs';
+import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {blankSession,buildTrajectories,draftStorageKey,exportReview,confirmFrameIdentity} from './trajectory.mjs';
 import {adoptIdentitySuggestions,confirmIdentity} from './identity-timeline.mjs';
@@ -148,15 +148,8 @@ test('model votes remain separate evidence and cannot recolor fixed row teams',(
 
 const repo=new URL('../../../',import.meta.url);
 const json=path=>JSON.parse(readFileSync(new URL(path,repo)));
-const samplePath=(id,variant,suffix)=>{
-  const shared=`data/videos/tactics/acceptance/tracks/basketball-20261002/${id}-${variant}.${suffix}`;
-  if(existsSync(new URL(shared,repo)))return shared;
-  return variant==='team-stable'?`artifacts/player-team-overlay-20261002/r3/${id}-team-stable.${suffix}`:
-    `artifacts/player-tracking-workbench-20261002/${id==='nba-lal-min-005'?'':`${id}_`}optimized.${suffix}`;
-};
-const hasActualSamples=['004','005','006','nba-lal-min-005'].every(id=>
-  ['team-stable','optimized'].every(variant=>['json','meta.json'].every(suffix=>
-    existsSync(new URL(samplePath(id,variant,suffix),repo)))));
+// Published observations are shared; presentation/suggestion sidecars remain distinct.
+const samplePath=(id,variant,suffix)=>`data/videos/tactics/acceptance/tracks/basketball-20261002/${id}-${variant==='optimized'&&suffix==='json'?'team-stable':variant}.${suffix}`;
 function actualClip(id){
   const raw=readFileSync(new URL(samplePath(id,'team-stable','json'),repo));
   const m=json(samplePath(id,'team-stable','meta.json'));
@@ -172,7 +165,7 @@ function actualClip(id){
 }
 
 test('all four immutable samples regain 636 visible P observations without collisions or hidden positions',
-  {skip:hasActualSamples?false:'shared tracking snapshots and optional local artifacts are unavailable'},()=>{
+  ()=>{
   const expected={'004':[5,943,1231],'005':[9,1084,1195],'006':[8,1815,2026],'nba-lal-min-005':[8,1146,1172]};
   for(const [id,[beforeCount,beforeObs,afterObs]] of Object.entries(expected)){
     const clip=actualClip(id),source=JSON.stringify(clip),session=blankSession(clip.video_sha256);
@@ -199,7 +192,7 @@ test('all four immutable samples regain 636 visible P observations without colli
 });
 
 test('004 late unmatched player detections remain visible once and cannot be forced into an occupied P',
-  {skip:hasActualSamples?false:'shared tracking snapshots and optional local artifacts are unavailable'},()=>{
+  ()=>{
   const clip=actualClip('004'),session=blankSession(clip.video_sha256);initialize(session,clip);
   const points=buildTrajectories(session,clip.frames);
   for(const [frame,mapped,unmapped] of [[0,10,0],[70,6,3],[177,3,3]]){

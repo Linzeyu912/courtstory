@@ -57,8 +57,10 @@ def compare_geometry(raw,stable,cuts):
         'box_coordinate_deviation':_statistics(deviation),'raw_foot_motion_residual':_statistics(raw_residual),
         'stable_foot_motion_residual':_statistics(stable_residual)}
 
-def prepare_variant(parent,output,policy,variant='team-stable'):
-    parent=Path(parent).resolve();output=Path(output).resolve();parent_meta=parent.with_suffix('.meta.json');output_meta=output.with_suffix('.meta.json')
+def prepare_variant(parent,output,policy,variant='team-stable',metadata_path=None):
+    parent=Path(parent).resolve();output=Path(output).resolve()
+    parent_meta=Path(metadata_path).resolve() if metadata_path is not None else parent.with_suffix('.meta.json')
+    output_meta=output.with_suffix('.meta.json')
     if output in (parent,parent_meta) or output_meta in (parent,parent_meta):raise ValueError('Source records/metadata cannot be overwritten.')
     if output.exists() or output_meta.exists():raise FileExistsError('Choose fresh immutable team-stable outputs; existing files are preserved.')
     original=parent.read_bytes();meta_bytes=parent_meta.read_bytes();records=json.loads(original);meta=json.loads(meta_bytes)
@@ -96,14 +98,16 @@ def main():
     if comparison.exists():parser.error('Geometry comparison already exists; choose a fresh output directory.')
     for sample in library['samples']:
         if args.sample and sample['id'] not in args.sample:continue
-        parent=next((variant['tracks'] for variant in sample.get('trackingVariants',[]) if variant['id']=='optimized'),None)
+        parent=next((variant for variant in sample.get('trackingVariants',[]) if variant['id']=='optimized'),None)
         if not parent:continue
-        path=ROOT/parent;output=args.output_dir/f"{sample['id']}-team-stable.json"
+        path=ROOT/parent['tracks'];output=args.output_dir/f"{sample['id']}-team-stable.json"
+        metadata_path=ROOT/parent['metadata'] if 'metadata' in parent else path.with_suffix('.meta.json')
         if output.exists() or output.with_suffix('.meta.json').exists():parser.error('Immutable variant output already exists.')
-        jobs.append((sample['id'],path,output))
+        jobs.append((sample['id'],path,output,metadata_path))
     if not jobs:parser.error('No existing optimized variant matches the requested samples.')
     result={'created_at_utc':datetime.now(timezone.utc).isoformat(),'policy_sha256':sha256(POLICY_PATH),'samples':{}}
-    for sample_id,parent,output in jobs:result['samples'][sample_id]=prepare_variant(parent,output,load_policy())
+    for sample_id,parent,output,metadata_path in jobs:
+        result['samples'][sample_id]=prepare_variant(parent,output,load_policy(),metadata_path=metadata_path)
     with comparison.open('x',encoding='utf-8') as stream:stream.write(json.dumps(result,ensure_ascii=False,indent=2,allow_nan=False)+'\n')
     print(json.dumps({'prepared':len(jobs),'comparison':str(comparison),'samples':{key:entry['groups'] for key,entry in result['samples'].items()}}))
 

@@ -15,7 +15,7 @@ from pathlib import Path
 import av
 import numpy as np
 
-from serve_player_review import load_clip
+from serve_player_review import load_clip, missing_sample_files
 from detector_evidence import build_detector_evidence
 
 
@@ -105,6 +105,41 @@ class ReviewServerTests(unittest.TestCase):
         self.assertEqual(payload['identitySuggestions'], suggestions)
         self.assertEqual(payload['variants'], [{'id': 'original', 'label': '原跟踪 · 保留已有草稿', 'recommended': False},
                                               {'id': 'optimized', 'label': '篮球模型优化', 'recommended': False}])
+
+    def test_shared_observation_file_keeps_each_version_payload_and_saved_draft_fingerprint(self):
+        optimized = self.write_variant('optimized', variant='optimized')
+        team = self.write_variant('team-stable', variant='team-stable',
+            presentation={'version': 1, 'default_stable': True})
+        self.sample['trackingVariants'] = [
+            {'id': 'optimized', 'label': 'Raw', 'tracks': str(optimized)},
+            {'id': 'team-stable', 'label': 'Stable', 'tracks': str(team)}]
+        before = load_clip(RaisingParser(), self.sample)['payloads']
+        self.sample['trackingVariants'][0].update(tracks=str(team), metadata=str(optimized.with_suffix('.meta.json')))
+        optimized.unlink()
+        self.assertEqual(missing_sample_files(self.sample), [])
+        after = load_clip(RaisingParser(), self.sample)['payloads']
+        self.assertEqual(after, before, 'Sharing raw bytes must not change any API payload or draft key')
+        self.assertNotEqual(json.loads(after['optimized'])['tracking_fingerprint'],
+                            json.loads(after['team-stable'])['tracking_fingerprint'])
+        optimized.with_suffix('.meta.json').unlink()
+        self.assertIn(optimized.with_suffix('.meta.json'), missing_sample_files(self.sample))
+        with self.assertRaisesRegex(ValueError, 'optimized.*metadata'):
+            self.load()
+
+    def test_explicit_metadata_path_is_validated_and_cannot_fall_back_to_another_versions_sidecar(self):
+        self.add_variant()
+        variant = self.sample['trackingVariants'][0]
+        for value in ['', ' ', None, 12, {}]:
+            variant['metadata'] = value
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, 'metadata path'):
+                self.load()
+        wrong = self.root / 'wrong.meta.json'
+        wrong.write_text(json.dumps({'video_sha256': 'other-video', 'frames': len(self.times)}), encoding='utf-8')
+        variant['metadata'] = str(wrong)
+        with self.assertRaisesRegex(ValueError, 'metadata does not match'):
+            self.load()
+        variant.update(metadata=str(self.root / 'absent.json'), optional=True)
+        self.assertNotIn('optimized', load_clip(RaisingParser(), self.sample)['payloads'])
 
     def test_team_overlay_static_assets_are_served_over_real_http_with_exact_contents(self):
         state=self.root/'http-server.json'
@@ -224,7 +259,8 @@ class ReviewServerTests(unittest.TestCase):
                               'bindings': [{'start': 0, 'end': 3, 'trackId': 1}]}]})
         self.sample.update(defaultVariant='team-stable', title='HTTP fixture', trackingVariants=[
             {'id': 'ebard', 'label': '远端篮球模型', 'tracks': str(ebard), 'recommended': True},
-            {'id': 'team-stable', 'label': '本机分队', 'tracks': str(team)}])
+            {'id': 'team-stable', 'label': '本机分队', 'tracks': str(ebard), 'metadata': str(team.with_suffix('.meta.json'))}])
+        team.unlink()  # The real HTTP trim must retain separate metadata for shared records.
         library = self.root / 'input-library.json'
         library.write_text(json.dumps({'defaultSample': 'fixture', 'samples': [self.sample]}), encoding='utf-8')
         cache = self.root / 'trim';cache.mkdir()

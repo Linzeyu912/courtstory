@@ -177,6 +177,20 @@ class LocalLibraryTests(unittest.TestCase):
         self.library.start(ident, 'reid')
         self.assertEqual(self.wait(ident)['status'], 'ready')
 
+    def test_restored_variant_cannot_read_explicit_metadata_outside_its_cache(self):
+        ident = self.upload()['id']
+        self.library.start(ident, 'yolo')
+        self.assertEqual(self.wait(ident)['status'], 'ready')
+        sample = copy.deepcopy(self.library.saved[ident])
+        variant = sample['trackingVariants'][0]
+        outside = self.root / 'outside.meta.json'
+        outside.write_bytes(Path(variant['tracks']).with_suffix('.meta.json').read_bytes())
+        variant['metadata'] = str(outside)
+        self.library.manifest.write_text(json.dumps({ident: sample}), encoding='utf-8')
+        restored = self.make_library()
+        self.addCleanup(restored.close)
+        self.assertIn('缓存目录', restored.restore_errors[ident])
+
     def test_duplicate_start_does_not_launch_two_jobs(self):
         ident = self.upload()['id']
         entered, release = threading.Event(), threading.Event()

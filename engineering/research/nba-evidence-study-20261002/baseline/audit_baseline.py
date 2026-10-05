@@ -375,7 +375,7 @@ def run(repo, out):
             definitions.insert(1, {'id': 'jersey', 'tracks': sample['alternativeTracks']})
         for definition in definitions:
             path = definition['tracks']; records, track_source = sources.json(path)
-            meta_path = str(Path(path).with_suffix('.meta.json')).replace('\\', '/')
+            meta_path = definition.get('metadata') or str(Path(path).with_suffix('.meta.json')).replace('\\', '/')
             metadata, meta_source = sources.json(meta_path); metadata = metadata or {}
             variant = {'id': definition['id'], 'path': path, 'tracks_sha256': track_source['sha256'],
                 'metadata_path': meta_path, 'metadata_sha256': meta_source['sha256'],

@@ -228,7 +228,7 @@ def main():
       ('manual_claim_21','engineering/research/player-tracking-spotchecks-20261002.json','/observations/0'),
       ('agent_annotation_56','engineering/experiments/player_recovery/annotations.json','/annotations/0/players/0')]
     paths.extend([('same_content_team_stable','data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json','/0/tracks/0'),
-        ('same_content_optimized','data/videos/tactics/acceptance/tracks/basketball-20261002/005-optimized.json','/0/tracks/0')])
+        ('same_content_optimized','data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json','/0/tracks/0')])
     rolepath='artifacts/player-recovery/batch-v3/s24-033/recovered.json';doc=load(repo,rolepath)
     ri=next(i for i,row in enumerate(doc['frames'][0]['tracks']) if row['track_id']==9)
     paths.append(('future_role',rolepath,f'/frames/0/tracks/{ri}'))

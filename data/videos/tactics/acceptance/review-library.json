@@ -1,59 +1,6 @@
 {
-  "defaultSample": "004",
+  "defaultSample": "005",
   "samples": [
-    {
-      "id": "004",
-      "title": "样例 004 · GSW–MEM 第四节",
-      "description": "8.76 秒 · 720p · 普通直播、正常速度、无声 · 发球/前场组织至投篮结果；先筛直播画面，再对应球员和补轨迹。动作标签仅为采集参考。",
-      "sourceUrl": "https://www.facebook.com/TheWarriorNation/videos/the-signature-elevator-doors-play-by-the-warriors/186346969187899/",
-      "video": "data/videos/tactics/acceptance/clips/004_GSW_elevator.mp4",
-      "tracks": "data/videos/tactics/acceptance/tracks/004.json",
-      "defaultVariant": "team-stable",
-      "trackingVariants": [
-        {
-          "id": "team-stable",
-          "label": "THY 完整方案 · 分队与稳定显示",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.json",
-          "optional": true,
-          "recommended": true
-        },
-        {
-          "id": "ebard",
-          "label": "E-BARD YOLOv8n · ByteTrack",
-          "recommended": false,
-          "tracks": "data/videos/tactics/acceptance/tracks/004-ebard.json"
-        },
-        {
-          "id": "optimized",
-          "label": "THY · 综合优化",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/004-optimized.json",
-          "optional": true,
-          "recommended": false
-        },
-        {
-          "id": "baseline",
-          "label": "THY · BoT-SORT 基线",
-          "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/004-baseline.json",
-          "recommended": false
-        },
-        {
-          "id": "low",
-          "label": "THY · 低分续接",
-          "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/004-low.json",
-          "recommended": false
-        },
-        {
-          "id": "reid",
-          "label": "THY · 原生 ReID 外观续接",
-          "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/004-reid.json",
-          "recommended": false
-        }
-      ],
-      "videoSha256": "45e0a6c46f8a1a162b5aa5e15a4f72f8494f042a1d52eae6ba07058e527a6ee3",
-      "originalLabel": "通用 YOLOv8s · ByteTrack",
-      "feetCandidates": "engineering/research/vision-player-refinement/feet-candidates-004.json",
-      "courtCandidates": "engineering/research/vision-player-refinement/court-candidates-004.json"
-    },
     {
       "id": "005",
       "title": "样例 005 · SAS–MIA 第四节",
@@ -79,9 +26,10 @@
         {
           "id": "optimized",
           "label": "THY · 综合优化",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-optimized.json",
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json",
           "optional": true,
-          "recommended": false
+          "recommended": false,
+          "metadata": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-optimized.meta.json"
         },
         {
           "id": "baseline",
@@ -132,9 +80,10 @@
         {
           "id": "optimized",
           "label": "THY · 综合优化",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-optimized.json",
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-team-stable.json",
           "optional": true,
-          "recommended": false
+          "recommended": false,
+          "metadata": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-optimized.meta.json"
         },
         {
           "id": "baseline",
@@ -193,8 +142,9 @@
         {
           "id": "optimized",
           "label": "THY · 综合优化",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-optimized.json",
-          "recommended": false
+          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-team-stable.json",
+          "recommended": false,
+          "metadata": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-optimized.meta.json"
         },
         {
           "id": "yolo",
