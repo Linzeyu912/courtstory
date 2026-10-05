@@ -10,6 +10,7 @@ engineering/                  # 软件、产品设计、技术研究与测量
   tools/tactical-overlay/    # 独立战术引擎、SVG 与报告构建
   tools/player-review/        # 复核工作台前端、bundle 和 JavaScript 测试
   scripts/                    # Python 服务、视觉处理和实验脚本
+  archive/                    # 已退出日常入口的历史专用脚本与复现说明
   docs/                       # 产品 / 工程设计
   research/                   # 技术评估、原始测量及参考点
 data/                         # 视频成片、标签、来源和辅助参考数据

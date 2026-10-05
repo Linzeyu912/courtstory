@@ -4,6 +4,9 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import sys
+
+sys.path.insert(0,str(Path(__file__).resolve().parents[2] / "scripts"))
 import time
 
 os.environ.update(YOLO_CONFIG_DIR=str(Path('tmp/vision-benchmark-settings').resolve()), YOLO_OFFLINE='true', YOLO_AUTOINSTALL='false')

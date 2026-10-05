@@ -7,7 +7,7 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 WORK = ROOT/'artifacts/material-review-20261003'
 OUT = ROOT/'data/videos/reviews/2026-10-03'
 DECISIONS = {'retain': '保留', 'exclude': '剔除', 'uncertain': '待确认'}
@@ -143,7 +143,7 @@ def main():
            '剔除条目不进入可用素材目录。源文件与既有固定编号、来源、比赛信息、旧标签保留，避免破坏工作台和历史引用。逐段新标签在原 labels 文件的 material_review 字段，清单也有筛选摘要。','',
            '清晰素材归入 primary；轻微运动拖影等仍可辨认主要动作的素材单列 challenge，不混入清晰素材入口；核心内容无法辨认则 exclude。尺寸不代替画质判断，推拉、半场、遮挡本身不导致剔除。','',
            '当前使用目录以本轮 material_review 的动作 / 难点为准；既有 tactic 等字段保留前次采集口径，二者出现差异时可通过本轮可见动作说明追溯，不将旧字段当作本轮重新确认。','',
-           '重新准备审核图：在仓库根目录运行 `python engineering/scripts/prepare_material_review.py`（需 FFmpeg 与 Pillow）。该脚本只生成本机审核图和批次，不产生视觉判断。子 agent 审核完成后，运行 `python engineering/scripts/build_material_catalog.py` 汇总本机结果并更新标签 / 目录；不得用生成审核图替代实际看片。','',
+           '重新准备审核图：在仓库根目录运行 `python engineering/archive/material-review-20261003/prepare_material_review.py`（需 FFmpeg 与 Pillow）。该脚本只生成本机审核图和批次，不产生视觉判断。子 agent 审核完成后，运行 `python engineering/archive/material-review-20261003/build_material_catalog.py` 汇总本机结果并更新标签 / 目录；不得用生成审核图替代实际看片。','',
            '| 片段 ID | 状态 | 清晰度 | 可见动作 | 难点 | 理由 |','|---|---|---|---|---|---|']
     for r in records:
         values=[f"[{r['clip_id']}](../../{r['path'].removeprefix('data/videos/')})",DECISIONS[r['decision']],QUALITY[r['quality']],
