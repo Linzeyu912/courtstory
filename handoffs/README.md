@@ -26,6 +26,7 @@
 
 | 记录 | 内容 |
 |---|---|
+| [官方训练片打标与工作台接入](Linzeyu912/2026-10-05-2318-official-training-ingestion.md) | 两段 1080p 原片、10 维场景标签、2662 帧自动候选及远端 LFS 下载校验 |
 | [六类提交与发布记录](Linzeyu912/2026-10-05-2250-classified-publication.md) | 全部现有本地成果按主题提交，main 推送、证据与视频检查范围 |
 | [拉取合作者更新与成果总览](Linzeyu912/2026-10-05-2231-collaborator-sync-and-index.md) | 远端两条提交已合入、双方改动保留，研究与作品接续入口统一 |
 | [四类目录整理](Linzeyu912/2026-10-05-2220-repository-content-separation.md) | 调研、赛事要求、环境准备与作品分目录，旧路径与验证范围 |

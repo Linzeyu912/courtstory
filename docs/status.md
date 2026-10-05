@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-05 23:18（Asia/Shanghai）：用户指定的官方训练包两段原片已按 chuali-zi 的 2fps / 10 维标准完成 AI 场景初筛，并作为重点回归素材入库，当前 9 批 165 段；此前 163 段标签及 28 段真人复核保持不变。两片原始 1080p / 约 59.94 fps / AAC 音轨完整保留，工作台默认可选「官方训练 001 / 002」，2662 帧检测候选已共享，仍需人工身份与标定核对。数据和工作台两个提交已推送 main 至 `0ffb9fe`；171 MB 的两个 LFS 对象已从远端下载到独立空缓存，大小与 SHA-256 全部一致。相关 30 项测试、165 段索引检查和两片实际播放通过，见[素材入口](../data/videos/uploads/2026-10-05-official-training/README.md)及[入库与远端校验交接](../handoffs/Linzeyu912/2026-10-05-2318-official-training-ingestion.md)。
+
 2026-10-05 22:50（Asia/Shanghai）：用户已授权将全部现有本地成果按主题提交并推送。目录与运行路径迁移、篮球模型调研及视频诊断、赛事要求、环境准备、作品上云说明五个提交已推送 main，22:49 实际远端为 68227ef；最后一条提交同步四类目录入口、成果总览、协作规范和本轮交接。163 段视频与 LFS 索引、迁移证据、来源摘要及链接检查通过；此前资料中的“未提交”保留历史含义。提交明细与验证范围见[分类发布交接](../handoffs/Linzeyu912/2026-10-05-2250-classified-publication.md)，从[成果与接续总览](work-index.md)进入各专题。
 
 2026-10-05 22:33（Asia/Shanghai，本地未提交 / 未推送）：按用户关于 AWS 流程及插件代操作的询问，补充[代码推送、文件上传与应用部署的说明](../engineering/docs/aws-workbench-deployment-guide.md)。实际完成本队 S3 临时文本写入、下载摘要核对和清理，以及 Bedrock Qwen 单次文本请求（返回 CLOUD_OK，19 / 4 tokens）。未上传视频、部署工作台或改为纯对话产品；AgentCore / CloudFront 仍无应用记录。事实范围、下一步和同步情况见[交接](../handoffs/Linzeyu912/2026-10-05-2233-s3-bedrock-connectivity.md)。

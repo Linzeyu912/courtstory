@@ -17,7 +17,7 @@
 | 使用篮球论文模型 | [14 篇功能指南](../research/basketball-models/mentor-components-20261005/PAPER_GUIDE.md)、[权重核查](../research/basketball-models/mentor-components-20261005/OPEN_SOURCE_AUDIT.md) | [研究复现](../research/basketball-models/mentor-components-20261005/REPRODUCE.md) | 已有局部试跑；尚未接入工作台或验证本项目新视频精度 |
 | 区分事实、候选和推断 | [数据证据与纠错研究](../research/evidence/README.md) | 各工作台来源 / 待审核字段 | 离线实验保留失败，不可直接升级成官方指标或人工真值 |
 | 准备电脑与 AWS 账号 | [本机环境](../environment/local/README.md)、[AWS 状态](../environment/aws/README.md) | [上云设计](../engineering/docs/aws-workbench-deployment-guide.md)、[作品接续](../engineering/docs/contest-readiness-20261005.md) | CLI / CDK / 身份、S3 临时文本读写和 Qwen 单次文本请求已有记录；图片 / 工具调用与应用部署仍待完成 |
-| 核对赛事与正式素材 | [赛事索引](../requirements/README.md)、[训练包核验](../requirements/training-package-check-20261005.md) | [视频数据入口](../data/videos/README.md) | 来源、指标、事件对齐及赛事接口按正式核验接续，不以研究数据替代 |
+| 核对赛事与正式素材 | [赛事索引](../requirements/README.md)、[训练包核验](../requirements/training-package-check-20261005.md)、[官方训练重点素材](../data/videos/uploads/2026-10-05-official-training/README.md) | [视频数据入口](../data/videos/README.md) | 两段已按10维打标并接入工作台，优先用于回归；官方指标与事件对齐仍需补齐 |
 
 ## 回到对应成员的原记录
 
