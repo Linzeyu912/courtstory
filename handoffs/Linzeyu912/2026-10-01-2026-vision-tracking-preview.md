@@ -9,7 +9,7 @@
 
 ## 本次完成
 
-- 新增 [视频预览脚本](../../engineering/scripts/render_vision_tracking_demo.py)：使用本地预训练权重运行 YOLOv8s + ByteTrack，逐帧绘制人物框、临时轨迹 ID 与检测置信度，按轨迹上色，编码 H.264 并保留原片音轨和时间戳。
+- 新增 [视频预览脚本](../../engineering/archive/vision-clip001/render_vision_tracking_demo.py)：使用本地预训练权重运行 YOLOv8s + ByteTrack，逐帧绘制人物框、临时轨迹 ID 与检测置信度，按轨迹上色，编码 H.264 并保留原片音轨和时间戳。
 - 本地输出 `artifacts/vision-deployment-benchmark/yolov8s-bytetrack-preview.mp4`，以及同名 JPG 诊断图、JSON 运行记录。这些预览产物位于被忽略目录，未作为共享视频资产入库。
 - 通过 Codex 请求打开预览，同时调用系统默认视频播放器打开 MP4；系统启动命令成功。未自动操作播放器控件。
 - 初次预览 `yolov8s-bytetrack-demo.mp4` 同样保留在本地；最终展示使用 `preview.mp4`，已改为按轨迹上色并保留原始视频时间戳。

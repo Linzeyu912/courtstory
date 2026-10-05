@@ -15,7 +15,7 @@
 - [CSV 表格](../../data/videos/reviews/2026-10-03/catalog.csv)记录 ID、目录分组、画质、可见动作、画面范围、镜头难点、异常近似秒数、用途、理由和相对视频路径。
 - [清晰素材 JSON](../../data/videos/reviews/2026-10-03/clear.json)、[全部可用 JSON](../../data/videos/reviews/2026-10-03/selected.json)、[全部审核记录](../../data/videos/reviews/2026-10-03/review.json)及 [11 类难点 / 画面覆盖与代表](../../data/videos/reviews/2026-10-03/difficulty-coverage.md)可供后续选择素材。
 - 157 个原标签与 7 份 manifest 新增 `material_review`；保留原来源、比赛信息、旧动作记录、文件元数据和固定 ID。更新视频入口、管理规范及状态。
-- 新增 [审核图准备脚本](../../engineering/scripts/prepare_material_review.py)与 [目录汇总脚本](../../engineering/scripts/build_material_catalog.py)。审核图、补帧、分批原始输出和改动前元数据备份仅在忽略目录 `artifacts/material-review-20261003/`。
+- 新增 [审核图准备脚本](../../engineering/archive/material-review-20261003/prepare_material_review.py)与 [目录汇总脚本](../../engineering/archive/material-review-20261003/build_material_catalog.py)。审核图、补帧、分批原始输出和改动前元数据备份仅在忽略目录 `artifacts/material-review-20261003/`。
 
 ## 结论与依据
 

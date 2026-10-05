@@ -6,7 +6,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 OUT = ROOT / 'artifacts/material-review-20261003'
 
 

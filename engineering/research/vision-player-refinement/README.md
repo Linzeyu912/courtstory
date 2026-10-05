@@ -15,7 +15,7 @@
 3. 调整 ByteTrack 参数，弱框不再因置信度融合而过度降低关联分数。暂未取得稳定 ID 的有效检测用虚线“ID pending”显示，不伪造身份。
 4. 加入人工固定身份 P1–P10、关键帧修正、短缺口前后插值、冲突提示、缺失跳转与带来源的 JSON 导出。可选裁判编号需自行补点。
 
-实现：[检测筛选](../../scripts/basketball_player_filter.py)、[视频及候选生成](../../scripts/render_vision_tracking_demo.py)、[问题点评估](../../scripts/evaluate_vision_problem_cases.py)、[本地服务](../../scripts/serve_player_review.py)、[复核界面](../../tools/player-review/README.md)。
+实现：[检测筛选](../../archive/vision-clip001/basketball_player_filter.py)、[视频及候选生成](../../archive/vision-clip001/render_vision_tracking_demo.py)、[问题点评估](../../scripts/evaluate_vision_problem_cases.py)、[本地服务](../../scripts/serve_player_review.py)、[复核界面](../../tools/player-review/README.md)。
 
 ## 后续诊断：编号中断与纠正
 

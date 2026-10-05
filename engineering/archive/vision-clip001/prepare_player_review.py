@@ -1,6 +1,9 @@
 """Add per-frame jersey hints and remove duplicate pending boxes; preserve every track ID and coordinate."""
 import argparse,json,os
 from pathlib import Path
+import sys
+
+sys.path.insert(0,str(Path(__file__).resolve().parents[2] / "scripts"))
 os.environ.update(YOLO_CONFIG_DIR=str(Path('tmp/vision-benchmark-settings').resolve()),YOLO_OFFLINE='true',YOLO_AUTOINSTALL='false')
 
 def main():
