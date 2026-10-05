@@ -2,6 +2,8 @@
 
 每位成员和 Agent 在一次任务结束时记录可接续的信息，方便其他人在另一台电脑上继续工作。
 
+找当前成果先看[成果与接续总览](../docs/work-index.md)，再回到对应原交接。交接中的“未提交”“本机已完成”是当时状态；代码已拉取也不代表作者的浏览器草稿、模型、视频或本机输出已共享。
+
 ## 文件命名
 
 `handoffs/<github-login>/YYYY-MM-DD-HHMM-topic.md`
@@ -24,6 +26,13 @@
 
 | 记录 | 内容 |
 |---|---|
+| [六类提交与发布记录](Linzeyu912/2026-10-05-2250-classified-publication.md) | 全部现有本地成果按主题提交，main 推送、证据与视频检查范围 |
+| [拉取合作者更新与成果总览](Linzeyu912/2026-10-05-2231-collaborator-sync-and-index.md) | 远端两条提交已合入、双方改动保留，研究与作品接续入口统一 |
+| [四类目录整理](Linzeyu912/2026-10-05-2220-repository-content-separation.md) | 调研、赛事要求、环境准备与作品分目录，旧路径与验证范围 |
+| [THY：005 V2 视觉基准](thy-0629/2026-10-05-2107-approved-005-workflow.md) | 配置、脚本、制作步骤与历史审查已归档；不含 MP4 |
+| [THY：导入视频进度与更正](thy-0629/2026-10-05-1910-agent-court-tactics-progress.md) | 身份续接、投篮判断更正、球场与草稿保存缺口 |
+| [chuali-zi：Qwen 首版](chuali-zi/2026-10-05-0651-qwen-ground-trajectory-implementation.md) | 多轮轨迹修正代码与本地待验收项 |
+| [chuali-zi：2D 主工作流](chuali-zi/2026-10-05-0127-2d-first-tactics-workbench.md) | 身份 / 2D 准备、绘制和成片契约及验证边界 |
 | [仓库审阅与选择性同步](Linzeyu912/2026-10-01-2118-repository-audit-sync.md) | 当前目录入口、检查结果、云端同步和本地开发边界 |
 | [删除首批独立旧包](Linzeyu912/2026-10-01-2111-remove-first-batch-duplicates.md) | 只保留100段集合，001–003不删除 |
 | [视频按赛季归并](Linzeyu912/2026-10-01-2104-video-season-organization.md) | 2024–25和2025–26目录归并过程 |

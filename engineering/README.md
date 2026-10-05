@@ -1,6 +1,8 @@
-# 工程入口
+# 作品工程
 
-更新：2026-10-05，Asia/Shanghai。这里集中软件、产品设计与技术实验；[赛事要求](../requirements/README.md)、[视频数据](../data/videos/README.md)和[团队协作](../docs/workflow.md)分别维护。
+跨成员成果与下一步从[接续总览](../docs/work-index.md)进入。新拉取的 [005 V2 成片流程](docs/005-authored-v2-workflow.md)保留认可的视觉基准；[导入视频诊断](../research/vision/imported-video-diagnostics-20261005.md)记录身份和大草稿的实际缺口，两者分别维护。
+
+更新：2026-10-05，Asia/Shanghai。这里集中工作台、Agent、图形渲染、产品设计与测试；独立[调研与实验](../research/README.md)及[环境准备](../environment/README.md)已分目录。[赛事要求](../requirements/README.md)、[视频数据](../data/videos/README.md)和[团队协作](../docs/workflow.md)分别维护。
 
 本轮[仓库清理](docs/repository-cleanup-20261005.md)已完成并分类推送：旧入口与像素尾迹删除、候选去重、七个历史脚本归档；默认验收样例改为 005。三条实现提交及后续文档同步见[发布交接](../handoffs/Linzeyu912/2026-10-05-1014-cleanup-classified-publication.md)，既有功能进展仍见下方汇总。
 
@@ -13,27 +15,14 @@
 | Python 服务及视觉工具 | [scripts/](scripts/README.md) | 本机 HTTP 服务、裁剪与候选处理；检测、跟踪与场地实验单独运行 |
 | 历史专用脚本 | [archive/](archive/README.md) | 旧单片球衣实验和旧素材审核生成器；不作为当前工作台入口 |
 | 产品设计 | [docs/agent-concept-review.md](docs/agent-concept-review.md) | 解说 Agent 讨论稿，技术选型及完整产品待验收 |
-| 技术研究与测量 | [research/](research/README.md) | GPU 基线、身份、脚点和球场映射；保留单片段和推断边界 |
+| 产品文档与交付设计 | [docs/](docs/README.md) | 功能接口、设计、实施计划及验收记录 |
 
-新增 [NBA解释与纠错层离线研究](research/nba-evidence-study-20261002/README.md)：四样例baseline、来源Schema、故障注入、投影/身份/球候选与事实放行比较。研究产物归档，独立准确率与真实延迟未建立；原检测器和总结模块未改动。
+研究报告、纯实验脚本和原始测量集中在仓库根 `research/`；安装、模型依赖和 AWS 登录状态集中在 `environment/`。本目录不再承接这些独立资料。未来 CDK 应用代码属于作品工程，可放在 `engineering/infra/`，目前尚未实现。
 
-## 启动数据提取工作台
+## 环境与运行
 
-从仓库根目录执行。已有视频在 Git LFS；首次拉取至少下载验收样例：
+先按[本机环境准备](../environment/local/README.md)安装依赖与取得 LFS 视频，再按[工作台说明](tools/player-review/README.md)启动和操作。模型权重、Python / CUDA 环境及版本说明在[模型环境](../environment/local/model-runtime.md)，AWS CLI / CDK 与身份状态在[AWS 准备](../environment/aws/README.md)。
 
-```powershell
-git lfs pull --include="data/videos/tactics/acceptance/clips/**" origin
-python -m venv .venv
-& .venv/Scripts/python.exe -m pip install -r engineering/requirements-review.txt
-& .venv/Scripts/python.exe engineering/scripts/serve_player_review.py --library data/videos/tactics/acceptance/review-library.json --port 8876
-```
+依赖清单、构建配置和功能测试随工程代码保留；安装步骤在环境目录维护。
 
-打开 `http://127.0.0.1:8876/?sample=005`。候选 JSON 与已构建的 React bundle 已入库，运行工作台不需要 GPU、下载模型或联网 CDN。草稿保存在当前浏览器；来源原片、模型、生成剪辑与缓存仍在根目录被忽略的 `data/raw/`、`tmp/`、`artifacts/` 中。
-
-修改前端后，在 `engineering/tools/player-review/` 执行 `npm ci`、`npm run build` 和 `npm test`。Python 检查从根目录执行：
-
-```powershell
-& .venv/Scripts/python.exe -m unittest discover -s engineering/scripts -p "test_*.py"
-```
-
-Python 运行依赖见[requirements-review.txt](requirements-review.txt)，视觉模型实验的额外环境见[本机测量说明](research/vision-local-aws-deployment.md)，离线全场求解另见[可选依赖](requirements-court-fullcourt.txt)。目前工作台已支持 OCR 候选证据、身份续接候选、战术 Agent 生成 / 预览 / 采用和人工图形编辑，但真实调用成功、身份与米制精度仍需逐项核对。自动直播分类、完整战术讲解和云部署尚未完成；当前导入不会自动运行姿态模型。字段是内部原型约定，不是赛事官方数据格式。
+目前工作台已支持 OCR 候选证据、身份续接候选、战术 Agent 生成 / 预览 / 采用和人工图形编辑，但真实调用成功、身份与米制精度仍需逐项核对。自动直播分类、完整战术讲解和云部署尚未完成；当前导入不会自动运行姿态模型。字段是内部原型约定，不是赛事官方数据格式。

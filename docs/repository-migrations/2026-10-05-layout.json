@@ -1,0 +1,979 @@
+{
+  "date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "description": "本轮文件迁移路径；混合文档拆分和新增目录见 repository-map.md。原始证据内历史路径可按此映射。",
+  "moves": [
+    {
+      "old": "docs/superpowers/specs/2026-10-02-player-identity-demo-design.md",
+      "new": "engineering/docs/specs/2026-10-02-player-identity-demo-design.md"
+    },
+    {
+      "old": "engineering/docs/model-deployment.md",
+      "new": "environment/local/model-runtime.md"
+    },
+    {
+      "old": "engineering/research/README.md",
+      "new": "research/README.md"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/README.md",
+      "new": "research/agents/agent-video-understanding-20261005/README.md"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/REPORT.md",
+      "new": "research/agents/agent-video-understanding-20261005/REPORT.md"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/content-types.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/content-types.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/exec-image-input.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/exec-image-input.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/history-preparation.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/history-preparation.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/image-budget.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/image-budget.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/image-processing-modes.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/image-processing-modes.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/local-image-serialization.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/local-image-serialization.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/local-input-defer.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/local-input-defer.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/mcp-multimodal-result.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/mcp-multimodal-result.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/model-modalities.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/model-modalities.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/responses-input.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/responses-input.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/user-input.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/user-input.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/view-image-input.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/view-image-input.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/codex/view-image-output.rs",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/codex/view-image-output.rs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/hub/codex-cli-command.py",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/hub/codex-cli-command.py"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/hub/frame-decoder-entry.py",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/hub/frame-decoder-entry.py"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/hub/identity-evidence-crop.py",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/hub/identity-evidence-crop.py"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/hub/identity-frame-sampling.py",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/hub/identity-frame-sampling.py"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/hub/identity-scan.py",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/hub/identity-scan.py"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/hub/tactics-frame-sampling.py",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/hub/tactics-frame-sampling.py"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/hub/tactics-input-pack.py",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/hub/tactics-input-pack.py"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/hub/vision-provider.py",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/hub/vision-provider.py"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/cli-file-entry.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/cli-file-entry.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/gemini-body-schema.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/gemini-body-schema.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/gemini-media.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/gemini-media.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/image-normalization.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/image-normalization.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/llm-media-schema.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/llm-media-schema.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/llm-media-validation.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/llm-media-validation.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/media-scope.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/media-scope.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/message-file-lowering.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/message-file-lowering.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/modality-definition.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/modality-definition.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/modality-gate.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/modality-gate.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/model-capabilities.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/model-capabilities.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/native-file-lowering.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/native-file-lowering.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/prompt-file-ingest.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/prompt-file-ingest.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/read-media.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/read-media.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/responses-media.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/responses-media.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/runtime-selection.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/runtime-selection.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/ui-attachment-mime.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/ui-attachment-mime.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/ui-file-picker.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/ui-file-picker.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/v2-file-lowering.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/v2-file-lowering.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/v2-file-schema.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/v2-file-schema.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/v2-read-tool.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/v2-read-tool.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/opencode/v2-user-message.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/opencode/v2-user-message.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/sdk-google/google-content-types.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/sdk-google/google-content-types.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/sdk-google/google-file-conversion.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/sdk-google/google-file-conversion.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/excerpts/sdk-google/google-supported-urls.ts",
+      "new": "research/agents/agent-video-understanding-20261005/excerpts/sdk-google/google-supported-urls.ts"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/extract_sources.py",
+      "new": "research/agents/agent-video-understanding-20261005/extract_sources.py"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/licenses/codex/LICENSE",
+      "new": "research/agents/agent-video-understanding-20261005/licenses/codex/LICENSE"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/licenses/codex/NOTICE",
+      "new": "research/agents/agent-video-understanding-20261005/licenses/codex/NOTICE"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/licenses/opencode/LICENSE",
+      "new": "research/agents/agent-video-understanding-20261005/licenses/opencode/LICENSE"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/licenses/sdk-google/LICENSE",
+      "new": "research/agents/agent-video-understanding-20261005/licenses/sdk-google/LICENSE"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/offline-probe.json",
+      "new": "research/agents/agent-video-understanding-20261005/offline-probe.json"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/probe_boundaries.mjs",
+      "new": "research/agents/agent-video-understanding-20261005/probe_boundaries.mjs"
+    },
+    {
+      "old": "engineering/research/agent-video-understanding-20261005/sources.json",
+      "new": "research/agents/agent-video-understanding-20261005/sources.json"
+    },
+    {
+      "old": "engineering/research/court-fullcourt-20261004-line-checks.json",
+      "new": "research/vision/court-fullcourt-20261004-line-checks.json"
+    },
+    {
+      "old": "engineering/research/court-fullcourt-20261004.md",
+      "new": "research/vision/court-fullcourt-20261004.md"
+    },
+    {
+      "old": "engineering/research/court-generalization-20261004.md",
+      "new": "research/vision/court-generalization-20261004.md"
+    },
+    {
+      "old": "engineering/research/fullcourt-tools-and-camera-tracking-20261004.md",
+      "new": "research/vision/fullcourt-tools-and-camera-tracking-20261004.md"
+    },
+    {
+      "old": "engineering/research/jev-regional-availability.md",
+      "new": "research/runtime/jev-regional-availability.md"
+    },
+    {
+      "old": "engineering/research/jev-support-email-2026-09-28.md",
+      "new": "research/runtime/jev-support-email-2026-09-28.md"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/OPEN_SOURCE_AUDIT.md",
+      "new": "research/basketball-models/mentor-components-20261005/OPEN_SOURCE_AUDIT.md"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/PAPER_GUIDE.md",
+      "new": "research/basketball-models/mentor-components-20261005/PAPER_GUIDE.md"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/README.md",
+      "new": "research/basketball-models/mentor-components-20261005/README.md"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/REPRODUCE.md",
+      "new": "research/basketball-models/mentor-components-20261005/REPRODUCE.md"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/audit_model_releases.py",
+      "new": "research/basketball-models/mentor-components-20261005/audit_model_releases.py"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/audit_public_assets.py",
+      "new": "research/basketball-models/mentor-components-20261005/audit_public_assets.py"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/embeddings.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/embeddings.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/evaluation-cpu.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/evaluation-cpu.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/evaluation-cuda.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/evaluation-cuda.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/historical-source-manifest.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/historical-source-manifest.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/hoopeval-historical-cpu.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/hoopeval-historical-cpu.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/hoopeval-historical-cuda.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/hoopeval-historical-cuda.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/hooppad.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/hooppad.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/model-release-audit.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/model-release-audit.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/mssl-third-party.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/mssl-third-party.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/paper-guide-provenance.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/paper-guide-provenance.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/paper-guide-search-index.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/paper-guide-search-index.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/public-assets.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/public-assets.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/release-discovery.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/release-discovery.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/release-downloads.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/release-downloads.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/release-search-index.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/release-search-index.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/search-index.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/search-index.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/source-provenance.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/source-provenance.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/transformer-cpu.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/transformer-cpu.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/transformer-cuda.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/transformer-cuda.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/evidence/visualizer.json",
+      "new": "research/basketball-models/mentor-components-20261005/evidence/visualizer.json"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/probe_historical_hoopeval.py",
+      "new": "research/basketball-models/mentor-components-20261005/probe_historical_hoopeval.py"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/probe_hooppad.py",
+      "new": "research/basketball-models/mentor-components-20261005/probe_hooppad.py"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/probe_models.py",
+      "new": "research/basketball-models/mentor-components-20261005/probe_models.py"
+    },
+    {
+      "old": "engineering/research/mentor-components-20261005/sources/user-literature-review.md",
+      "new": "research/basketball-models/mentor-components-20261005/sources/user-literature-review.md"
+    },
+    {
+      "old": "engineering/research/model-integration-20261002.json",
+      "new": "research/vision/model-integration-20261002.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/.gitattributes",
+      "new": "research/evidence/nba-evidence-study-20261002/.gitattributes"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/README.md",
+      "new": "research/evidence/nba-evidence-study-20261002/README.md"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/adapter/README.md",
+      "new": "research/evidence/nba-evidence-study-20261002/adapter/README.md"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/adapter/bridge-tamper-example.json",
+      "new": "research/evidence/nba-evidence-study-20261002/adapter/bridge-tamper-example.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/adapter/counterexamples.json",
+      "new": "research/evidence/nba-evidence-study-20261002/adapter/counterexamples.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/adapter/normalize.py",
+      "new": "research/evidence/nba-evidence-study-20261002/adapter/normalize.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/adapter/observation.schema.json",
+      "new": "research/evidence/nba-evidence-study-20261002/adapter/observation.schema.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/adapter/real-examples.json",
+      "new": "research/evidence/nba-evidence-study-20261002/adapter/real-examples.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/adapter/validation-results.json",
+      "new": "research/evidence/nba-evidence-study-20261002/adapter/validation-results.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/artifact-manifest.json",
+      "new": "research/evidence/nba-evidence-study-20261002/artifact-manifest.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/ball_selection_probe.py",
+      "new": "research/evidence/nba-evidence-study-20261002/ball_selection_probe.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/baseline/audit_baseline.py",
+      "new": "research/evidence/nba-evidence-study-20261002/baseline/audit_baseline.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/baseline/baseline-audit.json",
+      "new": "research/evidence/nba-evidence-study-20261002/baseline/baseline-audit.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/baseline/test_audit_baseline.py",
+      "new": "research/evidence/nba-evidence-study-20261002/baseline/test_audit_baseline.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/baseline/研究记录.md",
+      "new": "research/evidence/nba-evidence-study-20261002/baseline/研究记录.md"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/calibration/candidate_matrices.mjs",
+      "new": "research/evidence/nba-evidence-study-20261002/calibration/candidate_matrices.mjs"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/calibration/projection-sensitivity.json",
+      "new": "research/evidence/nba-evidence-study-20261002/calibration/projection-sensitivity.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/calibration/projection-sensitivity.png",
+      "new": "research/evidence/nba-evidence-study-20261002/calibration/projection-sensitivity.png"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/calibration/projection_sensitivity.py",
+      "new": "research/evidence/nba-evidence-study-20261002/calibration/projection_sensitivity.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/calibration/test_projection_sensitivity.py",
+      "new": "research/evidence/nba-evidence-study-20261002/calibration/test_projection_sensitivity.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/calibration/研究记录.md",
+      "new": "research/evidence/nba-evidence-study-20261002/calibration/研究记录.md"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/evaluate_ball_challenges.py",
+      "new": "research/evidence/nba-evidence-study-20261002/evaluate_ball_challenges.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/evidence/contract/contract.schema.json",
+      "new": "research/evidence/nba-evidence-study-20261002/evidence/contract/contract.schema.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/evidence/contract/contract_probe.py",
+      "new": "research/evidence/nba-evidence-study-20261002/evidence/contract/contract_probe.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/evidence/contract/counterexamples.json.gz",
+      "new": "research/evidence/nba-evidence-study-20261002/evidence/contract/counterexamples.json.gz"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/evidence/contract/independent_review.md",
+      "new": "research/evidence/nba-evidence-study-20261002/evidence/contract/independent_review.md"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/evidence/contract/revision_history_example.json",
+      "new": "research/evidence/nba-evidence-study-20261002/evidence/contract/revision_history_example.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/evidence/contract/source_grounded_examples.json",
+      "new": "research/evidence/nba-evidence-study-20261002/evidence/contract/source_grounded_examples.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/evidence/contract/validation_results.json",
+      "new": "research/evidence/nba-evidence-study-20261002/evidence/contract/validation_results.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/evidence/contract/研究记录.md",
+      "new": "research/evidence/nba-evidence-study-20261002/evidence/contract/研究记录.md"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/fact-gate/README.md",
+      "new": "research/evidence/nba-evidence-study-20261002/fact-gate/README.md"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/fact-gate/adapter_gate_bridge.py",
+      "new": "research/evidence/nba-evidence-study-20261002/fact-gate/adapter_gate_bridge.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/fact-gate/fact_gate_experiment.py",
+      "new": "research/evidence/nba-evidence-study-20261002/fact-gate/fact_gate_experiment.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/fact-gate/real_challenges.json",
+      "new": "research/evidence/nba-evidence-study-20261002/fact-gate/real_challenges.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/fact-gate/synthetic_candidates.json",
+      "new": "research/evidence/nba-evidence-study-20261002/fact-gate/synthetic_candidates.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/fact-gate/synthetic_results.json",
+      "new": "research/evidence/nba-evidence-study-20261002/fact-gate/synthetic_results.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/faults/capability_ablation.py",
+      "new": "research/evidence/nba-evidence-study-20261002/faults/capability_ablation.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/faults/capability_results.json",
+      "new": "research/evidence/nba-evidence-study-20261002/faults/capability_results.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/faults/fault_results.json",
+      "new": "research/evidence/nba-evidence-study-20261002/faults/fault_results.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/faults/run_fault_experiments.py",
+      "new": "research/evidence/nba-evidence-study-20261002/faults/run_fault_experiments.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/faults/validation.json",
+      "new": "research/evidence/nba-evidence-study-20261002/faults/validation.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/faults/verify_fault_experiments.py",
+      "new": "research/evidence/nba-evidence-study-20261002/faults/verify_fault_experiments.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/faults/研究记录.md",
+      "new": "research/evidence/nba-evidence-study-20261002/faults/研究记录.md"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/human-review-queue.json",
+      "new": "research/evidence/nba-evidence-study-20261002/human-review-queue.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/identity/sparse_identity_results.json",
+      "new": "research/evidence/nba-evidence-study-20261002/identity/sparse_identity_results.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/identity/研究记录.md",
+      "new": "research/evidence/nba-evidence-study-20261002/identity/研究记录.md"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/literature.md",
+      "new": "research/evidence/nba-evidence-study-20261002/literature.md"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/object_probe.py",
+      "new": "research/evidence/nba-evidence-study-20261002/object_probe.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/objects/004-proximity.json",
+      "new": "research/evidence/nba-evidence-study-20261002/objects/004-proximity.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/objects/005-proximity.json",
+      "new": "research/evidence/nba-evidence-study-20261002/objects/005-proximity.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/objects/006-proximity.json",
+      "new": "research/evidence/nba-evidence-study-20261002/objects/006-proximity.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/objects/challenge_comparison.json",
+      "new": "research/evidence/nba-evidence-study-20261002/objects/challenge_comparison.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/objects/object_results.json",
+      "new": "research/evidence/nba-evidence-study-20261002/objects/object_results.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/objects/selection_results.json",
+      "new": "research/evidence/nba-evidence-study-20261002/objects/selection_results.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/objects/visual_labels.provisional.json",
+      "new": "research/evidence/nba-evidence-study-20261002/objects/visual_labels.provisional.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/objects/研究记录.md",
+      "new": "research/evidence/nba-evidence-study-20261002/objects/研究记录.md"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/prepare_review_queue.py",
+      "new": "research/evidence/nba-evidence-study-20261002/prepare_review_queue.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/publication-validation.json",
+      "new": "research/evidence/nba-evidence-study-20261002/publication-validation.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/recovery-provenance/adapter-examples.json",
+      "new": "research/evidence/nba-evidence-study-20261002/recovery-provenance/adapter-examples.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/recovery-provenance/added-points.csv",
+      "new": "research/evidence/nba-evidence-study-20261002/recovery-provenance/added-points.csv"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/recovery-provenance/audit-report.md",
+      "new": "research/evidence/nba-evidence-study-20261002/recovery-provenance/audit-report.md"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/recovery-provenance/audit.json",
+      "new": "research/evidence/nba-evidence-study-20261002/recovery-provenance/audit.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/recovery-provenance/audit_recovery.py",
+      "new": "research/evidence/nba-evidence-study-20261002/recovery-provenance/audit_recovery.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/recovery-provenance/input-manifest.json",
+      "new": "research/evidence/nba-evidence-study-20261002/recovery-provenance/input-manifest.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/recovery-provenance/offline-dependency-probes.json",
+      "new": "research/evidence/nba-evidence-study-20261002/recovery-provenance/offline-dependency-probes.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/recovery-provenance/probe_offline_dependencies.py",
+      "new": "research/evidence/nba-evidence-study-20261002/recovery-provenance/probe_offline_dependencies.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/recovery-provenance/removed-points.json",
+      "new": "research/evidence/nba-evidence-study-20261002/recovery-provenance/removed-points.json"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/render_ball_challenges.py",
+      "new": "research/evidence/nba-evidence-study-20261002/render_ball_challenges.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/sparse_identity_probe.py",
+      "new": "research/evidence/nba-evidence-study-20261002/sparse_identity_probe.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/test_object_probes.py",
+      "new": "research/evidence/nba-evidence-study-20261002/test_object_probes.py"
+    },
+    {
+      "old": "engineering/research/nba-evidence-study-20261002/visual_audit.py",
+      "new": "research/evidence/nba-evidence-study-20261002/visual_audit.py"
+    },
+    {
+      "old": "engineering/research/player-annotation-simple-20261002.md",
+      "new": "research/vision/player-annotation-simple-20261002.md"
+    },
+    {
+      "old": "engineering/research/player-identity-2k-20261002.md",
+      "new": "research/vision/player-identity-2k-20261002.md"
+    },
+    {
+      "old": "engineering/research/player-team-overlay-20261002.md",
+      "new": "research/vision/player-team-overlay-20261002.md"
+    },
+    {
+      "old": "engineering/research/player-test-20261002.md",
+      "new": "research/vision/player-test-20261002.md"
+    },
+    {
+      "old": "engineering/research/player-tracking-spotchecks-20261002.json",
+      "new": "research/vision/player-tracking-spotchecks-20261002.json"
+    },
+    {
+      "old": "engineering/research/player-tracking-workbench-20261002.md",
+      "new": "research/vision/player-tracking-workbench-20261002.md"
+    },
+    {
+      "old": "engineering/research/player-workbench-publish-20261002.md",
+      "new": "research/vision/player-workbench-publish-20261002.md"
+    },
+    {
+      "old": "engineering/research/qwen-video-trajectory-agent-20261005-sources.json",
+      "new": "research/agents/qwen-video-trajectory-agent-20261005-sources.json"
+    },
+    {
+      "old": "engineering/research/qwen-video-trajectory-agent-20261005.md",
+      "new": "research/agents/qwen-video-trajectory-agent-20261005.md"
+    },
+    {
+      "old": "engineering/research/video-model-to-court-20261005/QWEN_API_NOTES.md",
+      "new": "research/agents/video-model-to-court-20261005/QWEN_API_NOTES.md"
+    },
+    {
+      "old": "engineering/research/video-model-to-court-20261005/README.md",
+      "new": "research/agents/video-model-to-court-20261005/README.md"
+    },
+    {
+      "old": "engineering/research/video-model-to-court-20261005/REPORT.md",
+      "new": "research/agents/video-model-to-court-20261005/REPORT.md"
+    },
+    {
+      "old": "engineering/research/video-model-to-court-20261005/sources.json",
+      "new": "research/agents/video-model-to-court-20261005/sources.json"
+    },
+    {
+      "old": "engineering/research/video-overlay-vision-assessment.md",
+      "new": "research/vision/video-overlay-vision-assessment.md"
+    },
+    {
+      "old": "engineering/research/vision-deployment-benchmark/README.md",
+      "new": "research/runtime/vision-deployment-benchmark/README.md"
+    },
+    {
+      "old": "engineering/research/vision-deployment-benchmark/summary.json",
+      "new": "research/runtime/vision-deployment-benchmark/summary.json"
+    },
+    {
+      "old": "engineering/research/vision-deployment-benchmark/yolov8n-bytetrack-r2.json",
+      "new": "research/runtime/vision-deployment-benchmark/yolov8n-bytetrack-r2.json"
+    },
+    {
+      "old": "engineering/research/vision-deployment-benchmark/yolov8n-bytetrack-r3.json",
+      "new": "research/runtime/vision-deployment-benchmark/yolov8n-bytetrack-r3.json"
+    },
+    {
+      "old": "engineering/research/vision-deployment-benchmark/yolov8n-bytetrack.json",
+      "new": "research/runtime/vision-deployment-benchmark/yolov8n-bytetrack.json"
+    },
+    {
+      "old": "engineering/research/vision-deployment-benchmark/yolov8s-botsort-r1.json",
+      "new": "research/runtime/vision-deployment-benchmark/yolov8s-botsort-r1.json"
+    },
+    {
+      "old": "engineering/research/vision-deployment-benchmark/yolov8s-botsort-r2.json",
+      "new": "research/runtime/vision-deployment-benchmark/yolov8s-botsort-r2.json"
+    },
+    {
+      "old": "engineering/research/vision-deployment-benchmark/yolov8s-botsort-r3.json",
+      "new": "research/runtime/vision-deployment-benchmark/yolov8s-botsort-r3.json"
+    },
+    {
+      "old": "engineering/research/vision-deployment-benchmark/yolov8s-bytetrack-1280.json",
+      "new": "research/runtime/vision-deployment-benchmark/yolov8s-bytetrack-1280.json"
+    },
+    {
+      "old": "engineering/research/vision-deployment-benchmark/yolov8s-bytetrack-r2.json",
+      "new": "research/runtime/vision-deployment-benchmark/yolov8s-bytetrack-r2.json"
+    },
+    {
+      "old": "engineering/research/vision-deployment-benchmark/yolov8s-bytetrack-r3.json",
+      "new": "research/runtime/vision-deployment-benchmark/yolov8s-bytetrack-r3.json"
+    },
+    {
+      "old": "engineering/research/vision-deployment-benchmark/yolov8s-bytetrack.json",
+      "new": "research/runtime/vision-deployment-benchmark/yolov8s-bytetrack.json"
+    },
+    {
+      "old": "engineering/research/vision-local-aws-deployment.md",
+      "new": "research/runtime/vision-local-aws-deployment.md"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/README.md",
+      "new": "research/vision/vision-player-refinement/README.md"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/baseline-run.json",
+      "new": "research/vision/vision-player-refinement/baseline-run.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/clip001-court-expanded.json",
+      "new": "research/vision/vision-player-refinement/clip001-court-expanded.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/clip001-court-reference.json",
+      "new": "research/vision/vision-player-refinement/clip001-court-reference.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/clip001-profile.json",
+      "new": "research/vision/vision-player-refinement/clip001-profile.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/comparison.json",
+      "new": "research/vision/vision-player-refinement/comparison.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/court-calibration-research.md",
+      "new": "research/vision/vision-player-refinement/court-calibration-research.md"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/court-candidates-004.json",
+      "new": "research/vision/vision-player-refinement/court-candidates-004.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/court-candidates-005.json",
+      "new": "research/vision/vision-player-refinement/court-candidates-005.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/court-candidates-006.json",
+      "new": "research/vision/vision-player-refinement/court-candidates-006.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/court-geometry-audit.json",
+      "new": "research/vision/vision-player-refinement/court-geometry-audit.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/court-line-registration-survey-20261003.md",
+      "new": "research/vision/vision-player-refinement/court-line-registration-survey-20261003.md"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/court-model-comparison.json",
+      "new": "research/vision/vision-player-refinement/court-model-comparison.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/court-model-comparison.md",
+      "new": "research/vision/vision-player-refinement/court-model-comparison.md"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/court-seed-004.json",
+      "new": "research/vision/vision-player-refinement/court-seed-004.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/court-seed-005.json",
+      "new": "research/vision/vision-player-refinement/court-seed-005.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/court-seed-006.json",
+      "new": "research/vision/vision-player-refinement/court-seed-006.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/data-extraction-workflow.md",
+      "new": "research/vision/vision-player-refinement/data-extraction-workflow.md"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/ebard-assessment.md",
+      "new": "research/vision/vision-player-refinement/ebard-assessment.md"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/ebard-probe.json",
+      "new": "research/vision/vision-player-refinement/ebard-probe.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/ebard-tracking-probe.json",
+      "new": "research/vision/vision-player-refinement/ebard-tracking-probe.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/feet-candidates-004.json",
+      "new": "research/vision/vision-player-refinement/feet-candidates-004.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/feet-candidates-005.json",
+      "new": "research/vision/vision-player-refinement/feet-candidates-005.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/feet-candidates-006.json",
+      "new": "research/vision/vision-player-refinement/feet-candidates-006.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/feet-model-comparison.json",
+      "new": "research/vision/vision-player-refinement/feet-model-comparison.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/feet-model-comparison.md",
+      "new": "research/vision/vision-player-refinement/feet-model-comparison.md"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/feet-model-full-run.json",
+      "new": "research/vision/vision-player-refinement/feet-model-full-run.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/ground-anchor-probe.json",
+      "new": "research/vision/vision-player-refinement/ground-anchor-probe.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/ground-tools-survey.md",
+      "new": "research/vision/vision-player-refinement/ground-tools-survey.md"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/hoop-constrained-calibration.json",
+      "new": "research/vision/vision-player-refinement/hoop-constrained-calibration.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/identity-binding-review.md",
+      "new": "research/vision/vision-player-refinement/identity-binding-review.md"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/identity-cases.json",
+      "new": "research/vision/vision-player-refinement/identity-cases.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/identity-comparison.json",
+      "new": "research/vision/vision-player-refinement/identity-comparison.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/kalicalib-probe.json",
+      "new": "research/vision/vision-player-refinement/kalicalib-probe.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/media-validation.json",
+      "new": "research/vision/vision-player-refinement/media-validation.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/problem-cases.json",
+      "new": "research/vision/vision-player-refinement/problem-cases.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/propagation-validation.json",
+      "new": "research/vision/vision-player-refinement/propagation-validation.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/propagation-validation.md",
+      "new": "research/vision/vision-player-refinement/propagation-validation.md"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/refined-run.json",
+      "new": "research/vision/vision-player-refinement/refined-run.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/tracker-comparison.json",
+      "new": "research/vision/vision-player-refinement/tracker-comparison.json"
+    },
+    {
+      "old": "engineering/research/vision-player-refinement/tracking-diagnosis.json",
+      "new": "research/vision/vision-player-refinement/tracking-diagnosis.json"
+    },
+    {
+      "old": "engineering/scripts/analyze_court_geometry.py",
+      "new": "research/vision/scripts/analyze_court_geometry.py"
+    },
+    {
+      "old": "engineering/scripts/benchmark_ground_anchors.py",
+      "new": "research/vision/scripts/benchmark_ground_anchors.py"
+    },
+    {
+      "old": "engineering/scripts/benchmark_vision_baseline.py",
+      "new": "research/vision/scripts/benchmark_vision_baseline.py"
+    },
+    {
+      "old": "engineering/scripts/evaluate_identity_cases.py",
+      "new": "research/vision/scripts/evaluate_identity_cases.py"
+    },
+    {
+      "old": "engineering/scripts/evaluate_vision_problem_cases.py",
+      "new": "research/vision/scripts/evaluate_vision_problem_cases.py"
+    },
+    {
+      "old": "engineering/scripts/probe_court_models_v2.py",
+      "new": "research/vision/scripts/probe_court_models_v2.py"
+    },
+    {
+      "old": "engineering/scripts/probe_feet_models.py",
+      "new": "research/vision/scripts/probe_feet_models.py"
+    },
+    {
+      "old": "engineering/scripts/probe_kalicalib.py",
+      "new": "research/vision/scripts/probe_kalicalib.py"
+    }
+  ]
+}
