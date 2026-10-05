@@ -3,6 +3,7 @@
 | 专题 | 入口 | 范围 |
 | --- | --- | --- |
 | Qwen 主动看帧、修正地面轨迹 | [讨论与来源](qwen-video-trajectory-agent-20261005.md) | Agent 多轮工具与证据循环 |
+| Qwen 官方训练片真实调用 | [测试、修复与结果](qwen-ground-official-20261005/README.md) | 两段官方原片、真实 API、像素到 2D 的多轮对照；AI 参照不代表人工真值 |
 | 多模态视频模型到球场映射 | [研究包](video-model-to-court-20261005/README.md) | 模型能力、时间采样、跟踪与映射边界 |
 | OpenCode / Codex 视频处理源码 | [源码研究](agent-video-understanding-20261005/README.md) | 固定版本、原样摘录与离线检查 |
 

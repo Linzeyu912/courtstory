@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>视频 × 地面轨迹 · Qwen 实测回放</title><link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/trajectory-replay.css">
+</head>
+<body>
+  <aside class="rail"><a href="/" class="brand" aria-label="返回球场工作台">BC<span>↗</span></a><span class="rail-line"></span><span class="rail-active" title="轨迹对比">◎</span><span class="rail-label">COURTSIDE</span></aside>
+  <main>
+    <header class="page-header"><div><div class="eyebrow">QWEN / MOTION REVIEW</div><h1>视频 <span>×</span> 地面轨迹</h1></div><a href="/" class="back-link">返回标定工作台 ↗</a></header>
+    <div class="intro"><p>同一时刻，两个视角。播放视频，观察球员与地面位置的对应。</p><span class="local-tag"><i></i>真实 API 结果回放</span></div>
+    <nav id="samples" class="samples" aria-label="选择实测片段"></nav>
+    <p id="error" role="alert" hidden></p>
+    <section id="viewer" hidden>
+      <div class="review-heading"><div><span class="target-label">当前对象</span><strong id="player"></strong><span class="scope-tag">单人 · 约 5 秒</span></div><div class="legend"><label><input id="showRaw" type="checkbox" checked><i class="blue"></i>原始投影</label><label><input id="showQwen" type="checkbox" checked><i class="green"></i>Qwen 候选</label></div></div>
+      <div class="workspace-grid">
+        <section class="panel video-panel" aria-label="原视频与地面回投">
+          <header class="panel-header"><h2><span>01</span> 原视频</h2><span id="videoTime" class="mono">00.000 s</span></header>
+          <div class="video-stage" id="videoStage"><video id="video" muted playsinline preload="auto" aria-label="官方训练原视频"></video><canvas id="videoOverlay" aria-label="目标球员与地面回投标记"></canvas><div id="videoLoading">正在载入原视频…</div><span class="video-badge">SOURCE VIDEO</span></div>
+          <div class="video-bottom"><div class="zoom-wrap"><canvas id="footZoom" aria-label="球员脚部放大对比"></canvas><span>脚部放大</span></div><div class="frame-info"><span class="eyebrow">GROUND CONTACT</span><h3 id="frameStatus">等待视频</h3><p>蓝点是原始投影，绿点是 Qwen 地面估计。两者使用当前镜头回投。</p><label class="sub-control"><input id="showVideoTrail" type="checkbox" checked>原画面显示最近 1.5 秒轨迹</label></div></div>
+        </section>
+        <section class="panel court-panel" aria-label="动态二维球场">
+          <header class="panel-header"><h2><span>02</span> 2D 球场</h2><div class="segmented" aria-label="球场显示范围"><button id="halfCourt" aria-pressed="true">半场</button><button id="fullCourt" aria-pressed="false">全场</button></div></header>
+          <div class="court-stage"><canvas id="court" aria-label="球场轨迹对照，随视频时间逐帧绘制"></canvas><span id="courtSide" class="court-label"></span><div id="unknownBadge" class="unknown-badge" hidden>本帧 Qwen 位置未知</div></div>
+          <div class="court-controls"><label>轨迹长度<select id="trailLength" aria-label="轨迹长度"><option value="all">已播放路径</option><option value="1.5">最近 1.5 秒</option><option value="full">整段总览</option></select></label><span>圆点 = 当前时刻</span></div>
+          <div class="coordinates"><div><span><i class="blue"></i>原始投影</span><strong id="rawPosition">—</strong></div><div><span><i class="green"></i>Qwen 候选</span><strong id="qwenPosition">—</strong></div></div>
+        </section>
+      </div>
+      <section class="transport-panel" aria-label="同步播放控制">
+        <div class="transport"><div class="transport-buttons"><button id="play" class="play" disabled>▶ 播放</button><button id="previous" aria-label="上一帧" title="上一帧（←）">←</button><button id="next" aria-label="下一帧" title="下一帧（→）">→</button><button id="restart" title="回到选段开头">↺ 重播</button><label class="speed-label"><select id="speed" aria-label="播放速度"><option value="0.25">0.25×</option><option value="0.5" selected>0.5× 慢放</option><option value="1">1× 正常</option></select></label><label class="loop"><input id="loop" type="checkbox" checked>循环</label></div><div class="clock"><strong id="elapsed">0.00</strong><span id="duration"></span><span id="frameNumber" class="mono"></span></div></div>
+        <input id="scrubber" aria-label="同步回放时间轴" type="range" min="0" max="299" step="1" value="0">
+        <div class="timeline-scale"><span id="startTime"></span><span>原视频时间 · 拖动查看同一帧</span><span id="endTime"></span></div>
+        <div class="coverage-row"><span>原始</span><canvas id="rawCoverage" height="12" aria-label="原始轨迹有效范围"></canvas><span id="rawCount"></span></div>
+        <div class="coverage-row"><span>Qwen</span><canvas id="qwenCoverage" height="12" aria-label="Qwen 轨迹有效范围，橙色表示缺口"></canvas><span id="qwenCount"></span></div>
+        <div class="checkpoints"><span>重点查看</span><div id="checkpoints"></div><span class="gap-legend"><i></i>缺口保留，不连接</span></div>
+      </section>
+      <footer class="review-note"><div><span class="note-mark">i</span><p id="sampleNote"></p></div><p>场地标定与球员关联来自 AI 测试参照，尚未人工确认。仅显示本次实测范围。</p></footer>
+    </section>
+  </main>
+  <script type="module" src="/trajectory-replay.mjs"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@ import base64
 import hashlib
 import io
 import math
-from PIL import Image, ImageDraw, ImageOps
+from PIL import Image, ImageDraw, ImageOps, ImageFont
 
 
 def _image(record):
@@ -50,9 +50,26 @@ def inspect_images(records, preparation, entity_ids, mode, directory):
                 cropped = image.crop(crop)
                 canvas = Image.new('RGB', (cropped.width, cropped.height+28), '#121826')
                 canvas.paste(cropped, (0, 28))
-                ImageDraw.Draw(canvas).text((4, 5), f'{entity_id} | {_label(record)}', fill='white')
+                # Give the vision model readable image coordinates. Without
+                # rulers, live runs repeatedly guessed the bottom of the crop
+                # instead of the visible sole, even with correct crop metadata.
+                guide = Image.new('RGBA', canvas.size, (0, 0, 0, 0)); gd = ImageDraw.Draw(guide)
+                for x in range(50, canvas.width, 50):
+                    gd.line((x, 28, x, canvas.height), fill=(150, 200, 255, 85), width=1)
+                for y in range(50, canvas.height, 50):
+                    gd.line((0, y, canvas.width, y), fill=(150, 200, 255, 85), width=1)
+                canvas = Image.alpha_composite(canvas.convert('RGBA'), guide).convert('RGB')
+                cd = ImageDraw.Draw(canvas)
+                cd.text((4, 5), f'{entity_id} f{record["frame"]} t={record["time"]:.3f}s | image px', fill='white')
+                for x in range(50, canvas.width, 50):
+                    cd.rectangle((x+1, 28, x+27, 41), fill='#121826')
+                    cd.text((x+2, 28), str(x), fill='#ffd166')
+                for y in range(50, canvas.height, 50):
+                    cd.rectangle((0, y-6, 27, y+7), fill='#121826')
+                    cd.text((2, y-6), str(y), fill='#ffd166')
                 content, asset = _asset(canvas, mode, dict(frame=record['frame'], entityId=entity_id,
-                    crop=list(crop), sourceSize=list(full_size), scale=1, labelHeight=28), directory)
+                    crop=list(crop), sourceSize=list(full_size), scale=1, labelHeight=28,
+                    coordinateGridStep=50, coordinateSpace='returned_image_pixels'), directory)
                 images.append(content); assets.append(asset)
             continue
         draw = ImageDraw.Draw(image)
@@ -137,20 +154,35 @@ def render_images(preparation, candidate, records, entity_ids, directory):
         if not h or len(h) != 9:
             continue
         image = _image(record); draw = ImageDraw.Draw(image)
-        draw.text((10, 10), _label(record)+' | ground reprojection, NOT airborne foot location', fill='white')
-        for index, entity_id in enumerate(entity_ids):
-            point = candidate['pointsByPlayer'][entity_id][frame]
+        font = ImageFont.load_default(size=22)
+        draw.rectangle((0, 0, image.width, 65), fill='#121826')
+        draw.text((10, 6), _label(record), fill='white', font=font)
+        draw.text((10, 34), 'Blue cross: current | yellow circle: candidate ground estimate | airborne feet are NOT ground', fill='white', font=font)
+        def projected(point):
             if not all(isinstance(point.get(k), (int, float)) and math.isfinite(point[k]) for k in ('x', 'y')):
-                continue
+                return None
             x, y = point['x'], point['y']; denominator = h[6]*x+h[7]*y+h[8]
             if abs(denominator) < 1e-8:
-                continue
+                return None
             u, v = (h[0]*x+h[1]*y+h[2])/denominator, (h[3]*x+h[4]*y+h[5])/denominator
-            if not (-image.width <= u <= image.width*2 and -image.height <= v <= image.height*2):
+            return (u, v) if -image.width <= u <= image.width*2 and -image.height <= v <= image.height*2 else None
+        for index, entity_id in enumerate(entity_ids):
+            point = candidate['pointsByPlayer'][entity_id][frame]
+            before = projected(preparation['preparedByPlayer'][entity_id][frame])
+            after = projected(point)
+            if before:
+                u, v = before
+                draw.line((u-12, v, u+12, v), fill='#63b3ff', width=4)
+                draw.line((u, v-12, u, v+12), fill='#63b3ff', width=4)
+                if after:
+                    draw.line([before, after], fill='#63b3ff', width=2)
+            if not after:
+                draw.text((10, 70+index*28), f'{entity_id}: unknown / unavailable', fill='#ffd166', font=font)
                 continue
+            u, v = after
             color = colors[index % len(colors)]
-            draw.ellipse((u-9, v-9, u+9, v+9), outline=color, width=3)
-            draw.text((u+12, v), entity_id, fill=color)
+            draw.ellipse((u-12, v-12, u+12, v+12), outline=color, width=4)
+            draw.text((u+16, v), entity_id, fill=color, font=font)
         image.thumbnail((1280, 1280), Image.Resampling.LANCZOS)
         content, asset = _asset(image, 'ground_reprojection', dict(frame=frame, revision=candidate['revision']), directory)
         images.append(content); assets.append(asset)

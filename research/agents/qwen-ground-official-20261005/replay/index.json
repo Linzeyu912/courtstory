@@ -1,0 +1,36 @@
+{
+  "samples": [
+    {
+      "id": "official-training-001",
+      "title": "官方训练 001 · 弗拉格片",
+      "player": "深蓝球衣 · 白色头带 · T10",
+      "videoHash": "9c3e4606d04e7f79e29a112952fcf069ebab202af207af500bfbc3338bc079ce",
+      "side": "left",
+      "note": "局部脚点有改善，仍需逐帧核对。",
+      "status": "ready",
+      "startTime": 13.013011111,
+      "endTime": 18.018011111,
+      "counts": {
+        "total": 300,
+        "raw": 296,
+        "qwen": 296
+      }
+    },
+    {
+      "id": "official-training-002",
+      "title": "官方训练 002 · 阿门片",
+      "player": "白色 1 号 · T72",
+      "videoHash": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+      "side": "right",
+      "note": "存在误删：源帧 1155 的球员仍可见，Qwen 却没有给出位置。",
+      "status": "partial",
+      "startTime": 15.015011111,
+      "endTime": 20.020011111,
+      "counts": {
+        "total": 300,
+        "raw": 271,
+        "qwen": 163
+      }
+    }
+  ]
+}

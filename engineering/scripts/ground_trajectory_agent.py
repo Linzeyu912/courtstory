@@ -164,7 +164,9 @@ class GroundTrajectoryAgent:
 
     def _persist(self, job):
         value = {k: deepcopy(v) for k, v in job.items() if k not in {'cancel', 'process', 'frames', 'imageByPlayer'}}
-        atomic_json(self.folder / job['jobId'] / 'job.json', value)
+        directory = self.folder / job['jobId']
+        directory.mkdir(parents=True, exist_ok=True)
+        atomic_json(directory / 'job.json', value)
 
     @staticmethod
     def _safe_message(value):

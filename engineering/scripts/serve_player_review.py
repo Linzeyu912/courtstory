@@ -61,6 +61,8 @@ def main():
     parser.add_argument("--court-model", default="tmp/court-models-v2/best.pt", help="Pinned local 48-point weights; loaded on calibration requests only")
     parser.add_argument("--court-imgsz", type=int, choices=(640, 960), default=640)
     parser.add_argument("--ground-comparison-root", help="Optional read-only pose comparison directory")
+    parser.add_argument("--trajectory-replay-root", default="research/agents/qwen-ground-official-20261005/replay",
+                        help="Read-only exported Qwen result replays; no model calls or draft writes")
     args = parser.parse_args()
     if args.library:
         if args.video or args.tracks or args.alternative_tracks:
@@ -163,6 +165,9 @@ def main():
             'defaultVariant':clips[s['id']]['defaultVariant']} for s in active_samples]},ensure_ascii=False).encode('utf-8')
     static = Path(__file__).resolve().parents[1] / "tools/player-review"
     routes = {"/": static / "index.html"}
+    routes['/trajectory-replay'] = static / 'trajectory-replay.html'
+    for filename in ['trajectory-replay.css', 'trajectory-replay.mjs', 'trajectory-replay-model.mjs']:
+        routes['/' + filename] = static / filename
     for filename in ["ball-court.mjs","ground-position.mjs","ground-comparison-ui.mjs","identity-ocr.mjs","style.css","pipeline.css","app.mjs","player-identity.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
         routes['/'+filename]=static/filename
     routes['/video-library.mjs']=static/'video-library.mjs'
@@ -399,6 +404,26 @@ def main():
         def respond(self, head_only=False):
             from urllib.parse import parse_qs
             parsed=urlsplit(self.path);route=parsed.path;query=parse_qs(parsed.query)
+            if route == '/api/trajectory-replay':
+                root = Path(args.trajectory_replay_root).resolve()
+                try:
+                    sample_id = query.get('sample', [None])[0]
+                    if sample_id is None:
+                        manifest = read_json(root / 'index.json', 'Trajectory replay') if (root / 'index.json').is_file() else {'samples': []}
+                        result = {'samples': [s for s in manifest['samples'] if s['id'] in clips and s['videoHash'] == clips[s['id']]['digest']]}
+                    else:
+                        if sample_id not in clips:
+                            raise ValueError('找不到该回放的视频。')
+                        path = (root / (sample_id + '.json')).resolve()
+                        if not path.is_relative_to(root):
+                            raise ValueError('回放路径不正确。')
+                        result = read_json(path, 'Trajectory replay')
+                        if result['videoHash'] != clips[sample_id]['digest']:
+                            raise ValueError('回放数据与当前视频不匹配。')
+                    self.json_response(200, result, head_only)
+                except (ValueError, KeyError, TypeError, OSError) as error:
+                    self.json_response(400, {'error': str(error)}, head_only)
+                return
             render_path=None
             if re.fullmatch(r'/api/tactics-render/jobs/[a-zA-Z0-9-]+(?:/video)?',route):
                 try:
