@@ -596,7 +596,8 @@
       ],
       "properties": {
         "reviewer_model": {
-          "const": "gpt-6.1-sol"
+          "type": "string",
+          "minLength": 1
         },
         "human_reviewed": {
           "type": "boolean"

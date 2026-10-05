@@ -3,9 +3,9 @@
   "scenario": "players_out_of_frame",
   "title": "球员出画",
   "path_base": "repository_root",
-  "count": 116,
-  "usable_count": 116,
-  "default_count": 116,
+  "count": 118,
+  "usable_count": 118,
+  "default_count": 118,
   "samples": [
     {
       "clip_id": "nba-2024-25-library100-001",
@@ -700,6 +700,18 @@
     {
       "clip_id": "user-uploads-20261004-018",
       "path": "data/videos/classification/by_scenario/players_out_of_frame/user-uploads-20261004-018.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-001",
+      "path": "data/videos/classification/by_scenario/players_out_of_frame/broadcastcode-training-20261005-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-002",
+      "path": "data/videos/classification/by_scenario/players_out_of_frame/broadcastcode-training-20261005-002.json",
       "status": "clear",
       "recommended": true
     }

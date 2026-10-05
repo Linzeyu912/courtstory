@@ -3,9 +3,9 @@
   "scenario": "occlusion",
   "title": "遮挡",
   "path_base": "repository_root",
-  "count": 159,
-  "usable_count": 159,
-  "default_count": 159,
+  "count": 161,
+  "usable_count": 161,
+  "default_count": 161,
   "samples": [
     {
       "clip_id": "nba-2024-25-library100-001",
@@ -958,6 +958,18 @@
     {
       "clip_id": "user-uploads-20261004-018",
       "path": "data/videos/classification/by_scenario/occlusion/user-uploads-20261004-018.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-001",
+      "path": "data/videos/classification/by_scenario/occlusion/broadcastcode-training-20261005-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-002",
+      "path": "data/videos/classification/by_scenario/occlusion/broadcastcode-training-20261005-002.json",
       "status": "clear",
       "recommended": true
     }

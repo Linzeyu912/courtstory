@@ -3,9 +3,9 @@
   "scenario": "image_blur",
   "title": "画面模糊",
   "path_base": "repository_root",
-  "count": 39,
-  "usable_count": 39,
-  "default_count": 39,
+  "count": 41,
+  "usable_count": 41,
+  "default_count": 41,
   "samples": [
     {
       "clip_id": "nba-2024-25-library100-014",
@@ -238,6 +238,18 @@
     {
       "clip_id": "user-uploads-20261004-018",
       "path": "data/videos/classification/by_scenario/image_blur/user-uploads-20261004-018.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-001",
+      "path": "data/videos/classification/by_scenario/image_blur/broadcastcode-training-20261005-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-002",
+      "path": "data/videos/classification/by_scenario/image_blur/broadcastcode-training-20261005-002.json",
       "status": "clear",
       "recommended": true
     }

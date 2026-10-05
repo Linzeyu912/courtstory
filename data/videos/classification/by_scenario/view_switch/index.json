@@ -3,9 +3,9 @@
   "scenario": "view_switch",
   "title": "视角切换",
   "path_base": "repository_root",
-  "count": 27,
-  "usable_count": 27,
-  "default_count": 27,
+  "count": 29,
+  "usable_count": 29,
+  "default_count": 29,
   "samples": [
     {
       "clip_id": "nba-2025-26-batch030-001",
@@ -167,6 +167,18 @@
       "clip_id": "user-uploads-20261003-batch02-011",
       "path": "data/videos/classification/by_scenario/view_switch/user-uploads-20261003-batch02-011.json",
       "status": "challenge",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-001",
+      "path": "data/videos/classification/by_scenario/view_switch/broadcastcode-training-20261005-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-002",
+      "path": "data/videos/classification/by_scenario/view_switch/broadcastcode-training-20261005-002.json",
+      "status": "clear",
       "recommended": true
     }
   ]

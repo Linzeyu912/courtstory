@@ -2,7 +2,7 @@
 
 本目录服务后续 Agent 的素材选择与数据增强准备。用户转述的负责人原话要求覆盖镜头推拉、全场移动、画面模糊、特写打断、视角切换等真实情况，按类型标来源、时间戳并统一命名。本轮完成场景初筛与标注；尚未生成增强视频或训练模型。
 
-当前163段保留素材的数量、人工去杂依据和推拉复核见[结果](review-summary.md)。人工抽检40段，保留28、删除12；默认集合163段，包含清晰及困难场景，不按模糊标签自动剔除。
+当前165段保留素材包含新增的2段[官方训练片](../uploads/2026-10-05-official-training/README.md)；此前163段的人工去杂依据和推拉复核见[结果](review-summary.md)。人工抽检40段，保留28、删除12；默认集合165段，包含清晰及困难场景，不按模糊标签自动剔除。
 
 ## 读取入口
 
@@ -13,7 +13,7 @@
 
 ```text
 data/videos/
-  catalog.json                         # 原有8批资产登记入口
+  catalog.json                         # 当前9批资产登记入口
   nba/<season>/clips/                  # 原成片，沿用已有命名和LFS
   nba/<season>/labels/<id>.json         # 新增material_labels，保留旧字段
   uploads/<date>/clips/, labels/       # 未核实赛季的上传素材
@@ -56,7 +56,7 @@ data/videos/
 
 ## 审核与更新
 
-[40段分层抽检](review-sample-40.md)已全部完成，人工保留28段、删除12段；原库175段缩为163段。真实人工逐项评价共享在 [human-2026-10-04](../reviews/human-2026-10-04/README.md)，应用回执见 [human-review-updates.json](human-review-updates.json)。保留的28段为 `provenance.human_reviewed=true`，未抽的135段维持false。12段已删除的原标签、清单和决定仅以元数据归档在 [discarded/index.json](discarded/index.json)，不再作为可播放或可训练素材。
+[40段分层抽检](review-sample-40.md)已全部完成，人工保留28段、删除12段；原库175段缩为163段。真实人工逐项评价共享在 [human-2026-10-04](../reviews/human-2026-10-04/README.md)，应用回执见 [human-review-updates.json](human-review-updates.json)。保留的28段为 `provenance.human_reviewed=true`，原未抽135段及新增官方训练2段维持false。12段已删除的原标签、清单和决定仅以元数据归档在 [discarded/index.json](discarded/index.json)，不再作为可播放或可训练素材。
 
 全库163段的镜头推拉由用户指定的 GPT-6.1 Sol 子Agent进行两轮独立视觉复核。结果及前后值见 [camera-zoom-recheck.json](camera-zoom-recheck.json)。固定篮架、禁区、场地字样和远侧背景的整体尺度变化是判断依据；水平跟拍、人物跑近和切机位另行区分。无法排除横摇透视的细微变化写null，列在 `index.json.unresolved_scenarios`，不放进推拉正例目录。采样间隔0.5秒不能证明边界误差最多0.5秒。
 
