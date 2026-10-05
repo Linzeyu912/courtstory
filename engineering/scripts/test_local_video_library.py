@@ -60,6 +60,20 @@ class LocalLibraryTests(unittest.TestCase):
         data = self.source.read_bytes()
         return self.library.import_stream(name, io.BytesIO(data), len(data))
 
+    def test_manual_import_uses_real_pts_without_models_and_retains_existing_results(self):
+        self.library.runtime_probe=lambda: {'available':False,'reason':'No detector weights','variants':{}}
+        self.library.runner=self.library._run
+        data=self.source.read_bytes()
+        result=self.library.import_and_start('人工.mp4',io.BytesIO(data),len(data),'manual')
+        self.assertNotEqual(result['job']['status'],'error')
+        self.wait(result['id'])
+        sample=self.library.saved[result['id']]
+        self.assertEqual(sample['defaultVariant'],'manual')
+        clip=json.loads(self.published[result['id']]['payloads']['manual'])
+        self.assertEqual([f['time'] for f in clip['frames']],[0,.1,.2,.3,.4])
+        self.assertTrue(all(f['tracks']==[] for f in clip['frames']))
+        self.assertEqual(file_hash(self.source),file_hash(sample['video']))
+
     def shared_fixture(self):
         base = self.root / 'data/videos/uploads/test'; base.mkdir(parents=True)
         media = base / 'shared.mp4'; shutil.copyfile(self.source, media)

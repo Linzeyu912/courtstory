@@ -1,5 +1,5 @@
 import {rangeToSeconds} from './tactics-time-range.mjs';
-import {compileTacticKeyframes} from './tactics-keyframes.mjs';
+import {compileTacticKeyframes,explanationTiming} from './tactics-keyframes.mjs';
 import {courtProjectionGaps} from './tactics-court-projection.mjs';
 import {canonicalJSON,createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {validQuad} from './court.mjs';
@@ -124,7 +124,11 @@ export function compileProduction(document,{fps=30}={}){
   const timeline=production?.timeline??{timebaseFps:30,cues:[],endHoldFrames:0},explicit=new Map(timeline.cues.map(c=>[`${c.phaseId}:${c.frame}`,c]));
   // Ordinary reference-only annotations also receive a stable explanatory hold.
   const points=v2Timing?[]:annotationPausePoints(document),all=v2Timing?[]:[...phases.map(p=>({phaseId:p.phaseId,frame:p.freezeFrame})),...points];
-  for(const cue of compileTacticKeyframes(document))explicit.set(`${cue.phaseId}:${cue.frame}`,{...cue,settleFrames:0,drawFrames:Math.min(15,Math.round(cue.holdSeconds*timeline.timebaseFps)),holdFrames:Math.max(0,Math.round(cue.holdSeconds*timeline.timebaseFps)-15)});
+  for(const cue of compileTacticKeyframes(document)){
+    const key=`${cue.phaseId}:${cue.frame}`,previous=explicit.get(key),timing=cue.kind==='explanation'?explanationTiming(cue.holdSeconds,timeline.timebaseFps):{settleFrames:0,drawFrames:Math.min(15,Math.round(cue.holdSeconds*timeline.timebaseFps)),holdFrames:Math.max(0,Math.round(cue.holdSeconds*timeline.timebaseFps)-15)};
+    // Same source frame is one hold even when an old authored cue is present.
+    explicit.set(key,{...cue,...(previous&&previous.settleFrames+previous.drawFrames+previous.holdFrames>timing.settleFrames+timing.drawFrames+timing.holdFrames?previous:timing)});
+  }
   for(const c of all)if(!explicit.has(`${c.phaseId}:${c.frame}`))explicit.set(`${c.phaseId}:${c.frame}`,productionCue(document,c));
   const frames=[],start=document.playDefinition.startFrame,end=document.playDefinition.endFrameExclusive,first=mapping[start].time;
   const step=end-start>1?mapping[end-1].time-mapping[end-2].time:1/fps,duration=v2Timing?rangeToSeconds(mapping,{startFrame:start,endFrameExclusive:end},document.review.mediaEndTime).endSeconds-first:mapping[end-1].time-first+step,total=Math.max(1,Math.round(duration*fps)),seen=new Set();let local=start;

@@ -174,7 +174,7 @@ def main():
         routes['/'+filename]=static/filename
     for filename in ['tactics-production.mjs','tactics-authored-geometry.mjs','tactics-production-ui.mjs']:
         routes['/'+filename]=static/filename
-    for filename in ['tactics-time-range.mjs','court-preparation.mjs','court-smoothing.mjs','court-preparation-ui.mjs','identity-coverage.mjs','tactics-court-editor.mjs','tactics-keyframes.mjs','tactics-court-projection.mjs','tactics-timeline-ui.mjs']:
+    for filename in ['tactics-time-range.mjs','court-preparation.mjs','court-smoothing.mjs','court-preparation-ui.mjs','identity-coverage.mjs','tactics-court-editor.mjs','tactics-keyframes.mjs','tactics-court-projection.mjs','tactics-timeline-ui.mjs','tactics-manual-editor.mjs']:
         routes['/'+filename]=static/filename
     for filename in ['ground-trajectory.mjs', 'ground-trajectory-fit.mjs', 'ground-trajectory-agent-client.mjs', 'ground-trajectory-agent-ui.mjs']:
         routes['/'+filename]=static/filename
@@ -284,7 +284,7 @@ def main():
                         if self.headers.get('Content-Type')!='application/octet-stream':
                             self.send_error(415);return
                         if not 0<size<=MAX_UPLOAD:raise ValueError('单次导入上限为 2 GB；更大视频请直接放入文件夹。')
-                        result=local_library.import_and_start(unquote(self.headers.get('X-Video-Filename','')),self.rfile,size)
+                        result=local_library.import_and_start(unquote(self.headers.get('X-Video-Filename','')),self.rfile,size,self.headers.get('X-Video-Mode','team-stable'))
                     else:
                         if self.headers.get('Content-Type','').split(';')[0]!='application/json':
                             self.send_error(415);return
@@ -733,16 +733,19 @@ def video_source_info(video, *, include_end=False):
                 times.append(float(frame.time))
             if not times or any(b<=a for a,b in zip(times,times[1:])):
                 raise ValueError('source timestamps must be nonempty and strictly increasing')
+            stream_end = float(((stream.start_time or 0) + stream.duration) * stream.time_base) if stream.duration is not None and stream.time_base else None
         with video.open('rb') as source:
             digest=hashlib.file_digest(source,'sha256').hexdigest()
         media_end = None
         duration = getattr(frame, 'duration', 0)
-        if duration and frame.time_base:
-            media_end = times[-1] + float(duration * frame.time_base)
-        elif stream.duration is not None and stream.time_base:
-            candidate = float((stream.start_time or 0) * stream.time_base + stream.duration * stream.time_base)
+        # H.264 decoders can attach nominal CFR duration to the last VFR frame.
+        # Prefer the explicit video-stream end when it actually contains that frame.
+        if stream_end is not None:
+            candidate = stream_end
             if times[-1] < candidate and candidate - times[-1] <= 1:
                 media_end = candidate
+        if media_end is None and duration and frame.time_base:
+            media_end = times[-1] + float(duration * frame.time_base)
         return (width,height,times,digest,media_end) if include_end else (width,height,times,digest)
     except (OSError,ValueError) as error:
         raise ValueError(f'Cannot decode source video {video}: {error}') from error

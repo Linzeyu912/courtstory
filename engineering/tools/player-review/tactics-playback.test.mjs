@@ -4,6 +4,11 @@ import * as module from './tactics-playback.mjs';
 
 const phases=[{phaseId:'a',startFrame:0,endFrameExclusive:20,freezeFrame:5},{phaseId:'b',startFrame:20,endFrameExclusive:40,freezeFrame:24},{phaseId:'c',startFrame:40,endFrameExclusive:60,freezeFrame:44}];
 function setup(){assert.equal(typeof module.createPhasePlayback,'function');const p=module.createPhasePlayback();p.configure(phases,'a');p.select('a');p.presented(5);return p;}
+test('source location crosses pauses freely, stops at its interval and replay restores cue behavior',()=>{
+  const p=setup();p.playSource(5);assert.deepEqual(p.presented(30),[{type:'phase',phaseId:'b'}]);
+  p.replay();p.presented(24);assert.deepEqual(p.presented(45),[{type:'pause'},{type:'phase',phaseId:'c'},{type:'seek',frame:44}]);
+  p.presented(44);p.playSource(44,50);assert.deepEqual(p.presented(58),[{type:'pause'},{type:'seek',frame:49}]);p.presented(49);assert.equal(p.state().status,'ended');
+});
 test('jumped presented frames pause and seek the next freeze once, then require another continue',()=>{
   const p=setup();assert.deepEqual(p.continue(5),[{type:'play'}]);
   assert.deepEqual(p.presented(31),[{type:'pause'},{type:'phase',phaseId:'b'},{type:'seek',frame:24}]);

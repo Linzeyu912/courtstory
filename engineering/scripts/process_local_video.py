@@ -65,6 +65,28 @@ def prepare_object_variant(video, weights, output_dir):
             'tracks': str(directory / 'scene-ebard.json')}
 
 
+def prepare_manual_sample(source, video, output_dir, ident):
+    """No detector or inferred tracks. Same video/time validation and library as model results."""
+    import av
+    source_digest=file_hash(source)
+    prepare_video(source,video)
+    with av.open(str(video)) as container:
+        records=[{'frame':i,'time':float(frame.time),'tracks':[]} for i,frame in enumerate(container.decode(video=0))]
+    if file_hash(source)!=source_digest: raise ValueError('视频在读取时发生变化，请重新打开。')
+    tracks=output_dir/'manual.json'
+    atomic_json(tracks,records)
+    atomic_json(tracks.with_suffix('.meta.json'),{'video_sha256':file_hash(video),'frames':len(records),
+        'pipeline_version':'manual-source-pts-v1','method':'decoded_source_without_tracking'})
+    sample={'id':ident,'title':source.stem,'description':'人工制作 · '+source.name,'video':str(video),
+        'videoSha256':file_hash(video),'tracks':str(tracks),'originalLabel':'未识别 · 原视频',
+        'defaultVariant':'manual','trackingVariants':[{'id':'manual','label':'人工制作（无 AI）','tracks':str(tracks)}],
+        'importSourceSha256':source_digest,'importSourceName':source.name}
+    from serve_player_review import validated_clip
+    validated_clip(sample)
+    atomic_json(output_dir/'sample.json',sample)
+    return sample
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ['source', 'video', 'output-dir', 'models']:

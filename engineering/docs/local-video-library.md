@@ -1,5 +1,7 @@
 # 工作台本地视频库
 
+2026-10-05：顶部新增「打开视频，人工制作」，默认不识别，上传后读取真实 PTS 并直接进入战术制作。视频库的「制作方式」可选「直接人工制作（不识别）」或识别方案；`manual` 处理不要求模型/CUDA，原识别结果和源文件保留。人工导入/预览仍需主服务 PyAV，非兼容输入及正式 MP4 需要原 FFmpeg/Sharp 环境。完整操作见 [人工指南](manual-tactics-workbench-guide.md)。下方是识别流程的历史说明。
+
 2026-10-05 官方训练接入：两段[官方训练重点素材](../../data/videos/uploads/2026-10-05-official-training/README.md)保留原始1080p、实际PTS与原声，已附完整预计算候选。默认启动清单通过 `initiallyActiveSamples` 显示 `official-training-001` / `official-training-002`，顶部“当前视频”可直接打开，无需重复本地推理；若用户之后主动归档，仍尊重其归档状态。其他共享素材和原005默认行为不变。
 
 2026-10-03 整合补充：视频库同时列出 `data/videos/catalog.json` 登记的共享素材与 `data/local-videos/`，可搜索文件名并筛选来源；共享素材原地处理，未下载完整的 LFS 条目禁用处理。已有预计算结果直接打开。详见[工作台整合](workbench-integration.md)。

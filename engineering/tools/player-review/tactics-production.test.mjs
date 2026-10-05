@@ -5,6 +5,8 @@ import {makePresentationDemo} from '../tactical-overlay/fixtures/presentation-de
 import {createTacticsDocument,validateDocument,splitPhase,refreshSnapshot} from './tactics-document.mjs';
 import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {createAnnotation,projectAnnotations,annotationStatus,updateAnnotation,annotationPresentation,hitTestAnnotation} from './tactics-annotations.mjs';
+import {nearestRouteProgress} from './tactics-manual-editor.mjs';
+import {project} from './court.mjs';
 const api=await import('./tactics-production.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
 const geometry=await import('./tactics-authored-geometry.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
 const fixture=async()=>createTacticsDocument((await makePresentationDemo()).review);
@@ -13,6 +15,12 @@ async function authored(){
   let d=await fixture();assert.equal(typeof api.updateProductionCamera,'function');d=api.updateProductionCamera(d,'cam',camera(d));
   return createAnnotation(d,{id:'bezier',type:'route',phaseId:'phase-1',frame:10,startFrame:10,endFrameExclusive:50,space:'video',points:[{x:250,y:500},{x:450,y:300},{x:650,y:300},{x:850,y:500}],authoredPath:{version:1,curve:'cubic_bezier',cameraId:'cam',cameraDigest:d.production.cameras[0].digest,progressFrames:[{frame:10,t:0},{frame:30,t:.5},{frame:50,t:1}],ribbon:geometry.DEFAULT_RIBBON}});
 }
+test('click correction for legacy authored paths preserves Bezier parameter under perspective and moving cameras',async()=>{
+  let d=await authored();const keys=structuredClone(d.production.cameras[0].keyframes);keys[0].quad=[[100,100],[1100,100],[900,650],[300,650]];keys[1].quad=[[130,100],[1130,100],[930,650],[330,650]];
+  d=api.updateProductionCamera(d,'cam',{keyframes:keys},{rebindRoutes:true});const a=d.annotations.items[0],ref=geometry.productionCameraAt(d.production.cameras[0],10),now=geometry.productionCameraAt(d.production.cameras[0],30);
+  const controls=a.points.map(p=>project(ref.toGround,p.x,p.y)),ground=geometry.cubicBezier(controls,.65),image=project(now.toImage,ground.x,ground.y);
+  const found=nearestRouteProgress(d,a,image,{frame:30});assert.ok(found.distance<.01);assert.ok(Math.abs(found.progress-.65)<.0001);
+});
 test('explicit same-video production recovery rebinds independent routes without changing review, geometry or ordinary court graphics',async()=>{
   const original=await authored(),review=structuredClone(original.review);review.exportCompatibility='new-review-shape';
   const stale=await refreshSnapshot(original,review),before=structuredClone(stale);

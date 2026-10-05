@@ -32,7 +32,7 @@ export function validateAnnotations(annotations,document){
   if(!fields(annotations,['schemaVersion','items'])||annotations.schemaVersion!==1||!Array.isArray(annotations.items)||annotations.items.length>ANNOTATION_LIMITS.items){bad('annotations');return issues;}
   const ids=new Set();
   for(const a of annotations.items){
-    if(!fields(a,['id','type','phaseId','entityId','startFrame','endFrameExclusive','anchorFrame','space','points','style','followEntity','phaseSnapshot','sourceBinding'],['anchorMode','offset','origin','authoredPath','actionRange','cueFrame','progressFrames','displayMode','curve','meaning','preparationBinding'])||
+    if(!fields(a,['id','type','phaseId','entityId','startFrame','endFrameExclusive','anchorFrame','space','points','style','followEntity','phaseSnapshot','sourceBinding'],['anchorMode','offset','origin','authoredPath','actionRange','cueFrame','progressFrames','displayMode','curve','meaning','preparationBinding','timingMode','videoMode','referenceSize','name'])||
       !text(a.id)||ids.has(a.id)||!text(a.phaseId)||a.entityId!==null&&!text(a.entityId)||!['route','screen','spotlight'].includes(a.type)||!['court','video'].includes(a.space)){
       bad('annotation_identifiers');continue;
     }
@@ -41,14 +41,18 @@ export function validateAnnotations(annotations,document){
       ![p.startFrame,p.endFrameExclusive,p.freezeFrame,a.startFrame,a.endFrameExclusive,a.anchorFrame].every(frame)||
       p.startFrame>=p.endFrameExclusive||p.freezeFrame<p.startFrame||p.freezeFrame>=p.endFrameExclusive||
       a.startFrame<p.startFrame||a.endFrameExclusive>p.endFrameExclusive||a.startFrame>=a.endFrameExclusive||
-      a.anchorFrame<a.startFrame||a.anchorFrame>=a.endFrameExclusive)bad('annotation_range');
+      (a.timingMode==='manual'?(a.anchorFrame<p.startFrame||a.anchorFrame>=p.endFrameExclusive):(a.anchorFrame<a.startFrame||a.anchorFrame>=a.endFrameExclusive)))bad('annotation_range');
+    if(a.timingMode!==undefined&&(a.timingMode!=='manual'||document?.schemaVersion!==2||!a.actionRange))bad('annotation_timing_mode');
+    if(a.name!==undefined&&(typeof a.name!=='string'||a.name.length>120))bad('annotation_name');
+    if(a.videoMode!==undefined&&(a.videoMode!=='fixed'||a.space!=='video'||a.timingMode!=='manual'||!fields(a.referenceSize,['width','height'])||a.referenceSize.width!==document.review.width||a.referenceSize.height!==document.review.height))bad('annotation_video_mode');
+    if(a.referenceSize!==undefined&&a.videoMode!=='fixed')bad('annotation_reference_size');
     if(!fields(s,['videoSha256','trackingFingerprint','reviewDigest'])||!text(s.videoSha256)||!text(s.trackingFingerprint)||!/^[a-f0-9]{64}$/.test(s.reviewDigest??''))bad('annotation_source');
     const bounds=a.space==='court'?{x:COURT.length,y:COURT.width}:{x:document?.review?.width??65536,y:document?.review?.height??65536};
     if(!Array.isArray(a.points)||(a.type==='route'?(a.points.length<2||a.points.length>ANNOTATION_LIMITS.points):a.points.length!==1)||
       a.points.some(p=>!fields(p,['x','y'])||!finite(p.x)||!finite(p.y)||p.x<0||p.y<0||p.x>bounds.x||p.y>bounds.y))bad('annotation_points');
     if(!fields(a.style,['angle','size','color'],['pattern'])||!finite(a.style.angle)||Math.abs(a.style.angle)>360||!finite(a.style.size)||a.style.size<.5||a.style.size>3||!/^#[a-f0-9]{6}$/i.test(a.style.color))bad('annotation_style');
     if(a.style?.pattern!==undefined&&(a.type!=='route'||!['solid','dashed','dots'].includes(a.style.pattern)))bad('annotation_pattern');
-    if(['dashed','dots'].includes(a.style?.pattern)&&(!Array.isArray(a.points)||a.points.length!==2||
+    if(['dashed','dots'].includes(a.style?.pattern)&&(!Array.isArray(a.points)||(a.points.length!==2&&!(a.timingMode==='manual'&&a.style.pattern==='dashed'&&a.curve==='cubic_bezier'&&a.points.length===4))||
       !object(a.points[0])||!object(a.points[1])||distance(a.points[0],a.points[1])<=1e-6))bad('annotation_straight_points');
     if(typeof a.followEntity!=='boolean'||a.followEntity&&(a.type!=='spotlight'||!a.entityId))bad('annotation_follow');
     if(a.anchorMode!==undefined&&!['manual_offset','player_foot','court_player_foot'].includes(a.anchorMode))bad('annotation_anchor_mode');
@@ -56,7 +60,7 @@ export function validateAnnotations(annotations,document){
     if(a.anchorMode==='court_player_foot'&&(a.type!=='spotlight'||a.space!=='court'||!a.entityId||!a.followEntity))bad('annotation_court_foot');
     if(a.actionRange!==undefined){
       try{validateFrameRange(document.review.sourceFrameMapping,a.actionRange);}catch{bad('annotation_action_range');}
-      if(!['remaining','full'].includes(a.displayMode)||!['polyline','cubic_bezier'].includes(a.curve)||a.curve==='cubic_bezier'&&(a.type!=='route'||a.points.length!==4)||!['current_action','later_observed_action','pass','screen','focus'].includes(a.meaning)||!frame(a.cueFrame)||a.cueFrame<a.startFrame||a.cueFrame>=a.endFrameExclusive)bad('annotation_v2');
+      if(!['remaining','full'].includes(a.displayMode)||!['polyline','cubic_bezier'].includes(a.curve)||a.curve==='cubic_bezier'&&(a.type!=='route'||a.points.length!==4)||!['current_action','later_observed_action','pass','screen','focus'].includes(a.meaning)||!frame(a.cueFrame)||(a.timingMode==='manual'?(a.cueFrame<p.startFrame||a.cueFrame>=p.endFrameExclusive):(a.cueFrame<a.startFrame||a.cueFrame>=a.endFrameExclusive)))bad('annotation_v2');
       const keys=a.progressFrames;
       if(!Array.isArray(keys)||keys.length<2||keys.length>80||keys.some((k,i)=>!fields(k,['frame','t'])||!frame(k.frame)||!finite(k.t)||k.t<0||k.t>1||k.frame<a.actionRange.startFrame||k.frame>a.actionRange.endFrameExclusive||i&&(k.frame<=keys[i-1].frame||k.t<keys[i-1].t))||keys[0].frame!==a.actionRange.startFrame||keys[0].t!==0||keys.at(-1).frame!==a.actionRange.endFrameExclusive||keys.at(-1).t!==1)bad('annotation_progress');
     }
@@ -88,7 +92,7 @@ export function createAnnotation(document,input){
     followEntity:input.followEntity??(input.type==='spotlight'&&entityId!==null),phaseSnapshot:phaseSnapshot(p),sourceBinding:sourceSnapshot(document)};
   if(input.anchorMode!==undefined)annotation.anchorMode=input.anchorMode;
   if(input.anchorMode==='player_foot'){annotation.space='video';annotation.offset=copy(input.offset??{x:0,y:0});}
-  for(const key of ['actionRange','cueFrame','progressFrames','displayMode','curve','meaning','preparationBinding'])if(input[key]!==undefined)annotation[key]=copy(input[key]);
+  for(const key of ['actionRange','cueFrame','progressFrames','displayMode','curve','meaning','preparationBinding','timingMode','videoMode','referenceSize','name'])if(input[key]!==undefined)annotation[key]=copy(input[key]);
   if(input.origin)annotation.origin=copy(input.origin);
   if(input.authoredPath)annotation.authoredPath=copy(input.authoredPath);
   const annotations={schemaVersion:1,items:[...(document.annotations?.items??[]),annotation]};assertAnnotations(annotations,document);
@@ -97,7 +101,7 @@ export function createAnnotation(document,input){
 export function updateAnnotation(document,id,patch){
   assertAnnotations(document.annotations,document);
   const previous=document.annotations?.items.find(a=>a.id===id);if(!previous)throw new Error('未找到要修改的画布标注。');
-  if(!fields(patch,[],['phaseId','entityId','frame','startFrame','endFrameExclusive','points','style','followEntity','space','anchorMode','offset','authoredPath','actionRange','cueFrame','progressFrames','displayMode','curve','meaning','preparationBinding']))throw new Error('画布标注修改字段不正确。');
+  if(!fields(patch,[],['phaseId','entityId','frame','startFrame','endFrameExclusive','points','style','followEntity','space','anchorMode','offset','authoredPath','actionRange','cueFrame','progressFrames','displayMode','curve','meaning','preparationBinding','timingMode','videoMode','referenceSize','name']))throw new Error('画布标注修改字段不正确。');
   if(Object.hasOwn(patch,'space')&&patch.space!==previous.space&&patch.anchorMode!=='player_foot')throw new Error('修改控制点时不能更换坐标空间，请重新绘制。');
   const a={...copy(previous),...copy(patch),style:{...previous.style,...patch.style}};delete a.frame;
   if(Object.hasOwn(patch,'entityId'))assertEntity(document,a.entityId);
@@ -119,7 +123,7 @@ export function updateAnnotation(document,id,patch){
 export function removeAnnotation(document,id){
   const result=copy(document);
   if(result.annotations){result.annotations.items=result.annotations.items.filter(a=>a.id!==id);if(!result.annotations.items.length)delete result.annotations;}
-  if(result.tacticKeyframes){for(const k of result.tacticKeyframes.items)k.annotationIds=k.annotationIds.filter(ref=>ref!==id);result.tacticKeyframes.items=result.tacticKeyframes.items.filter(k=>k.annotationIds.length);}
+  if(result.tacticKeyframes){for(const k of result.tacticKeyframes.items)k.annotationIds=k.annotationIds.filter(ref=>ref!==id);result.tacticKeyframes.items=result.tacticKeyframes.items.filter(k=>k.annotationIds.length||k.kind==='explanation');}
   return result;
 }
 export function annotationStatus(document,{phaseId}={}){
@@ -165,6 +169,7 @@ function smooth(points){
   }
   result.push(copy(points.at(-1)));return result;
 }
+export function sampleAnnotationCurve(a,reveal=1){return a.curve==='cubic_bezier'?Array.from({length:97},(_,i)=>cubicBezier(a.points,reveal*i/96)):smooth(a.points);}
 function trimCurve(points,progress){
   if(progress<=0)return points;
   if(progress>=1)return null;
@@ -266,7 +271,7 @@ export function annotationPresentation(document,{annotationIds}={}){
   const stale=new Map(status.stale.map(item=>[item.id,item.reason])),scenes=new Map(),grouped=new Map(),items=[];
   for(const a of document.annotations?.items??[]){
     if(selected&&!selected.has(a.id))continue;
-    const mode=a.space==='video'&&!a.followEntity&&!a.authoredPath||a.endFrameExclusive-a.startFrame===1?'reference_frame':'timeline';
+    const mode=a.space==='video'&&!a.followEntity&&!a.authoredPath&&a.videoMode!=='fixed'||a.endFrameExclusive-a.startFrame===1?'reference_frame':'timeline';
     let reason=stale.get(a.id)??null,visible=false;
     if(!reason){
       if(!scenes.has(a.phaseId))scenes.set(a.phaseId,new Map());
@@ -374,14 +379,16 @@ function followingCenter(a,context,currentFrame){
   const p=a.space==='court'?initial.point.courtPoint:initial.point,q=a.space==='court'?current.point.courtPoint:current.point;
   return {point:{x:q.x+a.points[0].x-p.x,y:q.y+a.points[0].y-p.y},reason:null};
 }
-export function projectAnnotations(document,{phaseId,frame:currentFrame,model,selectedId,editing=false,reveal=1,freeze=false}={}){
+export function projectAnnotations(document,{phaseId,frame:currentFrame,model,selectedId,editing=false,reference=false,reveal=1,freeze=false}={}){
   assertAnnotations(document.annotations,document);
   const status=annotationStatus(document,{phaseId}),context=geometryContext(document,phaseId,model);
   if(!frame(currentFrame)||!context.frames[currentFrame])throw new Error('当前帧超出视频范围。');
   const width=document.review.width,height=document.review.height,items=[],mapping=context.maps[currentFrame];
   for(const a of status.active){
     const item={id:a.id,type:a.type,entityId:a.entityId,original:a,selected:a.id===selectedId,video:null,court:null,handles:[],hiddenReason:null};items.push(item);
-    if(currentFrame<a.startFrame||currentFrame>=a.endFrameExclusive){item.hiddenReason='outside_time';continue;}
+    const early=(document.tacticKeyframes?.items??[]).filter(k=>k.kind==='explanation'&&k.annotationIds.includes(a.id)).map(k=>k.frame);
+    const visibleStart=Math.min(a.startFrame,...early);
+    if(!(reference&&a.id===selectedId)&&(currentFrame<visibleStart||currentFrame>=a.endFrameExclusive)){item.hiddenReason='outside_time';continue;}
     if(a.authoredPath){
       // A new explanation cue must not erase or redraw earlier unfinished routes.
       const result=authoredRouteGeometry(document,a,currentFrame,{reveal:editing||a.anchorFrame!==currentFrame?1:reveal,editing});
@@ -389,29 +396,39 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
       if(item.video&&currentFrame===a.anchorFrame)item.handles=a.points.map((p,index)=>({...p,index}));
       continue;
     }
-    if(a.space==='video'&&!a.followEntity&&currentFrame!==a.anchorFrame){item.hiddenReason='reference_frame_only';continue;}
+    if(a.space==='video'&&a.videoMode!=='fixed'&&!a.followEntity&&currentFrame!==a.anchorFrame){item.hiddenReason='reference_frame_only';continue;}
     let geometry;
     if(a.type==='route'){
       const start=context.frames[a.startFrame].time,end=context.frames[a.endFrameExclusive-1].time;
-      const explaining=freeze&&(a.cueFrame===currentFrame||document.tacticKeyframes?.items.some(k=>k.frame===currentFrame&&k.annotationIds.includes(a.id)));
-      const progress=editing||explaining||a.displayMode==='full'?0:a.actionRange?annotationProgress(document,a,currentFrame):end<=start?0:(context.frames[currentFrame].time-start)/(end-start);
-      const curve=a.curve==='cubic_bezier'?Array.from({length:97},(_,i)=>cubicBezier(a.points,(explaining?reveal:1)*i/96)):smooth(a.points);
+      const explaining=freeze&&(a.timingMode==='manual'?currentFrame<=(a.actionRange??a).startFrame&&document.tacticKeyframes?.items.some(k=>k.frame===currentFrame&&k.annotationIds.includes(a.id)):(a.cueFrame===currentFrame||document.tacticKeyframes?.items.some(k=>k.frame===currentFrame&&k.annotationIds.includes(a.id))));
+      const progress=reference&&a.id===selectedId||editing&&a.timingMode!=='manual'||explaining||a.displayMode==='full'?0:a.actionRange?annotationProgress(document,a,currentFrame):end<=start?0:(context.frames[currentFrame].time-start)/(end-start);
+      const curve=sampleAnnotationCurve(a,explaining?reveal:1);
+      const full=routeGeometry(curve,a.style.size,a.space,height,a.style.pattern??'solid');
       geometry=routeGeometry(trimCurve(curve,progress),a.style.size,a.space,height,a.style.pattern??'solid');
+      if(a.timingMode==='manual'&&geometry&&(a.style.pattern??'solid')==='solid'){
+        // Keep the destination head unchanged; fade the whole remaining mark before it becomes a hook.
+        geometry.arrow=full.arrow;
+        const length=geometry.curve.slice(1).reduce((sum,p,i)=>sum+distance(p,geometry.curve[i]),0),head=distance(full.arrow[1],{x:(full.arrow[0].x+full.arrow[2].x)/2,y:(full.arrow[0].y+full.arrow[2].y)/2});
+        const fade=(a.space==='court'?.55:36*height/1080)*a.style.size;
+        geometry.opacity=progress>0?.94*Math.max(0,Math.min(1,(length-2*head)/fade)):.94;
+        if(geometry.opacity<=0)geometry=null;
+      }
       if(!geometry){item.hiddenReason='completed';continue;}
     }else{
       const center=followingCenter(a,context,currentFrame);
       if(!center.point){item.hiddenReason=center.reason;continue;}
       geometry=markerGeometry(a,center.point,height);
+      if(a.timingMode==='manual'&&freeze&&early.includes(currentFrame))geometry.opacity=reveal;
     }
     if(a.space==='court'){
-      if(a.curve==='cubic_bezier')geometry=wideRouteGeometry(geometry,a.style.size);
+      if(a.curve==='cubic_bezier'&&(a.style.pattern??'solid')==='solid')geometry=wideRouteGeometry(geometry,a.style.size,'court',height);
       item.court=geometry;
       if(a.actionRange)item.handles=a.points.map((p,index)=>({...p,index,space:'court'}));
       if(!mapping){item.hiddenReason='calibration_unavailable';continue;}
       if(!crossCutCompatible({...context,freezeFrame:a.anchorFrame},currentFrame)){item.hiddenReason='court_reference_mismatch';continue;}
       item.video=mapGeometry(geometry,mapping,height,a.style.size,a.type);
     }else{
-      item.video=geometry;
+      item.video=a.timingMode==='manual'&&a.curve==='cubic_bezier'&&(a.style.pattern??'solid')==='solid'?wideRouteGeometry(geometry,a.style.size,'video',height):geometry;
       // A valid mapping shapes the circle on the floor; its center remains the
       // observed image foot. Missing mapping never removes an image foot circle.
       if(a.anchorMode==='player_foot'&&mapping){
@@ -437,7 +454,7 @@ export function renderAnnotationsSVG(scene,{space='video',width=scene.width,heig
   for(const item of scene.items){
     const g=item[space];if(!g)continue;
     const color=item.original.style.color,stroke=g.strokeWidth,outline=stroke+(space==='court'?.07:3*(scene.height/1080));
-    parts.push(`<g data-annotation-id="${escape(item.id)}" data-type="${item.type}" fill="none" stroke-linecap="round" stroke-linejoin="round">`);
+    parts.push(`<g data-annotation-id="${escape(item.id)}" data-type="${item.type}" ${g.ribbon?'':`opacity="${g.opacity??1}"`} fill="none" stroke-linecap="round" stroke-linejoin="round">`);
     if(item.type==='route'){
       if(g.ribbon){
         // Draw the full fill over the inner half of a doubled edge, matching the
@@ -477,7 +494,7 @@ function polygonContains(point,polygon){
 export function hitTestAnnotation(scene,point,tolerance=16){
   if(!finite(point?.x)||!finite(point?.y)||!finite(tolerance)||tolerance<0)return null;
   const items=[...scene.items].reverse();
-  for(const item of items)for(const h of item.handles??[])if(distance(point,h)<=tolerance)return {id:item.id,index:h.index};
+  for(const item of items.filter(i=>i.selected))for(const h of item.handles??[])if(distance(point,h)<=tolerance)return {id:item.id,index:h.index};
   for(const item of items){
     const g=item.video;if(!g)continue;
     if(g.ribbon&&polygonContains(point,g.ribbon))return {id:item.id,index:null};
@@ -493,11 +510,11 @@ export function annotationProgress(document,a,frame){
   if(now<=time(keys[0].frame))return 0;if(now>=time(keys.at(-1).frame))return 1;
   const i=keys.findIndex(k=>time(k.frame)>=now),l=keys[i-1],r=keys[i];return l.t+(r.t-l.t)*(now-time(l.frame))/(time(r.frame)-time(l.frame));
 }
-function wideRouteGeometry(g,size){
-  if(!g)return g;const points=g.curve,tip=points.at(-1),base={x:(g.arrow[0].x+g.arrow[2].x)/2,y:(g.arrow[0].y+g.arrow[2].y)/2},head=Math.hypot(tip.x-base.x,tip.y-base.y),half=.14*size;
+function wideRouteGeometry(g,size,space='court',height=1080){
+  if(!g)return g;const points=g.curve,tip=points.at(-1),base={x:(g.arrow[0].x+g.arrow[2].x)/2,y:(g.arrow[0].y+g.arrow[2].y)/2},head=Math.hypot(tip.x-base.x,tip.y-base.y),half=(space==='court'?.14:9*height/1080)*size;
   let remaining=0,index=points.length-1;while(index>0&&remaining<head){remaining+=Math.hypot(points[index].x-points[index-1].x,points[index].y-points[index-1].y);index--;}
   const curve=[...points.slice(0,index+1),base];
   const normals=curve.map((p,i)=>{const a=curve[Math.max(0,i-1)],b=curve[Math.min(curve.length-1,i+1)],d=Math.hypot(b.x-a.x,b.y-a.y)||1;return {x:-(b.y-a.y)/d,y:(b.x-a.x)/d};});
   const side=sign=>curve.map((p,i)=>({x:p.x+normals[i].x*half*sign,y:p.y+normals[i].y*half*sign}));
-  return {...g,ribbon:[...side(1),...g.arrow,...side(-1).reverse()],edgeColor:'#093444',opacity:.94,strokeWidth:.04};
+  return {...g,ribbon:[...side(1),...g.arrow,...side(-1).reverse()],edgeColor:'#093444',opacity:g.opacity??.94,strokeWidth:space==='court'?.04:2.1*height/1080};
 }

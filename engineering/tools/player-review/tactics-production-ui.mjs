@@ -49,7 +49,7 @@ export function createTacticsRenderClient({snapshot,request,onChange=()=>{},sche
   return {start,cancel,poll,sync,state,dispose(){disposed=true;serial++;syncSerial++;clear();}};
 }
 
-export function mountTacticsProductionUI({snapshot,beforePreview=()=>{},request}){
+export function mountTacticsProductionUI({snapshot,beforePreview=()=>{},beforeGenerate=async()=>{},request}){
   const $=id=>document.getElementById(id),prefixes=['tacticsRender','deliveryRender'];
   for(const prefix of prefixes){
     const host=$(prefix);if(!host)continue;
@@ -64,18 +64,18 @@ export function mountTacticsProductionUI({snapshot,beforePreview=()=>{},request}
       $(prefix+'Cancel').hidden=!s.busy||!s.job;$(prefix+'Cancel').disabled=!busy(s.job);
       $(prefix+'Progress').hidden=!s.busy||!progress;$(prefix+'Progress').max=progress?.total||1;$(prefix+'Progress').value=progress?.completed||0;
       const states={queued:'等待生成成片…',running:`正在生成成片${progress?.total?` · ${progress.completed} / ${progress.total} 帧`:''}`,succeeded:'成片已就绪。',failed:'成片生成失败，可修改后重试。',cancelled:'已取消生成，当前草稿保留。'};
-      $(prefix+'Status').textContent=[s.stale?'草稿已修改：下面成片来自旧快照，请重新生成。':'',s.error||s.job?.error||s.job?.message||states[s.job?.status]||(s.busy?'正在准备草稿快照…':'使用当前草稿生成；无需先保存。')].filter(Boolean).join(' ');
+      $(prefix+'Status').textContent=[s.stale?'草稿已修改：下面成片来自旧快照，请重新生成。':'',s.error||s.job?.error||s.job?.message||states[s.job?.status]||(s.busy?'正在准备草稿快照…':'生成前自动保存当前版本；预览与下载使用同一成片。')].filter(Boolean).join(' ');
       const url=result&&s.job.videoUrl;$(prefix+'Result').hidden=!url;$(prefix+'Download').hidden=!url;
       if(url){
         const video=$(prefix+'Video');if(video.getAttribute('src')!==url){video.setAttribute('src',url);video.load?.();}
         const link=$(prefix+'Download');link.href=url;link.download=`tactics-${s.job.id}.mp4`;link.textContent=s.stale?'下载旧快照 MP4':'下载成片 MP4';
-        $(prefix+'Metadata').textContent=`${s.job.width} × ${s.job.height} · ${Number(s.job.duration).toFixed(2)} 秒 · ${s.job.totalFrames} 帧 · 静音${s.stale?' · 非当前草稿':''}`;
+        $(prefix+'Metadata').textContent=`${s.job.width} × ${s.job.height} · ${Number(s.job.duration).toFixed(2)} 秒 · ${s.job.totalFrames} 帧 · 保存版本 ${s.job.expectedVersion??'未知'} · 内容 ${s.job.documentDigest?.slice(0,12)??'未知'} · 静音${s.stale?' · 非当前草稿':''}`;
       }else $(prefix+'Video').pause?.();
     }
   }
   const client=createTacticsRenderClient({snapshot,request,onChange:render});
   for(const prefix of prefixes)if($(prefix)){
-    $(prefix+'Start').onclick=async()=>{beforePreview();await client.start();};
+    $(prefix+'Start').onclick=async()=>{beforePreview();try{await beforeGenerate();await client.start();}catch(e){$(prefix+'Status').textContent=e.message+' 草稿保留，可重试。';}};
     $(prefix+'Cancel').onclick=()=>client.cancel();
     $(prefix+'Video').addEventListener('play',beforePreview);
   }
