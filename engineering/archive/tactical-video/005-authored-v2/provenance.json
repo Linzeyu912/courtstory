@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "archivedAt": "2026-10-05",
+  "purpose": "user_approved_visual_workflow_reference",
+  "originalOutputFolder": "outputs/future-route-video-20261003-v2",
+  "video": {
+    "file": "005_future_routes_authored_v2.mp4",
+    "bytes": 14319196,
+    "sha256": "495eafc5350a79de2b8347b23c8bd5a2be7d0d8449a0e5020df85e106e05fd3f",
+    "includedInArchive": false
+  },
+  "files": [
+    {
+      "file": "snapshots/authored_routes.json",
+      "bytes": 8317,
+      "sha256": "0888b9a686550ce3e0a0a3aaa99352a23685614abcc6d12483ff95485b6cc88d"
+    },
+    {
+      "file": "snapshots/render_authored_video.py",
+      "bytes": 9951,
+      "sha256": "db1477f8c6d111a0aa1937b70f4a02b61f056e34f050521608f6527e952b6ec0"
+    },
+    {
+      "file": "snapshots/exact_commands.ps1.txt",
+      "bytes": 1139,
+      "sha256": "59e3f2ade65fd79a914f5b0e48c677f783ad992f9b1da0ca8be61702fb10debb"
+    },
+    {
+      "file": "snapshots/manifest.json",
+      "bytes": 37734,
+      "sha256": "332df7b332537daaed8cf5f630400ba1c4fcb33462e5ae8f3eef91d5ddb6ccf6"
+    },
+    {
+      "file": "snapshots/ffprobe.json",
+      "bytes": 2423,
+      "sha256": "5b7c7cbb97be9c6315ce830b1323d291a20039355d5e1336e208b82a4940c1e7"
+    },
+    {
+      "file": "snapshots/independent_review.md",
+      "bytes": 2659,
+      "sha256": "db35371c0dc8d6465725795103b8ba3aee977881a384f314b18b8c365c498e49"
+    },
+    {
+      "file": "snapshots/finalize_metadata.py",
+      "bytes": 2179,
+      "sha256": "e252e983d3da815d8e75457461c96eb207421218db9b3222ac2c15621cbba9dc"
+    }
+  ],
+  "notes": [
+    "Snapshots preserve original bytes and local paths. Copy them to a separate scratch directory and adapt paths before replay.",
+    "Reference style is not player tracking evidence or current-game coordinates.",
+    "Archive does not include the original video, frame PNGs, or historical model-call logs."
+  ]
+}
