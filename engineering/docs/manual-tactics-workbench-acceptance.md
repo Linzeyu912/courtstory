@@ -52,7 +52,9 @@ python scripts/validate_video_data.py --check-index
 git diff --check
 ```
 
-前端 **500 测试通过**、构建通过；第一轮在默认沙箱的报告测试因 Node `spawnSync EPERM` 失败，允许本机子进程后全套通过。相关 Python **74 测试通过**；额外保存/集合/模型测试结果见交接。语法/编译检查通过。几何、跟随脚圈、源播放重播、旧编排透视点击校正等新测试先复现失败再修复。
+前端 **500 测试通过**、构建通过；第一轮在默认沙箱的报告测试因 Node `spawnSync EPERM` 失败，允许本机子进程后全套通过。相关 Python **74 测试通过**；额外保存/集合/模型 **22 测试通过**；最后受影响 UI **47 测试通过**。语法/编译检查通过。几何、跟随脚圈、源播放重播、旧编排透视点击校正等新测试先复现失败再修复。
+
+发布前发现队友的官方训练素材提交 `af41fce` / `0ffb9fe` / `2959791`。直接重放本轮改动到新 `main`，视频库文档冲突保留两侧说明；服务的 `initiallyActiveSamples` 默认入口与人工导入/PTS 修复均保留。整合后导入/渲染/HTTP 服务/集合/模型 **70 测试通过**；未改动队友新增素材与候选。
 
 运行浏览器验收需主 Python 的 PyAV/numpy/Playwright、Chromium、Playwright FFmpeg 录像依赖、正式 worker 的 Sharp 和 FFmpeg；不需要模型/CUDA/AI 凭据。测试代码控制真实 UI；它不是交付给用户的独立制作/渲染流程：
 
