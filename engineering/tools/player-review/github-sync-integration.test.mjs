@@ -4,13 +4,16 @@ import * as trajectory from './trajectory.mjs';
 import {confirmIdentity} from './identity-timeline.mjs';
 import {editImageAnchor} from './image-edit.mjs';
 import {setTeamGroup,stabilizePoints} from './team-overlay.mjs';
-import {personProposals,personTrail,temporaryTrail,indexTemporaryTracks} from './tracking-display.mjs';
+import {personProposals,indexTemporaryTracks} from './tracking-display.mjs';
 import {readFileSync} from 'node:fs';
+import {playerCourtTrail,temporaryCourtTrail} from './court-trails.mjs';
+import {buildCourtTrajectories} from './court.mjs';
 
 const policy=JSON.parse(readFileSync(new URL('./team-overlay-policy.json',import.meta.url)));
 const frames=Array.from({length:9},(_,frame)=>({frame,time:frame/30,
   tracks:[1,2,22].map((id,i)=>[frame+i*100,5,frame+i*100+20,frame===3?110:50,id,.8,2])}));
 const trailFrames=frames.map(record=>({...record,tracks:record.tracks.map(box=>[...box.slice(0,3),50,...box.slice(4)])}));
+const maps=frames.map(()=>({toCourt:[.01,0,0,0,.01,0,0,0,1],toImage:[100,0,0,0,100,0,0,0,1],supportHulls:[[[0,0],[29,0],[29,16],[0,16]]]}));
 const proposal=(id,frame)=>({trackId:id,box:frames[frame].tracks.find(box=>box[4]===id).slice(0,4)});
 
 test('a source join protects raw trajectories and stable display even when an old draft lacks cuts',()=>{
@@ -62,11 +65,12 @@ test('fixed player tails stop at repeated identity confirmations and isolate pre
   entity.identityKeyframes=[{frame:0,kind:'track',trackId:1,order:1},{frame:3,kind:'track',trackId:1,order:2}];
   entity.anchors=[{frame:5,x:15.25,y:40.75,trackId:1,identityConfirmed:false,footMethod:'human_image_anchor'}];
   const points=trajectory.buildTrajectories(session,trailFrames).P1;
+  const courtPoints=buildCourtTrajectories({...session,entities:[entity]},trailFrames,{P1:points},{maps}).P1;
   const cuts=trajectory.reviewTrailCuts([entity],[8],frames.length);
-  assert.deepEqual(personTrail(points,trailFrames,4,cuts).map(p=>p.frame),[3,4]);
-  assert.deepEqual(personTrail(points,trailFrames,5,cuts).map(p=>p.frame),[5]);
-  assert.deepEqual(personTrail(points,trailFrames,7,cuts).map(p=>p.frame),[6,7]);
-  assert.deepEqual(personTrail(points,trailFrames,8,cuts).map(p=>p.frame),[8]);
+  assert.deepEqual(playerCourtTrail(courtPoints,trailFrames,maps,4,cuts).map(p=>p.frame),[3,4]);
+  assert.deepEqual(playerCourtTrail(courtPoints,trailFrames,maps,5,cuts).map(p=>p.frame),[5]);
+  assert.deepEqual(playerCourtTrail(courtPoints,trailFrames,maps,7,cuts).map(p=>p.frame),[6,7]);
+  assert.deepEqual(playerCourtTrail(courtPoints,trailFrames,maps,8,cuts).map(p=>p.frame),[8]);
   assert.deepEqual([points[5].x,points[5].y],[15.25,40.75]);
 });
 
@@ -80,8 +84,8 @@ test('temporary tails respect relevant identity/manual boundaries without trunca
   const index=indexTemporaryTracks(trailFrames),before=structuredClone(session);
   const cuts=trajectory.reviewTrailCuts(session.entities,[],frames.length,1);
   assert.deepEqual(cuts,[0,3,5,6]);
-  assert.deepEqual(temporaryTrail(index,trailFrames,1,4,cuts).map(p=>p.frame),[3,4]);
-  assert.deepEqual(temporaryTrail(index,trailFrames,1,7,cuts).map(p=>p.frame),[6,7]);
+  assert.deepEqual(temporaryCourtTrail(index,{frames:trailFrames},session,maps,1,4,cuts).map(p=>p.frame),[3,4]);
+  assert.deepEqual(temporaryCourtTrail(index,{frames:trailFrames},session,maps,1,7,cuts).map(p=>p.frame),[6,7]);
   assert.deepEqual(trajectory.reviewTrailCuts(session.entities,[8],frames.length,999),[8]);
   assert.deepEqual(session,before);
 });

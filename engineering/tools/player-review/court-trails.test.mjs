@@ -42,6 +42,32 @@ test('unavailable calibration, cuts and impossible court jumps break the trail i
   const g=fixture();g.world[10].x=100;
   assert.deepEqual(courtRelativeTrail(i=>g.world[i],g.clip.frames,g.maps,11).map(p=>p.frame),[11]);
 });
+
+test('temporary court trails stop at missing detections, source time gaps and metre-speed jumps',()=>{
+  const f=fixture(true);
+  f.index[8].clear();
+  assert.deepEqual(temporaryCourtTrail(f.index,f.clip,f.session,f.maps,1,11).map(p=>p.frame),[9,10,11]);
+  assert.deepEqual(temporaryCourtTrail(f.index,f.clip,f.session,f.maps,1,8),[]);
+  f.clip.frames[11].time=2;
+  assert.deepEqual(temporaryCourtTrail(f.index,f.clip,f.session,f.maps,1,11).map(p=>p.frame),[11]);
+  const g=fixture(true),box=g.index[11].get(1),jump=project(g.maps[11].toImage,25,7);
+  g.index[11].set(1,[jump.x-20,jump.y-120,jump.x+20,jump.y,...box.slice(4)]);
+  assert.deepEqual(temporaryCourtTrail(g.index,g.clip,g.session,g.maps,1,11).map(p=>p.frame),[11]);
+});
+
+test('confirmed court trails survive temporary ID changes but never bridge missing or estimated identities',()=>{
+  const f=fixture(true);
+  const points=f.world.map((p,i)=>({...p,frame:i,time:f.clip.frames[i].time,
+    source:'projected',imageSource:i===10?'manual':'tracked',trackId:i>=10?22:1}));
+  const trail=playerCourtTrail(points,f.clip.frames,f.maps,11);
+  assert.equal(trail.at(-1).trackId,22);assert.ok(trail.some(p=>p.trackId===1));
+  assert.ok(trail.at(-1).time-trail[0].time<=1.2);
+  for(const imageSource of ['missing','conflict','interpolated','manual_path','out_of_view']){
+    points[10].imageSource=imageSource;
+    assert.deepEqual(playerCourtTrail(points,f.clip.frames,f.maps,11).map(p=>p.frame),[11]);
+    assert.deepEqual(playerCourtTrail(points,f.clip.frames,f.maps,10),[]);
+  }
+});
 test('person trails use the same unsmoothed court points as 2D; estimates and manual court boundaries are respected',()=>{
   const f=fixture(true),before=JSON.stringify(f.points);
   const court=buildCourtTrajectories(f.session,f.clip.frames,{P1:f.points},{clip:f.clip,maps:f.maps}).P1;

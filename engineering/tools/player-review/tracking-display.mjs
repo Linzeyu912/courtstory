@@ -103,39 +103,6 @@ export function visibleObjects(record) {
     && item.box[2]>item.box[0]&&item.box[3]>item.box[1]);
 }
 
-function continuousTrail(pointAt,frames,current,cuts,options={}) {
-  const {durationSeconds=1.2,maxStepSeconds=.15,maxSpeedPixelsPerSecond=1800}=options;
-  const result=[];
-  const cutSet=new Set(cuts);
-  const now=frames[current]?.time;
-  if(!Number.isFinite(now))return result;
-  for(let index=current;index>=0;index--){
-    const point=pointAt(index),time=frames[index].time;
-    if(!point||!Number.isFinite(point.x)||!Number.isFinite(point.y)||now-time>durationSeconds)break;
-    if(result.length){
-      const newer=result[0],delta=newer.time-time;
-      if(cutSet.has(index+1)||delta<=0||delta>maxStepSeconds
-        ||Math.hypot(newer.x-point.x,newer.y-point.y)/delta>maxSpeedPixelsPerSecond)break;
-    }
-    result.unshift({frame:index,time,x:point.x,y:point.y,trackId:point.trackId??null});
-  }
-  return result;
-}
-
-export function personTrail(points,frames,current,cuts=[],options={}) {
-  return continuousTrail(index=>{
-    const point=points?.[index];
-    return point&&['manual','tracked','manual_range'].includes(point.source)?point:null;
-  },frames,current,cuts,options);
-}
-
 export function indexTemporaryTracks(frames) {
   return frames.map(record=>new Map((record.tracks||[]).map(box=>[Number(box[4]),box])));
-}
-
-export function temporaryTrail(index,frames,trackId,current,cuts=[],options={}) {
-  return continuousTrail(at=>{
-    const box=index[at]?.get(Number(trackId));
-    return box?{x:(box[0]+box[2])/2,y:box[3],trackId:Number(trackId)}:null;
-  },frames,current,cuts,options);
 }

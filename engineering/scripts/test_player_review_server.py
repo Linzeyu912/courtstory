@@ -120,7 +120,7 @@ class ReviewServerTests(unittest.TestCase):
             url=json.loads(state.read_text())['url'];static=Path(__file__).resolve().parents[1]/'tools/player-review'
             with urlopen(url+'app.mjs',timeout=3) as response:self.assertEqual(response.status,200)
             for name,mime in [('team-overlay.mjs','text/javascript'),('team-overlay-policy.json','application/json'),
-                              ('automatic-annotations.mjs','text/javascript'),('simple-annotation.mjs','text/javascript'),
+                              ('automatic-annotations.mjs','text/javascript'),
                               ('identity-continuation.mjs','text/javascript'),('identity-agent-client.mjs','text/javascript'),
                               ('tracking-display.mjs','text/javascript'),('court-trails.mjs','text/javascript')]:
                 with self.subTest(asset=name):
