@@ -3,9 +3,9 @@
   "scenario": "full_court_movement",
   "title": "全场移动",
   "path_base": "repository_root",
-  "count": 71,
-  "usable_count": 71,
-  "default_count": 71,
+  "count": 73,
+  "usable_count": 73,
+  "default_count": 73,
   "samples": [
     {
       "clip_id": "nba-2024-25-library100-012",
@@ -430,6 +430,18 @@
     {
       "clip_id": "user-uploads-20261004-018",
       "path": "data/videos/classification/by_scenario/full_court_movement/user-uploads-20261004-018.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-001",
+      "path": "data/videos/classification/by_scenario/full_court_movement/broadcastcode-training-20261005-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-002",
+      "path": "data/videos/classification/by_scenario/full_court_movement/broadcastcode-training-20261005-002.json",
       "status": "clear",
       "recommended": true
     }

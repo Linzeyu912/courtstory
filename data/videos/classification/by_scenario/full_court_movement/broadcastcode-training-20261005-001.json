@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "path_base": "repository_root",
+  "sample_id": "broadcastcode-training-20261005-001__full_court_movement",
+  "clip_id": "broadcastcode-training-20261005-001",
+  "scenario": "full_court_movement",
+  "video_path": "data/videos/uploads/2026-10-05-official-training/clips/训练_弗拉格2月1日.mp4",
+  "annotation_path": "data/videos/uploads/2026-10-05-official-training/labels/001.json",
+  "sha256": "9c3e4606d04e7f79e29a112952fcf069ebab202af207af500bfbc3338bc079ce",
+  "selection": {
+    "status": "clear",
+    "recommended": true,
+    "reason": "官方训练重点样例；保留原画质、原时间轴与音轨，用于回归和后续处理验收。"
+  },
+  "source": {
+    "manifest_path": "data/videos/uploads/2026-10-05-official-training/manifest.json",
+    "url": "https://comfile.csdnimg.cn/file/train_video.zip",
+    "publisher": "BroadcastCode 主办方（用户说明及既有 Portal 核验）",
+    "kind": "user_upload",
+    "collected_at": "2026-10-05",
+    "source_start_seconds": null,
+    "source_end_seconds": null,
+    "uploaded_filename": "训练_弗拉格2月1日.mp4",
+    "season": null,
+    "source_time_note": "区间从包内 MP4 的 0 秒开始；原整场转播起点未知，因此 source_intervals_seconds 保持 null。"
+  },
+  "clip_intervals_seconds": [
+    {
+      "start": 0.5,
+      "end": 5.0
+    }
+  ],
+  "source_intervals_seconds": null,
+  "timestamp_precision": "2fps 采样间隔 0.5 秒，区间为近似定位，不保证切点或动作边界误差；精确裁剪前需逐帧补看。",
+  "note": "切回宽景后可见中线附近向左侧进攻半场推进，机位连续跟随从中圈移至左篮；此标签不表示两端篮筐完整往返。"
+}

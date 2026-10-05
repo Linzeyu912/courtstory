@@ -1,0 +1,221 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "broadcastcode-training-20261005",
+  "season": null,
+  "timezone": "Asia/Shanghai",
+  "created_at": "2026-10-05T23:05:19+08:00",
+  "source_manifest": "data/videos/uploads/2026-10-05-official-training/sources/archive-inventory.json",
+  "usage": {
+    "category": "official_training",
+    "priority": "primary_regression"
+  },
+  "entries": [
+    {
+      "clip_id": "broadcastcode-training-20261005-001",
+      "local_id": "001",
+      "asset": {
+        "path": "clips/训练_弗拉格2月1日.mp4",
+        "bytes": 83907519,
+        "sha256": "9c3e4606d04e7f79e29a112952fcf069ebab202af207af500bfbc3338bc079ce",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/001.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "训练_弗拉格2月1日.mp4",
+        "url": "https://comfile.csdnimg.cn/file/train_video.zip",
+        "publisher": "BroadcastCode 主办方（用户说明及既有 Portal 核验）",
+        "collected_at": "2026-10-05",
+        "start_seconds": null,
+        "end_seconds": null,
+        "archive_filename": "train_video.zip",
+        "archive_entry": "train_video/训练_弗拉格2月1日.mp4",
+        "archive_sha256": "5fc44b719e610c19c4c3d04885db4119784c892dd0be7cb38ec630f2af16465e",
+        "unknown_reason": "用户提供官方训练 ZIP 并明确授权加入私有团队素材库；原转播网页、整场裁切起点和比赛年份未核实。官方 ZIP URL 沿用 Portal 记录，未重新下载比对。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": "DAL at HOU",
+        "game_id": null,
+        "verification_url": null,
+        "period": 4,
+        "clock_start": "01:52",
+        "clock_end": "01:34",
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "比分、节次及钟面来自本轮可见画面；文件名月日和球员名不能独立确认年份、赛季、事件 ID 或跟踪身份。"
+      },
+      "tactic": {
+        "title": "官方训练 001 · 弗拉格片 · DAL–HOU 第四节",
+        "tags": [
+          "中线推进",
+          "传球",
+          "半场组织",
+          "持球突破",
+          "上篮",
+          "底线发球",
+          "防守"
+        ],
+        "description": "开头为人物特写，切到中线推进；深色队前场传导、持球突破至篮下出手，比分随后由 DAL 103 变为 105，末段出现底线发球与对方接球。文件名中的球员名未作为独立身份标注。",
+        "label_status": "reviewed_visible_actions",
+        "basis": "本轮逐张查看整段 2fps 抽帧并补看全尺寸画面；动作描述不是球队内部战术确认。",
+        "confidence_note": "AI 场景初筛，未完成逐人身份、投篮事件对齐或米制坐标验收。"
+      },
+      "video": {
+        "width": 1920,
+        "height": 1080,
+        "fps_fraction": "6455000/107691",
+        "fps": 59.94001355730748,
+        "codec": "h264",
+        "pixel_format": "yuv420p",
+        "duration_seconds": 21.548118,
+        "audio_stream_count": 1,
+        "frame_count": 1291,
+        "measurement_status": "measured",
+        "measurement_basis": "PyAV 读取并完整解码；FFmpeg -xerror -err_detect explode 全音视频解码通过。原 MP4 未转码。"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": true,
+        "full_possession": false,
+        "scope": "frontcourt_sequence",
+        "decode_status": "passed",
+        "visual_status": "ai_sampled_review",
+        "reviewed_at": "2026-10-05T23:05:19+08:00",
+        "basis": "已看完整 2fps 序列与指定全尺寸帧；开头已处于既有进攻过程，不宣称从球权开始完整覆盖；未听审原声。"
+      },
+      "dedup": {
+        "content_status": "unverified_against_all_existing_clips",
+        "byte_status": "unique_against_catalog_and_official_pair",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与此前 163 段及另一官方片均不同；未做全库逐帧内容去重，不声称新增独立比赛。"
+      },
+      "usage": {
+        "category": "official_training",
+        "priority": "primary_regression",
+        "user_required": true,
+        "basis": "用户明确指定这两段为比赛官方训练、后续重点测试样例；不据此保证未公布测试集规格完全相同。"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
+      }
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-002",
+      "local_id": "002",
+      "asset": {
+        "path": "clips/训练_阿门1月4日 .mp4",
+        "bytes": 87308125,
+        "sha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/002.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "训练_阿门1月4日 .mp4",
+        "url": "https://comfile.csdnimg.cn/file/train_video.zip",
+        "publisher": "BroadcastCode 主办方（用户说明及既有 Portal 核验）",
+        "collected_at": "2026-10-05",
+        "start_seconds": null,
+        "end_seconds": null,
+        "archive_filename": "train_video.zip",
+        "archive_entry": "train_video/训练_阿门1月4日 .mp4",
+        "archive_sha256": "5fc44b719e610c19c4c3d04885db4119784c892dd0be7cb38ec630f2af16465e",
+        "unknown_reason": "用户提供官方训练 ZIP 并明确授权加入私有团队素材库；原转播网页、整场裁切起点和比赛年份未核实。官方 ZIP URL 沿用 Portal 记录，未重新下载比对。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "date_beijing": null,
+        "matchup": "HOU at DAL",
+        "game_id": null,
+        "verification_url": null,
+        "period": 3,
+        "clock_start": "07:45",
+        "clock_end": "07:22",
+        "offense_team": null,
+        "defense_team": null,
+        "unknown_reason": "比分、节次及钟面来自本轮可见画面；文件名月日和球员名不能独立确认年份、赛季、事件 ID 或跟踪身份。"
+      },
+      "tactic": {
+        "title": "官方训练 002 · 阿门片 · HOU–DAL 第三节",
+        "tags": [
+          "中线推进",
+          "传球",
+          "半场组织",
+          "回传",
+          "持球突破",
+          "上篮",
+          "防守"
+        ],
+        "description": "开头中线附近向右前场推进，随后半场传导、篮下尝试后回传外线，再持球突破至篮下出手；HOU 比分由 60 变为 62，结尾切球员特写。未把文件名转成跟踪身份或内部战术名。",
+        "label_status": "reviewed_visible_actions",
+        "basis": "本轮逐张查看整段 2fps 抽帧并补看全尺寸画面；动作描述不是球队内部战术确认。",
+        "confidence_note": "AI 场景初筛，未完成逐人身份、投篮事件对齐或米制坐标验收。"
+      },
+      "video": {
+        "width": 1920,
+        "height": 1080,
+        "fps_fraction": "20565000/343093",
+        "fps": 59.940016263811856,
+        "codec": "h264",
+        "pixel_format": "yuv420p",
+        "duration_seconds": 22.894875,
+        "audio_stream_count": 1,
+        "frame_count": 1371,
+        "measurement_status": "measured",
+        "measurement_basis": "PyAV 读取并完整解码；FFmpeg -xerror -err_detect explode 全音视频解码通过。原 MP4 未转码。"
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": true,
+        "full_possession": false,
+        "scope": "frontcourt_sequence",
+        "decode_status": "passed",
+        "visual_status": "ai_sampled_review",
+        "reviewed_at": "2026-10-05T23:05:19+08:00",
+        "basis": "已看完整 2fps 序列与指定全尺寸帧；开头已处于既有进攻过程，不宣称从球权开始完整覆盖；未听审原声。"
+      },
+      "dedup": {
+        "content_status": "unverified_against_all_existing_clips",
+        "byte_status": "unique_against_catalog_and_official_pair",
+        "action_group": null,
+        "similar_to": [],
+        "source_overlaps": [],
+        "related_context": [],
+        "reason": "SHA-256 与此前 163 段及另一官方片均不同；未做全库逐帧内容去重，不声称新增独立比赛。"
+      },
+      "usage": {
+        "category": "official_training",
+        "priority": "primary_regression",
+        "user_required": true,
+        "basis": "用户明确指定这两段为比赛官方训练、后续重点测试样例；不据此保证未公布测试集规格完全相同。"
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "clear",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "ai_visual_review",
+        "classification_index": "data/videos/classification/index.json"
+      }
+    }
+  ],
+  "material_labels_summary": {
+    "clear": 2
+  }
+}

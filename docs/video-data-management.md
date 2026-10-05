@@ -111,6 +111,8 @@ python scripts/validate_video_data.py
 
 ## 7. 当前登记状态
 
+2026-10-05 当前为9批 / 165段：此前175段经人工删除12段形成163段，后新增[官方训练2段](../data/videos/uploads/2026-10-05-official-training/README.md)。官方训练通过用户提供ZIP接收，沿用 `purpose=user_upload` 的来源未知字段规则，以 `category=official_training` / `priority=primary_regression` 单独标明用途；原MP4使用LFS，ZIP与抽帧缓存不重复共享。下文数量保留对应日期口径。
+
 2026-10-04 总计 8 批 / **175 个文件**：2024–25 100 个，2025–26 39 个（30 + 历史 9），THY 交接的两批未核实赛季上传 15 个，本次未核实赛季上传 18 个，独立验收样例 3 个。入口与存放方式见[总览](../data/videos/README.md)。本次新增文件完整解码与复制哈希通过；文件数不代表新增独立球权数。
 
 - 2024–25：100段成片，16场、17队；3段1080p、97段720p，14段完整球权。首批3段已包含其中。

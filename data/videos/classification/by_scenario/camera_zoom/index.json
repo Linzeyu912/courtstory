@@ -3,9 +3,9 @@
   "scenario": "camera_zoom",
   "title": "镜头推拉",
   "path_base": "repository_root",
-  "count": 125,
-  "usable_count": 125,
-  "default_count": 125,
+  "count": 127,
+  "usable_count": 127,
+  "default_count": 127,
   "samples": [
     {
       "clip_id": "nba-2024-25-library100-002",
@@ -754,6 +754,18 @@
     {
       "clip_id": "user-uploads-20261004-018",
       "path": "data/videos/classification/by_scenario/camera_zoom/user-uploads-20261004-018.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-001",
+      "path": "data/videos/classification/by_scenario/camera_zoom/broadcastcode-training-20261005-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-002",
+      "path": "data/videos/classification/by_scenario/camera_zoom/broadcastcode-training-20261005-002.json",
       "status": "clear",
       "recommended": true
     }

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-10-04T13:21:59-04:00",
+  "updated_at": "2026-10-05T23:05:19+08:00",
   "path_base": "repository_root",
   "datasets": [
     {
@@ -77,6 +77,19 @@
       "manifest": "data/videos/uploads/2026-10-04/manifest.json",
       "entry_count": 13,
       "included_count": 13,
+      "awaiting_upload_count": 0
+    },
+    {
+      "dataset_id": "broadcastcode-training-20261005",
+      "season": null,
+      "purpose": "user_upload",
+      "category": "official_training",
+      "priority": "primary_regression",
+      "display_name": "BroadcastCode 官方训练重点素材",
+      "root": "data/videos/uploads/2026-10-05-official-training",
+      "manifest": "data/videos/uploads/2026-10-05-official-training/manifest.json",
+      "entry_count": 2,
+      "included_count": 2,
       "awaiting_upload_count": 0
     }
   ],

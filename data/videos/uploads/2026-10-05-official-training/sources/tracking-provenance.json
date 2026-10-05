@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-10-05T23:05:19+08:00",
+  "note": "供工作台开箱读取的自动候选；不是人工身份、轨迹或球场真值。原声视频保持 ZIP 字节。",
+  "files": [
+    {
+      "published_path": "data/videos/uploads/2026-10-05-official-training/tracks/001-team-stable.json",
+      "published_sha256": "0d0e54cd2242a54f6fd7a8640ed69a73f82d4bde80a1a635ac6108f00c73ef5e",
+      "original_output_path": "artifacts/official-training-20261005/tracking-1/team-stable.json",
+      "original_output_sha256": "5fd2dd7958a2b6f3fe7fb1423f228d07dc658f8ca7a339159aec1301db15bd4a",
+      "transformation": "仅统一 UTF-8 JSON 换行为 LF，观测值未改；optimized 与 team-stable 共用观测文件。"
+    },
+    {
+      "published_path": "data/videos/uploads/2026-10-05-official-training/tracks/001-ebard.json",
+      "published_sha256": "b9b1415191a35b03d4918313f218678dd668d553206d118a6756963297b48a29",
+      "original_output_path": "artifacts/official-training-20261005/tracking-1/scene-reference/scene-ebard.json",
+      "original_output_sha256": "b9b1415191a35b03d4918313f218678dd668d553206d118a6756963297b48a29",
+      "transformation": "仅统一 UTF-8 JSON 换行为 LF，观测值未改；optimized 与 team-stable 共用观测文件。"
+    },
+    {
+      "published_path": "data/videos/uploads/2026-10-05-official-training/tracks/001-optimized.meta.json",
+      "published_sha256": "3b909ff4808e9bc0692d0f34a9f5e7e540ee748b36fbc8a296f57f3cd6f93c1f",
+      "original_output_path": "artifacts/official-training-20261005/tracking-1/optimized.meta.json",
+      "original_output_sha256": "2cbf3660c9b211931299f83d13b388e73a04332938af4bcb8f85f4039b04f8bd",
+      "transformation": "公开副本使用仓库相对路径和 LF；父级摘要对应公开副本。原始输出留本机不改。"
+    },
+    {
+      "published_path": "data/videos/uploads/2026-10-05-official-training/tracks/001-team-stable.meta.json",
+      "published_sha256": "cef9d092839cc81c3ddcdccab431f6d66e682579c297718e54e8c30052bab3b4",
+      "original_output_path": "artifacts/official-training-20261005/tracking-1/team-stable.meta.json",
+      "original_output_sha256": "9282da2205fa98292ab5a77ab6e575dc276327b02e4faad01f0cba6eca73a5cc",
+      "transformation": "公开副本使用仓库相对路径和 LF；父级摘要对应公开副本。原始输出留本机不改。"
+    },
+    {
+      "published_path": "data/videos/uploads/2026-10-05-official-training/tracks/001-ebard.meta.json",
+      "published_sha256": "6b3d042b32e7af3dd154d1a9aef538a53bb442a6a8d605da9079a048674517a4",
+      "original_output_path": "artifacts/official-training-20261005/tracking-1/scene-reference/scene-ebard.meta.json",
+      "original_output_sha256": "dd1786bf08c3d3e6b58bc63a5bc47335048ff1a935894599640717a9f0afe1b8",
+      "transformation": "公开副本使用仓库相对路径和 LF；父级摘要对应公开副本。原始输出留本机不改。"
+    },
+    {
+      "published_path": "data/videos/uploads/2026-10-05-official-training/tracks/002-team-stable.json",
+      "published_sha256": "99826933cbd768190da072bf4c7ca120c7ebb101df78ddec14628689dc6fc4d3",
+      "original_output_path": "artifacts/official-training-20261005/tracking-2/team-stable.json",
+      "original_output_sha256": "211a26186ada735909289e72cc23cb758473363f4363d74cfbf0b8f51a4549f8",
+      "transformation": "仅统一 UTF-8 JSON 换行为 LF，观测值未改；optimized 与 team-stable 共用观测文件。"
+    },
+    {
+      "published_path": "data/videos/uploads/2026-10-05-official-training/tracks/002-ebard.json",
+      "published_sha256": "aa42ad291c00f1d581f05fcdd70e5da8b395f6c488568072aa1103ad4d385885",
+      "original_output_path": "artifacts/official-training-20261005/tracking-2/scene-reference/scene-ebard.json",
+      "original_output_sha256": "aa42ad291c00f1d581f05fcdd70e5da8b395f6c488568072aa1103ad4d385885",
+      "transformation": "仅统一 UTF-8 JSON 换行为 LF，观测值未改；optimized 与 team-stable 共用观测文件。"
+    },
+    {
+      "published_path": "data/videos/uploads/2026-10-05-official-training/tracks/002-optimized.meta.json",
+      "published_sha256": "b94a98864a472e5d1deaa362db1e992890a512e2b23e8366c76029a31bac1fb1",
+      "original_output_path": "artifacts/official-training-20261005/tracking-2/optimized.meta.json",
+      "original_output_sha256": "3d148e79e09490f12e6f740af5714a6525192a964ee9b5af4ee2eb84922d6caf",
+      "transformation": "公开副本使用仓库相对路径和 LF；父级摘要对应公开副本。原始输出留本机不改。"
+    },
+    {
+      "published_path": "data/videos/uploads/2026-10-05-official-training/tracks/002-team-stable.meta.json",
+      "published_sha256": "8324f4c5e10bdae2e42952032cd4127a9f6e0155ef5fe31cb41d4cb7885b6c09",
+      "original_output_path": "artifacts/official-training-20261005/tracking-2/team-stable.meta.json",
+      "original_output_sha256": "4242bc664dbcdc0c1de40e0a1f9337c1874f8d4e90da81f5b797e5922c635dff",
+      "transformation": "公开副本使用仓库相对路径和 LF；父级摘要对应公开副本。原始输出留本机不改。"
+    },
+    {
+      "published_path": "data/videos/uploads/2026-10-05-official-training/tracks/002-ebard.meta.json",
+      "published_sha256": "832514b5881bf9adb481e1611cf3fd30c07bb7373184c0f26af71fe07fcf9974",
+      "original_output_path": "artifacts/official-training-20261005/tracking-2/scene-reference/scene-ebard.meta.json",
+      "original_output_sha256": "6cce3ed8f7f3f265e2aa14f982e3233ed651047b9f4777d9ef9c8629187fbcff",
+      "transformation": "公开副本使用仓库相对路径和 LF；父级摘要对应公开副本。原始输出留本机不改。"
+    }
+  ]
+}

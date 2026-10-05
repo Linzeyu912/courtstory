@@ -104,7 +104,7 @@ def schema():
             'content_relations': {'type': 'array'},
             'provenance': {'type': 'object', 'required': ['reviewer_model', 'review_method', 'human_reviewed',
                 'reviewed_at', 'sample_count', 'evidence_sheets', 'extra_frames', 'timestamp_precision'],
-                'properties': {'reviewer_model': {'const': 'gpt-6.1-sol'}, 'human_reviewed': {'type': 'boolean'}}},
+                'properties': {'reviewer_model': {'type': 'string', 'minLength': 1}, 'human_reviewed': {'type': 'boolean'}}},
         }, 'additionalProperties': False,
     }
 

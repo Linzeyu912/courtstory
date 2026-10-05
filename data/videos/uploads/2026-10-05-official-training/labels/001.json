@@ -1,0 +1,259 @@
+{
+  "id": "001",
+  "clip_id": "broadcastcode-training-20261005-001",
+  "season": null,
+  "file": "clips/训练_弗拉格2月1日.mp4",
+  "asset_path": "clips/训练_弗拉格2月1日.mp4",
+  "sha256": "9c3e4606d04e7f79e29a112952fcf069ebab202af207af500bfbc3338bc079ce",
+  "size_bytes": 83907519,
+  "source": {
+    "kind": "user_upload",
+    "uploaded_filename": "训练_弗拉格2月1日.mp4",
+    "url": "https://comfile.csdnimg.cn/file/train_video.zip",
+    "publisher": "BroadcastCode 主办方（用户说明及既有 Portal 核验）",
+    "collected_at": "2026-10-05",
+    "start_seconds": null,
+    "end_seconds": null,
+    "archive_filename": "train_video.zip",
+    "archive_entry": "train_video/训练_弗拉格2月1日.mp4",
+    "archive_sha256": "5fc44b719e610c19c4c3d04885db4119784c892dd0be7cb38ec630f2af16465e",
+    "unknown_reason": "用户提供官方训练 ZIP 并明确授权加入私有团队素材库；原转播网页、整场裁切起点和比赛年份未核实。官方 ZIP URL 沿用 Portal 记录，未重新下载比对。"
+  },
+  "game": {
+    "season": null,
+    "date_local": null,
+    "date_beijing": null,
+    "matchup": "DAL at HOU",
+    "game_id": null,
+    "verification_url": null,
+    "period": 4,
+    "clock_start": "01:52",
+    "clock_end": "01:34",
+    "offense_team": null,
+    "defense_team": null,
+    "unknown_reason": "比分、节次及钟面来自本轮可见画面；文件名月日和球员名不能独立确认年份、赛季、事件 ID 或跟踪身份。"
+  },
+  "tactic": {
+    "title": "官方训练 001 · 弗拉格片 · DAL–HOU 第四节",
+    "tags": [
+      "中线推进",
+      "传球",
+      "半场组织",
+      "持球突破",
+      "上篮",
+      "底线发球",
+      "防守"
+    ],
+    "description": "开头为人物特写，切到中线推进；深色队前场传导、持球突破至篮下出手，比分随后由 DAL 103 变为 105，末段出现底线发球与对方接球。文件名中的球员名未作为独立身份标注。",
+    "label_status": "reviewed_visible_actions",
+    "basis": "本轮逐张查看整段 2fps 抽帧并补看全尺寸画面；动作描述不是球队内部战术确认。",
+    "confidence_note": "AI 场景初筛，未完成逐人身份、投篮事件对齐或米制坐标验收。"
+  },
+  "measured_video": {
+    "width": 1920,
+    "height": 1080,
+    "fps_fraction": "6455000/107691",
+    "fps": 59.94001355730748,
+    "codec": "h264",
+    "pixel_format": "yuv420p",
+    "duration_seconds": 21.548118,
+    "audio_stream_count": 1,
+    "frame_count": 1291,
+    "measurement_status": "measured",
+    "measurement_basis": "PyAV 读取并完整解码；FFmpeg -xerror -err_detect explode 全音视频解码通过。原 MP4 未转码。"
+  },
+  "review": {
+    "normal_speed": null,
+    "original_broadcast": true,
+    "full_possession": false,
+    "scope": "frontcourt_sequence",
+    "decode_status": "passed",
+    "visual_status": "ai_sampled_review",
+    "reviewed_at": "2026-10-05T23:05:19+08:00",
+    "basis": "已看完整 2fps 序列与指定全尺寸帧；开头已处于既有进攻过程，不宣称从球权开始完整覆盖；未听审原声。"
+  },
+  "usage": {
+    "category": "official_training",
+    "priority": "primary_regression",
+    "user_required": true,
+    "basis": "用户明确指定这两段为比赛官方训练、后续重点测试样例；不据此保证未公布测试集规格完全相同。"
+  },
+  "material_labels": {
+    "schema_version": "1.0.0",
+    "clip_id": "broadcastcode-training-20261005-001",
+    "asset": {
+      "video_path": "data/videos/uploads/2026-10-05-official-training/clips/训练_弗拉格2月1日.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-05-official-training/labels/001.json",
+      "sha256": "9c3e4606d04e7f79e29a112952fcf069ebab202af207af500bfbc3338bc079ce"
+    },
+    "source": {
+      "manifest_path": "data/videos/uploads/2026-10-05-official-training/manifest.json",
+      "url": "https://comfile.csdnimg.cn/file/train_video.zip",
+      "publisher": "BroadcastCode 主办方（用户说明及既有 Portal 核验）",
+      "kind": "user_upload",
+      "collected_at": "2026-10-05",
+      "source_start_seconds": null,
+      "source_end_seconds": null,
+      "uploaded_filename": "训练_弗拉格2月1日.mp4",
+      "season": null,
+      "source_time_note": "区间从包内 MP4 的 0 秒开始；原整场转播起点未知，因此 source_intervals_seconds 保持 null。"
+    },
+    "quality": {
+      "clarity": "clear",
+      "core_actions_visible": true,
+      "reason": "1080p 原文件中场线、比分和主体动作清楚；局部拖影/遮挡单独打标，不因高清忽略真实困难场景。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 13.5,
+            "end": 18.5
+          },
+          {
+            "start": 19.0,
+            "end": 21.548
+          }
+        ],
+        "note": "篮下进攻时篮架、禁区与远侧看台共同放大，得分后重新拉宽；前段横向追随另外记为运镜，不把平移本身当推拉。"
+      },
+      "full_court_movement": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.5,
+            "end": 5.0
+          }
+        ],
+        "note": "切回宽景后可见中线附近向左侧进攻半场推进，机位连续跟随从中圈移至左篮；此标签不表示两端篮筐完整往返。"
+      },
+      "image_blur": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 16.0,
+            "end": 17.5
+          }
+        ],
+        "note": "篮下快速起跳时局部手脚出现短暂拖影，16.5 秒附近同时有瞬时亮度变化；整体场线与主要动作仍清楚，不属于持续低清或失焦。"
+      },
+      "closeup_insertion": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 0.5
+          }
+        ],
+        "note": "开头为数名球员及裁判的人物特写，0.5 秒采样已切为比赛宽景。"
+      },
+      "view_switch": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 0.5
+          }
+        ],
+        "note": "起始特写到比赛主机位存在明显切换；后续移动和推拉未算额外切镜。"
+      },
+      "half_court_only": {
+        "value": false,
+        "intervals": [],
+        "note": "除前场组织外，开头宽景还覆盖中线及跨线推进。"
+      },
+      "motion_blur": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 16.0,
+            "end": 17.5
+          }
+        ],
+        "note": "全尺寸补看确认快速上篮与移动手脚有轻微拖影；不是整段画面模糊。"
+      },
+      "occlusion": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 3.0,
+            "end": 6.0
+          },
+          {
+            "start": 10.0,
+            "end": 12.5
+          },
+          {
+            "start": 16.0,
+            "end": 19.0
+          }
+        ],
+        "note": "持球人与防守人、掩护/传导附近及篮下争位发生局部身体重叠，不能把短时遮挡直接补成身份真值。"
+      },
+      "players_out_of_frame": {
+        "value": true,
+        "intervals": [
+          {
+            "start": 0.0,
+            "end": 5.0
+          },
+          {
+            "start": 16.5,
+            "end": 21.548
+          }
+        ],
+        "note": "人物特写与跟随推进时部分球员不在画面内；篮下收紧和回防时边侧球员离开画面，比分栏还遮住近侧局部。"
+      },
+      "replay_or_teaching": {
+        "value": false,
+        "intervals": [],
+        "note": "本轮完整 2fps 序列未见回放标识、教学停格或战术绘制；保留普通转播比分包装。"
+      }
+    },
+    "content": {
+      "scope": "frontcourt_sequence",
+      "action_tags": [
+        "中线推进",
+        "传球",
+        "半场组织",
+        "持球突破",
+        "上篮",
+        "底线发球",
+        "防守"
+      ],
+      "description": "开头为人物特写，切到中线推进；深色队前场传导、持球突破至篮下出手，比分随后由 DAL 103 变为 105，末段出现底线发球与对方接球。文件名中的球员名未作为独立身份标注。",
+      "usable_intervals": [
+        {
+          "start": 0.5,
+          "end": 21.548
+        }
+      ]
+    },
+    "selection": {
+      "status": "clear",
+      "recommended": true,
+      "reason": "官方训练重点样例；保留原画质、原时间轴与音轨，用于回归和后续处理验收。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "codex-model-unspecified",
+      "review_method": "当前 Codex 会话完整阅读 2fps contact sheets，补看原尺寸帧；沿用 chuali-zi 的 10 维场景定义，非真人审核。当前会话未提供可确认的精确模型 ID。",
+      "human_reviewed": false,
+      "labeling_origin": "ai_visual_review",
+      "reviewed_at": "2026-10-05T23:05:19+08:00",
+      "sample_count": 44,
+      "evidence_sheets": [
+        "artifacts/official-training-20261005/clip-1-sheet-1.jpg",
+        "artifacts/official-training-20261005/clip-1-sheet-2.jpg",
+        "artifacts/official-training-20261005/clip-1-sheet-3.jpg",
+        "artifacts/official-training-20261005/clip-1-sheet-4.jpg"
+      ],
+      "extra_frames": [
+        "artifacts/official-training-20261005/clip-1-033.jpg"
+      ],
+      "timestamp_precision": "2fps 采样间隔 0.5 秒，区间为近似定位，不保证切点或动作边界误差；精确裁剪前需逐帧补看。",
+      "evidence_location": "本机忽略目录 artifacts/official-training-20261005；共享标注不依赖这些图片。"
+    }
+  }
+}

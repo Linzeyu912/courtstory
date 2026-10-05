@@ -3,9 +3,9 @@
   "scenario": "motion_blur",
   "title": "运动拖影",
   "path_base": "repository_root",
-  "count": 32,
-  "usable_count": 32,
-  "default_count": 32,
+  "count": 34,
+  "usable_count": 34,
+  "default_count": 34,
   "samples": [
     {
       "clip_id": "nba-2024-25-library100-014",
@@ -196,6 +196,18 @@
     {
       "clip_id": "user-uploads-20261004-018",
       "path": "data/videos/classification/by_scenario/motion_blur/user-uploads-20261004-018.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-001",
+      "path": "data/videos/classification/by_scenario/motion_blur/broadcastcode-training-20261005-001.json",
+      "status": "clear",
+      "recommended": true
+    },
+    {
+      "clip_id": "broadcastcode-training-20261005-002",
+      "path": "data/videos/classification/by_scenario/motion_blur/broadcastcode-training-20261005-002.json",
       "status": "clear",
       "recommended": true
     }
