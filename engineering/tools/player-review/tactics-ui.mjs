@@ -143,7 +143,7 @@ export function mountTacticsUI(api){
     $('tacticsFinishDrawing').hidden=!drawing||drawing.pattern!=='solid';$('tacticsFinishDrawing').disabled=disabled||!drawing||drawing.points.length<2;
     $('tacticsCancelDrawing').hidden=!drawing&&!addingAnnotationPoint;
     let hint=!lastScene?'正在准备画面…':playback.state().status==='seeking'?'正在定位画面，完成后可以继续编辑。':!editingEnabled?'播放中。暂停后可以添加或修改图形。':addingAnnotationPoint?'在画面点击新的转弯位置；会插入当前选中点之后。Esc 取消。':
-      correctionMode?'在淡色完整路线点击当前已经走到的位置；Esc 取消。':annotationTool==='route'?(drawing?`已点 ${drawing.points.length} 个点。继续点转弯 / 终点，然后点「完成绘制」。`:documentValue?.schemaVersion===2?'在视频上点起点，再点终点；自动生成直线，拖蓝色弯曲柄调整弧度。':'在球员脚下点起点，再点转弯和终点；两点也能画直线。'):
+      correctionMode?'在淡色完整路线点击当前已经走到的位置；Esc 取消。':annotationTool==='route'?(drawing?(documentValue?.schemaVersion===2?'已选起点，再点终点即完成跑位；Esc 取消。':`已点 ${drawing.points.length} 个点。继续点转弯 / 终点，然后点「完成绘制」。`):documentValue?.schemaVersion===2?'在视频上点起点，再点终点；自动生成直线，拖蓝色弯曲柄调整弧度。':'在球员脚下点起点，再点转弯和终点；两点也能画直线。'):
       ['dashed','dots'].includes(annotationTool)?(drawing?`已选起点，再点终点即完成${typeNames[annotationTool]}；Esc 取消。`:`先点起点，再点终点，自动完成${annotationTool==='dots'?'黄色圆点传球线（无箭头）':'直线虚线箭头'}。`):
       annotationTool==='screen'?'在掩护发生的位置点击，放下挡拆标记；选中后可以移动和调整朝向。':
       annotationTool==='spotlight'?'点击球员身体，脚底圈会自动贴脚。重叠时请选择要跟随的人；没有轨迹时可放静态圈。':
@@ -763,7 +763,7 @@ export function mountTacticsUI(api){
       if(token!==epoch)return;
       kind=nextKind;documentValue=next;lastSavedDigest=null;version=saved.version||0;phaseId=stored?.phaseId||next?.playDefinition.phases[0].phaseId;history=[];redo=[];revision++;context++;selectedRouteId=null;selectedControlFrame=null;selectedAnnotationId=null;selectedEntityId=api.selectedEntityId?.()??selectedEntityId;staticSpotlight=false;personInspection=null;annotationTool='select';
       const params=new URLSearchParams(location.search);if(kind==='candidate')params.set('candidate','1');else params.delete('candidate');window.history.replaceState(null,'',`/?${params}`);
-      await draft();render();$('tacticsSaveState').textContent=stored?'已恢复浏览器草稿':version?`已保存 · 版本 ${version}`:'浏览器草稿';status(next?'先选阶段和工具，在画面直接标注。检查播放会在下一个讲解点暂停。':'点击「建立画布，开始手工标注」，没有识别结果也可以开始。');
+      await draft();render();$('tacticsSaveState').textContent=stored?'已恢复浏览器草稿':version?`已保存 · 版本 ${version}`:'浏览器草稿';status(next?(next.schemaVersion===2&&!next.legacyTiming?'先设置新标注区间，再选工具在视频上画。原片播放用于定位；成片效果预览包含讲解暂停。':'先选阶段和工具，在画面直接标注。检查播放会在下一个讲解点暂停。'):'点击「建立画布，开始手工标注」，没有识别结果也可以开始。');
     }finally{if(sequence===loadSequence){loading=false;$('tacticsSnapshot').disabled=false;$('tacticsCreateCanvas').disabled=false;fillRouteControls();fillAnnotationControls();agentControls();}}
   }
   $('tacticsWorkspace').onclick=safe(()=>load('workspace'));
@@ -1004,7 +1004,7 @@ export function mountTacticsUI(api){
     try{
       if(cameraDrag?.pointerId===event.pointerId){const drag=cameraDrag,next=productionPreview;cameraDrag=null;productionPreview=null;if(next&&JSON.stringify(next.production)!==JSON.stringify(documentValue.production))await saveAnnotation(next,drag.stamp);else drawScene();return;}
       if(annotationDrag?.pointerId===event.pointerId){const drag=annotationDrag,next=annotationPreview;annotationDrag=null;annotationPreview=null;
-        if(next&&JSON.stringify(next.annotations)!==JSON.stringify(documentValue.annotations))await saveAnnotation(next,drag.stamp);else drawScene();return;
+        if(next&&JSON.stringify(next.annotations)!==JSON.stringify(documentValue.annotations)){if(await saveAnnotation(next,drag.stamp))status('形状已更新，校正比例保留；请复查移动节奏，可一次撤销。');}else drawScene();return;
       }await editor.end(event.pointerId);
     }catch(error){status(error.message);temporaryRoute=null;annotationPreview=null;drawScene();}
     finally{if(host.hasPointerCapture(event.pointerId))host.releasePointerCapture(event.pointerId);}
