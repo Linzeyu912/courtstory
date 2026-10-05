@@ -22,7 +22,7 @@
 - 篮筐只用于方向检查，绝不进入地面单应拟合；有效候选继续标记 `needs_review`、`reviewRequired=true`、`metricAccuracyValidated=false`。
 - 本次采用既有 E-BARD 检测和本地48点模型组合，没有新增外部多模态服务。方向约束和拒绝门槛属于工程实现，尚未用独立标注集验收。
 - 方向按同侧主转播画面解释；本次传播使用同一个初始方向。HTTP接口不持久保存跨请求的方向锁，也没有自动识别跨机位物理球篮身份、球队进攻端或未登记的切镜。
-- 原始来源于2026-10-02复核：[E-BARD模型卡](https://huggingface.co/GabrieleGiudici/E-BARD-detection-models)、[48点模型卡](https://huggingface.co/koppolusameer/yolo11n-basketball-court-keypoints)、[OpenCV平面单应教程](https://docs.opencv.org/4.x/d9/dab/tutorial_homography.html)。模型哈希和调用命令见后端说明；既有点序证据见[模型比较](../../engineering/research/vision-player-refinement/court-model-comparison.md)。
+- 原始来源于2026-10-02复核：[E-BARD模型卡](https://huggingface.co/GabrieleGiudici/E-BARD-detection-models)、[48点模型卡](https://huggingface.co/koppolusameer/yolo11n-basketball-court-keypoints)、[OpenCV平面单应教程](https://docs.opencv.org/4.x/d9/dab/tutorial_homography.html)。模型哈希和调用命令见后端说明；既有点序证据见[模型比较](../../research/vision/vision-player-refinement/court-model-comparison.md)。
 
 ## 验证
 
@@ -30,7 +30,7 @@
 - 原前端球场 / 标定契约 **23项通过**。使用 `node --test --test-isolation=none` 避免沙箱禁止测试子进程；没有更改测试语义。
 - 真实HTTP **9项通过**：通用检测版本复用E-BARD篮筐、自动初始化、带切镜的传播、004不确定时不输出映射、非法帧 / 切镜 / 布尔值 / 样例拒绝、跨来源拒绝和缺权重503。两个独立QA服务均由测试进程关闭，没有重启用户正式服务。
 - 命令行真实运行：005第0帧自动初始化为右侧；继续传播得到 **139/143帧**候选。现有 `acceptCourtCandidates` 接受139帧、保留4帧失效，首帧能进入 `calibrationAt`。纯初始化一次含冷启动耗时约6.54秒；初始化加全片传播约15.51秒，两次独立进程，不能相减当纯模型耗时。
-- 旧12帧的两种输入输出共24条缓存对照：640保留4帧、拒绝8帧；960保留7帧、拒绝5帧。006第308帧640输出从旧right纠正为left；004前段仍因错误镜像几何而拒绝。此项复用旧关键点和已有篮筐，没有重新推理；独立于上面的真实HTTP / CLI模型运行。[共享验证JSON](../../engineering/research/vision-player-refinement/hoop-constrained-calibration.json)保存输入哈希、逐帧结果、拒绝原因及接口验证。目视核对006/308和004/0前后投影图，改善与拒绝行为符合记录，未据此声称米制精度。
+- 旧12帧的两种输入输出共24条缓存对照：640保留4帧、拒绝8帧；960保留7帧、拒绝5帧。006第308帧640输出从旧right纠正为left；004前段仍因错误镜像几何而拒绝。此项复用旧关键点和已有篮筐，没有重新推理；独立于上面的真实HTTP / CLI模型运行。[共享验证JSON](../../research/vision/vision-player-refinement/hoop-constrained-calibration.json)保存输入哈希、逐帧结果、拒绝原因及接口验证。目视核对006/308和004/0前后投影图，改善与拒绝行为符合记录，未据此声称米制精度。
 - 独立代码复核发现并修正无E-BARD且默认非original时的CLI检测指纹来源问题；复核未发现剩余阻止交付的问题。
 - Python编译、改动空白检查和新增文档相对链接核验；本机QA响应、日志和运行脚本在忽略目录 `artifacts/court-orientation-backend-qa/`。
 

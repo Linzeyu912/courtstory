@@ -13,10 +13,10 @@
 
 - 当前仓库从 `76ce1ad` 快进同步到 `42a1d60999b711dc09acc06db7edfdcf4c396b09`，包含队友最新 2D 优先工作台计划。执行环境起初只有 `work` 分支，工作区干净；将其重命名为 `main` 后按仓库协作流程拉取，没有新建任务分支。
 - 独立浅克隆 `anomalyco/opencode` 的 dev、`openai/codex` 的 main；未编辑上游源码，完整克隆和 npm 依赖位于共享仓库之外的本机研究目录。
-- [研究入口](../../engineering/research/agent-video-understanding-20261005/README.md)、[中文报告](../../engineering/research/agent-video-understanding-20261005/REPORT.md)：两个 Agent 的入口 / 类型 / 消息转换 / 模型请求 / 工具结果，以及本工作台已有抽帧能力和后续复用边界。
-- [来源清单](../../engineering/research/agent-video-understanding-20261005/sources.json)：46 段原样代码，锁定提交、行号、原文件及摘录 SHA-256、永久链接；附许可证和 Codex NOTICE。
-- [抽取核验脚本](../../engineering/research/agent-video-understanding-20261005/extract_sources.py)、[离线协议探针](../../engineering/research/agent-video-understanding-20261005/probe_boundaries.mjs)及[真实运行记录](../../engineering/research/agent-video-understanding-20261005/offline-probe.json)。
-- 更新[研究索引](../../engineering/research/README.md)和[团队状态](../../docs/status.md)，明确本轮仍本地未提交 / 未推送。
+- [研究入口](../../research/agents/agent-video-understanding-20261005/README.md)、[中文报告](../../research/agents/agent-video-understanding-20261005/REPORT.md)：两个 Agent 的入口 / 类型 / 消息转换 / 模型请求 / 工具结果，以及本工作台已有抽帧能力和后续复用边界。
+- [来源清单](../../research/agents/agent-video-understanding-20261005/sources.json)：46 段原样代码，锁定提交、行号、原文件及摘录 SHA-256、永久链接；附许可证和 Codex NOTICE。
+- [抽取核验脚本](../../research/agents/agent-video-understanding-20261005/extract_sources.py)、[离线协议探针](../../research/agents/agent-video-understanding-20261005/probe_boundaries.mjs)及[真实运行记录](../../research/agents/agent-video-understanding-20261005/offline-probe.json)。
+- 更新[研究索引](../../research/README.md)和[团队状态](../../docs/status.md)，明确本轮仍本地未提交 / 未推送。
 
 ## 结论与依据
 

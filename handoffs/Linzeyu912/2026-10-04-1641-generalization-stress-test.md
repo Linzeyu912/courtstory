@@ -9,7 +9,7 @@
 
 ## 本次完成
 
-- 新增[测试脚本](../../engineering/scripts/benchmark_court_generalization.py)和[统计 / 报告脚本](../../engineering/scripts/report_court_generalization.py)。完整实验、边界及复现步骤见[研究记录](../../engineering/research/court-generalization-20261004.md)。
+- 新增[测试脚本](../../engineering/scripts/benchmark_court_generalization.py)和[统计 / 报告脚本](../../engineering/scripts/report_court_generalization.py)。完整实验、边界及复现步骤见[研究记录](../../research/vision/court-generalization-20261004.md)。
 - 原片 36 秒 / 1080 帧，与共享上传批次 004 哈希相同；保留原视频、原权重、正式草稿和前轮九段视频。本轮不修改 `court_propagation.py` 的生产算法，工作区中该文件的 diff 来自前轮修复。
 - 原片和三个增强条件（降清晰度 + 模糊 + 压缩、动态数字缩放 / 平移、降低亮度）均完整处理，保留原帧顺序和时间。独立源视频仍为 1 段，没有训练；增强不能分拆成独立测试样本或泄漏到另一数据分组。
 - 人物沿用 E-BARD YOLOv8n + BoT-SORT 原生 ReID；原篮球 / 篮筐图像候选保留。球场比较同权重的 640、960 输入及 960 分段参照；脚部为 YOLOv8s Pose / RTMW-l 固定 3 Hz 抽样，各条件各模型 108 帧。

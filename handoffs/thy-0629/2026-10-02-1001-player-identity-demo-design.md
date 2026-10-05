@@ -9,7 +9,7 @@
 
 ## 本次完成
 
-- 保存[首轮 demo 规格](../../docs/superpowers/specs/2026-10-02-player-identity-demo-design.md)，确定当前建议为本机离线检测跟踪、人工确认身份、本地 2K 查询与结果导出。
+- 保存[首轮 demo 规格](../../engineering/docs/specs/2026-10-02-player-identity-demo-design.md)，确定当前建议为本机离线检测跟踪、人工确认身份、本地 2K 查询与结果导出。
 - 区分模型部署、身份人工确认、自动检测表现和正式比赛云部署；第一轮不承诺十人每帧可见或全自动姓名识别。
 - 只读检查本机显卡、当前 Python 依赖、样片标签、数据指引和公开模型发布信息。
 

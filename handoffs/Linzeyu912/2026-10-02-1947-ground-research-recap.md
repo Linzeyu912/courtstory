@@ -21,7 +21,7 @@
 
 三个片段共 815 帧、7,417 次球员框，RTMPose 的解码、姿态与收集循环耗时 37.19 秒；不含前置人物检测、写盘、渲染和人工修正。字幕遮腿、两人交叠、黑鞋与深色地板均出现过错误候选。
 
-依据：[脚部模型实测](../../engineering/research/vision-player-refinement/feet-model-comparison.md)、[完整运行数据](../../engineering/research/vision-player-refinement/feet-model-full-run.json)。原研究采集与实验日期为 2026-10-02；模型原始入口及哈希保留在上述文件。
+依据：[脚部模型实测](../../research/vision/vision-player-refinement/feet-model-comparison.md)、[完整运行数据](../../research/vision/vision-player-refinement/feet-model-full-run.json)。原研究采集与实验日期为 2026-10-02；模型原始入口及哈希保留在上述文件。
 
 ### 2. 球场识别与坐标转换
 
@@ -29,7 +29,7 @@
 
 已实跑 YOLO11n 篮球场 48 点模型、KaliCalib 和 OpenCV LSD。48 点模型在 12 个抽样帧中，两种输入尺寸各有 7 帧左右半场误认；因此保留为人工校准候选。部分点序来自作者标签目视核对，尚无核实的完整 48 点米制表。KaliCalib 对照仍用原生 FIBA 模板，完整 NBA 适配及作者相机优化未完成；LSD 仅输出无语义线段。
 
-依据：[球场模型比较](../../engineering/research/vision-player-refinement/court-model-comparison.md)、[几何原理及早期实验](../../engineering/research/vision-player-refinement/court-calibration-research.md)。来源 URL、模型版本和 2026-10-01 / 02 采集日期均保留在原文。
+依据：[球场模型比较](../../research/vision/vision-player-refinement/court-model-comparison.md)、[几何原理及早期实验](../../research/vision/vision-player-refinement/court-calibration-research.md)。来源 URL、模型版本和 2026-10-01 / 02 采集日期均保留在原文。
 
 ### 3. 镜头移动与连续轨迹
 
@@ -37,7 +37,7 @@
 
 球场映射随摇镜和变焦更新，已接入 SIFT 特征匹配和短段 LK 光流回退。固定字幕曾导致映射锁在屏幕上；扩大遮罩后改善，但失败帧仍留空。004 / 005 / 006 分别有 102/210、139/143、300/462 帧可输出待复核映射，这些数量不是准确率，也不代表所有球员在这些帧都有可信坐标。
 
-依据：[镜头传播核查](../../engineering/research/vision-player-refinement/propagation-validation.md)、[数据提取流程](../../engineering/research/vision-player-refinement/data-extraction-workflow.md)、[工作台说明](../../engineering/tools/player-review/README.md)、[最新接入交接](2026-10-02-1604-scene-ground-workbench.md)。
+依据：[镜头传播核查](../../research/vision/vision-player-refinement/propagation-validation.md)、[数据提取流程](../../research/vision/vision-player-refinement/data-extraction-workflow.md)、[工作台说明](../../engineering/tools/player-review/README.md)、[最新接入交接](2026-10-02-1604-scene-ground-workbench.md)。
 
 ## 验证
 
@@ -65,7 +65,7 @@
 
 2026-10-02，Asia/Shanghai。用户提出加入能理解画面的模型，根据篮筐所在侧判断半场。本次只核查可行性，未实现或实测新策略，也未形成团队选型。
 
-- 当前 [estimate_named](../../engineering/scripts/probe_court_models_v2.py) 对左右两组具名点分别拟合，再以过阈值点的置信度总和选侧；没有引入篮筐。此前 7/12 错向是当前自动选边流程的结果，不能据此推断增加篮筐约束后仍会有相同错误率。
+- 当前 [estimate_named](../../research/vision/scripts/probe_court_models_v2.py) 对左右两组具名点分别拟合，再以过阈值点的置信度总和选侧；没有引入篮筐。此前 7/12 错向是当前自动选边流程的结果，不能据此推断增加篮筐约束后仍会有相同错误率。
 - 对同一侧主转播机位、未镜像、场地结构清晰的普通画面，篮筐与禁区的相对位置可作为左右模板选择的依据。不能只凭篮筐横坐标是否超过画面中线判断：裁切、摇镜、篮下机位、反向机位、双筐或不可见均会造成歧义。画面左右也不能独立确定跨机位统一坐标中的物理球篮身份，更不能独立确定某队攻防半场。
 - 现有 E-BARD 已提供 hoop 检测，可先复用；若用户所说的是多模态模型，可在首个清晰帧、切镜或方向冲突时辅助判断。模型需允许不可见或不确定结果，同镜头内维持已确认方向，不能逐帧因构图变化随意翻转。
 - 选对方向后仍需足够正确的地面关键点与投影核验。原来预测到错误槽位或缺失的点不会因切换 side 自动变正确；篮圈有高度，其中心也不能加入地面单应拟合。

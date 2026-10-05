@@ -92,7 +92,7 @@ def summary(directory, previous):
             keep = (p[:, 0]>=0)&(p[:, 0]<=LENGTH)&(p[:, 1]>=0)&(p[:, 1]<=WIDTH)&(pixels[:, 0]>=0)&(pixels[:, 0]<1552)&(pixels[:, 1]>=0)&(pixels[:, 1]<872)
             differences.extend(np.linalg.norm(p[keep]-project(np.linalg.inv(h1), pixels[keep]), axis=1).tolist())
         answer['conditions'][name]['augmentationConsistencyMetersNotAccuracy'] = stats(differences)
-    checks = read(Path(__file__).resolve().parents[1]/'research/court-fullcourt-20261004-line-checks.json')
+    checks = read(Path(__file__).resolve().parents[2]/'research/vision/court-fullcourt-20261004-line-checks.json')
     if checks['sourceHash'] != manifest['sourceHash']: raise ValueError('Visual checks belong to another source')
     old = {r['frame']: r for r in read(previous/'original-windows.json')['keyframes']}
     audit = []; before_all = []; after_all = []

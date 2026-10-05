@@ -9,10 +9,10 @@
 
 ## 本次完成
 
-- 新增 [部署评估](../../engineering/research/vision-local-aws-deployment.md)：硬件、真实耗时、训练要求、替代系统、Agent 调用方式、AWS 官方资源与赛事信息边界、升级条件。
-- 新增 [基线测量脚本](../../engineering/scripts/benchmark_vision_baseline.py)，以已有视频和本地权重运行人物检测跟踪，输出结构化测量记录。
-- 新增 [测量目录](../../engineering/research/vision-deployment-benchmark/README.md)：10 份原始 JSON、1 份汇总 JSON 和说明。仅一个样片；重复测量不代表多场景覆盖。
-- 更新 [方案总结](../../engineering/docs/agent-concept-review.md)、[团队状态](../../docs/status.md)、[调研索引](../../engineering/research/README.md)，并为[首轮研究](../../engineering/research/video-overlay-vision-assessment.md)补充后续实测链接。
+- 新增 [部署评估](../../research/runtime/vision-local-aws-deployment.md)：硬件、真实耗时、训练要求、替代系统、Agent 调用方式、AWS 官方资源与赛事信息边界、升级条件。
+- 新增 [基线测量脚本](../../research/vision/scripts/benchmark_vision_baseline.py)，以已有视频和本地权重运行人物检测跟踪，输出结构化测量记录。
+- 新增 [测量目录](../../research/runtime/vision-deployment-benchmark/README.md)：10 份原始 JSON、1 份汇总 JSON 和说明。仅一个样片；重复测量不代表多场景覆盖。
+- 更新 [方案总结](../../engineering/docs/agent-concept-review.md)、[团队状态](../../docs/status.md)、[调研索引](../../research/README.md)，并为[首轮研究](../../research/vision/video-overlay-vision-assessment.md)补充后续实测链接。
 - 本地创建被忽略的 `tmp/vision-deploy-bench-venv/`，复用系统 CUDA PyTorch；安装固定版本 Ultralytics 和 lap。官方权重、设置及缓存位于 `tmp/`，诊断图位于 `artifacts/vision-deployment-benchmark/`，均未入库。
 
 ## 结论与依据

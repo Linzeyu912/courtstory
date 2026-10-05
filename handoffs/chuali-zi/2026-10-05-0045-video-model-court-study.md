@@ -9,7 +9,7 @@
 
 ## 本次完成
 
-- [研究入口](../../engineering/research/video-model-to-court-20261005/README.md)、[报告](../../engineering/research/video-model-to-court-20261005/REPORT.md)、[来源](../../engineering/research/video-model-to-court-20261005/sources.json)。
+- [研究入口](../../research/agents/video-model-to-court-20261005/README.md)、[报告](../../research/agents/video-model-to-court-20261005/REPORT.md)、[来源](../../research/agents/video-model-to-court-20261005/sources.json)。
 - 核实 20 个原作者 / 官方主仓库 README，锁定提交并保存正文哈希；7 个关键项目另行克隆，第三方源码留在共享仓库外。
 - 补充研究索引和团队状态，明确旧研究已发布与新研究本地状态。
 
@@ -35,7 +35,7 @@
 
 ## 下一步
 
-- 用户补充约定：Qwen API key 使用服务端环境变量 `QWEN_KEY`。已补充[接口准备](../../engineering/research/video-model-to-court-20261005/QWEN_API_NOTES.md)，核实百炼视频输入及采样文档；本次检查该变量尚未配置，未读取 / 输出密钥或发起鉴权请求。调用时仍需匹配具体服务商、地域与 endpoint，不能仅凭 key 名称推断。
+- 用户补充约定：Qwen API key 使用服务端环境变量 `QWEN_KEY`。已补充[接口准备](../../research/agents/video-model-to-court-20261005/QWEN_API_NOTES.md)，核实百炼视频输入及采样文档；本次检查该变量尚未配置，未读取 / 输出密钥或发起鉴权请求。调用时仍需匹配具体服务商、地域与 endpoint，不能仅凭 key 名称推断。
 - 同一 3–5 秒篮球窗口比较 M1 视频模型直接坐标、M2 语言分割 + 脚点 / 标定、M3 现有检测 + 视频语义复核；保留不加 VLM 的现有基线。
 - 同时报告身份、图像位置、米制位置、可见性、切镜漂移和人工修正；不要用插值或矩阵覆盖冒充真实观测 / 精度。
 

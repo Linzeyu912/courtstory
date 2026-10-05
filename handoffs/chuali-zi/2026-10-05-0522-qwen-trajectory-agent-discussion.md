@@ -9,7 +9,7 @@
 
 ## 本次完成
 
-- [方案讨论稿](../../engineering/research/qwen-video-trajectory-agent-20261005.md)及[固定来源](../../engineering/research/qwen-video-trajectory-agent-20261005-sources.json)。
+- [方案讨论稿](../../research/agents/qwen-video-trajectory-agent-20261005.md)及[固定来源](../../research/agents/qwen-video-trajectory-agent-20261005-sources.json)。
 - 拉取 Pi 当前官方仓库（旧 pi-mono 地址已迁移）、IG-VLM 和 VideoAgent-tools 到共享仓库外，追读循环、图片工具返回与 API 序列化。
 - 对照已拉取的 Codex / OpenCode，补查视频 Agent / 记忆 / 时间细化 / 可回退搜索和 Jump-Aware 数据说明。
 - 更新研究索引、状态；给旧视频模型报告加范围更新，避免继续误导成要换用 / 训练新模型。

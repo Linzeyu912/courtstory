@@ -12,8 +12,8 @@
 |---|---|
 | `data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4` | `1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d` |
 | `data/videos/tactics/acceptance/tracks/005-ebard.json` | `e2d1b8c50a4714afc9e3ae7628dde6dda7259e127f1f3fe42cfaf9b97caaa12e` |
-| `engineering/research/vision-player-refinement/feet-candidates-005.json` | `9e54439058c79e9e77094785b1e516d2acd30f6ec9bf7a5bd749ad25dcf25525` |
-| `engineering/research/vision-player-refinement/court-candidates-005.json` | `a5ec52f6aac0ca87d5c43df07d3d7b0e06767ebfdff3b2b594b6c8de3aca6988` |
+| `research/vision/vision-player-refinement/feet-candidates-005.json` | `9e54439058c79e9e77094785b1e516d2acd30f6ec9bf7a5bd749ad25dcf25525` |
+| `research/vision/vision-player-refinement/court-candidates-005.json` | `a5ec52f6aac0ca87d5c43df07d3d7b0e06767ebfdff3b2b594b6c8de3aca6988` |
 
 原片为 1920×1080 / 143 帧，实际 PTS 范围 0–4.733333333333333 秒。源轨迹的全部 143 项时间与顺序解码 PTS 相同；生成器保留原数值，不从 fps 生成时间。`extract_frames.py` 会在重新提取时再次逐项比较。
 

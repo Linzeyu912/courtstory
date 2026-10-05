@@ -51,7 +51,7 @@ Git worktree 是同一仓库的独立文件目录，两边共享 Git 历史，�
 - 本轮另读取这四份 `optimized.meta.json`，均有 `identity_verified: false`、建议 `verified: false`、连接 `links: []`；三版本 `2K Player Data` 的 Git tree 哈希也完全一致，均为 `df0b130faf712852801026fa122655c1221490c3`。
 - 用户版新增的是依靠篮筐方向约束初始化球场的后端接口；前端新按钮接线仍未完成。THY 保留共同基线的人工 / 候选标定与镜头传播，本次没有用户版的这套新初始化接口。
 
-以上跟踪结论对应 THY 固定提交中的 `engineering/research/player-tracking-workbench-20261002.md`、`engineering/tools/player-review/README.md` 及新增脚本。两边均未新增球衣号码 OCR 或全自动准确恢复整段十人轨迹的验收结果。
+以上跟踪结论对应 THY 固定提交中的 `research/vision/player-tracking-workbench-20261002.md`、`engineering/tools/player-review/README.md` 及新增脚本。两边均未新增球衣号码 OCR 或全自动准确恢复整段十人轨迹的验收结果。
 
 ## 3. 改动规模和重叠位置
 

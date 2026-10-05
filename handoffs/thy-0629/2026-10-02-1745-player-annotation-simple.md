@@ -15,7 +15,7 @@
 - 前端 `engineering/tools/player-review/app.mjs`、`index.html`、`pipeline.css`；新增 `simple-annotation.mjs` / `.test.mjs`。
 - 自动编号 `automatic-annotations.mjs` / `.test.mjs`，不改原身份算法、检测生成器和原分队产物。
 - `engineering/scripts/serve_player_review.py` 新增只读 `identitySupplement`，以及 `test_player_review_server.py`、`test_review_variants.py`。
-- [设计与验收](../../engineering/docs/plans/2026-10-02-player-annotation-simple.md)、[实测报告](../../engineering/research/player-annotation-simple-20261002.md)、[操作说明](../../engineering/tools/player-review/README.md)、研究索引和团队状态。
+- [设计与验收](../../engineering/docs/plans/2026-10-02-player-annotation-simple.md)、[实测报告](../../research/vision/player-annotation-simple-20261002.md)、[操作说明](../../engineering/tools/player-review/README.md)、研究索引和团队状态。
 
 `identitySupplement` 只读取同视频 SHA、同原始检测 SHA、同精确帧 / PTS / 根来源与断点的已校验版本；不改变原检测、元数据、模型 / 原始指纹及浏览器草稿键。剪辑子版本重新计算补充，不套用父帧号。旧人工姓名、队色、身份、脚点、出画记录和已有模型绑定优先保留。手动重新检查自动编号同样只补空位。
 

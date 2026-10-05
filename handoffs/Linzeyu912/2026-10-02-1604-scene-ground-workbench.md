@@ -18,9 +18,9 @@
 
 ## 结论与依据
 
-- [脚部对照](../../engineering/research/vision-player-refinement/feet-model-comparison.md)：实际下载OpenMMLab RTMPose-s Halpe26，与YOLOv8s-pose和框底中心比较；815帧 / 7,417个球员框CPU循环共37.19秒，不含前置人物检测、加载、写盘和人工修正。字幕与遮挡会产生高分错脚，保留人工采用。
-- [场地模型对照](../../engineering/research/vision-player-refinement/court-model-comparison.md)：下载HF YOLO11n 48点权重，640 / 960各测同12帧，推理中位8.35 / 10.44ms，两组均7/12半场误认；KaliCalib保留原生FIBA模板，LSD只能提供无语义线段。因此没有把任一模型设为全自动精确标定。
-- [传播核查](../../engineering/research/vision-player-refinement/propagation-validation.md)：首版006被固定ESPN字幕锁住；扩大遮罩后，第154 / 308帧B/E与目视粗参考的差异由几十至数百像素降至2.7–11.2px，第461帧停止输出。这不是独立米制真值。
+- [脚部对照](../../research/vision/vision-player-refinement/feet-model-comparison.md)：实际下载OpenMMLab RTMPose-s Halpe26，与YOLOv8s-pose和框底中心比较；815帧 / 7,417个球员框CPU循环共37.19秒，不含前置人物检测、加载、写盘和人工修正。字幕与遮挡会产生高分错脚，保留人工采用。
+- [场地模型对照](../../research/vision/vision-player-refinement/court-model-comparison.md)：下载HF YOLO11n 48点权重，640 / 960各测同12帧，推理中位8.35 / 10.44ms，两组均7/12半场误认；KaliCalib保留原生FIBA模板，LSD只能提供无语义线段。因此没有把任一模型设为全自动精确标定。
+- [传播核查](../../research/vision/vision-player-refinement/propagation-validation.md)：首版006被固定ESPN字幕锁住；扩大遮罩后，第154 / 308帧B/E与目视粗参考的差异由几十至数百像素降至2.7–11.2px，第461帧停止输出。这不是独立米制真值。
 - 共享场地候选004 / 005 / 006分别有102/210、139/143、300/462帧可生成映射；耗时11.84 / 8.27 / 26.46秒。004使用经抽查的60帧LK回退，其他样例及实时接口保持12帧；全为待复核候选，不把覆盖率当准确率。
 - 004种子来自AI目视四角，D有遮挡，E作留出核验；005 / 006种子来自方向经目视筛选的模型首帧。单应矩阵可直接把地面图像点转换到2D；真实相机姿态还需内参等条件，本轮不输出猜测角度。方法来源：[OpenCV官方教程](https://docs.opencv.org/4.x/d9/dab/tutorial_homography.html)，2026-10-02查阅。
 

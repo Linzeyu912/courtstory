@@ -15,7 +15,7 @@
 
 ## 推荐来源与选项
 
-本轮检索了 Codex 历史聊天「新建分支并推送本地内容」，其中 2026-10-02 的用户消息明确要求 THY 全方案加推荐，理由是此前人工比较认为效果最好。同轮仓库记录见[选择性整合交接](../../handoffs/Linzeyu912/2026-10-02-2229-selected-integration.md)和[模型部署](model-deployment.md)。本轮沿用这一选择，不新增独立精度评测结论。
+本轮检索了 Codex 历史聊天「新建分支并推送本地内容」，其中 2026-10-02 的用户消息明确要求 THY 全方案加推荐，理由是此前人工比较认为效果最好。同轮仓库记录见[选择性整合交接](../../handoffs/Linzeyu912/2026-10-02-2229-selected-integration.md)和[模型部署](../../environment/local/model-runtime.md)。本轮沿用这一选择，不新增独立精度评测结论。
 
 新视频界面提供 `team-stable`、`ebard-byte`、`yolo-team`、`yolo` 四个组合。默认组合同时保存对应 `optimized` 原观测和稳定展示元数据。旧样例的 `ebard`、`original` 及各实验参数结果保留。不同 T 编号属于各自模型运行；切换后不能把旧 T 当成同一球员。
 
@@ -35,7 +35,7 @@
 & tmp/vision-deploy-bench-venv/Scripts/python.exe engineering/scripts/serve_player_review.py --library data/videos/tactics/acceptance/review-library.json --port 8890
 ```
 
-可通过 `--video-folder`、`--import-cache`、`--inference-python`、`--models` 调整本机位置。推理过程运行在独立子进程，固定校验 Ultralytics 8.4.171、CUDA 与两份权重哈希，沿用[已有模型契约](model-deployment.md)。原服务的球场和人工编辑环境不被升级。
+可通过 `--video-folder`、`--import-cache`、`--inference-python`、`--models` 调整本机位置。推理过程运行在独立子进程，固定校验 Ultralytics 8.4.171、CUDA 与两份权重哈希，沿用[已有模型契约](../../environment/local/model-runtime.md)。原服务的球场和人工编辑环境不被升级。
 
 2026-10-03 本机将已存在的整合环境、权重复制到标准忽略目录。`prepare_tracking_variants.py --check` 已确认 Python 3.12.10、PyTorch 2.11.0+cu128、Ultralytics 8.4.171、PyAV 17.0.0 与 RTX 5070 Laptop GPU。其他电脑仍需按模型部署说明自行准备依赖和合法来源权重。
 

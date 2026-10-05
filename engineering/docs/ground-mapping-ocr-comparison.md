@@ -147,7 +147,7 @@ python engineering/scripts/serve_comparison_report.py --directory <report-output
 
 用户另指定 36 秒连续全场移动视频。原片及三种增强已完整测试；脚部按固定 3 Hz 对比 YOLOv8s Pose / RTMW-l。960 输入改善 Court48 可初始化时刻，分段参照改善两端投影，但中场交接仍有米级不一致，排除接续冲突后只有 88.52%–88.89% 帧可显示，未达到此前的 90% 目标。原来的三段验收结果不能推广为这一新场景已经通过。
 
-原 YOLOv8n 和正式草稿保留；新实验没有训练或替换工作台默认流程。完整参数、分母、失败区间、增强同源分组及复现入口见[全场泛化测试](../research/court-generalization-20261004.md)。
+原 YOLOv8n 和正式草稿保留；新实验没有训练或替换工作台默认流程。完整参数、分母、失败区间、增强同源分组及复现入口见[全场泛化测试](../../research/vision/court-generalization-20261004.md)。
 
 ## 来源
 

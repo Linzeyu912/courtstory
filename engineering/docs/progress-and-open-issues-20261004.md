@@ -19,7 +19,7 @@
 | 地面位置与轨迹 | 人工位置优先；明确选择的姿态候选按来源采用；默认有可靠双踝时取中点，否则取框底中点。每帧用各自矩阵转入固定球场，视频尾迹再投回当前镜头 | [坐标关系与回退规则](court-relative-trajectories.md)、[轨迹模块](../tools/player-review/court-trails.mjs) |
 | 身份与资料 | P 绑定、区间修正、镜头外 / 遮挡状态、OCR 号码和队伍证据可保存并复核；兼容 THY 的身份参考、Agent 续接与战术功能 | [OCR 与脚点](ground-mapping-ocr-comparison.md)、[画面状态](player-visibility.md)、[整合说明](thy-sync-20261004.md) |
 | 工作台交互 | 只保留左侧主导航；模型和跟踪器选项恢复常驻；推荐黄标放在展开后的选项内；人工标定面板蓝底修复 | [模型选择](model-selection-layout.md)、[工作台使用](../tools/player-review/README.md) |
-| 球场标定 | 保留半场点线细化，改进短期地板运动恢复；新增两端 / 中线 / 地板运动共同约束的离线全场求解及逐帧核验 | [默认后端](court-calibration-backend.md)、[全场实现](court-fullcourt-calibration.md)、[研究记录](../research/court-fullcourt-20261004.md) |
+| 球场标定 | 保留半场点线细化，改进短期地板运动恢复；新增两端 / 中线 / 地板运动共同约束的离线全场求解及逐帧核验 | [默认后端](court-calibration-backend.md)、[全场实现](court-fullcourt-calibration.md)、[研究记录](../../research/vision/court-fullcourt-20261004.md) |
 | 报告和可复查证据 | 对比视频改用 Canvas 显示解码帧，支持播放、暂停和跳转；补齐 HTTP Range、报告播放器和逐项检查脚本 | [播放修复与复检报告](function-audit-20261004.md)、[播放器](../tools/report-player/player.mjs) |
 
 原始检测、脚点观测、派生球场坐标与显示平滑分别保存。缺标定不冻结上一帧矩阵；断档不靠匿名点、插值或平滑伪装成已跟住的 P。篮球图像轨迹独立处理，持球代理也不等于球的真实地面坐标。
@@ -50,7 +50,7 @@
 | 缩放平移 | 1,045 / 1,080 | 96.76% | 0.90 秒 |
 | 降亮度 | 1,068 / 1,080 | 98.89% | 0.367 秒 |
 
-6 个非拟合关键帧的目视中线参考距离中位数为 96.45 → 4.08 像素；参考点由 Agent 读取，约 ±5 像素不确定性，未经用户复核。降亮度版本对应中位距离约 15 像素。该结果只能支持“这个片段中线贴合有改善”，不能宣布 4 像素真实精度。证据和失败区间见[原实验](../research/court-fullcourt-20261004.md)及[参考点](../research/court-fullcourt-20261004-line-checks.json)。
+6 个非拟合关键帧的目视中线参考距离中位数为 96.45 → 4.08 像素；参考点由 Agent 读取，约 ±5 像素不确定性，未经用户复核。降亮度版本对应中位距离约 15 像素。该结果只能支持“这个片段中线贴合有改善”，不能宣布 4 像素真实精度。证据和失败区间见[原实验](../../research/vision/court-fullcourt-20261004.md)及[参考点](../../research/vision/court-fullcourt-20261004-line-checks.json)。
 
 ### 人物与球场联合复检
 
@@ -60,7 +60,7 @@
 
 ## 4. 开源调研与推荐顺序
 
-来源于 2026-10-04 的[工具调研](../research/fullcourt-tools-and-camera-tracking-20261004.md)，以下是工程建议，尚无新模型在本视频中胜出的结论。
+来源于 2026-10-04 的[工具调研](../../research/vision/fullcourt-tools-and-camera-tracking-20261004.md)，以下是工程建议，尚无新模型在本视频中胜出的结论。
 
 | 候选 | 适合借用的部分 | 不能直接当成已解决的部分 |
 |---|---|---|

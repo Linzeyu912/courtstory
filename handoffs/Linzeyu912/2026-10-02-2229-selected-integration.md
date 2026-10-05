@@ -31,7 +31,7 @@
 - 本机证据：`artifacts/integration-runtime-qa/runtime-checks.json`、`artifacts/integration-runtime-qa/court-calibration-response.json`、`artifacts/integration-runtime-qa/dismissed-observations-http.json`、`backend-integration-tests.log`，均为忽略产物。本轮最终前端、模型与浏览器结果见下条。
 
 - 模型与前端收尾：27 个样例 / 版本组合 HTTP 校验通过；补跑 10 组、2,712 帧；THY 原 22 份 JSON 保持原字节；46 项模型 / 展示测试通过。JavaScript 171 项全部通过（0 跳过）；bundle 构建通过。
-- 浏览器 QA 验证固定红蓝排列、原分步导航、2D 抽屉、2K 查询 / 清除、确认 / 取消 / 重载、交换 / 撤销、模型草稿隔离、视频重播和重新加载，控制台无错误。142 条视频 metadata / LFS index 校验通过。详细记录见[整合验收](../../engineering/docs/plans/2026-10-02-selected-integration.md)与[模型部署](../../engineering/docs/model-deployment.md)。
+- 浏览器 QA 验证固定红蓝排列、原分步导航、2D 抽屉、2K 查询 / 清除、确认 / 取消 / 重载、交换 / 撤销、模型草稿隔离、视频重播和重新加载，控制台无错误。142 条视频 metadata / LFS index 校验通过。详细记录见[整合验收](../../engineering/docs/plans/2026-10-02-selected-integration.md)与[模型部署](../../environment/local/model-runtime.md)。
 
 ## 阻塞与待确认
 

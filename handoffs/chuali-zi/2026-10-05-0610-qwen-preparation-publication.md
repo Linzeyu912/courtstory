@@ -8,9 +8,9 @@
 
 ## 本次完成
 
-1. 同步[现有多模态 API 与 Agent 讨论研究](../../engineering/research/qwen-video-trajectory-agent-20261005.md)及[11 个项目固定来源](../../engineering/research/qwen-video-trajectory-agent-20261005-sources.json)，覆盖 Pi、Codex、OpenCode、帧拼图、视频 Agent 工具循环等。
+1. 同步[现有多模态 API 与 Agent 讨论研究](../../research/agents/qwen-video-trajectory-agent-20261005.md)及[11 个项目固定来源](../../research/agents/qwen-video-trajectory-agent-20261005-sources.json)，覆盖 Pi、Codex、OpenCode、帧拼图、视频 Agent 工具循环等。
 2. 同步[首版详细实现计划](../../engineering/docs/plans/2026-10-05-qwen-ground-trajectory-agent-v1.md)：官方 Qwen 接口、受限 Agent 运行方式、读图 / 改锚点 / 拟合反馈、准备版本与重放、当前 UI 接入、同片效果验证。
-3. 同步[前轮视频模型背景研究](../../engineering/research/video-model-to-court-20261005/README.md)、来源及历史交接，明确此方向已经被用户纠正，不作为当前另选 / 训练模型的实施路线。
+3. 同步[前轮视频模型背景研究](../../research/agents/video-model-to-court-20261005/README.md)、来源及历史交接，明确此方向已经被用户纠正，不作为当前另选 / 训练模型的实施路线。
 4. 更新研究入口与团队状态，保留各轮历史时间和当时“未提交 / 未推送”的记录；最新发布状态由本条覆盖。
 
 ## 本次讨论明确的方向

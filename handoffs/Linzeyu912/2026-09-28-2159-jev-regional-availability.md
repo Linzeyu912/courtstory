@@ -8,8 +8,8 @@
 
 ## 本次完成
 
-- 新增 [地区可用性调研](../../engineering/research/jev-regional-availability.md)，含官方证据、珠海/澳门/AWS 三种环境的验证清单及厂商询问信草稿。
-- 更新 [调研索引](../../engineering/research/README.md) 和 [团队状态](../../docs/status.md)。
+- 新增 [地区可用性调研](../../research/runtime/jev-regional-availability.md)，含官方证据、珠海/澳门/AWS 三种环境的验证清单及厂商询问信草稿。
+- 更新 [调研索引](../../research/README.md) 和 [团队状态](../../docs/status.md)。
 
 ## 结论与依据
 

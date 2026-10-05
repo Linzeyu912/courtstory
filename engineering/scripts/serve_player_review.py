@@ -27,7 +27,7 @@ def main():
     parser.add_argument("--library", help="JSON library with explicit sample video / tracks paths")
     parser.add_argument("--alternative-tracks", help="Optional jersey-constrained experiment; separate browser drafts")
     parser.add_argument("--port", type=int, default=8876)
-    parser.add_argument("--court-profile", default="engineering/research/vision-player-refinement/clip001-court-expanded.json")
+    parser.add_argument("--court-profile", default="research/vision/vision-player-refinement/clip001-court-expanded.json")
     parser.add_argument("--state-file", default="artifacts/vision-player-refinement/review-server.json")
     parser.add_argument("--trim-root", default="artifacts/player-review-clips")
     parser.add_argument("--video-folder", default="data/local-videos", help="Local video inbox, scanned from the UI")
@@ -784,7 +784,7 @@ def validated_clip(sample):
     if default not in versions:
         default=next((identifier for identifier,entry in versions.items() if entry['recommended']),'original')
     court_profile=None
-    court_path=Path(sample.get('courtProfile','engineering/research/vision-player-refinement/clip001-court-expanded.json'))
+    court_path=Path(sample.get('courtProfile','research/vision/vision-player-refinement/clip001-court-expanded.json'))
     if court_path.is_file():
         candidate=read_json(court_path,'Court profile')
         if candidate.get('videoHash')==digest:

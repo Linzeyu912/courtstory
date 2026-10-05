@@ -6,7 +6,7 @@
 
 发布前补充核查：远端已实现独立 2D 准备、可采用区间平滑、IndexedDB 与服务端准备快照、导出 / 战术读取 preparedByPlayer。本计划据此改为扩展现有 courtPreparation，不再建设并行的 groundTrajectory 主存储。下文现状以本次更新为准；历史研究 / 交接中的“只有显示平滑”和“完整 2D 工作流尚未实现”保留当时事实。新能力的真实视频 / 模型验收仍有待办，见[现有工作流指南](../2d-first-tactics-workbench-guide.md)。本次用户授权发布的是准备、讨论与计划，不是开始实现 Qwen 功能。
 
-前置讨论和固定源码依据见[轨迹 Agent 研究](../../research/qwen-video-trajectory-agent-20261005.md)、[固定来源](../../research/qwen-video-trajectory-agent-20261005-sources.json)。本计划只扩展该讨论中的地面轨迹闭环，复用已合入的[完整 2D 工作流](2026-10-05-2d-first-tactics-workbench-plan.md)，不重新执行整个改造。
+前置讨论和固定源码依据见[轨迹 Agent 研究](../../../research/agents/qwen-video-trajectory-agent-20261005.md)、[固定来源](../../../research/agents/qwen-video-trajectory-agent-20261005-sources.json)。本计划只扩展该讨论中的地面轨迹闭环，复用已合入的[完整 2D 工作流](2026-10-05-2d-first-tactics-workbench-plan.md)，不重新执行整个改造。
 
 ## 1. 本版交付目标
 

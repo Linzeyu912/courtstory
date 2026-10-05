@@ -10,7 +10,7 @@
 ## 本次完成
 
 - [模型接入交接](2026-10-02-1513-model-selector-handoff.md)对应代码、样例候选、测试、操作文档已先提交推送；ByteTrack 不再继续开发。
-- [独立调研](../../engineering/research/vision-player-refinement/ground-tools-survey.md)整理 GitHub / Hugging Face 的脚部、接触状态、篮球场关键点与几何工具，保留来源 URL、读取日期、权重体积、许可与适配缺口。
+- [独立调研](../../research/vision/vision-player-refinement/ground-tools-survey.md)整理 GitHub / Hugging Face 的脚部、接触状态、篮球场关键点与几何工具，保留来源 URL、读取日期、权重体积、许可与适配缺口。
 - 修正当前状态入口的共享标记；历史交接保留当时“未推送”的记录，由本文件补充实际最终状态。
 
 ## 结论与依据

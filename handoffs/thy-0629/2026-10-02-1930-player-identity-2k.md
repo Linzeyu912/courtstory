@@ -11,7 +11,7 @@
 
 - 十个编号下新增默认折叠的“身份确认与 2K 能力”：选ID → 赛季 / 实际球队 / 文字号码 → 查找 / 选择姓名 → 明确确认 → 能力卡；普通点框 / ID只查看。确认 / 清除可撤销、刷新可恢复，旧人工字段与草稿键保留。
 - 后端新增只读名单 / 能力 provider 与 options / lookup GET；前端独立原生模块保存资料、名册来源和能力引用，导出包装加入十人资料，不修改轨道或原frames。
-- [当前操作说明](../../engineering/tools/player-review/README.md)、[实现与验收](../../engineering/research/player-identity-2k-20261002.md)、[计划](../../engineering/docs/plans/2026-10-02-player-identity-2k.md)及研究 / 状态索引已更新；历史记录保留。
+- [当前操作说明](../../engineering/tools/player-review/README.md)、[实现与验收](../../research/vision/player-identity-2k-20261002.md)、[计划](../../engineering/docs/plans/2026-10-02-player-identity-2k.md)及研究 / 状态索引已更新；历史记录保留。
 
 ## 结论与依据
 
