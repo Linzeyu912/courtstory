@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-05 06:51（Etc/UTC）Qwen 地面轨迹首版代码已发布：用户授权实现计划并要求多个子 Agent 协作，真实测试留给本地。`0dd6687` 已推送 main，06:51:52 核对本地 HEAD、origin/main 和实际远端 refs/heads/main 完整 SHA 一致。实现固定 Pi SDK 1.0.2／阿里云 QWEN_KEY、多轮帧拼图／裁图／锚点／拟合／读反馈，接入现有 2D 准备的预览、采用、撤销、可信保存、导出及战术坐标；未新增工作台或动作事件模块。18 个 JS 模块语法、4 个 Python 文件编译、离线导入、主 app 打包和现有前端构建通过；未调用真实模型、解码试验视频、跑浏览器或完整回归，定位效果未验收。安装、限制和本地待验收项见[实现指南](../engineering/docs/qwen-ground-trajectory-agent.md)，本轮过程和远端核对见[交接](../handoffs/chuali-zi/2026-10-05-0651-qwen-ground-trajectory-implementation.md)。本段和交接作为后续文档提交同步；下方历史状态保留当时事实。
+
 2026-10-05 06:14（Etc/UTC）Qwen 准备资料已发布：按用户授权将背景研究、当前 API / Agent 讨论、固定来源、详细计划和交接作为 `e9ac062` 推送 main，06:14:05 核对本地 HEAD / origin/main / 远端 refs/heads/main 完整 SHA 一致。接收远端 `0bda1e9` / `6d914d7` 的 2D 工作流，保留双方记录，并将 Qwen 计划更新为扩展已有 courtPreparation / preparedByPlayer 与服务端重放，不重复建设准备层。13 个发布文件、两份清单共 31 条项目来源记录的固定提交 / README 哈希及相对链接检查通过；本任务没有新增产品代码或真实模型调用，素材与模型效果仍待验证。实际提交、整合和核对过程见[同步日志](../handoffs/chuali-zi/2026-10-05-0610-qwen-preparation-publication.md)，下方未提交描述保留当时状态。
 
 2026-10-05（America/New_York）2D 主画布工作流：按用户明确授权实现 T0–T8 的源 PTS / V2 契约、全片身份续接队列、独立 2D 准备与保守平滑、秒级手绘、讲解关键帧、同几何 MP4 及选区 Agent V3，保留旧稿与候选读取。491 项工作台测试、71 项相关 Python 测试和合成 Chromium / 258 帧实际 MP4 链路通过；独立引擎 56 通过、5 因 005 为 LFS 指针失败。实际 Codex 调用因本环境运行目录只读失败，真实 005 / Warriors / 移动镜头与模型成功验收按用户指示交接本地；未宣称全计划真实验收完成或新增定位精度结论。详见 [工程指南](../engineering/docs/2d-first-tactics-workbench-guide.md)与 [本轮交接](../handoffs/chuali-zi/2026-10-05-0127-2d-first-tactics-workbench.md)，最终推送哈希以交接及完成报告为准。
