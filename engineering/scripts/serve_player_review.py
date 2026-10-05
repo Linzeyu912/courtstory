@@ -117,6 +117,7 @@ def main():
             if sample.get('parentVideoSha256')!=clips[sample['parentSample']]['digest']:continue
             if any(not Path(sample[k]).resolve().is_relative_to(cache) or not Path(sample[k]).is_file() for k in ['video','tracks']):continue
             if any(not Path(v['tracks']).resolve().is_relative_to(cache) or not Path(v['tracks']).is_file() for v in sample.get('trackingVariants',[])):continue
+            if any('metadata' in v and (not Path(v['metadata']).resolve().is_relative_to(cache) or not Path(v['metadata']).is_file()) for v in sample.get('trackingVariants',[])):continue
             if any(not Path(sample[k]).resolve().is_relative_to(cache) or not Path(sample[k]).is_file() for k in ['courtCandidates','feetCandidates'] if sample.get(k)):continue
             clips[sample['id']]=load_clip(parser,sample);samples.append(sample);saved.append(sample)
     court_models={}
@@ -575,6 +576,8 @@ def variant_definitions(sample):
             raise ValueError(f'Tracking variant {identifier}: label must be a nonempty string')
         if not isinstance(item.get('tracks'),str) or not item['tracks']:
             raise ValueError(f'Tracking variant {identifier}: tracks path must be a nonempty string')
+        if 'metadata' in item and (not isinstance(item['metadata'],str) or not item['metadata'].strip()):
+            raise ValueError(f'Tracking variant {identifier}: metadata path must be a nonempty string')
         if 'optional' in item and type(item['optional']) is not bool:
             raise ValueError(f'Tracking variant {identifier}: optional must be a boolean')
         if 'recommended' in item and type(item['recommended']) is not bool:
@@ -584,6 +587,11 @@ def variant_definitions(sample):
     if not isinstance(default,str) or default not in ids:
         raise ValueError(f'Unknown defaultVariant {default}')
     return versions
+
+
+def variant_metadata_path(variant):
+    """Share observation bytes while retaining each variant's immutable metadata."""
+    return Path(variant['metadata']) if 'metadata' in variant else Path(variant['tracks']).with_suffix('.meta.json')
 
 
 def missing_sample_files(sample):
@@ -596,7 +604,7 @@ def missing_sample_files(sample):
             continue
         path=Path(variant['tracks']);paths.append(path)
         if variant['requiresMetadata']:
-            paths.append(path.with_suffix('.meta.json'))
+            paths.append(variant_metadata_path(variant))
     return [path for path in paths if not path.is_file()]
 
 
@@ -725,7 +733,7 @@ def validated_clip(sample):
     versions={}
     for definition in definitions:
         identifier=definition['id'];context=f'Tracking variant {identifier}'
-        path=Path(definition['tracks']).resolve();metadata_path=path.with_suffix('.meta.json')
+        path=Path(definition['tracks']).resolve();metadata_path=variant_metadata_path(definition).resolve()
         if definition.get('optional') is True and (not path.is_file() or not metadata_path.is_file()):
             print(f'Skipping unavailable optional tracking variant {sample["id"]}/{identifier}',flush=True)
             continue

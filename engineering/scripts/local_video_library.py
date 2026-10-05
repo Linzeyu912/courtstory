@@ -88,6 +88,7 @@ class LocalVideoLibrary:
             try:
                 # Never serve files outside the configured cache from a saved local manifest.
                 paths = [sample['video'], sample['tracks'], *(v['tracks'] for v in sample.get('trackingVariants', []))]
+                paths.extend(v['metadata'] for v in sample.get('trackingVariants', []) if 'metadata' in v)
                 if any(not Path(p).resolve().is_relative_to(self.cache) for p in paths):
                     raise ValueError('本地结果路径不在缓存目录内。')
                 self.publish(sample, self.validate(sample))
