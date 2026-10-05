@@ -1,0 +1,290 @@
+{
+  "date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "method": "Exa discovery; primary-source validation and local code tests. Search hits are not all validated.",
+  "queries": [
+    {
+      "workstream": "identity",
+      "query": "张绍良 Shaoliang Zhang APDS laboratory official publications HoopTransformer HoopEval Xing Wang",
+      "objective": "优先清华官方、作者主页和出版商，核对导师身份、作者关系、相关成果。",
+      "numResults": 5
+    },
+    {
+      "workstream": "transformer",
+      "query": "HoopTransformer official GitHub pretrained weights checkpoint dataset offensive play recognition Mr81wx",
+      "objective": "优先作者 GitHub、论文和数据仓库，查代码权重许可证输入输出。",
+      "numResults": 5
+    },
+    {
+      "workstream": "eval",
+      "query": "HoopEval Individual Player Action Evaluation Deep Reinforcement Learning Xing Wang official code model data",
+      "objective": "优先 MIT Sloan、作者仓库和论文，查源码权重数据与输入要求。",
+      "numResults": 5
+    },
+    {
+      "workstream": "mssl",
+      "query": "Hoop-MSSL basketball multi task self supervised learning Shao Wang Zhang code GitHub",
+      "objective": "优先原论文期刊、作者仓库，核对年份会议和模型发布。",
+      "numResults": 5
+    },
+    {
+      "workstream": "identity",
+      "query": "上海体育大学 王星 Xing Wang HoopTransformer 教师 个人主页",
+      "objective": "仅采学校官方、作者主页或论文署名，区分同名王兴；确认中文名职称。",
+      "numResults": 5
+    },
+    {
+      "workstream": "eval",
+      "query": "HoopEval GitHub Xing Wang Yu Fu code pretrained checkpoint release",
+      "objective": "仅作者 GitHub 或论文，检查是否真正发布可执行代码与权重，排除他人介绍。",
+      "numResults": 5
+    },
+    {
+      "workstream": "mssl",
+      "query": "Hoop-MSSL Shao Wang GitHub source code Intelligent Sports and Health 2025",
+      "objective": "仅作者仓库及出版商，查 DOI、代码、权重和数据获取方式。",
+      "numResults": 5
+    },
+    {
+      "workstream": "identity",
+      "query": "Beyond the box score Clustering offensive play types reveal game styles professional basketball Dong Chen Zhang 2025 data code",
+      "objective": "优先原期刊论文及作者资料，核查到底输入轨迹还是汇总战术比例和可用代码。",
+      "numResults": 5
+    },
+    {
+      "workstream": "mssl",
+      "query": "Hoop-MSSL Multitask self-supervised representation learning basketball spatiotemporal data ScienceDirect DOI",
+      "objective": "优先 ScienceDirect 原刊和 OpenReview 原稿，查代码仓库链接。",
+      "numResults": 5
+    },
+    {
+      "workstream": "identity",
+      "query": "Player position clustering and passing path visualization 10.1145/3796028.3796052",
+      "objective": "优先 ACM 原文元数据，确认作者是否 Xing Wang 张绍良团队。",
+      "numResults": 5
+    },
+    {
+      "workstream": "integration",
+      "query": "Using massive spatialtemporal data analyse NBA match performance under different possession outcomes Jiao Gong Cao 2025",
+      "objective": "优先出版商及论文摘要，核对指标、样本、软件实现是否开源。",
+      "numResults": 5
+    },
+    {
+      "workstream": "integration",
+      "query": "TacticExpert Spatial Temporal Graph Language Model Basketball Tactics official github code model weights",
+      "objective": "优先作者仓库及论文，作为综述补充参照，区分非两位导师成果。",
+      "numResults": 5
+    },
+    {
+      "workstream": "mssl",
+      "query": "Hoop-MSSL NeurIPS 2024 workshop PGqaqOA9s9 code Shao",
+      "objective": "查原会议 workshop 页面或作者仓库，避免误写 NeurIPS 主会论文。",
+      "numResults": 5
+    }
+  ],
+  "requested_result_slots": 65,
+  "returned_entries": 65,
+  "unique_urls": 50,
+  "results": [
+    {
+      "title": "Shaoliang Zhang 张绍良",
+      "url": "https://sportssuper.github.io/ZSL/"
+    },
+    {
+      "title": "HoopTransformer: Advancing NBA Offensive Play Recognition with Self-Supervised Learning from Player Trajectories | springermedicine.com",
+      "url": "https://www.springermedicine.com/hooptransformer-advancing-nba-offensive-play-recognition-with-se/27151328"
+    },
+    {
+      "title": "HoopEval: Individual Player Action Evaluation via Deep Reinforcement Learning",
+      "url": "https://www.sloansportsconference.com/research-papers/hoopeval-individual-player-action-evaluation-via-deep-reinforcement-learning"
+    },
+    {
+      "title": "HoopEval: Individual Player Action Evaluation via Deep Reinforcement Learning Authors: Xing Wang, Yu Fu, Sheng Xu, Konstantinos Pelechrinis, et. alInstitution: MIT Sloan Sports Analytics ConferencePublication Date: March 7, 2026\n...\nHoopEval reframes a basketball possession as a multi-agent decision sequence, similar to how chess engines evaluate move-by-move advantage. Instead of predicting forward like EPV, the model uses offline reinforcement learning to propagate value backward, assigning credit to each player’s action at each moment.\n\nUsing NBA SportVU tracking data, the court is broken into a hexagonal grid and represented as a graph: players and the ball are nodes, and their relationships (teammate, defender, ball-handler) are edges. A graph attention network acts like advanced film vision learning who matters to whom spatially while a transformer captures timing and sequence, similar to understanding how a play unfolds step-by-step.\n\nThe core innovation is an autoregressive Q-function, which evaluates actions in order (ball action, then each player’s movement), allowing the model to assign marginal value to passes, dribbles, shots, and off-ball movement. Rewards are shaped using Quantified Shot Quality (qSQ), providing dense feedback instead of waiting for makes or misses.\n...\nResearch Paper Link: HoopEval: Individual Player Action Evaluation via Deep Reinforcement Learning\n\n---\n\nTitle: From statistical modeling to machine learning: advancing basketball performance analysis  | Archivo Digital UPM",
+      "url": "https://oa.upm.es/92222/"
+    },
+    {
+      "title": "| From statistical modeling to machine learning: advancing basketball performance analysis |\n| --- | --- |\n| Author/s: | Wang, Xing |\n| Contributor/s: | Gómez Ruano, Miguel Ángel https://orcid.org/0000-0002-9585-3158 |\n| Item Type: | Thesis (Doctoral) |\n| Read date: | 1 December 2025 |\n| Subjects: | Sports |\n| SDG: | 03. Health and well-being 04. Quality education 09. Industry, innovation, and infrastructure |\n| Faculty: | Facultad de Ciencias de la Actividad Física y del Deporte (INEF) (UPM) |\n| Department: | Ciencias Sociales de la Actividad Física, del Deporte y del Ocio |\n| Creative Commons Licenses: | Recognition - No derivative works - Non commercial |\n...\nStudy 3 Tactical Scouting: endeavors to design and implement HoopTransformer, an innovative spatiotemporal transformer architecture tailored specifically for the autonomous recognition of tactical play patterns from high-resolution tracking datasets, thereby enhancing the predictive accuracy of tactical analyses.\n\nStudy 4 Player Evaluation: introduces HoopEval, an innovative reinforcement learning framework tailored specifically to estimate action-value contributions of individual player decisions, quantifying the impact of both on-ball and off-ball actions through high-resolution tracking datasets, thus enhancing the interpretability and strategic value of tactical analyses.\n...\nStudy 3: HoopTransformer demonstrated exceptional proficiency in recognizing complex tactical patterns directly from tracking data without manual annotation. Comparative evaluations affirmed its substantial superiority over conventional tactical recognition methodologies in predictive accuracy and practical operability.\n\nStudy 4: At the micro-scale, HoopEval demonstrated significant proficiency in quantifying the expected reward values associated with discrete player actions. Empirical evaluations confirmed its substantial advantage over baseline methodologies, enhancing strategic interpretability and offering actionable insights into individual contributions to game dynamics.\n...\n| Item ID: | 92222 |\n| --- | --- |\n| DC Identifier: | https://oa.upm.es/92222/ |\n| OAI Identifier: | oai:oa.upm.es:92222 |\n| DOI: | 10.20868/UPM.thesis.92222 |\n| Deposited by: | Archivo Digital UPM 2 |\n| Deposited on: | 08 Jan 2026 07:41 |\n| Last Modified: | 08 Jan 2026 08:42 |\n\n---\n\nTitle: HoopTransformer: Advancing NBA Offensive Play Recognition with Self-Supervised Learning from Player Trajectories - Universitat Politècnica de Madrid",
+      "url": "https://upm.scimarina.org/cat/ipublic/item/10221343"
+    },
+    {
+      "title": "Mr81wx/HoopTransformer",
+      "url": "https://github.com/Mr81wx/HoopTransformer"
+    },
+    {
+      "title": "HoopTransformer: Advancing NBA Offensive Play Recognition with Self-Supervised Learning from Player Trajectories  | VU Institutional Repository | Victoria University | Melbourne Australia",
+      "url": "https://vuir.vu.edu.au/48805/"
+    },
+    {
+      "title": "Mr81wx/SPL-Open-Data",
+      "url": "https://github.com/Mr81wx/SPL-Open-Data"
+    },
+    {
+      "title": "Abstract: HoopTransformer : advancing NBA offensive play recognition with self-supervised learning from player trajectories :: SURF",
+      "url": "https://www.bisp-surf.de/Record/PU202411008451"
+    },
+    {
+      "title": "Individual Player Action Evaluation via Deep Reinforcement ...",
+      "url": "https://www.cs.ucf.edu/diidlab/publications/hoopeval-individual-player-action-evaluation-via-deep-reinforcement-learning/"
+    },
+    {
+      "title": "Individual Player Action Evaluation via Deep Reinforcement Learning",
+      "url": "https://basketballainews.beehiiv.com/p/individual-player-action-evaluation-via-deep-reinforcement-learning"
+    },
+    {
+      "title": "[PDF] FROM STATISTICAL MODELING TO MACHINE LEARNING ...",
+      "url": "https://oa.upm.es/92222/1/XING_WANG.pdf"
+    },
+    {
+      "title": "NeurIPS  Hoop-MSSL: Multi-Task Self-supervised Representation Learning on Basketball Spatio-Temporal Data",
+      "url": "https://neurips.cc/virtual/2024/104552"
+    },
+    {
+      "title": "Hoop-MSSL: Multitask self-supervised representation learning on basketball spatiotemporal data",
+      "url": "https://exa.ai/library/publication/gsqj3ypzm6z"
+    },
+    {
+      "title": "HoopTransformer: Advancing NBA offensive play recognition with self-supervised learning from player trajectories",
+      "url": "https://www.sponet.fi/Record/4090092"
+    },
+    {
+      "title": "Xing Wang",
+      "url": "https://www.linkedin.com/in/xing-wang-961654236"
+    },
+    {
+      "title": "天津大学教师个人主页系统 王星   Waterline Extraction for Artificial Coast With Vision Transformers  欢迎访问王星的个人主页!",
+      "url": "http://faculty.tju.edu.cn/156167/zh_CN/lwcg/29651/content/42155.htm"
+    },
+    {
+      "title": "重庆大学 王星--首页",
+      "url": "https://faculty.cqu.edu.cn/XingWang/zh_CN/index.htm"
+    },
+    {
+      "title": "Xing  Wang - Home",
+      "url": "https://dlnext.acm.org/profile/99659919625"
+    },
+    {
+      "title": "王学彬-交大体育",
+      "url": "https://tiyuxi.sjtu.edu.cn/info/1110/2361.htm"
+    },
+    {
+      "title": "GitHub - yufu-wang/ReFit: Repository for ICCV23 paper: \"ReFit: Recurrent Fitting Network for 3D Human Recovery\" · GitHub",
+      "url": "https://github.laiyagushi.com/yufu-wang/ReFit"
+    },
+    {
+      "title": "GitHub - dreamzero0/dreamzero: Code to pretrain, fine-tune, and evaluate DreamZero and run sim & real-world evals · GitHub",
+      "url": "https://github.laiyagushi.com/dreamzero0/dreamzero"
+    },
+    {
+      "title": "GitHub - xqwang14/EVA02-AT · GitHub",
+      "url": "https://github.laiyagushi.com/xqwang14/EVA02-AT"
+    },
+    {
+      "title": "yzxing87/Seeing-and-Hearing",
+      "url": "https://github.com/yzxing87/Seeing-and-Hearing"
+    },
+    {
+      "title": "A new study in Intelligent Sports and Health (ISH) introduces Hoop-MSSL, which is a multitask self-supervised representation learning framework for handling complex interactions and dependencies among spatiotemporal data.",
+      "url": "https://www.linkedin.com/posts/intelligent-sports-and-health-journal_sportsai-basketballanalytics-machinelearning-activity-7449362572065255424-g42-"
+    },
+    {
+      "title": "Wang, Shao-Ping",
+      "url": "https://github.com/kevin30205"
+    },
+    {
+      "title": "Beyond the box score: Clustering offensive play types to reveal game styles in professional basketball: Journal of Sports Sciences: Vol 44 , No 3  - Get Access",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/02640414.2025.2578585"
+    },
+    {
+      "title": "Beyond the box score: Clustering offensive play types to reveal game styles in professional basketball | JoVE Visualize",
+      "url": "https://visualize.jove.com/41140096-beyond-the-box-score-clustering-offensive-play-types-to-reveal-game-styles-in-professional-basketball"
+    },
+    {
+      "title": "Beyond the box score: Clustering offensive play types to reveal game styles in professional basketball",
+      "url": "https://exa.ai/library/publication/3bcmvy5pwqw"
+    },
+    {
+      "title": "Matilda - Beyond the box score: Clustering offensive play types to reveal game styles in professional basketball.",
+      "url": "https://matilda.science/work/9e597fb4-d12f-409f-96e2-f9b8f902424f"
+    },
+    {
+      "title": "Beyond the box score: Clustering offensive play types to reveal game styles in professional basketball - 科研通",
+      "url": "https://www.ablesci.com/assist/detail?id=kaaw9m"
+    },
+    {
+      "title": "Resources - David L. Carey",
+      "url": "https://david-carey.github.io/resources/"
+    },
+    {
+      "title": "DeepHoops:  Evaluating Micro-Actions in Basketball Using Deep Feature Representations of Spatio-Temporal Data",
+      "url": "https://dl.acm.org/doi/10.1145/3292500.3330719"
+    },
+    {
+      "title": "Development of player position clustering and passing path visualization system for basketball tactical analysis",
+      "url": "https://exa.ai/library/publication/kc1xypz59lc"
+    },
+    {
+      "title": "Visualization of passes in a soccer match by adaptive DBSCAN clustering",
+      "url": "https://exa.ai/library/publication/zkg4dxxfc1m"
+    },
+    {
+      "title": "How do Soccer Teams Coordinate Consecutive Passes? A Visual Analytics System for Analysing the Complexity of Passing Sequences Using Soccer Flow Motifs.\n\t\t\t\t\t\t\t| Anais da Conference on Graphics, Patterns and Images (SIBGRAPI)",
+      "url": "https://sol.sbc.org.br/index.php/sibgrapi/article/view/9820"
+    },
+    {
+      "title": "PassVizor: Toward Better Understanding of the Dynamics of Soccer Passes",
+      "url": "https://ssxiexiao.github.io/papers/passvizor.pdf"
+    },
+    {
+      "title": "Method to Visualize Passes in a Soccer Match by Clustering Players and Positions",
+      "url": "https://exa.ai/library/publication/yml3xt5gm0v"
+    },
+    {
+      "title": "Using massive spatial temporal data to analyse NBA match performance under different possession outcomes",
+      "url": "https://exa.ai/library/publication/8jn0zngnns9"
+    },
+    {
+      "title": "Understanding NBA Team Formations and Plays",
+      "url": "https://exa.ai/library/publication/22dtxlm58hy"
+    },
+    {
+      "title": "Lasso multinomial performance indicators for in-play basketball data | Computational Statistics | Springer Nature Link",
+      "url": "https://link.springer.com/article/10.1007/s00180-025-01604-7"
+    },
+    {
+      "title": "[1408.0777] A Multiresolution Stochastic Process Model for Predicting Basketball Possession Outcomes",
+      "url": "https://ar5iv.labs.arxiv.org/html/1408.0777"
+    },
+    {
+      "title": "What Influences the Field Goal Attempts of Professional Players? Analysis of Basketball Shot Charts via Log Gaussian Cox Processes with Spatially Varying Coefficients",
+      "url": "https://arxiv.org/html/2503.02137v1"
+    },
+    {
+      "title": "TacticExpert: Spatial-Temporal Graph Language Model for Basketball Tactics",
+      "url": "https://arxiv.org/html/2503.10722"
+    },
+    {
+      "title": "TacticExpert: Spatial-Temporal Graph Language Model for Basketball Tactics | Cool Papers - Immersive Paper Discovery",
+      "url": "https://papers.cool/arxiv/2503.10722"
+    },
+    {
+      "title": "TacticExpert: Spatial-Temporal Graph Language Model for Basketball  Tactics | alphaXiv",
+      "url": "https://www.alphaxiv.org/abs/2503.10722"
+    },
+    {
+      "title": "TacticExpert: Spatial-Temporal Graph Language Model for Basketball  Tactics | alphaXiv",
+      "url": "https://www.alphaxiv.org/overview/2503.10722"
+    },
+    {
+      "title": "AITopics | TacticExpert: Spatial-Temporal Graph Language Model for Basketball Tactics",
+      "url": "https://aitopics.org/doc/arxivorg:E41937E5"
+    },
+    {
+      "title": "Hao Shao",
+      "url": "https://github.com/deepcs233"
+    },
+    {
+      "title": "Hao Shao",
+      "url": "https://hao-shao.com/"
+    }
+  ]
+}

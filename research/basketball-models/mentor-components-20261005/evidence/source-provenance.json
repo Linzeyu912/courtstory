@@ -1,0 +1,423 @@
+{
+  "date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "project_baseline_commit": "dc895b84494d3ca7e239133d48b91001e6895db8",
+  "source_attachment": {
+    "file": "sources/user-literature-review.md",
+    "sha256": "f52ee8ff91edd5443fced861ba6158de8e1b9b83a5cc28a27eb2f236b9a26696"
+  },
+  "primary_pages": {
+    "sloan": {
+      "url": "https://www.sloansportsconference.com/research-papers/hoopeval-individual-player-action-evaluation-via-deep-reinforcement-learning",
+      "status": 200,
+      "sha256": "194af90d68a5d869034897f741a6ea8c485007d7f985a0c53a9c1094147576e6",
+      "links": [
+        {
+          "text": "Download the Full Paper Here",
+          "url": "https://cdn.prod.website-files.com/68d6be744d7efccc2207f571/699f0e63ed0f8d317b3d0a0c_HoopEval_%20Individual%20Player%20Action%20Evaluation%20via%20Deep%20Reinforcement%20Learning.pdf"
+        }
+      ]
+    },
+    "mssl_neurips": {
+      "url": "https://neurips.cc/virtual/2024/104552",
+      "status": 200,
+      "sha256": "68e2e8237dafa4e0c3e91d8f48adf8882fe431007872cd262d21a59dd728a02c",
+      "links": [
+        {
+          "text": "Spotlights",
+          "url": "/virtual/2024/events/spotlight-posters-2024"
+        },
+        {
+          "text": "Project Page",
+          "url": "https://openreview.net/forum?id=PGqaqOA9s9"
+        },
+        {
+          "text": "OpenReview",
+          "url": "https://openreview.net/forum?id=PGqaqOA9s9"
+        }
+      ]
+    },
+    "publications": {
+      "url": "https://sportssuper.github.io/ZSL/publications/",
+      "status": 200,
+      "sha256": "395706a1ae2cd8ecd200527008271829bda568cf01633a55b3e71023f770c1ef",
+      "links": [
+        {
+          "text": "Shaoliang Zhang | 张绍良",
+          "url": "https://sportssuper.github.io/ZSL//"
+        },
+        {
+          "text": "Publications",
+          "url": "https://sportssuper.github.io/ZSL//publications/"
+        },
+        {
+          "text": "Projects",
+          "url": "https://sportssuper.github.io/ZSL//project/"
+        },
+        {
+          "text": "Books",
+          "url": "https://sportssuper.github.io/ZSL//books/"
+        },
+        {
+          "text": "Talks",
+          "url": "https://sportssuper.github.io/ZSL//talks/"
+        },
+        {
+          "text": "Teaching",
+          "url": "https://sportssuper.github.io/ZSL//teaching/"
+        },
+        {
+          "text": "Services",
+          "url": "https://sportssuper.github.io/ZSL//services/"
+        },
+        {
+          "text": "Lab",
+          "url": "https://sportssuper.github.io/ZSL//lab/"
+        },
+        {
+          "text": "Graduates",
+          "url": "https://sportssuper.github.io/ZSL//graduates/"
+        }
+      ]
+    },
+    "upm": {
+      "url": "https://oa.upm.es/92222/",
+      "status": 200,
+      "sha256": "3d62358335fc45f77f1baa8b537038c78638ead603acfb85a2700036f444ccb1",
+      "links": [
+        {
+          "text": "",
+          "url": "https://oa.upm.es/92222/1/XING_WANG.pdf"
+        },
+        {
+          "text": "Xpdf",
+          "url": "http://www.foolabs.com/xpdf/download.html"
+        },
+        {
+          "text": "Descargar",
+          "url": "https://oa.upm.es/92222/1/XING_WANG.pdf"
+        },
+        {
+          "text": "Cream Of Science",
+          "url": "https://oa.upm.es/creamofscience/"
+        },
+        {
+          "text": "",
+          "url": "https://dulcinea.opensciencespain.org/"
+        },
+        {
+          "text": "Compruebe",
+          "url": "https://dulcinea.opensciencespain.org/"
+        },
+        {
+          "text": "",
+          "url": "/docs/POLITICA_OA_UPM.pdf"
+        }
+      ]
+    },
+    "tacticexpert": {
+      "url": "https://arxiv.org/html/2503.10722",
+      "status": 200,
+      "sha256": "4e0b985a4f9792110f07f9d6183dc4cb33004b71c0f4ec1577684faa25602ca7",
+      "links": [
+        {
+          "text": "Download PDF",
+          "url": "/pdf/2503.10722v1"
+        },
+        {
+          "text": "the following issues",
+          "url": "https://github.com/arXiv/html_feedback/issues"
+        },
+        {
+          "text": "list of packages that need conversion",
+          "url": "https://github.com/brucemiller/LaTeXML/wiki/Porting-LaTeX-packages-for-LaTeXML"
+        },
+        {
+          "text": "developer contributions",
+          "url": "https://github.com/brucemiller/LaTeXML/issues"
+        },
+        {
+          "text": "",
+          "url": "https://www.schmidtsciences.org/"
+        }
+      ]
+    }
+  },
+  "crossref": {
+    "mssl": {
+      "DOI": "10.1016/j.ish.2025.11.001",
+      "title": [
+        "Hoop-MSSL: Multitask self-supervised representation learning on basketball spatiotemporal data"
+      ],
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0009-0005-3820-3203",
+          "authenticated-orcid": false,
+          "given": "Jianchong",
+          "family": "Shao",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Xing",
+          "family": "Wang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Konstantinos",
+          "family": "Pelechrinis",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Aaron T.",
+          "family": "Scanlan",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Shaoliang",
+          "family": "Zhang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S3050544525000465?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S3050544525000465?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2025,
+            10
+          ]
+        ]
+      },
+      "container-title": [
+        "Intelligent Sports and Health"
+      ]
+    },
+    "acm": {
+      "DOI": "10.1145/3796028.3796052",
+      "title": [
+        "Development of player position clustering and passing path visualization system for basketball tactical analysis"
+      ],
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0009-0002-9691-8811",
+          "authenticated-orcid": false,
+          "given": "Jiyong",
+          "family": "Liu",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "University of Electronic Science and Technology of Chian, Chengdu, Sichuan, China"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "link": [
+        {
+          "URL": "https://dl.acm.org/doi/pdf/10.1145/3796028.3796052",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2025,
+            12,
+            5
+          ]
+        ]
+      },
+      "container-title": [
+        "Proceedings of the 2025 2nd International Conference on Sports Technology and Performance Analysis"
+      ]
+    },
+    "jiao": {
+      "DOI": "10.1016/j.ish.2024.12.003",
+      "title": [
+        "Using massive spatial temporal data to analyse NBA match performance under different possession outcomes"
+      ],
+      "author": [
+        {
+          "given": "Fuwei",
+          "family": "Jiao",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Bingnan",
+          "family": "Gong",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Run",
+          "family": "Cao",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Shaoliang",
+          "family": "Zhang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-9585-3158",
+          "authenticated-orcid": false,
+          "given": "Miguel-Ángel",
+          "family": "Gómez Ruano",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Yixiong",
+          "family": "Cui",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S3050544525000040?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S3050544525000040?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2025,
+            1
+          ]
+        ]
+      },
+      "container-title": [
+        "Intelligent Sports and Health"
+      ]
+    }
+  },
+  "hoopeval_pdf": {
+    "local_ignored_path": "tmp/mentor-research/hoopeval.pdf",
+    "pages": 13,
+    "sha256": "b6043718a30187209ccd93642404d32655d8190b5700335cbdc2db11ff5a0eb9"
+  },
+  "blocked_reads": [
+    "OpenReview forum / PDF blocked or verification required",
+    "Hoop-MSSL ScienceDirect full text 403 / fetch error",
+    "ACM full text 403 / fetch timeout"
+  ],
+  "additional_repositories": [
+    {
+      "url": "https://github.com/ytrqua3/Hoop-MSSL",
+      "commit": "f33a4c0130c70fef9f12ef8c0af51d5c705c2021",
+      "author_release": false,
+      "checkpoint_found": false,
+      "root_license_found": false
+    },
+    {
+      "url": "https://github.com/wxmr81/HoopTransformer",
+      "result": "empty repository metadata, size 0"
+    },
+    {
+      "url": "https://github.com/Cesar-Shao/HoopTransformer_Annotation",
+      "result": "public repo found, README 404; not tested"
+    }
+  ]
+}

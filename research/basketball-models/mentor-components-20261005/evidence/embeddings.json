@@ -1,0 +1,353 @@
+{
+  "mode": "embeddings",
+  "seed": 42,
+  "device": "cpu",
+  "python": "3.12.10",
+  "torch": "2.11.0+cu128",
+  "numpy": "2.4.3",
+  "source_commit": "74c8004171f1f61a9153982172dacfee1ec4e0bc",
+  "result": {
+    "input_kind": "published precomputed embeddings; no checkpoint",
+    "files": [
+      {
+        "file": "embedding_0.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001663,
+        "sha256": "eeadea1387ae75176641ea2b59e75f2792f5b56c8262bce09692b6011c084c26"
+      },
+      {
+        "file": "embedding_1.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001659,
+        "sha256": "045841ad85f4a508543e1c0cdf633e1ae311aa776921af53aaf393de615076ec"
+      },
+      {
+        "file": "embedding_2.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001657,
+        "sha256": "791af6d3c852b9ed4ce3bfa3b88a9b722320b9296bfb6deb9a9a3675f696b55d"
+      },
+      {
+        "file": "embedding_3.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001661,
+        "sha256": "077e935557023751122b81094fcbf22848ec18a8c767723b4cafb6052bf64570"
+      },
+      {
+        "file": "embedding_4.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001657,
+        "sha256": "0a01763156de7b8dd8b743d33c5c61d51808853166f5bcd8f69c03b92d145a11"
+      },
+      {
+        "file": "embedding_5.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001663,
+        "sha256": "17d3800e6f4ddbbc08aa67b21dd9949303d3f64fe47daae54c07e3b445bc12c1"
+      },
+      {
+        "file": "embedding_6.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001655,
+        "sha256": "46994bfa0086913b5c87457e464fd1327ba2c7c9b3d4609c6e373aa3513a8151"
+      },
+      {
+        "file": "embedding_7.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001657,
+        "sha256": "1b237125e4e010549818fc0435739cfbfc14ba5b8a3065f8e19aaa759ebb1761"
+      },
+      {
+        "file": "embedding_8.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001657,
+        "sha256": "e593a9e59d897a36784d0238c88219062f4256806b9fc730b3e0d368aad8d055"
+      },
+      {
+        "file": "embedding_9.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001655,
+        "sha256": "af413f504d6a778ba14f34376344688774235806fca5ac8dff5e413f6ece989b"
+      },
+      {
+        "file": "embedding_10.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001661,
+        "sha256": "735410ad53bc4c35a2f374fe91bfab5c823b1f788f759f74709ac9ff7733bfee"
+      },
+      {
+        "file": "embedding_11.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001659,
+        "sha256": "32d63771e6efa360cc54da2f77030d22f4b294ff79023618c3793ca27aa81b8f"
+      },
+      {
+        "file": "embedding_12.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001657,
+        "sha256": "480794333df457eb661c804d1da58ff37703274095e2439ad0de1ba79b9d8830"
+      },
+      {
+        "file": "embedding_13.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001661,
+        "sha256": "e52d4e100d9eb70af259caf951d71e8f577f83c46dce1e780ec76320ddabef4a"
+      },
+      {
+        "file": "embedding_14.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001655,
+        "sha256": "57993b0f38ee214133c5eda6b780da66082dce3377378d272f7c6a8f67cafba7"
+      },
+      {
+        "file": "embedding_15.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001661,
+        "sha256": "05690f65eba3b5d53848dd93e3107d214512cf848b21e01fbb5c4fd272530b1e"
+      },
+      {
+        "file": "embedding_16.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001659,
+        "sha256": "9421ae16f0a3596dbf872954a6fa35838a355a09b79787ea006109e45f051308"
+      },
+      {
+        "file": "embedding_17.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001659,
+        "sha256": "724d9b76e3a01bffe2e3f4b6009c81aefbd4ca3246d96862de88ae27e3414012"
+      },
+      {
+        "file": "embedding_18.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001653,
+        "sha256": "b9bfc002fb581018ea9d4b4065d32ffccd833413c60fc5684b5721f54a6283b3"
+      },
+      {
+        "file": "embedding_19.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001657,
+        "sha256": "52ba6f19c15ae4c6b6a5261f7f69abecc87c6618727dd969763dfacd1261a5f4"
+      },
+      {
+        "file": "embedding_20.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001653,
+        "sha256": "17e51b4a34928fd167b3be81e1bb89f7e7b98e5932c1ebba460d747a6024c394"
+      },
+      {
+        "file": "embedding_21.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001659,
+        "sha256": "62f10a71771717aff3b7656bfbc200ee9143d20b336527755ffb28ccc74af4f4"
+      },
+      {
+        "file": "embedding_22.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001659,
+        "sha256": "f7f515bb1ca1e848458594312ae4dfa163fdb1b9385ed8afb9a8af62c6e11f2b"
+      },
+      {
+        "file": "embedding_23.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001657,
+        "sha256": "d0073d963d5adcd55c96f33f3d3009adffcf9a418903dbbff270d400681342c7"
+      },
+      {
+        "file": "embedding_24.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001659,
+        "sha256": "6370a37a5ca6367ff99d6c0ae842ed21086a6eb882ed2467fc7b7d6d12a207d4"
+      },
+      {
+        "file": "embedding_25.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001659,
+        "sha256": "8688e51c3ebe1bad9aa1e53d20870ddf2b1c5538320ce4f11ed59ab5e4248150"
+      },
+      {
+        "file": "embedding_26.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001657,
+        "sha256": "eab71ca50fd98839abb14cb78e8915ec57db20d0b0668c6a1815c6be8f6e7f67"
+      },
+      {
+        "file": "embedding_27.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001655,
+        "sha256": "928f75078f6b5542ce948b23086bf8b399167f7abd07cf51182d9760fff9b48c"
+      },
+      {
+        "file": "embedding_28.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001653,
+        "sha256": "c91534907946ac795d7f3d10198354853837fbf03020e0153943c390d7a46b58"
+      },
+      {
+        "file": "embedding_29.npy",
+        "shape": [
+          3000,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 4001659,
+        "sha256": "c5d7ee7e0d48a873cecb9385b04c06c97deb6770949d548c884cd12e65641f5b"
+      },
+      {
+        "file": "embedding_30.npy",
+        "shape": [
+          524,
+          256
+        ],
+        "dtype": "float32",
+        "bytes": 698675,
+        "sha256": "23cb22e177db9e2a3a490bcc8f5cd0a7cfa8ce465278e7af3377cc00c9aa3d0f"
+      }
+    ],
+    "matrix_shape": [
+      90524,
+      256
+    ],
+    "all_finite": true,
+    "zero_norm_rows": 0,
+    "metadata_rows": 90524,
+    "row_count_matches_metadata": true,
+    "query_row": 0,
+    "nearest_rows_including_self": [
+      0,
+      31982,
+      1098,
+      76533,
+      85445,
+      66673
+    ],
+    "cosine_scores": [
+      1.0000001192092896,
+      0.9873533248901367,
+      0.9871562123298645,
+      0.9865310192108154,
+      0.9865102767944336,
+      0.9862006902694702
+    ],
+    "single_query_ms": 6.426300002203789,
+    "semantic_accuracy_evaluated": false,
+    "row_alignment_note": "Numeric filename order and row counts checked; semantic mapping not verified."
+  },
+  "status": "completed"
+}

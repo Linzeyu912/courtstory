@@ -1,0 +1,247 @@
+{
+  "source_commit": "3a75cad8f024e457be1b76f90ea176cb59037104",
+  "checkpoint_sha256": "80b3a25b08cdc81ab5a68b09ab37baa73d8ea81f0a834d1967aa1fc81920cb90",
+  "checkpoint_bytes": 17359176,
+  "checkpoint_epoch": 24,
+  "checkpoint_global_step": 6750,
+  "lightning_version": "2.2.1",
+  "torch_version": "2.11.0+cu128",
+  "device": "cpu",
+  "seed": 42,
+  "input_kind": "synthetic tensors with valid token ranges; not real tracking",
+  "quality_evaluation": false,
+  "paper_final_model_identity_confirmed": false,
+  "inputs": {
+    "states": [
+      12,
+      80,
+      1
+    ],
+    "actions": [
+      6,
+      80
+    ],
+    "edge_attr": [
+      1,
+      80,
+      132,
+      1
+    ]
+  },
+  "models": {
+    "online": {
+      "strict_load": true,
+      "state_entries": 132,
+      "missing_keys": [],
+      "unexpected_keys": [],
+      "parameter_count": 1087427,
+      "outputs": {
+        "players": {
+          "min": {
+            "shape": [
+              80,
+              5,
+              19
+            ],
+            "finite": true,
+            "min": -3.1553597450256348,
+            "max": -3.006136655807495
+          },
+          "avg": {
+            "shape": [
+              80,
+              5,
+              19
+            ],
+            "finite": true,
+            "min": -3.1553311347961426,
+            "max": -3.006114959716797
+          },
+          "1": {
+            "shape": [
+              80,
+              5,
+              19
+            ],
+            "finite": true,
+            "min": -3.1553597450256348,
+            "max": -3.0060930252075195
+          },
+          "2": {
+            "shape": [
+              80,
+              5,
+              19
+            ],
+            "finite": true,
+            "min": -3.1553022861480713,
+            "max": -3.006136655807495
+          }
+        },
+        "ball": {
+          "min": {
+            "shape": [
+              80,
+              1,
+              6
+            ],
+            "finite": true,
+            "min": -0.6255664229393005,
+            "max": 0.81412273645401
+          },
+          "avg": {
+            "shape": [
+              80,
+              1,
+              6
+            ],
+            "finite": true,
+            "min": -0.5997856855392456,
+            "max": 0.8730947375297546
+          },
+          "1": {
+            "shape": [
+              80,
+              1,
+              6
+            ],
+            "finite": true,
+            "min": -0.6255664229393005,
+            "max": 0.9320667386054993
+          },
+          "2": {
+            "shape": [
+              80,
+              1,
+              6
+            ],
+            "finite": true,
+            "min": -0.5740049481391907,
+            "max": 0.81412273645401
+          }
+        },
+        "qsq": {
+          "shape": [
+            1,
+            5,
+            80,
+            1
+          ],
+          "finite": true,
+          "min": 39.7661247253418,
+          "max": 70.11791229248047
+        }
+      },
+      "first_forward_ms": 92.5548000013805,
+      "is_initialized_ema": null
+    },
+    "ema": {
+      "strict_load": true,
+      "state_entries": 132,
+      "missing_keys": [],
+      "unexpected_keys": [],
+      "parameter_count": 1087427,
+      "outputs": {
+        "players": {
+          "min": {
+            "shape": [
+              80,
+              5,
+              19
+            ],
+            "finite": true,
+            "min": -0.12155107408761978,
+            "max": 0.08348637074232101
+          },
+          "avg": {
+            "shape": [
+              80,
+              5,
+              19
+            ],
+            "finite": true,
+            "min": -0.0797518864274025,
+            "max": 0.10112403333187103
+          },
+          "1": {
+            "shape": [
+              80,
+              5,
+              19
+            ],
+            "finite": true,
+            "min": -0.12155107408761978,
+            "max": 0.10710253566503525
+          },
+          "2": {
+            "shape": [
+              80,
+              5,
+              19
+            ],
+            "finite": true,
+            "min": -0.11061842739582062,
+            "max": 0.1742611676454544
+          }
+        },
+        "ball": {
+          "min": {
+            "shape": [
+              80,
+              1,
+              6
+            ],
+            "finite": true,
+            "min": -0.09297975152730942,
+            "max": 0.04938264563679695
+          },
+          "avg": {
+            "shape": [
+              80,
+              1,
+              6
+            ],
+            "finite": true,
+            "min": -0.05199592560529709,
+            "max": 0.054165422916412354
+          },
+          "1": {
+            "shape": [
+              80,
+              1,
+              6
+            ],
+            "finite": true,
+            "min": -0.06451301276683807,
+            "max": 0.110333651304245
+          },
+          "2": {
+            "shape": [
+              80,
+              1,
+              6
+            ],
+            "finite": true,
+            "min": -0.09297975152730942,
+            "max": 0.08937495201826096
+          }
+        },
+        "qsq": {
+          "shape": [
+            1,
+            5,
+            80,
+            1
+          ],
+          "finite": true,
+          "min": -0.6190004348754883,
+          "max": 0.20191985368728638
+        }
+      },
+      "first_forward_ms": 68.97960000060266,
+      "is_initialized_ema": false
+    }
+  },
+  "ema_initted": false,
+  "ema_step": 0
+}

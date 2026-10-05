@@ -1,0 +1,361 @@
+{
+  "date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "workstreams": [
+    "轨迹识别和多任务模型",
+    "球员角色与球队风格",
+    "传球网络与空间指标",
+    "比赛背景和胜负解释",
+    "运动负荷与表现"
+  ],
+  "exa_queries": 16,
+  "requested_results": 67,
+  "returned_results": 62,
+  "unique_urls": 53,
+  "queries": [
+    {
+      "tag": "trajectory-papers",
+      "requested_results": 5,
+      "results": [
+        {
+          "title": "HoopTransformer: Advancing NBA Offensive Play Recognition with Self-Supervised Learning from Player Trajectories | springermedicine.com",
+          "url": "https://www.springermedicine.com/hooptransformer-advancing-nba-offensive-play-recognition-with-se/27151328"
+        },
+        {
+          "title": "Mr81wx/HoopTransformer",
+          "url": "https://github.com/Mr81wx/HoopTransformer"
+        },
+        {
+          "title": "HoopTransformer: Advancing NBA Offensive Play Recognition with Self-Supervised Learning from Player Trajectories  | VU Institutional Repository | Victoria University | Melbourne Australia",
+          "url": "https://vuir.vu.edu.au/48805/"
+        },
+        {
+          "title": "HoopTransformer: Advancing NBA Offensive Play Recognition with Self-Supervised Learning from Player Trajectories - Universidad Politécnica de Madrid",
+          "url": "https://portalcientifico.upm.es/es/ipublic/item/10221343"
+        },
+        {
+          "title": "Abstract: HoopTransformer : advancing NBA offensive play recognition with self-supervised learning from player trajectories :: SURF",
+          "url": "https://www.bisp-surf.de/Record/PU202411008451"
+        }
+      ]
+    },
+    {
+      "tag": "multitask",
+      "requested_results": 5,
+      "results": [
+        {
+          "title": "NeurIPS  Hoop-MSSL: Multi-Task Self-supervised Representation Learning on Basketball Spatio-Temporal Data",
+          "url": "https://neurips.cc/virtual/2024/104552"
+        },
+        {
+          "title": "Hoop-MSSL: Multitask self-supervised representation learning on basketball spatiotemporal data",
+          "url": "https://exa.ai/library/publication/gsqj3ypzm6z"
+        },
+        {
+          "title": "HoopTransformer: Advancing NBA Offensive Play Recognition with Self-Supervised Learning from Player Trajectories",
+          "url": "https://exa.ai/library/publication/4l5mpgbrkcc"
+        },
+        {
+          "title": "HoopTransformer: Advancing NBA Offensive Play Recognition with Self-Supervised Learning from Player Trajectories | springermedicine.com",
+          "url": "https://www.springermedicine.com/hooptransformer-advancing-nba-offensive-play-recognition-with-se/27151328"
+        },
+        {
+          "title": "HoopTransformer: Advancing NBA Offensive Play Recognition with Self-Supervised Learning from Player Trajectories  | VU Institutional Repository | Victoria University | Melbourne Australia",
+          "url": "https://vuir.vu.edu.au/48805/"
+        }
+      ]
+    },
+    {
+      "tag": "wang-expansion",
+      "requested_results": 5,
+      "results": [
+        {
+          "title": "From statistical modeling to machine learning: advancing basketball performance analysis  | Archivo Digital UPM",
+          "url": "https://oa.upm.es/92222/"
+        },
+        {
+          "title": "[PDF] FROM STATISTICAL MODELING TO MACHINE LEARNING ...",
+          "url": "https://oa.upm.es/92222/1/XING_WANG.pdf"
+        },
+        {
+          "title": "Frontiers | Modeling the influence of basketball players’ offense roles on team performance",
+          "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2023.1256796/full"
+        },
+        {
+          "title": "The Differences in the Performance Profiles Between Native ...",
+          "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2021.788498/full"
+        },
+        {
+          "title": "(PDF) Clustering performances in the NBA according to players ...",
+          "url": "https://www.researchgate.net/publication/324653099_Clustering_performances_in_the_NBA_according_to_players'_anthropometric_attributes_and_playing_experience"
+        }
+      ]
+    },
+    {
+      "tag": "spatial",
+      "requested_results": 4,
+      "results": [
+        {
+          "title": "Intelligent Sports and Health | Vol 1, Issue 1, Pages 1-50 (January 2025) | ScienceDirect.com by Elsevier",
+          "url": "https://www.sciencedirect.com/journal/intelligent-sports-and-health/vol/1/issue/1"
+        },
+        {
+          "title": "Using massive spatial temporal data to analyse NBA match ...",
+          "url": "https://www.researchgate.net/publication/388655337_Using_massive_spatial_temporal_data_to_analyse_NBA_match_performance_under_different_possession_outcomes"
+        },
+        {
+          "title": "Beyond Traditional Metrics: A Systematic Review of Spatial a",
+          "url": "https://jssm.org/jssm-25-586.xml-Fulltext"
+        }
+      ]
+    },
+    {
+      "tag": "style",
+      "requested_results": 4,
+      "results": [
+        {
+          "title": "Beyond the box score: Clustering offensive play types to ...",
+          "url": "https://www.tandfonline.com/doi/full/10.1080/02640414.2025.2578585"
+        },
+        {
+          "title": "Clustering offensive play types to reveal game styles in ...",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41140096/"
+        },
+        {
+          "title": "Beyond the box score: Clustering offensive play types to reveal game styles in professional basketball | JoVE Visualize",
+          "url": "https://visualize.jove.com/41140096-beyond-the-box-score-clustering-offensive-play-types-to-reveal-game-styles-in-professional-basketball"
+        },
+        {
+          "title": "Matilda - Beyond the box score: Clustering offensive play types to reveal game styles in professional basketball.",
+          "url": "https://matilda.science/work/9e597fb4-d12f-409f-96e2-f9b8f902424f"
+        }
+      ]
+    },
+    {
+      "tag": "passing",
+      "requested_results": 4,
+      "results": [
+        {
+          "title": "N/A",
+          "url": "https://www.tandfonline.com/toc/rpan20/current"
+        },
+        {
+          "title": "Ver Publicación - Prisma - Unidad de Bibliometría",
+          "url": "https://prisma.us.es/publicacion/278430"
+        },
+        {
+          "title": "More than meets the eye: effects of passing network metrics on perceptual response and physical demands in professional basketball",
+          "url": "https://exa.ai/library/publication/0y1sy2r2tpl"
+        },
+        {
+          "title": "INTERNATIONAL JOURNAL OF PERFORMANCE ANALYSIS IN SPORT: Impact Factor, Ranking, H-Index, ISSN, CiteScore, SJR and Other Key Journal Metrics | Researcher.Life",
+          "url": "https://researcher.life/journal/international-journal-of-performance-analysis-in-sport/9921"
+        }
+      ]
+    },
+    {
+      "tag": "winning",
+      "requested_results": 4,
+      "results": [
+        {
+          "title": "Winning beyond scoring: an explainable machine learning framework for identifying key performance indicators in the Chinese Basketball Association | BMC Sports Science, Medicine and Rehabilitation | Springer Nature Link",
+          "url": "https://link.springer.com/article/10.1186/s13102-026-01620-0"
+        },
+        {
+          "title": "Winning beyond scoring: an explainable machine learning framework for identifying key performance indicators in the Chinese Basketball Association",
+          "url": "https://sponet.fi/Record/4098831"
+        },
+        {
+          "title": "Crossmark",
+          "url": "https://crossmark.crossref.org/dialog/?doi=10.1186%2Fs13102-026-01620-0"
+        },
+        {
+          "title": "Evaluating the effectiveness of machine learning models for performance forecasting in basketball: a comparative study | Knowledge and Information Systems | Springer Nature Link",
+          "url": "https://link.springer.com/article/10.1007/s10115-024-02092-9"
+        }
+      ]
+    },
+    {
+      "tag": "rest",
+      "requested_results": 4,
+      "results": [
+        {
+          "title": "Rest or rust? Complex influence of schedule congestion on the home advantage in the National Basketball Association  | VU Institutional Repository | Victoria University | Melbourne Australia",
+          "url": "https://vuir.vu.edu.au/47862/"
+        },
+        {
+          "title": "Rest or rust? Complex influence of schedule congestion on the home advantage in the National Basketball Association",
+          "url": "https://exa.ai/library/publication/m6w129919rf"
+        },
+        {
+          "title": "Google Scholar",
+          "url": "https://scholar.google.co.il/scholar?cites=8488802734255193980&hl=th&oi=bibs"
+        },
+        {
+          "title": "Miguel Ángel Gómez Ruano (0000-0002-9585-3158) - ORCID",
+          "url": "https://orcid.org/0000-0002-9585-3158"
+        }
+      ]
+    },
+    {
+      "tag": "positions",
+      "requested_results": 4,
+      "results": [
+        {
+          "title": "From fixed positions to role diversity: positional evolution in the National Basketball Association | AVESİS",
+          "url": "https://avesis.ankara.edu.tr/publication/details/4c9dab5b-e36f-463f-b45a-7cb41cb779e1/from-fixed-positions-to-role-diversity-positional-evolution-in-the-national-basketball-association"
+        },
+        {
+          "title": "From fixed positions to role diversity: positional evolution in the National Basketball Association",
+          "url": "https://www.unipegaso.iris.cineca.it/handle/20.500.12607/81526"
+        },
+        {
+          "title": "From fixed positions to role diversity: positional evolution in the National Basketball Association",
+          "url": "https://exa.ai/library/publication/mpvp015pvlb"
+        },
+        {
+          "title": "From Fixed Positions to Role Diversity: Positional Evolution in the National Basketball Association",
+          "url": "https://exa.ai/library/publication/t1l1fmxv0h4"
+        }
+      ]
+    },
+    {
+      "tag": "load",
+      "requested_results": 4,
+      "results": [
+        {
+          "title": "The Complexity in Basketball Performance: Quantifying the Independent Effects of Game Load, Technical–Tactical Approaches, and Contextual Factors on Player Performance",
+          "url": "https://exa.ai/library/publication/7fvf9z929cz"
+        },
+        {
+          "title": "The Complexity in Basketball Performance - IRIS - Cineca",
+          "url": "https://www.unipegaso.iris.cineca.it/handle/20.500.12607/70907"
+        },
+        {
+          "title": "Google Scholar",
+          "url": "https://scholar.google.com.au/scholar?as_sdt=2005&cites=5094760549694103713&hl=en&sciodt=0%2C5"
+        },
+        {
+          "title": "Miguel Ángel Gómez Ruano (0000-0002-9585-3158) - ORCID",
+          "url": "https://orcid.org/0000-0002-9585-3158"
+        }
+      ]
+    },
+    {
+      "tag": "momentum",
+      "requested_results": 4,
+      "results": [
+        {
+          "title": "The influence of “momentum” on the game outcome while ...",
+          "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2024.1412840/full"
+        },
+        {
+          "title": "The influence of “momentum” on the game outcome while ...",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11211628/"
+        },
+        {
+          "title": "The influence of \"momentum\" on the game outcome while ...",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38947912/"
+        },
+        {
+          "title": "The influence of “momentum” on the game outcome while controlling for game types in basketball",
+          "url": "https://pdfs.semanticscholar.org/fdba/a41bf60f4a799556657f8856b36311d048d0.pdf"
+        }
+      ]
+    },
+    {
+      "tag": "mssl-specific",
+      "requested_results": 4,
+      "results": [
+        {
+          "title": "MaxSimTag: Few-Shot Tactical Phase Retrieval via Self ... - DTAI",
+          "url": "https://dtai.cs.kuleuven.be/events/MLSA26/papers/MLSA26_paper_367.pdf"
+        },
+        {
+          "title": "Seq2Event: Learning the Language of Soccer Using ...",
+          "url": "https://www.researchgate.net/publication/362689801_Seq2Event_Learning_the_Language_of_Soccer_Using_Transformer-based_Match_Event_Prediction"
+        }
+      ]
+    },
+    {
+      "tag": "passing-primary",
+      "requested_results": 3,
+      "results": [
+        {
+          "title": "MORE THAN MEETS THE EYE Definition & Meaning | Dictionary.com",
+          "url": "https://www.dictionary.com/browse/more-than-meets-the-eye"
+        },
+        {
+          "title": "BE MORE TO THIS THAN MEETS THE EYE definition | Cambridge English Dictionary",
+          "url": "https://dictionary.cambridge.org/us/dictionary/english/be-more-to-this-than-meets-the-eye"
+        },
+        {
+          "title": "ISSN: 2474-8668 of Journal (ISSN: 2474-8668)",
+          "url": "https://www.ourglocal.com/journal/?issn=24748668"
+        }
+      ]
+    },
+    {
+      "tag": "load-primary",
+      "requested_results": 3,
+      "results": [
+        {
+          "title": "Quantifying the Independent Effects of Game Load, Technical ...",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41838459/"
+        }
+      ]
+    },
+    {
+      "tag": "mssl-exact",
+      "requested_results": 5,
+      "results": [
+        {
+          "title": "NeurIPS  Hoop-MSSL: Multi-Task Self-supervised Representation Learning on Basketball Spatio-Temporal Data",
+          "url": "https://neurips.cc/virtual/2024/104552"
+        },
+        {
+          "title": "Hoop-MSSL: Multitask self-supervised representation learning on basketball spatiotemporal data",
+          "url": "https://exa.ai/library/publication/gsqj3ypzm6z"
+        },
+        {
+          "title": "A new study in Intelligent Sports and Health (ISH) introduces Hoop-MSSL, which is a multitask self-supervised representation learning framework for handling complex interactions and dependencies among spatiotemporal data.",
+          "url": "https://www.linkedin.com/posts/intelligent-sports-and-health-journal_sportsai-basketballanalytics-machinelearning-activity-7449362572065255424-g42-"
+        },
+        {
+          "title": "HoopTransformer: Advancing NBA Offensive Play Recognition with Self-Supervised Learning from Player Trajectories | springermedicine.com",
+          "url": "https://www.springermedicine.com/hooptransformer-advancing-nba-offensive-play-recognition-with-se/27151328"
+        },
+        {
+          "title": "Mr81wx/HoopTransformer",
+          "url": "https://github.com/Mr81wx/HoopTransformer"
+        }
+      ]
+    },
+    {
+      "tag": "passing-doi",
+      "requested_results": 5,
+      "results": [
+        {
+          "title": "More than meets the eye: effects of passing network metrics on perceptual response and physical demands in professional basketball",
+          "url": "https://exa.ai/library/publication/0y1sy2r2tpl"
+        },
+        {
+          "title": "Ver Publicación - Prisma - Unidad de Bibliometría",
+          "url": "https://prisma.us.es/publicacion/278430"
+        },
+        {
+          "title": "Tracking What Truly Matters: The Contribution of Game Load, Recovery, and Well-Being to Basketball Performance",
+          "url": "https://journals.humankinetics.com/view/journals/ijspp/aop/article-10.1123-ijspp.2024-0488/article-10.1123-ijspp.2024-0488.xml"
+        },
+        {
+          "title": "Monitoring game load across quarters in professional basketball: ",
+          "url": "https://www.termedia.pl/Monitoring-game-load-across-quarters-in-professional-basketball-r-npositional-differences-and-contextual-effects,78,57301,0,1.html"
+        },
+        {
+          "title": "Description: The Complexity in Basketball Performance :: NVK CVTI SR",
+          "url": "https://ersearch2.cvtisr.sk/vufind/EdsRecord/edb,192558997"
+        }
+      ]
+    }
+  ]
+}
