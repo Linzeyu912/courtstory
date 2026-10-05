@@ -1,0 +1,162 @@
+{
+  "date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "source_commit": "2483372f0e3876cbf6c1a0c6adf3b415b4f4cae9",
+  "build": "npm ci --ignore-scripts and npm run build succeeded; Vite 7.3.1; 1488 modules; chunk size warning",
+  "source_json_files": [
+    {
+      "file": "0021500001_1_1445991320733.json",
+      "frames": 24,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "ddc7aa7094190edb3ba4e5bc32ba64f892382a39b7cc0609c7624f0586b79d7d"
+    },
+    {
+      "file": "0021500001_1_1445991439008.json",
+      "frames": 50,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "c5af9d96ff73784a55266d2a86e33bf92a9b9993387f6761eb9171f73bf2b5ed"
+    },
+    {
+      "file": "0021500020_4_1446181964721.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "321de61b2d55c27fb08d3d2b8926d512d8d2f6906a0ff6d32713b0b6446dbcba"
+    },
+    {
+      "file": "0021500022_3_1446251948946.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "904b582ce93d2234d12d8dfbf3f00955c341aa7d2a217a003df9906ca4f7d412"
+    },
+    {
+      "file": "0021500110_3_1447208359906.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "88f8f6426b854727014b3fece64af18b6cfb25614be38b906deeb5ae65f395df"
+    },
+    {
+      "file": "0021500118_2_1447293641800.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "96c7233a6a4ae6bc99d6a9cf032663351dee6a90d65cd75771673b35d4117d0b"
+    },
+    {
+      "file": "0021500154_4_1447729713606.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "0d9994e52b8e5b760e5b59f0bca59df97088bee81cb86df53ed533eb2b00c37c"
+    },
+    {
+      "file": "0021500161_1_1447807638687.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "298cb30c1b20fc6827c96dc7ace3a198bd4ca3a12d1e18cddf29ede4907919ea"
+    },
+    {
+      "file": "0021500169_3_1447899876238.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "159fce4c9dc26e8b524920e3835bc690e60dd6ae1cec0a03d6d541482c364f9b"
+    },
+    {
+      "file": "0021500170_2_1447897642205.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "7c458e65c054c1245e3120a6c0ac274ef0e7dbe52bb85ae25835476a150740ac"
+    },
+    {
+      "file": "0021500236_3_1448683625473.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "ddb28ca5cc8372c4f8caee31830d51c9c3dae51f043c430037afc8adb0b1598b"
+    },
+    {
+      "file": "0021500247_1_1448830643564.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "8ce4bcc4b542303e36db45f498e4d3cd2e2e5029f1ecb437305c02a906fb5fa5"
+    },
+    {
+      "file": "0021500258_1_1448932235287.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "6e8d489a68661d5c627cfbe562b543adb7a5544289bea7e83d4962e1601b0c1f"
+    },
+    {
+      "file": "0021500371_2_1450313130884.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "2f8b65c63ce9b945d5816a558360e4fe90f7833d2fb444ebcb444c446552dea7"
+    },
+    {
+      "file": "0021500371_2_1450313741461.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "6896d0107135b9b152e4dc6607eaf11aaec17f587eca8acf21b8ede92a5763bb"
+    },
+    {
+      "file": "0021500422_2_1450840075786.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "7da9d760ae189f34f44ea1493c1e18f8fd0ffc0c1eca73e342ecbe665b9da4db"
+    },
+    {
+      "file": "0021500430_4_1450926019611.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "82198e114fd9fc44befacf71bfaece39bf68db60bef55e9d4a3fe3a73331e13f"
+    },
+    {
+      "file": "0021500452_3_1451187717487.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "cc73fa22a4ba142e5b8a20f95c78420c9a168e7d2b86bbb8d8b6f2df7ca10b9e"
+    },
+    {
+      "file": "0021500455_2_1451260645076.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "6cbb9899ecf85ec8dfe7687c4c9dc52b5a114c86d48c56676f9666d5fa7b3fc9"
+    },
+    {
+      "file": "0021500477_2_1451524127581.json",
+      "frames": 30,
+      "players_with_ball": 11,
+      "all_xy_11": true,
+      "sha256": "6410f1a7ef0d18abb103878105564b0d9eb008a88506486fe3b15d4ee25dd4bc"
+    }
+  ],
+  "browser_checks": {
+    "first_file_frames": 24,
+    "before_play": 1,
+    "during_play": 10,
+    "paused": 18,
+    "last_file_frames": 30,
+    "switch_resets_frame": 1,
+    "console_errors": 0
+  },
+  "screenshots_local_only": [
+    "output/playwright/mentor-hoopeval.png",
+    "output/playwright/mentor-hoopeval-wide.png"
+  ],
+  "real_model_inference_in_browser": false
+}

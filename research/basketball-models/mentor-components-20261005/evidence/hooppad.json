@@ -1,0 +1,1053 @@
+{
+  "source_commit": "6376cb08ab423879f026148133741495c401863e",
+  "python": "3.12.10",
+  "torch": "2.11.0+cu128",
+  "device": "cpu",
+  "seed": 42,
+  "boundary": "Public author examples may overlap training. Full future offense and ball trajectories are conditioned on. Not causal forecasting or project video validation.",
+  "runs": [
+    {
+      "weight": "BC.ckpt",
+      "bytes": 60510802,
+      "sha256": "0cac3a74c40ff41566d009cb228c6f35cb84cec61e12562fb1a6a57e4f09a179",
+      "status": "completed",
+      "strict_core_load": true,
+      "decoder_output_channels": 6,
+      "decoder_modes": 1,
+      "epoch": 99,
+      "global_step": 47800,
+      "unused_checkpoint_keys": [
+        "discriminator.encoder.layer_A.0.weight",
+        "discriminator.encoder.layer_A.0.bias",
+        "discriminator.encoder.layer_A.2.weight",
+        "discriminator.encoder.layer_A.2.bias",
+        "discriminator.encoder.layer_A.2.running_mean",
+        "discriminator.encoder.layer_A.2.running_var",
+        "discriminator.encoder.layer_A.2.num_batches_tracked",
+        "discriminator.encoder.layer_A.5.weight",
+        "discriminator.encoder.layer_A.5.bias",
+        "discriminator.encoder.layer_A.7.weight",
+        "discriminator.encoder.layer_A.7.bias",
+        "discriminator.encoder.layer_A.7.running_mean",
+        "discriminator.encoder.layer_A.7.running_var",
+        "discriminator.encoder.layer_A.7.num_batches_tracked",
+        "discriminator.encoder.layer_A.10.weight",
+        "discriminator.encoder.layer_A.10.bias",
+        "discriminator.encoder.layer_A.12.weight",
+        "discriminator.encoder.layer_A.12.bias",
+        "discriminator.encoder.layer_A.12.running_mean",
+        "discriminator.encoder.layer_A.12.running_var",
+        "discriminator.encoder.layer_A.12.num_batches_tracked",
+        "discriminator.encoder.layer_B.pe",
+        "discriminator.encoder.layer_D.layer_X_.weight",
+        "discriminator.encoder.layer_D.layer_X_.bias",
+        "discriminator.encoder.layer_D.layer_att_.in_proj_weight",
+        "discriminator.encoder.layer_D.layer_att_.in_proj_bias",
+        "discriminator.encoder.layer_D.layer_att_.out_proj.weight",
+        "discriminator.encoder.layer_D.layer_att_.out_proj.bias",
+        "discriminator.encoder.layer_D.layer_F1_.0.weight",
+        "discriminator.encoder.layer_D.layer_F1_.0.bias",
+        "discriminator.encoder.layer_D.layer_Z_.weight",
+        "discriminator.encoder.layer_D.layer_Z_.bias",
+        "discriminator.encoder.layer_E.layer_X_.weight",
+        "discriminator.encoder.layer_E.layer_X_.bias",
+        "discriminator.encoder.layer_E.layer_att_.in_proj_weight",
+        "discriminator.encoder.layer_E.layer_att_.in_proj_bias",
+        "discriminator.encoder.layer_E.layer_att_.out_proj.weight",
+        "discriminator.encoder.layer_E.layer_att_.out_proj.bias",
+        "discriminator.encoder.layer_E.layer_F1_.0.weight",
+        "discriminator.encoder.layer_E.layer_F1_.0.bias",
+        "discriminator.encoder.layer_E.layer_Z_.weight",
+        "discriminator.encoder.layer_E.layer_Z_.bias",
+        "discriminator.encoder.layer_F.layer_X_.weight",
+        "discriminator.encoder.layer_F.layer_X_.bias",
+        "discriminator.encoder.layer_F.layer_att_.in_proj_weight",
+        "discriminator.encoder.layer_F.layer_att_.in_proj_bias",
+        "discriminator.encoder.layer_F.layer_att_.out_proj.weight",
+        "discriminator.encoder.layer_F.layer_att_.out_proj.bias",
+        "discriminator.encoder.layer_F.layer_F1_.0.weight",
+        "discriminator.encoder.layer_F.layer_F1_.0.bias",
+        "discriminator.encoder.layer_F.layer_Z_.weight",
+        "discriminator.encoder.layer_F.layer_Z_.bias",
+        "discriminator.encoder.layer_G.layer_X_.weight",
+        "discriminator.encoder.layer_G.layer_X_.bias",
+        "discriminator.encoder.layer_G.layer_att_.in_proj_weight",
+        "discriminator.encoder.layer_G.layer_att_.in_proj_bias",
+        "discriminator.encoder.layer_G.layer_att_.out_proj.weight",
+        "discriminator.encoder.layer_G.layer_att_.out_proj.bias",
+        "discriminator.encoder.layer_G.layer_F1_.0.weight",
+        "discriminator.encoder.layer_G.layer_F1_.0.bias",
+        "discriminator.encoder.layer_G.layer_Z_.weight",
+        "discriminator.encoder.layer_G.layer_Z_.bias",
+        "discriminator.encoder.layer_H.layer_X_.weight",
+        "discriminator.encoder.layer_H.layer_X_.bias",
+        "discriminator.encoder.layer_H.layer_att_.in_proj_weight",
+        "discriminator.encoder.layer_H.layer_att_.in_proj_bias",
+        "discriminator.encoder.layer_H.layer_att_.out_proj.weight",
+        "discriminator.encoder.layer_H.layer_att_.out_proj.bias",
+        "discriminator.encoder.layer_H.layer_F1_.0.weight",
+        "discriminator.encoder.layer_H.layer_F1_.0.bias",
+        "discriminator.encoder.layer_H.layer_Z_.weight",
+        "discriminator.encoder.layer_H.layer_Z_.bias",
+        "discriminator.encoder.layer_I.layer_X_.weight",
+        "discriminator.encoder.layer_I.layer_X_.bias",
+        "discriminator.encoder.layer_I.layer_att_.in_proj_weight",
+        "discriminator.encoder.layer_I.layer_att_.in_proj_bias",
+        "discriminator.encoder.layer_I.layer_att_.out_proj.weight",
+        "discriminator.encoder.layer_I.layer_att_.out_proj.bias",
+        "discriminator.encoder.layer_I.layer_F1_.0.weight",
+        "discriminator.encoder.layer_I.layer_F1_.0.bias",
+        "discriminator.encoder.layer_I.layer_Z_.weight",
+        "discriminator.encoder.layer_I.layer_Z_.bias",
+        "discriminator.encoder.layer_L.layer_X_.weight",
+        "discriminator.encoder.layer_L.layer_X_.bias",
+        "discriminator.encoder.layer_L.layer_att_.in_proj_weight",
+        "discriminator.encoder.layer_L.layer_att_.in_proj_bias",
+        "discriminator.encoder.layer_L.layer_att_.out_proj.weight",
+        "discriminator.encoder.layer_L.layer_att_.out_proj.bias",
+        "discriminator.encoder.layer_L.layer_F1_.0.weight",
+        "discriminator.encoder.layer_L.layer_F1_.0.bias",
+        "discriminator.encoder.layer_L.layer_Z_.weight",
+        "discriminator.encoder.layer_L.layer_Z_.bias",
+        "discriminator.encoder.layer_M.layer_X_.weight",
+        "discriminator.encoder.layer_M.layer_X_.bias",
+        "discriminator.encoder.layer_M.layer_att_.in_proj_weight",
+        "discriminator.encoder.layer_M.layer_att_.in_proj_bias",
+        "discriminator.encoder.layer_M.layer_att_.out_proj.weight",
+        "discriminator.encoder.layer_M.layer_att_.out_proj.bias",
+        "discriminator.encoder.layer_M.layer_F1_.0.weight",
+        "discriminator.encoder.layer_M.layer_F1_.0.bias",
+        "discriminator.encoder.layer_M.layer_Z_.weight",
+        "discriminator.encoder.layer_M.layer_Z_.bias",
+        "discriminator.encoder.layer_N.layer_X_.weight",
+        "discriminator.encoder.layer_N.layer_X_.bias",
+        "discriminator.encoder.layer_N.layer_att_.in_proj_weight",
+        "discriminator.encoder.layer_N.layer_att_.in_proj_bias",
+        "discriminator.encoder.layer_N.layer_att_.out_proj.weight",
+        "discriminator.encoder.layer_N.layer_att_.out_proj.bias",
+        "discriminator.encoder.layer_N.layer_F1_.0.weight",
+        "discriminator.encoder.layer_N.layer_F1_.0.bias",
+        "discriminator.encoder.layer_N.layer_Z_.weight",
+        "discriminator.encoder.layer_N.layer_Z_.bias",
+        "discriminator.encoder.layer_O.layer_X_.weight",
+        "discriminator.encoder.layer_O.layer_X_.bias",
+        "discriminator.encoder.layer_O.layer_att_.in_proj_weight",
+        "discriminator.encoder.layer_O.layer_att_.in_proj_bias",
+        "discriminator.encoder.layer_O.layer_att_.out_proj.weight",
+        "discriminator.encoder.layer_O.layer_att_.out_proj.bias",
+        "discriminator.encoder.layer_O.layer_F1_.0.weight",
+        "discriminator.encoder.layer_O.layer_F1_.0.bias",
+        "discriminator.encoder.layer_O.layer_Z_.weight",
+        "discriminator.encoder.layer_O.layer_Z_.bias",
+        "discriminator.encoder.layer_P.layer_X_.weight",
+        "discriminator.encoder.layer_P.layer_X_.bias",
+        "discriminator.encoder.layer_P.layer_att_.in_proj_weight",
+        "discriminator.encoder.layer_P.layer_att_.in_proj_bias",
+        "discriminator.encoder.layer_P.layer_att_.out_proj.weight",
+        "discriminator.encoder.layer_P.layer_att_.out_proj.bias",
+        "discriminator.encoder.layer_P.layer_F1_.0.weight",
+        "discriminator.encoder.layer_P.layer_F1_.0.bias",
+        "discriminator.encoder.layer_P.layer_Z_.weight",
+        "discriminator.encoder.layer_P.layer_Z_.bias",
+        "discriminator.encoder.layer_Q.layer_X_.weight",
+        "discriminator.encoder.layer_Q.layer_X_.bias",
+        "discriminator.encoder.layer_Q.layer_att_.in_proj_weight",
+        "discriminator.encoder.layer_Q.layer_att_.in_proj_bias",
+        "discriminator.encoder.layer_Q.layer_att_.out_proj.weight",
+        "discriminator.encoder.layer_Q.layer_att_.out_proj.bias",
+        "discriminator.encoder.layer_Q.layer_F1_.0.weight",
+        "discriminator.encoder.layer_Q.layer_F1_.0.bias",
+        "discriminator.encoder.layer_Q.layer_Z_.weight",
+        "discriminator.encoder.layer_Q.layer_Z_.bias",
+        "discriminator.layer_A.layer_X_.weight",
+        "discriminator.layer_A.layer_X_.bias",
+        "discriminator.layer_A.layer_att_.in_proj_weight",
+        "discriminator.layer_A.layer_att_.in_proj_bias",
+        "discriminator.layer_A.layer_att_.out_proj.weight",
+        "discriminator.layer_A.layer_att_.out_proj.bias",
+        "discriminator.layer_A.layer_F1_.0.weight",
+        "discriminator.layer_A.layer_F1_.0.bias",
+        "discriminator.layer_A.layer_Z_.weight",
+        "discriminator.layer_A.layer_Z_.bias",
+        "discriminator.layer_B.layer_X_.weight",
+        "discriminator.layer_B.layer_X_.bias",
+        "discriminator.layer_B.layer_att_.in_proj_weight",
+        "discriminator.layer_B.layer_att_.in_proj_bias",
+        "discriminator.layer_B.layer_att_.out_proj.weight",
+        "discriminator.layer_B.layer_att_.out_proj.bias",
+        "discriminator.layer_B.layer_F1_.0.weight",
+        "discriminator.layer_B.layer_F1_.0.bias",
+        "discriminator.layer_B.layer_Z_.weight",
+        "discriminator.layer_B.layer_Z_.bias",
+        "discriminator.mlp1.0.weight",
+        "discriminator.mlp1.0.bias",
+        "discriminator.mlp1.2.weight",
+        "discriminator.mlp1.2.bias",
+        "discriminator.mlp2.0.weight",
+        "discriminator.mlp2.0.bias",
+        "discriminator.mlp2.2.weight",
+        "discriminator.mlp2.2.bias",
+        "discriminator.mlp2.4.weight",
+        "discriminator.mlp2.4.bias"
+      ],
+      "samples": [
+        {
+          "file": "object_0.pkl",
+          "sha256": "c303775f88b2e3fb31d1d6e9c26e7f13e9683e112a0e7fcc1370ec72d43b7cef",
+          "valid_hidden_defender_points": 180,
+          "finite": true,
+          "forward_ms": 97.09490000022925,
+          "ade_metres": 2.31734299659729,
+          "stationary_at_last_observed_ade_metres": 4.589600563049316,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            7.012177467346191,
+            74.98295593261719
+          ],
+          "qsq_ghost_range": [
+            5.06049108505249,
+            82.29310607910156
+          ]
+        },
+        {
+          "file": "object_1.pkl",
+          "sha256": "a4ab9848f9572b949e476f63aa219d744ccc6ee23d2cd0ebd6596fcbbe4ef50a",
+          "valid_hidden_defender_points": 160,
+          "finite": true,
+          "forward_ms": 82.95379999981378,
+          "ade_metres": 1.7730684280395508,
+          "stationary_at_last_observed_ade_metres": 4.184260845184326,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            1.5671436786651611,
+            75.09652709960938
+          ],
+          "qsq_ghost_range": [
+            -3.1545417308807373,
+            81.6443862915039
+          ]
+        },
+        {
+          "file": "object_10.pkl",
+          "sha256": "14416a91e7d72a411641d25beb5714479b15d4f73ded2fc4a54f87ba3603affc",
+          "valid_hidden_defender_points": 300,
+          "finite": true,
+          "forward_ms": 81.59599999999045,
+          "ade_metres": 1.659706473350525,
+          "stationary_at_last_observed_ade_metres": 3.7766213417053223,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            11.25718879699707,
+            73.82058715820312
+          ],
+          "qsq_ghost_range": [
+            18.753042221069336,
+            91.23611450195312
+          ]
+        },
+        {
+          "file": "object_2.pkl",
+          "sha256": "6b93ed7b5fe22a161327efa79f117d65e46cff07fc8967ce840ef694936b8f9f",
+          "valid_hidden_defender_points": 270,
+          "finite": true,
+          "forward_ms": 71.01300000067567,
+          "ade_metres": 1.3545373678207397,
+          "stationary_at_last_observed_ade_metres": 1.4642521142959595,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            8.31101131439209,
+            92.84686279296875
+          ],
+          "qsq_ghost_range": [
+            12.816330909729004,
+            102.00015258789062
+          ]
+        },
+        {
+          "file": "object_3.pkl",
+          "sha256": "b2b5b96632670f4b1a451014142bfa049860fc1242267c08f39cacc6a3af72f9",
+          "valid_hidden_defender_points": 200,
+          "finite": true,
+          "forward_ms": 81.62599999923259,
+          "ade_metres": 0.8989195823669434,
+          "stationary_at_last_observed_ade_metres": 2.0849533081054688,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            13.417766571044922,
+            79.35735321044922
+          ],
+          "qsq_ghost_range": [
+            18.145376205444336,
+            79.48863220214844
+          ]
+        },
+        {
+          "file": "object_4.pkl",
+          "sha256": "41bb9a86d5d6bebd348b36c0fa02a5cdd5aef173831e45628ccf8dc8968c6082",
+          "valid_hidden_defender_points": 180,
+          "finite": true,
+          "forward_ms": 81.03560000017751,
+          "ade_metres": 1.6737215518951416,
+          "stationary_at_last_observed_ade_metres": 5.220351696014404,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            7.95785665512085,
+            80.24969482421875
+          ],
+          "qsq_ghost_range": [
+            9.263422012329102,
+            85.27011108398438
+          ]
+        },
+        {
+          "file": "object_5.pkl",
+          "sha256": "91a048969983c293cbad05505885959311e54e112d90cfbd93e13caef39bbc34",
+          "valid_hidden_defender_points": 270,
+          "finite": true,
+          "forward_ms": 81.806800000777,
+          "ade_metres": 1.8651623725891113,
+          "stationary_at_last_observed_ade_metres": 3.4121687412261963,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            -12.85368824005127,
+            80.6498031616211
+          ],
+          "qsq_ghost_range": [
+            -11.7926025390625,
+            93.77882385253906
+          ]
+        },
+        {
+          "file": "object_6.pkl",
+          "sha256": "ef7f2b55b029e3240b828987839a99c7ef3169ab900a5bd993cd1ce3dbd6fa7f",
+          "valid_hidden_defender_points": 210,
+          "finite": true,
+          "forward_ms": 81.72470000135945,
+          "ade_metres": 0.9551610350608826,
+          "stationary_at_last_observed_ade_metres": 3.56315279006958,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            4.740232944488525,
+            77.8463134765625
+          ],
+          "qsq_ghost_range": [
+            8.012540817260742,
+            90.15972137451172
+          ]
+        },
+        {
+          "file": "object_7.pkl",
+          "sha256": "f09edd8d41a8990a67e5d45721cc571698ae3e16fc36672544b7d9ef04b46520",
+          "valid_hidden_defender_points": 265,
+          "finite": true,
+          "forward_ms": 80.95279999906779,
+          "ade_metres": 1.4540940523147583,
+          "stationary_at_last_observed_ade_metres": 3.3352601528167725,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            8.83950138092041,
+            87.7638168334961
+          ],
+          "qsq_ghost_range": [
+            12.630887031555176,
+            95.47134399414062
+          ]
+        },
+        {
+          "file": "object_8.pkl",
+          "sha256": "0a403bcf297e63e821b7d2ad3e3e82d3ee6fb4e88f2e45b2c4d7dcec06997ca5",
+          "valid_hidden_defender_points": 370,
+          "finite": true,
+          "forward_ms": 83.2260999995924,
+          "ade_metres": 1.1435526609420776,
+          "stationary_at_last_observed_ade_metres": 2.477037191390991,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            12.984067916870117,
+            89.40117645263672
+          ],
+          "qsq_ghost_range": [
+            14.717164993286133,
+            76.27713012695312
+          ]
+        },
+        {
+          "file": "object_9.pkl",
+          "sha256": "a025369aa68256808b316dede1fa7d2b3fee46ba2a3284b4070da74a7fa9d202",
+          "valid_hidden_defender_points": 165,
+          "finite": true,
+          "forward_ms": 86.92549999977928,
+          "ade_metres": 0.9194948077201843,
+          "stationary_at_last_observed_ade_metres": 2.0691280364990234,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            17.77656364440918,
+            77.64546203613281
+          ],
+          "qsq_ghost_range": [
+            23.494531631469727,
+            77.26570129394531
+          ]
+        }
+      ],
+      "mean_of_clip_ade_metres": 1.4558873935179277,
+      "mean_of_clip_stationary_ade_metres": 3.2887987982143057,
+      "median_forward_ms": 81.72470000135945
+    },
+    {
+      "weight": "V1_predict_def.ckpt",
+      "bytes": 32900366,
+      "sha256": "2141db8ff82aff06a247fa51001d223303bf237d085932c3e0d4642def0709f9",
+      "status": "completed",
+      "strict_core_load": true,
+      "decoder_output_channels": 4,
+      "decoder_modes": 6,
+      "epoch": 99,
+      "global_step": 71700,
+      "unused_checkpoint_keys": [],
+      "samples": [
+        {
+          "file": "object_0.pkl",
+          "sha256": "c303775f88b2e3fb31d1d6e9c26e7f13e9683e112a0e7fcc1370ec72d43b7cef",
+          "valid_hidden_defender_points": 180,
+          "finite": true,
+          "forward_ms": 238.9035000014701,
+          "ade_metres": 7.8792924880981445,
+          "stationary_at_last_observed_ade_metres": 4.589600563049316,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            7.012177467346191,
+            74.98295593261719
+          ],
+          "qsq_ghost_range": [
+            33.56327438354492,
+            210.46092224121094
+          ]
+        },
+        {
+          "file": "object_1.pkl",
+          "sha256": "a4ab9848f9572b949e476f63aa219d744ccc6ee23d2cd0ebd6596fcbbe4ef50a",
+          "valid_hidden_defender_points": 160,
+          "finite": true,
+          "forward_ms": 238.49929999778396,
+          "ade_metres": 7.360020637512207,
+          "stationary_at_last_observed_ade_metres": 4.184260845184326,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            1.5671436786651611,
+            75.09652709960938
+          ],
+          "qsq_ghost_range": [
+            29.23992156982422,
+            209.6317596435547
+          ]
+        },
+        {
+          "file": "object_10.pkl",
+          "sha256": "14416a91e7d72a411641d25beb5714479b15d4f73ded2fc4a54f87ba3603affc",
+          "valid_hidden_defender_points": 300,
+          "finite": true,
+          "forward_ms": 216.7790999992576,
+          "ade_metres": 8.605031967163086,
+          "stationary_at_last_observed_ade_metres": 3.7766213417053223,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            11.25718879699707,
+            73.82058715820312
+          ],
+          "qsq_ghost_range": [
+            45.238948822021484,
+            215.28187561035156
+          ]
+        },
+        {
+          "file": "object_2.pkl",
+          "sha256": "6b93ed7b5fe22a161327efa79f117d65e46cff07fc8967ce840ef694936b8f9f",
+          "valid_hidden_defender_points": 270,
+          "finite": true,
+          "forward_ms": 183.9232999991509,
+          "ade_metres": 9.016772270202637,
+          "stationary_at_last_observed_ade_metres": 1.4642521142959595,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            8.31101131439209,
+            92.84686279296875
+          ],
+          "qsq_ghost_range": [
+            21.062288284301758,
+            203.5597686767578
+          ]
+        },
+        {
+          "file": "object_3.pkl",
+          "sha256": "b2b5b96632670f4b1a451014142bfa049860fc1242267c08f39cacc6a3af72f9",
+          "valid_hidden_defender_points": 200,
+          "finite": true,
+          "forward_ms": 224.97560000192607,
+          "ade_metres": 7.499674320220947,
+          "stationary_at_last_observed_ade_metres": 2.0849533081054688,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            13.417766571044922,
+            79.35735321044922
+          ],
+          "qsq_ghost_range": [
+            37.7880973815918,
+            193.82432556152344
+          ]
+        },
+        {
+          "file": "object_4.pkl",
+          "sha256": "41bb9a86d5d6bebd348b36c0fa02a5cdd5aef173831e45628ccf8dc8968c6082",
+          "valid_hidden_defender_points": 180,
+          "finite": true,
+          "forward_ms": 221.865000003163,
+          "ade_metres": 8.010534286499023,
+          "stationary_at_last_observed_ade_metres": 5.220351696014404,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            7.95785665512085,
+            80.24969482421875
+          ],
+          "qsq_ghost_range": [
+            36.09245300292969,
+            210.16603088378906
+          ]
+        },
+        {
+          "file": "object_5.pkl",
+          "sha256": "91a048969983c293cbad05505885959311e54e112d90cfbd93e13caef39bbc34",
+          "valid_hidden_defender_points": 270,
+          "finite": true,
+          "forward_ms": 225.89000000152737,
+          "ade_metres": 8.993085861206055,
+          "stationary_at_last_observed_ade_metres": 3.4121687412261963,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            -12.85368824005127,
+            80.6498031616211
+          ],
+          "qsq_ghost_range": [
+            34.36138916015625,
+            224.1491241455078
+          ]
+        },
+        {
+          "file": "object_6.pkl",
+          "sha256": "ef7f2b55b029e3240b828987839a99c7ef3169ab900a5bd993cd1ce3dbd6fa7f",
+          "valid_hidden_defender_points": 210,
+          "finite": true,
+          "forward_ms": 224.33380000074976,
+          "ade_metres": 7.847992420196533,
+          "stationary_at_last_observed_ade_metres": 3.56315279006958,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            4.740232944488525,
+            77.8463134765625
+          ],
+          "qsq_ghost_range": [
+            27.056350708007812,
+            216.7685546875
+          ]
+        },
+        {
+          "file": "object_7.pkl",
+          "sha256": "f09edd8d41a8990a67e5d45721cc571698ae3e16fc36672544b7d9ef04b46520",
+          "valid_hidden_defender_points": 265,
+          "finite": true,
+          "forward_ms": 225.97329999916838,
+          "ade_metres": 7.844307899475098,
+          "stationary_at_last_observed_ade_metres": 3.3352601528167725,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            8.83950138092041,
+            87.7638168334961
+          ],
+          "qsq_ghost_range": [
+            34.39866256713867,
+            212.10557556152344
+          ]
+        },
+        {
+          "file": "object_8.pkl",
+          "sha256": "0a403bcf297e63e821b7d2ad3e3e82d3ee6fb4e88f2e45b2c4d7dcec06997ca5",
+          "valid_hidden_defender_points": 370,
+          "finite": true,
+          "forward_ms": 229.99829999753274,
+          "ade_metres": 9.587206840515137,
+          "stationary_at_last_observed_ade_metres": 2.477037191390991,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            12.984067916870117,
+            89.40117645263672
+          ],
+          "qsq_ghost_range": [
+            41.445716857910156,
+            215.6299591064453
+          ]
+        },
+        {
+          "file": "object_9.pkl",
+          "sha256": "a025369aa68256808b316dede1fa7d2b3fee46ba2a3284b4070da74a7fa9d202",
+          "valid_hidden_defender_points": 165,
+          "finite": true,
+          "forward_ms": 225.69260000091163,
+          "ade_metres": 6.850620746612549,
+          "stationary_at_last_observed_ade_metres": 2.0691280364990234,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            17.77656364440918,
+            77.64546203613281
+          ],
+          "qsq_ghost_range": [
+            43.753990173339844,
+            200.8961639404297
+          ]
+        }
+      ],
+      "mean_of_clip_ade_metres": 8.135867248881947,
+      "mean_of_clip_stationary_ade_metres": 3.2887987982143057,
+      "median_forward_ms": 225.69260000091163
+    },
+    {
+      "weight": "V2_prompt.ckpt",
+      "bytes": 32885006,
+      "sha256": "ff1d9e4a35367e07634ad7e0824dd6e16e117a7fd8ff41e9bb3c90a49f95748f",
+      "status": "completed",
+      "strict_core_load": true,
+      "decoder_output_channels": 4,
+      "decoder_modes": 1,
+      "epoch": 99,
+      "global_step": 71700,
+      "unused_checkpoint_keys": [],
+      "samples": [
+        {
+          "file": "object_0.pkl",
+          "sha256": "c303775f88b2e3fb31d1d6e9c26e7f13e9683e112a0e7fcc1370ec72d43b7cef",
+          "valid_hidden_defender_points": 180,
+          "finite": true,
+          "forward_ms": 82.66740000181017,
+          "ade_metres": 2.5911202430725098,
+          "stationary_at_last_observed_ade_metres": 4.589600563049316,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            7.012177467346191,
+            74.98295593261719
+          ],
+          "qsq_ghost_range": [
+            6.181028366088867,
+            121.42105102539062
+          ]
+        },
+        {
+          "file": "object_1.pkl",
+          "sha256": "a4ab9848f9572b949e476f63aa219d744ccc6ee23d2cd0ebd6596fcbbe4ef50a",
+          "valid_hidden_defender_points": 160,
+          "finite": true,
+          "forward_ms": 87.11519999997108,
+          "ade_metres": 1.675783395767212,
+          "stationary_at_last_observed_ade_metres": 4.184260845184326,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            1.5671436786651611,
+            75.09652709960938
+          ],
+          "qsq_ghost_range": [
+            2.0631163120269775,
+            82.91239166259766
+          ]
+        },
+        {
+          "file": "object_10.pkl",
+          "sha256": "14416a91e7d72a411641d25beb5714479b15d4f73ded2fc4a54f87ba3603affc",
+          "valid_hidden_defender_points": 300,
+          "finite": true,
+          "forward_ms": 87.71820000038133,
+          "ade_metres": 1.4989616870880127,
+          "stationary_at_last_observed_ade_metres": 3.7766213417053223,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            11.25718879699707,
+            73.82058715820312
+          ],
+          "qsq_ghost_range": [
+            21.290206909179688,
+            94.5587158203125
+          ]
+        },
+        {
+          "file": "object_2.pkl",
+          "sha256": "6b93ed7b5fe22a161327efa79f117d65e46cff07fc8967ce840ef694936b8f9f",
+          "valid_hidden_defender_points": 270,
+          "finite": true,
+          "forward_ms": 82.0196999993641,
+          "ade_metres": 1.3824899196624756,
+          "stationary_at_last_observed_ade_metres": 1.4642521142959595,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            8.31101131439209,
+            92.84686279296875
+          ],
+          "qsq_ghost_range": [
+            19.14411735534668,
+            91.9332275390625
+          ]
+        },
+        {
+          "file": "object_3.pkl",
+          "sha256": "b2b5b96632670f4b1a451014142bfa049860fc1242267c08f39cacc6a3af72f9",
+          "valid_hidden_defender_points": 200,
+          "finite": true,
+          "forward_ms": 83.34210000248277,
+          "ade_metres": 1.153931736946106,
+          "stationary_at_last_observed_ade_metres": 2.0849533081054688,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            13.417766571044922,
+            79.35735321044922
+          ],
+          "qsq_ghost_range": [
+            19.145524978637695,
+            80.24209594726562
+          ]
+        },
+        {
+          "file": "object_4.pkl",
+          "sha256": "41bb9a86d5d6bebd348b36c0fa02a5cdd5aef173831e45628ccf8dc8968c6082",
+          "valid_hidden_defender_points": 180,
+          "finite": true,
+          "forward_ms": 84.29450000039651,
+          "ade_metres": 1.67167067527771,
+          "stationary_at_last_observed_ade_metres": 5.220351696014404,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            7.95785665512085,
+            80.24969482421875
+          ],
+          "qsq_ghost_range": [
+            9.335400581359863,
+            88.24794006347656
+          ]
+        },
+        {
+          "file": "object_5.pkl",
+          "sha256": "91a048969983c293cbad05505885959311e54e112d90cfbd93e13caef39bbc34",
+          "valid_hidden_defender_points": 270,
+          "finite": true,
+          "forward_ms": 81.82400000077905,
+          "ade_metres": 1.882568120956421,
+          "stationary_at_last_observed_ade_metres": 3.4121687412261963,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            -12.85368824005127,
+            80.6498031616211
+          ],
+          "qsq_ghost_range": [
+            -10.575321197509766,
+            95.57936096191406
+          ]
+        },
+        {
+          "file": "object_6.pkl",
+          "sha256": "ef7f2b55b029e3240b828987839a99c7ef3169ab900a5bd993cd1ce3dbd6fa7f",
+          "valid_hidden_defender_points": 210,
+          "finite": true,
+          "forward_ms": 82.26999999897089,
+          "ade_metres": 0.9484298825263977,
+          "stationary_at_last_observed_ade_metres": 3.56315279006958,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            4.740232944488525,
+            77.8463134765625
+          ],
+          "qsq_ghost_range": [
+            8.807174682617188,
+            83.35688781738281
+          ]
+        },
+        {
+          "file": "object_7.pkl",
+          "sha256": "f09edd8d41a8990a67e5d45721cc571698ae3e16fc36672544b7d9ef04b46520",
+          "valid_hidden_defender_points": 265,
+          "finite": true,
+          "forward_ms": 82.36200000101235,
+          "ade_metres": 1.561456322669983,
+          "stationary_at_last_observed_ade_metres": 3.3352601528167725,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            8.83950138092041,
+            87.7638168334961
+          ],
+          "qsq_ghost_range": [
+            12.494366645812988,
+            96.0926513671875
+          ]
+        },
+        {
+          "file": "object_8.pkl",
+          "sha256": "0a403bcf297e63e821b7d2ad3e3e82d3ee6fb4e88f2e45b2c4d7dcec06997ca5",
+          "valid_hidden_defender_points": 370,
+          "finite": true,
+          "forward_ms": 81.66909999999916,
+          "ade_metres": 1.1678102016448975,
+          "stationary_at_last_observed_ade_metres": 2.477037191390991,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            12.984067916870117,
+            89.40117645263672
+          ],
+          "qsq_ghost_range": [
+            13.13000774383545,
+            85.86418151855469
+          ]
+        },
+        {
+          "file": "object_9.pkl",
+          "sha256": "a025369aa68256808b316dede1fa7d2b3fee46ba2a3284b4070da74a7fa9d202",
+          "valid_hidden_defender_points": 165,
+          "finite": true,
+          "forward_ms": 81.72560000093654,
+          "ade_metres": 1.3475115299224854,
+          "stationary_at_last_observed_ade_metres": 2.0691280364990234,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            17.77656364440918,
+            77.64546203613281
+          ],
+          "qsq_ghost_range": [
+            20.231279373168945,
+            86.96742248535156
+          ]
+        }
+      ],
+      "mean_of_clip_ade_metres": 1.5347030650485645,
+      "mean_of_clip_stationary_ade_metres": 3.2887987982143057,
+      "median_forward_ms": 82.36200000101235
+    },
+    {
+      "weight": "V3_prompt+def_loss.ckpt",
+      "bytes": 32885006,
+      "sha256": "d32c911ab912d94a4754082372cf8bd64ea1d500cf5cd3f4385de14322c166f0",
+      "status": "completed",
+      "strict_core_load": true,
+      "decoder_output_channels": 4,
+      "decoder_modes": 1,
+      "epoch": 99,
+      "global_step": 71700,
+      "unused_checkpoint_keys": [],
+      "samples": [
+        {
+          "file": "object_0.pkl",
+          "sha256": "c303775f88b2e3fb31d1d6e9c26e7f13e9683e112a0e7fcc1370ec72d43b7cef",
+          "valid_hidden_defender_points": 180,
+          "finite": true,
+          "forward_ms": 61.623199999303324,
+          "ade_metres": 2.700252056121826,
+          "stationary_at_last_observed_ade_metres": 4.589600563049316,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            7.012177467346191,
+            74.98295593261719
+          ],
+          "qsq_ghost_range": [
+            24.433881759643555,
+            93.76853942871094
+          ]
+        },
+        {
+          "file": "object_1.pkl",
+          "sha256": "a4ab9848f9572b949e476f63aa219d744ccc6ee23d2cd0ebd6596fcbbe4ef50a",
+          "valid_hidden_defender_points": 160,
+          "finite": true,
+          "forward_ms": 60.19979999837233,
+          "ade_metres": 2.973393440246582,
+          "stationary_at_last_observed_ade_metres": 4.184260845184326,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            1.5671436786651611,
+            75.09652709960938
+          ],
+          "qsq_ghost_range": [
+            9.567098617553711,
+            98.96563720703125
+          ]
+        },
+        {
+          "file": "object_10.pkl",
+          "sha256": "14416a91e7d72a411641d25beb5714479b15d4f73ded2fc4a54f87ba3603affc",
+          "valid_hidden_defender_points": 300,
+          "finite": true,
+          "forward_ms": 61.59069999921485,
+          "ade_metres": 2.779177188873291,
+          "stationary_at_last_observed_ade_metres": 3.7766213417053223,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            11.25718879699707,
+            73.82058715820312
+          ],
+          "qsq_ghost_range": [
+            21.711254119873047,
+            98.90936279296875
+          ]
+        },
+        {
+          "file": "object_2.pkl",
+          "sha256": "6b93ed7b5fe22a161327efa79f117d65e46cff07fc8967ce840ef694936b8f9f",
+          "valid_hidden_defender_points": 270,
+          "finite": true,
+          "forward_ms": 84.8431000013079,
+          "ade_metres": 2.880352020263672,
+          "stationary_at_last_observed_ade_metres": 1.4642521142959595,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            8.31101131439209,
+            92.84686279296875
+          ],
+          "qsq_ghost_range": [
+            29.954113006591797,
+            83.76240539550781
+          ]
+        },
+        {
+          "file": "object_3.pkl",
+          "sha256": "b2b5b96632670f4b1a451014142bfa049860fc1242267c08f39cacc6a3af72f9",
+          "valid_hidden_defender_points": 200,
+          "finite": true,
+          "forward_ms": 87.34980000008363,
+          "ade_metres": 3.2645273208618164,
+          "stationary_at_last_observed_ade_metres": 2.0849533081054688,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            13.417766571044922,
+            79.35735321044922
+          ],
+          "qsq_ghost_range": [
+            12.836749076843262,
+            84.14631652832031
+          ]
+        },
+        {
+          "file": "object_4.pkl",
+          "sha256": "41bb9a86d5d6bebd348b36c0fa02a5cdd5aef173831e45628ccf8dc8968c6082",
+          "valid_hidden_defender_points": 180,
+          "finite": true,
+          "forward_ms": 87.09409999937634,
+          "ade_metres": 3.7377254962921143,
+          "stationary_at_last_observed_ade_metres": 5.220351696014404,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            7.95785665512085,
+            80.24969482421875
+          ],
+          "qsq_ghost_range": [
+            3.7316081523895264,
+            122.7691879272461
+          ]
+        },
+        {
+          "file": "object_5.pkl",
+          "sha256": "91a048969983c293cbad05505885959311e54e112d90cfbd93e13caef39bbc34",
+          "valid_hidden_defender_points": 270,
+          "finite": true,
+          "forward_ms": 87.52370000001974,
+          "ade_metres": 3.2161366939544678,
+          "stationary_at_last_observed_ade_metres": 3.4121687412261963,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            -12.85368824005127,
+            80.6498031616211
+          ],
+          "qsq_ghost_range": [
+            0.574940025806427,
+            100.87902069091797
+          ]
+        },
+        {
+          "file": "object_6.pkl",
+          "sha256": "ef7f2b55b029e3240b828987839a99c7ef3169ab900a5bd993cd1ce3dbd6fa7f",
+          "valid_hidden_defender_points": 210,
+          "finite": true,
+          "forward_ms": 88.55899999980466,
+          "ade_metres": 2.3763644695281982,
+          "stationary_at_last_observed_ade_metres": 3.56315279006958,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            4.740232944488525,
+            77.8463134765625
+          ],
+          "qsq_ghost_range": [
+            14.321754455566406,
+            82.19092559814453
+          ]
+        },
+        {
+          "file": "object_7.pkl",
+          "sha256": "f09edd8d41a8990a67e5d45721cc571698ae3e16fc36672544b7d9ef04b46520",
+          "valid_hidden_defender_points": 265,
+          "finite": true,
+          "forward_ms": 87.79520000098273,
+          "ade_metres": 2.5722014904022217,
+          "stationary_at_last_observed_ade_metres": 3.3352601528167725,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            8.83950138092041,
+            87.7638168334961
+          ],
+          "qsq_ghost_range": [
+            13.005378723144531,
+            117.36271667480469
+          ]
+        },
+        {
+          "file": "object_8.pkl",
+          "sha256": "0a403bcf297e63e821b7d2ad3e3e82d3ee6fb4e88f2e45b2c4d7dcec06997ca5",
+          "valid_hidden_defender_points": 370,
+          "finite": true,
+          "forward_ms": 87.12649999870337,
+          "ade_metres": 3.219468116760254,
+          "stationary_at_last_observed_ade_metres": 2.477037191390991,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            12.984067916870117,
+            89.40117645263672
+          ],
+          "qsq_ghost_range": [
+            14.214975357055664,
+            88.66624450683594
+          ]
+        },
+        {
+          "file": "object_9.pkl",
+          "sha256": "a025369aa68256808b316dede1fa7d2b3fee46ba2a3284b4070da74a7fa9d202",
+          "valid_hidden_defender_points": 165,
+          "finite": true,
+          "forward_ms": 83.6974999983795,
+          "ade_metres": 2.657046318054199,
+          "stationary_at_last_observed_ade_metres": 2.0691280364990234,
+          "out_of_full_court_fraction": 0.0,
+          "qsq_real_range": [
+            17.77656364440918,
+            77.64546203613281
+          ],
+          "qsq_ghost_range": [
+            22.515073776245117,
+            90.3848648071289
+          ]
+        }
+      ],
+      "mean_of_clip_ade_metres": 2.943331328305331,
+      "mean_of_clip_stationary_ade_metres": 3.2887987982143057,
+      "median_forward_ms": 87.09409999937634
+    }
+  ],
+  "upstream_loader": {
+    "error": "RuntimeError",
+    "detail": "Error(s) in loading state_dict for Scene_Motion:\n\tsize mismatch for model.decoder.layer_T.0.weight: copying a param with shape torch.Size([256, 262]) from checkpoint, the shape in current model is torch.Size([256, 257]).\n\tsize mismatch for model.decoder.layer_Z1.0.weight: copying a param with shape torch.Size([4, 256]) from checkpoint, the shape in current model is torch.Size([6, 256]).\n\tsize mismatch for model.decoder.layer_Z1.0.bias: copying a param with shape torch.Size([4]) from checkpoint, the shape in current model is torch.Size([6]).\n\tsize mismatch for model.decoder.layer_Z1.3.weight: copying a param with shape torch.Size([4]) from checkpoint, the shape in current model is torch.Size([6]).\n\tsize mismatch for model.decoder.layer_Z1.3.bias: copying a param with shape torch.Size([4]) from checkpoint, the shape in current model is torch.Size([6]).\n\tsize mismatch for model.decoder.layer_Z1.3.running_mean: copying a param with shape torch.Size([4]) from checkpoint, the shape in current model is torch.Size([6]).\n\tsize mismatch for model.decoder.layer_Z1.3.running_var: copying a param with shape torch.Size([4]) from checkpoint, the shape in current model is torch.Size([6])."
+  },
+  "qsq": {
+    "sha256": "b54f651d10303035aad2b54bdb266389a09327c1ce1bd414dbd4b7254b543d0e",
+    "strict_load": true,
+    "probability_calibration_verified": false
+  },
+  "sample_count": 11
+}

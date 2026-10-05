@@ -1,0 +1,144 @@
+{
+  "collected_at_utc": "2026-10-05T08:02:16.892427+00:00",
+  "repositories": [
+    {
+      "name": "HoopTransformer",
+      "url": "https://github.com/Mr81wx/HoopTransformer",
+      "commit": "74c8004171f1f61a9153982172dacfee1ec4e0bc",
+      "branch": "main",
+      "pushed_at": "2024-07-17T05:06:53Z",
+      "github_license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      },
+      "license_paths": [
+        "LICENSE"
+      ],
+      "weight_paths": [],
+      "releases": [],
+      "tree_truncated": false,
+      "files_excluding_node_modules": 77
+    },
+    {
+      "name": "HoopEval",
+      "url": "https://github.com/Mr81wx/HoopEval",
+      "commit": "62cf695a9dfae0891ea3d5e091ccb73bf4d0e98b",
+      "branch": "main",
+      "pushed_at": "2026-01-19T02:10:07Z",
+      "github_license": null,
+      "license_paths": [],
+      "weight_paths": [],
+      "releases": [],
+      "tree_truncated": false,
+      "files_excluding_node_modules": 70
+    },
+    {
+      "name": "HoopEval_vis_2",
+      "url": "https://github.com/Mr81wx/HoopEval_vis_2",
+      "commit": "2483372f0e3876cbf6c1a0c6adf3b415b4f4cae9",
+      "branch": "main",
+      "pushed_at": "2026-05-21T05:58:54Z",
+      "github_license": null,
+      "license_paths": [],
+      "weight_paths": [],
+      "releases": [],
+      "tree_truncated": false,
+      "files_excluding_node_modules": 62
+    },
+    {
+      "name": "HoopPad",
+      "url": "https://github.com/Mr81wx/HoopPad",
+      "commit": "6376cb08ab423879f026148133741495c401863e",
+      "branch": "app",
+      "pushed_at": "2025-03-27T23:39:00Z",
+      "github_license": null,
+      "license_paths": [
+        "server/LICENSE"
+      ],
+      "weight_paths": [
+        {
+          "path": "server/App/qsq.ckpt",
+          "bytes": 418123
+        },
+        {
+          "path": "server/Checkpoints/BC.ckpt",
+          "bytes": 60510802
+        },
+        {
+          "path": "server/Checkpoints/V1_predict_def.ckpt",
+          "bytes": 32900366
+        },
+        {
+          "path": "server/Checkpoints/V2_prompt.ckpt",
+          "bytes": 32885006
+        },
+        {
+          "path": "server/Checkpoints/V3_prompt+def_loss.ckpt",
+          "bytes": 32885006
+        }
+      ],
+      "releases": [],
+      "tree_truncated": false,
+      "files_excluding_node_modules": 70
+    },
+    {
+      "name": "CBA-Shiny",
+      "url": "https://github.com/Mr81wx/CBA-Shiny",
+      "commit": "11a2431542e95ced8514c948b6baf1963d11142c",
+      "branch": "main",
+      "pushed_at": "2025-03-27T23:29:26Z",
+      "github_license": null,
+      "license_paths": [],
+      "weight_paths": [],
+      "releases": [],
+      "tree_truncated": false,
+      "files_excluding_node_modules": 13
+    },
+    {
+      "name": "video_clipmark",
+      "url": "https://github.com/Mr81wx/video_clipmark",
+      "commit": "b247066142f556977cb2474a47f91ae92b8efcd2",
+      "branch": "main",
+      "pushed_at": "2026-09-17T16:24:54Z",
+      "github_license": null,
+      "license_paths": [],
+      "weight_paths": [],
+      "releases": [],
+      "tree_truncated": false,
+      "files_excluding_node_modules": 4
+    }
+  ],
+  "boundary": "Current public default-branch trees and GitHub releases; not all private assets or git history.",
+  "discovery": {
+    "HoopTransformer": {
+      "github_total": 3,
+      "github_repositories": [
+        "Mr81wx/HoopTransformer",
+        "wxmr81/HoopTransformer",
+        "Cesar-Shao/HoopTransformer_Annotation"
+      ],
+      "huggingface_models": [],
+      "huggingface_datasets": []
+    },
+    "HoopEval": {
+      "github_total": 2,
+      "github_repositories": [
+        "Mr81wx/HoopEval",
+        "Mr81wx/HoopEval_vis_2"
+      ],
+      "huggingface_models": [],
+      "huggingface_datasets": []
+    },
+    "Hoop-MSSL": {
+      "github_total": 1,
+      "github_repositories": [
+        "ytrqua3/Hoop-MSSL"
+      ],
+      "huggingface_models": [],
+      "huggingface_datasets": []
+    }
+  }
+}

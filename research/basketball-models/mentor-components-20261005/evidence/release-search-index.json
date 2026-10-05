@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-05",
+  "provider": "Exa",
+  "sources_reviewed": 30,
+  "note": "sources_reviewed counts requested search results per skill; actual returned URLs are listed separately. Supplemented by primary GitHub API, paper/lab pages and web searches.",
+  "queries": [
+    {
+      "id": "transformer-release",
+      "query": "HoopTransformer pretrained checkpoint model weights download official Xing Wang Github release",
+      "sources_reviewed": 6,
+      "returned_urls": [
+        "https://github.com/Mr81wx/HoopTransformer",
+        "https://www.springermedicine.com/hooptransformer-advancing-nba-offensive-play-recognition-with-se/27151328",
+        "https://vuir.vu.edu.au/48805/",
+        "https://exa.ai/library/publication/4l5mpgbrkcc",
+        "https://portalcientifico.upm.es/es/ipublic/item/10221343",
+        "https://upm.scimarina.org/cat/ipublic/item/10221343"
+      ]
+    },
+    {
+      "id": "mssl-release",
+      "query": "Hoop-MSSL code availability source code pretrained model Github Shao Wang Zhang",
+      "sources_reviewed": 6,
+      "returned_urls": [
+        "https://neurips.cc/virtual/2024/104552",
+        "https://github.com/Mr81wx/HoopTransformer",
+        "https://exa.ai/library/publication/gsqj3ypzm6z",
+        "https://www.linkedin.com/posts/intelligent-sports-and-health-journal_sportsai-basketballanalytics-machinelearning-activity-7449362572065255424-g42-",
+        "https://github.com/janehwu/mcc-ho",
+        "https://github.com/janehwu/mcc-ho/blob/main/README.md"
+      ]
+    },
+    {
+      "id": "eval-release",
+      "query": "HoopEval pretrained checkpoint model weights Github Xing Wang 2026 Sloan",
+      "sources_reviewed": 6,
+      "returned_urls": [
+        "https://www.sloansportsconference.com/research-papers/hoopeval-individual-player-action-evaluation-via-deep-reinforcement-learning",
+        "https://www.cs.ucf.edu/diidlab/publications/hoopeval-individual-player-action-evaluation-via-deep-reinforcement-learning/",
+        "https://basketballainews.beehiiv.com/p/individual-player-action-evaluation-via-deep-reinforcement-learning",
+        "https://exa.ai/library/publication/0vnt5ljwk9d",
+        "https://github.com/Mr81wx/HoopTransformer",
+        "https://exa.ai/library/publication/q53dm18f47h"
+      ]
+    },
+    {
+      "id": "release-more-2",
+      "query": "\"Hoop-MSSL\" \"code\" \"available\"",
+      "sources_reviewed": 6,
+      "returned_urls": [
+        "https://neurips.cc/virtual/2024/workshop/84703"
+      ]
+    },
+    {
+      "id": "release-more-3",
+      "query": "\"HoopTransformer\" \"checkpoint\" OR \"pretrained\" OR \"weights\" OR \"drive.google\"",
+      "sources_reviewed": 6,
+      "returned_urls": [
+        "https://github.com/Mr81wx/HoopTransformer",
+        "https://www.springermedicine.com/hooptransformer-advancing-nba-offensive-play-recognition-with-se/27151328",
+        "https://portalcientifico.upm.es/es/ipublic/item/10221343",
+        "https://oa.upm.es/92222/1/XING_WANG.pdf",
+        "https://www.bisp-surf.de/Record/PU202411008451",
+        "https://david-carey.github.io/resources/"
+      ]
+    }
+  ]
+}

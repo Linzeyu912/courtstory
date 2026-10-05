@@ -1,0 +1,546 @@
+{
+  "collected_at_utc": "2026-10-05T12:39:04.935378+00:00",
+  "accounts": {
+    "Mr81wx": [
+      {
+        "name": "Mr81wx/awesome-RL-In-Sports",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Mr81wx/CBA-Shiny",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Mr81wx/EPVDemo",
+        "description": "Demo of NBA Expected Possession Value model",
+        "fork": true
+      },
+      {
+        "name": "Mr81wx/HoopEval",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Mr81wx/HoopEval_vis_2",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Mr81wx/HoopPad",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Mr81wx/HoopTransformer",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Mr81wx/Multi-Agent-Transformer",
+        "description": null,
+        "fork": true
+      },
+      {
+        "name": "Mr81wx/social-transmotion",
+        "description": "[ICLR 2024] Official implementation of \"Social-Transmotion: Promptable Human Trajectory Prediction\" in PyTorch.",
+        "fork": true
+      },
+      {
+        "name": "Mr81wx/SPL-Open-Data",
+        "description": "A collection of open-source sports biomechanics datasets collected by MLSE's Sport Performance Lab.",
+        "fork": true
+      },
+      {
+        "name": "Mr81wx/supervision",
+        "description": "We write your reusable computer vision tools. 💜",
+        "fork": true
+      },
+      {
+        "name": "Mr81wx/video_clipmark",
+        "description": null,
+        "fork": false
+      }
+    ],
+    "Cesar-Shao": [
+      {
+        "name": "Cesar-Shao/data_lable",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Cesar-Shao/Draw-Tactical",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Cesar-Shao/Draw_Tactical",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Cesar-Shao/game_res_prediction",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Cesar-Shao/HoopTransformer_Annotation",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Cesar-Shao/image_compression",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Cesar-Shao/tatic_clawer",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "Cesar-Shao/Thoops_NBA",
+        "description": null,
+        "fork": false
+      }
+    ],
+    "wxmr81": [
+      {
+        "name": "wxmr81/Automatically-Detect-On-Ball-Screens",
+        "description": "Uses SportsVU Optical Tracking Data to check if screens occur in a play",
+        "fork": true
+      },
+      {
+        "name": "wxmr81/baller2vec",
+        "description": "A multi-entity Transformer for multi-agent spatiotemporal modeling.",
+        "fork": true
+      },
+      {
+        "name": "wxmr81/ByteTrack",
+        "description": "[ECCV 2022] ByteTrack: Multi-Object Tracking by Associating Every Detection Box",
+        "fork": true
+      },
+      {
+        "name": "wxmr81/CBA_spider",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "wxmr81/CoachAI-Projects",
+        "description": "Official research projects of badminton CoachAI",
+        "fork": true
+      },
+      {
+        "name": "wxmr81/DENCLUE",
+        "description": "DENCLUE algorithm for cluster analysis",
+        "fork": true
+      },
+      {
+        "name": "wxmr81/fairseq",
+        "description": "Facebook AI Research Sequence-to-Sequence Toolkit written in Python.",
+        "fork": true
+      },
+      {
+        "name": "wxmr81/flux",
+        "description": "Application Architecture for Building User Interfaces",
+        "fork": true
+      },
+      {
+        "name": "wxmr81/Football-o-Genetics",
+        "description": "An application for \"evolving\" near-optimal offensive play calling strategies.",
+        "fork": true
+      },
+      {
+        "name": "wxmr81/HoopTransformer",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "wxmr81/onepager",
+        "description": "Onepage Theme/Website Builder for WordPress and Joomla",
+        "fork": true
+      },
+      {
+        "name": "wxmr81/Senior-Thesis",
+        "description": "Files used for Senior Thesis (Yale University, Spring 2019)",
+        "fork": true
+      },
+      {
+        "name": "wxmr81/sentence-transformers",
+        "description": "Multilingual Sentence & Image Embeddings with BERT",
+        "fork": true
+      }
+    ],
+    "kpelechrinis": [
+      {
+        "name": "kpelechrinis/adjusted_plusminus",
+        "description": "Data and R code to calculate the adjusted plus minus in basketball",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/AnalyticsChallenge2020",
+        "description": "Home of the 2020 SIS Analytics Challenge",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/assist-value",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/Bayes_NFLKickers",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/BT-model",
+        "description": "An example of Bradley-Terry model with win-loss relationships in the NBA",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/CMSAC_coach_ratings",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/coach_ratings",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/coronavirus-ts",
+        "description": "Bokeh app for visualizing the timeseries for the coronavirus data obtained from John Hopkins. ",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/COVID-19",
+        "description": "Novel Coronavirus (COVID-19) Cases, provided by JHU CSSE",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/covid-19-data",
+        "description": "An ongoing repository of data on coronavirus cases and deaths in the U.S.",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/covid-20",
+        "description": "A collection of work related to COVID-19",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/covid19-incubation",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/covid19-truecases",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/elorating_euroleague",
+        "description": "This repo implements the basic functionality of the Elo rating system and applies it to the 2016-17 Euroleague basketball championship.",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/eLPAR-soccer",
+        "description": "This repository includes all the code and data used for developing the expected league points above replacement for soccer as described in \"Positional Value in Soccer: Expected League Points Added above Replacement\"",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/epiDAMIK20-COVID",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/Euler-Lotka-R0",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/EuroLeagueSimulation",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/footballonomics",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/foul_accumulation_nba",
+        "description": "Code for foul accumulation paper",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/GreekBasketLeagueSimulation",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/greek_basketball_league_players",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/HotHand-NBA-Tracking",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/infosci2595-ml-assistant",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/L2M",
+        "description": "Last two minute report data from the NBA",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/NBA-pbp",
+        "description": "R code for downloading NBA play-by-play data for the 2017-18 season",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/NBA-ref-analysis",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/NBA-topshot-anomalous-trades",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/NBAapi",
+        "description": "Extract information from NBA api",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/NBA_Shot_Data",
+        "description": "This repository includes the NBA shot data used in our paper: ",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/NBA_Tutorials",
+        "description": "Tutorials for processing nba data",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/next-gen-scrapy",
+        "description": null,
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/NFL-ExpectedPoints-Ratings",
+        "description": "This repository includes the code for obtaining NFL team ratings in terms of expected points. The method is described in our work: \"Evaluating NFL plays: Expected points adjusted for schedule\"",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/NFL-leading-effects",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/NFL-OT",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/nfl-preseason-ratings",
+        "description": "Code for obtaining pre-season NFL team ratings based on Vegas total wins betting lines",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/nylongems",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/opendata-basketball",
+        "description": "Opendata Repo for basketballl",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/osm4routing",
+        "description": "Parse OpenStreetMap data for routing",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/ParkingCruise",
+        "description": "Keep track of how much you waste looking for parking!",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/Pitt-Bikenomics",
+        "description": "This repository includes the data from our working paper.  Please provide the appropriate reference if you use the data: Pelechrinis, Konstantinos and Zacharias, Christos and Kokkodis, Marios and Lappas, Theodoros, On the Value of Shared Bike Systems in Urban Environments: Evidence from the Real Estate Market (November 18, 2015). Available at SSRN: http://ssrn.com/abstract=2692802",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/populartimes",
+        "description": null,
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/powerhop",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/probabilistic_merge_rank",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/RFCDE",
+        "description": "Random Forests for Conditional Density Estimation",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/RNN_basketball",
+        "description": "LSTM + MDN for basketball trajectories",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/safegraph_py",
+        "description": "Python code for common, repeatable data wrangling and analysis of SafeGraph data",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/ScienceBall",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/SCOTUS_polarization",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/seirsplus",
+        "description": "Models of SEIRS epidemic dynamics with extensions, including network-structured populations, testing, contact tracing, and social distancing.",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/ShapleyPlayerValue",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/ShotSongs",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/SkellamRegPy",
+        "description": "Basic script for Skellam regression",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/snap",
+        "description": "Stanford Network Analysis Platform (SNAP) is a general purpose network analysis and graph mining library.",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/soccer_team_ratings",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/socialways",
+        "description": "Social Ways: Learning Multi-Modal Distributions of Pedestrian Trajectories with GANs",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/sports_ai",
+        "description": "computer vision and sports",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/SSAC-coauthor-network",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/trackpark",
+        "description": "This repository has migrated to ParkingCruise.",
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/TrumpFactBot_bsky",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/UrbanEpidemicSim",
+        "description": null,
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/urbanopticon-london",
+        "description": "🏬🏡 Urban experiment and game. Done in partnership with University of Cambridge, the goal was to extract a partial psychological map of London following Stanley Milgram's 1972 experiment in New York. Results have been publish in the 22nd International World Wide Web Conference.",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/us-potus-model",
+        "description": "Code for a dynamic multilevel Bayesian model to predict US presidential elections. Written in R and Stan.",
+        "fork": true
+      },
+      {
+        "name": "kpelechrinis/VAindex",
+        "description": null,
+        "fork": false
+      },
+      {
+        "name": "kpelechrinis/volleyball-player-tracker",
+        "description": "AI-powered volleyball player tracking pipeline using RF-DETR and Meta's SAM3. Automatically detects players from game footage, maps positions to real-world court coordinates via homography, and exports timestamped CSV data for analytics.",
+        "fork": true
+      }
+    ]
+  },
+  "github_search": {
+    "\"Hoop-MSSL\" in:name,description,readme": {
+      "total_count": 1,
+      "items": [
+        "ytrqua3/Hoop-MSSL"
+      ]
+    },
+    "HoopMSSL": {
+      "total_count": 0,
+      "items": []
+    },
+    "\"Hoop-MSSL\" user:kpelechrinis": {
+      "total_count": 0,
+      "items": []
+    },
+    "\"Hoop-MSSL\" user:Cesar-Shao": {
+      "total_count": 0,
+      "items": []
+    }
+  },
+  "http_reads": [
+    {
+      "url": "https://api2.openreview.net/notes?id=PGqaqOA9s9",
+      "status": 403,
+      "final_host": "api2.openreview.net",
+      "links": [],
+      "text_excerpt": "{\"name\":\"ChallengeRequiredError\",\"message\":\"Challenge verification required (2026-10-05-5551848)\",\"status\":403,\"details\":{\"challengeUrl\":\"https://openreview.net/challenge?redirect=https%3A%2F%2Fapi2.openreview.net%2Fnote"
+    },
+    {
+      "url": "https://drive.google.com/file/d/1qdcXb9CRJZgniNVaViiZaQXNiWxpiTnQ/view",
+      "status": 401,
+      "final_host": "drive.google.com",
+      "links": [],
+      "text_excerpt": "允许 Google Drive访问您必要的 Cookie 停用必要的 Cookie 后，您将无法访问此内容 了解详情 允许使用 Cookie 登录到您的 Google 账号 您必须登录才能访问此内容 登录 无法访问您的 Google 账号 我们目前无法访问此内容。请尝试登录您的 Google 账号或允许 Cookie 访问以继续操作。 了解详情"
+    },
+    {
+      "url": "https://www.cs.ucf.edu/diidlab/publications/hoopeval-individual-player-action-evaluation-via-deep-reinforcement-learning/",
+      "status": 200,
+      "final_host": "www.cs.ucf.edu",
+      "links": [],
+      "text_excerpt": "HoopEval: Individual Player Action Evaluation via Deep Reinforcement Learning | DiiD Lab @ UCF Skip to content Designing Interactive & Intelligent Data Lab Home Research People Projects Publications Teaching Apply HoopEv"
+    }
+  ]
+}

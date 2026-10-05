@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "thesis": {
+    "url": "https://oa.upm.es/92222/1/XING_WANG.pdf",
+    "sha256": "59d6edf35ca824f0e9b810fa8638beb211c975378a4e6129f11109e40e1d0899",
+    "pdf_pages": 177,
+    "read_scope": "Targeted methods, results and limitations for studies 1-4, not a full page-by-page thesis review. Diagram PDF page 88 visually inspected.",
+    "key_pdf_pages": {
+      "transformer_input": [
+        85,
+        86,
+        88,
+        89
+      ],
+      "transformer_classification": [
+        96,
+        97,
+        98,
+        129,
+        132
+      ],
+      "transformer_limits": [
+        146
+      ],
+      "rest_model": [
+        81,
+        82,
+        83,
+        84
+      ],
+      "hoopeval": [
+        99,
+        100,
+        101,
+        102,
+        105,
+        106,
+        107
+      ]
+    }
+  },
+  "mssl": {
+    "official_pdf_url": "https://openreview.net/pdf/9c3236322a7e08fb406c93f1e376c91c437b8bcf.pdf",
+    "direct_download_status": 403,
+    "evidence": "Search-indexed text of original workshop PDF pages 4, 6, 8. Not successful full-PDF retrieval.",
+    "confirmed_downstream": [
+      "14-class set-play classification",
+      "pick-and-roll, off-ball screen and hand-off action recognition",
+      "ball-handler, screener, ball-handler defender and screener defender role classification"
+    ],
+    "unknown": "Complete action label dictionary: body names three actions while evaluation discusses four labels."
+  },
+  "excluded_false_author_hit": {
+    "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2023.1256796/full",
+    "authors": [
+      "Ruobing Chen",
+      "Mingxin Zhang",
+      "Xiao Xu"
+    ],
+    "reason": "Neither Shaoliang Zhang nor Xing Wang is an author."
+  },
+  "raw_files_local_only": "tmp/mentor-research/paper-guide/",
+  "fetched_primary_files": [
+    {
+      "url": "https://sportssuper.github.io/ZSL/publications/",
+      "http_status": 200,
+      "sha256": "49d3869c088c6c165e37b8df34acf0d6f3d0276cc80061d43d8ea9b768e56b64"
+    },
+    {
+      "url": "https://link.springer.com/article/10.1186/s13102-026-01620-0",
+      "http_status": 200,
+      "sha256": "1a66c4e0ea3b04e6002b33360f595d6f70b564004f27528c8c8e9af29df4d7ad"
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2021.788498/full",
+      "http_status": 200,
+      "sha256": "269da53687ff3d578792eb250970abcd5dd49b0b874a212256595cacd96b6524"
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2024.1412840/full",
+      "http_status": 200,
+      "sha256": "3b68c73dfc183cdb2a2e3abcf56524500d576d45326830dd34dfb4e5f96ed41a"
+    },
+    {
+      "url": "https://neurips.cc/virtual/2024/104552",
+      "http_status": 200,
+      "sha256": "90a82e8f3619ed8d74697d50375a014f33098fbcb8db8c066e855cd52c67d21c"
+    }
+  ]
+}

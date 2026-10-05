@@ -1,0 +1,124 @@
+{
+  "mode": "evaluation",
+  "seed": 42,
+  "device": "cuda",
+  "python": "3.12.10",
+  "torch": "2.11.0+cu128",
+  "numpy": "2.4.3",
+  "source_commit": "62cf695a9dfae0891ea3d5e091ccb73bf4d0e98b",
+  "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU",
+  "result": {
+    "input_kind": "synthetic tensors; untrained random initialization",
+    "inputs": {
+      "states": {
+        "shape": [
+          12,
+          80,
+          4
+        ],
+        "finite": true
+      },
+      "actions": {
+        "shape": [
+          6,
+          80
+        ],
+        "finite": true
+      },
+      "edge_attr": {
+        "shape": [
+          1,
+          80,
+          132,
+          2
+        ],
+        "finite": true
+      }
+    },
+    "outputs": {
+      "A": {
+        "ball": {
+          "1": {
+            "shape": [
+              80,
+              1,
+              6
+            ],
+            "finite": true
+          },
+          "2": {
+            "shape": [
+              80,
+              1,
+              6
+            ],
+            "finite": true
+          }
+        },
+        "pl": {
+          "1": {
+            "shape": [
+              80,
+              5,
+              36
+            ],
+            "finite": true
+          },
+          "2": {
+            "shape": [
+              80,
+              5,
+              36
+            ],
+            "finite": true
+          }
+        }
+      },
+      "V": {
+        "ball": {
+          "shape": [
+            1,
+            80,
+            1
+          ],
+          "finite": true
+        },
+        "pl": {
+          "shape": [
+            1,
+            80,
+            5,
+            1
+          ],
+          "finite": true
+        }
+      },
+      "qsq": {
+        "shape": [
+          1,
+          5,
+          80,
+          1
+        ],
+        "finite": true
+      },
+      "action_cls": {
+        "shape": [
+          80,
+          2
+        ],
+        "finite": true
+      },
+      "nbias": null
+    },
+    "parameter_count": 1915117,
+    "timing": {
+      "repeats_after_one_warmup": 5,
+      "median_ms": 9.123100000579143
+    },
+    "quality_evaluation": false,
+    "checkpoint_loaded": false
+  },
+  "status": "completed",
+  "peak_allocated_mib": 136.0693359375
+}

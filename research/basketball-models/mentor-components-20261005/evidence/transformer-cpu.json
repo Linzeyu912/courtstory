@@ -1,0 +1,65 @@
+{
+  "mode": "transformer",
+  "seed": 42,
+  "device": "cpu",
+  "python": "3.12.10",
+  "torch": "2.11.0+cu128",
+  "numpy": "2.4.3",
+  "source_commit": "74c8004171f1f61a9153982172dacfee1ec4e0bc",
+  "result": {
+    "input_kind": "synthetic motion; untrained random initialization",
+    "collators": {
+      "A": {
+        "status": "error",
+        "error": "NameError: name 'agent_team' is not defined"
+      },
+      "B": {
+        "status": "error",
+        "error": "NameError: name 'agent_team' is not defined"
+      },
+      "C": {
+        "status": "ok",
+        "states": [
+          6,
+          121,
+          3
+        ]
+      }
+    },
+    "input": {
+      "shape": [
+        6,
+        121,
+        3
+      ],
+      "finite": true
+    },
+    "outputs": {
+      "encoding": {
+        "shape": [
+          6,
+          121,
+          256
+        ],
+        "finite": true
+      },
+      "prediction": {
+        "shape": [
+          6,
+          121,
+          6,
+          4
+        ],
+        "finite": true
+      }
+    },
+    "parameter_count": 4726860,
+    "timing": {
+      "repeats_after_one_warmup": 5,
+      "median_ms": 73.2650999998441
+    },
+    "quality_evaluation": false,
+    "checkpoint_loaded": false
+  },
+  "status": "completed"
+}

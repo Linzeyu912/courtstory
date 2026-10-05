@@ -1,0 +1,44 @@
+[
+  {
+    "name": "transformer-drive",
+    "url": "https://drive.google.com/uc?export=download&id=1qdcXb9CRJZgniNVaViiZaQXNiWxpiTnQ",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 917928,
+    "sha256": "ac836c6199b9c634fefcf19804f0e4b225a4beb13b7de699567332b1f76d1676",
+    "final_url": "https://accounts.google.com/ (sign-in redirect; session query omitted)",
+    "local_ignored_path": "tmp/mentor-research/release-audit/transformer-drive.html",
+    "page_excerpt": "Google Drive: Sign-in Sign in to continue to Google Drive Email or phone Forgot email? Not your computer? Use a private browsing window to sign in. Learn more about using Guest mode Next Create account Afrikaans azərbaycan bosanski català Čeština Cymraeg Dansk Deutsch eesti English (United Kingdom) English (United States) Español (España) Español (Latinoamérica) euskara Filipino Français (Canada) Français (France) Gaeilge galego Hrvatski Indonesia isiZulu íslenska Italiano Kiswahili latviešu lietuvių magyar Melayu Nederlands norsk o‘zbek polski Português (Brasil) Português (Portugal) română shqip Slovenčina slovenščina srpski (latinica) Suomi Svenska Tiếng Việt Türkçe Ελληνικά беларуская български кыргызча қазақ тілі македонски монгол Русский српски (ћирилица) Українська ქართული հայերեն ‫עברית‬‎ ‫اردو‬‎ ‫العربية‬‎ ‫فارسی‬‎ አማርኛ नेपाली मराठी हिन्दी অসমীয়া বাংলা ਪੰਜਾਬੀ ગુજરાતી ଓଡ଼ିଆ தமிழ்"
+  },
+  {
+    "name": "transformer-colab",
+    "url": "https://colab.research.google.com/drive/1YCGmMn5CBC0j8d5sj45Y53FcAvxvoJWE",
+    "status": 200,
+    "content_type": "text/html; charset=UTF-8",
+    "bytes": 97749,
+    "sha256": "5213cfc50a677e095a9e513c996f8efedd87c0d96d86283482d7e2662488199f",
+    "final_url": "https://colab.research.google.com/drive/1YCGmMn5CBC0j8d5sj45Y53FcAvxvoJWE",
+    "local_ignored_path": "tmp/mentor-research/release-audit/transformer-colab.html",
+    "page_excerpt": "Google Colab Sign in"
+  },
+  {
+    "name": "transformer-notebook",
+    "url": "https://drive.google.com/uc?export=download&id=1YCGmMn5CBC0j8d5sj45Y53FcAvxvoJWE",
+    "status": 200,
+    "content_type": "application/octet-stream",
+    "bytes": 16838,
+    "sha256": "8c940ea768dd4378c59fbde3adfa4ba09a21ee345b096d807fceaf57a31532b6",
+    "final_url": "https://drive.usercontent.google.com/download?id=1YCGmMn5CBC0j8d5sj45Y53FcAvxvoJWE&export=download",
+    "local_ignored_path": "tmp/mentor-research/release-audit/transformer-notebook.bin"
+  },
+  {
+    "name": "evaluation-historical",
+    "url": "https://raw.githubusercontent.com/Mr81wx/HoopEval/3a75cad8f024e457be1b76f90ea176cb59037104/1030_soft_onlyball/version_13.ckpt",
+    "status": 200,
+    "content_type": "application/octet-stream",
+    "bytes": 17359176,
+    "sha256": "80b3a25b08cdc81ab5a68b09ab37baa73d8ea81f0a834d1967aa1fc81920cb90",
+    "final_url": "https://raw.githubusercontent.com/Mr81wx/HoopEval/3a75cad8f024e457be1b76f90ea176cb59037104/1030_soft_onlyball/version_13.ckpt",
+    "local_ignored_path": "tmp/mentor-research/release-audit/evaluation-historical.bin"
+  }
+]
