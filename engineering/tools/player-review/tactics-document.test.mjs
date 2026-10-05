@@ -56,3 +56,12 @@ test('optional presentation data rejects malformed edits instead of accepting un
   }
   await validateDocument({...d,presentation:{schemaVersion:1,routes:[]}});
 });
+
+test('explicit V1 migration keeps its source geometry and legacy output timing with a separate backup',async()=>{
+  const {migrateTacticsDocument}=await import('./tactics-document.mjs'),{createAnnotation,annotationStatus}=await import('./tactics-annotations.mjs'),{compileProduction}=await import('./tactics-production.mjs');
+  const old=createAnnotation(await fixture(),{id:'old-route',type:'route',phaseId:'phase-1',entityId:null,frame:12,space:'court',points:[{x:18,y:10},{x:22,y:9}]}),before=structuredClone(old);
+  const {document:migrated,backup}=await migrateTacticsDocument(old,6.2);
+  assert.deepEqual(old,before);assert.deepEqual(backup,before);assert.equal(migrated.legacyTiming,true);await validateDocument(migrated);
+  assert.equal(annotationStatus(migrated).stale.length,0);assert.deepEqual(migrated.annotations.items[0].points,old.annotations.items[0].points);
+  assert.deepEqual(compileProduction(migrated).frames,compileProduction(old).frames);
+});

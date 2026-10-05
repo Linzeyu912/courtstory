@@ -3,6 +3,10 @@ import {validateDocument,reindexPhases} from './tactics-document.mjs';
 import {createAnnotation,annotationPresentation,ANNOTATION_REASONS} from './tactics-annotations.mjs';
 import {calibrationAt} from './court.mjs';
 import {updateProductionCamera,updateProductionCue,DEFAULT_RIBBON} from './tactics-production.mjs';
+import {createCourtAnnotation} from './tactics-court-editor.mjs';
+import {upsertTacticKeyframe} from './tactics-keyframes.mjs';
+import {preparationDigest} from './court-preparation.mjs';
+import {validateFrameRange} from './tactics-time-range.mjs';
 
 const object=properties=>({type:'object',additionalProperties:false,required:Object.keys(properties),properties});
 const string={type:'string',maxLength:2000},frame={type:'integer',minimum:0},frames={type:'array',items:frame,minItems:1,maxItems:40};
@@ -26,6 +30,45 @@ export async function documentDigest(document){
   const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(canonicalJSON(document)));
   return [...new Uint8Array(bytes)].map(n=>n.toString(16).padStart(2,'0')).join('');
 }
+const rangeSchema=object({startFrame:frame,endFrameExclusive:frame});
+export const AGENT_SCHEMA_V3=object({schemaVersion:{type:'integer',enum:[3]},summary:string,issues:AGENT_SCHEMA_V1.properties.issues,range:rangeSchema,preparationDigest:{type:'string',pattern:'^[a-f0-9]{64}$'},
+  annotations:{type:'array',minItems:1,maxItems:40,items:object({id:{type:'string',minLength:1,maxLength:100},phaseId:{type:'string',minLength:1,maxLength:100},type:{type:'string',enum:['route','screen','spotlight']},entityId:person,
+    startFrame:frame,endFrameExclusive:frame,cueFrame:frame,points:{type:'array',minItems:1,maxItems:4,items:point},curve:{type:'string',enum:['polyline','cubic_bezier']},
+    style:object({angle:{type:'number',minimum:-360,maximum:360},size:{type:'number',minimum:.5,maximum:3},color:{type:'string',pattern:'^#[a-fA-F0-9]{6}$'},pattern:{type:'string',enum:['solid','dashed','dots']}}),
+    meaning:{type:'string',enum:['current_action','later_observed_action','pass','screen','focus']},progressFrames:{type:'array',minItems:2,maxItems:80,items:object({frame,t:{type:'number',minimum:0,maximum:1}})},evidenceFrames:frames,explanation:string})},
+  keyframes:{type:'array',maxItems:40,items:object({frame,annotationIds:{type:'array',minItems:1,maxItems:40,items:{type:'string',minLength:1,maxLength:100}},freeze:{type:'boolean'},holdSeconds:{type:'number',minimum:0,maximum:30}})}
+});
+async function adoptV3(document,candidate,{jobId,scope,range,selectedIds}){
+  await validateDocument(document);schemaCheck(candidate,AGENT_SCHEMA_V3);canonicalJSON(candidate);
+  if(document.schemaVersion!==2||scope!=='range'||!document.review.courtPreparation)throw new Error('V3 需要准备后的 2D 版本与明确选区。');
+  validateFrameRange(document.review.sourceFrameMapping,range);
+  if(canonicalJSON(candidate.range)!==canonicalJSON(range)||candidate.preparationDigest!==preparationDigest(document.review.courtPreparation))throw new Error('Agent 选区或准备版本不匹配。');
+  const existing=new Set(document.playDefinition.participants.map(p=>p.id)),ids=new Set(),byId=new Map();
+  let d=structuredClone(document);
+  for(const a of candidate.annotations){
+    if(ids.has(a.id)||a.entityId!==null&&!existing.has(a.entityId))throw new Error('Agent 球员或对象引用无效。');ids.add(a.id);
+    if(a.startFrame<range.startFrame||a.endFrameExclusive>range.endFrameExclusive||a.startFrame>=a.endFrameExclusive||a.evidenceFrames.some(f=>f<a.startFrame||f>=a.endFrameExclusive))throw new Error('Agent 时间或证据超出所选区间。');
+    const phase=d.playDefinition.phases.find(p=>p.phaseId===a.phaseId);
+    if(!phase||a.startFrame<phase.startFrame||a.endFrameExclusive>phase.endFrameExclusive)throw new Error('Agent 必须按已有阶段分段。');
+    if(a.entityId&&a.evidenceFrames.every(f=>!Number.isFinite(d.review.courtPreparation.preparedByPlayer[a.entityId]?.[f]?.x)))throw new Error('关联球员缺少 2D 运动证据。');
+    const id=`${jobId}-${a.id}`;
+    d=createCourtAnnotation(d,{...a,id,range:{startFrame:a.startFrame,endFrameExclusive:a.endFrameExclusive},pattern:a.style.pattern,style:a.type==='route'?a.style:{angle:a.style.angle,size:a.style.size,color:a.style.color}});
+    const item=d.annotations.items.find(x=>x.id===id);item.curve=a.curve;item.anchorFrame=a.cueFrame;item.cueFrame=a.cueFrame;item.progressFrames=structuredClone(a.progressFrames);item.origin={kind:'agent',jobId,sourceFrames:a.evidenceFrames,note:a.explanation};
+    byId.set(a.id,id);
+  }
+  for(const [index,k] of candidate.keyframes.entries()){
+    if(k.annotationIds.some(id=>!byId.has(id)))throw new Error('Agent 讲解点引用未知图形。');
+    d=upsertTacticKeyframe(d,{...k,id:`${jobId}-cue-${index}`,annotationIds:k.annotationIds.map(id=>byId.get(id))});
+  }
+  await validateDocument(d);
+  if(selectedIds!==undefined){
+    if(!Array.isArray(selectedIds)||!selectedIds.length||new Set(selectedIds).size!==selectedIds.length||selectedIds.some(id=>!ids.has(id)))throw new Error('所选候选图形无效。');
+    const selected=new Set(selectedIds.map(id=>byId.get(id)));
+    d.annotations.items=d.annotations.items.filter(a=>!a.origin||a.origin.jobId!==jobId||selected.has(a.id));
+    if(d.tacticKeyframes){for(const k of d.tacticKeyframes.items)k.annotationIds=k.annotationIds.filter(id=>d.annotations.items.some(a=>a.id===id));d.tacticKeyframes.items=d.tacticKeyframes.items.filter(k=>k.annotationIds.length);}
+  }
+  d.agentRuns=[...(d.agentRuns??[]),{jobId,summary:candidate.summary,issues:candidate.issues}];return d;
+}
 function schemaCheck(value,schema,path='方案'){
   const types=Array.isArray(schema.type)?schema.type:[schema.type],type=value===null?'null':Array.isArray(value)?'array':typeof value;
   if(!types.includes(type)&&!(types.includes('integer')&&Number.isSafeInteger(value)))throw new Error(`${path} 格式不正确。`);
@@ -39,9 +82,11 @@ function schemaCheck(value,schema,path='方案'){
   else if(type==='string'&&(value.length<(schema.minLength??0)||value.length>(schema.maxLength??Infinity)||schema.pattern&&!new RegExp(schema.pattern).test(value)))throw new Error(`${path} 文本不正确。`);
   if(schema.enum&&!schema.enum.includes(value))throw new Error(`${path} 值不受支持。`);
 }
-export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseId}){
-  if(typeof jobId!=='string'||!/^[a-zA-Z0-9-]{1,80}$/.test(jobId)||!['phase','play'].includes(scope))throw new Error('Agent 任务绑定无效。');
+export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseId,range:selectedRange,selectedIds}){
+  if(typeof jobId!=='string'||!/^[a-zA-Z0-9-]{1,80}$/.test(jobId)||!['phase','play','range'].includes(scope))throw new Error('Agent 任务绑定无效。');
   if(document.agentRuns?.some(run=>run.jobId===jobId))return structuredClone(document);
+  if(candidate?.schemaVersion===3)return adoptV3(document,candidate,{jobId,scope,range:selectedRange,selectedIds});
+  if(scope==='range')throw new Error('选区生成需要 V3 候选。');
   await validateDocument(document);schemaCheck(candidate,Object.hasOwn(candidate,'schemaVersion')?AGENT_SCHEMA:AGENT_SCHEMA_V1);canonicalJSON(candidate);
   let d=structuredClone(document);const p=d.playDefinition,target=p.phases.find(s=>s.phaseId===phaseId),ids=new Set(p.participants.map(e=>e.id));
   if(!target)throw new Error('分析阶段已不存在。');

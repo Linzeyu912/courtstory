@@ -1,3 +1,5 @@
+import {mountCourtPreparationUI} from './court-preparation-ui.mjs';
+import {courtPreparationStatus,preparationDependencies} from './court-preparation.mjs';
 import {COURT,LANDMARK_NAMES,landmarks,keyframePoints,fitKeyframe,project,calibrationAt,buildCourtTrajectories,courtGaps,pathSegments,smoothCourtTrajectory,validQuad,addCourtAnchor,addEvent} from './court.mjs';
 import {courtLandmarks,courtMarkings} from './court-geometry.mjs';
 import {normalizeCourtCandidates,acceptCourtCandidates,calibrationGuideState,reorientCalibrationKey,confirmCalibrationProjection,calibrationGeometryFingerprint,invalidateCameraDependents,isHumanCalibrationKey,clearCalibrationProjectionReview,calibrationReviewStates} from './calibration-guide.mjs';
@@ -21,6 +23,7 @@ export function createWorkspace(api){
   const shades={projected:'#1675b6',court_manual:'#6e4fd0',court_estimated:'#b96a09',missing:'#c83d4c',conflict:'#ae385c',uncalibrated:'#a08bd1',out_of_view:'#8c98a8'};
   const time=i=>`${clip.frames[i].time.toFixed(2)} s`;
   const shell=mountWorkbenchShell(api);
+  const preparationUI=Number.isFinite(clip.mediaEndTime)?mountCourtPreparationUI({host:$('drawerBody'),clip,sample,variant,state,change,redraw:api.redraw,next:()=>shell.showArea('tactics')}):{render(){},display(){},raw(){},compare(){return false;}};
   const groundUI=mountGroundComparison({sample,variant,clip,state,change});
   let ballPoints=[],courtMaps=[];
   const ballUI=mountBallCourt({clip,state,change,redraw:api.redraw});
@@ -224,9 +227,9 @@ export function createWorkspace(api){
     }
   }
   function refresh(){
-    groundUI.render();
+    groundUI.render();preparationUI.render();
     const s=state();courtMaps=clip.frames.map((_,i)=>calibrationAt(s.session.courtCalibration,i,clip.frames,s.session.cuts));
-    courtPoints=buildCourtTrajectories(s.session,clip.frames,s.trajectories,{clip,maps:courtMaps});const points=courtPoints[s.active]||[],selected=isSelected(s.entity),gaps=selected?courtGaps(points):[];
+    courtPoints=buildCourtTrajectories(s.session,clip.frames,s.trajectories,{clip,maps:courtMaps});if(courtPreparationStatus(s.session.courtPreparation,preparationDependencies(s.session,clip)).current)courtPoints=s.session.courtPreparation.preparedByPlayer;const points=courtPoints[s.active]||[],selected=isSelected(s.entity),gaps=selected?courtGaps(points):[];
     ballPoints=buildBallCourtTrajectory(s.session,clip.frames,s.trajectories,courtPoints,clip);
     $('playerHeading').textContent=`${entityLabel(s.active)}${s.entity.name!==entityLabel(s.active)?` · ${s.entity.name}`:''}`;
     $('playerIdentity').textContent=[s.entity.team||'球队待填写',s.entity.jersey?`#${s.entity.jersey}`:'号码待填写'].join(' · ');
@@ -248,7 +251,7 @@ export function createWorkspace(api){
   }
   function draw(){
     ballUI.render(ballPoints[state().frame]);
-    const s=state(),points=courtPoints[s.active]||[],displayPoints=$('smoothCourtPath').checked?smoothCourtTrajectory(points,s.session.cuts):points,
+    const s=state(),points=courtPoints[s.active]||[],displayPoints=preparationUI.display()?.[s.active]??points,
       current=points[s.frame],displayCurrent=displayPoints[s.frame],mapping=calibrationAt(s.session.courtCalibration,s.frame,clip.frames,s.session.cuts);
     const players=s.session.entities.filter(isSelected).filter(e=>e.role==='player'),humanPlayers=players.filter(isHumanIdentitySelected);
     const mappedNow=players.filter(e=>courtPoints[e.id]?.[s.frame]?.x!=null).length;
@@ -291,6 +294,7 @@ export function createWorkspace(api){
       endpoints.forEach((p,i)=>{const[x,y]=screen(p.x,p.y);ctx.beginPath();ctx.arc(x,y,7,0,Math.PI*2);ctx.stroke();if(i===0){ctx.fillStyle='#a52f42';ctx.font='11px sans-serif';ctx.fillText(`${time(gap.start)} 缺口`,x+10,y-10);}if(p.x>=start&&p.x<=start+span)hits.push({x,y,frame:gap.start,id:s.active,kind:'gap',reason:gap.reason});});
     }
     for(const e of s.entity.events||[]){const p=displayPoints[e.frame];if(p?.x==null)continue;const[x,y]=screen(p.x,p.y);ctx.save();ctx.translate(x,y);ctx.rotate(Math.PI/4);ctx.fillStyle='#f2d58c';ctx.fillRect(-5,-5,10,10);ctx.restore();ctx.fillStyle='#f2d58c';ctx.font='11px sans-serif';ctx.fillText(e.type,x+9,y+14);if(p.x>=start&&p.x<=start+span)hits.push({x,y,frame:e.frame,id:s.active,kind:'event'});}
+    if(preparationUI.compare()){const raw=preparationUI.raw()?.[s.active]??[];ctx.strokeStyle='#9aa3ae';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);for(const segment of pathSegments(raw,s.session.cuts)){ctx.beginPath();segment.forEach((p,i)=>{const [x,y]=screen(p.x,p.y);if(i)ctx.lineTo(x,y);else ctx.moveTo(x,y);});ctx.stroke();}ctx.setLineDash([]);}
     for(const entity of s.session.entities){if(!isSelected(entity))continue;const p=entity.id===s.active?displayCurrent:courtPoints[entity.id]?.[s.frame];if(p?.x==null)continue;const[x,y]=screen(p.x,p.y),selected=entity.id===s.active,tentative=s.trajectories[entity.id]?.[s.frame]?.frameIdentityConfirmed!==true;ctx.beginPath();ctx.arc(x,y,selected?13:10,0,Math.PI*2);ctx.fillStyle=color(entity.id);ctx.fill();ctx.strokeStyle=selected?'#fff':'#12363a';ctx.lineWidth=selected?3:1.5;ctx.setLineDash(tentative?[3,2]:[]);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#09272d';ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(entity.role==='player'?entity.id.slice(1):entity.id,x,y+3);ctx.textAlign='left';if(p.x>=start&&p.x<=start+span&&p.y>=0&&p.y<=COURT.width)hits.push({x,y,frame:s.frame,id:entity.id,kind:'player'});}
     if(step==='calibration')courtLandmarks(pending?.side||$('calibrationSide').value).forEach(({x,y,id})=>{const[a,b]=screen(x,y);ctx.fillStyle=id===(pending?.id||(pending?.image?'ABCD'[pending.image.length]:$('calibrationLandmark').value))?'#d44331':'#fff8e8';ctx.beginPath();ctx.arc(a,b,9,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#796548';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle=id===(pending?.id||(pending?.image?'ABCD'[pending.image.length]:$('calibrationLandmark').value))?'white':'#183739';ctx.font='bold 11px sans-serif';ctx.fillText(id,a-4,b+4);});
     const ball=ballPoints[s.frame];

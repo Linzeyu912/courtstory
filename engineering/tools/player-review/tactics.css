@@ -58,3 +58,29 @@
 @media(max-width:1000px){.tactics-agent-inputs{grid-template-columns:1fr 1fr}.tactics-agent-inputs button{justify-self:start}}
 @media(max-width:1000px){.tactics-layout{grid-template-columns:1fr}.tactics-controls{position:static;max-height:none}.tactics-object-list{grid-template-columns:repeat(2,minmax(0,1fr))}.tactics-controls .field{max-width:400px}}
 @media(max-width:620px){.tactics-heading .tactics-subtitle{display:none}.tactics-save-state{max-width:100px}.tactics-author-tools button{font-size:11px;gap:3px}.tactics-author-tools button span{font-size:15px}.tactics-instruction{flex-wrap:wrap}.tactics-secondary-grid{grid-template-columns:1fr}.tactics-panel{padding:10px}.tactics-object-list{grid-template-columns:1fr}.workbench-shell[data-area="tactics"] .source-toolbar .video-picker{gap:6px;font-size:0}.tactics-transport .small{width:100%}}
+
+/* Source interval and 2D creation controls stay visible at normal laptop sizes. */
+.tactics-source-timeline {padding:12px;border:1px solid #31465a;border-radius:10px;margin-bottom:12px;}
+.tactics-range-bar,[data-object] {display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.tactics-range-bar label,[data-object] label {display:flex;gap:6px;align-items:center;}
+.tactics-source-timeline input[type=number] {width:92px;}
+.tactics-source-timeline input[type=range] {width:110px;min-width:70px;}
+.tactics-keyframe-heading {display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.tactics-keyframe-cards {display:flex;gap:10px;overflow:auto;margin-top:8px;}
+.tactics-keyframe-cards article {display:flex;flex-wrap:wrap;gap:6px;min-width:230px;padding:8px;border:1px solid #31465a;border-radius:8px;}
+#tacticsSyncVideo {width:100%;height:auto;max-height:210px;object-fit:contain;background:#10222d;border-radius:8px;}
+#tacticsPanel[data-document-version="2"] .tactics-time-settings {display:none;}
+#tacticsPanel[data-document-version="2"] .tactics-cue-controls {display:none;}
+#tacticsPanel[data-document-version="2"] #tacticsMigrate {display:none;}
+.court-preparation-panel,.identity-coverage-panel {padding:12px;border:1px solid #91a4ad;border-radius:10px;margin:12px 0;}
+.court-preparation-panel input[type=number] {max-width:110px;}
+.identity-coverage-panel [data-coverage] {display:flex;gap:4px;overflow:auto;}
+.identity-coverage-panel [data-coverage] button {white-space:nowrap;}
+#tacticsAgentPreview>label {display:block;padding:6px;}
+@media(max-width:900px){.tactics-layout{grid-template-columns:1fr;}#tacticsSyncVideo{max-height:160px}.tactics-controls{max-height:none}.tactics-source-timeline{padding:8px;}}
+
+.tactics-keyframe-cards img{display:block;max-width:100%;border-radius:4px}.tactics-agent-court-preview svg{max-width:100%;background:#143b40;border-radius:6px}
+
+.source-model-settings{grid-area:models;min-width:0;padding:12px 0}.source-model-settings summary{cursor:pointer;font-size:12px;color:#426480}.source-model-settings .source-model-controls{margin-top:10px}
+
+.tactics-controls .tactics-agent-inputs{display:block}.tactics-controls .tactics-agent-panel{margin-top:14px}.tactics-controls .tactics-agent-panel .field{margin:8px 0}
