@@ -201,12 +201,18 @@ export function exportReview(session, clip, confirmedAt, {allowEmpty=false}={}) 
   if (!entities.length&&!allowEmpty) throw new Error('Select at least one target before confirming');
   const prepared=session.courtPreparation&&courtPreparationStatus(session.courtPreparation,preparationDependencies(session,clip)).current?session.courtPreparation:null;
   const {court,courtTrajectories,...coordinateData}=exportCourtData(session,clip.frames,trajectories,clip);
+  const effectiveCourt=prepared?.preparedByPlayer??courtTrajectories;
+  const refinements=(prepared?.operations??[]).filter(operation=>operation.type==='qwen_ground_fit').map(({candidate})=>({
+    jobId:candidate.jobId,revision:candidate.revision,model:candidate.model,range:structuredClone(candidate.range),
+    entityIds:[...candidate.entityIds],completion:candidate.completion,fit:structuredClone(candidate.fit)
+  }));
   if(clip.supportsCourtCalibration===false){court.template=null;court.applicability='unsupported_source_court';}
   return {schemaVersion:2,...(Number.isFinite(clip.mediaEndTime)?{mediaEndTime:clip.mediaEndTime}:{}),videoSha256:clip.video_sha256,coordinateSystem:'image_pixels',court,...coordinateData,
-    ...(prepared?{courtPreparation:structuredClone(prepared),coordinatePolicy:{...coordinateData.coordinatePolicy,displaySmoothingApplied:prepared.smoothingPatches.length>0,preparedCourtRevision:prepared.revision}}:{}),
+    ...(prepared?{courtPreparation:structuredClone(prepared),coordinatePolicy:{...coordinateData.coordinatePolicy,displaySmoothingApplied:prepared.smoothingPatches.length>0,
+      preparedCourtRevision:prepared.revision,groundRefinementApplied:refinements.length>0,groundRefinements:refinements,modelPositionsRequireReview:true}}:{}),
     teamIdentities:session.teamIdentities||null,
     ballStateEdits:session.ballStateEdits||[],ballGroundAnchors:session.ballGroundAnchors||[],
-    ballCourtTrajectory:buildBallCourtTrajectory(session,clip.frames,trajectories,courtTrajectories,clip),
+    ballCourtTrajectory:buildBallCourtTrajectory(session,clip.frames,trajectories,effectiveCourt,clip),
     width:clip.width,height:clip.height,selectionConfirmed:entities.length>0&&entities.every(isHumanIdentitySelected),confirmedAt,
     trackingRevision:clip.tracking_revision||clip.variant||'original',trackingFingerprint:clip.tracking_fingerprint||null,
     trackingMetadata:clip.trackingMetadata||null,modelSuggestionLoad:session.modelSuggestionLoad||null,
@@ -215,7 +221,7 @@ export function exportReview(session, clip, confirmedAt, {allowEmpty=false}={}) 
     sourceFrameMapping:clip.frames.map(f=>({frame:f.frame,time:f.time,sourceFrame:f.source_frame??f.frame,sourceTime:f.source_time??f.time})),
     settings:{maxGapSeconds:session.maxGapSeconds,cuts:[...session.cuts],sourceCuts,identityBindingMode:IDENTITY_BINDING_MODE},
     sceneObjects:exportSceneObjects(session,clip.frames,session.cuts,clip),
-    entities:entities.map(entity => ({...entity,teamSide:entityTeamSide(entity),identityConfirmed:isHumanIdentitySelected(entity),trajectory:trajectories[entity.id],unresolved:gapRanges(trajectories[entity.id]),unverifiedPathFrames:trajectories[entity.id].filter(p=>p.source==='manual_path').map(p=>p.frame),courtTrajectory:prepared?.preparedByPlayer[entity.id]??courtTrajectories[entity.id],courtUnresolved:courtGaps(courtTrajectories[entity.id])}))};
+    entities:entities.map(entity => ({...entity,teamSide:entityTeamSide(entity),identityConfirmed:isHumanIdentitySelected(entity),trajectory:trajectories[entity.id],unresolved:gapRanges(trajectories[entity.id]),unverifiedPathFrames:trajectories[entity.id].filter(p=>p.source==='manual_path').map(p=>p.frame),courtTrajectory:effectiveCourt[entity.id],courtUnresolved:courtGaps(effectiveCourt[entity.id])}))};
 }
 
 export function isSelected(entity){return Boolean(entity.anchors?.length||entity.courtAnchors?.length||entity.identityKeyframes?.some(key=>key.kind==='track')||(entity.bindings||[]).some(item=>item.kind==='track'));}

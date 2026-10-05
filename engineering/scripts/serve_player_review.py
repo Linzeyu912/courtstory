@@ -110,6 +110,8 @@ def main():
     identity_agent = IdentityAgent(Path(args.tactics_folder)/'identity-jobs',tactics,
                                   codex_path=args.tactics_agent_cli,timeout=args.tactics_agent_timeout,
                                   provider=args.identity_agent_provider,reasoning_effort=args.tactics_agent_reasoning_effort)
+    from ground_trajectory_agent import GroundTrajectoryAgent
+    ground_agent = GroundTrajectoryAgent(Path(args.tactics_folder)/'ground-trajectory-jobs', tactics)
     cache=Path(args.trim_root).resolve();cache.mkdir(parents=True,exist_ok=True)
     saved_path=cache/'library.json';saved=[]
     if saved_path.is_file():
@@ -159,6 +161,8 @@ def main():
         routes['/'+filename]=static/filename
     for filename in ['tactics-time-range.mjs','court-preparation.mjs','court-smoothing.mjs','court-preparation-ui.mjs','identity-coverage.mjs','tactics-court-editor.mjs','tactics-keyframes.mjs','tactics-court-projection.mjs','tactics-timeline-ui.mjs']:
         routes['/'+filename]=static/filename
+    for filename in ['ground-trajectory.mjs', 'ground-trajectory-fit.mjs', 'ground-trajectory-agent-client.mjs', 'ground-trajectory-agent-ui.mjs']:
+        routes['/'+filename]=static/filename
     # Explicit aliases for the independent engine's existing relative imports.
     for route,path in list(routes.items()):
         if route.endswith('.mjs'):
@@ -199,7 +203,7 @@ def main():
                 except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
                     self.json_response(400,{'error':str(error)})
                 return
-            if re.fullmatch(r'/api/(?:tactics|identity)-agent/jobs(?:/[a-zA-Z0-9-]+/(?:cancel|adopt))?',route):
+            if re.fullmatch(r'/api/(?:tactics|identity|ground-trajectory)-agent/jobs(?:/[a-zA-Z0-9-]+/(?:cancel|adopt))?',route):
                 try:
                     if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
                         self.headers.get('Origin',f'http://127.0.0.1:{self.server.server_port}')!=f'http://127.0.0.1:{self.server.server_port}'):
@@ -213,8 +217,9 @@ def main():
                     source=clips.get(request.get('sample'));variant=request.get('variant');qa=request.get('qa',False);kind=request.get('kind','workspace')
                     if not source or variant not in source['payloads'] or type(qa) is not bool:raise ValueError('找不到视频、模型或草稿空间。')
                     clip=json.loads(source['payloads'][variant])
-                    selected_agent=identity_agent if route.startswith('/api/identity-agent/') else agent
-                    extra=() if selected_agent is identity_agent else (kind,)
+                    selected_agent=(ground_agent if route.startswith('/api/ground-trajectory-agent/') else
+                                    identity_agent if route.startswith('/api/identity-agent/') else agent)
+                    extra=(kind,) if selected_agent is agent else ()
                     if route.endswith('/adopt'):result=selected_agent.adopt(route.split('/')[-2],request,clip,variant,qa,*extra)
                     elif route.endswith('/cancel'):result=selected_agent.cancel(route.split('/')[-2],clip,variant,qa)
                     else:result=selected_agent.create(request,clip,source['video'],variant,qa,*extra)
@@ -398,10 +403,11 @@ def main():
                     self.json_response(400,{'error':str(error)},head_only);return
             if route=='/api/video-library':
                 self.json_response(200,video_inventory(),head_only);return
-            if re.fullmatch(r'/api/(?:tactics|identity)-agent/(?:status|jobs/[a-zA-Z0-9-]+)',route):
+            if re.fullmatch(r'/api/(?:tactics|identity|ground-trajectory)-agent/(?:status|jobs/[a-zA-Z0-9-]+)',route):
                 try:
-                    selected_agent=identity_agent if route.startswith('/api/identity-agent/') else agent
-                    if selected_agent is identity_agent:
+                    selected_agent=(ground_agent if route.startswith('/api/ground-trajectory-agent/') else
+                                    identity_agent if route.startswith('/api/identity-agent/') else agent)
+                    if selected_agent is not agent:
                         if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
                             self.headers.get('Origin',f'http://127.0.0.1:{self.server.server_port}')!=f'http://127.0.0.1:{self.server.server_port}'):
                             self.send_error(403);return
@@ -538,6 +544,7 @@ def main():
     finally:
         renderer.close()
         identity_agent.close()
+        ground_agent.close()
         agent.close()
         local_library.close()
         server.server_close()

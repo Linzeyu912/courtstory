@@ -552,7 +552,7 @@ $('findLinks').addEventListener('click',()=>{
     button.addEventListener('click',()=>{setLinkTrack(item.id,item.start,item.end);seek(item.start);});$('linkSuggestions').append(button);}
 });
 sceneUI=mountSceneObjects({clip,state:()=>({session,frame,video}),change,toast,redraw:draw});
-workspace=createWorkspace({clip,sample,variant,getState:()=>({session,active,frame,mode,trajectories,video}),change,seek,toast,isSelected:hasAssociation,color,setMode,select:id=>{active=id;refresh();},redraw:draw});
+workspace=createWorkspace({clip,sample,variant,getState:()=>({session,sessionRevision,active,frame,mode,trajectories,video}),change,seek,undo:()=>$('undo').click(),toast,isSelected:hasAssociation,color,setMode,select:id=>{active=id;refresh();},redraw:draw});
 tacticsUI=mountTacticsUI({clip,sample,variant,qa,key,title:sampleInfo?.title||sample,
   snapshot:()=>JSON.parse(JSON.stringify(exportPlayerIdentities(exportReview(session,clip,null,{allowEmpty:true}),session))),
   selectedEntityId:()=>active,selectEntity:id=>{if(session.entities.some(e=>e.id===id)){active=id;draw();}},
