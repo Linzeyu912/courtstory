@@ -1,0 +1,216 @@
+{
+  "topic": "高水平多模态模型：篮球视频理解与战术分析",
+  "collected_on": "2026-10-06",
+  "timezone": "Asia/Shanghai",
+  "scope": "资料核查与候选建议；无本轮模型实测",
+  "search_summary": {
+    "requested_results": 45,
+    "returned_results": 45,
+    "unique_urls": 43,
+    "searches": 8,
+    "workstreams": 3
+  },
+  "count_note": "45 为检索返回条目数，43 为规范化 URL 数，不是逐篇全文验证数；sources 为报告采用来源，部分同源。",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Gemini 当前模型目录",
+      "url": "https://ai.google.dev/gemini-api/docs/models",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方 API 目录",
+      "supports": "当前模型名称及 API ID；不当作独立能力评测。"
+    },
+    {
+      "id": "S02",
+      "title": "Gemini 3.8 Flash 规格",
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方模型规格",
+      "supports": "输入模态、上下文、文本输出、GA / stable 状态。"
+    },
+    {
+      "id": "S03",
+      "title": "Gemini 视频理解",
+      "url": "https://ai.google.dev/gemini-api/docs/video-understanding",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方接口文档",
+      "supports": "默认 1 fps、快速动作限制、可配置抽帧、3.8 Flash 主动视频处理。"
+    },
+    {
+      "id": "S04",
+      "title": "Gemini API 价格",
+      "url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方计价页",
+      "supports": "3.8 Flash 标准与优惠期价格，输出包含思考 tokens。"
+    },
+    {
+      "id": "S05",
+      "title": "Gemini 4 Argon 发布说明",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "厂商发布公告；2026-09-30",
+      "supports": "已宣布但定向逐步开放；不当作本队已有 API 权限。"
+    },
+    {
+      "id": "S06",
+      "title": "Qwen3.8-Max 规格与价格",
+      "url": "https://www.alibabacloud.com/help/en/model-studio/qwen3-8-max",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方独立模型页",
+      "supports": "图像/文本/视频输入、地区价格、上下文、Max 与日期快照。"
+    },
+    {
+      "id": "S07",
+      "title": "Qwen3.8-Omni-Flash 规格",
+      "url": "https://www.alibabacloud.com/help/en/model-studio/qwen3-8-omni-flash",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方独立模型页",
+      "supports": "音画联合输入、文本输出、1M 上下文。"
+    },
+    {
+      "id": "S08",
+      "title": "Qwen 图像与视频理解",
+      "url": "https://help.aliyun.com/zh/model-studio/vision",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方接口文档；页标题和正文版本不完全一致",
+      "supports": "核对视觉任务及当前示例；具体模型规格以 S06/S07 为准。"
+    },
+    {
+      "id": "S09",
+      "title": "Qwen3.8 开放模型仓库 README",
+      "url": "https://raw.githubusercontent.com/QwenLM/Qwen3.8/main/README.md",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "原作者仓库，浮动 main 页面",
+      "supports": "开放模型发布日期；27B 与 2.4T 模型分开，不推断 API 与权重等价。"
+    },
+    {
+      "id": "S10",
+      "title": "Qwen3.8-27B 模型卡",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "作者模型卡，包含厂商自评",
+      "supports": "27B、图像/视频、原生 262144 上下文、托管版 coming soon；基准非独立验证。"
+    },
+    {
+      "id": "S11",
+      "title": "Qwen3.8-27B 原始模型卡",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/README.md",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "作者模型卡元数据；与 S10 同源",
+      "supports": "license: apache-2.0；不重复计算为独立评测证据。"
+    },
+    {
+      "id": "S12",
+      "title": "OpenAI GPT-6 Astra",
+      "url": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方模型页，经 OpenAI 文档工具获取",
+      "supports": "文本/图片输入与文本输出，工具能力、上下文及限制。"
+    },
+    {
+      "id": "S13",
+      "title": "OpenAI GPT-6.1 Sol",
+      "url": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方模型页，经 OpenAI 文档工具获取",
+      "supports": "模态、成本定位；Responses 工具调用与 Chat Completions 的区别。"
+    },
+    {
+      "id": "S14",
+      "title": "OpenAI API Pricing",
+      "url": "https://developers.openai.com/api/docs/pricing",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方计价页，经 OpenAI 文档工具获取",
+      "supports": "Standard 短上下文输入/输出价格，272K 分界；没有把 Batch 价格写成标准价。"
+    },
+    {
+      "id": "S15",
+      "title": "Claude 当前模型目录",
+      "url": "https://platform.claude.com/docs/en/models/overview",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方当前目录",
+      "supports": "Opus/Sonnet 5.5、Fable 5.1、输入模态、基础价格及平台 ID；平台存在不代表赛事账户可用。"
+    },
+    {
+      "id": "S16",
+      "title": "Claude Sonnet 5.5 发布说明",
+      "url": "https://www.anthropic.com/claude-sonnet-5-5",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方公告；2026-09-28，检索结果交叉核对",
+      "supports": "交叉核对 5.5 已发布；核心规格采用正文已读取的 S15。"
+    },
+    {
+      "id": "S17",
+      "title": "Kimi K3 原作者仓库",
+      "url": "https://github.com/moonshotai/Kimi-K3",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "作者模型卡/仓库，包含厂商自评",
+      "supports": "2.8T 总参数、104B 激活、1M 上下文、视频能力、开放权重与 Kimi K3 License；端点协议未调用验证。"
+    },
+    {
+      "id": "S18",
+      "title": "GLM-5V-Turbo 官方说明",
+      "url": "https://docs.z.ai/guides/vlm/glm-5v-turbo",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "官方模型文档",
+      "supports": "视频/图像支持与视觉编程/Agent 定位；不据此断言篮球领先。"
+    },
+    {
+      "id": "S19",
+      "title": "Towards Comprehensive Basketball Understanding",
+      "url": "https://arxiv.org/html/2608.23435",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "研究原论文；作者报告，未复现",
+      "supports": "BasketballBench 规模、Table 3 完整事件/类型 F1、2 fps、较早模型与目标球员提示实验。"
+    },
+    {
+      "id": "S20",
+      "title": "Sports-QA",
+      "url": "https://link.springer.com/article/10.1007/s11263-026-02734-1",
+      "retrieved_on": "2026-10-06",
+      "timezone": "Asia/Shanghai",
+      "quality": "研究原论文，检索提取内容",
+      "supports": "体育细粒度动作与时间关系任务的背景；未用来对最新模型排序。"
+    }
+  ],
+  "repository_evidence": [
+    {
+      "path": "../qwen-ground-official-20261005/README.md",
+      "note": "既有 Qwen 局部地面定位实测，不是战术准确率。"
+    },
+    {
+      "path": "../../../requirements/portal-access-20261005.md",
+      "note": "此前赛事要求核验，本轮未重新登录门户。"
+    },
+    {
+      "path": "../../../handoffs/Linzeyu912/2026-10-06-0844-collaborator-update-review.md",
+      "note": "已有未跟踪交接，仅阅读，未修改。"
+    }
+  ],
+  "limitations": [
+    "未找到覆盖全部最新候选的同协议篮球战术榜单。",
+    "官方规格/自评、研究作者评测、仓库局部实测和工程建议分别解释。",
+    "账户权限、真实价格、模型效果未通过本轮 API 调用验证。",
+    "网页和 main 模型卡会更新；本文件保存当日摘要与 URL，不是完整原文快照。"
+  ]
+}
