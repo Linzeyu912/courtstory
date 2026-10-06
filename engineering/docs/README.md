@@ -9,7 +9,7 @@
 | 已认可的 005 成片视觉基准 | [005 V2 流程](005-authored-v2-workflow.md)、[原始资料归档](../archive/tactical-video/005-authored-v2/README.md) |
 | 导入视频的待解决问题 | [人物 / 球场 / 战术诊断](../../research/vision/imported-video-diagnostics-20261005.md)，按原记录区分待验证结论与本机产物 |
 | Agent 接口 | [Qwen 地面轨迹](qwen-ground-trajectory-agent.md)、[视觉接口](identity-vision-provider.md) |
-| 上云与交付计划 | [AWS 迁移设计](aws-workbench-deployment-guide.md)、[接续清单](contest-readiness-20261005.md) |
+| 上云与交付计划 | [服务分工与部署顺序](aws-deployment-architecture-20261006.md)、[10 月 6 日预检与 S3 实际上传](aws-cloud-preflight-20261006.md)、[AWS 迁移设计](aws-workbench-deployment-guide.md)、[接续清单](contest-readiness-20261005.md) |
 | 产品规划 | [概念讨论](agent-concept-review.md)、`plans/`、`specs/` |
 | 已有功能的回归与问题 | [功能复检](function-audit-20261004.md)、[成果与问题](progress-and-open-issues-20261004.md)、[历次更新](workbench-history-20261005.md) |
 

@@ -1,5 +1,11 @@
 # 作品工程
 
+2026-10-06 晚间：[AWS 19 项服务独立实测](../environment/aws/services-live-audit-20261006.md)已有实际运行结果，临时探针已清理。下方预检和架构记录保留各自时间范围；完整工作台、正式 Agent 与成片展示网站的部署和验收仍待完成。
+
+2026-10-06：新增 [AWS 服务分工与部署顺序](docs/aws-deployment-architecture-20261006.md)，说明 S3、AgentCore、Bedrock、CPU ECS/Fargate / EC2 与 SageMaker GPU 的接法及验收标准。本轮仅方案与只读核验；CLI 身份可用，AWS 插件需重新认证，尚未部署应用。
+
+2026-10-06：两段官方训练片已上传本队 S3 并通过远端 SHA-256 校验；[账号 / 代码预检与上传说明](docs/aws-cloud-preflight-20261006.md)记录实际对象、复跑命令及部署缺口。AgentCore、EC2、CloudFront 应用尚未部署，不能把素材上传当成云端运行完成。
+
 2026-10-05：现有工作台新增 [人工视频制作流程](docs/manual-tactics-workbench-guide.md)，支持不识别直接打开视频、多个跑位/传球/挡拆的独立时间、讲解暂停、点击路线校正、保存与正式 MP4。固定画面、合成移动映射与真实 VFR 已从空白通过界面导出；真实 005 与历史迁移未验证，详见 [006 验收](docs/manual-tactics-workbench-acceptance.md)。
 
 跨成员成果与下一步从[接续总览](../docs/work-index.md)进入。新拉取的 [005 V2 成片流程](docs/005-authored-v2-workflow.md)保留认可的视觉基准；[导入视频诊断](../research/vision/imported-video-diagnostics-20261005.md)记录身份和大草稿的实际缺口，两者分别维护。
