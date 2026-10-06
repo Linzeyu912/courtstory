@@ -1,0 +1,102 @@
+{
+  "collected_at": "2026-10-06T13:53:24.660013+08:00",
+  "source_commit": "730cda1c730877cfedbe01bf87fb1cadb78a565d",
+  "scope": "RANDOM weights; repeated synthetic frame; API/runtime only; NOT tracking quality or trained-model throughput",
+  "checkpoint_loaded": false,
+  "synthetic_initialization": "ALL parameters explicitly normal_(mean=0, std=0.02); upstream custom layers contain torch.empty until checkpoint loading",
+  "python": "3.12.10",
+  "torch": "2.11.0+cu128",
+  "torchvision": "0.26.0+cu128",
+  "cuda_available": true,
+  "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU",
+  "gpu_total_bytes": 8546484224,
+  "cpu_threads": 16,
+  "coordinate_roundtrip_max_error_px": 0.0001220703125,
+  "runs": [
+    {
+      "device": "cpu",
+      "input_resolution": 256,
+      "coordinate_space": 256,
+      "query_points": 6,
+      "frames": 3,
+      "compiled": false,
+      "cuda_autocast_float16": false,
+      "parameters": 194202881,
+      "initialization_seconds": 1.792043299996294,
+      "status": "passed",
+      "frame_seconds": [
+        0.7268530000001192,
+        0.7327800000057323,
+        0.7343268000113312
+      ],
+      "followup_median_seconds": 0.7335534000085318,
+      "output_shape": [
+        6,
+        2
+      ],
+      "state_steps": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "device": "cuda",
+      "input_resolution": 256,
+      "coordinate_space": 256,
+      "query_points": 6,
+      "frames": 3,
+      "compiled": false,
+      "cuda_autocast_float16": true,
+      "parameters": 194202881,
+      "initialization_seconds": 1.8193936000025133,
+      "status": "passed",
+      "frame_seconds": [
+        0.30681369999365415,
+        0.06016079999972135,
+        0.05001300000003539
+      ],
+      "followup_median_seconds": 0.05508689999987837,
+      "output_shape": [
+        6,
+        2
+      ],
+      "state_steps": [
+        1,
+        2,
+        3
+      ],
+      "peak_allocated_bytes": 1701147136,
+      "peak_reserved_bytes": 2000683008
+    },
+    {
+      "device": "cuda",
+      "input_resolution": 512,
+      "coordinate_space": 256,
+      "query_points": 6,
+      "frames": 3,
+      "compiled": false,
+      "cuda_autocast_float16": true,
+      "parameters": 194202881,
+      "initialization_seconds": 2.03012039999885,
+      "status": "passed",
+      "frame_seconds": [
+        0.14570439999806695,
+        0.14454660000046715,
+        0.14769099999102764
+      ],
+      "followup_median_seconds": 0.1461187999957474,
+      "output_shape": [
+        6,
+        2
+      ],
+      "state_steps": [
+        1,
+        2,
+        3
+      ],
+      "peak_allocated_bytes": 2605042176,
+      "peak_reserved_bytes": 2898264064
+    }
+  ]
+}

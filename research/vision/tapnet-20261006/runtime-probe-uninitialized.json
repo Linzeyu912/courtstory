@@ -1,0 +1,69 @@
+{
+  "collected_at": "2026-10-06T13:52:40.484027+08:00",
+  "source_commit": "730cda1c730877cfedbe01bf87fb1cadb78a565d",
+  "scope": "RANDOM weights; repeated synthetic frame; API/runtime only; NOT tracking quality or trained-model throughput",
+  "checkpoint_loaded": false,
+  "python": "3.12.10",
+  "torch": "2.11.0+cu128",
+  "torchvision": "0.26.0+cu128",
+  "cuda_available": true,
+  "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU",
+  "gpu_total_bytes": 8546484224,
+  "cpu_threads": 16,
+  "coordinate_roundtrip_max_error_px": 0.0001220703125,
+  "runs": [
+    {
+      "device": "cpu",
+      "input_resolution": 256,
+      "coordinate_space": 256,
+      "query_points": 6,
+      "frames": 3,
+      "compiled": false,
+      "cuda_autocast_float16": false,
+      "parameters": 194202881,
+      "initialization_seconds": 1.2556553000031272,
+      "status": "passed",
+      "frame_seconds": [
+        0.8836386000039056,
+        0.825046600002679,
+        0.7669325000024401
+      ],
+      "followup_median_seconds": 0.7959895500025596,
+      "output_shape": [
+        6,
+        2
+      ],
+      "state_steps": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "device": "cuda",
+      "input_resolution": 256,
+      "coordinate_space": 256,
+      "query_points": 6,
+      "frames": 3,
+      "compiled": false,
+      "cuda_autocast_float16": true,
+      "parameters": 194202881,
+      "initialization_seconds": 1.3366218999872217,
+      "status": "failed",
+      "error": "AssertionError: "
+    },
+    {
+      "device": "cuda",
+      "input_resolution": 512,
+      "coordinate_space": 256,
+      "query_points": 6,
+      "frames": 3,
+      "compiled": false,
+      "cuda_autocast_float16": true,
+      "parameters": 194202881,
+      "initialization_seconds": 1.3128377000102773,
+      "status": "failed",
+      "error": "AssertionError: "
+    }
+  ]
+}
