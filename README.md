@@ -6,6 +6,8 @@
 
 **接手已有成果先看[成果与接续总览](docs/work-index.md)**：汇集三位成员的跟踪 / 脚点研究、2D 与 Qwen 实现、005 成片基准、导入视频问题、论文模型和环境准备，标明验证范围与缺口。
 
+**AWS 哪些可以用，先看 [19 项服务实测报告](environment/aws/services-live-audit-20261006.md)**：2026-10-06 的本队账号测试中，18 项基本功能通过，MediaLive 只验证了输入配置；模型名单、GPU 配额、未测功能与清理证据分别列出。CloudFront 提交、仓库重跑与截止时间另见[赛事评审说明](requirements/judging-operation-clarification-20261006.md)。
+
 ## 四类内容，从这里进入
 
 | 类别 | 目录 | 放什么 |
@@ -39,7 +41,7 @@
 
 ## 当前最重要的未决事项
 
-1. 把现有工作台接到云端：CDK 2.1144.0 已安装，两段官方训练片已检查；包内没有独立指标表，需要补齐指标与赛事输入输出契约。Team25 身份、本队桶、CDKToolkit 与仓库绑定已核实，应用部署待完成。见[上云解释与代码对应](engineering/docs/aws-workbench-deployment-guide.md)、[训练包核验](requirements/training-package-check-20261005.md)与[本轮交接](handoffs/Linzeyu912/2026-10-05-2203-cdk-workbench-cloud-guide.md)。
+1. 把现有工作台接到云端：两段官方训练片已上传本队 S3 并校验，AgentCore、CloudFront 和 CPU 计算已完成独立基础测试；临时测试资源已清理，完整应用部署仍待完成。包内没有独立指标表，赛事机器评测接口契约也仍待补齐。见[部署顺序](engineering/docs/aws-deployment-architecture-20261006.md)、[上传与代码预检](engineering/docs/aws-cloud-preflight-20261006.md)、[服务实测](environment/aws/services-live-audit-20261006.md)及[评审说明](requirements/judging-operation-clarification-20261006.md)。
 2. 依据新边界完成 CPU + Bedrock 的最小云端作品闭环；完整轨迹复原不作为赛题主线，现有 2D 工具可作内部辅助。建议及操作见[接续清单](engineering/docs/contest-readiness-20261005.md)，尚未宣布团队选型或分工。
 3. 队友接入按用户要求暂缓；后续需要协作时再发送邀请并认领任务。
 

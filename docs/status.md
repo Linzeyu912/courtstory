@@ -1,5 +1,27 @@
 # 团队状态
 
+2026-10-06 21:18（Asia/Singapore，UTC+8）：按用户授权将当前更新分类发布，六组主题提交已推送并核对远端 `0336ac965bcdb7d6fb7f4631ec8ef0d0759c1198`；总索引和本次交接随最后一条协作提交同步。内容分别为多模态模型、TAPNext++、遮挡球员论文、赛事要求、AWS 环境实测、工程部署准备；完整清单与验证见[分类发布交接](../handoffs/Linzeyu912/2026-10-06-2118-classified-publication.md)。[AWS 19 项实测报告](../environment/aws/services-live-audit-20261006.md)及去标识化证据已共享：18 项基础功能通过，MediaLive 仅配置；完整工作台尚未部署。下方和原交接中的“本地未提交 / 未推送”是对应时间的历史状态，不能覆盖本次发布记录。
+
+2026-10-06 20:44（Asia/Shanghai，本地未提交 / 未推送）：重新实读终极指南和 Quick Start，补充[两小时窗口与截止后操作边界](../requirements/judging-operation-clarification-20261006.md#51-两小时窗口与截止后操作的边界)：考试视频 18:00 发布，19:45 结束调优，20:00 硬截止，20:00–22:20 保持作品可访问。不能据此确认“只冻结代码、截止后还能加工或替换评分成片”；跨截止渲染与人工校正细节待主办方口径。未修改代码或云资源，见[交接](../handoffs/Linzeyu912/2026-10-06-2044-deadline-and-processing-clarification.md)。
+
+2026-10-06 20:25（Asia/Shanghai，本地未提交 / 未推送）：完成 [19 项 AWS 服务实测](../environment/aws/services-live-audit-20261006.md)。18 项基本功能通过，MediaLive 仅输入资源创建通过、未验证开播；AgentCore Runtime、CloudFront 200 访问、ECS / Batch 容器、CPU EC2、转码及消息链路均有真实结果。此前“AgentCore Runtime 为 0”是资源数量，不是配额；本轮查到配额 500 并部署调用成功。模型白名单、Sonnet 协议及 EC2 GPU 零配额限制仍在。临时探针与清理记录见报告，作品本身未部署；见[本轮交接](../handoffs/Linzeyu912/2026-10-06-2032-aws-services-live-audit.md)。
+
+2026-10-06 16:12（Asia/Shanghai，本地未提交 / 未推送）：重新实读 Quick Start、终极指南和培训纪要，整理[两条评审路径](../requirements/judging-operation-clarification-20261006.md)：CloudFront 入口应让评委直接观看考试视频完整成片，机器评分从绑定的私有仓库拉代码重跑。已在[部署说明](../engineering/docs/aws-workbench-deployment-guide.md#作品提交入口与制作工作台)区分作品展示和制作流程；统一接口的具体格式、评测分支与重跑方式仍待核实。本轮仅文档，无部署或提交作品，见[交接](../handoffs/Linzeyu912/2026-10-06-1612-judging-paths-clarification.md)。
+
+2026-10-06 16:02（Asia/Shanghai，本地未提交 / 未推送）：完成 [ECS/Fargate、EC2、SQS、SageMaker 可用性核验](../environment/aws/compute-services-availability-20261006.md)，本轮浏览器实读官方 Quick Start 和服务示例，确认相关服务及 CloudFront 网页交付；CLI 返回 Fargate 计算提供方 ACTIVE、按需 140 vCPU，CPU EC2 标准按需 256 vCPU，G5 Endpoint / Notebook 配额 2 / 1。已读可见 IAM 策略，未实测创建。补充 [本地与云端、网页交互及 EC2 选择说明](../engineering/docs/aws-deployment-architecture-20261006.md)，SQS / Worker 为可选拆分；无资源创建，见 [交接](../handoffs/Linzeyu912/2026-10-06-1602-cloud-service-interaction-check.md)。
+
+2026-10-06 15:46（Asia/Shanghai，本地未提交 / 未推送）：新增 [AWS 部署架构建议](../engineering/docs/aws-deployment-architecture-20261006.md)，按 S3 / AgentCore / Bedrock / CPU 容器与 SageMaker GPU 分工，列出代码改造、实施顺序及外部浏览器验收标准；尚未形成团队选型。本轮实查 CLI 参赛身份可用、Fargate 按需 vCPU 配额 140、AgentCore Runtime 为 0；AWS Core 插件需重新认证，Docker Linux 引擎未连接。没有创建云资源或运行模型，见 [交接](../handoffs/Linzeyu912/2026-10-06-1546-aws-deployment-architecture.md)。
+
+2026-10-06 14:54（Asia/Shanghai，本地未提交 / 未推送）：完成[SageMaker GPU 配额与执行角色核验](../environment/aws/sagemaker-gpu-availability-20261006.md)。G4dn / G5 / G6 / G6e 的 Notebook、Training、Endpoint 等配额与用户截图一致，G5 / G6 / G6e xlarge 各有 1 个 Notebook 和按需训练额度；这些 G 系列的 Processing / Batch Transform 为 0。预置工作负载角色信任 SageMaker且参赛角色可传递；现有资源列表为空。仅完成只读条件检查，未开机、申请提升配额或跑模型，详见[交接](../handoffs/Linzeyu912/2026-10-06-1454-sagemaker-gpu-check.md)。
+
+2026-10-06 14:19（Asia/Shanghai，本地未提交 / 未推送）：完成[比赛账号 Bedrock 模型权限核验](../environment/aws/bedrock-model-access-20261006.md)。查询 121 个目录模型服务状态，实读参赛角色与应用权限边界，确认模型白名单仅有 Sonnet 4.6 和 Qwen3-VL-235B-A22B；Qwen 文本请求成功，gpt-oss-120b 被身份策略显式拒绝。Sonnet 4.6 协议状态为 `NOT_AVAILABLE`，未开通或调用；目录中 GPT / Opus 的存在不代表本队获准使用。去标识化证据已保存，无 IAM / 部署变更，见[交接](../handoffs/Linzeyu912/2026-10-06-1419-bedrock-model-access.md)。
+
+2026-10-06 14:13（Asia/Shanghai，本地文档未提交 / 未推送）：两段官方训练片（171,215,644 字节）和清单已实际上传本队私有 S3，源 manifest 与远端 SHA-256 校验通过；新增[上传脚本及云端预检记录](../engineering/docs/aws-cloud-preflight-20261006.md)。重新实读官方确认 AgentCore / CloudFront / CDK 强制，EC2 为可选计算，EC2 GPU 配额 0 不排除 SageMaker 申请路线，见[要求补充](../requirements/aws-runtime-clarification-20261006.md)。本轮未部署或运行应用，具体 Agent 范围已向用户询问；来源、验证及同步边界见[交接](../handoffs/Linzeyu912/2026-10-06-1413-cloud-preflight-s3.md)。
+
+2026-10-06 14:10（Asia/Shanghai，本地未提交 / 未推送）：记录并解释用户转发的[CDK 官方补充通知](../requirements/cdk-deployment-notice-20261006.md)：主办方已在 `us-east-1` 完成 bootstrap，本队不执行 `cdk bootstrap`；实际 CDK 工程需配置 `NBAHackathonParticipantBoundary`，使用赛事 SSO 身份链部署。AWS 环境与上云说明已同步更新；当前仓库未发现 `cdk.json`，本轮没有运行 AWS 部署或修改应用功能。原通知发布 URL 未提供，AWS 文档仅用于核对通用机制。验证与同步见[交接](../handoffs/Linzeyu912/2026-10-06-1410-cdk-boundary-notice.md)。
+
+2026-10-06 09:44（Asia/Shanghai，本地未提交 / 未推送）：完成[当前多模态模型与篮球战术理解调研](../research/agents/multimodal-basketball-20261006/README.md)，核查 Gemini 3.8、Qwen3.8、GPT-6、Claude 5.5 与开放权重候选的官方规格及价格，并对照 BasketballBench 与已有 Qwen 两片实测。建议先做 Gemini / 现有 Qwen 同片比较，音轨和精确几何分项验证；未形成团队选型、未调用新模型或修改产品。来源、评测建议与同步状态见[交接](../handoffs/Linzeyu912/2026-10-06-0944-multimodal-basketball-research.md)。
+
 2026-10-05 14:30（America/New_York）：用户认可动态对照并授权发布；Qwen 地面轨迹实测修复、视频／2D 同步回放、复跑脚本和两片轻量逐帧示例已作为 `b503573` 推送 main，本机 HEAD、origin/main 与实际远端完整 SHA 一致。服务默认读取共享回放示例，拉取代码与官方视频 LFS 后无需重新调用模型即可查看。30 项 Node、34 项 Python 检查及 165 段视频／LFS 索引校验通过；002 误删与未人工确认的标定／身份限制保留。见[发布交接](../handoffs/chuali-zi/2026-10-05-1430-qwen-replay-publication.md)。
 
 2026-10-05 14:15（America/New_York，本地，未提交／未推送）：为已有 Qwen 官方两片实测结果增加工作台动态对照入口 `/trajectory-replay`，同步原视频、脚部放大、地面回投与 2D 路径；支持慢放、循环、逐帧、时间轴和问题帧跳转。复用最终真实候选，保留 002 的误删与全部缺口，未新增模型调用或采用候选。3 项新逻辑、33 项现有服务检查及实际浏览器回放通过。见[操作说明](../engineering/docs/qwen-ground-trajectory-agent.md#查看官方实测的动态对照)与[本轮交接](../handoffs/chuali-zi/2026-10-05-1415-qwen-trajectory-replay.md)。
