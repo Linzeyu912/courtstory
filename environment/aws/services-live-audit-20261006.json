@@ -1,0 +1,351 @@
+{
+  "date": "2026-10-06",
+  "timezone": "Asia/Shanghai",
+  "region": "us-east-1",
+  "identity_checked": "NBAHackathonParticipantRole",
+  "read_checks": {
+    "agentcore": true,
+    "bedrock": true,
+    "rekognition": true,
+    "transcribe": true,
+    "polly": true,
+    "translate": true,
+    "lambda": true,
+    "ecs": true,
+    "batch": true,
+    "ec2": true,
+    "mediaconvert": true,
+    "medialive": true,
+    "s3": true,
+    "cloudfront": true,
+    "dynamodb": true,
+    "stepfunctions": true,
+    "sqs": true,
+    "sns": true,
+    "eventbridge": true
+  },
+  "checks": {
+    "Rekognition": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "text": "BASKETBALL TEST",
+        "confidence": 99.85004425048828
+      }
+    },
+    "Translate": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "TranslatedText": "篮球服务测试成功完成。",
+        "SourceLanguageCode": "en",
+        "TargetLanguageCode": "zh"
+      }
+    },
+    "Polly": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "bytes": 17598,
+        "content_type": "audio/mpeg",
+        "request_characters": 47
+      }
+    },
+    "S3": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "bytes": 17598,
+        "sha256": "bb551621e08dafbb1dffa624a272b6c320ddd5a6f7e523db02632b6bfa298163",
+        "readback_match": true
+      }
+    },
+    "Bedrock": {
+      "level": "approved_model_passed",
+      "model": "qwen.qwen3-vl-235b-a22b",
+      "evidence": {
+        "output": {
+          "message": {
+            "role": "assistant",
+            "content": [
+              {
+                "text": "SERVICE_OK"
+              }
+            ]
+          }
+        },
+        "usage": {
+          "inputTokens": 14,
+          "outputTokens": 3,
+          "totalTokens": 17
+        },
+        "metrics": {
+          "latencyMs": 399
+        },
+        "stopReason": "end_turn"
+      },
+      "sonnet_4_6": {
+        "modelId": "anthropic.claude-sonnet-4-6",
+        "agreementAvailability": {
+          "status": "NOT_AVAILABLE"
+        },
+        "authorizationStatus": "AUTHORIZED",
+        "entitlementAvailability": "AVAILABLE",
+        "regionAvailability": "AVAILABLE"
+      },
+      "sonnet_invoked": false
+    },
+    "AgentCore": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "response": {
+          "response": "SERVICE_OK",
+          "received": {
+            "prompt": "SERVICE_OK"
+          }
+        },
+        "session_id_length": 36
+      }
+    },
+    "Transcribe": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "status": "COMPLETED",
+        "transcript": "Basketball service test completed successfully."
+      }
+    },
+    "Lambda": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "result": "SERVICE_OK"
+      }
+    },
+    "ECS": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "status": "STOPPED",
+        "exit_codes": [
+          0
+        ],
+        "reason": "Essential container in task exited"
+      }
+    },
+    "Batch": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "status": "SUCCEEDED",
+        "exit_code": 0
+      }
+    },
+    "EC2": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "state": "running",
+        "instance_type": "t3.micro",
+        "console_service_ok": true
+      }
+    },
+    "MediaConvert": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "status": "COMPLETE",
+        "output_bytes": 3245,
+        "mp4_header": true
+      }
+    },
+    "MediaLive": {
+      "level": "configuration_only",
+      "evidence": {
+        "InputClass": "SINGLE_PIPELINE",
+        "State": "DETACHED",
+        "Type": "MP4_FILE"
+      }
+    },
+    "CloudFront": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "http_status": 200,
+        "body_match": true,
+        "x_cache": "Miss from cloudfront"
+      }
+    },
+    "DynamoDB": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "put_get_delete": true,
+        "value": "SERVICE_OK"
+      }
+    },
+    "Step Functions": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "status": "SUCCEEDED",
+        "output": {
+          "result": "SERVICE_OK"
+        }
+      }
+    },
+    "SQS": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "marker_received": true,
+        "path": "sqs -> SQS -> receive/delete"
+      }
+    },
+    "SNS": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "marker_received": true,
+        "path": "sns -> SQS -> receive/delete"
+      }
+    },
+    "EventBridge": {
+      "level": "basic_function_passed",
+      "evidence": {
+        "marker_received": true,
+        "path": "eventbridge -> SQS -> receive/delete"
+      }
+    }
+  },
+  "basic_functions_passed": 18,
+  "configuration_only": 1,
+  "quotas": {
+    "ec2": [
+      {
+        "QuotaCode": "L-417A185B",
+        "QuotaName": "Running On-Demand P instances",
+        "Value": 0.0
+      },
+      {
+        "QuotaCode": "L-DB2E81BA",
+        "QuotaName": "Running On-Demand G and VT instances",
+        "Value": 0.0
+      },
+      {
+        "QuotaCode": "L-1216C47A",
+        "QuotaName": "Running On-Demand Standard (A, C, D, H, I, M, R, T, Z) instances",
+        "Value": 256.0
+      }
+    ],
+    "fargate": [
+      {
+        "QuotaCode": "L-3032A538",
+        "QuotaName": "Fargate On-Demand vCPU resource count",
+        "Value": 140.0
+      }
+    ],
+    "bedrock-agentcore": [
+      {
+        "QuotaCode": "L-F4575653",
+        "QuotaName": "Total Agents per Account",
+        "Value": 500.0
+      }
+    ]
+  },
+  "ec2_retry": {
+    "first_az": "us-east-1e",
+    "first_failure": "t3.micro instance type not supported in that AZ",
+    "successful_az": "us-east-1b"
+  },
+  "container_logs": {
+    "messages": [
+      {
+        "stream_type": "ecs",
+        "message": "SERVICE_OK"
+      },
+      {
+        "stream_type": "batch",
+        "message": "SERVICE_OK"
+      }
+    ]
+  },
+  "mediaconvert_local_decode_exit": 0,
+  "cleanup": {
+    "time": "2026-10-06T20:36:29.798554+08:00",
+    "stack_states": {
+      "Core": "DELETED",
+      "Agent": "DELETED",
+      "Delivery": "DELETED",
+      "Compute": "DELETED",
+      "Batch": "DELETED",
+      "Live": "DELETED"
+    },
+    "team_probe_objects_remaining": 0,
+    "resource_verification": [
+      {
+        "type": "AWS::IAM::Role",
+        "deleted": true,
+        "code": "NoSuchEntity"
+      },
+      {
+        "type": "AWS::IAM::Role",
+        "deleted": true,
+        "code": "NoSuchEntity"
+      },
+      {
+        "type": "AWS::IAM::Role",
+        "deleted": true,
+        "code": "NoSuchEntity"
+      },
+      {
+        "type": "AWS::IAM::Role",
+        "deleted": true,
+        "code": "NoSuchEntity"
+      },
+      {
+        "type": "AWS::BedrockAgentCore::Runtime",
+        "deleted": true,
+        "code": "ResourceNotFoundException"
+      },
+      {
+        "type": "AWS::IAM::Role",
+        "deleted": true,
+        "code": "NoSuchEntity"
+      },
+      {
+        "type": "AWS::CloudFront::Distribution",
+        "deleted": true,
+        "code": "NoSuchDistribution"
+      },
+      {
+        "type": "AWS::EC2::Instance",
+        "deleted": true,
+        "state": "terminated"
+      },
+      {
+        "type": "AWS::IAM::Role",
+        "deleted": true,
+        "code": "NoSuchEntity"
+      },
+      {
+        "type": "AWS::MediaLive::Input",
+        "deleted": true,
+        "state": "DELETED"
+      }
+    ]
+  },
+  "cleanup_actions": [
+    {
+      "delete_object_versions": 1,
+      "scope": "dedicated_probe_bucket"
+    },
+    {
+      "delete_object_versions": 6,
+      "scope": "team_probe_prefix"
+    },
+    {
+      "transcribe_job_deleted": true
+    },
+    {
+      "runtime_log_group_deleted": true
+    },
+    {
+      "cdk_template_versions_deleted": 7,
+      "exact_unique_template_keys": 7,
+      "other_assets_untouched": true
+    }
+  ],
+  "limitations": [
+    "MediaLive channel not created or started",
+    "Sonnet agreement not activated and model not invoked",
+    "No GPU instance launched",
+    "No full application or contest submission deployed",
+    "No final billing amount verified"
+  ]
+}

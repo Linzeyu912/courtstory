@@ -1,0 +1,1025 @@
+{
+  "checked_at": "2026-10-06T06:56:16.006196+00:00",
+  "region": "us-east-1",
+  "source": "AWS CLI service-quotas list-service-quotas --service-code sagemaker; user-provided screenshot",
+  "total_quotas_returned": 2419,
+  "quota_unit": "instances",
+  "screenshot_comparison": {
+    "matched": 157,
+    "mismatches": [],
+    "not_returned": [
+      {
+        "instance_type": "ml.p3.2xlarge",
+        "use": "Training",
+        "screenshot": 0
+      },
+      {
+        "instance_type": "ml.p3.2xlarge",
+        "use": "Spot",
+        "screenshot": 0
+      },
+      {
+        "instance_type": "ml.trn1.2xlarge",
+        "use": "JupyterLab",
+        "screenshot": 0
+      }
+    ]
+  },
+  "rows": [
+    {
+      "instance_type": "ml.g4dn.xlarge",
+      "Endpoint": {
+        "value": 2.0,
+        "quota_code": "L-B67CFA0C"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-3F53BF0F"
+      },
+      "Spot": {
+        "value": 1.0,
+        "quota_code": "L-944F78BB"
+      },
+      "Notebook": {
+        "value": 4.0,
+        "quota_code": "L-D8B97089"
+      },
+      "JupyterLab": {
+        "value": 4.0,
+        "quota_code": "L-39F81BFB"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-2F1EB012"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-4C5C5CA8"
+      }
+    },
+    {
+      "instance_type": "ml.g4dn.2xlarge",
+      "Endpoint": {
+        "value": 2.0,
+        "quota_code": "L-EA346344"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-C2495BC4"
+      },
+      "Spot": {
+        "value": 1.0,
+        "quota_code": "L-0496610F"
+      },
+      "Notebook": {
+        "value": 2.0,
+        "quota_code": "L-1C2E1B03"
+      },
+      "JupyterLab": {
+        "value": 2.0,
+        "quota_code": "L-138F29A9"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-41C11899"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-180A6F2D"
+      }
+    },
+    {
+      "instance_type": "ml.g4dn.4xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-31522FA6"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-2908B1E9"
+      },
+      "Spot": {
+        "value": 1.0,
+        "quota_code": "L-246C5638"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-529379E4"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-0DB30DD8"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-B1C4D018"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-EAB0CBAB"
+      }
+    },
+    {
+      "instance_type": "ml.g4dn.8xlarge",
+      "Endpoint": {
+        "value": 0.0,
+        "quota_code": "L-7D28AD75"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-3118B7E1"
+      },
+      "Spot": {
+        "value": 1.0,
+        "quota_code": "L-15F329FB"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-C2F8103D"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-F59A72DA"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-9C72BEE2"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-213CD3BC"
+      }
+    },
+    {
+      "instance_type": "ml.g4dn.12xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-07BEB181"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-7BD2C9FA"
+      },
+      "Spot": {
+        "value": 1.0,
+        "quota_code": "L-199558F0"
+      },
+      "Notebook": {
+        "value": 0.0,
+        "quota_code": "L-47461EBA"
+      },
+      "JupyterLab": {
+        "value": 0.0,
+        "quota_code": "L-E3DFC4E9"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-6C7C4F4E"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-BA5C7A54"
+      }
+    },
+    {
+      "instance_type": "ml.g4dn.16xlarge",
+      "Endpoint": {
+        "value": 0.0,
+        "quota_code": "L-8679F6F3"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-57998C77"
+      },
+      "Spot": {
+        "value": 1.0,
+        "quota_code": "L-AD4C1352"
+      },
+      "Notebook": {
+        "value": 0.0,
+        "quota_code": "L-64067773"
+      },
+      "JupyterLab": {
+        "value": 0.0,
+        "quota_code": "L-5DB40C3B"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-47F095C9"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-D79647DB"
+      }
+    },
+    {
+      "instance_type": "ml.g5.xlarge",
+      "Endpoint": {
+        "value": 2.0,
+        "quota_code": "L-1928E07B"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-B6D80D9C"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-DE07CBDF"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-E8917BB7"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-988CE6C5"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-BE792A7A"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-135CF62D"
+      }
+    },
+    {
+      "instance_type": "ml.g5.2xlarge",
+      "Endpoint": {
+        "value": 2.0,
+        "quota_code": "L-9614C779"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-2D6DEB3C"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-CAEE7DB7"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-19973BE2"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-F73C7DB9"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-23412DF7"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-12740493"
+      }
+    },
+    {
+      "instance_type": "ml.g5.4xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-C1B9A48D"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-FE869B40"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-DB4D51CF"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-127D4C65"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-81940D85"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-0A6E4205"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-42E4149B"
+      }
+    },
+    {
+      "instance_type": "ml.g5.8xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-065D610E"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-43F5FC95"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-DD18D5D6"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-5D8382CB"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-19B6BAFC"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-B9080C32"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-6F69996E"
+      }
+    },
+    {
+      "instance_type": "ml.g5.12xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-65C4BD00"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-C6383286"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-03E19172"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-EC374A06"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-8D2ED7BF"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-B013C051"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-5F0C4D2F"
+      }
+    },
+    {
+      "instance_type": "ml.g5.16xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-962705EA"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-9FAC65F7"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-E3DCB664"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-001EDCEF"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-1B49FD35"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-AC014CFB"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-0D323AED"
+      }
+    },
+    {
+      "instance_type": "ml.g5.24xlarge",
+      "Endpoint": {
+        "value": 0.0,
+        "quota_code": "L-6821867B"
+      },
+      "Training": {
+        "value": 0.0,
+        "quota_code": "L-ED7BD217"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-8345B953"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-4ACAC7A4"
+      },
+      "JupyterLab": {
+        "value": 0.0,
+        "quota_code": "L-F087CCFC"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-BC6B3288"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-28F860BB"
+      }
+    },
+    {
+      "instance_type": "ml.g5.48xlarge",
+      "Endpoint": {
+        "value": 0.0,
+        "quota_code": "L-0100B823"
+      },
+      "Training": {
+        "value": 0.0,
+        "quota_code": "L-6BC98A55"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-C87FF004"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-D266139B"
+      },
+      "JupyterLab": {
+        "value": 0.0,
+        "quota_code": "L-83AB5D73"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-339123BF"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-52C8D816"
+      }
+    },
+    {
+      "instance_type": "ml.g6.xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-D470D954"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-56AE9D73"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-A886A53A"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-82E81781"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-AABA5942"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-49E4D2AB"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-20A2026F"
+      }
+    },
+    {
+      "instance_type": "ml.g6.2xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-98BDE811"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-A1025C0C"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-BC684567"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-D371F6EE"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-92D1521D"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-1FF397C6"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-1211C97B"
+      }
+    },
+    {
+      "instance_type": "ml.g6.4xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-DFB10FDE"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-07B51BA0"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-03304C28"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-FE7F0B12"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-692B8304"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-8BF5F502"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-5C991C75"
+      }
+    },
+    {
+      "instance_type": "ml.g6.8xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-B0F91871"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-FB830EC3"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-CDC3B509"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-40A7DC79"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-804C2AFF"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-9CD2705A"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-7CAFE77E"
+      }
+    },
+    {
+      "instance_type": "ml.g6.12xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-0A29AACF"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-50B5B169"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-2C06E55A"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-0E9335FF"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-962247BA"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-7DC6CDE9"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-540196E8"
+      }
+    },
+    {
+      "instance_type": "ml.g6.16xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-913947FA"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-C8B8462D"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-8D196E75"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-15A99B7E"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-B984C7D5"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-4B99D021"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-ED9E485B"
+      }
+    },
+    {
+      "instance_type": "ml.g6.24xlarge",
+      "Endpoint": {
+        "value": 0.0,
+        "quota_code": "L-6A3E5D65"
+      },
+      "Training": {
+        "value": 0.0,
+        "quota_code": "L-B0E221DE"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-148FBB89"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-61C1E88D"
+      },
+      "JupyterLab": {
+        "value": 0.0,
+        "quota_code": "L-8ACE1754"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-3BE68F11"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-DBE0C398"
+      }
+    },
+    {
+      "instance_type": "ml.g6.48xlarge",
+      "Endpoint": {
+        "value": 0.0,
+        "quota_code": "L-28FEB563"
+      },
+      "Training": {
+        "value": 0.0,
+        "quota_code": "L-8CCF67BD"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-9C33052B"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-CC5B8B01"
+      },
+      "JupyterLab": {
+        "value": 0.0,
+        "quota_code": "L-125B7142"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-6B08BAE2"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-FAFAD311"
+      }
+    },
+    {
+      "instance_type": "ml.g6e.xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-B0729CB4"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-1E3225F6"
+      },
+      "Spot": {
+        "value": 1.0,
+        "quota_code": "L-1DE24427"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-9398D219"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-A4021168"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-673ED3E0"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-0808490E"
+      }
+    },
+    {
+      "instance_type": "ml.g6e.2xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-F8D7F460"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-D1AFBF6F"
+      },
+      "Spot": {
+        "value": 1.0,
+        "quota_code": "L-29512C0F"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-9072E86E"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-014DC4EC"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-56245D0D"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-CAF39894"
+      }
+    },
+    {
+      "instance_type": "ml.g6e.4xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-93531071"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-945D83D8"
+      },
+      "Spot": {
+        "value": 1.0,
+        "quota_code": "L-5E2EB366"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-AE77DC5F"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-86B65D1A"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-C7DCB657"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-98A71395"
+      }
+    },
+    {
+      "instance_type": "ml.g6e.8xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-96A28D02"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-812CA1D8"
+      },
+      "Spot": {
+        "value": 1.0,
+        "quota_code": "L-2E243138"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-3FD7013E"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-C252BCE1"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-51DC12F9"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-EECC878E"
+      }
+    },
+    {
+      "instance_type": "ml.g6e.12xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-60313EA3"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-F70A2467"
+      },
+      "Spot": {
+        "value": 1.0,
+        "quota_code": "L-C1031CE4"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-6AB46401"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-D36E23E0"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-A97F0519"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-432B3C23"
+      }
+    },
+    {
+      "instance_type": "ml.g6e.16xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-2930A179"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-68515813"
+      },
+      "Spot": {
+        "value": 1.0,
+        "quota_code": "L-5E942007"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-CC5DE39F"
+      },
+      "JupyterLab": {
+        "value": 1.0,
+        "quota_code": "L-1B0FA8BF"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-BE9444D9"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-CBD538A0"
+      }
+    },
+    {
+      "instance_type": "ml.g6e.24xlarge",
+      "Endpoint": {
+        "value": 0.0,
+        "quota_code": "L-AE407E8B"
+      },
+      "Training": {
+        "value": 0.0,
+        "quota_code": "L-3AE4911A"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-CE130130"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-DD719846"
+      },
+      "JupyterLab": {
+        "value": 0.0,
+        "quota_code": "L-5B6F63A4"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-1AE80ECF"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-DEFA0B4D"
+      }
+    },
+    {
+      "instance_type": "ml.g6e.48xlarge",
+      "Endpoint": {
+        "value": 0.0,
+        "quota_code": "L-E0C458EA"
+      },
+      "Training": {
+        "value": 0.0,
+        "quota_code": "L-0DA2E7B0"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-8497E1A4"
+      },
+      "Notebook": {
+        "value": 1.0,
+        "quota_code": "L-CC51C2FF"
+      },
+      "JupyterLab": {
+        "value": 0.0,
+        "quota_code": "L-5F7EBBE8"
+      },
+      "Processing": {
+        "value": 0.0,
+        "quota_code": "L-23E57EB1"
+      },
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-B475E421"
+      }
+    },
+    {
+      "instance_type": "ml.p3.2xlarge",
+      "Endpoint": {
+        "value": 1.0,
+        "quota_code": "L-1623D0BE"
+      },
+      "Training": null,
+      "Spot": null,
+      "Notebook": {
+        "value": 2.0,
+        "quota_code": "L-1F4A5AAB"
+      },
+      "JupyterLab": {
+        "value": 0.0,
+        "quota_code": "L-199FCA12"
+      },
+      "Processing": null,
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-45F58E7E"
+      }
+    },
+    {
+      "instance_type": "ml.trn1.2xlarge",
+      "Endpoint": {
+        "value": 0.0,
+        "quota_code": "L-5C911603"
+      },
+      "Training": {
+        "value": 1.0,
+        "quota_code": "L-74F2FC79"
+      },
+      "Spot": {
+        "value": 0.0,
+        "quota_code": "L-AA22B8B9"
+      },
+      "Notebook": {
+        "value": 0.0,
+        "quota_code": "L-DFF5258D"
+      },
+      "JupyterLab": null,
+      "Processing": null,
+      "Transform": {
+        "value": 0.0,
+        "quota_code": "L-9B0F550F"
+      }
+    }
+  ],
+  "resource_inventory": {
+    "notebook_instances": 0,
+    "in_progress_training_jobs": 0,
+    "endpoints": 0,
+    "studio_apps": 0,
+    "studio_domains": 0
+  },
+  "iam_checks": {
+    "participant_attached_policy": "PowerUserAccess v12",
+    "participant_can_pass_preprovisioned_workload_role_in_read_policies": true,
+    "workload_role_trusts_sagemaker": true,
+    "workload_role_attached_policy": "PowerUserAccess v12",
+    "sagemaker_denial_found_in_read_identity_policies": false,
+    "region_required": "us-east-1",
+    "service_control_policies_enumerated": false,
+    "actual_creation_tested": false
+  },
+  "mutations_performed": false
+}
