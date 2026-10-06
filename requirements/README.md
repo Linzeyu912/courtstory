@@ -4,7 +4,9 @@
 
 | 内容 | 入口 | 使用口径 |
 |---|---|---|
-| 部署、机器重跑与人工评审 | 评测操作澄清（待落盘：`judging-operation-clarification-20261005.md`） | 另一会话登记为“10 月 5 日 22:22 原文复核；区分官方事实、接口缺项与工程推论，补充 SageMaker GPU 申请路径”；同步检查时未见目标文档，内容待核对 |
+| 10 月 6 日运行位置与 GPU 复核 | [AgentCore / EC2 / S3 澄清](aws-runtime-clarification-20261006.md) | 重新实读官方：AgentCore 为强制承载，EC2 为可选计算；GPU 0 特指 EC2，SageMaker 可申请但不保证 |
+| 10 月 6 日收到的 CDK 补充通知 | [通知与解释](cdk-deployment-notice-20261006.md) | 用户转发：不执行 bootstrap，新增角色使用指定权限边界；限定 us-east-1 和 SSO，原发布 URL 未提供 |
+| 部署、机器重跑、人工评审与截止时间 | [10 月 6 日评审路径澄清](judging-operation-clarification-20261006.md) | CloudFront 看成片、私有仓库供机器重跑；20:44 复核两小时窗口在截止前，19:45 结束调优，20:00 硬截止。没有确认“只冻代码、截止后可继续加工”的例外；具体接口契约仍缺 |
 | 10 月 5 日已有训练 ZIP 实测 | [训练包核验](training-package-check-20261005.md) | 两段 1080p 视频完整解码；包内无独立指标表，年份与官方事件关联待核对 |
 | 10 月 5 日 Team25 Portal 与正式指南 | [Portal 记录](portal-access-20261005.md) | 已实读：AgentCore / CloudFront / CDK、us-east-1、GPU 0、双 profile、一次性绑定、题目边界与提交；后续资源与接通实测见 [AWS 环境记录](../environment/aws/README.md) |
 | 培训要求、评分与交付清单 | [赛事资料整理](BroadcastCode赛事资料整理.md) | 9 月 28 日纪要为基础，10 月 5 日正式指南补充/修正已标明；原始历史资料不改写 |
