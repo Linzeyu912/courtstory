@@ -1,6 +1,26 @@
 # AWS 账号与部署工具准备
 
-状态截至：2026-10-05 22:03，Asia/Shanghai。来源为本仓库现有安装、配置和只读盘点交接；本次目录整理没有调用 AWS 或新增部署。
+### 2026-10-06 晚间：19 项服务真实调用与临时部署实测
+
+[完整实测报告](services-live-audit-20261006.md)：18 项完成基本功能验证；MediaLive 成功创建文件输入，尚未开播。AgentCore 已实际部署调用，CloudFront HTTPS 实际返回 200，ECS / Batch 容器、CPU EC2、MediaConvert、数据库和消息链路均成功。明确限制是 Bedrock 模型白名单、Sonnet 4.6 协议未就绪及 EC2 G/VT、P 按需 GPU 配额为 0。测试资源清理状态和证据见报告；这是临时探针，不代表作品已部署。
+
+初次认识服务可先读 [AWS 服务入门：从篮球视频到网页成片](services-primer-20261006.md)，区分 AI、计算、媒体、存储与消息编排的职责；其中项目例子不代表已部署或赛事要求全部使用。
+
+### 2026-10-06 16:02 计算与队列服务核验
+
+[ECS/Fargate、EC2、SQS 与 SageMaker](compute-services-availability-20261006.md)已同时核对赛事原文、示例页和本队只读 API：Fargate 计算提供方 ACTIVE、按需配额 140 vCPU；CPU EC2 标准按需 256 vCPU；SQS 列表可读；G5 Endpoint / Notebook 有额度。服务提供不等于完整创建成功；可见策略和未验证项见报告。本轮没有部署或开机。
+
+### 2026-10-06 SageMaker GPU 实查
+
+[配额与执行角色核验](sagemaker-gpu-availability-20261006.md)已完成：本队 us-east-1 的 G4dn / G5 / G6 / G6e 在 Notebook、Training、Endpoint 等用途有非零配额，与用户截图一致；这些机型的 Processing / Batch Transform 当前为 0。预置工作负载角色信任 SageMaker，参赛角色允许传递该角色。本轮只读，没有开机或申请提升配额；具体矩阵及未验证边界见记录和 JSON 快照。
+
+### 2026-10-06 模型权限实查
+
+参赛角色与 `NBAHackathonParticipantBoundary` 的真实模型白名单均仅含 **Claude Sonnet 4.6** 和 **Qwen3-VL-235B-A22B**。本轮 Qwen Converse 成功；Sonnet 4.6 在白名单内但协议状态未就绪，未做首次开通。GPT / Claude Opus / 其他 Sonnet 版本被显式拒绝，gpt-oss-120b 已实际请求验证拒绝。模型目录和服务状态不能代替有效 IAM 权限；完整结果、去标识化证据与限制见[模型权限核验](bedrock-model-access-20261006.md)。
+
+## 2026-10-05 历史准备记录
+
+以下基线截至 2026-10-05 22:03（Asia/Shanghai），随后同日 22:33 补充接通测试。账号服务的最新实测结论以上方 10 月 6 日报告为准；保留早期检查范围供追溯。
 
 ### 22:33 接通测试更新
 
@@ -43,7 +63,7 @@ aws sts get-caller-identity --profile nba --region us-east-1
 
 登录后的身份应对应本队的 `NBAHackathonParticipantRole`。SSO 区域为 `us-west-2`，应用区域为 `us-east-1`；两者作用不同。旧终端可能仍保留安装前 PATH，需重新打开或刷新环境。
 
-本机已完成的安装无需重复执行。已有 CDKToolkit，后续应先核对兼容性；本页不是重新 bootstrap 或创建资源的指令。
+本机已完成的安装无需重复执行。按 2026-10-06 用户转发的[官方 CDK 补充通知](../../requirements/cdk-deployment-notice-20261006.md)，主办方已完成 `us-east-1` 的 bootstrap，本队**不要执行 `cdk bootstrap`**。后续实际 CDK 工程需在 `cdk.json` 的 `context` 中加入 `"@aws-cdk/core:permissionsBoundary": { "name": "NBAHackathonParticipantBoundary" }`，保留其他已有配置；该边界不自动授予业务权限。本次只更新说明，未重验登录、查询策略或部署资源。
 
 ## 环境准备之后
 
