@@ -4,6 +4,7 @@
 
 | 想查的问题 | 研究入口 | 配套结果 |
 | --- | --- | --- |
+| TAPNet 能否辅助点选跟随、遮挡恢复与球场参照 | [TAPNext++ 可用性调研](tapnet-20261006/README.md) | 官方源码 / 权重许可核查；CPU 与 CUDA 随机参数接口探针通过，正式权重及篮球效果未测 |
 | 新导入视频的错人续接、战术更正与大草稿 | [THY 诊断整理](imported-video-diagnostics-20261005.md) | 来源交接已同步；动画、浏览器草稿和多数截图仅在作者本机 |
 | 篮球与人物如何检测、跨帧跟踪 | [模型与十人工作台对照](player-tracking-workbench-20261002.md)、[E-BARD 评估](vision-player-refinement/ebard-assessment.md) | [跟踪测量](vision-player-refinement/ebard-tracking-probe.json) |
 | 脚环、编号、球队颜色怎样对应人物 | [脚下编号与分队](player-team-overlay-20261002.md)、[身份绑定核查](vision-player-refinement/identity-binding-review.md)、[身份与 2K 匹配](player-identity-2k-20261002.md) | [身份抽查](player-tracking-spotchecks-20261002.json) |

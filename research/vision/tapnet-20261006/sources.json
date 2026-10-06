@@ -1,0 +1,114 @@
+{
+  "collected_at": "2026-10-06T13:54:13.331409+08:00",
+  "repository": "https://github.com/google-deepmind/tapnet",
+  "commit": "730cda1c730877cfedbe01bf87fb1cadb78a565d",
+  "commit_date": "2026-09-15",
+  "method": "Official repository shallow clone and source inspection; Exa two searches of 5 results each (10 result entries, not 10 independent sources), author-page reads; anonymous HTTPS HEAD checks; explicit-random-parameter runtime probe. No pretrained checkpoints downloaded.",
+  "repository_files": [
+    {
+      "path": "README.md",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/README.md",
+      "sha256": "dbd3b85266cd64a1ebf9553189e78066f1180ca23803161be18ef26f6a269057"
+    },
+    {
+      "path": "LICENSE",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/LICENSE",
+      "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+    },
+    {
+      "path": "pyproject.toml",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/pyproject.toml",
+      "sha256": "7e49a926d02ddd1fe21239abfa417c2d008b788609511015ed5a046e16fed4d2"
+    },
+    {
+      "path": "colabs/torch_tapir_demo.ipynb",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/colabs/torch_tapir_demo.ipynb",
+      "sha256": "9bc24b4b5b5fe7bb5343c4a20ba2c9593a42afe1d8ddf941449fb38725c90d6d"
+    },
+    {
+      "path": "colabs/torch_tapnext_demo.ipynb",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/colabs/torch_tapnext_demo.ipynb",
+      "sha256": "cff38c11b492e405d01a5212cadacff955afd19b906535833174ee484933afa8"
+    },
+    {
+      "path": "colabs/torch_tapnextpp_demo.ipynb",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/colabs/torch_tapnextpp_demo.ipynb",
+      "sha256": "d37dd3fa2f765f0940a7c94f684da2b8569f4d471e38232636477d534dd51338"
+    },
+    {
+      "path": "tapnet/tapnext/tapnext_torch.py",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/tapnet/tapnext/tapnext_torch.py",
+      "sha256": "3917fa274b152e5397fbcdc506b345943d6778c99223c22f845279ca1513e443"
+    },
+    {
+      "path": "tapnet/tapnext/tapnext_lru_modules.py",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/tapnet/tapnext/tapnext_lru_modules.py",
+      "sha256": "437f5564ce7a08b0b07eacb799ea9eb9a98bb82c6272d8a624e5478c8bc2f63a"
+    },
+    {
+      "path": "tapnet/tapnextpp/README.md",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/tapnet/tapnextpp/README.md",
+      "sha256": "ac09cdfa58c9e7495580280b21777535dba2ded006341ff9abbb4ab3801386d4"
+    },
+    {
+      "path": "tapnet/tapnextpp/votsp2026/README.md",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/tapnet/tapnextpp/votsp2026/README.md",
+      "sha256": "383461c00e462a3257c1a11ff8163f44c2f81c971290535c74846fadffae7af2"
+    },
+    {
+      "path": "tapnet/tapnextpp/votsp2026/model.py",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/tapnet/tapnextpp/votsp2026/model.py",
+      "sha256": "67488b50f6f625c52e07654dfc105aa5a5efd69fd1518bb4f65757cdcbb6f3ea"
+    },
+    {
+      "path": "tapnet/tapnextpp/votsp2026/utils.py",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/tapnet/tapnextpp/votsp2026/utils.py",
+      "sha256": "c22e9c7d33d68bce0a242c1ade5e4d996136569341be38e7f8a88da32e894471"
+    },
+    {
+      "path": "tapnet/tapnextpp/votsp2026/tracker.py",
+      "url": "https://github.com/google-deepmind/tapnet/blob/730cda1c730877cfedbe01bf87fb1cadb78a565d/tapnet/tapnextpp/votsp2026/tracker.py",
+      "sha256": "97b2b19aaa6d05e0509c5725f9ebc1b311f9b4bcf1b8efab0707a9e8cecb7673"
+    }
+  ],
+  "author_pages": [
+    {
+      "url": "https://tap-next.github.io/",
+      "purpose": "TAPNext method, H100/V100 timings, limitation beyond 150 frames"
+    },
+    {
+      "url": "https://tap-next-plus-plus.github.io/",
+      "purpose": "Long-sequence/re-detection improvements, authors qualitative failures, paper-model results distinct from public checkpoint"
+    },
+    {
+      "url": "https://deepmind-tapir.github.io/",
+      "purpose": "TAPIR point tracking and camera-compensated visualization pipeline"
+    }
+  ],
+  "checkpoint_head_checks": [
+    {
+      "url": "https://storage.googleapis.com/dm-tapnet/tapnextpp/tapnextpp_ckpt.pt",
+      "status": 200,
+      "bytes": "2532282370",
+      "last_modified": "Fri, 27 Mar 2026 19:27:13 GMT"
+    },
+    {
+      "url": "https://storage.googleapis.com/gresearch/tapnextpp/tapnextpp_512.ckpt",
+      "status": 200,
+      "bytes": "2532283010",
+      "last_modified": "Mon, 22 Jun 2026 18:43:13 GMT"
+    },
+    {
+      "url": "https://storage.googleapis.com/dm-tapnet/bootstap/bootstapir_checkpoint_v2.pt",
+      "status": 200,
+      "bytes": "218886140",
+      "last_modified": "Thu, 23 May 2024 12:56:39 GMT"
+    }
+  ],
+  "project_base_commit": "be5c43d17c78f04b4df55eda38aa6f82fde8f803",
+  "github_issues": {
+    "open": [],
+    "closed": [],
+    "note": "Read-only gh issue list checks; no task discussion or assignment found."
+  }
+}
