@@ -4,6 +4,7 @@
 
 - [14 篇论文功能指南](mentor-components-20261005/PAPER_GUIDE.md)：各自解决什么问题，需要什么输入，输出什么。
 - [模型发布专项核查](mentor-components-20261005/OPEN_SOURCE_AUDIT.md)：HoopTransformer、Hoop-MSSL、HoopEval 的代码、权重与历史版本。
+- [遮挡球员自适应热图论文核查](occluded-player-heatmap-20261006.md)：2021 年任媛等论文的训练证据、代码 / 权重公开状态及 CenterNet 基础模型的区别。
 - [复现方法](mentor-components-20261005/REPRODUCE.md)：研究环境、脚本和验证边界。
 - `mentor-components-20261005/evidence/`：已保存的来源索引与 CPU / GPU 测试结果。
 
