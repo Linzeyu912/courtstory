@@ -311,6 +311,8 @@ class TacticsAgent:
         self.closed = False
 
     def status(self):
+        if hasattr(self.execute, 'status'):
+            return self.execute.status()
         available = bool(self.codex and Path(self.codex).is_file() and self.tactics.node)
         try:
             model, effort = trusted_model_settings()

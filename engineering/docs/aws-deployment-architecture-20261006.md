@@ -1,5 +1,7 @@
 # 工作台 AWS 部署选型与实施顺序
 
+2026-10-07 接续：用户在当前聊天明确选择 EC2 直接安装代码与依赖，暂不自建容器。该轮 [拆分与交互验收方案](ec2-code-deployment-plan-20261007.md)替代下文 ECS/Fargate 优先的建议；此处保留 10 月 6 日的历史分析，不作为最新实施路线。
+
 日期：2026-10-06 15:46，Asia/Shanghai。范围：回答当前工作台如何部署、S3 / EC2 / SageMaker 如何分工、Codex 能否协助执行。以下为工程建议，尚未形成团队选型或部署结果。
 
 后续证据：同日 20:25 已完成 [19 项服务独立实测](../../environment/aws/services-live-audit-20261006.md)，包括 AgentCore Runtime、Fargate / Batch、CPU EC2 与 CloudFront。下文 15:46 / 16:02 的只读记录保留当时范围；服务基本功能已测不代表本架构或完整工作台已经部署，SageMaker GPU 仍未启动验证。

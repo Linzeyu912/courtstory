@@ -1,0 +1,71 @@
+{
+  "collectedDate": "2026-10-07",
+  "timezone": "Asia/Singapore",
+  "scope": "CloudFront browser interaction, native EC2, AgentCore code ZIP, S3",
+  "region": "us-east-1",
+  "gitPublished": false,
+  "cloudDeployed": true,
+  "gpuStarted": false,
+  "frontendHostedOn": "EC2",
+  "cloudfrontOrigin": "EC2 VPC origin",
+  "storageMode": "EBS then asynchronous S3 backup every 10 seconds",
+  "savedVersion": 3,
+  "annotations": 3,
+  "pausePoints": 1,
+  "agent": {
+    "provider": "AgentCore / Bedrock",
+    "model": "qwen.qwen3-vl-235b-a22b",
+    "browserPhaseCandidateValidated": true,
+    "adoptedCandidateAnnotations": 2,
+    "manualRangeRejectedWithoutPrepared2D": true,
+    "basketballAccuracyReviewed": false
+  },
+  "render": {
+    "frames": 218,
+    "width": 1920,
+    "height": 1080,
+    "duration": 7.266667,
+    "audioStreams": 0,
+    "bytes": 3907340,
+    "sha256": "f7c647bcd963f0debf866128563b74dc11f09427aaf4a7cec29cdd2e1b8f6ca6",
+    "s3ReadbackMatchesBrowserDownload": true
+  },
+  "draftBackupMatchesServerDocument": true,
+  "backupStatus": {
+    "syncedFiles": 26,
+    "lastSync": 1791340189.516018,
+    "error": null,
+    "mode": "ec2-direct-code",
+    "agentcoreConfigured": true,
+    "backupMode": "asynchronous-10-second-scan",
+    "release": "20261007-095426"
+  },
+  "security": {
+    "unauthenticatedRedirectsToLogin": true,
+    "wrongOriginStatus": 403,
+    "ingress": "TCP 8080 only from CloudFront service managed security group",
+    "publicIngressRules": 0
+  },
+  "release": {
+    "files": 323,
+    "bytes": 4691061,
+    "sha256": "5e843e5f0d30231ace011032845b64866118d3280a29d7aab1e695d0af0d2299",
+    "s3ReadbackMatches": true
+  },
+  "localTests": {
+    "gateway": 6,
+    "cloudAdapter": 3,
+    "existingTacticsAgent": 18,
+    "failed": 0
+  },
+  "evidenceDirectory": "tmp/ec2-workbench-20261007",
+  "remaining": [
+    "GPU and other model providers",
+    "basketball content accuracy",
+    "multiuser authentication",
+    "automatic restore onto replacement instance",
+    "large-file and concurrency tests",
+    "cloud UI wording and upload limit alignment",
+    "formal judging presentation page"
+  ]
+}
