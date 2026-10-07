@@ -15,6 +15,31 @@ const projectedFixture=async({scale=1,x=0,y=0}={})=>{
 };
 const route={id:'route-a',phaseId:'setup',type:'route',entityId:'P1',frame:12,space:'court',points:[{x:18,y:10},{x:20,y:9},{x:22,y:9}]};
 
+test('explicit observed later dashed routes retain each bend as one native editable route',async()=>{
+  const base=await fixture();
+  for(let count=2;count<=6;count++){
+    const points=Array.from({length:count},(_,i)=>({x:400+i*35,y:450-i*15+(i%2)*25}));
+    const doc=api.createAnnotation(base,{...route,space:'video',points,meaning:'later_observed_action',curve:'polyline',style:{pattern:'dashed'}});
+    await validateDocument(JSON.parse(JSON.stringify(doc)));
+    assert.equal(doc.annotations.items.length,1);assert.deepEqual(doc.annotations.items[0].points,points);
+    const scene=api.projectAnnotations(doc,{phaseId:'setup',frame:12,freeze:true});
+    assert.equal(scene.items.length,1);assert.deepEqual(scene.items[0].video.curve[0],points[0]);
+    assert.deepEqual(scene.items[0].video.curve.at(-1),points.at(-1));
+    assert.match(api.renderAnnotationsSVG(scene),/stroke-dasharray=/);
+    const edited=api.updateAnnotation(doc,'route-a',{points:points.map((p,i)=>({...p,y:p.y+(i===1?5:0)}))});
+    assert.equal(edited.annotations.items.length,1);assert.equal(edited.annotations.items[0].points.length,count);
+  }
+  assert.throws(()=>api.createAnnotation(base,{...route,meaning:'later_observed_action',style:{pattern:'dashed'},points:Array.from({length:7},(_,i)=>({x:10+i,y:8}))}),/annotation_points/);
+});
+
+test('pass dots and dashed paths without observed-later meaning still reject multiple bends',async()=>{
+  const base=await fixture();
+  for(const meaning of [undefined,'pass','current_action'])for(const pattern of ['dashed','dots']){
+    assert.throws(()=>api.createAnnotation(base,{...route,...(meaning?{meaning}:{}),curve:'polyline',style:{pattern}}),/annotation_straight_points/);
+  }
+  assert.throws(()=>api.createAnnotation(base,{...route,meaning:'later_observed_action',style:{pattern:'dots'}}),/annotation_straight_points/);
+});
+
 test('authored route, screen and spotlight persist independently of tracks and legacy presentation',async()=>{
   requireAPI();const original=await fixture();original.presentation={schemaVersion:1,routes:[]};const before=structuredClone(original);
   let doc=api.createAnnotation(original,route);
@@ -138,6 +163,18 @@ test('a video with no detected or associated players can still start a complete 
   await validateDocument(doc);const model=await buildPhaseRoutes(doc,'phase-1');
   assert.deepEqual(model.routes,[]);assert.ok(api.projectAnnotations(doc,{phaseId:'phase-1',frame:0,model}).items.every(i=>i.video));
   assert.equal(doc.annotations.items.find(i=>i.type==='spotlight').followEntity,false);
+});
+
+test('static position marker renders as a small cross without a spotlight or player label and stays editable',async()=>{
+  const doc=api.createAnnotation(await fixture(),{id:'static-position',type:'position',phaseId:'setup',entityId:null,frame:12,space:'video',points:[{x:600,y:400}]});
+  await validateDocument(JSON.parse(JSON.stringify(doc)));
+  const scene=api.projectAnnotations(doc,{phaseId:'setup',frame:12}),svg=api.renderAnnotationsSVG(scene);
+  assert.match(svg,/data-type="position"/);assert.match(svg,/data-part="position-mark"/);
+  assert.doesNotMatch(svg,/data-part="spotlight"|<text/);assert.equal(scene.items[0].video.ring,undefined);
+  assert.equal(api.hitTestAnnotation(scene,{x:600,y:400}).id,'static-position');
+  assert.equal(api.annotationPresentation(doc).items[0].visible,true);
+  const edited=api.updateAnnotation(doc,'static-position',{points:[{x:650,y:420}]});assert.equal(edited.annotations.items[0].points[0].x,650);
+  assert.equal((api.removeAnnotation(edited,'static-position').annotations?.items??[]).length,0);
 });
 
 test('a court foot circle can be unlinked or stopped without an invalid anchor or changed observations',async()=>{

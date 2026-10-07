@@ -401,7 +401,7 @@ test('entering tactics synchronizes corrected feet and participants, archives re
 });
 
 function environment(source,{player=false,empty=false,agent=null,renderJob=null,loadDocument=null,storage=null,storageKey=null,serverVersion=0}={}){
-  const nodes=new Map(),events={},writes=[],metadataWrites=[],saved=[],store=storage??new Map();let hold=false,releases=[],frameRequests=0;
+  const nodes=new Map(),events={},writes=[],metadataWrites=[],saved=[],store=storage??new Map();let hold=false,releases=[],frameRequests=0,resizeCallback;
   function make(tag='div'){
     const queries=new Map();
     const node={tag,children:[],attrs:{},listeners:{},style:{},dataset:{},value:'',checked:false,clientWidth:800,hidden:false,textContent:'',
@@ -430,7 +430,7 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
   })};return tx;}};
   activeDatabase=database;Object.assign(globalThis,{
     document:{body:{dataset:{area:'tactics'}},getElementById:get,createElement:make,createElementNS:(_ns,tag)=>make(tag),addEventListener:(name,fn)=>events[name]=fn},
-    window:{history:{replaceState(){}}},location:{search:'?sample=test&qa=1'},Image:class{async decode(){}},ResizeObserver:class{observe(){}},
+    window:{history:{replaceState(){}}},location:{search:'?sample=test&qa=1'},Image:class{async decode(){}},ResizeObserver:class{constructor(callback){resizeCallback=callback;}observe(){}},
     localStorage:{getItem:()=>null},indexedDB:{open(){const r={};queueMicrotask(()=>{r.result=connection;r.onsuccess();});return r;}},
     fetch:async(path,options)=>{
       let value;if(path.startsWith('/api/tactics?'))value={version:serverVersion,document:empty?null:loadDocument?await loadDocument():source};
@@ -447,7 +447,7 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
   const ui=mountTacticsUI({key:storageKey??`player-review:ui-fixture-${++environmentId}:qa`,sample:'test',variant:'test',qa:true,title:'fixture',clip:{video_sha256:source.review.videoSha256},pause(){paused=true;playerCalls.push(['pause']);},snapshot:()=>source.review,frame:()=>point?.frame??12,openStep(){},...bridge});
   return {get,ui,writes,metadataWrites,saved,store,playerCalls,present,background,get frameRequests(){return frameRequests;},get pendingWrites(){return releases.length;},
     holdSeek(){seekHeld=true;},finishSeek(){seekHeld=false;for(const done of pendingSeeks.splice(0))done();},
-    async load(){await events['workbench-area']();await ui.ready();},
+    async load(){await events['workbench-area']();await ui.ready();},resize(){resizeCallback();},
     async exit(){await events['workbench-area']();},
     async event(name,event){for(const fn of get('tacticsCanvas').listeners[name]||[])await fn({button:0,preventDefault(){},...event});},
     selectPlayer(id){get('tacticsRoutePlayer').value=id;get('tacticsRoutePlayer').onchange();},
@@ -459,6 +459,23 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
     restore(){ui.dispose();for(const [k,v] of originals){if(v===undefined)delete globalThis[k];else globalThis[k]=v;}}
   };
 }
+
+test('video preview redraws at full canvas width on resize, leaving source coordinates intact and court height capped',async()=>{
+  const {review}=await makePresentationDemo();review.mediaEndTime=6.1;
+  const d=await createTacticsDocument(review),original=structuredClone(d),env=environment(d,{player:true});
+  try{
+    window.innerHeight=720;env.get('tacticsCanvas').clientWidth=876;await env.load();
+    const scene=env.get('tacticsCanvas').children[0],ratio=d.review.height/d.review.width;
+    assert.equal(scene.style.width,'874px');assert.equal(scene.style.height,`${874*ratio}px`);
+    const before=structuredClone(env.ui.getSceneState().model),writeCount=env.writes.length,saveCount=env.saved.length;
+    env.get('tacticsCanvas').clientWidth=1200;env.resize();
+    assert.equal(scene.style.width,'1198px');assert.equal(scene.style.height,`${1198*ratio}px`);
+    assert.deepEqual(env.ui.getSceneState().model,before,'display resize must not change annotation coordinates or projection input');
+    env.get('tacticsCourtView').onclick();assert.equal(scene.style.height,'222px');
+    env.get('tacticsVideoView').onclick();assert.equal(scene.style.width,'1198px');
+    assert.deepEqual(d,original);assert.equal(env.writes.length,writeCount);assert.equal(env.saved.length,saveCount);
+  }finally{env.restore();}
+});
 
 async function identityFixture(){
   const f=await makePresentationDemo();
@@ -1037,11 +1054,112 @@ test('partial Agent results show uncertainty, retry only the captured request an
   try{
     await env.load();await env.get('tacticsAgentRun').onclick();assert.equal(first.scope,'play');assert.equal(first.range,undefined);
     assert.match(uiWords(env.get('tacticsAgentPreview')),/接应.*待人工确认.*脚点被遮挡/);
-    assert.match(uiWords(env.get('tacticsAgentStages')),/已标 2 人，待确认 1 人/);assert.match(env.get('tacticsAgentStatus').textContent,/阶段 1\/2.*300 秒.*model_timeout/);
+    assert.match(uiWords(env.get('tacticsAgentStages')),/已标 2 人，待确认 1 人/);assert.match(env.get('tacticsAgentStatus').textContent,/阶段 1\/2.*300 秒.*生成超过本次时间上限/);
     assert.equal(env.get('tacticsAgentAdopt').disabled,false);assert.equal(env.get('tacticsAgentRetry').hidden,false);assert.equal(env.ui.getSceneState().annotations.items.length,0);
     await env.get('tacticsAgentRetry').onclick();assert.equal(retries,1);assert.deepEqual(retry,first);
     env.get('tacticsNotes').value='人工补充判断';env.get('tacticsNotes').oninput();await env.get('tacticsAgentRetry').onclick();
     assert.equal(retries,1);assert.match(env.get('tacticsAgentStatus').textContent,/草稿已有修改/);await env.get('tacticsSave').onclick();assert.equal(env.saved.at(-1).document.notes,'人工补充判断');
+  }finally{env.restore();}
+});
+
+test('audit problems locate original frames, keep full diagnostics and survive adopted handle recovery without edits',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),storage=new Map(),storageKey='audit-problems',service=recoverableAgent();
+  const issue={kind:'route',code:'route_pending',reason:'短发4号被接成卷发1号',evidenceFrames:[20,40]},diagnostics=Array.from({length:70},(_,i)=>`stage-1 route #${i} frames=[20] originalAction=cut：完整说明 ${i}`);
+  const request=async(path,payload)=>{const result=await service.request(path,payload);if(result.jobId)Object.assign(result,{status:'partial',completionKind:'manual_review',canRetry:false,auditNeedsRepair:true,diagnostics,
+    visualAudit:{allApproved:false,stages:{s1:{allApproved:false,exceptionItems:[issue,{kind:'frame',code:'missed_on_court_player',reason:'篮下漏掉防守者',frame:30},{kind:'ball',code:'ball_pending',reason:'原画面编号无效，仍须核对持球人',frame:999}]}}},
+    stages:[{stageId:'s1',startFrame:0,endFrameExclusive:61,status:'ready',visualAudit:{allApproved:false,exceptionItems:[issue]}}]});return result;};
+  let env=environment(d,{player:true,agent:request,storage,storageKey});
+  try{
+    await env.load();await env.get('tacticsAgentRun').onclick();
+    let list=env.get('tacticsAgentAuditList');assert.equal(list.children.length,3);
+    assert.match(uiWords(list),/路线.*2\.00、4\.00 秒.*短发4号被接成卷发1号/);
+    assert.match(uiWords(list),/漏人.*3\.00 秒/);assert.doesNotMatch(uiWords(list),/stage-1|#\d|originalAction|frames=/);
+    assert.equal(list.children[2].children.length,1,'invalid frame keeps its reason but has no seek button');
+    const writes=env.writes.length,before=structuredClone(env.ui.getSceneState().annotations.items);
+    await list.children[0].children[2].onclick();await env.ui.ready();await Promise.resolve();
+    assert.equal(env.ui.getSceneState().frame,40);assert.equal(env.writes.length,writes);assert.deepEqual(env.ui.getSceneState().annotations.items,before);
+    assert.match(uiWords(env.get('tacticsAgentStages')),/已生成，待核对/);
+    assert.match(uiWords(env.get('tacticsAgentPreview')),/完整说明 69/);
+    await env.get('tacticsAgentAdopt').onclick();await env.ui.saveDraft();env.restore();
+    env=environment(d,{player:true,agent:request,storage,storageKey});await env.load();
+    list=env.get('tacticsAgentAuditList');assert.equal(list.children.length,3);
+    const reloadWrites=env.writes.length,objects=structuredClone(env.ui.getSceneState().annotations.items);
+    await list.children[1].children[1].onclick();await env.ui.ready();await Promise.resolve();
+    assert.equal(env.ui.getSceneState().frame,30);assert.equal(env.writes.length,reloadWrites);assert.deepEqual(env.ui.getSceneState().annotations.items,objects);
+    assert.match(uiWords(env.get('tacticsAgentPreview')),/完整说明 69/);
+  }finally{env.restore();}
+});
+
+test('saved audit without a browser handle remains readonly and old locate buttons reject replacement reports',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),{reviewDigest,...binding}=d.playDefinition.sourceBinding;
+  const issue={kind:'route',code:'route_pending',reason:'持球者4号不能接成1号',evidenceFrames:[20,40]};
+  d.agentRuns=[{jobId:'saved-only',visualAudit:{allApproved:false,stages:{s1:{exceptionItems:[issue]}}},issues:Array.from({length:70},(_,i)=>`保存的完整核对说明 ${i}`),
+    visualAuditSource:{schemaVersion:1,jobId:'saved-only',...binding,width:d.review.width,height:d.review.height,mediaEndTime:d.review.mediaEndTime??null,cuts:d.review.settings?.cuts??[],sourceCuts:d.review.settings?.sourceCuts??[],context:{variant:'test',qa:true,kind:'workspace'}}}];
+  let requests=0;const env=environment(d,{player:true,agent:async(path)=>{requests++;assert.match(path,/\/status$/);return {available:true,message:'ready'};}});
+  try{
+    await env.load();const list=env.get('tacticsAgentAuditList');assert.equal(list.children.length,2);
+    assert.match(uiWords(list),/路线.*2\.00、4\.00 秒.*4号/);assert.match(uiWords(list),/保存的完整核对说明 69/);
+    assert.equal(env.get('tacticsAgentAdopt').hidden,true);assert.equal(env.get('tacticsAgentRetry').hidden,true);assert.equal(env.get('tacticsAgentRefresh').hidden,true);
+    const writes=env.writes.length,before=structuredClone(env.ui.getSceneState().annotations.items),oldButton=list.children[0].children[2];
+    assert.equal(oldButton.disabled,false);
+    await oldButton.onclick();await env.ui.ready();await Promise.resolve();assert.equal(env.ui.getSceneState().frame,40);
+    assert.equal(env.writes.length,writes);assert.deepEqual(env.ui.getSceneState().annotations.items,before);
+    const beforeChangedPTS=env.playerCalls.length,originalTime=d.review.sourceFrameMapping[20].sourceTime;
+    d.review.sourceFrameMapping[20].sourceTime+=.01;await oldButton.onclick();assert.equal(env.playerCalls.length,beforeChangedPTS,'a live PTS change cannot borrow the old digest');
+    d.review.sourceFrameMapping[20].sourceTime=originalTime;
+    const oldCuts=structuredClone(d.review.settings?.cuts??[]);d.review.settings??={};d.review.settings.cuts=[10];
+    await oldButton.onclick();assert.equal(env.playerCalls.length,beforeChangedPTS,'changed cuts cannot use the old saved run');d.review.settings.cuts=oldCuts;
+    d.agentRuns[0].visualAudit.stages.s1.exceptionItems[0].reason='新版说明';await env.load();
+    const calls=env.playerCalls.length;await oldButton.onclick();assert.equal(env.playerCalls.length,calls,'old source/run context cannot seek after reload');
+    assert.match(uiWords(env.get('tacticsAgentAuditList')),/新版说明/);assert.ok(requests>0);
+  }finally{env.restore();}
+});
+
+test('completed manual-review results group related issues, collapse overflow and retain every basis and guarded frame link',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),service=recoverableAgent();
+  const issues=Array.from({length:12},(_,i)=>({personId:`local-${Math.floor(i/2)}`,kind:i%2?'person':'route',code:i%2?'proposed_motion_unverified':'route_pending',frame:20+i,reason:`独立核对依据 ${i}`}));
+  const request=async(path,payload)=>{const result=await service.request(path,payload);if(result.jobId)Object.assign(result,{status:'partial',completionKind:'manual_review',failure:{code:'visual_audit'},auditNeedsRepair:true,progress:{completed:2,total:2},
+    visualAudit:{allApproved:false,stages:{s1:{exceptionItems:issues},s2:{exceptionItems:[{personId:'local-0',kind:'ball',frame:40,reason:'第二阶段另一个人的球权待核对'}]}}},
+    stages:[{stageId:'s1',status:'ready'},{stageId:'s2',status:'ready'}]});return result;};
+  const env=environment(d,{player:true,agent:request});
+  try{
+    await env.load();await env.get('tacticsAgentRun').onclick();
+    assert.match(env.get('tacticsAgentStatus').textContent,/全段已分析，部分图形待核对/);assert.doesNotMatch(env.get('tacticsAgentStatus').textContent,/生成未完成|未完成阶段/);
+    const list=env.get('tacticsAgentAuditList');assert.equal(list.children.length,6,'four groups, one collapsed overflow and the other-stage group');
+    assert.match(env.get('tacticsAgentAuditTitle').textContent,/7 组.*13 条审核依据/);
+    assert.equal(list.children[0].children.at(-1).tag,'details');assert.equal(list.children[0].children.at(-1).open,false);
+    assert.equal(list.children[4].tag,'details');assert.equal(list.children[4].open,false);
+    for(let i=0;i<12;i++)assert.match(uiWords(list),new RegExp(`独立核对依据 ${i}(?:\\D|$)`));
+    const writes=env.writes.length;await list.children[0].children[2].onclick();await env.ui.ready();await Promise.resolve();
+    assert.equal(env.ui.getSceneState().frame,21);assert.equal(env.writes.length,writes);
+  }finally{env.restore();}
+});
+
+test('saved audit with another source or missing source proof never exposes a locate button',async()=>{
+  for(const proof of [undefined,{schemaVersion:1,jobId:'saved',videoSha256:'another-video'}]){
+    const d=await createTacticsDocument((await makePresentationDemo()).review);d.agentRuns=[{jobId:'saved',visualAudit:{exceptionItems:[{reason:'历史问题',frame:20}]},visualAuditSource:proof}];
+    const env=environment(d,{player:true});try{await env.load();assert.equal(env.get('tacticsAgentAuditIssues').hidden,true);assert.equal(env.get('tacticsAgentAuditList').children.length,0);}finally{env.restore();}
+  }
+});
+
+test('mounted facts stages show anonymous analysis separately from unbound identity slots and storage errors',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),candidate=partialCandidate();
+  const job={jobId:'facts-progress',status:'partial',canRetry:false,failure:{code:'storage'},candidate,previewDocument:d,
+    stages:[{stageId:'s1',startFrame:0,endFrameExclusive:30,status:'ready',coverage:[{annotated:11,uncertain:13,pending:0}],
+      factsReport:{observedPeople:11,routePeople:2,motionPeople:2,exceptionItems:[]}},{stageId:'s2',startFrame:30,endFrameExclusive:61,status:'failed',failure:{code:'storage'}}]};
+  const env=environment(d,{agent:async(path)=>path.endsWith('/status')?{available:true,message:'ready'}:job});
+  try{
+    await env.load();await env.get('tacticsAgentRun').onclick();
+    assert.match(env.get('tacticsPanel').innerHTML,/自动核对并尝试修复/);
+    assert.match(env.get('tacticsPanel').innerHTML,/限定次数内仍不明确的事项再交人工处理/);
+    assert.doesNotMatch(env.get('tacticsPanel').innerHTML,/无法确认的路线留待人工补充/);
+    const rows=env.get('tacticsAgentStages').children;
+    assert.match(uiWords(rows[0]),/已分析 11 人 · 路线覆盖 2 人 · 0 项疑点/);
+    assert.doesNotMatch(uiWords(rows[0]),/13|待确认/);assert.equal(rows[0].children.length,1,'unbound identity slots alone must not offer manual completion');
+    const title=env.get('tacticsAgentPreview').children[1].children[0].textContent;
+    assert.match(title,/已分析 11 人 · 路线覆盖 2 人/);assert.doesNotMatch(title,/人待确认/);
+    assert.match(uiWords(rows[1]),/保存受阻/);assert.match(env.get('tacticsAgentStatus').textContent,/结果保存受阻/);
+    assert.equal(env.ui.getSceneState().annotations.items.length,0);
   }finally{env.restore();}
 });
 

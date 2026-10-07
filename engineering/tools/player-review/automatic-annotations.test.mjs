@@ -269,7 +269,12 @@ test('known conflict in an existing model draft becomes a grey detection without
     assert(candidates(clip,0,points).some(row=>row.trackId===1));
     assert.deepEqual(session.entities[5],preserved);
     const edited={...point,source:'manual',x:11.25,y:72.75,identityConfirmed:false};
-    assert.equal(api.automaticAnnotationPointVisible(clip,0,edited),false,'position editing does not confirm a conflicted identity');
+    assert.equal(api.automaticAnnotationPointVisible(clip,0,edited),true,'deliberate manual position remains visible');
+    session.entities[5].anchors.push({frame:0,x:11.25,y:72.75,trackId:1,identityConfirmed:false});
+    const positioned=buildTrajectories(session,clip.frames,[],clip).P6[0];
+    assert.equal(positioned.frameIdentityConfirmed,false,'position editing does not confirm a conflicted identity');
+    assert.match(trackingDiagnostic(record,positioned,null,clip.detectorEvidence).detail,/风险|核对|冲突/);
+    session.entities[5].anchors=[];
     confirmIdentity(session,'P6',0,{trackId:1,box:record.tracks[0].slice(0,4)},clip.frames);
     const human=buildTrajectories(session,clip.frames);
     assert.equal(api.automaticAnnotationPointVisible(clip,0,human.P6[0]),true);
@@ -434,5 +439,16 @@ test('wrong-source, malformed, and uncertain visual exclusions never suppress a 
     initialize(session,clip);const points=buildTrajectories(session,clip.frames);
     assert.equal(points.P6[1].trackId,1);
     assert.equal(api.automaticAnnotationPointVisible(clip,1,points.P6[1],session),true);
+  }
+});
+
+test('risk confirmation refuses duplicate or absent observations and never writes partial confirmation',()=>{
+  for(const defect of ['duplicate','absent']){
+    const clip=fixture(),session=blankSession('video');adoptIdentitySuggestions(session,clip.identitySuggestions,clip.frames);
+    clip.frames[0].role_conflicts=[{trackIds:[1]}];
+    if(defect==='duplicate')clip.frames[0].tracks.push([...clip.frames[0].tracks.find(row=>row[4]===1)]);
+    else clip.frames[0].tracks=clip.frames[0].tracks.filter(row=>row[4]!==1);
+    const before=structuredClone(session);
+    assert.throws(()=>confirmFrameIdentity(session,'P6',0,clip.frames));assert.deepEqual(session,before);
   }
 });

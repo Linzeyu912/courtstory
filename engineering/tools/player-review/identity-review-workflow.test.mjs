@@ -6,6 +6,8 @@ import {blankSession,buildTrajectories,replaceIdentityRange,entityLabel,confirmF
 import {identityPersonSelection,identityQuickRange,excludeIdentityPersonRange,addMissingIdentityPoint,initialIdentityReviewView,issueReviewFrame} from './identity-review-workflow.mjs';
 import {createIdentityAgentClient} from './identity-agent-client.mjs';
 import {applyInitialIdentityReview,initialIdentitySlotBasis} from './identity-initial-review.mjs';
+import {suggestMissingPlayerRange,previewMissingPlayerRange} from './missing-player-range.mjs';
+import {frameSeekTime} from './team-overlay.mjs';
 
 function fixture(){
   const clip={video_sha256:'video',tracking_fingerprint:'tracks',tracking_revision:'detector',width:1280,height:720,sourceCuts:[],frames:Array.from({length:9},(_,frame)=>({frame,time:frame/10,tracks:[[100+frame,80,150+frame,180,1,.9,0],[400+frame,80,450+frame,180,2,.9,0]]}))};
@@ -124,26 +126,29 @@ function appHarness(extra={}){
   const source=app.slice(app.indexOf('function quickIdentityState()'),app.indexOf('function identityReferenceFrameReady()'));
   const click=app.slice(app.indexOf("canvas.addEventListener('click',"),app.indexOf('\nfunction setMode',app.indexOf("canvas.addEventListener('click',")));
   const undo=app.split('\n').find(line=>line.startsWith("$('undo').addEventListener"));
-  const context={initialSession:session,clip,structuredClone,identityPersonSelection,identityQuickRange,excludeIdentityPersonRange,addMissingIdentityPoint,initialIdentityReviewView,issueReviewFrame,buildTrajectories,replaceIdentityRange,entityLabel,
+  const frameControls=app.slice(app.indexOf('function seek(index,'),app.indexOf('function proposals()'));
+  const context={initialSession:session,clip,structuredClone,identityPersonSelection,identityQuickRange,excludeIdentityPersonRange,addMissingIdentityPoint,suggestMissingPlayerRange,previewMissingPlayerRange,initialIdentityReviewView,issueReviewFrame,buildTrajectories,replaceIdentityRange,entityLabel,
     document:{querySelector:()=>node('selected')},$:node,canvas:{addEventListener:(name,fn)=>listeners.set(`canvas:${name}`,fn)},pauseVideo:()=>calls.push('pause'),draw:()=>{},clearRangePreview:()=>{},prepareGeometryEdit:()=>{},
-    toast:message=>calls.push(message),editable:()=>true,imagePosition:event=>event,proposals:()=>[],pickPersonProposal:()=>null,commitImageEdit:()=>{},frameAtMediaTime:(frames,time)=>frames.reduce((nearest,record,index)=>Math.abs(record.time-time)<Math.abs(frames[nearest].time-time)?index:nearest,0),
+    identityReferenceFrameReady:()=>true,toast:message=>calls.push(message),editable:()=>true,imagePosition:event=>event,proposals:()=>[],pickPersonProposal:()=>null,commitImageEdit:()=>{},frameSeekTime,frameAtMediaTime:(frames,time)=>frames.reduce((nearest,record,index)=>Math.abs(record.time-time)<Math.abs(frames[nearest].time-time)?index:nearest,0),
     setTimeout:()=>{},...extra};
   vm.runInNewContext(`
     let session=initialSession,active='P1',frame=3,mode='select',sessionRevision=0,history=[],reviewBusy=false,initialApplying=false,initialApplyError='',initialAutoApply=true;
     let previewTrackId=null,quickIdentity={action:null,targetId:'P1',trackId:null},rangeEdit={capture:null},rangePreviewData=null,suppressClick=false;
     const sourceCuts=clip.sourceCuts,sceneUI=null,workspace=null,identityAgent=globalThis.mockAgent||null;
+    const videoDisplay=null,tacticsUI=null,video={pause:()=>{},currentTime:0};let tacticsSeekTime=null,drag=null;
     let trajectories=buildTrajectories(session,clip.frames,sourceCuts);
     function refresh(){trajectories=buildTrajectories(session,clip.frames,sourceCuts);}
     function saveDraft(){}
     function change(fn){history.push({draft:JSON.stringify(session),active});fn();sessionRevision++;refresh();}
-    function seek(at){frame=at;}
+    ${frameControls}
     async function associateProposal(){throw new Error('A plain click must not assign');}
     function applyInitialIdentityReview(current,result){return globalThis.applyInitialResult(current,result);}
     ${source}\n${click}\n${undo}
-    globalThis.harness={selectIdentityPerson,beginIdentityQuickEdit,setIdentityQuickTarget,setIdentityQuickRange,applyIdentityQuickEdit,cancelIdentityQuickEdit,adoptInitialReview,reviewIdentityIssue,
+    globalThis.harness={selectIdentityPerson,beginIdentityQuickEdit,setIdentityQuickTarget,setIdentityQuickRange,applyIdentityQuickEdit,applyMissingSingleFrame,cancelIdentityQuickEdit,adoptInitialReview,reviewIdentityIssue,seek,updateFrame,
       state:()=>({session,active,frame,mode,revision:sessionRevision,quick:quickIdentityState(),history,initialApplyError}),
       externalEdit:()=>{session.note='new manual note';sessionRevision++;},
       manualFixture:()=>{session.entities[0].bindings=[{kind:'unassigned',trackId:null,start:0,end:8,order:1,origin:'human_release'}];refresh();},
+      singleMissingFixture:(stale=false)=>{const entity=session.entities[2];entity.anchors=[{frame:2,x:260,y:310},{frame:4,x:280,y:330}];if(stale){entity.identityKeyframes=[{frame:0,kind:'track',trackId:8}];entity.anchors.push({frame:3,x:250,y:300,trackId:7,identityConfirmed:false});}refresh();},
       selectFrame:at=>frame=at};
   `,context);
   return {api:context.harness,listeners,calls,session,clip};
@@ -170,13 +175,47 @@ test('actual quick handler refuses a preview made before another edit',()=>{
   assert.match(h.api.state().quick.error,/草稿已有新修改/);assert.equal(h.api.state().history.length,0);
 });
 
-test('actual canvas missing-person action saves one frame even after exclusion and undo restores its old state',()=>{
-  const h=appHarness();h.api.manualFixture();const before=JSON.parse(JSON.stringify(h.api.state().session));
-  h.api.beginIdentityQuickEdit('missing');h.listeners.get('canvas:click')({x:270,y:320});
-  const state=h.api.state(),points=buildTrajectories(state.session,h.clip.frames).P1;
-  assert.equal(state.history.length,1);assert.equal(points[3].x,270);assert.equal(points[3].frameIdentityConfirmed,false);
-  assert(points.filter(point=>point.frame!==3).every(point=>point.x===null));assert.equal(state.quick.action,null);
+test('actual canvas keeps endpoint clicks provisional, previews a segment and applies it with one undo',()=>{
+  const h=appHarness(),before=JSON.parse(JSON.stringify(h.api.state().session));
+  h.api.beginIdentityQuickEdit('missing');h.api.setIdentityQuickTarget('P3');h.listeners.get('canvas:click')({x:270,y:320});
+  assert.equal(h.api.state().history.length,0);assert.equal(h.api.state().quick.missingKeys.length,1);
+  h.api.selectFrame(7);h.listeners.get('canvas:click')({x:310,y:340});
+  assert.equal(h.api.state().history.length,0);assert.equal(h.api.state().quick.preview.changed,5);
+  h.api.applyIdentityQuickEdit();
+  const state=h.api.state(),points=buildTrajectories(state.session,h.clip.frames).P3;
+  assert.equal(state.history.length,1);assert.equal(points[3].x,270);assert.equal(points[7].x,310);
+  assert.equal(points[5].source,'manual_path');assert.equal(points[5].frameIdentityConfirmed,false);
+  assert(points.filter(point=>point.frame<3||point.frame>7).every(point=>point.x===null));assert.equal(state.quick.action,null);
   h.listeners.get('undo:click')();assert.deepEqual(JSON.parse(JSON.stringify(h.api.state().session)),before);
+});
+
+test('missing-person preview refuses stale edits, wrong decoded frames and excluded identities',()=>{
+  const h=appHarness();h.api.beginIdentityQuickEdit('missing');h.api.setIdentityQuickTarget('P3');
+  h.listeners.get('canvas:click')({x:270,y:320});h.api.selectFrame(7);h.listeners.get('canvas:click')({x:310,y:340});
+  h.api.externalEdit();h.api.applyIdentityQuickEdit();assert.equal(h.api.state().history.length,0);assert.match(h.api.state().quick.error,/草稿已有新修改/);
+  const blocked=appHarness({identityReferenceFrameReady:()=>false});blocked.api.beginIdentityQuickEdit('missing');blocked.api.setIdentityQuickTarget('P3');
+  blocked.listeners.get('canvas:click')({x:270,y:320});assert.equal(blocked.api.state().quick.missingKeys.length,0);
+  const excluded=appHarness();excluded.api.manualFixture();excluded.api.beginIdentityQuickEdit('missing');
+  excluded.listeners.get('canvas:click')({x:270,y:320});assert.equal(excluded.api.state().history.length,0);assert.match(excluded.api.state().quick.error,/人工排除/);
+});
+
+test('actual seek and playback retain missing-range anchors while ordinary person selections clear on frame changes',()=>{
+  const h=appHarness();h.api.beginIdentityQuickEdit('missing');h.api.setIdentityQuickTarget('P3');h.listeners.get('canvas:click')({x:270,y:320});
+  h.api.seek(7);assert.equal(h.api.state().quick.action,'missing');assert.equal(h.api.state().quick.missingKeys[0].frame,3);
+  h.listeners.get('canvas:click')({x:310,y:340});h.api.updateFrame(.5);
+  assert.equal(h.api.state().quick.preview.changed,5);assert.equal(h.api.state().frame,5);
+  h.listeners.get('canvas:click')({x:295,y:330});assert.equal(h.api.state().quick.missingKeys.length,3);
+  h.api.cancelIdentityQuickEdit();h.api.selectIdentityPerson({trackId:1});h.api.seek(6);assert.equal(h.api.state().quick.action,null);
+});
+test('actual single-frame fallback applies exactly the clicked frame with one undo',()=>{
+  for(const stale of [false,true]){
+  const h=appHarness();h.api.singleMissingFixture(stale);const before=JSON.parse(JSON.stringify(h.api.state().session));
+  h.api.beginIdentityQuickEdit('missing');h.api.setIdentityQuickTarget('P3');h.listeners.get('canvas:click')({x:270,y:320});
+  assert.equal(h.api.state().quick.range.start,h.api.state().quick.range.end);assert.equal(h.api.state().history.length,0);
+  h.api.applyMissingSingleFrame();const points=buildTrajectories(h.api.state().session,h.clip.frames).P3;
+  assert.equal(h.api.state().history.length,1);assert.equal(points[3].x,270);assert.equal(points[3].identityConfirmed,false);assert.equal(points[3].box,null);
+  h.listeners.get('undo:click')();assert.deepEqual(JSON.parse(JSON.stringify(h.api.state().session)),before);
+  }
 });
 
 test('automatic adoption runs once, keeps manual data and late results never overwrite a newer draft',async()=>{

@@ -5,9 +5,39 @@ import tempfile
 import unittest
 from unittest.mock import MagicMock,Mock,patch
 from identity_ocr import (IdentityOCR,OCRUnavailable,jersey_number,team_codes,
-                          scoreboard_region,validate_request,validate_team_vision_output)
+                          scoreboard_region,validate_request,validate_team_vision_output,validate_player_vision_output)
 
 class IdentityOCRTests(unittest.TestCase):
+    def test_player_vision_reads_exact_selected_crop_and_preserves_unknown_identity(self):
+        import av
+        from PIL import Image
+        payload={'video_sha256':'v','tracking_fingerprint':'fp','width':100,'height':100,
+                 'frames':[{'time':0,'tracks':[[1,2,40,90,60,.9,0]]}]}
+        row={'frame':0,'trackId':60,'box':[1,2,40,90]}
+        request={'videoSha256':'v','mode':'player_vision','observations':[row],'teams':['HOU','DAL']}
+        picture=Mock(time=0);picture.to_image.return_value=Image.new('RGB',(100,100))
+        container=MagicMock();container.__enter__.return_value.decode.return_value=[picture]
+        provider=Mock();provider.status.return_value={'available':True}
+        provider.generate.return_value={'team':'HOU','jersey':'00','reason':'visible jersey','confidence':.8}
+        with tempfile.TemporaryDirectory() as folder,patch.object(av,'open',return_value=container):
+            result=IdentityOCR(provider,folder).recognize('video.mp4',payload,request)
+            args=provider.generate.call_args.kwargs
+            with Image.open(args['images'][1]) as image:self.assertEqual(image.size,(39,88))
+            self.assertEqual(result['observation'],row);self.assertEqual(result['reading']['jersey'],'00')
+            self.assertFalse(result['identityConfirmed']);self.assertTrue(result['reviewRequired'])
+            self.assertIn('不根据姓名猜号码',args['prompt'])
+        for field,value in [('team','BOS'),('jersey','100'),('jersey','O'),('confidence',float('nan'))]:
+            with self.subTest(field=field),self.assertRaises(ValueError):
+                validate_player_vision_output({**provider.generate.return_value,field:value},['HOU','DAL'])
+
+    def test_player_vision_requires_the_selected_raw_track_box(self):
+        payload={'video_sha256':'v','frames':[{'time':0,'tracks':[[1,2,40,90,60,.9,0]]}],'width':100,'height':100}
+        request={'videoSha256':'v','mode':'player_vision','observations':[{'frame':0,'trackId':60,'box':[1,2,40,90]}],'teams':['DAL','HOU']}
+        self.assertEqual(validate_request(request,payload)[0],'player_vision')
+        for change in ({'observations':[{'frame':0,'trackId':7,'box':[1,2,40,90]}]},
+                       {'observations':[{'frame':0,'trackId':60,'box':[2,2,40,90]}]}, {'teams':['DAL','XXX']}, {'model':'other'}):
+            with self.assertRaises(ValueError):validate_request({**request,**change},payload)
+
     def test_numbers_are_exact_strings(self):
         self.assertEqual(jersey_number(' 00 '),'00')
         self.assertEqual(jersey_number('0'),'0')

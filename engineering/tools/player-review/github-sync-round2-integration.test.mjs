@@ -358,8 +358,9 @@ test('identity reference actions in the actual app require the decoded target fr
         else if(url==='/team-overlay-policy.json')value=policy;
         else if(url==='/api/identity-agent/status')value={available:true,provider:'test-fixture'};
         else if(url==='/api/identity-agent/jobs'){
-          jobRequests.push(JSON.parse(options.body));
-          value={jobId:'reference-test',status:'ready',purpose:'reference',entityId:'P1',candidate:{team:'紫衣',jersey:'10',segments:[]},previewFrames:[]};
+          const request=JSON.parse(options.body);jobRequests.push(request);
+          if(request.purpose==='initial_review')value={jobId:'initial-test',status:'failed',purpose:'initial_review',base:{clientRevision:request.clientRevision},sourceKey:'fixture-initial',message:'初检未完成，手工编辑可继续'};
+          else value={jobId:'reference-test',status:'ready',purpose:'reference',entityId:'P1',candidate:{team:'紫衣',jersey:'10',segments:[]},previewFrames:[]};
         }else value=clip;
         return {ok:true,json:async()=>value};
       }});
@@ -382,6 +383,7 @@ test('identity reference actions in the actual app require the decoded target fr
     }
     const AsyncFunction=Object.getPrototypeOf(async function(){}).constructor;
     await new AsyncFunction(...Object.keys(dependencies),source.replace(/^import .*;\r?\n/gm,''))(...Object.values(dependencies));
+    await new Promise(resolve=>setImmediate(resolve));
     presentFrame(frames[0].time);
     assert.equal(uiState.referenceFrameReady,true);
     const before=structuredClone(workspaceApi.getState().session),persistedBefore=saved.get(key),input={trackId:7,team:'紫衣',jersey:'10'};
@@ -391,7 +393,8 @@ test('identity reference actions in the actual app require the decoded target fr
     uiApi.saveIdentityReference(input);await uiApi.recognizeIdentity(input);
     assert.deepEqual(workspaceApi.getState().session,before);
     assert.equal(saved.get(key),persistedBefore);assert.equal(uiState.canUndo,false);
-    assert.equal(jobRequests.length,0,'no model job may use a frame the user has not seen');
+    assert.equal(jobRequests.filter(job=>job.purpose==='reference').length,0,'no per-person model job may use a frame the user has not seen');
+    assert.equal(jobRequests.filter(job=>job.purpose==='initial_review').length,1,'whole-video initial review starts independently');
     dom.get('stage').dataset.videoState='ready';uiApi.identityReferenceCandidate(7);
     assert.equal(uiState.referenceFrameReady,false,'ready status alone cannot certify the old decoded frame');
     uiApi.saveIdentityReference(input);assert.deepEqual(workspaceApi.getState().session,before);
@@ -404,7 +407,8 @@ test('identity reference actions in the actual app require the decoded target fr
     assert.deepEqual(buildTrajectories(after,frames).P1.filter(point=>point.frameIdentityConfirmed).map(point=>point.frame),[4]);
     assert.equal(uiState.canUndo,true);
     await uiApi.recognizeIdentity(input);
-    assert.equal(jobRequests.length,1);assert.equal(jobRequests[0].reference.frame,4);
+    const references=jobRequests.filter(job=>job.purpose==='reference');
+    assert.equal(references.length,1);assert.equal(references[0].reference.frame,4);
     dom.get('undo').click=()=>{for(const handler of dom.get('undo').listeners.click||[])handler({});};
     uiApi.undo();assert.deepEqual(workspaceApi.getState().session,before,'one undo restores the complete pre-reference draft');
   }finally{dom.restore();}

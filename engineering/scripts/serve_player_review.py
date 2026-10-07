@@ -50,9 +50,17 @@ def main():
     parser.add_argument("--workspace-collection", help="Service-local active/archive manifest; defaults to import cache")
     parser.add_argument("--keep-sample", default="005", help="Initially retained prepared example")
     parser.add_argument("--tactics-agent-cli", help="Codex CLI executable (otherwise discover the installed runtime)")
-    parser.add_argument("--tactics-agent-timeout", type=int, default=300)
+    parser.add_argument("--tactics-agent-timeout", type=int, default=960)
     parser.add_argument("--tactics-agent-reasoning-effort", choices=('none','minimal','low','medium','high','xhigh','max','ultra'), default='low')
     parser.add_argument("--tactics-agent-max-images", type=int, choices=range(4,25), default=12)
+    parser.add_argument("--tactics-agent-no-response-timeout", type=float, default=180,
+                        help="Stop a tactics call that returns no model content within this many seconds")
+    parser.add_argument("--tactics-agent-retry-model", default='gpt-6.1-sol',
+                        help="Alternate model used only to retry a timed-out or disconnected tactics segment")
+    parser.add_argument("--tactics-agent-model", default=None,
+                        help="Model override for tactics generation only; defaults to the trusted local model configuration")
+    parser.add_argument("--tactics-agent-transport", choices=('auto', 'http-sse'), default='auto',
+                        help="Tactics child transport only; http-sse disables Responses WebSockets without changing global configuration")
     parser.add_argument("--tactics-ffmpeg", help="FFmpeg executable for finished tactical MP4s (or TACTICS_FFMPEG / PATH)")
     parser.add_argument("--identity-agent-provider", choices=('codex', 'multimodal-api'), default='codex',
                         help="Visual identity provider; multimodal-api is an unconfigured adapter seam")
@@ -125,10 +133,12 @@ def main():
         from cloud_tactics_agent import CloudTacticsExecutor
         cloud_execute = CloudTacticsExecutor()
     agent = TacticsAgent(Path(args.tactics_folder)/'agent-jobs',tactics,args.tactics_agent_cli,args.tactics_agent_timeout,
-                        execute=cloud_execute,reasoning_effort=args.tactics_agent_reasoning_effort,max_images=args.tactics_agent_max_images)
+                        execute=cloud_execute,reasoning_effort=args.tactics_agent_reasoning_effort,max_images=args.tactics_agent_max_images,
+                        no_response_timeout=args.tactics_agent_no_response_timeout,retry_model=args.tactics_agent_retry_model,
+                        model_override=args.tactics_agent_model,transport_mode=args.tactics_agent_transport)
     from identity_agent import IdentityAgent
     identity_agent = IdentityAgent(Path(args.tactics_folder)/'identity-jobs',tactics,
-                                  codex_path=args.tactics_agent_cli,timeout=args.tactics_agent_timeout,
+                                  codex_path=args.tactics_agent_cli,timeout=min(args.tactics_agent_timeout,300),
                                   provider=args.identity_agent_provider,reasoning_effort=args.tactics_agent_reasoning_effort)
     identity_ocr=IdentityOCR(vision_provider=identity_agent.provider,
                              vision_folder=Path(args.tactics_folder)/'team-identification-jobs')
@@ -173,7 +183,7 @@ def main():
     routes['/trajectory-replay'] = static / 'trajectory-replay.html'
     for filename in ['trajectory-replay.css', 'trajectory-replay.mjs', 'trajectory-replay-model.mjs']:
         routes['/' + filename] = static / filename
-    for filename in ["ball-court.mjs","ground-position.mjs","ground-comparison-ui.mjs","identity-ocr.mjs","style.css","pipeline.css","app.mjs","player-identity.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","identity-initial-review.mjs","identity-review-workflow.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
+    for filename in ["ball-court.mjs","ground-position.mjs","ground-comparison-ui.mjs","identity-ocr.mjs","style.css","pipeline.css","app.mjs","player-identity.mjs","missing-player-range.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","identity-initial-review.mjs","identity-review-workflow.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
         routes['/'+filename]=static/filename
     routes['/video-library.mjs']=static/'video-library.mjs'
     routes['/model-selection.mjs']=static/'model-selection.mjs'

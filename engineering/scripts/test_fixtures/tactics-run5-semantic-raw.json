@@ -1,0 +1,1949 @@
+{
+  "sourceJobId": "d0e1a6aa-e453-4959-b87b-df558c4b621f",
+  "stages": [
+    {
+      "stageId": "stage-1",
+      "pack": {
+        "candidateVersion": 4,
+        "phaseId": "phase-1",
+        "playDefinition": {
+          "schemaVersion": 1,
+          "synthetic": false,
+          "playId": "manual-play",
+          "revision": 1,
+          "sourceBinding": {
+            "digestVersion": "canonical-json-v1",
+            "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "sourceVideoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "trackingFingerprint": "5afbabdd286e0b5243f6fe7483b424f7fa8d23e12996015b6277c40e4f5aaee3",
+            "trackingRevision": "team-stable",
+            "frameMappingDigest": "d58d4e1981e1517b25e2299a0b2dfa9416588eebfc14425ea4afe95e8e3e5ea6",
+            "reviewDigest": "4ce8a25b59581dfcffe63cfa52c26260f5acf81fc02f852ceccc2932ccddb72c"
+          },
+          "startFrame": 0,
+          "endFrameExclusive": 685,
+          "participants": [
+            {
+              "id": "P1",
+              "name": "球员 1",
+              "role": "player"
+            },
+            {
+              "id": "P2",
+              "name": "球员 2",
+              "role": "player"
+            },
+            {
+              "id": "P3",
+              "name": "球员 3",
+              "role": "player"
+            },
+            {
+              "id": "P4",
+              "name": "球员 4",
+              "role": "player"
+            },
+            {
+              "id": "P5",
+              "name": "球员 5",
+              "role": "player"
+            },
+            {
+              "id": "P6",
+              "name": "球员 6",
+              "role": "player"
+            },
+            {
+              "id": "P7",
+              "name": "球员 7",
+              "role": "player"
+            },
+            {
+              "id": "P8",
+              "name": "球员 8",
+              "role": "player"
+            },
+            {
+              "id": "P9",
+              "name": "球员 9",
+              "role": "player"
+            },
+            {
+              "id": "P10",
+              "name": "球员 10",
+              "role": "player"
+            }
+          ],
+          "phases": [
+            {
+              "phaseId": "phase-1",
+              "order": 0,
+              "title": "阶段 1",
+              "startFrame": 0,
+              "endFrameExclusive": 685,
+              "freezeFrame": 0,
+              "participantIds": [
+                "P1",
+                "P2",
+                "P3",
+                "P4",
+                "P5",
+                "P6",
+                "P7",
+                "P8",
+                "P9",
+                "P10"
+              ],
+              "actionIds": [],
+              "relationIds": []
+            }
+          ],
+          "actions": [],
+          "relations": [],
+          "reviewEvidence": []
+        },
+        "binding": {
+          "digestVersion": "canonical-json-v1",
+          "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+          "sourceVideoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+          "trackingFingerprint": "5afbabdd286e0b5243f6fe7483b424f7fa8d23e12996015b6277c40e4f5aaee3",
+          "trackingRevision": "team-stable",
+          "frameMappingDigest": "d58d4e1981e1517b25e2299a0b2dfa9416588eebfc14425ea4afe95e8e3e5ea6",
+          "reviewDigest": "4ce8a25b59581dfcffe63cfa52c26260f5acf81fc02f852ceccc2932ccddb72c"
+        },
+        "width": 1920,
+        "height": 1080,
+        "analysisRange": {
+          "startFrame": 0,
+          "endFrameExclusive": 685
+        },
+        "sourceFrameMapping": [
+          {
+            "frame": 0,
+            "time": 0,
+            "sourceFrame": 0,
+            "sourceTime": 0
+          },
+          {
+            "frame": 43,
+            "time": 0.717388889,
+            "sourceFrame": 43,
+            "sourceTime": 0.717388889
+          },
+          {
+            "frame": 85,
+            "time": 1.418088889,
+            "sourceFrame": 85,
+            "sourceTime": 1.418088889
+          },
+          {
+            "frame": 128,
+            "time": 2.135466667,
+            "sourceFrame": 128,
+            "sourceTime": 2.135466667
+          },
+          {
+            "frame": 171,
+            "time": 2.852855556,
+            "sourceFrame": 171,
+            "sourceTime": 2.852855556
+          },
+          {
+            "frame": 214,
+            "time": 3.570233333,
+            "sourceFrame": 214,
+            "sourceTime": 3.570233333
+          },
+          {
+            "frame": 257,
+            "time": 4.287622222,
+            "sourceFrame": 257,
+            "sourceTime": 4.287622222
+          },
+          {
+            "frame": 300,
+            "time": 5.005,
+            "sourceFrame": 300,
+            "sourceTime": 5.005
+          },
+          {
+            "frame": 342,
+            "time": 5.705711111,
+            "sourceFrame": 342,
+            "sourceTime": 5.705711111
+          },
+          {
+            "frame": 385,
+            "time": 6.423088889,
+            "sourceFrame": 385,
+            "sourceTime": 6.423088889
+          },
+          {
+            "frame": 427,
+            "time": 7.123788889,
+            "sourceFrame": 427,
+            "sourceTime": 7.123788889
+          },
+          {
+            "frame": 470,
+            "time": 7.841177778,
+            "sourceFrame": 470,
+            "sourceTime": 7.841177778
+          },
+          {
+            "frame": 513,
+            "time": 8.558555556,
+            "sourceFrame": 513,
+            "sourceTime": 8.558555556
+          },
+          {
+            "frame": 556,
+            "time": 9.275944444,
+            "sourceFrame": 556,
+            "sourceTime": 9.275944444
+          },
+          {
+            "frame": 599,
+            "time": 9.993322222,
+            "sourceFrame": 599,
+            "sourceTime": 9.993322222
+          },
+          {
+            "frame": 684,
+            "time": 11.411411111,
+            "sourceFrame": 684,
+            "sourceTime": 11.411411111
+          }
+        ],
+        "participantRequirements": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "P5",
+          "P6",
+          "P7",
+          "P8",
+          "P9",
+          "P10"
+        ],
+        "evidenceFrames": [
+          0,
+          43,
+          85,
+          128,
+          171,
+          214,
+          257,
+          300,
+          342,
+          385,
+          427,
+          470,
+          513,
+          556,
+          599,
+          684
+        ],
+        "images": [
+          {
+            "frame": 0,
+            "time": 0.0,
+            "sourceFrame": 0,
+            "sourceTime": 0.0,
+            "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "sha256": "259eda67c703e6edf384ca7d402e491b670378f8ad5f1ed1710b2f696edec8c6",
+            "decoder": "PyAV 17.0.1",
+            "pts": 0,
+            "timeBase": "1/90000",
+            "modelImageSha256": "259eda67c703e6edf384ca7d402e491b670378f8ad5f1ed1710b2f696edec8c6",
+            "modelImageBytes": 379969,
+            "modelImageQuality": 80,
+            "sourceImageSha256": "d177d8552b3e9d3f25a36e7e9c358b05562ea1aac039ed1c17c144ad1cdae795",
+            "sourceImageBytes": 693083,
+            "modelImageWidth": 1920,
+            "modelImageHeight": 1080
+          },
+          {
+            "frame": 171,
+            "time": 2.852855556,
+            "sourceFrame": 171,
+            "sourceTime": 2.852855556,
+            "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "sha256": "cd9832633959ece5cba26456ae1195898ec53366138880b0a4ada88f7d95587b",
+            "decoder": "PyAV 17.0.1",
+            "pts": 256757,
+            "timeBase": "1/90000",
+            "modelImageSha256": "cd9832633959ece5cba26456ae1195898ec53366138880b0a4ada88f7d95587b",
+            "modelImageBytes": 383077,
+            "modelImageQuality": 80,
+            "sourceImageSha256": "054bf411f88e601ece321d889c9950eb17de2517e13eb6819fa5f582b2178c9d",
+            "sourceImageBytes": 706458,
+            "modelImageWidth": 1920,
+            "modelImageHeight": 1080
+          },
+          {
+            "frame": 342,
+            "time": 5.705711111,
+            "sourceFrame": 342,
+            "sourceTime": 5.705711111,
+            "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "sha256": "93ae0886c3d454804ba2b9768626092ca23c92850ae38b20a7e554a5cd7c51a5",
+            "decoder": "PyAV 17.0.1",
+            "pts": 513514,
+            "timeBase": "1/90000",
+            "modelImageSha256": "93ae0886c3d454804ba2b9768626092ca23c92850ae38b20a7e554a5cd7c51a5",
+            "modelImageBytes": 418077,
+            "modelImageQuality": 80,
+            "sourceImageSha256": "672bf3aa81e1088feb6e8de35cac5f630f3ff788f0d8c42a0562ff511e15fcba",
+            "sourceImageBytes": 765658,
+            "modelImageWidth": 1920,
+            "modelImageHeight": 1080
+          },
+          {
+            "frame": 513,
+            "time": 8.558555556,
+            "sourceFrame": 513,
+            "sourceTime": 8.558555556,
+            "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "sha256": "4b01f10e6dc553f07a4dd10235b236d218951a5d88a61f9caeb4fb3111844dc9",
+            "decoder": "PyAV 17.0.1",
+            "pts": 770270,
+            "timeBase": "1/90000",
+            "modelImageSha256": "4b01f10e6dc553f07a4dd10235b236d218951a5d88a61f9caeb4fb3111844dc9",
+            "modelImageBytes": 421577,
+            "modelImageQuality": 80,
+            "sourceImageSha256": "5fc1cdcf47ba5024c44dbf66dd369a5e73e806bd33a0fa64a1fe0bf33cc1c1f1",
+            "sourceImageBytes": 770759,
+            "modelImageWidth": 1920,
+            "modelImageHeight": 1080
+          },
+          {
+            "frame": 684,
+            "time": 11.411411111,
+            "sourceFrame": 684,
+            "sourceTime": 11.411411111,
+            "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "sha256": "8bab402812612ce1a61d08b9aaa995e22a393242107ec16ced13551f9d6ef2d6",
+            "decoder": "PyAV 17.0.1",
+            "pts": 1027027,
+            "timeBase": "1/90000",
+            "modelImageSha256": "8bab402812612ce1a61d08b9aaa995e22a393242107ec16ced13551f9d6ef2d6",
+            "modelImageBytes": 404600,
+            "modelImageQuality": 80,
+            "sourceImageSha256": "bb1665bd5b78c8e2a3f5d8e874363713499da40801f3741eb55a0d8a274aebee",
+            "sourceImageBytes": 744668,
+            "modelImageWidth": 1920,
+            "modelImageHeight": 1080
+          }
+        ],
+        "sampling": {
+          "cutFrames": [],
+          "unsampledEntityIds": [],
+          "imageLimit": 12,
+          "evidenceLimit": 16
+        }
+      },
+      "facts": {
+        "summary": "火箭持球推进后在右侧单打，7号参与高位掩护后移向左侧，其他球员调整间距；独行侠对应移动并收缩禁区。684帧持球者举球，投篮结果不可见。",
+        "people": [
+          {
+            "id": "hou_12",
+            "role": "ball_handler",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 0,
+                "foot": [
+                  331,
+                  498
+                ]
+              },
+              {
+                "frame": 171,
+                "foot": [
+                  390,
+                  512
+                ]
+              },
+              {
+                "frame": 342,
+                "foot": [
+                  910,
+                  524
+                ]
+              },
+              {
+                "frame": 513,
+                "foot": [
+                  945,
+                  500
+                ]
+              },
+              {
+                "frame": 684,
+                "foot": [
+                  942,
+                  654
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "白衣12号；右侧持球进攻。"
+          },
+          {
+            "id": "hou_7",
+            "role": "screener",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 0,
+                "foot": [
+                  1047,
+                  571
+                ]
+              },
+              {
+                "frame": 171,
+                "foot": [
+                  833,
+                  525
+                ]
+              },
+              {
+                "frame": 342,
+                "foot": [
+                  463,
+                  552
+                ]
+              },
+              {
+                "frame": 513,
+                "foot": [
+                  346,
+                  584
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "参与高位掩护后向左侧移动。"
+          },
+          {
+            "id": "hou_1",
+            "role": "off_ball",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 0,
+                "foot": [
+                  527,
+                  830
+                ]
+              },
+              {
+                "frame": 171,
+                "foot": [
+                  927,
+                  853
+                ]
+              },
+              {
+                "frame": 342,
+                "foot": [
+                  540,
+                  861
+                ]
+              },
+              {
+                "frame": 513,
+                "foot": [
+                  229,
+                  814
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "白衣1号，移向左侧外线。"
+          },
+          {
+            "id": "hou_10",
+            "role": "off_ball",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 0,
+                "foot": [
+                  1047,
+                  709
+                ]
+              },
+              {
+                "frame": 171,
+                "foot": [
+                  1456,
+                  853
+                ]
+              },
+              {
+                "frame": 684,
+                "foot": [
+                  1420,
+                  1016
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "白衣10号，右侧外线调整位置。"
+          },
+          {
+            "id": "hou_30",
+            "role": "receiver",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 0,
+                "foot": [
+                  1736,
+                  786
+                ]
+              },
+              {
+                "frame": 171,
+                "foot": [
+                  1411,
+                  753
+                ]
+              },
+              {
+                "frame": 342,
+                "foot": [
+                  1295,
+                  677
+                ]
+              },
+              {
+                "frame": 513,
+                "foot": [
+                  1426,
+                  746
+                ]
+              },
+              {
+                "frame": 684,
+                "foot": [
+                  1170,
+                  762
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "白衣30号，在右侧低位接应。"
+          },
+          {
+            "id": "dal_00",
+            "role": "defender",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 0,
+                "foot": [
+                  1125,
+                  548
+                ]
+              },
+              {
+                "frame": 171,
+                "foot": [
+                  701,
+                  548
+                ]
+              },
+              {
+                "frame": 342,
+                "foot": [
+                  567,
+                  557
+                ]
+              },
+              {
+                "frame": 513,
+                "foot": [
+                  432,
+                  578
+                ]
+              },
+              {
+                "frame": 684,
+                "foot": [
+                  190,
+                  644
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "黑衣00号，随掩护参与者移向左侧。"
+          },
+          {
+            "id": "dal_13",
+            "role": "defender",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 0,
+                "foot": [
+                  1206,
+                  584
+                ]
+              },
+              {
+                "frame": 171,
+                "foot": [
+                  948,
+                  548
+                ]
+              },
+              {
+                "frame": 342,
+                "foot": [
+                  986,
+                  552
+                ]
+              },
+              {
+                "frame": 513,
+                "foot": [
+                  1019,
+                  521
+                ]
+              },
+              {
+                "frame": 684,
+                "foot": [
+                  1033,
+                  667
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "黑衣13号，持续贴防持球者。"
+          },
+          {
+            "id": "dal_3",
+            "role": "defender",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 0,
+                "foot": [
+                  1440,
+                  746
+                ]
+              },
+              {
+                "frame": 171,
+                "foot": [
+                  1146,
+                  695
+                ]
+              },
+              {
+                "frame": 342,
+                "foot": [
+                  830,
+                  702
+                ]
+              },
+              {
+                "frame": 513,
+                "foot": [
+                  662,
+                  702
+                ]
+              },
+              {
+                "frame": 684,
+                "foot": [
+                  414,
+                  754
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "黑衣3号，调整弧顶及协防位置。"
+          },
+          {
+            "id": "dal_32",
+            "role": "defender",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 0,
+                "foot": [
+                  1620,
+                  645
+                ]
+              },
+              {
+                "frame": 171,
+                "foot": [
+                  1602,
+                  699
+                ]
+              },
+              {
+                "frame": 342,
+                "foot": [
+                  1345,
+                  811
+                ]
+              },
+              {
+                "frame": 513,
+                "foot": [
+                  1337,
+                  819
+                ]
+              },
+              {
+                "frame": 684,
+                "foot": [
+                  1234,
+                  810
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "黑衣32号，向右侧禁区收缩。"
+          },
+          {
+            "id": "dal_inside",
+            "role": "defender",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 0,
+                "foot": [
+                  1889,
+                  704
+                ]
+              },
+              {
+                "frame": 342,
+                "foot": [
+                  1291,
+                  670
+                ]
+              },
+              {
+                "frame": 513,
+                "foot": [
+                  1400,
+                  723
+                ]
+              },
+              {
+                "frame": 684,
+                "foot": [
+                  1137,
+                  731
+                ]
+              }
+            ],
+            "continuity": "uncertain",
+            "note": "低位黑衣防守者，号码与早期连续性不清。"
+          }
+        ],
+        "routes": [
+          {
+            "personId": "hou_12",
+            "anchorFrame": 342,
+            "evidenceFrames": [
+              342,
+              513,
+              684
+            ],
+            "points": [
+              [
+                910,
+                524
+              ],
+              [
+                948,
+                478
+              ],
+              [
+                1024,
+                585
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "按禁区与边线近似对齐右侧持球移动。"
+          },
+          {
+            "personId": "hou_7",
+            "anchorFrame": 342,
+            "evidenceFrames": [
+              342,
+              513
+            ],
+            "points": [
+              [
+                463,
+                552
+              ],
+              [
+                355,
+                558
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "掩护后移向左侧，未确认顺下或外弹。"
+          },
+          {
+            "personId": "hou_1",
+            "anchorFrame": 342,
+            "evidenceFrames": [
+              342,
+              513
+            ],
+            "points": [
+              [
+                540,
+                861
+              ],
+              [
+                248,
+                789
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "左侧外线横向移动。"
+          },
+          {
+            "personId": "hou_10",
+            "anchorFrame": 0,
+            "evidenceFrames": [
+              0,
+              171
+            ],
+            "points": [
+              [
+                1047,
+                709
+              ],
+              [
+                1745,
+                831
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "依据中线和场地标志近似对齐向右跑位。"
+          },
+          {
+            "personId": "hou_30",
+            "anchorFrame": 342,
+            "evidenceFrames": [
+              342,
+              513,
+              684
+            ],
+            "points": [
+              [
+                1295,
+                677
+              ],
+              [
+                1438,
+                718
+              ],
+              [
+                1280,
+                696
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "低位接应位置先向底线调整再向内移动。"
+          },
+          {
+            "personId": "dal_00",
+            "anchorFrame": 342,
+            "evidenceFrames": [
+              342,
+              513,
+              684
+            ],
+            "points": [
+              [
+                567,
+                557
+              ],
+              [
+                443,
+                552
+              ],
+              [
+                283,
+                576
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "随白衣7号向左侧移动。"
+          },
+          {
+            "personId": "dal_13",
+            "anchorFrame": 342,
+            "evidenceFrames": [
+              342,
+              513,
+              684
+            ],
+            "points": [
+              [
+                986,
+                552
+              ],
+              [
+                1022,
+                497
+              ],
+              [
+                1118,
+                599
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "随持球者调整并退入禁区边缘。"
+          },
+          {
+            "personId": "dal_3",
+            "anchorFrame": 342,
+            "evidenceFrames": [
+              342,
+              513,
+              684
+            ],
+            "points": [
+              [
+                830,
+                702
+              ],
+              [
+                678,
+                676
+              ],
+              [
+                507,
+                687
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "向左侧弧顶调整协防位置。"
+          },
+          {
+            "personId": "dal_32",
+            "anchorFrame": 342,
+            "evidenceFrames": [
+              342,
+              513,
+              684
+            ],
+            "points": [
+              [
+                1345,
+                811
+              ],
+              [
+                1356,
+                782
+              ],
+              [
+                1349,
+                748
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "依据禁区近似对齐，向篮下收缩。"
+          },
+          {
+            "personId": "dal_inside",
+            "anchorFrame": 513,
+            "evidenceFrames": [
+              513,
+              684
+            ],
+            "points": [
+              [
+                1400,
+                723
+              ],
+              [
+                1250,
+                691
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "仅连接后两帧可辨识的低位防守者。"
+          }
+        ],
+        "ball": [
+          {
+            "personId": "hou_12",
+            "frame": 0,
+            "point": [
+              331,
+              498
+            ]
+          },
+          {
+            "personId": "hou_12",
+            "frame": 171,
+            "point": [
+              390,
+              512
+            ]
+          },
+          {
+            "personId": "hou_12",
+            "frame": 342,
+            "point": [
+              910,
+              524
+            ]
+          },
+          {
+            "personId": "hou_12",
+            "frame": 513,
+            "point": [
+              945,
+              500
+            ]
+          },
+          {
+            "personId": "hou_12",
+            "frame": 684,
+            "point": [
+              942,
+              654
+            ]
+          }
+        ],
+        "static": [],
+        "frameExceptions": [
+          {
+            "frame": 171,
+            "scope": "partial_observation",
+            "reason": "低位黑衣防守者被白衣球员遮挡，未记录脚点。"
+          },
+          {
+            "frame": 342,
+            "scope": "partial_observation",
+            "reason": "白衣10号脚部被比分图层遮挡。"
+          },
+          {
+            "frame": 513,
+            "scope": "partial_observation",
+            "reason": "白衣10号脚部被比分图层遮挡。"
+          },
+          {
+            "frame": 684,
+            "scope": "partial_observation",
+            "reason": "白衣7号与1号已在左侧画外，未记录脚点。"
+          }
+        ],
+        "issues": [
+          "路线按场地标志近似对齐，存在像素误差。",
+          "低位黑衣球员早期身份连续性不确定。",
+          "稀疏帧无法确认完整掩护接触与传球过程。",
+          "局部id不推断固定P身份绑定。"
+        ]
+      }
+    },
+    {
+      "stageId": "stage-2",
+      "pack": {
+        "candidateVersion": 4,
+        "phaseId": "phase-1",
+        "playDefinition": {
+          "schemaVersion": 1,
+          "synthetic": false,
+          "playId": "manual-play",
+          "revision": 1,
+          "sourceBinding": {
+            "digestVersion": "canonical-json-v1",
+            "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "sourceVideoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "trackingFingerprint": "5afbabdd286e0b5243f6fe7483b424f7fa8d23e12996015b6277c40e4f5aaee3",
+            "trackingRevision": "team-stable",
+            "frameMappingDigest": "d58d4e1981e1517b25e2299a0b2dfa9416588eebfc14425ea4afe95e8e3e5ea6",
+            "reviewDigest": "4ce8a25b59581dfcffe63cfa52c26260f5acf81fc02f852ceccc2932ccddb72c"
+          },
+          "startFrame": 685,
+          "endFrameExclusive": 1371,
+          "participants": [
+            {
+              "id": "P1",
+              "name": "球员 1",
+              "role": "player"
+            },
+            {
+              "id": "P2",
+              "name": "球员 2",
+              "role": "player"
+            },
+            {
+              "id": "P3",
+              "name": "球员 3",
+              "role": "player"
+            },
+            {
+              "id": "P4",
+              "name": "球员 4",
+              "role": "player"
+            },
+            {
+              "id": "P5",
+              "name": "球员 5",
+              "role": "player"
+            },
+            {
+              "id": "P6",
+              "name": "球员 6",
+              "role": "player"
+            },
+            {
+              "id": "P7",
+              "name": "球员 7",
+              "role": "player"
+            },
+            {
+              "id": "P8",
+              "name": "球员 8",
+              "role": "player"
+            },
+            {
+              "id": "P9",
+              "name": "球员 9",
+              "role": "player"
+            },
+            {
+              "id": "P10",
+              "name": "球员 10",
+              "role": "player"
+            }
+          ],
+          "phases": [
+            {
+              "phaseId": "phase-1",
+              "order": 0,
+              "title": "阶段 1",
+              "startFrame": 685,
+              "endFrameExclusive": 1371,
+              "freezeFrame": 685,
+              "participantIds": [
+                "P1",
+                "P2",
+                "P3",
+                "P4",
+                "P5",
+                "P6",
+                "P7",
+                "P8",
+                "P9",
+                "P10"
+              ],
+              "actionIds": [],
+              "relationIds": []
+            }
+          ],
+          "actions": [],
+          "relations": [],
+          "reviewEvidence": []
+        },
+        "binding": {
+          "digestVersion": "canonical-json-v1",
+          "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+          "sourceVideoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+          "trackingFingerprint": "5afbabdd286e0b5243f6fe7483b424f7fa8d23e12996015b6277c40e4f5aaee3",
+          "trackingRevision": "team-stable",
+          "frameMappingDigest": "d58d4e1981e1517b25e2299a0b2dfa9416588eebfc14425ea4afe95e8e3e5ea6",
+          "reviewDigest": "4ce8a25b59581dfcffe63cfa52c26260f5acf81fc02f852ceccc2932ccddb72c"
+        },
+        "width": 1920,
+        "height": 1080,
+        "analysisRange": {
+          "startFrame": 685,
+          "endFrameExclusive": 1371
+        },
+        "sourceFrameMapping": [
+          {
+            "frame": 685,
+            "time": 11.4281,
+            "sourceFrame": 685,
+            "sourceTime": 11.4281
+          },
+          {
+            "frame": 728,
+            "time": 12.145477778,
+            "sourceFrame": 728,
+            "sourceTime": 12.145477778
+          },
+          {
+            "frame": 771,
+            "time": 12.862866667,
+            "sourceFrame": 771,
+            "sourceTime": 12.862866667
+          },
+          {
+            "frame": 814,
+            "time": 13.580244444,
+            "sourceFrame": 814,
+            "sourceTime": 13.580244444
+          },
+          {
+            "frame": 857,
+            "time": 14.297633333,
+            "sourceFrame": 857,
+            "sourceTime": 14.297633333
+          },
+          {
+            "frame": 942,
+            "time": 15.715711111,
+            "sourceFrame": 942,
+            "sourceTime": 15.715711111
+          },
+          {
+            "frame": 985,
+            "time": 16.4331,
+            "sourceFrame": 985,
+            "sourceTime": 16.4331
+          },
+          {
+            "frame": 1028,
+            "time": 17.150477778,
+            "sourceFrame": 1028,
+            "sourceTime": 17.150477778
+          },
+          {
+            "frame": 1070,
+            "time": 17.851177778,
+            "sourceFrame": 1070,
+            "sourceTime": 17.851177778
+          },
+          {
+            "frame": 1113,
+            "time": 18.568566667,
+            "sourceFrame": 1113,
+            "sourceTime": 18.568566667
+          },
+          {
+            "frame": 1156,
+            "time": 19.285944444,
+            "sourceFrame": 1156,
+            "sourceTime": 19.285944444
+          },
+          {
+            "frame": 1199,
+            "time": 20.003333333,
+            "sourceFrame": 1199,
+            "sourceTime": 20.003333333
+          },
+          {
+            "frame": 1241,
+            "time": 20.704033333,
+            "sourceFrame": 1241,
+            "sourceTime": 20.704033333
+          },
+          {
+            "frame": 1284,
+            "time": 21.421422222,
+            "sourceFrame": 1284,
+            "sourceTime": 21.421422222
+          },
+          {
+            "frame": 1327,
+            "time": 22.1388,
+            "sourceFrame": 1327,
+            "sourceTime": 22.1388
+          },
+          {
+            "frame": 1370,
+            "time": 22.856188889,
+            "sourceFrame": 1370,
+            "sourceTime": 22.856188889
+          }
+        ],
+        "participantRequirements": [
+          "P2",
+          "P3",
+          "P4",
+          "P9"
+        ],
+        "evidenceFrames": [
+          685,
+          728,
+          771,
+          814,
+          857,
+          942,
+          985,
+          1028,
+          1070,
+          1113,
+          1156,
+          1199,
+          1241,
+          1284,
+          1327,
+          1370
+        ],
+        "images": [
+          {
+            "frame": 685,
+            "time": 11.4281,
+            "sourceFrame": 685,
+            "sourceTime": 11.4281,
+            "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "sha256": "94d29f5007d5ab988f9db84fbbbcf5099d5e1b9db21928e4907de6821630b0fc",
+            "decoder": "PyAV 17.0.1",
+            "pts": 1028529,
+            "timeBase": "1/90000",
+            "modelImageSha256": "94d29f5007d5ab988f9db84fbbbcf5099d5e1b9db21928e4907de6821630b0fc",
+            "modelImageBytes": 397130,
+            "modelImageQuality": 80,
+            "sourceImageSha256": "63b2815d59040a9fe6609a01dc47b7d6e4ece3368f0d3fee3db430ea569a6be5",
+            "sourceImageBytes": 732614,
+            "modelImageWidth": 1920,
+            "modelImageHeight": 1080
+          },
+          {
+            "frame": 857,
+            "time": 14.297633333,
+            "sourceFrame": 857,
+            "sourceTime": 14.297633333,
+            "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "sha256": "ca927f3cf5ef541661f6deab134d3420a3424037c0373b7dc225074767391a6a",
+            "decoder": "PyAV 17.0.1",
+            "pts": 1286787,
+            "timeBase": "1/90000",
+            "modelImageSha256": "ca927f3cf5ef541661f6deab134d3420a3424037c0373b7dc225074767391a6a",
+            "modelImageBytes": 428792,
+            "modelImageQuality": 80,
+            "sourceImageSha256": "0ced369066f3c0bdee84f5371790c949659f8c5ccbad76d7d4aad93e868254eb",
+            "sourceImageBytes": 778155,
+            "modelImageWidth": 1920,
+            "modelImageHeight": 1080
+          },
+          {
+            "frame": 1028,
+            "time": 17.150477778,
+            "sourceFrame": 1028,
+            "sourceTime": 17.150477778,
+            "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "sha256": "c038587140cb767b8d926b2a99e9e9d141494e43a8219e36777e777eb92eb962",
+            "decoder": "PyAV 17.0.1",
+            "pts": 1543543,
+            "timeBase": "1/90000",
+            "modelImageSha256": "c038587140cb767b8d926b2a99e9e9d141494e43a8219e36777e777eb92eb962",
+            "modelImageBytes": 403253,
+            "modelImageQuality": 80,
+            "sourceImageSha256": "5ba69b29ae2262ed752cd8c43cf8e880ee09c1c7d3fdd0aefd3e5cdf53ecaee1",
+            "sourceImageBytes": 746820,
+            "modelImageWidth": 1920,
+            "modelImageHeight": 1080
+          },
+          {
+            "frame": 1199,
+            "time": 20.003333333,
+            "sourceFrame": 1199,
+            "sourceTime": 20.003333333,
+            "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "sha256": "6ce55c80e81828d0bb5ab961bce132ddffbc946b16a0352cbbd5d1f69a3693d4",
+            "decoder": "PyAV 17.0.1",
+            "pts": 1800300,
+            "timeBase": "1/90000",
+            "modelImageSha256": "6ce55c80e81828d0bb5ab961bce132ddffbc946b16a0352cbbd5d1f69a3693d4",
+            "modelImageBytes": 435799,
+            "modelImageQuality": 80,
+            "sourceImageSha256": "8b3ef8c55506a47161fa6e4a2eab72745d18bd36c727d92e2772ea792e96a1ef",
+            "sourceImageBytes": 799128,
+            "modelImageWidth": 1920,
+            "modelImageHeight": 1080
+          },
+          {
+            "frame": 1370,
+            "time": 22.856188889,
+            "sourceFrame": 1370,
+            "sourceTime": 22.856188889,
+            "videoSha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
+            "sha256": "ae6a2e70b9e03937f1811cfd51bb6004271d6cd0cffbe78a169eb9e6d847d44f",
+            "decoder": "PyAV 17.0.1",
+            "pts": 2057057,
+            "timeBase": "1/90000",
+            "modelImageSha256": "ae6a2e70b9e03937f1811cfd51bb6004271d6cd0cffbe78a169eb9e6d847d44f",
+            "modelImageBytes": 149351,
+            "modelImageQuality": 80,
+            "sourceImageSha256": "13a6689b1e01851757c1c947767429d8fc1e0b163090737dfadcd255a717f9b5",
+            "sourceImageBytes": 308792,
+            "modelImageWidth": 1920,
+            "modelImageHeight": 1080
+          }
+        ],
+        "sampling": {
+          "cutFrames": [],
+          "unsampledEntityIds": [],
+          "imageLimit": 12,
+          "evidenceLimit": 16
+        }
+      },
+      "facts": {
+        "summary": "白衣由左侧转入禁区，1号切入，两侧队友拉开，30号与内线防守者缠斗；黑衣收缩协防。1199帧黑衣13号持球，1370帧切为上半身特写。",
+        "people": [
+          {
+            "id": "white_1",
+            "role": "ball_handler",
+            "action": "cut",
+            "observations": [
+              {
+                "frame": 857,
+                "foot": [
+                  81,
+                  739
+                ]
+              },
+              {
+                "frame": 1028,
+                "foot": [
+                  711,
+                  731
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "1号从左侧进入禁区前沿。"
+          },
+          {
+            "id": "white_17",
+            "role": "receiver",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 685,
+                "foot": [
+                  933,
+                  653
+                ]
+              },
+              {
+                "frame": 857,
+                "foot": [
+                  502,
+                  548
+                ]
+              },
+              {
+                "frame": 1028,
+                "foot": [
+                  1009,
+                  436
+                ]
+              },
+              {
+                "frame": 1199,
+                "foot": [
+                  638,
+                  570
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "由禁区附近转至远侧底角。"
+          },
+          {
+            "id": "white_30",
+            "role": "off_ball",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 685,
+                "foot": [
+                  1154,
+                  756
+                ]
+              },
+              {
+                "frame": 857,
+                "foot": [
+                  1859,
+                  746
+                ]
+              },
+              {
+                "frame": 1028,
+                "foot": [
+                  1436,
+                  756
+                ]
+              },
+              {
+                "frame": 1199,
+                "foot": [
+                  843,
+                  842
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "30号内线对抗后向左离开篮下。"
+          },
+          {
+            "id": "white_10",
+            "role": "off_ball",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 1028,
+                "foot": [
+                  1119,
+                  950
+                ]
+              },
+              {
+                "frame": 1199,
+                "foot": [
+                  968,
+                  743
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "685、857帧脚部受比分牌遮挡。"
+          },
+          {
+            "id": "white_left_edge",
+            "role": "off_ball",
+            "action": "unknown",
+            "observations": [
+              {
+                "frame": 1028,
+                "foot": [
+                  28,
+                  672
+                ]
+              }
+            ],
+            "continuity": "uncertain",
+            "note": "左边缘白衣球员，仅局部可见。"
+          },
+          {
+            "id": "dark_00",
+            "role": "defender",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 685,
+                "foot": [
+                  185,
+                  636
+                ]
+              },
+              {
+                "frame": 857,
+                "foot": [
+                  676,
+                  554
+                ]
+              },
+              {
+                "frame": 1028,
+                "foot": [
+                  919,
+                  660
+                ]
+              },
+              {
+                "frame": 1199,
+                "foot": [
+                  337,
+                  798
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "左侧防守者收缩至切入者前方。"
+          },
+          {
+            "id": "dark_3",
+            "role": "defender",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 685,
+                "foot": [
+                  412,
+                  755
+                ]
+              },
+              {
+                "frame": 857,
+                "foot": [
+                  745,
+                  669
+                ]
+              },
+              {
+                "frame": 1028,
+                "foot": [
+                  77,
+                  751
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "3号由左侧弧顶向外侧移动。"
+          },
+          {
+            "id": "dark_13",
+            "role": "defender",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 685,
+                "foot": [
+                  1036,
+                  663
+                ]
+              },
+              {
+                "frame": 857,
+                "foot": [
+                  1340,
+                  546
+                ]
+              },
+              {
+                "frame": 1028,
+                "foot": [
+                  1092,
+                  544
+                ]
+              },
+              {
+                "frame": 1199,
+                "foot": [
+                  1119,
+                  752
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "13号篮下协防，1199帧已持球。"
+          },
+          {
+            "id": "dark_32",
+            "role": "defender",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 685,
+                "foot": [
+                  1228,
+                  809
+                ]
+              },
+              {
+                "frame": 857,
+                "foot": [
+                  1712,
+                  814
+                ]
+              },
+              {
+                "frame": 1028,
+                "foot": [
+                  809,
+                  772
+                ]
+              },
+              {
+                "frame": 1199,
+                "foot": [
+                  945,
+                  1052
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "32号从近侧移向切入者，随后退开。"
+          },
+          {
+            "id": "dark_headband",
+            "role": "defender",
+            "action": "move",
+            "observations": [
+              {
+                "frame": 1028,
+                "foot": [
+                  1364,
+                  708
+                ]
+              }
+            ],
+            "continuity": "observed",
+            "note": "与30号对抗；其余帧脚部遮挡。"
+          }
+        ],
+        "routes": [
+          {
+            "personId": "white_1",
+            "anchorFrame": 857,
+            "evidenceFrames": [
+              857,
+              1028
+            ],
+            "points": [
+              [
+                81,
+                739
+              ],
+              [
+                1086,
+                721
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "按禁区线近似对齐，表示已观察切入。"
+          },
+          {
+            "personId": "white_17",
+            "anchorFrame": 857,
+            "evidenceFrames": [
+              857,
+              1028
+            ],
+            "points": [
+              [
+                502,
+                548
+              ],
+              [
+                1384,
+                426
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "按禁区与远侧边线近似对齐。"
+          },
+          {
+            "personId": "white_30",
+            "anchorFrame": 1028,
+            "evidenceFrames": [
+              1028,
+              1199
+            ],
+            "points": [
+              [
+                1436,
+                756
+              ],
+              [
+                1086,
+                720
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "按篮下禁区线对齐，向左离开内线。"
+          },
+          {
+            "personId": "white_10",
+            "anchorFrame": 1028,
+            "evidenceFrames": [
+              1028,
+              1199
+            ],
+            "points": [
+              [
+                1119,
+                950
+              ],
+              [
+                1200,
+                625
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "按禁区线近似对齐，向篮下移动。"
+          },
+          {
+            "personId": "dark_00",
+            "anchorFrame": 857,
+            "evidenceFrames": [
+              857,
+              1028
+            ],
+            "points": [
+              [
+                676,
+                554
+              ],
+              [
+                1294,
+                650
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "收缩防守；端点为地标对齐近似值。"
+          },
+          {
+            "personId": "dark_3",
+            "anchorFrame": 857,
+            "evidenceFrames": [
+              857,
+              1028
+            ],
+            "points": [
+              [
+                745,
+                669
+              ],
+              [
+                452,
+                741
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "向左外侧移动，已补偿镜头平移。"
+          },
+          {
+            "personId": "dark_13",
+            "anchorFrame": 1028,
+            "evidenceFrames": [
+              1028,
+              1199
+            ],
+            "points": [
+              [
+                1092,
+                544
+              ],
+              [
+                1338,
+                638
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "向篮下持球位置移动。"
+          },
+          {
+            "personId": "dark_32",
+            "anchorFrame": 857,
+            "evidenceFrames": [
+              857,
+              1028
+            ],
+            "points": [
+              [
+                1712,
+                814
+              ],
+              [
+                1184,
+                762
+              ]
+            ],
+            "meaning": "later_observed_action",
+            "cameraReference": "landmark_aligned",
+            "note": "由近侧收缩至切入者身边。"
+          }
+        ],
+        "ball": [
+          {
+            "personId": "white_17",
+            "frame": 685,
+            "point": [
+              933,
+              653
+            ]
+          },
+          {
+            "personId": "white_1",
+            "frame": 1028,
+            "point": [
+              711,
+              731
+            ]
+          },
+          {
+            "personId": "dark_13",
+            "frame": 1199,
+            "point": [
+              1119,
+              752
+            ]
+          }
+        ],
+        "static": [
+          {
+            "personId": "white_left_edge",
+            "frame": 1028,
+            "point": [
+              28,
+              672
+            ]
+          }
+        ],
+        "frameExceptions": [
+          {
+            "frame": 685,
+            "scope": "partial_observation",
+            "reason": "白衣10号、边缘白衣球员及部分内线脚部遮挡。"
+          },
+          {
+            "frame": 857,
+            "scope": "partial_observation",
+            "reason": "白衣10号脚部受比分牌遮挡，头带防守者脚部被挡。"
+          },
+          {
+            "frame": 1028,
+            "scope": "partial_observation",
+            "reason": "左边缘白衣球员身体大部出画。"
+          },
+          {
+            "frame": 1199,
+            "scope": "partial_observation",
+            "reason": "白衣1号、左边缘白衣球员和黑衣3号出画；头带球员脚部被挡。"
+          },
+          {
+            "frame": 1370,
+            "scope": "no_visible_feet",
+            "reason": "镜头已切至白衣1号上半身特写，无可见脚点。"
+          }
+        ],
+        "issues": [
+          "未绑定任何固定P身份。",
+          "路线地标对齐为像素近似。",
+          "稀疏帧不能确认掩护过程。",
+          "857帧未确认实际持球者。",
+          "头带球员仅一帧脚点，不编造路线。",
+          "1370帧不跨切镜续接路线。"
+        ]
+      }
+    }
+  ]
+}

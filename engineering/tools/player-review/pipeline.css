@@ -1192,3 +1192,62 @@ body[data-step=footage] .annotation-review-summary {display:none;}
 .workbench-shell[data-area="data"] .preparation-preview:has(.data-inspector[open]){height:auto;}
 .model-replay-link{grid-column:1/-1;justify-self:start;font-size:11px;color:#456880;text-decoration:none;padding:5px 0;}
 @media(max-width:980px){.workbench-shell[data-area="data"] .preparation-preview{position:static;height:auto;min-height:350px;flex:0 0 350px;}.workbench-shell[data-area="data"] .preparation-preview:has(.data-inspector[open]){flex-basis:auto;}.workbench-shell[data-area="data"] .preparation-preview:has(.data-inspector[open]) #courtCard{flex-basis:310px;}}
+
+.identity-quick-controls .identity-associate-primary{width:100%;margin:8px 0 2px;min-height:38px;font-size:13px}
+.identity-quick-edit>.field{margin-top:0}.identity-quick-edit>strong{font-size:11px;color:#536b82}
+.identity-link-suggestion,.model-binding{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0}.identity-link-suggestion>button:first-child,.model-binding>button:first-child{flex:1 1 100%}
+.identity-agent-range-adjust,.identity-link-manual{margin:8px 0;font-size:12px}
+
+#panel-identity:not([hidden]){display:flex;flex-direction:column}
+#panel-identity>#identityMain{order:-3}
+#panel-identity>h2{order:-5}#panel-identity>h2+p{order:-4}
+#panel-identity>#identityInitialReview{order:-2}
+.identity-initial-details>summary{font-size:12px;cursor:pointer;color:#2a5c85}
+
+#identityMain{display:flex;flex-direction:column}#identityMain>#identityControls{order:-1}
+
+/* A narrow browser keeps the complete video available for person selection.
+   Tools follow it in the same scroll area instead of covering its right side. */
+@media (max-width: 900px) {
+  .workbench-shell .operation-body,
+  .workbench-shell[data-step="repair"] .operation-body {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    align-items: stretch;
+  }
+  .workbench-shell .operation-body > .video-card {
+    order: 0;
+    flex: 0 0 auto;
+    width: 100%;
+    height: clamp(250px, calc(56.25vw - 5px), 520px);
+    min-height: 0;
+  }
+  .workbench-shell .step-panels {
+    order: 1;
+    position: static;
+    inset: auto;
+    z-index: auto;
+    flex: 0 0 auto;
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+    border-left: 0;
+    border-top: 1px solid #e2e8ef;
+    box-shadow: none;
+  }
+  .workbench-shell[data-info="open"] .video-info {
+    order: 2;
+    position: static;
+    inset: auto;
+    z-index: auto;
+    flex: 0 0 auto;
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+    border-right: 0;
+    border-top: 1px solid #e2e8ef;
+    box-shadow: none;
+  }
+}

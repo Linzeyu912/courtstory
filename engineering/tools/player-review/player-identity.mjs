@@ -1,4 +1,4 @@
-import {mountIdentityOCR} from './identity-ocr.mjs';
+import {mountSimpleIdentityRecognition,selectedIdentityObservation} from './identity-ocr.mjs';
 import {entityTeamSide} from './identity-timeline.mjs';
 const RATING_GROUPS=[
   ['投篮',[['three_point_shot','三分'],['mid_range_shot','中投'],['close_shot','近投']]],
@@ -11,6 +11,7 @@ const clone=value=>structuredClone(value);
 const confirmed=entity=>entity?.playerProfile?.status==='confirmed';
 const sameQuery=(left,right)=>left&&right&&['season','team','jersey'].every(key=>left[key]===right[key]);
 const teamCode=value=>typeof value==='string'&&/^[A-Z]{3}$/.test(value.trim().toUpperCase())?value.trim().toUpperCase():'';
+const unassignedSelection=s=>s.selectedPlayerId===null&&Number.isInteger(s.selectedTrackId);
 
 // A visual reference's clothing description is separate from the real team
 // confirmed for this roster slot or its colour group in the current video.
@@ -67,9 +68,11 @@ export function exportPlayerIdentities(review,session){
 export function mountPlayerIdentityUI(api){
   const doc=document,$=id=>doc.getElementById(id);
   let stateSignature='',cardSignature='',catalog=null,lookup=null,lookupEpoch=0,teamEpoch=0,catalogEpoch=0;
-  let ocrUI=null;
+  let ocrUI=null,teamsCatalog=[],readingEpoch=0,pendingReading=null,formRevision=0,readingSelection='';
   const value=rating=>rating==null?'未知':String(rating);
   const state=()=>api.getState();
+  const formStamp=()=>JSON.stringify([formRevision,state().session.gameContext?.matchup]);
+  function manualFormEdit(){formRevision++;readingEpoch++;pendingReading=null;}
   const entity=()=>state().session.entities.find(item=>item.id===state().active);
   const preferredTeam=()=>playerRosterTeam(state().session,entity());
   const query=()=>({season:$('profileSeason').value,team:$('profileTeam').value,jersey:$('profileJersey').value.trim()});
@@ -86,14 +89,15 @@ export function mountPlayerIdentityUI(api){
   function card(){
     const current=state(),item=entity(),profile=item?.playerProfile,reference=item?.ratingReference;
     const known=confirmed(item),number=/^P(?:[1-9]|10)$/.test(current.active)?current.active.slice(1):'—';
-    $('profileSummary').textContent=known?`编号 ${number} · ${profile.name} · 球队 / 号码与能力`:`编号 ${number} · 球队 / 号码识别与球员姓名`;
-    $('profileSelected').textContent=known?`已确认编号 ${number}：${profile.name} · ${profile.team_abbreviation} #${profile.jersey_number}`:`正在确认编号 ${number}。红 / 蓝与跟踪目标中的红队 / 蓝队对应，请填写实际 NBA 球队。`;
-    $('profileClear').disabled=!item?.playerProfile&&!item?.ratingReference;
+    const unassigned=unassignedSelection(current);
+    $('profileSummary').textContent=known&&!unassigned?`${profile.name} · 球队与球衣号码`:'本场球队与球员姓名';
+    $('profileSelected').textContent=unassigned?'已选中画面中的人。可以先识别号码，再关联到球员。':known?`球员 ${number}：${profile.name} · ${profile.team_abbreviation} · 球衣 #${profile.jersey_number}`:`选中球员 ${number} · 识别球队与球衣号码后，按所选赛季匹配姓名。`;
+    $('profileClear').disabled=unassigned||(!item?.playerProfile&&!item?.ratingReference);
     const point=current.point;
     $('profileObservation').textContent=point?.x==null?'当前没有可靠位置。资料跟随此编号，画面中的对应关系仍需核对。':'资料跟随此编号，当前框仍需核对。';
-    const signature=JSON.stringify([current.active,profile,reference]);if(signature===cardSignature)return;cardSignature=signature;
-    const target=$('profileRatingCard');target.replaceChildren();target.hidden=!known;
-    if(!known)return;
+    const signature=JSON.stringify([current.active,profile,reference,unassigned]);if(signature===cardSignature)return;cardSignature=signature;
+    const target=$('profileRatingCard');target.replaceChildren();target.hidden=!known||unassigned;
+    if(!known||unassigned)return;
     const header=doc.createElement('p');header.className='profile-rating-header';
     header.textContent=`${profile.season} · ${reference?.game||'游戏版本未知'} · 总评 ${value(reference?.ratings?.overall)} · ${RATING_STATUS[reference?.status]||'能力状态未知'}`;target.append(header);
     const groups=doc.createElement('div');groups.className='profile-rating-groups';
@@ -110,38 +114,47 @@ export function mountPlayerIdentityUI(api){
     const note=doc.createElement('p');note.textContent='来源快照日期不等于游戏补丁日或比赛当日。能力值是游戏原始评分；未知保留空值。';sources.append(note);target.append(sources);
   }
   async function json(url){const response=await fetch(url);if(!response.ok){let message='本地资料查询失败，请稍后重试。';try{const error=await response.json();if(typeof error.error==='string')message=error.error;}catch{}throw new Error(message);}return response.json();}
-  async function loadTeams(season,preferredTeam=''){
-    const token=++teamEpoch,id=state().active;$('profileTeam').replaceChildren(option('','选择实际球队'));$('profileTeam').value='';$('profileTeam').disabled=true;$('profileLookup').disabled=true;
+  async function loadTeams(season,preferredTeam='',applyGuard=()=>true){
+    const token=++teamEpoch,id=state().active,previousTeam=$('profileTeam').value;$('profileTeam').replaceChildren(option('','选择实际球队'));$('profileTeam').value='';$('profileTeam').disabled=true;$('profileLookup').disabled=true;
     if(!season)return;
     try{const data=await json(`/api/player-identity/options?season=${encodeURIComponent(season)}`);
       if(token!==teamEpoch||id!==state().active||season!==$('profileSeason').value)return;
       if(!Array.isArray(data.teams)||data.teams.some(team=>typeof team.abbreviation!=='string'||typeof team.name!=='string'))throw new Error('球队资料返回不完整，请重试。');
+      teamsCatalog=data.teams;ocrUI?.render();
+      const requestedTeam=applyGuard()?preferredTeam:($('profileTeam').value||previousTeam);
       $('profileTeam').replaceChildren(option('','选择实际球队'),...data.teams.map(team=>option(team.abbreviation,`${team.abbreviation} · ${team.name_zh||team.name}`)));
-      $('profileTeam').value=data.teams.some(team=>team.abbreviation===preferredTeam)?preferredTeam:'';$('profileTeam').disabled=false;$('profileRetry').hidden=true;$('profileLookup').disabled=!ready();
+      $('profileTeam').value=data.teams.some(team=>team.abbreviation===requestedTeam)?requestedTeam:'';$('profileTeam').disabled=false;$('profileRetry').hidden=true;$('profileLookup').disabled=!ready();
     }catch(error){if(token!==teamEpoch||id!==state().active||season!==$('profileSeason').value)return;$('profileLookupStatus').textContent=error.message;$('profileRetry').hidden=false;}
   }
   function seedForm(){
-    clearCandidates();teamEpoch++;const item=entity(),profile=item?.playerProfile;
+    clearCandidates();teamEpoch++;const s=state(),unassigned=unassignedSelection(s),item=unassigned?null:entity(),profile=item?.playerProfile;
     $('profileSeason').value=profile?.season||state().session.gameContext?.season||'';
     $('profileJersey').value=profile?.jersey_number||(typeof item?.jersey==='string'?item.jersey:'');
     $('profileLookupStatus').textContent='填写视频赛季、球队和号码，再查找候选。';
-    void loadTeams($('profileSeason').value,preferredTeam());
+    void loadTeams($('profileSeason').value,unassigned?'':preferredTeam());
   }
   async function loadCatalog(){
     const token=++catalogEpoch;$('profileSeason').disabled=true;
     try{const data=await json('/api/player-identity/options');if(token!==catalogEpoch)return;
       if(!Array.isArray(data.seasons)||data.seasons.some(season=>typeof season!=='string'))throw new Error('赛季资料返回不完整，请重试。');
-      catalog=data;$('profileSeason').replaceChildren(option('','选择视频赛季'),...catalog.seasons.map(season=>option(season,season)));$('profileSeason').disabled=false;$('profileRetry').hidden=true;seedForm();
+      catalog=data;teamsCatalog=data.teams||[];$('profileSeason').replaceChildren(option('','选择视频赛季'),...catalog.seasons.map(season=>option(season,season)));$('profileSeason').disabled=false;$('profileRetry').hidden=true;seedForm();ocrUI?.render();
+      if(!teamsCatalog.length&&catalog.seasons.length){const first=await json(`/api/player-identity/options?season=${encodeURIComponent(catalog.seasons[0])}`);if(token===catalogEpoch){teamsCatalog=first.teams||[];ocrUI?.render();}}
     }catch(error){if(token!==catalogEpoch)return;$('profileLookupStatus').textContent=error.message;$('profileRetry').hidden=false;}
   }
   function render(){
-    const current=state(),item=entity();const signature=JSON.stringify([current.active,item?.playerProfile,item?.ratingReference,item?.jersey,item?.team,playerRosterTeam(current.session,item),current.session.gameContext?.season]);
+    const current=state(),item=entity();
+    const selected=JSON.stringify([current.sample,current.variant,current.clip.video_sha256,current.clip.tracking_fingerprint,current.active,current.frame,current.selectedTrackId,current.selectedPlayerId]);
+    if(selected!==readingSelection){readingSelection=selected;readingEpoch++;pendingReading=null;}
+    const signature=JSON.stringify([current.active,current.selectedTrackId,current.selectedPlayerId,item?.playerProfile,item?.ratingReference,item?.jersey,item?.team,playerRosterTeam(current.session,item),current.session.gameContext?.season]);
     if(signature!==stateSignature){stateSignature=signature;seedForm();}
     $('profileLookup').disabled=!ready();card();ocrUI?.render();
   }
-  $('profileSeason').onchange=()=>{invalidate();void loadTeams($('profileSeason').value,preferredTeam());};
-  $('profileTeam').onchange=invalidate;$('profileJersey').oninput=invalidate;
-  $('profileCandidate').onchange=()=>{$('profileConfirm').disabled=!candidate();};
+  $('profileSeason').onchange=()=>{const season=$('profileSeason').value,team=$('profileTeam').value,jersey=$('profileJersey').value,copy=clone(state().session);
+    if(copy.entities.some(e=>confirmed(e)&&e.playerProfile.season!==season)){$('profileLookupStatus').textContent='已有其他赛季的确认身份；请先清除旧身份再更改赛季。';clearCandidates();void loadTeams(season,preferredTeam());return;}
+    if(copy.gameContext?.season!==season){copy.gameContext={...copy.gameContext,season,seasonSource:'human_selection'};api.commit(copy);}
+    $('profileJersey').value=jersey;invalidate();void loadTeams(season,team||preferredTeam()).then(()=>{if(pendingReading)void fillReading(...pendingReading);});};
+  $('profileTeam').onchange=()=>{manualFormEdit();invalidate();};$('profileJersey').oninput=()=>{manualFormEdit();invalidate();};
+  $('profileCandidate').onchange=()=>{manualFormEdit();$('profileConfirm').disabled=!candidate();};
   $('profileRetry').onclick=()=>{if(catalog)void loadTeams($('profileSeason').value,preferredTeam());else void loadCatalog();};
   $('profileLookup').onclick=async()=>{
     if(!ready())return;api.pause?.();clearCandidates();const token=lookupEpoch,id=state().active,requested=query();
@@ -153,23 +166,39 @@ export function mountPlayerIdentityUI(api){
         (data.status==='multiple_candidates'&&data.candidates.length<2)||new Set(data.candidates.map(item=>item.player_id)).size!==data.candidates.length)throw new Error('返回的候选数据不一致，请重新查找。');
       for(const item of data.candidates)validateCandidate(item,requested);
       lookup={id,query:requested,candidates:data.candidates};$('profileCandidate').replaceChildren(option('','核对画面后选择球员姓名'),...data.candidates.map(item=>option(item.player_id,`${item.name} · ${item.team_abbreviation} #${item.jersey_number}`)));
-      $('profileCandidate').value='';$('profileCandidate').disabled=!data.candidates.length;
+      $('profileCandidate').value='';$('profileCandidate').disabled=!data.candidates.length;$('profileConfirm').disabled=true;
       $('profileLookupStatus').textContent=data.status==='no_match'?'当前资料没有匹配项，请核对赛季、球队和号码。':data.status==='multiple_candidates'?`找到 ${data.candidates.length} 条整季名单候选，请核对并选择姓名。`:'找到候选，请核对姓名后选择，再确认。';
     }catch(error){if(token!==lookupEpoch||id!==state().active||!sameQuery(requested,query()))return;$('profileLookupStatus').textContent=error.message;}
     finally{if(token===lookupEpoch&&id===state().active)$('profileLookup').disabled=!ready();}
   };
   $('profileConfirm').onclick=()=>{
+    if(unassignedSelection(state())){$('profileLookupStatus').textContent='先把画面中的人关联到球员，再确认姓名。';return;}
     const selected=candidate();if(!selected)return;
     try{const current=state(),copy=clone(current.session),record=current.clip.frames[current.frame],point=current.point;
       confirmPlayerProfile(copy,current.active,selected,lookup.query,{videoSha256:current.clip.video_sha256,
         trackingFingerprint:current.clip.tracking_fingerprint||null,variant:current.clip.tracking_revision||current.clip.variant||'original',
         frame:current.frame,sourceFrame:record.source_frame??record.frame,sourcePTS:record.source_time??record.time,
         trackId:point?.trackId??null,visibility:point?.x==null?'position_unknown':'observed_needs_review'},new Date().toISOString());
-      api.commit(copy);$('profileLookupStatus').textContent=`编号 ${current.active.slice(1)} 的身份资料已确认，可撤销。`;api.toast('身份与 2K 能力已保存，可撤销。');
+      manualFormEdit();api.commit(copy);$('profileLookupStatus').textContent=`编号 ${current.active.slice(1)} 的身份资料已确认，可撤销。`;api.toast('身份与 2K 能力已保存，可撤销。');
     }catch(error){$('profileLookupStatus').textContent=error.message;api.toast(error.message);}
   };
-  $('profileClear').onclick=()=>{const current=state(),copy=clone(current.session);if(!clearPlayerProfile(copy,current.active))return;api.commit(copy);$('profileLookupStatus').textContent='身份资料已清除，原编号与手工记录保留，可撤销。';api.toast('身份资料已清除，可撤销。');};
+  $('profileClear').onclick=()=>{const current=state();if(unassignedSelection(current))return;const copy=clone(current.session);if(!clearPlayerProfile(copy,current.active))return;manualFormEdit();api.commit(copy);$('profileLookupStatus').textContent='身份资料已清除，原编号与手工记录保留，可撤销。';api.toast('身份资料已清除，可撤销。');};
   $('profileSeason').replaceChildren(option('','选择视频赛季'));clearCandidates();render();void loadCatalog();
-  ocrUI=mountIdentityOCR({...api,onJersey:value=>{$('profileJersey').value=value;invalidate();},onTeam:()=>seedForm()});
-  return {render};
+  async function fillReading(reading,context){
+    if(context.formRevision!==formStamp()){pendingReading=null;$('profileLookupStatus').textContent='已保留你刚修改的球队、号码或姓名；上方识别建议仅供参考。';return;}
+    const current=state(),observation=selectedIdentityObservation(current);
+    if(context.data.videoSha256!==current.clip.video_sha256||context.data.trackingFingerprint!==current.clip.tracking_fingerprint||observation?.trackId!==context.observation.trackId||observation?.frame!==context.observation.frame)return;
+    pendingReading=[reading,context];const token=++readingEpoch,id=current.active;
+    const stillCurrent=()=>{const latest=state(),point=selectedIdentityObservation(latest);return token===readingEpoch&&id===latest.active&&context.formRevision===formStamp()&&context.data.videoSha256===latest.clip.video_sha256&&context.data.trackingFingerprint===latest.clip.tracking_fingerprint&&point?.trackId===context.observation.trackId&&point?.frame===context.observation.frame;};
+    if(!context.playerId||context.playerId!==id){$('profileLookupStatus').textContent='识别建议已保留；请先关联到球员，再确认姓名。';return;}
+    if(confirmed(entity())){$('profileLookupStatus').textContent='已有人工确认的姓名，识别建议未覆盖；如需修改请先清除身份。';return;}
+    if(reading.jersey)$('profileJersey').value=reading.jersey;
+    if(!$('profileSeason').value){$('profileLookupStatus').textContent='请先选择视频赛季，随后自动匹配球员姓名。';return;}
+    await loadTeams($('profileSeason').value,reading.team||preferredTeam(),stillCurrent);
+    if(!stillCurrent())return;
+    if(reading.jersey)$('profileJersey').value=reading.jersey;
+    invalidate();if(ready()){await $('profileLookup').onclick();if(!stillCurrent())return;if(lookup?.candidates.length===1){$('profileCandidate').value=lookup.candidates[0].player_id;$('profileConfirm').disabled=false;$('profileLookupStatus').textContent='已匹配姓名，核对后点“确认身份”。';}}
+  }
+  ocrUI=mountSimpleIdentityRecognition({...api,getTeams:()=>teamsCatalog,getFormRevision:formStamp,onReading:fillReading,onTeam:()=>{ocrUI?.render();}});
+  return {render,recognizeSelected:()=>ocrUI?.recognizeSelected()};
 }

@@ -1,10 +1,10 @@
 import {validateTacticKeyframes} from './tactics-keyframes.mjs';
 import {validateCourtPreparation} from './court-preparation.mjs';
 import {validateFrameMapping} from './tactics-time-range.mjs';
-import {createSourceBinding} from '../tactical-overlay/binding.mjs';
+import {createSourceBinding,canonicalJSON} from '../tactical-overlay/binding.mjs';
 import {validateInputs} from '../tactical-overlay/validation.mjs';
 import {validatePresentation} from './tactics-presentation.mjs';
-import {validateAnnotations,updateAnnotation} from './tactics-annotations.mjs';
+import {validateAnnotations,updateAnnotation,annotationStatus} from './tactics-annotations.mjs';
 import {validateProduction,preserveProductionMediaBinding} from './tactics-production.mjs';
 
 export const ACTION_KINDS={move:'跑位',cut:'切入',roll:'顺下',pop:'外弹',hold:'持位',space:'拉开',screen:'掩护'};
@@ -103,6 +103,18 @@ export function reviewAction(document,id,reviewer,reviewed){
 export async function refreshSnapshot(document,review){
   const d=await preserveProductionMediaBinding(document),p=d.playDefinition;
   if(d.review.videoSha256!==review.videoSha256||d.review.width!==review.width||d.review.height!==review.height||d.review.trackingFingerprint!==review.trackingFingerprint||JSON.stringify(d.review.sourceFrameMapping)!==JSON.stringify(review.sourceFrameMapping))throw new Error('视频、尺寸或模型版本不同，请在对应视频下新建战术草稿。');
+  // Anonymous source-frame drawings consume pixels and timing, not player names.
+  // Only previously valid drawings may carry their binding across an unchanged
+  // media snapshot; court/identity/authored geometry keeps its existing rules.
+  const media=r=>({videoSha256:r.videoSha256,sourceVideoSha256:r.sourceVideoSha256??null,width:r.width,height:r.height,
+    trackingFingerprint:r.trackingFingerprint,sourceFrameMapping:r.sourceFrameMapping,mediaEndTime:r.mediaEndTime??null,
+    cuts:r.settings?.cuts??[],sourceCuts:r.settings?.sourceCuts??[]});
+  const oldBinding=await createSourceBinding(d.review);
+  const preserve=canonicalJSON(media(d.review))===canonicalJSON(media(review))&&
+    canonicalJSON(oldBinding)===canonicalJSON(p.sourceBinding)&&!validateAnnotations(d.annotations,d).length?
+    new Set(annotationStatus(d).active.filter(a=>a.entityId===null&&a.origin?.kind==='agent'&&a.space==='video'&&a.followEntity===false&&
+      !a.authoredPath&&!a.preparationBinding&&(a.anchorMode===undefined||a.anchorMode==='manual_offset')&&
+      (a.videoMode===undefined||a.videoMode==='fixed'&&a.referenceSize?.width===d.review.width&&a.referenceSize?.height===d.review.height)).map(a=>a.id)):new Set();
   const ids=new Set(review.entities.map(e=>e.id)),removed=p.participants.filter(person=>!ids.has(person.id));
   if(removed.length){
     const archive=d.archivedTactics??={schemaVersion:1,participants:[],annotations:[],actions:[],relations:[]};
@@ -115,6 +127,7 @@ export async function refreshSnapshot(document,review){
   }
   p.participants=review.entities.map(e=>({id:e.id,name:e.name||e.id,role:e.role||'player'}));reindexPhases(p);
   d.review=clone(review);p.sourceBinding=await createSourceBinding(d.review);p.reviewEvidence=[];
+  for(const a of d.annotations?.items??[])if(preserve.has(a.id))a.sourceBinding={videoSha256:review.videoSha256,trackingFingerprint:review.trackingFingerprint,reviewDigest:p.sourceBinding.reviewDigest};
   for(const a of d.annotations?.items??[])if(['player_foot','court_player_foot'].includes(a.anchorMode)&&ids.has(a.entityId))a.sourceBinding={videoSha256:review.videoSha256,trackingFingerprint:review.trackingFingerprint,reviewDigest:p.sourceBinding.reviewDigest};
   for(const a of [...p.actions,...p.relations])a.reviewStatus='needs_review';p.revision++;return d;
 }

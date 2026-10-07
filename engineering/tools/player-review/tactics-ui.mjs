@@ -8,7 +8,7 @@ import {COURT} from './court.mjs';
 import {createTacticsDocument,validateDocument,splitPhase,removePhase,upsertAction,removeAction,reviewAction,refreshSnapshot,restoreArchivedAnnotation,ACTION_KINDS,clone} from './tactics-document.mjs';
 import {documentDigest} from './tactics-agent.mjs';
 import {buildTacticalOverlay} from '../tactical-overlay/overlay.mjs';
-import {createSourceBinding} from '../tactical-overlay/binding.mjs';
+import {createSourceBinding,canonicalJSON} from '../tactical-overlay/binding.mjs';
 import {readTacticsDraft,writeTacticsDraft} from './tactics-storage.mjs';
 import {buildPhaseRoutes,projectPhaseRoutes,renderPresentationSVG,updateRouteControlPoints,restoreRoute,courtToVideo,videoToCourt} from './tactics-presentation.mjs';
 import {createRouteEditor,commitWhenCurrent,screenToCourt} from './tactics-route-editor.mjs';
@@ -28,13 +28,176 @@ export function suggestManualDrawingRange(document,frame,phaseId,seconds=3){
   return {startFrame:frame,endFrameExclusive:end};
 }
 
+// Video follows the source aspect ratio at the container width. The panel owns
+// vertical scrolling; only the court overview retains the viewport height cap.
+export function tacticsSceneSize({mode,modelWidth,modelHeight,canvasWidth,viewportHeight,selectionHeight=42}){
+  const ratio=mode==='video'?modelHeight/modelWidth:15.24/28.6512;
+  if(mode==='video'){
+    const width=Math.max(1,canvasWidth-2);return {width,height:width*ratio};
+  }
+  const actionsHeight=(selectionHeight||42)+6;
+  const availableHeight=Number.isFinite(viewportHeight)?Math.max(220,Math.min(480,viewportHeight-450-actionsHeight)):Infinity;
+  const width=Math.max(200,Math.min(canvasWidth-2,availableHeight/ratio));return {width,height:width*ratio};
+}
+
+export function agentRuntimeDescription(stage){
+  const runtime=stage?.runtime;
+  if(!runtime)return '';
+  const elapsed=Number.isFinite(runtime.elapsedSeconds)?` · 本次已用 ${Math.floor(runtime.elapsedSeconds)} 秒`:'';
+  const state=runtime.modelOutputSeen?'已收到模型输出':stage.status==='analyzing'?'请求已启动，等待模型返回':'';
+  const sampling=runtime.samplingMode==='reduced_images'||runtime.retryMode==='reduced_images'?' · 精简画面重试':'';
+  const frames=runtime.imageInputMode==='contact_sheet'&&Number.isInteger(runtime.imageCount)?` · 本段抽取 ${runtime.imageCount} 幅画面`:'';
+  const retry=runtime.retryMode==='alternate_model'?' · 已切换备用模型重试':runtime.retryMode==='same_model'?' · 重试当前片段':'';
+  const analysis=runtime.analysisMode==='visual_facts'?' · 分析人物与实际动作':'';
+  return `${analysis}${state?` · ${state}`:''}${elapsed}${frames}${sampling}${retry}`;
+}
+
+export function agentFailureDescription(code){
+  return ({no_response:'模型未在限定时间内返回内容',model_timeout:'生成超过本次时间上限',timeout:'生成超过本次时间上限',transport:'模型连接中断',authentication_or_quota:'模型登录或额度不可用',budget_exhausted:'本轮时间预算已用尽',validation:'返回建议未通过校验',invalid_json:'返回结果不完整',execution:'模型调用未完成',forbidden_tool:'返回过程不符合标注调用规则',model_configuration:'当前模型配置不可用',storage:'结果保存受阻'})[code]||'本次生成未完成，可查看分段原因';
+}
+
+const validCount=value=>Number.isSafeInteger(value)&&value>=0;
+const factsExceptionCount=report=>Array.isArray(report?.exceptionItems)?report.exceptionItems.length:validCount(report?.exceptionItems)?report.exceptionItems:null;
+function factsCoverageDescription(report){
+  if(!report||typeof report!=='object')return '';
+  const parts=[];
+  if(validCount(report.observedPeople))parts.push(`已分析 ${report.observedPeople} 人`);
+  if(validCount(report.routePeople))parts.push(`路线覆盖 ${report.routePeople} 人`);
+  const exceptions=factsExceptionCount(report);if(exceptions!==null)parts.push(`${exceptions} 项疑点`);
+  return parts.length?` · ${parts.join(' · ')}`:'';
+}
+function legacyStageCoverage(stage){
+  return Array.isArray(stage?.coverage)?stage.coverage.reduce((sum,p)=>({annotated:sum.annotated+(p.annotated??0),uncertain:sum.uncertain+(p.uncertain??0),pending:sum.pending+(p.pending??0)}),{annotated:0,uncertain:0,pending:0}):stage?.coverage;
+}
+export function agentStageCoverageDescription(stage){
+  const facts=factsCoverageDescription(stage?.factsReport);if(facts)return facts;
+  const coverage=legacyStageCoverage(stage),counts=coverage&&typeof coverage==='object'?[coverage.annotated,coverage.uncertain].filter(Number.isFinite):[];
+  return `${counts.length===2?` · 已标 ${counts[0]} 人，待确认 ${counts[1]} 人`:''}${coverage?.pending?` · 另 ${coverage.pending} 项需人工处理`:''}`;
+}
+
+export function isStraightPass(annotation){
+  return annotation?.type==='route'&&['dashed','dots'].includes(annotation.style?.pattern)&&(!annotation.meaning||annotation.meaning==='pass');
+}
+
+export function agentReviewIssues(job){
+  const strings=items=>Array.isArray(items)?items.filter(item=>typeof item==='string'):[];
+  const runs=Array.isArray(job?.previewDocument?.agentRuns)?job.previewDocument.agentRuns:[];
+  const matchingRuns=typeof job?.jobId==='string'?runs.filter(run=>run?.jobId===job.jobId):[];
+  return [...new Set([...strings(job?.candidate?.issues),...strings(job?.diagnostics),...matchingRuns.flatMap(run=>strings(run.issues))])];
+}
+
+export function savedVisualAuditRun(document,expectedContext=null){
+  const run=Array.isArray(document?.agentRuns)?document.agentRuns.at(-1):null,proof=run?.visualAuditSource,review=document?.review,binding=document?.playDefinition?.sourceBinding;
+  if(!run?.visualAudit||typeof run.jobId!=='string'||!run.jobId||proof?.schemaVersion!==1||proof.jobId!==run.jobId||!review||!binding)return null;
+  try{
+    const fields=['digestVersion','videoSha256','sourceVideoSha256','trackingFingerprint','trackingRevision','frameMappingDigest'];
+    if(fields.some(key=>!Object.hasOwn(proof,key)||proof[key]!==binding[key])||proof.digestVersion!=='canonical-json-v1'||!/^[a-f0-9]{64}$/.test(proof.frameMappingDigest??''))return null;
+    if(proof.videoSha256!==review.videoSha256||proof.sourceVideoSha256!==(review.sourceVideoSha256??null)||proof.trackingFingerprint!==review.trackingFingerprint||
+      proof.width!==review.width||proof.height!==review.height||!Object.hasOwn(proof,'mediaEndTime')||proof.mediaEndTime!==(review.mediaEndTime??null)||
+      canonicalJSON(proof.cuts)!==canonicalJSON(review.settings?.cuts??[])||canonicalJSON(proof.sourceCuts)!==canonicalJSON(review.settings?.sourceCuts??[]))return null;
+    if(!proof.context||expectedContext&&canonicalJSON(proof.context)!==canonicalJSON(expectedContext))return null;
+    return run;
+  }catch{return null;}
+}
+
+export function agentVisualAuditIssues(job,mapping=[],savedDocument=null){
+  const savedRun=!job?savedVisualAuditRun(savedDocument):null,jobId=job?.jobId??savedRun?.jobId;
+  if(typeof jobId!=='string'||!jobId)return [];
+  const reports=[],collect=(value,stageId=null)=>{
+    if(!value||typeof value!=='object'||value.jobId&&value.jobId!==jobId)return;
+    if(Array.isArray(value.exceptionItems))reports.push({report:value,stageId});
+    const stages=value.stages;
+    if(stages&&typeof stages==='object')for(const [id,report] of Object.entries(stages))collect(report,report?.stageId??id);
+  };
+  if(savedRun)collect(savedRun.visualAudit);
+  else{
+    collect(job.visualAudit);
+    if(Array.isArray(job.stages))for(const stage of job.stages)if(stage&&(!stage.jobId||stage.jobId===jobId))collect(stage.visualAudit,stage.stageId??null);
+    for(const doc of [job.previewDocument,savedDocument])if(Array.isArray(doc?.agentRuns))for(const run of doc.agentRuns)if(run?.jobId===jobId)collect(run.visualAudit);
+  }
+  const rows=[],seen=new Set();
+  for(const {report,stageId} of reports)for(const issue of report.exceptionItems){
+    if(!issue||typeof issue!=='object'||typeof issue.reason!=='string'||!issue.reason.trim())continue;
+    const kind=issue.kind??issue.itemType;
+    const category=issue.code==='missed_on_court_player'?'漏人':kind==='route'||kind==='routes'||['route_pending','missed_motion','proposed_motion_unverified'].includes(issue.code)?'路线':kind==='ball'||issue.code==='ball_pending'?'持球圈':'球员位置';
+    const source=Array.isArray(issue.evidenceFrames)?issue.evidenceFrames:Array.isArray(issue.frames)?issue.frames:[issue.frame];
+    const frames=[...new Set(source.filter(frame=>Number.isInteger(frame)&&frame>=0&&frame<mapping.length&&Number.isFinite(mapping[frame]?.time)))].sort((a,b)=>a-b);
+    const reason=issue.reason.trim(),key=JSON.stringify([stageId,category,issue.personId??null,issue.code,frames,reason]);
+    if(seen.has(key))continue;seen.add(key);
+    rows.push({stageId,personId:issue.personId??null,category,reason,frames,timeLabel:frames.length?`${frames.map(frame=>mapping[frame].time.toFixed(2)).join('、')} 秒`:''});
+  }
+  return rows;
+}
+
+export function agentVisualAuditGroups(rows,mapping=[]){
+  const groups=new Map();
+  for(const item of rows){
+    const key=JSON.stringify([item.stageId,item.personId,item.personId===null?item.frames:null]);
+    if(!groups.has(key))groups.set(key,{stageId:item.stageId,personId:item.personId,issues:[],frames:[]});
+    const group=groups.get(key);group.issues.push(item);group.frames.push(...item.frames);
+  }
+  return [...groups.values()].map(group=>{const frames=[...new Set(group.frames)].sort((a,b)=>a-b);return {...group,frames,
+    category:[...new Set(group.issues.map(i=>i.category))].join('、'),reason:group.issues[0].reason,
+    timeLabel:frames.length?`${frames.map(frame=>mapping[frame].time.toFixed(2)).join('、')} 秒`:''};});
+}
+
+export function agentStatusDescription(job,{scope='play'}={}){
+  const progress=job?.progress,auditStatus=agentAuditStatusDescription(job),auditProgress=stageAuditProgress(job);
+  const analyzed=job?.completionKind==='manual_review'&&['partial','ready'].includes(job.status)&&!job.auditPending&&
+    !!job.candidate&&progress?.total>0&&progress.completed===progress.total&&Array.isArray(job.stages)&&job.stages.length>0&&job.stages.every(stage=>['ready','succeeded'].includes(stage.status));
+  const message=analyzed?`${scope==='play'?'全段':'所选范围'}已分析，部分图形待核对`:auditStatus||job?.message||job?.status||'';
+  const count=auditProgress?`${progress.budgetSeconds?` · 总预算 ${progress.budgetSeconds} 秒`:''}`:progress&&Number.isFinite(progress.completed)&&Number.isFinite(progress.total)?` · ${auditStatus||analyzed?'已分析':'阶段'} ${progress.completed}/${progress.total}${progress.budgetSeconds?`，总预算 ${progress.budgetSeconds} 秒`:''}`:'';
+  const failure=job?.failure?.code&&!(analyzed&&job.failure.code==='visual_audit')?` · ${agentFailureDescription(job.failure.code)}`:'';
+  const next=auditProgress&&!agentAuditActive(job)&&auditProgress.completed<auditProgress.total?(job.canRetry===false?' · 未核对段仍保留；本任务不能继续重试。':' · 下次只继续未核对段。'):analyzed?' · 可展示图形仍需依据原画面核对；未确认事项已保留。':job?.status==='partial'?(job.canRetry===false?' · 可见候选可先核对采用；未确认事项需人工补充。':' · 完成的阶段可先核对采用，未完成阶段可重试或人工补充。'):'';
+  return `${message}${count}${failure}${next}`;
+}
+
+const agentAuditActive=job=>['queued','preparing','analyzing','validating','retrying'].includes(job?.status);
+function stageAuditProgress(job){
+  const progress=job?.progress??{},completed=progress.auditCompletedStages,total=progress.auditTotalStages;
+  return job?.auditPending&&validCount(completed)&&validCount(total)&&total>0&&completed<=total?{completed,total}:null;
+}
+
+export function agentAuditStatusDescription(job){
+  const progress=job?.progress??{},active=agentAuditActive(job),auditProgress=stageAuditProgress(job);
+  if(progress.auditRepairStatus==='analyzing'&&active)return '已生成，正在自动修复';
+  if(auditProgress){
+    const {completed,total}=auditProgress;
+    if(completed===total)return `已生成；核对结果已收集 ${completed}/${total} 段${active?'，正在校验':''}`;
+    if(active&&progress.auditStatus==='analyzing'){
+      const index=typeof progress.auditCurrentStageId==='string'&&Array.isArray(job.stages)?job.stages.findIndex(stage=>stage?.stageId===progress.auditCurrentStageId):-1;
+      return `已生成；自动核对 ${completed}/${total} 段${index>=0?` · 正在核对第 ${index+1} 段`:''}`;
+    }
+    return `已生成；已核对 ${completed}/${total} 段${active?'，等待继续核对':''}`;
+  }
+  if(job?.auditPending)return active&&progress.auditStatus==='analyzing'?'已生成，正在自动核对':active?'已生成，等待自动核对':'已生成，待自动核对';
+  if(job?.auditNeedsRepair)return active?'已生成，正在自动修复':'已生成，待核对';
+  if(job?.visualAudit?.allApproved===false||Array.isArray(job?.stages)&&job.stages.some(stage=>stage?.visualAudit?.allApproved===false))return '已生成，待核对';
+  return '';
+}
+
+export function agentStageStatusDescription(stage,job){
+  const labels={queued:'等待',preparing:'准备中',analyzing:'等待模型结果',validating:'校验中',retrying:'重试中',generated_pending_audit:'已生成，正在核对',awaiting_audit:'观察已生成，待自动核对',ready:'已完成',succeeded:'已完成',failed:'失败',cancelled:'已取消',pending:'待处理',partial:'部分完成'};
+  if(stage?.status==='failed'&&stage.failure?.code==='storage')return '保存受阻';
+  if(['ready','succeeded','awaiting_audit','generated_pending_audit'].includes(stage?.status)&&stage.visualAudit?.allApproved!==true&&stageAuditProgress(job)){
+    if(job.progress?.auditRepairStatus==='analyzing'&&agentAuditActive(job))return '已生成，正在自动修复';
+    return agentAuditActive(job)&&job.progress.auditStatus==='analyzing'&&typeof stage.stageId==='string'&&stage.stageId===job.progress.auditCurrentStageId?'已生成，正在自动核对本段':'已生成，待完整核对与校验';
+  }
+  if(['ready','succeeded'].includes(stage?.status)){
+    if(stage.visualAudit?.allApproved===true)return '已生成，核对通过';
+    const pending=agentAuditStatusDescription(job);if(pending)return pending;
+    if(stage.visualAudit?.allApproved===false)return '已生成，待核对';
+  }
+  return labels[stage?.status]??stage?.status??'';
+}
+
 export function mountTacticsUI(api){
   const $=id=>document.getElementById(id),root=$('tacticsPanel');
   root.innerHTML=`<div class="tactics-heading"><div><h2>战术画布</h2><span class="tactics-subtitle">选时间 · 在视频上画 · 暂停讲解 · 导出</span></div><div class="tactics-buttons"><span id="tacticsSaveState" class="tactics-save-state">正在读取</span><button id="tacticsUndo" title="撤销上一次修改（Ctrl / ⌘ Z）">撤销</button><button id="tacticsRedo">重做</button><button id="tacticsSave" class="primary">保存</button><button id="tacticsPreviewCurrent">成片效果预览</button><button id="tacticsExportCurrent">导出 MP4</button></div></div>
   <p id="tacticsStatus" role="status" aria-live="polite">正在读取当前视频的战术草稿。</p>
   <details class="tactics-production-panel"><summary>成片预览</summary><section id="tacticsRender" class="tactics-production"></section></details>
   <div id="tacticsAgentHome"></div>
-  <details id="tacticsAgentPanel" class="tactics-agent-panel" open><summary>Agent 战术初稿</summary><p class="small muted">直接分析原视频，适合 24 秒以内的片段；按阶段说明持球、掩护、接应与无球参与者，无法确认的位置会留待人工补充。生成结果先供核对，点击采用后才加入草稿。</p><div class="tactics-agent-inputs"><label class="field">分析范围<select id="tacticsAgentScope"><option value="play">整段原视频，分阶段分析</option><option value="phase">当前阶段，追加初稿</option><option value="range">所选区间（需要已采用的 2D）</option></select></label><label class="field">希望讲清楚什么<input id="tacticsAgentGoal" maxlength="2000" placeholder="例如：持球掩护后切入、接应和弱侧参与者"></label><button id="tacticsAgentRun" class="primary">生成战术初稿</button><button id="tacticsAgentCancel" hidden>取消生成</button></div><p id="tacticsAgentStatus" role="status" aria-live="polite">可直接生成整段初稿，也可先手工绘制。现有草稿会保留。</p><div id="tacticsAgentStages" class="tactics-agent-stages" aria-label="分段生成进度"></div><details id="tacticsAgentPending" class="tactics-agent-pending" hidden><summary id="tacticsAgentPendingTitle">待人工建议</summary><p class="small muted">这些建议未加入画布。定位原片后可自行绘制；保存后仍可查看原始待核对理由。</p><div id="tacticsAgentPendingList"></div></details><div id="tacticsAgentActions" class="tactics-buttons"><button id="tacticsAgentAdopt" class="primary" hidden disabled>采用到草稿，继续编辑</button><button id="tacticsAgentRetry" hidden>仅重试失败段</button><button id="tacticsAgentRefresh" hidden>刷新任务状态</button><button id="tacticsAgentManual">继续人工编辑</button><button id="tacticsAgentRestore" hidden>返回上次生成的候选</button></div><p id="tacticsAgentRetained" class="small muted" hidden></p><div id="tacticsAgentPreview" class="tactics-agent-preview"></div></details>
+  <details id="tacticsAgentPanel" class="tactics-agent-panel" open><summary>Agent 战术初稿</summary><p class="small muted">分段抽取原视频画面，适合 24 秒以内的片段；优先画有证据的跑动路线，重点圈仅提示持球人，静止参与者用简洁位置标记。Agent 会自动核对并尝试修复；限定次数内仍不明确的事项再交人工处理。生成结果先供核对，点击采用后才加入草稿。</p><div class="tactics-agent-inputs"><label class="field">分析范围<select id="tacticsAgentScope"><option value="play">整段原视频，分阶段分析</option><option value="phase">当前阶段，追加初稿</option><option value="range">所选区间（需要已采用的 2D）</option></select></label><label class="field">希望讲清楚什么<input id="tacticsAgentGoal" maxlength="2000" placeholder="例如：持球掩护后切入、接应和弱侧参与者"></label><button id="tacticsAgentRun" class="primary">生成战术初稿</button><button id="tacticsAgentCancel" hidden>取消生成</button></div><p id="tacticsAgentStatus" role="status" aria-live="polite">可直接生成整段初稿，也可先手工绘制。现有草稿会保留。</p><div id="tacticsAgentStages" class="tactics-agent-stages" aria-label="分段生成进度"></div><details id="tacticsAgentPending" class="tactics-agent-pending" hidden><summary id="tacticsAgentPendingTitle">待人工建议</summary><p class="small muted">这些建议未加入画布。定位原片后可自行绘制；保存后仍可查看原始待核对理由。</p><div id="tacticsAgentPendingList"></div></details><section id="tacticsAgentAuditIssues" class="tactics-agent-pending" hidden><strong id="tacticsAgentAuditTitle">需要核对的画面</strong><div id="tacticsAgentAuditList"></div></section><div id="tacticsAgentActions" class="tactics-buttons"><button id="tacticsAgentAdopt" class="primary" hidden disabled>采用到草稿，继续编辑</button><button id="tacticsAgentRetry" hidden>仅重试失败段</button><button id="tacticsAgentRefresh" hidden>刷新任务状态</button><button id="tacticsAgentManual">继续人工编辑</button><button id="tacticsAgentRestore" hidden>返回上次生成的候选</button></div><p id="tacticsAgentRetained" class="small muted" hidden></p><div id="tacticsAgentPreview" class="tactics-agent-preview"></div></details>
   <div id="tacticsEmpty" class="tactics-empty" hidden><strong>先建立这个视频的战术画布</strong><p>没有识别结果也能画路线、虚线箭头、传球路线，或放挡拆标记和重点球员圈。</p><div id="tacticsEmptyActions" class="tactics-buttons"><button id="tacticsCreateCanvas" class="primary">建立画布，开始手工标注</button></div></div>
   <div id="tacticsEditor" hidden><div id="tacticsPhases" class="tactics-phases" aria-label="选择战术阶段"></div>
   <div class="tactics-layout"><section class="tactics-view"><div class="tactics-author-tools" role="toolbar" aria-label="画布工具">
@@ -91,10 +254,10 @@ export function mountTacticsUI(api){
   const usesCuePlayback=()=>!!documentValue&&(documentValue.schemaVersion!==2||documentValue.legacyTiming||pausePoints().length>0);
   const annotationInPanel=a=>a.phaseId===phaseId||!documentValue.playDefinition.phases.some(p=>p.phaseId===a.phaseId);
   const selectedAnnotation=()=>annotations().find(a=>a.id===selectedAnnotationId&&annotationInPanel(a))||null;
-  const typeNames={route:'跑位',dashed:'传球',dots:'圆点传球',screen:'挡拆标记',spotlight:'重点球员圈'};
+  const typeNames={route:'跑位',dashed:'传球',dots:'圆点传球',screen:'挡拆标记',spotlight:'重点球员圈',position:'位置标记'};
   const toolButtons=[['tacticsToolSelect','select'],['tacticsToolRoute','route'],['tacticsToolDashed','dashed'],['tacticsToolDots','dots'],['tacticsToolScreen','screen'],['tacticsToolSpotlight','spotlight']];
-  const straightRoute=a=>a?.type==='route'&&['dashed','dots'].includes(a.style.pattern);
-  const annotationName=a=>a?.name|| (a?.authoredPath?'编排曲线':typeNames[straightRoute(a)?a.style.pattern:a?.type]||'图形');
+  const straightRoute=isStraightPass;
+  const annotationName=a=>a?.name|| (a?.authoredPath?'编排曲线':a?.meaning==='later_observed_action'?'后续观察跑位':typeNames[straightRoute(a)?a.style.pattern:a?.type]||'图形');
   const editAllowed=()=>!!lastScene&&active&&!loading&&!editBusy&&editingEnabled;
   const inspectedPlayer=()=>{const a=selectedAnnotation();return personInspection?.entityId??(a?a.entityId:selectedEntityId);};
   const playerLabel=id=>tacticsPlayerLabel(documentValue.review,id);
@@ -230,7 +393,7 @@ export function mountTacticsUI(api){
     $('tacticsAnnotationAddPoint').disabled=disabled||a?.type!=='route'||!!a?.authoredPath||a?.curve==='cubic_bezier'||straightRoute(a)||a.points.length>=ANNOTATION_LIMITS.points;
     $('tacticsObjectList').replaceChildren(...items.map(item=>{
       const b=document.createElement('button'),entity=people.find(([id])=>id===item.entityId)?.[1],time=documentValue.review.sourceFrameMapping[item.anchorFrame]?.time;
-      b.textContent=`${straightRoute(item)?item.style.pattern==='dots'?'•••':'⇢':{route:'↗',screen:'⊣',spotlight:'◯'}[item.type]} ${annotationName(item)}${entity?` · ${entity}`:''}${item.origin?item.origin.kind==='agent'?' · Agent 建议':' · 人工修改':''}${Number.isFinite(time)?` · ${time.toFixed(2)} 秒`:''}${item.phaseId!==phaseId?' · 待重新定位':''}`;
+      b.textContent=`${straightRoute(item)?item.style.pattern==='dots'?'•••':'⇢':{route:'↗',screen:'⊣',spotlight:'◯',position:'•'}[item.type]} ${annotationName(item)}${entity?` · ${entity}`:''}${item.origin?item.origin.kind==='agent'?' · Agent 建议':' · 人工修改':''}${Number.isFinite(time)?` · ${time.toFixed(2)} 秒`:''}${item.phaseId!==phaseId?' · 待重新定位':''}`;
       b.setAttribute('aria-pressed',String(item.id===selectedAnnotationId));b.setAttribute('data-object-id',item.id);
       b.onclick=()=>{selectAnnotation(item.id);const projected=annotationScene?.items.find(a=>a.id===item.id);if((projected?.hiddenReason||(item.authoredPath||item.origin?.kind==='agent')&&lastScene.frame!==item.anchorFrame)&&synchronized)seekCanvas(item.anchorFrame);};return b;
     }));
@@ -486,22 +649,80 @@ export function mountTacticsUI(api){
     $('tacticsAgentRestore').hidden=!retained;$('tacticsAgentRestore').disabled=agentBusy||loading;
     $('tacticsAgentRetained').hidden=!retained;$('tacticsAgentRetained').textContent=retained?'上次生成的候选已保留在下方。新请求未覆盖它；可返回上次候选继续核对。':'';
     for(const id of ['tacticsAgentScope','tacticsAgentGoal'])$(id).disabled=agentBusy||loading;
+    if(!agentJob)showAgentAuditIssues(null);
   }
   function showAgentStages(job){
-    const labels={queued:'等待',preparing:'准备中',analyzing:'分析中',validating:'校验中',retrying:'重试中',ready:'已完成',succeeded:'已完成',failed:'失败',cancelled:'已取消',pending:'待处理',partial:'部分完成'};
     $('tacticsAgentStages').replaceChildren(...(job?.stages??[]).map((stage,index)=>{
       const row=document.createElement('div'),line=document.createElement('span'),mapping=documentValue?.review.sourceFrameMapping;
       const stageRange=stage.range??stage,startFrame=stageRange.startFrame,endFrameExclusive=stageRange.endFrameExclusive;
       const start=mapping?.[startFrame]?.time,end=endFrameExclusive===mapping?.length?documentValue.review.mediaEndTime:mapping?.[endFrameExclusive]?.time;
       row.className='tactics-agent-stage';row.setAttribute('data-stage-status',stage.status);
-      const coverage=Array.isArray(stage.coverage)?stage.coverage.reduce((sum,p)=>({annotated:sum.annotated+(p.annotated??0),uncertain:sum.uncertain+(p.uncertain??0),pending:sum.pending+(p.pending??0)}),{annotated:0,uncertain:0,pending:0}):stage.coverage,counts=coverage&&typeof coverage==='object'?[coverage.annotated,coverage.uncertain].filter(Number.isFinite):[];
-      line.textContent=`阶段 ${index+1}${Number.isFinite(start)&&Number.isFinite(end)?` · ${start.toFixed(2)}—${end.toFixed(2)} 秒`:''} · ${labels[stage.status]||stage.status}${stage.message?` · ${stage.message}`:''}${counts.length===2?` · 已标 ${counts[0]} 人，待确认 ${counts[1]} 人`:''}${coverage?.pending?` · 另 ${coverage.pending} 项需人工处理`:''}`;row.append(line);
-      if((['failed','cancelled'].includes(stage.status)||coverage?.uncertain>0||coverage?.pending>0)&&Number.isInteger(startFrame)&&startFrame>=0&&startFrame<mapping?.length){
+      const coverage=legacyStageCoverage(stage),facts=factsCoverageDescription(stage.factsReport);
+      const statusLabel=agentStageStatusDescription(stage,job);
+      line.textContent=`阶段 ${index+1}${Number.isFinite(start)&&Number.isFinite(end)?` · ${start.toFixed(2)}—${end.toFixed(2)} 秒`:''} · ${statusLabel}${stage.message?` · ${stage.message}`:''}${agentRuntimeDescription(stage)}${agentStageCoverageDescription(stage)}`;row.append(line);
+      if((['failed','cancelled'].includes(stage.status)||(facts?factsExceptionCount(stage.factsReport)>0:coverage?.uncertain>0)||coverage?.pending>0)&&Number.isInteger(startFrame)&&startFrame>=0&&startFrame<mapping?.length){
         const manual=document.createElement('button');manual.textContent='定位后人工补充';manual.disabled=loading||agentAdopting;
         manual.onclick=safe(async()=>{await beginManualEditing({tool:'select'});seekCanvas(startFrame);status('已定位待补充阶段。选择跑位、传球、挡拆或重点圈，人工添加的位置仅作为示意。');});row.append(manual);
       }
       return row;
     }));
+    showAgentAuditIssues(job);
+  }
+  function showAgentAuditIssues(job){
+    const expectedContext={variant:api.variant,qa:!!api.qa,kind},savedRun=!job?savedVisualAuditRun(documentValue,expectedContext):null;
+    const mapping=documentValue?.review.sourceFrameMapping??[],items=!job&&!savedRun?[]:agentVisualAuditIssues(job,mapping,documentValue),groups=agentVisualAuditGroups(items,mapping);
+    const capturedContext=context,capturedJobId=job?.jobId,capturedDocument=documentValue;
+    const savedSignature=savedRun?canonicalJSON({report:savedRun.visualAudit,source:savedRun.visualAuditSource,mapping}):null;
+    const stillCurrent=()=>context===capturedContext&&(job?agentJob?.jobId===capturedJobId:
+      !agentJob&&documentValue===capturedDocument&&savedVisualAuditRun(documentValue,expectedContext)===savedRun&&
+      savedSignature===canonicalJSON({report:savedRun.visualAudit,source:savedRun.visualAuditSource,mapping:documentValue.review.sourceFrameMapping}));
+    const diagnostics=savedRun&&Array.isArray(savedRun.issues)?[...new Set(savedRun.issues.filter(value=>typeof value==='string'))]:[];
+    $('tacticsAgentAuditIssues').hidden=!items.length&&!diagnostics.length;$('tacticsAgentAuditTitle').textContent=`${savedRun?'已保存的核对说明':'需要核对的画面'} · ${groups.length} 组 · ${items.length} 条审核依据`;
+    const declaredStages=Array.isArray(job?.stages)?job.stages.map(stage=>stage.stageId).filter(id=>typeof id==='string'):[];
+    const reports=(job?.visualAudit??savedRun?.visualAudit)?.stages;
+    const reportStages=reports&&typeof reports==='object'?Object.entries(reports).map(([id,report])=>report?.stageId??id):[];
+    const stageOrder=[...new Set([...declaredStages,...reportStages,...groups.map(group=>group.stageId)])];
+    function locateButton(frame){
+      const locate=document.createElement('button');locate.textContent=`查看问题画面 · ${mapping[frame].time.toFixed(2)} 秒`;
+      locate.disabled=loading||editBusy||agentAdopting||!active||!synchronized||!documentValue;
+      locate.onclick=safe(async()=>{
+        if(loading||editBusy||agentAdopting||!active||!documentValue||!synchronized||!stillCurrent())return;
+        if(savedRun){const binding=await createSourceBinding(documentValue.review);if(!stillCurrent()||binding.frameMappingDigest!==savedRun.visualAuditSource.frameMappingDigest)return;}
+        api.pause();runPlayback(playback.pause());await sceneReady;
+        if(!stillCurrent()||loading||editBusy||agentAdopting||!active||!synchronized)return;
+        canvasView='video';seekCanvas(frame);
+        $('tacticsCanvas').scrollIntoView?.({block:'center',behavior:'smooth'});status('已定位问题画面；请依据原片核对。图形和人物记录保持原样。');
+      });return locate;
+    }
+    function groupRow(item){
+      const row=document.createElement('div'),description=document.createElement('p');row.className='tactics-agent-pending-item';
+      const stage=item.stageId!==null?`阶段 ${stageOrder.indexOf(item.stageId)+1} · `:'';
+      description.textContent=`${stage}${item.category}${item.timeLabel?` · ${item.timeLabel}`:''}${item.issues.length>1?` · ${item.issues.length} 条依据`:''}：${item.reason}`;row.append(description);
+      const shownFrames=item.issues.length>1&&item.frames.length>2?[item.frames[0],item.frames.at(-1)]:item.frames;
+      for(const frame of shownFrames)row.append(locateButton(frame));
+      if(item.issues.length>1){
+        const details=document.createElement('details'),heading=document.createElement('summary');details.open=false;heading.textContent=`展开 ${item.issues.length} 条完整审核依据`;details.append(heading);
+        for(const issue of item.issues){const basis=document.createElement('p');basis.textContent=`${issue.category}${issue.timeLabel?` · ${issue.timeLabel}`:''}：${issue.reason}`;details.append(basis);for(const frame of issue.frames)details.append(locateButton(frame));}
+        row.append(details);
+      }
+      return row;
+    }
+    const nodes=[];
+    for(const stageId of stageOrder){
+      const stageGroups=groups.filter(group=>group.stageId===stageId);nodes.push(...stageGroups.slice(0,4).map(groupRow));
+      if(stageGroups.length>4){
+        const overflow=document.createElement('details'),heading=document.createElement('summary');overflow.open=false;
+        const rest=stageGroups.slice(4);heading.textContent=`展开${stageId!==null?`阶段 ${stageOrder.indexOf(stageId)+1}`:''}其余 ${rest.length} 组 · ${rest.reduce((sum,g)=>sum+g.issues.length,0)} 条依据`;
+        overflow.append(heading,...rest.map(groupRow));nodes.push(overflow);
+      }
+    }
+    $('tacticsAgentAuditList').replaceChildren(...nodes);
+    if(diagnostics.length){
+      const details=document.createElement('details'),heading=document.createElement('summary');heading.textContent=`完整核对说明 · ${diagnostics.length} 条`;details.append(heading);
+      for(const diagnostic of diagnostics){const item=document.createElement('p');item.className='small muted';item.textContent=diagnostic;details.append(item);}
+      // Keep the details in the same replacement lifecycle as the issue rows.
+      $('tacticsAgentAuditList').append(details);
+    }
   }
   function showAgentPending(job=agentJob){
     const entries=new Map(),runs=[...(documentValue?.agentRuns??[]),...(job?[job]:[])];
@@ -525,9 +746,10 @@ export function mountTacticsUI(api){
   function previewAgent(job){
     const host=$('tacticsAgentPreview');if(!job?.candidate)return;host.replaceChildren();
     const summary=document.createElement('p');summary.textContent=job.candidate.summary;host.append(summary);
-    if(job.candidate.issues?.length){
-      const issues=document.createElement('details'),heading=document.createElement('summary');issues.className='tactics-agent-issues';issues.open=false;heading.textContent=`待核对说明 · ${job.candidate.issues.length} 条`;issues.append(heading);
-      for(const issue of job.candidate.issues){const item=document.createElement('p');item.className='small muted';item.textContent=issue;issues.append(item);}host.append(issues);
+    const reviewIssues=agentReviewIssues(job);
+    if(reviewIssues.length){
+      const issues=document.createElement('details'),heading=document.createElement('summary');issues.className='tactics-agent-issues';issues.open=false;heading.textContent=`待核对说明 · ${reviewIssues.length} 条`;issues.append(heading);
+      for(const issue of reviewIssues){const item=document.createElement('p');item.className='small muted';item.textContent=issue;issues.append(item);}host.append(issues);
     }
     const doc=job.previewDocument,ids=doc?.annotations?.items.filter(a=>a.origin?.jobId===job.jobId).map(a=>a.id)||[];
     if(job.candidate.schemaVersion===3){
@@ -544,7 +766,9 @@ export function mountTacticsUI(api){
     for(const [index,phaseSuggestion] of job.candidate.phases.entries()){
       const card=document.createElement('details'),title=document.createElement('summary');card.className='tactics-agent-card';card.open=false;
       const uncertain=phaseSuggestion.participants?.filter(person=>person.disposition==='uncertain').length??0;
-      title.textContent=`${index+1} · ${phaseSuggestion.title} · ${phaseSuggestion.annotations.length} 个候选图形${uncertain?` · ${uncertain} 人待确认`:''}`;card.append(title);
+      const matchedStage=job.stages?.find(stage=>{const range=stage.range??stage;return range.startFrame===phaseSuggestion.startFrame&&range.endFrameExclusive===phaseSuggestion.endFrameExclusive;});
+      const facts=factsCoverageDescription(matchedStage?.factsReport);
+      title.textContent=`${index+1} · ${phaseSuggestion.title} · ${phaseSuggestion.annotations.length} 个候选图形${facts|| (uncertain?` · ${uncertain} 人待确认`:'')}`;card.append(title);
       if(phaseSuggestion.participants?.length){
         const roles={ball_handler:'持球',screener:'掩护',receiver:'接应',off_ball:'无球',defender:'防守',other:'其他'},states={annotated:'已有标注',uncertain:'待人工确认',not_involved:'此阶段未参与'};
         const list=document.createElement('ul');list.className='tactics-agent-participants';
@@ -584,8 +808,7 @@ export function mountTacticsUI(api){
     if((agentJob?.jobId!==job.jobId||!agentJob?.candidate)&&job.candidate?.schemaVersion===3)agentSelectedIds=new Set(job.candidate.annotations.map(a=>a.id));
     agentJob=job;agentBusy=agentInProgress(job);
     if(job.candidate){agentPreviewJob=job;agentPreviewCapture=captured;}
-    const progress=job.progress,message=job.message||job.status;
-    agentStatus(`${message}${progress&&Number.isFinite(progress.completed)&&Number.isFinite(progress.total)?` · 阶段 ${progress.completed}/${progress.total}${progress.budgetSeconds?`，总预算 ${progress.budgetSeconds} 秒`:''}`:''}${job.failure?.code?` · 原因：${job.failure.code}`:''}${job.status==='partial'?(job.canRetry===false?' · 可见候选可先核对采用；未确认事项需人工补充。':' · 完成的阶段可先核对采用，未完成阶段可重试或人工补充。'):''}${captured.readonlyReason?` · ${captured.readonlyReason}`:''}`);
+    agentStatus(`${agentStatusDescription(job,{scope:captured.request?.scope??'play'})}${captured.readonlyReason?` · ${captured.readonlyReason}`:''}`);
     agentControls();showAgentStages(job);showAgentPending(job);previewAgent(job);
     try{await rememberAgent(job,captured);}catch(error){if(agentCapture===captured)agentStatus(`候选和当前草稿仍保留；刷新恢复信息暂未保存：${error.message}`);}
     if(agentCapture!==captured||context!==captured.context)return;
@@ -819,10 +1042,7 @@ export function mountTacticsUI(api){
     const renderModel=temporaryRoute?{...model,routes:model.routes.map(r=>r.routeId===temporaryRoute.routeId?temporaryRoute:r)}:model;
     const projected=projectPhaseRoutes(renderModel,{frame,mediaTime,selectedEntityId,showAll:$('tacticsShowAll').checked});
     const mode=documentValue.schemaVersion===2?canvasView:synchronized||backgroundSource||projected.videoAvailable?'video':'court';lastScene.mode=mode;lastScene.projected=projected;
-    const ratio=mode==='video'?model.height/model.width:15.24/28.6512;
-    const actionsHeight=($('tacticsSelectionActions').offsetHeight||42)+6;
-    const availableHeight=typeof window!=='undefined'&&Number.isFinite(window.innerHeight)?Math.max(220,Math.min(480,window.innerHeight-450-actionsHeight)):Infinity;
-    const width=Math.max(200,Math.min($('tacticsCanvas').clientWidth-2,availableHeight/ratio)),height=width*ratio,nodes=ensureScene();
+    const {width,height}=tacticsSceneSize({mode,modelWidth:model.width,modelHeight:model.height,canvasWidth:$('tacticsCanvas').clientWidth,viewportHeight:typeof window!=='undefined'?window.innerHeight:undefined,selectionHeight:$('tacticsSelectionActions').offsetHeight}),nodes=ensureScene();
     nodes.width=width;nodes.canvas.style.width=`${width}px`;nodes.canvas.style.height=`${height}px`;
     const playbackState=playback.state(),decoded=api.getPresentedFrame?.()||presentedPoint;
     if(mode==='video'&&synchronized&&(!backgroundSource||playbackState.status==='seeking'&&decoded?.frame!==playbackState.targetFrame)){
