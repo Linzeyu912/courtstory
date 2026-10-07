@@ -105,7 +105,7 @@ export function updateAnnotation(document,id,patch){
   if(Object.hasOwn(patch,'space')&&patch.space!==previous.space&&patch.anchorMode!=='player_foot')throw new Error('修改控制点时不能更换坐标空间，请重新绘制。');
   const a={...copy(previous),...copy(patch),style:{...previous.style,...patch.style}};delete a.frame;
   if(Object.hasOwn(patch,'entityId'))assertEntity(document,a.entityId);
-  if(a.entityId===null||patch.followEntity===false){a.followEntity=false;if(a.anchorMode==='player_foot')a.anchorMode='manual_offset';}
+  if(a.entityId===null||patch.followEntity===false){a.followEntity=false;if(['player_foot','court_player_foot'].includes(a.anchorMode))a.anchorMode='manual_offset';}
   if(a.anchorMode==='player_foot'){
     a.space='video';a.followEntity=true;
     if(Object.hasOwn(patch,'entityId')||patch.anchorMode==='player_foot')a.offset={x:0,y:0};

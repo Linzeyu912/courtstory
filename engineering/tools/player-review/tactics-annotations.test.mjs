@@ -140,6 +140,16 @@ test('a video with no detected or associated players can still start a complete 
   assert.equal(doc.annotations.items.find(i=>i.type==='spotlight').followEntity,false);
 });
 
+test('a court foot circle can be unlinked or stopped without an invalid anchor or changed observations',async()=>{
+  const original=await fixture(),doc=api.createAnnotation(original,{...route,id:'court-foot',type:'spotlight',points:[{x:18,y:10}],anchorMode:'court_player_foot'});
+  for(const patch of [{entityId:null},{followEntity:false}]){
+    const next=api.updateAnnotation(doc,'court-foot',patch);await validateDocument(next);
+    assert.equal(next.annotations.items[0].followEntity,false);assert.equal(next.annotations.items[0].anchorMode,'manual_offset');
+    assert.deepEqual(next.review,original.review);assert.deepEqual(next.annotations.items[0].points,doc.annotations.items[0].points);
+  }
+  assert.equal(doc.annotations.items[0].followEntity,true);
+});
+
 test('pause points group all visible anchors in phase order without changing the document',async()=>{
   assert.equal(typeof api.annotationPausePoints,'function');let doc=await fixture();
   const marker={type:'screen',entityId:null,space:'video',points:[{x:400,y:400}]};

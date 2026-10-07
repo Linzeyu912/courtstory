@@ -1,0 +1,23 @@
+{
+  "jobId": "41fb628f-23ba-437d-a3c3-70792b75c7fb",
+  "status": "ready",
+  "message": "球衣识别建议已生成；请核对后保存参考身份。",
+  "purpose": "reference",
+  "entityId": "P1",
+  "candidate": {
+    "team": "白色球衣，侧面有黄色和深色拼接",
+    "jersey": "00",
+    "segments": []
+  },
+  "base": {
+    "clientRevision": 1,
+    "sessionDigest": "82d4515d18015f9adf2fb74db8a3b7ad45f972c379eb95755723d24e856466df",
+    "videoHash": "17c36f8d3b3e294f13f7119f23b82ec7f3fbe96d5564db9cbe7d61f49ebbbd7d",
+    "trackingFingerprint": "2e873fbb19a0980bc5b9f8ca146102f16e164e42e09719a98a81826f4264f36e",
+    "trackingRevision": "team-stable",
+    "variant": "team-stable",
+    "qa": true
+  },
+  "elapsedSeconds": 22.32,
+  "previewCount": 1
+}

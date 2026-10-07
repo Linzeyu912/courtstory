@@ -1090,8 +1090,105 @@ body[data-step=footage] .annotation-review-summary {display:none;}
 .identity-agent-evidence button{display:grid;gap:4px;padding:4px;font-size:9px;min-width:0;}
 .identity-agent-evidence img{width:100%;max-height:110px;object-fit:contain;background:#e8edf4;}
 .identity-agent-panel>.wide:last-child{margin-top:10px;font-size:11px;}
+.identity-initial-review,.identity-quick-controls{border:1px solid #d5e0eb;border-radius:8px;background:#f7faff;padding:11px;margin:10px 0;color:#354b61;font-size:12px;line-height:1.5}
+.identity-initial-review h3,.identity-quick-controls h3{font-size:14px;margin:0;color:#263f59}
+.identity-initial-review p,.identity-quick-controls p{margin:6px 0;overflow-wrap:anywhere}
+.identity-initial-steps{display:flex;gap:6px;list-style:none;padding:0;margin:7px 0;font-size:10px;color:#607890}
+.identity-initial-steps li{flex:1;padding:4px;border-radius:4px;background:#eaf0f7}
+.identity-initial-issues{display:grid;gap:5px;margin-top:9px;border-top:1px solid #dce5ef;padding-top:8px}
+.identity-initial-issues>strong{font-size:11px}
+.identity-initial-issue{display:grid;width:100%;gap:3px;text-align:left;font-size:11px;padding:7px;background:#fff}
+.identity-initial-issue span{font-size:10px;font-weight:400;line-height:1.4;color:#60748c;overflow-wrap:anywhere}
+.identity-initial-issues details>button{margin-top:5px}
+.identity-quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}
+.identity-quick-actions button{font-size:11px;padding:7px}
+.identity-quick-actions button[aria-pressed=true]{background:#2a5c85;color:#fff;border-color:#2a5c85}
+.identity-quick-edit{border-top:1px solid #dce5ef;padding-top:9px;margin-top:8px}
+.identity-quick-preview{background:white;padding:7px;border:1px solid #dce5ef;border-radius:4px}
+.identity-quick-controls>.identity-quick-edit>.primary{width:100%;margin:7px 0}
+.identity-quick-controls>button:last-child{margin-top:6px;font-size:11px}
+.identity-quick-bounds{margin:8px 0;font-size:11px}
+.identity-quick-bounds input{width:100%;min-width:0;box-sizing:border-box}
+.identity-advanced{margin:10px 0;border-top:1px solid #dce5ef;padding-top:9px}
+.identity-advanced>summary{font-size:12px;color:#536f89;cursor:pointer}
+.identity-advanced .identity-agent-panel{margin-top:8px}
+.identity-continue{display:grid;gap:6px}
+.identity-shortcuts{display:flex;align-items:center;gap:7px;flex:0 0 auto;padding:6px 11px;border-bottom:1px solid #e0e6ee;background:#fff;}
+.identity-shortcuts>span{font-size:11px;color:#66778a;}
+.identity-shortcuts button{padding:5px 8px;font-size:11px;color:#315677;}
+.playback-rate{display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:11px;color:#536d7f;}
+.playback-rate select{padding:4px 6px;border:1px solid #ccd6e3;border-radius:5px;background:#fff;color:#24364d;font:inherit;}
 .player-visibility{margin:12px 0;padding:12px;border:1px solid #cbd5e1;border-radius:10px;background:#f6f9fc}
 .player-visibility h3{margin:0 0 8px}.visibility-current{font-weight:600;color:#243b53}
 .visibility-actions{display:flex;flex-wrap:wrap;gap:6px}.visibility-actions button{flex:1 1 90px}
 .visibility-actions button[aria-pressed="true"]{border-color:#496b86;background:#e1ecf5;color:#17374f}
 .player-visibility .anchor{display:flex;gap:6px}.player-visibility .anchor button:first-child{flex:1}
+
+/* 2D preparation: one current task beside a visible result, with a compact
+   comparison drawer when the source video is open. */
+.workbench-shell .preparation-purpose,.workbench-shell .court-preparation-panel,.workbench-shell .preparation-return{display:none;}
+.preparation-preview{display:contents;}
+.workbench-shell[data-area="data"] .drawer-body{display:grid;grid-template-columns:minmax(285px,340px) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:12px;padding:12px;}
+.workbench-shell[data-area="data"] .preparation-purpose{display:flex;grid-column:1/-1;gap:18px;align-items:center;justify-content:space-between;padding:2px 4px 12px;border-bottom:1px solid #dce5ed;}
+.preparation-purpose h2{font-size:17px;font-weight:600;margin:4px 0 5px;line-height:1.45;}
+.preparation-purpose p{margin:0;color:#607488;font-size:12px;line-height:1.65;}
+.preparation-optional{font-size:10px;letter-spacing:.5px;color:#57756e;background:#e9f3ef;border-radius:4px;padding:3px 6px;}
+.preparation-purpose-actions{display:flex;flex-direction:column;gap:6px;flex-shrink:0;}
+.preparation-purpose-actions button{padding:7px 11px;font-size:12px;}
+.preparation-purpose-actions button:first-child{border-color:#bed2e1;color:#2a5c85;background:#edf5fb;}
+.workbench-shell[data-area="data"] .court-preparation-panel{display:block;grid-column:1;grid-row:2;min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;margin:0;padding:13px;background:#f8fafc;border:1px solid #d9e2ec;border-radius:7px;}
+.workbench-shell[data-area="data"] .preparation-preview{display:flex;grid-column:2;grid-row:2;flex-direction:column;min-height:0;min-width:0;gap:7px;}
+.court-preparation-panel .preparation-selection{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;}
+.preparation-selection strong{font-size:13px;color:#29475f;}.preparation-selection span{font-size:11px;color:#718295;}
+.court-preparation-panel .range-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px;margin:8px 0 4px;}
+.court-preparation-panel .range-fields label{display:flex;flex-direction:column;gap:5px;font-size:11px;color:#64788a;}
+.workbench-shell .court-preparation-panel input[type=number]{box-sizing:border-box;width:100%;max-width:none;min-width:0;padding:6px;border:1px solid #cdd9e5;border-radius:5px;background:white;font-size:12px;}
+.court-preparation-panel button{font-size:11px;padding:7px 9px;}.court-preparation-panel .wide{margin-top:10px;}
+.court-preparation-panel .preparation-text-button{border:0;background:transparent;color:#386b91;padding:3px 0;font-size:10px;}
+.preparation-steps{display:flex;gap:4px;padding:10px 0 13px;margin:0 0 12px;border-bottom:1px solid #dfe7ef;}
+.preparation-steps button{flex:1;padding:7px 3px;border-color:#dce5ed;background:white;color:#6d7f8f;font-size:11px;white-space:nowrap;}
+.preparation-steps button[aria-current=step]{background:#e7f1fa;border-color:#a9c6dc;color:#225b85;}
+.court-preparation-panel h3{font-size:14px;margin:0 0 11px;color:#2e4b62;}
+.court-preparation-panel p{font-size:12px;line-height:1.65;overflow-wrap:anywhere;}
+.preparation-checks{display:flex;flex-direction:column;gap:5px;}
+.preparation-checks>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;align-items:center;padding:8px 9px;border:1px solid #e1e7ef;border-radius:5px;background:white;}
+.preparation-checks span{font-size:11px;font-weight:600;color:#5f7486;}.preparation-checks p{grid-column:1;margin:0;font-size:11px;color:#7a8997;}.preparation-checks button{grid-column:2;grid-row:1/3;font-size:10px;padding:5px 7px;}
+.preparation-guidance{padding:9px 10px;background:#edf3f7;border-radius:5px;color:#45647b;}
+.preparation-advanced{margin-top:13px;padding-top:11px;border-top:1px solid #dce5ed;}
+.preparation-advanced>summary{font-size:11px;color:#5c7489;cursor:pointer;}.preparation-advanced>label{font-size:11px;}.preparation-advanced select{font:inherit;padding:5px;border-color:#cbd8e4;}
+.preparation-advanced .ground-trajectory-agent-panel{margin-top:0;border:0;padding-top:8px;}
+.preparation-check{display:flex;align-items:center;gap:5px;font-size:11px;}.preparation-check input{width:auto;}
+.preparation-status{border-top:1px solid #e1e7ef;margin:12px 0 0;padding-top:9px;color:#748393;font-size:10px!important;}
+.workbench-shell[data-area="data"] .court-heading{padding:10px 12px 7px;flex-wrap:wrap;}.workbench-shell[data-area="data"] .court-heading .mode-switch{gap:4px;}
+.workbench-shell[data-area="data"] .court-heading h2{font-size:15px;}.workbench-shell[data-area="data"] .court-empty{max-width:85%;font-size:12px;line-height:1.8;background:#ffffffed;border:1px solid #dbe2e8;border-radius:6px;color:#516574;}
+.workbench-shell[data-area="video"][data-drawer="half"] .preparation-return{display:block;width:auto;font-size:10px;padding:4px 7px;white-space:nowrap;color:#315f80;background:#eef5fb;border-color:#c8dbea;}
+.workbench-shell[data-area="video"][data-drawer="half"] .drawer-context{right:175px;}
+.ground-agent-unavailable{font-size:11px;color:#677d8e;}.ground-agent-unavailable summary{cursor:pointer;}.ground-agent-unavailable p{white-space:pre-wrap;overflow-wrap:anywhere;}
+@media(max-width:980px){
+  .workbench-shell[data-area="data"] .drawer-body{display:flex;flex-direction:column;overflow:auto;padding:10px;gap:10px;overscroll-behavior:contain;}
+  .workbench-shell[data-area="data"] .preparation-purpose{order:0;flex:0 0 auto;gap:10px;align-items:flex-start;padding:0 0 10px;}
+  .preparation-purpose h2{font-size:15px;}.preparation-purpose p{font-size:11px;}.preparation-purpose-actions button{font-size:10px;padding:6px 8px;}
+  .workbench-shell[data-area="data"] .preparation-preview{order:1;flex:0 0 295px;min-height:295px;}
+  .workbench-shell[data-area="data"] .court-preparation-panel{order:2;flex:0 0 auto;overflow:visible;min-height:0;}
+  .workbench-shell[data-area="data"] .data-inspector-body{max-height:none;overflow:visible;}
+  .workbench-shell[data-area="data"] .preparation-preview:has(.data-inspector[open]){flex-basis:auto;}.workbench-shell[data-area="data"] .preparation-preview:has(.data-inspector[open]) #courtCard{flex:0 0 265px;}
+  .preparation-checks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));}.preparation-checks>div{display:flex;flex-direction:column;align-items:flex-start;}.preparation-checks button{margin-top:5px;}
+}
+@media(max-width:570px){
+  .preparation-purpose{flex-wrap:wrap;}.preparation-purpose-actions{flex-direction:row;}.preparation-checks{grid-template-columns:minmax(0,1fr);}.preparation-checks>div{display:grid;}
+  .workbench-shell[data-area="data"] .preparation-preview{min-height:275px;flex-basis:275px;}.workbench-shell[data-area="data"] .drawer-context{flex-wrap:wrap;gap:5px;}.workbench-shell[data-area="data"] #courtPointStatus{font-size:10px;}
+  .workbench-shell[data-area="video"][data-drawer="half"] .drawer-context{right:168px;}
+}
+
+/* Keep the court readable even when the host window is short. The preparation
+   area has one scroll owner; expanding optional tools never squeezes the court. */
+.workbench-shell[data-area="data"] .drawer-body{overflow:auto;grid-template-rows:auto auto;align-content:start;}
+.workbench-shell[data-area="data"] .court-preparation-panel{overflow:visible;}
+.workbench-shell[data-area="data"] .preparation-preview{position:sticky;top:0;align-self:start;height:380px;min-height:380px;}
+.workbench-shell[data-area="data"] .court-stage{min-height:220px;flex:1 0 220px;}
+.workbench-shell[data-area="data"] #court{min-height:220px;}
+.workbench-shell[data-area="data"] #courtCard{min-height:310px;}
+.workbench-shell[data-area="data"] .data-inspector-body{max-height:none;overflow:visible;}
+.workbench-shell[data-area="data"] .preparation-preview:has(.data-inspector[open]){height:auto;}
+.model-replay-link{grid-column:1/-1;justify-self:start;font-size:11px;color:#456880;text-decoration:none;padding:5px 0;}
+@media(max-width:980px){.workbench-shell[data-area="data"] .preparation-preview{position:static;height:auto;min-height:350px;flex:0 0 350px;}.workbench-shell[data-area="data"] .preparation-preview:has(.data-inspector[open]){flex-basis:auto;}.workbench-shell[data-area="data"] .preparation-preview:has(.data-inspector[open]) #courtCard{flex-basis:310px;}}

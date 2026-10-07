@@ -1,10 +1,10 @@
 import {canonicalJSON} from '../tactical-overlay/binding.mjs';
-import {validateDocument,reindexPhases} from './tactics-document.mjs';
+import {createTacticsDocument,validateDocument,reindexPhases} from './tactics-document.mjs';
 import {createAnnotation,annotationPresentation,ANNOTATION_REASONS} from './tactics-annotations.mjs';
 import {calibrationAt} from './court.mjs';
 import {updateProductionCamera,updateProductionCue,DEFAULT_RIBBON} from './tactics-production.mjs';
 import {createCourtAnnotation} from './tactics-court-editor.mjs';
-import {upsertTacticKeyframe} from './tactics-keyframes.mjs';
+import {upsertTacticKeyframe,MIN_EXPLANATION_HOLD_SECONDS} from './tactics-keyframes.mjs';
 import {preparationDigest} from './court-preparation.mjs';
 import {validateFrameRange} from './tactics-time-range.mjs';
 
@@ -25,6 +25,136 @@ export const AGENT_SCHEMA=object({schemaVersion:{type:'integer',enum:[2]},summar
   cameras:{type:'array',maxItems:40,items:object({id:{type:'string',minLength:1,maxLength:100,pattern:'^[a-zA-Z0-9_-]+$'},phaseIndex:{type:'integer',minimum:0,maximum:11},approximate:{type:'boolean',enum:[true]},groundQuad:quad,keyframes:{type:'array',minItems:1,maxItems:120,items:object({frame,quad,evidenceFrames:frames})}})},
   timeline:object({timebaseFps:{type:'number',minimum:1,maximum:120},cues:{type:'array',maxItems:256,items:object({phaseIndex:{type:'integer',minimum:0,maximum:11},frame,settleFrames:{...frame,maximum:3600},drawFrames:{...frame,maximum:3600},holdFrames:{...frame,maximum:3600},easing:{type:'string',enum:['smoothstep']}})},endHoldFrames:{...frame,maximum:3600}})
 }))});
+
+// The workbench's first draft stays in the supplied video frames. Camera fitting
+// and 2D preparation remain separate, optional editing operations.
+const videoPhase=structuredClone(phaseV2);
+videoPhase.properties.annotations.items.properties.space={type:'string',enum:['video']};
+videoPhase.properties.annotations.items.properties.authoredPath={type:'null'};
+videoPhase.properties.participants={type:'array',maxItems:40,items:object({
+  subjectId:{type:'string',minLength:1,maxLength:100},entityId:person,label:{type:'string',minLength:1,maxLength:100},
+  role:{type:'string',enum:['ball_handler','screener','receiver','off_ball','defender','other']},
+  disposition:{type:'string',enum:['annotated','uncertain','not_involved']},
+  annotationIndexes:{type:'array',maxItems:40,items:{type:'integer',minimum:0,maximum:39}},evidenceFrames:frames,reason:string
+})};
+videoPhase.required.push('participants');
+export const AGENT_SCHEMA_VIDEO=object({schemaVersion:{type:'integer',enum:[4]},summary:string,issues:AGENT_SCHEMA_V1.properties.issues,
+  phases:{...AGENT_SCHEMA_V1.properties.phases,items:videoPhase},production:{type:'null'}});
+
+export function videoCandidateCoverage(document,candidate){
+  schemaCheck(candidate,AGENT_SCHEMA_VIDEO);
+  const ids=new Set(document.playDefinition.participants.map(p=>p.id));
+  return candidate.phases.map((phase,index)=>{
+    const subjects=new Set(),entities=new Set(),drawings=new Set();
+    for(const person of phase.participants){
+      if(subjects.has(person.subjectId)||person.entityId!==null&&(!ids.has(person.entityId)||entities.has(person.entityId)))throw new Error('参与者重复或引用未知球员。');
+      subjects.add(person.subjectId);if(person.entityId!==null)entities.add(person.entityId);
+      if(person.evidenceFrames.some(f=>f<phase.startFrame||f>=phase.endFrameExclusive))throw new Error('参与者依据帧不在对应阶段。');
+      if(person.disposition!=='annotated'){
+        if(!person.reason.trim()||person.annotationIndexes.length)throw new Error('未标注参与者需要说明证据不足或未参与的原因，不能记为已覆盖。');
+        continue;
+      }
+      if(!person.annotationIndexes.length)throw new Error('已覆盖参与者必须有独立的可编辑图形。');
+      for(const i of person.annotationIndexes){
+        const a=phase.annotations[i];
+        if(!a||drawings.has(i)||a.entityId!==person.entityId)throw new Error('参与者图形引用无效；不能用同一个图形充当多人的标注。');
+        drawings.add(i);
+      }
+      if(person.entityId!==null&&!person.evidenceFrames.some(frame=>document.review.entities.find(e=>e.id===person.entityId)?.trajectory.some(p=>p.frame===frame&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&!p.reviewExcluded)))throw new Error('关联参与者缺少同帧位置证据，请保留不确定原因。');
+    }
+    if(drawings.size!==phase.annotations.length)throw new Error('每个图形必须说明对应的参与者，不能静默漏人。');
+    for(const action of phase.actions)for(const id of [action.entityId,action.beneficiaryId,action.defenderId].filter(Boolean)){
+      if(!entities.has(id))throw new Error('动作或掩护关系中的参与者未列入覆盖清单。');
+    }
+    // No trajectory means no inferred identity. Observed slots must nevertheless
+    // be accounted for, including an explicit uncertain/not-involved reason.
+    const observed=document.review.entities.filter(e=>e.trajectory.some(p=>p.frame>=phase.startFrame&&p.frame<phase.endFrameExclusive&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&!p.reviewExcluded)).map(e=>e.id);
+    const pending=observed.filter(id=>!entities.has(id));
+    if(phase.annotations.length&&pending.length)throw new Error(`仍有有位置证据的球员未说明是否参与：${pending.join('、')}。请补标或明确不确定原因。`);
+    return {phaseIndex:index,annotated:phase.participants.filter(p=>p.disposition==='annotated').length,
+      uncertain:phase.participants.filter(p=>p.disposition==='uncertain').length,notInvolved:phase.participants.filter(p=>p.disposition==='not_involved').length,
+      participants:structuredClone(phase.participants)};
+  });
+}
+
+function hasTacticsContent(d){
+  const p=d.playDefinition;
+  return Boolean(d.annotations?.items.length||p.actions.length||p.relations.length||p.phases.length>1||d.presentation?.routes.length||d.production||d.tacticKeyframes?.items.length);
+}
+function videoReferenceTiming(document,jobId){
+  if(document.schemaVersion!==2)return document;
+  const next=structuredClone(document),byFrame=new Map();
+  for(const a of next.annotations?.items??[]){
+    if(a.origin?.jobId!==jobId)continue;
+    // V4 supplies pixel geometry at an observed reference frame, not a tracked
+    // path. Seconds-based documents need explicit holds for those frames.
+    const range={startFrame:a.startFrame,endFrameExclusive:a.endFrameExclusive};
+    Object.assign(a,{timingMode:'manual',actionRange:range,cueFrame:a.anchorFrame,displayMode:'full',curve:'polyline',
+      progressFrames:[{frame:range.startFrame,t:0},{frame:range.endFrameExclusive,t:1}],
+      meaning:a.type==='route'?'current_action':a.type==='screen'?'screen':'focus'});
+    const group=byFrame.get(a.anchorFrame)??[];group.push(a);byFrame.set(a.anchorFrame,group);
+  }
+  if(!byFrame.size)return next;
+  const old=next.tacticKeyframes?.items??[],timeline=next.production?.timeline;
+  const additions=[...byFrame].sort(([a],[b])=>a-b).map(([frame,items])=>{
+    const oldCues=old.filter(k=>k.frame===frame&&k.freeze),existing=[...oldCues.map(k=>k.holdSeconds),
+      ...(timeline?.cues??[]).filter(k=>k.frame===frame).map(k=>(k.settleFrames+k.drawFrames+k.holdFrames)/timeline.timebaseFps)];
+    const duration=Math.max(0,...existing),holdSeconds=duration>0?Math.min(30,duration):2.5;
+    // Keep human cue records and their effective duration unchanged, including
+    // shorter legacy holds. Do not merge into or rewrite an existing cue item.
+    return {id:`${jobId}-cue-${frame}`,frame,annotationIds:items.map(a=>a.id),freeze:true,holdSeconds,
+      ...(holdSeconds>=MIN_EXPLANATION_HOLD_SECONDS&&items.every(a=>a.actionRange.startFrame===frame)&&
+        (!duration||oldCues.some(k=>k.kind==='explanation'))?{kind:'explanation'}:{})};
+  });
+  next.tacticKeyframes={schemaVersion:1,items:[...old,...additions]};
+  return next;
+}
+async function appendVideoCandidate(document,generated,candidate,coverage,jobId){
+  let next=structuredClone(document);
+  const pendingAnnotations=[],pendingActions=[],added=new Set();
+  for(const a of generated.annotations?.items??[]){
+    const phase=next.playDefinition.phases.find(p=>p.startFrame<=a.anchorFrame&&a.anchorFrame<p.endFrameExclusive);
+    if(!phase||a.origin.sourceFrames.some(f=>f<phase.startFrame||f>=phase.endFrameExclusive)){
+      pendingAnnotations.push({annotationId:a.id,phaseId:phase?.phaseId??null,anchorFrame:a.anchorFrame,
+        reason:'图形依据跨越现有人工阶段；保留完整候选，需人工确认后分别标注。',annotation:structuredClone(a)});
+      continue;
+    }
+    next=createAnnotation(next,{...a,phaseId:phase.phaseId,frame:a.anchorFrame,
+      startFrame:Math.max(a.startFrame,phase.startFrame),endFrameExclusive:Math.min(a.endFrameExclusive,phase.endFrameExclusive),followEntity:false});
+    added.add(a.id);
+  }
+  const proposedActions=candidate.phases.flatMap(p=>p.actions);
+  for(const [index,a] of generated.playDefinition.actions.entries()){
+    const phase=next.playDefinition.phases.find(p=>p.startFrame<=a.startFrame&&a.endFrameExclusive<=p.endFrameExclusive);
+    if(!phase||proposedActions[index].evidenceFrames.some(f=>f<phase.startFrame||f>=phase.endFrameExclusive)){
+      pendingActions.push({actionId:a.actionId,reason:'动作跨越现有人工阶段；未改写原动作，需人工确认范围。',action:structuredClone(a),
+        candidateAction:structuredClone(proposedActions[index]),relations:structuredClone(generated.playDefinition.relations.filter(r=>r.actionId===a.actionId))});
+      continue;
+    }
+    next.playDefinition.actions.push(structuredClone(a));phase.actionIds.push(a.actionId);
+    for(const relation of generated.playDefinition.relations.filter(r=>r.actionId===a.actionId)){
+      next.playDefinition.relations.push(structuredClone(relation));phase.relationIds.push(relation.id);
+    }
+  }
+  let offset=0;
+  const appendedCoverage=coverage.map((report,index)=>{
+    const ids=candidate.phases[index].annotations.map((_,i)=>`${jobId}-annotation-${offset+i}`);offset+=ids.length;
+    const people=report.participants.filter(p=>p.disposition==='annotated');
+    return {...report,generated:report.annotated,
+      annotated:people.filter(p=>p.annotationIndexes.every(i=>added.has(ids[i]))).length,
+      pending:people.filter(p=>p.annotationIndexes.some(i=>!added.has(ids[i]))).length,
+      appendedAnnotations:ids.filter(id=>added.has(id)).length};
+  });
+  if(added.size||generated.playDefinition.actions.length>pendingActions.length)next.playDefinition.revision++;
+  next.agentRuns=[...(next.agentRuns??[]),{jobId,summary:candidate.summary,
+    issues:[...candidate.issues,...pendingAnnotations.map(a=>`${a.annotationId}：${a.reason}`),...pendingActions.map(a=>`${a.actionId}：${a.reason}`)],
+    coverage:appendedCoverage,pendingAnnotations,pendingActions}];
+  next=videoReferenceTiming(next,jobId);
+  await validateDocument(next);
+  const report=annotationPresentation(next,{annotationIds:[...added]});
+  if(report.items.some(item=>!item.visible))throw new Error('追加图形在现有阶段的参考帧不可见；请核对来源和时间。');
+  return next;
+}
 
 export async function documentDigest(document){
   const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(canonicalJSON(document)));
@@ -82,9 +212,29 @@ function schemaCheck(value,schema,path='方案'){
   else if(type==='string'&&(value.length<(schema.minLength??0)||value.length>(schema.maxLength??Infinity)||schema.pattern&&!new RegExp(schema.pattern).test(value)))throw new Error(`${path} 文本不正确。`);
   if(schema.enum&&!schema.enum.includes(value))throw new Error(`${path} 值不受支持。`);
 }
-export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseId,range:selectedRange,selectedIds}){
+export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseId,range:selectedRange,selectedIds,directVideo=false}){
   if(typeof jobId!=='string'||!/^[a-zA-Z0-9-]{1,80}$/.test(jobId)||!['phase','play','range'].includes(scope))throw new Error('Agent 任务绑定无效。');
   if(document.agentRuns?.some(run=>run.jobId===jobId))return structuredClone(document);
+  if(candidate?.schemaVersion===4){
+    const coverage=videoCandidateCoverage(document,candidate),legacy=structuredClone(candidate);legacy.schemaVersion=2;
+    for(const phase of legacy.phases)delete phase.participants;
+    if(scope==='play'&&hasTacticsContent(document)){
+      await validateDocument(document);
+      const phase=document.playDefinition.phases.find(p=>p.phaseId===phaseId);
+      if(!phase)throw new Error('分析阶段已不存在。');
+      // Validate every proposed object on an isolated canvas before deciding
+      // whether it can safely append to the user's unchanged phase structure.
+      const scratch=await createTacticsDocument(document.review),play=scratch.playDefinition;
+      play.startFrame=document.playDefinition.startFrame;play.endFrameExclusive=document.playDefinition.endFrameExclusive;
+      play.participants=structuredClone(document.playDefinition.participants);
+      play.phases=[{...structuredClone(phase),order:0,startFrame:play.startFrame,endFrameExclusive:play.endFrameExclusive,actionIds:[],relationIds:[]}];
+      const generated=await adoptAgentCandidate(scratch,legacy,{jobId,scope:'play',phaseId,directVideo:true});
+      return appendVideoCandidate(document,generated,candidate,coverage,jobId);
+    }
+    const next=await adoptAgentCandidate(document,legacy,{jobId,scope,phaseId,range:selectedRange,selectedIds,directVideo:true});
+    next.agentRuns.at(-1).coverage=coverage;
+    return next;
+  }
   if(candidate?.schemaVersion===3)return adoptV3(document,candidate,{jobId,scope,range:selectedRange,selectedIds});
   if(scope==='range')throw new Error('选区生成需要 V3 候选。');
   await validateDocument(document);schemaCheck(candidate,Object.hasOwn(candidate,'schemaVersion')?AGENT_SCHEMA:AGENT_SCHEMA_V1);canonicalJSON(candidate);
@@ -138,7 +288,7 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
         if(camera.phaseId!==phase.phaseId||camera.keyframes[0].frame>a.startFrame||camera.keyframes.at(-1).frame<a.endFrameExclusive-1)throw new Error('Agent 示意相机必须覆盖路线完整显示区间。');
         path={...structuredClone(a.authoredPath),cameraId:id,cameraDigest:camera.digest};}
       d=createAnnotation(d,{id:`${jobId}-annotation-${annotationCount++}`,type:a.type,entityId:a.entityId,phaseId:phase.phaseId,frame:a.anchorFrame,startFrame:a.startFrame,endFrameExclusive:a.endFrameExclusive,space:a.space,points:a.points,
-        ...(a.type==='spotlight'&&a.entityId?{anchorMode:'player_foot'}:{}),...(path?{authoredPath:path}:{}),style:{angle:a.angle,size:a.size,color:a.color},origin:{kind:'agent',jobId,sourceFrames:a.evidenceFrames,note:a.explanation}});
+        ...(directVideo?{followEntity:false}:a.type==='spotlight'&&a.entityId?{anchorMode:'player_foot'}:{}),...(path?{authoredPath:path}:{}),style:{angle:a.angle,size:a.size,color:a.color},origin:{kind:'agent',jobId,sourceFrames:a.evidenceFrames,note:a.explanation}});
     }
     for(const [i,a] of s.actions.entries()){
       checkRange(a);evidence(a.evidenceFrames,s.startFrame,s.endFrameExclusive);
@@ -154,6 +304,7 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
   if(!annotationCount)throw new Error('Agent 未生成可用图形，请缩小范围或人工标注。');
   reindexPhases(d.playDefinition);d.playDefinition.revision++;
   d.agentRuns=[...(d.agentRuns??[]),{jobId,summary:candidate.summary,issues:structuredClone(candidate.issues)}];
+  if(directVideo)d=videoReferenceTiming(d,jobId);
   await validateDocument(d);
   const presentation=annotationPresentation(d,{annotationIds:Array.from({length:annotationCount},(_,i)=>`${jobId}-annotation-${i}`)});
   const invisible=presentation.items.findIndex(item=>!item.visible);

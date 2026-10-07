@@ -3,7 +3,7 @@ import {createRoot} from 'react-dom/client';
 import {flushSync} from 'react-dom';
 import {proposalLabel,trackingReviewState} from './tracking-display.mjs';
 import {IdentityRangeEditor} from './identity-range-ui.jsx';
-import {IdentityAgentPanel} from './identity-agent-ui.jsx';
+import {IdentityAgentPanel,InitialIdentityReviewControls,IdentityQuickControls} from './identity-agent-ui.jsx';
 
 const isPlayerSlot=id=>/^P(?:[1-9]|10)$/.test(id);
 const slotLabel=id=>isPlayerSlot(id)?id.slice(1):id;
@@ -183,7 +183,7 @@ function IdentityPanel({state,api}) {
     <div className="identity-flow"><div><small>正在编辑的固定身份</small><strong>球员 {slotLabel(entity.id)} · {entity.name}</strong></div><span>←</span><div><small>跟踪器临时编号</small><strong>{point?.reviewExcluded?'已取消关联':point?.trackId!=null?`T${point.trackId}`:confirmed?'无 T · 本帧人工确认':'尚未关联'}</strong></div></div>
     <PlayerVisibilityPanel state={state} api={api}/>
     <div className="identity-evidence"><span className="identity-state review-status" data-review={review.status}>{point?.source==='out_of_view'?'镜头外 · 无需补点':evidenceLabel}</span>{state.observedIds.length>0&&<span>此身份对应过 {state.observedIds.map(id=>`T${id}`).join('、')}</span>}</div>
-    <p className="small muted">YOLO 逐帧检测人物框，跟踪器分配 T 编号。一个球员可以归并多个 T；每个编号分别选一次，关联后仍需逐帧核对。</p>
+    <p className="small muted">检测框表示模型找到的人，T 是跟踪号。同一个人可能换号，只有发现认错或断开时才需要修正。</p>
     {needsCorrection&&<section className="candidate-warning identity-conflict" aria-label="人物关联冲突">
       <strong>先解决第 {state.frame+1} 帧的关联冲突</strong>
       <p>{point?.candidateTrackIds?.length>1?`球员 ${slotLabel(entity.id)} 在这一帧同时关联了 ${point.candidateTrackIds.map(id=>`T${id}`).join('、')}。`:point?.claimedBy?`此人物当前归属球员 ${slotLabel(point.claimedBy)}。`:'当前候选与已有的人物归属重叠。'}重新累计整段编号不会解除冲突。</p>
@@ -203,7 +203,7 @@ function IdentityPanel({state,api}) {
     </div>
     <div className="identity-fields">{fields.map(([name,label,max])=><label className="field" key={name}>{label}<input key={`${slotLabel(entity.id)}:${name}:${entity[name]||''}`} aria-label={label} defaultValue={entity[name]||''} maxLength={max} disabled={busy} onBlur={e=>{if(!busy&&e.target.value.trim()!==(entity[name]||''))api.setField(name,e.target.value.trim());}} onKeyDown={e=>{if(e.key==='Enter')e.currentTarget.blur();}} /></label>)}</div>
     <div className="mode-switch"><button className={mode==='select'?'active':''} aria-pressed={mode==='select'} onClick={()=>api.setMode('select')}>关联人物</button><button className={mode==='point'?'active':''} aria-pressed={mode==='point'} onClick={()=>api.setMode('point')}>点击补脚下点</button></div>
-    <p className="note">{mode==='select'?'点击候选框关联；已选中后，拖动脚下圆点改位置，拖动框边移动人物框，拖动四角调整大小。':'点击球员脚下保存当前帧位置；也可直接拖动已有圆点。'}</p>
+    <p className="note">{mode==='select'?'点人物框选择；要改归属请用“改成谁”。拖动所选人的脚下圆点或框边可修改当前位置。':'点击球员脚下保存当前帧位置；也可直接拖动已有圆点。'}</p>
     <label className="field">当前帧候选人物<select aria-label="当前帧候选人物" value={candidateValue} onChange={e=>{setCandidate(e.target.value);api.preview(e.target.value===''?null:proposals[Number(e.target.value)]);}}><option value="">选择一个候选，先预览</option>{proposals.map((p,i)=><option key={i} value={i}>{proposalLabel(p)} · 置信度 {Math.round((p.score||0)*100)}%</option>)}</select></label>
     {selected?.roleConflict&&<p className="candidate-warning">这个位置同时有球员与裁判候选，请核对真人和所属角色后关联。</p>}
     {selected?.role==='referee'&&entity.role==='player'&&<p className="candidate-warning">模型把这个候选标为裁判。若实际是裁判，请先添加 R 编号；误分类的球员仍可人工关联到当前 P。</p>}
@@ -229,12 +229,17 @@ function IdentityPanel({state,api}) {
 export function mountIdentityUI(api) {
   const grid=createRoot(document.getElementById('entities'));
   const panel=createRoot(document.getElementById('identityControls'));
+  const initialHost=document.getElementById('identityInitialReview');
+  const initial=initialHost?createRoot(initialHost):null;
   let signature='';
   return {render(state){
     const next=JSON.stringify(state,(key,value)=>key==='dataUrl'?value?.length:value);if(next===signature)return;signature=next;
     flushSync(()=>{
       grid.render(<EntityRoster state={state} api={api}/>);
-      panel.render(<><IdentityAgentPanel key={`agent:${state.entity.id}`} state={state} api={api}/><IdentityPanel key={state.entity.id+':'+state.frame} state={state} api={api}/></>);
+      initial?.render(<InitialIdentityReviewControls state={state} api={api}/>);
+      panel.render(<><IdentityQuickControls state={state} api={api}/>
+        <details id="identityReferenceTools" className="identity-advanced"><summary>按参考认回同一位球员 / 识别号码</summary><IdentityAgentPanel key={`agent:${state.entity.id}`} state={state} api={api}/></details>
+        <details id="identityRangeTools" className="identity-advanced"><summary>调整时间段、框与脚下点 / 高级操作</summary><IdentityPanel key={state.entity.id+':'+state.frame} state={state} api={api}/></details></>);
     });
   }};
 }

@@ -74,3 +74,123 @@ test('cancelled create rejection is silent and never reports an old error on the
   rejectCreate(new Error('old create failed'));assert.equal(await old,null);
   assert.equal(client.state().job.jobId,'new');assert.equal(client.state().error,'');
 });
+
+const initialReady={jobId:'initial-job',purpose:'initial_review',status:'ready',sourceKey:'same-source',algoVersion:'initial-identity-review-v1',
+  base:{sessionDigest:'original-digest',clientRevision:4},matchesCurrentInput:true,
+  candidate:{schemaVersion:1,summary:'抽样初检',subjects:[],segments:[],issues:[],slotBasis:{}}};
+async function initialSetup(job=initialReady){
+  const f=setup();f.queue.push({available:true});await f.client.init();f.queue.push(structuredClone(job));
+  await f.client.startInitialReview();return f;
+}
+
+test('initial review starts once without a selected player or reference and changing P alone does not stale it',async()=>{
+  const f=await initialSetup();await f.client.startInitialReview();
+  assert.equal(f.calls.length,2);const input=f.calls[1].request;
+  assert.equal(input.purpose,'initial_review');assert.equal(input.entityId,undefined);assert.equal(input.reference,undefined);
+  f.state={...f.state,entityId:'P10'};assert.equal(f.client.state().initialReview.stale,false);
+  f.queue.push(initialReady);await f.client.adoptInitialReview();
+  assert.equal(f.calls.at(-1).request.clientRevision,4);
+  assert.deepEqual(f.calls.at(-1).request.session,{version:1,entities:[]});
+  assert.equal(f.client.state().initialReview.busy,true,'pure local application is still pending');
+  await assert.rejects(()=>f.client.adoptInitialReview(),/可自动采用/);
+});
+
+test('initial adoption protects any session or revision change while single-player jobs stay independent',async()=>{
+  for(const field of ['session','revision']){
+    const f=await initialSetup();
+    if(field==='session')f.state.session.note='manual note';else f.state={...f.state,revision:5};
+    assert.equal(f.client.state().initialReview.stale,true);await assert.rejects(()=>f.client.adoptInitialReview(),/草稿已修改/);
+    assert.equal(f.calls.length,2);
+  }
+  const f=await initialSetup();f.queue.push(ready);await f.client.start({purpose:'continuation'});
+  assert.equal(f.client.state().job.jobId,'j');assert.equal(f.client.state().initialReview.job.jobId,'initial-job');
+  assert.equal(f.client.state().initialReview.stale,false);
+});
+
+test('source-cached response from a different draft is read-only until explicit cache reuse',async()=>{
+  const f=await initialSetup({...initialReady,matchesCurrentInput:false});
+  assert.equal(f.client.state().initialReview.stale,true);await assert.rejects(()=>f.client.adoptInitialReview(),/草稿/);
+  const cached={...initialReady,jobId:'rebased',generationJobId:'initial-job'};
+  f.queue.push(cached);await f.client.retryInitialReview();
+  assert.equal(f.calls.at(-1).request.reuseCached,true);assert.equal(f.calls.at(-1).request.forceRetry,undefined);
+  assert.equal(f.client.state().initialReview.stale,false);
+  f.queue.push(cached);await f.client.adoptInitialReview();
+  assert.equal(f.calls.at(-1).request.session.note,undefined);
+});
+
+test('refresh uses persisted job revision only when the full session still matches',async()=>{
+  const f=await initialSetup({...initialReady,base:{...initialReady.base,clientRevision:91}});
+  f.queue.push({...initialReady,base:{...initialReady.base,clientRevision:91}});await f.client.adoptInitialReview();
+  assert.equal(f.calls.at(-1).request.clientRevision,91);
+  assert.equal(f.calls.at(-1).request.session.version,1);
+});
+
+test('applied state follows the saved generation marker and undo does not report an absent application',async()=>{
+  const f=await initialSetup();f.queue.push(initialReady);await f.client.adoptInitialReview();
+  f.state.session.initialIdentityReview={sourceKey:'same-source',jobId:'initial-job',generationJobId:'initial-job'};
+  f.client.initialApplied({changedModelBindings:2});assert.equal(f.client.state().initialReview.applied,true);
+  delete f.state.session.initialIdentityReview;f.state={...f.state,revision:6};
+  assert.equal(f.client.state().initialReview.applied,false);assert.equal(f.client.state().initialReview.busy,false);
+  assert.equal(f.client.state().initialReview.stale,true);
+  await assert.rejects(()=>f.client.adoptInitialReview(),/草稿已修改/);
+  assert.equal(f.calls.length,3,'undo never starts another request');
+});
+
+test('a failed local apply releases the latch and explicitly reuses the candidate without running a new model job',async()=>{
+  const f=await initialSetup();f.queue.push(initialReady);await f.client.adoptInitialReview();
+  f.client.reportInitialError('local validation rejected');
+  assert.equal(f.client.state().initialReview.busy,false);assert.equal(f.client.state().initialReview.job.status,'review_required');
+  assert.equal(f.client.state().initialReview.job.candidate.summary,'抽样初检');
+  f.queue.push({...initialReady,jobId:'cached'});await f.client.retryInitialReview();
+  assert.equal(f.calls.at(-1).request.reuseCached,true);assert.equal(f.calls.at(-1).request.forceRetry,undefined);
+});
+
+test('failed or unavailable initial starts never automatically loop and only explicit retry starts again',async()=>{
+  const f=await initialSetup({...initialReady,status:'failed',candidate:undefined,failure:{code:'timeout'}});
+  await f.client.startInitialReview();assert.equal(f.calls.length,2);
+  f.queue.push({...initialReady,status:'queued'});await f.client.retryInitialReview();
+  assert.equal(f.calls.at(-1).request.forceRetry,true);assert.equal(f.client.state().initialReview.busy,true);
+  const unavailable=setup();unavailable.queue.push({available:false,message:'provider unavailable'});await unavailable.client.init();
+  await assert.rejects(()=>unavailable.client.startInitialReview(),/unavailable/);
+  await unavailable.client.startInitialReview();assert.equal(unavailable.calls.length,1);
+  assert.equal(unavailable.client.state().initialReview.busy,false);
+});
+
+test('page disposal during a pending source-deduplicated create never cancels the shared server job',async()=>{
+  let resolve;const calls=[],f=setup();
+  const client=createIdentityAgentClient({context:{},snapshot:()=>f.state,schedule:()=>0,cancelSchedule:()=>{},fetch:async(url)=>{
+    calls.push(url);if(url.endsWith('/status'))return {ok:true,json:async()=>({available:true})};
+    if(url.endsWith('/jobs'))return new Promise(r=>resolve=r);
+    return {ok:true,json:async()=>({status:'cancelled'})};
+  }});
+  await client.init();const pending=client.startInitialReview();client.dispose();
+  resolve({ok:true,json:async()=>({...initialReady,status:'analyzing'})});assert.equal(await pending,null);
+  assert.equal(calls.filter(url=>url.endsWith('/cancel')).length,0);
+});
+
+test('explicit initial cancellation cancels a late create and never resurrects the candidate',async()=>{
+  let resolve;const calls=[],f=setup();
+  const client=createIdentityAgentClient({context:{},snapshot:()=>f.state,schedule:()=>0,cancelSchedule:()=>{},fetch:async(url)=>{
+    calls.push(url);if(url.endsWith('/status'))return {ok:true,json:async()=>({available:true})};
+    if(url.endsWith('/jobs'))return new Promise(r=>resolve=r);
+    return {ok:true,json:async()=>({status:'cancelled'})};
+  }});
+  await client.init();const pending=client.startInitialReview();await client.cancelInitialReview();
+  resolve({ok:true,json:async()=>initialReady});assert.equal(await pending,null);
+  assert.equal(calls.filter(url=>url.endsWith('/cancel')).length,1);
+  assert.equal(client.state().initialReview.job.status,'cancelled');assert.equal(client.state().initialReview.busy,false);
+  await client.startInitialReview();assert.equal(calls.filter(url=>url.endsWith('/jobs')).length,1);
+});
+
+test('a new cache request error cannot expose an old ready candidate for automatic adoption',async()=>{
+  let creates=0;const f=setup();
+  const client=createIdentityAgentClient({context:{},snapshot:()=>f.state,schedule:()=>0,cancelSchedule:()=>{},fetch:async(url)=>{
+    if(url.endsWith('/status'))return {ok:true,json:async()=>({available:true})};
+    if(++creates===1)return {ok:true,json:async()=>initialReady};
+    throw new Error('connection failed');
+  }});
+  await client.init();await client.startInitialReview();await assert.rejects(()=>client.retryInitialReview(),/connection failed/);
+  assert.equal(client.state().initialReview.job.status,'review_required');
+  assert.equal(client.state().initialReview.job.candidate.summary,'抽样初检');
+  await assert.rejects(()=>client.adoptInitialReview(),/可自动采用/);
+});

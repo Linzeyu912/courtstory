@@ -38,7 +38,7 @@ test('stale results and missing provider cannot be adopted or launched while can
   const base=fixture().state;
   const f=fixture({identityAgent:{...base.identityAgent,stale:true,status:{available:false,message:'未配置识别服务'}}});
   assert.equal(f.button('Agent 识别号码').props.disabled,true);assert.equal(f.button('Agent 查找其他片段').props.disabled,true);
-  assert.equal(f.button('采用所选片段（1）').props.disabled,true);f.button('清除候选 / 重置任务').props.onClick();assert.equal(f.calls[0][0],'cancelIdentityJob');
+  assert.equal(f.button('采用所选片段（1）').props.disabled,true);f.button('清除本次结果 / 重置任务').props.onClick();assert.equal(f.calls[0][0],'cancelIdentityJob');
 });
 
 test('recognition suggestions require returning to the original frame and T before populating the reference form',()=>{
@@ -64,4 +64,58 @@ test('reference recognition and saving wait for the decoded target frame while a
     assert.equal(f.button('Agent 查找其他片段').props.disabled,false);
     assert(f.all.some(n=>n.props?.role==='status'&&text(n).includes('画面正在定位，请等待清晰画面加载后再保存参考。')));
   }
+});
+
+function initialFixture(patch={}){
+  const calls=[],api=new Proxy({},{get:(_,name)=>(...args)=>calls.push([name,...args])});
+  const state={frameTimes:[0,.1,.2,.3,.4],identityAgent:{status:{available:true}},initialReview:{busy:false},initialReviewView:{job:{status:'ready'},ready:true,applied:true,roles:{},issues:[]},...patch};
+  const all=children(module.exports.InitialIdentityReviewControls({state,api}));
+  return {calls,all,button:label=>all.find(node=>node.type==='button'&&text(node)===label)};
+}
+
+test('global initial review needs no selected player or reference and leaves manual correction available during inference',()=>{
+  const f=initialFixture({initialReview:{busy:true},initialReviewView:{job:{status:'analyzing'},busy:true,issues:[],roles:{}}});
+  f.button('停止初检').props.onClick();f.button('直接人工修改').props.onClick();
+  assert.deepEqual(f.calls,[['cancelInitialReview'],['focusIdentityManual']]);
+  assert(f.all.some(node=>node.type==='h3'&&text(node)==='Agent 整段抽样初检'));
+  assert(f.all.some(node=>node.type==='p'&&text(node).includes('未看到的人仍留待核对')));
+  assert.equal(f.all.filter(node=>node.type==='input').length,0);
+});
+
+test('all initial issues remain inspectable even without subject counts; only three appear outside disclosure',()=>{
+  const issues=Array.from({length:5},(_,index)=>({id:String(index),label:'短暂人物未抽样',reason:'未看清',start:0,end:4}));
+  const f=initialFixture({initialReviewView:{job:{status:'ready'},ready:true,applied:true,issues,roles:{}}});
+  const issueButtons=f.all.filter(node=>node.props?.className==='identity-initial-issue');
+  assert.equal(issueButtons.length,5);issueButtons[4].props.onClick();assert.deepEqual(f.calls,[['reviewIdentityIssue',issues[4]]]);
+  const detail=f.all.find(node=>node.type==='details');assert.equal(detail.props.open,undefined);assert.equal(children(detail).filter(node=>node.props?.className==='identity-initial-issue').length,2);
+  assert(f.all.some(node=>node.type==='strong'&&text(node).includes('初检提示 5 处')));
+});
+
+test('stale initial result can be rebased explicitly but cannot be adopted; failed service still offers manual work',()=>{
+  const stale=initialFixture({initialReviewView:{job:{status:'ready'},ready:true,stale:true,applied:false,issues:[]}});
+  assert.equal(stale.button('补入可用机器建议').props.disabled,true);stale.button('更新初检到当前草稿').props.onClick();
+  assert.deepEqual(stale.calls,[['retryInitialReview']]);
+  const unavailable=initialFixture({identityAgent:{status:{available:false,message:'未配置服务'}},initialReviewView:{job:{status:'failed'},issues:[]}});
+  assert.equal(unavailable.button('重试自动初检').props.disabled,true);assert.equal(unavailable.button('直接人工修改').props.disabled,undefined);
+});
+
+function quickFixture(patch={}){
+  const calls=[],api=new Proxy({},{get:(_,name)=>(...args)=>calls.push([name,...args])});
+  const state={entity:{id:'P1'},entities:[{id:'P1',role:'player',name:'球员 1'},{id:'P2',role:'player',name:'球员 2'}],frame:2,frameTimes:[0,.1,.2,.3,.4],canUndo:true,reviewBusy:false,quickIdentity:{trackId:2,ownerId:'P1',targetId:'P1',action:'replace',range:{start:1,end:3},preview:{changed:3,affectedPlayers:{P2:2}}},...patch};
+  const all=children(module.exports.IdentityQuickControls({state,api}));
+  return {calls,all,button:label=>all.find(node=>node.type==='button'&&text(node)===label),named:label=>all.find(node=>node.props?.['aria-label']===label)};
+}
+
+test('quick controls expose the exact continuous interval and apply once only after explicit target selection',()=>{
+  const f=quickFixture();f.named('快速修改对应球员').props.onChange({target:{value:'P2'}});f.named('快速修改起点秒').props.onBlur({target:{value:'0.2'}});f.button('应用到这段').props.onClick();f.button('撤销上次修改').props.onClick();
+  assert.deepEqual(f.calls,[['setIdentityQuickTarget','P2'],['setIdentityQuickRange','start',.2],['applyIdentityQuickEdit'],['undo']]);
+  assert(f.all.some(node=>node.type==='strong'&&text(node).includes('0.10 秒 – 0.30 秒')));
+  assert(f.all.some(node=>node.props?.role==='status'&&text(node).includes('球员 2 有 2 帧重叠归属会释放')));
+});
+
+test('missing-person flow declares single-frame manual work and never presents range apply or requires a T',()=>{
+  const f=quickFixture({quickIdentity:{trackId:null,targetId:'P1',action:'missing',range:{start:2,end:2}}});
+  assert.equal(f.button('应用到这段'),undefined);
+  assert(f.all.some(node=>text(node).includes('只补当前帧；不会猜测其他帧的位置')));
+  f.button('取消修改').props.onClick();assert.deepEqual(f.calls,[['cancelIdentityQuickEdit']]);
 });

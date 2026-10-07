@@ -1,5 +1,5 @@
 // Keep a decoded frame in a canvas independently of the native video compositor.
-export function mountVideoDisplay({video,canvas,status,message,retry,stage,onReady=()=>{},onFrame=()=>{},onError=()=>{},getTargetTime=()=>video.currentTime,startTime=0}) {
+export function mountVideoDisplay({video,canvas,status,message,retry,stage,rateControl=null,onReady=()=>{},onFrame=()=>{},onError=()=>{},getTargetTime=()=>video.currentTime,startTime=0}) {
   const context=canvas.getContext('2d');
   const validTime=value=>Number.isFinite(value)&&value>=0?value:null;
   // Match the annotation lookup's microsecond precision; 1ms can straddle a PTS boundary.
@@ -10,6 +10,11 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,onRea
   let videoFrameId=null,animationId=null,frameEpoch=0;
   const listeners=[];
   canvas.dataset.ready='false';
+  let playbackRate=[.25,.5,1].includes(Number(rateControl?.value))?Number(rateControl.value):1;
+  function applyPlaybackRate(){video.defaultPlaybackRate=playbackRate;video.playbackRate=playbackRate;if(rateControl)rateControl.value=String(playbackRate);}
+  function changePlaybackRate(){const next=Number(rateControl.value);if([.25,.5,1].includes(next))playbackRate=next;applyPlaybackRate();}
+  rateControl?.addEventListener('change',changePlaybackRate);
+  applyPlaybackRate();
 
   function show(next,text,canRetry=false) {
     if(disposed)return;
@@ -72,7 +77,7 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,onRea
   }
   function attemptPlayback() {
     if(disposed||!wantsPlayback||playPending||!video.paused||awaitingSeek||video.readyState<2||state==='error')return;
-    playPending=true;const serial=++playSerial;
+    applyPlaybackRate();playPending=true;const serial=++playSerial;
     let result;
     try {result=video.play();}
     catch(error){playPending=false;wantsPlayback=false;fail(error,'视频无法播放，请重新载入后重试。');return;}
@@ -135,11 +140,11 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,onRea
     pendingTime=targetTime;awaitingSeek=false;reloading=true;
     cancelFrames();playPending=false;playSerial++;wantsPlayback=resume;
     show('loading','正在重新载入视频…');
-    try {video.load();}
+    try {applyPlaybackRate();video.load();}
     catch(error){reloading=false;fail(error,'视频重新载入失败，请重试。');}
   }
   function listen(type,handler) {video.addEventListener(type,handler);listeners.push([type,handler]);}
-  listen('loadedmetadata',()=>{reloading=false;applyPendingSeek();attemptPlayback();});
+  listen('loadedmetadata',()=>{reloading=false;applyPlaybackRate();applyPendingSeek();attemptPlayback();});
   for(const type of ['loadeddata','canplay'])listen(type,()=>{
     applyPendingSeek();present();attemptPlayback();queueFrame(true);
   });
@@ -174,5 +179,6 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,onRea
     disposed=true;cancelFrames();playSerial++;playPending=false;
     for(const [type,handler] of listeners)video.removeEventListener(type,handler);
     retry.removeEventListener('click',reload);
+    rateControl?.removeEventListener('change',changePlaybackRate);
   }};
 }

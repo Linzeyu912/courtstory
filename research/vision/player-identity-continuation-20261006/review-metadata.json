@@ -1,0 +1,49 @@
+{
+  "videoHash": "17c36f8d3b3e294f13f7119f23b82ec7f3fbe96d5564db9cbe7d61f49ebbbd7d",
+  "trackingFingerprint": "2e873fbb19a0980bc5b9f8ca146102f16e164e42e09719a98a81826f4264f36e",
+  "sourceFrameCount": 1050,
+  "sourceDimensions": [
+    1280,
+    720
+  ],
+  "sourceTimeBasis": "decoded_container_pts",
+  "reviewerType": "codex_visual_review_not_human_ground_truth",
+  "reviewedCandidateFrames": [
+    570,
+    578,
+    585,
+    592,
+    600,
+    601,
+    606,
+    611,
+    615,
+    616,
+    621,
+    647,
+    658,
+    660,
+    669,
+    679,
+    690,
+    691,
+    702,
+    705,
+    713,
+    724,
+    735,
+    736,
+    740,
+    743,
+    746,
+    750
+  ],
+  "visualReview": "At the 28 provided candidate evidence frames, the subject clothing, hair, white right arm sleeve and green shoes match the f120/T2 reference; rear number 00 is readable in the later T39 frames. No switch to another visible player was observed at these sampled frames.",
+  "all181FramesVisuallyReviewed": false,
+  "userDraftModified": false,
+  "noCourtCalibration": true,
+  "imageHashes": {
+    "continuation-evidence.jpg": "7d21446b0d2d412f5eddc438066d17225ce51f5fa71539d6ff0be0801dce2ea7",
+    "scoreboard-evidence.jpg": "ea67377b51122d1271cb434e929fef6f95625897095c7c1cf8c9d1f0a10e5972"
+  }
+}

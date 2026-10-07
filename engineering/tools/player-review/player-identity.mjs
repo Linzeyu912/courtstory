@@ -1,4 +1,5 @@
 import {mountIdentityOCR} from './identity-ocr.mjs';
+import {entityTeamSide} from './identity-timeline.mjs';
 const RATING_GROUPS=[
   ['投篮',[['three_point_shot','三分'],['mid_range_shot','中投'],['close_shot','近投']]],
   ['突破',[['layup','上篮'],['driving_dunk','突破扣篮'],['ball_handle','控球'],['speed_with_ball','持球速度']]],
@@ -9,6 +10,17 @@ const RATING_STATUS={complete:'能力记录完整',partial:'能力记录部分�
 const clone=value=>structuredClone(value);
 const confirmed=entity=>entity?.playerProfile?.status==='confirmed';
 const sameQuery=(left,right)=>left&&right&&['season','team','jersey'].every(key=>left[key]===right[key]);
+const teamCode=value=>typeof value==='string'&&/^[A-Z]{3}$/.test(value.trim().toUpperCase())?value.trim().toUpperCase():'';
+
+// A visual reference's clothing description is separate from the real team
+// confirmed for this roster slot or its colour group in the current video.
+export function confirmedPlayerTeam(session,item){
+  const profile=confirmed(item)?teamCode(item.playerProfile.team_abbreviation):'';
+  if(profile)return profile;
+  const group=session.teamIdentities?.[entityTeamSide(item||{})];
+  return ['scoreboard_ocr_human_adopted','scoreboard_vision_human_adopted'].includes(group?.method)&&group.evidence?.videoSha256===session.videoHash?teamCode(group.team):'';
+}
+export function playerRosterTeam(session,item){return confirmedPlayerTeam(session,item)||teamCode(item?.team);}
 
 function validateCandidate(candidate,query){
   const reference=candidate?.rating;
@@ -59,6 +71,7 @@ export function mountPlayerIdentityUI(api){
   const value=rating=>rating==null?'未知':String(rating);
   const state=()=>api.getState();
   const entity=()=>state().session.entities.find(item=>item.id===state().active);
+  const preferredTeam=()=>playerRosterTeam(state().session,entity());
   const query=()=>({season:$('profileSeason').value,team:$('profileTeam').value,jersey:$('profileJersey').value.trim()});
   const ready=()=>Boolean(query().season&&query().team&&/^[0-9]{1,2}$/.test(query().jersey)&&!$('profileTeam').disabled);
   function option(value,label){const node=doc.createElement('option');node.value=value;node.textContent=label;return node;}
@@ -73,7 +86,7 @@ export function mountPlayerIdentityUI(api){
   function card(){
     const current=state(),item=entity(),profile=item?.playerProfile,reference=item?.ratingReference;
     const known=confirmed(item),number=/^P(?:[1-9]|10)$/.test(current.active)?current.active.slice(1):'—';
-    $('profileSummary').textContent=known?`编号 ${number} · ${profile.name} · ${reference?.game||'2K能力'}`:`编号 ${number} · 身份确认与 2K 能力`;
+    $('profileSummary').textContent=known?`编号 ${number} · ${profile.name} · 球队 / 号码与能力`:`编号 ${number} · 球队 / 号码识别与球员姓名`;
     $('profileSelected').textContent=known?`已确认编号 ${number}：${profile.name} · ${profile.team_abbreviation} #${profile.jersey_number}`:`正在确认编号 ${number}。红 / 蓝与跟踪目标中的红队 / 蓝队对应，请填写实际 NBA 球队。`;
     $('profileClear').disabled=!item?.playerProfile&&!item?.ratingReference;
     const point=current.point;
@@ -112,8 +125,7 @@ export function mountPlayerIdentityUI(api){
     $('profileSeason').value=profile?.season||state().session.gameContext?.season||'';
     $('profileJersey').value=profile?.jersey_number||(typeof item?.jersey==='string'?item.jersey:'');
     $('profileLookupStatus').textContent='填写视频赛季、球队和号码，再查找候选。';
-    const preferred=profile?.team_abbreviation||(typeof item?.team==='string'?item.team.trim().toUpperCase():'');
-    void loadTeams($('profileSeason').value,preferred);
+    void loadTeams($('profileSeason').value,preferredTeam());
   }
   async function loadCatalog(){
     const token=++catalogEpoch;$('profileSeason').disabled=true;
@@ -123,14 +135,14 @@ export function mountPlayerIdentityUI(api){
     }catch(error){if(token!==catalogEpoch)return;$('profileLookupStatus').textContent=error.message;$('profileRetry').hidden=false;}
   }
   function render(){
-    const current=state(),item=entity();const signature=JSON.stringify([current.active,item?.playerProfile,item?.ratingReference,item?.jersey,item?.team,current.session.gameContext?.season]);
+    const current=state(),item=entity();const signature=JSON.stringify([current.active,item?.playerProfile,item?.ratingReference,item?.jersey,item?.team,playerRosterTeam(current.session,item),current.session.gameContext?.season]);
     if(signature!==stateSignature){stateSignature=signature;seedForm();}
     $('profileLookup').disabled=!ready();card();ocrUI?.render();
   }
-  $('profileSeason').onchange=()=>{invalidate();void loadTeams($('profileSeason').value);};
+  $('profileSeason').onchange=()=>{invalidate();void loadTeams($('profileSeason').value,preferredTeam());};
   $('profileTeam').onchange=invalidate;$('profileJersey').oninput=invalidate;
   $('profileCandidate').onchange=()=>{$('profileConfirm').disabled=!candidate();};
-  $('profileRetry').onclick=()=>{if(catalog)void loadTeams($('profileSeason').value,entity()?.playerProfile?.team_abbreviation||'');else void loadCatalog();};
+  $('profileRetry').onclick=()=>{if(catalog)void loadTeams($('profileSeason').value,preferredTeam());else void loadCatalog();};
   $('profileLookup').onclick=async()=>{
     if(!ready())return;api.pause?.();clearCandidates();const token=lookupEpoch,id=state().active,requested=query();
     $('profileLookup').disabled=true;$('profileLookupStatus').textContent='正在查找整季名单候选…';

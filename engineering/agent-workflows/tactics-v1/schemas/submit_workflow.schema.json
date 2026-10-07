@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "submit_workflow.schema.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "requestId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "args": {
+      "type": "object",
+      "properties": {
+        "assetRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "goal": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "profile": {
+          "const": "richer_players_v1"
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+            "video": {
+              "type": "boolean"
+            },
+            "editableDocument": {
+              "type": "boolean"
+            },
+            "fps": {
+              "enum": [
+                24,
+                25,
+                30,
+                60
+              ]
+            },
+            "audioPreservation": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "video",
+            "editableDocument",
+            "fps"
+          ],
+          "additionalProperties": false
+        },
+        "geometryRequirement": {
+          "enum": [
+            "auto",
+            "required",
+            "none"
+          ]
+        },
+        "allowPartial": {
+          "type": "boolean"
+        },
+        "parentRunRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        }
+      },
+      "required": [
+        "assetRef",
+        "goal",
+        "profile",
+        "output",
+        "geometryRequirement",
+        "allowPartial"
+      ],
+      "additionalProperties": false
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "range": {
+      "type": "object",
+      "properties": {
+        "startFrame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "endFrameExclusive": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "startFrame",
+        "endFrameExclusive"
+      ],
+      "additionalProperties": false
+    },
+    "policyRef": {
+      "const": "tactics-default-v1"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "requestId",
+    "args",
+    "idempotencyKey",
+    "range",
+    "policyRef"
+  ],
+  "additionalProperties": false
+}

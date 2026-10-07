@@ -4,6 +4,8 @@ import {readFileSync} from 'node:fs';
 import {resolveObjectURL} from 'node:buffer';
 import {blankSession,draftStorageKey,isHumanIdentitySelected} from './trajectory.mjs';
 import {confirmIdentity} from './identity-timeline.mjs';
+import {bindTeamReading} from './identity-ocr.mjs';
+import {confirmedPlayerTeam,playerRosterTeam} from './player-identity.mjs';
 
 // Run the shipped app. Only browser layout, React roots, media and HTTP are
 // replaced; the draft, annotations, identity module, export and click routing
@@ -64,14 +66,15 @@ async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSe
       }else body=raw==='/api/library'?{defaultSample:'test',samples:[{id:'test',title:'测试视频',defaultVariant:'team-stable'}]}:raw==='/team-overlay-policy.json'?policy:clip;
       return {ok:true,status:200,json:async()=>{const copy=structuredClone(body);responses.push(copy);return copy;}};
     }});
-  let appApi,identityActions,identityState;
+  let appApi,identityActions,identityState,presentFrame;
   const restore=()=>{for(const [name,value] of previous){if(value===undefined)delete globalThis[name];else globalThis[name]=value;}};
   try{
     const source=readFileSync(new URL('./app.mjs',import.meta.url),'utf8'),imports=[...source.matchAll(/^import \{([^}]+)\} from '([^']+)';$/gm)],dependencies={};
     for(const match of imports){
       if(match[2]==='./ui.bundle.mjs'){dependencies.mountIdentityUI=actions=>{identityActions=actions;return {render(state){identityState=state;}};};
-        dependencies.mountVideoDisplay=({video,stage,startTime,onReady})=>{
+        dependencies.mountVideoDisplay=({video,stage,startTime,onReady,onFrame})=>{
           stage.dataset.videoState='ready';video.currentTime=startTime;onReady?.({time:startTime});
+          presentFrame=time=>{stage.dataset.videoState='ready';video.currentTime=time;onFrame?.({time});};
           return {pause:()=>video.pause(),seek:time=>{video.pause();video.currentTime=time;},
             reload:()=>{video.pause();video.currentTime=startTime;},togglePlayback:()=>video.paused?video.play():video.pause()};
         };continue;}
@@ -87,6 +90,7 @@ async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSe
     await new AsyncFunction(...Object.keys(dependencies),source.replace(/^import .*;\r?\n/gm,''))(...Object.values(dependencies));await flush();
     return {get,clip,key,saved,requests,responses,created,state:()=>appApi.getState(),body,restore,
       select:id=>identityActions.select(id),identityState:()=>identityState,
+      present:()=>presentFrame(clip.frames[appApi.getState().frame].time),saveReference:input=>identityActions.saveIdentityReference(input),
       set:(id,value,event='change')=>{get(id).value=value;get(id).dispatch(event);},
       async query({season='2024-25',team='MIN',jersey='10'}={}){
         get('profileSeason').value=season;get('profileSeason').dispatch('change');await flush();
@@ -267,4 +271,59 @@ test('an expanded capability source remains open when the video redraws another 
     app.get('profileRatingCard').children.at(-1).open=true;app.set('scrubber','1','input');
     assert.equal(app.get('profileRatingCard').children.at(-1).open,true);
   }finally{await flush();app.restore();}
+});
+
+test('blue-group IND survives saving a clothing reference and initially selecting season still finds the 00 roster',async()=>{
+  const session=blankSession('identity-video');for(const person of session.entities)person.identitySuggestionsDismissed=true;
+  bindTeamReading(session,'blue','IND',{videoSha256:'identity-video',mode:'scoreboard_vision',engine:'codex-vision'});
+  const pacer={...conley,player_id:'test:pacer00',name:'测试步行者球员',team_abbreviation:'IND',jersey_number:'00',season_roster:[{team_abbreviation:'IND',jersey_numbers:['00']}]};
+  const app=await openIdentityApp({savedSession:session,optionsResponse:url=>({...options,teams:url.searchParams.has('season')?[{abbreviation:'IND',name:'Indiana Pacers'}]:[]}),
+    lookup:query=>({query,status:'unique_candidate',candidates:[pacer]})});
+  try{
+    app.select('P6');app.present();app.saveReference({trackId:8,team:'白色球衣，深色侧边',jersey:'00'});await flush();
+    const player=app.state().session.entities.find(person=>person.id==='P6');
+    assert.equal(player.team,'IND');assert.equal(player.identityReference.team,'白色球衣，深色侧边');assert.equal(player.jersey,'00');
+    assert.equal(player.identityReference.jersey,'00');assert.equal(player.playerProfile,undefined);
+    app.set('profileSeason','2024-25');await flush();assert.equal(app.get('profileTeam').value,'IND');assert.equal(app.get('profileJersey').value,'00');
+    app.get('profileLookup').click();await flush();
+    const request=app.requests.find(url=>url.startsWith('/api/player-identity/lookup'));
+    assert.equal(new URL(request,'http://localhost').searchParams.get('team'),'IND');assert.equal(new URL(request,'http://localhost').searchParams.get('jersey'),'00');
+    assert.equal(player.playerProfile,undefined,'visual recognition and roster lookup must stay provisional');
+    app.choose('test:pacer00');await app.confirm();assert.equal(app.state().session.entities.find(person=>person.id==='P6').playerProfile.team_abbreviation,'IND');
+  }finally{app.restore();}
+});
+
+test('an older draft with a clothing description restores the confirmed group team to its roster form',async()=>{
+  const session=blankSession('identity-video');bindTeamReading(session,'blue','IND',{videoSha256:'identity-video',mode:'scoreboard_vision',engine:'codex-vision'});
+  session.entities[5].team='白色球衣，侧边深色';session.entities[5].jersey='00';session.gameContext={season:'2024-25'};
+  const app=await openIdentityApp({savedSession:session,optionsResponse:()=>({...options,teams:[{abbreviation:'IND',name:'Indiana Pacers'}]})});
+  try{
+    app.select('P6');await flush();assert.equal(app.get('profileTeam').value,'IND');assert.equal(app.get('profileJersey').value,'00');
+    assert.equal(app.state().session.entities[5].team,'白色球衣，侧边深色','form recovery must not silently rewrite a historical draft');
+    assert.equal(app.state().session.entities[5].playerProfile,undefined);
+  }finally{app.restore();}
+});
+
+test('hand-entered IND or ind remains the roster team when saving a white-clothing 00 reference without a group binding',async()=>{
+  for(const team of ['IND','ind']){
+    const session=blankSession('identity-video');for(const person of session.entities)person.identitySuggestionsDismissed=true;
+    session.entities[5].team=team;
+    const app=await openIdentityApp({savedSession:session});
+    try{
+      app.select('P6');app.present();app.saveReference({trackId:8,team:'白色球衣，深色侧边',jersey:'00'});await flush();
+      const player=app.state().session.entities.find(person=>person.id==='P6');
+      assert.equal(player.team,'IND');assert.equal(player.identityReference.team,'白色球衣，深色侧边');
+      assert.equal(player.jersey,'00');assert.equal(player.identityReference.jersey,'00');assert.equal(player.playerProfile,undefined);
+      assert.equal(app.state().session.teamIdentities,undefined,'preserving a manually entered team must not invent a group confirmation');
+    }finally{app.restore();}
+  }
+});
+
+test('confirmed player team has priority while stale-video group evidence and unknown clothing are not team codes',()=>{
+  const session=blankSession('identity-video');bindTeamReading(session,'blue','IND',{videoSha256:'identity-video',mode:'scoreboard_vision',engine:'codex-vision'});
+  const player=session.entities[5];player.team='白色球衣';assert.equal(confirmedPlayerTeam(session,player),'IND');
+  player.playerProfile={status:'confirmed',team_abbreviation:'BOS'};assert.equal(confirmedPlayerTeam(session,player),'BOS');
+  assert.throws(()=>bindTeamReading(session,'blue','IND',{videoSha256:'identity-video'}),'existing profile conflict protection remains active');
+  delete player.playerProfile;session.teamIdentities.blue.evidence.videoSha256='other';assert.equal(confirmedPlayerTeam(session,player),'');assert.equal(playerRosterTeam(session,player),'');
+  player.team='ind';assert.equal(playerRosterTeam(session,player),'IND');assert.equal(confirmedPlayerTeam(session,player),'');
 });

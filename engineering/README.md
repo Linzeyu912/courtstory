@@ -1,5 +1,13 @@
 # 作品工程
 
+2026-10-07（本机工作台改进，未提交／推送）：针对整段初稿失败、多人标注不足、重点圈点击与 2D 难用，补齐分段保留／失败重试、刷新恢复、人工定位圈和可选球场映射步骤。21.54 秒真实片已在一次失败段重试后得到 22 个新增图形；原失败记录与两个测试圈保留。操作、实际验证及仍存在的模型耗时限制见[工作台可用性与人工接管](docs/workbench-usability-20261007.md)。这不替代前轮独立 runner 的 M0／M1 验收。
+
+2026-10-06（首批实现，本地未提交／未推送）：按 Final v1 新增统一持久 runner、CLI、Bearer HTTP 薄入口和十个工具阶段，接通真实检测、多人暂停身体标记、独立复核、隔离保存及 MP4。最新 005 在一次修复后仍有重叠人物指向歧义，停在 needs_attention，M1 合格成片验收未完成。实际结果、失败证据及边界见[本轮实施与验收](docs/agent-tactics-implementation-20261006.md)，命令见[运行入口](agent-workflows/tactics-v1/README.md)，来源保护见[固定基线](docs/agent-tactics-baseline-20261006.md)。当前战术界面与原草稿保持；TAPIR、自动连续路线、几何生产分支、完整局部修复及六段完整验收仍须后续推进。下方规划记录保留历史时点。
+
+2026-10-06（最终规划，本地未提交／未推送）：合并聊天决定、代码审计与实测，形成[Agent 工具／多球员标注执行计划](docs/plans/2026-10-06-workbench-reliability-and-api-parallel-plan.md)、[Agent 工作流程](docs/agent-tactics-workflow.md)和[工具合同](docs/specs/agent-tactics-tools-v1.md)。先交付一次调用的多人标注闭环，再增强 TAPIR 连续性、按需地面映射与第三方 API；当前战术布局／模块保持。新增工具与 runner 尚未实现，详见[交接](../handoffs/thy-0629/2026-10-06-1854-agent-tactics-final-plan.md)。
+
+2026-10-06（本地未提交／未推送）：球员标定页增加球队／号码和固定身份续接常显入口、慢放；修复 OCR 置信度及名单衔接，接入待审核的队标视觉候选。当前视频 00 号的遮挡续接与实际页面采用已验证，缺测仍留空；十人全片身份与 2D 精度尚未验收。见[工作台操作](tools/player-review/README.md)、[真实试验](../research/vision/player-identity-continuation-20261006/README.md)及[交接](../handoffs/thy-0629/2026-10-06-1203-identity-continuation-and-team-matching.md)。
+
 2026-10-06 晚间：[AWS 19 项服务独立实测](../environment/aws/services-live-audit-20261006.md)已有实际运行结果，临时探针已清理。下方预检和架构记录保留各自时间范围；完整工作台、正式 Agent 与成片展示网站的部署和验收仍待完成。
 
 2026-10-06：新增 [AWS 服务分工与部署顺序](docs/aws-deployment-architecture-20261006.md)，说明 S3、AgentCore、Bedrock、CPU ECS/Fargate / EC2 与 SageMaker GPU 的接法及验收标准。本轮仅方案与只读核验；CLI 身份可用，AWS 插件需重新认证，尚未部署应用。

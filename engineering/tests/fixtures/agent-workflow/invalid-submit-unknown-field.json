@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0",
+  "requestId": "invalid-request-001",
+  "idempotencyKey": "invalid-unknown-field",
+  "range": {"startFrame": 0, "endFrameExclusive": 90},
+  "policyRef": "tactics-default-v1",
+  "args": {
+    "assetRef": "registered-sample",
+    "goal": "故意无效的合同示例：外部请求不能指定本机文件",
+    "profile": "richer_players_v1",
+    "output": {"video": true, "editableDocument": true, "fps": 30},
+    "geometryRequirement": "auto",
+    "allowPartial": true,
+    "path": "not-an-authorized-asset-path"
+  }
+}

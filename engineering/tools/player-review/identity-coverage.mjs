@@ -1,7 +1,7 @@
 import {buildTrajectories} from './trajectory.mjs';
 import {validateFrameRange} from './tactics-time-range.mjs';
-export function buildIdentityCoverage(session,frames,sourceCuts=[]){
-  const points=buildTrajectories(session,frames,sourceCuts),byPlayer={},unresolvedRanges=[],conflicts=[];
+export function buildIdentityCoverage(session,frames,sourceCuts=[],clip=null){
+  const points=buildTrajectories(session,frames,sourceCuts,clip),byPlayer={},unresolvedRanges=[],conflicts=[];
   for(const e of session.entities){
     const ranges=[];let previous=null;
     for(const p of points[e.id]){
@@ -43,7 +43,7 @@ export function mountIdentityCoverage({host,clip,state,agent,seek,storageKey}){
   const nextWindow=()=>queues[state().entityId]?.windows.find(w=>!['adopted','unknown'].includes(w.status));
   $('plan').onclick=safe(()=>{
     if(reference()==='null')throw new Error('先保存当前球员的清晰参考身份。');
-    const s=state(),coverage=buildIdentityCoverage(s.session,clip.frames,clip.sourceCuts??[]),entityId=s.entityId;
+    const s=state(),coverage=buildIdentityCoverage(s.session,clip.frames,clip.sourceCuts??[],clip),entityId=s.entityId;
     // Full-film scan includes associated, still unreviewed positions as well as gaps.
     coverage.unresolvedRanges=coverage.byPlayer[entityId].filter(r=>r.state!=='out_of_view'&&r.state!=='reviewed');
     const windows=planContinuationWindows(coverage,{entityId,range:{startFrame:0,endFrameExclusive:clip.frames.length}});
@@ -59,7 +59,7 @@ export function mountIdentityCoverage({host,clip,state,agent,seek,storageKey}){
   $('skip').onclick=safe(async()=>{const w=nextWindow();if(w){await agent().cancel();w.status='unknown';save();message='该窗保持未知，未补位置或确认身份。';}});
   $('cancel').onclick=safe(async()=>{const q=queues[state().entityId],w=nextWindow();if(q){q.paused=true;if(w&&!['adopted','unknown'].includes(w.status))w.status='cancelled';await agent().cancel();save();}});
   function render(){
-    const s=state(),coverage=buildIdentityCoverage(s.session,clip.frames,clip.sourceCuts??[]),ranges=coverage.byPlayer[s.entityId]??[];
+    const s=state(),coverage=buildIdentityCoverage(s.session,clip.frames,clip.sourceCuts??[],clip),ranges=coverage.byPlayer[s.entityId]??[];
     $('coverage').replaceChildren(...ranges.map(r=>{const button=document.createElement('button');button.textContent=`${clip.frames[r.startFrame].time.toFixed(2)}–${(clip.frames[r.endFrameExclusive]?.time??clip.mediaEndTime).toFixed(2)} 秒 · ${{missing:'位置缺口',conflict:'身份冲突',out_of_view:'出画',associated:'已关联，待核对',reviewed:'人工确认'}[r.state]}`;button.onclick=()=>seek(r.startFrame);return button;}));
     $('summary').textContent=`${s.entityId} · 缺口 ${coverage.unresolvedRanges.filter(r=>r.entityId===s.entityId).length} 段 · 出画不计待补框。${message}`;
     const q=queues[s.entityId],job=agent()?.state().job,w=q?.windows.find(w=>w.jobId&&w.jobId===job?.jobId);

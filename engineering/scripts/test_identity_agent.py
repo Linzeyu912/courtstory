@@ -141,7 +141,7 @@ class IdentityAgentTests(unittest.TestCase):
         request['session']['entities'][0].pop('identityReference')
         done = self.wait(agent, self.create(agent, request))
         self.assertEqual(done['status'], 'ready', done)
-        self.assertEqual(done['candidate'], {'team':'紫色', 'jersey':'10', 'segments':[]})
+        self.assertEqual(done['candidate'], {'team':'紫色', 'jersey':'10', 'reason':'号码清晰', 'segments':[]})
         self.assertNotIn('identityReference', request['session']['entities'][0])
 
     def test_missing_detector_frame_and_risk_switch_do_not_get_bridged(self):

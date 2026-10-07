@@ -374,3 +374,65 @@ test('cleared and released model observations cannot move into an empty slot aft
       assert(!Object.values(buildTrajectories(loaded,clip.frames)).some(rows=>rows[frame].trackId===1&&rows[frame].x!=null));
   }
 });
+
+test('derived referee interval gates old model labels without rewriting a saved human review or source data',()=>{
+  const clip=fixture(),session=blankSession('video');
+  adoptIdentitySuggestions(session,clip.identitySuggestions,clip.frames);
+  for(const record of clip.frames){
+    record.role_conflicts=[{trackIds:[1],playerTrackId:1,reference:{trackId:2,variant:'ebard'}}];
+    record.track_evidence={'1':{identity_review_required:true,
+      role_evidence:{method:'same-video-referee-overlap-v1',kind:'repeated_referee_overlap_interval',start:0,end:3,evidenceFrames:[0,2,3]}}};
+  }
+  const source=structuredClone(clip),old=structuredClone(session.entities[5]);
+  initialize(session,clip);const points=buildTrajectories(session,clip.frames);
+  assert.deepEqual(session.entities[5],old);
+  for(let frame=0;frame<4;frame++)assert.equal(api.automaticAnnotationPointVisible(clip,frame,points.P6[frame]),false);
+  assert(api.automaticAnnotationPointVisible(clip,0,points.P1[0]),'reference T2 does not block active player T2');
+  assert.equal(candidates(clip,0,points).find(p=>p.trackId===1).roleEvidence.kind,'repeated_referee_overlap_interval');
+  confirmFrameIdentity(session,'P6',1,clip.frames);
+  initialize(session,clip);const reviewed=buildTrajectories(session,clip.frames);
+  assert.equal(api.automaticAnnotationPointVisible(clip,1,reviewed.P6[1]),true);
+  assert.equal(api.automaticAnnotationPointVisible(clip,2,reviewed.P6[2]),false);
+  assert.deepEqual(clip,source);
+});
+
+function firstPassExclusion(clip,session){
+  clip.tracking_revision='team-stable';
+  session.initialIdentityReview={version:1,videoHash:clip.video_sha256,
+    trackingFingerprint:clip.tracking_fingerprint,trackingRevision:clip.tracking_revision,
+    exclusions:[{trackId:1,start:1,end:2,role:'referee',reason:'observed',evidenceFrames:[1,2]}]};
+}
+
+test('source-bound visual exclusions persist through automatic refresh only within their reviewed interval',()=>{
+  const clip=fixture(),session=blankSession('video');firstPassExclusion(clip,session);
+  initialize(session,clip);const points=buildTrajectories(session,clip.frames);
+  assert.equal(points.P6[0].trackId,1);assert.equal(points.P6[3].trackId,1);
+  assert.equal(points.P6[1].x,null);assert.equal(points.P6[2].x,null);
+  assert(!api.automaticPlayerCandidates(clip,1,points,session).some(p=>p.trackId===1));
+  const saved=JSON.parse(JSON.stringify(session));initialize(saved,clip);
+  assert.deepEqual(saved,session,'reload cannot resurrect excluded observations');
+  assert.equal(session.entities[5].dismissedModelBindings,undefined,'machine exclusions are not human decisions');
+});
+
+test('visual exclusions hide preserved old model assignments but explicit human identity remains authoritative',()=>{
+  const clip=fixture(),session=blankSession('video');initialize(session,clip);
+  const machine=structuredClone(session.entities[5]);firstPassExclusion(clip,session);
+  initialize(session,clip);assert.deepEqual(session.entities[5],machine);
+  const points=buildTrajectories(session,clip.frames);
+  assert.equal(api.automaticAnnotationPointVisible(clip,1,points.P6[1],session),false);
+  assert.equal(api.automaticAnnotationPointVisible(clip,0,points.P6[0],session),true);
+  confirmIdentity(session,'P6',1,{trackId:1,box:clip.frames[1].tracks[0].slice(0,4)},clip.frames);
+  const human=structuredClone(session.entities[5]);initialize(session,clip);
+  assert.deepEqual(session.entities[5],human);
+  assert.equal(api.automaticAnnotationPointVisible(clip,1,buildTrajectories(session,clip.frames).P6[1],session),true);
+});
+
+test('wrong-source, malformed, and uncertain visual exclusions never suppress a player',()=>{
+  for(const mutate of [r=>r.videoHash='other',r=>r.trackingFingerprint='other',r=>r.trackingRevision='other',
+    r=>r.version=2,r=>r.exclusions[0].role='uncertain',r=>r.exclusions[0].start=-1,r=>r.exclusions[0].end=99]){
+    const clip=fixture(),session=blankSession('video');firstPassExclusion(clip,session);mutate(session.initialIdentityReview);
+    initialize(session,clip);const points=buildTrajectories(session,clip.frames);
+    assert.equal(points.P6[1].trackId,1);
+    assert.equal(api.automaticAnnotationPointVisible(clip,1,points.P6[1],session),true);
+  }
+});

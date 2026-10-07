@@ -1,5 +1,24 @@
 // Layout and navigation only. Video time, selections and review data stay in app.mjs.
 import {entityLabel} from './trajectory.mjs';
+export function mountIdentityShortcuts({openIdentity,document:doc=globalThis.document,schedule=globalThis.requestAnimationFrame}) {
+  function open(kind) {
+    openIdentity();
+    if(doc.body.dataset.step!=='identity')return;
+    const profile=doc.getElementById('playerProfilePanel');
+    if(kind==='profile')profile.open=true;
+    schedule(()=>{
+      const target=kind==='profile'?profile:doc.querySelector('.identity-agent-panel');
+      if(!target)return;
+      for(let parent=target.closest?.('details');parent;parent=parent.parentElement?.closest?.('details'))parent.open=true;
+      target.scrollIntoView({block:'start'});
+      const focus=kind==='profile'?doc.getElementById('profileSummary'):target.querySelector('[aria-label="身份参考人物"]');
+      focus?.focus({preventScroll:true});
+    });
+  }
+  const profile=doc.getElementById('openIdentityProfile'),continuation=doc.getElementById('openIdentityContinuation');
+  if(profile)profile.onclick=()=>open('profile');
+  if(continuation)continuation.onclick=()=>open('continuation');
+}
 export function mountWorkbenchShell(api) {
   const $ = id => document.getElementById(id);
   const body = document.body;
@@ -7,7 +26,7 @@ export function mountWorkbenchShell(api) {
   const drawer = $('dataDrawer');
   const handle = $('drawerResize');
   const videoCard = document.querySelector('.video-card');
-  const titles = {video:'① 球员标定', data:'② 2D 轨迹准备', tactics:'③ 战术制作', production:'④ 成片'};
+  const titles = {video:'① 球员标定', data:'② 球场映射 · 可选', tactics:'③ 战术制作', production:'④ 成片'};
   let area = 'video', drawerState = 'closed', returnArea = 'video', halfRatio = .45;
   let videoStep = null;
   let drag = null, layoutFrame = 0, entitySignature = '';
@@ -66,6 +85,7 @@ export function mountWorkbenchShell(api) {
       area = next;
       returnArea = next;
       drawerState = 'closed';
+      if(next==='video')setTools(true);
       renderLayout();
     }
   }
@@ -80,10 +100,7 @@ export function mountWorkbenchShell(api) {
     if (changedStep) drawerState = ['calibration','repair'].includes(step) ? 'half' : 'closed';
     else if (drawerState === 'full') drawerState = 'half';
     $('sourceDetails').open = false;
-    body.dataset.tools = 'expanded';
-    $('toolsToggle').setAttribute('aria-expanded', 'true');
-    $('toolsToggle').textContent = '收起工具';
-    $('toolsToggle').title = '收起操作工具';
+    setTools(true);
     renderLayout();
     if (drawerState === 'closed' && drawerHadFocus) $(`tab-${step}`)?.focus({preventScroll:true});
   }
@@ -97,15 +114,17 @@ export function mountWorkbenchShell(api) {
   $('drawerToggle').onclick = () => setDrawer(drawerState === 'closed' ? 'half' : 'closed');
   $('drawerHalf').onclick = () => setDrawer('half');
   $('drawerFull').onclick = () => setDrawer('full');
+  $('returnPreparation').onclick = () => showArea('data');
   $('drawerClose').onclick = () => setDrawer('closed', true);
-  $('toolsToggle').onclick = () => {
-    const expanded = body.dataset.tools !== 'expanded';
+  function setTools(expanded) {
     body.dataset.tools = expanded ? 'expanded' : 'collapsed';
     $('toolsToggle').setAttribute('aria-expanded', String(expanded));
     $('toolsToggle').textContent = expanded ? '收起工具' : '展开工具';
     $('toolsToggle').title = expanded ? '收起操作工具' : '展开操作工具';
     scheduleLayout();
-  };
+  }
+  $('toolsToggle').onclick = () => setTools(body.dataset.tools !== 'expanded');
+  mountIdentityShortcuts({openIdentity:api.openIdentity});
   $('infoToggle').onclick = () => {
     const visible=getComputedStyle($('videoInfo')).display!=='none';
     body.dataset.info=visible?'closed':'open';
@@ -224,7 +243,7 @@ export function mountWorkbenchShell(api) {
       }));
     }
     $('reviewEntity').value = s.active;
-    $('drawerContext').textContent = `${entityLabel(s.active)} · 第 ${s.frame + 1} 帧 · 2D 球场与轨迹`;
+    $('drawerContext').textContent = `${entityLabel(s.active)} · 第 ${s.frame + 1} 帧 · 与原视频同步`;
     $('pointStatus').title = $('pointStatus').textContent;
   }
   renderLayout();

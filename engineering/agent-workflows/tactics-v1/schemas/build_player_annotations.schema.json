@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "build_player_annotations.schema.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "requestId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "args": {
+      "type": "object",
+      "properties": {
+        "playAnalysisRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "playerEvidenceRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "calibrationRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "profile": {
+          "const": "richer_players_v1"
+        },
+        "baseDocumentRef": {
+          "type": "object",
+          "properties": {
+            "documentId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "storeRef": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          },
+          "required": [
+            "documentId",
+            "version",
+            "digest",
+            "storeRef"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "playAnalysisRef",
+        "playerEvidenceRef",
+        "profile",
+        "baseDocumentRef"
+      ],
+      "additionalProperties": false
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "expectedRunRevision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "range": {
+      "type": "object",
+      "properties": {
+        "startFrame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "endFrameExclusive": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "startFrame",
+        "endFrameExclusive"
+      ],
+      "additionalProperties": false
+    },
+    "policyRef": {
+      "const": "tactics-default-v1"
+    },
+    "sourceRef": {
+      "type": "object",
+      "properties": {
+        "videoSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "trackingFingerprint": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "trackingRevision": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "frameMappingDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "snapshotId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        }
+      },
+      "required": [
+        "videoSha256",
+        "trackingFingerprint",
+        "trackingRevision",
+        "frameMappingDigest",
+        "snapshotId"
+      ],
+      "additionalProperties": false
+    },
+    "docRef": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "documentId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "storeRef": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          },
+          "required": [
+            "documentId",
+            "version",
+            "digest",
+            "storeRef"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "requestId",
+    "args",
+    "idempotencyKey",
+    "runId",
+    "expectedRunRevision",
+    "range",
+    "policyRef",
+    "sourceRef"
+  ],
+  "additionalProperties": false
+}

@@ -1,7 +1,17 @@
 # 作品设计、功能与验收文档
 
+2026-10-07 球员标定改进进行中：[YOLO 角色校验、主动身份初检与少量人工修正计划](plans/2026-10-07-player-identification-and-proactive-agent.md)。本轮聚焦第一部分球员标定，真实验收结果另行记录，不将计划当作完成。
+
+2026-10-07 工作台可用性修复见[整段初稿、重点圈、可选映射与人工接管](workbench-usability-20261007.md)，配套[本轮计划](plans/2026-10-07-workbench-usability-and-manual-fallback.md)。本轮处理实际页面，不替代下方新版 runner 的整体验收结论。
+
+2026-10-06 独立验收：111 项新增回归重跑通过，但追加场景发现 1 项 P1、2 项 P2，真实 005 指人问题仍在，M0／M1 不予整体签收。见[验收结论与复验条件](agent-tactics-acceptance-20261006.md)。
+
+2026-10-06 首批实现进度见[Agent 战术工作流实施与验收](agent-tactics-implementation-20261006.md)，配套[运行命令](../agent-workflows/tactics-v1/README.md)及[T00 固定基线](agent-tactics-baseline-20261006.md)。下表“待实施”是原规划时点；当前能力、真实失败与剩余任务以实施报告为准。
+
 | 要找的内容 | 入口 |
 | --- | --- |
+| 最新工作台实施方案（Final v1） | [Agent 工具与多球员标注执行计划](plans/2026-10-06-workbench-reliability-and-api-parallel-plan.md)；工具封装优先、视频主流程、几何按需、人工兜底；新增能力待实施 |
+| Agent 执行入口与工具合同 | [工作流程、默认策略与异常处理](agent-tactics-workflow.md)、[工具输入输出、状态及第三方 API 合同](specs/agent-tactics-tools-v1.md)；保留当前战术布局与模块 |
 | 工作台操作 | [人工视频制作（006）](manual-tactics-workbench-guide.md)、[2D 高级流程](2d-first-tactics-workbench-guide.md)、[视频库与导入](local-video-library.md) |
 | 人工制作实施与验收 | [Task 0 文件/缺口核实](manual-tactics-workbench-task0.md)、[浏览器 MP4 验收与限制](manual-tactics-workbench-acceptance.md) |
 | 人物与球场 | [身份审核](track-identity-review.md)、[可见性](player-visibility.md)、[球场标定](court-calibration-backend.md) |

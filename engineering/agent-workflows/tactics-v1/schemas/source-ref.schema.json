@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "videoSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "trackingFingerprint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "trackingRevision": {
+      "type": [
+        "string",
+        "integer",
+        "null"
+      ]
+    },
+    "frameMappingDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "snapshotId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    }
+  },
+  "required": [
+    "videoSha256",
+    "trackingFingerprint",
+    "trackingRevision",
+    "frameMappingDigest",
+    "snapshotId"
+  ],
+  "additionalProperties": false
+}

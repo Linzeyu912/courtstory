@@ -100,7 +100,7 @@ export function applyIdentityCandidates(session,{entityId,reference,segments},cl
   }
   let draft=structuredClone(session);
   for(const run of runs){
-    const result=replaceIdentityRange(draft,{entityId,...run},clip.frames,clip.sourceCuts);
+    const result=replaceIdentityRange(draft,{entityId,...run},clip.frames,clip.sourceCuts,clip);
     draft=result.session;preview.changed+=result.preview.changed;preview.segments+=result.preview.segments;
     for(const [id,count] of Object.entries(result.preview.affectedPlayers))preview.affectedPlayers[id]=(preview.affectedPlayers[id]||0)+count;
   }

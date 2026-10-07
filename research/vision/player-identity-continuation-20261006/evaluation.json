@@ -1,0 +1,118 @@
+{
+  "testContext": "qa_only_in_memory_not_user_draft",
+  "entityId": "P1",
+  "videoHash": "17c36f8d3b3e294f13f7119f23b82ec7f3fbe96d5564db9cbe7d61f49ebbbd7d",
+  "trackingFingerprint": "2e873fbb19a0980bc5b9f8ca146102f16e164e42e09719a98a81826f4264f36e",
+  "range": {
+    "start": 570,
+    "end": 750
+  },
+  "rangeFrameCount": 181,
+  "beforePositionFrames": 52,
+  "afterPositionFrames": 156,
+  "addedPositionFrames": 104,
+  "afterPositionCoverage": 0.861878453038674,
+  "unknownRanges": [
+    {
+      "start": 622,
+      "end": 646
+    }
+  ],
+  "beforeTrackIds": [
+    2
+  ],
+  "afterTrackIds": [
+    2,
+    39
+  ],
+  "autoCertifiedFrames": 0,
+  "candidates": [
+    {
+      "id": "candidate-1",
+      "trackId": 2,
+      "start": 570,
+      "end": 600,
+      "confidence": 0.96,
+      "reason": "各帧球衣拼接、短发、右臂白色护袖及亮绿色球鞋与参考一致，侧背号码形态相符，未见换人。",
+      "evidenceFrames": [
+        570,
+        578,
+        585,
+        592,
+        600
+      ]
+    },
+    {
+      "id": "candidate-2",
+      "trackId": 2,
+      "start": 601,
+      "end": 621,
+      "confidence": 0.97,
+      "reason": "各帧外观一致，后段背部双零号码可辨；虽有前景遮挡，球衣拼接、护袖和球鞋仍与参考相符。",
+      "evidenceFrames": [
+        601,
+        606,
+        611,
+        615,
+        616,
+        621
+      ]
+    },
+    {
+      "id": "candidate-3",
+      "trackId": 39,
+      "start": 647,
+      "end": 690,
+      "confidence": 0.99,
+      "reason": "各帧背部00号码可辨，白色球衣的黄色及深色侧面拼接、右臂护袖、发型和球鞋均与参考一致。",
+      "evidenceFrames": [
+        647,
+        658,
+        660,
+        669,
+        679,
+        690
+      ]
+    },
+    {
+      "id": "candidate-4",
+      "trackId": 39,
+      "start": 691,
+      "end": 735,
+      "confidence": 0.99,
+      "reason": "接球至运球各帧背部00号码及球衣样式一致，体貌、右臂护袖和亮绿色球鞋与参考相符。",
+      "evidenceFrames": [
+        691,
+        702,
+        705,
+        713,
+        724,
+        735
+      ]
+    },
+    {
+      "id": "candidate-5",
+      "trackId": 39,
+      "start": 736,
+      "end": 750,
+      "confidence": 0.99,
+      "reason": "各帧运球者背部00号码清楚，球衣侧面拼接、发型、右臂护袖及球鞋与参考一致，未见身份变化。",
+      "evidenceFrames": [
+        736,
+        740,
+        743,
+        746,
+        750
+      ]
+    }
+  ],
+  "note": "Pixel foot positions are real source bbox bottom midpoints. Court calibration was absent; no 2D metric-coordinate accuracy is claimed.",
+  "assertions": [
+    "caller unchanged",
+    "finite source observations",
+    "gap preserved",
+    "T2 to T39 resumed",
+    "outside-range unchanged",
+    "no automatically confirmed frames"
+  ]
+}

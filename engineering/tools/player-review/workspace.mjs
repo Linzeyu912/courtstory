@@ -1,4 +1,4 @@
-import {mountCourtPreparationUI} from './court-preparation-ui.mjs';
+import {mountCourtPreparationUI,openPreparationSource} from './court-preparation-ui.mjs';
 import {courtPreparationStatus,preparationDependencies} from './court-preparation.mjs';
 import {COURT,LANDMARK_NAMES,landmarks,keyframePoints,fitKeyframe,project,calibrationAt,buildCourtTrajectories,courtGaps,pathSegments,smoothCourtTrajectory,validQuad,addCourtAnchor,addEvent} from './court.mjs';
 import {courtLandmarks,courtMarkings} from './court-geometry.mjs';
@@ -22,11 +22,16 @@ export function createWorkspace(api){
   const reasonLabel={missing:'位置缺失',conflict:'身份冲突',uncalibrated:clip.supportsCourtCalibration===false?'未提供适配场地模板':'球场待标定'};
   const shades={projected:'#1675b6',court_manual:'#6e4fd0',court_estimated:'#b96a09',qwen_refined:'#087f83',missing:'#c83d4c',conflict:'#ae385c',uncalibrated:'#a08bd1',out_of_view:'#8c98a8'};
   const time=i=>`${clip.frames[i].time.toFixed(2)} s`;
-  const shell=mountWorkbenchShell(api);
-  const preparationUI=Number.isFinite(clip.mediaEndTime)?mountCourtPreparationUI({host:$('drawerBody'),clip,sample,variant,state,change,redraw:api.redraw,next:()=>shell.showArea('tactics'),seek,undo:api.undo}):{render(){},display(){},raw(){},compare(){return false;}};
-  const groundUI=mountGroundComparison({sample,variant,clip,state,change});
+  const shell=mountWorkbenchShell({...api,openIdentity:()=>switchStep('identity',true)});
   let ballPoints=[],courtMaps=[];
+  const preparationUI=Number.isFinite(clip.mediaEndTime)?mountCourtPreparationUI({host:$('drawerBody'),clip,sample,variant,state,change,redraw:api.redraw,next:()=>shell.showArea('tactics'),seek,undo:api.undo,points:()=>courtPoints,maps:()=>courtMaps,openSource:openPreparationAction}):{render(){},display(){},raw(){},compare(){return false;}};
+  const groundUI=mountGroundComparison({sample,variant,clip,state,change});
   const ballUI=mountBallCourt({clip,state,change,redraw:api.redraw});
+  function openPreparationAction(action,context){
+    return openPreparationSource(action,context,{seek,openStep:next=>switchStep(next,true),step:()=>step,
+      pause:()=>getState().video.pause(),repairImage:()=>$('repairImage').click(),repairCourt:()=>$('repairCourt').click(),
+      viewOnly:()=>api.setMode('select'),openData:()=>shell.openData(),closeData:()=>shell.showArea('video')});
+  }
   function switchStep(next,scroll=false){
     if(next==='export'){shell.showArea('production');return;}
     const session=getState().session;
@@ -227,9 +232,10 @@ export function createWorkspace(api){
     }
   }
   function refresh(){
-    groundUI.render();preparationUI.render();
+    groundUI.render();
     const s=state();courtMaps=clip.frames.map((_,i)=>calibrationAt(s.session.courtCalibration,i,clip.frames,s.session.cuts));
     courtPoints=buildCourtTrajectories(s.session,clip.frames,s.trajectories,{clip,maps:courtMaps});if(courtPreparationStatus(s.session.courtPreparation,preparationDependencies(s.session,clip)).current)courtPoints=s.session.courtPreparation.preparedByPlayer;const points=courtPoints[s.active]||[],selected=isSelected(s.entity),gaps=selected?courtGaps(points):[];
+    preparationUI.render();
     ballPoints=buildBallCourtTrajectory(s.session,clip.frames,s.trajectories,courtPoints,clip);
     $('playerHeading').textContent=`${entityLabel(s.active)}${s.entity.name!==entityLabel(s.active)?` · ${s.entity.name}`:''}`;
     $('playerIdentity').textContent=[s.entity.team||'球队待填写',s.entity.jersey?`#${s.entity.jersey}`:'号码待填写'].join(' · ');
@@ -305,10 +311,11 @@ export function createWorkspace(api){
     ctx.restore();
     ctx.fillStyle='#766c5e';ctx.font='11px sans-serif';ctx.fillText(view==='half'?'半场窗口 14.33 × 15.24 m · 可横向滑动':'全场 28.65 × 15.24 m',20,h-12);
     const courtReview=reviewStates[s.frame];
-    $('courtBadge').textContent=clip.supportsCourtCalibration===false?'仅原图位置验收':courtReview?.label||'当前帧待标定';
-    $('courtBadge').dataset.review=courtReview?.status||'empty';
-    $('courtEmpty').hidden=isSelected(s.entity)&&points.some(p=>p.x!==null);
-    $('courtEmpty').textContent=clip.supportsCourtCalibration===false?'本示例未提供适配的球场模板，请修改原图位置。':isSelected(s.entity)?'暂无可用球场轨迹 · 先校准球场，或人工补球场点':'先选择球员，再查看他的轨迹';
+    const hasMapping=Boolean(courtMaps[s.frame]),hasPosition=displayPoints.some(p=>Number.isFinite(p.x)&&Number.isFinite(p.y));
+    $('courtBadge').textContent=clip.supportsCourtCalibration===false?'此素材暂不支持球场映射':!hasMapping?'当前帧没有球场映射':courtReview?.label||'球场映射待复核';
+    $('courtBadge').dataset.review=hasMapping?(courtReview?.status||'pending'):'empty';
+    $('courtEmpty').hidden=hasPosition;
+    $('courtEmpty').textContent=clip.supportsCourtCalibration===false?'可直接在原视频制作标注，无需完成此步。':!isSelected(s.entity)?'尚无球员轨迹 · 在「核对来源」关联人物，或直接制作视频标注。':!courtMaps.some(Boolean)?'暂无球场映射 · 在「核对来源」检查场地线；也可跳过本步。':'所选球员暂无球场位置 · 回到原视频判断是否需要补点。';
     $('courtPointStatus').textContent=current?.x!=null?`当前：${current.source==='court_manual'?'人工球场补点':current.source==='qwen_refined'?'Qwen 地面位置估计（待复核）':current.source==='court_estimated'?'前后位置估计后映射':'原图位置映射'}${current.outsideCourt?current.source==='qwen_refined'?' · 估计位置落在界外，请核对视频证据':' · 投影落在界外，请核对脚点 / 标定':''}。坐标精度待复核。`:isSelected(s.entity)?`当前：${reasonLabel[current?.source]||'已确认离开画面'}。没有可用位置时不显示球员圆点。`:'当前目标尚未选定。';
     if(displayCurrent?.refinementState==='unknown')$('courtPointStatus').textContent=`当前：Qwen 无法定位 · ${displayCurrent.groundEstimationBasis||'证据不足'}。此帧不绘制位置。`;
     if(displayCurrent?.source==='qwen_refined'&&displayCurrent!==current)$('courtPointStatus').textContent+=' 正在预览 Qwen 候选，尚未采用。';

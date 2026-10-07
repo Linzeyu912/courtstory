@@ -1,5 +1,25 @@
 # 团队状态
 
+2026-10-07 10:37（Asia/Shanghai，按用户要求先发布当前快照）：工作台战术兜底、球场映射简化、YOLO 裁判角色校验、主动身份初检与人工修正当前实现进入提交／推送。球员标定真实模型与最终浏览器验收尚未完成，完整前端初次复跑为 605/613，已有发现正在收尾，不称整体通过。旧 runner 的 M0/M1 验收结论保留。见[当前说明](../engineering/docs/player-identification-20261007.md)及[发布交接](../handoffs/thy-0629/2026-10-07-1037-workbench-progress-publication.md)。
+
+2026-10-07 09:21（Asia/Shanghai，本机工作台改进，未提交／推送）：补齐整段 Agent 分段保留、失败段重试与刷新恢复，落实逐参与者标注；重点圈支持自动贴脚失败转人工，第二入口改为可选球场映射与三步引导。21.5382 秒真实片首轮仍有超时，精简输入后的失败段单独重试成功，共 22 个新图形；已有两个测试圈保留，隔离版本 4 有五处讲解暂停。实屏逐点播放、保存重载与人工兜底已核对，最终前端 563 项通过，独立复核补齐同帧人工暂停保护。模型仍可能超时，旧 M0／M1 验收结论不变。见[操作与实际验证](../engineering/docs/workbench-usability-20261007.md)及[交接](../handoffs/thy-0629/2026-10-07-0921-workbench-usability-fallback.md)。
+
+2026-10-06 22:14（Asia/Shanghai，本机独立验收，未提交／推送）：新工作流 111 项回归重跑通过；追加验收复现重分析混用旧下游的 P1、保存后恢复及历史失效结果导出的两项 P2。最新真实 005 仍为 needs_attention，M0／M1 不予整体签收。详见[验收报告](../engineering/docs/agent-tactics-acceptance-20261006.md)与[交接](../handoffs/thy-0629/2026-10-06-2214-agent-tactics-acceptance.md)。远端已领先本机基线 7 个提交，本轮未合入，不将本机结果称为远端最新状态。
+
+2026-10-06（Asia/Shanghai，首批实现，本地未提交／未推送）：按三份 Final v1 文档推进 T00–T05，新增 schema、SQLite runner、检测／原生图形 adapters、CLI 和共用 runner 的本机 Bearer HTTP 入口，接通独立视觉复核、隔离保存及正式 MP4。005 真实测试已修复身份范围元数据问题，并接通一次反馈修正；最新候选仍有重叠人物指向歧义，停在 needs_attention，M1 合格成片验收未完成。结果、测试、异常包及能力限制见[实施验收](../engineering/docs/agent-tactics-implementation-20261006.md)。原视频、人工草稿及战术界面保留；TAPIR、贴地生产分支、完整局部修复、公网 API 与六段完整验收尚未完成，不将本地入口称为已部署服务。
+
+2026-10-06 18:54（Asia/Shanghai，最终规划，本地未提交／未推送）：按用户最新要求形成[最终执行计划](../engineering/docs/plans/2026-10-06-workbench-reliability-and-api-parallel-plan.md)、[Agent 工作流程](../engineering/docs/agent-tactics-workflow.md)和[工具合同](../engineering/docs/specs/agent-tactics-tools-v1.md)。主要交付改为统一 runner 与可调用工具，优先完成一次提交的多人标注成片；逐阶段覆盖有证据的持球、无球及相关防守者，静态人物用位置提示。视频为主流程，2D 视图可选，贴地所需后台几何按需保留；TAPIR 仅作有质量检查的点候选，任意 query 尚不能原生跟随。当前战术布局／模块不动。本轮只写规划，未实现新接口、运行模型或改生产代码，见[交接](../handoffs/thy-0629/2026-10-06-1854-agent-tactics-final-plan.md)。
+
+2026-10-06 17:01（Asia/Shanghai，本地未提交／未推送）：按用户要求完成官方 TAPIR 原视频身体点小试。同一 5 秒片段、同一自动种子执行一次 512×288 主试验及一次 256×256 诊断控制，确认固定官方实现的非方形采样兼容问题；方形控制首次 GPU 推理 0.900 秒、含准备脚本 7.959 秒。部分原检测缺口仍保有身体候选，遮挡归属和接地点未验收；三栏同钟成片、原始数组与失败轮完整保留。建议 TAPIR 作为短时跟踪补强、2D 视图可选、后台地面映射按需保留；没有修改生产战术布局／模块、用户草稿或新增 API。见[实验](../research/vision/tapir-direct-video-20261006/README.md)、[方案影响](../research/vision/tapir-direct-video-20261006/assessment.md)、[交接](../handoffs/thy-0629/2026-10-06-1701-tapir-direct-video-test.md)。视频仅作者本机。
+
+2026-10-06 15:09（Asia/Shanghai，本地未提交／未推送）：按用户要求完成 Agent 原视频标注与 2D 球场回投的三秒真实对照。共用一次真实视觉候选（约 86.80 秒），复用既有版本／摘要校验与正式渲染器生成 A、B 两片及左右同钟 MP4；两原片各 135 帧／4.5 秒。A 固定像素，B 显式在独立 session 采用机器标定候选作预览，仍待精度验证、无人投影确认。场线回投偏差、短路线及镜头变化小的限制保留；未验收十人全链、未运行 TAPIR 或接新 API，当前战术布局／模块与用户草稿不改。见[真实实验与复跑](../research/vision/direct-video-vs-court-20261006/README.md)、[本轮交接](../handoffs/thy-0629/2026-10-06-1509-direct-video-court-test.md)。成片与原始证据仅在作者本机忽略目录。
+
+2026-10-06 13:28（Asia/Shanghai，方案修订，本地未提交／未推送）：用户明确要求模型主导、人工仅兜底，已将[同一实施方案](../engineering/docs/plans/2026-10-06-workbench-reliability-and-api-parallel-plan.md)整体重排为自动检测／联合身份与定位修复、逐帧球场映射、带不确定度的 2D 数据、模型战术生成及确定性投影／编码。区分漏检恢复、短遮挡估计、真未知与相机缺口；设计供应商 adapter 和第三方完整 workflow API 两层接口、持久 runner 与复现 manifest。旧手绘主线已[归档并标明被替代](../engineering/docs/plans/archive/2026-10-06-workbench-v1-manual-first-superseded.md)。本轮只审计／核查官方来源并修订规划，没有改生产代码、安装或运行新模型、接 API；候选模型及数值门槛待同片评估。见[本轮交接](../handoffs/thy-0629/2026-10-06-1328-model-first-workflow-plan.md)。
+
+2026-10-06 13:01（Asia/Shanghai，历史规划初稿，本地未提交／未推送）：当时将制作主线规划为第二部分 2D 手绘战术、第三部分同源实拍投影；自动球员轨迹、Qwen 与身份 API 并行降为可选增强。已核实身份／脚点／球场映射的误差传播、手绘独立依赖、VFR 进度重排及可选 CourtPreparation 的条件耦合，形成[第一版方案，现已被替代](../engineering/docs/plans/archive/2026-10-06-workbench-v1-manual-first-superseded.md)。该轮只读审计并写规划，未接 API、运行模型或改工作台代码。历史实现顺序、文字线框、验收及待定决策见旧稿与[交接](../handoffs/thy-0629/2026-10-06-1301-2d-authoring-workbench-plan.md)。
+
+2026-10-06 12:03（Asia/Shanghai，本地未提交／未推送）：按用户要求试验固定球员身份与大模型续接，并改善球队／号码入口。当前 00 号遮挡后 T2→T39 在 181 帧测试范围增加 104 帧可见位置，25 帧缺口保留；实际 QA 页面采用及单帧确认边界已验证。修复本机 OCR 字符串置信度、主比分卡区域及视觉参考覆盖球队的问题，新增待审核队标视觉候选、常显入口与慢放。真实生产界面识别 IND／BKN，用户正式草稿和原片保留；尚未验证十人全片身份、球场坐标精度或成片。见[试验](../research/vision/player-identity-continuation-20261006/README.md)、[工程核验](../engineering/docs/identity-ocr-confidence-compatibility.md)及[交接](../handoffs/thy-0629/2026-10-06-1203-identity-continuation-and-team-matching.md)。
+
 2026-10-06 21:18（Asia/Singapore，UTC+8）：按用户授权将当前更新分类发布，六组主题提交已推送并核对远端 `0336ac965bcdb7d6fb7f4631ec8ef0d0759c1198`；总索引和本次交接随最后一条协作提交同步。内容分别为多模态模型、TAPNext++、遮挡球员论文、赛事要求、AWS 环境实测、工程部署准备；完整清单与验证见[分类发布交接](../handoffs/Linzeyu912/2026-10-06-2118-classified-publication.md)。[AWS 19 项实测报告](../environment/aws/services-live-audit-20261006.md)及去标识化证据已共享：18 项基础功能通过，MediaLive 仅配置；完整工作台尚未部署。下方和原交接中的“本地未提交 / 未推送”是对应时间的历史状态，不能覆盖本次发布记录。
 
 2026-10-06 20:44（Asia/Shanghai，本地未提交 / 未推送）：重新实读终极指南和 Quick Start，补充[两小时窗口与截止后操作边界](../requirements/judging-operation-clarification-20261006.md#51-两小时窗口与截止后操作的边界)：考试视频 18:00 发布，19:45 结束调优，20:00 硬截止，20:00–22:20 保持作品可访问。不能据此确认“只冻结代码、截止后还能加工或替换评分成片”；跨截止渲染与人工校正细节待主办方口径。未修改代码或云资源，见[交接](../handoffs/Linzeyu912/2026-10-06-2044-deadline-and-processing-clarification.md)。

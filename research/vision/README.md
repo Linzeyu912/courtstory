@@ -4,6 +4,9 @@
 
 | 想查的问题 | 研究入口 | 配套结果 |
 | --- | --- | --- |
+| TAPIR 能否补强原视频跟踪，是否可省略强制 2D 操作 | [2026-10-06 TAPIR 真实小试](tapir-direct-video-20261006/README.md)、[方案影响](tapir-direct-video-20261006/assessment.md) | 同片四个自动种子；保留宽屏适配失败与方形控制，三栏真实成片；0.900 秒为单人四点推理，不是十人全链 |
+| Agent 能否直接在原视频上画战术，2D 投影有何区别 | [2026-10-06 三秒真实视频对照](direct-video-vs-court-20261006/README.md) | 同一次视觉候选复用现有像素 / 球场流程；本地成片、耗时与候选投影限制见报告，非十人全链验收 |
+| 大模型能否接回遮挡后换 T 的球员，能否读号码与队标 | [2026-10-06 单球员真实续接试验](player-identity-continuation-20261006/README.md) | T2 → T39；181 帧区间内 52 → 156 个位置，25 帧保持未知；参考号码 00 与记分牌 IND / BKN 单次视觉证据，未采用到正式草稿 |
 | TAPNet 能否辅助点选跟随、遮挡恢复与球场参照 | [TAPNext++ 可用性调研](tapnet-20261006/README.md) | 官方源码 / 权重许可核查；CPU 与 CUDA 随机参数接口探针通过，正式权重及篮球效果未测 |
 | 新导入视频的错人续接、战术更正与大草稿 | [THY 诊断整理](imported-video-diagnostics-20261005.md) | 来源交接已同步；动画、浏览器草稿和多数截图仅在作者本机 |
 | 篮球与人物如何检测、跨帧跟踪 | [模型与十人工作台对照](player-tracking-workbench-20261002.md)、[E-BARD 评估](vision-player-refinement/ebard-assessment.md) | [跟踪测量](vision-player-refinement/ebard-tracking-probe.json) |
