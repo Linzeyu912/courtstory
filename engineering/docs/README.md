@@ -1,5 +1,9 @@
 # 作品设计、功能与验收文档
 
+2026-10-07 晚间：[10 月 8 日云账号重置后重新部署计划](plans/2026-10-08-cloud-reset-redeployment.md)，包含服务 / 路径分工、重置前快照、重置后只读发现 / CDK 顺序、验收与失败处理，已有完整恢复包与 Linux 真实恢复 / 重制 MP4 证据。
+
+2026-10-07 晚间：[当前版本云端更新与 CloudFront 复验](cloud-current-version-20261007.md)，记录服务边界、包校验、草稿保护、页面 / 成片结果及 AgentCore 实际失败与修复。
+
 2026-10-07 球员标定改进进行中：[YOLO 角色校验、主动身份初检与少量人工修正计划](plans/2026-10-07-player-identification-and-proactive-agent.md)。本轮聚焦第一部分球员标定，真实验收结果另行记录，不将计划当作完成。
 
 2026-10-07 工作台可用性修复见[整段初稿、重点圈、可选映射与人工接管](workbench-usability-20261007.md)，配套[本轮计划](plans/2026-10-07-workbench-usability-and-manual-fallback.md)。本轮处理实际页面，不替代下方新版 runner 的整体验收结论。
@@ -20,7 +24,10 @@
 | 导入视频的待解决问题 | [人物 / 球场 / 战术诊断](../../research/vision/imported-video-diagnostics-20261005.md)，按原记录区分待验证结论与本机产物 |
 | Agent 接口 | [Qwen 地面轨迹](qwen-ground-trajectory-agent.md)、[视觉接口](identity-vision-provider.md) |
 | 上云与交付计划 | [服务分工与部署顺序](aws-deployment-architecture-20261006.md)、[10 月 6 日预检与 S3 实际上传](aws-cloud-preflight-20261006.md)、[AWS 迁移设计](aws-workbench-deployment-guide.md)、[接续清单](contest-readiness-20261005.md) |
+| EC2 直接代码上云与本轮交互验收 | [拆分与上传方案](ec2-code-deployment-plan-20261007.md)、[10 月 7 日真实网页验收](ec2-cloud-interaction-acceptance-20261007.md)：EC2 / AgentCore ZIP / S3 / CloudFront 串联通过，GPU 未接入 |
 | 产品规划 | [概念讨论](agent-concept-review.md)、`plans/`、`specs/` |
+| 成品仓库 | [CourtStory 定位与 README 记录](product-repository-proposal-20261007.md)，私有仓库已加入简短 README，说明观众定位与本地 / 云端两种部署计划；代码及 Tag / Release 暂缓 |
+| UI / UX 改版讨论 | [工作台简化与玻璃质感优化计划](plans/2026-10-07-workbench-ui-glass-plan.md)，先讨论布局、材质和动效，未改代码；此前[界面方向与开发工具建议](ui-ux-direction-20261007.md)保留作背景 |
 | 已有功能的回归与问题 | [功能复检](function-audit-20261004.md)、[成果与问题](progress-and-open-issues-20261004.md)、[历次更新](workbench-history-20261005.md) |
 
 这里记录产品如何实现和使用。模型选型与独立实验去 [research](../../research/README.md)，安装和账号准备去 [environment](../../environment/README.md)，赛事官方要求去 [requirements](../../requirements/README.md)。

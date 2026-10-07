@@ -1,6 +1,8 @@
 # 成果与接续总览
 
-更新：2026-10-06，Asia/Singapore（UTC+8）。本页按问题串联 Linzeyu912、chuali-zi、thy-0629 各自记录中的成果，方便在另一台电脑接手；不代表新增职责分配或团队技术共识。
+更新：2026-10-07，Asia/Singapore（UTC+8）。本页按问题串联 Linzeyu912、chuali-zi、thy-0629 各自记录中的成果，方便在另一台电脑接手；不代表新增职责分配或团队技术共识。
+
+当前先看[云端当前版本实测](../engineering/docs/cloud-current-version-20261007.md)和[10 月 8 日重置后的恢复计划](../engineering/docs/plans/2026-10-08-cloud-reset-redeployment.md)：人工闭环与真实换目录恢复已通过，模型候选生成 / 采用仍未通过最新验收。下方历史交接中的“未提交”保留当时语境，分类发布情况见[10 月 7 日发布记录](../handoffs/Linzeyu912/2026-10-07-2345-classified-publication.md)。
 
 2026-10-06 21:18 已将六组主题更新推送至 `main`，并核对远端为 `0336ac9`；本页、根入口、团队状态与发布交接随最后一条协作提交同步。AWS 可用性、赛事交付规则、工程准备和模型调研分别存放，分类提交清单见[本次发布交接](../handoffs/Linzeyu912/2026-10-06-2118-classified-publication.md)。原交接的“未提交 / 未推送”保留当时事实，当前共享状态以最新发布记录及 Git 为准。
 
@@ -10,6 +12,9 @@
 
 | 想继续什么 | 调研 / 依据 | 作品 / 操作入口 | 当前边界与下一步 |
 | --- | --- | --- | --- |
+| 重建当前云端工作台 | [现版本实测](../engineering/docs/cloud-current-version-20261007.md)、[重置恢复计划](../engineering/docs/plans/2026-10-08-cloud-reset-redeployment.md) | [部署 / 快照 / 迁移工具](../engineering/infra/ec2-workbench/README.md) | 本机完整包保留；新账号环境重新发现后才部署；GPU / 身份链路未全部接齐 |
+| 在 EC2 使用 Codex 与核对外部视觉模型 | [Codex CLI 实测报告](../research/agents/codex-cli-ec2-20261007.md)、[OpenRouter 多模态实测](../environment/aws/openrouter-multimodal-connectivity-20261007.md) | [Codex 环境记录](../environment/aws/codex-cli-ec2-20261007.md) | 安装、个人授权和短请求通过；不代表工作台服务用户已授权或多轮 / 长任务验收 |
+| 继续产品与界面讨论 | [CourtStory 定位](../engineering/docs/product-repository-proposal-20261007.md)、[UI 简化与玻璃质感计划](../engineering/docs/plans/2026-10-07-workbench-ui-glass-plan.md) | [工程文档入口](../engineering/docs/README.md) | 私有成品仓库只有简短 README；界面方案未实现，代码 / Tag / Release 暂缓 |
 | 篮球 / 人物检测与连续身份 | [视觉研究](../research/vision/README.md)、[身份绑定](../research/vision/vision-player-refinement/identity-binding-review.md) | [身份审核](../engineering/docs/track-identity-review.md)、[模型选择](../engineering/docs/model-selection-layout.md) | 候选和脚环不等于真人身份；先核对续接与缺口 |
 | 脚点、球场与 2D 位置 | [脚部对照](../research/vision/vision-player-refinement/feet-model-comparison.md)、[全场实验](../research/vision/court-fullcourt-20261004.md) | [球场标定](../engineering/docs/court-calibration-backend.md)、[2D 主流程](../engineering/docs/2d-first-tactics-workbench-guide.md) | 映射覆盖不代表精度；保留人工复核和缺失标记 |
 | 用 Qwen 反复看帧修正轨迹 | [讨论与源码研究](../research/agents/qwen-video-trajectory-agent-20261005.md)、[官方两片实测](../research/agents/qwen-ground-official-20261005/README.md) | [实现指南](../engineering/docs/qwen-ground-trajectory-agent.md)、[更新核对](../handoffs/Linzeyu912/2026-10-06-0844-collaborator-update-review.md) | 已有真实模型调用与同步回放；每片仅一人约 5 秒，002 存在误删可见点，定位精度与采用 / 撤销流程仍待验收 |
@@ -20,7 +25,7 @@
 | 接续导入视频的身份 / 战术问题 | [新诊断入口](../research/vision/imported-video-diagnostics-20261005.md) | [2D 工作流](../engineering/docs/2d-first-tactics-workbench-guide.md)、[战术画布](../engineering/docs/tactics-canvas.md) | 续接存在错人，38.5 MB 草稿与服务端保存待处理；作者本机动画 / 草稿未同步 |
 | 使用篮球论文模型 | [14 篇功能指南](../research/basketball-models/mentor-components-20261005/PAPER_GUIDE.md)、[权重核查](../research/basketball-models/mentor-components-20261005/OPEN_SOURCE_AUDIT.md)、[遮挡球员热图论文](../research/basketball-models/occluded-player-heatmap-20261006.md) | [研究复现](../research/basketball-models/mentor-components-20261005/REPRODUCE.md) | 已有局部试跑；热图论文未确认公开代码 / 权重；尚未验证本项目新视频精度 |
 | 区分事实、候选和推断 | [数据证据与纠错研究](../research/evidence/README.md) | 各工作台来源 / 待审核字段 | 离线实验保留失败，不可直接升级成官方指标或人工真值 |
-| 准备电脑与核对 AWS 服务 | [本机环境](../environment/local/README.md)、[19 项服务实测](../environment/aws/services-live-audit-20261006.md)、[服务入门](../environment/aws/services-primer-20261006.md) | [部署顺序](../engineering/docs/aws-deployment-architecture-20261006.md)、[S3 实际上传与脚本](../engineering/docs/aws-cloud-preflight-20261006.md) | 18 项基础功能通过，MediaLive 仅配置；临时资源已清理，完整应用仍待部署；模型白名单与 GPU 配额分别判断 |
+| 准备电脑与核对 AWS 服务 | [本机环境](../environment/local/README.md)、[19 项服务实测](../environment/aws/services-live-audit-20261006.md)、[服务入门](../environment/aws/services-primer-20261006.md) | [当前 EC2 部署](../engineering/infra/ec2-workbench/README.md)、[S3 实际上传与脚本](../engineering/docs/aws-cloud-preflight-20261006.md) | 10 月 6 日独立探针已清理；10 月 7 日工作台云服务保留，具体限制见当前验收；两轮资源状态不能混用 |
 | 理解 CloudFront、代码重跑和截止时间 | [评审与截止时间澄清](../requirements/judging-operation-clarification-20261006.md)、[CDK 补充通知](../requirements/cdk-deployment-notice-20261006.md) | [提交入口与制作工作台](../engineering/docs/aws-workbench-deployment-guide.md#作品提交入口与制作工作台) | 考试视频 18:00 发布，19:45 结束调优，20:00 截止；截止后继续加工没有已读规则支持，机器评测接口仍待明确 |
 | 核对赛事与正式素材 | [赛事索引](../requirements/README.md)、[训练包核验](../requirements/training-package-check-20261005.md)、[官方训练重点素材](../data/videos/uploads/2026-10-05-official-training/README.md) | [视频数据入口](../data/videos/README.md) | 两段已按10维打标并接入工作台，优先用于回归；官方指标与事件对齐仍需补齐 |
 
