@@ -1,0 +1,7153 @@
+{
+  "note": "Roster scope covers all teams; these source gaps are not zeros and do not prove the game lacks values.",
+  "summary_by_season": [
+    {
+      "season": "2024-25",
+      "selected_player_season_rows": 569,
+      "with_overall_rating": 539,
+      "all_individual_ratings_complete": 539,
+      "partial_individual_ratings": 0,
+      "without_rating_record": 30,
+      "with_three_point_rating": 539,
+      "with_six_core_ratings": 539,
+      "all_42_ratings_complete": 539,
+      "missing_rating_cells": 1260,
+      "missing_individual_cells": 1080,
+      "missing_category_cells": 180,
+      "missing_by_field": {
+        "overall": 30,
+        "three_point_shot": 30,
+        "perimeter_defense": 30,
+        "interior_defense": 30,
+        "steal": 30,
+        "block": 30,
+        "help_defense_iq": 30,
+        "pass_perception": 30,
+        "defensive_consistency": 30,
+        "defensive_rebound": 30,
+        "offensive_rebound": 30,
+        "mid_range_shot": 30,
+        "close_shot": 30,
+        "free_throw": 30,
+        "layup": 30,
+        "driving_dunk": 30,
+        "standing_dunk": 30,
+        "post_hook": 30,
+        "post_fade": 30,
+        "post_control": 30,
+        "draw_foul": 30,
+        "ball_handle": 30,
+        "pass_accuracy": 30,
+        "pass_vision": 30,
+        "pass_iq": 30,
+        "speed_with_ball": 30,
+        "shot_iq": 30,
+        "offensive_consistency": 30,
+        "speed": 30,
+        "agility": 30,
+        "strength": 30,
+        "vertical": 30,
+        "stamina": 30,
+        "hustle": 30,
+        "hands": 30,
+        "overall_durability": 30,
+        "cat_defense": 30,
+        "cat_outside_scoring": 30,
+        "cat_inside_scoring": 30,
+        "cat_playmaking": 30,
+        "cat_rebounding": 30,
+        "cat_athleticism": 30
+      }
+    },
+    {
+      "season": "2025-26",
+      "selected_player_season_rows": 582,
+      "with_overall_rating": 578,
+      "all_individual_ratings_complete": 572,
+      "partial_individual_ratings": 6,
+      "without_rating_record": 4,
+      "with_three_point_rating": 572,
+      "with_six_core_ratings": 572,
+      "all_42_ratings_complete": 301,
+      "missing_rating_cells": 1965,
+      "missing_individual_cells": 354,
+      "missing_category_cells": 1611,
+      "missing_by_field": {
+        "overall": 4,
+        "three_point_shot": 10,
+        "perimeter_defense": 10,
+        "interior_defense": 10,
+        "steal": 10,
+        "block": 10,
+        "help_defense_iq": 10,
+        "pass_perception": 10,
+        "defensive_consistency": 10,
+        "defensive_rebound": 10,
+        "offensive_rebound": 10,
+        "mid_range_shot": 10,
+        "close_shot": 10,
+        "free_throw": 10,
+        "layup": 10,
+        "driving_dunk": 10,
+        "standing_dunk": 10,
+        "post_hook": 10,
+        "post_fade": 10,
+        "post_control": 10,
+        "draw_foul": 10,
+        "ball_handle": 10,
+        "pass_accuracy": 10,
+        "pass_vision": 10,
+        "pass_iq": 10,
+        "speed_with_ball": 10,
+        "shot_iq": 10,
+        "offensive_consistency": 10,
+        "speed": 10,
+        "agility": 10,
+        "strength": 10,
+        "vertical": 10,
+        "stamina": 10,
+        "hustle": 10,
+        "hands": 10,
+        "overall_durability": 10,
+        "cat_defense": 270,
+        "cat_outside_scoring": 278,
+        "cat_inside_scoring": 259,
+        "cat_playmaking": 268,
+        "cat_rebounding": 278,
+        "cat_athleticism": 258
+      }
+    }
+  ],
+  "records": [
+    {
+      "record_id": "name:alexreese@2024-25",
+      "player_name": "Alex Reese",
+      "season": "2024-25",
+      "teams": [
+        "OKC",
+        "PHI"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:chumaokeke@2024-25",
+      "player_name": "Chuma Okeke",
+      "season": "2024-25",
+      "teams": [
+        "CLE",
+        "PHI"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:damionbaugh@2024-25",
+      "player_name": "Damion Baugh",
+      "season": "2024-25",
+      "teams": [
+        "CHA"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:drewtimme@2024-25",
+      "player_name": "Drew Timme",
+      "season": "2024-25",
+      "teams": [
+        "BKN"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:elijahharkless@2024-25",
+      "player_name": "Elijah Harkless",
+      "season": "2024-25",
+      "teams": [
+        "UTA"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:isaiahstevens@2024-25",
+      "player_name": "Isaiah Stevens",
+      "season": "2024-25",
+      "teams": [
+        "MIA"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:isaiahwong@2024-25",
+      "player_name": "Isaiah Wong",
+      "season": "2024-25",
+      "teams": [
+        "CHA"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jacksonrowe@2024-25",
+      "player_name": "Jackson Rowe",
+      "season": "2024-25",
+      "teams": [
+        "GSW"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jaecrowder@2024-25",
+      "player_name": "Jae Crowder",
+      "season": "2024-25",
+      "teams": [
+        "SAC"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jahlilokafor@2024-25",
+      "player_name": "Jahlil Okafor",
+      "season": "2024-25",
+      "teams": [
+        "IND"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jahmiryoung@2024-25",
+      "player_name": "Jahmir Young",
+      "season": "2024-25",
+      "teams": [
+        "CHI"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jamareebouyea@2024-25",
+      "player_name": "Jamaree Bouyea",
+      "season": "2024-25",
+      "teams": [
+        "MIL"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jamisonbattle@2024-25",
+      "player_name": "Jamison Battle",
+      "season": "2024-25",
+      "teams": [
+        "TOR"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jaylensims@2024-25",
+      "player_name": "Jaylen Sims",
+      "season": "2024-25",
+      "teams": [
+        "CHA"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:keionbrooksjr@2024-25",
+      "player_name": "Keion Brooks Jr.",
+      "season": "2024-25",
+      "teams": [
+        "NOP"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:kylorkelley@2024-25",
+      "player_name": "Kylor Kelley",
+      "season": "2024-25",
+      "teams": [
+        "DAL",
+        "NOP"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:malevyleons@2024-25",
+      "player_name": "Malevy Leons",
+      "season": "2024-25",
+      "teams": [
+        "OKC"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:marcusbagley@2024-25",
+      "player_name": "Marcus Bagley",
+      "season": "2024-25",
+      "teams": [
+        "PHI"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:marcusgarrett@2024-25",
+      "player_name": "Marcus Garrett",
+      "season": "2024-25",
+      "teams": [
+        "CHA"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:naeqwantomlin@2024-25",
+      "player_name": "Nae'Qwan Tomlin",
+      "season": "2024-25",
+      "teams": [
+        "CLE"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:oshaebrissett@2024-25",
+      "player_name": "Oshae Brissett",
+      "season": "2024-25",
+      "teams": [
+        "PHI"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:phillipwheeler@2024-25",
+      "player_name": "Phillip Wheeler",
+      "season": "2024-25",
+      "teams": [
+        "PHI"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:rayjdennis@2024-25",
+      "player_name": "RayJ Dennis",
+      "season": "2024-25",
+      "teams": [
+        "IND"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:skallabissiere@2024-25",
+      "player_name": "Skal Labissière",
+      "season": "2024-25",
+      "teams": [
+        "SAC"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:terencedavis@2024-25",
+      "player_name": "Terence Davis",
+      "season": "2024-25",
+      "teams": [
+        "SAC"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tolusmith@2024-25",
+      "player_name": "Tolu Smith",
+      "season": "2024-25",
+      "teams": [
+        "DET"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tonybradley@2024-25",
+      "player_name": "Tony Bradley",
+      "season": "2024-25",
+      "teams": [
+        "IND"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tysonetienne@2024-25",
+      "player_name": "Tyson Etienne",
+      "season": "2024-25",
+      "teams": [
+        "BKN"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:yuricollins@2024-25",
+      "player_name": "Yuri Collins",
+      "season": "2024-25",
+      "teams": [
+        "GSW"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:zyonpullin@2024-25",
+      "player_name": "Zyon Pullin",
+      "season": "2024-25",
+      "teams": [
+        "MEM"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tyresemaxey@2025-26",
+      "player_name": "Tyrese Maxey",
+      "season": "2025-26",
+      "teams": [
+        "PHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:karlanthonytowns@2025-26",
+      "player_name": "Karl-Anthony Towns",
+      "season": "2025-26",
+      "teams": [
+        "NYK"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jimmybutler@2025-26",
+      "player_name": "Jimmy Butler",
+      "season": "2025-26",
+      "teams": [
+        "GSW"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:deaaronfox@2025-26",
+      "player_name": "De'Aaron Fox",
+      "season": "2025-26",
+      "teams": [
+        "SAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jarenjacksonjr@2025-26",
+      "player_name": "Jaren Jackson Jr.",
+      "season": "2025-26",
+      "teams": [
+        "MEM",
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:dylanharper@2025-26",
+      "player_name": "Dylan Harper",
+      "season": "2025-26",
+      "teams": [
+        "SAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jarrettallen@2025-26",
+      "player_name": "Jarrett Allen",
+      "season": "2025-26",
+      "teams": [
+        "CLE"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_playmaking",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:joshgiddey@2025-26",
+      "player_name": "Josh Giddey",
+      "season": "2025-26",
+      "teams": [
+        "CHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:juliusrandle@2025-26",
+      "player_name": "Julius Randle",
+      "season": "2025-26",
+      "teams": [
+        "MIN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:rudygobert@2025-26",
+      "player_name": "Rudy Gobert",
+      "season": "2025-26",
+      "teams": [
+        "MIN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:ajaymitchell@2025-26",
+      "player_name": "Ajay Mitchell",
+      "season": "2025-26",
+      "teams": [
+        "OKC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:alexsarr@2025-26",
+      "player_name": "Alex Sarr",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:dejountemurray@2025-26",
+      "player_name": "Dejounte Murray",
+      "season": "2025-26",
+      "teams": [
+        "NOP"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:konknueppel@2025-26",
+      "player_name": "Kon Knueppel",
+      "season": "2025-26",
+      "teams": [
+        "CHA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_outside_scoring",
+        "cat_playmaking",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:saddiqbey@2025-26",
+      "player_name": "Saddiq Bey",
+      "season": "2025-26",
+      "teams": [
+        "NOP"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:stephoncastle@2025-26",
+      "player_name": "Stephon Castle",
+      "season": "2025-26",
+      "teams": [
+        "SAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_playmaking",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:casonwallace@2025-26",
+      "player_name": "Cason Wallace",
+      "season": "2025-26",
+      "teams": [
+        "OKC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:donovanclingan@2025-26",
+      "player_name": "Donovan Clingan",
+      "season": "2025-26",
+      "teams": [
+        "POR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:rjbarrett@2025-26",
+      "player_name": "RJ Barrett",
+      "season": "2025-26",
+      "teams": [
+        "TOR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:treymurphyiii@2025-26",
+      "player_name": "Trey Murphy III",
+      "season": "2025-26",
+      "teams": [
+        "NOP"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_playmaking",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:tyjerome@2025-26",
+      "player_name": "Ty Jerome",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:vjedgecombe@2025-26",
+      "player_name": "VJ Edgecombe",
+      "season": "2025-26",
+      "teams": [
+        "PHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:andrewnembhard@2025-26",
+      "player_name": "Andrew Nembhard",
+      "season": "2025-26",
+      "teams": [
+        "IND"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:cooperflagg@2025-26",
+      "player_name": "Cooper Flagg",
+      "season": "2025-26",
+      "teams": [
+        "DAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:devinvassell@2025-26",
+      "player_name": "Devin Vassell",
+      "season": "2025-26",
+      "teams": [
+        "SAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:isaiahcollier@2025-26",
+      "player_name": "Isaiah Collier",
+      "season": "2025-26",
+      "teams": [
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:paytonpritchard@2025-26",
+      "player_name": "Payton Pritchard",
+      "season": "2025-26",
+      "teams": [
+        "BOS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:ryanrollins@2025-26",
+      "player_name": "Ryan Rollins",
+      "season": "2025-26",
+      "teams": [
+        "MIL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:zachedey@2025-26",
+      "player_name": "Zach Edey",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:andrewwiggins@2025-26",
+      "player_name": "Andrew Wiggins",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:bennedictmathurin@2025-26",
+      "player_name": "Bennedict Mathurin",
+      "season": "2025-26",
+      "teams": [
+        "IND",
+        "LAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_playmaking",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:brandinpodziemski@2025-26",
+      "player_name": "Brandin Podziemski",
+      "season": "2025-26",
+      "teams": [
+        "GSW"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:collinsexton@2025-26",
+      "player_name": "Collin Sexton",
+      "season": "2025-26",
+      "teams": [
+        "CHA",
+        "CHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jaracewalker@2025-26",
+      "player_name": "Jarace Walker",
+      "season": "2025-26",
+      "teams": [
+        "IND"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:maximeraynaud@2025-26",
+      "player_name": "Maxime Raynaud",
+      "season": "2025-26",
+      "teams": [
+        "SAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:milesbridges@2025-26",
+      "player_name": "Miles Bridges",
+      "season": "2025-26",
+      "teams": [
+        "CHA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:najimarshall@2025-26",
+      "player_name": "Naji Marshall",
+      "season": "2025-26",
+      "teams": [
+        "DAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:santialdama@2025-26",
+      "player_name": "Santi Aldama",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:willriley@2025-26",
+      "player_name": "Will Riley",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:brandonwilliams@2025-26",
+      "player_name": "Brandon Williams",
+      "season": "2025-26",
+      "teams": [
+        "DAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:cameronjohnson@2025-26",
+      "player_name": "Cameron Johnson",
+      "season": "2025-26",
+      "teams": [
+        "DEN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:cedriccoward@2025-26",
+      "player_name": "Cedric Coward",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:derikqueen@2025-26",
+      "player_name": "Derik Queen",
+      "season": "2025-26",
+      "teams": [
+        "NOP"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:ggjacksonii@2025-26",
+      "player_name": "GG Jackson II",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jaimejaquezjr@2025-26",
+      "player_name": "Jaime Jaquez Jr.",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jakobpoeltl@2025-26",
+      "player_name": "Jakob Poeltl",
+      "season": "2025-26",
+      "teams": [
+        "TOR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jaredmccain@2025-26",
+      "player_name": "Jared McCain",
+      "season": "2025-26",
+      "teams": [
+        "OKC",
+        "PHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:kellyoubrejr@2025-26",
+      "player_name": "Kelly Oubre Jr.",
+      "season": "2025-26",
+      "teams": [
+        "PHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:kyshawngeorge@2025-26",
+      "player_name": "Kyshawn George",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_outside_scoring"
+      ]
+    },
+    {
+      "record_id": "name:marcussmart@2025-26",
+      "player_name": "Marcus Smart",
+      "season": "2025-26",
+      "teams": [
+        "LAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:mitchellrobinson@2025-26",
+      "player_name": "Mitchell Robinson",
+      "season": "2025-26",
+      "teams": [
+        "NYK"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:pjwashington@2025-26",
+      "player_name": "P.J. Washington",
+      "season": "2025-26",
+      "teams": [
+        "DAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:pellelarsson@2025-26",
+      "player_name": "Pelle Larsson",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:timhardawayjr@2025-26",
+      "player_name": "Tim Hardaway Jr.",
+      "season": "2025-26",
+      "teams": [
+        "DEN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:bilalcoulibaly@2025-26",
+      "player_name": "Bilal Coulibaly",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:davionmitchell@2025-26",
+      "player_name": "Davion Mitchell",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:herbertjones@2025-26",
+      "player_name": "Herbert Jones",
+      "season": "2025-26",
+      "teams": [
+        "NOP"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_outside_scoring",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:jaxsonhayes@2025-26",
+      "player_name": "Jaxson Hayes",
+      "season": "2025-26",
+      "teams": [
+        "LAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jaylenwells@2025-26",
+      "player_name": "Jaylen Wells",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jeremiahfears@2025-26",
+      "player_name": "Jeremiah Fears",
+      "season": "2025-26",
+      "teams": [
+        "NOP"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:jonasvalanciunas@2025-26",
+      "player_name": "Jonas Valančiūnas",
+      "season": "2025-26",
+      "teams": [
+        "DEN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:kylefilipowski@2025-26",
+      "player_name": "Kyle Filipowski",
+      "season": "2025-26",
+      "teams": [
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:maxstrus@2025-26",
+      "player_name": "Max Strus",
+      "season": "2025-26",
+      "teams": [
+        "CLE"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:milesmcbride@2025-26",
+      "player_name": "Miles McBride",
+      "season": "2025-26",
+      "teams": [
+        "NYK"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:preciousachiuwa@2025-26",
+      "player_name": "Precious Achiuwa",
+      "season": "2025-26",
+      "teams": [
+        "SAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:sandromamukelashvili@2025-26",
+      "player_name": "Sandro Mamukelashvili",
+      "season": "2025-26",
+      "teams": [
+        "TOR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:aaronwiggins@2025-26",
+      "player_name": "Aaron Wiggins",
+      "season": "2025-26",
+      "teams": [
+        "OKC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:brooklopez@2025-26",
+      "player_name": "Brook Lopez",
+      "season": "2025-26",
+      "teams": [
+        "LAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:bubcarrington@2025-26",
+      "player_name": "Bub Carrington",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:carislevert@2025-26",
+      "player_name": "Caris LeVert",
+      "season": "2025-26",
+      "teams": [
+        "DET"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_outside_scoring",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:egordmin@2025-26",
+      "player_name": "Egor Dёmin",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:isaiahstewart@2025-26",
+      "player_name": "Isaiah Stewart",
+      "season": "2025-26",
+      "teams": [
+        "DET"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jakobewalter@2025-26",
+      "player_name": "Ja'Kobe Walter",
+      "season": "2025-26",
+      "teams": [
+        "TOR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:josealvarado@2025-26",
+      "player_name": "Jose Alvarado",
+      "season": "2025-26",
+      "teams": [
+        "NOP",
+        "NYK"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:kenrichwilliams@2025-26",
+      "player_name": "Kenrich Williams",
+      "season": "2025-26",
+      "teams": [
+        "OKC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:lukekennard@2025-26",
+      "player_name": "Luke Kennard",
+      "season": "2025-26",
+      "teams": [
+        "ATL",
+        "LAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:sammerrill@2025-26",
+      "player_name": "Sam Merrill",
+      "season": "2025-26",
+      "teams": [
+        "CLE"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:trejohnson@2025-26",
+      "player_name": "Tre Johnson",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tristandasilva@2025-26",
+      "player_name": "Tristan Da Silva",
+      "season": "2025-26",
+      "teams": [
+        "ORL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:zaccharierisacher@2025-26",
+      "player_name": "Zaccharie Risacher",
+      "season": "2025-26",
+      "teams": [
+        "ATL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:acebailey@2025-26",
+      "player_name": "Ace Bailey",
+      "season": "2025-26",
+      "teams": [
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_playmaking",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:bradleybeal@2025-26",
+      "player_name": "Bradley Beal",
+      "season": "2025-26",
+      "teams": [
+        "LAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:carterbryant@2025-26",
+      "player_name": "Carter Bryant",
+      "season": "2025-26",
+      "teams": [
+        "SAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:dannywolf@2025-26",
+      "player_name": "Danny Wolf",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:harrisonbarnes@2025-26",
+      "player_name": "Harrison Barnes",
+      "season": "2025-26",
+      "teams": [
+        "SAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:javonsmall@2025-26",
+      "player_name": "Javon Small",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jaylontyson@2025-26",
+      "player_name": "Jaylon Tyson",
+      "season": "2025-26",
+      "teams": [
+        "CLE"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jordanclarkson@2025-26",
+      "player_name": "Jordan Clarkson",
+      "season": "2025-26",
+      "teams": [
+        "NYK"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:niqueclifford@2025-26",
+      "player_name": "Nique Clifford",
+      "season": "2025-26",
+      "teams": [
+        "SAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:noahclowney@2025-26",
+      "player_name": "Noah Clowney",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:nolantraore@2025-26",
+      "player_name": "Nolan Traoré",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:royceoneale@2025-26",
+      "player_name": "Royce O'Neale",
+      "season": "2025-26",
+      "teams": [
+        "PHX"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:terrenceshannonjr@2025-26",
+      "player_name": "Terrence Shannon Jr.",
+      "season": "2025-26",
+      "teams": [
+        "MIN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:zachcollins@2025-26",
+      "player_name": "Zach Collins",
+      "season": "2025-26",
+      "teams": [
+        "CHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:ajgreen@2025-26",
+      "player_name": "A.J. Green",
+      "season": "2025-26",
+      "teams": [
+        "MIL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:codywilliams@2025-26",
+      "player_name": "Cody Williams",
+      "season": "2025-26",
+      "teams": [
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:coleanthony@2025-26",
+      "player_name": "Cole Anthony",
+      "season": "2025-26",
+      "teams": [
+        "MIL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:dominickbarlow@2025-26",
+      "player_name": "Dominick Barlow",
+      "season": "2025-26",
+      "teams": [
+        "PHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:gradeydick@2025-26",
+      "player_name": "Gradey Dick",
+      "season": "2025-26",
+      "teams": [
+        "TOR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:grantwilliams@2025-26",
+      "player_name": "Grant Williams",
+      "season": "2025-26",
+      "teams": [
+        "CHA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:guerschonyabusele@2025-26",
+      "player_name": "Guerschon Yabusele",
+      "season": "2025-26",
+      "teams": [
+        "CHI",
+        "NYK"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jadenhardy@2025-26",
+      "player_name": "Jaden Hardy",
+      "season": "2025-26",
+      "teams": [
+        "DAL",
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jamirwatkins@2025-26",
+      "player_name": "Jamir Watkins",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jamisonbattle@2025-26",
+      "player_name": "Jamison Battle",
+      "season": "2025-26",
+      "teams": [
+        "TOR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jarredvanderbilt@2025-26",
+      "player_name": "Jarred Vanderbilt",
+      "season": "2025-26",
+      "teams": [
+        "LAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:johnkonchar@2025-26",
+      "player_name": "John Konchar",
+      "season": "2025-26",
+      "teams": [
+        "MEM",
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jordanwalsh@2025-26",
+      "player_name": "Jordan Walsh",
+      "season": "2025-26",
+      "teams": [
+        "BOS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:julianreese@2025-26",
+      "player_name": "Julian Reese",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:karlomatkovic@2025-26",
+      "player_name": "Karlo Matković",
+      "season": "2025-26",
+      "teams": [
+        "NOP"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:kasparasjakucionis@2025-26",
+      "player_name": "Kasparas Jakučionis",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:kobesanders@2025-26",
+      "player_name": "Kobe Sanders",
+      "season": "2025-26",
+      "teams": [
+        "LAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:leonardmiller@2025-26",
+      "player_name": "Leonard Miller",
+      "season": "2025-26",
+      "teams": [
+        "CHI",
+        "MIN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:micahpotter@2025-26",
+      "player_name": "Micah Potter",
+      "season": "2025-26",
+      "teams": [
+        "IND"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:patspencer@2025-26",
+      "player_name": "Pat Spencer",
+      "season": "2025-26",
+      "teams": [
+        "GSW"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:rasheerfleming@2025-26",
+      "player_name": "Rasheer Fleming",
+      "season": "2025-26",
+      "teams": [
+        "PHX"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:simonefontecchio@2025-26",
+      "player_name": "Simone Fontecchio",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_playmaking",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:terancemann@2025-26",
+      "player_name": "Terance Mann",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:adembona@2025-26",
+      "player_name": "Adem Bona",
+      "season": "2025-26",
+      "teams": [
+        "PHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:asanewell@2025-26",
+      "player_name": "Asa Newell",
+      "season": "2025-26",
+      "teams": [
+        "ATL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:bensaraf@2025-26",
+      "player_name": "Ben Saraf",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:bensheppard@2025-26",
+      "player_name": "Ben Sheppard",
+      "season": "2025-26",
+      "teams": [
+        "IND"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:buddyhield@2025-26",
+      "player_name": "Buddy Hield",
+      "season": "2025-26",
+      "teams": [
+        "ATL",
+        "GSW"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:caleblove@2025-26",
+      "player_name": "Caleb Love",
+      "season": "2025-26",
+      "teams": [
+        "POR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:calebmartin@2025-26",
+      "player_name": "Caleb Martin",
+      "season": "2025-26",
+      "teams": [
+        "DAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:camwhitmore@2025-26",
+      "player_name": "Cam Whitmore",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:cameronpayne@2025-26",
+      "player_name": "Cameron Payne",
+      "season": "2025-26",
+      "teams": [
+        "PHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:dreweubanks@2025-26",
+      "player_name": "Drew Eubanks",
+      "season": "2025-26",
+      "teams": [
+        "SAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:drusmith@2025-26",
+      "player_name": "Dru Smith",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:garypaytonii@2025-26",
+      "player_name": "Gary Payton II",
+      "season": "2025-26",
+      "teams": [
+        "GSW"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_outside_scoring",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:garytrentjr@2025-26",
+      "player_name": "Gary Trent Jr.",
+      "season": "2025-26",
+      "teams": [
+        "MIL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jevoncarter@2025-26",
+      "player_name": "Jevon Carter",
+      "season": "2025-26",
+      "teams": [
+        "CHI",
+        "ORL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:joshokogie@2025-26",
+      "player_name": "Josh Okogie",
+      "season": "2025-26",
+      "teams": [
+        "HOU"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:julianstrawther@2025-26",
+      "player_name": "Julian Strawther",
+      "season": "2025-26",
+      "teams": [
+        "DEN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_outside_scoring"
+      ]
+    },
+    {
+      "record_id": "name:justinedwards@2025-26",
+      "player_name": "Justin Edwards",
+      "season": "2025-26",
+      "teams": [
+        "PHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_outside_scoring",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:myrongardner@2025-26",
+      "player_name": "Myron Gardner",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:nickrichards@2025-26",
+      "player_name": "Nick Richards",
+      "season": "2025-26",
+      "teams": [
+        "CHI",
+        "PHX"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:noahpenda@2025-26",
+      "player_name": "Noah Penda",
+      "season": "2025-26",
+      "teams": [
+        "ORL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:patrickwilliams@2025-26",
+      "player_name": "Patrick Williams",
+      "season": "2025-26",
+      "teams": [
+        "CHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:ryandunn@2025-26",
+      "player_name": "Ryan Dunn",
+      "season": "2025-26",
+      "teams": [
+        "PHX"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:ryannembhard@2025-26",
+      "player_name": "Ryan Nembhard",
+      "season": "2025-26",
+      "teams": [
+        "DAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:sionjames@2025-26",
+      "player_name": "Sion James",
+      "season": "2025-26",
+      "teams": [
+        "CHA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:taylorhendricks@2025-26",
+      "player_name": "Taylor Hendricks",
+      "season": "2025-26",
+      "teams": [
+        "MEM",
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tidjanesalaun@2025-26",
+      "player_name": "Tidjane Salaün",
+      "season": "2025-26",
+      "teams": [
+        "CHA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:walterclayton@2025-26",
+      "player_name": "Walter Clayton",
+      "season": "2025-26",
+      "teams": [
+        "MEM",
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:willrichard@2025-26",
+      "player_name": "Will Richard",
+      "season": "2025-26",
+      "teams": [
+        "GSW"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:yanickonanniederhauser@2025-26",
+      "player_name": "Yanic Konan Niederhäuser",
+      "season": "2025-26",
+      "teams": [
+        "LAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:ziairewilliams@2025-26",
+      "player_name": "Ziaire Williams",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:craigporterjr@2025-26",
+      "player_name": "Craig Porter Jr.",
+      "season": "2025-26",
+      "teams": [
+        "CLE"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:daltonknecht@2025-26",
+      "player_name": "Dalton Knecht",
+      "season": "2025-26",
+      "teams": [
+        "LAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:dariosaric@2025-26",
+      "player_name": "Dario Šarić",
+      "season": "2025-26",
+      "teams": [
+        "SAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jeremysochan@2025-26",
+      "player_name": "Jeremy Sochan",
+      "season": "2025-26",
+      "teams": [
+        "NYK",
+        "SAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jonathanmogbo@2025-26",
+      "player_name": "Jonathan Mogbo",
+      "season": "2025-26",
+      "teams": [
+        "TOR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:joshgreen@2025-26",
+      "player_name": "Josh Green",
+      "season": "2025-26",
+      "teams": [
+        "CHA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_playmaking",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:kamjones@2025-26",
+      "player_name": "Kam Jones",
+      "season": "2025-26",
+      "teams": [
+        "IND"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:ljcryer@2025-26",
+      "player_name": "LJ Cryer",
+      "season": "2025-26",
+      "teams": [
+        "GSW"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:maxikleber@2025-26",
+      "player_name": "Maxi Kleber",
+      "season": "2025-26",
+      "teams": [
+        "LAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:mohameddiawara@2025-26",
+      "player_name": "Mohamed Diawara",
+      "season": "2025-26",
+      "teams": [
+        "NYK"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:nicolasbatum@2025-26",
+      "player_name": "Nicolas Batum",
+      "season": "2025-26",
+      "teams": [
+        "LAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:nikolajovic@2025-26",
+      "player_name": "Nikola Jović",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tremann@2025-26",
+      "player_name": "Tre Mann",
+      "season": "2025-26",
+      "teams": [
+        "CHA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:blakehinson@2025-26",
+      "player_name": "Blake Hinson",
+      "season": "2025-26",
+      "teams": [
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:brandencarlson@2025-26",
+      "player_name": "Branden Carlson",
+      "season": "2025-26",
+      "teams": [
+        "OKC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:chaneyjohnson@2025-26",
+      "player_name": "Chaney Johnson",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:dalanobanton@2025-26",
+      "player_name": "Dalano Banton",
+      "season": "2025-26",
+      "teams": [
+        "BOS",
+        "LAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:drakepowell@2025-26",
+      "player_name": "Drake Powell",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:garrisonmathews@2025-26",
+      "player_name": "Garrison Mathews",
+      "season": "2025-26",
+      "teams": [
+        "IND"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:haywoodhighsmith@2025-26",
+      "player_name": "Haywood Highsmith",
+      "season": "2025-26",
+      "teams": [
+        "PHX"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jahmaimashack@2025-26",
+      "player_name": "Jahmai Mashack",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jalenslawson@2025-26",
+      "player_name": "Jalen Slawson",
+      "season": "2025-26",
+      "teams": [
+        "IND"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jaserichardson@2025-26",
+      "player_name": "Jase Richardson",
+      "season": "2025-26",
+      "teams": [
+        "ORL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jaylenclark@2025-26",
+      "player_name": "Jaylen Clark",
+      "season": "2025-26",
+      "teams": [
+        "MIN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:leakyblack@2025-26",
+      "player_name": "Leaky Black",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "partial",
+      "missing_individual_keys": [
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:nicksmithjr@2025-26",
+      "player_name": "Nick Smith Jr.",
+      "season": "2025-26",
+      "teams": [
+        "LAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:oliviermaxenceprosper@2025-26",
+      "player_name": "Olivier-Maxence Prosper",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_outside_scoring"
+      ]
+    },
+    {
+      "record_id": "name:taelonpeter@2025-26",
+      "player_name": "Taelon Peter",
+      "season": "2025-26",
+      "teams": [
+        "IND"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tonybradley@2025-26",
+      "player_name": "Tony Bradley",
+      "season": "2025-26",
+      "teams": [
+        "ATL",
+        "IND"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tyresemartin@2025-26",
+      "player_name": "Tyrese Martin",
+      "season": "2025-26",
+      "teams": [
+        "BKN",
+        "PHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tyreseproctor@2025-26",
+      "player_name": "Tyrese Proctor",
+      "season": "2025-26",
+      "teams": [
+        "CLE"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tyusjones@2025-26",
+      "player_name": "Tyus Jones",
+      "season": "2025-26",
+      "teams": [
+        "DAL",
+        "DEN",
+        "ORL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:ajjohnson@2025-26",
+      "player_name": "AJ Johnson",
+      "season": "2025-26",
+      "teams": [
+        "DAL",
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:andrejacksonjr@2025-26",
+      "player_name": "Andre Jackson Jr.",
+      "season": "2025-26",
+      "teams": [
+        "MIL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:cormacryan@2025-26",
+      "player_name": "Cormac Ryan",
+      "season": "2025-26",
+      "teams": [
+        "MIL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:drewtimme@2025-26",
+      "player_name": "Drew Timme",
+      "season": "2025-26",
+      "teams": [
+        "LAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:elijahharkless@2025-26",
+      "player_name": "Elijah Harkless",
+      "season": "2025-26",
+      "teams": [
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:ethanthompson@2025-26",
+      "player_name": "Ethan Thompson",
+      "season": "2025-26",
+      "teams": [
+        "IND"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_playmaking",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:joanberinger@2025-26",
+      "player_name": "Joan Beringer",
+      "season": "2025-26",
+      "teams": [
+        "MIN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:johnnyjuzang@2025-26",
+      "player_name": "Johnny Juzang",
+      "season": "2025-26",
+      "teams": [
+        "MIN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jordanhawkins@2025-26",
+      "player_name": "Jordan Hawkins",
+      "season": "2025-26",
+      "teams": [
+        "NOP"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:kennedychandler@2025-26",
+      "player_name": "Kennedy Chandler",
+      "season": "2025-26",
+      "teams": [
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:keshadjohnson@2025-26",
+      "player_name": "Keshad Johnson",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:killianhayes@2025-26",
+      "player_name": "Killian Hayes",
+      "season": "2025-26",
+      "teams": [
+        "SAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:liammcneeley@2025-26",
+      "player_name": "Liam McNeeley",
+      "season": "2025-26",
+      "teams": [
+        "CHA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_outside_scoring",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:malachismith@2025-26",
+      "player_name": "Malachi Smith",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:malakibranham@2025-26",
+      "player_name": "Malaki Branham",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:micahpeavy@2025-26",
+      "player_name": "Micah Peavy",
+      "season": "2025-26",
+      "teams": [
+        "NOP"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_outside_scoring",
+        "cat_rebounding"
+      ]
+    },
+    {
+      "record_id": "name:montemorris@2025-26",
+      "player_name": "Monte Morris",
+      "season": "2025-26",
+      "teams": [
+        "IND"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:nigelhayesdavis@2025-26",
+      "player_name": "Nigel Hayes-Davis",
+      "season": "2025-26",
+      "teams": [
+        "PHX"
+      ],
+      "status": "partial",
+      "missing_individual_keys": [
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:noaessengue@2025-26",
+      "player_name": "Noa Essengue",
+      "season": "2025-26",
+      "teams": [
+        "CHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:orlandorobinson@2025-26",
+      "player_name": "Orlando Robinson",
+      "season": "2025-26",
+      "teams": [
+        "ORL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:pjhall@2025-26",
+      "player_name": "PJ Hall",
+      "season": "2025-26",
+      "teams": [
+        "CHA",
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:yukikawamura@2025-26",
+      "player_name": "Yuki Kawamura",
+      "season": "2025-26",
+      "teams": [
+        "CHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:alijahmartin@2025-26",
+      "player_name": "Alijah Martin",
+      "season": "2025-26",
+      "teams": [
+        "TOR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:colbyjones@2025-26",
+      "player_name": "Colby Jones",
+      "season": "2025-26",
+      "teams": [
+        "DET"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:johnpoulakidas@2025-26",
+      "player_name": "John Poulakidas",
+      "season": "2025-26",
+      "teams": [
+        "DAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:macmcclung@2025-26",
+      "player_name": "Mac McClung",
+      "season": "2025-26",
+      "teams": [
+        "CHI",
+        "IND"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:markellefultz@2025-26",
+      "player_name": "Markelle Fultz",
+      "season": "2025-26",
+      "teams": [
+        "TOR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:mobamba@2025-26",
+      "player_name": "Mo Bamba",
+      "season": "2025-26",
+      "teams": [
+        "TOR",
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:omeryurtseven@2025-26",
+      "player_name": "Omer Yurtseven",
+      "season": "2025-26",
+      "teams": [
+        "GSW"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:rayjdennis@2025-26",
+      "player_name": "RayJ Dennis",
+      "season": "2025-26",
+      "teams": [
+        "ATL",
+        "IND",
+        "LAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:treyjemison@2025-26",
+      "player_name": "Trey Jemison",
+      "season": "2025-26",
+      "teams": [
+        "NYK"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:adouthiero@2025-26",
+      "player_name": "Adou Thiero",
+      "season": "2025-26",
+      "teams": [
+        "LAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:antonioreeves@2025-26",
+      "player_name": "Antonio Reeves",
+      "season": "2025-26",
+      "teams": [
+        "CHA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:bismackbiyombo@2025-26",
+      "player_name": "Bismack Biyombo",
+      "season": "2025-26",
+      "teams": [
+        "SAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:drewpeterson@2025-26",
+      "player_name": "Drew Peterson",
+      "season": "2025-26",
+      "teams": [
+        "CHA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:ejliddell@2025-26",
+      "player_name": "E.J. Liddell",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:lachlanolbrich@2025-26",
+      "player_name": "Lachlan Olbrich",
+      "season": "2025-26",
+      "teams": [
+        "CHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:marjonbeauchamp@2025-26",
+      "player_name": "MarJon Beauchamp",
+      "season": "2025-26",
+      "teams": [
+        "PHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:stanleyumude@2025-26",
+      "player_name": "Stanley Umude",
+      "season": "2025-26",
+      "teams": [
+        "SAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tajgibson@2025-26",
+      "player_name": "Taj Gibson",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tytywashingtonjr@2025-26",
+      "player_name": "TyTy Washington Jr.",
+      "season": "2025-26",
+      "teams": [
+        "LAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:yanghansen@2025-26",
+      "player_name": "Yang Hansen",
+      "season": "2025-26",
+      "teams": [
+        "POR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:anderssongarcia@2025-26",
+      "player_name": "Andersson Garcia",
+      "season": "2025-26",
+      "teams": [
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:bezmbeng@2025-26",
+      "player_name": "Bez Mbeng",
+      "season": "2025-26",
+      "teams": [
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:bobiklintman@2025-26",
+      "player_name": "Bobi Klintman",
+      "season": "2025-26",
+      "teams": [
+        "DET"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:brooksbarnhizer@2025-26",
+      "player_name": "Brooks Barnhizer",
+      "season": "2025-26",
+      "teams": [
+        "OKC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:chrislivingston@2025-26",
+      "player_name": "Chris Livingston",
+      "season": "2025-26",
+      "teams": [
+        "CLE"
+      ],
+      "status": "partial",
+      "missing_individual_keys": [
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:dejonjarreau@2025-26",
+      "player_name": "DeJon Jarreau",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:dillonjones@2025-26",
+      "player_name": "Dillon Jones",
+      "season": "2025-26",
+      "teams": [
+        "NYK"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:enriquefreeman@2025-26",
+      "player_name": "Enrique Freeman",
+      "season": "2025-26",
+      "teams": [
+        "MIN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:harrisoningram@2025-26",
+      "player_name": "Harrison Ingram",
+      "season": "2025-26",
+      "teams": [
+        "SAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:johntonje@2025-26",
+      "player_name": "John Tonje",
+      "season": "2025-26",
+      "teams": [
+        "BOS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:luketravers@2025-26",
+      "player_name": "Luke Travers",
+      "season": "2025-26",
+      "teams": [
+        "CLE"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:pacomedadiet@2025-26",
+      "player_name": "Pacôme Dadiet",
+      "season": "2025-26",
+      "teams": [
+        "NYK"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:skallabissiere@2025-26",
+      "player_name": "Skal Labissière",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:trentynflowers@2025-26",
+      "player_name": "Trentyn Flowers",
+      "season": "2025-26",
+      "teams": [
+        "CHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tylersmith@2025-26",
+      "player_name": "Tyler Smith",
+      "season": "2025-26",
+      "teams": [
+        "DAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:adamaalphabal@2025-26",
+      "player_name": "Adama-Alpha Bal",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:alexantetokounmpo@2025-26",
+      "player_name": "Alex Antetokounmpo",
+      "season": "2025-26",
+      "teams": [
+        "MIL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:alexmorales@2025-26",
+      "player_name": "Alex Morales",
+      "season": "2025-26",
+      "teams": [
+        "ORL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:cjhuntley@2025-26",
+      "player_name": "CJ Huntley",
+      "season": "2025-26",
+      "teams": [
+        "PHX"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:chazlanier@2025-26",
+      "player_name": "Chaz Lanier",
+      "season": "2025-26",
+      "teams": [
+        "DET"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:chrismanon@2025-26",
+      "player_name": "Chris Mañon",
+      "season": "2025-26",
+      "teams": [
+        "LAL"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:chrisyoungblood@2025-26",
+      "player_name": "Chris Youngblood",
+      "season": "2025-26",
+      "teams": [
+        "OKC",
+        "POR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:chuckyhepburn@2025-26",
+      "player_name": "Chucky Hepburn",
+      "season": "2025-26",
+      "teams": [
+        "TOR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:curtisjones@2025-26",
+      "player_name": "Curtis Jones",
+      "season": "2025-26",
+      "teams": [
+        "DEN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:dariusbrownii@2025-26",
+      "player_name": "Darius Brown II",
+      "season": "2025-26",
+      "teams": [
+        "CLE"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:emanuelmiller@2025-26",
+      "player_name": "Emanuel Miller",
+      "season": "2025-26",
+      "teams": [
+        "CHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:haydengray@2025-26",
+      "player_name": "Hayden Gray",
+      "season": "2025-26",
+      "teams": [
+        "UTA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:hunterdickinson@2025-26",
+      "player_name": "Hunter Dickinson",
+      "season": "2025-26",
+      "teams": [
+        "NOP"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:huntersallis@2025-26",
+      "player_name": "Hunter Sallis",
+      "season": "2025-26",
+      "teams": [
+        "PHI"
+      ],
+      "status": "partial",
+      "missing_individual_keys": [
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:isaiahcrawford@2025-26",
+      "player_name": "Isaiah Crawford",
+      "season": "2025-26",
+      "teams": [
+        "HOU"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jahmyltelfort@2025-26",
+      "player_name": "Jahmyl Telfort",
+      "season": "2025-26",
+      "teams": [
+        "LAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jaysonkent@2025-26",
+      "player_name": "Jayson Kent",
+      "season": "2025-26",
+      "teams": [
+        "POR"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:joshoduro@2025-26",
+      "player_name": "Josh Oduro",
+      "season": "2025-26",
+      "teams": [
+        "NOP"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:kadaryrichmond@2025-26",
+      "player_name": "Kadary Richmond",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:keshongilbert@2025-26",
+      "player_name": "Keshon Gilbert",
+      "season": "2025-26",
+      "teams": [
+        "ATL",
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:kobybrea@2025-26",
+      "player_name": "Koby Brea",
+      "season": "2025-26",
+      "teams": [
+        "PHX"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:lawsonlovering@2025-26",
+      "player_name": "Lawson Lovering",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:mileskelly@2025-26",
+      "player_name": "Miles Kelly",
+      "season": "2025-26",
+      "teams": [
+        "DAL"
+      ],
+      "status": "partial",
+      "missing_individual_keys": [
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:norchadomier@2025-26",
+      "player_name": "Norchad Omier",
+      "season": "2025-26",
+      "teams": [
+        "LAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:oliviersarr@2025-26",
+      "player_name": "Olivier Sarr",
+      "season": "2025-26",
+      "teams": [
+        "CLE"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:paytonsandfort@2025-26",
+      "player_name": "Payton Sandfort",
+      "season": "2025-26",
+      "teams": [
+        "OKC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:roccozikarsky@2025-26",
+      "player_name": "Rocco Zikarsky",
+      "season": "2025-26",
+      "teams": [
+        "MIN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:seanpedulla@2025-26",
+      "player_name": "Sean Pedulla",
+      "season": "2025-26",
+      "teams": [
+        "LAC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:trevorkeels@2025-26",
+      "player_name": "Trevor Keels",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tristanenaruna@2025-26",
+      "player_name": "Tristan Enaruna",
+      "season": "2025-26",
+      "teams": [
+        "CLE"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tristennewton@2025-26",
+      "player_name": "Tristen Newton",
+      "season": "2025-26",
+      "teams": [
+        "HOU"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:vladislavgoldin@2025-26",
+      "player_name": "Vladislav Goldin",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:alondeswilliams@2025-26",
+      "player_name": "Alondes Williams",
+      "season": "2025-26",
+      "teams": [
+        "WAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:buddyboeheim@2025-26",
+      "player_name": "Buddy Boeheim",
+      "season": "2025-26",
+      "teams": [
+        "OKC"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jacobtoppin@2025-26",
+      "player_name": "Jacob Toppin",
+      "season": "2025-26",
+      "teams": [
+        "ATL"
+      ],
+      "status": "partial",
+      "missing_individual_keys": [
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:jahmiryoung@2025-26",
+      "player_name": "Jahmir Young",
+      "season": "2025-26",
+      "teams": [
+        "MIA"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:mouhamadougueye@2025-26",
+      "player_name": "Mouhamadou Gueye",
+      "season": "2025-26",
+      "teams": [
+        "CHI"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:rileyminix@2025-26",
+      "player_name": "Riley Minix",
+      "season": "2025-26",
+      "teams": [
+        "CLE",
+        "SAS"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tolusmith@2025-26",
+      "player_name": "Tolu Smith",
+      "season": "2025-26",
+      "teams": [
+        "DET"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:trescott@2025-26",
+      "player_name": "Tre Scott",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:zyonpullin@2025-26",
+      "player_name": "Zyon Pullin",
+      "season": "2025-26",
+      "teams": [
+        "MIN"
+      ],
+      "status": "complete",
+      "missing_individual_keys": [],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:grantnelson@2025-26",
+      "player_name": "Grant Nelson",
+      "season": "2025-26",
+      "teams": [
+        "BKN"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:lucaswilliamson@2025-26",
+      "player_name": "Lucas Williamson",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tobyokani@2025-26",
+      "player_name": "Toby Okani",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    },
+    {
+      "record_id": "name:tylerburton@2025-26",
+      "player_name": "Tyler Burton",
+      "season": "2025-26",
+      "teams": [
+        "MEM"
+      ],
+      "status": "missing_record",
+      "missing_individual_keys": [
+        "overall",
+        "three_point_shot",
+        "perimeter_defense",
+        "interior_defense",
+        "steal",
+        "block",
+        "help_defense_iq",
+        "pass_perception",
+        "defensive_consistency",
+        "defensive_rebound",
+        "offensive_rebound",
+        "mid_range_shot",
+        "close_shot",
+        "free_throw",
+        "layup",
+        "driving_dunk",
+        "standing_dunk",
+        "post_hook",
+        "post_fade",
+        "post_control",
+        "draw_foul",
+        "ball_handle",
+        "pass_accuracy",
+        "pass_vision",
+        "pass_iq",
+        "speed_with_ball",
+        "shot_iq",
+        "offensive_consistency",
+        "speed",
+        "agility",
+        "strength",
+        "vertical",
+        "stamina",
+        "hustle",
+        "hands",
+        "overall_durability"
+      ],
+      "missing_category_keys": [
+        "cat_defense",
+        "cat_outside_scoring",
+        "cat_inside_scoring",
+        "cat_playmaking",
+        "cat_rebounding",
+        "cat_athleticism"
+      ]
+    }
+  ]
+}

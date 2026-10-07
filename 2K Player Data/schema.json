@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "2.0.0",
   "format": "explicit-field-contract",
   "encoding": "UTF-8 without BOM; JSONL has one object per LF-terminated line",
   "record_types": {
@@ -14,7 +14,7 @@
         "player_name": "string: source roster name, no invented translation",
         "season": "enum: 2024-25, 2025-26",
         "game": "enum: NBA 2K25, NBA 2K26",
-        "qualifying_playoff_teams": "array<object{team_abbreviation:string,team_name:string,team_name_zh:string,source_id:string}>; derived from qualifying roster associations, not snapshot",
+        "qualifying_playoff_teams": "array<object{team_abbreviation:string,team_name:string,team_name_zh:string,source_id:string}>; derived from qualifying roster associations, not snapshot; empty for records associated solely with non-playoff rosters",
         "ratings": "object with all 42 exact keys listed in rating_fields; every value integer 25..99 or null",
         "availability": "object{status:complete|partial|missing_record,missing_keys:array<string>,missing_individual_keys:array<string>,individual_present:integer,individual_expected:integer,core_present:integer,supplemented_fields:array<string>}; completeness refers to 36 individual fields, not the six category fields",
         "season_teams": "array<stint>; contains same-season roster and separately tagged official transaction associations; association does not imply game appearance",
@@ -44,14 +44,28 @@
         "jersey": "string|null; raw source text, e.g. '0', '00', '00, 0'; never numeric",
         "jersey_numbers": "array<string>; comma-split, whitespace-trimmed derivative of jersey; [] for null; no temporal order inferred",
         "team_qualified_playoffs": "boolean",
-        "in_rating_scope": "boolean; player's season-selection flag, not team's classification",
+        "in_rating_scope": "boolean; full-roster player-season presence in version 2.0",
         "phase": "string: preserved source phase, includes season roster, regular season, 2025 offseason",
         "association_kind": "string: season_team_roster or official_transaction_without_matching_season_roster_row",
         "transaction_date_as_listed": "YYYY-MM-DD string|null; date listed in NBA tracker, not inferred arrival/departure",
         "record_type_text_id": "string",
         "note_text_id": "string",
         "source_id": "string",
-        "source_retrieved_date": "YYYY-MM-DD string"
+        "source_retrieved_date": "YYYY-MM-DD string",
+        "baseline_in_rating_scope": "boolean|null; exact previous 1.1 flag for preserved stints; null for added stints"
+      }
+    },
+    "team_export": {
+      "files": "by_team/<season>/<team_abbreviation>/players.jsonl and players.csv",
+      "jsonl": "Each row is a copy of its global player-season record with team_context containing this team, its raw text jersey and roster source. Only roster associations are included.",
+      "csv": "UTF-8 with BOM, English machine keys, 42 metrics plus this team's jersey text, two-season histories, record/source references; importing jersey columns must use Text to preserve 00.",
+      "team_context_fields": {
+        "season": "string",
+        "team_abbreviation": "string",
+        "team_name_zh": "string",
+        "jersey": "string|null",
+        "roster_source_id": "string",
+        "team_qualified_playoffs": "boolean"
       }
     }
   },
@@ -526,16 +540,16 @@
     "record_id": "index.json.by_record[record_id]",
     "player_id": "index.json.players[player_id]"
   },
-  "identity_assumptions": "BBR编号缺失，使用规范化精确姓名；显式别名均核对同队同号码。",
+  "identity_assumptions": "保留原player_key；新增球员仍用规范化精确姓名键；新显式别名需有approved_expansion_sources.json证据。BBR编号未取得者仍为null。",
   "chronology": "Record order and team order are not transaction chronology. Only transaction_date_as_listed conveys a source-listed date.",
-  "snapshot_time": "Repository commit/retrieval dates are not game update dates. Preserved baseline NBA 2K26 uses early mixed captures; additions use independently verified historical HTML and fixed Blacktop 2K26 snapshots. Read each field's source snapshot_date with date_basis; do not assert one shared snapshot for a mixed record.",
+  "snapshot_time": "Per-field historical sources for NBA 2K25/2K26, including explicitly dated older 2K25 null fills; fixed commit dates are not game patch dates. Existing non-null values and their source definitions remain unchanged. Mixed records are not a uniform final-season snapshot.",
   "field_provenance_contract": {
     "path": "field_provenance.json",
     "record_fields": {
       "default_source_id": "string: original baseline source",
       "baseline_fields": "array<string>: metrics whose original non-null values remain",
       "field_source_ids": "object<string,string>: supplemental metric -> source_id",
-      "supplement_matches": "object<source_id,object{source_player_name,source_slug,match_method}>"
+      "supplement_matches": "object<source_id,object{source_player_name:string,source_slug:string|null,match_method:normalized_exact|explicit_alias}>"
     },
     "source_fields": {
       "source_url": "string",
@@ -545,9 +559,10 @@
       "game_patch_date": "null: unknown",
       "source_commit_date": "ISO8601 string|null",
       "per_player_capture_known": "boolean",
-      "source_kind": "preserved_baseline|verified_archived_html|fixed_blacktop_current_roster"
+      "source_kind": "preserved_baseline|verified_archived_html|fixed_blacktop_current_roster|fixed_historical_2k25_csv|verified_archive_gap_html"
     },
     "resolution_rule": "For a non-null metric: use records[record_id].field_source_ids[field] if present, otherwise default_source_id only when field is listed in baseline_fields. Null metrics have no value source."
   },
-  "derived_display_fields": "Upstream human-readable combined team/jersey strings and missing-label strings are replaced by structured stints and missing-key lists; original underlying values and labels are retained."
+  "derived_display_fields": "Upstream human-readable combined team/jersey strings and missing-label strings are replaced by structured stints and missing-key lists; original underlying values and labels are retained.",
+  "scope": "两季各30支NBA球队的整个赛季名单（包括季内离队球员）；交易only关联单独标记，不计球队能力表。"
 }

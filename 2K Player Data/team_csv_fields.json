@@ -1,0 +1,238 @@
+{
+  "encoding": "UTF-8 with BOM",
+  "jersey_import_type": "text",
+  "columns": [
+    {
+      "key": "season",
+      "label_zh": "赛季"
+    },
+    {
+      "key": "game",
+      "label_zh": "游戏"
+    },
+    {
+      "key": "team_abbreviation",
+      "label_zh": "球队缩写"
+    },
+    {
+      "key": "team_name_zh",
+      "label_zh": "球队"
+    },
+    {
+      "key": "team_jersey",
+      "label_zh": "该队号码（文本）"
+    },
+    {
+      "key": "player_name",
+      "label_zh": "球员"
+    },
+    {
+      "key": "record_id",
+      "label_zh": "来源记录ID"
+    },
+    {
+      "key": "player_id",
+      "label_zh": "球员ID"
+    },
+    {
+      "key": "overall",
+      "label_zh": "总评 OVR"
+    },
+    {
+      "key": "three_point_shot",
+      "label_zh": "三分球"
+    },
+    {
+      "key": "perimeter_defense",
+      "label_zh": "外线防守"
+    },
+    {
+      "key": "interior_defense",
+      "label_zh": "内线防守"
+    },
+    {
+      "key": "steal",
+      "label_zh": "抢断"
+    },
+    {
+      "key": "block",
+      "label_zh": "盖帽"
+    },
+    {
+      "key": "help_defense_iq",
+      "label_zh": "协防意识"
+    },
+    {
+      "key": "pass_perception",
+      "label_zh": "传球预判"
+    },
+    {
+      "key": "defensive_consistency",
+      "label_zh": "防守稳定性"
+    },
+    {
+      "key": "defensive_rebound",
+      "label_zh": "防守篮板"
+    },
+    {
+      "key": "offensive_rebound",
+      "label_zh": "进攻篮板"
+    },
+    {
+      "key": "mid_range_shot",
+      "label_zh": "中距离投篮"
+    },
+    {
+      "key": "close_shot",
+      "label_zh": "近距离投篮"
+    },
+    {
+      "key": "free_throw",
+      "label_zh": "罚球"
+    },
+    {
+      "key": "layup",
+      "label_zh": "上篮"
+    },
+    {
+      "key": "driving_dunk",
+      "label_zh": "突破扣篮"
+    },
+    {
+      "key": "standing_dunk",
+      "label_zh": "原地扣篮"
+    },
+    {
+      "key": "post_hook",
+      "label_zh": "背身勾手"
+    },
+    {
+      "key": "post_fade",
+      "label_zh": "背身后仰"
+    },
+    {
+      "key": "post_control",
+      "label_zh": "背身控制"
+    },
+    {
+      "key": "draw_foul",
+      "label_zh": "制造犯规"
+    },
+    {
+      "key": "ball_handle",
+      "label_zh": "控球"
+    },
+    {
+      "key": "pass_accuracy",
+      "label_zh": "传球准确性"
+    },
+    {
+      "key": "pass_vision",
+      "label_zh": "传球视野"
+    },
+    {
+      "key": "pass_iq",
+      "label_zh": "传球意识"
+    },
+    {
+      "key": "speed_with_ball",
+      "label_zh": "持球速度"
+    },
+    {
+      "key": "shot_iq",
+      "label_zh": "投篮选择"
+    },
+    {
+      "key": "offensive_consistency",
+      "label_zh": "进攻稳定性"
+    },
+    {
+      "key": "speed",
+      "label_zh": "速度"
+    },
+    {
+      "key": "agility",
+      "label_zh": "敏捷"
+    },
+    {
+      "key": "strength",
+      "label_zh": "力量"
+    },
+    {
+      "key": "vertical",
+      "label_zh": "弹跳"
+    },
+    {
+      "key": "stamina",
+      "label_zh": "体力"
+    },
+    {
+      "key": "hustle",
+      "label_zh": "积极性"
+    },
+    {
+      "key": "hands",
+      "label_zh": "接球能力"
+    },
+    {
+      "key": "overall_durability",
+      "label_zh": "耐久度"
+    },
+    {
+      "key": "cat_defense",
+      "label_zh": "防守综合（来源原值）"
+    },
+    {
+      "key": "cat_outside_scoring",
+      "label_zh": "外线得分综合（来源原值）"
+    },
+    {
+      "key": "cat_inside_scoring",
+      "label_zh": "内线得分综合（来源原值）"
+    },
+    {
+      "key": "cat_playmaking",
+      "label_zh": "组织综合（来源原值）"
+    },
+    {
+      "key": "cat_rebounding",
+      "label_zh": "篮板综合（来源原值）"
+    },
+    {
+      "key": "cat_athleticism",
+      "label_zh": "运动能力综合（来源原值）"
+    },
+    {
+      "key": "coverage_status",
+      "label_zh": "个人能力覆盖状态"
+    },
+    {
+      "key": "missing_rating_fields",
+      "label_zh": "缺失指标"
+    },
+    {
+      "key": "season_2024_25_teams_jerseys",
+      "label_zh": "2024-25履历"
+    },
+    {
+      "key": "season_2025_26_teams_jerseys",
+      "label_zh": "2025-26履历"
+    },
+    {
+      "key": "roster_source_id",
+      "label_zh": "该队名单来源ID"
+    },
+    {
+      "key": "rating_source_ids",
+      "label_zh": "评分来源ID"
+    },
+    {
+      "key": "field_provenance_ref",
+      "label_zh": "逐指标出处"
+    },
+    {
+      "key": "team_qualified_playoffs",
+      "label_zh": "进入季后赛"
+    }
+  ]
+}

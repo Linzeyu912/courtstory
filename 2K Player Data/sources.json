@@ -1,6 +1,16 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "2.0.0",
   "catalog": {
+    "src_00fdc010a0655fe0": {
+      "url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/tree/99771e857e4f14c984151bfe798e093c433ac5c5",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_01906bd138ca5181": {
+      "url": "https://santaclarabroncos.com/sports/mens-basketball/roster/adama-alpha-bal/8787",
+      "retrieved_dates": [],
+      "roles": []
+    },
     "src_0342d262464b8723": {
       "url": "https://www.nba.com/wizards/news/wizards-acquire-middleton-johnson-from-milwaukee-bucks",
       "retrieved_dates": [
@@ -40,7 +50,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_0ad010b764d83dcf": {
@@ -76,6 +87,38 @@
         "team_history"
       ]
     },
+    "src_0e6a92e5b275c0c1": {
+      "url": "https://www.nba.com/player/1641713/gg-jackson-ii",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_10e94752158f205b": {
+      "url": "https://web.archive.org/web/20250122041905/https://www.2kratings.com/daeqwon-plowden",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_10e94752158f205b",
+        "source_url": "https://web.archive.org/web/20250122041905/https://www.2kratings.com/daeqwon-plowden",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2025-01-22T04:19:05Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "9501046d8ba17b2415be6870238cf30afe28ccdbe1f54c1802ad00f23a962c73",
+        "source_file_sha256": "9501046d8ba17b2415be6870238cf30afe28ccdbe1f54c1802ad00f23a962c73",
+        "decoded_html_sha256": "9501046d8ba17b2415be6870238cf30afe28ccdbe1f54c1802ad00f23a962c73",
+        "source_wire_compressed": false,
+        "source_title": "Daeqwon Plowden NBA 2K25 Rating (Current Atlanta Hawks)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
+    },
     "src_1632652decf92372": {
       "url": "https://web.archive.org/web/20250719013119/https://www.2kratings.com/payton-pritchard",
       "retrieved_dates": [],
@@ -87,7 +130,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_1b8f22cfcaa40b62": {
@@ -96,11 +140,22 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
+    },
+    "src_20ae3f30b486a553": {
+      "url": "https://www.nba.com/nets/news/brooklyn-nets-sign-trevon-scott-to-10-day-contract",
+      "retrieved_dates": [],
+      "roles": []
     },
     "src_217a6ccea7a4ec87": {
       "url": "https://www.2kratings.com/darius-brown",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_2207bd3c3276e973": {
+      "url": "https://www.nba.com/player/1628995/kevin_knox",
       "retrieved_dates": [],
       "roles": []
     },
@@ -134,7 +189,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_2da0f90de08271e7": {
@@ -145,6 +201,11 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_33e16f03a6a233b8": {
+      "url": "https://statsdmz.nba.com/pdfs/20250508/20250508_GSWMIN_book.pdf",
+      "retrieved_dates": [],
+      "roles": []
     },
     "src_340340164123a924": {
       "url": "https://www.basketball-reference.com/teams/LAC/2025.html",
@@ -170,7 +231,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_359e44c576aea624": {
@@ -188,7 +250,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_3ce7548ce2c8eb41": {
@@ -197,7 +260,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_3d4ffc3c36e79199": {
@@ -215,8 +279,14 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
+    },
+    "src_3f329bd9325f087c": {
+      "url": "https://www.nba.com/player/1629057/robert-williams-iii",
+      "retrieved_dates": [],
+      "roles": []
     },
     "src_3fc708a05c7de9a1": {
       "url": "https://www.basketball-reference.com/teams/MIA/2025.html",
@@ -242,8 +312,36 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
+    },
+    "src_424acc1db1cbfd8f": {
+      "url": "https://web.archive.org/web/20250619092531/https://www.2kratings.com/bismack-biyombo",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_424acc1db1cbfd8f",
+        "source_url": "https://web.archive.org/web/20250619092531/https://www.2kratings.com/bismack-biyombo",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2025-06-19T09:25:31Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "b99e6b20f97cdb551235a6cfbc3b805207f14d6793667498d8ea2ef7d7f464a7",
+        "source_file_sha256": "b99e6b20f97cdb551235a6cfbc3b805207f14d6793667498d8ea2ef7d7f464a7",
+        "decoded_html_sha256": "b99e6b20f97cdb551235a6cfbc3b805207f14d6793667498d8ea2ef7d7f464a7",
+        "source_wire_compressed": false,
+        "source_title": "Bismack Biyombo NBA 2K25 Rating (Current San Antonio Spurs)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
     },
     "src_42f78f7515acffbc": {
       "url": "https://www.nba.com/news/2025-nba-playoffs-standings-and-bracket-updates",
@@ -260,7 +358,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_43bda69fe0692749": {
@@ -269,7 +368,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_4441167c6d46b422": {
@@ -296,14 +396,138 @@
         "category_semantics": "category values are source page displays, not locally calculated"
       }
     },
+    "src_45bcadccee0fc711": {
+      "url": "https://web.archive.org/web/20250126140646/https://www.2kratings.com/ron-harper-jr",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_45bcadccee0fc711",
+        "source_url": "https://web.archive.org/web/20250126140646/https://www.2kratings.com/ron-harper-jr",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2025-01-26T14:06:46Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "1a599d2e50b786ecaa5ae2f8e391457da913efc30b3837a4dedec15ee86cd6c6",
+        "source_file_sha256": "1a599d2e50b786ecaa5ae2f8e391457da913efc30b3837a4dedec15ee86cd6c6",
+        "decoded_html_sha256": "1a599d2e50b786ecaa5ae2f8e391457da913efc30b3837a4dedec15ee86cd6c6",
+        "source_wire_compressed": false,
+        "source_title": "Ron Harper Jr. NBA 2K25 Rating (Current Detroit Pistons)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
+    },
+    "src_45c75e99e144ced2": {
+      "url": "https://web.archive.org/web/20260101202227/https://www.2kratings.com/mark-sears",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_45c75e99e144ced2",
+        "source_url": "https://web.archive.org/web/20260101202227/https://www.2kratings.com/mark-sears",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2026-01-01T20:22:27Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "8125e126a8d8b1e811f2732af5c2c260aa2e7cfb40ad387755800e7504117f9a",
+        "source_file_sha256": "8125e126a8d8b1e811f2732af5c2c260aa2e7cfb40ad387755800e7504117f9a",
+        "decoded_html_sha256": "1febeaa1ed21ed57a434317477848389265d8195898be25e58ae1fb18258149d",
+        "source_wire_compressed": true,
+        "source_title": "Mark Sears NBA 2K26 Rating (Current Milwaukee Bucks)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
+    },
+    "src_494d690ccb04f6c3": {
+      "url": "https://statsdmz.nba.com/pdfs/20260328/20260328_CHIMEM_book.pdf",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_497cb5703ee07246": {
+      "url": "https://web.archive.org/web/20250119084031/https://www.2kratings.com/emanuel-miller",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_497cb5703ee07246",
+        "source_url": "https://web.archive.org/web/20250119084031/https://www.2kratings.com/emanuel-miller",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2025-01-19T08:40:31Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "bb34905c7e305a501b119efa06d7939e042c3b1f46283b7f91a9beea249d6cd7",
+        "source_file_sha256": "bb34905c7e305a501b119efa06d7939e042c3b1f46283b7f91a9beea249d6cd7",
+        "decoded_html_sha256": "bb34905c7e305a501b119efa06d7939e042c3b1f46283b7f91a9beea249d6cd7",
+        "source_wire_compressed": false,
+        "source_title": "Emanuel Miller NBA 2K25 Rating (Current Chicago Bulls)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
+    },
     "src_497d8aa2e7ec31d0": {
       "url": "https://www.basketball-reference.com/teams/POR/2025.html",
       "retrieved_dates": [
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
+    },
+    "src_4b38b53585ae712f": {
+      "url": "https://web.archive.org/web/20250123012524/https://www.2kratings.com/liam-robbins",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_4b38b53585ae712f",
+        "source_url": "https://web.archive.org/web/20250123012524/https://www.2kratings.com/liam-robbins",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2025-01-23T01:25:24Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "2bc7f5d13b5293ad8df3265cc3e22b08262a3102297c6a027bcb942e918c9fe7",
+        "source_file_sha256": "2bc7f5d13b5293ad8df3265cc3e22b08262a3102297c6a027bcb942e918c9fe7",
+        "decoded_html_sha256": "2bc7f5d13b5293ad8df3265cc3e22b08262a3102297c6a027bcb942e918c9fe7",
+        "source_wire_compressed": false,
+        "source_title": "Liam Robbins NBA 2K25 Rating (Current Milwaukee Bucks)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
+    },
+    "src_4caf3dd7d2071d99": {
+      "url": "https://www.nba.com/player/1642259/alexandre-sarr",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_4df4eb338c3690f5": {
+      "url": "https://www.nba.com/player/1642380/adama-bal",
+      "retrieved_dates": [],
+      "roles": []
     },
     "src_4e2fe33288de58b0": {
       "url": "https://www.basketball-reference.com/teams/PHO/2026.html",
@@ -341,13 +565,29 @@
         "team_history"
       ]
     },
+    "src_51d5d541b0611ab0": {
+      "url": "https://www.nba.com/sixers/news/kj-martin-bio-stats-facts",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_53160cbfdd2b1d7a": {
+      "url": "https://www.basketball-reference.com/players/s/scotttr01.html",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_557b0c7af5997d28": {
+      "url": "https://gleague.nba.com/player/1630286/tre-scott",
+      "retrieved_dates": [],
+      "roles": []
+    },
     "src_57eaa4fd372023f5": {
       "url": "https://www.basketball-reference.com/teams/CHI/2025.html",
       "retrieved_dates": [
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_5ac61e68706cea55": {
@@ -432,7 +672,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_6583befd64222196": {
@@ -473,7 +714,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_66b22b8ff3fbfcd7": {
@@ -482,7 +724,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_6706458a794973a4": {
@@ -556,6 +799,33 @@
         "team_history"
       ]
     },
+    "src_6fbbbca781c7fb0c": {
+      "url": "https://web.archive.org/web/20250619101249/https://www.2kratings.com/lamar-stevens",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_6fbbbca781c7fb0c",
+        "source_url": "https://web.archive.org/web/20250619101249/https://www.2kratings.com/lamar-stevens",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2025-06-19T10:12:49Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "6148d7b0bc010caedb4d866a30e02d4fb3e8f3900d75fbf4d845217a2faa0b9b",
+        "source_file_sha256": "6148d7b0bc010caedb4d866a30e02d4fb3e8f3900d75fbf4d845217a2faa0b9b",
+        "decoded_html_sha256": "6148d7b0bc010caedb4d866a30e02d4fb3e8f3900d75fbf4d845217a2faa0b9b",
+        "source_wire_compressed": false,
+        "source_title": "Lamar Stevens NBA 2K25 Rating (Current Memphis Grizzlies)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
+    },
     "src_70e941997d6d7d0b": {
       "url": "https://www.basketball-reference.com/teams/NYK/2026.html",
       "retrieved_dates": [
@@ -564,6 +834,11 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_7421c1d3e548e2af": {
+      "url": "https://www.nba.com/stats/player/1630288/career",
+      "retrieved_dates": [],
+      "roles": []
     },
     "src_74b598f27bb7e3c0": {
       "url": "https://www.basketball-reference.com/teams/MIN/2026.html",
@@ -607,13 +882,41 @@
         "team_history"
       ]
     },
+    "src_7c15b665cdc9eacc": {
+      "url": "https://web.archive.org/web/20250614172329/https://www.2kratings.com/markelle-fultz",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_7c15b665cdc9eacc",
+        "source_url": "https://web.archive.org/web/20250614172329/https://www.2kratings.com/markelle-fultz",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2025-06-14T17:23:29Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "005cd4b63c8c134b0fa0eec592ed6d74f5ea45ebb9d1bbd5e2d07ca53c4eb7f1",
+        "source_file_sha256": "005cd4b63c8c134b0fa0eec592ed6d74f5ea45ebb9d1bbd5e2d07ca53c4eb7f1",
+        "decoded_html_sha256": "005cd4b63c8c134b0fa0eec592ed6d74f5ea45ebb9d1bbd5e2d07ca53c4eb7f1",
+        "source_wire_compressed": false,
+        "source_title": "Markelle Fultz NBA 2K25 Rating (Current Sacramento Kings)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
+    },
     "src_805ccf96fbc0c692": {
       "url": "https://www.basketball-reference.com/teams/BRK/2026.html",
       "retrieved_dates": [
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_8871170d66676dfe": {
@@ -633,6 +936,33 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_916a1349dbe0f221": {
+      "url": "https://web.archive.org/web/20250522152424/https://www.2kratings.com/landry-shamet",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_916a1349dbe0f221",
+        "source_url": "https://web.archive.org/web/20250522152424/https://www.2kratings.com/landry-shamet",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2025-05-22T15:24:24Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "e51644eadae97e1a4e7c2f25d6e2c8d93caf3eccd2406a58f724571a203fad11",
+        "source_file_sha256": "e51644eadae97e1a4e7c2f25d6e2c8d93caf3eccd2406a58f724571a203fad11",
+        "decoded_html_sha256": "e51644eadae97e1a4e7c2f25d6e2c8d93caf3eccd2406a58f724571a203fad11",
+        "source_wire_compressed": false,
+        "source_title": "Landry Shamet NBA 2K25 Rating (Current New York Knicks)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
     },
     "src_98b1b7628c627196": {
       "url": "https://raw.githubusercontent.com/thompgt/nba2k26-analysis/397508b993a4b11c31d5e3801fa300b1d38b5a4d/data/processed/players_2k26_clean.csv",
@@ -740,7 +1070,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_a6e967e2bfd130b6": {
@@ -751,6 +1082,11 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_a97da988eda0e1b9": {
+      "url": "https://www.nba.com/player/1642856/egor-d%C3%ABmin",
+      "retrieved_dates": [],
+      "roles": []
     },
     "src_aa8997a4c3412a82": {
       "url": "https://www.basketball-reference.com/teams/BOS/2026.html",
@@ -791,7 +1127,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_af831a0d6e6a0fa4": {
@@ -824,8 +1161,63 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
+    },
+    "src_afb5604077498006": {
+      "url": "https://web.archive.org/web/20250623070251/https://www.2kratings.com/kevin-knox",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_afb5604077498006",
+        "source_url": "https://web.archive.org/web/20250623070251/https://www.2kratings.com/kevin-knox",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2025-06-23T07:02:51Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "2e396297c7ee06686eb72d14cd5c5d682c6362444c134325b68bc9a56820ce88",
+        "source_file_sha256": "2e396297c7ee06686eb72d14cd5c5d682c6362444c134325b68bc9a56820ce88",
+        "decoded_html_sha256": "2e396297c7ee06686eb72d14cd5c5d682c6362444c134325b68bc9a56820ce88",
+        "source_wire_compressed": false,
+        "source_title": "Kevin Knox II NBA 2K25 Rating (Current Golden State Warriors)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
+    },
+    "src_b0da92c723fd8676": {
+      "url": "https://web.archive.org/web/20251203034309/https://www.2kratings.com/chris-paul",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_b0da92c723fd8676",
+        "source_url": "https://web.archive.org/web/20251203034309/https://www.2kratings.com/chris-paul",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K26",
+        "snapshot_date": "2025-12-03T03:43:09Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "e5bc29ae171a433060a24337d1d83dde315d231556713c3d2f4c1d886cdb1ddf",
+        "source_file_sha256": "e5bc29ae171a433060a24337d1d83dde315d231556713c3d2f4c1d886cdb1ddf",
+        "decoded_html_sha256": "e5bc29ae171a433060a24337d1d83dde315d231556713c3d2f4c1d886cdb1ddf",
+        "source_wire_compressed": false,
+        "source_title": "Chris Paul NBA 2K26 Rating (Current Los Angeles Clippers)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
     },
     "src_b28d04238c17562c": {
       "url": "https://www.basketball-reference.com/teams/TOR/2026.html",
@@ -878,10 +1270,69 @@
         "team_history"
       ]
     },
+    "src_b76ad0a4d88317c9": {
+      "url": "https://www.nba.com/player/1642383/walter-clayton-jr",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_b793a728101d715d": {
+      "url": "https://web.archive.org/web/20250210033012/https://www.2kratings.com/terry-taylor",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_b793a728101d715d",
+        "source_url": "https://web.archive.org/web/20250210033012/https://www.2kratings.com/terry-taylor",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2025-02-10T03:30:12Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "a1505ee4f2783e25543810c23b910de48fbaa8e08a959e0609f297c43725f39d",
+        "source_file_sha256": "a1505ee4f2783e25543810c23b910de48fbaa8e08a959e0609f297c43725f39d",
+        "decoded_html_sha256": "a1505ee4f2783e25543810c23b910de48fbaa8e08a959e0609f297c43725f39d",
+        "source_wire_compressed": false,
+        "source_title": "Terry Taylor NBA 2K25 Rating (Free Agent)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
+    },
     "src_bc05f3377b26124f": {
       "url": "https://web.archive.org/web/20251031190131/https://www.2kratings.com/kevin-durant",
       "retrieved_dates": [],
       "roles": []
+    },
+    "src_bea471842e6294cd": {
+      "url": "https://web.archive.org/web/20241204025657/https://www.2kratings.com/braxton-key",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_bea471842e6294cd",
+        "source_url": "https://web.archive.org/web/20241204025657/https://www.2kratings.com/braxton-key",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2024-12-04T02:56:57Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "305bfb03468db0903ba315b10b677c114c867e5896f7676d0ffdcef1ce6d87ba",
+        "source_file_sha256": "305bfb03468db0903ba315b10b677c114c867e5896f7676d0ffdcef1ce6d87ba",
+        "decoded_html_sha256": "305bfb03468db0903ba315b10b677c114c867e5896f7676d0ffdcef1ce6d87ba",
+        "source_wire_compressed": false,
+        "source_title": "Braxton Key NBA 2K25 Rating (Free Agent)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
     },
     "src_c07a7676da15b4e1": {
       "url": "https://www.basketball-reference.com/teams/SAC/2025.html",
@@ -889,7 +1340,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_c71a39cbda498bd0": {
@@ -898,7 +1350,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_c72b4953c9504869": {
@@ -909,6 +1362,11 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_c82c7d8dacd809ba": {
+      "url": "https://gleague.nba.com/news/suns-sign-tyty-washington-jr-to-two-way-contract",
+      "retrieved_dates": [],
+      "roles": []
     },
     "src_c9dc101ceff4e588": {
       "url": "https://web.archive.org/web/20251230102427/https://www.2kratings.com/deandre-hunter",
@@ -957,6 +1415,33 @@
         "team_history"
       ]
     },
+    "src_d09f31251f53b375": {
+      "url": "https://web.archive.org/web/20250122040651/https://www.2kratings.com/riley-minix",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_d09f31251f53b375",
+        "source_url": "https://web.archive.org/web/20250122040651/https://www.2kratings.com/riley-minix",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2025-01-22T04:06:51Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "8a530c6ec7cdbb167f4d493bf811376d485c6cca7233c9a59620ef015d095c2c",
+        "source_file_sha256": "8a530c6ec7cdbb167f4d493bf811376d485c6cca7233c9a59620ef015d095c2c",
+        "decoded_html_sha256": "8a530c6ec7cdbb167f4d493bf811376d485c6cca7233c9a59620ef015d095c2c",
+        "source_wire_compressed": false,
+        "source_title": "Riley Minix NBA 2K25 Rating (Current San Antonio Spurs)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
+    },
     "src_d5a71f7303c437e3": {
       "url": "https://www.basketball-reference.com/teams/CLE/2026.html",
       "retrieved_dates": [
@@ -965,6 +1450,33 @@
       "roles": [
         "team_history"
       ]
+    },
+    "src_d6907d840d66fbae": {
+      "url": "https://web.archive.org/web/20241110151220/https://www.2kratings.com/miles-norris",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_d6907d840d66fbae",
+        "source_url": "https://web.archive.org/web/20241110151220/https://www.2kratings.com/miles-norris",
+        "source_kind": "verified_archive_gap_html",
+        "game": "NBA 2K25",
+        "snapshot_date": "2024-11-10T15:12:20Z",
+        "date_basis": "Internet Archive capture timestamp in the source URL; exact game patch date unknown",
+        "game_patch_date": null,
+        "source_commit_date": null,
+        "per_player_capture_known": true,
+        "wire_sha256": "1226fb2da610fb5dea84d9dffc9bb433c271638c734b6ad509a91b9cadf51be0",
+        "source_file_sha256": "1226fb2da610fb5dea84d9dffc9bb433c271638c734b6ad509a91b9cadf51be0",
+        "decoded_html_sha256": "1226fb2da610fb5dea84d9dffc9bb433c271638c734b6ad509a91b9cadf51be0",
+        "source_wire_compressed": false,
+        "source_title": "Miles Norris NBA 2K25 Rating (Free Agent)",
+        "retrieved_date": "2026-10-07",
+        "category_semantics": "Literal source HTML display values; never derived averages."
+      }
     },
     "src_d6f14360e2051750": {
       "url": "https://web.archive.org/web/20260103062407/https://www.2kratings.com/aaron-wiggins",
@@ -1002,7 +1514,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_d99ece10bd6337ec": {
@@ -1011,7 +1524,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_db75f25bd9422e7f": {
@@ -1052,6 +1566,11 @@
       "retrieved_dates": [],
       "roles": []
     },
+    "src_e3dbdfcf66fb17d2": {
+      "url": "https://www.nba.com/player/1630288/jeff-dowtin",
+      "retrieved_dates": [],
+      "roles": []
+    },
     "src_e6729fbd860609b6": {
       "url": "https://www.nba.com/news/2024-25-nba-trade-tracker",
       "retrieved_dates": [
@@ -1063,6 +1582,11 @@
     },
     "src_e6b9f6e9ea6f2ec9": {
       "url": "https://api.nba2kapi.com/api/versions",
+      "retrieved_dates": [],
+      "roles": []
+    },
+    "src_e8fe96fad4891d7f": {
+      "url": "https://www.nba.com/player/1630286/trevon-scott",
       "retrieved_dates": [],
       "roles": []
     },
@@ -1108,13 +1632,43 @@
         "team_history"
       ]
     },
+    "src_f2a1d526501f9ff3": {
+      "url": "https://raw.githubusercontent.com/ReinerJasin/NBA2k25_Web_Scraping/99771e857e4f14c984151bfe798e093c433ac5c5/output/current_nba_players.csv",
+      "retrieved_dates": [
+        "2026-10-07"
+      ],
+      "roles": [
+        "rating_field_provenance"
+      ],
+      "rating_snapshot_metadata": {
+        "source_id": "src_f2a1d526501f9ff3",
+        "source_url": "https://raw.githubusercontent.com/ReinerJasin/NBA2k25_Web_Scraping/99771e857e4f14c984151bfe798e093c433ac5c5/output/current_nba_players.csv",
+        "source_kind": "fixed_historical_2k25_csv",
+        "game": "NBA 2K25",
+        "snapshot_date": "2024-10-12T14:21:43Z",
+        "date_basis": "Historical repository commit timestamp, not game patch date; per-player scrape timestamps not retained",
+        "game_patch_date": null,
+        "source_commit_date": "2024-10-12T14:21:43Z",
+        "source_commit_sha": "99771e857e4f14c984151bfe798e093c433ac5c5",
+        "source_file_sha256": "3f23795eec10783bfa3310471a4874a0dda130359c2b9403cf78e1fa13202229",
+        "per_player_capture_known": false,
+        "edition_evidence": {
+          "url": "https://github.com/ReinerJasin/NBA2k25_Web_Scraping/tree/99771e857e4f14c984151bfe798e093c433ac5c5",
+          "README_file": "2k25_oct12_readme.response",
+          "README_text": "# NBA2k25_Web_Scraping"
+        },
+        "category_semantics": "group_* values from the original 2K25 scrape; no derived Blacktop cats",
+        "retrieved_date": "2026-10-07"
+      }
+    },
     "src_f2b92547e6b428c7": {
       "url": "https://www.basketball-reference.com/teams/UTA/2025.html",
       "retrieved_dates": [
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_f2ba7c4c81fbf753": {
@@ -1123,7 +1677,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_f567943daf4d0e47": {
@@ -1179,7 +1734,8 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     },
     "src_ff63b4e52982b195": {
@@ -1188,21 +1744,28 @@
         "2026-09-30"
       ],
       "roles": [
-        "team_history"
+        "team_history",
+        "team_roster_scope"
       ]
     }
   },
   "shared_texts": {
+    "txt_0ef1575261599502": "新增球队范围记录；仅补固定CSV中空值，逐字段出处见rating_field_provenance。原始来源列不代表整条补采记录。来源缺少部分个人能力值；未推算或补零。；混合早期/季前历史快照；原始逐球员抓取时间未知。",
     "txt_1653cde43dcf66ac": "仅补原null；已有非空值未改。原始来源/快照列只说明保留的原始数据；补入字段的来源和日期逐项见rating_field_provenance。补采前原始备注：所用历史来源未找到可核对记录；所有能力值留空，不以0代替。",
     "txt_26952e9ca00b9230": "混合早期/季前历史快照；原始逐球员抓取时间未知。；来源号码已数值化，0.0无法区分0与00；请使用真实赛季号码。",
     "txt_2836ee3a5b432a71": "Official transaction confirms team association; this is not evidence of NBA game appearance. Jersey unverified. Transaction dates use source listing, not independently reconstructed arrival/departure times.",
     "txt_39cf9d1100768903": "按该队整个赛季名单计数；已离队球员仍计入；跨队球员会在各队重复计数。",
     "txt_428fece02e0f367a": "官方交易补充（可能未出场）",
     "txt_42f85e193875cfe9": "混合早期/季前历史快照；原始逐球员抓取时间未知。",
+    "txt_609e6734550cbf4b": "全联盟30队的球队赛季名单；包括未进入季后赛的球队",
     "txt_69046db266563ebb": "同赛季多队与多号码的排列不表示先后顺序；名单可能不含短约且未出场的其他停留。",
     "txt_6a5a32cf2bd51ae3": "进入首轮的16支季后赛球队；不含仅参加附加赛后被淘汰的球队",
     "txt_6f6aab3840de6171": "仅补原null；已有非空值未改。原始来源/快照列只说明保留的原始数据；补入字段的来源和日期逐项见rating_field_provenance。补采前原始备注：来源缺少部分个人能力值；未推算或补零。；混合早期/季前历史快照；原始逐球员抓取时间未知。",
     "txt_726211c1c52d7acd": "2024-11-26仓库快照；游戏补丁日期未核",
+    "txt_855090b53e1348f6": "2026-10-07按审定同版历史来源仅补空值，已有非空不变；逐字段出处见rating_field_provenance。补入时间点不代表赛季末或统一补丁。原始来源列只描述baseline。来源缺少部分个人能力值；未推算或补零。；混合早期/季前历史快照；原始逐球员抓取时间未知。",
+    "txt_9cb495206db621a8": "2026-10-07按审定同版历史来源仅补空值，已有非空不变；逐字段出处见rating_field_provenance。补入时间点不代表赛季末或统一补丁。原始来源列只描述baseline。所用历史来源未找到可核对记录；所有能力值留空，不以0代替。",
+    "txt_a835db5104d671a8": "新增球队范围记录；仅补固定CSV中空值，逐字段出处见rating_field_provenance。原始来源列不代表整条补采记录。来源缺少部分个人能力值；未推算或补零。；混合早期/季前历史快照；原始逐球员抓取时间未知。；来源号码已数值化，0.0无法区分0与00；请使用真实赛季号码。",
+    "txt_bb468b661fb143ff": "新增球队范围记录；仅补固定CSV中空值，逐字段出处见rating_field_provenance。原始来源列不代表整条补采记录。所用历史来源未找到可核对记录；所有能力值留空，不以0代替。",
     "txt_bbe5bd2d2693e3f9": "2025-08至2026-02混合归档；含早期/季前快照；逐球员时间未知",
     "txt_c718e3757c3d5365": "所用历史来源未找到可核对记录；所有能力值留空，不以0代替。",
     "txt_d4d2dea86364ca9a": "混合早期/季前历史快照；原始逐球员抓取时间未知。；评分CSV号码35与独立归档页及HOU赛季名单号码7不一致；号码以球队赛季记录为准。",
@@ -1210,12 +1773,12 @@
     "txt_f9f2ed522967dea3": "球队赛季名单记录（不代表季后赛出场）"
   },
   "upstream_metadata": {
-    "title": "NBA 2K25/2K26 季后赛球队球员能力与赛季球队号码",
+    "title": "NBA 2K25/2K26 两季全联盟球队球员能力与球队号码",
     "created_at_utc": "2026-09-30T08:14:48.151693+00:00",
     "source_retrieved_date": "2026-09-30",
-    "scope": "球队范围为每季正式首轮16队；球员范围为这些球队整个赛季名单（含季中离队球员），不等于季后赛出场名单。",
+    "scope": "两季各30支NBA球队的整个赛季名单（包括季内离队球员）；交易only关联单独标记，不计球队能力表。",
     "rating_time_basis": [
-      "2024-25对应NBA 2K25：使用2024-11-26固定仓库版本；提交日期不是已验证的游戏补丁日期，也不代表赛季末。",
+      "2024-25对应NBA 2K25：保留2024-11-26固定CSV的已有非空值，部分空值补自2024-10-12同版CSV及经核验同版历史HTML。逐字段日期与date_basis见rating_field_provenance，不是统一时间点或赛季最终补丁。",
       "2K26原始非空值保留早期混合归档；新增空值优先真实历史HTML，再按固定2026-08-08/07-21/05-28的2K26第三方快照补采；逐字段追溯，不是单一时间点。",
       "归档抓取时间与仓库同步时间按date_basis区分，均不等于游戏补丁更新时间；所有game_patch_date未知。"
     ],
@@ -1231,24 +1794,25 @@
     ],
     "null_semantics": "null或CSV空字段表示来源无值；绝不表示能力为0。",
     "jersey_semantics": "号码是文本；0和00不同；逗号分隔多个号码的顺序不表示时间顺序。",
-    "identity_basis": "BBR编号缺失，使用规范化精确姓名；显式别名均核对同队同号码。",
+    "identity_basis": "保留原player_key；新增球员仍用规范化精确姓名键；新显式别名需有approved_expansion_sources.json证据。BBR编号未取得者仍为null。",
     "history_order": "按赛季及球队缩写排列；未推断交易先后。",
     "limitations": [
       "能力值来自可追溯的第三方历史抓取，不是2K官方数据导出；真实球队和号码独立取自赛季球队名单。",
-      "2024-25对应NBA 2K25：使用2024-11-26固定仓库版本；提交日期不是已验证的游戏补丁日期，也不代表赛季末。",
+      "2024-25对应NBA 2K25：保留2024-11-26固定CSV的已有非空值，部分空值补自2024-10-12同版CSV及经核验同版历史HTML。逐字段日期与date_basis见rating_field_provenance，不是统一时间点或赛季最终补丁。",
       "2K26原始非空值保留早期混合归档；新增空值优先真实历史HTML，再按固定2026-08-08/07-21/05-28的2K26第三方快照补采；逐字段追溯，不是单一时间点。",
       "归档抓取时间与仓库同步时间按date_basis区分，均不等于游戏补丁更新时间；所有game_patch_date未知。",
-      "球队范围为每季正式首轮16队；球员范围为这些球队整个赛季名单（含季中离队球员），不等于季后赛出场名单。",
       "缺失评分留空，不补零，不用其他版本/当前页面能力值填补历史缺口。",
       "同赛季转队顺序及具体日期通常未核实；球队按缩写排序。号码逐队保留，0和00不同，同队多个号码保留来源文本。",
       "球队名单可能不含短约或零出场的停留；仅在另有NBA官方交易证据时补入历史，不能称为完整合同或交易档案。",
-      "来源文本没有BBR球员超链接，BBR编号留空；连接键使用去重音/标点后的精确姓名并辅以11条逐项核对的显式别名。未使用模糊匹配。",
       "2K26来源快照号码曾被数值化，0.0不能可靠区分0和00；杜兰特来源快照号码35与HOU赛季号码7不同。请以真实赛季号码为准。",
       "42个能力字段包括36项个人能力（含总评）及6项来源提供的综合分类；分类值不是本次重新计算。",
-      "本次只补2K26原有null，已有非空评分和2K25不改；未补0，也不使用2K27/MyTEAM/经典或全明星版本。",
       "新增补采没有采用仅有发售前预览的HTML；原包已有早期快照值仍保留。",
-      "Blacktop综合分类是Math.round派生均值，不导入cat_*；综合分类只在真实历史页面有原始显示值时补入，否则保持null。",
-      "混合来源记录必须按field_provenance.json逐字段解析；原始评分来源/快照列不能代表整条已补采记录。"
+      "Blacktop综合分类是Math.round派生均值，不导入cat_*；综合分类仅在真实历史HTML或固定同版CSV中有来源原值时补入，否则保持null。",
+      "混合来源记录必须按field_provenance.json逐字段解析；原始评分来源/快照列不能代表整条已补采记录。",
+      "两季各30支NBA球队的整个赛季名单（包括季内离队球员）；交易only关联单独标记，不计球队能力表。",
+      "旧635条球员记录已有非空能力及来源、身份、号码保留；旧null可按审定同版历史来源补入。新516条记录来自同版历史来源，范围补齐不表示42项能力均无空值。",
+      "部分2K25空值补自更早的2024年10月同版固定CSV；不是赛季末或统一补丁能力。",
+      "仅使用审定姓名别名，不进行模糊合并。历史查询中的球队排列不是交易时间线。"
     ],
     "sources": [
       {
@@ -1285,34 +1849,131 @@
     "summary_by_season": [
       {
         "season": "2024-25",
-        "selected_player_season_rows": 317,
-        "with_overall_rating": 295,
-        "all_individual_ratings_complete": 295,
+        "selected_player_season_rows": 569,
+        "with_overall_rating": 539,
+        "all_individual_ratings_complete": 539,
         "partial_individual_ratings": 0,
-        "without_rating_record": 22,
-        "with_three_point_rating": 295,
-        "with_six_core_ratings": 295
+        "without_rating_record": 30,
+        "with_three_point_rating": 539,
+        "with_six_core_ratings": 539,
+        "all_42_ratings_complete": 539,
+        "missing_rating_cells": 1260,
+        "missing_individual_cells": 1080,
+        "missing_category_cells": 180,
+        "missing_by_field": {
+          "overall": 30,
+          "three_point_shot": 30,
+          "perimeter_defense": 30,
+          "interior_defense": 30,
+          "steal": 30,
+          "block": 30,
+          "help_defense_iq": 30,
+          "pass_perception": 30,
+          "defensive_consistency": 30,
+          "defensive_rebound": 30,
+          "offensive_rebound": 30,
+          "mid_range_shot": 30,
+          "close_shot": 30,
+          "free_throw": 30,
+          "layup": 30,
+          "driving_dunk": 30,
+          "standing_dunk": 30,
+          "post_hook": 30,
+          "post_fade": 30,
+          "post_control": 30,
+          "draw_foul": 30,
+          "ball_handle": 30,
+          "pass_accuracy": 30,
+          "pass_vision": 30,
+          "pass_iq": 30,
+          "speed_with_ball": 30,
+          "shot_iq": 30,
+          "offensive_consistency": 30,
+          "speed": 30,
+          "agility": 30,
+          "strength": 30,
+          "vertical": 30,
+          "stamina": 30,
+          "hustle": 30,
+          "hands": 30,
+          "overall_durability": 30,
+          "cat_defense": 30,
+          "cat_outside_scoring": 30,
+          "cat_inside_scoring": 30,
+          "cat_playmaking": 30,
+          "cat_rebounding": 30,
+          "cat_athleticism": 30
+        }
       },
       {
         "season": "2025-26",
-        "selected_player_season_rows": 318,
-        "with_overall_rating": 318,
-        "all_individual_ratings_complete": 314,
-        "partial_individual_ratings": 4,
-        "without_rating_record": 0,
-        "with_three_point_rating": 314,
-        "with_six_core_ratings": 314
+        "selected_player_season_rows": 582,
+        "with_overall_rating": 578,
+        "all_individual_ratings_complete": 572,
+        "partial_individual_ratings": 6,
+        "without_rating_record": 4,
+        "with_three_point_rating": 572,
+        "with_six_core_ratings": 572,
+        "all_42_ratings_complete": 301,
+        "missing_rating_cells": 1965,
+        "missing_individual_cells": 354,
+        "missing_category_cells": 1611,
+        "missing_by_field": {
+          "overall": 4,
+          "three_point_shot": 10,
+          "perimeter_defense": 10,
+          "interior_defense": 10,
+          "steal": 10,
+          "block": 10,
+          "help_defense_iq": 10,
+          "pass_perception": 10,
+          "defensive_consistency": 10,
+          "defensive_rebound": 10,
+          "offensive_rebound": 10,
+          "mid_range_shot": 10,
+          "close_shot": 10,
+          "free_throw": 10,
+          "layup": 10,
+          "driving_dunk": 10,
+          "standing_dunk": 10,
+          "post_hook": 10,
+          "post_fade": 10,
+          "post_control": 10,
+          "draw_foul": 10,
+          "ball_handle": 10,
+          "pass_accuracy": 10,
+          "pass_vision": 10,
+          "pass_iq": 10,
+          "speed_with_ball": 10,
+          "shot_iq": 10,
+          "offensive_consistency": 10,
+          "speed": 10,
+          "agility": 10,
+          "strength": 10,
+          "vertical": 10,
+          "stamina": 10,
+          "hustle": 10,
+          "hands": 10,
+          "overall_durability": 10,
+          "cat_defense": 270,
+          "cat_outside_scoring": 278,
+          "cat_inside_scoring": 259,
+          "cat_playmaking": 268,
+          "cat_rebounding": 278,
+          "cat_athleticism": 258
+        }
       }
     ],
     "counts": {
-      "players": 635,
-      "unique_players": 472,
-      "stints": 1033,
-      "histories": 472,
+      "players": 1151,
+      "unique_players": 687,
+      "stints": 1358,
+      "histories": 687,
+      "team_seasons": 60,
       "playoff_teams": 32,
-      "coverage": 32,
-      "unresolved_joins": 22,
-      "explicit_aliases": 11,
+      "coverage": 60,
+      "unresolved_joins": 34,
+      "explicit_aliases": 16,
       "official_transaction_supplements": 42
     },
     "remediation": {
@@ -1354,6 +2015,858 @@
           "file": "reviewed_null_fill_candidates.json",
           "sha256": "31f41fff5c5dbebed8a83076961fe4a8be1e84e623137c338aca1344bac9708d"
         },
+        {
+          "file": "verified_historical_candidates.json",
+          "sha256": "138e481d1a7832e699ea508ad1522ba5820d5f215991e0fddc4f3597814a0b79"
+        },
+        {
+          "file": "verified_historical_incremental_candidates.json",
+          "sha256": "bd24ba72f9d990fa932bdd2f6e781d7b1efc44d2e977085b3e0a0f9173916d55"
+        }
+      ]
+    },
+    "all_teams_expansion": {
+      "schema_version": "2.0.0",
+      "updated_at_utc": "2026-10-07T01:44:16.091961+00:00",
+      "baseline_canonical_sha256": "53afe6aedab6f0bae1fed6cb3c8ba63b2584e2c0aa8b872eedcfdf6131cd6992",
+      "policy": "All published non-null ratings and their sources, identity fields, jerseys and transactions are protected. Add 516 full-roster player-season records and separately audited same-edition null fills, including older 2K25 historical captures. No derived categories or cross-edition fill.",
+      "old_counts": {
+        "players": 635,
+        "unique_players": 472,
+        "stints": 1033,
+        "histories": 472,
+        "playoff_teams": 32,
+        "coverage": 32,
+        "unresolved_joins": 22,
+        "explicit_aliases": 11,
+        "official_transaction_supplements": 42
+      },
+      "new_counts": {
+        "players": 1151,
+        "unique_players": 687,
+        "stints": 1358,
+        "histories": 687,
+        "team_seasons": 60,
+        "playoff_teams": 32,
+        "coverage": 60,
+        "unresolved_joins": 34,
+        "explicit_aliases": 16,
+        "official_transaction_supplements": 42
+      },
+      "added_records": 516,
+      "new_records_by_season": {
+        "2024-25": 252,
+        "2025-26": 264
+      },
+      "new_record_ids": [
+        "name:adamasanogo@2024-25",
+        "name:adembona@2024-25",
+        "name:ajlawson@2024-25",
+        "name:alexsarr@2024-25",
+        "name:andredrummond@2024-25",
+        "name:anferneesimons@2024-25",
+        "name:anthonygill@2024-25",
+        "name:antonioreeves@2024-25",
+        "name:ayodosunmu@2024-25",
+        "name:bilalcoulibaly@2024-25",
+        "name:bismackbiyombo@2024-25",
+        "name:blakewesley@2024-25",
+        "name:bolbol@2024-25",
+        "name:bradleybeal@2024-25",
+        "name:brandonbostonjr@2024-25",
+        "name:brandoningram@2024-25",
+        "name:brandonmiller@2024-25",
+        "name:brandonwilliams@2024-25",
+        "name:bricesensabaugh@2024-25",
+        "name:brucebrown@2024-25",
+        "name:brunofernando@2024-25",
+        "name:brycemcgowens@2024-25",
+        "name:bubcarrington@2024-25",
+        "name:calebmartin@2024-25",
+        "name:cameronjohnson@2024-25",
+        "name:camthomas@2024-25",
+        "name:charlesbassey@2024-25",
+        "name:chrisboucher@2024-25",
+        "name:chrisduarte@2024-25",
+        "name:chrispaul@2024-25",
+        "name:cjmccollum@2024-25",
+        "name:clintcapela@2024-25",
+        "name:cobywhite@2024-25",
+        "name:codymartin@2024-25",
+        "name:codywilliams@2024-25",
+        "name:colbyjones@2024-25",
+        "name:collingillespie@2024-25",
+        "name:collinsexton@2024-25",
+        "name:coreykispert@2024-25",
+        "name:cuiyongxi@2024-25",
+        "name:daeqwonplowden@2024-25",
+        "name:dalanobanton@2024-25",
+        "name:dalenterry@2024-25",
+        "name:damionbaugh@2024-25",
+        "name:damionlee@2024-25",
+        "name:danielgafford@2024-25",
+        "name:danieltheis@2024-25",
+        "name:danteexum@2024-25",
+        "name:daquanjeffries@2024-25",
+        "name:dariqwhitehead@2024-25",
+        "name:daviddukejr@2024-25",
+        "name:dayronsharpe@2024-25",
+        "name:deaaronfox@2024-25",
+        "name:deandreayton@2024-25",
+        "name:dejountemurray@2024-25",
+        "name:demarderozan@2024-25",
+        "name:deniavdija@2024-25",
+        "name:derecklivelyii@2024-25",
+        "name:devinbooker@2024-25",
+        "name:devincarter@2024-25",
+        "name:devinvassell@2024-25",
+        "name:djcarton@2024-25",
+        "name:domantassabonis@2024-25",
+        "name:dominickbarlow@2024-25",
+        "name:donovanclingan@2024-25",
+        "name:dougmcdermott@2024-25",
+        "name:drewtimme@2024-25",
+        "name:duopreath@2024-25",
+        "name:dwightpowell@2024-25",
+        "name:dysondaniels@2024-25",
+        "name:ejliddell@2024-25",
+        "name:elfridpayton@2024-25",
+        "name:elijahharkless@2024-25",
+        "name:emanuelmiller@2024-25",
+        "name:ericgordon@2024-25",
+        "name:garretttemple@2024-25",
+        "name:garrisonmathews@2024-25",
+        "name:gradeydick@2024-25",
+        "name:grantwilliams@2024-25",
+        "name:graysonallen@2024-25",
+        "name:guerschonyabusele@2024-25",
+        "name:harrisonbarnes@2024-25",
+        "name:harrisoningram@2024-25",
+        "name:herbertjones@2024-25",
+        "name:immanuelquickley@2024-25",
+        "name:isaacjones@2024-25",
+        "name:isaiahcollier@2024-25",
+        "name:isaiahcrawford@2024-25",
+        "name:isaiahmobley@2024-25",
+        "name:isaiahwong@2024-25",
+        "name:jabariwalker@2024-25",
+        "name:jadenhardy@2024-25",
+        "name:jaecrowder@2024-25",
+        "name:jahmiryoung@2024-25",
+        "name:jakobewalter@2024-25",
+        "name:jakobpoeltl@2024-25",
+        "name:jalenbridges@2024-25",
+        "name:jalenjohnson@2024-25",
+        "name:jalenmcdaniels@2024-25",
+        "name:jalensmith@2024-25",
+        "name:jalenwilson@2024-25",
+        "name:jamalcain@2024-25",
+        "name:jamalshead@2024-25",
+        "name:jamisonbattle@2024-25",
+        "name:jaredbutler@2024-25",
+        "name:jaredmccain@2024-25",
+        "name:jaredrhoden@2024-25",
+        "name:jaylenmartin@2024-25",
+        "name:jaylennowell@2024-25",
+        "name:jaylensims@2024-25",
+        "name:jaziangortman@2024-25",
+        "name:jeffdowtinjr@2024-25",
+        "name:jeramigrant@2024-25",
+        "name:jeremiahrobinsonearl@2024-25",
+        "name:jeremysochan@2024-25",
+        "name:jevoncarter@2024-25",
+        "name:joelembiid@2024-25",
+        "name:johncollins@2024-25",
+        "name:johnnydavis@2024-25",
+        "name:johnnyjuzang@2024-25",
+        "name:jonasvalanciunas@2024-25",
+        "name:jonathanmogbo@2024-25",
+        "name:jordanclarkson@2024-25",
+        "name:jordanhawkins@2024-25",
+        "name:jordanmclaughlin@2024-25",
+        "name:jordanpoole@2024-25",
+        "name:josealvarado@2024-25",
+        "name:joshgiddey@2024-25",
+        "name:joshgreen@2024-25",
+        "name:joshokogie@2024-25",
+        "name:julianchampagnie@2024-25",
+        "name:julianphillips@2024-25",
+        "name:justinchampagnie@2024-25",
+        "name:justinedwards@2024-25",
+        "name:justinminaya@2024-25",
+        "name:jusufnurkic@2024-25",
+        "name:karlomatkovic@2024-25",
+        "name:keatonwallace@2024-25",
+        "name:keeganmurray@2024-25",
+        "name:keionbrooksjr@2024-25",
+        "name:keldonjohnson@2024-25",
+        "name:kellyolynyk@2024-25",
+        "name:kellyoubrejr@2024-25",
+        "name:keonellis@2024-25",
+        "name:keonjohnson@2024-25",
+        "name:kessleredwards@2024-25",
+        "name:kevindurant@2024-25",
+        "name:kevinhuerter@2024-25",
+        "name:keyontegeorge@2024-25",
+        "name:killianhayes@2024-25",
+        "name:kjmartin@2024-25",
+        "name:kjsimpson@2024-25",
+        "name:klaythompson@2024-25",
+        "name:kobebufkin@2024-25",
+        "name:krismurray@2024-25",
+        "name:kylefilipowski@2024-25",
+        "name:kylelowry@2024-25",
+        "name:kylorkelley@2024-25",
+        "name:kyrieirving@2024-25",
+        "name:kyshawngeorge@2024-25",
+        "name:lameloball@2024-25",
+        "name:larrynancejr@2024-25",
+        "name:laurimarkkanen@2024-25",
+        "name:lesterquinones@2024-25",
+        "name:lonniewalkeriv@2024-25",
+        "name:lonzoball@2024-25",
+        "name:malachiflynn@2024-25",
+        "name:malakibranham@2024-25",
+        "name:malcolmbrogdon@2024-25",
+        "name:malikmonk@2024-25",
+        "name:marcusbagley@2024-25",
+        "name:marcusgarrett@2024-25",
+        "name:markellefultz@2024-25",
+        "name:markwilliams@2024-25",
+        "name:masonjones@2024-25",
+        "name:masonplumlee@2024-25",
+        "name:matasbuzelis@2024-25",
+        "name:matissethybulle@2024-25",
+        "name:micahpotter@2024-25",
+        "name:milesbridges@2024-25",
+        "name:montemorris@2024-25",
+        "name:mouhamedgueye@2024-25",
+        "name:moussadiabate@2024-25",
+        "name:najimarshall@2024-25",
+        "name:nicclaxton@2024-25",
+        "name:nickrichards@2024-25",
+        "name:nicksmithjr@2024-25",
+        "name:nikolavucevic@2024-25",
+        "name:noahclowney@2024-25",
+        "name:ochaiagbaji@2024-25",
+        "name:oliviermaxenceprosper@2024-25",
+        "name:onyekaokongwu@2024-25",
+        "name:orlandorobinson@2024-25",
+        "name:oscartshiebwe@2024-25",
+        "name:oshaebrissett@2024-25",
+        "name:osoighodaro@2024-25",
+        "name:patrickwilliams@2024-25",
+        "name:paulgeorge@2024-25",
+        "name:phillipwheeler@2024-25",
+        "name:pjwashington@2024-25",
+        "name:quentingrimes@2024-25",
+        "name:rayanrupert@2024-25",
+        "name:reggiejackson@2024-25",
+        "name:richaunholmes@2024-25",
+        "name:rickycounciliv@2024-25",
+        "name:rileyminix@2024-25",
+        "name:rjbarrett@2024-25",
+        "name:robertwilliams@2024-25",
+        "name:royceoneale@2024-25",
+        "name:ryandunn@2024-25",
+        "name:sandromamukelashvili@2024-25",
+        "name:scoothenderson@2024-25",
+        "name:scottiebarnes@2024-25",
+        "name:sethcurry@2024-25",
+        "name:shaedonsharpe@2024-25",
+        "name:sidycissoko@2024-25",
+        "name:skallabissiere@2024-25",
+        "name:spencerdinwiddie@2024-25",
+        "name:stephoncastle@2024-25",
+        "name:svimykhailiuk@2024-25",
+        "name:tajgibson@2024-25",
+        "name:talenhortontucker@2024-25",
+        "name:taylorhendricks@2024-25",
+        "name:tazemoore@2024-25",
+        "name:terencedavis@2024-25",
+        "name:terrytaylor@2024-25",
+        "name:tidjanesalaun@2024-25",
+        "name:tosanevbuomwan@2024-25",
+        "name:toumanicamara@2024-25",
+        "name:traeyoung@2024-25",
+        "name:trejones@2024-25",
+        "name:tremann@2024-25",
+        "name:trendonwatford@2024-25",
+        "name:treylyles@2024-25",
+        "name:treymurphyiii@2024-25",
+        "name:tristanvukcevic@2024-25",
+        "name:tyresemartin@2024-25",
+        "name:tyresemaxey@2024-25",
+        "name:tysonetienne@2024-25",
+        "name:tytywashingtonjr@2024-25",
+        "name:tyusjones@2024-25",
+        "name:ulrichchomche@2024-25",
+        "name:vasilijemicic@2024-25",
+        "name:victorwembanyama@2024-25",
+        "name:vitkrejci@2024-25",
+        "name:walkerkessler@2024-25",
+        "name:yvesmissi@2024-25",
+        "name:zaccharierisacher@2024-25",
+        "name:zachcollins@2024-25",
+        "name:zachlavine@2024-25",
+        "name:ziairewilliams@2024-25",
+        "name:zionwilliamson@2024-25",
+        "name:aaronnesmith@2025-26",
+        "name:acebailey@2025-26",
+        "name:adamaalphabal@2025-26",
+        "name:ajgreen@2025-26",
+        "name:ajjohnson@2025-26",
+        "name:alexantetokounmpo@2025-26",
+        "name:alexsarr@2025-26",
+        "name:alhorford@2025-26",
+        "name:alondeswilliams@2025-26",
+        "name:anderssongarcia@2025-26",
+        "name:andrejacksonjr@2025-26",
+        "name:andrewnembhard@2025-26",
+        "name:andrewwiggins@2025-26",
+        "name:anthonydavis@2025-26",
+        "name:anthonygill@2025-26",
+        "name:antonioreeves@2025-26",
+        "name:bamadebayo@2025-26",
+        "name:bennedictmathurin@2025-26",
+        "name:bensaraf@2025-26",
+        "name:bensheppard@2025-26",
+        "name:bezmbeng@2025-26",
+        "name:bilalcoulibaly@2025-26",
+        "name:blakehinson@2025-26",
+        "name:bobbyportis@2025-26",
+        "name:bogdanbogdanovic@2025-26",
+        "name:bradleybeal@2025-26",
+        "name:brandinpodziemski@2025-26",
+        "name:brandonclarke@2025-26",
+        "name:brandonmiller@2025-26",
+        "name:brandonwilliams@2025-26",
+        "name:bricesensabaugh@2025-26",
+        "name:brooklopez@2025-26",
+        "name:brycemcgowens@2025-26",
+        "name:bubcarrington@2025-26",
+        "name:calebmartin@2025-26",
+        "name:camchristie@2025-26",
+        "name:camspencer@2025-26",
+        "name:camthomas@2025-26",
+        "name:camwhitmore@2025-26",
+        "name:cedriccoward@2025-26",
+        "name:chaneyjohnson@2025-26",
+        "name:chrispaul@2025-26",
+        "name:cobywhite@2025-26",
+        "name:codymartin@2025-26",
+        "name:codywilliams@2025-26",
+        "name:coleanthony@2025-26",
+        "name:collinsexton@2025-26",
+        "name:cooperflagg@2025-26",
+        "name:cormacryan@2025-26",
+        "name:daeqwonplowden@2025-26",
+        "name:dangelorussell@2025-26",
+        "name:danielgafford@2025-26",
+        "name:dannywolf@2025-26",
+        "name:daquanjeffries@2025-26",
+        "name:dariosaric@2025-26",
+        "name:dariqwhitehead@2025-26",
+        "name:davionmitchell@2025-26",
+        "name:dayronsharpe@2025-26",
+        "name:deandrejordan@2025-26",
+        "name:deanthonymelton@2025-26",
+        "name:dejonjarreau@2025-26",
+        "name:dejountemurray@2025-26",
+        "name:demarderozan@2025-26",
+        "name:derecklivelyii@2025-26",
+        "name:derikqueen@2025-26",
+        "name:derrickjonesjr@2025-26",
+        "name:devincarter@2025-26",
+        "name:domantassabonis@2025-26",
+        "name:dougmcdermott@2025-26",
+        "name:drakepowell@2025-26",
+        "name:draymondgreen@2025-26",
+        "name:dreweubanks@2025-26",
+        "name:drewpeterson@2025-26",
+        "name:drusmith@2025-26",
+        "name:dwightpowell@2025-26",
+        "name:dylancardwell@2025-26",
+        "name:egordmin@2025-26",
+        "name:ejliddell@2025-26",
+        "name:elijahharkless@2025-26",
+        "name:emanuelmiller@2025-26",
+        "name:ethanthompson@2025-26",
+        "name:garrisonmathews@2025-26",
+        "name:garyharris@2025-26",
+        "name:garypaytonii@2025-26",
+        "name:garytrentjr@2025-26",
+        "name:ggjacksonii@2025-26",
+        "name:giannisantetokounmpo@2025-26",
+        "name:grantnelson@2025-26",
+        "name:grantwilliams@2025-26",
+        "name:guisantos@2025-26",
+        "name:haydengray@2025-26",
+        "name:herbertjones@2025-26",
+        "name:hunterdickinson@2025-26",
+        "name:isaacokoro@2025-26",
+        "name:isaiahcollier@2025-26",
+        "name:isaiahjackson@2025-26",
+        "name:isaiahstevens@2025-26",
+        "name:ivicazubac@2025-26",
+        "name:jadenhardy@2025-26",
+        "name:jahmaimashack@2025-26",
+        "name:jahmiryoung@2025-26",
+        "name:jahmyltelfort@2025-26",
+        "name:jaimejaquezjr@2025-26",
+        "name:jalenslawson@2025-26",
+        "name:jalensmith@2025-26",
+        "name:jalenwilson@2025-26",
+        "name:jameswiseman@2025-26",
+        "name:jamirwatkins@2025-26",
+        "name:jamorant@2025-26",
+        "name:jaracewalker@2025-26",
+        "name:jarenjacksonjr@2025-26",
+        "name:javonsmall@2025-26",
+        "name:jayhuff@2025-26",
+        "name:jaylenwells@2025-26",
+        "name:jeremiahfears@2025-26",
+        "name:jeremiahrobinsonearl@2025-26",
+        "name:jerichosims@2025-26",
+        "name:jimmybutler@2025-26",
+        "name:johncollins@2025-26",
+        "name:johnkonchar@2025-26",
+        "name:johnnyfurphy@2025-26",
+        "name:johnpoulakidas@2025-26",
+        "name:jordanhawkins@2025-26",
+        "name:jordanmiller@2025-26",
+        "name:jordanpoole@2025-26",
+        "name:joshgiddey@2025-26",
+        "name:joshgreen@2025-26",
+        "name:joshoduro@2025-26",
+        "name:julianreese@2025-26",
+        "name:justinchampagnie@2025-26",
+        "name:jusufnurkic@2025-26",
+        "name:kadaryrichmond@2025-26",
+        "name:kamjones@2025-26",
+        "name:karlomatkovic@2025-26",
+        "name:kasparasjakucionis@2025-26",
+        "name:kawhileonard@2025-26",
+        "name:keeganmurray@2025-26",
+        "name:kelelware@2025-26",
+        "name:kennedychandler@2025-26",
+        "name:kentaviouscaldwellpope@2025-26",
+        "name:keshadjohnson@2025-26",
+        "name:kevinlove@2025-26",
+        "name:kevinporterjr@2025-26",
+        "name:kevonlooney@2025-26",
+        "name:keyontegeorge@2025-26",
+        "name:khrismiddleton@2025-26",
+        "name:killianhayes@2025-26",
+        "name:klaythompson@2025-26",
+        "name:kobebrown@2025-26",
+        "name:kobesanders@2025-26",
+        "name:konknueppel@2025-26",
+        "name:krisdunn@2025-26",
+        "name:kylefilipowski@2025-26",
+        "name:kylekuzma@2025-26",
+        "name:kyshawngeorge@2025-26",
+        "name:lachlanolbrich@2025-26",
+        "name:lameloball@2025-26",
+        "name:laurimarkkanen@2025-26",
+        "name:lawsonlovering@2025-26",
+        "name:leakyblack@2025-26",
+        "name:liammcneeley@2025-26",
+        "name:ljcryer@2025-26",
+        "name:lucaswilliamson@2025-26",
+        "name:macmcclung@2025-26",
+        "name:malachismith@2025-26",
+        "name:malakibranham@2025-26",
+        "name:malevyleons@2025-26",
+        "name:malikmonk@2025-26",
+        "name:marksears@2025-26",
+        "name:marvinbagleyiii@2025-26",
+        "name:matasbuzelis@2025-26",
+        "name:maxchristie@2025-26",
+        "name:maximeraynaud@2025-26",
+        "name:micahpeavy@2025-26",
+        "name:micahpotter@2025-26",
+        "name:michaelporterjr@2025-26",
+        "name:milesbridges@2025-26",
+        "name:mileskelly@2025-26",
+        "name:montemorris@2025-26",
+        "name:mosesmoody@2025-26",
+        "name:mouhamadougueye@2025-26",
+        "name:moussacisse@2025-26",
+        "name:moussadiabate@2025-26",
+        "name:mylesturner@2025-26",
+        "name:myrongardner@2025-26",
+        "name:najimarshall@2025-26",
+        "name:natewilliams@2025-26",
+        "name:nicclaxton@2025-26",
+        "name:nicolasbatum@2025-26",
+        "name:nikolajovic@2025-26",
+        "name:niqueclifford@2025-26",
+        "name:noaessengue@2025-26",
+        "name:noahclowney@2025-26",
+        "name:nolantraore@2025-26",
+        "name:norchadomier@2025-26",
+        "name:normanpowell@2025-26",
+        "name:obitoppin@2025-26",
+        "name:oliviermaxenceprosper@2025-26",
+        "name:omeryurtseven@2025-26",
+        "name:oscartshiebwe@2025-26",
+        "name:pascalsiakam@2025-26",
+        "name:patconnaughton@2025-26",
+        "name:patrickwilliams@2025-26",
+        "name:patspencer@2025-26",
+        "name:pellelarsson@2025-26",
+        "name:petenance@2025-26",
+        "name:pjhall@2025-26",
+        "name:pjwashington@2025-26",
+        "name:preciousachiuwa@2025-26",
+        "name:quentonjackson@2025-26",
+        "name:quintenpost@2025-26",
+        "name:russellwestbrook@2025-26",
+        "name:ryankalkbrenner@2025-26",
+        "name:ryannembhard@2025-26",
+        "name:ryanrollins@2025-26",
+        "name:saddiqbey@2025-26",
+        "name:santialdama@2025-26",
+        "name:scottypippenjr@2025-26",
+        "name:seanpedulla@2025-26",
+        "name:sethcurry@2025-26",
+        "name:sharifecooper@2025-26",
+        "name:simonefontecchio@2025-26",
+        "name:sionjames@2025-26",
+        "name:skallabissiere@2025-26",
+        "name:stephencurry@2025-26",
+        "name:svimykhailiuk@2025-26",
+        "name:taelonpeter@2025-26",
+        "name:tajgibson@2025-26",
+        "name:taureanprince@2025-26",
+        "name:taylorhendricks@2025-26",
+        "name:terancemann@2025-26",
+        "name:thanasisantetokounmpo@2025-26",
+        "name:tidjanesalaun@2025-26",
+        "name:tjmcconnell@2025-26",
+        "name:tobyokani@2025-26",
+        "name:trejohnson@2025-26",
+        "name:trejones@2025-26",
+        "name:tremann@2025-26",
+        "name:trentynflowers@2025-26",
+        "name:trescott@2025-26",
+        "name:trevorkeels@2025-26",
+        "name:treyalexander@2025-26",
+        "name:treymurphyiii@2025-26",
+        "name:tristanvukcevic@2025-26",
+        "name:tyjerome@2025-26",
+        "name:tylerburton@2025-26",
+        "name:tylerherro@2025-26",
+        "name:tylersmith@2025-26",
+        "name:tysonetienne@2025-26",
+        "name:tytywashingtonjr@2025-26",
+        "name:vincewilliamsjr@2025-26",
+        "name:vladislavgoldin@2025-26",
+        "name:walkerkessler@2025-26",
+        "name:walterclayton@2025-26",
+        "name:willrichard@2025-26",
+        "name:willriley@2025-26",
+        "name:yanickonanniederhauser@2025-26",
+        "name:yukikawamura@2025-26",
+        "name:yvesmissi@2025-26",
+        "name:zachcollins@2025-26",
+        "name:zachedey@2025-26",
+        "name:zachlavine@2025-26",
+        "name:ziairewilliams@2025-26",
+        "name:zionwilliamson@2025-26"
+      ],
+      "supplemented_cells": 5998,
+      "old_record_null_filled_cells": 378,
+      "new_record_supplemented_cells": 5620,
+      "supplemented_category_cells": 148,
+      "alias_evidence": [
+        {
+          "approved": true,
+          "season": "2024-25",
+          "roster_name": "Jeff Dowtin Jr.",
+          "source_name": "Jeff Dowtin",
+          "source_kind": "baseline_2k25_csv",
+          "match_method": "explicit_alias",
+          "corroborating_team": "Philadelphia 76ers",
+          "corroborating_jersey": "11",
+          "roster_source_url": "https://www.basketball-reference.com/teams/PHI/2025.html",
+          "identity_evidence": {
+            "id": "nba_jeff_dowtin",
+            "source_url": "https://www.nba.com/player/1630288/jeff-dowtin",
+            "retrieved_at_utc": "2026-10-07T01:32:08.757881+00:00",
+            "http_status": 200,
+            "final_url": "https://www.nba.com/stats/player/1630288/career",
+            "file": "nba_jeff_dowtin.response",
+            "sha256": "3bddbd09cb380c9ce5623a7fb4bf00f14a1bb5161483f95969c6ac22cd8a795b",
+            "bytes": 293145
+          },
+          "note": "NBA profile retains Jeff Dowtin URL and displays Jr.; Philadelphia #11 matches fixed CSV and season roster."
+        },
+        {
+          "approved": true,
+          "season": "2024-25",
+          "roster_name": "KJ Martin",
+          "source_name": "Kenyon Martin Jr.",
+          "source_kind": "baseline_2k25_csv",
+          "match_method": "explicit_alias",
+          "corroborating_team": "Philadelphia 76ers",
+          "corroborating_jersey": "1",
+          "roster_source_url": "https://www.basketball-reference.com/teams/PHI/2025.html",
+          "identity_evidence": {
+            "id": "nba_kj_martin",
+            "source_url": "https://www.nba.com/sixers/news/kj-martin-bio-stats-facts",
+            "retrieved_at_utc": "2026-10-07T01:32:08.758725+00:00",
+            "http_status": 200,
+            "final_url": "https://www.nba.com/sixers/news/kj-martin-bio-stats-facts",
+            "file": "nba_kj_martin.response",
+            "sha256": "f95877cd89a1c714d55acd2eb0660d35efc345d37abbccf33cf13fd07c09f9fb",
+            "bytes": 142112
+          },
+          "note": "Sixers official article explicitly identifies Kenyon Martin Jr as KJ. Philadelphia #1 in fixed CSV matches independently sourced season roster."
+        },
+        {
+          "approved": true,
+          "season": "2024-25",
+          "roster_name": "TyTy Washington Jr.",
+          "source_name": "TyTy Washington",
+          "source_kind": "baseline_2k25_csv",
+          "match_method": "explicit_alias",
+          "corroborating_team": "Phoenix Suns",
+          "corroborating_jersey": "14",
+          "roster_source_url": "https://www.basketball-reference.com/teams/PHO/2025.html",
+          "identity_evidence": {
+            "id": "nba_ty_ty",
+            "source_url": "https://gleague.nba.com/news/suns-sign-tyty-washington-jr-to-two-way-contract",
+            "retrieved_at_utc": "2026-10-07T01:32:08.759186+00:00",
+            "http_status": 200,
+            "final_url": "https://gleague.nba.com/news/suns-sign-tyty-washington-jr-to-two-way-contract",
+            "file": "nba_ty_ty.response",
+            "sha256": "bbadad3e4c9dbc463bc88bb33643d775d418932d89f022bd668ea14a0993ec82",
+            "bytes": 203887
+          },
+          "note": "NBA G League official release names TyTy Washington Jr signed to Phoenix in August 2024. Fixed CSV Phoenix #14 matches season roster."
+        },
+        {
+          "approved": true,
+          "season": "2024-25",
+          "roster_name": "Robert Williams",
+          "source_name": "Robert Williams III",
+          "source_kind": "baseline_2k25_csv",
+          "match_method": "explicit_alias",
+          "corroborating_team": "Portland Trail Blazers",
+          "corroborating_jersey": "35",
+          "roster_source_url": "https://www.basketball-reference.com/teams/POR/2025.html",
+          "identity_evidence": {
+            "id": "nba_robert_williams",
+            "source_url": "https://www.nba.com/player/1629057/robert-williams-iii",
+            "retrieved_at_utc": "2026-10-07T01:32:08.759614+00:00",
+            "http_status": 200,
+            "final_url": "https://www.nba.com/player/1629057/robert-williams-iii",
+            "file": "nba_robert_williams.response",
+            "sha256": "2e734d72a53a750df67f508d088bf8292f41c56f2a8992e1412738ecb0676dc7",
+            "bytes": 376201
+          },
+          "note": "NBA profile displays Robert Williams III, Portland #35. Fixed CSV and season roster share Portland #35."
+        },
+        {
+          "approved": true,
+          "season": "2024-25",
+          "roster_name": "Alex Sarr",
+          "source_name": "Alexandre Sarr",
+          "source_kind": "baseline_2k25_csv",
+          "match_method": "explicit_alias",
+          "corroborating_team": "Washington Wizards",
+          "corroborating_jersey": "20",
+          "roster_source_url": "https://www.basketball-reference.com/teams/WAS/2025.html",
+          "identity_evidence": {
+            "id": "nba_alex_sarr",
+            "source_url": "https://www.nba.com/player/1642259/alexandre-sarr",
+            "retrieved_at_utc": "2026-10-07T01:32:11.410525+00:00",
+            "http_status": 200,
+            "final_url": "https://www.nba.com/player/1642259/alexandre-sarr",
+            "file": "nba_alex_sarr.response",
+            "sha256": "8a3bfe026c52021a9996a4799de13783798b476981721edce9cf13de7ac65a0c",
+            "bytes": 370846
+          },
+          "note": "NBA profile URL uses alexandre-sarr while heading is Alex Sarr, Washington #20. Fixed CSV and season roster share Washington #20."
+        },
+        {
+          "approved": true,
+          "season": "2025-26",
+          "roster_name": "GG Jackson II",
+          "source_name": "GG Jackson",
+          "source_kind": "fixed_blacktop_2k26",
+          "match_method": "explicit_alias",
+          "roster_evidence": [
+            {
+              "team_name": "Memphis Grizzlies",
+              "jersey": "45",
+              "source_url": "https://www.basketball-reference.com/teams/MEM/2026.html"
+            }
+          ],
+          "identity_evidence": {
+            "id": "nba_gg_jackson",
+            "source_url": "https://www.nba.com/player/1641713/gg-jackson-ii",
+            "retrieved_at_utc": "2026-10-07T01:32:11.560086+00:00",
+            "http_status": 200,
+            "final_url": "https://www.nba.com/player/1641713/gg-jackson-ii",
+            "file": "nba_gg_jackson.response",
+            "sha256": "21bac902edd168f8adf7d48ea4c246dd3524786c67be73333996d37fe2de4d16",
+            "bytes": 376080
+          },
+          "additional_identity_urls": [],
+          "web_tool_verified_on": "2026-10-07",
+          "note": "Same NBA player URL gg-jackson-ii displays GG Jackson; Memphis #45 corresponds to season roster."
+        },
+        {
+          "approved": true,
+          "season": "2025-26",
+          "roster_name": "Walter Clayton",
+          "source_name": "Walter Clayton Jr.",
+          "source_kind": "fixed_blacktop_2k26",
+          "match_method": "explicit_alias",
+          "roster_evidence": [
+            {
+              "team_name": "Memphis Grizzlies",
+              "jersey": "4",
+              "source_url": "https://www.basketball-reference.com/teams/MEM/2026.html"
+            },
+            {
+              "team_name": "Utah Jazz",
+              "jersey": "13",
+              "source_url": "https://www.basketball-reference.com/teams/UTA/2026.html"
+            }
+          ],
+          "identity_evidence": {
+            "id": "nba_walter_clayton",
+            "source_url": "https://www.nba.com/player/1642383/walter-clayton-jr",
+            "retrieved_at_utc": "2026-10-07T01:32:11.562171+00:00",
+            "http_status": 200,
+            "final_url": "https://www.nba.com/player/1642383/walter-clayton-jr",
+            "file": "nba_walter_clayton.response",
+            "sha256": "7466a461aa8e5ce195a84b96b9a58a1e37bb71ec3f48f2d44edb91840fdd1b8b",
+            "bytes": 365818
+          },
+          "additional_identity_urls": [],
+          "web_tool_verified_on": "2026-10-07",
+          "note": "NBA profile gives Walter Clayton Jr, Memphis #4; both Memphis #4 and Utah #13 are retained in season roster."
+        },
+        {
+          "approved": true,
+          "season": "2025-26",
+          "roster_name": "Tre Scott",
+          "source_name": "Trevon Scott",
+          "source_kind": "fixed_blacktop_2k26",
+          "match_method": "explicit_alias",
+          "roster_evidence": [
+            {
+              "team_name": "Brooklyn Nets",
+              "jersey": "13",
+              "source_url": "https://www.basketball-reference.com/teams/BRK/2026.html"
+            }
+          ],
+          "identity_evidence": {
+            "id": "nba_trevon_scott",
+            "source_url": "https://www.nba.com/nets/news/brooklyn-nets-sign-trevon-scott-to-10-day-contract",
+            "retrieved_at_utc": "2026-10-07T01:32:12.852592+00:00",
+            "http_status": 200,
+            "final_url": "https://www.nba.com/nets/news/brooklyn-nets-sign-trevon-scott-to-10-day-contract",
+            "file": "nba_trevon_scott.response",
+            "sha256": "19700b120e9d1a709d58a0d7f8fbcf7d3f21bcf1b8a3bdf2dc4eb6d1db1adc4f",
+            "bytes": 97416
+          },
+          "additional_identity_urls": [
+            "https://www.basketball-reference.com/players/s/scotttr01.html",
+            "https://gleague.nba.com/player/1630286/tre-scott",
+            "https://www.nba.com/player/1630286/trevon-scott"
+          ],
+          "web_tool_verified_on": "2026-10-07",
+          "note": "Nets official announcement identifies Trevon Scott. Basketball Reference player scotttr01 heading Tre Scott gives full name Trevon Scott; G League /player/1630286/tre-scott displays Trevon Scott."
+        },
+        {
+          "approved": true,
+          "season": "2025-26",
+          "roster_name": "Egor Dёmin",
+          "source_name": "Egor Demin",
+          "source_kind": "fixed_blacktop_2k26",
+          "match_method": "explicit_alias",
+          "roster_evidence": [
+            {
+              "team_name": "Brooklyn Nets",
+              "jersey": "8",
+              "source_url": "https://www.basketball-reference.com/teams/BRK/2026.html"
+            }
+          ],
+          "identity_evidence": {
+            "id": "nba_egor_demin",
+            "source_url": "https://www.nba.com/player/1642856/egor-d%C3%ABmin",
+            "retrieved_at_utc": "2026-10-07T01:32:11.540331+00:00",
+            "http_status": 200,
+            "final_url": "https://www.nba.com/player/1642856/egor-d%C3%ABmin",
+            "file": "nba_egor_demin.response",
+            "sha256": "8e4a10780b24fc0fa5dae7dc7f8b71b897ebe34695cc7406a13bf1580cda40c6",
+            "bytes": 344872
+          },
+          "additional_identity_urls": [],
+          "web_tool_verified_on": "2026-10-07",
+          "note": "Roster contains Cyrillic yo U+0451, not corrupt text. NBA profile gives Egor Demin with Latin e-diaeresis, Brooklyn #8. Explicit transliteration alias, not general fuzzy matching."
+        },
+        {
+          "approved": true,
+          "season": "2025-26",
+          "roster_name": "Adama-Alpha Bal",
+          "source_name": "Adama Bal",
+          "source_kind": "fixed_blacktop_2k26",
+          "match_method": "explicit_alias",
+          "roster_evidence": [
+            {
+              "team_name": "Memphis Grizzlies",
+              "jersey": "72",
+              "source_url": "https://www.basketball-reference.com/teams/MEM/2026.html"
+            }
+          ],
+          "identity_evidence": null,
+          "additional_identity_urls": [
+            "https://santaclarabroncos.com/sports/mens-basketball/roster/adama-alpha-bal/8787",
+            "https://www.nba.com/player/1642380/adama-bal",
+            "https://statsdmz.nba.com/pdfs/20260328/20260328_CHIMEM_book.pdf"
+          ],
+          "web_tool_verified_on": "2026-10-07",
+          "note": "Santa Clara official 2024-25 college roster names Adama-Alpha Bal; NBA player 1642380 is Adama Bal, same Santa Clara/France identity and 2003-12-18 birth date. NBA 2026-03-28 CHI-MEM gamebook lists Memphis #72 Adama Bal; retained season roster is Memphis #72."
+        },
+        {
+          "roster_name": "Kevin Knox",
+          "source_name": "Kevin Knox II",
+          "source_urls": [
+            "https://www.nba.com/player/1628995/kevin_knox",
+            "https://statsdmz.nba.com/pdfs/20250508/20250508_GSWMIN_book.pdf"
+          ],
+          "note": "NBA official player 1628995 and 2025-05-08 Warriors gamebook show Kevin Knox II #31; existing independently sourced GSW 2024-25 roster is Kevin Knox #31; historical rating page at kevin-knox slug identifies current Warriors. This is a suffix identity alias."
+        }
+      ],
+      "approved_source_review": {
+        "path": "data/nba2k/research/all_teams_20261007/sources/approved_expansion_sources.json",
+        "sha256": "b670348f8bc01fa31bcac1473342532e705823fe6ccd54abbf5ffd19821708b2"
+      },
+      "approved_gap_html_review": {
+        "path": "data/nba2k/research/all_teams_20261007/sources/additional_historical_candidates.json",
+        "sha256": "d4e8b00ca39d7f63216e8c31d76253d1f518999d6e76b76c8cf9747e70025bf9"
+      },
+      "scope_flag_change": "in_rating_selection_for_season now uses all-team player-season scope; exact previous values saved in baseline_in_rating_selection_for_season (null for newly added stints)",
+      "rejected_html_candidates": [
+        {
+          "player_name": null,
+          "source_url": "https://web.archive.org/web/20260103062407/https://www.2kratings.com/aaron-wiggins",
+          "reason": "edition_or_content_not_verified"
+        },
+        {
+          "player_name": "Payton Pritchard",
+          "source_url": "https://web.archive.org/web/20250719013119/https://www.2kratings.com/payton-pritchard",
+          "reason": "new_pre_release_fill_excluded"
+        }
+      ],
+      "html_candidate_inputs": [
         {
           "file": "verified_historical_candidates.json",
           "sha256": "138e481d1a7832e699ea508ad1522ba5820d5f215991e0fddc4f3597814a0b79"
@@ -1724,6 +3237,10 @@
       {
         "key": "source_retrieved_date",
         "label_zh": "取回日期"
+      },
+      {
+        "key": "baseline_in_rating_selection_for_season",
+        "label_zh": "旧季后赛包能力范围标记（新履历无旧标记则空）"
       }
     ],
     "history_columns": [
@@ -1800,6 +3317,10 @@
       {
         "key": "retrieved_date",
         "label_zh": "取回日期"
+      },
+      {
+        "key": "team_qualified_playoffs",
+        "label_zh": "球队是否进入季后赛"
       }
     ],
     "coverage_columns": [
@@ -1942,5 +3463,5 @@
     "audited_alias": "经核对的显式别名",
     "unmatched": "未匹配"
   },
-  "provenance_note": "URL strings, repository metadata, original shared notes and independent checks are retained exactly. Independent sample capture dates do not establish original CSV per-player dates."
+  "provenance_note": "Previous published non-null values and their field-level sources are preserved. Scope extension and null fills are separately audited. Retrieval/commit dates never establish an official roster-patch date."
 }
