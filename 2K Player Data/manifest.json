@@ -1,10 +1,12 @@
 {
-  "package": "nba2k-playoff-player-data",
-  "schema_version": "1.1.0",
-  "generated_at_utc": "2026-10-01T03:26:21.851726+00:00",
-  "encoding": "UTF-8 without BOM",
+  "package": "nba2k-all-team-player-data",
+  "schema_version": "2.0.0",
+  "generated_at_utc": "2026-10-07T01:44:17.324826+00:00",
+  "encoding": "JSON/JSONL/Markdown UTF-8 without BOM; CSV UTF-8 with BOM",
   "read_first": [
-    "manifest.json",
+    "README.md",
+    "TEAMS.md",
+    "AGENTS.md",
     "index.json"
   ],
   "seasons": [
@@ -12,35 +14,1008 @@
     "2025-26"
   ],
   "counts": {
-    "player_season_records": 635,
+    "player_season_records": 1151,
     "records_by_season": {
-      "2024-25": 317,
-      "2025-26": 318
+      "2024-25": 569,
+      "2025-26": 582
     },
-    "unique_players": 472,
-    "history_stints": 1033,
+    "unique_players": 687,
+    "history_stints": 1358,
+    "roster_associations": 1316,
+    "transaction_only_associations": 42,
     "metrics_per_record": 42,
+    "team_seasons": 60,
     "qualified_team_seasons": 32,
     "rating_statuses": {
-      "complete": 609,
-      "missing_record": 22,
-      "partial": 4
+      "complete": 1111,
+      "missing_record": 34,
+      "partial": 6
     },
-    "with_overall_rating": 613,
-    "audited_aliases": 13,
-    "unresolved_joins": 22,
-    "sources": 101,
-    "files_including_manifest": 12
+    "with_overall_rating": 1117,
+    "audited_aliases": 24,
+    "unresolved_joins": 34,
+    "sources": 136,
+    "team_export_files": 120,
+    "files_including_manifest": 135
   },
-  "availability_status_basis": "complete/partial refers to 36 individual metrics, not all 42 fields; missing_keys always covers all 42, and missing_individual_keys covers 36.",
+  "summary_by_season": [
+    {
+      "season": "2024-25",
+      "selected_player_season_rows": 569,
+      "with_overall_rating": 539,
+      "all_individual_ratings_complete": 539,
+      "partial_individual_ratings": 0,
+      "without_rating_record": 30,
+      "with_three_point_rating": 539,
+      "with_six_core_ratings": 539,
+      "all_42_ratings_complete": 539,
+      "missing_rating_cells": 1260,
+      "missing_individual_cells": 1080,
+      "missing_category_cells": 180,
+      "missing_by_field": {
+        "overall": 30,
+        "three_point_shot": 30,
+        "perimeter_defense": 30,
+        "interior_defense": 30,
+        "steal": 30,
+        "block": 30,
+        "help_defense_iq": 30,
+        "pass_perception": 30,
+        "defensive_consistency": 30,
+        "defensive_rebound": 30,
+        "offensive_rebound": 30,
+        "mid_range_shot": 30,
+        "close_shot": 30,
+        "free_throw": 30,
+        "layup": 30,
+        "driving_dunk": 30,
+        "standing_dunk": 30,
+        "post_hook": 30,
+        "post_fade": 30,
+        "post_control": 30,
+        "draw_foul": 30,
+        "ball_handle": 30,
+        "pass_accuracy": 30,
+        "pass_vision": 30,
+        "pass_iq": 30,
+        "speed_with_ball": 30,
+        "shot_iq": 30,
+        "offensive_consistency": 30,
+        "speed": 30,
+        "agility": 30,
+        "strength": 30,
+        "vertical": 30,
+        "stamina": 30,
+        "hustle": 30,
+        "hands": 30,
+        "overall_durability": 30,
+        "cat_defense": 30,
+        "cat_outside_scoring": 30,
+        "cat_inside_scoring": 30,
+        "cat_playmaking": 30,
+        "cat_rebounding": 30,
+        "cat_athleticism": 30
+      }
+    },
+    {
+      "season": "2025-26",
+      "selected_player_season_rows": 582,
+      "with_overall_rating": 578,
+      "all_individual_ratings_complete": 572,
+      "partial_individual_ratings": 6,
+      "without_rating_record": 4,
+      "with_three_point_rating": 572,
+      "with_six_core_ratings": 572,
+      "all_42_ratings_complete": 301,
+      "missing_rating_cells": 1965,
+      "missing_individual_cells": 354,
+      "missing_category_cells": 1611,
+      "missing_by_field": {
+        "overall": 4,
+        "three_point_shot": 10,
+        "perimeter_defense": 10,
+        "interior_defense": 10,
+        "steal": 10,
+        "block": 10,
+        "help_defense_iq": 10,
+        "pass_perception": 10,
+        "defensive_consistency": 10,
+        "defensive_rebound": 10,
+        "offensive_rebound": 10,
+        "mid_range_shot": 10,
+        "close_shot": 10,
+        "free_throw": 10,
+        "layup": 10,
+        "driving_dunk": 10,
+        "standing_dunk": 10,
+        "post_hook": 10,
+        "post_fade": 10,
+        "post_control": 10,
+        "draw_foul": 10,
+        "ball_handle": 10,
+        "pass_accuracy": 10,
+        "pass_vision": 10,
+        "pass_iq": 10,
+        "speed_with_ball": 10,
+        "shot_iq": 10,
+        "offensive_consistency": 10,
+        "speed": 10,
+        "agility": 10,
+        "strength": 10,
+        "vertical": 10,
+        "stamina": 10,
+        "hustle": 10,
+        "hands": 10,
+        "overall_durability": 10,
+        "cat_defense": 270,
+        "cat_outside_scoring": 278,
+        "cat_inside_scoring": 259,
+        "cat_playmaking": 268,
+        "cat_rebounding": 278,
+        "cat_athleticism": 258
+      }
+    }
+  ],
+  "availability_status_basis": "complete/partial refers to 36 individual metrics, not all 42 fields",
   "upstream": {
-    "source_file": "nba2k_playoff_dataset.json",
-    "source_note": "Canonical aggregate retained outside package; resolve lineage by SHA256, not private workstation paths",
-    "sha256": "53afe6aedab6f0bae1fed6cb3c8ba63b2584e2c0aa8b872eedcfdf6131cd6992",
-    "baseline_sha256": "1b5c28bf0659872ed173153f2a36f1295e83e4e03f1f85e403e5e25048f1e1bc",
-    "operation": "structure conversion of null-only supplemented canonical; original non-null ratings, all 2K25 rows, identities, teams and jerseys preserved"
+    "source_file": "nba2k_all_teams_dataset.json",
+    "sha256": "ddc4d08cc4fdaafce5c187d4b91c273604a340e39a367f32476b586c8dc6b30c",
+    "baseline_sha256": "53afe6aedab6f0bae1fed6cb3c8ba63b2584e2c0aa8b872eedcfdf6131cd6992",
+    "operation": "All-team scope expansion with protected published non-null values and exact per-field historical supplementation"
   },
-  "remediation": {
+  "all_teams_expansion": {
+    "schema_version": "2.0.0",
+    "updated_at_utc": "2026-10-07T01:44:16.091961+00:00",
+    "baseline_canonical_sha256": "53afe6aedab6f0bae1fed6cb3c8ba63b2584e2c0aa8b872eedcfdf6131cd6992",
+    "policy": "All published non-null ratings and their sources, identity fields, jerseys and transactions are protected. Add 516 full-roster player-season records and separately audited same-edition null fills, including older 2K25 historical captures. No derived categories or cross-edition fill.",
+    "old_counts": {
+      "players": 635,
+      "unique_players": 472,
+      "stints": 1033,
+      "histories": 472,
+      "playoff_teams": 32,
+      "coverage": 32,
+      "unresolved_joins": 22,
+      "explicit_aliases": 11,
+      "official_transaction_supplements": 42
+    },
+    "new_counts": {
+      "players": 1151,
+      "unique_players": 687,
+      "stints": 1358,
+      "histories": 687,
+      "team_seasons": 60,
+      "playoff_teams": 32,
+      "coverage": 60,
+      "unresolved_joins": 34,
+      "explicit_aliases": 16,
+      "official_transaction_supplements": 42
+    },
+    "added_records": 516,
+    "new_records_by_season": {
+      "2024-25": 252,
+      "2025-26": 264
+    },
+    "new_record_ids": [
+      "name:adamasanogo@2024-25",
+      "name:adembona@2024-25",
+      "name:ajlawson@2024-25",
+      "name:alexsarr@2024-25",
+      "name:andredrummond@2024-25",
+      "name:anferneesimons@2024-25",
+      "name:anthonygill@2024-25",
+      "name:antonioreeves@2024-25",
+      "name:ayodosunmu@2024-25",
+      "name:bilalcoulibaly@2024-25",
+      "name:bismackbiyombo@2024-25",
+      "name:blakewesley@2024-25",
+      "name:bolbol@2024-25",
+      "name:bradleybeal@2024-25",
+      "name:brandonbostonjr@2024-25",
+      "name:brandoningram@2024-25",
+      "name:brandonmiller@2024-25",
+      "name:brandonwilliams@2024-25",
+      "name:bricesensabaugh@2024-25",
+      "name:brucebrown@2024-25",
+      "name:brunofernando@2024-25",
+      "name:brycemcgowens@2024-25",
+      "name:bubcarrington@2024-25",
+      "name:calebmartin@2024-25",
+      "name:cameronjohnson@2024-25",
+      "name:camthomas@2024-25",
+      "name:charlesbassey@2024-25",
+      "name:chrisboucher@2024-25",
+      "name:chrisduarte@2024-25",
+      "name:chrispaul@2024-25",
+      "name:cjmccollum@2024-25",
+      "name:clintcapela@2024-25",
+      "name:cobywhite@2024-25",
+      "name:codymartin@2024-25",
+      "name:codywilliams@2024-25",
+      "name:colbyjones@2024-25",
+      "name:collingillespie@2024-25",
+      "name:collinsexton@2024-25",
+      "name:coreykispert@2024-25",
+      "name:cuiyongxi@2024-25",
+      "name:daeqwonplowden@2024-25",
+      "name:dalanobanton@2024-25",
+      "name:dalenterry@2024-25",
+      "name:damionbaugh@2024-25",
+      "name:damionlee@2024-25",
+      "name:danielgafford@2024-25",
+      "name:danieltheis@2024-25",
+      "name:danteexum@2024-25",
+      "name:daquanjeffries@2024-25",
+      "name:dariqwhitehead@2024-25",
+      "name:daviddukejr@2024-25",
+      "name:dayronsharpe@2024-25",
+      "name:deaaronfox@2024-25",
+      "name:deandreayton@2024-25",
+      "name:dejountemurray@2024-25",
+      "name:demarderozan@2024-25",
+      "name:deniavdija@2024-25",
+      "name:derecklivelyii@2024-25",
+      "name:devinbooker@2024-25",
+      "name:devincarter@2024-25",
+      "name:devinvassell@2024-25",
+      "name:djcarton@2024-25",
+      "name:domantassabonis@2024-25",
+      "name:dominickbarlow@2024-25",
+      "name:donovanclingan@2024-25",
+      "name:dougmcdermott@2024-25",
+      "name:drewtimme@2024-25",
+      "name:duopreath@2024-25",
+      "name:dwightpowell@2024-25",
+      "name:dysondaniels@2024-25",
+      "name:ejliddell@2024-25",
+      "name:elfridpayton@2024-25",
+      "name:elijahharkless@2024-25",
+      "name:emanuelmiller@2024-25",
+      "name:ericgordon@2024-25",
+      "name:garretttemple@2024-25",
+      "name:garrisonmathews@2024-25",
+      "name:gradeydick@2024-25",
+      "name:grantwilliams@2024-25",
+      "name:graysonallen@2024-25",
+      "name:guerschonyabusele@2024-25",
+      "name:harrisonbarnes@2024-25",
+      "name:harrisoningram@2024-25",
+      "name:herbertjones@2024-25",
+      "name:immanuelquickley@2024-25",
+      "name:isaacjones@2024-25",
+      "name:isaiahcollier@2024-25",
+      "name:isaiahcrawford@2024-25",
+      "name:isaiahmobley@2024-25",
+      "name:isaiahwong@2024-25",
+      "name:jabariwalker@2024-25",
+      "name:jadenhardy@2024-25",
+      "name:jaecrowder@2024-25",
+      "name:jahmiryoung@2024-25",
+      "name:jakobewalter@2024-25",
+      "name:jakobpoeltl@2024-25",
+      "name:jalenbridges@2024-25",
+      "name:jalenjohnson@2024-25",
+      "name:jalenmcdaniels@2024-25",
+      "name:jalensmith@2024-25",
+      "name:jalenwilson@2024-25",
+      "name:jamalcain@2024-25",
+      "name:jamalshead@2024-25",
+      "name:jamisonbattle@2024-25",
+      "name:jaredbutler@2024-25",
+      "name:jaredmccain@2024-25",
+      "name:jaredrhoden@2024-25",
+      "name:jaylenmartin@2024-25",
+      "name:jaylennowell@2024-25",
+      "name:jaylensims@2024-25",
+      "name:jaziangortman@2024-25",
+      "name:jeffdowtinjr@2024-25",
+      "name:jeramigrant@2024-25",
+      "name:jeremiahrobinsonearl@2024-25",
+      "name:jeremysochan@2024-25",
+      "name:jevoncarter@2024-25",
+      "name:joelembiid@2024-25",
+      "name:johncollins@2024-25",
+      "name:johnnydavis@2024-25",
+      "name:johnnyjuzang@2024-25",
+      "name:jonasvalanciunas@2024-25",
+      "name:jonathanmogbo@2024-25",
+      "name:jordanclarkson@2024-25",
+      "name:jordanhawkins@2024-25",
+      "name:jordanmclaughlin@2024-25",
+      "name:jordanpoole@2024-25",
+      "name:josealvarado@2024-25",
+      "name:joshgiddey@2024-25",
+      "name:joshgreen@2024-25",
+      "name:joshokogie@2024-25",
+      "name:julianchampagnie@2024-25",
+      "name:julianphillips@2024-25",
+      "name:justinchampagnie@2024-25",
+      "name:justinedwards@2024-25",
+      "name:justinminaya@2024-25",
+      "name:jusufnurkic@2024-25",
+      "name:karlomatkovic@2024-25",
+      "name:keatonwallace@2024-25",
+      "name:keeganmurray@2024-25",
+      "name:keionbrooksjr@2024-25",
+      "name:keldonjohnson@2024-25",
+      "name:kellyolynyk@2024-25",
+      "name:kellyoubrejr@2024-25",
+      "name:keonellis@2024-25",
+      "name:keonjohnson@2024-25",
+      "name:kessleredwards@2024-25",
+      "name:kevindurant@2024-25",
+      "name:kevinhuerter@2024-25",
+      "name:keyontegeorge@2024-25",
+      "name:killianhayes@2024-25",
+      "name:kjmartin@2024-25",
+      "name:kjsimpson@2024-25",
+      "name:klaythompson@2024-25",
+      "name:kobebufkin@2024-25",
+      "name:krismurray@2024-25",
+      "name:kylefilipowski@2024-25",
+      "name:kylelowry@2024-25",
+      "name:kylorkelley@2024-25",
+      "name:kyrieirving@2024-25",
+      "name:kyshawngeorge@2024-25",
+      "name:lameloball@2024-25",
+      "name:larrynancejr@2024-25",
+      "name:laurimarkkanen@2024-25",
+      "name:lesterquinones@2024-25",
+      "name:lonniewalkeriv@2024-25",
+      "name:lonzoball@2024-25",
+      "name:malachiflynn@2024-25",
+      "name:malakibranham@2024-25",
+      "name:malcolmbrogdon@2024-25",
+      "name:malikmonk@2024-25",
+      "name:marcusbagley@2024-25",
+      "name:marcusgarrett@2024-25",
+      "name:markellefultz@2024-25",
+      "name:markwilliams@2024-25",
+      "name:masonjones@2024-25",
+      "name:masonplumlee@2024-25",
+      "name:matasbuzelis@2024-25",
+      "name:matissethybulle@2024-25",
+      "name:micahpotter@2024-25",
+      "name:milesbridges@2024-25",
+      "name:montemorris@2024-25",
+      "name:mouhamedgueye@2024-25",
+      "name:moussadiabate@2024-25",
+      "name:najimarshall@2024-25",
+      "name:nicclaxton@2024-25",
+      "name:nickrichards@2024-25",
+      "name:nicksmithjr@2024-25",
+      "name:nikolavucevic@2024-25",
+      "name:noahclowney@2024-25",
+      "name:ochaiagbaji@2024-25",
+      "name:oliviermaxenceprosper@2024-25",
+      "name:onyekaokongwu@2024-25",
+      "name:orlandorobinson@2024-25",
+      "name:oscartshiebwe@2024-25",
+      "name:oshaebrissett@2024-25",
+      "name:osoighodaro@2024-25",
+      "name:patrickwilliams@2024-25",
+      "name:paulgeorge@2024-25",
+      "name:phillipwheeler@2024-25",
+      "name:pjwashington@2024-25",
+      "name:quentingrimes@2024-25",
+      "name:rayanrupert@2024-25",
+      "name:reggiejackson@2024-25",
+      "name:richaunholmes@2024-25",
+      "name:rickycounciliv@2024-25",
+      "name:rileyminix@2024-25",
+      "name:rjbarrett@2024-25",
+      "name:robertwilliams@2024-25",
+      "name:royceoneale@2024-25",
+      "name:ryandunn@2024-25",
+      "name:sandromamukelashvili@2024-25",
+      "name:scoothenderson@2024-25",
+      "name:scottiebarnes@2024-25",
+      "name:sethcurry@2024-25",
+      "name:shaedonsharpe@2024-25",
+      "name:sidycissoko@2024-25",
+      "name:skallabissiere@2024-25",
+      "name:spencerdinwiddie@2024-25",
+      "name:stephoncastle@2024-25",
+      "name:svimykhailiuk@2024-25",
+      "name:tajgibson@2024-25",
+      "name:talenhortontucker@2024-25",
+      "name:taylorhendricks@2024-25",
+      "name:tazemoore@2024-25",
+      "name:terencedavis@2024-25",
+      "name:terrytaylor@2024-25",
+      "name:tidjanesalaun@2024-25",
+      "name:tosanevbuomwan@2024-25",
+      "name:toumanicamara@2024-25",
+      "name:traeyoung@2024-25",
+      "name:trejones@2024-25",
+      "name:tremann@2024-25",
+      "name:trendonwatford@2024-25",
+      "name:treylyles@2024-25",
+      "name:treymurphyiii@2024-25",
+      "name:tristanvukcevic@2024-25",
+      "name:tyresemartin@2024-25",
+      "name:tyresemaxey@2024-25",
+      "name:tysonetienne@2024-25",
+      "name:tytywashingtonjr@2024-25",
+      "name:tyusjones@2024-25",
+      "name:ulrichchomche@2024-25",
+      "name:vasilijemicic@2024-25",
+      "name:victorwembanyama@2024-25",
+      "name:vitkrejci@2024-25",
+      "name:walkerkessler@2024-25",
+      "name:yvesmissi@2024-25",
+      "name:zaccharierisacher@2024-25",
+      "name:zachcollins@2024-25",
+      "name:zachlavine@2024-25",
+      "name:ziairewilliams@2024-25",
+      "name:zionwilliamson@2024-25",
+      "name:aaronnesmith@2025-26",
+      "name:acebailey@2025-26",
+      "name:adamaalphabal@2025-26",
+      "name:ajgreen@2025-26",
+      "name:ajjohnson@2025-26",
+      "name:alexantetokounmpo@2025-26",
+      "name:alexsarr@2025-26",
+      "name:alhorford@2025-26",
+      "name:alondeswilliams@2025-26",
+      "name:anderssongarcia@2025-26",
+      "name:andrejacksonjr@2025-26",
+      "name:andrewnembhard@2025-26",
+      "name:andrewwiggins@2025-26",
+      "name:anthonydavis@2025-26",
+      "name:anthonygill@2025-26",
+      "name:antonioreeves@2025-26",
+      "name:bamadebayo@2025-26",
+      "name:bennedictmathurin@2025-26",
+      "name:bensaraf@2025-26",
+      "name:bensheppard@2025-26",
+      "name:bezmbeng@2025-26",
+      "name:bilalcoulibaly@2025-26",
+      "name:blakehinson@2025-26",
+      "name:bobbyportis@2025-26",
+      "name:bogdanbogdanovic@2025-26",
+      "name:bradleybeal@2025-26",
+      "name:brandinpodziemski@2025-26",
+      "name:brandonclarke@2025-26",
+      "name:brandonmiller@2025-26",
+      "name:brandonwilliams@2025-26",
+      "name:bricesensabaugh@2025-26",
+      "name:brooklopez@2025-26",
+      "name:brycemcgowens@2025-26",
+      "name:bubcarrington@2025-26",
+      "name:calebmartin@2025-26",
+      "name:camchristie@2025-26",
+      "name:camspencer@2025-26",
+      "name:camthomas@2025-26",
+      "name:camwhitmore@2025-26",
+      "name:cedriccoward@2025-26",
+      "name:chaneyjohnson@2025-26",
+      "name:chrispaul@2025-26",
+      "name:cobywhite@2025-26",
+      "name:codymartin@2025-26",
+      "name:codywilliams@2025-26",
+      "name:coleanthony@2025-26",
+      "name:collinsexton@2025-26",
+      "name:cooperflagg@2025-26",
+      "name:cormacryan@2025-26",
+      "name:daeqwonplowden@2025-26",
+      "name:dangelorussell@2025-26",
+      "name:danielgafford@2025-26",
+      "name:dannywolf@2025-26",
+      "name:daquanjeffries@2025-26",
+      "name:dariosaric@2025-26",
+      "name:dariqwhitehead@2025-26",
+      "name:davionmitchell@2025-26",
+      "name:dayronsharpe@2025-26",
+      "name:deandrejordan@2025-26",
+      "name:deanthonymelton@2025-26",
+      "name:dejonjarreau@2025-26",
+      "name:dejountemurray@2025-26",
+      "name:demarderozan@2025-26",
+      "name:derecklivelyii@2025-26",
+      "name:derikqueen@2025-26",
+      "name:derrickjonesjr@2025-26",
+      "name:devincarter@2025-26",
+      "name:domantassabonis@2025-26",
+      "name:dougmcdermott@2025-26",
+      "name:drakepowell@2025-26",
+      "name:draymondgreen@2025-26",
+      "name:dreweubanks@2025-26",
+      "name:drewpeterson@2025-26",
+      "name:drusmith@2025-26",
+      "name:dwightpowell@2025-26",
+      "name:dylancardwell@2025-26",
+      "name:egordmin@2025-26",
+      "name:ejliddell@2025-26",
+      "name:elijahharkless@2025-26",
+      "name:emanuelmiller@2025-26",
+      "name:ethanthompson@2025-26",
+      "name:garrisonmathews@2025-26",
+      "name:garyharris@2025-26",
+      "name:garypaytonii@2025-26",
+      "name:garytrentjr@2025-26",
+      "name:ggjacksonii@2025-26",
+      "name:giannisantetokounmpo@2025-26",
+      "name:grantnelson@2025-26",
+      "name:grantwilliams@2025-26",
+      "name:guisantos@2025-26",
+      "name:haydengray@2025-26",
+      "name:herbertjones@2025-26",
+      "name:hunterdickinson@2025-26",
+      "name:isaacokoro@2025-26",
+      "name:isaiahcollier@2025-26",
+      "name:isaiahjackson@2025-26",
+      "name:isaiahstevens@2025-26",
+      "name:ivicazubac@2025-26",
+      "name:jadenhardy@2025-26",
+      "name:jahmaimashack@2025-26",
+      "name:jahmiryoung@2025-26",
+      "name:jahmyltelfort@2025-26",
+      "name:jaimejaquezjr@2025-26",
+      "name:jalenslawson@2025-26",
+      "name:jalensmith@2025-26",
+      "name:jalenwilson@2025-26",
+      "name:jameswiseman@2025-26",
+      "name:jamirwatkins@2025-26",
+      "name:jamorant@2025-26",
+      "name:jaracewalker@2025-26",
+      "name:jarenjacksonjr@2025-26",
+      "name:javonsmall@2025-26",
+      "name:jayhuff@2025-26",
+      "name:jaylenwells@2025-26",
+      "name:jeremiahfears@2025-26",
+      "name:jeremiahrobinsonearl@2025-26",
+      "name:jerichosims@2025-26",
+      "name:jimmybutler@2025-26",
+      "name:johncollins@2025-26",
+      "name:johnkonchar@2025-26",
+      "name:johnnyfurphy@2025-26",
+      "name:johnpoulakidas@2025-26",
+      "name:jordanhawkins@2025-26",
+      "name:jordanmiller@2025-26",
+      "name:jordanpoole@2025-26",
+      "name:joshgiddey@2025-26",
+      "name:joshgreen@2025-26",
+      "name:joshoduro@2025-26",
+      "name:julianreese@2025-26",
+      "name:justinchampagnie@2025-26",
+      "name:jusufnurkic@2025-26",
+      "name:kadaryrichmond@2025-26",
+      "name:kamjones@2025-26",
+      "name:karlomatkovic@2025-26",
+      "name:kasparasjakucionis@2025-26",
+      "name:kawhileonard@2025-26",
+      "name:keeganmurray@2025-26",
+      "name:kelelware@2025-26",
+      "name:kennedychandler@2025-26",
+      "name:kentaviouscaldwellpope@2025-26",
+      "name:keshadjohnson@2025-26",
+      "name:kevinlove@2025-26",
+      "name:kevinporterjr@2025-26",
+      "name:kevonlooney@2025-26",
+      "name:keyontegeorge@2025-26",
+      "name:khrismiddleton@2025-26",
+      "name:killianhayes@2025-26",
+      "name:klaythompson@2025-26",
+      "name:kobebrown@2025-26",
+      "name:kobesanders@2025-26",
+      "name:konknueppel@2025-26",
+      "name:krisdunn@2025-26",
+      "name:kylefilipowski@2025-26",
+      "name:kylekuzma@2025-26",
+      "name:kyshawngeorge@2025-26",
+      "name:lachlanolbrich@2025-26",
+      "name:lameloball@2025-26",
+      "name:laurimarkkanen@2025-26",
+      "name:lawsonlovering@2025-26",
+      "name:leakyblack@2025-26",
+      "name:liammcneeley@2025-26",
+      "name:ljcryer@2025-26",
+      "name:lucaswilliamson@2025-26",
+      "name:macmcclung@2025-26",
+      "name:malachismith@2025-26",
+      "name:malakibranham@2025-26",
+      "name:malevyleons@2025-26",
+      "name:malikmonk@2025-26",
+      "name:marksears@2025-26",
+      "name:marvinbagleyiii@2025-26",
+      "name:matasbuzelis@2025-26",
+      "name:maxchristie@2025-26",
+      "name:maximeraynaud@2025-26",
+      "name:micahpeavy@2025-26",
+      "name:micahpotter@2025-26",
+      "name:michaelporterjr@2025-26",
+      "name:milesbridges@2025-26",
+      "name:mileskelly@2025-26",
+      "name:montemorris@2025-26",
+      "name:mosesmoody@2025-26",
+      "name:mouhamadougueye@2025-26",
+      "name:moussacisse@2025-26",
+      "name:moussadiabate@2025-26",
+      "name:mylesturner@2025-26",
+      "name:myrongardner@2025-26",
+      "name:najimarshall@2025-26",
+      "name:natewilliams@2025-26",
+      "name:nicclaxton@2025-26",
+      "name:nicolasbatum@2025-26",
+      "name:nikolajovic@2025-26",
+      "name:niqueclifford@2025-26",
+      "name:noaessengue@2025-26",
+      "name:noahclowney@2025-26",
+      "name:nolantraore@2025-26",
+      "name:norchadomier@2025-26",
+      "name:normanpowell@2025-26",
+      "name:obitoppin@2025-26",
+      "name:oliviermaxenceprosper@2025-26",
+      "name:omeryurtseven@2025-26",
+      "name:oscartshiebwe@2025-26",
+      "name:pascalsiakam@2025-26",
+      "name:patconnaughton@2025-26",
+      "name:patrickwilliams@2025-26",
+      "name:patspencer@2025-26",
+      "name:pellelarsson@2025-26",
+      "name:petenance@2025-26",
+      "name:pjhall@2025-26",
+      "name:pjwashington@2025-26",
+      "name:preciousachiuwa@2025-26",
+      "name:quentonjackson@2025-26",
+      "name:quintenpost@2025-26",
+      "name:russellwestbrook@2025-26",
+      "name:ryankalkbrenner@2025-26",
+      "name:ryannembhard@2025-26",
+      "name:ryanrollins@2025-26",
+      "name:saddiqbey@2025-26",
+      "name:santialdama@2025-26",
+      "name:scottypippenjr@2025-26",
+      "name:seanpedulla@2025-26",
+      "name:sethcurry@2025-26",
+      "name:sharifecooper@2025-26",
+      "name:simonefontecchio@2025-26",
+      "name:sionjames@2025-26",
+      "name:skallabissiere@2025-26",
+      "name:stephencurry@2025-26",
+      "name:svimykhailiuk@2025-26",
+      "name:taelonpeter@2025-26",
+      "name:tajgibson@2025-26",
+      "name:taureanprince@2025-26",
+      "name:taylorhendricks@2025-26",
+      "name:terancemann@2025-26",
+      "name:thanasisantetokounmpo@2025-26",
+      "name:tidjanesalaun@2025-26",
+      "name:tjmcconnell@2025-26",
+      "name:tobyokani@2025-26",
+      "name:trejohnson@2025-26",
+      "name:trejones@2025-26",
+      "name:tremann@2025-26",
+      "name:trentynflowers@2025-26",
+      "name:trescott@2025-26",
+      "name:trevorkeels@2025-26",
+      "name:treyalexander@2025-26",
+      "name:treymurphyiii@2025-26",
+      "name:tristanvukcevic@2025-26",
+      "name:tyjerome@2025-26",
+      "name:tylerburton@2025-26",
+      "name:tylerherro@2025-26",
+      "name:tylersmith@2025-26",
+      "name:tysonetienne@2025-26",
+      "name:tytywashingtonjr@2025-26",
+      "name:vincewilliamsjr@2025-26",
+      "name:vladislavgoldin@2025-26",
+      "name:walkerkessler@2025-26",
+      "name:walterclayton@2025-26",
+      "name:willrichard@2025-26",
+      "name:willriley@2025-26",
+      "name:yanickonanniederhauser@2025-26",
+      "name:yukikawamura@2025-26",
+      "name:yvesmissi@2025-26",
+      "name:zachcollins@2025-26",
+      "name:zachedey@2025-26",
+      "name:zachlavine@2025-26",
+      "name:ziairewilliams@2025-26",
+      "name:zionwilliamson@2025-26"
+    ],
+    "supplemented_cells": 5998,
+    "old_record_null_filled_cells": 378,
+    "new_record_supplemented_cells": 5620,
+    "supplemented_category_cells": 148,
+    "alias_evidence": [
+      {
+        "approved": true,
+        "season": "2024-25",
+        "roster_name": "Jeff Dowtin Jr.",
+        "source_name": "Jeff Dowtin",
+        "source_kind": "baseline_2k25_csv",
+        "match_method": "explicit_alias",
+        "corroborating_team": "Philadelphia 76ers",
+        "corroborating_jersey": "11",
+        "roster_source_url": "https://www.basketball-reference.com/teams/PHI/2025.html",
+        "identity_evidence": {
+          "id": "nba_jeff_dowtin",
+          "source_url": "https://www.nba.com/player/1630288/jeff-dowtin",
+          "retrieved_at_utc": "2026-10-07T01:32:08.757881+00:00",
+          "http_status": 200,
+          "final_url": "https://www.nba.com/stats/player/1630288/career",
+          "file": "nba_jeff_dowtin.response",
+          "sha256": "3bddbd09cb380c9ce5623a7fb4bf00f14a1bb5161483f95969c6ac22cd8a795b",
+          "bytes": 293145
+        },
+        "note": "NBA profile retains Jeff Dowtin URL and displays Jr.; Philadelphia #11 matches fixed CSV and season roster."
+      },
+      {
+        "approved": true,
+        "season": "2024-25",
+        "roster_name": "KJ Martin",
+        "source_name": "Kenyon Martin Jr.",
+        "source_kind": "baseline_2k25_csv",
+        "match_method": "explicit_alias",
+        "corroborating_team": "Philadelphia 76ers",
+        "corroborating_jersey": "1",
+        "roster_source_url": "https://www.basketball-reference.com/teams/PHI/2025.html",
+        "identity_evidence": {
+          "id": "nba_kj_martin",
+          "source_url": "https://www.nba.com/sixers/news/kj-martin-bio-stats-facts",
+          "retrieved_at_utc": "2026-10-07T01:32:08.758725+00:00",
+          "http_status": 200,
+          "final_url": "https://www.nba.com/sixers/news/kj-martin-bio-stats-facts",
+          "file": "nba_kj_martin.response",
+          "sha256": "f95877cd89a1c714d55acd2eb0660d35efc345d37abbccf33cf13fd07c09f9fb",
+          "bytes": 142112
+        },
+        "note": "Sixers official article explicitly identifies Kenyon Martin Jr as KJ. Philadelphia #1 in fixed CSV matches independently sourced season roster."
+      },
+      {
+        "approved": true,
+        "season": "2024-25",
+        "roster_name": "TyTy Washington Jr.",
+        "source_name": "TyTy Washington",
+        "source_kind": "baseline_2k25_csv",
+        "match_method": "explicit_alias",
+        "corroborating_team": "Phoenix Suns",
+        "corroborating_jersey": "14",
+        "roster_source_url": "https://www.basketball-reference.com/teams/PHO/2025.html",
+        "identity_evidence": {
+          "id": "nba_ty_ty",
+          "source_url": "https://gleague.nba.com/news/suns-sign-tyty-washington-jr-to-two-way-contract",
+          "retrieved_at_utc": "2026-10-07T01:32:08.759186+00:00",
+          "http_status": 200,
+          "final_url": "https://gleague.nba.com/news/suns-sign-tyty-washington-jr-to-two-way-contract",
+          "file": "nba_ty_ty.response",
+          "sha256": "bbadad3e4c9dbc463bc88bb33643d775d418932d89f022bd668ea14a0993ec82",
+          "bytes": 203887
+        },
+        "note": "NBA G League official release names TyTy Washington Jr signed to Phoenix in August 2024. Fixed CSV Phoenix #14 matches season roster."
+      },
+      {
+        "approved": true,
+        "season": "2024-25",
+        "roster_name": "Robert Williams",
+        "source_name": "Robert Williams III",
+        "source_kind": "baseline_2k25_csv",
+        "match_method": "explicit_alias",
+        "corroborating_team": "Portland Trail Blazers",
+        "corroborating_jersey": "35",
+        "roster_source_url": "https://www.basketball-reference.com/teams/POR/2025.html",
+        "identity_evidence": {
+          "id": "nba_robert_williams",
+          "source_url": "https://www.nba.com/player/1629057/robert-williams-iii",
+          "retrieved_at_utc": "2026-10-07T01:32:08.759614+00:00",
+          "http_status": 200,
+          "final_url": "https://www.nba.com/player/1629057/robert-williams-iii",
+          "file": "nba_robert_williams.response",
+          "sha256": "2e734d72a53a750df67f508d088bf8292f41c56f2a8992e1412738ecb0676dc7",
+          "bytes": 376201
+        },
+        "note": "NBA profile displays Robert Williams III, Portland #35. Fixed CSV and season roster share Portland #35."
+      },
+      {
+        "approved": true,
+        "season": "2024-25",
+        "roster_name": "Alex Sarr",
+        "source_name": "Alexandre Sarr",
+        "source_kind": "baseline_2k25_csv",
+        "match_method": "explicit_alias",
+        "corroborating_team": "Washington Wizards",
+        "corroborating_jersey": "20",
+        "roster_source_url": "https://www.basketball-reference.com/teams/WAS/2025.html",
+        "identity_evidence": {
+          "id": "nba_alex_sarr",
+          "source_url": "https://www.nba.com/player/1642259/alexandre-sarr",
+          "retrieved_at_utc": "2026-10-07T01:32:11.410525+00:00",
+          "http_status": 200,
+          "final_url": "https://www.nba.com/player/1642259/alexandre-sarr",
+          "file": "nba_alex_sarr.response",
+          "sha256": "8a3bfe026c52021a9996a4799de13783798b476981721edce9cf13de7ac65a0c",
+          "bytes": 370846
+        },
+        "note": "NBA profile URL uses alexandre-sarr while heading is Alex Sarr, Washington #20. Fixed CSV and season roster share Washington #20."
+      },
+      {
+        "approved": true,
+        "season": "2025-26",
+        "roster_name": "GG Jackson II",
+        "source_name": "GG Jackson",
+        "source_kind": "fixed_blacktop_2k26",
+        "match_method": "explicit_alias",
+        "roster_evidence": [
+          {
+            "team_name": "Memphis Grizzlies",
+            "jersey": "45",
+            "source_url": "https://www.basketball-reference.com/teams/MEM/2026.html"
+          }
+        ],
+        "identity_evidence": {
+          "id": "nba_gg_jackson",
+          "source_url": "https://www.nba.com/player/1641713/gg-jackson-ii",
+          "retrieved_at_utc": "2026-10-07T01:32:11.560086+00:00",
+          "http_status": 200,
+          "final_url": "https://www.nba.com/player/1641713/gg-jackson-ii",
+          "file": "nba_gg_jackson.response",
+          "sha256": "21bac902edd168f8adf7d48ea4c246dd3524786c67be73333996d37fe2de4d16",
+          "bytes": 376080
+        },
+        "additional_identity_urls": [],
+        "web_tool_verified_on": "2026-10-07",
+        "note": "Same NBA player URL gg-jackson-ii displays GG Jackson; Memphis #45 corresponds to season roster."
+      },
+      {
+        "approved": true,
+        "season": "2025-26",
+        "roster_name": "Walter Clayton",
+        "source_name": "Walter Clayton Jr.",
+        "source_kind": "fixed_blacktop_2k26",
+        "match_method": "explicit_alias",
+        "roster_evidence": [
+          {
+            "team_name": "Memphis Grizzlies",
+            "jersey": "4",
+            "source_url": "https://www.basketball-reference.com/teams/MEM/2026.html"
+          },
+          {
+            "team_name": "Utah Jazz",
+            "jersey": "13",
+            "source_url": "https://www.basketball-reference.com/teams/UTA/2026.html"
+          }
+        ],
+        "identity_evidence": {
+          "id": "nba_walter_clayton",
+          "source_url": "https://www.nba.com/player/1642383/walter-clayton-jr",
+          "retrieved_at_utc": "2026-10-07T01:32:11.562171+00:00",
+          "http_status": 200,
+          "final_url": "https://www.nba.com/player/1642383/walter-clayton-jr",
+          "file": "nba_walter_clayton.response",
+          "sha256": "7466a461aa8e5ce195a84b96b9a58a1e37bb71ec3f48f2d44edb91840fdd1b8b",
+          "bytes": 365818
+        },
+        "additional_identity_urls": [],
+        "web_tool_verified_on": "2026-10-07",
+        "note": "NBA profile gives Walter Clayton Jr, Memphis #4; both Memphis #4 and Utah #13 are retained in season roster."
+      },
+      {
+        "approved": true,
+        "season": "2025-26",
+        "roster_name": "Tre Scott",
+        "source_name": "Trevon Scott",
+        "source_kind": "fixed_blacktop_2k26",
+        "match_method": "explicit_alias",
+        "roster_evidence": [
+          {
+            "team_name": "Brooklyn Nets",
+            "jersey": "13",
+            "source_url": "https://www.basketball-reference.com/teams/BRK/2026.html"
+          }
+        ],
+        "identity_evidence": {
+          "id": "nba_trevon_scott",
+          "source_url": "https://www.nba.com/nets/news/brooklyn-nets-sign-trevon-scott-to-10-day-contract",
+          "retrieved_at_utc": "2026-10-07T01:32:12.852592+00:00",
+          "http_status": 200,
+          "final_url": "https://www.nba.com/nets/news/brooklyn-nets-sign-trevon-scott-to-10-day-contract",
+          "file": "nba_trevon_scott.response",
+          "sha256": "19700b120e9d1a709d58a0d7f8fbcf7d3f21bcf1b8a3bdf2dc4eb6d1db1adc4f",
+          "bytes": 97416
+        },
+        "additional_identity_urls": [
+          "https://www.basketball-reference.com/players/s/scotttr01.html",
+          "https://gleague.nba.com/player/1630286/tre-scott",
+          "https://www.nba.com/player/1630286/trevon-scott"
+        ],
+        "web_tool_verified_on": "2026-10-07",
+        "note": "Nets official announcement identifies Trevon Scott. Basketball Reference player scotttr01 heading Tre Scott gives full name Trevon Scott; G League /player/1630286/tre-scott displays Trevon Scott."
+      },
+      {
+        "approved": true,
+        "season": "2025-26",
+        "roster_name": "Egor Dёmin",
+        "source_name": "Egor Demin",
+        "source_kind": "fixed_blacktop_2k26",
+        "match_method": "explicit_alias",
+        "roster_evidence": [
+          {
+            "team_name": "Brooklyn Nets",
+            "jersey": "8",
+            "source_url": "https://www.basketball-reference.com/teams/BRK/2026.html"
+          }
+        ],
+        "identity_evidence": {
+          "id": "nba_egor_demin",
+          "source_url": "https://www.nba.com/player/1642856/egor-d%C3%ABmin",
+          "retrieved_at_utc": "2026-10-07T01:32:11.540331+00:00",
+          "http_status": 200,
+          "final_url": "https://www.nba.com/player/1642856/egor-d%C3%ABmin",
+          "file": "nba_egor_demin.response",
+          "sha256": "8e4a10780b24fc0fa5dae7dc7f8b71b897ebe34695cc7406a13bf1580cda40c6",
+          "bytes": 344872
+        },
+        "additional_identity_urls": [],
+        "web_tool_verified_on": "2026-10-07",
+        "note": "Roster contains Cyrillic yo U+0451, not corrupt text. NBA profile gives Egor Demin with Latin e-diaeresis, Brooklyn #8. Explicit transliteration alias, not general fuzzy matching."
+      },
+      {
+        "approved": true,
+        "season": "2025-26",
+        "roster_name": "Adama-Alpha Bal",
+        "source_name": "Adama Bal",
+        "source_kind": "fixed_blacktop_2k26",
+        "match_method": "explicit_alias",
+        "roster_evidence": [
+          {
+            "team_name": "Memphis Grizzlies",
+            "jersey": "72",
+            "source_url": "https://www.basketball-reference.com/teams/MEM/2026.html"
+          }
+        ],
+        "identity_evidence": null,
+        "additional_identity_urls": [
+          "https://santaclarabroncos.com/sports/mens-basketball/roster/adama-alpha-bal/8787",
+          "https://www.nba.com/player/1642380/adama-bal",
+          "https://statsdmz.nba.com/pdfs/20260328/20260328_CHIMEM_book.pdf"
+        ],
+        "web_tool_verified_on": "2026-10-07",
+        "note": "Santa Clara official 2024-25 college roster names Adama-Alpha Bal; NBA player 1642380 is Adama Bal, same Santa Clara/France identity and 2003-12-18 birth date. NBA 2026-03-28 CHI-MEM gamebook lists Memphis #72 Adama Bal; retained season roster is Memphis #72."
+      },
+      {
+        "roster_name": "Kevin Knox",
+        "source_name": "Kevin Knox II",
+        "source_urls": [
+          "https://www.nba.com/player/1628995/kevin_knox",
+          "https://statsdmz.nba.com/pdfs/20250508/20250508_GSWMIN_book.pdf"
+        ],
+        "note": "NBA official player 1628995 and 2025-05-08 Warriors gamebook show Kevin Knox II #31; existing independently sourced GSW 2024-25 roster is Kevin Knox #31; historical rating page at kevin-knox slug identifies current Warriors. This is a suffix identity alias."
+      }
+    ],
+    "approved_source_review": {
+      "path": "data/nba2k/research/all_teams_20261007/sources/approved_expansion_sources.json",
+      "sha256": "b670348f8bc01fa31bcac1473342532e705823fe6ccd54abbf5ffd19821708b2"
+    },
+    "approved_gap_html_review": {
+      "path": "data/nba2k/research/all_teams_20261007/sources/additional_historical_candidates.json",
+      "sha256": "d4e8b00ca39d7f63216e8c31d76253d1f518999d6e76b76c8cf9747e70025bf9"
+    },
+    "scope_flag_change": "in_rating_selection_for_season now uses all-team player-season scope; exact previous values saved in baseline_in_rating_selection_for_season (null for newly added stints)",
+    "rejected_html_candidates": [
+      {
+        "player_name": null,
+        "source_url": "https://web.archive.org/web/20260103062407/https://www.2kratings.com/aaron-wiggins",
+        "reason": "edition_or_content_not_verified"
+      },
+      {
+        "player_name": "Payton Pritchard",
+        "source_url": "https://web.archive.org/web/20250719013119/https://www.2kratings.com/payton-pritchard",
+        "reason": "new_pre_release_fill_excluded"
+      }
+    ],
+    "html_candidate_inputs": [
+      {
+        "file": "verified_historical_candidates.json",
+        "sha256": "138e481d1a7832e699ea508ad1522ba5820d5f215991e0fddc4f3597814a0b79"
+      },
+      {
+        "file": "verified_historical_incremental_candidates.json",
+        "sha256": "bd24ba72f9d990fa932bdd2f6e781d7b1efc44d2e977085b3e0a0f9173916d55"
+      }
+    ]
+  },
+  "historical_remediation": {
     "version": "1.1.0",
     "updated_at_utc": "2026-10-01T03:21:34.449355+00:00",
     "policy": "Only original 2K26 nulls filled; existing values and complete 2K25 rows unchanged; verified historical HTML first, then fixed Blacktop Aug08/Jul21/May28; per-field provenance required",
@@ -91,80 +1066,818 @@
   },
   "files": [
     {
-      "path": "index.json",
-      "role": "Name/record/team/jersey lookup with 1-based line references and explicit season scope status",
-      "bytes": 441423,
-      "sha256": "a1bce261dd326751ce2afab791c7ab2221c5feb1ec2fd2a7b15d89bffd7a6975"
-    },
-    {
-      "path": "players/2024-25.jsonl",
-      "role": "317 selected NBA 2K25 player-season records; one record per line",
-      "bytes": 860744,
-      "sha256": "e1a61b5cc1128df35415e9c25bd4f947d1da23f827629391322af0b64597a4cd"
-    },
-    {
-      "path": "players/2025-26.jsonl",
-      "role": "318 selected NBA 2K26 player-season records; one record per line",
-      "bytes": 930153,
-      "sha256": "3583219d7c2619ab9ad7aebc35129ca4a546b7ddba4741d081120e703d5368cc"
-    },
-    {
-      "path": "team_history.jsonl",
-      "role": "472 selected people and all 1033 structured two-season team associations",
-      "bytes": 593667,
-      "sha256": "d3b6b23529c107a02cc3864010ca2809d5e4eb80f03825a8c781f2f96f64b3d9"
-    },
-    {
-      "path": "teams.json",
-      "role": "32 playoff team-season records and their original coverage metrics",
-      "bytes": 24678,
-      "sha256": "95fd071736bde92fbcefa52de94fd01c98498702021dd2beb2f680e86e8c79cf"
-    },
-    {
-      "path": "sources.json",
-      "role": "Exact source URL catalog, shared original notes, upstream metadata/dictionaries and independent checks",
-      "bytes": 67784,
-      "sha256": "3cf3766e3f5a368852475156c47fa3557135352132cf09106e1914493faa899d"
-    },
-    {
-      "path": "schema.json",
-      "role": "Field/type/null contracts, all 42 ability labels and identity/chronology assumptions",
-      "bytes": 15084,
-      "sha256": "295bf0f16dbfde23ad52bb8a7c2fe71ac41e4c868b821842436a400404ea1b86"
+      "path": "AGENTS.md",
+      "role": "Package documentation or structured data",
+      "bytes": 3137,
+      "sha256": "343d16dd128b84042bc5ede41b73f082e654ead86ec886b5149e5d782a09a28d"
     },
     {
       "path": "audits.json",
-      "role": "Alias audits, remaining and original unresolved joins, plus field-level remediation audit",
-      "bytes": 1532499,
-      "sha256": "6b335ae6a008dcf60be743136f84a30e209623d396cc8b8778bbdeaa8b0617e9"
+      "role": "Historical and current change/alias audit",
+      "bytes": 3053929,
+      "sha256": "98e990d04b7ad4c009ab180fd3e360bed006d325c3592569074f60ee56a9e3a2"
     },
     {
-      "path": "AGENTS.md",
-      "role": "Minimal selective-reading instructions and standard-library lookup example",
-      "bytes": 4168,
-      "sha256": "15d18bd1e51fd72c7f4196ce6f2c2b9151ccf6ab9999c25d7187f0617325482a"
+      "path": "by_team/2024-25/ATL/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9828,
+      "sha256": "48ee3ee14ca776499e488b930f0729cca2f073ab54167477568fdcb54b56ad46"
+    },
+    {
+      "path": "by_team/2024-25/ATL/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 60302,
+      "sha256": "b4077ea1c738f3caccc4901c7533536f78da52c8c1a8ad39f31c5aece0d42a49"
+    },
+    {
+      "path": "by_team/2024-25/BKN/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 11715,
+      "sha256": "15a4adf64f2325c466b93bfc756e25f1a0c0595f3842eadcdd45a485a6c0bf7c"
+    },
+    {
+      "path": "by_team/2024-25/BKN/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 72281,
+      "sha256": "e9ae790859bdd0efa57a59ca962c99bcd5674d17bacf3199efbd49eeeb568f26"
+    },
+    {
+      "path": "by_team/2024-25/BOS/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 8241,
+      "sha256": "93fdd57ab5febadc10e35795a292f231f1140e67b64f0828eced9ba8a53409c7"
+    },
+    {
+      "path": "by_team/2024-25/BOS/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 51443,
+      "sha256": "f3ba43a16506c00e12396f7452bc7f1bd24d61cd6d956c1b0afd5dcd324fdfe5"
+    },
+    {
+      "path": "by_team/2024-25/CHA/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 13331,
+      "sha256": "cec15434067a5d0baa7d20b987853064e76acbe1dbeedf227d2d0492b06fae0e"
+    },
+    {
+      "path": "by_team/2024-25/CHA/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 79817,
+      "sha256": "3de346cef2a5bf280954a227389ce228a0b21759bae33fe25d15246996747080"
+    },
+    {
+      "path": "by_team/2024-25/CHI/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10338,
+      "sha256": "19ba0e641fa1b2c38bc1f60c44734bf750862b0f245767338408000a4598fd18"
+    },
+    {
+      "path": "by_team/2024-25/CHI/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 61554,
+      "sha256": "8d7ac94609d3c14887024728c7bbe5adca6755a411d692bc46dc0e7b6e03c2cc"
+    },
+    {
+      "path": "by_team/2024-25/CLE/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10360,
+      "sha256": "0d79e099ef2dec97305fe40da30afe32a1139c689890216518167d87b3d33b5a"
+    },
+    {
+      "path": "by_team/2024-25/CLE/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 62963,
+      "sha256": "52d1debd6fe3d9dfa0571dcb83d963e4f333ca44941b444ba98d196ca6c5fab3"
+    },
+    {
+      "path": "by_team/2024-25/DAL/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 11213,
+      "sha256": "dd1a30dd3b2114d9a6732b2510ac3878ed0a75f29d08bb0807194578dd86819f"
+    },
+    {
+      "path": "by_team/2024-25/DAL/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 69850,
+      "sha256": "138485b7cbcc87273905143571f6e09409039380d8be24e4a940fd1a20ea0746"
+    },
+    {
+      "path": "by_team/2024-25/DEN/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 7446,
+      "sha256": "198224ce1da587ed6ee7d6c1a0d3c4998ec022c7831046afcb80027cc4a082c6"
+    },
+    {
+      "path": "by_team/2024-25/DEN/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 46069,
+      "sha256": "bf515e6cb11508c46a8ae75d00f67b0aea8a73fddeddfe82f9608a9a4c93a4d2"
+    },
+    {
+      "path": "by_team/2024-25/DET/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9664,
+      "sha256": "e9cf697981223cdfdd3212badce9ca7943073b2270ba1b59945be78e14152d3d"
+    },
+    {
+      "path": "by_team/2024-25/DET/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 62385,
+      "sha256": "d73d1aa129c99d2163e3b33ac44535afe0f64d18587ce775ea8f4b87c2eb62e1"
+    },
+    {
+      "path": "by_team/2024-25/GSW/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10991,
+      "sha256": "c6e63276eb0643fc79bf07db8242aff3badc2ee6c02148c9c24db6a375b4f2bc"
+    },
+    {
+      "path": "by_team/2024-25/GSW/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 71714,
+      "sha256": "6abaed2caebe1688df0b50436ef803ebc55f58f2c2024879a15beafd025b8397"
+    },
+    {
+      "path": "by_team/2024-25/HOU/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 7884,
+      "sha256": "1674ff0e92cc3fb102fef16b7f03081e304d48ac807c264f7634a706d7a29d54"
+    },
+    {
+      "path": "by_team/2024-25/HOU/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 49931,
+      "sha256": "66f72d53c1f306b6af521d4c9d22145ff2cd5858b48c5292a3ed754db433e71f"
+    },
+    {
+      "path": "by_team/2024-25/IND/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 11351,
+      "sha256": "3a8ce3723cba649295bfdcb43d4d809202933bf2d58bec277f7e8579596590c7"
+    },
+    {
+      "path": "by_team/2024-25/IND/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 66226,
+      "sha256": "ee90e3c2dd34d8a87d0aa8363a24995fd4987b0afa67f66315e696c926032417"
+    },
+    {
+      "path": "by_team/2024-25/LAC/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10469,
+      "sha256": "082696bf8f62b280b49655629d0510b86cfa4cd206f95b5e37a09412935e86e9"
+    },
+    {
+      "path": "by_team/2024-25/LAC/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 70743,
+      "sha256": "9622ea9866d5a954019b70859c5d86555af2d8efa9614dd8df07a91259eaf15c"
+    },
+    {
+      "path": "by_team/2024-25/LAL/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 11320,
+      "sha256": "3d73b0059bf3969606e6818a97c6470dcd77fe59a839121c10f20b352a330c95"
+    },
+    {
+      "path": "by_team/2024-25/LAL/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 76171,
+      "sha256": "cf84bf5c4aade405459da01cd0ef70d2a2258085d4dbf72beeefe3b1e619e2b3"
+    },
+    {
+      "path": "by_team/2024-25/MEM/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9601,
+      "sha256": "d15dfda609251f85d6c783c165deef378acfc00da9fda0c9e9b3568a53631c77"
+    },
+    {
+      "path": "by_team/2024-25/MEM/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 61616,
+      "sha256": "7137f710ec5c364513bd518f80fb9ef9e030d3eb7f7be93d47f58ad00c305c94"
+    },
+    {
+      "path": "by_team/2024-25/MIA/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9666,
+      "sha256": "f80951557af3f116d593bcc28ae3d52eba84fbb2d6424c3cfb816182e8e43539"
+    },
+    {
+      "path": "by_team/2024-25/MIA/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 61161,
+      "sha256": "f3a7f0cf8c507f141e10141fcb36222c7f7569529cb56a45417b0cc80ecab6c9"
+    },
+    {
+      "path": "by_team/2024-25/MIL/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10646,
+      "sha256": "56af5fb4b0656b66d8d8ab7688d9964e6a69037ccd41a348e642744ed758349a"
+    },
+    {
+      "path": "by_team/2024-25/MIL/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 70478,
+      "sha256": "faa78c223752d2c529234310b53e93b55b3292936d9528f0fa1f3171f5d03c22"
+    },
+    {
+      "path": "by_team/2024-25/MIN/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9258,
+      "sha256": "e267cbc512cba09b1e0a9cf7a92c5f5bd9942108dde472724ef589bba61f9ad6"
+    },
+    {
+      "path": "by_team/2024-25/MIN/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 57038,
+      "sha256": "760caaf12fac5dbd698e087dd6d0c6a87491845f7026574fea0f94ffdcf3ad09"
+    },
+    {
+      "path": "by_team/2024-25/NOP/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 12130,
+      "sha256": "c9b2b8a69ec7978fd819b1d9aa596e68074e3a4bb5dd83b484fcf675e6205e36"
+    },
+    {
+      "path": "by_team/2024-25/NOP/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 74005,
+      "sha256": "28e14055bbb2027c59b5d4433fc72bb5d03307f1cdd37870907609dd83edc649"
+    },
+    {
+      "path": "by_team/2024-25/NYK/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9394,
+      "sha256": "de54d4037f76ea330b1bc6e1c73181a751a9ac8d8f7fa21aedbdbbdb677ffa37"
+    },
+    {
+      "path": "by_team/2024-25/NYK/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 62930,
+      "sha256": "83c3c6e2e7ce589ab9e37d581cf0214ee2f88e416bbc541201e127987c3b1e8a"
+    },
+    {
+      "path": "by_team/2024-25/OKC/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9831,
+      "sha256": "5c4a2f0f32a4a719be4d200a8ad6dd9d420bd8a7b9c3263b4f02f34b1915441c"
+    },
+    {
+      "path": "by_team/2024-25/OKC/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 55538,
+      "sha256": "2940eee2fe8fad48c002c20438d367bd6293006d0e21fdfe0c1ef79b2553ccfc"
+    },
+    {
+      "path": "by_team/2024-25/ORL/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 7528,
+      "sha256": "7fa9a886737b01ccbebb2899ad5ab16c5cc35dfcd5eca1645115acfb8485fa7e"
+    },
+    {
+      "path": "by_team/2024-25/ORL/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 46209,
+      "sha256": "a4c34896d0f691621482d4296a3c2ddcae4a009a7ce42c0aab7208d53bb7eb1e"
+    },
+    {
+      "path": "by_team/2024-25/PHI/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 15162,
+      "sha256": "1a747a28995d1c0e510487928c49012549c867aafe4edc9e08f8fa17373f5324"
+    },
+    {
+      "path": "by_team/2024-25/PHI/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 93743,
+      "sha256": "7cc6e884bc396cf8d348a6fc50cdc52e4c0eb9606898045b83d41706d289290c"
+    },
+    {
+      "path": "by_team/2024-25/PHX/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9072,
+      "sha256": "5476a2a1aef0309306ea9e8eb63b29285dd02216bdd2e2216fa0ab021ab23bab"
+    },
+    {
+      "path": "by_team/2024-25/PHX/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 54465,
+      "sha256": "41bd7117ce4ed52b4a778f40aabfe399a009829860e4b526c23889f198a6eef7"
+    },
+    {
+      "path": "by_team/2024-25/POR/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 8699,
+      "sha256": "57f83da2f83a0d9a3321c4de1ef3b08e48e7e9c158c6cfe2f07a75afa98a95ae"
+    },
+    {
+      "path": "by_team/2024-25/POR/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 51400,
+      "sha256": "60917ccfbe864e447e1a8b2ff97301db7e4cc0ea62710fcecb000e64faf83208"
+    },
+    {
+      "path": "by_team/2024-25/SAC/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 12712,
+      "sha256": "b009fddd68703614d357a1d4f9b2c52cf0dc7d72ccd8c6d357abddd28218da7d"
+    },
+    {
+      "path": "by_team/2024-25/SAC/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 75568,
+      "sha256": "35771464e201cbe0ec91e438a901ec4d0e1d902f471d5e68b7229eba3a326643"
+    },
+    {
+      "path": "by_team/2024-25/SAS/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9858,
+      "sha256": "8308c78c56a2d8b3659f819e7148e9b45569da5d8d8d85374470aa429c692680"
+    },
+    {
+      "path": "by_team/2024-25/SAS/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 59920,
+      "sha256": "61b860f02d6c997cde8a99f7654e3c753bc27d44fde413ff7aca7c739022a730"
+    },
+    {
+      "path": "by_team/2024-25/TOR/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10444,
+      "sha256": "76a4aca60a7411b84e1c2962e1c67d03720577a0453313b6315ca15a12a4ab81"
+    },
+    {
+      "path": "by_team/2024-25/TOR/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 66077,
+      "sha256": "fe1c3f6a1259720bd9e6dea3215dd4c7d8b60f7362fefdb773badc50e48acc95"
+    },
+    {
+      "path": "by_team/2024-25/UTA/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9167,
+      "sha256": "a642a7d80afeb1a22c2c520cd26697126bbcf11f47eaf3aa2d6073903534355b"
+    },
+    {
+      "path": "by_team/2024-25/UTA/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 55888,
+      "sha256": "93f664e20056e4004a94a98fda43ef6de7825db07179f221c32701aef6702c9a"
+    },
+    {
+      "path": "by_team/2024-25/WAS/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10874,
+      "sha256": "e964fdddd5119caf96ac46f38b08760d6b1eb9ddee95fcc6884698c2034707d2"
+    },
+    {
+      "path": "by_team/2024-25/WAS/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 70268,
+      "sha256": "15d17ad16c8b54f8e6b1554f562b81ea5f8d380b18af9a64dd146f2ebeefee51"
+    },
+    {
+      "path": "by_team/2025-26/ATL/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 12203,
+      "sha256": "fb2792592566d195d80bdaa274e10d15d2430f17400c484a2dd218599bec1a34"
+    },
+    {
+      "path": "by_team/2025-26/ATL/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 82750,
+      "sha256": "6b8d0798d367b1f1713b5aed9ba816a54f454e41810d31688a7dcb807c819727"
+    },
+    {
+      "path": "by_team/2025-26/BKN/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 11158,
+      "sha256": "9b48c355a4e9309c49e3cd8ae9d1f2293e5ffe51b32eabd185ff606b78beef93"
+    },
+    {
+      "path": "by_team/2025-26/BKN/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 68417,
+      "sha256": "20466c0e4d1b5c8d161135e5948a4ce7ec8ea428ab5ddcbd913b8b07d1715840"
+    },
+    {
+      "path": "by_team/2025-26/BOS/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9864,
+      "sha256": "19211109163b83b167304b24bb47978d909c65f5f1cb8167069854b182c8cb80"
+    },
+    {
+      "path": "by_team/2025-26/BOS/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 65477,
+      "sha256": "e45664246ce1219a72b128a0c36526d875467a810a950406b442ebcf0cbd240e"
+    },
+    {
+      "path": "by_team/2025-26/CHA/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10172,
+      "sha256": "755dd754f500d453854afc7f36482955d397427a6719bb8e84ca40fde11568e7"
+    },
+    {
+      "path": "by_team/2025-26/CHA/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 65322,
+      "sha256": "e11012c6b3aa9768d3d63d20bb3b0bc1f793013e61c9f378688fa80369b20694"
+    },
+    {
+      "path": "by_team/2025-26/CHI/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 13695,
+      "sha256": "a0a02eed408b046a989a898d4b04504e6f8d2f0feb1a3d061511e2ef34d8dc8f"
+    },
+    {
+      "path": "by_team/2025-26/CHI/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 92699,
+      "sha256": "2d04eb343cab3ef754884985dab24c7e437ce8f3a1594e3e07af8c66bb8e8299"
+    },
+    {
+      "path": "by_team/2025-26/CLE/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 12139,
+      "sha256": "08c40cf1fe3b232b2017c2716da2aa5f3a67e100610725ff3c968f0c9482a504"
+    },
+    {
+      "path": "by_team/2025-26/CLE/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 78553,
+      "sha256": "7ee866de60f686dfab7793945eeadb9154645418fdeb849bfc7ffa0c19c71041"
+    },
+    {
+      "path": "by_team/2025-26/DAL/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 11996,
+      "sha256": "1a71e09b7c1e71fcdad071648b15af293bb12c42b19cda07d680133d854e5695"
+    },
+    {
+      "path": "by_team/2025-26/DAL/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 73804,
+      "sha256": "4a4e4d49d52f52a3368c7a7c0c9c2a589c720213ccf7ff5489859fdb0ec73824"
+    },
+    {
+      "path": "by_team/2025-26/DEN/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 8827,
+      "sha256": "3192f6ef4671da7b1cb0785438b804f4dd202053911e213b9af2f312c5a66078"
+    },
+    {
+      "path": "by_team/2025-26/DEN/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 58356,
+      "sha256": "de5436a108a1a32717dcde8ba56d4d64859db8c5dd617ad20b215a9b6703bf6b"
+    },
+    {
+      "path": "by_team/2025-26/DET/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9340,
+      "sha256": "fc28ff4ee1f14f97ff32235d4bc62487492a3a928bb7092c0df734b3ed9600c2"
+    },
+    {
+      "path": "by_team/2025-26/DET/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 60995,
+      "sha256": "57655a672b44132beff1f4d9e039681f5226202fdef36525e2a80541198f6389"
+    },
+    {
+      "path": "by_team/2025-26/GSW/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10176,
+      "sha256": "9eaf522d0eaa8512778d58a6337199d0d44edef54592850087f9c3e5b90c5438"
+    },
+    {
+      "path": "by_team/2025-26/GSW/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 67073,
+      "sha256": "90f63402c2c0a6831510ca166e991bc193b20ff7499e8f96ebb050a572e4ce49"
+    },
+    {
+      "path": "by_team/2025-26/HOU/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 7338,
+      "sha256": "22ecd7b1e76536d909d01871051ff49aa3461e6c6af878a4edfa11437da2e194"
+    },
+    {
+      "path": "by_team/2025-26/HOU/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 45695,
+      "sha256": "ae7a59a97bb4e6f0af13f7b3c601548395a20838199ca1715ebc701290173610"
+    },
+    {
+      "path": "by_team/2025-26/IND/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 13241,
+      "sha256": "91eefe5bc8abcfe5bf47aad3026ad286fc5b18f59dca9e19523f4a8d0358efb4"
+    },
+    {
+      "path": "by_team/2025-26/IND/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 83889,
+      "sha256": "650da8c6ece2cf41b58962390776ecb09a7c2c928a48ea79556b998aa04a79c9"
+    },
+    {
+      "path": "by_team/2025-26/LAC/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 12553,
+      "sha256": "8c74310c5ac4778dc6ac660760df7f1171870f4cdf4c2e80b49662bd9f82fa26"
+    },
+    {
+      "path": "by_team/2025-26/LAC/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 81937,
+      "sha256": "f666cb606eaa919bbd6c465026058f6d224bf380a1a53106baeb4130447c1a0c"
+    },
+    {
+      "path": "by_team/2025-26/LAL/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9689,
+      "sha256": "0f5aa763c7d688d31fd95b988c9639d99491b56e38b9f95f7894d584871204ea"
+    },
+    {
+      "path": "by_team/2025-26/LAL/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 63906,
+      "sha256": "f89e98ee9e91b5a45073fb6aeb25685fffa60b0d0e7bc88f77ded11043f04dfa"
+    },
+    {
+      "path": "by_team/2025-26/MEM/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 16992,
+      "sha256": "403f0dce22daee0e14bfabf1570952deb668b1631e895f3b2e8074346736ad24"
+    },
+    {
+      "path": "by_team/2025-26/MEM/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 109666,
+      "sha256": "27f6147f7d7b20d4120b7e7c6af5a858ac12e1a11ac97a63b5a5440ee57918a1"
+    },
+    {
+      "path": "by_team/2025-26/MIA/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 8615,
+      "sha256": "d6813a7fa3023d6a9cdfe9044bb7321ed8287e2826b2cabe611536c27ee632cd"
+    },
+    {
+      "path": "by_team/2025-26/MIA/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 52095,
+      "sha256": "c21a8efb3d3a0b9d45192fca0832c88e0b2f9ccdef3c286da9cea0216dfc90cd"
+    },
+    {
+      "path": "by_team/2025-26/MIL/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10188,
+      "sha256": "19adbb9f62a5b962c61338d77b97f2137b028c40df9a9d1f8bcbff370e9f6da7"
+    },
+    {
+      "path": "by_team/2025-26/MIL/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 63429,
+      "sha256": "196f2e3cc11a41819f2e92dd242bb7adc1d9bfcf1b3526d7a6b8ae05416eade7"
+    },
+    {
+      "path": "by_team/2025-26/MIN/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10560,
+      "sha256": "9ec53846e83e3e0ec4132be3d57fb29f85e69781919a9f0d6b32a73bcd4a8a7f"
+    },
+    {
+      "path": "by_team/2025-26/MIN/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 69039,
+      "sha256": "2521ef3a63c02eb7b985d81e35036017333ab45327a9555f5fe5fff22db613a6"
+    },
+    {
+      "path": "by_team/2025-26/NOP/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9364,
+      "sha256": "d4f9317878f26054cb7e4126680fcf28771d96936e25a6a049159ae3f0ef4823"
+    },
+    {
+      "path": "by_team/2025-26/NOP/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 56806,
+      "sha256": "18dc529dd6a1031e951894b87effdc7252f27880afc97835ce64d3607c3d0a9b"
+    },
+    {
+      "path": "by_team/2025-26/NYK/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9771,
+      "sha256": "500ef078a1cdafb0fd95c0e722f558c6efca32cc590f4f2a06f7e0ee9fecd7d3"
+    },
+    {
+      "path": "by_team/2025-26/NYK/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 64511,
+      "sha256": "a946e2894cba4355a5a8cce80cf891ba408ec568dfca261c7d40606dc47e7aa2"
+    },
+    {
+      "path": "by_team/2025-26/OKC/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10249,
+      "sha256": "dcc2ee6d7ffe171f81686dcf53a9bd94fdbd6559d3fb7b4790c969b4d4e74f95"
+    },
+    {
+      "path": "by_team/2025-26/OKC/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 64690,
+      "sha256": "e2d202fafdd3f28231099b846e611c6fe3c6b6b9dca3d1c85c11c0a51398b4cf"
+    },
+    {
+      "path": "by_team/2025-26/ORL/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9020,
+      "sha256": "01408f63f4a47da393e12e236e83fb9546d8850294b04e6af635539aada7d1c6"
+    },
+    {
+      "path": "by_team/2025-26/ORL/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 58810,
+      "sha256": "cd9f2e7317af5ca1e7a3971a2e1bd3e109bf505387e787b69b32974e16969523"
+    },
+    {
+      "path": "by_team/2025-26/PHI/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 11453,
+      "sha256": "d0339212912abb8b29666d1865c3990a2dc9a5224eac0a95d097750362474706"
+    },
+    {
+      "path": "by_team/2025-26/PHI/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 76617,
+      "sha256": "c30c84ad4f025f0a882a6980c32fd687b76e463cb6246b581a9a1c0c28cc62a7"
+    },
+    {
+      "path": "by_team/2025-26/PHX/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10019,
+      "sha256": "4b6c4cc239104c55d5cc454581edb91734526c1958820c11de99758f2d88a6d7"
+    },
+    {
+      "path": "by_team/2025-26/PHX/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 62947,
+      "sha256": "f9b5535dce27e5ad7240dd57604c78d03d2894693273adf2a6c0e55c58abf387"
+    },
+    {
+      "path": "by_team/2025-26/POR/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9622,
+      "sha256": "5fc428cec6bece9fd528b1f052ddc52de3a6844ab4597a6e4e24ca90ce8251fc"
+    },
+    {
+      "path": "by_team/2025-26/POR/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 62307,
+      "sha256": "b56f7b8b595ccd4d352b1a0f9586e57551114791c53783db7d33e172a9c03098"
+    },
+    {
+      "path": "by_team/2025-26/SAC/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 11299,
+      "sha256": "eaab49408f60c465085361cea0a3d957f4a48b830222b40680b73ca0dad7e034"
+    },
+    {
+      "path": "by_team/2025-26/SAC/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 69480,
+      "sha256": "25660a4849dc8c96c909d0392ff0542960e132b9c8bb7864ae52ae6383b6e135"
+    },
+    {
+      "path": "by_team/2025-26/SAS/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 10164,
+      "sha256": "42e90e1186fab3198f39ebdcb0c4e690bc1c7643844fbab01209e1fa5ef84675"
+    },
+    {
+      "path": "by_team/2025-26/SAS/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 64638,
+      "sha256": "e01812c98a7398c8433232a6a6870d91282af27152ebf5fb5da28667ba82ffcc"
+    },
+    {
+      "path": "by_team/2025-26/TOR/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 9826,
+      "sha256": "45e689a427b77d1fcb1e74f19699bedf7feebf6f061809a44a610f6a6fbca350"
+    },
+    {
+      "path": "by_team/2025-26/TOR/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 63099,
+      "sha256": "0bd9ce6b898a7245f3be73256a7cd4338e75ac9e522e315b4774530e171e39fe"
+    },
+    {
+      "path": "by_team/2025-26/UTA/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 12057,
+      "sha256": "a6a3867ef03382cbcd53c6280945accce21aaec9cba2a7a96e10c06e5e39f709"
+    },
+    {
+      "path": "by_team/2025-26/UTA/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 78237,
+      "sha256": "d3451c6c314a4053b7540ed19c4acce23d2124ec542d4681e034fcd2548bfcef"
+    },
+    {
+      "path": "by_team/2025-26/WAS/players.csv",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 13090,
+      "sha256": "2241f54d698cc268503473ee2db545e45c8a81835bc0b7d3d1e6a14ccd90c56a"
+    },
+    {
+      "path": "by_team/2025-26/WAS/players.jsonl",
+      "role": "Team-season roster table; duplicates across teams are expected",
+      "bytes": 83198,
+      "sha256": "9d1782665ce89c27cde9fbc725f56b754da7096c0e5eb6f5b4761a645bcc66fe"
     },
     {
       "path": "field_provenance.json",
-      "role": "Baseline source resolution and supplemental metric-to-source mapping with game/date basis",
-      "bytes": 869032,
-      "sha256": "0398ec3a0823d07b4c16ccce0c751e97d23933287befc4488cc6855b6c82404e"
+      "role": "Per-rating value source definitions and resolution",
+      "bytes": 1638414,
+      "sha256": "6549550db8c8d5679d958917617beceb04e34bd9b995c81bb40686390038a236"
+    },
+    {
+      "path": "index.json",
+      "role": "Name/record/team/jersey index with 1-based line locations",
+      "bytes": 683525,
+      "sha256": "901f3d2d76410b9b1978d42ae0ad0b7f5ff2516ae2731d2a22d8ad5fce2cebba"
+    },
+    {
+      "path": "missing_ratings.json",
+      "role": "Exact remaining gaps by record and field",
+      "bytes": 170669,
+      "sha256": "024f0f019966eb5a2156a351436bf4f1e70f1c92b3bf38b57dcee65fff044b88"
+    },
+    {
+      "path": "players/2024-25.jsonl",
+      "role": "Package documentation or structured data",
+      "bytes": 1521910,
+      "sha256": "0ec30be77ceab7ad267293c789a5e90dd75c994407654650bcb13ffa89aeb77d"
+    },
+    {
+      "path": "players/2025-26.jsonl",
+      "role": "Package documentation or structured data",
+      "bytes": 1691346,
+      "sha256": "6dcdc908dce986eac9585d30099527ea3f2caf3b3304459b0d6d49b8cbbb3e21"
     },
     {
       "path": "README.md",
-      "role": "Current coverage and concise version 1.1 null-only supplementation limitations",
-      "bytes": 1499,
-      "sha256": "08c3408e9ca365e549b8eaa836d6c1a84a027da02529f3d83283a5786dcdf4e9"
+      "role": "Package documentation or structured data",
+      "bytes": 2205,
+      "sha256": "cc9d689f215c21389a872bb55cbfc167c6c6b7af990cc42b44f22338323f6fae"
+    },
+    {
+      "path": "schema.json",
+      "role": "Package documentation or structured data",
+      "bytes": 16297,
+      "sha256": "91a21d6bb89aff6bdb2b54780b8284dc60d26900a8a31b03edebabf8893e9241"
+    },
+    {
+      "path": "sources.json",
+      "role": "Source catalog, shared text, metadata and field dictionary",
+      "bytes": 133442,
+      "sha256": "f60be7497b72d0e4fb5aead1780d0948573f3e7edd656cb463b528a97921db8f"
+    },
+    {
+      "path": "team_csv_fields.json",
+      "role": "CSV key-to-Chinese label dictionary",
+      "bytes": 4567,
+      "sha256": "b5d69756023d93437dd1c17510425fa9df426167be85b48196734a3f1e5ad377"
+    },
+    {
+      "path": "team_history.jsonl",
+      "role": "Package documentation or structured data",
+      "bytes": 836771,
+      "sha256": "db4a831f08e849670f4d480d46392b80e6b1947322121918aaf9e5fdb5b3ab2a"
+    },
+    {
+      "path": "teams.json",
+      "role": "Package documentation or structured data",
+      "bytes": 48648,
+      "sha256": "1cbf0f34ef6e23e168d7b3934a45f60fc228e73b04588cf5fb1e638d36e4591c"
+    },
+    {
+      "path": "TEAMS.md",
+      "role": "Clickable team-season directory",
+      "bytes": 8865,
+      "sha256": "12d4ac68f8f230af19713a19b009de899c01a2dc5c538540307216dda30373f6"
     }
   ],
-  "manifest_hash_note": "Manifest lists hashes for every other package file; self-hash deliberately excluded.",
+  "manifest_hash_note": "Every other package file is listed; manifest self-hash excluded.",
   "essential_caveats": [
-    "null means unavailable, never zero; only originally-null 2K26 fields were filled from approved historical sources, never estimated.",
-    "Jerseys are strings, 0 != 00; snapshot labels may be stale or numerically damaged.",
-    "Entire-season rosters of playoff-qualified teams, not actual playoff appearance lists.",
-    "Transaction-only and offseason associations do not establish games played; no inferred chronology.",
-    "NBA 2K26 combines preserved early baseline values and per-field historical supplements. Never label mixed records as one snapshot or as uniform final-season ratings.",
-    "Blacktop derived categories are excluded; unknown cat_* fields remain null unless a verified original HTML display was available.",
-    "Record absence (not_in_rating_scope) differs from an existing selected record with missing_record status."
+    "Full 30-team seasonal rosters, not actual playoff appearance lists or a complete contract archive.",
+    "Roster scope complete does not mean rating completeness; null is unknown and never zero.",
+    "Jerseys are strings; 0 differs from 00. Snapshot labels are not season history.",
+    "Only audited exact identities and explicit aliases; transaction-only records do not establish appearances or chronology.",
+    "Edition-specific historical sources vary in date; no shared final-roster or game-patch date is claimed.",
+    "Published non-null ratings and their sources remain unchanged; null fills appear in the expansion change audit.",
+    "Blacktop derived cats are excluded; source categories remain null without original display values."
   ]
 }
