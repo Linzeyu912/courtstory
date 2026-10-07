@@ -1,5 +1,13 @@
 # AWS 账号与部署工具准备
 
+### 2026-10-07：既有 EC2 安装 Codex CLI
+
+[Codex CLI 安装与登录记录](codex-cli-ec2-20261007.md)：官方 Linux x64 `0.160.1` 包已在本机下载并校验，经既有私有 S3 / SSM 传入 Ubuntu 服务器，用户级安装通过。22:24 已完成 ChatGPT 设备码授权、真实请求与只读 `pwd` 命令测试；既有工作台两个服务仍正常。项目修改和长任务未验收，本轮文档仅本地保存。
+
+### 2026-10-07：自有 OpenRouter API 云端调用通过
+
+[多模态实测](openrouter-multimodal-connectivity-20261007.md)：本队 `us-east-1` 临时 AgentCore Runtime 经 OpenRouter，九个候选模型的图片序列、五个直接视频和两个音频请求均通过，合计 16 项；加上[首轮文本验证](openrouter-cloud-connectivity-20261007.md)，OpenRouter 总用量 0.06015834 USD。使用自制可核对样例，尚未接入作品或评测真实篮球质量，未改变 Bedrock 白名单。清理状态与去标识化证据见报告。
+
 ### 2026-10-06 晚间：19 项服务真实调用与临时部署实测
 
 [完整实测报告](services-live-audit-20261006.md)：18 项完成基本功能验证；MediaLive 成功创建文件输入，尚未开播。AgentCore 已实际部署调用，CloudFront HTTPS 实际返回 200，ECS / Batch 容器、CPU EC2、MediaConvert、数据库和消息链路均成功。明确限制是 Bedrock 模型白名单、Sonnet 4.6 协议未就绪及 EC2 G/VT、P 按需 GPU 配额为 0。测试资源清理状态和证据见报告；这是临时探针，不代表作品已部署。
