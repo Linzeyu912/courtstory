@@ -579,6 +579,42 @@ class AgentTests(unittest.TestCase):
         self.assertEqual(final['status'],'ready',final);self.assertEqual(models,[None,'gpt-6.1-sol','gpt-6.1-sol'])
         self.assertEqual(self.tactics.load(self.clip,'demo',True,'workspace')['version'],0)
 
+    def test_status_executor_runs_without_readable_local_codex_configuration(self):
+        config = self.folder / 'broken-codex'
+        config.mkdir()
+        (config / 'config.toml').write_text('model = [broken', encoding='utf-8')
+        def execute(**kwargs):
+            return self.output
+        execute.status = lambda: {'available': True, 'provider': 'agentcore-bedrock', 'model': 'qwen.qwen3-vl-235b-a22b'}
+        agent = self.make_agent(execute)
+        with patch.dict('os.environ', {'CODEX_HOME': str(config)}):
+            done = self.wait(agent, agent.create(self.request, self.clip, self.folder/'video.mp4', 'demo', True))
+        self.assertEqual(done['status'], 'ready', done)
+        self.assertEqual(done['stages'][0]['runtime']['model'], 'qwen.qwen3-vl-235b-a22b')
+
+    def test_status_executor_retries_keep_provider_model_for_auto_and_manual_retry(self):
+        models = []
+        allow_result = False
+        def execute(**kwargs):
+            models.append(kwargs['job'].get('callModel'))
+            if not allow_result:
+                raise AgentFailure('timeout', 'Provider request timed out')
+            return self.output
+        execute.status = lambda: {'available': True, 'provider': 'agentcore-bedrock', 'model': 'qwen.qwen3-vl-235b-a22b'}
+        agent = self.make_agent(execute)
+        agent.model_override = 'gpt-6-astra'
+        failed = self.wait(agent, agent.create(self.request, self.clip, self.folder/'video.mp4', 'demo', True))
+        self.assertEqual(failed['status'], 'failed', failed)
+        self.assertEqual(models, [None, None])
+        self.assertEqual(failed['stages'][0]['runtime']['retryMode'], 'same_model')
+        self.assertEqual(failed['stages'][0]['runtime']['model'], 'qwen.qwen3-vl-235b-a22b')
+        allow_result = True
+        done = self.wait(agent, agent.retry(failed['jobId'], self.request, self.clip, 'demo', True))
+        self.assertEqual(done['status'], 'ready', done)
+        self.assertEqual(models, [None, None, None])
+        self.assertEqual(done['stages'][0]['runtime']['model'], 'qwen.qwen3-vl-235b-a22b')
+        self.assertEqual(self.tactics.load(self.clip, 'demo', True, 'workspace')['version'], 0)
+
     def test_cli_command_records_actual_alternate_model_and_rejects_unsupported_model(self):
         agent=self.make_agent();commands=[]
         class UnsupportedProcess:

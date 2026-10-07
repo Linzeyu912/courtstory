@@ -144,10 +144,22 @@ class AuditIntegrationTests(unittest.TestCase):
         import threading,time
         fixture=json.loads((Path(__file__).parent/'test_fixtures/tactics-run7-all-routes-unverified.json').read_text(encoding='utf-8'))
         stages=deepcopy(fixture['stages']);raw_before=[deepcopy(s['facts']) for s in stages]
-        agent=self.agent(lambda **kwargs:deepcopy(fixture['audit']))
-        job={'jobId':'real-run7-fixture','clip':self.clip,'stages':[], 'runCount':1,'_modelCallsThisRun':3,
+        def execute(**kwargs):
+            requested=json.loads((kwargs['directory']/'input.json').read_text(encoding='utf-8'))
+            stage_ids={item['stageId'] for item in requested}
+            return {'stages':[deepcopy(row) for row in fixture['audit']['stages'] if row['stageId'] in stage_ids]}
+        agent=self.agent(execute)
+        pack=stages[0]['pack'];binding=pack['binding']
+        mapping={row['frame']:deepcopy(row) for stage in stages for row in stage['pack']['sourceFrameMapping']}
+        document=deepcopy(self.request['document'])
+        document['playDefinition']=deepcopy(pack['playDefinition'])
+        document['review'].update(width=pack['width'],height=pack['height'],videoSha256=binding['videoSha256'],
+                                 sourceFrameMapping=[mapping[frame] for frame in sorted(mapping)])
+        clip={**self.clip,'width':pack['width'],'height':pack['height'],'video_sha256':binding['videoSha256']}
+        request={**self.request,'document':document}
+        job={'jobId':'real-run7-fixture','clip':clip,'stages':[], 'runCount':1,'_modelCallsThisRun':3,
              'progress':{'completed':0},'cancel':threading.Event(),'deadline':time.monotonic()+390,
-             'document':self.request['document'],'request':self.request}
+             'document':document,'request':request}
         root=agent.folder/job['jobId'];root.mkdir()
         for s in stages:
             (root/s['stageId']).mkdir()
@@ -160,7 +172,7 @@ class AuditIntegrationTests(unittest.TestCase):
         with patch('tactics_camera_guard.CameraGuard.review',return_value=unavailable),patch.object(agent,'_persist'),patch.object(agent,'_state'),patch.object(agent,'_tactics_run') as native:
             agent._audit_completed(job)
         self.assertEqual([s['_facts'] for s in job['stages']],raw_before)
-        self.assertEqual(job['_modelCallsThisRun'],4,'the real failure still has exactly two calls available for patch and re-audit')
+        self.assertEqual(job['_modelCallsThisRun'],5,'each retained stage receives one independent audit call')
         self.assertTrue(job['auditNeedsRepair']);self.assertNotIn('candidate',job)
         self.assertEqual(job['progress']['completed'],1)
         self.assertEqual(job['stages'][0]['status'],'awaiting_audit');self.assertNotIn('_output',job['stages'][0])
@@ -349,17 +361,20 @@ class AuditIntegrationTests(unittest.TestCase):
         self.tactics.save(document,self.clip,'demo',True,'workspace',0)
         self.assertEqual(self.tactics.load(self.clip,'demo',True,'workspace')['document']['agentRuns'][-1]['visualAudit'],done['visualAudit'])
 
-    def test_two_generated_stages_share_one_batch_audit_with_exact_source_order(self):
-        calls=[]
+    def test_two_generated_stages_receive_independent_audits_with_exact_source_order(self):
+        calls=[];audit_stages=[]
         def execute(**kwargs):
             value=json.loads((kwargs['directory']/'input.json').read_text(encoding='utf-8'));calls.append(value)
             if isinstance(value,dict):
                 facts=facts_for(value);facts['people'][0]['continuity']='uncertain'
                 return facts
             self.assertEqual(kwargs['job']['progress']['completed'],0)
-            self.assertEqual([row['stageId'] for row in value],['stage-1','stage-2'])
+            self.assertEqual(len(value),1)
+            audit_stages.append(value[0]['stageId'])
             self.assertEqual([image.parent.name for image in kwargs['images']],
                              [row['stageId'] for row in value for _ in row['pack']['images']])
+            self.assertEqual([image.name for image in kwargs['images']],
+                             [f"source-frame-{image['frame']:06d}.jpg" for image in value[0]['pack']['images']])
             return approved(value)
         stages=[dict(stageId=f'stage-{i+1}',startFrame=a,endFrameExclusive=b,status='queued',message='waiting',attempts=0)
                 for i,(a,b) in enumerate([(0,30),(30,61)])]
@@ -373,19 +388,23 @@ class AuditIntegrationTests(unittest.TestCase):
             job=agent.create(self.request,self.clip,self.folder/'video.mp4','demo',True)
         done=self.wait(agent,job)
         self.assertEqual(done['status'],'ready',done)
-        self.assertEqual(len(calls),3)
+        self.assertEqual(len(calls),4)
+        self.assertEqual(audit_stages,['stage-1','stage-2'])
         self.assertEqual([s['attempts'] for s in done['stages']],[1,1])
-        self.assertEqual(done['progress']['modelCallCount'],3)
+        self.assertEqual(done['progress']['modelCallCount'],4)
         self.assertTrue(completed_at_publication)
         self.assertEqual(set(completed_at_publication),{2})
 
-    def test_two_stage_structured_audit_survives_adopt_save_reload_with_source_binding(self):
+    def test_independent_stage_audits_survive_adopt_save_reload_with_source_binding(self):
         def execute(**kwargs):
             value=json.loads((kwargs['directory']/'input.json').read_text(encoding='utf-8'))
             if isinstance(value,dict):return facts_for(value)
             audit=approved(value)
-            audit['stages'][1]['audit']['ball'][0].update(verdict='reject',control='other_person',reason='第二阶段球在另一人手中')
-            kwargs['job']['_modelCallsThisRun']=6
+            self.assertEqual(len(audit['stages']),1)
+            if audit['stages'][0]['stageId']=='stage-2':
+                audit['stages'][0]['audit']['ball'][0].update(verdict='reject',control='other_person',reason='第二阶段球在另一人手中')
+                # Stop correction only after both independent stage audits finish.
+                kwargs['job']['_modelCallsThisRun']=6
             return audit
         stages=[dict(stageId=f'stage-{i+1}',startFrame=a,endFrameExclusive=b,status='queued',message='waiting',attempts=0)
                 for i,(a,b) in enumerate([(0,30),(30,61)])]
@@ -536,11 +555,12 @@ class AuditIntegrationTests(unittest.TestCase):
                 else:
                     with self.assertRaises(StorageFailure):agent._repair_audited(job)
 
-    def test_two_stage_compact_patches_and_reaudit_fit_exact_five_call_contract(self):
-        audits=[0];calls=[]
+    def test_two_stage_targeted_patch_reaudits_only_changed_stage_within_six_call_budget(self):
+        audits=[0];calls=[];audit_stages=[]
         def execute(**kwargs):
             value=json.loads((kwargs['directory']/'input.json').read_text(encoding='utf-8'));calls.append(value)
             if isinstance(value,dict) and 'repairStages' in value:
+                self.assertEqual([row['stageId'] for row in value['repairStages']],['stage-1'])
                 rows=[]
                 for row in value['repairStages']:
                     route=row['facts']['routes'][0];points=deepcopy(route['points']);points[-1][0]+=5
@@ -550,6 +570,8 @@ class AuditIntegrationTests(unittest.TestCase):
                 self.assertLess(len(json.dumps(result)),1500)
                 return result
             if isinstance(value,dict):return facts_for(value)
+            self.assertEqual(len(value),1)
+            audit_stages.append(value[0]['stageId'])
             audits[0]+=1;audit=approved(value)
             if audits[0]==1:
                 for row in audit['stages']:row['audit']['routes'][0].update(verdict='reject',geometry='misaligned',reason='终点偏移')
@@ -560,9 +582,12 @@ class AuditIntegrationTests(unittest.TestCase):
         with patch('tactics_agent.analysis_stages',return_value=stages):
             job=agent.create(self.request,self.clip,self.folder/'video.mp4','demo',True)
         done=self.wait(agent,job)
-        self.assertEqual(done['status'],'ready',done);self.assertEqual(done['progress']['modelCallCount'],5)
+        self.assertEqual(done['status'],'ready',done);self.assertEqual(done['progress']['modelCallCount'],6)
         self.assertEqual([stage['attempts'] for stage in done['stages']],[1,1])
-        self.assertEqual(len(calls),5);self.assertEqual(audits[0],2)
+        self.assertEqual(len(calls),6);self.assertEqual(audits[0],3)
+        self.assertEqual(audit_stages,['stage-1','stage-2','stage-1'])
+        self.assertEqual(done['progress']['auditRepairStatus'],'verified')
+        self.assertTrue(done['visualAudit']['allApproved'])
 
     def test_rejected_identity_keeps_accepted_route_and_raw_facts_without_false_complete(self):
         def execute(**kwargs):

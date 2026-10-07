@@ -58,7 +58,7 @@ class TacticalWorkbenchTests(unittest.TestCase):
         original_open=av.open;clock=[0.0];decoded=[]
         class Container:
             def __enter__(inner):
-                inner.real=original_open(str(self.video));return inner
+                inner.real=original_open(str(self.video));inner.streams=inner.real.streams;return inner
             def __exit__(inner,*args):inner.real.close()
             def decode(inner,**kwargs):
                 for index,frame in enumerate(inner.real.decode(**kwargs)):

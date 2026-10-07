@@ -1481,8 +1481,12 @@ class TacticsAgent:
                         facts_mode = analysis_mode == 'visual_facts'
                         retry_reason = stage.get('failure', {}).get('code') if repair else stage.get('_retryFailureCode') if job['runCount'] > 1 else None
                         execution_retry = retry_reason in ('timeout', 'no_response', 'transport')
-                        primary_model = self.model_override or trusted_model_settings()[0]
-                        job['callModel'] = self.retry_model if execution_retry and self.retry_model != primary_model else None
+                        if hasattr(self.execute, 'status'):
+                            primary_model = self.execute.status().get('model')
+                            job['callModel'] = None
+                        else:
+                            primary_model = self.model_override or trusted_model_settings()[0]
+                            job['callModel'] = self.retry_model if execution_retry and self.retry_model != primary_model else None
                         if execution_retry:
                             pack, images = self._lighter_retry_input(pack, images)
                         stage['attempts'] += 1
