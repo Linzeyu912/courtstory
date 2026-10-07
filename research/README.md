@@ -7,7 +7,7 @@
 | 专题目录 | 内容 |
 | --- | --- |
 | [vision/](vision/README.md) | 篮球 / 人物检测与跟踪、脚环编号、身份与脚点绑定、球场标定、镜头跟随、2D 映射 |
-| [agents/](agents/README.md) | 视频理解、Qwen 地面轨迹 Agent、OpenCode / Codex 源码研究 |
+| [agents/](agents/README.md) | 视频理解、Qwen 地面轨迹 Agent、OpenCode / Codex 源码研究、[Codex CLI EC2 实测](agents/codex-cli-ec2-20261007.md) |
 | [basketball-models/](basketball-models/README.md) | 篮球论文、Hoop 系列模型、权重审计与本地试验 |
 | [evidence/](evidence/README.md) | 数据来源规范、事实核验、纠错与故障实验 |
 | [runtime/](runtime/README.md) | 历史运行性能、部署可行性与外部服务可用性调查 |

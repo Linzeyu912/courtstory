@@ -1,0 +1,1265 @@
+{
+  "collected_at": "2026-10-07T09:08:00+08:00",
+  "timezone": "Asia/Singapore",
+  "fixture": {
+    "source": "deterministic synthetic diagram, no match footage",
+    "dimensions": [
+      640,
+      360
+    ],
+    "image_timestamps_seconds": [
+      0,
+      2.5,
+      5
+    ],
+    "video_duration_seconds": 6,
+    "video_fps": 10,
+    "expected": {
+      "code": "7318",
+      "start_label": "A17",
+      "end_label": "B42",
+      "direction": "left_to_right"
+    },
+    "files": [
+      {
+        "name": "frame0.png",
+        "bytes": 9526,
+        "sha256": "63e9d6a6a29291ff1c665e594f3944179aec6148de67f4c388bcf3fde67e2ec7"
+      },
+      {
+        "name": "frame1.png",
+        "bytes": 9911,
+        "sha256": "6e85dc89956ae54842d9c993d27e57c7d25b8d46e8ae2108faa675ba8e39b8b5"
+      },
+      {
+        "name": "frame2.png",
+        "bytes": 9927,
+        "sha256": "d97506004a8c027e6d0650574ffcaed2bc3c2017186753dc79930361d57950fc"
+      },
+      {
+        "name": "probe.mp4",
+        "bytes": 24215,
+        "sha256": "ed456ac09a09d1a7502793600fb46ee3e360d0a6923524180f0733630e2acf3f"
+      }
+    ],
+    "audio": {
+      "source": "AWS Polly Joanna standard",
+      "text": "The secret test number is seven three one eight. The orange ball moves from Alpha to Bravo.",
+      "bytes": 31391,
+      "sha256": "d9e85272eec56e1f726aece77ce40a5fc15f4e64a4099cc17a5dbde50249dd01"
+    }
+  },
+  "cloud": {
+    "runtime_ready": true,
+    "endpoint_ready": true,
+    "region": "us-east-1",
+    "cloud_network": {
+      "region": "us-east-1",
+      "dns_ok": true,
+      "catalog_http_status": 200,
+      "catalog_seconds": 0.056,
+      "models": [
+        {
+          "id": "openai/gpt-6.1-sol",
+          "architecture": {
+            "modality": "text+image+file->text",
+            "input_modalities": [
+              "file",
+              "image",
+              "text"
+            ],
+            "output_modalities": [
+              "text"
+            ],
+            "tokenizer": "GPT",
+            "instruct_type": null
+          },
+          "pricing": {
+            "prompt": "0.000002",
+            "completion": "0.00001",
+            "web_search": "0.01",
+            "input_cache_read": "0.0000001",
+            "input_cache_write": "0.0000025",
+            "overrides": [
+              {
+                "min_prompt_tokens": 272000,
+                "prompt": "0.000004",
+                "completion": "0.000015",
+                "input_cache_read": "0.0000002",
+                "input_cache_write": "0.000005"
+              }
+            ]
+          },
+          "supported_parameters": [
+            "include_reasoning",
+            "max_completion_tokens",
+            "max_tokens",
+            "reasoning",
+            "reasoning_effort",
+            "response_format",
+            "seed",
+            "structured_outputs",
+            "tool_choice",
+            "tools",
+            "verbosity"
+          ]
+        },
+        {
+          "id": "anthropic/claude-sonnet-5.5",
+          "architecture": {
+            "modality": "text+image+file->text",
+            "input_modalities": [
+              "text",
+              "image",
+              "file"
+            ],
+            "output_modalities": [
+              "text"
+            ],
+            "tokenizer": "Claude",
+            "instruct_type": null
+          },
+          "pricing": {
+            "prompt": "0.000002",
+            "completion": "0.00001",
+            "web_search": "0.01",
+            "input_cache_read": "0.0000002",
+            "input_cache_write": "0.0000025",
+            "input_cache_write_1h": "0.000004"
+          },
+          "supported_parameters": [
+            "include_reasoning",
+            "max_completion_tokens",
+            "max_tokens",
+            "reasoning",
+            "reasoning_effort",
+            "response_format",
+            "stop",
+            "structured_outputs",
+            "temperature",
+            "tool_choice",
+            "tools",
+            "verbosity"
+          ]
+        },
+        {
+          "id": "anthropic/claude-opus-5.5",
+          "architecture": {
+            "modality": "text+image+file->text",
+            "input_modalities": [
+              "text",
+              "image",
+              "file"
+            ],
+            "output_modalities": [
+              "text"
+            ],
+            "tokenizer": "Claude",
+            "instruct_type": null
+          },
+          "pricing": {
+            "prompt": "0.000004",
+            "completion": "0.00002",
+            "web_search": "0.01",
+            "input_cache_read": "0.0000002",
+            "input_cache_write": "0.000005",
+            "input_cache_write_1h": "0.000008"
+          },
+          "supported_parameters": [
+            "include_reasoning",
+            "max_completion_tokens",
+            "max_tokens",
+            "reasoning",
+            "reasoning_effort",
+            "response_format",
+            "stop",
+            "structured_outputs",
+            "temperature",
+            "tool_choice",
+            "tools",
+            "verbosity"
+          ]
+        },
+        {
+          "id": "qwen/qwen3.8-omni-flash",
+          "architecture": {
+            "modality": "text+image+audio+video->text",
+            "input_modalities": [
+              "text",
+              "image",
+              "audio",
+              "video"
+            ],
+            "output_modalities": [
+              "text"
+            ],
+            "tokenizer": "Qwen",
+            "instruct_type": null
+          },
+          "pricing": {
+            "prompt": "0.00000015",
+            "completion": "0.00000047",
+            "input_cache_read": "0.000000016"
+          },
+          "supported_parameters": [
+            "frequency_penalty",
+            "include_reasoning",
+            "logprobs",
+            "max_tokens",
+            "presence_penalty",
+            "reasoning",
+            "response_format",
+            "seed",
+            "stop",
+            "structured_outputs",
+            "temperature",
+            "tool_choice",
+            "tools",
+            "top_k",
+            "top_logprobs",
+            "top_p"
+          ]
+        },
+        {
+          "id": "openai/gpt-6-astra",
+          "architecture": {
+            "modality": "text+image+file->text",
+            "input_modalities": [
+              "file",
+              "image",
+              "text"
+            ],
+            "output_modalities": [
+              "text"
+            ],
+            "tokenizer": "GPT",
+            "instruct_type": null
+          },
+          "pricing": {
+            "prompt": "0.00001",
+            "completion": "0.00005",
+            "web_search": "0.01",
+            "input_cache_read": "0.000001",
+            "input_cache_write": "0.0000125",
+            "overrides": [
+              {
+                "min_prompt_tokens": 272000,
+                "prompt": "0.00002",
+                "completion": "0.000075",
+                "input_cache_read": "0.000002",
+                "input_cache_write": "0.000025"
+              }
+            ]
+          },
+          "supported_parameters": [
+            "include_reasoning",
+            "max_completion_tokens",
+            "max_tokens",
+            "reasoning",
+            "reasoning_effort",
+            "response_format",
+            "seed",
+            "structured_outputs",
+            "tool_choice",
+            "tools",
+            "verbosity"
+          ]
+        },
+        {
+          "id": "qwen/qwen3.8-max-0902",
+          "architecture": {
+            "modality": "text+image+video->text",
+            "input_modalities": [
+              "text",
+              "image",
+              "video"
+            ],
+            "output_modalities": [
+              "text"
+            ],
+            "tokenizer": "Qwen",
+            "instruct_type": null
+          },
+          "pricing": {
+            "prompt": "0.000002",
+            "completion": "0.000006",
+            "input_cache_read": "0.00000025",
+            "input_cache_write": "0.0000025"
+          },
+          "supported_parameters": [
+            "frequency_penalty",
+            "include_reasoning",
+            "logprobs",
+            "max_tokens",
+            "presence_penalty",
+            "reasoning",
+            "reasoning_effort",
+            "response_format",
+            "seed",
+            "stop",
+            "structured_outputs",
+            "temperature",
+            "tool_choice",
+            "tools",
+            "top_k",
+            "top_logprobs",
+            "top_p"
+          ]
+        },
+        {
+          "id": "google/gemini-3.8-flash",
+          "architecture": {
+            "modality": "text+image+file+audio+video->text",
+            "input_modalities": [
+              "text",
+              "image",
+              "video",
+              "file",
+              "audio"
+            ],
+            "output_modalities": [
+              "text"
+            ],
+            "tokenizer": "Gemini",
+            "instruct_type": null
+          },
+          "pricing": {
+            "prompt": "0.00000075",
+            "completion": "0.00000375",
+            "image": "0.00000075",
+            "audio": "0.00000075",
+            "input_audio_cache": "0.000000075",
+            "web_search": "0.014",
+            "internal_reasoning": "0.00000375",
+            "input_cache_read": "0.000000075",
+            "input_cache_write": "0.0000000416666666666667"
+          },
+          "supported_parameters": [
+            "include_reasoning",
+            "max_tokens",
+            "reasoning",
+            "reasoning_effort",
+            "response_format",
+            "seed",
+            "stop",
+            "structured_outputs",
+            "temperature",
+            "tool_choice",
+            "tools",
+            "top_p"
+          ]
+        },
+        {
+          "id": "qwen/qwen3.8-27b",
+          "architecture": {
+            "modality": "text+image+video->text",
+            "input_modalities": [
+              "text",
+              "image",
+              "video"
+            ],
+            "output_modalities": [
+              "text"
+            ],
+            "tokenizer": "Qwen",
+            "instruct_type": null
+          },
+          "pricing": {
+            "prompt": "0.000000425",
+            "completion": "0.00000255",
+            "input_cache_read": "0.000000085",
+            "input_cache_write": "0.00000053125"
+          },
+          "supported_parameters": [
+            "frequency_penalty",
+            "include_reasoning",
+            "logit_bias",
+            "logprobs",
+            "max_tokens",
+            "min_p",
+            "presence_penalty",
+            "reasoning",
+            "reasoning_effort",
+            "repetition_penalty",
+            "response_format",
+            "seed",
+            "stop",
+            "structured_outputs",
+            "temperature",
+            "tool_choice",
+            "tools",
+            "top_a",
+            "top_k",
+            "top_logprobs",
+            "top_p"
+          ]
+        },
+        {
+          "id": "moonshotai/kimi-k3",
+          "architecture": {
+            "modality": "text+image+video->text",
+            "input_modalities": [
+              "text",
+              "image",
+              "video"
+            ],
+            "output_modalities": [
+              "text"
+            ],
+            "tokenizer": "Other",
+            "instruct_type": null
+          },
+          "pricing": {
+            "prompt": "0.00000069",
+            "completion": "0.000015",
+            "input_cache_read": "0.00000034"
+          },
+          "supported_parameters": [
+            "frequency_penalty",
+            "include_reasoning",
+            "logit_bias",
+            "logprobs",
+            "max_tokens",
+            "min_p",
+            "presence_penalty",
+            "reasoning",
+            "reasoning_effort",
+            "repetition_penalty",
+            "response_format",
+            "seed",
+            "stop",
+            "structured_outputs",
+            "temperature",
+            "tool_choice",
+            "tools",
+            "top_k",
+            "top_logprobs",
+            "top_p"
+          ]
+        }
+      ]
+    },
+    "results": [
+      {
+        "model_requested": "openai/gpt-6.1-sol",
+        "model_returned": "openai/gpt-6.1-sol",
+        "kind": "images",
+        "provider": "OpenAI",
+        "http_status": 200,
+        "seconds": 2.484,
+        "content": "{\"code\":\"7318\",\"start_label\":\"A17\",\"end_label\":\"B42\",\"direction\":\"left_to_right\",\"observation\":\"The small orange ball moves from near A17 through the center to near B42.\"}",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The small orange ball moves from near A17 through the center to near B42."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 965,
+          "completion_tokens": 49,
+          "total_tokens": 1014,
+          "cost": 0.00242,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00242,
+            "upstream_inference_prompt_cost": 0.00193,
+            "upstream_inference_completions_cost": 0.00049
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "anthropic/claude-sonnet-5.5",
+        "model_returned": "anthropic/claude-sonnet-5.5",
+        "kind": "images",
+        "provider": "Claude Platform on AWS",
+        "http_status": 200,
+        "seconds": 2.074,
+        "content": "{\"code\":\"7318\",\"start_label\":\"A17\",\"end_label\":\"B42\",\"direction\":\"left_to_right\",\"observation\":\"The orange ball begins next to the blue player A17 on the left, passes the center circle at 2.5s, and ends next to the red player B42 on the right at 5.0s.\"}",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The orange ball begins next to the blue player A17 on the left, passes the center circle at 2.5s, and ends next to the red player B42 on the right at 5.0s."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1070,
+          "completion_tokens": 95,
+          "total_tokens": 1165,
+          "cost": 0.00309,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00309,
+            "upstream_inference_prompt_cost": 0.00214,
+            "upstream_inference_completions_cost": 0.00095
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "anthropic/claude-opus-5.5",
+        "model_returned": "anthropic/claude-opus-5.5",
+        "kind": "images",
+        "provider": "Claude Platform on AWS",
+        "http_status": 200,
+        "seconds": 6.954,
+        "content": "```json\n{\"code\":\"7318\",\"start_label\":\"A17\",\"end_label\":\"B42\",\"direction\":\"left_to_right\",\"observation\":\"The orange ball starts beside the blue circle A17 at t=0.0s, reaches the center circle at t=2.5s, and ends beside the red circle B42 at t=5.0s.\"}\n```",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The orange ball starts beside the blue circle A17 at t=0.0s, reaches the center circle at t=2.5s, and ends beside the red circle B42 at t=5.0s."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1070,
+          "completion_tokens": 260,
+          "total_tokens": 1330,
+          "cost": 0.00948,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00948,
+            "upstream_inference_prompt_cost": 0.00428,
+            "upstream_inference_completions_cost": 0.0052
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 154,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "qwen/qwen3.8-omni-flash",
+        "model_returned": "qwen/qwen3.8-omni-flash",
+        "kind": "images",
+        "provider": "Alibaba",
+        "http_status": 200,
+        "seconds": 5.84,
+        "content": "{\n  \"code\": \"7318\",\n  \"start_label\": \"A17\",\n  \"end_label\": \"B42\",\n  \"direction\": \"left_to_right\",\n  \"observation\": \"The small orange ball begins adjacent to the blue marker A17 on the left, passes through the center circle at t=2.5s, and ends adjacent to the red marker B42 on the right.\"\n}",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The small orange ball begins adjacent to the blue marker A17 on the left, passes through the center circle at t=2.5s, and ends adjacent to the red marker B42 on the right."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 810,
+          "completion_tokens": 374,
+          "total_tokens": 1184,
+          "cost": 0.00029728,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00029728,
+            "upstream_inference_prompt_cost": 0.0001215,
+            "upstream_inference_completions_cost": 0.00017578
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 274,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "openai/gpt-6-astra",
+        "model_returned": "openai/gpt-6-astra",
+        "kind": "images",
+        "provider": "OpenAI",
+        "http_status": 200,
+        "seconds": 2.32,
+        "content": "{\"code\":\"7318\",\"start_label\":\"A17\",\"end_label\":\"B42\",\"direction\":\"left_to_right\",\"observation\":\"The small orange ball moves from near A17 through the center to near B42.\"}",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The small orange ball moves from near A17 through the center to near B42."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 965,
+          "completion_tokens": 49,
+          "total_tokens": 1014,
+          "cost": 0.0121,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0121,
+            "upstream_inference_prompt_cost": 0.00965,
+            "upstream_inference_completions_cost": 0.00245
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "qwen/qwen3.8-max-0902",
+        "model_returned": "qwen/qwen3.8-max-0902",
+        "kind": "images",
+        "provider": "Alibaba",
+        "http_status": 200,
+        "seconds": 6.464,
+        "content": "{\n  \"code\": \"7318\",\n  \"start_label\": \"A17\",\n  \"end_label\": \"B42\",\n  \"direction\": \"left_to_right\",\n  \"observation\": \"The small orange ball starts adjacent to the blue circle A17 on the left, passes through the center circle at t=2.5s, and ends adjacent to the red circle B42 on the right, indicating a left-to-right traversal.\"\n}",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The small orange ball starts adjacent to the blue circle A17 on the left, passes through the center circle at t=2.5s, and ends adjacent to the red circle B42 on the right, indicating a left-to-right traversal."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 781,
+          "completion_tokens": 337,
+          "total_tokens": 1118,
+          "cost": 0.003584,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.003584,
+            "upstream_inference_prompt_cost": 0.001562,
+            "upstream_inference_completions_cost": 0.002022
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 230,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "google/gemini-3.8-flash",
+        "model_returned": "google/gemini-3.8-flash",
+        "kind": "images",
+        "provider": "Google",
+        "http_status": 200,
+        "seconds": 3.33,
+        "content": "```json\n{\n  \"code\": \"7318\",\n  \"start_label\": \"A17\",\n  \"end_label\": \"B42\",\n  \"direction\": \"left_to_right\",\n  \"observation\": \"The small orange ball moves horizontally across the court from player A17 on the left to player B42 on the right.\"\n}\n```",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The small orange ball moves horizontally across the court from player A17 on the left to player B42 on the right."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 3399,
+          "completion_tokens": 186,
+          "total_tokens": 3585,
+          "cost": 0.00324675,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00324675,
+            "upstream_inference_prompt_cost": 0.00254925,
+            "upstream_inference_completions_cost": 0.0006975
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 99,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "qwen/qwen3.8-27b",
+        "model_returned": "qwen/qwen3.8-27b",
+        "kind": "images",
+        "provider": "Alibaba",
+        "http_status": 200,
+        "seconds": 6.452,
+        "content": "{\n  \"code\": \"7318\",\n  \"start_label\": \"A17\",\n  \"end_label\": \"B42\",\n  \"direction\": \"left_to_right\",\n  \"observation\": \"The small orange ball begins adjacent to the blue circle A17 on the left, passes through the center circle at t=2.5s, and ends adjacent to the red circle B42 on the right, while both labeled circles remain stationary.\"\n}",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The small orange ball begins adjacent to the blue circle A17 on the left, passes through the center circle at t=2.5s, and ends adjacent to the red circle B42 on the right, while both labeled circles remain stationary."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 806,
+          "completion_tokens": 312,
+          "total_tokens": 1118,
+          "cost": 0.00113815,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00113815,
+            "upstream_inference_prompt_cost": 0.00034255,
+            "upstream_inference_completions_cost": 0.0007956
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 206,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "moonshotai/kimi-k3",
+        "model_returned": "moonshotai/kimi-k3",
+        "kind": "images",
+        "provider": "Wafer",
+        "http_status": 200,
+        "seconds": 4.029,
+        "content": "{\"code\":\"7318\",\"start_label\":\"A17\",\"end_label\":\"B42\",\"direction\":\"left_to_right\",\"observation\":\"The small orange ball starts adjacent to A17 on the left, passes through the center circle by t=2.5s, and ends adjacent to B42 on the right at t=5.0s; the A17 and B42 markers stay in place.\"}",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The small orange ball starts adjacent to A17 on the left, passes through the center circle by t=2.5s, and ends adjacent to B42 on the right at t=5.0s; the A17 and B42 markers stay in place."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1099,
+          "completion_tokens": 253,
+          "total_tokens": 1352,
+          "cost": 0.0046026,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 64,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0046026,
+            "upstream_inference_prompt_cost": 0.0010606,
+            "upstream_inference_completions_cost": 0.003542
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 161,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "qwen/qwen3.8-omni-flash",
+        "model_returned": "qwen/qwen3.8-omni-flash",
+        "kind": "video",
+        "provider": "Alibaba",
+        "http_status": 200,
+        "seconds": 6.678,
+        "content": "{\n  \"code\": \"7318\",\n  \"start_label\": \"A17\",\n  \"end_label\": \"B42\",\n  \"direction\": \"left_to_right\",\n  \"observation\": \"The small orange ball begins adjacent to A17 on the left half, moves steadily rightward across the midline circle (at center by t=2.5s), and finishes resting beside B42 on the right half, while both labeled circles remain stationary throughout.\"\n}",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The small orange ball begins adjacent to A17 on the left half, moves steadily rightward across the midline circle (at center by t=2.5s), and finishes resting beside B42 on the right half, while both labeled circles remain stationary throughout."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1452,
+          "completion_tokens": 457,
+          "total_tokens": 1909,
+          "cost": 0.00043259,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00043259,
+            "upstream_inference_prompt_cost": 0.0002178,
+            "upstream_inference_completions_cost": 0.00021479
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 347,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "qwen/qwen3.8-max-0902",
+        "model_returned": "qwen/qwen3.8-max-0902",
+        "kind": "video",
+        "provider": "Alibaba",
+        "http_status": 200,
+        "seconds": 8.01,
+        "content": "{\n  \"code\": \"7318\",\n  \"start_label\": \"A17\",\n  \"end_label\": \"B42\",\n  \"direction\": \"left_to_right\",\n  \"observation\": \"The small orange ball begins adjacent to the blue circle labeled A17 on the left half, travels horizontally through the center circle, and comes to rest beside the red circle labeled B42 on the right half; the player circles themselves remain stationary.\"\n}",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The small orange ball begins adjacent to the blue circle labeled A17 on the left half, travels horizontally through the center circle, and comes to rest beside the red circle labeled B42 on the right half; the player circles themselves remain stationary."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1468,
+          "completion_tokens": 389,
+          "total_tokens": 1857,
+          "cost": 0.00527,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00527,
+            "upstream_inference_prompt_cost": 0.002936,
+            "upstream_inference_completions_cost": 0.002334
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 283,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "google/gemini-3.8-flash",
+        "model_returned": "google/gemini-3.8-flash",
+        "kind": "video",
+        "provider": "Google",
+        "http_status": 200,
+        "seconds": 3.469,
+        "content": "```json\n{\n  \"code\": \"7318\",\n  \"start_label\": \"A17\",\n  \"end_label\": \"B42\",\n  \"direction\": \"left_to_right\",\n  \"observation\": \"The small orange ball moves across the court from player A17 on the left to player B42 on the right.\"\n}\n```",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The small orange ball moves across the court from player A17 on the left to player B42 on the right."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 475,
+          "completion_tokens": 242,
+          "total_tokens": 717,
+          "cost": 0.00126375,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 396
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00126375,
+            "upstream_inference_prompt_cost": 0.00035625,
+            "upstream_inference_completions_cost": 0.0009075
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 156,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "qwen/qwen3.8-27b",
+        "model_returned": "qwen/qwen3.8-27b",
+        "kind": "video",
+        "provider": "Darkbloom",
+        "http_status": 200,
+        "seconds": 11.373,
+        "content": "\n\n{\"code\": \"7318\", \"start_label\": \"A17\", \"end_label\": \"B42\", \"direction\": \"left_to_right\", \"observation\": \"The small orange ball begins adjacent to the blue circle (A17) on the left, travels across the center circle, and ends up adjacent to the red circle (B42) on the right, indicating a left-to-right pass/movement.\"}",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The small orange ball begins adjacent to the blue circle (A17) on the left, travels across the center circle, and ends up adjacent to the red circle (B42) on the right, indicating a left-to-right pass/movement."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1007,
+          "completion_tokens": 397,
+          "total_tokens": 1404,
+          "cost": 0.00092375,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00092375,
+            "upstream_inference_prompt_cost": 5.035e-05,
+            "upstream_inference_completions_cost": 0.0008734
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 303,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "moonshotai/kimi-k3",
+        "model_returned": "moonshotai/kimi-k3",
+        "kind": "video",
+        "provider": "Decart",
+        "http_status": 200,
+        "seconds": 13.011,
+        "content": "{\"code\":\"7318\",\"start_label\":\"A17\",\"end_label\":\"B42\",\"direction\":\"left_to_right\",\"observation\":\"The small orange ball starts beside the stationary blue A17 circle on the left, moves steadily rightward through the center circle, and ends adjacent to the stationary red B42 circle on the right.\"}",
+        "parsed": {
+          "code": "7318",
+          "start_label": "A17",
+          "end_label": "B42",
+          "direction": "left_to_right",
+          "observation": "The small orange ball starts beside the stationary blue A17 circle on the left, moves steadily rightward through the center circle, and ends adjacent to the stationary red B42 circle on the right."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 3881,
+          "completion_tokens": 280,
+          "total_tokens": 4161,
+          "cost": 0.00966423,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00966423,
+            "upstream_inference_prompt_cost": 0.00710223,
+            "upstream_inference_completions_cost": 0.002562
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 200,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "start_label": true,
+          "end_label": true,
+          "direction": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "qwen/qwen3.8-omni-flash",
+        "model_returned": "qwen/qwen3.8-omni-flash",
+        "kind": "audio",
+        "provider": "Alibaba",
+        "http_status": 200,
+        "seconds": 3.067,
+        "content": "```json\n{\n  \"code\": \"7318\",\n  \"sender\": \"alpha\",\n  \"receiver\": \"bravo\",\n  \"transcript\": \"The secret test number is seven three one eight. The orange ball moves from alpha to bravo.\"\n}\n```",
+        "parsed": {
+          "code": "7318",
+          "sender": "alpha",
+          "receiver": "bravo",
+          "transcript": "The secret test number is seven three one eight. The orange ball moves from alpha to bravo."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 110,
+          "completion_tokens": 167,
+          "total_tokens": 277,
+          "cost": 9.499e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 9.499e-05,
+            "upstream_inference_prompt_cost": 1.65e-05,
+            "upstream_inference_completions_cost": 7.849e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 102,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "sender": true,
+          "receiver": true
+        },
+        "all_checks_passed": true
+      },
+      {
+        "model_requested": "google/gemini-3.8-flash",
+        "model_returned": "google/gemini-3.8-flash",
+        "kind": "audio",
+        "provider": "Google",
+        "http_status": 200,
+        "seconds": 2.85,
+        "content": "```json\n{\n  \"code\": \"7318\",\n  \"sender\": \"Alpha\",\n  \"receiver\": \"Bravo\",\n  \"transcript\": \"The secret test number is 7318. The orange ball moves from Alpha to Bravo.\"\n}\n```",
+        "parsed": {
+          "code": "7318",
+          "sender": "Alpha",
+          "receiver": "Bravo",
+          "transcript": "The secret test number is 7318. The orange ball moves from Alpha to Bravo."
+        },
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 152,
+          "completion_tokens": 168,
+          "total_tokens": 320,
+          "cost": 0.000744,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 131,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000744,
+            "upstream_inference_prompt_cost": 0.000114,
+            "upstream_inference_completions_cost": 0.00063
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 106,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "error": null,
+        "origin": "AWS Bedrock AgentCore Runtime",
+        "region": "us-east-1",
+        "checks": {
+          "code": true,
+          "sender": true,
+          "receiver": true
+        },
+        "all_checks_passed": true
+      }
+    ],
+    "session_stop_http_status": 200
+  },
+  "cleanup": {
+    "stack_state": "DELETED",
+    "runtime_deleted": true,
+    "role_deleted": true,
+    "exact_asset_keys_deleted": 2,
+    "object_versions_deleted": 2,
+    "probe_prefix_remaining_objects": 0,
+    "probe_log_groups_removed": 0,
+    "cleanup_complete": true
+  },
+  "key_status_after": {
+    "limit": 50,
+    "limit_remaining": 49.93984166,
+    "usage": 0.06015834,
+    "is_free_tier": false,
+    "expires_at": "2026-10-08T00:49:43.189Z"
+  },
+  "temporary_local_key_copy_deleted": true,
+  "cost_summary_usd": {
+    "multimodal": "0.05835209",
+    "prior_text": "0.00180625",
+    "total": "0.06015834"
+  }
+}

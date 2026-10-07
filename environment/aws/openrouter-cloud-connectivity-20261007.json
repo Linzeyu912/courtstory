@@ -1,0 +1,242 @@
+{
+  "collected_at": "2026-10-07T09:00:00+08:00",
+  "timezone": "Asia/Singapore",
+  "text_cloud": {
+    "runtime_ready": true,
+    "endpoint_ready": true,
+    "region": "us-east-1",
+    "cloud_network": {
+      "region": "us-east-1",
+      "dns_ok": true,
+      "catalog_http_status": 200,
+      "catalog_seconds": 0.051,
+      "models": [
+        "google/gemini-3.8-flash",
+        "openai/gpt-6.1-sol",
+        "anthropic/claude-opus-5.5"
+      ]
+    },
+    "cloud_inference": {
+      "origin": "AWS Bedrock AgentCore Runtime",
+      "region": "us-east-1",
+      "results": [
+        {
+          "model_requested": "google/gemini-3.8-flash",
+          "model_returned": "google/gemini-3.8-flash",
+          "provider": "Google",
+          "http_status": 200,
+          "seconds": 2.004,
+          "content": "OPENROUTER_CLOUD_OK",
+          "marker_matches": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 10,
+            "completion_tokens": 112,
+            "total_tokens": 122,
+            "cost": 0.0004275,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.0004275,
+              "upstream_inference_prompt_cost": 7.5e-06,
+              "upstream_inference_completions_cost": 0.00042
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 105,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          }
+        },
+        {
+          "model_requested": "openai/gpt-6.1-sol",
+          "model_returned": "openai/gpt-6.1-sol",
+          "provider": "OpenAI",
+          "http_status": 200,
+          "seconds": 1.621,
+          "content": "OPENROUTER_CLOUD_OK",
+          "marker_matches": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 16,
+            "completion_tokens": 11,
+            "total_tokens": 27,
+            "cost": 0.000142,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.000142,
+              "upstream_inference_prompt_cost": 3.2e-05,
+              "upstream_inference_completions_cost": 0.00011
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          }
+        },
+        {
+          "model_requested": "anthropic/claude-opus-5.5",
+          "model_returned": "anthropic/claude-opus-5.5",
+          "provider": "Claude Platform on AWS",
+          "http_status": 200,
+          "seconds": 1.945,
+          "content": "OPENROUTER_CLOUD_OK",
+          "marker_matches": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 31,
+            "completion_tokens": 18,
+            "total_tokens": 49,
+            "cost": 0.000484,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.000484,
+              "upstream_inference_prompt_cost": 0.000124,
+              "upstream_inference_completions_cost": 0.00036
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    "session_stop_http_status": 200
+  },
+  "local_text": [
+    {
+      "content": "OPENROUTER_LOCAL_OK",
+      "provider": "Google",
+      "model": "google/gemini-3.8-flash",
+      "origin": "local Windows computer",
+      "usage": {
+        "prompt_tokens": 10,
+        "completion_tokens": 35,
+        "total_tokens": 45,
+        "cost": 0.00013875,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00013875,
+          "upstream_inference_prompt_cost": 7.5e-06,
+          "upstream_inference_completions_cost": 0.00013125
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 28,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "openai/gpt-6.1-sol",
+      "requested_model": "openai/gpt-6.1-sol",
+      "usage": {
+        "prompt_tokens": 15,
+        "completion_tokens": 10,
+        "total_tokens": 25,
+        "cost": 0.00013,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00013,
+          "upstream_inference_prompt_cost": 3e-05,
+          "upstream_inference_completions_cost": 0.0001
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "provider": "OpenAI",
+      "origin": "local Windows computer",
+      "content": "OPENROUTER_LOCAL_OK"
+    },
+    {
+      "model": "anthropic/claude-opus-5.5",
+      "requested_model": "anthropic/claude-opus-5.5",
+      "usage": {
+        "prompt_tokens": 31,
+        "completion_tokens": 18,
+        "total_tokens": 49,
+        "cost": 0.000484,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000484,
+          "upstream_inference_prompt_cost": 0.000124,
+          "upstream_inference_completions_cost": 0.00036
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "provider": "Claude Platform on AWS",
+      "origin": "local Windows computer",
+      "content": "OPENROUTER_LOCAL_OK"
+    }
+  ],
+  "key_usage_before": {
+    "limit": 50,
+    "limit_remaining": 50,
+    "usage": 0,
+    "is_free_tier": false,
+    "expires_at": "2026-10-08T00:49:43.189Z"
+  },
+  "key_usage_after_text": {
+    "limit": 50,
+    "limit_remaining": 49.99819375,
+    "usage": 0.00180625,
+    "is_free_tier": false,
+    "expires_at": "2026-10-08T00:49:43.189Z"
+  },
+  "text_cleanup": {
+    "stack_state": "DELETED",
+    "runtime_deleted": true,
+    "role_deleted": true,
+    "exact_asset_keys_deleted": 2,
+    "object_versions_deleted": 2,
+    "probe_prefix_remaining_objects": 0,
+    "probe_log_groups_removed": 0,
+    "cleanup_complete": true
+  },
+  "temporary_local_key_copy_deleted": true
+}
