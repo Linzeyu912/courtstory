@@ -7,6 +7,7 @@
 | Qwen 单人并行映射 | `ground_trajectory_parallel.py`、`ground_trajectory_frame_cache.py` | 冻结前置输入、每人独立输出与协调汇总；共享帧缓存、请求并发/间隔控制；见[实验](../../research/agents/qwen-parallel-20261007/README.md) |
 | 单人轨迹去噪 | `ground_trajectory_denoise.py` | 真实时间局部稳健拟合、缺口/切镜/绑定边界断段、锁点保护；[参数与边界](../docs/ground-trajectory-denoise.md) |
 | 官方训练片上云 | `upload_official_training.py` | 两片源 manifest 校验、S3 条件写入与远端 SHA-256 校验；默认只输出计划，见[云端准备记录](../docs/aws-cloud-preflight-20261006.md) |
+| 云端战术 Agent | `cloud_tactics_agent.py`、`test_cloud_tactics_agent.py` | 经 EC2 实例角色调用 AgentCore，S3 传递证据 / 结果，保留既有 schema 和来源校验；通过 `HKS_AGENT_RUNTIME` 可选启用，见[网页实测](../docs/ec2-cloud-interaction-acceptance-20261007.md) |
 | 工作台服务与裁剪 | `serve_player_review.py`、`review_video_trim.py` | 使用明确登记的视频与候选，只监听本机回环地址 |
 | 人工制作浏览器验收 | `smoke_manual_tactics.py` | 只准备基础视频/PTS/可选映射，从空白通过真实 UI 完成多个对象、暂停、校正、保存、失败重试及 MP4 下载；[结果与限制](../docs/manual-tactics-workbench-acceptance.md) |
 | 通用候选和匹配 | `build_review_tracks.py`、`player_proposals.py` | 模型候选不等于真实球员；生成新文件，不覆盖已确认身份 |

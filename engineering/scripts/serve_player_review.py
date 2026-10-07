@@ -120,8 +120,12 @@ def main():
     from tactics_render import TacticsRenderer
     renderer = TacticsRenderer(Path(args.tactics_folder)/'render-jobs', tactics, args.tactics_ffmpeg)
     from tactics_agent import TacticsAgent
+    cloud_execute = None
+    if os.environ.get('HKS_AGENT_RUNTIME'):
+        from cloud_tactics_agent import CloudTacticsExecutor
+        cloud_execute = CloudTacticsExecutor()
     agent = TacticsAgent(Path(args.tactics_folder)/'agent-jobs',tactics,args.tactics_agent_cli,args.tactics_agent_timeout,
-                        reasoning_effort=args.tactics_agent_reasoning_effort,max_images=args.tactics_agent_max_images)
+                        execute=cloud_execute,reasoning_effort=args.tactics_agent_reasoning_effort,max_images=args.tactics_agent_max_images)
     from identity_agent import IdentityAgent
     identity_agent = IdentityAgent(Path(args.tactics_folder)/'identity-jobs',tactics,
                                   codex_path=args.tactics_agent_cli,timeout=args.tactics_agent_timeout,
