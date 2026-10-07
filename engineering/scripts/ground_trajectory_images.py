@@ -124,10 +124,11 @@ def render_images(preparation, candidate, records, entity_ids, directory):
     draw.line([xy(14.3256, 0), xy(14.3256, 15.24)], fill='#8994a8', width=2)
     for left, right in ((0, 5.7912), (28.6512-5.7912, 28.6512)):
         draw.rectangle([xy(left, 5.1816), xy(right, 10.0584)], outline='#8994a8', width=2)
-    colors = ['#ffd166', '#06d6a0', '#ef476f', '#118ab2', '#cda6ff']
+    colors = ['#ffd166', '#06d6a0', '#ef476f', '#118ab2', '#cda6ff',
+              '#ff8a5c', '#8fe388', '#f7a9d0', '#61d3f2', '#e5e5a3']
     for index, entity_id in enumerate(entity_ids):
         color = colors[index % len(colors)]
-        draw.text((30+index*190, 745), entity_id, fill=color)
+        draw.text((30+(index % 5)*240, 731+(index//5)*20), entity_id, fill=color)
         for points, line_color in ((preparation['preparedByPlayer'][entity_id], '#667085'),
                                    (candidate['pointsByPlayer'][entity_id], color)):
             previous = None

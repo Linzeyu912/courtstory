@@ -21,6 +21,25 @@ const calibrationKey=value=>({...pick(value,['frame','side','source','status','r
   points:(value.points??[]).map(p=>pick(p,['id','image','source','role','enabled'])),
   quality:pick(value.quality,['method','referenceFrame','cameraSupportFrame','independentAccuracyValidated'])});
 
+export function summarizeTrajectoryIssues(issues) {
+  if(issues.length<=64)return issues;
+  const groups=new Map(),other=[];
+  for(const issue of issues){
+    if(!Number.isSafeInteger(issue.frame)||!issue.entityId||!issue.reason){other.push(issue);continue;}
+    const key=JSON.stringify([issue.entityId,issue.reason]);
+    if(!groups.has(key))groups.set(key,{entityId:issue.entityId,reason:issue.reason,frames:[]});
+    groups.get(key).frames.push(issue.frame);
+  }
+  return {total:issues.length,ranges:[...groups.values()].map(({entityId,reason,frames})=>{
+    const ranges=[];
+    for(const frame of [...new Set(frames)].sort((a,b)=>a-b)){
+      if(ranges.length&&ranges.at(-1)[1]===frame)ranges.at(-1)[1]=frame+1;
+      else ranges.push([frame,frame+1]);
+    }
+    return {entityId,reason,count:frames.length,ranges};
+  }),other};
+}
+
 export function createTrajectoryTools(start,{rpc,emit,budget,requestNumber}){
   const state={revision:0,anchors:[],unknownRanges:[],candidate:null,dirty:true,finished:false,
     feedbackRevision:null,feedbackRequest:null,feedbackReadRevision:null,feedbackReadRequest:null,
@@ -82,7 +101,7 @@ export function createTrajectoryTools(start,{rpc,emit,budget,requestNumber}){
       catch(error){audit(name,{error:String(error.message??error).slice(0,600)});throw error;}
     }});
   const context=()=>{
-    const fm=start.preparation.frameMapping;const count=Math.min(12,start.range.endFrameExclusive-start.range.startFrame);
+    const fm=start.preparation.frameMapping;const count=Math.min(start.entityIds.length>2?6:12,start.range.endFrameExclusive-start.range.startFrame);
     const window=fm.slice(start.range.startFrame,start.range.endFrameExclusive);
     const suggestedFrames=[...new Set(Array.from({length:count},(_,i)=>{
       const target=window[0].time+(window.at(-1).time-window[0].time)*i/Math.max(1,count-1);
@@ -93,20 +112,49 @@ export function createTrajectoryTools(start,{rpc,emit,budget,requestNumber}){
     const relevantKeys=keys.filter(k=>k.frame>=start.range.startFrame&&k.frame<start.range.endFrameExclusive);
     const before=keys.filter(k=>k.frame<start.range.startFrame).at(-1),after=keys.find(k=>k.frame>=start.range.endFrameExclusive);
     const calibrationKeys=[...(before?[before]:[]),...relevantKeys,...(after?[after]:[])];
-    const sampledKeys=calibrationKeys.length<=32?calibrationKeys:Array.from({length:32},(_,i)=>calibrationKeys[Math.round(i*(calibrationKeys.length-1)/31)]);
+    const keyCount=start.entityIds.length>2?16:32;
+    const sampledKeys=calibrationKeys.length<=keyCount?calibrationKeys:Array.from({length:keyCount},(_,i)=>calibrationKeys[Math.round(i*(calibrationKeys.length-1)/(keyCount-1))]);
+    const availableProjections=id=>{
+      const raw=start.preparation.rawByPlayer[id]??[],ranges=[];let count=0;
+      for(let frame=start.range.startFrame;frame<start.range.endFrameExclusive;frame++){
+        const point=raw[frame];
+        if(!Number.isFinite(point?.x)||!Number.isFinite(point?.y))continue;
+        count++;
+        if(ranges.length&&ranges.at(-1).endFrameExclusive===frame)ranges.at(-1).endFrameExclusive=frame+1;
+        else ranges.push({startFrame:frame,endFrameExclusive:frame+1});
+      }
+      return {count,ranges:ranges.map(({startFrame,endFrameExclusive})=>({startFrame,endFrameExclusive,
+        suggestedEvidenceFrames:[...new Set([startFrame,Math.floor((startFrame+endFrameExclusive-1)/2),endFrameExclusive-1])]}))};
+    };
     return {jobId:start.jobId,entityIds:start.entityIds,range:start.range,courtTemplate:COURT,
       coordinatePolicy:'水平地面位置，米制；原点 left_baseline_far_sideline。空中脚点不是地面真值；起跳可有水平移动。',
       goal:start.goal,revision:state.revision,dirty:state.dirty,feedbackRevision:state.feedbackRevision,
-      suggestedFrames,frameMapping:fm.slice(start.range.startFrame,start.range.endFrameExclusive),
+      suggestedFrames,frameMapping:start.entityIds.length>2?sampledFrames.map(frame=>fm[frame]):fm.slice(start.range.startFrame,start.range.endFrameExclusive),
+      frameMappingPolicy:start.entityIds.length>2?'Exact source timestamps at sampled/anchor frames; inspect_frames returns exact timing for any other requested frame. Full mapping stays in the backend.':'complete',
       calibration:{maxKeyframeGapSeconds:start.session?.courtCalibration?.maxKeyframeGapSeconds??1.2,
         keyframes:sampledKeys.map(calibrationKey),maps:sampledFrames.map(frame=>({frame,time:fm[frame].time,map:calibrationMap(start.preparation.maps?.[frame])}))},
-      players:Object.fromEntries(start.entityIds.map(id=>[id,{
-        observed:sampledFrames.map(frame=>observation(start.preparation.rawByPlayer[id]?.[frame])),
-        current:sampledFrames.map(frame=>observation(start.preparation.preparedByPlayer[id]?.[frame])),
-        manualLocks:(start.preparation.rawByPlayer[id]??[]).filter(p=>p.locked&&p.frame>=start.range.startFrame&&p.frame<start.range.endFrameExclusive).map(observation),
+      players:Object.fromEntries(start.entityIds.map(id=>{
+        const rawPoints=start.preparation.rawByPlayer[id]??[];
+        const available=availableProjections(id);
+        const entity=start.session?.entities?.find(item=>item.id===id);
+        return [id,{
+        identity:{name:entity?.name??null,team:entity?.team??null,jersey:entity?.jersey??null,role:entity?.role??null},
+        availableProjectionRanges:available.ranges,availableProjectionCount:available.count,
+        availableProjectionMeaning:'仅表示当前范围内已有 rawByPlayer 的有限 x/y 投影，不代表人物可见、脚点接地或位置真值。suggestedEvidenceFrames 仅供核查，不会自动读取图像。',
+        observed:sampledFrames.map(frame=>observation(rawPoints[frame])),
+        current:start.entityIds.length>2?sampledFrames.flatMap(frame=>{
+          const raw=observation(rawPoints[frame]);
+          const current=observation(start.preparation.preparedByPlayer[id]?.[frame]);
+          return JSON.stringify(raw)===JSON.stringify(current)?[]:[current];
+        }):sampledFrames.map(frame=>observation(start.preparation.preparedByPlayer[id]?.[frame])),
+        currentPolicy:start.entityIds.length>2?'Only changed current observations are listed; otherwise current equals observed.':'explicit',
+        manualLocks:rawPoints.filter(p=>p.locked&&p.frame>=start.range.startFrame&&p.frame<start.range.endFrameExclusive).map(observation),
+        rangeBoundaryLocks:[start.range.startFrame,start.range.endFrameExclusive-1].map(frame=>observation(start.preparation.preparedByPlayer[id]?.[frame])).filter(p=>Number.isFinite(p?.x)&&Number.isFinite(p?.y)),
+        boundaryPolicy:'Keep rangeBoundaryLocks at their current coordinates; choose interior frames for corrections.',
         breaks:(start.preparation.breaksByPlayer[id]??[]).filter(p=>p.frame>=start.range.startFrame&&p.frame<start.range.endFrameExclusive),
-      }])),anchors:state.anchors,unknownRanges:state.unknownRanges,evidenceFrames:[...state.seenFrames],
-      candidateSummary:state.candidate?{revision:state.candidate.revision,issues:state.candidate.issues??[],completion:state.candidate.completion}:null};
+      }];
+      })),anchors:state.anchors,unknownRanges:state.unknownRanges,evidenceFrames:[...state.seenFrames],
+      candidateSummary:state.candidate?{revision:state.candidate.revision,issues:summarizeTrajectoryIssues(state.candidate.issues??[]),completion:state.candidate.completion}:null};
   };
   const tools=[
     tool('get_context','读取当前来源、真实时间、地面坐标、人工硬约束和候选 revision。',Type.Object({}),async()=>({content:[json(context())],details:{revision:state.revision}})),
@@ -195,7 +243,7 @@ export function createTrajectoryTools(start,{rpc,emit,budget,requestNumber}){
         const {candidate,diff,issues}=previewGroundTrajectory(start.preparation,candidateInput());
         state.candidate={...candidate,completion:'partial'};state.dirty=false;
         const result=await render(state.candidate,args.frames,signal);
-        result.content.unshift(json({diff,issues}));audit('fit_and_render',{candidateRevision:state.candidate.revision,issues});return result;
+        result.content.unshift(json({diff,issues:summarizeTrajectoryIssues(issues)}));audit('fit_and_render',{candidateRevision:state.candidate.revision,issues});return result;
       }),
     tool('finish_candidate','完成当前候选。必须在修改后拟合并在后续模型请求中实际读取最新绘图，保留未解决区间。',
       Type.Object({revision:integer,summary:text,completion:Type.Union([Type.Literal('complete'),Type.Literal('partial')])}),async(args)=>{
