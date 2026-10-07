@@ -370,9 +370,9 @@ export function mountTacticsUI(api){
   }
   function originalPoint(point,space){return space===lastScene.mode?{x:point.x,y:point.y}:space==='court'?videoToCourt(lastScene.model,lastScene.frame,point):courtToVideo(lastScene.model,lastScene.frame,point);}
   async function saveAnnotation(next,captured=stamp()){
-    editBusy=true;fillAnnotationControls();
+    editBusy=true;agentControls();fillAnnotationControls();
     try{const accepted=await commit(next,captured,{reuseScene:true});if(accepted)status('图形已写入浏览器草稿。预览满意后点击「保存」。');return accepted;}
-    finally{editBusy=false;annotationPreview=null;fillAnnotationControls();playbackControls();drawScene();}
+    finally{editBusy=false;agentControls();annotationPreview=null;fillAnnotationControls();playbackControls();drawScene();}
   }
   async function patchAnnotation(patch){const a=selectedAnnotation();if(!a||!editAllowed())return;return saveAnnotation(updateAnnotation(documentValue,a.id,patch));}
   async function deleteSelectedAnnotation(){

@@ -806,6 +806,33 @@ test('the empty-state primary action creates a usable manual canvas with no play
   }finally{env.restore();}
 });
 
+test('manual drawing restores Agent controls after saving without unlocking an active generation',async()=>{
+  const {review}=await makePresentationDemo();review.entities=[];review.court.calibration.keyframes=[];review.mediaEndTime=6.1;
+  const d=await createTacticsDocument(review);let jobs=0;
+  const env=environment(d,{player:true,agent:async(path)=>{
+    if(path.endsWith('/status'))return {available:true,message:'ready'};
+    if(path.endsWith('/jobs'))jobs++;
+    return {jobId:'manual-followup',status:'queued',message:'queued'};
+  }});
+  try{
+    await env.load();assert.equal(env.get('tacticsAgentRun').disabled,false);assert.equal(env.get('tacticsAgentManual').disabled,false);
+    const choosing=env.get('tacticsToolRoute').onclick();
+    try{assert.equal(env.ui.getSceneState().editBusy,true);assert.equal(env.get('tacticsAgentRun').disabled,true);assert.equal(env.get('tacticsAgentManual').disabled,true);}
+    finally{await choosing;}
+    assert.equal(env.ui.getSceneState().editBusy,false);assert.equal(env.get('tacticsAgentRun').disabled,false);assert.equal(env.get('tacticsAgentManual').disabled,false);
+    for(const [x,y] of [[400,320],[600,400]])await env.event('pointerdown',{pointerId:149,target:env.target(),clientX:x,clientY:y});
+    await env.get('tacticsFinishDrawing').onclick();await env.get('tacticsSave').onclick();env.get('tacticsAgentPanel').open=true;
+    assert.equal(env.saved.at(-1).document.annotations.items.length,1);assert.equal(env.get('tacticsAgentRun').disabled,false);assert.equal(env.get('tacticsAgentManual').disabled,false);
+    await env.get('tacticsAgentRun').onclick();assert.equal(jobs,1);assert.equal(env.get('tacticsAgentRun').disabled,true);
+    env.get('tacticsAnnotationName').value='人工补充路线';const editing=env.get('tacticsAnnotationName').onchange();
+    try{assert.equal(env.ui.getSceneState().editBusy,true);assert.equal(env.get('tacticsAgentManual').disabled,true);}
+    finally{await editing;}
+    assert.equal(env.ui.getSceneState().annotations.items[0].name,'人工补充路线');assert.equal(env.ui.getSceneState().editBusy,false);
+    assert.equal(env.get('tacticsAgentRun').disabled,true,'finishing a manual edit must keep an active Agent generation locked');assert.equal(env.get('tacticsAgentManual').disabled,false);
+    await env.get('tacticsAgentRun').onclick();assert.equal(jobs,1);
+  }finally{env.restore();}
+});
+
 test('a first spotlight click in a modern empty video offers a visible manual fallback, editable save and undo',async()=>{
   const {review}=await makePresentationDemo();review.entities=[];review.court.calibration.keyframes=[];review.mediaEndTime=6.1;
   const d=await createTacticsDocument(review),env=environment(d,{player:true});
