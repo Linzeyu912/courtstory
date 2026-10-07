@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "mode": "scoreboard_vision",
+  "engine": "codex-vision",
+  "jobId": "aee873f45362431b93992763bfeb007d",
+  "videoSha256": "17c36f8d3b3e294f13f7119f23b82ec7f3fbe96d5564db9cbe7d61f49ebbbd7d",
+  "trackingFingerprint": "2e873fbb19a0980bc5b9f8ca146102f16e164e42e09719a98a81826f4264f36e",
+  "scoreboardRegion": [
+    0,
+    633,
+    704,
+    720
+  ],
+  "candidates": [
+    {
+      "value": "IND",
+      "score": 0.99,
+      "distinctFrames": 1,
+      "evidence": [
+        {
+          "frame": 0,
+          "time": 0.0,
+          "crop": [
+            0,
+            633,
+            704,
+            720
+          ],
+          "reason": "裁图主比分卡左侧可见深蓝色 P 形队标，内嵌黄色篮球及横向速度线，为步行者队标。",
+          "engine": "codex-vision",
+          "score": 0.99
+        }
+      ]
+    },
+    {
+      "value": "BKN",
+      "score": 0.99,
+      "distinctFrames": 1,
+      "evidence": [
+        {
+          "frame": 0,
+          "time": 0.0,
+          "crop": [
+            0,
+            633,
+            704,
+            720
+          ],
+          "reason": "裁图主比分卡右侧可见黑白篮球圆形图案，中央有黑色字母 B，为篮网队标。",
+          "engine": "codex-vision",
+          "score": 0.99
+        }
+      ]
+    }
+  ],
+  "scannedFrames": 1,
+  "status": "multiple_candidates",
+  "reason": "仅依据裁图内主比分卡的两个队标，按从左到右顺序识别。",
+  "scoreMeaning": "model_estimate_not_accuracy",
+  "identityConfirmed": false,
+  "reviewRequired": true
+}

@@ -26,6 +26,20 @@ function roleConflict(record,id){
     :Boolean(record.role_conflicts?.[id]);
 }
 
+// A visual first pass may exclude a bounded non-player observation. It is
+// machine evidence in this detector's namespace, never a human rejection.
+function modelRoleExclusions(clip,session){
+  const review=session?.initialIdentityReview;
+  if(review?.version!==1||![review.videoHash,review.trackingFingerprint,review.trackingRevision].every(value=>typeof value==='string'&&value)||
+      review.videoHash!==clip.video_sha256||
+      review.trackingFingerprint!==clip.tracking_fingerprint||
+      review.trackingRevision!==clip.tracking_revision||!Array.isArray(review.exclusions))return [];
+  return review.exclusions.filter(item=>['referee','other'].includes(item.role)&&
+    Number.isInteger(item.trackId)&&item.trackId>0&&Number.isInteger(item.start)&&
+    Number.isInteger(item.end)&&item.start>=0&&item.end>=item.start&&item.end<clip.frames.length);
+}
+const excludedByRole=(exclusions,id,frame)=>exclusions.some(item=>item.trackId===Number(id)&&item.start<=frame&&frame<=item.end);
+
 function eligible(clip,record,row){
   return validBox(row)&&Number.isInteger(Number(row[4]))&&Number(row[4])>=0&&role(clip,record,row)==='player'
     &&!record.track_evidence?.[Number(row[4])]?.identity_review_required&&!roleConflict(record,Number(row[4]));
@@ -62,10 +76,10 @@ function compatibleSupplement(clip,supplement){
     &&JSON.stringify(supplement.sourceCuts||[])===JSON.stringify(clip.sourceCuts||[]);
 }
 
-function commonFramePlan(clip){
+function commonFramePlan(clip,exclusions){
   let seed=[];
   for(const record of clip.frames){
-    const rows=record.tracks.filter(row=>eligible(clip,record,row));
+    const rows=record.tracks.filter(row=>eligible(clip,record,row)&&!excludedByRole(exclusions,row[4],record.frame));
     if(Math.min(rows.length,10)>Math.min(seed.length,10))seed=rows;
   }
   return seed.slice().sort((a,b)=>a[0]-b[0]||Number(a[4])-Number(b[4])).slice(0,10).map((row,index)=>({
@@ -73,7 +87,7 @@ function commonFramePlan(clip){
       trackId:Number(row[4]),method:'visible-common-frame-alias-v1'}]}));
 }
 
-function annotationPlan(clip,issues){
+function annotationPlan(clip,issues,exclusions){
   const base=parsed(clip,clip.identitySuggestions,issues),plan=base.map(item=>({...item,recovered:false}));
   const supplement=clip.identitySupplement;
   if(supplement&&!compatibleSupplement(clip,supplement))issues.push('incompatible_identity_supplement');
@@ -88,7 +102,7 @@ function annotationPlan(clip,issues){
     plan.push({...item,id,sourcePlayerId:item.id,teamGroup:null,teamHint:null,recovered:true});used.add(id);
     item.bindings.forEach(binding=>claimedTracks.add(binding.trackId));
   }
-  return plan.length?plan:commonFramePlan(clip);
+  return plan.length?plan:commonFramePlan(clip,exclusions);
 }
 
 function hasHumanEdits(entity){
@@ -115,13 +129,14 @@ export function initializeAutomaticAnnotations(session,clip){
       session.automaticAnnotation.trackingRawFingerprint!==rawFingerprint(clip))
     return {playerCount:0,addedPlayerIds,recoveredPlayerIds,issues:['incompatible_annotation_detector']};
   const players=session.entities.filter(entity=>entity.role==='player'&&playerId(entity.id));
+  const exclusions=modelRoleExclusions(clip,session);
   const cuts=mergeSourceCuts(session.cuts,clip.sourceCuts,clip.frames.length);
   const occupied=new Set(players.filter(entity=>entity.identitySuggestionsDismissed||entity.modelBindings?.length||hasHumanEdits(entity)).map(entity=>entity.id));
   const ownership=clip.frames.map((_,frame)=>new Set(players.flatMap(entity=>{
     const identity=identityAt(entity,frame,cuts,clip.frames[frame]);
     return identity?.kind==='track'?[Number(identity.trackId)]:identity?.candidateTrackIds||[];
   })));
-  const plan=annotationPlan(clip,issues);
+  const plan=annotationPlan(clip,issues,exclusions);
   // Retain grouped IDs first, so recovery cannot take their still-empty slots.
   const reserved=new Set(plan.filter(item=>!item.recovered).map(item=>item.id));
   for(const item of plan){
@@ -134,7 +149,8 @@ export function initializeAutomaticAnnotations(session,clip){
       entity=players.find(value=>!occupied.has(value.id)&&!reserved.has(value.id));
     }
     if(!entity)continue;
-    const bindings=observedBindings(clip,filterDismissedModelBindings(item.bindings,players),cuts,(id,frame)=>ownership[frame].has(id));
+    const bindings=observedBindings(clip,filterDismissedModelBindings(item.bindings,players),cuts,
+      (id,frame)=>ownership[frame].has(id)||excludedByRole(exclusions,id,frame));
     if(!bindings.length)continue;
     entity.modelBindings=bindings;
     const color=item.recovered?recoveredColor(clip,item):{group:item.teamGroup,label:item.teamHint,evidence:item.teamEvidence};
@@ -155,29 +171,36 @@ export function initializeAutomaticAnnotations(session,clip){
   return {playerCount,addedPlayerIds,recoveredPlayerIds,issues};
 }
 
-export function automaticAnnotationPointVisible(clip,frame,point){
+export function automaticAnnotationPointVisible(clip,frame,point,session=null){
   if(!point||![point.x,point.y].every(Number.isFinite)||point.reviewExcluded||
       ['interpolated','conflict','missing','out_of_view'].includes(point.source))return false;
   // Explicit review releases only this visible observation from model gating.
   // The detector's risk evidence remains intact for the diagnostic display.
   if(point.frameIdentityConfirmed===true)return ['manual','tracked','manual_range'].includes(point.source);
+  // A clicked image position remains editable even when the linked machine
+  // identity is uncertain. It still carries no frame identity confirmation.
+  if(point.source==='manual')return true;
   if(point.source==='manual_range')return ['tracked','manual'].includes(point.rangeCorrection?.originalSource);
   if(['manual_forward','manual_range','manual_track_occurrences'].includes(point.identitySource))return true;
   if(point.identitySource==='model_suggestion'){
     const record=clip.frames?.[frame],row=record?.tracks?.find(value=>Number(value[4])===Number(point.trackId));
-    return Boolean(row&&point.trackId!=null&&eligible(clip,record,row));
+    return Boolean(row&&point.trackId!=null&&eligible(clip,record,row)&&
+      !excludedByRole(modelRoleExclusions(clip,session),point.trackId,frame));
   }
   // Legacy human image marks remain editable; they do not become model locks.
   return ['manual','manual_path'].includes(point.source);
 }
 
-export function automaticPlayerCandidates(clip,frame,trajectories={}){
+export function automaticPlayerCandidates(clip,frame,trajectories={},session=null){
   const record=clip.frames?.[frame];if(!record)return [];
+  const exclusions=modelRoleExclusions(clip,session);
   const owned=new Set(Object.values(trajectories).map(points=>points?.[frame])
-    .filter(point=>point?.trackId!=null&&automaticAnnotationPointVisible(clip,frame,point)).map(point=>Number(point.trackId)));
-  const result=(record.tracks||[]).filter(row=>validBox(row)&&role(clip,record,row)==='player'&&!owned.has(Number(row[4])))
+    .filter(point=>point?.trackId!=null&&automaticAnnotationPointVisible(clip,frame,point,session)).map(point=>Number(point.trackId)));
+  const result=(record.tracks||[]).filter(row=>validBox(row)&&role(clip,record,row)==='player'&&!owned.has(Number(row[4]))&&
+      !excludedByRole(exclusions,row[4],frame))
     .map(row=>({box:row.slice(0,4),trackId:Number(row[4]),score:row[5],role:'player',
       roleConflict:roleConflict(record,Number(row[4])),
+      roleEvidence:record.track_evidence?.[Number(row[4])]?.role_evidence||null,
       identityReviewRequired:Boolean(record.track_evidence?.[Number(row[4])]?.identity_review_required),
       reason:roleConflict(record,Number(row[4]))?'role_conflict':'unmatched_identity'}));
   return result;

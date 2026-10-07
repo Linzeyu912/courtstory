@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "artifactId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "sizeBytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "mediaType": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "createdAt": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "producerOperationId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    }
+  },
+  "required": [
+    "artifactId",
+    "kind",
+    "sha256",
+    "sizeBytes",
+    "mediaType",
+    "createdAt",
+    "producerOperationId"
+  ],
+  "additionalProperties": false
+}

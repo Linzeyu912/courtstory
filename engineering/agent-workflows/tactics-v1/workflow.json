@@ -1,0 +1,27 @@
+{
+  "workflowVersion": "tactics-v1.0.0",
+  "schemaVersion": "1.0",
+  "policyRef": "tactics-default-v1",
+  "stages": [
+    {"name": "inspect_clip", "dependsOn": [], "resource": "cpu"},
+    {"name": "prepare_players", "dependsOn": ["inspect_clip"], "resource": "gpu"},
+    {"name": "analyze_play", "dependsOn": ["prepare_players"], "resource": "api"},
+    {"name": "prepare_geometry", "dependsOn": ["analyze_play"], "resource": "cpu", "conditional": "geometry"},
+    {"name": "build_player_annotations", "dependsOn": ["analyze_play", "prepare_geometry"], "resource": "cpu"},
+    {"name": "check_participant_coverage", "dependsOn": ["build_player_annotations"], "resource": "cpu"},
+    {"name": "check_projection", "dependsOn": ["build_player_annotations"], "resource": "cpu"},
+    {"name": "preview_projection", "dependsOn": ["check_participant_coverage", "check_projection"], "resource": "api"},
+    {"name": "commit_candidate", "dependsOn": ["preview_projection"], "resource": "serial"},
+    {"name": "render_projected_video", "dependsOn": ["commit_candidate"], "resource": "render", "conditional": "video"}
+  ],
+  "capabilities": {
+    "sourceFrames": {"status": "conditional", "reason": "Registered asset and exact decoder are required"},
+    "nativeAnnotations": {"status": "conditional", "reason": "A validated native baseline and Node bridge are required"},
+    "declaredPlayerFollow": {"status": "conditional", "reason": "Declared player and observed native trajectory are required"},
+    "arbitraryPointFollow": {"status": "unavailable", "reason": "Native arbitrary body-point follow is unsupported"},
+    "courtProjection": {"status": "conditional", "reason": "Independent calibration and observed ground anchors are required"},
+    "videoText": {"status": "unavailable", "reason": "The native renderer has no text annotation type"},
+    "audioPreservation": {"status": "unavailable", "reason": "The current renderer produces silent video"},
+    "providerStatus": {"status": "conditional", "reason": "Provider availability must be checked by the tool adapter"}
+  }
+}

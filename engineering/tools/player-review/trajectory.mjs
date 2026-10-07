@@ -4,6 +4,7 @@ import {buildBallCourtTrajectory} from './ball-court.mjs';
 import {IDENTITY_BINDING_MODE,identityAt,identityKeyframes,identityBoundaries,identityProvenance,resolveIdentityOwners,migrateIdentitySession,nextIdentityOrder,entityTeamSide,normalizeTeamColorMetadata,frameIdentityConfirmed,identityReviewToken,anchorReviewSignature} from './identity-timeline.mjs';
 import {mergeSourceCuts} from './tracking-display.mjs';
 import {exportSceneObjects} from './scene-objects.mjs';
+import {currentInitialRoleExclusions,machineIdentityRoleRisk} from './identity-role-guard.mjs';
 export function blankSession(videoHash) {
   return { version: 1, videoHash, identityBindingMode:IDENTITY_BINDING_MODE, maxGapSeconds: 0, cuts: [], entities: Array.from({length:10}, (_,i) => ({id:`P${i+1}`, name:`球员 ${i+1}`, role:'player', teamSide:i<5?'red':'blue', anchors:[]})) };
 }
@@ -58,8 +59,9 @@ export function trackingModelSummary(metadata={},variant='') {
   return {model,tracker,device,variant,details};
 }
 
-export function buildTrajectories(session, frames, sourceCuts=[]) {
+export function buildTrajectories(session, frames, sourceCuts=[], clip=null) {
   session={...session,cuts:mergeSourceCuts(session.cuts,sourceCuts,frames.length)};
+  const source=clip?.frames===frames?clip:null,exclusions=currentInitialRoleExclusions(session,source);
   const lookup = frames.map(frame => new Map(frame.tracks.map(box => [Number(box[4]), box])));
   const result = {};
   for (const entity of session.entities) {
@@ -93,6 +95,10 @@ export function buildTrajectories(session, frames, sourceCuts=[]) {
         trackId:identity?.trackId??null,visibility:'occluded_waiting',...identityProvenance(identity)};
       if (identity?.kind==='track') {
         const box=lookup[frame].get(Number(identity.trackId));
+        const risk=entity.role==='player'&&identity.identitySource==='model_suggestion'?machineIdentityRoleRisk(record,identity.trackId,frame,{clip:source,exclusions}):null;
+        const observed=box?{frame,time:record.time,x:(box[0]+box[2])/2,y:box[3],box:box.slice(0,4),source:'tracked',trackId:Number(identity.trackId)}:null;
+        if(risk&&!frameIdentityConfirmed(entity,observed,identity))return {frame,time:record.time,x:null,y:null,box:null,source:'missing',trackId:Number(identity.trackId),
+          ...identityProvenance(identity),roleConflict:true,identityRisk:risk,reviewRequired:true};
         if (box) return {frame,time:record.time,x:(box[0]+box[2])/2,y:box[3],box:box.slice(0,4),
           source:'tracked',trackId:Number(identity.trackId),detectorScore:box[5],
           ...identityProvenance(identity),footMethod:'bbox_bottom_center'};
@@ -109,7 +115,7 @@ export function buildTrajectories(session, frames, sourceCuts=[]) {
         const gap = points.slice(left+1,right);
         const crossesCut = session.cuts.some(cut => cut > left && cut <= right);
         const crossesIdentity = boundaries.some(boundary=>boundary>left&&boundary<=right);
-        const uncertain = gap.some(point => point.reviewExcluded || ['conflict','out_of_view'].includes(point.source));
+        const uncertain = gap.some(point => point.reviewExcluded || point.roleConflict || ['conflict','out_of_view'].includes(point.source));
         const travel = Math.hypot(points[right].x-points[left].x,points[right].y-points[left].y);
         // No extrapolation, no cuts, no identity conflicts; reject implausible jumps.
         if (span > 0 && span <= session.maxGapSeconds && !crossesCut && !crossesIdentity && !uncertain && travel/span <= 1800) {
@@ -196,7 +202,7 @@ export function gapRanges(points) {
 export function exportReview(session, clip, confirmedAt, {allowEmpty=false}={}) {
   const sourceCuts=mergeSourceCuts([],clip.sourceCuts,clip.frames.length);
   session=normalizeTeamColorMetadata({...session,cuts:mergeSourceCuts(session.cuts,sourceCuts,clip.frames.length)});
-  const trajectories = buildTrajectories(session, clip.frames, sourceCuts);
+  const trajectories = buildTrajectories(session, clip.frames, sourceCuts, clip);
   const entities = session.entities.filter(hasAssociation);
   if (!entities.length&&!allowEmpty) throw new Error('Select at least one target before confirming');
   const prepared=session.courtPreparation&&courtPreparationStatus(session.courtPreparation,preparationDependencies(session,clip)).current?session.courtPreparation:null;
@@ -236,10 +242,10 @@ export function isHumanIdentitySelected(entity) {
     }));
 }
 
-export function confirmFrameIdentity(session,entityId,frame,frames,sourceCuts=[]) {
+export function confirmFrameIdentity(session,entityId,frame,frames,sourceCuts=[],clip=null) {
   const entity=session.entities.find(item=>item.id===entityId);
   if(!entity||!Number.isInteger(frame)||!frames[frame])throw new Error('人物确认帧不正确。');
-  const point=buildTrajectories(session,frames,sourceCuts)[entityId][frame];
+  const point=buildTrajectories(session,frames,sourceCuts,clip)[entityId][frame];
   if(point.x==null||point.y==null||!['manual','tracked','manual_range'].includes(point.source)||point.reviewExcluded)
     throw new Error('请先选定当前帧可见的人物；缺失、冲突和估计位置不能确认。');
   const cuts=mergeSourceCuts(session.cuts,sourceCuts,frames.length),identity=identityAt(entity,frame,cuts,frames[frame]);
@@ -320,10 +326,10 @@ export function confirmBinding(session,entityId,binding,frames){
 }
 
 /** Pure preview/application: the finite override preserves every outside rule. */
-export function replaceIdentityRange(session,{entityId,trackId,start,end},frames,sourceCuts=[]){
+export function replaceIdentityRange(session,{entityId,trackId,start,end},frames,sourceCuts=[],clip=null){
   if(!session.entities.some(e=>e.id===entityId)||!Number.isInteger(trackId)||trackId<1||!Number.isInteger(start)||!Number.isInteger(end)||start<0||end>=frames.length||start>end)throw new Error('请选择球员、有效临时编号和起止区间。');
   if(!frames.slice(start,end+1).some(f=>f.tracks.some(b=>Number(b[4])===trackId)))throw new Error('所选时间段没有这个临时编号的观测。');
-  const before=buildTrajectories(session,frames,sourceCuts),draft=structuredClone(session),entity=draft.entities.find(e=>e.id===entityId);
+  const before=buildTrajectories(session,frames,sourceCuts,clip),draft=structuredClone(session),entity=draft.entities.find(e=>e.id===entityId);
   migrateIdentitySession(draft);const order=nextIdentityOrder(draft),cuts=mergeSourceCuts(draft.cuts,sourceCuts,frames.length);
   const boundaries=[start,...cuts.filter(f=>f>start&&f<=end),end+1];entity.bindings||=[];
   for(let i=0;i<boundaries.length-1;i++)entity.bindings.push({kind:'track',trackId,start:boundaries[i],end:boundaries[i+1]-1,origin:'human_range_replacement',order,exclusive:true,reviewRequired:true});
@@ -331,7 +337,7 @@ export function replaceIdentityRange(session,{entityId,trackId,start,end},frames
   // obscure the newly selected observation. Undo retains the complete input.
   entity.anchors=entity.anchors.filter(a=>a.frame<start||a.frame>end||(a.trackId===trackId&&a.source!=='manual_path'));
   entity.frameConfirmations=(entity.frameConfirmations||[]).filter(a=>a.frame<start||a.frame>end);draft.identitySelection=null;
-  const after=buildTrajectories(draft,frames,sourceCuts),preview={start,end,changed:0,missing:0,segments:boundaries.length-1,affectedPlayers:{}};
+  const after=buildTrajectories(draft,frames,sourceCuts,clip),preview={start,end,changed:0,missing:0,segments:boundaries.length-1,affectedPlayers:{}};
   for(let f=start;f<=end;f++){
     if(after[entityId][f].x==null)preview.missing++;else preview.changed++;
     for(const id of Object.keys(after))if(id!==entityId&&after[id][f].claimedBy===entityId&&before[id][f].x!=null)preview.affectedPlayers[id]=(preview.affectedPlayers[id]||0)+1;

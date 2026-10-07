@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0",
+  "requestId": "example-request-001",
+  "idempotencyKey": "example-pacers-richer-v1",
+  "range": {"startFrame": 570, "endFrameExclusive": 870},
+  "policyRef": "tactics-default-v1",
+  "args": {
+    "assetRef": "registered-pacers-sample",
+    "goal": "解释这一段真实配合，覆盖持球、无球和直接参与防守的球员",
+    "profile": "richer_players_v1",
+    "output": {"video": true, "editableDocument": true, "fps": 30},
+    "geometryRequirement": "auto",
+    "allowPartial": true
+  }
+}

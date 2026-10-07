@@ -26,14 +26,30 @@ class FakeVideo extends FakeEvents {
   cancelVideoFrameCallback(id){this.callbacks.delete(id);}
   frame(time=this.time){this.time=time;const item=this.callbacks.entries().next().value;if(item){this.callbacks.delete(item[0]);item[1](0,{mediaTime:time});}}
 }
-function setup(t,{initial=0,startTime=0,video=new FakeVideo(),onReady,onFrame}={}) {
+function setup(t,{initial=0,startTime=0,video=new FakeVideo(),rateControl=null,onReady,onFrame}={}) {
   const draws=[],ready=[],presented=[],errors=[],status={hidden:false},message={textContent:''},retry=new FakeEvents(),stage={dataset:{}};
   let target=initial,drawError=null;
   const canvas={width:1920,height:1080,dataset:{},getContext:()=>({drawImage(...args){if(drawError)throw drawError;draws.push({time:video.currentTime,args});}})};
-  const display=mountVideoDisplay({video,canvas,status,message,retry,stage,startTime,getTargetTime:()=>target,onReady:point=>{ready.push(point);onReady?.(point);},onFrame:point=>{presented.push(point);onFrame?.(point);},onError:error=>errors.push(error)});
+  const display=mountVideoDisplay({video,canvas,status,message,retry,stage,startTime,rateControl,getTargetTime:()=>target,onReady:point=>{ready.push(point);onReady?.(point);},onFrame:point=>{presented.push(point);onFrame?.(point);},onError:error=>errors.push(error)});
   t.after(()=>display.dispose());
   return {video,canvas,status,message,retry,stage,display,draws,ready,presented,errors,setTarget:value=>target=value,setDrawError:error=>drawError=error};
 }
+
+test('slow playback survives reload and ended replay while annotations still receive source media time',async t=>{
+  const rateControl=new FakeEvents();rateControl.value='1';
+  const s=setup(t,{rateControl,startTime:.04});s.video.metadata();s.video.data();
+  assert.equal(s.video.playbackRate,1);rateControl.value='.25';rateControl.emit('change');
+  assert.equal(s.video.playbackRate,.25);assert.equal(s.video.defaultPlaybackRate,.25);
+  s.display.seek(3);s.video.finishSeek();s.display.play();await Promise.resolve();
+  s.video.frame(3.5);assert.equal(s.presented.at(-1).time,3.5);
+  s.setTarget(3.5);s.display.reload();s.video.playbackRate=1;s.video.metadata();s.video.finishSeek();
+  assert.equal(s.video.playbackRate,.25);assert.equal(s.video.currentTime,3.5);
+  s.video.paused=true;s.video.ended=true;s.video.emit('ended');s.display.togglePlayback();s.video.finishSeek();await Promise.resolve();
+  assert.equal(s.video.currentTime,.04);assert.equal(s.video.playbackRate,.25);
+  rateControl.value='.5';rateControl.emit('change');assert.equal(s.video.playbackRate,.5);
+  rateControl.value='4';rateControl.emit('change');assert.equal(s.video.playbackRate,.5);assert.equal(rateControl.value,'0.5');
+  s.display.dispose();assert.equal(rateControl.listeners.get('change').size,0);
+});
 
 test('explicit play resumes after a queued seek and pause cancels deferred resume',async t=>{
   const s=setup(t);s.video.metadata();s.video.data();

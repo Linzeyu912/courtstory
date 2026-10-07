@@ -127,7 +127,7 @@ export function compileProduction(document,{fps=30}={}){
   for(const cue of compileTacticKeyframes(document)){
     const key=`${cue.phaseId}:${cue.frame}`,previous=explicit.get(key),timing=cue.kind==='explanation'?explanationTiming(cue.holdSeconds,timeline.timebaseFps):{settleFrames:0,drawFrames:Math.min(15,Math.round(cue.holdSeconds*timeline.timebaseFps)),holdFrames:Math.max(0,Math.round(cue.holdSeconds*timeline.timebaseFps)-15)};
     // Same source frame is one hold even when an old authored cue is present.
-    explicit.set(key,{...cue,...(previous&&previous.settleFrames+previous.drawFrames+previous.holdFrames>timing.settleFrames+timing.drawFrames+timing.holdFrames?previous:timing)});
+    explicit.set(key,{...cue,...(previous&&previous.settleFrames+previous.drawFrames+previous.holdFrames>=timing.settleFrames+timing.drawFrames+timing.holdFrames?previous:timing)});
   }
   for(const c of all)if(!explicit.has(`${c.phaseId}:${c.frame}`))explicit.set(`${c.phaseId}:${c.frame}`,productionCue(document,c));
   const frames=[],start=document.playDefinition.startFrame,end=document.playDefinition.endFrameExclusive,first=mapping[start].time;

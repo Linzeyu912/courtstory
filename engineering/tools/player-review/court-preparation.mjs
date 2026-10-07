@@ -3,12 +3,14 @@ import {buildCourtTrajectories,calibrationAt} from './court.mjs';
 import {canonicalJSON} from '../tactical-overlay/binding.mjs';
 import {sha256} from './tactics-authored-geometry.mjs';
 import {validateFrameMapping} from './tactics-time-range.mjs';
+import {identityRoleDependency} from './identity-role-guard.mjs';
 
 const clean=value=>JSON.parse(JSON.stringify(value));
 export const preparationDigest=value=>sha256(canonicalJSON(value));
 export function preparationDependencies(session,clip){
-  const entities=session.entities.map(e=>Object.fromEntries(['id','bindings','modelBindings','identityKeyframes','identityReference','identitySuggestionsDismissed','visibilityRanges','anchors','courtAnchors','positionCorrections'].map(k=>[k,e[k]??null])));
+  const entities=session.entities.map(e=>Object.fromEntries(['id','bindings','modelBindings','identityKeyframes','frameConfirmations','identityReference','identitySuggestionsDismissed','visibilityRanges','anchors','courtAnchors','positionCorrections'].map(k=>[k,e[k]??null])));
   return {tracking:clip.tracking_fingerprint,identities:preparationDigest(clean(entities)),
+    roles:preparationDigest(identityRoleDependency(session,clip)),
     calibration:preparationDigest(session.courtCalibration??null),cuts:preparationDigest([session.cuts??[],clip.sourceCuts??[]]),
     mapping:preparationDigest(clip.frames.map(f=>[f.frame,f.time,f.source_frame??f.frame,f.source_time??f.time])),
     ground:preparationDigest(clean([session.groundComparison??null,clip.feetCandidates??null])),
@@ -17,7 +19,7 @@ export function preparationDependencies(session,clip){
 export function buildCourtPreparation({session,clip,maps}){
   const frameMapping=clip.frames.map(f=>({frame:f.frame,time:f.time,sourceFrame:f.source_frame??f.frame,sourceTime:f.source_time??f.time}));
   validateFrameMapping(frameMapping,clip.mediaEndTime);
-  const image=buildTrajectories(session,clip.frames,clip.sourceCuts??[]),raw=clean(buildCourtTrajectories(session,clip.frames,image,{clip,maps})),breaksByPlayer={};
+  const image=buildTrajectories(session,clip.frames,clip.sourceCuts??[],clip),raw=clean(buildCourtTrajectories(session,clip.frames,image,{clip,maps})),breaksByPlayer={};
   for(const [id,points] of Object.entries(raw)){
     breaksByPlayer[id]=[];
     for(const p of points){

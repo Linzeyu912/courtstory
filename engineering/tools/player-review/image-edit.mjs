@@ -38,7 +38,7 @@ export function correctImageRange(session,input,clip){
   if(!session.entities.some(e=>e.id===entityId)||!Number.isInteger(start)||!Number.isInteger(end)||start<0||end>=frames.length||start>end||!['box','foot'].includes(mode))throw new Error('请选择有效球员、时间段及框 / 脚点修正模式。');
   const keys=structuredClone(input.keyframes||[]).sort((a,b)=>a.frame-b.frame);
   if(keys.length<1||keys.length>2||new Set(keys.map(k=>k.frame)).size!==keys.length||keys.some(k=>!Number.isInteger(k.frame)||k.frame<start||k.frame>end||![k.dx,k.dy,k.scaleX??1,k.scaleY??1].every(Number.isFinite)||(k.scaleX??1)<=0||(k.scaleY??1)<=0))throw new Error('请在范围内设置一或两个有效修正关键帧。');
-  const original=buildTrajectories(session,frames,clip.sourceCuts||[])[entityId],cuts=[...new Set([...(session.cuts||[]),...(clip.sourceCuts||[])])].sort((a,b)=>a-b);
+  const original=buildTrajectories(session,frames,clip.sourceCuts||[],clip)[entityId],cuts=[...new Set([...(session.cuts||[]),...(clip.sourceCuts||[])])].sort((a,b)=>a-b);
   const shot=f=>cuts.filter(c=>c<=f).at(-1)??0;
   const legal=p=>p&&p.x!=null&&p.y!=null&&!p.reviewExcluded&&['tracked','manual','manual_range'].includes(p.source)&&
     (p.trackId==null?p.source==='manual'||p.rangeCorrection?.originalSource==='manual':frames[p.frame].tracks.some(b=>Number(b[4])===p.trackId));

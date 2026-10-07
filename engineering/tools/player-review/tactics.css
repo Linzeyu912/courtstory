@@ -115,3 +115,33 @@
 #tacticsRhythm,#tacticsTangentSettings{margin:10px 0;font-size:12px}#tacticsRhythm summary,#tacticsTangentSettings summary{cursor:pointer}#tacticsFirstCue{margin:6px 0}#tacticsSyncVideo[hidden]{display:none}
 .tactics-panel .tactics-controls{max-height:calc(100vh - 175px)}
 @media(max-width:620px){.tactics-time-axis{margin-left:80px}.tactics-object-time-row{grid-template-columns:72px minmax(0,1fr)}.tactics-range-bar input[type=range]{display:none}.tactics-author-tools>button,.tactics-more-tools>summary{min-width:60px}.tactics-heading{flex-wrap:wrap}.tactics-panel .tactics-controls{max-height:none}}
+
+/* Keep source footage first; generation and placement choices live beside it. */
+.tactics-instruction{min-height:32px;flex-wrap:wrap;gap:3px 10px;margin:3px 0}
+.tactics-instruction p{flex:1 1 230px;margin:2px 0;font-size:11px}
+.tactics-drawing-range{display:flex;align-items:center;gap:5px;font-size:11px;color:#315c79}
+.tactics-drawing-range button{font-size:10px;padding:3px 5px}
+.tactics-spotlight-mode{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:7px 0 10px;font-size:11px}
+.tactics-spotlight-mode>span:first-child{width:100%;font-weight:600;color:#315c79}
+.tactics-spotlight-mode button{font-size:11px;padding:6px 8px}
+.tactics-spotlight-mode button[aria-pressed="true"]{color:#164b75;background:#e5f2fc;border-color:#6099c5}
+.tactics-spotlight-mode .small{width:100%;font-size:10px}
+.tactics-spotlight-fallback{border:1px solid #d7ba77;background:#fff9e9;padding:7px 9px;border-radius:5px;margin:5px 0;font-size:11px}
+.tactics-spotlight-fallback p{margin:0 0 5px;line-height:1.4}.tactics-spotlight-fallback button{font-size:11px;padding:5px 8px}
+.tactics-drawing-range[hidden],.tactics-spotlight-mode[hidden],.tactics-spotlight-fallback[hidden]{display:none!important}
+.tactics-selection-actions{margin-top:6px;margin-bottom:0}
+.tactics-controls .tactics-agent-panel{margin:0 0 10px;padding:8px}
+.tactics-controls .tactics-agent-preview{grid-template-columns:minmax(0,1fr)}
+.tactics-agent-card>summary,.tactics-agent-issues>summary{font-size:12px;font-weight:600;cursor:pointer;line-height:1.6}
+.tactics-agent-issues{grid-column:1/-1;border:1px solid #dce5ee;border-radius:6px;padding:8px 10px;background:#f8fafc}
+.tactics-agent-image>img{height:auto}
+.tactics-agent-stages{display:grid;gap:5px;margin:6px 0}.tactics-agent-stages:empty{display:none}
+.tactics-agent-stage{font-size:11px;line-height:1.5;border-left:3px solid #8caec5;padding:4px 6px;background:#f4f8fb}
+.tactics-agent-stage[data-stage-status="failed"]{border-color:#c88736;background:#fff8ec}
+.tactics-agent-stage button{display:block;font-size:10px;padding:3px 6px;margin-top:4px}
+.tactics-agent-participants{padding-left:17px;font-size:11px;line-height:1.6;margin:7px 0}
+.tactics-agent-panel>.tactics-buttons{gap:5px}.tactics-agent-panel>.tactics-buttons button{padding:5px 7px;font-size:11px}
+.tactics-agent-pending{margin:8px 0;padding:6px 8px;border:1px solid #d9c38a;background:#fffaf0;border-radius:5px;font-size:11px}
+.tactics-agent-pending[hidden]{display:none!important}.tactics-agent-pending summary{font-weight:600;cursor:pointer}
+.tactics-agent-pending-item{border-top:1px solid #e9dec4;padding:5px 0}.tactics-agent-pending-item p{font-size:11px;margin:3px 0}
+.tactics-agent-pending-item button{font-size:10px;padding:4px 6px}

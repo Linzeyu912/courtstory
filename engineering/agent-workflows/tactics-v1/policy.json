@@ -1,0 +1,15 @@
+{
+  "policyRef": "tactics-default-v1",
+  "policyVersion": "1.0.0",
+  "maxModelCalls": 6,
+  "maxRepairPasses": 1,
+  "maxRepairSeconds": 8,
+  "maxWallSeconds": 600,
+  "apiConcurrency": 2,
+  "gpuConcurrency": 1,
+  "maxCostUsd": null,
+  "maxRoutesPerCue": 3,
+  "spotlightSoftLimit": 6,
+  "defaultPauseSeconds": 1.5,
+  "tapirQueryToleranceAt720p": 8
+}

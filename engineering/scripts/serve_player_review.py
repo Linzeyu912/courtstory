@@ -99,7 +99,6 @@ def main():
         clips[sample['id']]=load_clip(parser,sample)
     mutation_lock=threading.Lock()
     from identity_ocr import IdentityOCR, OCRUnavailable
-    identity_ocr=IdentityOCR()
     def publish_local(sample, clip):
         with mutation_lock:
             clips[sample['id']]=clip
@@ -127,6 +126,8 @@ def main():
     identity_agent = IdentityAgent(Path(args.tactics_folder)/'identity-jobs',tactics,
                                   codex_path=args.tactics_agent_cli,timeout=args.tactics_agent_timeout,
                                   provider=args.identity_agent_provider,reasoning_effort=args.tactics_agent_reasoning_effort)
+    identity_ocr=IdentityOCR(vision_provider=identity_agent.provider,
+                             vision_folder=Path(args.tactics_folder)/'team-identification-jobs')
     from ground_trajectory_agent import GroundTrajectoryAgent
     ground_agent = GroundTrajectoryAgent(Path(args.tactics_folder)/'ground-trajectory-jobs', tactics)
     cache=Path(args.trim_root).resolve();cache.mkdir(parents=True,exist_ok=True)
@@ -168,12 +169,12 @@ def main():
     routes['/trajectory-replay'] = static / 'trajectory-replay.html'
     for filename in ['trajectory-replay.css', 'trajectory-replay.mjs', 'trajectory-replay-model.mjs']:
         routes['/' + filename] = static / filename
-    for filename in ["ball-court.mjs","ground-position.mjs","ground-comparison-ui.mjs","identity-ocr.mjs","style.css","pipeline.css","app.mjs","player-identity.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
+    for filename in ["ball-court.mjs","ground-position.mjs","ground-comparison-ui.mjs","identity-ocr.mjs","style.css","pipeline.css","app.mjs","player-identity.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","identity-initial-review.mjs","identity-review-workflow.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
         routes['/'+filename]=static/filename
     routes['/video-library.mjs']=static/'video-library.mjs'
     routes['/model-selection.mjs']=static/'model-selection.mjs'
     routes['/court-trails.mjs']=static/'court-trails.mjs'
-    for filename in ['identity-continuation.mjs', 'identity-agent-client.mjs']:
+    for filename in ['identity-continuation.mjs', 'identity-agent-client.mjs', 'identity-role-guard.mjs']:
         routes['/'+filename]=static/filename
     for filename in ['tactics-ui.mjs','tactics-player-identity.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','tactics-agent.mjs','tactics.css']:
         routes['/'+filename]=static/filename
@@ -223,7 +224,7 @@ def main():
                 except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
                     self.json_response(400,{'error':str(error)})
                 return
-            if re.fullmatch(r'/api/(?:tactics|identity|ground-trajectory)-agent/jobs(?:/[a-zA-Z0-9-]+/(?:cancel|adopt))?',route):
+            if re.fullmatch(r'/api/(?:tactics|identity|ground-trajectory)-agent/jobs(?:/[a-zA-Z0-9-]+/(?:cancel|adopt))?',route) or re.fullmatch(r'/api/tactics-agent/jobs/[a-zA-Z0-9-]+/retry',route):
                 try:
                     if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
                         self.headers.get('Origin',f'http://127.0.0.1:{self.server.server_port}')!=f'http://127.0.0.1:{self.server.server_port}'):
@@ -242,6 +243,7 @@ def main():
                     extra=(kind,) if selected_agent is agent else ()
                     if route.endswith('/adopt'):result=selected_agent.adopt(route.split('/')[-2],request,clip,variant,qa,*extra)
                     elif route.endswith('/cancel'):result=selected_agent.cancel(route.split('/')[-2],clip,variant,qa)
+                    elif route.endswith('/retry'):result=agent.retry(route.split('/')[-2],request,clip,variant,qa,kind)
                     else:result=selected_agent.create(request,clip,source['video'],variant,qa,*extra)
                     self.json_response(200,result)
                 except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
@@ -846,6 +848,7 @@ def validated_clip(sample):
     for identifier,entry in versions.items():
         records = entry['records']
         object_source = None
+        role_source = None
         # Player-only variants have no objects field at all. Reuse only the
         # registered, same-video E-BARD reference; explicit empty observations
         # mean a real miss and must never be silently filled by another variant.
@@ -856,6 +859,14 @@ def validated_clip(sample):
             object_source = {'variant': 'ebard', 'videoSha256': digest,
                 'trackingRawFingerprint': reference['rawFingerprint'],
                 'method': 'same_video_frame_aligned_objects', 'reviewRequired': True}
+        if reference and identifier != 'ebard':
+            from role_evidence import add_reference_role_evidence
+            records, role_source = add_reference_role_evidence(records, reference['records'],
+                video_sha256=digest, reference_video_sha256=reference['metadata'].get('video_sha256'),
+                reference_fingerprint=reference['rawFingerprint'],
+                class_names=entry['metadata'].get('model_names', entry['metadata'].get('class_names', {})),
+                reference_class_names=reference['metadata'].get('model_names', reference['metadata'].get('class_names', {})),
+                source_cuts=sample.get('sourceCuts', []))
         # Grouped presentation may omit identities only for uncertain team colors.
         # Donate ungrouped suggestions only from byte-identical, already validated
         # detector records. This API field is regenerated after trims, never saved
@@ -880,6 +891,7 @@ def validated_clip(sample):
                 feet_candidates['trackingFingerprint']==entry['rawFingerprint'] else None,
             'frames':records,'sourceCuts':sample.get('sourceCuts',[]),
             'sceneObjectSource':object_source,
+            'roleEvidenceSource':role_source,
             'liveSelection':sample.get('liveSelection'),'source_video_sha256':sample.get('sourceVideoSha256'),
             'importSourceSha256':sample.get('importSourceSha256'),
             'supportsCourtCalibration':sample.get('supportsCourtCalibration',True),'tracking_revision':identifier,

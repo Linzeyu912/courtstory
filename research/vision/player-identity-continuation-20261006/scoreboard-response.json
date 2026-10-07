@@ -1,0 +1,39 @@
+{
+  "provider": {
+    "available": true,
+    "provider": "codex-cli",
+    "sandbox": "read-only",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "message": "已配置 Codex；运行时核验登录、额度与视觉能力。"
+  },
+  "elapsedSeconds": 11.16,
+  "metadata": {
+    "frame": 0,
+    "time": 0.0,
+    "videoHash": "17c36f8d3b3e294f13f7119f23b82ec7f3fbe96d5564db9cbe7d61f49ebbbd7d",
+    "crop": [
+      0,
+      640,
+      700,
+      720
+    ],
+    "experimentOnly": true,
+    "appliedToTeamSide": false
+  },
+  "response": {
+    "teams": [
+      {
+        "abbreviation": "IND",
+        "reason": "左侧队标可见深蓝色斜体 P 形轮廓，内部嵌有黄色篮球及向左延伸的黄色速度线，符合印第安纳步行者队标。",
+        "confidence": 0.98
+      },
+      {
+        "abbreviation": "BKN",
+        "reason": "右侧队标可见白色篮球上的黑色大写 B，外围有黑色圆弧与篮球缝线，符合布鲁克林篮网队标。",
+        "confidence": 0.97
+      }
+    ],
+    "reason": "按记分牌从左到右排列，仅依据可见队标图形与字母识别；confidence 为主观置信程度估计，非校准准确率，不判断球衣归属。"
+  }
+}
