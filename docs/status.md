@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-07 08:29（America/New_York，已推送main）：按用户要求发布当前001/002映射成果，主提交[b5c03af](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/b5c03af95b2efac8e41d6e3b6ca6eee0dda54807)。包含独立单人任务、两路并行、reconnecting、去噪、原观察台三层及两片完整轻量回放，47个相关文件；22项Python、20项Node及165段视频LFS索引检查通过。HEAD、origin/main和远端refs/heads/main在主成果推送后哈希一致；Key、原视频重复副本和调用中间文件未入库，其他旧任务未提交内容保留。当前候选精度仍未通过验收。见[发布交接](../handoffs/chuali-zi/2026-10-07-0829-qwen-mapping-publication.md)、[共享回放入口](../research/agents/qwen-parallel-20261007/README.md#已共享的当前回放)。
+
 2026-10-07 07:39（America/New_York，本地未提交／未推送）：Token Plan新Key＋qwen3.8-max两路单人映射测试结束，001/002各十人、47个有观测片段，分别ready12/partial35/failed0与ready10/partial37/failed0。5个实际任务进入reconnecting后均保留上下文恢复，连接仍偶发socket/超时，无明确429或额度耗尽。原观察台8876已加载两片最终候选，源身份/框/标定和原始坐标变化0。22项Python、20项Node及实际浏览器同步/缺口检查通过；独立AI参考不足以证明准确性提升，局部锯齿及002 P5@900边界原投影仍待核，不称全片精度通过。见[当前实验](../research/agents/qwen-parallel-20261007/README.md)、[本轮交接](../handoffs/chuali-zi/2026-10-07-0739-qwen-parallel-reconnect-test.md)。
 
 2026-10-07 04:08（America/New_York，本地未提交／未推送）：完成官方001/002十个独立单人Qwen上下文的本轮调用与显式去噪候选导出，前置身份/框/球场及原始坐标保持。两片仍partial，分别11/19个失败时间片，连接日志捕获socket关闭及连接超时、无明确429/额度不足；用户准备将TUN中的阿里云域名改DIRECT，直连补测待接续。短段/绑定边界保护、20项Python与15项Node定向检查通过，准确性和原观察台最终结果未验收。见[实验进展](../research/agents/qwen-parallel-20261007/README.md)、[交接](../handoffs/chuali-zi/2026-10-07-0355-qwen-parallel-ground-mapping.md)。
