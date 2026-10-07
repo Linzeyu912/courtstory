@@ -13,18 +13,18 @@
     <nav id="samples" class="samples" aria-label="选择实测片段"></nav>
     <p id="error" role="alert" hidden></p>
     <section id="viewer" hidden>
-      <div class="review-heading"><div><span class="target-label">当前对象</span><strong id="player"></strong><span class="scope-tag">单人 · 约 5 秒</span></div><div class="legend"><label><input id="showRaw" type="checkbox" checked><i class="blue"></i>原始投影</label><label><input id="showQwen" type="checkbox" checked><i class="green"></i>Qwen 候选</label></div></div>
+      <div class="review-heading"><div class="target-picker"><span class="target-label">当前对象</span><select id="playerFilter" aria-label="查看所有球员或单个球员" hidden></select><strong id="player"></strong><span id="scopeTag" class="scope-tag">单人 · 约 5 秒</span></div><div class="legend"><label><input id="showRaw" type="checkbox" checked><i class="blue"></i>原始投影</label><label id="showRefinedLabel" hidden><input id="showRefined" type="checkbox"><i class="refined"></i>去噪前</label><label><input id="showQwen" type="checkbox" checked><i class="green"></i>最终结果</label></div></div>
       <div class="workspace-grid">
         <section class="panel video-panel" aria-label="原视频与地面回投">
           <header class="panel-header"><h2><span>01</span> 原视频</h2><span id="videoTime" class="mono">00.000 s</span></header>
           <div class="video-stage" id="videoStage"><video id="video" muted playsinline preload="auto" aria-label="官方训练原视频"></video><canvas id="videoOverlay" aria-label="目标球员与地面回投标记"></canvas><div id="videoLoading">正在载入原视频…</div><span class="video-badge">SOURCE VIDEO</span></div>
-          <div class="video-bottom"><div class="zoom-wrap"><canvas id="footZoom" aria-label="球员脚部放大对比"></canvas><span>脚部放大</span></div><div class="frame-info"><span class="eyebrow">GROUND CONTACT</span><h3 id="frameStatus">等待视频</h3><p>蓝点是原始投影，绿点是 Qwen 地面估计。两者使用当前镜头回投。</p><label class="sub-control"><input id="showVideoTrail" type="checkbox" checked>原画面显示最近 1.5 秒轨迹</label></div></div>
+          <div class="video-bottom"><div class="zoom-wrap"><canvas id="footZoom" aria-label="球员脚部放大对比"></canvas><span>脚部放大</span></div><div class="frame-info"><span class="eyebrow">GROUND CONTACT</span><h3 id="frameStatus">等待视频</h3><p id="colorNote">蓝点是原始投影，绿点是 Qwen 地面估计。两者使用当前镜头回投。</p><label class="sub-control"><input id="showVideoTrail" type="checkbox" checked>原画面显示最近 1.5 秒轨迹</label></div></div>
         </section>
         <section class="panel court-panel" aria-label="动态二维球场">
           <header class="panel-header"><h2><span>02</span> 2D 球场</h2><div class="segmented" aria-label="球场显示范围"><button id="halfCourt" aria-pressed="true">半场</button><button id="fullCourt" aria-pressed="false">全场</button></div></header>
           <div class="court-stage"><canvas id="court" aria-label="球场轨迹对照，随视频时间逐帧绘制"></canvas><span id="courtSide" class="court-label"></span><div id="unknownBadge" class="unknown-badge" hidden>本帧 Qwen 位置未知</div></div>
           <div class="court-controls"><label>轨迹长度<select id="trailLength" aria-label="轨迹长度"><option value="all">已播放路径</option><option value="1.5">最近 1.5 秒</option><option value="full">整段总览</option></select></label><span>圆点 = 当前时刻</span></div>
-          <div class="coordinates"><div><span><i class="blue"></i>原始投影</span><strong id="rawPosition">—</strong></div><div><span><i class="green"></i>Qwen 候选</span><strong id="qwenPosition">—</strong></div></div>
+          <div class="coordinates"><div><span><i class="blue"></i>原始投影</span><strong id="rawPosition">—</strong></div><div id="refinedPositionCell" hidden><span><i class="refined"></i>去噪前</span><strong id="refinedPosition">—</strong></div><div><span><i class="green"></i>最终结果</span><strong id="qwenPosition">—</strong></div></div>
         </section>
       </div>
       <section class="transport-panel" aria-label="同步播放控制">
@@ -32,6 +32,7 @@
         <input id="scrubber" aria-label="同步回放时间轴" type="range" min="0" max="299" step="1" value="0">
         <div class="timeline-scale"><span id="startTime"></span><span>原视频时间 · 拖动查看同一帧</span><span id="endTime"></span></div>
         <div class="coverage-row"><span>原始</span><canvas id="rawCoverage" height="12" aria-label="原始轨迹有效范围"></canvas><span id="rawCount"></span></div>
+        <div id="refinedCoverageRow" class="coverage-row" hidden><span>去噪前</span><canvas id="refinedCoverage" height="12" aria-label="去噪前候选轨迹有效范围"></canvas><span id="refinedCount"></span></div>
         <div class="coverage-row"><span>Qwen</span><canvas id="qwenCoverage" height="12" aria-label="Qwen 轨迹有效范围，橙色表示缺口"></canvas><span id="qwenCount"></span></div>
         <div class="checkpoints"><span>重点查看</span><div id="checkpoints"></div><span class="gap-legend"><i></i>缺口保留，不连接</span></div>
       </section>

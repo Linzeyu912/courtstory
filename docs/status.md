@@ -1,5 +1,11 @@
 # 团队状态
 
+2026-10-07 07:39（America/New_York，本地未提交／未推送）：Token Plan新Key＋qwen3.8-max两路单人映射测试结束，001/002各十人、47个有观测片段，分别ready12/partial35/failed0与ready10/partial37/failed0。5个实际任务进入reconnecting后均保留上下文恢复，连接仍偶发socket/超时，无明确429或额度耗尽。原观察台8876已加载两片最终候选，源身份/框/标定和原始坐标变化0。22项Python、20项Node及实际浏览器同步/缺口检查通过；独立AI参考不足以证明准确性提升，局部锯齿及002 P5@900边界原投影仍待核，不称全片精度通过。见[当前实验](../research/agents/qwen-parallel-20261007/README.md)、[本轮交接](../handoffs/chuali-zi/2026-10-07-0739-qwen-parallel-reconnect-test.md)。
+
+2026-10-07 04:08（America/New_York，本地未提交／未推送）：完成官方001/002十个独立单人Qwen上下文的本轮调用与显式去噪候选导出，前置身份/框/球场及原始坐标保持。两片仍partial，分别11/19个失败时间片，连接日志捕获socket关闭及连接超时、无明确429/额度不足；用户准备将TUN中的阿里云域名改DIRECT，直连补测待接续。短段/绑定边界保护、20项Python与15项Node定向检查通过，准确性和原观察台最终结果未验收。见[实验进展](../research/agents/qwen-parallel-20261007/README.md)、[交接](../handoffs/chuali-zi/2026-10-07-0355-qwen-parallel-ground-mapping.md)。
+
+2026-10-07 01:32（America/New_York，本地未提交 / 未推送）：按用户指定用既有 Qwen 地面轨迹 Agent 完成官方 001 / 002 完整时间轴的全部球员测试，每片两队各五人，原观察台显示多人编号、双队颜色及同步轨迹。六段均保存候选，四段 partial、两段 ready；无额度不足报错，早期长度截断、取帧超时及两个蓝 21 号尾段缺口保留，未声明全片精度通过。001 / 002 候选地面点为 10504 / 10792（球员×帧，非准确率），1155 白 1 号位置保留。同步 main 后 11 Node、1 Python 及真实输出/浏览器检查通过，原有本地修改保留，HEAD / origin/main 同为 `0d29df0`；未自动采用到用户草稿。见[结果](../research/agents/qwen-all-players-20261007/RESULTS.md)和[交接](../handoffs/chuali-zi/2026-10-07-0132-qwen-all-player-official-tests.md)。
+
 2026-10-07 10:37（Asia/Shanghai，按用户要求先发布当前快照）：工作台战术兜底、球场映射简化、YOLO 裁判角色校验、主动身份初检与人工修正当前实现进入提交／推送。球员标定真实模型与最终浏览器验收尚未完成，完整前端初次复跑为 605/613，已有发现正在收尾，不称整体通过。旧 runner 的 M0/M1 验收结论保留。见[当前说明](../engineering/docs/player-identification-20261007.md)及[发布交接](../handoffs/thy-0629/2026-10-07-1037-workbench-progress-publication.md)。
 
 2026-10-07 09:21（Asia/Shanghai，本机工作台改进，未提交／推送）：补齐整段 Agent 分段保留、失败段重试与刷新恢复，落实逐参与者标注；重点圈支持自动贴脚失败转人工，第二入口改为可选球场映射与三步引导。21.5382 秒真实片首轮仍有超时，精简输入后的失败段单独重试成功，共 22 个新图形；已有两个测试圈保留，隔离版本 4 有五处讲解暂停。实屏逐点播放、保存重载与人工兜底已核对，最终前端 563 项通过，独立复核补齐同帧人工暂停保护。模型仍可能超时，旧 M0／M1 验收结论不变。见[操作与实际验证](../engineering/docs/workbench-usability-20261007.md)及[交接](../handoffs/thy-0629/2026-10-07-0921-workbench-usability-fallback.md)。

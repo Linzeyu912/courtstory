@@ -118,6 +118,7 @@ class TacticalWorkbench:
         requested = set(indices)
         result = []
         with av.open(str(video)) as container:
+            container.streams.video[0].thread_type = 'AUTO'
             for index, frame in enumerate(container.decode(video=0)):
                 if index not in requested:
                     continue

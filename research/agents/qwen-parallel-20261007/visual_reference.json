@@ -1,0 +1,871 @@
+{
+  "version": 1,
+  "source": "independent_ai_visual_reference",
+  "referenceStatus": "AI visual reference; not human ground truth",
+  "coordinateSpace": "source video image pixels (1920x1080)",
+  "selection": "参考点均由原片独立目视定位；双脚接地取两鞋底接触中点，单脚支撑仅取可见支撑鞋。遮挡、腾空、身份或鞋归属不清时保留不确定状态，不作为像素误差。",
+  "references": [
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 88,
+      "entityId": "P3",
+      "imagePoint": {
+        "x": 928,
+        "y": 714
+      },
+      "uncertaintyPixels": 15,
+      "contact": "visible",
+      "reason": "P3白衣球员两只粉色鞋均接地，取两鞋底接触中点；原点落在鞋底下方。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 926,
+        "y": 746
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据原视频帧及人物裁图独立目视复核；冻结身份仅用于定位，未查看refined/final候选或模型轨迹。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 1096,
+      "entityId": "P3",
+      "imagePoint": null,
+      "uncertaintyPixels": 45,
+      "contact": "uncertain/airborne",
+      "reason": "画面只见小段裤脚与遮挡，未能确认鞋底接地点。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 140,
+      "entityId": "P4",
+      "imagePoint": {
+        "x": 622,
+        "y": 610
+      },
+      "uncertaintyPixels": 15,
+      "contact": "visible",
+      "reason": "P4白衣球员两只黑白鞋均接地，取鞋底接触中点；原点低于鞋底。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 620,
+        "y": 627
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据原视频帧及人物裁图独立目视复核；冻结身份仅用于定位，未查看refined/final候选或模型轨迹。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 1072,
+      "entityId": "P4",
+      "imagePoint": null,
+      "uncertaintyPixels": 40,
+      "contact": "uncertain/airborne",
+      "reason": "P4白色28号身份可辨，但下肢和鞋与邻近球员重叠，现有点落在鞋底之外，无法可靠确认可见鞋是否属于P4，撤下数值点。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 750,
+        "y": 856
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据原视频帧及人物裁图独立目视复核；冻结身份仅用于定位，未查看refined/final候选或模型轨迹。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 611,
+      "entityId": "P2",
+      "imagePoint": {
+        "x": 418,
+        "y": 796
+      },
+      "uncertaintyPixels": 18,
+      "contact": "visible",
+      "reason": "P2白衣球员两只浅色鞋均接地，取鞋底接触中点；运动模糊增加定位不确定度。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 414,
+        "y": 811
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据原视频帧及人物裁图独立目视复核；冻结身份仅用于定位，未查看refined/final候选或模型轨迹。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 1062,
+      "entityId": "P2",
+      "imagePoint": null,
+      "uncertaintyPixels": 40,
+      "contact": "uncertain/airborne",
+      "reason": "地面上仅有模糊轮廓，鞋底与阴影无法分开。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 587,
+      "entityId": "P6",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "裁图未显示可辨鞋底，疑似上身/遮挡区域。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 996,
+      "entityId": "P6",
+      "imagePoint": {
+        "x": 1807,
+        "y": 1047
+      },
+      "uncertaintyPixels": 18,
+      "contact": "visible",
+      "reason": "P6深色球衣球员两只蓝鞋均接地，取鞋底接触中点；画面下缘裁切增加不确定度。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 1812,
+        "y": 1060
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据原视频帧及人物裁图独立目视复核；冻结身份仅用于定位，未查看refined/final候选或模型轨迹。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 246,
+      "entityId": "P9",
+      "imagePoint": {
+        "x": 1700,
+        "y": 758
+      },
+      "uncertaintyPixels": 10,
+      "contact": "visible",
+      "reason": "红白球鞋外底与地板接触边缘可见。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 1002,
+      "entityId": "P9",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "裁图未显示可靠鞋底接地点。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 284,
+      "entityId": "P10",
+      "imagePoint": {
+        "x": 740,
+        "y": 453
+      },
+      "uncertaintyPixels": 12,
+      "contact": "visible",
+      "reason": "P10白衣Houston球员身份清楚，至少一只浅黄鞋底接地可见；另一脚受遮挡，按单支撑鞋估计，定位约12px。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 1286,
+      "entityId": "P10",
+      "imagePoint": null,
+      "uncertaintyPixels": 30,
+      "contact": "uncertain/airborne",
+      "reason": "鞋底很小且略模糊，无法可靠定位接触边缘。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 476,
+      "entityId": "P7",
+      "imagePoint": null,
+      "uncertaintyPixels": 35,
+      "contact": "uncertain/airborne",
+      "reason": "仅见浅色鞋的模糊边缘，接地点不确定。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 1035,
+      "entityId": "P7",
+      "imagePoint": null,
+      "uncertaintyPixels": 45,
+      "contact": "uncertain/airborne",
+      "reason": "裤脚遮挡鞋面/鞋底，无法确认支撑脚。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 133,
+      "entityId": "P5",
+      "imagePoint": null,
+      "uncertaintyPixels": 35,
+      "contact": "uncertain/airborne",
+      "reason": "鞋形很淡且受运动模糊影响，接地点不清。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 999,
+      "entityId": "P5",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "裁图被前景与图文遮挡，未见该球员鞋底。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 353,
+      "entityId": "P1",
+      "imagePoint": {
+        "x": 785,
+        "y": 802
+      },
+      "uncertaintyPixels": 20,
+      "contact": "visible",
+      "reason": "原片中白色1号身份连续；右侧蓝鞋抬起，另一只蓝鞋为单脚支撑，鞋底接触约在(785,802)。原点(792,842)落在观众头部，撤销并按单支撑鞋修正；独立AI估值约20px。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 792,
+        "y": 842
+      },
+      "originalUncertaintyPixels": 12,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "直接复看原片f345/353/365及冻结track 39定位；仅据f353原图将点改到可见支撑鞋底，不参考Qwen/candidate坐标。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 1040,
+      "entityId": "P1",
+      "imagePoint": {
+        "x": 1778,
+        "y": 1044
+      },
+      "uncertaintyPixels": 18,
+      "contact": "visible",
+      "reason": "P1白色1号两只蓝绿色鞋均接地，取鞋底接触中点；原点偏向右侧单鞋。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 1808,
+        "y": 1055
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据原视频帧及人物裁图独立目视复核；冻结身份仅用于定位，未查看refined/final候选或模型轨迹。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 644,
+      "entityId": "P8",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "裁图只显示上身/前景，鞋底不可见。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 990,
+      "entityId": "P8",
+      "imagePoint": null,
+      "uncertaintyPixels": 40,
+      "contact": "uncertain/airborne",
+      "reason": "P8深色31号身份可辨，但近处蓝鞋像处于抬起状态，另一脚受邻近白衣球员遮挡，无法确认支撑接地点，撤下数值点。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 1470,
+        "y": 871
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据原视频帧及人物裁图独立目视复核；冻结身份仅用于定位，未查看refined/final候选或模型轨迹。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 603,
+      "entityId": "P9",
+      "imagePoint": null,
+      "uncertaintyPixels": 35,
+      "contact": "uncertain/airborne",
+      "reason": "附近有两只红色鞋，所属支撑脚无法从裁图中区分。",
+      "kind": "turnback"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 917,
+      "entityId": "P9",
+      "imagePoint": {
+        "x": 1300,
+        "y": 550
+      },
+      "uncertaintyPixels": 15,
+      "contact": "visible",
+      "reason": "P9深色Dallas球员的红鞋单脚支撑可见，与邻近白17号粉鞋区分；另一脚受遮挡或处于移动中，按单支撑鞋估计，定位约15px。",
+      "kind": "turnback"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 453,
+      "entityId": "P1",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "白1号身份明确，但两脚交叠且鞋底/阴影边缘模糊，无法可靠判断双脚接地点或支撑脚；撤下原点。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 302,
+        "y": 859
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据冻结身份对应的原视频帧及邻帧独立目视复核；未查看轨迹候选或模型输出。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 1298,
+      "entityId": "P1",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "突破片段裁图未显示鞋底，可能处于腾空或被近景遮挡；不猜接地点。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 682,
+      "entityId": "P2",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "裁图为球衣/躯干近景，鞋底不可见。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 803,
+      "entityId": "P2",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "裁图为头肩与前景，鞋底不可见。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 346,
+      "entityId": "P3",
+      "imagePoint": null,
+      "uncertaintyPixels": 45,
+      "contact": "uncertain/airborne",
+      "reason": "独立复核原图与345/347：白30身份可见，但鞋脚被前景深色球员（#32）完全遮住；旧点落在其荧光鞋上，无法作为P3接地点。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 1342,
+        "y": 830
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "原片346帧与345/347相邻帧复核：P3白30脚被前景深蓝32号遮挡；原参考点落在32号荧光鞋上，故移除像素真值点并保留为不确定。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 1279,
+      "entityId": "P3",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "裁图落在球衣近景，鞋底不可见。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 681,
+      "entityId": "P4",
+      "imagePoint": null,
+      "uncertaintyPixels": 35,
+      "contact": "uncertain/airborne",
+      "reason": "鞋只露出一小段且被画面边缘截断，接地点不能确认。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 734,
+      "entityId": "P4",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "白17号正在起跳/腾空，两只鞋离地；原点在鞋下地面，不代表脚底接触。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 918,
+        "y": 673
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据冻结身份对应的原视频帧及邻帧独立目视复核；未查看轨迹候选或模型输出。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 625,
+      "entityId": "P5",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "裁图为上身近景，鞋底不可见。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 1291,
+      "entityId": "P5",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "突破片段只见身体边缘，无法判定脚是否接地。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 659,
+      "entityId": "P6",
+      "imagePoint": {
+        "x": 1025,
+        "y": 650
+      },
+      "uncertaintyPixels": 22,
+      "contact": "visible",
+      "reason": "深色13号身份可辨，两只深色鞋分别落在地板与禁区边缘；按两鞋可见鞋底接触位置中点估计，遮挡和反光令定位约22px。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 1049,
+        "y": 668
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据冻结身份对应的原视频帧及邻帧独立目视复核；未查看轨迹候选或模型输出。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 1172,
+      "entityId": "P6",
+      "imagePoint": null,
+      "uncertaintyPixels": 45,
+      "contact": "uncertain/airborne",
+      "reason": "多人遮挡且球员俯身，无法确认可见鞋属于目标人的支撑脚。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 684,
+      "entityId": "P7",
+      "imagePoint": {
+        "x": 414,
+        "y": 764
+      },
+      "uncertaintyPixels": 16,
+      "contact": "visible",
+      "reason": "深色3号两鞋均贴地；原点偏低落在鞋下空地，改取双鞋底接触中点，定位约16px。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 412,
+        "y": 782
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据冻结身份对应的原视频帧及邻帧独立目视复核；未查看轨迹候选或模型输出。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 1033,
+      "entityId": "P7",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "深色3号靠近左画面边缘，鞋部被裁切并重叠，无法稳定确定双脚中点或单脚支撑点；撤下原点。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 64,
+        "y": 779
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据冻结身份对应的原视频帧及邻帧独立目视复核；未查看轨迹候选或模型输出。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 577,
+      "entityId": "P8",
+      "imagePoint": {
+        "x": 1328,
+        "y": 818
+      },
+      "uncertaintyPixels": 16,
+      "contact": "visible",
+      "reason": "深色32号身份清楚，两只荧光鞋均接地；原点低于鞋底落在球场标识地面，改取两鞋接触中点，定位约16px。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 1342,
+        "y": 852
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据冻结身份对应的原视频帧及邻帧独立目视复核；未查看轨迹候选或模型输出。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 1183,
+      "entityId": "P8",
+      "imagePoint": {
+        "x": 980,
+        "y": 1048
+      },
+      "uncertaintyPixels": 18,
+      "contact": "visible",
+      "reason": "深色32号两只荧光鞋均可见并接地；改取鞋底接触中点，画面底部反光使定位约18px。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 965,
+        "y": 1061
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据冻结身份对应的原视频帧及邻帧独立目视复核；未查看轨迹候选或模型输出。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 495,
+      "entityId": "P10",
+      "imagePoint": {
+        "x": 474,
+        "y": 598
+      },
+      "uncertaintyPixels": 20,
+      "contact": "visible",
+      "reason": "深色00号分配身份连续，右侧浅青鞋底清楚接地，另一脚被交叠遮挡；按可见单支撑鞋底估计，定位约20px。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 472,
+        "y": 619
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据冻结身份对应的原视频帧及邻帧独立目视复核；未查看轨迹候选或模型输出。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 1157,
+      "entityId": "P10",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "冻结P10身份为深色00号，但本帧对应框内可清楚读到深色32号，鞋虽可见却不能作为P10参考；保留身份不变并撤下该点。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 1002,
+        "y": 1041
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据冻结身份对应的原视频帧及邻帧独立目视复核；未查看轨迹候选或模型输出。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 494,
+      "entityId": "P9",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "深色头带球员身份外观连续，但粉色鞋与白30号、深色32号腿部交叠，无法独立确认鞋属于P9；撤下原点，不把此帧用于像素误差。",
+      "kind": "coverage",
+      "originalImagePoint": {
+        "x": 1390,
+        "y": 800
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据冻结身份对应的原视频帧及邻帧独立目视复核；未查看轨迹候选或模型输出。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 1272,
+      "entityId": "P9",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "突破片段裁图为身体/近景遮挡，脚部接触状态未知。",
+      "kind": "coverage"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 1354,
+      "entityId": "P1",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "特意纳入起跳/突破困难帧；鞋底不可见，按腾空/不确定处理，不作真值。",
+      "kind": "drive_or_jump"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 1296,
+      "entityId": "P1",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "突破困难帧裁图主要为身体近景，无法判断支撑脚。",
+      "kind": "drive_or_jump"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 840,
+      "entityId": "P5",
+      "imagePoint": {
+        "x": 991,
+        "y": 525
+      },
+      "uncertaintyPixels": 18,
+      "contact": "visible",
+      "reason": "P5身份清楚，两只浅色鞋均接地，取鞋底接触中点；原点落在可见鞋底下方。",
+      "kind": "supplemental",
+      "originalImagePoint": {
+        "x": 984,
+        "y": 549
+      },
+      "originalUncertaintyPixels": 12,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据原视频帧及人物裁图独立目视复核；冻结身份仅用于定位，未查看refined/final候选或模型轨迹。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-001",
+      "frame": 840,
+      "entityId": "P7",
+      "imagePoint": {
+        "x": 456,
+        "y": 746
+      },
+      "uncertaintyPixels": 14,
+      "contact": "visible",
+      "reason": "P7 Dallas白色21号身份清楚，前脚抬起，后侧白鞋可见接地；按单支撑鞋估计。",
+      "kind": "supplemental"
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 180,
+      "entityId": "P2",
+      "imagePoint": null,
+      "uncertaintyPixels": 50,
+      "contact": "uncertain/airborne",
+      "reason": "白10号身份明确，但下肢和鞋底被画面下方比分条遮挡；原点落在覆盖区域，无法确认接地点。",
+      "kind": "supplemental",
+      "originalImagePoint": {
+        "x": 1470,
+        "y": 865
+      },
+      "originalUncertaintyPixels": 10,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据冻结身份对应的原视频帧及邻帧独立目视复核；未查看轨迹候选或模型输出。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 840,
+      "entityId": "P5",
+      "imagePoint": {
+        "x": 527,
+        "y": 543
+      },
+      "uncertaintyPixels": 18,
+      "contact": "visible",
+      "reason": "原图两只浅青鞋均接地；按双脚鞋底接触点中点估计。独立裁图网格测读，定位约18px。",
+      "kind": "supplemental",
+      "originalImagePoint": {
+        "x": 585,
+        "y": 555
+      },
+      "originalUncertaintyPixels": 13,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "仅依据冻结身份对应的原视频帧及邻帧独立目视复核；未查看轨迹候选或模型输出。"
+      }
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 900,
+      "entityId": "P5",
+      "imagePoint": {
+        "x": 390,
+        "y": 566
+      },
+      "uncertaintyPixels": 22,
+      "contact": "visible",
+      "reason": "冻结身份白7号两鞋均清楚接地；前侧鞋底接触约(379,580)，后侧约(402,552)，取两接触点中点约(390,566)。地板反光及模糊使定位约22px。",
+      "kind": "supplemental",
+      "originalImagePoint": {
+        "x": 394,
+        "y": 590
+      },
+      "originalUncertaintyPixels": 15,
+      "correction": {
+        "date": "2026-10-07",
+        "basis": "独立复看原片f895/900/905及冻结P5 track 64；仅按可见双鞋底接触中点口径修正，不查看raw/refined/final位置或误差。"
+      },
+      "revisionHistory": [
+        {
+          "date": "2026-10-07",
+          "supersededReference": {
+            "x": 367,
+            "y": 557
+          },
+          "supersededUncertaintyPixels": 22,
+          "basis": "复看原片900脚部网格后发现367,557落在前侧鞋的左上部而非双脚鞋底接触中点；仅基于原视频，未参考候选误差或模型位置。"
+        }
+      ]
+    },
+    {
+      "source": "independent_ai_visual_reference",
+      "sampleId": "official-training-002",
+      "frame": 382,
+      "entityId": "P3",
+      "imagePoint": {
+        "x": 1418,
+        "y": 718
+      },
+      "uncertaintyPixels": 20,
+      "contact": "visible",
+      "reason": "白色30号身份清楚；一只白袜黑红鞋及鞋底接触可见，另一脚被邻近深色球员遮挡，按可见单支撑鞋底估计，定位约20px。",
+      "kind": "coverage"
+    }
+  ],
+  "uncertaintyDefinition": "uncertaintyPixels is a conservative visual localization radius in source-image pixels (minimum 10 px for visible references); uncertain/airborne rows have no imagePoint and are excluded from numeric error summaries.",
+  "counts": {
+    "references": 50,
+    "visible": 19,
+    "uncertainOrAirborne": 31
+  },
+  "coverageBySample": {
+    "official-training-001": {
+      "P1": 2,
+      "P2": 1,
+      "P3": 1,
+      "P4": 1,
+      "P5": 1,
+      "P6": 1,
+      "P7": 1,
+      "P8": 0,
+      "P9": 2,
+      "P10": 1
+    },
+    "official-training-002": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 1,
+      "P4": 0,
+      "P5": 2,
+      "P6": 1,
+      "P7": 1,
+      "P8": 2,
+      "P9": 0,
+      "P10": 1
+    }
+  },
+  "independentReview": {
+    "date": "2026-10-07",
+    "method": "原视频全帧与bbox附近裁图逐条查看；仅冻结身份框用于定位球员，不显示轨迹候选。",
+    "note": "Independent AI visual inspection; not human ground truth."
+  }
+}

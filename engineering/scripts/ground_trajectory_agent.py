@@ -1,6 +1,7 @@
 """Bounded Pi/Qwen jobs; the browser remains owner of the review draft."""
 from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
+from datetime import datetime, timezone
 import hashlib
 import importlib.util
 import json
@@ -12,14 +13,16 @@ import subprocess
 import threading
 import time
 import uuid
+from collections import deque
 from urllib.parse import urlsplit
 
 from local_video_library import atomic_json
 from review_session import validate_session
+from ground_trajectory_frame_cache import shared_ground_trajectory_frame_cache
 
 ROOT = Path(__file__).resolve().parents[2]
 WORKER = ROOT / 'engineering/tools/player-review/agents/ground-trajectory-worker.mjs'
-ACTIVE = {'queued', 'observing', 'refining', 'rendering'}
+ACTIVE = {'queued', 'observing', 'refining', 'rendering', 'reconnecting'}
 
 
 def _integer(value, name, low=0, high=2**53-1):
@@ -46,10 +49,78 @@ def _budget(name, default, low, high):
     return _integer(int(os.environ.get(name, default)), name, low, high)
 
 
+class _ModelRequestGate:
+    """FIFO request permits shared by independent jobs in one agent process."""
+
+    def __init__(self, limit=None, interval_seconds=0.0):
+        self.limit = limit
+        self.interval_seconds = interval_seconds
+        self._condition = threading.Condition()
+        self._queue = deque()
+        self._active = set()
+        self._peak = 0
+        self._next_admission_at = 0.0
+
+    def acquire(self, job_id, cancel_event):
+        with self._condition:
+            if job_id in self._active:
+                return True
+            if job_id not in self._queue:
+                self._queue.append(job_id)
+            while True:
+                if cancel_event.is_set():
+                    try: self._queue.remove(job_id)
+                    except ValueError: pass
+                    self._condition.notify_all()
+                    raise ValueError('任务已取消，未取得模型请求许可。')
+                available = self.limit is None or len(self._active) < self.limit
+                now = time.monotonic()
+                wait_for_interval = max(0.0, self._next_admission_at-now)
+                if available and self._queue and self._queue[0] == job_id and wait_for_interval == 0:
+                    self._queue.popleft(); self._active.add(job_id)
+                    self._peak = max(self._peak, len(self._active))
+                    self._next_admission_at = now+self.interval_seconds
+                    self._condition.notify_all()
+                    return True
+                self._condition.wait(wait_for_interval if available and self._queue and self._queue[0] == job_id else None)
+
+    def release(self, job_id):
+        with self._condition:
+            if job_id not in self._active:
+                return False
+            self._active.remove(job_id)
+            self._condition.notify_all()
+            return True
+
+    def wake(self):
+        with self._condition:
+            self._condition.notify_all()
+
+    def snapshot(self):
+        with self._condition:
+            return dict(limit=self.limit, intervalSeconds=self.interval_seconds,
+                        active=len(self._active), peakActive=self._peak,
+                        waiting=len(self._queue), activeJobIds=list(self._active), waitingJobIds=list(self._queue))
+
+
 class GroundTrajectoryAgent:
-    def __init__(self, folder, tactics, timeout=300):
+    def __init__(self, folder, tactics, timeout=300, max_workers=1, frame_cache=None, frozen_inputs=False,
+                 request_concurrency=None, request_interval_seconds=0.0):
+        if type(max_workers) is not int or max_workers < 1:
+            raise ValueError('max_workers 必须为正整数。')
+        if type(frozen_inputs) is not bool:
+            raise ValueError('frozen_inputs 必须为布尔值。')
+        if request_concurrency is not None and (type(request_concurrency) is not int or request_concurrency < 1):
+            raise ValueError('request_concurrency 必须为正整数或 None。')
+        if (type(request_interval_seconds) not in (int, float) or not math.isfinite(request_interval_seconds)
+                or request_interval_seconds < 0):
+            raise ValueError('request_interval_seconds 必须是非负有限秒数。')
         self.folder = Path(folder).resolve(); self.folder.mkdir(parents=True, exist_ok=True)
         self.tactics = tactics; self.lock = threading.RLock(); self.closed = False; self.jobs = {}
+        self.frame_cache = frame_cache or shared_ground_trajectory_frame_cache()
+        self.frozen_inputs = frozen_inputs
+        self._model_request_gate = _ModelRequestGate(request_concurrency, float(request_interval_seconds))
+        self._frozen_sources = {}
         self.configuration_error = None
         def configured_budget(name, default, low, high):
             try: return _budget(name, default, low, high)
@@ -79,14 +150,43 @@ class GroundTrajectoryAgent:
                 parts = tuple(int(n) for n in version.split('.')[:3])
                 if parts >= (22, 19, 0): self.node_version = version
             except (OSError, ValueError, subprocess.SubprocessError): pass
-        self.pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix='ground-trajectory-agent')
+        self.pool = ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix='ground-trajectory-agent')
+        restored_sources = {}
         for path in self.folder.glob('*/job.json'):
             try:
                 saved = json.loads(path.read_text(encoding='utf-8'))
+                source_ref = saved.pop('sourceRef', None)
+                request_parameters = saved.pop('requestParameters', None)
+                if source_ref is not None:
+                    if not isinstance(source_ref, str) or str(uuid.UUID(source_ref)) != source_ref:
+                        continue
+                    saved['_source_ref'] = source_ref
+                source_path = self.folder/'sources'/f'{source_ref}.json' if source_ref else path.parent/'source.json'
+                if source_path.is_file():
+                    source = restored_sources.get(source_ref) if source_ref else None
+                    if source is None:
+                        source = json.loads(source_path.read_text(encoding='utf-8'))
+                        if source_ref:
+                            restored_sources[source_ref] = source
+                            if 'session' in source:
+                                event = threading.Event(); event.set()
+                                self._frozen_sources[(id(source['session']), id(source['clip']))] = (source_ref, event)
+                    saved.update(source)
+                    if isinstance(request_parameters, dict) and 'session' in source:
+                        saved['request'] = dict(request_parameters, session=source['session'])
+                elif all(key in saved for key in ('request', 'clip', 'video')):
+                    # Migrate the previous inline format before slimming an active
+                    # record, so its immutable source snapshot remains recoverable.
+                    atomic_json(source_path, {key: saved[key] for key in ('request', 'clip', 'video')})
                 if saved.get('status') in ACTIVE:
                     saved.update(status='interrupted', message='服务重启，任务已中断；已生成候选仍保留。')
-                    atomic_json(path, saved)
-                self.jobs[saved['jobId']] = dict(saved, cancel=threading.Event(), process=None)
+                    # Keep restored source inputs separate from the frequently updated state.
+                    self._write_state(path.parent, saved)
+                self.jobs[saved['jobId']] = dict(saved, cancel=threading.Event(), process=None,
+                    frames={}, deliveredFrames=saved.get('deliveredFrames', []),
+                    _request_signature=_digest(saved['request']) if 'request' in saved else None,
+                    _source_ref=source_ref,
+                    _state_lock=threading.RLock())
             except (OSError, ValueError, KeyError):
                 continue
 
@@ -103,6 +203,10 @@ class GroundTrajectoryAgent:
         return dict(available=available, configured=configured, model=self.config['model'],
                     baseUrl=self.public_base_url, runtime=bool(self.node_version), nodeVersion=self.node_version,
                     dependencies=dependencies, decoding=decoding, message=message)
+
+    @property
+    def request_activity(self):
+        return self._model_request_gate.snapshot()
 
     @staticmethod
     def _context(clip, variant, qa):
@@ -145,28 +249,86 @@ class GroundTrajectoryAgent:
                                           require_adopted=True, variant=variant, qa=qa)
         if not self.status()['available']:
             raise ValueError(self.status()['message'])
+        if self.frozen_inputs:
+            request_snapshot = deepcopy({k: v for k, v in request.items() if k != 'session'})
+            request_snapshot['session'] = session
+            request_snapshot['entityIds'] = list(request['entityIds'])
+            request_snapshot['range'] = deepcopy(request['range'])
+            clip_snapshot = clip
+        else:
+            request_snapshot = deepcopy(request); clip_snapshot = deepcopy(clip)
+        request_signature = _digest(request)
+        prep_digest = self.tactics.run('preparation-digest', preparation=session['courtPreparation'])['digest']
+        base = dict(clientRevision=request['clientRevision'], sessionDigest=_session_digest(session),
+            preparationDigest=prep_digest, videoHash=context[0], trackingFingerprint=context[1],
+            trackingRevision=context[2], variant=variant, qa=qa)
         with self.lock:
             if self.closed:
                 raise ValueError('轨迹 Agent 服务已关闭。')
             for job in self.jobs.values():
-                if job['context'] == context and job.get('request') == request and job['status'] in ACTIVE:
+                if job['context'] == context and job.get('_request_signature') == request_signature and job['status'] in ACTIVE:
                     return self._public(job)
             ident = str(uuid.uuid4())
-            prep_digest = self.tactics.run('preparation-digest', preparation=session['courtPreparation'])['digest']
-            base = dict(clientRevision=request['clientRevision'], sessionDigest=_session_digest(session),
-                preparationDigest=prep_digest, videoHash=context[0], trackingFingerprint=context[1],
-                trackingRevision=context[2], variant=variant, qa=qa)
+            source_ref = None
+            source_event = None
+            source_is_new = False
+            if self.frozen_inputs:
+                source_key = (id(session), id(clip))
+                source_entry = self._frozen_sources.get(source_key)
+                if source_entry is None:
+                    source_ref = str(uuid.uuid4())
+                    source_event = threading.Event()
+                    self._frozen_sources[source_key] = (source_ref, source_event)
+                    source_is_new = True
+                else:
+                    source_ref, source_event = source_entry
             job = dict(jobId=ident, status='queued', message='等待 Qwen 地面轨迹任务。',
-                context=context, request=deepcopy(request), clip=deepcopy(clip), video=str(video), base=base,
-                cancel=threading.Event(), process=None, frames={}, deliveredFrames=[], evidenceAssets=[], feedbackRevisions=[])
-            self.jobs[ident] = job; self._persist(job); self.pool.submit(self._run, job)
-            return self._public(job)
+                createdAt=datetime.now(timezone.utc).isoformat(),
+                context=context, request=request_snapshot, clip=clip_snapshot, video=str(video), base=base,
+                cancel=threading.Event(), process=None, frames={}, deliveredFrames=[], evidenceAssets=[], feedbackRevisions=[],
+                _request_signature=request_signature, _source_ref=source_ref, _state_lock=threading.RLock())
+            self.jobs[ident] = job
+        if self.frozen_inputs:
+            try:
+                if source_is_new:
+                    source_dir = self.folder/'sources'; source_dir.mkdir(parents=True, exist_ok=True)
+                    atomic_json(source_dir/f'{source_ref}.json', {'session': request_snapshot['session'],
+                        'clip': clip_snapshot, 'video': str(video)})
+                    source_event.set()
+                else:
+                    source_event.wait()
+                    if hasattr(source_event, 'error'):
+                        raise source_event.error
+            except BaseException as error:
+                if source_event and not source_event.is_set():
+                    source_event.error = error; source_event.set()
+                raise
+            self._persist(job)
+        else:
+            self._persist(job, include_source=True)
+        self.pool.submit(self._run, job)
+        return self._public(job)
 
-    def _persist(self, job):
-        value = {k: deepcopy(v) for k, v in job.items() if k not in {'cancel', 'process', 'frames', 'imageByPlayer'}}
+    def _write_state(self, directory, job):
+        # Source snapshots can contain large session geometry; they are saved once.
+        mutable = ('status', 'message', 'candidate', 'usage', 'progress', 'adopted',
+                   'evidenceAssets', 'feedbackRevisions', 'deliveredFrames', 'audit',
+                   'summary', 'evidence', 'budgetReason', 'lastError')
+        value = {k: deepcopy(job[k]) for k in mutable if k in job}
+        value.update(jobId=job['jobId'], createdAt=job.get('createdAt'), context=job['context'], base=deepcopy(job['base']))
+        if job.get('_source_ref'):
+            value['sourceRef'] = job['_source_ref']
+            value['requestParameters'] = deepcopy({k: v for k, v in job['request'].items() if k != 'session'})
+        atomic_json(Path(directory)/'job.json', value)
+
+    def _persist(self, job, include_source=False):
         directory = self.folder / job['jobId']
         directory.mkdir(parents=True, exist_ok=True)
-        atomic_json(directory / 'job.json', value)
+        if include_source:
+            source = {k: deepcopy(job[k]) for k in ('request', 'clip', 'video')}
+            atomic_json(directory/'source.json', source)
+        with job['_state_lock']:
+            self._write_state(directory, job)
 
     @staticmethod
     def _safe_message(value):
@@ -176,8 +338,13 @@ class GroundTrajectoryAgent:
 
     @staticmethod
     def _public(job):
+        lock = job.get('_state_lock')
+        if lock:
+            with lock:
+                return deepcopy({k: job[k] for k in ('jobId', 'status', 'message', 'base', 'candidate', 'usage',
+                    'progress', 'adopted', 'evidenceAssets', 'feedbackRevisions', 'lastError') if k in job})
         return deepcopy({k: job[k] for k in ('jobId', 'status', 'message', 'base', 'candidate', 'usage',
-            'progress', 'adopted', 'evidenceAssets', 'feedbackRevisions') if k in job})
+            'progress', 'adopted', 'evidenceAssets', 'feedbackRevisions', 'lastError') if k in job})
 
     def _lookup(self, ident, clip, variant, qa):
         job = self.jobs.get(ident)
@@ -192,12 +359,16 @@ class GroundTrajectoryAgent:
     def cancel(self, ident, clip, variant, qa):
         with self.lock:
             job = self._lookup(ident, clip, variant, qa)
+        process = None
+        with job['_state_lock']:
             if job['status'] in ACTIVE:
                 job['cancel'].set(); job.update(status='cancelled', message='任务已取消，当前草稿未改变。')
-                if job['process'] and job['process'].poll() is None:
-                    job['process'].terminate()
-                self._persist(job)
-            return self._public(job)
+                process = job['process']
+                self._model_request_gate.wake()
+        if process and process.poll() is None:
+            process.terminate()
+        self._persist(job)
+        return self._public(job)
 
     def _candidate(self, job, candidate):
         if not isinstance(candidate, dict) or candidate.get('jobId') != job['jobId']:
@@ -227,13 +398,25 @@ class GroundTrajectoryAgent:
         if len(set(indices) | job['frames'].keys()) > self.config['maxUniqueFrames']:
             raise ValueError('已达到独立源帧预算。')
         if missing:
-            for record in self.tactics.frames(job['video'], job['clip'], missing):
+            records = self.frame_cache.get(job['clip']['video_sha256'], missing,
+                lambda frames: self.tactics.frames(job['video'], job['clip'], frames))
+            for record in records:
                 job['frames'][record['frame']] = record
         return [job['frames'][i] for i in sorted(set(indices))]
 
     def _rpc(self, job, method, params):
         if not isinstance(params, dict):
             raise ValueError('工具参数必须是对象。')
+        if method == 'acquire_model_slot':
+            self._model_request_gate.acquire(job['jobId'], job['cancel'])
+            with job['_state_lock']:
+                job['_model_slot_held'] = True
+            return self.request_activity
+        if method == 'release_model_slot':
+            released = self._model_request_gate.release(job['jobId'])
+            with job['_state_lock']:
+                job['_model_slot_held'] = False
+            return dict(released=released, **self.request_activity)
         preparation = job['request']['session']['courtPreparation']
         if method == 'inspect_frames':
             from ground_trajectory_images import inspect_images
@@ -244,9 +427,22 @@ class GroundTrajectoryAgent:
             if not isinstance(ids, list) or not ids or any(i not in job['request']['entityIds'] for i in ids):
                 raise ValueError('只能查看任务选定的球员。')
             frames = self._decode(job, params.get('frames'))
-            visual = deepcopy(preparation)
-            if job.get('imageByPlayer'):
-                visual['rawByPlayer'] = job['imageByPlayer']
+            if self.frozen_inputs:
+                visual = dict(preparation)
+                source_raw = job.get('imageByPlayer') or preparation['rawByPlayer']
+                visual['rawByPlayer'] = {}
+                for entity_id in ids:
+                    points = source_raw.get(entity_id, [])
+                    selected = [None] * len(points)
+                    for record in frames:
+                        index = record['frame']
+                        if index < len(points):
+                            selected[index] = deepcopy(points[index])
+                    visual['rawByPlayer'][entity_id] = selected
+            else:
+                visual = deepcopy(preparation)
+                if job.get('imageByPlayer'):
+                    visual['rawByPlayer'] = job['imageByPlayer']
             images, assets = inspect_images(frames, visual, ids, mode, self.folder/job['jobId']/'assets')
         elif method == 'render_trajectory':
             from ground_trajectory_images import render_images
@@ -280,9 +476,10 @@ class GroundTrajectoryAgent:
     def _run(self, job):
         directory = self.folder/job['jobId']; process = None
         try:
-            with self.lock:
+            with job['_state_lock']:
                 if job['cancel'].is_set(): return
-                job.update(status='observing', message='正在准备帧证据。'); self._persist(job)
+                job.update(status='observing', message='正在准备帧证据。')
+            self._persist(job)
             built = self.tactics.run('court-preparation-build', session=job['request']['session'], clip=job['clip'])
             job['imageByPlayer'] = built.get('imageByPlayer')
             env = os.environ.copy()
@@ -296,7 +493,7 @@ class GroundTrajectoryAgent:
                         with (directory/'worker.stderr.log').open('a', encoding='utf-8') as output:
                             output.write(self._safe_message(line))
                 threading.Thread(target=safe_stderr, daemon=True).start()
-                with self.lock:
+                with job['_state_lock']:
                     job['process'] = process
                 incoming = queue.Queue()
                 def reader():
@@ -327,17 +524,20 @@ class GroundTrajectoryAgent:
                         except (ValueError, TypeError, KeyError, OSError) as error:
                             send(dict(type='rpc_result', id=message.get('id'), error=str(error)))
                     elif kind == 'progress':
-                        with self.lock:
+                        with job['_state_lock']:
                             if message.get('status') in ACTIVE: job['status'] = message['status']
                             job['message'] = self._safe_message(message.get('message', '正在处理轨迹。'))[:1000]
                             if isinstance(message.get('usage'), dict): job['usage'] = message['usage']
                             if isinstance(message.get('progress'), dict): job['progress'] = message['progress']
+                            if message.get('clearLastError'): job.pop('lastError', None)
+                            if message.get('error'):
+                                job['lastError'] = self._safe_message(message['error'])[:2000]
                             if isinstance(message.get('event'), dict):
                                 job.setdefault('audit', []).append(message['event'])
-                            self._persist(job)
+                        self._persist(job)
                     elif kind in ('candidate', 'result'):
                         candidate = self._candidate(job, message.get('candidate')) if message.get('candidate') else None
-                        with self.lock:
+                        with job['_state_lock']:
                             if candidate:
                                 job['candidate'] = candidate
                                 self.tactics.preparations.register_candidate(candidate, job['context'], adopted=False)
@@ -345,13 +545,13 @@ class GroundTrajectoryAgent:
                             if kind == 'result':
                                 for name in ('summary', 'evidence', 'audit', 'budgetReason'):
                                     if name in message: job[name] = message[name]
-                            self._persist(job)
+                        self._persist(job)
                         if kind == 'result':
                             completed = True; break
                     elif kind == 'error':
                         raise ValueError(self._safe_message(message.get('message', 'Qwen worker 执行失败。'))[:2000])
                     else: raise ValueError('worker 返回了未知协议消息。')
-                with self.lock:
+                with job['_state_lock']:
                     if job['cancel'].is_set(): return
                     candidate = job.get('candidate')
                     if candidate and candidate['revision'] in job['feedbackRevisions']:
@@ -360,13 +560,21 @@ class GroundTrajectoryAgent:
                             message='候选已完成，等待预览采用。' if is_complete else '任务未完全结束，已保留可预览的部分候选。')
                     else:
                         job.update(status='failed', message='任务未产生经过绘制反馈的候选；请检查配置或重试。')
-                    self._persist(job)
+                self._persist(job)
         except (OSError, ValueError, TypeError, KeyError, subprocess.TimeoutExpired) as error:
-            with self.lock:
+            with job['_state_lock']:
                 if not job['cancel'].is_set():
                     valid = job.get('candidate') and job['candidate']['revision'] in job.get('feedbackRevisions', [])
-                    job.update(status='partial' if valid else 'failed', message=self._safe_message(error)[:2000]); self._persist(job)
+                    job.update(status='partial' if valid else 'failed', message=self._safe_message(error)[:2000])
+                    persist = True
+                else:
+                    persist = False
+            if persist:
+                self._persist(job)
         finally:
+            self._model_request_gate.release(job['jobId'])
+            with job['_state_lock']:
+                job['_model_slot_held'] = False
             if process and process.poll() is None:
                 process.terminate()
                 try: process.wait(timeout=3)
@@ -374,11 +582,12 @@ class GroundTrajectoryAgent:
             log = directory/'worker.stderr.log'
             if log.is_file():
                 log.write_text(self._safe_message(log.read_text(encoding='utf-8', errors='replace')), encoding='utf-8')
-            with self.lock: job['process'] = None
+            with job['_state_lock']: job['process'] = None
 
     def adopt(self, ident, request, clip, variant, qa):
         with self.lock:
             job = self._lookup(ident, clip, variant, qa)
+        with job['_state_lock']:
             if job['status'] not in ('ready', 'partial', 'interrupted') or not job.get('candidate'):
                 raise ValueError('此任务尚无可采用候选。')
             session = request.get('session'); validate_session(session, clip)
@@ -395,15 +604,24 @@ class GroundTrajectoryAgent:
                                               require_adopted=True, variant=variant, qa=qa)
             preparation = self.tactics.run('ground-trajectory-adopt', preparation=session['courtPreparation'], candidate=candidate)['preparation']
             self.tactics.preparations.register_candidate(candidate, job['context'], adopted=True)
-            job['adopted'] = dict(revision=candidate['revision']); self._persist(job)
-            return dict(jobId=ident, base=deepcopy(job['base']), candidate=deepcopy(candidate), preparation=preparation)
+            job['adopted'] = dict(revision=candidate['revision'])
+            result = dict(jobId=ident, base=deepcopy(job['base']), candidate=deepcopy(candidate), preparation=preparation)
+        self._persist(job)
+        return result
 
     def close(self):
         with self.lock:
             self.closed = True
-            for job in self.jobs.values():
+            jobs = list(self.jobs.values())
+        for job in jobs:
+            with job['_state_lock']:
                 if job['status'] in ACTIVE:
                     job['cancel'].set(); job.update(status='interrupted', message='服务关闭，任务已中断。')
-                    if job.get('process') and job['process'].poll() is None: job['process'].terminate()
-                    self._persist(job)
+                    process = job.get('process')
+                    self._model_request_gate.wake()
+                else:
+                    process = None
+            if process and process.poll() is None:
+                process.terminate()
+            self._persist(job)
         self.pool.shutdown(wait=True, cancel_futures=True)
