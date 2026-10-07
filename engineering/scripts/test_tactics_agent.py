@@ -1,5 +1,7 @@
 import base64
 from copy import deepcopy
+import hashlib
+import io
 import json
 from pathlib import Path
 import shutil
@@ -10,11 +12,130 @@ import time
 import unittest
 from unittest.mock import patch
 
+from PIL import Image
+
 from tactical_workbench import TacticalWorkbench, ROOT
 try:
-    from tactics_agent import TacticsAgent, AgentFailure, analysis_stages, video_evidence_selection, build_codex_command, isolated_cli_environment, trusted_model_settings, agent_entity_inputs, agent_prompt
+    from tactics_agent import TacticsAgent, AgentFailure, analysis_stages, video_evidence_selection, build_codex_command, isolated_cli_environment, trusted_model_settings, agent_entity_inputs, agent_prompt, model_image_inputs, model_contact_sheet_inputs
 except ImportError:
     TacticsAgent = build_codex_command = None
+
+
+def fixture_jpeg(width, height):
+    buffer=io.BytesIO();Image.new('RGB',(width,height),(80,120,160)).save(buffer,format='JPEG',quality=94)
+    return buffer.getvalue()
+
+
+class AgentPromptTests(unittest.TestCase):
+    def test_v4_compact_prompt_preserves_all_evidence_and_input_while_rounding_pixel_view_only(self):
+        columns=['frame','time','x','y','box','source','frameIdentityConfirmed','identityReviewRequired']
+        pack={'candidateVersion':4,'trajectoryInput':{'columns':columns},'participantRequirements':['P1','P2'],
+              'evidenceFrames':[0,12,30], 'sampling':{'unsampledEntityIds':['P2'],'cutFrames':[12]},
+              'sourceFrameMapping':[{'frame':0,'time':0.123456789,'sourceFrame':8,'sourceTime':8.123456789}],
+              'images':[{'frame':12,'time':0.456789,'sha256':'source-digest'}],
+              'entities':[{'id':'P1','missingFrames':[30],'rows':[
+                  [0,0.123456789,123.456789123,987.654321987,[111.123456789,900.345678901,145.567890123,988.987654321],'tracked',False,True],
+                  [12,0.456789123,None,None,None,'missing',False,True]]},
+                  {'id':'P2','rows':[],'missingFrames':[0,12,30]}]}
+        before=deepcopy(pack);prompt=agent_prompt(pack);view=json.loads(prompt.split('输入如下：\n',1)[1])
+        self.assertEqual(pack,before);self.assertEqual(view['participantRequirements'],pack['participantRequirements'])
+        for key in ('evidenceFrames','sampling'):self.assertEqual(view[key],pack[key])
+        self.assertEqual(len(view['entities']),len(pack['entities']))
+        for compact,original in zip(view['entities'],pack['entities']):
+            self.assertEqual(compact['id'],original['id']);self.assertEqual(compact['missingFrames'],original['missingFrames'])
+            self.assertEqual(len(compact['rows']),len(original['rows']))
+            for row,old in zip(compact['rows'],original['rows']):
+                self.assertEqual(row[0],old[0]);self.assertEqual(row[5:],old[5:])
+                self.assertLess(abs(row[1]-old[1]),.001)
+                for index in (2,3):
+                    if old[index] is None:self.assertIsNone(row[index])
+                    else:self.assertLess(abs(row[index]-old[index]),.1)
+                if old[4] is not None:
+                    for coordinate,source in zip(row[4],old[4]):self.assertLess(abs(coordinate-source),.1)
+        self.assertEqual(view['sourceFrameMapping'][0]['frame'],0);self.assertEqual(view['sourceFrameMapping'][0]['sourceFrame'],8)
+        self.assertEqual(view['images'][0]['sha256'],'source-digest')
+        self.assertIn('紧凑单行 JSON',prompt);self.assertIn('issues 最多6条',prompt)
+        self.assertIn('不减少任何应覆盖的参与者、图形或依据帧',prompt);self.assertIn('entityId=null',prompt)
+        self.assertNotIn('123.456789123',prompt)
+
+
+class ModelImageInputTests(unittest.TestCase):
+    def frames(self, count=5):
+        buffer=io.BytesIO();Image.effect_noise((2560,1440),4).convert('RGB').save(buffer,format='JPEG',quality=94)
+        data=buffer.getvalue();digest=hashlib.sha256(data).hexdigest()
+        return [dict(frame=f,time=f/60,sourceFrame=f,sourceTime=f/60,videoSha256='unchanged-video',
+                     sha256=digest,dataUrl='data:image/jpeg;base64,'+base64.b64encode(data).decode()) for f in range(count)]
+
+    def test_model_jpegs_preserve_dimensions_frames_and_source_provenance(self):
+        frames=self.frames();before=deepcopy(frames)
+        images,encoding=model_image_inputs(frames,2560,1440)
+        self.assertEqual(frames,before);self.assertLessEqual(encoding['totalImageBytes'],1_572_864)
+        self.assertEqual(encoding['coordinateTransform'],'identity');self.assertFalse(encoding['resized'])
+        self.assertEqual(len(images),5)
+        for (metadata,data),source in zip(images,frames):
+            self.assertEqual(Image.open(io.BytesIO(data)).size,(2560,1440))
+            self.assertEqual(metadata['sha256'],hashlib.sha256(data).hexdigest())
+            self.assertEqual(metadata['modelImageSha256'],metadata['sha256']);self.assertEqual(metadata['modelImageBytes'],len(data))
+            self.assertEqual(metadata['sourceImageSha256'],source['sha256']);self.assertEqual(metadata['videoSha256'],'unchanged-video')
+            self.assertEqual(metadata['frame'],source['frame']);self.assertEqual(metadata['sourceTime'],source['sourceTime'])
+            self.assertIn(metadata['modelImageQuality'],(80,70,60))
+
+    def test_adaptive_quality_and_budget_failure_do_not_drop_evidence_frames(self):
+        frames=self.frames(count=1)
+        _,first=model_image_inputs(frames,2560,1440,byte_budget=10_000_000)
+        images,second=model_image_inputs(frames,2560,1440,byte_budget=first['totalImageBytes']-1)
+        self.assertEqual(first['quality'],80);self.assertEqual(second['quality'],70)
+        self.assertEqual(len(images),1)
+        with self.assertRaises(AgentFailure) as caught:model_image_inputs(frames,2560,1440,byte_budget=1)
+        self.assertEqual(caught.exception.code,'image_budget');self.assertFalse(caught.exception.retryable)
+
+    def test_invalid_source_jpeg_dimensions_or_digest_are_rejected(self):
+        frame=self.frames(count=1)[0]
+        for bad,width in [(dict(frame,sha256='wrong'),2560),(frame,1280),
+                          (dict(frame,dataUrl='data:image/jpeg;base64,'+base64.b64encode(b'not jpeg').decode()),2560)]:
+            with self.assertRaises(AgentFailure) as caught:model_image_inputs([bad],width,1440)
+            self.assertEqual(caught.exception.code,'image_input')
+
+    def test_contact_sheet_preserves_every_selected_frame_source_bytes_and_original_coordinate_contract(self):
+        source=fixture_jpeg(1920,1080);digest=hashlib.sha256(source).hexdigest()
+        frame_ids=[0,171,342,513,684]
+        frames=[dict(frame=f,time=f/60,sha256=digest,dataUrl='data:image/jpeg;base64,'+base64.b64encode(source).decode()) for f in frame_ids]
+        before=deepcopy(frames);encoded,encoding=model_image_inputs(frames,1920,1080);encoded_before=deepcopy(encoded)
+        sheet,contract=model_contact_sheet_inputs(encoded,1920,1080)
+        self.assertEqual(frames,before);self.assertEqual(encoded,encoded_before)
+        self.assertEqual([tile['frame'] for tile in contract['tiles']],frame_ids)
+        self.assertEqual(contract['sheetSize'],{'width':1536,'height':1392})
+        self.assertEqual(contract['sha256'],hashlib.sha256(sheet).hexdigest());self.assertEqual(contract['bytes'],len(sheet))
+        self.assertEqual(Image.open(io.BytesIO(sheet)).size,(1536,1392))
+        for tile,(metadata,data) in zip(contract['tiles'],encoded):
+            self.assertEqual(tile['sourceSize'],{'width':1920,'height':1080});self.assertEqual(tile['scale'],{'x':.4,'y':.4})
+            self.assertEqual(tile['sourceImageSha256'],digest);self.assertEqual(tile['modelImageSha256'],hashlib.sha256(data).hexdigest())
+            for x,y in [(0,0),(1234.5,678.9),(1920,1080)]:
+                sheet_x=tile['rect']['x']+x*tile['scale']['x'];sheet_y=tile['rect']['y']+y*tile['scale']['y']
+                self.assertAlmostEqual((sheet_x-tile['rect']['x'])/tile['scale']['x'],x)
+                self.assertAlmostEqual((sheet_y-tile['rect']['y'])/tile['scale']['y'],y)
+        pack={'candidateVersion':4,'images':[metadata for metadata,_ in encoded], 'imageEncoding':{**encoding,'inputMode':'contact_sheet','contactSheet':contract}}
+        prompt=agent_prompt(pack);self.assertIn('禁止把联系表坐标当原图坐标',prompt);self.assertIn('original_x=(sheet_x-rect.x)/scale.x',prompt)
+        range_pack={**pack,'candidateVersion':3};self.assertNotIn('唯一附图是 contact sheet',agent_prompt(range_pack))
+
+    def test_contact_sheet_rejects_duplicate_frames_changed_bytes_and_impossible_budget_without_dropping_frames(self):
+        frame=self.frames(count=1);encoded,_=model_image_inputs(frame,2560,1440)
+        for images,budget in [(encoded+encoded,1_572_864), ([(encoded[0][0],b'wrong bytes')],1_572_864),(encoded,1)]:
+            with self.assertRaises(AgentFailure):model_contact_sheet_inputs(images,2560,1440,byte_budget=budget)
+
+    def test_contact_sheet_transport_budget_does_not_reject_larger_retained_original_size_copies(self):
+        buffer=io.BytesIO();Image.effect_noise((2560,1440),10).convert('RGB').save(buffer,format='JPEG',quality=94)
+        data=buffer.getvalue();digest=hashlib.sha256(data).hexdigest()
+        frames=[dict(frame=f,sha256=digest,dataUrl='data:image/jpeg;base64,'+base64.b64encode(data).decode()) for f in range(5)]
+        before=deepcopy(frames)
+        # V3 still sends these independent copies and retains its actual limit.
+        with self.assertRaises(AgentFailure) as caught:model_image_inputs(frames,2560,1440)
+        self.assertEqual(caught.exception.code,'image_budget')
+        encoded,encoding=model_image_inputs(frames,2560,1440,byte_budget=None)
+        self.assertGreater(encoding['totalImageBytes'],1_572_864);self.assertIsNone(encoding['maxTotalImageBytes'])
+        sheet,contract=model_contact_sheet_inputs(encoded,2560,1440)
+        self.assertLessEqual(len(sheet),1_572_864);self.assertEqual(len(contract['tiles']),5)
+        self.assertEqual(frames,before)
 
 
 class AgentTests(unittest.TestCase):
@@ -32,12 +153,13 @@ class AgentTests(unittest.TestCase):
         self.clip = {'video_sha256': review['videoSha256'], 'tracking_fingerprint': review['trackingFingerprint'],
                      'tracking_revision': review['trackingRevision'], 'width': review['width'], 'height': review['height'],
                      'frames': [dict(frame=f['frame'], time=f['time'], source_frame=f['sourceFrame'], source_time=f['sourceTime']) for f in review['sourceFrameMapping']]}
-        self.tactics.frames = lambda _video, _clip, indices: [dict(frame=f, time=self.clip['frames'][f]['time'], dataUrl='data:image/jpeg;base64,' + base64.b64encode(b'fixture decoder boundary').decode()) for f in indices]
+        jpeg=fixture_jpeg(self.clip['width'],self.clip['height'])
+        self.tactics.frames = lambda _video, _clip, indices, **_kwargs: [dict(frame=f, time=self.clip['frames'][f]['time'], dataUrl='data:image/jpeg;base64,' + base64.b64encode(jpeg).decode()) for f in indices]
         self.output = {'summary': '切入', 'issues': [], 'phases': [{'title': '切入', 'startFrame': 0, 'endFrameExclusive': 61, 'freezeFrame': 12, 'reason': '未来跑位', 'evidenceFrames': [12, 20], 'actions': [], 'annotations': [{'type': 'route', 'entityId': 'P1', 'space': 'video', 'anchorFrame': 12, 'startFrame': 12, 'endFrameExclusive': 30, 'points': [{'x': 600, 'y': 400}, {'x': 720, 'y': 320}], 'angle': 0, 'size': 1, 'color': '#26baff', 'explanation': '切入', 'evidenceFrames': [12, 20]}]}]}
         self.request = dict(document=self.doc, expectedVersion=0, clientRevision=7, documentDigest=self.tactics.run('agent-digest', document=self.doc)['digest'], scope='play', phaseId='phase-1', goal='讲清楚切入')
 
     def make_agent(self, execute=None):
-        agent = TacticsAgent(self.folder / 'agent', self.tactics, codex_path=self.node, execute=execute or (lambda **_kwargs: self.output))
+        agent = TacticsAgent(self.folder / 'agent', self.tactics, use_visual_facts=False,codex_path=self.node, execute=execute or (lambda **_kwargs: self.output))
         self.addCleanup(agent.close)
         return agent
 
@@ -51,9 +173,11 @@ class AgentTests(unittest.TestCase):
 
     def test_real_validator_accepts_candidate_and_adoption_is_idempotent_without_saving(self):
         agent = self.make_agent()
+        self.assertEqual(agent.timeout,300,'legacy/V3 tactics retain their own 300-second budget')
         job = agent.create(self.request, self.clip, self.folder/'video.mp4', 'demo', True)
         done = self.wait(agent, job)
         self.assertEqual(done['status'], 'ready', done)
+        self.assertEqual(done['progress']['budgetSeconds'],300)
         self.assertEqual(len(done['previewDocument']['annotations']['items']), 1)
         adopted = agent.adopt(job['jobId'], self.request, self.clip, 'demo', True)
         self.assertEqual(adopted, agent.adopt(job['jobId'], self.request, self.clip, 'demo', True))
@@ -112,16 +236,18 @@ class AgentTests(unittest.TestCase):
         self.assertIn('不必',prompt);self.assertIn('freezeFrame',prompt)
 
     def test_failed_candidate_gets_one_model_repair_without_patching_draft(self):
-        calls=[]
+        calls=[];models=[]
         invalid=deepcopy(self.output);invalid['phases'][0]['annotations'][0]['points']=[{'x':400,'y':400}]*2
         def execute(**kwargs):
             calls.append(kwargs['prompt'])
+            models.append(kwargs['job'].get('callModel'))
             return invalid if len(calls)==1 else self.output
         agent=self.make_agent(execute)
         done=self.wait(agent,agent.create(self.request,self.clip,self.folder/'video.mp4','demo',True))
         self.assertEqual(done['status'],'ready',done)
         self.assertEqual(len(calls),2)
         self.assertIn('validationError',calls[1])
+        self.assertEqual(models,[None,None], 'Validation repair must keep the configured primary model')
         self.assertEqual(self.tactics.load(self.clip,'demo',True,'workspace')['version'],0)
 
     def test_unsaved_revision_digest_saved_version_and_foreign_video_cannot_adopt(self):
@@ -166,17 +292,17 @@ class AgentTests(unittest.TestCase):
     def test_cli_timeout_distinguishes_network_failure_without_exposing_raw_logs(self):
         agent=self.make_agent()
         for log, expected in [('failed to refresh available models: request timed out; secret-fixture-value', '模型服务网络超时'),
-                              ('failed to refresh available models: 401 Unauthorized; secret-fixture-value', 'Agent 超时'),
-                              ('Reading prompt from stdin... secret-fixture-value', 'Agent 超时')]:
+                              ('failed to refresh available models: 401 Unauthorized; secret-fixture-value', '没有返回分析内容'),
+                              ('Reading prompt from stdin... secret-fixture-value', '没有返回分析内容')]:
             class TimedOutProcess:
                 def __init__(self, _command, **kwargs):
-                    kwargs['stderr'].write(log);kwargs['stderr'].flush();self.calls=0
+                    kwargs['stderr'].write(log);kwargs['stderr'].flush();self.calls=0;self.killed=False
                 def communicate(self, _prompt=None, timeout=None):
                     self.calls+=1
-                    if self.calls==1:raise subprocess.TimeoutExpired('codex',timeout)
+                    if not self.killed:raise subprocess.TimeoutExpired('codex',timeout)
                     return '', ''
-                def kill(self):pass
-            job={'cancel':threading.Event(),'process':None}
+                def kill(self):self.killed=True
+            job={'cancel':threading.Event(),'process':None,'callTimeout':.001}
             with patch('tactics_agent.subprocess.Popen',TimedOutProcess):
                 with self.assertRaisesRegex(ValueError,expected) as caught:
                     agent._execute_cli(job=job,directory=self.folder,schema=self.folder/'schema.json',
@@ -198,6 +324,73 @@ class AgentTests(unittest.TestCase):
         self.assertEqual(point['source'],'manual_range');self.assertFalse(point['frameIdentityConfirmed']);self.assertTrue(point['reviewRequired'])
         self.assertEqual(len(entity['rows']),1)
         self.assertEqual(entity['missingFrames'],[])
+
+    def test_terminal_cli_events_classify_failure_even_when_stderr_is_empty(self):
+        agent=self.make_agent()
+        for message, code, retryable in [('401 Unauthorized secret-fixture', 'authentication_or_quota', False),
+                                         ('stream disconnected secret-fixture', 'transport', True),
+                                         ('model not found secret-fixture', 'model_configuration', False),
+                                         ('unexpected provider error secret-fixture', 'model_error', True)]:
+            class FailedProcess:
+                def __init__(self, _command, **kwargs):
+                    kwargs['stdout'].write(json.dumps({'type':'turn.failed','error':{'message':message}})+'\n');kwargs['stdout'].flush()
+                    self.returncode=0
+                def communicate(self, _prompt=None, timeout=None):return '', ''
+                def kill(self):pass
+            with patch('tactics_agent.subprocess.Popen',FailedProcess):
+                with self.assertRaises(AgentFailure) as caught:
+                    agent._execute_cli(job={'cancel':threading.Event(),'process':None},directory=self.folder,
+                                       schema=self.folder/'schema.json',result=self.folder/'result.json',images=[],prompt='fixture')
+            self.assertEqual(caught.exception.code,code);self.assertEqual(caught.exception.retryable,retryable)
+            self.assertNotIn('secret-fixture',str(caught.exception))
+
+    def test_cli_item_error_warning_does_not_reject_a_successful_result(self):
+        agent=self.make_agent();result=self.folder/'result.json'
+        class SuccessfulProcess:
+            def __init__(self, _command, **kwargs):
+                for event in [{'type':'thread.started'}, {'type':'item.completed','item':{'type':'error','message':'Code Mode unavailable'}},
+                              {'type':'item.completed','item':{'type':'agent_message','text':'structured result'}}, {'type':'turn.completed'}]:
+                    kwargs['stdout'].write(json.dumps(event)+'\n')
+                kwargs['stdout'].flush();result.write_text(json.dumps({'summary':'valid fixture'}),encoding='utf-8');self.returncode=0
+            def communicate(self, _prompt=None, timeout=None):return '', ''
+            def kill(self):pass
+        with patch('tactics_agent.subprocess.Popen',SuccessfulProcess):
+            output=agent._execute_cli(job={'cancel':threading.Event(),'process':None},directory=self.folder,
+                                      schema=self.folder/'schema.json',result=result,images=[],prompt='fixture')
+        self.assertEqual(output,{'summary':'valid fixture'})
+        runtime=json.loads((self.folder/'runtime.json').read_text(encoding='utf-8'))
+        self.assertTrue(runtime['modelOutputSeen']);self.assertTrue(runtime['sessionStarted']);self.assertEqual(runtime['eventCount'],4)
+
+    def test_startup_events_alone_trigger_no_response_and_preserve_diagnostics(self):
+        agent=self.make_agent();agent.no_response_timeout=.005
+        class SilentProcess:
+            def __init__(self, _command, **kwargs):
+                kwargs['stdout'].write('{"type":"thread.started"}\n{"type":"turn.started"}\n');kwargs['stdout'].flush();self.killed=False
+            def communicate(self, _prompt=None, timeout=None):
+                if self.killed:return '', ''
+                time.sleep(timeout);raise subprocess.TimeoutExpired('fixture',timeout)
+            def kill(self):self.killed=True
+        with patch('tactics_agent.subprocess.Popen',SilentProcess):
+            with self.assertRaises(AgentFailure) as caught:
+                agent._execute_cli(job={'cancel':threading.Event(),'process':None,'callTimeout':.02},directory=self.folder,
+                                   schema=self.folder/'schema.json',result=self.folder/'result.json',images=[],prompt='fixture')
+        self.assertEqual(caught.exception.code,'no_response')
+        runtime=json.loads((self.folder/'runtime.json').read_text(encoding='utf-8'))
+        self.assertFalse(runtime['modelOutputSeen']);self.assertTrue(runtime['sessionStarted']);self.assertEqual(runtime['phase'],'failed')
+
+    def test_complete_malformed_event_line_cannot_hide_a_forbidden_tool(self):
+        agent=self.make_agent()
+        class ForbiddenProcess:
+            def __init__(self, _command, **kwargs):
+                kwargs['stdout'].write('not json\n'+json.dumps({'type':'item.started','item':{'type':'command_execution','command':'forbidden'}})+'\n')
+                kwargs['stdout'].flush();self.returncode=0
+            def communicate(self, _prompt=None, timeout=None):return '', ''
+            def kill(self):pass
+        with patch('tactics_agent.subprocess.Popen',ForbiddenProcess):
+            with self.assertRaises(AgentFailure) as caught:
+                agent._execute_cli(job={'cancel':threading.Event(),'process':None},directory=self.folder,
+                                   schema=self.folder/'schema.json',result=self.folder/'result.json',images=[],prompt='fixture')
+        self.assertEqual(caught.exception.code,'forbidden_tool');self.assertFalse(caught.exception.retryable)
 
     def test_sparse_input_preserves_confirmed_missing_excluded_and_conflict_semantics(self):
         ordinary={'x':None,'y':None,'source':'missing','frameIdentityConfirmed':False,
@@ -278,7 +471,7 @@ class AgentTests(unittest.TestCase):
                                  evidenceFrames=[anchor], actions=[], annotations=[annotation], participants=participants)])
 
     def split_agent_job(self, execute, timeout=300):
-        agent=TacticsAgent(self.folder/'split-jobs',self.tactics,codex_path=self.node,execute=execute,timeout=timeout)
+        agent=TacticsAgent(self.folder/'split-jobs',self.tactics,use_visual_facts=False,codex_path=self.node,execute=execute,timeout=timeout)
         self.addCleanup(agent.close)
         stages=[dict(stageId=f'stage-{i+1}',startFrame=a,endFrameExclusive=b,status='queued',message='等待',attempts=0) for i,(a,b) in enumerate([(0,30),(30,61)])]
         with patch('tactics_agent.analysis_stages',return_value=stages):
@@ -318,7 +511,7 @@ class AgentTests(unittest.TestCase):
         self.assertEqual(self.tactics.load(self.clip,'demo',True,'workspace')['version'],0)
         before=(agent.folder/job['jobId']/'stage-1/attempt-1/candidate.json').read_bytes()
         agent.close()
-        resumed=TacticsAgent(agent.folder,self.tactics,codex_path=self.node,execute=execute);self.addCleanup(resumed.close)
+        resumed=TacticsAgent(agent.folder,self.tactics,use_visual_facts=False,codex_path=self.node,execute=execute);self.addCleanup(resumed.close)
         restored=resumed.get(job['jobId'],self.clip,'demo',True);self.assertEqual(restored['candidate'],done['candidate'])
         with self.assertRaises(ValueError):resumed.retry(job['jobId'],{**self.request,'goal':'changed'},self.clip,'demo',True)
         allow_second=True
@@ -357,6 +550,106 @@ class AgentTests(unittest.TestCase):
         self.assertEqual(done['stages'][0]['failure']['code'],'transport');self.assertTrue(done['stages'][0]['retryBudgetExhausted'])
         self.assertIn('模拟连接中断',done['stages'][0]['message']);self.assertEqual(done['stages'][1]['failure']['code'],'budget_exhausted')
 
+    def test_first_pass_reserves_budget_and_both_failed_stages_get_one_retry(self):
+        calls=[]
+        def execute(**kwargs):
+            calls.append((kwargs['directory'].parent.name,kwargs['job']['callTimeout']))
+            raise AgentFailure('no_response','没有模型内容')
+        agent,job=self.split_agent_job(execute,timeout=300);done=self.wait(agent,job)
+        self.assertEqual([stage for stage,_ in calls],['stage-1','stage-2','stage-1','stage-2'])
+        self.assertLessEqual(calls[0][1],120);self.assertLessEqual(calls[1][1],240)
+        self.assertEqual([s['attempts'] for s in done['stages']],[2,2])
+        self.assertFalse(done['stages'][0].get('retryBudgetExhausted',False))
+        self.assertEqual(self.tactics.load(self.clip,'demo',True,'workspace')['version'],0)
+
+    def test_alternate_model_is_used_for_auto_and_manual_execution_retries_only(self):
+        models=[];allow_result=False
+        def execute(**kwargs):
+            models.append(kwargs['job'].get('callModel'))
+            if not allow_result:raise AgentFailure('timeout','本地等待超时')
+            return self.output
+        agent=self.make_agent(execute);job=agent.create(self.request,self.clip,self.folder/'video.mp4','demo',True)
+        failed=self.wait(agent,job)
+        self.assertEqual(models,[None,'gpt-6.1-sol']);self.assertEqual(failed['status'],'failed')
+        self.assertEqual(failed['stages'][0]['runtime']['retryMode'],'alternate_model')
+        self.assertEqual(failed['stages'][0]['runtime']['model'],'gpt-6.1-sol')
+        self.assertEqual(agent.status()['retryModel'],'gpt-6.1-sol')
+        allow_result=True
+        final=self.wait(agent,agent.retry(job['jobId'],self.request,self.clip,'demo',True))
+        self.assertEqual(final['status'],'ready',final);self.assertEqual(models,[None,'gpt-6.1-sol','gpt-6.1-sol'])
+        self.assertEqual(self.tactics.load(self.clip,'demo',True,'workspace')['version'],0)
+
+    def test_cli_command_records_actual_alternate_model_and_rejects_unsupported_model(self):
+        agent=self.make_agent();commands=[]
+        class UnsupportedProcess:
+            def __init__(self, command, **kwargs):
+                commands.append(command)
+                kwargs['stdout'].write(json.dumps({'type':'turn.failed','error':{'message':"The requested model 'gpt-6.1-sol' does not exist"}})+'\n')
+                kwargs['stdout'].flush();self.returncode=1
+            def communicate(self, _prompt=None, timeout=None):return '', ''
+            def kill(self):pass
+        with patch('tactics_agent.trusted_model_settings',return_value=('gpt-6-astra','low')), patch('tactics_agent.subprocess.Popen',UnsupportedProcess):
+            with self.assertRaises(AgentFailure) as caught:
+                agent._execute_cli(job={'cancel':threading.Event(),'process':None,'callModel':'gpt-6.1-sol'},directory=self.folder,
+                                   schema=self.folder/'schema.json',result=self.folder/'result.json',images=[],prompt='fixture')
+        command=commands[0];self.assertEqual(command[command.index('--model')+1],'gpt-6.1-sol')
+        self.assertEqual(caught.exception.code,'model_configuration');self.assertFalse(caught.exception.retryable)
+        runtime=json.loads((self.folder/'runtime.json').read_text(encoding='utf-8'))
+        self.assertEqual(runtime['model'],'gpt-6.1-sol')
+
+    def test_local_model_override_and_identical_retry_model_do_not_fake_a_switch(self):
+        calls=[]
+        def execute(**kwargs):
+            stage=kwargs['job']['stages'][0]
+            calls.append((kwargs['job'].get('callModel'),stage['runtime']['model']))
+            if len(calls)==1:raise AgentFailure('no_response','没有返回内容')
+            return self.output
+        agent=TacticsAgent(self.folder/'override-agent',self.tactics,use_visual_facts=False,codex_path=self.node,execute=execute,model_override='gpt-6.1-sol')
+        self.addCleanup(agent.close)
+        with patch('tactics_agent.trusted_model_settings',return_value=('gpt-6-astra','low')):
+            self.assertEqual(agent.status()['model'],'gpt-6.1-sol')
+            done=self.wait(agent,agent.create(self.request,self.clip,self.folder/'video.mp4','demo',True))
+        self.assertEqual(done['status'],'ready',done);self.assertEqual(calls,[(None,'gpt-6.1-sol'),(None,'gpt-6.1-sol')])
+        self.assertEqual(done['stages'][0]['runtime']['retryMode'],'same_model')
+        self.assertEqual(done['progress']['firstPassBudgetSeconds'],240);self.assertEqual(done['progress']['retryReserveSeconds'],60)
+
+    def test_lighter_retry_keeps_mandatory_cuts_and_all_motion_evidence(self):
+        agent=self.make_agent()
+        pack={'analysisRange':{'startFrame':0,'endFrameExclusive':61},
+              'images':[{'frame':f} for f in [0,10,20,29,30,40,50,60]],
+              'playDefinition':{'phases':[{'freezeFrame':20}]},'sampling':{'cutFrames':[30]},
+              'evidenceFrames':list(range(61)),'entities':[{'id':'P1','rows':[[0,1],[60,2]]}],
+              'participantRequirements':['P1','P2']}
+        images=[Path(f'frame-{item["frame"]}.jpg') for item in pack['images']];before=deepcopy(pack)
+        reduced,paths=agent._lighter_retry_input(pack,images)
+        self.assertEqual(pack,before);self.assertEqual({item['frame'] for item in reduced['images']},{0,20,29,30,60})
+        for key in ('evidenceFrames','entities','participantRequirements'):self.assertEqual(reduced[key],pack[key])
+        self.assertEqual(paths,[images[i] for i in [0,2,3,4,7]])
+        self.assertEqual(reduced['sampling']['retryMode'],'reduced_images')
+        short={**pack,'images':pack['images'][:5]}
+        retained,_=agent._lighter_retry_input(short,images[:5]);self.assertEqual(retained['images'],short['images'])
+
+    def test_v4_stage_sheet_keeps_all_metadata_original_preview_bytes_and_retry_frames(self):
+        agent=self.make_agent();job_id='sheet-stage-fixture';(agent.folder/job_id).mkdir()
+        job=dict(jobId=job_id,document=deepcopy(self.doc),request=deepcopy(self.request),clip=self.clip,
+                 video=self.folder/'fixture.mp4',runCount=1)
+        stage=dict(stageId='stage-1',startFrame=0,endFrameExclusive=61);job['stages']=[stage]
+        _,pack,attachments,_=agent._stage_input(job,stage);before=deepcopy(pack)
+        self.assertEqual(len(attachments),1);self.assertEqual(attachments[0].name,'model-contact-sheet.jpg')
+        self.assertEqual(pack['imageEncoding']['inputMode'],'contact_sheet')
+        self.assertIsNone(pack['imageEncoding']['maxTotalImageBytes'])
+        self.assertEqual([tile['frame'] for tile in pack['imageEncoding']['contactSheet']['tiles']],[image['frame'] for image in pack['images']])
+        directory=agent.folder/job_id/'stage-1';source=fixture_jpeg(self.clip['width'],self.clip['height'])
+        for image in pack['images']:
+            self.assertEqual((directory/f"source-frame-{image['frame']:06d}.jpg").read_bytes(),source)
+            encoded=(directory/f"frame-{image['frame']:06d}.jpg").read_bytes()
+            self.assertEqual(hashlib.sha256(encoded).hexdigest(),image['modelImageSha256'])
+        reduced,paths=agent._lighter_retry_input(pack,attachments)
+        self.assertEqual(pack,before);self.assertEqual(paths,attachments)
+        for key in ('images','imageEncoding','entities','evidenceFrames','participantRequirements'):self.assertEqual(reduced[key],pack[key])
+        self.assertEqual(reduced['sampling']['retryMode'],'contact_sheet_all_frames_retained')
+        self.assertEqual(json.loads((directory/'input-run-1.json').read_text(encoding='utf-8'))['images'],pack['images'])
+
     def test_existing_draft_play_pending_is_manual_review_without_repeated_model_retry(self):
         phase=deepcopy(self.doc['playDefinition']['phases'][0])
         self.doc['playDefinition']['phases']=[{**phase,'endFrameExclusive':18},
@@ -389,7 +682,7 @@ class AgentTests(unittest.TestCase):
                 def execute(**kwargs):
                     pack=json.loads(kwargs['prompt'].split('输入如下：\n',1)[1]);calls.append(pack['analysisRange'])
                     return self.video_output(pack)
-                agent=TacticsAgent(self.folder/f'checkpoint-source-{len(ranges)}',self.tactics,codex_path=self.node,execute=execute)
+                agent=TacticsAgent(self.folder/f'checkpoint-source-{len(ranges)}',self.tactics,use_visual_facts=False,codex_path=self.node,execute=execute)
                 self.addCleanup(agent.close)
                 publish=agent._publish_completed
                 def paused_publish(job,converted=None):
@@ -406,13 +699,17 @@ class AgentTests(unittest.TestCase):
                     for name in ('request.json','state.json'):
                         shutil.copyfile(agent.folder/job['jobId']/name,copied/name)
                     checkpoint=json.loads((copied/'state.json').read_text(encoding='utf-8'))
+                    for ref in checkpoint.get('previewRefs',{}).values():
+                        shutil.copyfile(agent.folder/job['jobId']/ref['file'],copied/ref['file'])
+                    from tactics_job_storage import read_job_state
+                    checkpoint=read_job_state(copied)
                     before_count=len(checkpoint.get('previewDocument',{}).get('annotations',{}).get('items',[]))
                     self.assertEqual(before_count,checkpoint_at-1)
                 finally:
                     gate.set()
                 self.wait(agent,job)
                 def forbidden_execute(**kwargs):self.fail('checkpoint recovery must not call any model')
-                recovered=TacticsAgent(copied.parent,self.tactics,codex_path=self.node,execute=forbidden_execute);self.addCleanup(recovered.close)
+                recovered=TacticsAgent(copied.parent,self.tactics,use_visual_facts=False,codex_path=self.node,execute=forbidden_execute);self.addCleanup(recovered.close)
                 restored=recovered.get(job['jobId'],self.clip,'demo',True)
                 self.assertEqual(restored['status'],'ready' if len(ranges)==1 else 'partial',restored)
                 self.assertEqual(len(restored['previewDocument']['annotations']['items']),checkpoint_at)
@@ -464,13 +761,14 @@ class RangeAgentV3Tests(unittest.TestCase):
         fixture=json.loads(subprocess.check_output(['node','--input-type=module','-e',script],cwd=ROOT))
         self.clip,self.doc,self.session=fixture['clip'],fixture['document'],fixture['session'];self.variant=self.clip['tracking_revision']
         self.tactics=TacticalWorkbench(self.folder/'saved');self.tactics.preparations.save(self.session['courtPreparation'],self.session,self.clip,self.variant,True,0)
-        self.tactics.frames=lambda _video,_clip,indices:[dict(frame=f,time=self.clip['frames'][f]['time'],dataUrl='data:image/jpeg;base64,'+base64.b64encode(b'synthetic decoder boundary').decode()) for f in indices]
+        jpeg=fixture_jpeg(self.clip['width'],self.clip['height'])
+        self.tactics.frames=lambda _video,_clip,indices:[dict(frame=f,time=self.clip['frames'][f]['time'],dataUrl='data:image/jpeg;base64,'+base64.b64encode(jpeg).decode()) for f in indices]
         self.request=dict(document=self.doc,expectedVersion=0,clientRevision=1,documentDigest=self.tactics.run('agent-digest',document=self.doc)['digest'],scope='range',phaseId='phase-1',range={'startFrame':30,'endFrameExclusive':50},goal='synthetic contract test')
         self.calls=[]
         def execute(**kwargs):
             pack=json.loads(kwargs['prompt'].split('输入如下：\n',1)[1]);self.calls.append(pack)
             return dict(schemaVersion=3,summary='synthetic V3',issues=[],range=pack['range'],preparationDigest=pack['preparationDigest'],annotations=[dict(id='pass',phaseId='phase-1',type='route',entityId='P1',startFrame=30,endFrameExclusive=50,cueFrame=30,points=[{'x':10,'y':8},{'x':18,'y':6}],curve='polyline',style={'angle':0,'size':1,'color':'#ffd45c','pattern':'dots'},meaning='pass',progressFrames=[{'frame':30,'t':0},{'frame':50,'t':1}],evidenceFrames=[30,40],explanation='synthetic')],keyframes=[dict(frame=30,annotationIds=['pass'],freeze=True,holdSeconds=2.5)])
-        self.agent=TacticsAgent(self.folder/'jobs',self.tactics,codex_path=shutil.which('node'),execute=execute);self.addCleanup(self.agent.close)
+        self.agent=TacticsAgent(self.folder/'jobs',self.tactics,use_visual_facts=False,codex_path=shutil.which('node'),execute=execute);self.addCleanup(self.agent.close)
 
     def test_real_v3_validator_preview_and_selective_adoption_read_the_saved_preparation(self):
         job=self.agent.create(self.request,self.clip,self.folder/'video.mp4',self.variant,True)
@@ -482,6 +780,8 @@ class RangeAgentV3Tests(unittest.TestCase):
         self.assertEqual(done['status'],'ready',done)
         pack=self.calls[0];self.assertEqual(pack['candidateVersion'],3);self.assertEqual(pack['range'],self.request['range'])
         self.assertTrue(all(30<=image['frame']<50 for image in pack['images']))
+        self.assertNotIn('contactSheet',pack['imageEncoding']);self.assertNotIn('inputMode',pack['imageEncoding'])
+        self.assertFalse((self.agent.folder/job['jobId']/'stage-1'/'model-contact-sheet.jpg').exists())
         point=pack['entities'][0]['courtTrajectory'][0]
         self.assertEqual(point['x'],self.doc['review']['courtPreparation']['preparedByPlayer']['P1'][point['frame']]['x'])
         adopted=self.agent.adopt(job['jobId'],{**self.request,'selectedIds':['pass']},self.clip,self.variant,True)

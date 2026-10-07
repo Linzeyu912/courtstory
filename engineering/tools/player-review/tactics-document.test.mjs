@@ -2,6 +2,41 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {makePresentationDemo} from '../tactical-overlay/fixtures/presentation-demo.mjs';
 import {createTacticsDocument,validateDocument,splitPhase,removePhase,upsertAction,removeAction,reviewAction,refreshSnapshot} from './tactics-document.mjs';
+import {createAnnotation,annotationStatus} from './tactics-annotations.mjs';
+
+async function anonymousAgentFixture(){
+  let d=await fixture();
+  d=createAnnotation(d,{id:'observed-route',type:'route',phaseId:'phase-1',entityId:null,frame:12,space:'video',points:[{x:400,y:500},{x:600,y:450}],origin:{kind:'agent',jobId:'real-source-job',sourceFrames:[12,20],note:'observed route'}});
+  return d;
+}
+test('name-only refresh preserves active anonymous source-video Agent drawings without changing their evidence',async()=>{
+  const d=await anonymousAgentFixture(),before=structuredClone(d),review=structuredClone(d.review);review.entities[0].name='corrected same player';
+  const next=await refreshSnapshot(d,review);await validateDocument(next);
+  assert.equal(annotationStatus(next).active.length,1);
+  const {sourceBinding,...drawing}=next.annotations.items[0],{sourceBinding:oldBinding,...oldDrawing}=d.annotations.items[0];
+  assert.notEqual(sourceBinding.reviewDigest,oldBinding.reviewDigest);assert.deepEqual(drawing,oldDrawing);assert.deepEqual(d,before);
+});
+test('refresh never resurrects stale, owned, court or manually modified graphics',async()=>{
+  for(const patch of [{sourceBinding:{reviewDigest:'0'.repeat(64)}},{phaseSnapshot:{freezeFrame:1}},{entityId:'P1'},{space:'court',points:[{x:10,y:10},{x:12,y:10}]},{origin:{kind:'human_modified'}},{preparationBinding:{revision:99}}]){
+    const d=await anonymousAgentFixture(),a=d.annotations.items[0];
+    for(const [key,value] of Object.entries(patch))a[key]=['sourceBinding','phaseSnapshot','origin'].includes(key)?{...a[key],...value}:value;
+    const review=structuredClone(d.review);review.entities[0].name='corrected';const next=await refreshSnapshot(d,review);
+    assert.equal(annotationStatus(next).active.length,0,JSON.stringify(patch));
+  }
+});
+test('anonymous Agent refresh requires unchanged original source, complete PTS, dimensions, media end and cuts',async()=>{
+  const changes=[r=>r.videoSha256='other',r=>r.sourceVideoSha256='other-root',r=>r.width++,r=>r.trackingFingerprint='other-model',r=>r.sourceFrameMapping[2].sourceTime+=.01,r=>r.sourceFrameMapping[2].sourceFrame++,r=>r.mediaEndTime=(r.mediaEndTime??7)+.1,r=>r.settings.cuts=[10],r=>r.settings.sourceCuts=[10]];
+  for(const change of changes){
+    const d=await anonymousAgentFixture(),review=structuredClone(d.review);review.settings??={};change(review);
+    try{const next=await refreshSnapshot(d,review);assert.equal(annotationStatus(next).active.length,0);}catch(error){assert.match(error.message,/视频|尺寸|模型/);}
+  }
+});
+test('an apparently active drawing cannot borrow an unverified old document binding during refresh',async()=>{
+  const d=await anonymousAgentFixture();d.review.entities[0].name='changed outside explicit refresh';
+  assert.equal(annotationStatus(d).active.length,1);
+  const review=structuredClone(d.review);review.entities[0].name='changed again';
+  assert.equal(annotationStatus(await refreshSnapshot(d,review)).active.length,0);
+});
 
 const fixture=async()=>createTacticsDocument((await makePresentationDemo()).review);
 test('a new tactical document binds the complete snapshot and starts without invented actions',async()=>{

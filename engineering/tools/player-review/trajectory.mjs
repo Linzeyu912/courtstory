@@ -245,7 +245,14 @@ export function isHumanIdentitySelected(entity) {
 export function confirmFrameIdentity(session,entityId,frame,frames,sourceCuts=[],clip=null) {
   const entity=session.entities.find(item=>item.id===entityId);
   if(!entity||!Number.isInteger(frame)||!frames[frame])throw new Error('人物确认帧不正确。');
-  const point=buildTrajectories(session,frames,sourceCuts,clip)[entityId][frame];
+  let point=buildTrajectories(session,frames,sourceCuts,clip)[entityId][frame];
+  // The machine role gate hides unreviewed coordinates. An explicit human
+  // confirmation may inspect its one real observation, never a duplicate/gap.
+  if(point.source==='missing'&&point.roleConflict&&point.identitySource==='model_suggestion'&&!point.reviewExcluded){
+    const rows=(frames[frame].tracks||[]).filter(row=>Number(row[4])===point.trackId),box=rows[0];
+    if(rows.length===1&&box.slice(0,4).every(Number.isFinite)&&box[2]>box[0]&&box[3]>box[1])
+      point={...point,x:(box[0]+box[2])/2,y:box[3],box:box.slice(0,4),source:'tracked'};
+  }
   if(point.x==null||point.y==null||!['manual','tracked','manual_range'].includes(point.source)||point.reviewExcluded)
     throw new Error('请先选定当前帧可见的人物；缺失、冲突和估计位置不能确认。');
   const cuts=mergeSourceCuts(session.cuts,sourceCuts,frames.length),identity=identityAt(entity,frame,cuts,frames[frame]);

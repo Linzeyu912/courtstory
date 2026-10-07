@@ -180,6 +180,9 @@ export function automaticAnnotationPointVisible(clip,frame,point,session=null){
   // A clicked image position remains editable even when the linked machine
   // identity is uncertain. It still carries no frame identity confirmation.
   if(point.source==='manual')return true;
+  // Explicit human endpoint interpolation has no detector ID; show its estimated
+  // foot point even if this slot previously carried a missing machine track.
+  if(point.source==='manual_path'&&point.method==='human_keyframe_time_interpolation')return true;
   if(point.source==='manual_range')return ['tracked','manual'].includes(point.rangeCorrection?.originalSource);
   if(['manual_forward','manual_range','manual_track_occurrences'].includes(point.identitySource))return true;
   if(point.identitySource==='model_suggestion'){

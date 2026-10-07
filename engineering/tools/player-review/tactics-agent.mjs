@@ -29,6 +29,10 @@ export const AGENT_SCHEMA=object({schemaVersion:{type:'integer',enum:[2]},summar
 // The workbench's first draft stays in the supplied video frames. Camera fitting
 // and 2D preparation remain separate, optional editing operations.
 const videoPhase=structuredClone(phaseV2);
+videoPhase.properties.annotations.items.properties.type.enum.push('position');
+videoPhase.properties.annotations.items.properties.meaning={type:'string',enum:['current_action','later_observed_action','screen','focus','position']};
+videoPhase.properties.annotations.items.properties.pattern={type:'string',enum:['solid','dashed']};
+videoPhase.properties.annotations.items.required.push('meaning','pattern');
 videoPhase.properties.annotations.items.properties.space={type:'string',enum:['video']};
 videoPhase.properties.annotations.items.properties.authoredPath={type:'null'};
 videoPhase.properties.participants={type:'array',maxItems:40,items:object({
@@ -38,14 +42,48 @@ videoPhase.properties.participants={type:'array',maxItems:40,items:object({
   annotationIndexes:{type:'array',maxItems:40,items:{type:'integer',minimum:0,maximum:39}},evidenceFrames:frames,reason:string
 })};
 videoPhase.required.push('participants');
-export const AGENT_SCHEMA_VIDEO=object({schemaVersion:{type:'integer',enum:[4]},summary:string,issues:AGENT_SCHEMA_V1.properties.issues,
+export const AGENT_SCHEMA_VIDEO=object({schemaVersion:{type:'integer',enum:[4]},summary:string,issues:{...AGENT_SCHEMA_V1.properties.issues,maxItems:60},
   phases:{...AGENT_SCHEMA_V1.properties.phases,items:videoPhase},production:{type:'null'}});
 
+// Older saved V4 candidates used spotlight for every static person. Repair only
+// the new candidate; never rewrite an existing human annotation or invent paths.
+export function normalizeVideoCandidate(candidate,{diagnostics=[]}={}){
+  const next=structuredClone(candidate);
+  if(next?.schemaVersion!==4)return next;
+  const report=text=>{
+    const issue=text.slice(0,string.maxLength);
+    if(!diagnostics.includes(issue))diagnostics.push(issue);
+    // Preserve every original model issue. Overflow diagnostics belong to the
+    // document's run report, not extra fields in the strict model schema.
+    if(Array.isArray(next.issues)&&next.issues.length<AGENT_SCHEMA_VIDEO.properties.issues.maxItems&&!next.issues.includes(issue))next.issues.push(issue);
+  };
+  for(const phase of next.phases??[]){
+    const converted=[];
+    for(const a of phase.annotations??[]){
+      a.pattern??='solid';a.meaning??=a.type==='route'?'current_action':a.type==='screen'?'screen':a.type==='position'?'position':'focus';
+      const owners=(phase.participants??[]).filter(p=>p.annotationIndexes?.includes(phase.annotations.indexOf(a)));
+      if(a.type==='spotlight'&&owners.length===1&&owners[0].role!=='ball_handler'){
+        a.type='position';a.meaning='position';a.pattern='solid';
+        converted.push(owners[0].label);
+      }
+    }
+    if(converted.length){
+      const issue=`${phase.title}：${converted.slice(0,5).join('、')}${converted.length>5?`等 ${converted.length} 人`:''} 不是当前持球人，重点圈已改为位置标记；有实际移动时请补充路线。`;
+      report(issue);
+    }
+    if(phase.annotations?.length&&!phase.annotations.some(a=>a.type==='route')){
+      const issue=`${phase.title}：尚无有前后画面依据的路线，仅保留位置或掩护标记；请核对移动参与者并补充路线。`;
+      report(issue);
+    }
+  }
+  return next;
+}
 export function videoCandidateCoverage(document,candidate){
+  candidate=normalizeVideoCandidate(candidate);
   schemaCheck(candidate,AGENT_SCHEMA_VIDEO);
   const ids=new Set(document.playDefinition.participants.map(p=>p.id));
   return candidate.phases.map((phase,index)=>{
-    const subjects=new Set(),entities=new Set(),drawings=new Set();
+    const subjects=new Set(),entities=new Set(),drawings=new Set(),highlightFrames=new Set();
     for(const person of phase.participants){
       if(subjects.has(person.subjectId)||person.entityId!==null&&(!ids.has(person.entityId)||entities.has(person.entityId)))throw new Error('参与者重复或引用未知球员。');
       subjects.add(person.subjectId);if(person.entityId!==null)entities.add(person.entityId);
@@ -58,6 +96,15 @@ export function videoCandidateCoverage(document,candidate){
       for(const i of person.annotationIndexes){
         const a=phase.annotations[i];
         if(!a||drawings.has(i)||a.entityId!==person.entityId)throw new Error('参与者图形引用无效；不能用同一个图形充当多人的标注。');
+        if(a.type==='spotlight'){
+          if(person.role!=='ball_handler'||!person.evidenceFrames.includes(a.anchorFrame))throw new Error('重点圈仅用于该参考帧有持球证据的当前持球人；请改为位置标记或补充持球依据。');
+          if(highlightFrames.has(a.anchorFrame))throw new Error('同一暂停帧只能圈出一个当前持球人；请按球权转移拆分参考帧。');
+          highlightFrames.add(a.anchorFrame);
+        }
+        const expected=a.type==='route'?a.meaning==='later_observed_action'?'dashed':'solid':'solid';
+        if(a.pattern!==expected||a.type==='route'&&!['current_action','later_observed_action'].includes(a.meaning)||
+          a.type!=='route'&&a.meaning!==({screen:'screen',spotlight:'focus',position:'position'}[a.type]))throw new Error('路线语义不一致：实线为当前动作，虚线为随后真实观察动作；其他图形使用对应语义。');
+        if(a.type==='route'&&new Set(a.evidenceFrames).size<2)throw new Error('路线缺少前后画面依据；请补充观察帧，或保留位置标记并注明路线待人工补充。');
         drawings.add(i);
       }
       if(person.entityId!==null&&!person.evidenceFrames.some(frame=>document.review.entities.find(e=>e.id===person.entityId)?.trajectory.some(p=>p.frame===frame&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&!p.reviewExcluded)))throw new Error('关联参与者缺少同帧位置证据，请保留不确定原因。');
@@ -65,6 +112,10 @@ export function videoCandidateCoverage(document,candidate){
     if(drawings.size!==phase.annotations.length)throw new Error('每个图形必须说明对应的参与者，不能静默漏人。');
     for(const action of phase.actions)for(const id of [action.entityId,action.beneficiaryId,action.defenderId].filter(Boolean)){
       if(!entities.has(id))throw new Error('动作或掩护关系中的参与者未列入覆盖清单。');
+    }
+    for(const action of phase.actions.filter(a=>['move','cut','roll','pop'].includes(a.kind))){
+      const person=phase.participants.find(p=>p.entityId===action.entityId);
+      if(person?.disposition==='annotated'&&!person.annotationIndexes.some(i=>phase.annotations[i].type==='route'))throw new Error(`${person.label} 已说明真实移动却只画位置或重点圈；请根据观察证据补路线，无法确定时标为待核对。`);
     }
     // No trajectory means no inferred identity. Observed slots must nevertheless
     // be accounted for, including an explicit uncertain/not-involved reason.
@@ -91,7 +142,7 @@ function videoReferenceTiming(document,jobId){
     const range={startFrame:a.startFrame,endFrameExclusive:a.endFrameExclusive};
     Object.assign(a,{timingMode:'manual',actionRange:range,cueFrame:a.anchorFrame,displayMode:'full',curve:'polyline',
       progressFrames:[{frame:range.startFrame,t:0},{frame:range.endFrameExclusive,t:1}],
-      meaning:a.type==='route'?'current_action':a.type==='screen'?'screen':'focus'});
+      meaning:a.meaning??(a.type==='route'?'current_action':a.type==='screen'?'screen':a.type==='position'?'position':'focus')});
     const group=byFrame.get(a.anchorFrame)??[];group.push(a);byFrame.set(a.anchorFrame,group);
   }
   if(!byFrame.size)return next;
@@ -216,6 +267,7 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
   if(typeof jobId!=='string'||!/^[a-zA-Z0-9-]{1,80}$/.test(jobId)||!['phase','play','range'].includes(scope))throw new Error('Agent 任务绑定无效。');
   if(document.agentRuns?.some(run=>run.jobId===jobId))return structuredClone(document);
   if(candidate?.schemaVersion===4){
+    const diagnostics=[];candidate=normalizeVideoCandidate(candidate,{diagnostics});
     const coverage=videoCandidateCoverage(document,candidate),legacy=structuredClone(candidate);legacy.schemaVersion=2;
     for(const phase of legacy.phases)delete phase.participants;
     if(scope==='play'&&hasTacticsContent(document)){
@@ -229,15 +281,25 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
       play.participants=structuredClone(document.playDefinition.participants);
       play.phases=[{...structuredClone(phase),order:0,startFrame:play.startFrame,endFrameExclusive:play.endFrameExclusive,actionIds:[],relationIds:[]}];
       const generated=await adoptAgentCandidate(scratch,legacy,{jobId,scope:'play',phaseId,directVideo:true});
-      return appendVideoCandidate(document,generated,candidate,coverage,jobId);
+      const next=await appendVideoCandidate(document,generated,candidate,coverage,jobId);
+      next.agentRuns.at(-1).issues=[...new Set([...next.agentRuns.at(-1).issues,...diagnostics])];
+      return next;
     }
     const next=await adoptAgentCandidate(document,legacy,{jobId,scope,phaseId,range:selectedRange,selectedIds,directVideo:true});
     next.agentRuns.at(-1).coverage=coverage;
+    next.agentRuns.at(-1).issues=[...new Set([...next.agentRuns.at(-1).issues,...diagnostics])];
     return next;
   }
   if(candidate?.schemaVersion===3)return adoptV3(document,candidate,{jobId,scope,range:selectedRange,selectedIds});
   if(scope==='range')throw new Error('选区生成需要 V3 候选。');
-  await validateDocument(document);schemaCheck(candidate,Object.hasOwn(candidate,'schemaVersion')?AGENT_SCHEMA:AGENT_SCHEMA_V1);canonicalJSON(candidate);
+  const legacySchema=structuredClone(Object.hasOwn(candidate,'schemaVersion')?AGENT_SCHEMA:AGENT_SCHEMA_V1);
+  if(directVideo){const annotations=legacySchema.properties.phases.items.properties.annotations.items;
+    legacySchema.properties.issues=AGENT_SCHEMA_VIDEO.properties.issues;
+    annotations.properties.type.enum.push('position');
+    annotations.properties.meaning=videoPhase.properties.annotations.items.properties.meaning;
+    annotations.properties.pattern=videoPhase.properties.annotations.items.properties.pattern;
+    annotations.required.push('meaning','pattern');}
+  await validateDocument(document);schemaCheck(candidate,legacySchema);canonicalJSON(candidate);
   let d=structuredClone(document);const p=d.playDefinition,target=p.phases.find(s=>s.phaseId===phaseId),ids=new Set(p.participants.map(e=>e.id));
   if(!target)throw new Error('分析阶段已不存在。');
   const empty=!(d.annotations?.items.length||p.actions.length||p.relations.length||p.phases.length>1||d.presentation?.routes.length||d.production);
@@ -288,7 +350,7 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
         if(camera.phaseId!==phase.phaseId||camera.keyframes[0].frame>a.startFrame||camera.keyframes.at(-1).frame<a.endFrameExclusive-1)throw new Error('Agent 示意相机必须覆盖路线完整显示区间。');
         path={...structuredClone(a.authoredPath),cameraId:id,cameraDigest:camera.digest};}
       d=createAnnotation(d,{id:`${jobId}-annotation-${annotationCount++}`,type:a.type,entityId:a.entityId,phaseId:phase.phaseId,frame:a.anchorFrame,startFrame:a.startFrame,endFrameExclusive:a.endFrameExclusive,space:a.space,points:a.points,
-        ...(directVideo?{followEntity:false}:a.type==='spotlight'&&a.entityId?{anchorMode:'player_foot'}:{}),...(path?{authoredPath:path}:{}),style:{angle:a.angle,size:a.size,color:a.color},origin:{kind:'agent',jobId,sourceFrames:a.evidenceFrames,note:a.explanation}});
+        ...(directVideo?{followEntity:false,meaning:a.meaning,curve:'polyline'}:a.type==='spotlight'&&a.entityId?{anchorMode:'player_foot'}:{}),...(path?{authoredPath:path}:{}),style:{angle:a.angle,size:a.size,color:a.color,...(a.type==='route'&&a.pattern?{pattern:a.pattern}:{})},origin:{kind:'agent',jobId,sourceFrames:a.evidenceFrames,note:a.explanation}});
     }
     for(const [i,a] of s.actions.entries()){
       checkRange(a);evidence(a.evidenceFrames,s.startFrame,s.endFrameExclusive);

@@ -7,9 +7,16 @@ from pathlib import Path
 import shutil
 import subprocess
 import threading
+import time
 from datetime import datetime, timezone
 
-from local_video_library import atomic_json, file_hash
+from local_video_library import atomic_json
+
+
+class FrameReadStopped(ValueError):
+    def __init__(self, code, message):
+        super().__init__(message)
+        self.code, self.retryable = code, code != 'cancelled'
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -42,12 +49,14 @@ class TacticalWorkbench:
         from court_preparation_store import CourtPreparationStore
         self.preparations = CourtPreparationStore(self.folder / 'court-preparations', self)
 
-    def run(self, operation, **payload):
+    def run(self, operation, *, execution_timeout=90, **payload):
         if not self.node:
             raise ValueError('本机未找到 Node.js，战术保存与报告导出需要 Node.js 22 或更新版本。')
+        if not isinstance(execution_timeout, (int, float)) or execution_timeout <= 0:
+            raise ValueError('战术校验剩余预算必须为正数。')
         result = subprocess.run([self.node, str(ROOT / 'engineering/tools/tactical-overlay/workbench-cli.mjs')],
             input=json.dumps({'operation': operation, **payload}, ensure_ascii=False), text=True, encoding='utf-8',
-            capture_output=True, timeout=90, cwd=ROOT, creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+            capture_output=True, timeout=execution_timeout, cwd=ROOT, creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
         if result.returncode:
             raise ValueError(result.stderr[:2000] or '战术定义未通过验证。')
         return json.loads(result.stdout)
@@ -108,18 +117,34 @@ class TacticalWorkbench:
             atomic_json(path, result)
             return result
 
-    def frames(self, video, clip, indices):
+    def frames(self, video, clip, indices, *, execution_deadline=None, cancel=None):
         import av
+        def check_budget():
+            if cancel is not None and cancel.is_set():
+                raise FrameReadStopped('cancelled', '画面读取已取消。')
+            if execution_deadline is not None and time.monotonic() >= execution_deadline:
+                raise FrameReadStopped('budget_exhausted', '画面读取超过本轮剩余预算；已生成结果保留。')
+        check_budget()
         if (not isinstance(indices, list) or not indices or len(indices) > 40
                 or any(type(i) is not int or not 0 <= i < len(clip['frames']) for i in indices)):
             raise ValueError('冻结帧范围不正确，一次最多读取 40 帧。')
-        if file_hash(video) != clip['video_sha256']:
+        digest = hashlib.sha256()
+        with Path(video).open('rb') as source:
+            while True:
+                check_budget()
+                chunk = source.read(1024 * 1024)
+                check_budget()
+                if not chunk:break
+                digest.update(chunk)
+        if digest.hexdigest() != clip['video_sha256']:
             raise ValueError('视频文件已变化，请重启服务重新核对来源。')
         requested = set(indices)
         result = []
+        check_budget()
         with av.open(str(video)) as container:
             container.streams.video[0].thread_type = 'AUTO'
             for index, frame in enumerate(container.decode(video=0)):
+                check_budget()
                 if index not in requested:
                     continue
                 record = clip['frames'][index]
@@ -127,7 +152,9 @@ class TacticalWorkbench:
                     raise ValueError('解码时间与轨迹帧时间不一致，已停止叠加。')
                 if (frame.width, frame.height) != (clip['width'], clip['height']):
                     raise ValueError('视频尺寸与轨迹不一致。')
+                check_budget()
                 buffer = io.BytesIO(); frame.to_image().save(buffer, format='JPEG', quality=94)
+                check_budget()
                 data = buffer.getvalue()
                 result.append({'frame': index, 'time': record['time'], 'sourceFrame': record.get('source_frame', index),
                     'sourceTime': record.get('source_time', record['time']), 'videoSha256': clip['video_sha256'],
@@ -136,4 +163,5 @@ class TacticalWorkbench:
                 if len(result) == len(requested): break
         if len(result) != len(requested):
             raise ValueError('未解码到全部冻结帧。')
+        check_budget()
         return result

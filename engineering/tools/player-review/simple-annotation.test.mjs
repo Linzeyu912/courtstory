@@ -65,8 +65,8 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit,tactic
     for(const match of imports){
       if(match[2]==='./ui.bundle.mjs'){dependencies.mountIdentityUI=actions=>{identityActions=actions;return {render(state){identityState=state;}};};
         dependencies.mountVideoDisplay=({video,stage,startTime,onReady,onFrame})=>{
-          stage.dataset.videoState='ready';video.currentTime=startTime;onReady?.({time:startTime});if(tacticsBridge)onFrame?.({time:startTime});
-          return {pause:()=>video.pause(),play:()=>video.play(),seek:time=>{video.pause();video.currentTime=time;if(tacticsBridge)onFrame?.({time});},
+          stage.dataset.videoState='ready';video.currentTime=startTime;onReady?.({time:startTime});onFrame?.({time:startTime});
+          return {pause:()=>video.pause(),play:()=>video.play(),seek:time=>{video.pause();video.currentTime=time;onFrame?.({time});},
             reload:()=>{video.pause();video.currentTime=startTime;},togglePlayback:()=>video.paused?video.play():video.pause()};
         };continue;}
       if(match[2]==='./tactics-storage.mjs'){dependencies.migrateLegacyTacticsDrafts=async()=>{};continue;}
@@ -216,7 +216,7 @@ test('court calibration and 2D review continue inside the workbench without chan
   }finally{app.restore();}
 });
 
-test('confirming the ten-player roster continues to court calibration and preserves all existing positions',async()=>{
+test('continuing to 2D preserves player positions without certifying the roster',async()=>{
   const app=await openApp();try{
     const session=app.state().session;
     session.entities.filter(entity=>entity.role==='player').forEach((entity,index)=>{
@@ -224,8 +224,8 @@ test('confirming the ten-player roster continues to court calibration and preser
     });
     app.select('P1');const people=structuredClone(session.entities);
     assert.equal(app.get('identityDone').disabled,false);app.get('identityDone').click();
-    assert.equal(app.body.dataset.step,'calibration');assert.equal(app.body.dataset.drawer,'closed');
-    assert.equal(session.identitySelection.playerIds.length,10);assert.deepEqual(session.entities,people);
+    assert.equal(app.body.dataset.area,'data');assert.equal(app.body.dataset.drawer,'full');
+    assert.equal(session.identitySelection?.playerIds,undefined);assert.deepEqual(session.entities,people);
     assert.equal(session.courtCalibration?.keyframes?.length||0,0,'continuing cannot invent court mapping');
   }finally{app.restore();}
 });
@@ -233,7 +233,8 @@ test('confirming the ten-player roster continues to court calibration and preser
 test('a conflicted saved model track remains a review candidate and ordinary roster selection cannot confirm it',async()=>{
   const app=await openApp({modelConflict:true});try{
     const before=structuredClone(app.state().session);
-    assert.equal(app.state().trajectories.P3[0].x,780,'original model evidence remains stored');
+    assert.equal(app.state().trajectories.P3[0].x,null,'risk gates machine coordinates');
+    assert.deepEqual(app.state().session.entities[2].modelBindings,before.entities[2].modelBindings,'original model evidence remains stored');
     assert.ok(!app.get('overlay').ctx.labels.includes('3?'),'a conflicted model is not shown as a fixed numbered player');
     assert.ok(app.get('overlay').ctx.labels.some(label=>label.startsWith('T9')),'the raw candidate remains inspectable');
     app.select('P3');assert.deepEqual(app.state().session,before);assert.equal(app.get('undo').disabled,true);
@@ -323,5 +324,75 @@ test('rejected whole-ID assignment preserves the draft, selection and existing m
     assert.equal(await app.actions.associate(candidate),false);
     assert.deepEqual(app.state().session,before);assert.equal(app.state().active,'P1');
     assert.equal(app.get('undo').disabled,true);assert.match(app.get('toast').textContent,/没有所选/);
+  }finally{app.restore();}
+});
+
+test('clicking an unassigned person prepares direct bounded association to P10 and one undo restores all state',async()=>{
+  const app=await openApp();try{
+    app.select('P1');const before=structuredClone(app.state().session);
+    app.clickBox(780,180);
+    assert.deepEqual(app.state().session,before,'selection and preview must not change saved identities');
+    assert.equal(app.identityState().quickIdentity.action,'replace');
+    assert.equal(app.identityState().quickIdentity.trackId,9);
+    app.actions.setIdentityQuickTarget('P10');app.actions.applyIdentityQuickEdit();
+    assert.equal(app.state().trajectories.P10[0].trackId,9);
+    assert.equal(app.identityState().quickIdentity.targetId,'P10','completed assignment keeps the adopted target selected');
+    assert.equal(app.state().trajectories.P10[1].trackId??null,null,'risk marker bounds this correction to current frame');
+    app.get('undo').click();assert.deepEqual(app.state().session,before);
+  }finally{app.restore();}
+});
+
+test('seeking away clears the selected person and prepared association instead of applying an old frame',async()=>{
+  const app=await openApp();try{
+    app.select('P10');app.clickBox(780,180);const before=structuredClone(app.state().session);
+    app.get('next').click();
+    assert.equal(app.identityState().quickIdentity.action,null);
+    assert.equal(app.identityState().previewTrackId,null);
+    app.actions.applyIdentityQuickEdit();assert.deepEqual(app.state().session,before);
+  }finally{app.restore();}
+});
+
+test('existing machine binding has direct adoption with its supplied finite range and one undo',async()=>{
+  const app=await openApp({modelConflict:true});try{
+    app.select('P3');const before=structuredClone(app.state().session);
+    const rows=app.get('bindingList').children;
+    const adopt=rows.flatMap(row=>row.children).find(node=>node.textContent==='采用这条建议');assert(adopt);
+    adopt.click();
+    assert.equal(app.state().trajectories.P3[0].trackId,9);
+    assert.equal(app.state().trajectories.P3[0].frameIdentityConfirmed,false,'adoption is not unseen-frame confirmation');
+    assert.deepEqual(app.state().session.entities[2].modelBindings,before.entities[2].modelBindings);
+    const covered=app.get('bindingList').children.flatMap(row=>row.children).find(node=>node.textContent==='已关联');
+    assert(covered);assert.equal(covered.disabled,true);
+    app.get('undo').click();assert.deepEqual(app.state().session,before);
+    const restored=app.get('bindingList').children.flatMap(row=>row.children).find(node=>node.textContent==='采用这条建议');
+    assert(restored);assert.equal(restored.disabled,false);
+  }finally{app.restore();}
+});
+
+test('a pending decoded frame cannot select or apply a person from the old picture',async()=>{
+  const app=await openApp();try{
+    app.select('P10');const before=structuredClone(app.state().session);
+    app.get('stage').dataset.videoState='seeking';app.clickBox(780,180);
+    assert.equal(app.identityState().quickIdentity.action,null);assert.deepEqual(app.state().session,before);
+    assert.match(app.get('toast').textContent,/画面正在定位/);
+  }finally{app.restore();}
+});
+
+test('one-click machine suggestion cannot overwrite a conflicting human identity',async()=>{
+  const app=await openApp({modelConflict:true});try{
+    const session=app.state().session;
+    confirmIdentity(session,'P4',0,{box:app.clip.frames[0].tracks[2].slice(0,4),trackId:9},app.clip.frames);
+    app.select('P3');const before=structuredClone(session);
+    const adopt=app.get('bindingList').children.flatMap(row=>row.children).find(node=>node.textContent==='采用这条建议');
+    adopt.click();assert.deepEqual(app.state().session,before);assert.match(app.get('toast').textContent,/人工记录冲突/);
+  }finally{app.restore();}
+});
+
+test('the idle association button applies to the same existing owner shown in its selector',async()=>{
+  const app=await openApp();try{
+    app.select('P1');app.actions.preview(app.identityState().proposals.find(person=>person.trackId===8));
+    assert.equal(app.identityState().quickIdentity.targetId,'P2');
+    app.actions.applyIdentityQuickEdit();
+    assert.equal(app.state().active,'P2');assert.equal(app.state().trajectories.P1[0].trackId,7);
   }finally{app.restore();}
 });

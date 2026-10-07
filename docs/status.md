@@ -22,6 +22,12 @@
 
 2026-10-07 11:07（Asia/Singapore，UTC+8）：按用户授权建立私有成品仓库 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory)，只填写 description，API 确认完全空白，分支 / Tag / Release 均为 0。用户要求先整理代码再推送，当前不初始化 README、不发布版本；未更改 Team Hub remote 或赛事 Portal 绑定。[方案](../engineering/docs/product-repository-proposal-20261007.md)与[交接](../handoffs/Linzeyu912/2026-10-07-1107-create-empty-courtstory.md)已在本地更新，本轮 Team Hub 文档未提交 / 推送。
 
+2026-10-07（Asia/Shanghai，自动核心实现已载入，本轮验收未全通过，本地未提交／推送）：原视频V4接入紧凑事实、高清独立审核、小型patch与复审；修复存储中断、完成竞态、匿名图形失效、审核无动作提前退出及相机反证被说明修改清除的问题。001一次提交475.190秒完成2/2；独立原图核对19条非平凡路线可作10人的端点示意、7圈均为实际持球者，另有一条极短线P2。隔离采用28图形/8讲解点、保存重载并正式渲染MP4。002 run9仅1/2，第二段两次断流；run8恢复实际自动重试一次，仍无审核完成结果。恢复机制已接通，模型连接稳定性尚未解决，不宣称连续全片验收通过。视频全宽、疑点分组定位；原片、正式草稿及其他任务保护摘要不变。见[本轮证据与待验收](../engineering/docs/automatic-tactics-core-20261007.md)及[交接](../handoffs/thy-0629/2026-10-07-2040-automatic-tactics-core.md)。
+
+2026-10-07（Asia/Shanghai，本机修改，未提交／推送）：针对官方 002 生成失败、路线不足、持球人圈与逐帧补漏反馈，增加实际输出／等待状态和保留预算的重试，落实路线／位置标记／持球圈规则，补漏人可两端点整段应用并一次撤销。拼图发送实测得到前半段 8 条路线、2 个位置标记与 1 个持球圈；后半段单独重试仍未完成，不能宣布整段稳定性问题解决。已通过的回归、120 帧实屏补位和数据保护分别记录，见[本轮验证](../engineering/docs/tactics-adjustment-20261007.md)。
+
+2026-10-07 12:58（Asia/Shanghai，本机修改，未提交／推送）：根据官方 002 三次截图反馈简化人工标定。点人物直接关联指定球员，已有建议可直接采用，自动确定有限范围并支持撤销；比分牌自动识别两队，赛季人工选择，单个选中人物识别球队／号码后查询姓名。独立前端 632/632、识别后端 13/13 通过；隔离浏览器实测 T60→球员 10 的 96 帧关联与撤销、换帧清除、建议采用、真实 HOU/DAL 与 HOU #30→2025–26 Clint Capela 匹配及刷新保留。原片和已保存文件保护检查通过，不代表全片身份或旧 runner M0/M1 全部验收。见[操作与边界](../engineering/docs/manual-player-correction-20261007.md)和[本轮交接](../handoffs/thy-0629/2026-10-07-1258-manual-player-correction.md)。
+
 2026-10-07 10:37（Asia/Shanghai，按用户要求先发布当前快照）：工作台战术兜底、球场映射简化、YOLO 裁判角色校验、主动身份初检与人工修正当前实现进入提交／推送。球员标定真实模型与最终浏览器验收尚未完成，完整前端初次复跑为 605/613，已有发现正在收尾，不称整体通过。旧 runner 的 M0/M1 验收结论保留。见[当前说明](../engineering/docs/player-identification-20261007.md)及[发布交接](../handoffs/thy-0629/2026-10-07-1037-workbench-progress-publication.md)。
 
 2026-10-07 10:33（Asia/Singapore，UTC+8，云端已部署；本地代码 / 文档未提交、未推送）：按本聊天用户要求完成 [EC2 / AgentCore ZIP / S3 / CloudFront 网页实测](../engineering/docs/ec2-cloud-interaction-acceptance-20261007.md)。CloudFront 打开现有工作台，实际完成视频播放与上传、人工草稿保存、网页 Agent 生成 / 采用、1920×1080 / 218 帧静音 MP4 导出，最终版本 3 与 S3 备份校验通过。没有自建容器，前端 / API 暂同驻 EC2；GPU、模型内容质量、生产账号和换机恢复未验收。专属测试资源保留运行供用户访问，见[本轮交接](../handoffs/Linzeyu912/2026-10-07-1033-ec2-cloud-interaction-test.md)。

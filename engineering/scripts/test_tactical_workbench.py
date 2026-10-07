@@ -6,6 +6,8 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+import time
+import threading
 import unittest
 from unittest.mock import patch
 import av
@@ -42,6 +44,48 @@ class TacticalWorkbenchTests(unittest.TestCase):
         with self.assertRaises(ValueError): self.store.frames(self.video, bad, [2])
         with self.assertRaises(ValueError): self.store.frames(self.video, self.clip, [-1])
         with self.assertRaises(ValueError): self.store.frames(self.video, {**self.clip, 'video_sha256': 'wrong'}, [0])
+
+    def test_frame_deadline_and_cancel_stop_before_hash_or_decode(self):
+        with patch('tactical_workbench.Path.open') as opened:
+            with self.assertRaisesRegex(ValueError,'预算'):
+                self.store.frames(self.video,self.clip,[0],execution_deadline=time.monotonic()-1)
+            opened.assert_not_called()
+        cancel=threading.Event();cancel.set()
+        with self.assertRaisesRegex(ValueError,'取消'):
+            self.store.frames(self.video,self.clip,[0],cancel=cancel)
+
+    def test_frame_deadline_is_checked_during_decode_before_jpeg(self):
+        original_open=av.open;clock=[0.0];decoded=[]
+        class Container:
+            def __enter__(inner):
+                inner.real=original_open(str(self.video));return inner
+            def __exit__(inner,*args):inner.real.close()
+            def decode(inner,**kwargs):
+                for index,frame in enumerate(inner.real.decode(**kwargs)):
+                    decoded.append(index)
+                    if index==2:clock[0]=2.0
+                    yield frame
+        with patch('av.open',return_value=Container()),patch('tactical_workbench.time.monotonic',side_effect=lambda:clock[0]):
+            with self.assertRaisesRegex(ValueError,'预算'):
+                self.store.frames(self.video,self.clip,[4],execution_deadline=1.0)
+        self.assertEqual(decoded,[0,1,2])
+
+    def test_frame_deadline_is_checked_after_hash_chunk_and_jpeg(self):
+        original_open=Path.open;clock=[0.0]
+        class Reader:
+            def __enter__(inner):inner.stream=original_open(self.video,'rb');return inner
+            def __exit__(inner,*args):inner.stream.close()
+            def read(inner,size):
+                data=inner.stream.read(size);clock[0]=2.0;return data
+        with patch('tactical_workbench.Path.open',return_value=Reader()),patch('av.open') as decoder,patch('tactical_workbench.time.monotonic',side_effect=lambda:clock[0]):
+            with self.assertRaisesRegex(ValueError,'预算'):self.store.frames(self.video,self.clip,[0],execution_deadline=1.0)
+            decoder.assert_not_called()
+        from PIL import Image
+        save=Image.Image.save;clock[0]=0
+        def encode(image,*args,**kwargs):
+            result=save(image,*args,**kwargs);clock[0]=2.0;return result
+        with patch.object(Image.Image,'save',encode),patch('tactical_workbench.time.monotonic',side_effect=lambda:clock[0]):
+            with self.assertRaisesRegex(ValueError,'预算'):self.store.frames(self.video,self.clip,[0],execution_deadline=1.0)
 
     def test_saved_documents_survive_restart_and_qa_is_isolated(self):
         with patch.object(self.store, 'run', return_value={'valid': True}):

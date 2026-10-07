@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "status": "proposed_fixture_not_runtime_tests",
+  "policy": {"activeWallSeconds":300,"finalizationReserveSeconds":15,"initialCallMaxSeconds":90,"repairCallMaxSeconds":75,"minRepairAllocationSeconds":70,"maxModelCalls":6,"maxRepairPassesPerParent":1,"maxChildrenPerParent":2},
+  "budgetCases": [
+    {"id":"two_initial_facts_65","elapsed":140,"callsUsed":2,"requestedCalls":1,"strategy":"patch","expectedAdmission":true,"expectedCallTimeout":75,"notes":"two65calls plus10local; actual full completion requires validator"},
+    {"id":"both_old_calls_120","elapsed":240,"callsUsed":2,"requestedCalls":1,"strategy":"patch","expectedAdmission":false,"expectedReason":"budget_insufficient"},
+    {"id":"first65_second90_overhead10_retry","elapsed":165,"callsUsed":2,"requestedCalls":1,"strategy":"patch","expectedAdmission":true,"expectedCallTimeout":75},
+    {"id":"first65_second90_overhead10_split","elapsed":165,"callsUsed":2,"requestedCalls":2,"strategy":"split","expectedAdmission":false,"expectedReason":"budget_insufficient"},
+    {"id":"first30_second90_overhead10_split","elapsed":130,"callsUsed":2,"requestedCalls":2,"strategy":"split","expectedAdmission":true,"expectedCallTimeout":75},
+    {"id":"exact_split_boundary","elapsed":145,"callsUsed":4,"requestedCalls":2,"strategy":"split","expectedAdmission":true,"expectedCallTimeout":70},
+    {"id":"below_split_boundary","elapsed":145.001,"callsUsed":4,"requestedCalls":2,"strategy":"split","expectedAdmission":false,"expectedReason":"budget_insufficient"},
+    {"id":"exact_patch_boundary","elapsed":215,"callsUsed":5,"requestedCalls":1,"strategy":"patch","expectedAdmission":true,"expectedCallTimeout":70},
+    {"id":"calls_exhausted","elapsed":80,"callsUsed":6,"requestedCalls":1,"strategy":"patch","expectedAdmission":false,"expectedReason":"call_limit"},
+    {"id":"split_requires_two_slots","elapsed":80,"callsUsed":5,"requestedCalls":2,"strategy":"split","expectedAdmission":false,"expectedReason":"call_limit"},
+    {"id":"finalization_only","elapsed":290,"callsUsed":2,"requestedCalls":1,"strategy":"patch","expectedAdmission":false,"expectedReason":"budget_insufficient"}
+  ],
+  "workflowCases": [
+    {"id":"ready_stage_frozen","initial":{"stage1Status":"ready","stage1Attempts":1,"stage1Digest":"immutable-facts-and-candidate","stage2Status":"failed","failure":"no_response"},"operation":"automatic_repair_stage2","assertions":["stage1 attempts remains1","stage1 digest and evidence unchanged","only stage2 model request"]},
+    {"id":"cancel_between_calls","operation":"cancel_after_stage1_result","assertions":["no stage2 or repair launch","no late preview or adoption","stage1 retained for audit"]},
+    {"id":"source_stale","operation":"changed_video_hash_or_session_revision_before_patch_return","assertions":["reject late candidate","no overwrite of current draft","no automatic new generation"]},
+    {"id":"fatal_auth_no_split","failure":"authentication","assertions":["no retry","no split","specific exception retained"]},
+    {"id":"one_repair_pass_only","initial":{"parentRepairPasses":1,"failure":"no_response"},"assertions":["no further patch or split","partial result retained","exception carries actual attempts"]},
+    {"id":"targeted_patch_freezes_other_people","targetPersonIds":["w1"],"assertions":["d32 facts and route byte-equivalent","fixed P1-P10 list unchanged","new patch evidence supplied and within original range","revalidate whole parent"]},
+    {"id":"unknown_is_not_full_coverage","patch":{"personId":"w1","continuity":"uncertain"},"assertions":["not ready if visible movement obligation remains uncovered","do not fabricate continuity or route","typed exception"]}
+  ],
+  "rangeCases": [
+    {"id":"safe_two_children","parentRange":[685,1371],"cuts":[1028],"children":[[685,1028],[1028,1371]],"childEvidence":[[685,857],[1028,1199,1370]],"assertions":["exact parent union","half-open no overlap","same parent fixedP obligations in both children","no route uses frames across1028"]},
+    {"id":"range_hole_rejected","parentRange":[685,1371],"children":[[685,1028],[1029,1371]],"expectedReject":"range_partition"},
+    {"id":"range_overlap_rejected","parentRange":[685,1371],"children":[[685,1029],[1028,1371]],"expectedReject":"range_partition"},
+    {"id":"exclusive_end_not_evidence","parentRange":[685,1371],"evidenceFrames":[685,1371],"expectedReject":"evidence_out_of_range"},
+    {"id":"cross_cut_observed_route_rejected","cuts":[1028],"route":{"anchorFrame":857,"evidenceFrames":[857,1199],"continuity":"observed"},"expectedReject":"cross_cut_route"},
+    {"id":"anchor_missing_observation","route":{"anchorFrame":857,"evidenceFrames":[857,1028]},"personObservations":[685,1028],"expectedReject":"missing_anchor_observation"},
+    {"id":"insufficient_child_visual_evidence","children":[[685,1028],[1028,1371]],"childEvidence":[[685,857],[1370]],"assertions":["request more source evidence before model","if unavailable retain exception","no fabricated second point"]},
+    {"id":"one_child_failed","childrenStatus":["ready","failed"],"assertions":["parent remains partial","completed range only first child","successful child retained","no cross-child connector"]},
+    {"id":"too_many_cuts_for_two_children","parentRange":[685,1371],"cuts":[857,1199],"expectedReject":"split_limits"},
+    {"id":"vfr_use_true_time","mapping":[{"frame":0,"time":0},{"frame":1,"time":0.1},{"frame":2,"time":2.9},{"frame":3,"time":3.1},{"frame":4,"time":4.0}],"parentRange":[0,5],"mediaEndTime":5.0,"expectedTimeMidpointBoundaryFrame":2,"assertions":["split by closest true source time to2.5seconds","no frame/fps substitute"]}
+  ]
+}

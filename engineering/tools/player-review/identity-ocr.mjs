@@ -36,6 +36,104 @@ export function scoreboardRegionForPreset(clip,preset='left'){
   if(!bounds)throw new Error('请选择主比分卡位置。');
   return [Math.floor(width*bounds[0]),Math.floor(height*.88),Math.ceil(width*bounds[1]),height];
 }
+
+export function selectedIdentityObservation(s){
+  const trackId=Object.hasOwn(s,'selectedTrackId')?s.selectedTrackId:s.point?.trackId;
+  if(!Number.isInteger(trackId))return null;
+  const rows=(s.clip.frames?.[s.frame]?.tracks||[]).filter(row=>row[4]===trackId);
+  if(rows.length!==1)return null;
+  return {frame:s.frame,trackId,box:rows[0].slice(0,4)};
+}
+export function applyMatchupReading(session,response){
+  if(response.videoSha256!==session.videoHash)throw new Error('视频已变化，请重新识别本场球队。');
+  const prior=session.gameContext?.matchup;
+  if(prior?.source==='human'&&prior.videoSha256===session.videoHash)return false;
+  const teams=[...new Set((response.candidates||[]).map(c=>c.value).filter(t=>/^[A-Z]{3}$/.test(t)))];
+  if(teams.length!==2)return false;
+  session.gameContext={...session.gameContext,matchup:{teams,source:'agent_scoreboard',videoSha256:response.videoSha256,evidence:structuredClone(response),reviewRequired:true}};
+  return true;
+}
+
+// The primary flow deliberately has one recognition action. The old OCR panel
+// below remains available to diagnostic callers but is not mounted by the app.
+export function mountSimpleIdentityRecognition(api){
+  const doc=document,host=doc.getElementById('identityOcr');if(!host)return {render(){}};
+  const el=(tag,text)=>{const n=doc.createElement(tag);if(text)n.textContent=text;return n;};
+  const matchup=el('p'),teamStatus=el('p'),retry=el('button','重新识别球队'),manual=el('details'),summary=el('summary','修改本场球队');
+  const teamA=el('select'),teamB=el('select'),saveTeams=el('button','保存两队');
+  teamA.setAttribute('aria-label','本场第一支球队');teamB.setAttribute('aria-label','本场第二支球队');
+  const recognize=el('button','识别选中球员'),status=el('p','点击画面中的球员，再点识别。'),details=el('details'),detailTitle=el('summary','识别详情'),diagnostic=el('p');
+  recognize.className='primary wide';teamStatus.className=status.className='small muted';
+  manual.append(summary,teamA,teamB,saveTeams);details.append(detailTitle,diagnostic);host.append(matchup,teamStatus,retry,manual,recognize,status,details);
+  let teamBusy=false,playerBusy=false,playerEpoch=0,selection='',sourceKey='',pending=null,catalogSignature='',matchupSignature='',teamsEdited=false;
+  const attempted=new Set();
+  const source=s=>JSON.stringify([s.sample,s.variant,s.clip.video_sha256,s.clip.tracking_fingerprint,s.session.videoHash]);
+  const target=s=>JSON.stringify([s.frame,selectedIdentityObservation(s),s.selectedPlayerId??null,s.active]);
+  const storageKey=s=>`workbench-scoreboard-v2:${source(s)}`;
+  function wasAttempted(s){try{return sessionStorage.getItem(storageKey(s))==='attempted';}catch{return false;}}
+  function markAttempted(s){try{sessionStorage.setItem(storageKey(s),'attempted');}catch{}}
+  function evidenceCurrent(data,stamp){const now=api.getState();if(source(now)!==stamp||data.videoSha256!==now.clip.video_sha256||(data.trackingFingerprint??null)!==(now.clip.tracking_fingerprint??null))throw new Error('视频来源已变化，请重新识别。');}
+  async function post(s,body){const response=await fetch('/api/identity-ocr',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sample:s.sample,variant:s.variant,videoSha256:s.clip.video_sha256,...body})});const data=await response.json();if(!response.ok)throw new Error(data.error||'识别暂不可用');return data;}
+  async function readTeams(force=false){
+    const s=api.getState(),stamp=source(s);if(teamBusy)return;
+    if(!force&&(attempted.has(stamp)||wasAttempted(s)||s.session.gameContext?.matchup?.videoSha256===s.clip.video_sha256)){
+      if(!teamStatus.textContent&&s.session.gameContext?.matchup?.videoSha256!==s.clip.video_sha256)teamStatus.textContent='本次视频已尝试自动识别；可以重试，或手工选择两队。';
+      return;
+    }
+    if(!s.clip.frames?.length)return;
+    attempted.add(stamp);markAttempted(s);teamBusy=true;teamStatus.textContent='Agent 正在读取比分牌，识别本场两队…';render(false);
+    try{
+      const frame=Math.min(s.clip.frames.length-1,Math.floor(s.clip.frames.length*.2));
+      const data=await post(s,{mode:'scoreboard_vision',observations:[{frame}],scoreboardRegion:[0,0,s.clip.width,s.clip.height]});
+      evidenceCurrent(data,stamp);if(data.mode!=='scoreboard_vision'||data.engine!=='codex-vision')throw new Error('识别结果类型不正确。');
+      const copy=structuredClone(api.getState().session);
+      if(applyMatchupReading(copy,data)){api.commit(copy);api.onTeam?.();teamStatus.textContent='两队已识别，可在下方修正；请选择视频赛季。';}
+      else teamStatus.textContent=copy.gameContext?.matchup?.source==='human'?'已保留人工选择的两队。':'未能确定完整两队，请展开“修改本场球队”选择，或重试。';
+      diagnostic.textContent=data.reason||'';
+    }catch(error){if(source(api.getState())===stamp){teamStatus.textContent='球队识别暂未成功，可以手工选择两队或重试。';diagnostic.textContent=error.message;}}
+    finally{teamBusy=false;render(false);}
+  }
+  async function recognizeSelected(){
+    if(playerBusy)return;
+    const s=api.getState(),observation=selectedIdentityObservation(s);if(!observation||s.selectedFrameReady===false){status.textContent='等待画面加载完成，再点击需要识别的球员。';return;}
+    const stamp=source(s),selected=target(s),formRevision=api.getFormRevision?.(),epoch=++playerEpoch;playerBusy=true;api.pause?.();status.textContent=`正在识别选中球员的球队和球衣号码…`;render(false);
+    try{
+      const teams=s.session.gameContext?.matchup?.videoSha256===s.clip.video_sha256?s.session.gameContext.matchup.teams:[];
+      const data=await post(s,{mode:'player_vision',observations:[observation],teams});
+      if(epoch!==playerEpoch||target(api.getState())!==selected)return;evidenceCurrent(data,stamp);
+      if(data.mode!=='player_vision'||data.engine!=='codex-vision'||JSON.stringify(data.observation)!==JSON.stringify(observation)||!data.reading)throw new Error('返回的球员识别来源不匹配。');
+      const r=data.reading;if((r.team&&!teams.includes(r.team))||(r.jersey&&!/^[0-9]{1,2}$/.test(r.jersey)))throw new Error('识别结果无效。');
+      pending={data,stamp,observation,formRevision};diagnostic.textContent=r.reason||'';
+      const matched=Object.hasOwn(s,'selectedPlayerId')?s.selectedPlayerId:s.active;
+      status.textContent=`识别建议：${r.team||'球队未读清'} · ${r.jersey?`球衣 #${r.jersey}`:'号码未读清'}。${matched?'请核对下方匹配姓名。':'请先用“关联到球员”选择归属，再确认姓名。'}`;
+      api.onReading?.(r,{data,playerId:matched,observation,formRevision});
+    }catch(error){if(epoch===playerEpoch){status.textContent='识别暂未成功，可手工填写球队和球衣号码，再查找姓名。';diagnostic.textContent=error.message;}}
+    finally{if(epoch===playerEpoch){playerBusy=false;render(false);}}
+  }
+  function render(auto=true){
+    const s=api.getState(),stamp=source(s),selected=target(s);
+    if(stamp!==sourceKey){sourceKey=stamp;pending=null;teamsEdited=false;matchupSignature='';}
+    if(selection!==selected){selection=selected;playerEpoch++;playerBusy=false;status.textContent='点击画面中的球员，再点识别。';
+      const now=selectedIdentityObservation(s),playerId=Object.hasOwn(s,'selectedPlayerId')?s.selectedPlayerId:s.active;
+      if(pending&&pending.stamp===stamp&&now?.trackId===pending.observation.trackId&&now.frame===pending.observation.frame&&playerId)api.onReading?.(pending.data.reading,{data:pending.data,playerId,observation:now,formRevision:pending.formRevision});
+    }
+    const match=s.session.gameContext?.matchup;
+    matchup.textContent=match?.videoSha256===s.clip.video_sha256?`本场球队：${match.teams.join('  对  ')}${match.source==='agent_scoreboard'?' · Agent 识别，可修正':''}`:'本场球队：等待识别';
+    recognize.disabled=playerBusy||!selectedIdentityObservation(s)||s.selectedFrameReady===false;retry.disabled=teamBusy;
+    const items=api.getTeams?.()||[],signature=JSON.stringify(items),matchSignature=JSON.stringify(match);
+    const catalogChanged=signature!==catalogSignature;
+    if(catalogChanged){catalogSignature=signature;for(const select of [teamA,teamB]){const prior=select.value,placeholder=el('option','选择球队');placeholder.value='';select.replaceChildren(placeholder,...items.map(t=>{const o=el('option',`${t.abbreviation} · ${t.name_zh||t.name}`);o.value=t.abbreviation;return o;}));select.value=items.some(t=>t.abbreviation===prior)?prior:'';}}
+    if(!teamsEdited&&(catalogChanged||matchSignature!==matchupSignature)){
+      const codes=match?.videoSha256===s.clip.video_sha256?match.teams:[];
+      teamA.value=items.some(t=>t.abbreviation===codes?.[0])?codes[0]:'';teamB.value=items.some(t=>t.abbreviation===codes?.[1])?codes[1]:'';
+    }
+    matchupSignature=matchSignature;
+    if(auto)void readTeams();
+  }
+  teamA.onchange=teamB.onchange=()=>{teamsEdited=true;};
+  saveTeams.onclick=()=>{if(!teamA.value||!teamB.value||teamA.value===teamB.value){teamStatus.textContent='请选择两支不同的球队。';return;}const s=api.getState(),copy=structuredClone(s.session);copy.gameContext={...copy.gameContext,matchup:{teams:[teamA.value,teamB.value],source:'human',videoSha256:s.clip.video_sha256}};teamsEdited=false;api.commit(copy);api.onTeam?.();teamStatus.textContent='本场两队已保存，可撤销。';};
+  retry.onclick=()=>readTeams(true);recognize.onclick=recognizeSelected;render();return {render,recognizeSelected};
+}
 export function mountIdentityOCR(api){
   const host=document.getElementById('identityOcr');if(!host)return {render(){}};
   const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text)n.textContent=text;if(cls)n.className=cls;return n;};

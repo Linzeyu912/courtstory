@@ -20,13 +20,15 @@ const options={seasons:['2024-25','2025-26'],teams:[{abbreviation:'MIN',name:'Mi
   {abbreviation:'BOS',name:'Boston Celtics'},{abbreviation:'DET',name:'Detroit Pistons'}],dataset_scope:{roster:'season_roster_including_departed'}};
 const flush=async()=>{for(let n=0;n<5;n++)await new Promise(resolve=>setImmediate(resolve));};
 
-async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSession=null}={}){
+async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSession=null,recognition=null}={}){
   const frames=[.12,.158,.205].map((time,frame)=>({frame,time,source_frame:100+frame,source_time:12.12+(time-.12),
     tracks:[[100,80,220,320,7,.95,2],[400,100,530,330,8,.93,2]],track_roles:{7:'player',8:'player'}}));
   const clip={video_sha256:'identity-video',tracking_fingerprint:'identity-raw-v1',tracking_revision:'team-stable',
     width:1280,height:720,frames,sourceCuts:[],track_roles:{7:'player',8:'player'},variants:[{id:'team-stable',label:'篮球'}],
     trackingMetadata:{model:'basketball',tracker:'BoT-SORT',presentation:{default_stable:true}}};
   const session=blankSession(clip.video_sha256);
+  // These identity-confirmation tests start after the separate human season step.
+  session.gameContext={season:'2024-25',seasonSource:'human_selection'};
   confirmIdentity(session,'P1',0,{box:frames[0].tracks[0].slice(0,4),trackId:7},frames);
   Object.assign(session.entities[0],{name:'人工姓名',team:'白衣手工记录',jersey:'7',teamGroup:'A',teamGroupSource:'human'});
   session.entities[1].modelBindings=[{kind:'track',start:0,end:2,trackId:8,source:'model_suggestion',identityConfirmed:false,reviewRequired:true}];
@@ -58,8 +60,9 @@ async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSe
   Object.assign(globalThis,{document,window:{addEventListener(){},history:{replaceState(){}}},devicePixelRatio:1,
     location:{search:`?sample=test&variant=team-stable${qa?'&qa=1':''}`,assign(){}},requestAnimationFrame(){},setTimeout:()=>1,clearTimeout(){},
     localStorage:{getItem:key=>saved.get(key)||null,setItem:(key,value)=>saved.set(key,value)},
-    fetch:async raw=>{requests.push(raw);const url=new URL(raw,'http://localhost');let body;
-      if(url.pathname==='/api/player-identity/options')body=optionsResponse?await optionsResponse(url):{...options,teams:url.searchParams.has('season')?options.teams:[]};
+    fetch:async (raw,init)=>{requests.push(raw);const url=new URL(raw,'http://localhost');let body;
+      if(url.pathname==='/api/identity-ocr'&&recognition)body=await recognition(JSON.parse(init.body));
+      else if(url.pathname==='/api/player-identity/options')body=optionsResponse?await optionsResponse(url):{...options,teams:url.searchParams.has('season')?options.teams:[]};
       else if(url.pathname==='/api/player-identity/lookup'){
         const query=Object.fromEntries(['season','team','jersey'].map(key=>[key,url.searchParams.get(key)]));
         body=lookup?await lookup(query):{query,status:'unique_candidate',candidates:[conley]};
@@ -102,6 +105,34 @@ async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSe
       textTree:node=>{const visit=current=>`${current.textContent||''} ${current.children.map(visit).join(' ')}`;return visit(node);}};
   }catch(error){restore();throw error;}
 }
+
+test('one recognition reads selected player then automatically matches the chosen season without confirming identity',async()=>{
+ const calls=[];
+ const app=await openIdentityApp({recognition:request=>{calls.push(request);return request.mode==='scoreboard_vision'?{
+   mode:request.mode,engine:'codex-vision',videoSha256:'identity-video',trackingFingerprint:'identity-raw-v1',candidates:[{value:'MIN'},{value:'BOS'}]}:{
+   mode:request.mode,engine:'codex-vision',videoSha256:'identity-video',trackingFingerprint:'identity-raw-v1',observation:request.observations[0],reading:{team:'MIN',jersey:'10',reason:'visible',confidence:.9}};}});
+ try{
+  app.select('P1');app.present();await flush();
+  const button=app.created.find(n=>n.textContent==='识别选中球员');assert.equal(button.disabled,false);button.click();await flush();
+  assert.equal(calls.filter(r=>r.mode==='player_vision').length,1);assert.equal(calls.find(r=>r.mode==='player_vision').observations[0].trackId,7);
+  assert.equal(app.get('profileTeam').value,'MIN');assert.equal(app.get('profileJersey').value,'10');
+  assert.equal(app.get('profileCandidate').value,'name:mikeconley');assert.equal(app.get('profileConfirm').disabled,false);
+  assert.equal(app.state().session.entities[0].playerProfile,undefined);
+  await app.confirm();assert.equal(app.state().session.entities[0].playerProfile.name,'Mike Conley');
+ }finally{await flush();app.restore();}
+});
+
+test('manual team and jersey entered during recognition survive the late model result',async()=>{
+ let finish;const app=await openIdentityApp({recognition:request=>request.mode==='scoreboard_vision'?{
+  mode:request.mode,engine:'codex-vision',videoSha256:'identity-video',trackingFingerprint:'identity-raw-v1',candidates:[{value:'MIN'},{value:'BOS'}]}:new Promise(resolve=>finish=()=>resolve({
+  mode:request.mode,engine:'codex-vision',videoSha256:'identity-video',trackingFingerprint:'identity-raw-v1',observation:request.observations[0],reading:{team:'MIN',jersey:'10',reason:'visible',confidence:.9}}))});
+ try{app.select('P1');app.present();await flush();app.created.find(n=>n.textContent==='识别选中球员').click();await flush();
+  app.set('profileTeam','BOS');app.set('profileJersey','00','input');finish();await flush();
+  assert.equal(app.get('profileTeam').value,'BOS');assert.equal(app.get('profileJersey').value,'00');
+  assert.equal(app.get('profileCandidate').value,'');assert.equal(app.state().session.entities[0].playerProfile,undefined);
+  app.set('profileSeason','2024-25');await flush();assert.equal(app.get('profileTeam').value,'BOS');assert.equal(app.get('profileJersey').value,'00');
+ }finally{await flush();app.restore();}
+});
 
 test('lookup and candidate selection stay provisional until explicit confirmation preserves legacy fields and track data',async()=>{
   const app=await openIdentityApp();try{

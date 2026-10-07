@@ -87,7 +87,7 @@ test('all initial issues remain inspectable even without subject counts; only th
   const f=initialFixture({initialReviewView:{job:{status:'ready'},ready:true,applied:true,issues,roles:{}}});
   const issueButtons=f.all.filter(node=>node.props?.className==='identity-initial-issue');
   assert.equal(issueButtons.length,5);issueButtons[4].props.onClick();assert.deepEqual(f.calls,[['reviewIdentityIssue',issues[4]]]);
-  const detail=f.all.find(node=>node.type==='details');assert.equal(detail.props.open,undefined);assert.equal(children(detail).filter(node=>node.props?.className==='identity-initial-issue').length,2);
+  const detail=f.all.find(node=>node.type==='details'&&text(node).startsWith('查看其余'));assert.equal(detail.props.open,undefined);assert.equal(children(detail).filter(node=>node.props?.className==='identity-initial-issue').length,2);
   assert(f.all.some(node=>node.type==='strong'&&text(node).includes('初检提示 5 处')));
 });
 
@@ -107,15 +107,50 @@ function quickFixture(patch={}){
 }
 
 test('quick controls expose the exact continuous interval and apply once only after explicit target selection',()=>{
-  const f=quickFixture();f.named('快速修改对应球员').props.onChange({target:{value:'P2'}});f.named('快速修改起点秒').props.onBlur({target:{value:'0.2'}});f.button('应用到这段').props.onClick();f.button('撤销上次修改').props.onClick();
+  const f=quickFixture();f.named('快速修改对应球员').props.onChange({target:{value:'P2'}});f.named('快速修改起点秒').props.onBlur({target:{value:'0.2'}});f.button('将 T2 关联到球员 1').props.onClick();f.button('撤销上次修改').props.onClick();
   assert.deepEqual(f.calls,[['setIdentityQuickTarget','P2'],['setIdentityQuickRange','start',.2],['applyIdentityQuickEdit'],['undo']]);
   assert(f.all.some(node=>node.type==='strong'&&text(node).includes('0.10 秒 – 0.30 秒')));
   assert(f.all.some(node=>node.props?.role==='status'&&text(node).includes('球员 2 有 2 帧重叠归属会释放')));
 });
 
-test('missing-person flow declares single-frame manual work and never presents range apply or requires a T',()=>{
-  const f=quickFixture({quickIdentity:{trackId:null,targetId:'P1',action:'missing',range:{start:2,end:2}}});
-  assert.equal(f.button('应用到这段'),undefined);
-  assert(f.all.some(node=>text(node).includes('只补当前帧；不会猜测其他帧的位置')));
-  f.button('取消修改').props.onClick();assert.deepEqual(f.calls,[['cancelIdentityQuickEdit']]);
+test('missing-person flow asks for two clicks with a suggested endpoint and no required frame inputs or T',()=>{
+  const f=quickFixture({quickIdentity:{trackId:null,targetId:'P1',action:'missing',range:{start:2,end:4},missingKeys:[{frame:2,x:1,y:2}]}});
+  assert(f.all.some(node=>text(node).includes('起点已记录')));
+  assert.equal(f.all.filter(node=>node.type==='input').length,0);
+  f.button('跳到建议终点').props.onClick();assert.deepEqual(f.calls,[['seekMissingEndpoint']]);
+  f.button('取消修改').props.onClick();assert.deepEqual(f.calls,[['seekMissingEndpoint'],['cancelIdentityQuickEdit']]);
+});
+
+test('missing range preview clearly labels estimates and requires explicit batch adoption',()=>{
+  const f=quickFixture({referenceFrameReady:true,quickIdentity:{trackId:null,targetId:'P1',action:'missing',range:{start:0,end:4},missingKeys:[{frame:0,x:1,y:2},{frame:4,x:8,y:9}],preview:{changed:5,estimated:3,keyframes:2}}});
+  assert(f.all.some(node=>text(node).includes('3 帧为估计位置')));
+  const apply=f.button('应用这段补位（5 帧）');assert(apply);assert.equal(apply.props.disabled,false);
+  apply.props.onClick();assert.deepEqual(f.calls,[['applyIdentityQuickEdit']]);
+  assert(f.button('查看中间画面 / 补一个点'));
+});
+test('isolated single-frame gap has an explicit usable fallback after clicking its foot point',()=>{
+  const quickIdentity={trackId:null,targetId:'P1',action:'missing',range:{start:2,end:2},missingKeys:[{frame:2,x:1,y:2}]};
+  const f=quickFixture({referenceFrameReady:true,quickIdentity});
+  const apply=f.button('仅补当前帧');assert(apply);assert.equal(apply.props.disabled,false);apply.props.onClick();
+  assert.deepEqual(f.calls,[['applyMissingSingleFrame']]);
+  assert.equal(quickFixture({referenceFrameReady:false,quickIdentity}).button('仅补当前帧').props.disabled,true);
+  assert.equal(quickFixture({frame:3,referenceFrameReady:true,quickIdentity}).button('仅补当前帧').props.disabled,true);
+  assert.equal(quickFixture({referenceFrameReady:true,quickIdentity:{...quickIdentity,range:{start:2,end:4}}}).button('仅补当前帧'),undefined);
+});
+
+test('selected unknown person exposes target and named primary action without opening a mode',()=>{
+  const f=quickFixture({entity:{id:'P10'},entities:[{id:'P10',role:'player',name:'球员 10'}],quickIdentity:{trackId:60,ownerId:null,targetId:'P10',action:null,range:{start:2,end:2}}});
+  const choose=f.named('快速修改对应球员'),apply=f.button('将 T60 关联到球员 10');
+  assert(choose,'target selector is visible before entering any mode');assert(apply,'explicit apply names both source and target');
+  assert.equal(apply.props.disabled,false);apply.props.onClick();
+  assert.deepEqual(f.calls,[['applyIdentityQuickEdit']]);
+  assert(f.all.indexOf(apply)<f.all.findIndex(node=>node.type==='details'),'primary action precedes optional range controls');
+});
+
+test('agent continuation offers one-click adoption and keeps frame editing in closed advanced disclosure',()=>{
+  const f=fixture();const adopt=f.button('采用这条建议');assert(adopt);adopt.props.onClick();
+  assert.deepEqual(f.calls,[['adoptIdentityCandidate','candidate-1']]);
+  const details=f.all.find(node=>node.type==='details'&&text(node).includes('调整采用范围'));
+  assert(details);assert.equal(details.props.open,undefined);
+  assert(children(details).some(node=>node.props?.['aria-label']==='candidate-1 采用起帧'));
 });

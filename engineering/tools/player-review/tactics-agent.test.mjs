@@ -121,6 +121,82 @@ test('V4 direct-video drafts preserve independent participants and expose uncert
   assert.equal(next.production,undefined);assert.deepEqual(next.review,doc.review);
   assert.equal(next.agentRuns[0].coverage[0].annotated,2);assert.equal(next.agentRuns[0].coverage[0].uncertain,4);
   assert.ok(annotations.annotationPresentation(next).items.every(i=>i.visible));
+  assert.equal(next.annotations.items[1].type,'position');
+  assert.match(annotations.renderAnnotationsSVG(annotations.projectAnnotations(next,{phaseId:next.playDefinition.phases[0].phaseId,frame:12})),/data-part="position-mark"/);
+  assert.ok(next.agentRuns[0].issues.some(issue=>issue.includes('重点圈已改为位置标记')));
+});
+
+test('V4 route-first output preserves several observed routes and uses a single holder circle while keeping manual circles',async()=>{
+  let {document:doc}=await makeV2Fixture();
+  doc=createAnnotation(doc,{id:'human-defender-circle',type:'spotlight',entityId:'P6',phaseId:'phase-1',frame:12,space:'video',points:[{x:500,y:400}],followEntity:false});
+  const old=structuredClone(doc.annotations.items[0]),c=videoCandidate(),p=c.phases[0];
+  p.annotations[1]={...p.annotations[0],entityId:'P2',points:[{x:828,y:288},{x:760,y:370}],meaning:'later_observed_action',pattern:'dashed'};
+  p.annotations.push({...p.annotations[0],type:'spotlight',points:[{x:600,y:400}]});p.participants[0].annotationIndexes.push(2);
+  const before=structuredClone(c),next=await agent.adoptAgentCandidate(doc,c,{jobId:'route-first',scope:'play',phaseId:'phase-1'});
+  assert.deepEqual(c,before);assert.deepEqual(next.annotations.items[0],old);
+  const added=next.annotations.items.slice(1);assert.equal(added.filter(a=>a.type==='route').length,2);
+  assert.equal(added.filter(a=>a.type==='spotlight').length,1);assert.equal(added.find(a=>a.type==='spotlight').entityId,'P1');
+  const later=added.find(a=>a.entityId==='P2');assert.equal(later.meaning,'later_observed_action');assert.equal(later.style.pattern,'dashed');
+  const svg=annotations.renderAnnotationsSVG(annotations.projectAnnotations(next,{phaseId:'phase-1',frame:12,freeze:true}));
+  assert.match(svg,/stroke-dasharray=/);await validateDocument(next);
+});
+
+test('V4 adoption validates a later observed three-point route without splitting or losing its middle bend',async()=>{
+  const {document:doc}=await makeV2Fixture(),candidate=videoCandidate();
+  const points=[{x:828,y:288},{x:800,y:350},{x:760,y:370}];
+  candidate.phases[0].annotations[1]={...candidate.phases[0].annotations[0],entityId:'P2',points,meaning:'later_observed_action',pattern:'dashed'};
+  const original=structuredClone(candidate),next=await agent.adoptAgentCandidate(doc,candidate,{jobId:'observed-bend',scope:'play',phaseId:'phase-1'});
+  assert.deepEqual(candidate,original);assert.deepEqual(next.review,doc.review);
+  const route=next.annotations.items.filter(a=>a.entityId==='P2');assert.equal(route.length,1);
+  assert.deepEqual(route[0].points,points);assert.equal(route[0].meaning,'later_observed_action');assert.equal(route[0].curve,'polyline');
+  assert.equal(route[0].style.pattern,'dashed');assert.deepEqual(route[0].origin.sourceFrames,[12,20]);
+  const scene=annotations.projectAnnotations(next,{phaseId:route[0].phaseId,frame:12,freeze:true});
+  assert.equal(scene.items.filter(a=>a.id===route[0].id).length,1);assert.match(annotations.renderAnnotationsSVG(scene),/stroke-dasharray=/);
+  await validateDocument(JSON.parse(JSON.stringify(next)));
+});
+
+test('V4 possession changes permit different holders at separate pause frames and reject simultaneous circles',async()=>{
+  const doc=await setup(),c=videoCandidate(),p=c.phases[0];
+  p.annotations[0]={...p.annotations[0],type:'spotlight',points:[{x:600,y:400}]};
+  p.participants[1].role='ball_handler';
+  Object.assign(p.annotations[1],{anchorFrame:20,startFrame:20,endFrameExclusive:21,evidenceFrames:[20]});p.participants[1].evidenceFrames=[20];
+  const next=await agent.adoptAgentCandidate(doc,c,{jobId:'holder-change',scope:'play',phaseId:'phase-1'});
+  assert.deepEqual(next.annotations.items.map(a=>[a.type,a.entityId,a.anchorFrame]),[['spotlight','P1',12],['spotlight','P2',20]]);
+  p.annotations[1].anchorFrame=12;p.annotations[1].startFrame=12;p.annotations[1].endFrameExclusive=30;p.annotations[1].evidenceFrames=[12];p.participants[1].evidenceFrames=[12];
+  await assert.rejects(agent.adoptAgentCandidate(doc,c,{jobId:'holder-conflict',scope:'play',phaseId:'phase-1'}),/只能圈出一个当前持球人/);
+});
+
+test('V4 rejects unsupported movement and semantic mismatches without inventing paths; static-only drafts report a manual route gap',async()=>{
+  const doc=await setup();
+  for(const patch of [a=>a.evidenceFrames=[12],a=>{a.meaning='later_observed_action';a.pattern='solid';}]){
+    const c=videoCandidate();patch(c.phases[0].annotations[0]);
+    await assert.rejects(agent.adoptAgentCandidate(doc,c,{jobId:'invalid-route',scope:'play',phaseId:'phase-1'}),/前后画面依据|路线语义/);
+  }
+  const c=videoCandidate(),p=c.phases[0];p.annotations[0]={...p.annotations[0],type:'spotlight',points:[{x:600,y:400}]};
+  p.actions=[{kind:'cut',entityId:'P2',startFrame:12,endFrameExclusive:30,beneficiaryId:null,defenderId:null,note:'有观察到的切入',evidenceFrames:[12,20]}];
+  await assert.rejects(agent.adoptAgentCandidate(doc,c,{jobId:'missing-cut-route',scope:'play',phaseId:'phase-1'}),/补路线/);
+  p.actions=[];const next=await agent.adoptAgentCandidate(doc,c,{jobId:'static-only',scope:'play',phaseId:'phase-1'});
+  assert.equal(next.annotations.items.filter(a=>a.type==='route').length,0);
+  assert.ok(next.agentRuns[0].issues.some(issue=>issue.includes('尚无有前后画面依据的路线')));
+});
+
+test('V4 normalization preserves sixty original issues and bounds extra diagnostics without rejecting a valid static candidate',async()=>{
+  const doc=await setup(),c=videoCandidate(),p=c.phases[0];
+  p.annotations[0]={...p.annotations[0],type:'position',points:[{x:600,y:400}]};
+  c.issues=Array.from({length:60},(_,i)=>`原始待核对说明 ${i}`);
+  const original=structuredClone(c),diagnostics=[],normalized=agent.normalizeVideoCandidate(c,{diagnostics});
+  assert.deepEqual(normalized.issues,original.issues);assert.deepEqual(c,original);
+  assert.ok(diagnostics.some(issue=>issue.includes('尚无有前后画面依据的路线')));
+  assert.ok(diagnostics.every(issue=>issue.length<=2000));
+  const next=await agent.adoptAgentCandidate(doc,c,{jobId:'full-issues-static',scope:'play',phaseId:'phase-1'});
+  assert.deepEqual(next.agentRuns[0].issues.slice(0,60),original.issues);
+  assert.ok(next.agentRuns[0].issues.some(issue=>issue.includes('尚无有前后画面依据的路线')));
+  assert.equal(next.annotations.items.filter(a=>a.type==='route').length,0);
+  const malformed=structuredClone(original),longDiagnostics=[];
+  malformed.phases[0].participants[1].label='长标签'.repeat(1000);
+  agent.normalizeVideoCandidate(malformed,{diagnostics:longDiagnostics});
+  assert.ok(longDiagnostics.length>0);assert.ok(longDiagnostics.every(issue=>issue.length<=2000));
+  await assert.rejects(agent.adoptAgentCandidate(doc,malformed,{jobId:'long-invalid-label',scope:'play',phaseId:'phase-1'}),/文本不正确/);
 });
 test('V4 rejects silent participant removal, shared drawings and claimed coverage without a drawing',async()=>{
   const doc=await setup();
@@ -199,7 +275,7 @@ test('V4 appends reference-frame holds to seconds-based drafts while preserving 
 
 test('V4 uses the same explicit holds on a blank V2 canvas and keeps late-anchor geometry static',async()=>{
   const {document:doc}=await makeV2Fixture(),c=videoCandidate(),route=c.phases[0].annotations[0];
-  Object.assign(route,{anchorFrame:29,evidenceFrames:[29]});c.phases[0].participants[0].evidenceFrames=[29];
+  Object.assign(route,{anchorFrame:29,evidenceFrames:[20,29]});c.phases[0].participants[0].evidenceFrames=[29];
   const next=await agent.adoptAgentCandidate(doc,c,{jobId:'v4-blank-seconds',scope:'play',phaseId:'phase-1'});
   const cues=compileTacticKeyframes(next);assert.deepEqual(cues.map(k=>k.frame),[12,29]);
   assert.equal(cues[1].kind,undefined);assert.equal(cues[1].holdSeconds,2.5);

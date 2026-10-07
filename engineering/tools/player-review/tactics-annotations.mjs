@@ -33,7 +33,7 @@ export function validateAnnotations(annotations,document){
   const ids=new Set();
   for(const a of annotations.items){
     if(!fields(a,['id','type','phaseId','entityId','startFrame','endFrameExclusive','anchorFrame','space','points','style','followEntity','phaseSnapshot','sourceBinding'],['anchorMode','offset','origin','authoredPath','actionRange','cueFrame','progressFrames','displayMode','curve','meaning','preparationBinding','timingMode','videoMode','referenceSize','name'])||
-      !text(a.id)||ids.has(a.id)||!text(a.phaseId)||a.entityId!==null&&!text(a.entityId)||!['route','screen','spotlight'].includes(a.type)||!['court','video'].includes(a.space)){
+      !text(a.id)||ids.has(a.id)||!text(a.phaseId)||a.entityId!==null&&!text(a.entityId)||!['route','screen','spotlight','position'].includes(a.type)||!['court','video'].includes(a.space)){
       bad('annotation_identifiers');continue;
     }
     ids.add(a.id);const p=a.phaseSnapshot,s=a.sourceBinding;
@@ -52,7 +52,10 @@ export function validateAnnotations(annotations,document){
       a.points.some(p=>!fields(p,['x','y'])||!finite(p.x)||!finite(p.y)||p.x<0||p.y<0||p.x>bounds.x||p.y>bounds.y))bad('annotation_points');
     if(!fields(a.style,['angle','size','color'],['pattern'])||!finite(a.style.angle)||Math.abs(a.style.angle)>360||!finite(a.style.size)||a.style.size<.5||a.style.size>3||!/^#[a-f0-9]{6}$/i.test(a.style.color))bad('annotation_style');
     if(a.style?.pattern!==undefined&&(a.type!=='route'||!['solid','dashed','dots'].includes(a.style.pattern)))bad('annotation_pattern');
-    if(['dashed','dots'].includes(a.style?.pattern)&&(!Array.isArray(a.points)||(a.points.length!==2&&!(a.timingMode==='manual'&&a.style.pattern==='dashed'&&a.curve==='cubic_bezier'&&a.points.length===4))||
+    const observedLaterPolyline=a.style?.pattern==='dashed'&&a.meaning==='later_observed_action'&&
+      (a.curve===undefined||a.curve==='polyline')&&Array.isArray(a.points)&&a.points.length>=2&&a.points.length<=ANNOTATION_LIMITS.points;
+    const manualCubic=a.timingMode==='manual'&&a.style?.pattern==='dashed'&&a.curve==='cubic_bezier'&&a.points?.length===4;
+    if(['dashed','dots'].includes(a.style?.pattern)&&(!Array.isArray(a.points)||(a.points.length!==2&&!observedLaterPolyline&&!manualCubic)||
       !object(a.points[0])||!object(a.points[1])||distance(a.points[0],a.points[1])<=1e-6))bad('annotation_straight_points');
     if(typeof a.followEntity!=='boolean'||a.followEntity&&(a.type!=='spotlight'||!a.entityId))bad('annotation_follow');
     if(a.anchorMode!==undefined&&!['manual_offset','player_foot','court_player_foot'].includes(a.anchorMode))bad('annotation_anchor_mode');
@@ -60,7 +63,7 @@ export function validateAnnotations(annotations,document){
     if(a.anchorMode==='court_player_foot'&&(a.type!=='spotlight'||a.space!=='court'||!a.entityId||!a.followEntity))bad('annotation_court_foot');
     if(a.actionRange!==undefined){
       try{validateFrameRange(document.review.sourceFrameMapping,a.actionRange);}catch{bad('annotation_action_range');}
-      if(!['remaining','full'].includes(a.displayMode)||!['polyline','cubic_bezier'].includes(a.curve)||a.curve==='cubic_bezier'&&(a.type!=='route'||a.points.length!==4)||!['current_action','later_observed_action','pass','screen','focus'].includes(a.meaning)||!frame(a.cueFrame)||(a.timingMode==='manual'?(a.cueFrame<p.startFrame||a.cueFrame>=p.endFrameExclusive):(a.cueFrame<a.startFrame||a.cueFrame>=a.endFrameExclusive)))bad('annotation_v2');
+      if(!['remaining','full'].includes(a.displayMode)||!['polyline','cubic_bezier'].includes(a.curve)||a.curve==='cubic_bezier'&&(a.type!=='route'||a.points.length!==4)||!['current_action','later_observed_action','pass','screen','focus','position'].includes(a.meaning)||!frame(a.cueFrame)||(a.timingMode==='manual'?(a.cueFrame<p.startFrame||a.cueFrame>=p.endFrameExclusive):(a.cueFrame<a.startFrame||a.cueFrame>=a.endFrameExclusive)))bad('annotation_v2');
       const keys=a.progressFrames;
       if(!Array.isArray(keys)||keys.length<2||keys.length>80||keys.some((k,i)=>!fields(k,['frame','t'])||!frame(k.frame)||!finite(k.t)||k.t<0||k.t>1||k.frame<a.actionRange.startFrame||k.frame>a.actionRange.endFrameExclusive||i&&(k.frame<=keys[i-1].frame||k.t<keys[i-1].t))||keys[0].frame!==a.actionRange.startFrame||keys[0].t!==0||keys.at(-1).frame!==a.actionRange.endFrameExclusive||keys.at(-1).t!==1)bad('annotation_progress');
     }
@@ -260,7 +263,7 @@ function annotationIntersectsViewport(item,width,height){
     return paintedPathVisible(g.curve,width,height,outline/2,g.pattern==='dashed'?g.dashArray:null)||
       paintedPolygonVisible(g.arrow,width,height,.75*unit);
   }
-  if(item.type==='screen')return g.paths.some(path=>paintedPathVisible(path,width,height,(outline+g.strokeWidth*.4)/2));
+  if(item.type==='screen'||item.type==='position')return g.paths.some(path=>paintedPathVisible(path,width,height,(outline+(item.type==='screen'?g.strokeWidth*.4:0))/2));
   return paintedPolygonVisible(g.ring,width,height,outline/2);
 }
 
@@ -319,6 +322,11 @@ function routeGeometry(curve,size,space,height,pattern='solid'){
 }
 function markerGeometry(a,center,height){
   const unit=a.space==='court'?1:height/1080,size=a.style.size,angle=a.style.angle*Math.PI/180;
+  if(a.type==='position'){
+    const half=(a.space==='court'?.18:14)*unit*size;
+    return {center,paths:[[{x:center.x-half,y:center.y},{x:center.x+half,y:center.y}],
+      [{x:center.x,y:center.y-half},{x:center.x,y:center.y+half}]],strokeWidth:(a.space==='court'?.06:4)*unit*size};
+  }
   if(a.type==='spotlight'){
     const radius=(a.space==='court'?.46:39)*unit*size,ry=a.space==='court'?radius:radius*.38;
     return {center,ring:Array.from({length:49},(_,i)=>({x:center.x+Math.cos(i/48*Math.PI*2)*radius,y:center.y+Math.sin(i/48*Math.PI*2)*ry})),strokeWidth:(a.space==='court'?.08:5)*unit*size};
@@ -468,6 +476,8 @@ export function renderAnnotationsSVG(scene,{space='video',width=scene.width,heig
         parts.push(`<polyline points="${line}" stroke="#ffffff" stroke-opacity=".88" stroke-width="${outline}"${dash}/><polyline data-part="route" points="${line}" stroke="${color}" stroke-width="${stroke}"${dash}/>`);
         parts.push(`<polygon data-part="arrow" points="${arrow}" fill="${color}" stroke="#ffffff" stroke-opacity=".88" stroke-width="${space==='court'?.035:1.5*(scene.height/1080)}"/>`);
       }
+    }else if(item.type==='position'){
+      parts.push(...g.paths.map(path=>`<polyline data-part="position-mark" points="${coordinates(path)}" stroke="#ffffff" stroke-width="${outline}"/><polyline points="${coordinates(path)}" stroke="${color}" stroke-width="${stroke}"/>`));
     }else if(item.type==='screen'){
       const paths=g.paths.map(path=>coordinates(path));
       parts.push(...paths.map(points=>`<polyline points="${points}" stroke="#493611" stroke-opacity=".7" stroke-width="${outline+stroke*.4}"/>`));

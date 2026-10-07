@@ -15,6 +15,7 @@ export function InitialIdentityReviewControls({state,api}){
   return <section className="identity-initial-review" aria-label="自动初检与待处理问题">
     <div className="identity-agent-heading"><h3>Agent 整段抽样初检</h3><span className="identity-agent-label">{view.applied?'机器建议已补入':'保留人工修改'}</span></div>
     <p role="status" aria-live="polite">{state.initialApplying?'正在补入可用的机器建议…':job?.message||stages[job?.status||'idle']}{progress}</p>
+    <details className="identity-initial-details"><summary>{issues.length?`查看 ${issues.length} 处提示与初检详情`:'查看初检详情'}</summary>
     <ol className="identity-initial-steps"><li>读取已有检测框</li><li>检查错人、漏人和身份断开</li><li>补入有证据的机器建议</li></ol>
     <p className="small muted">整段抽样处理一次，刷新复用结果。未看到的人仍留待核对，号码和姓名可稍后填写。</p>
     {view.summary&&<p>{view.summary}</p>}
@@ -35,34 +36,44 @@ export function InitialIdentityReviewControls({state,api}){
       {issues.length>3&&<details><summary>查看其余 {issues.length-3} 处</summary>{issues.slice(3).map(issueButton)}</details>}
       {!issues.length&&<p className="small muted">{view.ready||view.applied?'本次抽样未列出额外问题；未抽样画面仍需留意，可直接修改画面中的人。':'发现的问题会集中列在这里。人工修改随时可用。'}</p>}
     </div>
+    </details>
+    {busy&&<button onClick={()=>api.cancelInitialReview()}>停止初检</button>}
   </section>;
 }
 
 export function IdentityQuickControls({state,api}){
   const quick=state.quickIdentity||{},range=quick.range||{start:state.frame,end:state.frame},busy=!!state.reviewBusy;
-  const selected=Number.isInteger(quick.trackId),editing=!!quick.action,preview=quick.preview;
+  const selected=Number.isInteger(quick.trackId),action=quick.action||'replace',preview=quick.preview;
   const targets=(state.entities||[]).filter(entity=>entity.role==='player'||/^P(?:[1-9]|10)$/.test(entity.id));
-  const actionLabel={replace:'改成谁',exclude:'这段不是球员',missing:'补漏人',reconnect:'认回同一个人'}[quick.action];
+  const targetId=quick.targetId||state.entity.id,target=targets.find(entity=>entity.id===targetId);
+  const playerLabel=entity=>entity.name&&entity.name!==`球员 ${entity.id.slice(1)}`?`球员 ${entity.id.slice(1)} · ${entity.name}`:`球员 ${entity.id.slice(1)}`;
+  const applyLabel=action==='exclude'?`排除 T${quick.trackId} 的这段记录`:`将 T${quick.trackId} 关联到${target?playerLabel(target):'所选球员'}`;
   return <section className="identity-quick-controls" aria-label="快速修改人物">
-    <h3>只改不对的地方</h3>
-    <p>{selected?`已选画面中的人${quick.ownerId?` · 球员 ${quick.ownerId.replace(/^P/,'')}`:' · 尚未对应球员'}`:`当前球员 ${state.entity.id.replace(/^P/,'')} · 点击画面中的人选择`} {selected&&<small>（跟踪号 T{quick.trackId}）</small>}</p>
-    <p className="small muted">模型找到的人＝检测框，尚不保证始终是同一位球员。直接点框只选择，不会改归属。</p>
-    <div className="identity-quick-actions"><button disabled={busy||!selected} aria-pressed={quick.action==='replace'} onClick={()=>api.beginIdentityQuickEdit('replace')}>改成谁</button><button disabled={busy||!selected} aria-pressed={quick.action==='exclude'} onClick={()=>api.beginIdentityQuickEdit('exclude')}>不是球员</button><button disabled={busy} aria-pressed={quick.action==='missing'} onClick={()=>api.beginIdentityQuickEdit('missing')}>补漏人</button><button disabled={busy} onClick={()=>api.beginIdentityQuickEdit('reconnect')}>认回同一个人</button></div>
-    {editing&&<div className="identity-quick-edit">
-      <strong>{actionLabel} · {timeAt(state.frameTimes,range.start)} – {timeAt(state.frameTimes,range.end)}</strong>
-      <p className="small muted">{range.reason||'应用于上面的时间段；其他记录保留。'}</p>
-      {['replace','missing','reconnect'].includes(quick.action)&&<label className="field">对应球员<select aria-label="快速修改对应球员" value={quick.targetId||state.entity.id} disabled={busy} onChange={event=>api.setIdentityQuickTarget(event.target.value)}>{targets.map(entity=><option key={entity.id} value={entity.id}>球员 {entity.id.slice(1)} · {entity.name}</option>)}</select></label>}
-      {quick.action==='missing'&&<p className="identity-agent-notice">先选这个人的球员编号，再点画面中他的脚下。只补当前帧；不会猜测其他帧的位置。</p>}
-      {quick.action==='replace'&&<p className="small muted">可再点画面换人，然后一次应用到上面的连续段。</p>}
-      {quick.action==='reconnect'&&<><p className="small muted">选择这人原来的球员编号，再点当前画面中的人，只接上当前连续段。</p><button disabled={busy} onClick={()=>api.openIdentityReference()}>需要 Agent 帮忙：按清晰参考查找</button></>}
-      {quick.action==='exclude'&&<p className="small muted">从球员建议中排除这个人的本段记录。裁判与其他人不会冒充球员，原始检测保留。</p>}
-      {quick.action!=='missing'&&<details className="identity-quick-bounds"><summary>调整这次修改的时间段</summary><div className="range-fields">{[['start','起点'],['end','终点']].map(([field,label])=><label key={field} className="field">{label}（秒）<input key={`${field}:${range[field]}`} aria-label={`快速修改${label}秒`} type="number" min="0" max={state.frameTimes?.at(-1)??0} step="any" defaultValue={state.frameTimes?.[range[field]]??0} disabled={busy} onBlur={event=>{if(event.target.value!=='')api.setIdentityQuickRange(field,Number(event.target.value));}} onKeyDown={event=>{if(event.key==='Enter')event.currentTarget.blur();}}/></label>)}</div></details>}
-      {preview&&<p className="identity-quick-preview" role="status">{preview.excludedTrackId!=null?`将排除这个人的 ${preview.excludedObservations||0} 个观测帧。`:`将修改 ${preview.changed||0} 帧。`}{Object.entries(preview.affectedPlayers||{}).map(([id,count])=>`球员 ${id.slice(1)} 有 ${count} 帧重叠归属会释放。`).join('')}可一次撤销。</p>}
+    <h3>点选人物，修改关联</h3>
+    <p className="identity-selected-person">{action==='missing'?'补漏人：点起点和终点，一次补一段。':selected?`已选 T${quick.trackId} · ${quick.ownerId?`当前对应球员 ${quick.ownerId.replace(/^P/,'')}`:'尚未对应球员'}`:'点击画面中的人物框，再选择对应球员。'}</p>
+    {(selected||action==='missing')&&<div className="identity-quick-edit">
+      {action!=='exclude'&&<label className="field">关联到哪个球员<select aria-label="快速修改对应球员" value={targetId} disabled={busy} onChange={event=>api.setIdentityQuickTarget(event.target.value)}>{targets.map(entity=><option key={entity.id} value={entity.id}>{playerLabel(entity)}</option>)}</select></label>}
+      <strong>{timeAt(state.frameTimes,range.start)} – {timeAt(state.frameTimes,range.end)}</strong>
+      {action!=='missing'&&<button className="primary identity-associate-primary" disabled={busy||!selected||!!quick.error||(!!quick.action&&!preview)} onClick={()=>api.applyIdentityQuickEdit()}>{applyLabel}</button>}
+      <p className="small muted">{range.reason||'仅应用上面的时间段。'} · 可撤销</p>
       {quick.error&&<p className="identity-agent-error" role="alert">{quick.error}</p>}
-      {quick.action!=='missing'&&<button className="primary" disabled={busy||!selected||!preview} onClick={()=>api.applyIdentityQuickEdit()}>应用到这段</button>}
-      <div className="identity-agent-actions">{quick.action!=='exclude'&&<button disabled={busy} onClick={()=>api.openIdentityRange()}>更多范围 / 位置工具</button>}<button disabled={busy} onClick={()=>api.cancelIdentityQuickEdit()}>取消修改</button></div>
+      {preview&&Object.keys(preview.affectedPlayers||{}).length>0&&<p className="identity-quick-preview" role="status">{Object.entries(preview.affectedPlayers).map(([id,count])=>`球员 ${id.slice(1)} 有 ${count} 帧重叠归属会释放。`).join('')}其他时间保留，可一次撤销。</p>}
+      {action==='missing'&&<div className="identity-missing-range">
+        <p className="identity-agent-notice" role="status">{preview?`已预览 ${preview.changed} 帧补位：${preview.keyframes} 个画面由你点选，${preview.estimated} 帧为估计位置。`:quick.missingKeys?.length?(range.start===range.end?'这一段只缺当前一帧，脚下位置已点选，可直接补入。':'起点已记录。跳到建议终点，或拖动视频到漏人结束处，再点同一人的脚下。'):'先选漏人的球员编号，再点当前画面中他的脚下作为起点。'}</p>
+        {!!quick.missingKeys?.length&&<div className="identity-quick-actions">
+          <button disabled={busy} onClick={()=>api.seek(quick.missingKeys[0].frame)}>查看起点</button>
+          <button disabled={busy||range.start===range.end} onClick={()=>api.seekMissingEndpoint()}>{preview?'查看终点':'跳到建议终点'}</button>
+          {preview&&<button disabled={busy} onClick={()=>api.seek(Math.floor((range.start+range.end)/2))}>查看中间画面 / 补一个点</button>}
+        </div>}
+        <p className="small muted">中间位置按时间估计，只显示脚下点；没有自动检测框，也不会确认为已跟踪。遇到挡住看不清或认不准同一人，请在此前结束，另起一段。</p>
+        {!preview&&quick.missingKeys?.length===1&&range.start===range.end&&<button className="primary identity-associate-primary" disabled={busy||!!quick.error||state.referenceFrameReady!==true||state.frame!==quick.missingKeys[0].frame} onClick={()=>api.applyMissingSingleFrame()}>仅补当前帧</button>}
+        {preview&&<button className="primary identity-associate-primary" disabled={busy||!!quick.error||state.referenceFrameReady!==true} onClick={()=>api.applyIdentityQuickEdit()}>应用这段补位（{preview.changed} 帧）</button>}
+      </div>}
+      {action==='exclude'&&<p className="small muted">只排除本段的球员关联，保留原始检测。</p>}
+      {action!=='missing'&&<details className="identity-quick-bounds"><summary>调整时间范围</summary><div className="range-fields">{[['start','起点'],['end','终点']].map(([field,label])=><label key={field} className="field">{label}（秒）<input key={`${field}:${range[field]}`} aria-label={`快速修改${label}秒`} type="number" min="0" max={state.frameTimes?.at(-1)??0} step="any" defaultValue={state.frameTimes?.[range[field]]??0} disabled={busy} onBlur={event=>{if(event.target.value!=='')api.setIdentityQuickRange(field,Number(event.target.value));}} onKeyDown={event=>{if(event.key==='Enter')event.currentTarget.blur();}}/></label>)}</div><button disabled={busy} onClick={()=>api.openIdentityRange()}>更多范围 / 位置工具</button></details>}
     </div>}
-    <button disabled={busy||!state.canUndo} onClick={()=>api.undo()}>撤销上次修改</button>
+    <div className="identity-quick-actions"><button disabled={busy||!selected} aria-pressed={action==='exclude'} onClick={()=>api.beginIdentityQuickEdit(action==='exclude'?'replace':'exclude')}>{action==='exclude'?'返回关联球员':'不是球员'}</button><button disabled={busy} aria-pressed={action==='missing'} onClick={()=>api.beginIdentityQuickEdit('missing')}>补漏人</button><button disabled={busy} onClick={()=>api.openIdentityReference()}>Agent 查找同一球员</button><button disabled={busy||!state.canUndo} onClick={()=>api.undo()}>撤销上次修改</button></div>
+    {quick.action&&<button disabled={busy} onClick={()=>api.cancelIdentityQuickEdit()}>取消修改</button>}
   </section>;
 }
 
@@ -121,8 +132,8 @@ export function IdentityAgentControls({state,api,form,onFormChange,onUseRecognit
       {segments.map(segment=><article key={segment.id} className="identity-agent-candidate" data-selected={selected.includes(segment.id)}>
         <label className="identity-agent-choice"><input type="checkbox" aria-label={`采用候选 T${segment.trackId} 第 ${segment.start+1}–${segment.end+1} 帧`} checked={selected.includes(segment.id)} disabled={busy||stale||!ready} onChange={()=>api.toggleIdentityCandidate(segment.id)}/><span><strong>T{segment.trackId} · {timeAt(times,segment.start)} – {timeAt(times,segment.end)}</strong><small>模型估计 {Math.round(segment.confidence*100)}%</small></span></label>
         <p>{segment.reason}</p>
-        <div className="identity-agent-bounds">{[['start','起帧'],['end','止帧']].map(([key,label])=><label key={key}>{label}（含）<input key={`${segment.id}:${key}:${segment[key]}`} aria-label={`${segment.id} 采用${label}`} type="number" min={(key==='start'?(segment.originalStart??segment.start):segment.start)+1} max={(key==='end'?(segment.originalEnd??segment.end):segment.end)+1} defaultValue={segment[key]+1} disabled={busy||stale||!ready} onBlur={event=>onRangeEdit(segment.id,key,event.target.value)} onKeyDown={event=>{if(event.key==='Enter')event.currentTarget.blur();}}/></label>)}</div>
-        <div className="identity-agent-actions"><button onClick={()=>previewTrack(segment.start,segment.trackId)}>看起点</button><button onClick={()=>previewTrack(Math.floor((segment.start+segment.end)/2),segment.trackId)}>看中间</button><button onClick={()=>previewTrack(segment.end,segment.trackId)}>看终点</button></div>
+        <details className="identity-agent-range-adjust"><summary>调整采用范围（高级：帧）</summary><div className="identity-agent-bounds">{[['start','起帧'],['end','止帧']].map(([key,label])=><label key={key}>{label}（含）<input key={`${segment.id}:${key}:${segment[key]}`} aria-label={`${segment.id} 采用${label}`} type="number" min={(key==='start'?(segment.originalStart??segment.start):segment.start)+1} max={(key==='end'?(segment.originalEnd??segment.end):segment.end)+1} defaultValue={segment[key]+1} disabled={busy||stale||!ready} onBlur={event=>onRangeEdit(segment.id,key,event.target.value)} onKeyDown={event=>{if(event.key==='Enter')event.currentTarget.blur();}}/></label>)}</div></details>
+        <div className="identity-agent-actions"><button className="primary" disabled={busy||stale||!ready} onClick={()=>api.adoptIdentityCandidate(segment.id)}>采用这条建议</button><button onClick={()=>previewTrack(segment.start,segment.trackId)}>看起点</button><button onClick={()=>previewTrack(Math.floor((segment.start+segment.end)/2),segment.trackId)}>看中间</button><button onClick={()=>previewTrack(segment.end,segment.trackId)}>看终点</button></div>
         <details className="identity-agent-evidence"><summary>抽样证据（{segment.evidenceFrames.length} 帧）</summary><div>{segment.evidenceFrames.map(frame=><button key={frame} onClick={()=>previewTrack(frame,segment.trackId)}>{previews.has(`${frame}:${segment.trackId}`)&&<img src={previews.get(`${frame}:${segment.trackId}`)} alt={`T${segment.trackId} 第 ${frame+1} 帧证据`} loading="lazy"/>}<span>第 {frame+1} 帧 · {timeAt(times,frame)}</span></button>)}</div></details>
       </article>)}
       <button className="primary wide" disabled={busy||stale||!ready||!selectedCount} onClick={()=>api.adoptIdentityCandidates()}>采用所选片段（{selectedCount}）</button><p className="small muted">采用后仍保留逐帧待核对状态；与人工记录冲突时不会覆盖。</p>
