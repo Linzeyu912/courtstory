@@ -1,5 +1,11 @@
 # 团队状态
 
+2026-10-07 23:50（Asia/Singapore，UTC+8）：按用户授权整理本地全部更新，共六类、70 个文件；前五个主题提交已推送 `main`，本地 / 远端核对为 `d98cf3f`，协作索引和本条记录随第六个文档提交同步。内容为界面修复、云端部署与全量重建、界面方案、CourtStory 仓库规划、云工具 / 多模态实测及共享索引。发布前 273 项测试中 270 通过、3 项 Windows 符号链接权限跳过、0 失败；165 个视频字节摘要及 LFS 索引检查通过。完整提交、验证与接续入口见[分类发布交接](../handoffs/Linzeyu912/2026-10-07-2345-classified-publication.md)。下方“未提交 / 推送”保留各轮历史状态；本次 Git 发布不代表明早重部署已执行，完整恢复包与访问材料仍保留本机忽略目录。
+
+2026-10-07 23:30（Asia/Shanghai，UTC+8，本机准备与隔离演练完成，未提交 / 推送）：用户明确 10 月 8 日 09:00 将重置账号内全部资源，已写[重部署计划](../engineering/docs/plans/2026-10-08-cloud-reset-redeployment.md)，本机完整包含 374 个工作台文件、Agent ZIP、三视频和 73 文件状态快照。新增从零打包 / 发现 / 上传、状态快照、受限路径迁移与首启恢复；Linux 新目录启动后 4 素材指纹及草稿保持，旧成片 / 新生成成片 SHA 一致；49 项测试和两个 CDK 栈合成通过。现网保留，未新建 EC2 / AgentCore / CloudFront；明早须重新验证主办方基础环境，模型候选质量问题另存。见[交接](../handoffs/Linzeyu912/2026-10-07-2330-cloud-reset-readiness.md)。
+
+2026-10-07 23:12（Asia/Singapore，UTC+8，云端更新已执行，Git 本地未提交 / 未推送）：复用 CloudFront / EC2 / AgentCore ZIP / S3 部署现版本，发布完整工作包并保留既有用户目录；CloudFront 实际播放、手绘路线、讲解暂停、服务端保存恢复、1920×1080 / 218 帧 MP4 下载与 S3 同摘要备份通过。修复人工编辑后 Agent 按钮未恢复及 Runtime 启动超时；真实模型返回后候选仍因空图形 / 证据帧不合规被拒绝，未采用到草稿。230 项定向回归及 2 项 Runtime 启动测试通过；GPU / 身份链路、生产多用户、换机恢复未接齐或未验收。开工已快进同步至 `9e18bee`，结束实查远端未变；见[服务分工与实测](../engineering/docs/cloud-current-version-20261007.md)、[接续交接](../handoffs/Linzeyu912/2026-10-07-2312-cloud-current-version.md)。
+
 2026-10-07 08:29（America/New_York，已推送main）：按用户要求发布当前001/002映射成果，主提交[b5c03af](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/b5c03af95b2efac8e41d6e3b6ca6eee0dda54807)。包含独立单人任务、两路并行、reconnecting、去噪、原观察台三层及两片完整轻量回放，47个相关文件；22项Python、20项Node及165段视频LFS索引检查通过。HEAD、origin/main和远端refs/heads/main在主成果推送后哈希一致；Key、原视频重复副本和调用中间文件未入库，其他旧任务未提交内容保留。当前候选精度仍未通过验收。见[发布交接](../handoffs/chuali-zi/2026-10-07-0829-qwen-mapping-publication.md)、[共享回放入口](../research/agents/qwen-parallel-20261007/README.md#已共享的当前回放)。
 
 2026-10-07 07:39（America/New_York，本地未提交／未推送）：Token Plan新Key＋qwen3.8-max两路单人映射测试结束，001/002各十人、47个有观测片段，分别ready12/partial35/failed0与ready10/partial37/failed0。5个实际任务进入reconnecting后均保留上下文恢复，连接仍偶发socket/超时，无明确429或额度耗尽。原观察台8876已加载两片最终候选，源身份/框/标定和原始坐标变化0。22项Python、20项Node及实际浏览器同步/缺口检查通过；独立AI参考不足以证明准确性提升，局部锯齿及002 P5@900边界原投影仍待核，不称全片精度通过。见[当前实验](../research/agents/qwen-parallel-20261007/README.md)、[本轮交接](../handoffs/chuali-zi/2026-10-07-0739-qwen-parallel-reconnect-test.md)。
@@ -8,9 +14,21 @@
 
 2026-10-07 01:32（America/New_York，本地未提交 / 未推送）：按用户指定用既有 Qwen 地面轨迹 Agent 完成官方 001 / 002 完整时间轴的全部球员测试，每片两队各五人，原观察台显示多人编号、双队颜色及同步轨迹。六段均保存候选，四段 partial、两段 ready；无额度不足报错，早期长度截断、取帧超时及两个蓝 21 号尾段缺口保留，未声明全片精度通过。001 / 002 候选地面点为 10504 / 10792（球员×帧，非准确率），1155 白 1 号位置保留。同步 main 后 11 Node、1 Python 及真实输出/浏览器检查通过，原有本地修改保留，HEAD / origin/main 同为 `0d29df0`；未自动采用到用户草稿。见[结果](../research/agents/qwen-all-players-20261007/RESULTS.md)和[交接](../handoffs/chuali-zi/2026-10-07-0132-qwen-all-player-official-tests.md)。
 
+2026-10-07 22:24（Asia/Singapore，UTC+8，云端验证完成，文档本地未提交）：既有 EC2 的 Codex CLI `0.160.1` 已完成 ChatGPT 设备码授权，`ubuntu` 下登录状态为 `Logged in using ChatGPT`；真实请求返回 `CODEX_CLOUD_OK`，随后 read-only 模式实际执行 `pwd` 并返回 `CODEX_SHELL_OK`。两次 `codex exec` 退出码均为 0，工作台服务仍 active；项目改写与长任务未验收。见[环境记录](../environment/aws/codex-cli-ec2-20261007.md)与[接续交接](../handoffs/Linzeyu912/2026-10-07-2224-codex-cli-ec2-auth.md)。
+
+2026-10-07 22:16（Asia/Singapore，UTC+8，服务器安装完成，文档本地未提交）：按本聊天用户要求，把官方 Codex CLI `0.160.1` Linux x64 包先下载本机，再通过既有私有 S3 / SSM 传到当前 Ubuntu EC2，`ubuntu` 用户级安装与版本核验通过。设备码登录已启动，待用户授权与最小推理验证；既有工作台两个服务仍 active。详见[环境记录](../environment/aws/codex-cli-ec2-20261007.md)和[交接](../handoffs/Linzeyu912/2026-10-07-2216-codex-cli-ec2-install.md)。
+
+2026-10-07 11:13（Asia/Singapore，UTC+8）：按用户后续授权，CourtStory 已加入[简短 README](https://github.com/Linzeyu912/courtstory/blob/main/README.md)，直接提交 main 至 `91b31a2a978fc3dac12e5b884b877fab37dbb0c0` 并核对远端。只写「By viewers. For viewers. / 由观众打造，为观众打造」及后续本地电脑、服务器云端两个部署版本；没有功能清单或使用步骤。文件树仅 README，代码尚未上传，Tag / Release 仍为 0；详见[交接](../handoffs/Linzeyu912/2026-10-07-1113-courtstory-minimal-readme.md)。本轮 Team Hub 记录仅本地未提交。
+
+2026-10-07 11:07（Asia/Singapore，UTC+8）：按用户授权建立私有成品仓库 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory)，只填写 description，API 确认完全空白，分支 / Tag / Release 均为 0。用户要求先整理代码再推送，当前不初始化 README、不发布版本；未更改 Team Hub remote 或赛事 Portal 绑定。[方案](../engineering/docs/product-repository-proposal-20261007.md)与[交接](../handoffs/Linzeyu912/2026-10-07-1107-create-empty-courtstory.md)已在本地更新，本轮 Team Hub 文档未提交 / 推送。
+
 2026-10-07 10:37（Asia/Shanghai，按用户要求先发布当前快照）：工作台战术兜底、球场映射简化、YOLO 裁判角色校验、主动身份初检与人工修正当前实现进入提交／推送。球员标定真实模型与最终浏览器验收尚未完成，完整前端初次复跑为 605/613，已有发现正在收尾，不称整体通过。旧 runner 的 M0/M1 验收结论保留。见[当前说明](../engineering/docs/player-identification-20261007.md)及[发布交接](../handoffs/thy-0629/2026-10-07-1037-workbench-progress-publication.md)。
 
+2026-10-07 10:33（Asia/Singapore，UTC+8，云端已部署；本地代码 / 文档未提交、未推送）：按本聊天用户要求完成 [EC2 / AgentCore ZIP / S3 / CloudFront 网页实测](../engineering/docs/ec2-cloud-interaction-acceptance-20261007.md)。CloudFront 打开现有工作台，实际完成视频播放与上传、人工草稿保存、网页 Agent 生成 / 采用、1920×1080 / 218 帧静音 MP4 导出，最终版本 3 与 S3 备份校验通过。没有自建容器，前端 / API 暂同驻 EC2；GPU、模型内容质量、生产账号和换机恢复未验收。专属测试资源保留运行供用户访问，见[本轮交接](../handoffs/Linzeyu912/2026-10-07-1033-ec2-cloud-interaction-test.md)。
+
 2026-10-07 09:21（Asia/Shanghai，本机工作台改进，未提交／推送）：补齐整段 Agent 分段保留、失败段重试与刷新恢复，落实逐参与者标注；重点圈支持自动贴脚失败转人工，第二入口改为可选球场映射与三步引导。21.5382 秒真实片首轮仍有超时，精简输入后的失败段单独重试成功，共 22 个新图形；已有两个测试圈保留，隔离版本 4 有五处讲解暂停。实屏逐点播放、保存重载与人工兜底已核对，最终前端 563 项通过，独立复核补齐同帧人工暂停保护。模型仍可能超时，旧 M0／M1 验收结论不变。见[操作与实际验证](../engineering/docs/workbench-usability-20261007.md)及[交接](../handoffs/thy-0629/2026-10-07-0921-workbench-usability-fallback.md)。
+
+2026-10-07 09:12（Asia/Singapore，UTC+8，本地未提交 / 未推送）：本队 AgentCore 经自有 OpenRouter key 的[多模态实测](../environment/aws/openrouter-multimodal-connectivity-20261007.md)完成：九模型图片序列、五模型直接 MP4、两模型音频共 16 项全部 HTTP 200 且合成样例答案通过；加上首轮文本验证，OpenRouter 总费用 0.06015834 USD。两轮临时栈、Runtime、角色和专属资产已清理，未改变 Bedrock 白名单。仅证实技术调用与基本感知，真实篮球质量、作品接入及赛事外部模型口径未验证；见[交接](../handoffs/Linzeyu912/2026-10-07-0912-openrouter-multimodal-cloud-test.md)。
 
 2026-10-06 22:14（Asia/Shanghai，本机独立验收，未提交／推送）：新工作流 111 项回归重跑通过；追加验收复现重分析混用旧下游的 P1、保存后恢复及历史失效结果导出的两项 P2。最新真实 005 仍为 needs_attention，M0／M1 不予整体签收。详见[验收报告](../engineering/docs/agent-tactics-acceptance-20261006.md)与[交接](../handoffs/thy-0629/2026-10-06-2214-agent-tactics-acceptance.md)。远端已领先本机基线 7 个提交，本轮未合入，不将本机结果称为远端最新状态。
 
@@ -163,7 +181,7 @@
 
 更新日期：2026-10-03（Asia/Shanghai）
 
-2026-10-03 04:40（America/New_York）：本机新增[战术分析实验台](../engineering/experiments/tactical_analysis/README.md)。选择新上传第一批 003，复用 E-BARD/ByteTrack 生成 629 帧真实像素候选并核对解码时间；只读网页支持视频、候选叠加与抽帧定位。已克隆 Pi、VideoAgent、basketball_analysis、SkillCorner 并归档版本/工具说明；第三方源码和运行大产物仅在忽略目录。暂未接入战术 LLM，未生成球权/掩护真值，纠错流程暂不展开；本轮新增内容仍本地未提交。fetch 后本地 main 与 origin/main 均为 `bbf69ae`，没有新提交。见[本轮交接](../handoffs/chuali-zi/2026-10-03-0440-tactical-analysis-lab.md)。
+2026-10-03 04:40（America/New_York）：本机新增战术分析实验台（历史路径 `engineering/experiments/tactical_analysis/README.md`，该文件当前未入库）。选择新上传第一批 003，复用 E-BARD/ByteTrack 生成 629 帧真实像素候选并核对解码时间；只读网页支持视频、候选叠加与抽帧定位。已克隆 Pi、VideoAgent、basketball_analysis、SkillCorner 并归档版本/工具说明；第三方源码和运行大产物仅在忽略目录。暂未接入战术 LLM，未生成球权/掩护真值，纠错流程暂不展开；本轮新增内容仍本地未提交。fetch 后本地 main 与 origin/main 均为 `bbf69ae`，没有新提交。原交接路径为 `handoffs/chuali-zi/2026-10-03-0440-tactical-analysis-lab.md`，该历史文件当前未入库。
 
 2026-10-03 11:03：独立多人战术轨迹首版的 23 个选定文件已推送 main，[功能提交 21d24df](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/21d24dffb06284858669af9b66e14bab8a820dc2)于 11:03:12 核对本地 HEAD、origin/main 与远端一致。接收自 1839dcd 起的 17 个远端提交，以 c0d2dcf 为整合基线；仅状态文档两处文字冲突，双方历史均保留。整合测试、复现与独立兼容复核通过，7 个无关未跟踪文件原样保留。预览、图像、QA 与备份仍仅在本机，真实身份 / 地面与战术精度及播放器接入待验收。见[同步交接](../handoffs/thy-0629/2026-10-03-1103-tactical-overlay-sync.md)；下方“未提交推送”保留各轮当时事实，本条及交接文档的后续提交以 Git 日志为准。
 
