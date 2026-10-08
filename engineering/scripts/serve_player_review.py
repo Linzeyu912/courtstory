@@ -67,6 +67,8 @@ def main():
                         help="Visual identity provider; multimodal-api is an unconfigured adapter seam")
     parser.add_argument("--player-data-root", default=str(Path(__file__).resolve().parents[2] / '2K Player Data'),
                         help="Local read-only identity data package (default: repository 2K Player Data)")
+    parser.add_argument('--player-name-provider', choices=('codex', 'qwen-token-plan-interactive'), default='codex',
+                        help='Explicit local name vision provider; Token Plan is for interactive user-started tests only')
     parser.add_argument("--court-model", default="tmp/court-models-v2/best.pt", help="Pinned local 48-point weights; loaded on calibration requests only")
     parser.add_argument("--court-imgsz", type=int, choices=(640, 960), default=640)
     parser.add_argument("--ground-comparison-root", help="Optional read-only pose comparison directory")
@@ -162,6 +164,12 @@ def main():
     # The data package is opened only when these optional identity APIs are used.
     from player_identity_data import PlayerIdentityData, PlayerIdentityDataUnavailable
     player_data=PlayerIdentityData(args.player_data_root)
+    from player_name_jobs import PlayerNameJobs
+    name_provider=identity_agent.provider
+    if args.player_name_provider=='qwen-token-plan-interactive':
+        from player_name_identity import create_qwen_token_plan_provider
+        name_provider=create_qwen_token_plan_provider()
+    name_jobs=PlayerNameJobs(Path(args.tactics_folder)/'player-name-jobs', tactics, player_data, name_provider)
     for sample_item in samples:
         if Path(clips[sample_item['id']]['video']).is_file():
             local_library.register_review_source(clips[sample_item['id']]['video'],sample_item.get('title',sample_item['id']))
@@ -190,6 +198,8 @@ def main():
         routes['/'+filename]=static/filename
     routes['/video-library.mjs']=static/'video-library.mjs'
     for filename in ['commentary-ui.mjs', 'commentary-ui.css']:
+        routes['/'+filename]=static/filename
+    for filename in ['player-name-identity.mjs', 'player-name-client.mjs', 'player-name-ui.mjs']:
         routes['/'+filename]=static/filename
     routes['/model-selection.mjs']=static/'model-selection.mjs'
     routes['/court-trails.mjs']=static/'court-trails.mjs'
@@ -242,6 +252,27 @@ def main():
                             else commentary.create(request,clip,source['video'],variant,qa))
                     self.json_response(200,result)
                 except (ValueError,TypeError,KeyError,OSError,RuntimeError) as error:
+                    self.json_response(400,{'error':str(error)})
+                return
+            if re.fullmatch(r'/api/player-name-identity/jobs(?:/[a-zA-Z0-9-]+/cancel)?',route):
+                try:
+                    origin=f'http://127.0.0.1:{self.server.server_port}'
+                    if self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or self.headers.get('Origin',origin)!=origin:
+                        self.send_error(403);return
+                    if self.headers.get('Content-Type','').split(';')[0]!='application/json':
+                        self.send_error(415);return
+                    size=int(self.headers.get('Content-Length','0'))
+                    if not 0<size<=32*1024*1024:raise ValueError('姓名识别请求大小不正确。')
+                    request=json.loads(self.rfile.read(size));finite_json(request,'Player name request')
+                    if not isinstance(request,dict):raise ValueError('姓名请求必须是对象。')
+                    source=clips.get(request.get('sample'));variant=request.get('variant');qa=request.get('qa',False)
+                    if not source or variant not in source['payloads'] or type(qa) is not bool:
+                        raise ValueError('找不到视频、跟踪版本或草稿空间。')
+                    clip=json.loads(source['payloads'][variant])
+                    result=(name_jobs.cancel(route.split('/')[-2],clip,variant,qa) if route.endswith('/cancel')
+                            else name_jobs.create(request,clip,source['video'],variant,qa))
+                    self.json_response(200,result)
+                except (ValueError,TypeError,KeyError,OSError) as error:
                     self.json_response(400,{'error':str(error)})
                 return
             if re.fullmatch(r'/api/tactics-render/jobs(?:/[a-zA-Z0-9-]+/cancel)?',route):
@@ -503,6 +534,24 @@ def main():
                     self.json_response(400,{'error':str(error)},head_only);return
             if route=='/api/video-library':
                 self.json_response(200,video_inventory(),head_only);return
+            if re.fullmatch(r'/api/player-name-identity/(?:status|jobs/[a-zA-Z0-9-]+)',route):
+                try:
+                    origin=f'http://127.0.0.1:{self.server.server_port}'
+                    if self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or self.headers.get('Origin',origin)!=origin:
+                        self.send_error(403);return
+                    if route.endswith('/status'):
+                        result=name_jobs.status()
+                    else:
+                        query=parse_qs(parsed.query,keep_blank_values=True)
+                        if any(len(v)!=1 for v in query.values()) or query.get('qa',['0'])[0] not in ('0','1','true','false'):
+                            raise ValueError('姓名任务查询参数不正确。')
+                        source=clips[query.get('sample',[default])[0]];variant=query.get('variant',[source['defaultVariant']])[0]
+                        clip=json.loads(source['payloads'][variant]);qa=query.get('qa',['0'])[0] in ('1','true')
+                        result=name_jobs.get(route.split('/')[-1],clip,variant,qa)
+                    self.json_response(200,result,head_only)
+                except (ValueError,TypeError,KeyError,OSError) as error:
+                    self.json_response(400,{'error':str(error)},head_only)
+                return
             if re.fullmatch(r'/api/(?:tactics|identity|ground-trajectory)-agent/(?:status|jobs/[a-zA-Z0-9-]+)',route):
                 try:
                     selected_agent=(ground_agent if route.startswith('/api/ground-trajectory-agent/') else
@@ -643,6 +692,7 @@ def main():
     except KeyboardInterrupt:pass
     finally:
         commentary.close()
+        name_jobs.close()
         renderer.close()
         identity_agent.close()
         ground_agent.close()

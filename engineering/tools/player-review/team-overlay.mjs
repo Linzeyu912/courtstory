@@ -1,8 +1,59 @@
 // Presentation-only geometry: raw trajectories, manual edits and exports stay exact.
 export const FIXED_TEAM_COLORS=Object.freeze({A:'#ee5568',B:'#4295ed'});
+export const DEFAULT_NAME_DISPLAY=Object.freeze({enabled:false,groups:{A:true,B:true},players:{},showName:true,showJersey:true,showAnkleRing:true});
+
+export function normalizeNameDisplay(value={},entities=[]) {
+  const players={};
+  for(const entity of entities)if(entity.role==='player')players[entity.id]=value.players?.[entity.id]!==false;
+  return {enabled:value.enabled===true,groups:{A:value.groups?.A!==false,B:value.groups?.B!==false},players,
+    showName:value.showName!==false,showJersey:value.showJersey!==false,showAnkleRing:value.showAnkleRing!==false};
+}
+
+export function nameDisplaySelected(entity,settings) {
+  if(!entity||entity.role!=='player'||settings?.enabled!==true)return false;
+  const group=effectiveTeamGroup(entity);
+  return (group==null||settings.groups?.[group]!==false)&&settings.players?.[entity.id]!==false;
+}
+
+export function nameIdentityLabel(identity,entity,settings) {
+  const number=String(entity?.id||'').replace(/^P/,'');
+  const name=identity?.name?.trim();
+  const jersey=identity?.jersey==null?'':String(identity.jersey).trim();
+  const verified=identity?.identityVerified===true||identity?.identitySource==='player_profile_confirmed';
+  const accepted=identity?.nameStatus==='machine_accepted';
+  const namePart=settings?.showName!==false?(name?(accepted?`P${number} ${name}${identity.positionBindingStatus==='needs_review'?'~':''}`:verified?name:`${name}?`):`P${number} · pending`):'';
+  const jerseyPart=settings?.showJersey!==false&&jersey?`#${jersey}`:'';
+  return [namePart,jerseyPart].filter(Boolean).join(' · ');
+}
 export function effectiveTeamGroup(entity) {
   const match=/^P([1-9]|10)$/.exec(entity.id);
   return match?(Number(match[1])<=5?'A':'B'):null;
+}
+
+// Layout changes presentation only; the actual feet and identities stay exact.
+export function layoutNameLabels(items,width,height,scale=1){
+  const placed=[],pad=5*scale;
+  for(const item of items){
+    const center=item.x-item.width/2;
+    const step=item.height+12*scale;
+    const bases=[item.y+item.height+12*scale,item.y+item.height+12*scale+step,
+      item.y+item.height+12*scale+2*step,item.y-18*scale,item.y-18*scale-step];
+    let choice;
+    for(const shift of [0,-.6*item.width,.6*item.width,-1.2*item.width,1.2*item.width]){
+      const x=Math.max(pad,Math.min(width-item.width-pad,center+shift));
+      for(const proposed of bases){
+      const y=Math.max(item.height+pad,Math.min(height-pad,proposed));
+      const rect={left:x-pad,top:y-item.height-pad,right:x+item.width+pad,bottom:y+pad};
+      const candidate={...item,textX:x,textY:y,rect};choice??=candidate;
+      if(!placed.some(p=>rect.left<p.rect.right&&rect.right>p.rect.left&&rect.top<p.rect.bottom&&rect.bottom>p.rect.top)){
+        choice=candidate;break;
+      }
+      }
+      if(choice&&!placed.some(p=>choice.rect.left<p.rect.right&&choice.rect.right>p.rect.left&&choice.rect.top<p.rect.bottom&&choice.rect.bottom>p.rect.top))break;
+    }
+    placed.push(choice);
+  }
+  return placed;
 }
 
 // Legacy callers may confirm the existing row, but moving people uses roster swap.

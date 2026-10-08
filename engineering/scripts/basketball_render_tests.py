@@ -6,6 +6,7 @@ from unittest.mock import patch
 import numpy as np
 
 from basketball_render import aliases_for_frame, draw_candidates, resolve_ffmpeg, validate_media_signatures
+from basketball_presentation import name_display_selected, name_overlay_at, name_overlay_label
 
 
 class FFmpegLocationTests(unittest.TestCase):
@@ -63,6 +64,29 @@ class PreviewTests(unittest.TestCase):
                         {**source, "pts_seconds": [.0, .04, .08]},
                         {**source, "audio": [{**source["audio"][0], "packet_sha256": "changed"}]}):
             self.assertTrue(validate_media_signatures(source, changed))
+
+
+class NameOverlayTests(unittest.TestCase):
+    def test_browser_fixture_uses_same_group_filter_and_label_text(self):
+        import json
+        from pathlib import Path
+        fixture=json.loads((Path(__file__).resolve().parents[1]/'tools/player-review/team-overlay-name-fixture.json').read_text(encoding='utf-8-sig'))
+        settings=fixture['nameDisplay']
+        self.assertTrue(name_display_selected({'id':'P1'},settings))
+        self.assertFalse(name_display_selected({'id':'P2'},settings))
+        self.assertFalse(name_display_selected({'id':'P7'},settings))
+        for item in fixture['labels']:
+            self.assertEqual(name_overlay_label(item['identity'],item['id']),item['expected'])
+
+    def test_renderer_uses_only_same_frame_track_observation_and_unknown_fallback(self):
+        data={'nameDisplay':{'enabled':True,'showName':True,'showJersey':True,'showAnkleRing':True},
+              'playerNameIdentities':[{'id':'P1','name':None,'jersey':None,'nameVerified':False,
+               'observations':[{'frame':0,'trackId':7,'x':20,'y':40},{'frame':1,'trackId':7,'x':None,'y':None}],
+               'machineNameIdentities':[]}]}
+        value=name_overlay_at(data,'P1',0,7)
+        self.assertEqual(name_overlay_label(value,'P1'),'P1 · pending')
+        self.assertIsNone(name_overlay_at(data,'P1',1,7),'missing position cannot reuse the previous foot anchor')
+        self.assertIsNone(name_overlay_at(data,'P1',0,8),'a different T observation must not inherit the name')
 
 
 if __name__ == "__main__":

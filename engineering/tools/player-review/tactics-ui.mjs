@@ -578,7 +578,8 @@ export function mountTacticsUI(api){
     const response=await fetch(path,payload?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...base,kind,...payload})}:undefined);
     const result=await response.json();if(!response.ok)throw new Error(result.error||'本地战术服务暂不可用。');return result;
   }
-  const productionUI=mountTacticsProductionUI({snapshot:()=>({...base,kind,document:documentValue,expectedVersion:version,revision}),request,
+  const productionUI=mountTacticsProductionUI({snapshot:()=>({...base,kind,document:documentValue,expectedVersion:version,revision,
+    nameOverlay:api.nameOverlaySnapshot?.()??null,nameOverlayRevision:api.nameOverlayRevision?.()??null}),request,
     beforePreview(){api.pause();if(synchronized)runPlayback(playback.pause());},
     beforeGenerate:async()=>{if(!await saveCurrent())throw new Error('保存过程中草稿有新修改，请再次生成；修改已保留。');}});
   function agentStatus(text){$('tacticsAgentStatus').textContent=text;}
@@ -1540,7 +1541,7 @@ export function mountTacticsUI(api){
   const commentaryRoot=document.createElement('section');
   root.querySelector('.tactics-heading').after(commentaryRoot);
   const commentaryUI=mountCommentaryUI({...api,root:commentaryRoot});
-  render();return {saveDraft:async()=>{await draft();return commentaryUI.saveDraft();},ready:()=>sceneReady,cancelEditing,onPresentedFrame,dispose,
+  render();return {saveDraft:async()=>{await draft();return commentaryUI.saveDraft();},ready:()=>sceneReady,cancelEditing,onPresentedFrame,syncNameOverlay:()=>productionUI.sync(),dispose,
     getPlaybackState:playback.state,
     togglePlayback(){if(!active)return false;if(rangePlayback){$('tacticsPause').onclick();return true;}if(playback.state().status==='playing')$('tacticsPause').onclick();else $('tacticsContinue').onclick();return true;},
     externalSeek(frame){

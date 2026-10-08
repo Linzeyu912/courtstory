@@ -50,7 +50,7 @@ export function nextIdentityOrder(session) {
   return session.identitySequence;
 }
 
-export function identityAt(entity, frame, cuts=[], availableTracks=null) {
+export function identityAt(entity, frame, cuts=[], availableTracks=null, clip=null) {
   const visibility=(entity.visibilityRanges||[]).find(range=>range.start<=frame&&range.end>=frame);
   const records=availableTracks?.tracks??availableTracks;
   const present=records==null?null:new Set([...(records instanceof Map?records.keys():records)]
@@ -85,6 +85,35 @@ export function identityAt(entity, frame, cuts=[], availableTracks=null) {
     (anchor.trackId==null||Number(anchor.trackId)===Number(active?.trackId)));
   const forwardGap=active?.identitySource==='manual_forward'&&active.kind==='track'&&
     present&&!present.has(Number(active.trackId))&&!manual;
+  const corrections=(entity.machineIdentityBindings||[]).filter(binding=>clip&&
+    typeof binding.baseVideoHash==='string'&&binding.baseVideoHash&&typeof binding.baseTrackingFingerprint==='string'&&
+    binding.baseTrackingFingerprint&&binding.baseTrackingRevision!=null&&
+    binding.baseVideoHash===clip.video_sha256&&binding.baseTrackingFingerprint===clip.tracking_fingerprint&&
+    binding.baseTrackingRevision===clip.tracking_revision&&binding.start<=frame&&binding.end>=frame&&
+    !cuts.some(cut=>cut>binding.start&&cut<=frame));
+  const humanAnchor=(entity.anchors||[]).find(anchor=>anchor.frame===frame&&anchor.origin!=='ai_visual_reference');
+  const humanActive=active&&active.origin!=='ai_visual_reference'||(entity.bindings||[]).some(binding=>
+    binding.origin!=='ai_visual_reference'&&binding.start<=frame&&binding.end>=frame);
+  const reviewed=(entity.frameConfirmations||[]).find(review=>review.frame===frame&&
+    ['machine_name_binding','model_suggestion'].includes(review.identityScope));
+  if(corrections.length&&reviewed&&!humanAnchor&&!humanActive){
+    const verifiedRecord=[...corrections.map(binding=>({...binding,identitySource:'machine_name_binding'})),
+      ...(entity.modelBindings||[]).filter(binding=>binding.start<=frame&&binding.end>=frame&&
+        !cuts.some(cut=>cut>binding.start&&cut<=frame)).map(binding=>({...binding,identitySource:'model_suggestion',exclusive:false}))]
+      .find(binding=>binding.kind==='track'&&binding.trackId===reviewed.trackId&&
+        binding.identitySource===reviewed.identityScope&&identityReviewToken(binding)===reviewed.identityToken);
+    if(verifiedRecord)return verifiedRecord;
+  }
+  // Source-bound visual corrections may replace old machine references, while
+  // explicit human intervals, exits, forward selections and edits keep priority.
+  if(corrections.length&&!humanAnchor&&!humanActive){
+    const latest=Math.max(...corrections.map(item=>item.appliedOrder||0));
+    const newest=corrections.filter(item=>(item.appliedOrder||0)===latest);
+    const tokens=[...new Set(newest.map(item=>`${item.kind}:${item.trackId??''}`))];
+    const chosen=newest[0];
+    return {...chosen,kind:tokens.length>1?'conflict':chosen.kind,
+      trackId:tokens.length>1?null:chosen.trackId,identitySource:'machine_name_binding',exclusive:false};
+  }
   if(active&&!forwardGap)return active;
   const occurrences=(entity.bindings||[]).filter(binding=>binding.scope==='track_occurrences'&&
     binding.kind==='track'&&binding.start<=frame&&binding.end>=frame&&
@@ -112,7 +141,8 @@ export function identityAt(entity, frame, cuts=[], availableTracks=null) {
 export function identityBoundaries(entity) {
   return [...identityKeyframes(entity).map(key=>key.frame),
     ...(entity.bindings||[]).flatMap(binding=>[binding.start,binding.end+1]),
-    ...(entity.modelBindings||[]).flatMap(binding=>[binding.start,binding.end+1])];
+    ...(entity.modelBindings||[]).flatMap(binding=>[binding.start,binding.end+1]),
+    ...(entity.machineIdentityBindings||[]).flatMap(binding=>[binding.start,binding.end+1])];
 }
 
 export function identityInterval(session, entity, start, frameCount) {
@@ -207,8 +237,10 @@ export function identityProvenance(identity) {
     ...(identity.scope==='track_occurrences'?{associationScope:'track_occurrences',
       selectionFrame:identity.selectionFrame,identityConfirmed:false,reviewRequired:true,
       ...(identity.candidateTrackIds?{candidateTrackIds:[...identity.candidateTrackIds]}:{})}:{}),
-    ...(identity.identitySource==='model_suggestion'?{identityConfirmed:false,
-      reviewRequired:true,modelSuggestionMethod:identity.method}: {})} : {};
+    ...(['model_suggestion','machine_name_binding'].includes(identity.identitySource)?{identityConfirmed:false,
+      reviewRequired:true,modelSuggestionMethod:identity.method}: {}),
+    ...(identity.identitySource==='machine_name_binding'?{machineBindingEvidenceMethod:identity.evidenceMethod,
+      positionBindingStatus:identity.evidenceMethod==='direct_jersey'?'observed':'verified_continuation'}:{})} : {};
 }
 
 export function identitySuggestionSummary(suggestions,frames) {
@@ -300,7 +332,7 @@ export function resolveIdentityOwners(result, entities, frames) {
     for (const group of owners.values()) {
       if (group.length < 2) continue;
       let winner = null;
-      const explicit=group.filter(owner=>!['model_suggestion','manual_track_occurrences'].includes(owner.point.identitySource));
+      const explicit=group.filter(owner=>!['model_suggestion','machine_name_binding','manual_track_occurrences'].includes(owner.point.identitySource));
       const reviewed=group.filter(owner=>!explicit.includes(owner)&&owner.point.frameIdentityConfirmed);
       const bulk=group.filter(owner=>owner.point.identitySource==='manual_track_occurrences');
       // Explicit human corrections stay authoritative. A single frame review

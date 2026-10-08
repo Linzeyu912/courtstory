@@ -22,3 +22,13 @@ test('dependencies invalidate calibration and identity, but ignore a player disp
   f.session.entities[0].bindings[0].end=19;
   assert.equal(courtPreparationStatus(p,preparationDependencies(f.session,f.clip)).current,false);
 });
+test('bounded machine association invalidates prepared coordinates while name-only proposals do not',()=>{
+  const f=fixture(),p=buildCourtPreparation(f),entity=f.session.entities[0];
+  entity.machineNameIdentities=[{name:'Machine Name',trackId:1,start:2,end:6}];
+  entity.machinePlayerProfile={status:'candidate',name:'Machine Name'};
+  assert.equal(courtPreparationStatus(p,preparationDependencies(f.session,f.clip)).current,true);
+  entity.machineIdentityBindings=[{kind:'track',trackId:1,start:2,end:6,
+    baseVideoHash:f.clip.video_sha256,baseTrackingFingerprint:f.clip.tracking_fingerprint,
+    baseTrackingRevision:f.clip.tracking_revision,evidenceMethod:'direct_jersey'}];
+  assert.deepEqual(courtPreparationStatus(p,preparationDependencies(f.session,f.clip)).reasons,['identities']);
+});

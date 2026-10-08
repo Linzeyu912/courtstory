@@ -16,7 +16,8 @@ export function createTacticsRenderClient({snapshot,request,onChange=()=>{},sche
     stale=true;notify();
     const digest=current.document?await documentDigest(current.document):null;
     if(token!==syncSerial||disposed)return;
-    stale=digest!==captured.digest||JSON.stringify(context(current))!==JSON.stringify(captured.context);notify();
+    stale=digest!==captured.digest||JSON.stringify(context(current))!==JSON.stringify(captured.context)||
+      (current.nameOverlayRevision??JSON.stringify(current.nameOverlay??null))!==captured.nameOverlayKey;notify();
   }
   function accept(value,token){
     if(disposed||token!==serial)return;
@@ -33,10 +34,12 @@ export function createTacticsRenderClient({snapshot,request,onChange=()=>{},sche
     starting=true;error='';notify();
     try{
       const document=structuredClone(source.document),digest=await documentDigest(document),base=context(source);
-      if(captured?.digest===digest&&JSON.stringify(captured.context)===JSON.stringify(base)&&(busy(job)||job?.status==='succeeded')){await sync();return;}
+      const nameOverlayKey=source.nameOverlayRevision??JSON.stringify(source.nameOverlay??null);
+      if(captured?.digest===digest&&captured.nameOverlayKey===nameOverlayKey&&JSON.stringify(captured.context)===JSON.stringify(base)&&(busy(job)||job?.status==='succeeded')){await sync();return;}
       if(busy(job)){error='已有成片正在生成，请等待完成或取消后再生成当前草稿。';return;}
-      const token=++serial;clear();captured={context:base,digest};job=null;stale=false;
-      const result=await request('/api/tactics-render/jobs',{...base,document,documentDigest:digest,expectedVersion:source.expectedVersion,options:{fps:30}});
+      const token=++serial;clear();captured={context:base,digest,nameOverlayKey};job=null;stale=false;
+      const result=await request('/api/tactics-render/jobs',{...base,document,documentDigest:digest,expectedVersion:source.expectedVersion,
+        options:{fps:30,...(source.nameOverlay?{nameOverlay:source.nameOverlay}:{})}});
       accept(result,token);await sync();
     }catch(e){error=e.message;}
     finally{starting=false;notify();}

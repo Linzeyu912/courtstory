@@ -9,6 +9,10 @@ import {createWorkspace} from './workspace.mjs';
 import {blankSession,ensurePlayerSlots,buildTrajectories,confirmFrameIdentity,correctFrameIdentity,replaceIdentityRange,reviewTrailCuts,gapRanges,exportReview,isHumanIdentitySelected,isSelected,hasAssociation,entityLabel,playerDisplayState,draftStorageKey,trackingModelSummary,trackCatalog,confirmBinding,continuationSuggestions} from './trajectory.mjs';
 import {IDENTITY_BINDING_MODE,migrateIdentitySession,confirmIdentity,identityInterval,identityConfirmationInterval,identitySuggestionSummary} from './identity-timeline.mjs';
 import {teamOverlayStyle,candidateOverlayColor,stabilizePoints,presentationPoint,frameAtMediaTime,frameSeekTime} from './team-overlay.mjs';
+import {normalizeNameDisplay,nameDisplaySelected,nameIdentityLabel,layoutNameLabels} from './team-overlay.mjs';
+import {nameIdentityAt} from './player-name-identity.mjs';
+import {createPlayerNameClient} from './player-name-client.mjs';
+import {mountPlayerNameUI} from './player-name-ui.mjs';
 import {trackedPersonProposals,pickPersonProposal,visibleObjects,indexTemporaryTracks,mergeSourceCuts,toggleReviewCut,REVIEW_COLORS,trackingReviewState,reviewedPersonTrail} from './tracking-display.mjs';
 import {mountSceneObjects} from './scene-objects-ui.mjs';
 import {buildBasketballTrajectory} from './scene-objects.mjs';
@@ -57,7 +61,7 @@ if(session.liveSelection===undefined)session.liveSelection=structuredClone(clip.
 if(clip.importSourceSha256&&!restoredDraft&&!session.liveSelection)session.liveSelection={ranges:[{start:0,end:clip.frames.length-1}],method:'imported_whole_clip',parentVideoSha256:clip.video_sha256};
 if(!session.liveRanges)session.liveRanges=session.liveSelection?[{start:0,end:clip.frames.length-1}]:[];
 try{const preparation=await readTacticsDraft(key+':court-preparation');if(preparation?.videoSha256===clip.video_sha256)session.courtPreparation=preparation;}catch{}
-let workspace=null,sceneUI=null,playerIdentityUI=null;
+let workspace=null,sceneUI=null,playerIdentityUI=null,playerNameUI=null,playerNameClient=null;
 let footageUI=null,pathStroke=null;
 let active='P1',frame=0,mode='select',trajectories={},stableTrajectories={},basketballTrajectory=[],history=[],toastTimer,previewTrackId=null;
 let playerTrailCuts={},temporaryTrailCuts=new Map();
@@ -95,7 +99,7 @@ $('loadIdentitySuggestions').textContent='重新检查自动编号';
 $('loadIdentitySuggestions').onclick=()=>{try{let summary;change(()=>summary=initializeAutomaticAnnotations(session,clip));toast(`已保留 ${summary.playerCount} 个球员编号；新增 ${summary.addedPlayerIds.length} 个自动关联，可撤销。人工修改保留。`);}catch(error){toast(error.message);}};
 for(const item of catalog){const option=document.createElement('option');option.value=item.id;option.textContent=`临时 ${item.id} · ${clip.frames[item.start].time.toFixed(2)}–${clip.frames[item.end].time.toFixed(2)} s`;$('linkTrack').append(option);}
 for(const id of ['linkStart','linkEnd'])$(id).max=clip.frames.length;
-const video=$('video'),canvas=$('overlay'),ctx=canvas.getContext('2d');
+const video=$('video'),canvas=$('overlay'),ctx=canvas.getContext('2d'),nameCanvas=$('nameOverlay'),nameCtx=nameCanvas.getContext('2d');
 video.src=`/video.mp4?sample=${encodeURIComponent(sample)}`;
 for(const item of library.samples){const option=document.createElement('option');option.value=item.id;option.textContent=item.title;$('sampleSelect').append(option);}
 $('sampleSelect').value=sample;
@@ -129,6 +133,38 @@ setGapSeconds:value=>{if(!reviewBusy)change(()=>session.maxGapSeconds=value);},
 correctCandidate:(proposal,scope)=>associateProposal(proposal,scope),
 swapPlayers:(sourceId,targetId)=>reviewEdit({type:'swap_players',sourceId,targetId})});
 canvas.width=clip.width;canvas.height=clip.height;
+nameCanvas.width=clip.width;nameCanvas.height=clip.height;
+const nameDisplayKey=key+':name-display';
+let nameDisplaySettings=normalizeNameDisplay({},session.entities);
+try{nameDisplaySettings=normalizeNameDisplay(JSON.parse(localStorage.getItem(nameDisplayKey)||'{}'),session.entities);}catch{}
+const namePlayerFilter=$('nameDisplayPlayers');
+for(const player of session.entities.filter(item=>item.role==='player')){const label=document.createElement('label'),input=document.createElement('input');input.type='checkbox';input.value=player.id;input.checked=nameDisplaySettings.players[player.id]!==false;label.className='check';label.append(input,document.createTextNode(entityLabel(player.id)));namePlayerFilter.append(label);}
+const displayInputs={enabled:$('nameDisplayEnabled'),A:$('nameDisplayA'),B:$('nameDisplayB'),name:$('nameDisplayName'),jersey:$('nameDisplayJersey'),ring:$('nameDisplayRing')};
+displayInputs.enabled.checked=nameDisplaySettings.enabled;displayInputs.A.checked=nameDisplaySettings.groups.A;displayInputs.B.checked=nameDisplaySettings.groups.B;
+displayInputs.name.checked=nameDisplaySettings.showName;displayInputs.jersey.checked=nameDisplaySettings.showJersey;displayInputs.ring.checked=nameDisplaySettings.showAnkleRing;
+function saveNameDisplay(){nameDisplaySettings=normalizeNameDisplay({...nameDisplaySettings,enabled:displayInputs.enabled.checked,
+  groups:{A:displayInputs.A.checked,B:displayInputs.B.checked},showName:displayInputs.name.checked,showJersey:displayInputs.jersey.checked,
+  showAnkleRing:displayInputs.ring.checked,players:Object.fromEntries([...namePlayerFilter.querySelectorAll('input')].map(input=>[input.value,input.checked]))},session.entities);
+  localStorage.setItem(nameDisplayKey,JSON.stringify(nameDisplaySettings));draw();tacticsUI?.syncNameOverlay?.();}
+for(const input of Object.values(displayInputs))input.addEventListener('change',saveNameDisplay);namePlayerFilter.addEventListener('change',saveNameDisplay);
+let cachedPlayerNameOverlay=null,cachedPlayerNameOverlayRevision='';
+function playerNameOverlayRevision(){return JSON.stringify([sessionRevision,nameDisplaySettings]);}
+function playerNameOverlaySnapshot(){
+  const revision=playerNameOverlayRevision();
+  if(cachedPlayerNameOverlay&&cachedPlayerNameOverlayRevision===revision)return cachedPlayerNameOverlay;
+  cachedPlayerNameOverlayRevision=revision;
+  const playerNameIdentities=session.entities.filter(item=>item.role==='player').map(item=>({
+    id:item.id,
+    observations:(trajectories[item.id]||[]).map(point=>{
+      const display=presentationPoint(point,stableTrajectories[item.id]?.[point.frame],{stable:$('stableDisplay').checked});
+      return {frame:point.frame,trackId:point.trackId??null,x:display.x??null,y:display.y??null,
+        nameIdentity:nameIdentityAt(session,item,point,clip)};
+    })
+  }));
+  return cachedPlayerNameOverlay={nameDisplay:structuredClone(nameDisplaySettings),
+    nameIdentitySource:{videoSha256:clip.video_sha256,trackingFingerprint:clip.tracking_fingerprint||null,
+      trackingRevision:clip.tracking_revision||clip.variant||'original',width:clip.width,height:clip.height},playerNameIdentities};
+}
 footageUI=mountFootageUI({clip,sample,variant,qa,session:()=>session,frame:()=>frame,change,seek,toast,next:()=>workspace.switchStep('identity',true)});
 $('scrubber').max=clip.frames.length-1;
 session.presentationStable??=Boolean(clip.trackingMetadata?.presentation?.default_stable);
@@ -448,6 +484,10 @@ function drawBasketballTrail(points,currentFrame){
 function draw(){
   const agentState=identityAgent?.state();
   ctx.clearRect(0,0,canvas.width,canvas.height);
+  nameCtx.clearRect(0,0,nameCanvas.width,nameCanvas.height);
+  const nameLabels=[];
+  const nameFrameReady=$('stage').dataset.videoState==='ready'&&presentedFrame?.frame===frame;
+  nameCanvas.hidden=!nameFrameReady;
   const extendedCalibration=document.body.dataset.step==='calibration',inset=.2,inner=1-inset*2;
   if(extendedCalibration){
     ctx.fillStyle='#253943';ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -455,6 +495,7 @@ function draw(){
     ctx.save();ctx.strokeStyle='#e8f0f2';ctx.lineWidth=Math.max(1,clip.width/(canvas.clientWidth||clip.width));ctx.setLineDash([8,6]);ctx.strokeRect(canvas.width*inset,canvas.height*inset,canvas.width*inner,canvas.height*inner);ctx.setLineDash([]);
     ctx.fillStyle='#f0f5f4';ctx.font=`${Math.max(12,12*clip.width/(canvas.clientWidth||clip.width))}px sans-serif`;ctx.fillText('画外标点区 · 按场地线延长方向估计交点',canvas.width*.012,canvas.height*.055);ctx.restore();
     ctx.save();ctx.translate(canvas.width*inset,canvas.height*inset);ctx.scale(inner,inner);
+    nameCtx.save();nameCtx.translate(nameCanvas.width*inset,nameCanvas.height*inset);nameCtx.scale(inner,inner);
   }
   const candidates=proposals(),objects=sceneUI?.objects()||visibleObjects(clip.frames[frame]);
   const missingPreview=quickIdentity.action==='missing'&&quickIdentity.revision===sessionRevision?quickIdentity.pending:null;
@@ -482,6 +523,17 @@ function draw(){
     drawBox(proposal.box,stroke,label,true);
   }
   for(const {entity:item,point} of annotations){const displayed=presentationPoint(point,stableTrajectories[item.id]?.[frame],{stable:$('stableDisplay').checked,editing:Boolean(drag)||Boolean(rangePreviewData)||Boolean(missingPreview)});const rendered=drag?.entityId===item.id?{...point,...drag.edit}:displayed;const style=teamOverlayStyle(item,point,teamPolicy),stroke=style.color;drawPlayer(rendered,style);
+    if(nameFrameReady&&nameDisplaySelected(item,nameDisplaySettings)&&rendered.x!=null&&rendered.y!=null){
+      const identity=nameIdentityAt(drawingSession,item,point,clip),label=nameIdentityLabel(identity,item,nameDisplaySettings);
+      nameCtx.save();const size=Math.max(12,14*clip.width/1280),line=Math.max(2,2*clip.width/1280),scale=clip.width/1280;
+      if(nameDisplaySettings.showAnkleRing){nameCtx.beginPath();nameCtx.ellipse(rendered.x,rendered.y,Math.max(12,20*scale),Math.max(4,6*scale),0,0,Math.PI*2);nameCtx.strokeStyle=identity?.identityVerified?'#fff':'#ffd46b';nameCtx.lineWidth=line;nameCtx.stroke();}
+      if(label){nameCtx.font=`600 ${size}px "Segoe UI", "Microsoft YaHei", sans-serif`;const width=nameCtx.measureText(label).width;
+        nameLabels.push({x:rendered.x,y:rendered.y,width,height:size});const placed=layoutNameLabels(nameLabels,clip.width,clip.height,scale).at(-1),x=placed.textX,y=placed.textY;
+        if(Math.abs(x+width/2-rendered.x)>10*scale||y-size-rendered.y>25*scale){nameCtx.beginPath();nameCtx.moveTo(rendered.x,rendered.y);nameCtx.lineTo(Math.max(x,Math.min(x+width,rendered.x)),y-size-4);nameCtx.strokeStyle='#aab4be';nameCtx.lineWidth=1;nameCtx.stroke();}
+        nameCtx.fillStyle='#101923e8';nameCtx.fillRect(x-5,y-size-4,width+10,size+9);nameCtx.strokeStyle='#ffffffbb';nameCtx.lineWidth=Math.max(1,scale);nameCtx.strokeRect(x-5,y-size-4,width+10,size+9);
+        nameCtx.fillStyle=identity?.identityVerified||identity?.nameStatus==='machine_accepted'?'#fff':'#ffe09a';nameCtx.textBaseline='alphabetic';nameCtx.fillText(label,x,y);}
+      nameCtx.restore();
+    }
     if(item.id===active&&rawEditing()){if(rendered.box){const b=rendered.box;for(const [x,y] of [[b[0],b[1]],[b[2],b[1]],[b[2],b[3]],[b[0],b[3]]]){ctx.fillStyle='#fff';ctx.strokeStyle=stroke;ctx.fillRect(x-7,y-7,14,14);ctx.strokeRect(x-7,y-7,14,14);}}ctx.beginPath();ctx.moveTo(rendered.x-18,rendered.y);ctx.lineTo(rendered.x+18,rendered.y);ctx.moveTo(rendered.x,rendered.y-18);ctx.lineTo(rendered.x,rendered.y+18);ctx.strokeStyle=stroke;ctx.stroke();}}
   if(previewTrackId!==null){const box=clip.frames[frame].tracks.find(box=>Number(box[4])===previewTrackId);if(box)drawBox(box,teamPolicy.candidateColor,`候选 T${previewTrackId}`,true);}
   if(pathStroke?.length){ctx.beginPath();pathStroke.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.strokeStyle='#d99516';ctx.lineWidth=5;ctx.setLineDash([10,5]);ctx.stroke();ctx.setLineDash([]);}
@@ -500,7 +552,7 @@ function draw(){
   const basketballs=objects.filter(o=>o.kind==='basketball').length,hoops=objects.filter(o=>o.kind==='hoop').length;
   const ballPointCount=basketballTrajectory.filter(point=>point.x!=null).length;
   $('objectStatus').textContent=`当前帧：篮球 ${basketballs} 个候选 · 篮筐 ${hoops} 个候选。已串接 ${ballPointCount} 个篮球图像观测${ballPointCount?'，仅作待核对路线；空中球不投影到地面。':'；当前版本没有可用的篮球观测。'}`;
-  footageUI?.render();sceneUI?.render();
+  footageUI?.render();sceneUI?.render();playerNameUI?.render();
   const descriptions={manual:'这一帧的位置由你确认。',tracked:'这一帧有已关联编号的位置；是否为同一个真人、脚点是否准确，仍需逐帧核对。',interpolated:'这一帧由前后位置估计；不是模型直接检出的结果。',missing:'这一帧尚未关联到位置；可以找回新编号、补点，或标记离开画面。',out_of_view:'镜头外：保留身份，位置允许为空，不计入待恢复缺口，无需补点。',conflict:'这一帧存在身份冲突，需要你重新点选确认。'};
   if(point?.source==='manual')descriptions.manual=point.footMethod==='bbox_bottom_center'?'这一帧已人工选人；位置仍取框底边中心，尚未确认地面脚点。':point.footMethod==='pose_candidate_human_adopted'?'这一帧由你采用脚部模型候选，来源已保留，接地尚未验证。':'这一帧使用人工点选的原图参考位置，仍需核对地面接触与标定。';
   if(point?.identitySource==='reassigned')descriptions.missing=`原关联在这一段已由人工确认归到 ${entityLabel(point.claimedBy)}；请重新关联当前球员。`;
@@ -520,7 +572,7 @@ function draw(){
   if(document.body.dataset.step==='identity')$('videoMode').textContent=quickIdentity.action==='missing'?(quickIdentity.missingKeys?.length?'到结束画面点同一人的脚下；中间点可修正估计':'点漏人脚下作为起点，再到结束画面点一次'):quickIdentity.action?'点击要修改的人；右侧确认范围后应用':'点人物框选择，只处理认错、漏人和身份断开';
   const diagnostic=trackingDiagnostic(clip.frames[frame],point,previewTrackId!=null?candidates.find(item=>item.trackId===previewTrackId):null,clip.detectorEvidence);$('trackingDiagnosis').textContent=`${diagnostic.label}：${diagnostic.detail}`;
   playerIdentityUI?.render();
-  if(extendedCalibration)ctx.restore();
+  if(extendedCalibration){ctx.restore();nameCtx.restore();}
 }
 function drawTimeline(){
   const target=$('timeline'),context=target.getContext('2d'),dpr=devicePixelRatio||1,points=trajectories[active]||[];
@@ -663,7 +715,9 @@ $('cut').addEventListener('click',()=>{if(sourceCuts.includes(frame)){toast('这
 function jumpGap(direction){if(!hasAssociation(entity())){toast('请先关联当前球员或载入待确认建议。');return;}const gaps=workspace?.gaps()||gapRanges(trajectories[active]);const match=direction>0?gaps.find(gap=>gap.start>frame):[...gaps].reverse().find(gap=>gap.end<frame);if(match)seek(direction>0?match.start:match.end);else toast('这个方向没有更多缺失区间。');}
 $('previousGap').addEventListener('click',()=>jumpGap(-1));$('nextGap').addEventListener('click',()=>jumpGap(1));
 $('addReferee').addEventListener('click',()=>{const count=session.entities.filter(item=>item.role==='referee').length;if(count>=3){toast('当前已提供 3 个裁判编号。');return;}change(()=>{active=`R${count+1}`;session.entities.push({id:active,name:`裁判 ${count+1}`,role:'referee',anchors:[]});});});
-$('export').addEventListener('click',()=>{if(qa){toast('测试模式不执行正式确认或导出。');return;}const output=exportPlayerIdentities(exportReview(session,clip,new Date().toISOString()),session);const url=URL.createObjectURL(new Blob([JSON.stringify(output,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='reviewed-player-tracks.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);saveDraft();toast('已下载轨迹备份。工作台仍保留当前草稿，可继续处理。');});
+$('export').addEventListener('click',()=>{if(qa){toast('测试模式不执行正式确认或导出。');return;}const output=exportPlayerIdentities(exportReview(session,clip,new Date().toISOString()),session);
+  const names=playerNameOverlaySnapshot();output.nameDisplay=names.nameDisplay;output.nameIdentitySource=names.nameIdentitySource;output.playerNameIdentities=names.playerNameIdentities;
+  const url=URL.createObjectURL(new Blob([JSON.stringify(output,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='reviewed-player-tracks.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);saveDraft();toast('已下载轨迹与姓名显示设置备份。');});
 document.addEventListener('keydown',event=>{if(event.defaultPrevented||event.target.closest('input,select,textarea,button,summary,[role="separator"],[contenteditable="true"]'))return;if(event.code==='Space'){event.preventDefault();$('play').click();}if(event.key==='ArrowLeft')seek(frame-1);if(event.key==='ArrowRight')seek(frame+1);});
 function setLinkTrack(id,start,end){
   const item=catalog.find(item=>item.id===Number(id));if(!item)return;
@@ -744,11 +798,14 @@ sceneUI=mountSceneObjects({clip,state:()=>({session,frame,video}),change,toast,r
 workspace=createWorkspace({clip,sample,variant,getState:()=>({session,sessionRevision,active,frame,mode,trajectories,video}),change,seek,undo:()=>$('undo').click(),toast,isSelected:hasAssociation,color,setMode,select:id=>{active=id;refresh();},redraw:draw});
 tacticsUI=mountTacticsUI({clip,sample,variant,qa,key,title:sampleInfo?.title||sample,
   snapshot:()=>JSON.parse(JSON.stringify(exportPlayerIdentities(exportReview(session,clip,null,{allowEmpty:true}),session))),
+  nameOverlaySnapshot:playerNameOverlaySnapshot,nameOverlayRevision:playerNameOverlayRevision,
   selectedEntityId:()=>active,selectEntity:id=>{if(session.entities.some(e=>e.id===id)){active=id;draw();}},
   frame:()=>frame,pause:pauseVideo,play:()=>videoDisplay?.play(),seek:index=>seek(index,{tactics:true}),
   getPresentedFrame:()=>$('stage').dataset.videoState==='ready'?presentedFrame:null,
   beforeNavigate:saveDraft,openStep:step=>workspace.switchStep(step,true)});
 playerIdentityUI=mountPlayerIdentityUI({getState:()=>({session,active,frame,clip,sample,variant,trajectories,point:annotationPoint(trajectories[active]?.[frame]),selectedTrackId:previewTrackId??trajectories[active]?.[frame]?.trackId??null,selectedPlayerId:identityPersonSelection(trajectories,frame,previewTrackId??trajectories[active]?.[frame]?.trackId??null).entityId,selectedFrameReady:identityReferenceFrameReady()}),commit:copy=>change(()=>session=copy),pause:pauseVideo,seek,toast});
+playerNameClient=createPlayerNameClient({context:()=>({sample,variant,qa}),snapshot:()=>({session,revision:sessionRevision,entityId:'all',clip}),onChange:()=>playerNameUI?.render()});
+playerNameUI=mountPlayerNameUI({client:playerNameClient,root:$('playerNameIdentityTools'),api:{getState:()=>({session,clip,trajectories}),commit:copy=>change(()=>session=copy),toast}});
 if(clip.supportsCourtCalibration===false){$('tab-calibration').disabled=true;$('repairCourt').disabled=true;$('identityDone').textContent='带当前结果继续 2D';}
 identityAgent=createIdentityAgentClient({context:{sample,variant,qa},snapshot:()=>({session,revision:sessionRevision,entityId:active}),onChange:()=>{draw();coverageUI?.render();queueMicrotask(()=>void adoptInitialReview(true));}});
 if(Number.isFinite(clip.mediaEndTime))coverageUI=mountIdentityCoverage({host:$('identityCoverageTools'),clip,state:()=>({session,entityId:active}),agent:()=>identityAgent,seek,storageKey:key+':identity-continuation-queue'});

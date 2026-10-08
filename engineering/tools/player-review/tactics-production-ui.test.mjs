@@ -13,6 +13,16 @@ test('preview and export reuse one immutable unsaved render snapshot and edits m
   assert.equal(calls[0].body.document.title,'first','request owns its frozen snapshot');
   await client.start();assert.equal(calls.length,2);assert.equal(client.state().stale,false);client.dispose();
 });
+test('saved name filters are sent once with production and become stale without changing identity input',async()=>{
+  const overlay={nameDisplay:{enabled:true,groups:{A:true,B:false},players:{P1:true},showName:true,showJersey:true,showAnkleRing:true},
+    nameIdentitySource:{videoSha256:'video',trackingFingerprint:'tracks',trackingRevision:'team-stable',width:1280,height:720},
+    playerNameIdentities:[{id:'P1',observations:[{frame:0,trackId:7,x:120,y:400,nameIdentity:{name:'Candidate',jersey:'00',identityVerified:false}}]}]};
+  let snapshot={...context,document:{title:'first'},expectedVersion:4,revision:1,nameOverlay:overlay,nameOverlayRevision:'names-1'};const calls=[];
+  const client=createTacticsRenderClient({snapshot:()=>snapshot,request:async(path,body)=>{calls.push({path,body});return ready(body);}});
+  await client.start();assert.deepEqual(calls[0].body.options,{fps:30,nameOverlay:overlay});assert.equal(client.state().stale,false);
+  snapshot={...snapshot,nameOverlayRevision:'names-2'};await client.sync();assert.equal(client.state().stale,true);
+  await client.start();assert.equal(calls.length,2);assert.equal(calls[1].body.options.nameOverlay,overlay);client.dispose();
+});
 test('cancelling a render uses its captured context and ignores a late success after cancellation',async()=>{
   let snapshot={...context,document:{title:'first'},expectedVersion:0,revision:1},finishPoll;const calls=[];
   const client=createTacticsRenderClient({snapshot:()=>snapshot,schedule:()=>0,request:async(path,body)=>{

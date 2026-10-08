@@ -2,6 +2,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -14,6 +15,7 @@ from urllib.parse import urlencode
 
 from local_video_library import atomic_json, file_hash
 from tactical_workbench import ROOT
+from basketball_presentation import name_display_selected, name_overlay_text, layout_name_labels
 
 RENDERER_VERSION = 'authored-svg-1'
 
@@ -35,6 +37,46 @@ def read_exact(stream, size):
     return chunks
 
 
+def name_overlay_index(name_overlay):
+    if not name_overlay:return {}
+    return {(entity.get('id'),observation.get('frame')):(entity,observation)
+            for entity in name_overlay.get('playerNameIdentities',[])
+            for observation in entity.get('observations',[])}
+
+
+def draw_name_overlay(rgb, frame, name_overlay, index=None):
+    """Burn frame-bound labels with the same settings used by the browser."""
+    if not name_overlay or name_overlay.get('nameDisplay',{}).get('enabled') is not True:return rgb
+    import cv2
+    settings=name_overlay.get('nameDisplay',{});index=index or name_overlay_index(name_overlay)
+    scale=rgb.shape[0]/720;labels=[]
+    for number in range(1,11):
+        ident=f'P{number}';entity={'id':ident,'role':'player'}
+        if not name_display_selected(entity,settings):continue
+        record=index.get((ident,frame))
+        if not record:continue
+        _,observation=record;x,y=observation.get('x'),observation.get('y')
+        if not isinstance(x,(int,float)) or not isinstance(y,(int,float)):continue
+        identity={**(observation.get('nameIdentity') or {}),
+                  'showName':settings.get('showName',True),'showJersey':settings.get('showJersey',True)}
+        label=name_overlay_text(identity,ident)
+        if settings.get('showAnkleRing',True):
+            ring=(255,255,255) if identity and identity.get('identityVerified') is True else (255,212,107)
+            cv2.ellipse(rgb,(round(x),round(y)),(max(12,round(20*scale)),max(4,round(6*scale))),0,0,360,ring,max(1,round(2*scale)),cv2.LINE_AA)
+        if not label:continue
+        font_scale=max(.35,14*scale/30);text_size,_=cv2.getTextSize(label,cv2.FONT_HERSHEY_SIMPLEX,font_scale,1)
+        labels.append({'x':x,'y':y,'width':text_size[0],'height':text_size[1],
+            'label':label,'fontScale':font_scale,'accepted':identity.get('identityVerified') is True or identity.get('nameStatus')=='machine_accepted'})
+    for item in layout_name_labels(labels,rgb.shape[1],rgb.shape[0],scale):
+        text_x,text_y=round(item['textX']),round(item['textY']);text_size=(item['width'],item['height'])
+        if abs(text_x+text_size[0]/2-item['x'])>10*scale or text_y-item['height']-item['y']>25*scale:
+            cv2.line(rgb,(round(item['x']),round(item['y'])),(round(max(text_x,min(text_x+text_size[0],item['x']))),text_y-item['height']-4),(170,180,190),1,cv2.LINE_AA)
+        cv2.rectangle(rgb,(text_x-5,text_y-text_size[1]-4),(text_x+text_size[0]+5,text_y+4),(16,25,34),-1)
+        color=(255,255,255) if item['accepted'] else (255,224,154)
+        cv2.putText(rgb,item['label'],(text_x,text_y),cv2.FONT_HERSHEY_SIMPLEX,item['fontScale'],color,1,cv2.LINE_AA)
+    return rgb
+
+
 class TacticsRenderer:
     def __init__(self, folder, tactics, ffmpeg=None, execute=None, timeout=1800):
         self.folder = Path(folder).resolve(); self.folder.mkdir(parents=True, exist_ok=True)
@@ -53,9 +95,13 @@ class TacticsRenderer:
     def create(self, request, clip, video, variant, qa, kind='workspace'):
         context = self._context(clip, variant, qa, kind)
         document = request.get('document'); options = request.get('options', {'fps': 30})
-        if not isinstance(options, dict) or set(options) - {'fps'} or type(options.get('fps', 30)) is not int or options.get('fps', 30) not in (24, 25, 30, 60):
+        if not isinstance(options, dict) or set(options) - {'fps','nameOverlay'} or type(options.get('fps', 30)) is not int or options.get('fps', 30) not in (24, 25, 30, 60):
             raise ValueError('成片帧率只支持 24、25、30 或 60；默认静音。')
         options = {'fps': options.get('fps', 30)}
+        name_overlay=request.get('options',{}).get('nameOverlay')
+        if name_overlay is not None:
+            self._validate_name_overlay(name_overlay,clip)
+            options['nameOverlay']=deepcopy(name_overlay)
         self.tactics.check_source(document, clip, kind)
         self.tactics.run('validate', document=document)
         digest = self.tactics.run('agent-digest', document=document)['digest']
@@ -84,11 +130,47 @@ class TacticsRenderer:
 
     @staticmethod
     def _public(job):
-        keys = ('id','status','message','documentDigest','expectedVersion','options','rendererVersion','progress',
+        keys = ('id','status','message','documentDigest','expectedVersion','rendererVersion','progress',
                 'totalFrames','fps','width','height','duration','sha256')
         result = deepcopy({k: job[k] for k in keys if k in job})
+        overlay=job['options'].get('nameOverlay');summary=None
+        if overlay:
+            summary=overlay.get('nameDisplay') and {'enabled':overlay['nameDisplay']['enabled'],
+                'videoSha256':overlay['nameIdentitySource']['videoSha256'],'trackingRevision':overlay['nameIdentitySource']['trackingRevision']}
+            if summary is None:summary=overlay
+        result['options']={'fps':job['options']['fps'],**({'nameOverlay':summary} if summary is not None else {})}
         if job['status'] == 'succeeded': result['videoUrl'] = job['videoUrl']
         return result
+
+    @staticmethod
+    def _validate_name_overlay(value,clip):
+        if not isinstance(value,dict) or set(value)-{'nameDisplay','nameIdentitySource','playerNameIdentities'}:
+            raise ValueError('姓名叠加快照格式不受支持。')
+        source=value.get('nameIdentitySource');settings=value.get('nameDisplay');players=value.get('playerNameIdentities')
+        if not isinstance(source,dict) or set(source)-{'videoSha256','trackingFingerprint','trackingRevision','width','height'} or not isinstance(settings,dict) or set(settings)-{'enabled','groups','players','showName','showJersey','showAnkleRing'} or not isinstance(players,list) or len(players)>10:
+            raise ValueError('姓名叠加快照缺少身份或显示配置。')
+        expected_revision=clip.get('tracking_revision') or clip.get('variant') or 'original'
+        if (source.get('videoSha256')!=clip['video_sha256'] or source.get('trackingFingerprint')!=clip.get('tracking_fingerprint') or
+            source.get('trackingRevision')!=expected_revision or (source.get('width'),source.get('height'))!=(clip.get('width'),clip.get('height'))):
+            raise ValueError('姓名与显示设置不属于当前视频或跟踪版本。')
+        if type(settings.get('enabled')) is not bool or any(type(settings.get(field,True)) is not bool for field in ('showName','showJersey','showAnkleRing')):
+            raise ValueError('姓名显示开关必须为布尔值。')
+        groups=settings.get('groups',{});selection=settings.get('players',{})
+        if not isinstance(groups,dict) or set(groups)-{'A','B'} or any(type(item) is not bool for item in groups.values()) or not isinstance(selection,dict) or any(not re.fullmatch(r'P(?:[1-9]|10)',str(key)) or type(item) is not bool for key,item in selection.items()):
+            raise ValueError('姓名球队或球员筛选无效。')
+        seen=set()
+        for entity in players:
+            ident=entity.get('id') if isinstance(entity,dict) else None
+            observations=entity.get('observations') if isinstance(entity,dict) else None
+            if not isinstance(ident,str) or not re.fullmatch(r'P(?:[1-9]|10)',ident) or ident in seen or not isinstance(observations,list) or len(observations)>len(clip['frames']):
+                raise ValueError('姓名球员或逐帧位置记录无效。')
+            seen.add(ident);frames=set()
+            for item in observations:
+                if (not isinstance(item,dict) or type(item.get('frame')) is not int or not 0<=item['frame']<len(clip['frames']) or item['frame'] in frames or
+                    (item.get('trackId') is not None and type(item.get('trackId')) is not int) or
+                    any(value is not None and (not isinstance(value,(int,float)) or not math.isfinite(value)) for value in (item.get('x'),item.get('y')))):
+                    raise ValueError('姓名逐帧位置超出当前视频或包含无效坐标。')
+                frames.add(item['frame'])
 
     def _lookup(self, ident, clip, variant, qa, kind):
         if not isinstance(ident, str) or not re.fullmatch(r'[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}', ident):
@@ -162,6 +244,19 @@ class TacticsRenderer:
             raise ValueError('视频文件已变化，无法使用旧标记生成成片。')
         plan = self.tactics.run('production-compile', document=job['document'], options=job['options'])
         frames, width, height, fps = plan['frames'], plan['width'], plan['height'], plan['fps']
+        name_overlay=job['options'].get('nameOverlay');name_index={}
+        if name_overlay is not None:
+            if not isinstance(name_overlay,dict) or set(name_overlay)-{'nameDisplay','nameIdentitySource','playerNameIdentities'}:
+                raise ValueError('姓名叠加快照格式不受支持。')
+            source=name_overlay.get('nameIdentitySource',{});review=job['document'].get('review',{})
+            if (source.get('videoSha256')!=review.get('videoSha256') or
+                source.get('trackingFingerprint')!=review.get('trackingFingerprint') or
+                source.get('trackingRevision')!=review.get('trackingRevision') or
+                (source.get('width'),source.get('height'))!=(width,height)):
+                raise ValueError('姓名与显示设置不属于当前视频或跟踪版本。')
+            if not isinstance(name_overlay.get('playerNameIdentities'),list) or not isinstance(name_overlay.get('nameDisplay'),dict):
+                raise ValueError('姓名叠加快照缺少身份或显示配置。')
+            name_index=name_overlay_index(name_overlay)
         if not frames or len(frames) > 18000 or width*height > 3840*2160 or width % 2 or height % 2:
             raise ValueError('成片需偶数尺寸，不超过 4K / 18000 帧。')
         indices = [f['sourceFrame'] for f in frames]
@@ -199,6 +294,8 @@ class TacticsRenderer:
                         overlay = np.frombuffer(read_exact(raster.stdout,size),dtype=np.uint8).reshape(height,width,4)
                         alpha = overlay[:,:,3:4].astype(np.uint16)
                         composite = ((rgb.astype(np.uint16)*(255-alpha)+overlay[:,:,:3].astype(np.uint16)*alpha+127)//255).astype(np.uint8)
+                        if name_overlay and name_overlay['nameDisplay'].get('enabled') is True:
+                            composite=draw_name_overlay(composite,state['sourceFrame'],name_overlay,name_index)
                         encoder.stdin.write(composite.tobytes())
                         job['progress'] = {'completed': output_index+1, 'total':len(frames)}
                 encoder.stdin.close()

@@ -6,7 +6,7 @@ import {confirmIdentity} from './identity-timeline.mjs';
 
 // Exercise the shipped step-based workbench and imported model annotations. The DOM double replaces layout,
 // media playback and React mounting; identity, draft and click routing stay real.
-async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit,tacticsBridge=false}={}){
+async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit,tacticsBridge=false,holdSeek=false,nameDisplayEnabled=false}={}){
   const reviewRequests=[];
   const records=[0,.031,.078,.119,.165].map((time,frame)=>({frame,time,
     tracks:[[100,80,220,320,7,.95,2],[400,100,530,330,8,.93,2],[720,90,840,300,9,.92,2]],
@@ -23,6 +23,7 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit,tactic
   if(liveConfirmed)session.liveSelection={confirmed:true};
   if(modelConflict)session.entities[2].modelBindings=[{kind:'track',start:0,end:4,trackId:9,source:'model_suggestion',identityConfirmed:false,reviewRequired:true}];
   const key=draftStorageKey(clip,'team-stable',true),saved=new Map([[key,JSON.stringify(session)]]),nodes=new Map();
+  if(nameDisplayEnabled)saved.set(`${key}:name-display`,JSON.stringify({enabled:true}));
   const html=readFileSync(new URL('./index.html',import.meta.url),'utf8');
   function make(){
     const context={labels:[],boxes:[],strokeStyle:'',clearRect(){this.labels=[];this.boxes=[];},
@@ -44,7 +45,7 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit,tactic
   const tabs=['footage','identity','calibration','repair','events'].map(step=>{const tab=get(`tab-${step}`);tab.dataset.step=step;tab.setAttribute('aria-selected',String(step==='footage'));return tab;});
   const areas=['video','data','tactics','production'].map(area=>{const node=get(`area-${area}`);node.dataset.areaTarget=area;return node;});
   const body={dataset:{},classList:{add(){},remove(){}}},initialView=html.match(/<body[^>]+data-review-view="([^"]+)"/)?.[1];if(initialView)body.dataset.reviewView=initialView;
-  const document={body,activeElement:null,getElementById:get,createElement:make,addEventListener(){},dispatchEvent(){},querySelector:()=>get('player-overview'),querySelectorAll:selector=>selector==='button[data-step]'?tabs:selector==='[data-area-target]'?areas:[]};
+  const document={body,activeElement:null,getElementById:get,createElement:make,createTextNode:text=>({nodeType:3,textContent:String(text)}),addEventListener(){},dispatchEvent(){},querySelector:()=>get('player-overview'),querySelectorAll:selector=>selector==='button[data-step]'?tabs:selector==='[data-area-target]'?areas:[]};
   const globals=['document','window','devicePixelRatio','location','fetch','localStorage','requestAnimationFrame','setTimeout','clearTimeout','MutationObserver','ResizeObserver'];
   const previous=new Map(globals.map(name=>[name,globalThis[name]]));
   const policy=JSON.parse(readFileSync(new URL('./team-overlay-policy.json',import.meta.url)));
@@ -59,14 +60,15 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit,tactic
       }
       return {ok:true,json:async()=>url==='/api/library'?{defaultSample:'test',samples:[{id:'test',title:'测试视频',defaultVariant:'team-stable'}]}:url==='/team-overlay-policy.json'?policy:String(url).startsWith('/api/player-identity/options')?{seasons:[],teams:[]}:clip};
     }});
-  let appApi,identityActions,identityState,workbench,tacticsApi;const tacticsCalls=[];
+  let appApi,identityActions,identityState,workbench,tacticsApi,publishDecodedFrame;const tacticsCalls=[];
   try{
     const source=readFileSync(new URL('./app.mjs',import.meta.url),'utf8'),imports=[...source.matchAll(/^import \{([^}]+)\} from '([^']+)';$/gm)],dependencies={};
     for(const match of imports){
       if(match[2]==='./ui.bundle.mjs'){dependencies.mountIdentityUI=actions=>{identityActions=actions;return {render(state){identityState=state;}};};
         dependencies.mountVideoDisplay=({video,stage,startTime,onReady,onFrame})=>{
-          stage.dataset.videoState='ready';video.currentTime=startTime;onReady?.({time:startTime});onFrame?.({time:startTime});
-          return {pause:()=>video.pause(),play:()=>video.play(),seek:time=>{video.pause();video.currentTime=time;onFrame?.({time});},
+          publishDecodedFrame=time=>{stage.dataset.videoState='ready';video.currentTime=time;onFrame?.({time});};
+          stage.dataset.videoState='ready';video.currentTime=startTime;onReady?.({time:startTime});publishDecodedFrame(startTime);
+          return {pause:()=>video.pause(),play:()=>video.play(),seek:time=>{video.pause();video.currentTime=time;if(holdSeek)stage.dataset.videoState='seeking';else publishDecodedFrame(time);},
             reload:()=>{video.pause();video.currentTime=startTime;},togglePlayback:()=>video.paused?video.play():video.pause()};
         };continue;}
       if(match[2]==='./tactics-storage.mjs'){dependencies.migrateLegacyTacticsDrafts=async()=>{};continue;}
@@ -88,6 +90,7 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit,tactic
     await new Promise(resolve=>setImmediate(resolve));
     return {get,clip,key,saved,reviewRequests,tacticsApi,tacticsCalls,state:()=>appApi.getState(),body,restore,identityState:()=>identityState,actions:identityActions,workbench,
       clickBox:(x,y)=>get('overlay').dispatch('click',{button:0,clientX:x,clientY:y}),
+      presentFrame:index=>publishDecodedFrame(clip.frames[index].time),
       select:id=>identityActions.select(id)};
   }catch(error){for(const [name,value] of previous){if(value===undefined)delete globalThis[name];else globalThis[name]=value;}throw error;}
 }
@@ -134,6 +137,21 @@ test('app tactics bridge publishes decoded canvas frames and separates phase see
     app.get('previous').click();assert.deepEqual(app.tacticsCalls.find(c=>c[0]==='external'),['external',2]);
     app.get('area-tactics').click();app.get('play').click();assert.equal(app.tacticsCalls.at(-1)[0],'toggle');assert.equal(app.get('video').paused,true);
     app.get('video').currentTime=.031;app.get('video').dispatch('seeking');assert.deepEqual(app.tacticsCalls.at(-1),['external',1]);
+  }finally{app.restore();}
+});
+
+test('name overlay hides during a paused seek and returns only for the decoded target frame',async()=>{
+  const app=await openApp({tacticsBridge:true,holdSeek:true,nameDisplayEnabled:true});try{
+    const nameCanvas=app.get('nameOverlay'),stage=app.get('stage');
+    assert.equal(stage.dataset.videoState,'ready');assert.equal(nameCanvas.hidden,false);
+    assert.ok(nameCanvas.ctx.labels.length,'initial decoded frame has its own labels');
+    app.tacticsApi.seek(3);
+    assert.equal(app.state().frame,3);assert.equal(stage.dataset.videoState,'seeking');
+    assert.equal(nameCanvas.hidden,true);assert.deepEqual(nameCanvas.ctx.labels,[],
+      'the old decoded image must not retain labels for the newly selected logical frame');
+    app.presentFrame(3);
+    assert.equal(stage.dataset.videoState,'ready');assert.equal(nameCanvas.hidden,false);
+    assert.ok(nameCanvas.ctx.labels.length,'labels return after the target frame is published');
   }finally{app.restore();}
 });
 

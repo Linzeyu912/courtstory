@@ -1,10 +1,16 @@
 # 作品设计、功能与验收文档
 
+2026-10-08姓名功能当前成果按用户要求发布，见[v4方法和实际结果](player-name-optimization-20261007.md)、[完整演示](../../data/videos/demos/player-name-v4-20261008/README.md)及[发布交接](../../handoffs/chuali-zi/2026-10-08-0230-player-name-v4-publication.md)。下文记录保留历史时点；全量前端测试尚未全部通过。
+
 2026-10-07：总工作台第三部分的[解说与配音工作流](commentary-narration-workflow.md)：多轮视频理解、文字与时间编辑、火山语音、原片字幕成片及下载；当前接入本机工作台，未更新运行中的云服务。
 
 2026-10-07 配音成片增量：[火山 TTS 与字幕成片工作流](commentary-narration-workflow.md)，复用 Astra 两段结果，10句真实语音合成成功，原视频烧录字幕并混入配音；两片本机成片和播放已验证，未部署到团队工作台。
 
 2026-10-07 本地解说增量：[独立 Pi 视频理解与解说 Agent](video-commentary-agent.md)，多页概览、按需回看/裁图、可选检测候选、带时间文字输出；真实样片与错误分析见[试跑记录](../../research/agents/video-commentary-20261007/README.md)。
+
+2026-10-07 本地姓名识别第一版：[全员多帧号码／名单识别、身份冲突、脚底标签及按需显示](player-name-identification-20261007.md)。Qwen Token Plan 真实试验与3秒成片已跑；全员姓名精度未验收，代码未提交／推送，远端同期更新待安全合入。
+
+2026-10-07–08 后续：[全员姓名 v4 优化与复测](player-name-optimization-20261007.md)。修复目标裁图、历史颜色复核状态、有限错接、姓名与位置状态分离；十名源图身份参考已建立，覆盖及整片结果按该文最终复测记录为准。
 
 2026-10-07 晚间：[10 月 8 日云账号重置后重新部署计划](plans/2026-10-08-cloud-reset-redeployment.md)，包含服务 / 路径分工、重置前快照、重置后只读发现 / CDK 顺序、验收与失败处理，已有完整恢复包与 Linux 真实恢复 / 重制 MP4 证据。
 

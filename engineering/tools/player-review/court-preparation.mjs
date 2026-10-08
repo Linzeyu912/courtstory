@@ -8,7 +8,7 @@ import {identityRoleDependency} from './identity-role-guard.mjs';
 const clean=value=>JSON.parse(JSON.stringify(value));
 export const preparationDigest=value=>sha256(canonicalJSON(value));
 export function preparationDependencies(session,clip){
-  const entities=session.entities.map(e=>Object.fromEntries(['id','bindings','modelBindings','identityKeyframes','frameConfirmations','identityReference','identitySuggestionsDismissed','visibilityRanges','anchors','courtAnchors','positionCorrections'].map(k=>[k,e[k]??null])));
+  const entities=session.entities.map(e=>Object.fromEntries(['id','bindings','modelBindings','machineIdentityBindings','identityKeyframes','frameConfirmations','identityReference','identitySuggestionsDismissed','visibilityRanges','anchors','courtAnchors','positionCorrections'].map(k=>[k,e[k]??null])));
   return {tracking:clip.tracking_fingerprint,identities:preparationDigest(clean(entities)),
     roles:preparationDigest(identityRoleDependency(session,clip)),
     calibration:preparationDigest(session.courtCalibration??null),cuts:preparationDigest([session.cuts??[],clip.sourceCuts??[]]),

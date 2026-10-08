@@ -13,7 +13,7 @@ import subprocess
 import tempfile
 
 import cv2
-from basketball_presentation import overlay_style, proposal_points, stabilize_points
+from basketball_presentation import name_display_selected, name_overlay_at, name_overlay_text, overlay_style, proposal_points, stabilize_points
 
 
 def resolve_ffmpeg(explicit=None):
@@ -85,7 +85,7 @@ def _line(image,start,end,color,thickness,dashes):
         cv2.line(image,(round(start[0]+dx*a),round(start[1]+dy*a)),(round(start[0]+dx*b),round(start[1]+dy*b)),color,thickness,cv2.LINE_AA)
         position+=step
 
-def draw_team_overlay(image,record,variant,entity_points,policy):
+def draw_team_overlay(image,record,variant,entity_points,policy,name_data=None):
     """Same observed geometry, team colors, uncertainty and foot badge policy as UI."""
     annotated=image.copy();scale=image.shape[0]/720;thickness=max(2,round(policy['box']['lineWidthAt720']*scale))
     assigned={point.get('trackId') for _,point in entity_points if point.get('x') is not None}
@@ -110,6 +110,17 @@ def draw_team_overlay(image,record,variant,entity_points,policy):
         text_point=(round(point['x']-size[0]/2),max(size[1]+2,round(point['y']-policy['foot']['numberOffsetAt720']*scale)))
         cv2.rectangle(annotated,(text_point[0]-3,text_point[1]-size[1]-3),(text_point[0]+size[0]+3,text_point[1]+4),(16,25,34),-1)
         cv2.putText(annotated,text,text_point,cv2.FONT_HERSHEY_SIMPLEX,font_scale,color,1,cv2.LINE_AA)
+        names=name_data or {};settings=names.get('nameDisplay',{})
+        if name_display_selected(entity,settings):
+            name=name_overlay_at(names,entity['id'],record['frame'],int(point['trackId']))
+            label=name_overlay_text(name,entity['id'])
+            if name and label:
+                if name.get('showAnkleRing',True):cv2.ellipse(annotated,foot,(max(6,round(20*scale)),max(3,round(6*scale))),0,0,360,(245,245,245),max(1,round(2*scale)),cv2.LINE_AA)
+                name_scale=max(.35,.48*scale);label_size,_=cv2.getTextSize(label,cv2.FONT_HERSHEY_SIMPLEX,name_scale,1)
+                label_point=(round(point['x']-label_size[0]/2),max(label_size[1]+3,round(point['y']-28*scale)))
+                cv2.rectangle(annotated,(label_point[0]-4,label_point[1]-label_size[1]-3),(label_point[0]+label_size[0]+4,label_point[1]+3),(16,25,34),-1)
+                label_color=(245,245,245) if name.get('identityVerified') else (140,220,255)
+                cv2.putText(annotated,label,label_point,cv2.FONT_HERSHEY_SIMPLEX,name_scale,label_color,1,cv2.LINE_AA)
     cv2.rectangle(annotated,(0,0),(image.shape[1],45),(20,20,20),-1)
     cv2.putText(annotated,f"{variant} | frame {record['frame']} | PTS {record['time']:.3f}s | UNVERIFIED",(12,28),cv2.FONT_HERSHEY_SIMPLEX,.6,(255,255,255),1,cv2.LINE_AA)
     return annotated
@@ -163,6 +174,11 @@ def render(args):
     if source_hash != meta["video_sha256"] or len(records) != meta["frames"]:
         raise ValueError("Tracking candidates do not belong to the supplied source.")
     suggestions = meta.get("identitySuggestions", {"entities": []})
+    name_data=json.loads(args.name_data.read_text(encoding='utf-8')) if args.name_data else meta.get('nameData')
+    if name_data:
+        source=name_data.get('nameIdentitySource',{})
+        if source.get('videoSha256') not in (None,source_hash) or source.get('trackingRevision') not in (None,meta.get('variant'),meta.get('tracking_revision')):
+            raise ValueError('Name/display data do not belong to the supplied video and tracking version.')
     presentation=meta.get('presentation');policy=presentation.get('policy') if presentation else None
     raw_points=proposal_points(suggestions,records,meta.get('source_cuts',[])) if policy else {}
     display_points={key:stabilize_points(points,meta.get('source_cuts',[]),meta['width'],meta['height'],policy) for key,points in raw_points.items()}
@@ -190,7 +206,7 @@ def render(args):
                     raise ValueError("Candidate index/PTS does not match actual source frame.")
                 if policy:
                     entity_points=[({**entity,'modelTeamGroup':entity.get('teamGroup')},display_points[entity['id']][count-1]) for entity in suggestions['entities']]
-                    image=draw_team_overlay(decoded.to_ndarray(format='bgr24'),record,'Blue / Orange | stable display',entity_points,policy)
+                    image=draw_team_overlay(decoded.to_ndarray(format='bgr24'),record,'Blue / Orange | stable display',entity_points,policy,name_data)
                 else:
                     image = draw_candidates(decoded.to_ndarray(format="bgr24"), record, "Model suggestion / review required",
                                             aliases_for_frame(suggestions, record))
@@ -245,6 +261,7 @@ def main():
     parser.add_argument("--tracks", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--ffmpeg", type=Path, help="Local FFmpeg executable; defaults to PATH, then repository tmp/tactics-ffmpeg.exe")
+    parser.add_argument("--name-data", type=Path, help="Reviewed player export with the browser's saved name-display settings and frame identities")
     render(parser.parse_args())
 
 

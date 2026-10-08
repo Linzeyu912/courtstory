@@ -21,6 +21,71 @@ def overlay_style(entity,point,policy):
         'dashed':tentative or estimated or team_pending,'label':entity['id'].removeprefix('P')+('?' if tentative or team_pending else '')+('~' if estimated else ''),
         'footMethod':'human_image_anchor' if point.get('footMethod')=='human_image_anchor' else policy['foot']['method']}
 
+def name_display_selected(entity,settings):
+    if not settings or settings.get('enabled') is not True:return False
+    ident=str(entity.get('id',''));number=ident.removeprefix('P')
+    if not number.isdigit() or not 1<=int(number)<=10:return False
+    group='A' if int(number)<=5 else 'B'
+    return settings.get('groups',{}).get(group,True) is not False and settings.get('players',{}).get(ident,True) is not False
+
+def name_overlay_at(name_data,player_id,frame,track_id):
+    """Read only the matching exported observation; a missing point never reuses an old location."""
+    if not isinstance(name_data,dict):return None
+    entity=next((item for item in name_data.get('playerNameIdentities',[]) if item.get('id')==player_id),None)
+    if not entity:return None
+    observation=next((item for item in entity.get('observations',[]) if item.get('frame')==frame and item.get('trackId')==track_id and
+        isinstance(item.get('x'),(int,float)) and isinstance(item.get('y'),(int,float))),None)
+    if not observation:return None
+    identity=observation.get('nameIdentity') or {}
+    name=identity.get('name');jersey=identity.get('jersey')
+    verified=identity.get('identityVerified') is True
+    return {'x':float(observation['x']),'y':float(observation['y']),'name':name,'jersey':jersey,'identityVerified':verified,
+        'nameStatus':identity.get('nameStatus'),'positionBindingStatus':identity.get('positionBindingStatus'),
+        'showName':name_data.get('nameDisplay',{}).get('showName',True),'showJersey':name_data.get('nameDisplay',{}).get('showJersey',True),
+        'showAnkleRing':name_data.get('nameDisplay',{}).get('showAnkleRing',True)}
+
+def name_overlay_label(identity,player_id):
+    identity=identity or {}
+    number=str(player_id).removeprefix('P');name=identity.get('name')
+    name_part=(str(name).strip() if identity.get('showName',True) and isinstance(name,str) and name.strip() else
+        f'P{number} · pending' if identity.get('showName',True) else '')
+    if name_part and name and not identity.get('identityVerified'):name_part+='?'
+    if name and identity.get('showName',True) and identity.get('nameStatus')=='machine_accepted':
+        name_part=f'P{number} {str(name).strip()}' + ('~' if identity.get('positionBindingStatus')=='needs_review' else '')
+    jersey=identity.get('jersey');jersey_part=f'#{str(jersey).strip()}' if identity.get('showJersey',True) and jersey is not None and str(jersey).strip() else ''
+    return ' · '.join(item for item in (name_part,jersey_part) if item)
+
+def name_overlay_text(identity,player_id):
+    """Return Hershey-font-safe text; OpenCV cannot draw the browser's middle-dot separator."""
+    return name_overlay_label(identity,player_id).replace(' · ',' / ')
+
+
+def layout_name_labels(items,width,height,scale=1):
+    """Mirror browser label layout without moving the actual feet."""
+    placed=[];pad=5*scale
+    for item in items:
+        center=item['x']-item['width']/2
+        step=item['height']+12*scale
+        bases=[item['y']+item['height']+12*scale,
+            item['y']+item['height']+12*scale+step,item['y']+item['height']+12*scale+2*step,
+            item['y']-18*scale,item['y']-18*scale-step]
+        choice=None
+        def overlaps(rect):
+            return any(rect['left']<p['rect']['right'] and rect['right']>p['rect']['left'] and
+                rect['top']<p['rect']['bottom'] and rect['bottom']>p['rect']['top'] for p in placed)
+        for shift in (0,-.6*item['width'],.6*item['width'],-1.2*item['width'],1.2*item['width']):
+            x=max(pad,min(width-item['width']-pad,center+shift))
+            for proposed in bases:
+                y=max(item['height']+pad,min(height-pad,proposed))
+                rect={'left':x-pad,'top':y-item['height']-pad,'right':x+item['width']+pad,'bottom':y+pad}
+                candidate={**item,'textX':x,'textY':y,'rect':rect}
+                if choice is None:choice=candidate
+                if not overlaps(rect):
+                    choice=candidate;break
+            if choice and not overlaps(choice['rect']):break
+        placed.append(choice)
+    return placed
+
 def _smoothable(point):
     return (point.get('source')=='tracked' and point.get('x') is not None and point.get('y') is not None
         and point.get('footMethod')=='bbox_bottom_center' and isinstance(point.get('box'),list)

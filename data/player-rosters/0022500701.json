@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "gameId": "0022500701",
+  "gameDate": "2026-01-31",
+  "season": "2025-26",
+  "teams": ["DAL", "HOU"],
+  "sourceUrl": "https://statsdmz.nba.com/pdfs/20260131/20260131_DALHOU.pdf",
+  "retrievedDate": "2026-10-07",
+  "scope": "Official final scorer report; participating players only. Does not establish who is visible in a given frame.",
+  "players": [
+    {"team":"DAL","jersey":"32","name":"Cooper Flagg"},
+    {"team":"DAL","jersey":"25","name":"P.J. Washington"},
+    {"team":"DAL","jersey":"21","name":"Daniel Gafford"},
+    {"team":"DAL","jersey":"13","name":"Naji Marshall"},
+    {"team":"DAL","jersey":"00","name":"Max Christie"},
+    {"team":"DAL","jersey":"7","name":"Dwight Powell"},
+    {"team":"DAL","jersey":"10","name":"Brandon Williams"},
+    {"team":"DAL","jersey":"16","name":"Caleb Martin"},
+    {"team":"DAL","jersey":"31","name":"Klay Thompson"},
+    {"team":"DAL","jersey":"30","name":"Moussa Cisse"},
+    {"team":"DAL","jersey":"9","name":"Ryan Nembhard"},
+    {"team":"HOU","jersey":"7","name":"Kevin Durant"},
+    {"team":"HOU","jersey":"10","name":"Jabari Smith Jr."},
+    {"team":"HOU","jersey":"28","name":"Alperen Sengun"},
+    {"team":"HOU","jersey":"17","name":"Tari Eason"},
+    {"team":"HOU","jersey":"1","name":"Amen Thompson"},
+    {"team":"HOU","jersey":"20","name":"Josh Okogie"},
+    {"team":"HOU","jersey":"15","name":"Reed Sheppard"},
+    {"team":"HOU","jersey":"2","name":"Dorian Finney-Smith"},
+    {"team":"HOU","jersey":"30","name":"Clint Capela"}
+  ]
+}
