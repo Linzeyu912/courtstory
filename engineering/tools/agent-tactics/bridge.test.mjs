@@ -41,6 +41,7 @@ test('native factory builds editable multi-player candidate and leaves baseline 
   const input=await makeBridgeFixture(),before=digest(input.document),built=await buildPlayerAnnotations(input);
   assert.equal(digest(input.document),before);assert.equal(built.candidate.annotations.items.length,3);await validateDocument(built.candidate);
   assert.ok(built.candidate.annotations.items.every(a=>a.origin.kind==='agent'&&!a.followEntity&&!('role' in a)));
+  assert.ok(built.candidate.annotations.items.every(a=>a.startFrame===a.anchorFrame&&a.endFrameExclusive===a.anchorFrame+1));
   assert.ok(built.renderPlan.productionPlan.frames.some(f=>f.state==='hold'));
   const coverage=await checkParticipantCoverage(checkRequest(input,built));assert.equal(coverage.pass,true);assert.equal(coverage.phases[0].counts.covered,3);
   const projection=await checkProjection(checkRequest(input,built,'check_projection'));assert.equal(projection.pass,true,JSON.stringify(projection.invalidRanges));

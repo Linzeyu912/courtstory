@@ -14,7 +14,7 @@ import {readTacticsDraft,writeTacticsDraft} from './tactics-storage.mjs';
 import {buildPhaseRoutes,projectPhaseRoutes,renderPresentationSVG,updateRouteControlPoints,restoreRoute,courtToVideo,videoToCourt} from './tactics-presentation.mjs';
 import {createRouteEditor,commitWhenCurrent,screenToCourt} from './tactics-route-editor.mjs';
 import {createPhasePlayback} from './tactics-playback.mjs';
-import {createAnnotation,updateAnnotation,removeAnnotation,annotationPointFromVideo,projectAnnotations,renderAnnotationsSVG,hitTestAnnotation,playerFoot,playersAtVideoPoint,annotationPresentation,annotationPausePoints,ANNOTATION_LIMITS,ANNOTATION_REASONS} from './tactics-annotations.mjs';
+import {createAnnotation,updateAnnotation,removeAnnotation,annotationPointFromVideo,projectAnnotations,renderAnnotationsSVG,hitTestAnnotation,playerFoot,playersAtVideoPoint,annotationPresentation,annotationPausePoints,ANNOTATION_LIMITS,ANNOTATION_REASONS,DEFAULT_SPOTLIGHT_COLOR} from './tactics-annotations.mjs';
 import {tacticsPlayerLabel,tacticsPlayerInspection} from './tactics-player-identity.mjs';
 import {mountTacticsProductionUI} from './tactics-production-ui.mjs';
 import {updateProductionCamera,updateProductionCue,updateAuthoredProgress,productionCue,rebindIndependentProduction} from './tactics-production.mjs';
@@ -223,7 +223,7 @@ export function mountTacticsUI(api){
   <label id="tacticsDisplayModeField" class="field" hidden>播放时的路线<select id="tacticsDisplayMode"><option value="remaining">随动作变短</option><option value="full">全程保留</option></select></label><label id="tacticsAnnotationAngleField" class="field">挡拆朝向（度）<input id="tacticsAnnotationAngle" type="number" min="0" max="359" step="5"></label>
   <label id="tacticsAnnotationFollowField" class="tactics-check"><input id="tacticsAnnotationFollow" type="checkbox">跟随关联球员</label>
   <div id="tacticsFootControls" class="tactics-foot-controls" hidden><p id="tacticsFootStatus" class="small muted"></p><div class="tactics-buttons"><button id="tacticsSnapFoot">重新贴脚</button><button id="tacticsOffsetMode" aria-pressed="false">微调偏移</button></div></div>
-  <div class="range-fields"><label class="field">大小<select id="tacticsAnnotationSize"><option value="0.75">较小</option><option value="1">标准</option><option value="1.5">较大</option><option value="2">醒目</option></select></label><label class="field">颜色<select id="tacticsAnnotationColor"><option value="#26baff">蓝色</option><option value="#ffd34e">黄色</option><option value="#ff7b55">橙色</option><option value="#8fe3b0">绿色</option></select></label></div>
+  <div class="range-fields"><label class="field">大小<select id="tacticsAnnotationSize"><option value="0.75">较小</option><option value="1">标准</option><option value="1.5">较大</option><option value="2">醒目</option></select></label><label class="field">颜色<select id="tacticsAnnotationColor"><option value="${DEFAULT_SPOTLIGHT_COLOR}">白色</option><option value="#26baff">蓝色</option><option value="#ffd34e">黄色</option><option value="#ff7b55">橙色</option><option value="#8fe3b0">绿色</option></select></label></div>
   <div class="tactics-buttons"><button id="tacticsAnnotationDelete" class="tactics-danger">删除选中图形</button><button id="tacticsAnnotationRebind" hidden>在本帧重新定位</button></div>
   <details class="tactics-time-settings"><summary>显示时间</summary><div class="range-fields"><label class="field">开始帧<input id="tacticsAnnotationStart" type="number" min="1"></label><label class="field">结束帧<input id="tacticsAnnotationEnd" type="number" min="1"></label></div><button id="tacticsAnnotationApplyTime">应用显示时间</button></details></div>
   <div class="tactics-object-heading"><h3>标注列表</h3><span class="small muted">点击选中</span></div><div id="tacticsObjectList" class="tactics-object-list"></div><p id="tacticsObjectEmpty" class="small muted">还没有图形。选择跑位、传球、挡拆或重点球员圈，直接在视频上添加。</p>
@@ -380,16 +380,18 @@ export function mountTacticsUI(api){
     if(a){
       selectOptions('tacticsAnnotationPlayer',[['','不关联球员'],...people],a.entityId||'');
       selectedAnnotationPoint=Math.min(selectedAnnotationPoint,a.points.length-1);selectOptions('tacticsAnnotationPoint',a.points.map((_p,i)=>[String(i),(a.authoredPath||a.curve==='cubic_bezier')?['起点','出发手柄','到达手柄','终点'][i]:i===0?'起点':i===a.points.length-1?'终点':`转弯 ${i}`]),String(selectedAnnotationPoint));
-      $('tacticsAnnotationAngle').value=a.style?.angle||0;$('tacticsAnnotationSize').value=String(a.style?.size||1);$('tacticsAnnotationColor').value=a.style?.color||'#26baff';
+      $('tacticsAnnotationAngle').value=a.style?.angle||0;$('tacticsAnnotationSize').value=String(a.style?.size||1);$('tacticsAnnotationColor').value=a.type==='spotlight'?DEFAULT_SPOTLIGHT_COLOR:a.style?.color||'#26baff';
       $('tacticsAnnotationFollow').checked=!!a.followEntity;$('tacticsAnnotationFollow').disabled=disabled||!a.entityId;
       $('tacticsAnnotationStart').value=a.startFrame+1;$('tacticsAnnotationEnd').value=a.endFrameExclusive;
       const item=annotationScene?.items.find(item=>item.id===a.id),stale=annotationScene?.stale.find(item=>item.id===a.id);
       const reason=stale?'阶段或来源已变化。可在本帧重新定位，或删除此图形。':item?.hiddenReason==='reference_frame_only'?'此图形仅用于添加时的画面。点击下方列表可回到那一帧。':item?.hiddenReason==='outside_time'?'当前不在此图形的显示时间内。点击下方列表可回到添加帧。':item?.hiddenReason?`${ANNOTATION_REASONS[item.hiddenReason]||'当前画面无法定位此图形'}。可回到添加帧修正。`:
-        a.authoredPath?'编排曲线使用近似地面相机跟随，在支撑范围内显示剩余路线；这不是已核对的球场标定。':a.space==='video'?(a.videoMode==='fixed'?'固定画面标注，不会随镜头贴地移动。':'旧稿仅在参考画面展示；时间不自动变成连续投影。'):a.type==='spotlight'&&a.followEntity?'脚底圈会跟随关联球员；拖动可微调与脚底的距离。':'修改只影响展示图形；原始轨迹和审核记录保留。';
+        a.authoredPath?'编排曲线使用近似地面相机跟随，在支撑范围内显示剩余路线；这不是已核对的球场标定。':a.type==='spotlight'&&a.followEntity?'脚底圈会跟随关联球员；拖动可微调与脚底的距离。':a.space==='video'?(a.videoMode==='fixed'||a.type==='spotlight'?'固定画面标注，按设置的起止时间显示。':'旧稿仅在参考画面展示；时间不自动变成连续投影。'):'修改只影响展示图形；原始轨迹和审核记录保留。';
       $('tacticsSelectionHint').textContent=reason;$('tacticsAnnotationRebind').hidden=!stale;
       if(a.anchorMode==='player_foot')$('tacticsSelectionHint').textContent=stale?reason:'按当前球员脚底自动跟随；无有效位置、身份冲突或镜头切换时隐藏。球场标定用于圈的透视外形。';
-    }else{$('tacticsSelectionHint').textContent=annotationTool==='spotlight'?(staticSpotlight?'人工圈固定在点击位置，不自动追踪。大小、颜色和时间均可编辑。':'自动贴脚需要可用人物观测；可以随时切换人工定位，不依赖 2D。'):'选择工具即可在视频上绘制；首次默认约 3 秒，起止时间可在下方调整。关联球员可选。';}
+    }else{$('tacticsSelectionHint').textContent=annotationTool==='spotlight'?(staticSpotlight?'人工圈固定在点击位置，不自动追踪。大小和时间均可编辑。':'自动贴脚需要可用人物观测；可以随时切换人工定位，不依赖 2D。'):'选择工具即可在视频上绘制；首次默认约 3 秒，起止时间可在下方调整。关联球员可选。';}
     for(const id of ['tacticsAnnotationPlayer','tacticsAnnotationPoint','tacticsAnnotationAddPoint','tacticsAnnotationDeletePoint','tacticsAnnotationAngle','tacticsAnnotationSize','tacticsAnnotationColor','tacticsAnnotationDelete','tacticsAnnotationApplyTime','tacticsAnnotationRebind'])$(id).disabled=disabled||!a;
+    $('tacticsAnnotationColor').disabled=disabled||!a||a.type==='spotlight';
+    $('tacticsAnnotationColor').title=a?.type==='spotlight'?'重点球员使用统一白色柔光':'';
     $('tacticsAnnotationDeletePoint').disabled=disabled||a?.type!=='route'||!!a?.authoredPath||a?.curve==='cubic_bezier'||a.points.length<=2;
     $('tacticsAnnotationAddPoint').disabled=disabled||a?.type!=='route'||!!a?.authoredPath||a?.curve==='cubic_bezier'||straightRoute(a)||a.points.length>=ANNOTATION_LIMITS.points;
     $('tacticsObjectList').replaceChildren(...items.map(item=>{
@@ -401,7 +403,7 @@ export function mountTacticsUI(api){
     $('tacticsObjectEmpty').hidden=!!items.length;
     $('tacticsFootControls').hidden=a?.type!=='spotlight';$('tacticsSnapFoot').disabled=disabled||!a?.entityId;
     $('tacticsOffsetMode').disabled=disabled||a?.anchorMode!=='player_foot';$('tacticsOffsetMode').setAttribute('aria-pressed',String(offsetMode));
-    $('tacticsFootStatus').textContent=a?.anchorMode==='player_foot'?`脚底锚定 · 偏移 ${Math.round(a.offset?.x||0)}, ${Math.round(a.offset?.y||0)} 像素${offsetMode?' · 现在可拖动微调':''}`:a?.followEntity?'跟随关联球员的位置；位置缺失时隐藏。':`人工定位圈 · ${a?.videoMode==='fixed'?'固定画面显示':'仅参考画面显示'}。可拖动调整，不代表自动追踪。`;
+    $('tacticsFootStatus').textContent=a?.anchorMode==='player_foot'?`脚底锚定 · 偏移 ${Math.round(a.offset?.x||0)}, ${Math.round(a.offset?.y||0)} 像素${offsetMode?' · 现在可拖动微调':''}`:a?.followEntity?'跟随关联球员的位置；位置缺失时隐藏。':`人工定位圈 · ${a?.type==='spotlight'?'按设置时间显示':a?.videoMode==='fixed'?'固定画面显示':'仅参考画面显示'}。可拖动调整，不代表自动追踪。`;
     const archived=documentValue?.archivedTactics?.annotations||[];$('tacticsArchive').hidden=!archived.length;$('tacticsArchiveTitle').textContent=`已移除球员的图形 · ${archived.length}`;
     const restorePerson=$('tacticsArchivePlayer').value;selectOptions('tacticsArchivePlayer',[['','不关联球员'],...people],people.some(([id])=>id===restorePerson)?restorePerson:'');
     $('tacticsArchiveList').replaceChildren(...archived.map(item=>{const button=document.createElement('button');button.textContent=`恢复 ${annotationName(item)} · ${item.entityId||'未关联'}`;button.disabled=disabled;button.onclick=safe(async()=>{const next=restoreArchivedAnnotation(documentValue,item.id,{entityId:$('tacticsArchivePlayer').value||null,phaseId,frame:lastScene.frame});selectedAnnotationId=item.id;await saveAnnotation(next);});return button;}));
@@ -498,16 +500,16 @@ export function mountTacticsUI(api){
     if(documentValue.schemaVersion===2&&lastScene.mode==='court'){
       const p=entityId?(documentValue.review.courtPreparation?.preparedByPlayer[entityId]?.[lastScene.frame]??documentValue.review.entities.find(e=>e.id===entityId)?.courtTrajectory?.[lastScene.frame]):point;
       if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y)){status('当前球员没有有效 2D 位置。');return;}
-      const id=`draw-${crypto.randomUUID()}`;selectedAnnotationId=id;annotationTool='select';await saveAnnotation(makeAnnotation({id,type:'spotlight',phaseId,entityId,space:'court',points:[{x:p.x,y:p.y}],anchorMode:entityId?'court_player_foot':'manual_offset',followEntity:!!entityId,style:{color:'#ffd34e'}}));return;
+      const id=`draw-${crypto.randomUUID()}`;selectedAnnotationId=id;annotationTool='select';await saveAnnotation(makeAnnotation({id,type:'spotlight',phaseId,entityId,space:'court',points:[{x:p.x,y:p.y}],anchorMode:entityId?'court_player_foot':'manual_offset',followEntity:!!entityId}));return;
     }
     const observed=entityId?playerFoot(documentValue,entityId,lastScene.frame,{phaseId,model:lastScene.model}):null,foot=observed?.point;
     if(entityId&&!foot){offerManualSpotlight(point,`${playerLabel(entityId)}：${ANNOTATION_REASONS[observed?.reason]||'本帧没有可靠脚底位置'}。可在刚才点击处放人工圈；该位置不会作为球员轨迹。`);return;}
     // Manual fallback stays in the source picture, regardless of optional court mapping.
     const id=`draw-${crypto.randomUUID()}`,located={space:'video',point:foot??point};
     if(!located.point){status('请先在原视频画面中的脚下点击，确定人工圈的位置。');return;}
-    const next=makeAnnotation({id,type:'spotlight',phaseId,entityId,frame:lastScene.frame,space:located.space,points:[located.point],anchorMode:foot?'player_foot':'manual_offset',followEntity:!!foot,...(foot?{offset:{x:0,y:0}}:{name:`人工定位圈 ${annotations().length+1}`}),style:{color:'#ffd34e'}});
+    const next=makeAnnotation({id,type:'spotlight',phaseId,entityId,frame:lastScene.frame,space:located.space,points:[located.point],anchorMode:foot?'player_foot':'manual_offset',followEntity:!!foot,...(foot?{offset:{x:0,y:0}}:{name:`人工定位圈 ${annotations().length+1}`})});
     footCandidates=[];pendingSpotlight=null;selectedAnnotationId=id;selectedAnnotationPoint=0;annotationTool='select';
-    if(await saveAnnotation(next))status(foot?`已添加重点圈，跟随 ${playerLabel(entityId)} 的有效脚点；缺失时隐藏。可撤销，满意后点「保存」。`:`已添加人工定位圈：${documentValue.schemaVersion===2?`固定显示在 ${drawingRangeLabel()}`:'仅当前参考画面显示'}，不自动跟随。可拖动、撤销，满意后点「保存」。`);
+    if(await saveAnnotation(next))status(foot?`已添加重点圈，跟随 ${playerLabel(entityId)} 的有效脚点；缺失时隐藏。可撤销，满意后点「保存」。`:`已添加人工定位圈：${documentValue.schemaVersion===2?`固定显示在 ${drawingRangeLabel()}`:'按设置的起止时间显示'}，不自动跟随。可拖动、撤销，满意后点「保存」。`);
   }
   function offerManualSpotlight(point,reason){
     if(point&&lastScene.mode==='video')pendingSpotlight={point:{...point},frame:lastScene.frame,context,revision,reason};

@@ -233,8 +233,9 @@ async function adoptV3(document,candidate,{jobId,scope,range,selectedIds}){
     if(!phase||a.startFrame<phase.startFrame||a.endFrameExclusive>phase.endFrameExclusive)throw new Error('Agent 必须按已有阶段分段。');
     if(a.entityId&&a.evidenceFrames.every(f=>!Number.isFinite(d.review.courtPreparation.preparedByPlayer[a.entityId]?.[f]?.x)))throw new Error('关联球员缺少 2D 运动证据。');
     const id=`${jobId}-${a.id}`;
-    d=createCourtAnnotation(d,{...a,id,range:{startFrame:a.startFrame,endFrameExclusive:a.endFrameExclusive},pattern:a.style.pattern,style:a.type==='route'?a.style:{angle:a.style.angle,size:a.style.size,color:a.style.color}});
+    d=createCourtAnnotation(d,{...a,id,origin:{kind:'agent',jobId,sourceFrames:a.evidenceFrames,note:a.explanation},range:{startFrame:a.startFrame,endFrameExclusive:a.endFrameExclusive},pattern:a.style.pattern,style:a.type==='route'?a.style:{angle:a.style.angle,size:a.style.size,color:a.style.color}});
     const item=d.annotations.items.find(x=>x.id===id);item.curve=a.curve;item.anchorFrame=a.cueFrame;item.cueFrame=a.cueFrame;item.progressFrames=structuredClone(a.progressFrames);item.origin={kind:'agent',jobId,sourceFrames:a.evidenceFrames,note:a.explanation};
+    if(a.type==='spotlight')Object.assign(item,{startFrame:a.cueFrame,endFrameExclusive:a.cueFrame+1});
     byId.set(a.id,id);
   }
   for(const [index,k] of candidate.keyframes.entries()){
@@ -350,6 +351,7 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
         if(camera.phaseId!==phase.phaseId||camera.keyframes[0].frame>a.startFrame||camera.keyframes.at(-1).frame<a.endFrameExclusive-1)throw new Error('Agent 示意相机必须覆盖路线完整显示区间。');
         path={...structuredClone(a.authoredPath),cameraId:id,cameraDigest:camera.digest};}
       d=createAnnotation(d,{id:`${jobId}-annotation-${annotationCount++}`,type:a.type,entityId:a.entityId,phaseId:phase.phaseId,frame:a.anchorFrame,startFrame:a.startFrame,endFrameExclusive:a.endFrameExclusive,space:a.space,points:a.points,
+        ...(a.type==='spotlight'?{startFrame:a.anchorFrame,endFrameExclusive:a.anchorFrame+1}:{}),
         ...(directVideo?{followEntity:false,meaning:a.meaning,curve:'polyline'}:a.type==='spotlight'&&a.entityId?{anchorMode:'player_foot'}:{}),...(path?{authoredPath:path}:{}),style:{angle:a.angle,size:a.size,color:a.color,...(a.type==='route'&&a.pattern?{pattern:a.pattern}:{})},origin:{kind:'agent',jobId,sourceFrames:a.evidenceFrames,note:a.explanation}});
     }
     for(const [i,a] of s.actions.entries()){

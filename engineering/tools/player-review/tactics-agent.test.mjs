@@ -102,6 +102,11 @@ test('V3 range candidates bind prepared points, support dashed/dotted styles and
   const options={jobId:'v3-test',scope:'range',phaseId:'phase-1',range:candidate.range};
   const next=await adoptAgentCandidate(d,candidate,{...options,selectedIds:['a1']});assert.equal(next.annotations.items.length,2);assert.deepEqual(next.annotations.items[0],d.annotations.items[0]);assert.equal(next.annotations.items[1].style.pattern,'dots');assert.equal(next.tacticKeyframes.items[0].annotationIds.length,1);
   for(const patch of [{preparationDigest:'0'.repeat(64)},{range:{startFrame:0,endFrameExclusive:60}},{annotations:[{...candidate.annotations[0],endFrameExclusive:60}]}])await assert.rejects(adoptAgentCandidate(d,{...candidate,...patch},options));
+  const focus=structuredClone(candidate);focus.annotations=[{...focus.annotations[0],type:'spotlight',points:[{x:10,y:8}],meaning:'focus',style:{angle:0,size:1,color:'#ffd45c',pattern:'solid'}}];focus.keyframes[0].annotationIds=['a0'];
+  const focused=await adoptAgentCandidate(d,focus,{...options,jobId:'v3-focus'}),circle=focused.annotations.items.at(-1);
+  assert.deepEqual([circle.startFrame,circle.endFrameExclusive,circle.anchorFrame],[30,31,30]);
+  assert.equal(circle.style.color,'#ffffff');
+  assert.deepEqual(circle.actionRange,{startFrame:30,endFrameExclusive:50});
 });
 
 const videoCandidate=()=>{
@@ -113,6 +118,27 @@ const videoCandidate=()=>{
     annotationIndexes:i<2?[i]:[],evidenceFrames:[12],reason:i<2?'本帧可见动作':'未能判断本阶段战术参与，需要人工检查'}));
   return c;
 };
+test('Agent focus defaults to its cue but a user can extend the same glow through ordinary playback',async()=>{
+  const {createManualAnnotation,setManualAnnotationRange}=await import('./tactics-manual-editor.mjs');
+  const {document:doc}=await makeV2Fixture(),candidate=videoCandidate();
+  candidate.phases[0].annotations[0]={...candidate.phases[0].annotations[0],type:'spotlight',points:[{x:600,y:400}]};
+  const adopted=await agent.adoptAgentCandidate(doc,candidate,{jobId:'focus-timing',scope:'play',phaseId:'phase-1'});
+  const focus=adopted.annotations.items.find(a=>a.type==='spotlight');
+  assert.deepEqual([focus.startFrame,focus.endFrameExclusive],[12,13]);
+  assert.ok(adopted.tacticKeyframes.items.some(k=>k.frame===12&&k.annotationIds.includes(focus.id)));
+  assert.equal(annotations.projectAnnotations(adopted,{phaseId:focus.phaseId,frame:16}).items.find(a=>a.id===focus.id).hiddenReason,'outside_time');
+  const extended=setManualAnnotationRange(adopted,focus.id,{startFrame:12,endFrameExclusive:30});
+  await validateDocument(JSON.parse(JSON.stringify(extended)));
+  const ordinary=annotations.projectAnnotations(extended,{phaseId:focus.phaseId,frame:16,freeze:false});
+  assert.ok(ordinary.items.find(a=>a.id===focus.id).video);
+  const renderFocus=(document,id,frame)=>annotations.renderAnnotationsSVG({...annotations.projectAnnotations(document,{phaseId:focus.phaseId,frame}),items:annotations.projectAnnotations(document,{phaseId:focus.phaseId,frame}).items.filter(a=>a.id===id)}).replaceAll(id,'same').replace(/spotlight-video-[0-9a-f-]+/g,'focus-').replace(/focus-mask-[0-9a-f-]+/g,'mask-');
+  // The manual creation entry and the stored Agent entry share the exact visual.
+  const manual=createManualAnnotation(extended,{id:'manual-focus',phaseId:focus.phaseId,type:'spotlight',entityId:focus.entityId,followEntity:false,range:{startFrame:12,endFrameExclusive:30},frame:12,space:'video',points:focus.points,style:focus.style});
+  const autoSvg=renderFocus(extended,focus.id,16),manualSvg=renderFocus(manual,'manual-focus',16);
+  assert.match(autoSvg,/data-part="spotlight-soft-light"/);assert.match(manualSvg,/data-part="spotlight-soft-light"/);
+  assert.equal(autoSvg,manualSvg);
+});
+
 test('V4 direct-video drafts preserve independent participants and expose uncertainty without requiring calibration',async()=>{
   const doc=await setup();delete doc.review.court;
   const {createSourceBinding}=await import('../tactical-overlay/binding.mjs');doc.playDefinition.sourceBinding=await createSourceBinding(doc.review);
@@ -162,6 +188,7 @@ test('V4 possession changes permit different holders at separate pause frames an
   Object.assign(p.annotations[1],{anchorFrame:20,startFrame:20,endFrameExclusive:21,evidenceFrames:[20]});p.participants[1].evidenceFrames=[20];
   const next=await agent.adoptAgentCandidate(doc,c,{jobId:'holder-change',scope:'play',phaseId:'phase-1'});
   assert.deepEqual(next.annotations.items.map(a=>[a.type,a.entityId,a.anchorFrame]),[['spotlight','P1',12],['spotlight','P2',20]]);
+  assert.deepEqual(next.annotations.items.map(a=>[a.startFrame,a.endFrameExclusive]),[[12,13],[20,21]]);
   p.annotations[1].anchorFrame=12;p.annotations[1].startFrame=12;p.annotations[1].endFrameExclusive=30;p.annotations[1].evidenceFrames=[12];p.participants[1].evidenceFrames=[12];
   await assert.rejects(agent.adoptAgentCandidate(doc,c,{jobId:'holder-conflict',scope:'play',phaseId:'phase-1'}),/只能圈出一个当前持球人/);
 });
