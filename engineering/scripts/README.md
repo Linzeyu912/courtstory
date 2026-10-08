@@ -4,6 +4,8 @@
 
 | 类型 | 脚本 | 说明 |
 |---|---|---|
+| 配音字幕成片 | `commentary_workflow.py`、`commentary_tts.py`、`render_commentary_narration.py` | Pi 理解结果 → 火山 Seed TTS 2.0 → 实际音频时长对齐 → 原画面烧录字幕、原声混音与 MP4；[调用与验证](../docs/commentary-narration-workflow.md) |
+| 工作台解说与配音 | `commentary_jobs.py`、`commentary_workflow.py`、`commentary_tts.py`、`render_commentary_narration.py` | 第三部分生成/编辑带时间解说、后台配音和原视频字幕成片；[接口与运行](../docs/commentary-narration-workflow.md) |
 | 独立视频解说 | `commentary_agent.py`、`commentary_video.py` | Pi 多轮拼帧/原图/裁图理解，按需查询已有检测，输出源视频时间对齐的解说文字；[运行与接口](../docs/video-commentary-agent.md) |
 | 解说效果预览 | `render_commentary_preview.py` | 将 Astra 两片原稿按时间叠入独立字幕区域，暂停句定格阅读；生成 MP4 和可点击解说跳转的本机页面，见[运行说明](../tools/commentary-preview/README.md) |
 | Qwen 单人并行映射 | `ground_trajectory_parallel.py`、`ground_trajectory_frame_cache.py` | 冻结前置输入、每人独立输出与协调汇总；共享帧缓存、请求并发/间隔控制；见[实验](../../research/agents/qwen-parallel-20261007/README.md) |

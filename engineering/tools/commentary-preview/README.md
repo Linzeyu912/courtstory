@@ -1,5 +1,7 @@
 # 解说视频预览
 
+带真实配音的版本见[火山 TTS 成片工作流](../../docs/commentary-narration-workflow.md)。模板同时支持无声文字预览和带音频成片；成片模式按实际配音时间高亮句子，显示真实定格时长，并保持源视频宽高比。
+
 纯本地预览模板，展示Astra两段原稿；由 `engineering/scripts/render_commentary_preview.py` 注入时间轴数据并生成到新目录。播放导出的MP4，点击解说可跳至对应预览时刻。定格段显示其原片锚点，避免将延长后的预览秒数误认为源视频秒数。
 
 运行：
