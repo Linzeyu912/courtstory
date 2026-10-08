@@ -401,12 +401,14 @@ test('entering tactics synchronizes corrected feet and participants, archives re
 });
 
 function environment(source,{player=false,empty=false,agent=null,renderJob=null,loadDocument=null,storage=null,storageKey=null,serverVersion=0}={}){
-  const nodes=new Map(),events={},writes=[],metadataWrites=[],saved=[],store=storage??new Map();let hold=false,releases=[],frameRequests=0,resizeCallback;
+  const nodes=new Map(),events={},writes=[],metadataWrites=[],saved=[],requests=[],store=storage??new Map();let hold=false,releases=[],frameRequests=0,resizeCallback;
   function make(tag='div'){
     const queries=new Map();
     const node={tag,children:[],attrs:{},listeners:{},style:{},dataset:{},value:'',checked:false,clientWidth:800,hidden:false,textContent:'',
       append(...children){for(const child of children){if(child&&typeof child==='object'){if(child.parentElement)child.parentElement.children=child.parentElement.children.filter(n=>n!==child);child.parentElement=this;}this.children.push(child);}},
       prepend(...children){this.append(...children);this.children=[...children,...this.children.filter(n=>!children.includes(n))];},
+      after(...children){const parent=this.parentElement;if(!parent)return;for(const child of children){if(child?.parentElement)child.parentElement.children=child.parentElement.children.filter(n=>n!==child);if(child&&typeof child==='object')child.parentElement=parent;}parent.children.splice(parent.children.indexOf(this)+1,0,...children);},
+      classList:{add(...names){node.className=[...new Set([...(node.className??'').split(/\s+/).filter(Boolean),...names])].join(' ');},contains(name){return (node.className??'').split(/\s+/).includes(name);}},
       replaceChildren(...children){this.children=[];this.append(...children);if(tag==='select')this.value=children[0]?.value||'';},focus(){document.activeElement=this;},
       setAttribute(k,v){this.attrs[k]=v;},getAttribute(k){return this.attrs[k]??null;},remove(){this.removed=true;},
       querySelector(selector){
@@ -420,6 +422,7 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
       addEventListener(name,fn){(this.listeners[name]||=[]).push(fn);},setPointerCapture(id){this.pointer=id;},hasPointerCapture(id){return this.pointer===id;},releasePointerCapture(){this.pointer=null;},click(){},
       drawCalls:[],getContext:()=>({drawImage(...args){node.drawCalls.push(args);},clearRect(){}}),getScreenCTM:()=>({inverse:()=>({})}),createSVGPoint:()=>({matrixTransform(){return {x:this.x,y:this.y};}})};
     Object.defineProperty(node,'innerHTML',{get(){return this.html||'';},set(value){this.html=value;this.children=value.startsWith('<svg')?[make('svg')]:[];}});
+    if(tag==='video')Object.assign(node,{paused:true,pause(){this.paused=true;}});
     return node;
   }
   const get=id=>{if(!nodes.has(id))nodes.set(id,make());return nodes.get(id);};
@@ -433,7 +436,9 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
     window:{history:{replaceState(){}}},location:{search:'?sample=test&qa=1'},Image:class{async decode(){}},ResizeObserver:class{constructor(callback){resizeCallback=callback;}observe(){}},
     localStorage:{getItem:()=>null},indexedDB:{open(){const r={};queueMicrotask(()=>{r.result=connection;r.onsuccess();});return r;}},
     fetch:async(path,options)=>{
+      requests.push(path);
       let value;if(path.startsWith('/api/tactics?'))value={version:serverVersion,document:empty?null:loadDocument?await loadDocument():source};
+      else if(path.startsWith('/api/commentary?'))value={status:{model:'fixture-commentary',understandingConfigured:false,ttsConfigured:false},plan:null,job:null};
       else if(path==='/api/tactics/frame'){frameRequests++;value={frames:JSON.parse(options.body).frames.map(frame=>({...source.review.sourceFrameMapping[frame],videoSha256:source.review.videoSha256,dataUrl:'data:image/jpeg;base64,/9j/'}))};}
       else if(path==='/api/tactics/save'){const payload=JSON.parse(options.body);saved.push(payload);value={version:payload.expectedVersion+1};}
       else if(path.startsWith('/api/tactics-agent/')&&agent)value=await agent(path,options?JSON.parse(options.body):null);
@@ -445,7 +450,7 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
   const present=(frame)=>{seekSerial++;point={frame,time:source.review.sourceFrameMapping[frame].time,source:background,paused};ui.onPresentedFrame?.(point);};
   const bridge=player?{seek(frame){const serial=++seekSerial;playerCalls.push(['seek',frame]);paused=true;const done=()=>{if(serial===seekSerial)present(frame);};if(seekHeld)pendingSeeks.push(done);else queueMicrotask(done);},play(){paused=false;playerCalls.push(['play']);},getPresentedFrame:()=>point}:{};
   const ui=mountTacticsUI({key:storageKey??`player-review:ui-fixture-${++environmentId}:qa`,sample:'test',variant:'test',qa:true,title:'fixture',clip:{video_sha256:source.review.videoSha256},pause(){paused=true;playerCalls.push(['pause']);},snapshot:()=>source.review,frame:()=>point?.frame??12,openStep(){},...bridge});
-  return {get,ui,writes,metadataWrites,saved,store,playerCalls,present,background,get frameRequests(){return frameRequests;},get pendingWrites(){return releases.length;},
+  return {get,ui,writes,metadataWrites,saved,requests,store,playerCalls,present,background,get frameRequests(){return frameRequests;},get pendingWrites(){return releases.length;},
     holdSeek(){seekHeld=true;},finishSeek(){seekHeld=false;for(const done of pendingSeeks.splice(0))done();},
     async load(){await events['workbench-area']();await ui.ready();},resize(){resizeCallback();},
     async exit(){await events['workbench-area']();},
@@ -459,6 +464,22 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
     restore(){ui.dispose();for(const [k,v] of originals){if(v===undefined)delete globalThis[k];else globalThis[k]=v;}}
   };
 }
+
+test('the tactics workspace mounts commentary after its heading and loads an isolated empty commentary draft',async()=>{
+  const env=environment(await createTacticsDocument((await makePresentationDemo()).review));
+  try{
+    await env.load();
+    const panel=env.get('tacticsPanel'),heading=panel.querySelector('.tactics-heading'),commentary=panel.children[panel.children.indexOf(heading)+1];
+    assert.equal(commentary.tag,'section');assert.equal(commentary.parentElement,panel);assert.equal(commentary.classList.contains('commentary-ui'),true);
+    assert.deepEqual(env.requests.filter(path=>path.startsWith('/api/commentary?')),['/api/commentary?sample=test&variant=test&qa=1']);
+    const descendants=node=>[node,...node.children.flatMap(descendants)];
+    assert.ok(descendants(commentary).some(node=>node.textContent.includes('fixture-commentary')));
+    assert.ok(descendants(commentary).some(node=>node.textContent==='配音并生成字幕视频'&&node.disabled));
+    const videos=descendants(commentary).filter(node=>node.tag==='video');assert.equal(videos.length,2);
+    for(const video of videos)video.paused=false;
+    env.ui.dispose();assert.ok(videos.every(video=>video.paused));
+  }finally{env.restore();}
+});
 
 test('video preview redraws at full canvas width on resize, leaving source coordinates intact and court height capped',async()=>{
   const {review}=await makePresentationDemo();review.mediaEndTime=6.1;
