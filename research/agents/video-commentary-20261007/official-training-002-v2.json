@@ -1,0 +1,300 @@
+{
+  "status": "completed",
+  "plan": {
+    "summary": "视频记录了第三节中段的一个完整攻防回合。身穿白色球衣的球队（客队，记分牌上方）在进攻时限即将耗尽时，由1号球员完成高难度后撤步三分投篮并命中，将比分追至62-63。随后身穿深色球衣的主队抢下篮板发起反击。",
+    "events": [
+      {
+        "eventId": "evt_1",
+        "startTime": 9.5,
+        "endTime": 13.5,
+        "description": "白队1号球员在弧顶持球，面对防守压力，在进攻时间仅剩约8秒时开始运球寻找机会。他在三分线外通过运球调整节奏，防守人紧贴防守。",
+        "participants": [
+          "白队1号",
+          "黑队防守人"
+        ],
+        "evidenceFrames": [
+          599,
+          629,
+          659,
+          689,
+          719
+        ],
+        "uncertainties": [],
+        "evidenceTimes": [
+          {
+            "frame": 599,
+            "time": 9.993322222222222,
+            "sourceTime": 9.993322222222222
+          },
+          {
+            "frame": 629,
+            "time": 10.493822222222223,
+            "sourceTime": 10.493822222222223
+          },
+          {
+            "frame": 659,
+            "time": 10.994322222222221,
+            "sourceTime": 10.994322222222221
+          },
+          {
+            "frame": 689,
+            "time": 11.494833333333334,
+            "sourceTime": 11.494833333333334
+          },
+          {
+            "frame": 719,
+            "time": 11.995333333333333,
+            "sourceTime": 11.995333333333333
+          }
+        ]
+      },
+      {
+        "eventId": "evt_2",
+        "startTime": 13.5,
+        "endTime": 14.5,
+        "description": "白队1号球员在进攻时间即将耗尽（剩约1-2秒）时，果断选择后撤步三分出手。球在空中划过弧线，此时进攻计时器显示极低数值。",
+        "participants": [
+          "白队1号"
+        ],
+        "evidenceFrames": [
+          749,
+          779,
+          794
+        ],
+        "uncertainties": [],
+        "evidenceTimes": [
+          {
+            "frame": 749,
+            "time": 12.495833333333334,
+            "sourceTime": 12.495833333333334
+          },
+          {
+            "frame": 779,
+            "time": 12.996333333333334,
+            "sourceTime": 12.996333333333334
+          },
+          {
+            "frame": 794,
+            "time": 13.246577777777778,
+            "sourceTime": 13.246577777777778
+          }
+        ]
+      },
+      {
+        "eventId": "evt_3",
+        "startTime": 14.5,
+        "endTime": 16,
+        "description": "三分球空心入网。记分牌随后更新，白队得分从60变为62。白队球员开始回防，黑队准备底线发球或抢下篮板（此处画面显示球进后黑队并未立即发球，而是白队进球后黑队拿球）。修正：球进后，黑队球员在篮下拿到球准备推进。",
+        "participants": [
+          "白队1号",
+          "黑队球员"
+        ],
+        "evidenceFrames": [
+          809,
+          839,
+          959
+        ],
+        "uncertainties": [
+          "具体是谁抢下篮板球开始反击，画面中多人聚集"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 809,
+            "time": 13.496833333333333,
+            "sourceTime": 13.496833333333333
+          },
+          {
+            "frame": 839,
+            "time": 13.997333333333334,
+            "sourceTime": 13.997333333333334
+          },
+          {
+            "frame": 959,
+            "time": 15.999333333333333,
+            "sourceTime": 15.999333333333333
+          }
+        ]
+      },
+      {
+        "eventId": "evt_4",
+        "startTime": 16,
+        "endTime": 20,
+        "description": "黑队快速推进过半场，白队1号球员积极回防并指挥队友落位。黑队32号球员持球推进至前场，比赛进入下一个回合。",
+        "participants": [
+          "黑队32号",
+          "白队1号"
+        ],
+        "evidenceFrames": [
+          989,
+          1049,
+          1109,
+          1169
+        ],
+        "uncertainties": [],
+        "evidenceTimes": [
+          {
+            "frame": 989,
+            "time": 16.499833333333335,
+            "sourceTime": 16.499833333333335
+          },
+          {
+            "frame": 1049,
+            "time": 17.500833333333333,
+            "sourceTime": 17.500833333333333
+          },
+          {
+            "frame": 1109,
+            "time": 18.501833333333334,
+            "sourceTime": 18.501833333333334
+          },
+          {
+            "frame": 1169,
+            "time": 19.502833333333335,
+            "sourceTime": 19.502833333333335
+          }
+        ]
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "cue_1",
+        "eventId": "evt_1",
+        "suggestedStartTime": 10,
+        "suggestedEndTime": 13,
+        "text": "白队1号控球，时间紧，找空间。",
+        "focus": "白队1号持球观察",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          599,
+          659,
+          719
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 599,
+            "time": 9.993322222222222,
+            "sourceTime": 9.993322222222222
+          },
+          {
+            "frame": 659,
+            "time": 10.994322222222221,
+            "sourceTime": 10.994322222222221
+          },
+          {
+            "frame": 719,
+            "time": 11.995333333333333,
+            "sourceTime": 11.995333333333333
+          }
+        ]
+      },
+      {
+        "cueId": "cue_2",
+        "eventId": "evt_2",
+        "suggestedStartTime": 13,
+        "suggestedEndTime": 14.5,
+        "text": "后撤步三分——",
+        "focus": "白队1号投篮动作",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          749,
+          779
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 749,
+            "time": 12.495833333333334,
+            "sourceTime": 12.495833333333334
+          },
+          {
+            "frame": 779,
+            "time": 12.996333333333334,
+            "sourceTime": 12.996333333333334
+          }
+        ]
+      },
+      {
+        "cueId": "cue_3",
+        "eventId": "evt_3",
+        "suggestedStartTime": 14.5,
+        "suggestedEndTime": 16.5,
+        "text": "球进了！关键压哨三分，分差只剩一分。",
+        "focus": "篮球入网及记分牌变化",
+        "delivery": "pause",
+        "evidenceFrames": [
+          794,
+          809,
+          959
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 794,
+            "time": 13.246577777777778,
+            "sourceTime": 13.246577777777778
+          },
+          {
+            "frame": 809,
+            "time": 13.496833333333333,
+            "sourceTime": 13.496833333333333
+          },
+          {
+            "frame": 959,
+            "time": 15.999333333333333,
+            "sourceTime": 15.999333333333333
+          }
+        ]
+      },
+      {
+        "cueId": "cue_4",
+        "eventId": "evt_4",
+        "suggestedStartTime": 17,
+        "suggestedEndTime": 19.5,
+        "text": "主队快发，白队回防。",
+        "focus": "攻守转换",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          1049,
+          1109,
+          1169
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 1049,
+            "time": 17.500833333333333,
+            "sourceTime": 17.500833333333333
+          },
+          {
+            "frame": 1109,
+            "time": 18.501833333333334,
+            "sourceTime": 18.501833333333334
+          },
+          {
+            "frame": 1169,
+            "time": 19.502833333333335,
+            "sourceTime": 19.502833333333335
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "无法确认球员具体姓名，仅通过球衣颜色和号码区分",
+      "记分牌更新略有延迟，但分数变化清晰可见"
+    ]
+  },
+  "usage": {
+    "input": 33410,
+    "output": 5307,
+    "cacheRead": 124032,
+    "cacheWrite": 0,
+    "totalTokens": 162749,
+    "requests": 6,
+    "toolCalls": 7,
+    "imagesReturned": 6,
+    "uniqueFrames": 62,
+    "elapsedMs": 128006
+  },
+  "provider": {
+    "name": "token-plan",
+    "model": "qwen3.8-max"
+  },
+  "elapsedSeconds": 129.17
+}

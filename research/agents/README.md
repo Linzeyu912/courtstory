@@ -1,7 +1,12 @@
 # Agent 与视频理解研究
 
+2026-10-07 晚间：[OpenRouter Astra 解说对照](video-commentary-20261007/openrouter-astra.md)，官方001/002各5条解说及Qwen对照；主线程直接读图复核，同时保留12轮未保存方案的失败记录。
+
+2026-10-07：[独立解说 Agent 真实试跑](video-commentary-20261007/README.md)，Pi 工具循环已跑通，保留两个样片的原始文字结果与内容误差；不是准确率验收通过。
+
 | 专题 | 入口 | 范围 |
 | --- | --- | --- |
+| 视频理解与带时机的解说复用 | [2026-10-07 核查](video-commentary-reuse-20261007.md) | Pi、多页拼帧、主动取证、Codex 实际边界与现有代码复用；附独立解说 Agent 协作建议，未实施 |
 | 当前多模态模型与篮球战术理解 | [2026-10-06 调研](multimodal-basketball-20261006/README.md)、[10 月 7 日云端多模态实测](../../environment/aws/openrouter-multimodal-connectivity-20261007.md) | 官方规格、价格、篮球专项证据；后续九模型合成样例调用通过，真实篮球质量待测 |
 | Qwen 主动看帧、修正地面轨迹 | [讨论与来源](qwen-video-trajectory-agent-20261005.md) | Agent 多轮工具与证据循环 |
 | Qwen 官方训练片真实调用 | [测试、修复与结果](qwen-ground-official-20261005/README.md) | 两段官方原片、真实 API、像素到 2D 的多轮对照；AI 参照不代表人工真值 |
