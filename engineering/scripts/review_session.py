@@ -9,8 +9,9 @@ IDENTITY_BINDING_MODE = 'forward_only_v1'
 TRACK_OCCURRENCES_SCOPE = 'track_occurrences'
 PLAYER_IDS = {f'P{i}' for i in range(1, 11)}
 IDENTITY_KINDS = {'track', 'untracked', 'out_of_view', 'unassigned'}
-PERSON_RECORDS = ('anchors', 'identityKeyframes', 'bindings', 'modelBindings', 'courtAnchors', 'events', 'frameConfirmations', 'visibilityRanges')
-FRAME_CONFIRMATION_SCOPES = {'track_occurrences', 'manual_forward', 'manual_range', 'model_suggestion', 'manual_position'}
+PERSON_RECORDS = ('anchors', 'identityKeyframes', 'bindings', 'modelBindings', 'courtAnchors', 'events', 'frameConfirmations', 'visibilityRanges',
+                  'machineIdentityBindings','machineNameIdentities','machineNameIdentityConflicts')
+FRAME_CONFIRMATION_SCOPES = {'track_occurrences', 'manual_forward', 'manual_range', 'model_suggestion', 'manual_position','machine_name_binding'}
 
 
 def _integer(value, name, low=0, high=2**53 - 1):
@@ -424,7 +425,7 @@ def apply_review_edit(session, operation, clip):
         # The browser reloads model proposals on startup. Persist the user's
         # deliberate clearing so those proposals cannot silently fill it again.
         entity['identitySuggestionsDismissed'] = True
-        for field in ('modelTeamGroup', 'modelTeamHint', 'automaticTeamEvidence', 'identityReference'):
+        for field in ('modelTeamGroup', 'modelTeamHint', 'automaticTeamEvidence', 'identityReference','machinePlayerProfile'):
             entity.pop(field, None)
         draft['identitySelection'] = None
         affected = {'start': 0, 'end': frame_count - 1}

@@ -1,0 +1,15 @@
+{
+  "nameDisplay": {
+    "enabled": true,
+    "groups": {"A": true, "B": false},
+    "players": {"P1": true, "P2": false, "P7": true},
+    "showName": true,
+    "showJersey": true,
+    "showAnkleRing": true
+  },
+  "labels": [
+    {"id": "P1", "identity": {"name": "LeBron James", "jersey": "23", "identityVerified": true}, "expected": "LeBron James · #23"},
+    {"id": "P1", "identity": {"name": "Candidate", "jersey": "00", "identityVerified": false}, "expected": "Candidate? · #00"},
+    {"id": "P7", "identity": null, "expected": "P7 · pending"}
+  ]
+}

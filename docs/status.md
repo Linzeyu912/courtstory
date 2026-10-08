@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-08 02:18（America/New_York，本任务未提交／未推送）：三个 GPT-6.1 Sol 子 agent 完成全员姓名 v4 诊断、实现与回放复核，真实模型优先使用 Qwen Token Plan。官方001十个 P 均有唯一姓名，姓名位置覆盖由同消费链 v3 的22.85%提升至91.39%，226帧同时有十人姓名；该指标不是准确率。完整21.538秒1080p回放保留原PTS与原声，原片／正式草稿保持。姓名后端48项、前端定向70项通过；共享前端全量647／723通过，解说挂载测试模拟DOM与两项历史身份测试仍失败。另一会话已将main更新至101d622，本任务改动保留在本地。见[v4实际结果](../engineering/docs/player-name-optimization-20261007.md)与[独立交接](../handoffs/chuali-zi/2026-10-08-0218-player-name-v4-full-replay.md)。
+
 2026-10-08（America/New_York）：解说增量已接入总工作台第三部分「战术制作」：Astra 理解当前视频并参考当前检测数据，逐句编辑时间与文字，火山 Seed TTS 2.0 配音、字幕成片预览及 MP4 / SRT 下载。保留独立 CLI；未更新运行中的云服务。见[工作流](../engineering/docs/commentary-narration-workflow.md)与[交接](../handoffs/chuali-zi/2026-10-08-0100-commentary-workbench.md)。
 
 2026-10-07 22:59（America/New_York）：按用户要求先将独立解说Agent、试验原稿和无声预览推送main，远端核对为 `888df0f`。随后本机接通火山Seed TTS 2.0与字幕成片，001/002共10句真实合成成功，生成26.87/29.77秒1080p H.264/AAC成片；19项Python通过，TTS增量未提交、未部署。见[工作流](../engineering/docs/commentary-narration-workflow.md)和[交接](../handoffs/chuali-zi/2026-10-07-2259-volcengine-narration-workflow.md)。
@@ -9,6 +11,8 @@
 2026-10-07 22:19（America/New_York，本地未提交／未推送）：按用户要求将独立解说试验切换到OpenRouter `openai/gpt-6-astra`，读取根.env已有OPEN_ROUTER_KEY。官方001/002各完成5条带时机解说，主线程直接查看抽帧后，主要事实/时间及战术过程优于Qwen版；两次均10轮，Agent阶段约221/252秒，48/55个不同帧。保留一次002耗尽12轮未保存的失败，新增剩余预算提醒；另补worker管道退出诊断。10项Python＋4项Node通过，未改绘图或默认模型。见[Astra对照及原稿](../research/agents/video-commentary-20261007/openrouter-astra.md)、[交接](../handoffs/chuali-zi/2026-10-07-2219-openrouter-astra-commentary.md)。
 
 2026-10-07 13:02（America/New_York，本地未提交／未推送）：完成独立 Pi 视频解说增量，支持多页全片概览、窗口／原图／裁图回看、可选 YOLO 候选和带源视频时间的文字输出。Token Plan qwen3.8-max 对官方001/002各跑两版，工具循环可运行，001新版因果改善，002仍有两分误报三分和时机提前，内容质量未通过；未接网页、绘图或渲染。8项Python＋3项Node定向检查通过，见[工程入口](../engineering/docs/video-commentary-agent.md)、[原稿及复核](../research/agents/video-commentary-20261007/README.md)、[交接](../handoffs/chuali-zi/2026-10-07-1302-commentary-agent-increment.md)。远端此前安全同步到e1db1a0，已有其他任务修改保留；当前GitHub Issue查询401，无法复核最新负责人讨论。
+
+2026-10-07 12:45（America/New_York，本任务未提交／未推送）：三个 Luna 子 agent 并行完成球员姓名识别、有限区间候选、脚底标签及全局／球队／单人开关，正式 MP4 接同一快照。Qwen Token Plan v3二十次请求成功，64段10候选／54未知；P2／P10冲突后采用6段、5名待核对候选，十人全片准确率未验收。真实3秒1080p成片与开关检查完成。收尾另一会话同步共享工作区到e1db1a0，核查本任务改动保留后补测：姓名后端23过，渲染／HTTP49过，最新前端707项705过2败（未修改的基础球队识别测试），不称全量通过；本任务功能仍是本地未提交修改，不因HEAD同步而已共享。见[工程说明](../engineering/docs/player-name-identification-20261007.md)及[交接](../handoffs/chuali-zi/2026-10-07-1230-player-name-implementation.md)。
 
 2026-10-08（Asia/Shanghai，当前修改统一同步）：按用户授权发布 NBA 2K 两季全联盟数据包、球员人工修正和自动战术当前实现，已整合队友截至 `7904a34` 的八个提交。补齐 CSV 跨机器换行约定、云端执行器与新版战术模型配置的兼容，以及逐阶段审核回归；本条随最终同步记录提交。数据包 134 条文件清单、165 段视频完整性与 LFS 索引、整合后 690 项前端测试通过；后端检查和具体限制见[发布交接](../handoffs/thy-0629/2026-10-08-0015-current-work-publication.md)。本轮不执行云部署，002 全片自动生成稳定性仍未验收；下方未提交记录保留历史时点。
 

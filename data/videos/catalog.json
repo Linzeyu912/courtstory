@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-10-05T23:05:19+08:00",
+  "updated_at": "2026-10-08T02:28:04-04:00",
   "path_base": "repository_root",
   "datasets": [
     {
@@ -90,6 +90,18 @@
       "manifest": "data/videos/uploads/2026-10-05-official-training/manifest.json",
       "entry_count": 2,
       "included_count": 2,
+      "awaiting_upload_count": 0
+    },
+    {
+      "dataset_id": "player-name-v4-demo-20261008",
+      "season": "2025-26",
+      "purpose": "rendered_demo",
+      "category": "rendered_result",
+      "display_name": "全员姓名v4演示（派生输出）",
+      "root": "data/videos/demos/player-name-v4-20261008",
+      "manifest": "data/videos/demos/player-name-v4-20261008/manifest.json",
+      "entry_count": 1,
+      "included_count": 1,
       "awaiting_upload_count": 0
     }
   ],

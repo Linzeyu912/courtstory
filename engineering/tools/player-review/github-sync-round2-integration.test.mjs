@@ -49,7 +49,7 @@ function domFixture(){
   const get=id=>{if(!nodes.has(id))nodes.set(id,make());return nodes.get(id);};
   const tabs=['footage','identity','calibration','repair','events'].map(step=>{const node=get(`tab-${step}`);node.dataset.step=step;node.setAttribute('aria-selected',String(step==='identity'));return node;});
   get('calibrationSide').value='left';get('calibrationLandmark').value='A';
-  const document={body:{dataset:{}},activeElement:null,getElementById:get,createElement:make,addEventListener(){},dispatchEvent(){},
+  const document={body:{dataset:{}},activeElement:null,getElementById:get,createElement:make,createTextNode:text=>({nodeType:3,textContent:String(text)}),addEventListener(){},dispatchEvent(){},
     querySelector:()=>get('player-overview'),querySelectorAll:selector=>selector==='button[data-step]'?tabs:[]};
   const originals=new Map(['document','window','devicePixelRatio','location','fetch','localStorage','requestAnimationFrame','setTimeout','clearTimeout','MutationObserver','ResizeObserver'].map(key=>[key,globalThis[key]]));
   Object.assign(globalThis,{MutationObserver:class {observe(){} disconnect(){}},ResizeObserver:class {observe(){} disconnect(){}},document,window:{addEventListener(){},history:{replaceState(){}}},devicePixelRatio:1,

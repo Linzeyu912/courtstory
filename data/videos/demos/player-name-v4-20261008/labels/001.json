@@ -1,0 +1,235 @@
+{
+  "id": "001",
+  "clip_id": "player-name-v4-demo-20261008-001",
+  "season": "2025-26",
+  "asset_path": "clips/official001-all-players-full.mp4",
+  "sha256": "f7ae066a5ca4463446d40abf3dc6e0d7014cbf1a305b351cb63575d72eeea658",
+  "size_bytes": 44970420,
+  "source": {
+    "kind": "derived_render",
+    "url": "https://github.com/Linzeyu912/broadcastcode-team-hub/blob/101d622ea6380cedaa5a76d9dc5ac6f831de46f4/data/videos/uploads/2026-10-05-official-training/clips/%E8%AE%AD%E7%BB%83_%E5%BC%97%E6%8B%89%E6%A0%BC2%E6%9C%881%E6%97%A5.mp4",
+    "publisher": "本团队本机姓名渲染",
+    "collected_at": "2026-10-08",
+    "start_seconds": 0,
+    "end_seconds": 21.53821111111111,
+    "parent_clip_id": "broadcastcode-training-20261005-001",
+    "parent_asset_path": "data/videos/uploads/2026-10-05-official-training/clips/训练_弗拉格2月1日.mp4",
+    "parent_sha256": "9c3e4606d04e7f79e29a112952fcf069ebab202af207af500bfbc3338bc079ce",
+    "basis": "复用官方001整段源PTS与原声；新增追踪框、姓名和脚环，属于派生展示输出。原转播外部来源仍沿用原素材说明。"
+  },
+  "game": {
+    "season": "2025-26",
+    "date_local": "2026-01-31",
+    "date_beijing": null,
+    "matchup": "DAL at HOU",
+    "game_id": "0022500701",
+    "verification_url": "https://statsdmz.nba.com/pdfs/20260131/20260131_DALHOU.pdf",
+    "period": 4,
+    "clock_start": "01:52",
+    "clock_end": "01:34",
+    "offense_team": null,
+    "defense_team": null,
+    "unknown_reason": "比赛名单按官方报告匹配；逐帧身份未经过独立人工真值验收。"
+  },
+  "tactic": {
+    "title": "官方001全员姓名v4追踪演示",
+    "tags": [
+      "全员姓名显示",
+      "追踪渲染演示"
+    ],
+    "description": "十个P各有唯一姓名；源片完整时间轴，存在遮挡及轨迹缺口。",
+    "label_status": "reviewed_visible_actions",
+    "basis": "实际源帧AI复核、真实Qwen Token Plan读号与同人比较、比赛名单匹配及最终成片抽查。",
+    "confidence_note": "91.39%为可定位帧的姓名覆盖率，非准确率；不是新的独立比赛素材。"
+  },
+  "measured_video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 59.939982635512386,
+    "duration_seconds": 21.53821111111111,
+    "frame_count": 1291,
+    "measurement_status": "measured",
+    "measurement_basis": "最终成片实际解码、源PTS与原声包核对。"
+  },
+  "review": {
+    "normal_speed": true,
+    "original_broadcast": false,
+    "full_possession": false,
+    "decode_status": "passed",
+    "visual_status": "ai_sampled_review",
+    "reviewed_at": "2026-10-08T02:28:04-04:00",
+    "basis": "派生姓名展示，源画面来自官方001；抽查首中尾和拥挤帧，不计入原始转播素材评估。",
+    "accuracy_verified": false,
+    "source_pts_preserved": true,
+    "source_audio_preserved": true
+  },
+  "dedup": {
+    "content_status": "derived_from_existing_clip",
+    "byte_status": "derived_render",
+    "action_group": null,
+    "similar_to": [],
+    "source_overlaps": [
+      {
+        "clip_id": "broadcastcode-training-20261005-001",
+        "start_seconds": 0,
+        "end_seconds": 21.53821111111111
+      }
+    ],
+    "related_context": [
+      "broadcastcode-training-20261005-001"
+    ],
+    "reason": "同一官方001画面增加渲染标注，不新增独立球权。"
+  },
+  "players": [
+    {
+      "id": "P1",
+      "visiblePositionFrames": 1110,
+      "namedPositionFrames": 1062,
+      "namedCoverage": 0.9567567567567568,
+      "unknownPositionFrames": 48,
+      "names": [
+        "Amen Thompson"
+      ],
+      "machineAcceptedFrames": 1062,
+      "continuationFrames": 44,
+      "positionNeedsReviewFrames": 0,
+      "profileName": "Amen Thompson",
+      "profileNameStatus": "machine_accepted"
+    },
+    {
+      "id": "P2",
+      "visiblePositionFrames": 1141,
+      "namedPositionFrames": 1128,
+      "namedCoverage": 0.9886064855390009,
+      "unknownPositionFrames": 13,
+      "names": [
+        "Jabari Smith Jr."
+      ],
+      "machineAcceptedFrames": 1128,
+      "continuationFrames": 0,
+      "positionNeedsReviewFrames": 0,
+      "profileName": "Jabari Smith Jr.",
+      "profileNameStatus": "machine_accepted"
+    },
+    {
+      "id": "P3",
+      "visiblePositionFrames": 1277,
+      "namedPositionFrames": 1276,
+      "namedCoverage": 0.9992169146436961,
+      "unknownPositionFrames": 1,
+      "names": [
+        "Tari Eason"
+      ],
+      "machineAcceptedFrames": 1276,
+      "continuationFrames": 4,
+      "positionNeedsReviewFrames": 0,
+      "profileName": "Tari Eason",
+      "profileNameStatus": "machine_accepted"
+    },
+    {
+      "id": "P4",
+      "visiblePositionFrames": 1225,
+      "namedPositionFrames": 1159,
+      "namedCoverage": 0.9461224489795919,
+      "unknownPositionFrames": 66,
+      "names": [
+        "Alperen Sengun"
+      ],
+      "machineAcceptedFrames": 1159,
+      "continuationFrames": 86,
+      "positionNeedsReviewFrames": 0,
+      "profileName": "Alperen Sengun",
+      "profileNameStatus": "machine_accepted"
+    },
+    {
+      "id": "P5",
+      "visiblePositionFrames": 1223,
+      "namedPositionFrames": 1036,
+      "namedCoverage": 0.8470973017170891,
+      "unknownPositionFrames": 187,
+      "names": [
+        "Kevin Durant"
+      ],
+      "machineAcceptedFrames": 1036,
+      "continuationFrames": 21,
+      "positionNeedsReviewFrames": 0,
+      "profileName": "Kevin Durant",
+      "profileNameStatus": "machine_accepted"
+    },
+    {
+      "id": "P6",
+      "visiblePositionFrames": 785,
+      "namedPositionFrames": 671,
+      "namedCoverage": 0.8547770700636943,
+      "unknownPositionFrames": 114,
+      "names": [
+        "Max Christie"
+      ],
+      "machineAcceptedFrames": 671,
+      "continuationFrames": 0,
+      "positionNeedsReviewFrames": 0,
+      "profileName": "Max Christie",
+      "profileNameStatus": "machine_accepted"
+    },
+    {
+      "id": "P7",
+      "visiblePositionFrames": 1181,
+      "namedPositionFrames": 1095,
+      "namedCoverage": 0.9271803556308214,
+      "unknownPositionFrames": 86,
+      "names": [
+        "Daniel Gafford"
+      ],
+      "machineAcceptedFrames": 1095,
+      "continuationFrames": 90,
+      "positionNeedsReviewFrames": 0,
+      "profileName": "Daniel Gafford",
+      "profileNameStatus": "machine_accepted"
+    },
+    {
+      "id": "P8",
+      "visiblePositionFrames": 964,
+      "namedPositionFrames": 964,
+      "namedCoverage": 1,
+      "unknownPositionFrames": 0,
+      "names": [
+        "Klay Thompson"
+      ],
+      "machineAcceptedFrames": 964,
+      "continuationFrames": 0,
+      "positionNeedsReviewFrames": 0,
+      "profileName": "Klay Thompson",
+      "profileNameStatus": "machine_accepted"
+    },
+    {
+      "id": "P9",
+      "visiblePositionFrames": 1067,
+      "namedPositionFrames": 915,
+      "namedCoverage": 0.8575445173383318,
+      "unknownPositionFrames": 152,
+      "names": [
+        "Cooper Flagg"
+      ],
+      "machineAcceptedFrames": 915,
+      "continuationFrames": 401,
+      "positionNeedsReviewFrames": 0,
+      "profileName": "Cooper Flagg",
+      "profileNameStatus": "machine_accepted"
+    },
+    {
+      "id": "P10",
+      "visiblePositionFrames": 1054,
+      "namedPositionFrames": 772,
+      "namedCoverage": 0.7324478178368121,
+      "unknownPositionFrames": 282,
+      "names": [
+        "Naji Marshall"
+      ],
+      "machineAcceptedFrames": 772,
+      "continuationFrames": 0,
+      "positionNeedsReviewFrames": 0,
+      "profileName": "Naji Marshall",
+      "profileNameStatus": "machine_accepted"
+    }
+  ]
+}

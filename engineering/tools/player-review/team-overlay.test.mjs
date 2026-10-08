@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {blankSession,buildTrajectories,exportReview} from './trajectory.mjs';
 import {adoptIdentitySuggestions,confirmIdentity} from './identity-timeline.mjs';
+import {DEFAULT_NAME_DISPLAY,normalizeNameDisplay,nameDisplaySelected,nameIdentityLabel,layoutNameLabels} from './team-overlay.mjs';
 let overlay={};try{overlay=await import('./team-overlay.mjs');}catch(error){if(error.code!=='ERR_MODULE_NOT_FOUND')throw error;}
 const policyPath=new URL('./team-overlay-policy.json',import.meta.url);
 const policy=fs.existsSync(policyPath)?JSON.parse(fs.readFileSync(policyPath,'utf8')):null;
@@ -196,4 +197,33 @@ test('historical tracking metadata cannot replace the fixed red and blue team co
   const style=requireFeature('teamOverlayStyle');
   assert.equal(style({id:'P1',teamGroup:'B',modelTeamGroup:'B'},{identitySource:'model_suggestion'},historical).color,'#ee5568');
   assert.equal(style({id:'P6',teamGroup:'A',modelTeamGroup:'A'},{identitySource:'manual_forward'},historical).color,'#4295ed');
+});
+
+test('name selection is presentation-only and unknown, candidate, and confirmed labels share export text',()=>{
+  const players=Array.from({length:10},(_,i)=>({id:`P${i+1}`,role:'player'}));
+  const fixture=JSON.parse(fs.readFileSync(new URL('./team-overlay-name-fixture.json',import.meta.url),'utf8'));
+  const settings=normalizeNameDisplay(fixture.nameDisplay,players);
+  assert.equal(nameDisplaySelected(players[0],settings),true);
+  assert.equal(nameDisplaySelected(players[1],settings),false);
+  assert.equal(nameDisplaySelected(players[5],settings),false);
+  for(const item of fixture.labels)assert.equal(nameIdentityLabel(item.identity,players[Number(item.id.slice(1))-1],settings),item.expected);
+  const session=blankSession('clip'),before=structuredClone(session);
+  normalizeNameDisplay({...settings,enabled:false,players:{P1:false}},session.entities);
+  assert.deepEqual(session,before,'show/hide preferences must never alter player identity data');
+});
+
+test('accepted names keep the fixed player id without claiming human confirmation',()=>{
+  const identity={name:'Daniel Gafford',jersey:'21',nameStatus:'machine_accepted',identityVerified:false,positionBindingStatus:'observed'};
+  assert.equal(nameIdentityLabel(identity,{id:'P7'},{}),'P7 Daniel Gafford · #21');
+  assert.equal(nameIdentityLabel({...identity,positionBindingStatus:'needs_review'},{id:'P7'},{}),'P7 Daniel Gafford~ · #21');
+  assert.equal(identity.identityVerified,false);
+});
+
+test('feet labels stay inside the image and overlapping neighbours use another row',()=>{
+  const items=[{x:5,y:180,width:170,height:20},{x:40,y:180,width:180,height:20},{x:635,y:470,width:170,height:20}];
+  const before=structuredClone(items),placed=layoutNameLabels(items,640,480,1);
+  assert.deepEqual(items,before);
+  for(const item of placed){assert.ok(item.rect.left>=0&&item.rect.right<=640);assert.ok(item.rect.top>=0&&item.rect.bottom<=480);}
+  assert.ok(placed[0].rect.bottom<=placed[1].rect.top||placed[1].rect.bottom<=placed[0].rect.top);
+  assert.ok(placed[0].rect.top>items[0].y,'default label is below the feet');
 });

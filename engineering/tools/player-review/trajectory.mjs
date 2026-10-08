@@ -70,7 +70,7 @@ export function buildTrajectories(session, frames, sourceCuts=[], clip=null) {
     const points = frames.map((record, frame) => {
       const manual = anchors.find(anchor => anchor.frame === frame);
       const visibility = playerVisibilityAt(entity,frame);
-      const identity = identityAt(entity,frame,session.cuts,record);
+      const identity = identityAt(entity,frame,session.cuts,record,source);
       if (visibility?.state==='out_of_view') return {frame,time:record.time,x:null,y:null,
         source:'out_of_view',...identityProvenance(identity)};
       if (identity?.kind==='unassigned') return {frame,time:record.time,x:null,y:null,trackId:null,
@@ -95,13 +95,22 @@ export function buildTrajectories(session, frames, sourceCuts=[], clip=null) {
         trackId:identity?.trackId??null,visibility:'occluded_waiting',...identityProvenance(identity)};
       if (identity?.kind==='track') {
         const box=lookup[frame].get(Number(identity.trackId));
-        const risk=entity.role==='player'&&identity.identitySource==='model_suggestion'?machineIdentityRoleRisk(record,identity.trackId,frame,{clip:source,exclusions}):null;
+        const isMachine=entity.role==='player'&&['model_suggestion','machine_name_binding'].includes(identity.identitySource);
+        const oldRisk=isMachine?machineIdentityRoleRisk(record,identity.trackId,frame,{clip:source,exclusions}):null;
+        const evidence=record.track_evidence?.[identity.trackId];
+        const corrected=identity.identitySource==='machine_name_binding';
+        // A visual identity proof can resolve old color-lifecycle review flags.
+        // Actual referee declarations, exclusions and role conflicts still gate.
+        const reviewedRecord=corrected&&evidence?.identity_review_required&&!evidence?.role_conflict?
+          {...record,track_evidence:{...record.track_evidence,[identity.trackId]:{...evidence,identity_review_required:false}}}:record;
+        const risk=isMachine?machineIdentityRoleRisk(reviewedRecord,identity.trackId,frame,{clip:source,exclusions}):null;
         const observed=box?{frame,time:record.time,x:(box[0]+box[2])/2,y:box[3],box:box.slice(0,4),source:'tracked',trackId:Number(identity.trackId)}:null;
         if(risk&&!frameIdentityConfirmed(entity,observed,identity))return {frame,time:record.time,x:null,y:null,box:null,source:'missing',trackId:Number(identity.trackId),
           ...identityProvenance(identity),roleConflict:true,identityRisk:risk,reviewRequired:true};
         if (box) return {frame,time:record.time,x:(box[0]+box[2])/2,y:box[3],box:box.slice(0,4),
           source:'tracked',trackId:Number(identity.trackId),detectorScore:box[5],
-          ...identityProvenance(identity),footMethod:'bbox_bottom_center'};
+          ...identityProvenance(identity),footMethod:'bbox_bottom_center',
+          ...(corrected&&oldRisk&&!risk?{machineRiskResolved:oldRisk,originalIdentityRisk:oldRisk}: {})};
         return {frame,time:record.time,source:'missing',x:null,y:null,trackId:Number(identity.trackId),
           visibility:'occluded_waiting',...identityProvenance(identity)};
       }
@@ -123,7 +132,7 @@ export function buildTrajectories(session, frames, sourceCuts=[], clip=null) {
             const fraction = (points[frame].time-points[left].time)/span;
             points[frame] = {frame,time:points[frame].time,x:points[left].x+(points[right].x-points[left].x)*fraction,
               y:points[left].y+(points[right].y-points[left].y)*fraction,box:null,source:'interpolated',
-              ...identityProvenance(identityAt(entity,frame,session.cuts,frames[frame])),
+              ...identityProvenance(identityAt(entity,frame,session.cuts,frames[frame],source)),
               supportFrames:[left,right],method:'linear_image_coordinates',footMethod:'interpolated_image_point',reviewRequired:true};
           }
         }
@@ -131,7 +140,7 @@ export function buildTrajectories(session, frames, sourceCuts=[], clip=null) {
       left = right;
     }
     for(const point of points){
-      const confirmed=frameIdentityConfirmed(entity,point,identityAt(entity,point.frame,session.cuts,frames[point.frame]));
+      const confirmed=frameIdentityConfirmed(entity,point,identityAt(entity,point.frame,session.cuts,frames[point.frame],source));
       Object.assign(point,{frameIdentityConfirmed:confirmed,identityConfirmed:confirmed,identityReviewRequired:!confirmed});
     }
     result[entity.id] = points;
@@ -181,7 +190,8 @@ export function setPlayerVisibility(session,entityId,start,end,state,frames) {
 // manually corrected image point. T trails only use boundaries of related P/Rs.
 export function reviewTrailCuts(entities,cuts=[],frameCount=Infinity,trackId=null) {
   const related=trackId==null?entities:entities.filter(entity=>[
-    ...identityKeyframes(entity),...(entity.bindings||[]),...(entity.modelBindings||[]),...(entity.anchors||[])
+    ...identityKeyframes(entity),...(entity.bindings||[]),...(entity.modelBindings||[]),
+    ...(entity.machineIdentityBindings||[]),...(entity.anchors||[])
   ].some(item=>item.trackId!=null&&Number(item.trackId)===Number(trackId)));
   const boundaries=related.flatMap(entity=>[...identityBoundaries(entity),
     ...(entity.anchors||[]).flatMap(anchor=>[anchor.frame,anchor.frame+1])]);
@@ -255,7 +265,7 @@ export function confirmFrameIdentity(session,entityId,frame,frames,sourceCuts=[]
   }
   if(point.x==null||point.y==null||!['manual','tracked','manual_range'].includes(point.source)||point.reviewExcluded)
     throw new Error('请先选定当前帧可见的人物；缺失、冲突和估计位置不能确认。');
-  const cuts=mergeSourceCuts(session.cuts,sourceCuts,frames.length),identity=identityAt(entity,frame,cuts,frames[frame]);
+  const cuts=mergeSourceCuts(session.cuts,sourceCuts,frames.length),identity=identityAt(entity,frame,cuts,frames[frame],clip);
   const manualPosition=point.trackId==null,anchor=(entity.anchors||[]).find(item=>item.frame===frame);
   if(manualPosition&&!anchor)throw new Error('当前帧没有可确认的人工位置。');
   const review={frame,trackId:point.trackId??null,origin:'human_frame_review',
@@ -285,10 +295,11 @@ export function correctFrameIdentity(session,entityId,frame,proposal,frames,sour
   return {start:frame,end:frame};
 }
 
-export function hasAssociation(entity){return isSelected(entity)||Boolean(entity.visibilityRanges?.length)||Boolean(!entity.identitySuggestionsDismissed&&entity.modelBindings?.length);}
+export function hasAssociation(entity){return isSelected(entity)||Boolean(entity.visibilityRanges?.length)||
+  Boolean(entity.machineIdentityBindings?.some(binding=>binding.kind==='track'))||Boolean(!entity.identitySuggestionsDismissed&&entity.modelBindings?.length);}
 
 export function playerDisplayState(entity,point) {
-  const identity=point?.frameIdentityConfirmed?'human_locked':point?.identitySource==='model_suggestion'?'model_proposed':
+  const identity=point?.frameIdentityConfirmed?'human_locked':['model_suggestion','machine_name_binding'].includes(point?.identitySource)?'model_proposed':
     ['manual_forward','manual_range','manual_track_occurrences'].includes(point?.identitySource)?'human_locked':'unassigned';
   if(point?.reviewExcluded)return {status:'unassigned',label:'已取消关联',identity:'unassigned'};
   if(point?.source==='out_of_view')return {status:'out_of_view',label:'镜头外 · 无需补点',identity};

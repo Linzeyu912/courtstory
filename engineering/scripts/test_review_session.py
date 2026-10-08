@@ -40,6 +40,21 @@ def fixture():
 
 
 class ReviewSessionTests(unittest.TestCase):
+    def test_clear_removes_machine_identity_proofs_without_losing_human_name(self):
+        session,clip=fixture();person=session['entities'][0]
+        for field in ('machineIdentityBindings','machineNameIdentities','machineNameIdentityConflicts'):
+            person[field]=[{'start':0,'end':3,'trackId':1}]
+        person['machinePlayerProfile']={'name':'Machine Name','status':'candidate'}
+        result=apply_review_edit(session,{'type':'clear_player','entityId':'P1'},clip)['session']['entities'][0]
+        for field in ('machineIdentityBindings','machineNameIdentities','machineNameIdentityConflicts'):self.assertEqual(result[field],[])
+        self.assertNotIn('machinePlayerProfile',result);self.assertEqual(result['name'],person['name'])
+
+    def test_human_can_confirm_a_frame_on_the_new_machine_binding_scope(self):
+        session,clip=fixture()
+        session['entities'][0]['frameConfirmations']=[{'frame':0,'trackId':1,'identityOrder':1,
+            'identityScope':'machine_name_binding','identityToken':'actual-source-bound-machine-token','origin':'human_frame_review'}]
+        self.assertEqual(validate_session(session,clip),len(clip['frames']))
+
     def test_clear_removes_all_person_records_but_keeps_labels_and_others(self):
         session, clip = fixture()
         before = deepcopy(session)

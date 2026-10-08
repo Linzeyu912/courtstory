@@ -1,0 +1,29 @@
+{
+  "video": "official001-all-players-full.mp4",
+  "source": "official-training-001",
+  "frames": 1291,
+  "players": [
+    "P1",
+    "P10",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9"
+  ],
+  "dimensions": [
+    1920,
+    1080
+  ],
+  "fps": 59.939982635512386,
+  "durationSeconds": 21.53821111111111,
+  "maximumSimultaneousPlayers": 10,
+  "framesWithAllTenPositions": 433,
+  "sourcePtsPreserved": true,
+  "sourceAudioPreserved": true,
+  "accuracyVerified": false,
+  "drawingIteration": 2
+}
