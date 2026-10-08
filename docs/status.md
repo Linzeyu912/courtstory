@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-08 02:36（America/New_York，已推送main）：按用户要求发布球员姓名v4代码、研究与75文件当前成果，主提交[5855188](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/585518823eea472bf49da8873ab5f506e605ca50)。[完整全员姓名回放](../data/videos/demos/player-name-v4-20261008/README.md)已通过Git LFS上传，并从独立空缓存实际下载核对44,970,420字节及SHA-256一致；全库166个视频与LFS指针校验通过，新增1个为派生演示，不计独立素材。覆盖91.39%不代表准确率，全量前端未全通过的限制保留；没有云部署。主成果推送后HEAD／origin/main／远端main一致，其他任务未提交修改保留。见[发布交接](../handoffs/chuali-zi/2026-10-08-0230-player-name-v4-publication.md)。
+
 2026-10-08 02:18（America/New_York，本任务未提交／未推送）：三个 GPT-6.1 Sol 子 agent 完成全员姓名 v4 诊断、实现与回放复核，真实模型优先使用 Qwen Token Plan。官方001十个 P 均有唯一姓名，姓名位置覆盖由同消费链 v3 的22.85%提升至91.39%，226帧同时有十人姓名；该指标不是准确率。完整21.538秒1080p回放保留原PTS与原声，原片／正式草稿保持。姓名后端48项、前端定向70项通过；共享前端全量647／723通过，解说挂载测试模拟DOM与两项历史身份测试仍失败。另一会话已将main更新至101d622，本任务改动保留在本地。见[v4实际结果](../engineering/docs/player-name-optimization-20261007.md)与[独立交接](../handoffs/chuali-zi/2026-10-08-0218-player-name-v4-full-replay.md)。
 
 2026-10-08（America/New_York）：解说增量已接入总工作台第三部分「战术制作」：Astra 理解当前视频并参考当前检测数据，逐句编辑时间与文字，火山 Seed TTS 2.0 配音、字幕成片预览及 MP4 / SRT 下载。保留独立 CLI；未更新运行中的云服务。见[工作流](../engineering/docs/commentary-narration-workflow.md)与[交接](../handoffs/chuali-zi/2026-10-08-0100-commentary-workbench.md)。
