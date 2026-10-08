@@ -36,16 +36,24 @@ function calibratedSession(){
 // tests verify persisted state and event routing, not browser rendering.
 function domFixture(){
   const nodes=new Map(),context=new Proxy({measureText:text=>({width:String(text).length*8})},{get:(value,key)=>key in value?value[key]:(()=>{})});
-  const make=()=>({children:[],listeners:{},attributes:{},dataset:{},style:{setProperty(){}},value:'',checked:false,hidden:false,
+  const make=(tag='div')=>{const queries=new Map();const node={tag,children:[],listeners:{},attributes:{},dataset:{},style:{setProperty(){}},value:'',checked:false,hidden:false,
     clientWidth:0,clientHeight:0,width:320,height:220,paused:true,currentTime:0,selectedOptions:[{textContent:'A'}],
-    classList:{add(){},remove(){},toggle(){}},append(...children){this.children.push(...children);},
-    prepend(...children){this.children.unshift(...children);},replaceChildren(...children){this.children=children;},
+    classList:{add(...names){node.className=[...new Set([...(node.className??'').split(/\s+/).filter(Boolean),...names])].join(' ');},remove(...names){node.className=(node.className??'').split(/\s+/).filter(name=>!names.includes(name)).join(' ');},toggle(name,force){const active=(node.className??'').split(/\s+/).includes(name),enable=force??!active;this[enable?'add':'remove'](name);return enable;}},
+    append(...children){for(const child of children){if(child?.parentElement)child.parentElement.children=child.parentElement.children.filter(n=>n!==child);if(child&&typeof child==='object')child.parentElement=this;this.children.push(child);}},
+    prepend(...children){this.append(...children);this.children=[...children,...this.children.filter(n=>!children.includes(n))];},replaceChildren(...children){for(const child of this.children)if(child&&typeof child==='object')child.parentElement=null;this.children=[];this.append(...children);},
+    after(...children){const parent=this.parentElement;if(!parent)return;for(const child of children){if(child?.parentElement)child.parentElement.children=child.parentElement.children.filter(n=>n!==child);if(child&&typeof child==='object')child.parentElement=parent;}parent.children.splice(parent.children.indexOf(this)+1,0,...children);},
+    querySelector(selector){
+      const className=/^\.([\w-]+)$/.exec(selector)?.[1];if(!className)return null;
+      const existing=this.children.find(child=>(child.className??'').split(/\s+/).includes(className));if(existing)return existing;
+      if(!this.innerHTML?.includes(className))return null;
+      if(!queries.has(selector)){const child=make();child.className=className;queries.set(selector,child);this.append(child);}return queries.get(selector);
+    },
     insertBefore(child,before){this.children.splice(this.children.indexOf(before),0,child);},get lastChild(){return this.children.at(-1);},
     setAttribute(key,value){this.attributes[key]=value;},getAttribute(key){return this.attributes[key]??null;},removeAttribute(key){delete this.attributes[key];},contains:()=>false,
     addEventListener(key,fn){(this.listeners[key]||=[]).push(fn);},focus(){},scrollIntoView(){},
     getContext:()=>context,getBoundingClientRect:()=>({left:0,top:0,width:1280,height:720}),
     setPointerCapture(){},hasPointerCapture:()=>false,releasePointerCapture(){},
-    pause(){this.paused=true;},play(){this.paused=false;return Promise.resolve();},requestVideoFrameCallback(){}});
+    pause(){this.paused=true;},play(){this.paused=false;return Promise.resolve();},requestVideoFrameCallback(){}};return node;};
   const get=id=>{if(!nodes.has(id))nodes.set(id,make());return nodes.get(id);};
   const tabs=['footage','identity','calibration','repair','events'].map(step=>{const node=get(`tab-${step}`);node.dataset.step=step;node.setAttribute('aria-selected',String(step==='identity'));return node;});
   get('calibrationSide').value='left';get('calibrationLandmark').value='A';
@@ -312,7 +320,7 @@ test('the actual app gives scene picking priority over an existing P path mode w
     const saved=new Map([[draftStorageKey(sparseClip,'ebard',true),JSON.stringify(session)]]);
     const policy=JSON.parse(readFileSync(new URL('./team-overlay-policy.json',import.meta.url)));
     Object.assign(globalThis,{localStorage:{getItem:key=>saved.get(key)||null,setItem:(key,value)=>saved.set(key,value)},
-      fetch:async url=>({ok:true,json:async()=>url==='/api/library'?{defaultSample:'test',samples:[{id:'test',defaultVariant:'ebard'}]}:url==='/team-overlay-policy.json'?policy:sparseClip})});
+      fetch:async url=>({ok:true,json:async()=>url==='/api/library'?{defaultSample:'test',samples:[{id:'test',defaultVariant:'ebard'}]}:url.startsWith('/api/commentary?')?{status:{},plan:null,job:null}:url==='/team-overlay-policy.json'?policy:sparseClip})});
     let appApi;
     const source=readFileSync(new URL('./app.mjs',import.meta.url),'utf8'),imports=[...source.matchAll(/^import \{([^}]+)\} from '([^']+)';$/gm)],dependencies={};
     for(const match of imports){
@@ -329,6 +337,8 @@ test('the actual app gives scene picking priority over an existing P path mode w
     }
     const AsyncFunction=Object.getPrototypeOf(async function(){}).constructor;
     await new AsyncFunction(...Object.keys(dependencies),source.replace(/^import .*;\r?\n/gm,''))(...Object.values(dependencies));
+    const panel=dom.get('tacticsPanel'),heading=panel.querySelector('.tactics-heading'),commentary=panel.children[panel.children.indexOf(heading)+1];
+    assert.equal(commentary.tag,'section');assert.equal(commentary.parentElement,panel);assert.equal(commentary.className,'commentary-ui');
     appApi.setMode('path');dom.get('stableDisplay').checked=true;
     for(const handler of dom.get('stableDisplay').listeners.change)handler({target:dom.get('stableDisplay')});
     const key=draftStorageKey(sparseClip,'ebard',true),before=JSON.parse(saved.get(key));
@@ -355,6 +365,7 @@ test('identity reference actions in the actual app require the decoded target fr
       fetch:async(url,options)=>{
         let value;
         if(url==='/api/library')value={defaultSample:'test',samples:[{id:'test',defaultVariant:'ebard'}]};
+        else if(url.startsWith('/api/commentary?'))value={status:{},plan:null,job:null};
         else if(url==='/team-overlay-policy.json')value=policy;
         else if(url==='/api/identity-agent/status')value={available:true,provider:'test-fixture'};
         else if(url==='/api/identity-agent/jobs'){
