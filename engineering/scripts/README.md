@@ -4,6 +4,8 @@
 
 | 类型 | 脚本 | 说明 |
 |---|---|---|
+| 独立视频解说 | `commentary_agent.py`、`commentary_video.py` | Pi 多轮拼帧/原图/裁图理解，按需查询已有检测，输出源视频时间对齐的解说文字；[运行与接口](../docs/video-commentary-agent.md) |
+| 解说效果预览 | `render_commentary_preview.py` | 将 Astra 两片原稿按时间叠入独立字幕区域，暂停句定格阅读；生成 MP4 和可点击解说跳转的本机页面，见[运行说明](../tools/commentary-preview/README.md) |
 | Qwen 单人并行映射 | `ground_trajectory_parallel.py`、`ground_trajectory_frame_cache.py` | 冻结前置输入、每人独立输出与协调汇总；共享帧缓存、请求并发/间隔控制；见[实验](../../research/agents/qwen-parallel-20261007/README.md) |
 | 单人轨迹去噪 | `ground_trajectory_denoise.py` | 真实时间局部稳健拟合、缺口/切镜/绑定边界断段、锁点保护；[参数与边界](../docs/ground-trajectory-denoise.md) |
 | 官方训练片上云 | `upload_official_training.py` | 两片源 manifest 校验、S3 条件写入与远端 SHA-256 校验；默认只输出计划，见[云端准备记录](../docs/aws-cloud-preflight-20261006.md) |

@@ -1,8 +1,12 @@
 # 作品设计、功能与验收文档
 
+2026-10-07 本地解说增量：[独立 Pi 视频理解与解说 Agent](video-commentary-agent.md)，多页概览、按需回看/裁图、可选检测候选、带时间文字输出；真实样片与错误分析见[试跑记录](../../research/agents/video-commentary-20261007/README.md)。
+
 2026-10-07 晚间：[10 月 8 日云账号重置后重新部署计划](plans/2026-10-08-cloud-reset-redeployment.md)，包含服务 / 路径分工、重置前快照、重置后只读发现 / CDK 顺序、验收与失败处理，已有完整恢复包与 Linux 真实恢复 / 重制 MP4 证据。
 
 2026-10-07 晚间：[当前版本云端更新与 CloudFront 复验](cloud-current-version-20261007.md)，记录服务边界、包校验、草稿保护、页面 / 成片结果及 AgentCore 实际失败与修复。
+
+2026-10-07 解说职责讨论：[独立 Pi 视频理解与解说 Agent](video-commentary-agent-discussion-20261007.md)，复用已有多页拼帧与工具图片循环，输出事件、解说时机与绘图意图。方案待讨论，未修改现有绘图实现；来源与复用核查见[研究记录](../../research/agents/video-commentary-reuse-20261007.md)。
 
 2026-10-07 球员标定改进进行中：[YOLO 角色校验、主动身份初检与少量人工修正计划](plans/2026-10-07-player-identification-and-proactive-agent.md)。本轮聚焦第一部分球员标定，真实验收结果另行记录，不将计划当作完成。
 

@@ -1,5 +1,11 @@
 # 团队状态
 
+2026-10-07 22:34（America/New_York，本地未提交／未推送）：新增独立解说效果预览，将 Astra 官方001/002原稿生成带字幕的 MP4 和可点击句子跳转的本机页面。暂停句分别留出8/10秒定格阅读，成片29.57/32.90秒；当前无音轨，不含配音，未接团队工作台。见[运行说明](../engineering/tools/commentary-preview/README.md)和[交接](../handoffs/chuali-zi/2026-10-07-2234-commentary-video-preview.md)。
+
+2026-10-07 22:19（America/New_York，本地未提交／未推送）：按用户要求将独立解说试验切换到OpenRouter `openai/gpt-6-astra`，读取根.env已有OPEN_ROUTER_KEY。官方001/002各完成5条带时机解说，主线程直接查看抽帧后，主要事实/时间及战术过程优于Qwen版；两次均10轮，Agent阶段约221/252秒，48/55个不同帧。保留一次002耗尽12轮未保存的失败，新增剩余预算提醒；另补worker管道退出诊断。10项Python＋4项Node通过，未改绘图或默认模型。见[Astra对照及原稿](../research/agents/video-commentary-20261007/openrouter-astra.md)、[交接](../handoffs/chuali-zi/2026-10-07-2219-openrouter-astra-commentary.md)。
+
+2026-10-07 13:02（America/New_York，本地未提交／未推送）：完成独立 Pi 视频解说增量，支持多页全片概览、窗口／原图／裁图回看、可选 YOLO 候选和带源视频时间的文字输出。Token Plan qwen3.8-max 对官方001/002各跑两版，工具循环可运行，001新版因果改善，002仍有两分误报三分和时机提前，内容质量未通过；未接网页、绘图或渲染。8项Python＋3项Node定向检查通过，见[工程入口](../engineering/docs/video-commentary-agent.md)、[原稿及复核](../research/agents/video-commentary-20261007/README.md)、[交接](../handoffs/chuali-zi/2026-10-07-1302-commentary-agent-increment.md)。远端此前安全同步到e1db1a0，已有其他任务修改保留；当前GitHub Issue查询401，无法复核最新负责人讨论。
+
 2026-10-08（Asia/Shanghai，当前修改统一同步）：按用户授权发布 NBA 2K 两季全联盟数据包、球员人工修正和自动战术当前实现，已整合队友截至 `7904a34` 的八个提交。补齐 CSV 跨机器换行约定、云端执行器与新版战术模型配置的兼容，以及逐阶段审核回归；本条随最终同步记录提交。数据包 134 条文件清单、165 段视频完整性与 LFS 索引、整合后 690 项前端测试通过；后端检查和具体限制见[发布交接](../handoffs/thy-0629/2026-10-08-0015-current-work-publication.md)。本轮不执行云部署，002 全片自动生成稳定性仍未验收；下方未提交记录保留历史时点。
 
 2026-10-07 23:50（Asia/Singapore，UTC+8）：按用户授权整理本地全部更新，共六类、70 个文件；前五个主题提交已推送 `main`，本地 / 远端核对为 `d98cf3f`，协作索引和本条记录随第六个文档提交同步。内容为界面修复、云端部署与全量重建、界面方案、CourtStory 仓库规划、云工具 / 多模态实测及共享索引。发布前 273 项测试中 270 通过、3 项 Windows 符号链接权限跳过、0 失败；165 个视频字节摘要及 LFS 索引检查通过。完整提交、验证与接续入口见[分类发布交接](../handoffs/Linzeyu912/2026-10-07-2345-classified-publication.md)。下方“未提交 / 推送”保留各轮历史状态；本次 Git 发布不代表明早重部署已执行，完整恢复包与访问材料仍保留本机忽略目录。
@@ -208,7 +214,6 @@
 2026-10-02 22:29 按用户选择开展本地整合：以用户版 `fffb6ea` 保留左侧导航、分步骤操作、底部 2D 抽屉及球场 / 视频恢复，采用固定上红进攻、下蓝防守，接入 THY `1839dcd` 的模型方案和身份 / 2K 查询。THY 完整方案作为默认推荐，原 YOLO 保留可选。整合位于独立 detached 工作目录，未提交推送；后端 151 项测试及 8890 实际查询 / 编辑 / 球场接口核验通过，27 个样例 / 模型组合、GPU 补跑 2,712 帧与浏览器交互验收已完成，前端 171 项全部通过。见[本轮取舍](../engineering/docs/plans/2026-10-02-selected-integration.md)与[交接](../handoffs/Linzeyu912/2026-10-02-2229-selected-integration.md)。
 
 本次同步：按用户要求，2026-10-02 21:44 已将晚间本地工作台改动作为 `b557622` 推送到 [`codex/local-workbench-20261002`](https://github.com/Linzeyu912/broadcastcode-team-hub/tree/codex/local-workbench-20261002)。下文各轮“本地未提交”描述保留当时状态，本次同步结果见[分支交接](../handoffs/Linzeyu912/2026-10-02-2144-local-workbench-branch-push.md)。该分支基于本机 `72c74e0`，未合入远端 main 后续两次提交；此次分支操作是用户明确指定的任务例外。
-
 
 ## 当前阶段
 

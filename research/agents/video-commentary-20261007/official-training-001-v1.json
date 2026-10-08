@@ -1,0 +1,334 @@
+{
+  "status": "completed",
+  "plan": {
+    "summary": "这段视频是第四节末段的一个完整进攻回合：深色球衣球队从后场推进到前场，先在外线耐心传导和移动，随后由右侧持球人突破吸引防守，分球给篮下队友完成近距离出手并得分；白色球衣球队抢到篮板后开始向前场推进。画面记分牌显示比分从 DAL 103、HOU 107 变为 DAL 105、HOU 107，但球员姓名和号码未经核实，只用球队颜色和位置描述。",
+    "events": [
+      {
+        "eventId": "advance_and_setup",
+        "startTime": 3,
+        "endTime": 9.5,
+        "description": "深色球衣球队把球从中圈附近推进到前场，持球人在弧顶和右侧外线控制节奏，白色球衣防守保持半场上线站位，进攻方通过横向移动寻找突破口。",
+        "participants": [
+          "深色球衣持球人",
+          "白色球衣外线防守",
+          "深色球衣侧翼接应点"
+        ],
+        "evidenceFrames": [
+          180,
+          240,
+          300,
+          360,
+          420,
+          480,
+          539,
+          599
+        ],
+        "uncertainties": [
+          "无法确认具体战术名称",
+          "无法确认球员身份"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 180,
+            "sourceTime": 3.003
+          },
+          {
+            "frame": 240,
+            "sourceTime": 4.004
+          },
+          {
+            "frame": 300,
+            "sourceTime": 5.005
+          },
+          {
+            "frame": 360,
+            "sourceTime": 6.006011111111111
+          },
+          {
+            "frame": 420,
+            "sourceTime": 7.007011111111111
+          },
+          {
+            "frame": 480,
+            "sourceTime": 8.008011111111111
+          },
+          {
+            "frame": 539,
+            "sourceTime": 8.992322222222223
+          },
+          {
+            "frame": 599,
+            "sourceTime": 9.993322222222222
+          }
+        ]
+      },
+      {
+        "eventId": "drive_and_kick_finish",
+        "startTime": 14.5,
+        "endTime": 18.5,
+        "description": "深色球衣持球人从右侧向篮下突破，白色球衣防守向禁区收缩；进攻方在篮下形成多人包夹后完成近距离出手，随后记分牌显示深色球衣一方得到两分。",
+        "participants": [
+          "深色球衣突破手",
+          "深色球衣篮下终结点",
+          "白色球衣内线协防"
+        ],
+        "evidenceFrames": [
+          869,
+          929,
+          959,
+          989,
+          1004,
+          1019,
+          1049,
+          1079
+        ],
+        "uncertainties": [
+          "出手是否被犯规无法从画面确认",
+          "终结球员身份不确定"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 869,
+            "sourceTime": 14.497833333333332
+          },
+          {
+            "frame": 929,
+            "sourceTime": 15.498833333333334
+          },
+          {
+            "frame": 959,
+            "sourceTime": 15.999333333333333
+          },
+          {
+            "frame": 989,
+            "sourceTime": 16.499833333333335
+          },
+          {
+            "frame": 1004,
+            "sourceTime": 16.75007777777778
+          },
+          {
+            "frame": 1019,
+            "sourceTime": 17.000333333333334
+          },
+          {
+            "frame": 1049,
+            "sourceTime": 17.500833333333333
+          },
+          {
+            "frame": 1079,
+            "sourceTime": 18.001333333333335
+          }
+        ]
+      },
+      {
+        "eventId": "rebound_and_transition",
+        "startTime": 18.5,
+        "endTime": 21.5,
+        "description": "进球后白色球衣球队在己方篮下拿到球权并开始向前场推进，深色球衣球员回撤防守，回合进入下一次攻防转换。",
+        "participants": [
+          "白色球衣后场接球人",
+          "深色球衣回防球员"
+        ],
+        "evidenceFrames": [
+          1109,
+          1139,
+          1169,
+          1199,
+          1229,
+          1259,
+          1289
+        ],
+        "uncertainties": [
+          "后续进攻选择未在本片段内展开"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 1109,
+            "sourceTime": 18.501833333333334
+          },
+          {
+            "frame": 1139,
+            "sourceTime": 19.002333333333333
+          },
+          {
+            "frame": 1169,
+            "sourceTime": 19.502833333333335
+          },
+          {
+            "frame": 1199,
+            "sourceTime": 20.003333333333334
+          },
+          {
+            "frame": 1229,
+            "sourceTime": 20.503833333333333
+          },
+          {
+            "frame": 1259,
+            "sourceTime": 21.004333333333335
+          },
+          {
+            "frame": 1289,
+            "sourceTime": 21.504833333333334
+          }
+        ]
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "setup_cue",
+        "eventId": "advance_and_setup",
+        "suggestedStartTime": 3,
+        "suggestedEndTime": 9.5,
+        "text": "深色球衣这回合不急着打，先把球带到前场，在弧顶和右侧反复观察白色球衣的防守站位。",
+        "focus": "外线控球、横向转移和防守上线站位",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          180,
+          300,
+          420,
+          539
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 180,
+            "sourceTime": 3.003
+          },
+          {
+            "frame": 300,
+            "sourceTime": 5.005
+          },
+          {
+            "frame": 420,
+            "sourceTime": 7.007011111111111
+          },
+          {
+            "frame": 539,
+            "sourceTime": 8.992322222222223
+          }
+        ]
+      },
+      {
+        "cueId": "drive_cue",
+        "eventId": "drive_and_kick_finish",
+        "suggestedStartTime": 14.5,
+        "suggestedEndTime": 17,
+        "text": "关键变化在右侧这次突破，持球人一旦压进禁区，白色球衣的协防就被迫向篮下收。",
+        "focus": "右侧突破路径与协防收缩",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          869,
+          929,
+          959,
+          989
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 869,
+            "sourceTime": 14.497833333333332
+          },
+          {
+            "frame": 929,
+            "sourceTime": 15.498833333333334
+          },
+          {
+            "frame": 959,
+            "sourceTime": 15.999333333333333
+          },
+          {
+            "frame": 989,
+            "sourceTime": 16.499833333333335
+          }
+        ]
+      },
+      {
+        "cueId": "finish_cue",
+        "eventId": "drive_and_kick_finish",
+        "suggestedStartTime": 17,
+        "suggestedEndTime": 18.5,
+        "text": "篮下终结点在人堆里拿到球完成近距离出手，这一攻把分差缩小到两分。",
+        "focus": "篮下终结和比分变化",
+        "delivery": "pause",
+        "evidenceFrames": [
+          1004,
+          1019,
+          1049,
+          1079
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 1004,
+            "sourceTime": 16.75007777777778
+          },
+          {
+            "frame": 1019,
+            "sourceTime": 17.000333333333334
+          },
+          {
+            "frame": 1049,
+            "sourceTime": 17.500833333333333
+          },
+          {
+            "frame": 1079,
+            "sourceTime": 18.001333333333335
+          }
+        ]
+      },
+      {
+        "cueId": "transition_cue",
+        "eventId": "rebound_and_transition",
+        "suggestedStartTime": 18.5,
+        "suggestedEndTime": 21.5,
+        "text": "丢分后白色球衣迅速底线发球推进，深色球衣马上回撤，比赛进入下一个回合。",
+        "focus": "篮板后的发球推进与回防",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          1109,
+          1169,
+          1229,
+          1289
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 1109,
+            "sourceTime": 18.501833333333334
+          },
+          {
+            "frame": 1169,
+            "sourceTime": 19.502833333333335
+          },
+          {
+            "frame": 1229,
+            "sourceTime": 20.503833333333333
+          },
+          {
+            "frame": 1289,
+            "sourceTime": 21.504833333333334
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "球员姓名、号码和球队正式名称未核实",
+      "出手是否造成加罚无法仅凭画面确认",
+      "前半段是否存在一次未被清晰捕捉的传球细节不确定"
+    ]
+  },
+  "usage": {
+    "input": 28240,
+    "output": 1281,
+    "cacheRead": 37376,
+    "cacheWrite": 0,
+    "totalTokens": 66897,
+    "requests": 3,
+    "toolCalls": 3,
+    "imagesReturned": 8,
+    "uniqueFrames": 58,
+    "elapsedMs": 81490
+  },
+  "provider": {
+    "name": "token-plan",
+    "model": "qwen3.8-max"
+  },
+  "elapsedSeconds": 82.58
+}

@@ -1,0 +1,386 @@
+{
+  "status": "completed",
+  "plan": {
+    "summary": "视频展示了第四节最后阶段的一次进攻回合。达拉斯队（深色球衣）在落后4分的情况下组织进攻，持球人突破内线完成上篮得分，将分差缩小到2分。随后休斯顿队（白色球衣）底线发球准备回应。",
+    "events": [
+      {
+        "eventId": "dal_possession_setup",
+        "startTime": 0,
+        "endTime": 14.5,
+        "description": "比赛进行到第四节剩1分50秒左右，比分103-107。达拉斯队持球推进过半场，在外线传导球寻找机会，休斯顿队保持人盯人防守阵型。",
+        "participants": [
+          "达拉斯队持球人",
+          "休斯顿队防守球员"
+        ],
+        "evidenceFrames": [
+          0,
+          180,
+          360,
+          509,
+          719,
+          869
+        ],
+        "uncertainties": [
+          "具体传球路线因视角较远难以完全确认",
+          "球员具体号码在远景中较难辨认"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 0,
+            "time": 0,
+            "sourceTime": 0
+          },
+          {
+            "frame": 180,
+            "time": 3.003,
+            "sourceTime": 3.003
+          },
+          {
+            "frame": 360,
+            "time": 6.006011111111111,
+            "sourceTime": 6.006011111111111
+          },
+          {
+            "frame": 509,
+            "time": 8.491822222222222,
+            "sourceTime": 8.491822222222222
+          },
+          {
+            "frame": 719,
+            "time": 11.995333333333333,
+            "sourceTime": 11.995333333333333
+          },
+          {
+            "frame": 869,
+            "time": 14.497833333333332,
+            "sourceTime": 14.497833333333332
+          }
+        ]
+      },
+      {
+        "eventId": "dal_drive_and_score",
+        "startTime": 15,
+        "endTime": 18,
+        "description": "达拉斯队持球人从右侧突破进入禁区，在休斯顿队两名内线球员（28号和17号）的干扰下起跳上篮。球打进，比分变为105-107。",
+        "participants": [
+          "达拉斯队突破球员",
+          "休斯顿队28号",
+          "休斯顿队17号"
+        ],
+        "evidenceFrames": [
+          929,
+          959,
+          989,
+          1004,
+          1019,
+          1049
+        ],
+        "uncertainties": [
+          "突破球员的具体号码在动态模糊中难以确切辨认，暂称为达拉斯队持球人"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 929,
+            "time": 15.498833333333334,
+            "sourceTime": 15.498833333333334
+          },
+          {
+            "frame": 959,
+            "time": 15.999333333333333,
+            "sourceTime": 15.999333333333333
+          },
+          {
+            "frame": 989,
+            "time": 16.499833333333335,
+            "sourceTime": 16.499833333333335
+          },
+          {
+            "frame": 1004,
+            "time": 16.75007777777778,
+            "sourceTime": 16.75007777777778
+          },
+          {
+            "frame": 1019,
+            "time": 17.000333333333334,
+            "sourceTime": 17.000333333333334
+          },
+          {
+            "frame": 1049,
+            "time": 17.500833333333333,
+            "sourceTime": 17.500833333333333
+          }
+        ]
+      },
+      {
+        "eventId": "hou_inbound",
+        "startTime": 18,
+        "endTime": 21.5,
+        "description": "进球后，休斯顿队球员在底线发球。达拉斯队球员迅速退防。比赛时钟停在1分34秒。",
+        "participants": [
+          "休斯顿队发球球员",
+          "达拉斯队退防球员"
+        ],
+        "evidenceFrames": [
+          1079,
+          1119,
+          1159,
+          1199,
+          1239,
+          1279
+        ],
+        "uncertainties": [],
+        "evidenceTimes": [
+          {
+            "frame": 1079,
+            "time": 18.001333333333335,
+            "sourceTime": 18.001333333333335
+          },
+          {
+            "frame": 1119,
+            "time": 18.668666666666667,
+            "sourceTime": 18.668666666666667
+          },
+          {
+            "frame": 1159,
+            "time": 19.336,
+            "sourceTime": 19.336
+          },
+          {
+            "frame": 1199,
+            "time": 20.003333333333334,
+            "sourceTime": 20.003333333333334
+          },
+          {
+            "frame": 1239,
+            "time": 20.670666666666666,
+            "sourceTime": 20.670666666666666
+          },
+          {
+            "frame": 1279,
+            "time": 21.338,
+            "sourceTime": 21.338
+          }
+        ]
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "cue_1",
+        "eventId": "dal_possession_setup",
+        "suggestedStartTime": 0,
+        "suggestedEndTime": 5,
+        "text": "第四节关键时刻，达拉斯落后四分，正组织进攻。",
+        "focus": "达拉斯队控球推进，休斯顿队落位防守。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          0,
+          60,
+          120,
+          180,
+          240,
+          300
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 0,
+            "time": 0,
+            "sourceTime": 0
+          },
+          {
+            "frame": 60,
+            "time": 1.001,
+            "sourceTime": 1.001
+          },
+          {
+            "frame": 120,
+            "time": 2.002,
+            "sourceTime": 2.002
+          },
+          {
+            "frame": 180,
+            "time": 3.003,
+            "sourceTime": 3.003
+          },
+          {
+            "frame": 240,
+            "time": 4.004,
+            "sourceTime": 4.004
+          },
+          {
+            "frame": 300,
+            "time": 5.005,
+            "sourceTime": 5.005
+          }
+        ]
+      },
+      {
+        "cueId": "cue_2",
+        "eventId": "dal_possession_setup",
+        "suggestedStartTime": 5,
+        "suggestedEndTime": 14.5,
+        "text": "外线耐心传导球，寻找突破空间，防守保持紧凑。",
+        "focus": "球在外线转移，防守人跟随移动。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          360,
+          450,
+          569,
+          689,
+          809,
+          869
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 360,
+            "time": 6.006011111111111,
+            "sourceTime": 6.006011111111111
+          },
+          {
+            "frame": 450,
+            "time": 7.5075111111111115,
+            "sourceTime": 7.5075111111111115
+          },
+          {
+            "frame": 569,
+            "time": 9.492822222222221,
+            "sourceTime": 9.492822222222221
+          },
+          {
+            "frame": 689,
+            "time": 11.494833333333334,
+            "sourceTime": 11.494833333333334
+          },
+          {
+            "frame": 809,
+            "time": 13.496833333333333,
+            "sourceTime": 13.496833333333333
+          },
+          {
+            "frame": 869,
+            "time": 14.497833333333332,
+            "sourceTime": 14.497833333333332
+          }
+        ]
+      },
+      {
+        "cueId": "cue_3",
+        "eventId": "dal_drive_and_score",
+        "suggestedStartTime": 15,
+        "suggestedEndTime": 18,
+        "text": "加速突破杀入内线，对抗后上篮得手，分差缩小。",
+        "focus": "达拉斯球员突破上篮动作，球进框，比分牌变化。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          929,
+          959,
+          989,
+          1004,
+          1019,
+          1049
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 929,
+            "time": 15.498833333333334,
+            "sourceTime": 15.498833333333334
+          },
+          {
+            "frame": 959,
+            "time": 15.999333333333333,
+            "sourceTime": 15.999333333333333
+          },
+          {
+            "frame": 989,
+            "time": 16.499833333333335,
+            "sourceTime": 16.499833333333335
+          },
+          {
+            "frame": 1004,
+            "time": 16.75007777777778,
+            "sourceTime": 16.75007777777778
+          },
+          {
+            "frame": 1019,
+            "time": 17.000333333333334,
+            "sourceTime": 17.000333333333334
+          },
+          {
+            "frame": 1049,
+            "time": 17.500833333333333,
+            "sourceTime": 17.500833333333333
+          }
+        ]
+      },
+      {
+        "cueId": "cue_4",
+        "eventId": "hou_inbound",
+        "suggestedStartTime": 18.5,
+        "suggestedEndTime": 21.5,
+        "text": "休斯顿队底线快速发球，准备发起下一轮进攻。",
+        "focus": "休斯顿球员拿球发球，达拉斯球员退防。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          1099,
+          1139,
+          1179,
+          1219,
+          1259,
+          1279
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 1099,
+            "time": 18.335,
+            "sourceTime": 18.335
+          },
+          {
+            "frame": 1139,
+            "time": 19.002333333333333,
+            "sourceTime": 19.002333333333333
+          },
+          {
+            "frame": 1179,
+            "time": 19.669666666666668,
+            "sourceTime": 19.669666666666668
+          },
+          {
+            "frame": 1219,
+            "time": 20.337,
+            "sourceTime": 20.337
+          },
+          {
+            "frame": 1259,
+            "time": 21.004333333333335,
+            "sourceTime": 21.004333333333335
+          },
+          {
+            "frame": 1279,
+            "time": 21.338,
+            "sourceTime": 21.338
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "由于远景和运动模糊，无法确切识别所有球员的具体姓名和号码，仅能根据球衣颜色和大致位置描述。",
+      "无法确认是否有犯规发生，因为裁判没有明显的吹罚动作且比赛继续。"
+    ]
+  },
+  "usage": {
+    "input": 61675,
+    "output": 3423,
+    "cacheRead": 154624,
+    "cacheWrite": 0,
+    "totalTokens": 219722,
+    "requests": 8,
+    "toolCalls": 10,
+    "imagesReturned": 32,
+    "uniqueFrames": 62,
+    "elapsedMs": 165965
+  },
+  "provider": {
+    "name": "token-plan",
+    "model": "qwen3.8-max"
+  },
+  "elapsedSeconds": 167.09
+}

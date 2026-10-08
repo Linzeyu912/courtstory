@@ -1,0 +1,24 @@
+{
+  "status": "failed",
+  "plan": null,
+  "usage": {
+    "input": 36,
+    "output": 866,
+    "cacheRead": 323884,
+    "cacheWrite": 249615,
+    "totalTokens": 574401,
+    "requests": 12,
+    "toolCalls": 12,
+    "imagesReturned": 94,
+    "uniqueFrames": 56,
+    "elapsedMs": 225257
+  },
+  "provider": {
+    "name": "openrouter",
+    "model": "openai/gpt-6-astra",
+    "reasoningEffort": "medium"
+  },
+  "elapsedSeconds": 228.67,
+  "workerExitCode": 0,
+  "error": "模型没有保存可审阅的讲解方案。"
+}
