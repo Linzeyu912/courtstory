@@ -1,5 +1,9 @@
 # 团队状态
 
+2026-10-08（America/New_York）：解说增量已接入总工作台第三部分「战术制作」：Astra 理解当前视频并参考当前检测数据，逐句编辑时间与文字，火山 Seed TTS 2.0 配音、字幕成片预览及 MP4 / SRT 下载。保留独立 CLI；未更新运行中的云服务。见[工作流](../engineering/docs/commentary-narration-workflow.md)与[交接](../handoffs/chuali-zi/2026-10-08-0100-commentary-workbench.md)。
+
+2026-10-07 22:59（America/New_York）：按用户要求先将独立解说Agent、试验原稿和无声预览推送main，远端核对为 `888df0f`。随后本机接通火山Seed TTS 2.0与字幕成片，001/002共10句真实合成成功，生成26.87/29.77秒1080p H.264/AAC成片；19项Python通过，TTS增量未提交、未部署。见[工作流](../engineering/docs/commentary-narration-workflow.md)和[交接](../handoffs/chuali-zi/2026-10-07-2259-volcengine-narration-workflow.md)。
+
 2026-10-07 22:34（America/New_York，本地未提交／未推送）：新增独立解说效果预览，将 Astra 官方001/002原稿生成带字幕的 MP4 和可点击句子跳转的本机页面。暂停句分别留出8/10秒定格阅读，成片29.57/32.90秒；当前无音轨，不含配音，未接团队工作台。见[运行说明](../engineering/tools/commentary-preview/README.md)和[交接](../handoffs/chuali-zi/2026-10-07-2234-commentary-video-preview.md)。
 
 2026-10-07 22:19（America/New_York，本地未提交／未推送）：按用户要求将独立解说试验切换到OpenRouter `openai/gpt-6-astra`，读取根.env已有OPEN_ROUTER_KEY。官方001/002各完成5条带时机解说，主线程直接查看抽帧后，主要事实/时间及战术过程优于Qwen版；两次均10轮，Agent阶段约221/252秒，48/55个不同帧。保留一次002耗尽12轮未保存的失败，新增剩余预算提醒；另补worker管道退出诊断。10项Python＋4项Node通过，未改绘图或默认模型。见[Astra对照及原稿](../research/agents/video-commentary-20261007/openrouter-astra.md)、[交接](../handoffs/chuali-zi/2026-10-07-2219-openrouter-astra-commentary.md)。

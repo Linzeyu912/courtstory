@@ -45,6 +45,7 @@ def main():
     parser.add_argument("--import-cache", default="artifacts/player-review-imports")
     parser.add_argument("--shared-video-catalog", default="data/videos/catalog.json")
     parser.add_argument("--tactics-folder", default="data/local-workbench/tactics")
+    parser.add_argument("--commentary-python", help="Python with PyAV, Pillow and python-dotenv for commentary jobs")
     parser.add_argument("--inference-python", default="tmp/model-runtime/Scripts/python.exe")
     parser.add_argument("--models", default="tmp/models")
     parser.add_argument("--workspace-collection", help="Service-local active/archive manifest; defaults to import cache")
@@ -144,6 +145,8 @@ def main():
                              vision_folder=Path(args.tactics_folder)/'team-identification-jobs')
     from ground_trajectory_agent import GroundTrajectoryAgent
     ground_agent = GroundTrajectoryAgent(Path(args.tactics_folder)/'ground-trajectory-jobs', tactics)
+    from commentary_jobs import CommentaryJobs
+    commentary = CommentaryJobs(Path(args.tactics_folder)/'commentary-jobs', **({'python': args.commentary_python} if args.commentary_python else {}))
     cache=Path(args.trim_root).resolve();cache.mkdir(parents=True,exist_ok=True)
     saved_path=cache/'library.json';saved=[]
     if saved_path.is_file():
@@ -186,6 +189,8 @@ def main():
     for filename in ["ball-court.mjs","ground-position.mjs","ground-comparison-ui.mjs","identity-ocr.mjs","style.css","pipeline.css","app.mjs","player-identity.mjs","missing-player-range.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","identity-initial-review.mjs","identity-review-workflow.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
         routes['/'+filename]=static/filename
     routes['/video-library.mjs']=static/'video-library.mjs'
+    for filename in ['commentary-ui.mjs', 'commentary-ui.css']:
+        routes['/'+filename]=static/filename
     routes['/model-selection.mjs']=static/'model-selection.mjs'
     routes['/court-trails.mjs']=static/'court-trails.mjs'
     for filename in ['identity-continuation.mjs', 'identity-agent-client.mjs', 'identity-role-guard.mjs']:
@@ -218,6 +223,27 @@ def main():
 
         def do_POST(self):
             route=urlsplit(self.path).path
+            if route in {'/api/commentary/save', '/api/commentary/jobs'}:
+                try:
+                    origin=f'http://127.0.0.1:{self.server.server_port}'
+                    if self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or self.headers.get('Origin',origin)!=origin:
+                        self.send_error(403);return
+                    if self.headers.get('Content-Type','').split(';')[0]!='application/json':
+                        self.send_error(415);return
+                    size=int(self.headers.get('Content-Length','0'))
+                    if not 0<size<=2*1024*1024:raise ValueError('解说请求大小不正确。')
+                    request=json.loads(self.rfile.read(size));finite_json(request,'Commentary request')
+                    if not isinstance(request,dict):raise ValueError('解说请求必须是 JSON 对象。')
+                    source=clips.get(request.get('sample'));variant=request.get('variant');qa=request.get('qa',False)
+                    if not source or variant not in source['payloads'] or type(qa) is not bool:
+                        raise ValueError('找不到视频、跟踪版本或草稿空间。')
+                    clip=json.loads(source['payloads'][variant])
+                    result=(commentary.save(request,clip,variant,qa) if route.endswith('/save')
+                            else commentary.create(request,clip,source['video'],variant,qa))
+                    self.json_response(200,result)
+                except (ValueError,TypeError,KeyError,OSError,RuntimeError) as error:
+                    self.json_response(400,{'error':str(error)})
+                return
             if re.fullmatch(r'/api/tactics-render/jobs(?:/[a-zA-Z0-9-]+/cancel)?',route):
                 try:
                     origin=f'http://127.0.0.1:{self.server.server_port}'
@@ -441,6 +467,24 @@ def main():
                     self.json_response(400, {'error': str(error)}, head_only)
                 return
             render_path=None
+            if re.fullmatch(r'/api/commentary(?:/jobs/[a-zA-Z0-9-]+(?:/(?:video|subtitles))?)?',route):
+                try:
+                    origin=f'http://127.0.0.1:{self.server.server_port}'
+                    if self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or self.headers.get('Origin',origin)!=origin:
+                        self.send_error(403);return
+                    if len(parsed.query)>2048 or any(len(v)!=1 for v in query.values()) or query.get('qa',['0'])[0] not in ('0','1','true','false'):
+                        raise ValueError('解说查询参数不正确。')
+                    source=clips[query.get('sample',[default])[0]];variant=query.get('variant',[source['defaultVariant']])[0]
+                    clip=json.loads(source['payloads'][variant]);qa=query.get('qa',['0'])[0] in ('1','true')
+                    if route=='/api/commentary':
+                        self.json_response(200,commentary.get_state(clip,variant,qa),head_only);return
+                    ident=route.split('/')[4]
+                    if route.endswith('/video'):render_path=commentary.video(ident,clip,variant,qa)
+                    elif route.endswith('/subtitles'):render_path=commentary.subtitles(ident,clip,variant,qa)
+                    else:
+                        self.json_response(200,commentary.get(ident,clip,variant,qa),head_only);return
+                except (ValueError,TypeError,KeyError,OSError,RuntimeError) as error:
+                    self.json_response(400,{'error':str(error)},head_only);return
             if re.fullmatch(r'/api/tactics-render/jobs/[a-zA-Z0-9-]+(?:/video)?',route):
                 try:
                     origin=f'http://127.0.0.1:{self.server.server_port}'
@@ -598,6 +642,7 @@ def main():
     try:server.serve_forever()
     except KeyboardInterrupt:pass
     finally:
+        commentary.close()
         renderer.close()
         identity_agent.close()
         ground_agent.close()

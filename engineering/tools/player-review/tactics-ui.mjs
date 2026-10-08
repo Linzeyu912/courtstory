@@ -1,3 +1,4 @@
+import {mountCommentaryUI} from './commentary-ui.mjs';
 import {createManualAnnotation,duplicateAnnotation,correctAnnotationProgress,nearestRouteProgress} from './tactics-manual-editor.mjs';
 import {removeTacticKeyframe} from './tactics-keyframes.mjs';
 import {mountTacticsTimeline} from './tactics-timeline-ui.mjs';
@@ -1515,7 +1516,7 @@ export function mountTacticsUI(api){
     lastScene.frame=frame;lastScene.mediaTime=mediaTime;lastScene.backgroundSource=backgroundSource;
     drawScene();if(modeChanged){fillRouteControls();fillAnnotationControls();}return true;
   }
-  function dispose(){clearTimeout(holdTimer);clearTimeout(agentTimer);context++;agentCapture=null;productionUI.dispose();}
+  function dispose(){clearTimeout(holdTimer);clearTimeout(agentTimer);context++;agentCapture=null;productionUI.dispose();commentaryUI.dispose();}
   window.addEventListener?.('pagehide',dispose,{once:true});
   let timelineInstance=null;
   const timeline={
@@ -1536,7 +1537,10 @@ export function mountTacticsUI(api){
   $('tacticsCourtView').onclick=()=>{canvasView='court';$('tacticsSyncVideo').hidden=false;drawScene();};$('tacticsVideoView').onclick=()=>{canvasView='video';$('tacticsSyncVideo').hidden=true;drawScene();};
   $('tacticsMigrate').onclick=safe(async()=>{const result=await migrateTacticsDocument(documentValue,api.clip.mediaEndTime);await writeTacticsDraft(cacheKey()+':before-v2',result.backup);await commit(result.document);});
   $('tacticsRedo').onclick=safe(async()=>{if(!redo.length||editBusy)return;const next=redo.pop();history.push({document:clone(documentValue),selectedAnnotationId});documentValue=next.document;selectedAnnotationId=next.selectedAnnotationId;revision++;markUnsaved();await draft();render({reuseScene:true});});
-  render();return {saveDraft:draft,ready:()=>sceneReady,cancelEditing,onPresentedFrame,dispose,
+  const commentaryRoot=document.createElement('section');
+  root.querySelector('.tactics-heading').after(commentaryRoot);
+  const commentaryUI=mountCommentaryUI({...api,root:commentaryRoot});
+  render();return {saveDraft:async()=>{await draft();return commentaryUI.saveDraft();},ready:()=>sceneReady,cancelEditing,onPresentedFrame,dispose,
     getPlaybackState:playback.state,
     togglePlayback(){if(!active)return false;if(rangePlayback){$('tacticsPause').onclick();return true;}if(playback.state().status==='playing')$('tacticsPause').onclick();else $('tacticsContinue').onclick();return true;},
     externalSeek(frame){

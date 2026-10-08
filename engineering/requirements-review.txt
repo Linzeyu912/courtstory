@@ -3,3 +3,5 @@ av==17.0.0
 numpy==2.4.3
 # Reference crops and labeled evidence sheets for identity recognition.
 pillow==11.3.0
+# Commentary providers read local credentials without exposing them to the UI.
+python-dotenv==1.2.2
