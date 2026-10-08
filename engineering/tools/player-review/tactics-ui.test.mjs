@@ -713,12 +713,16 @@ test('screen and player spotlight are visible independent objects; playback and 
     await env.load();await env.get('tacticsToolScreen').onclick();
     await env.event('pointerdown',{pointerId:41,target:env.target(),clientX:650,clientY:300});
     let items=env.writes.at(-1).document.annotations.items;assert.equal(items[0].type,'screen');
+    assert.equal(env.get('tacticsAnnotationColor').disabled,false);
     assert.equal(env.get('tacticsContinue').disabled,false,'finishing a manual edit must restore the visible preview button');
     const overlay=env.get('tacticsCanvas').children[0].children[1];assert.match(overlay.innerHTML,/data-annotation-id/);
     env.get('tacticsAnnotationAngle').value='45';await env.get('tacticsAnnotationAngle').onchange();
     assert.equal(env.writes.at(-1).document.annotations.items[0].style.angle,45);
     await env.get('tacticsToolSpotlight').onclick();env.selectPlayer('P1');await env.event('pointerdown',{pointerId:42,target:env.target(),clientX:720,clientY:410});
     items=env.writes.at(-1).document.annotations.items;assert.equal(items[1].type,'spotlight');assert.equal(items[1].followEntity,true);
+    assert.equal(items[1].style.color,'#ffffff');
+    assert.equal(env.get('tacticsAnnotationColor').value,'#ffffff');assert.equal(env.get('tacticsAnnotationColor').disabled,true);
+    assert.match(overlay.innerHTML,/data-part="spotlight-soft-light"/);assert.match(overlay.innerHTML,/data-part="spotlight-halo"/);
     assert.match(overlay.innerHTML,/<(?:ellipse|polygon|path)\b/);assert.doesNotMatch(overlay.innerHTML,/<text\b/);
     await env.get('tacticsAnnotationDelete').onclick();assert.equal(env.writes.at(-1).document.annotations.items.length,1);
     await env.get('tacticsUndo').onclick();assert.equal(env.writes.at(-1).document.annotations.items.length,2);
@@ -863,6 +867,8 @@ test('a first spotlight click in a modern empty video offers a visible manual fa
     assert.equal(env.ui.getSceneState().annotations.items.length,0);assert.equal(env.get('tacticsSpotlightFallback').hidden,false);
     await env.get('tacticsPlaceManualSpotlight').onclick();
     let circle=env.ui.getSceneState().annotations.items[0];assert.equal(circle.entityId,null);assert.equal(circle.followEntity,false);assert.equal(circle.space,'video');assert.equal(circle.videoMode,'fixed');assert.match(circle.name,/人工定位/);assert.deepEqual(circle.points,[{x:450,y:410}]);
+    assert.match(env.get('tacticsCanvas').children[0].children[1].innerHTML,/data-part="spotlight-soft-light"/);
+    assert.equal(circle.style.color,'#ffffff');
     assert.equal(env.get('tacticsSpotlightFallback').hidden,true);assert.match(env.get('tacticsFootStatus').textContent,/不代表自动追踪/);
     await env.event('pointerdown',{pointerId:145,target:env.target({'data-annotation-id':circle.id,'data-annotation-control-index':'0'}),clientX:450,clientY:410});
     await env.event('pointermove',{pointerId:145,clientX:480,clientY:425});await env.event('pointerup',{pointerId:145});
@@ -874,6 +880,7 @@ test('a first spotlight click in a modern empty video offers a visible manual fa
     await env.get('tacticsToolSpotlight').onclick();await env.get('tacticsSpotlightManual').onclick();
     assert.equal(env.get('tacticsSpotlightManual').getAttribute('aria-pressed'),'true');assert.equal(env.get('tacticsSpotlightAuto').getAttribute('aria-pressed'),'false');
     await env.event('pointerdown',{target:env.target(),clientX:700,clientY:350});assert.equal(env.ui.getSceneState().annotations.items.length,2);
+    assert.equal((env.get('tacticsCanvas').children[0].children[1].innerHTML.match(/data-part="spotlight-soft-light"/g)??[]).length,2);
   }finally{env.restore();}
 });
 

@@ -15,6 +15,69 @@ const projectedFixture=async({scale=1,x=0,y=0}={})=>{
 };
 const route={id:'route-a',phaseId:'setup',type:'route',entityId:'P1',frame:12,space:'court',points:[{x:18,y:10},{x:20,y:9},{x:22,y:9}]};
 
+test('new spotlight defaults are white while custom and saved color data survive the white-light renderer',async()=>{
+  const base=await fixture(),input={...route,type:'spotlight',entityId:null,space:'video',points:[{x:600,y:400}]};
+  const origin={kind:'agent',jobId:'palette',sourceFrames:[12],note:'focus'};
+  for(const style of [undefined,{color:'#ffd45c'},{color:'#ffd34e'}]){
+    const created=api.createAnnotation(base,{...input,origin,...(style?{style}:{})});
+    assert.equal(created.annotations.items[0].style.color,'#ffffff');
+  }
+  assert.equal(api.createAnnotation(base,input).annotations.items[0].style.color,'#ffffff');
+  for(const color of ['#ff0000','#ffd34e']){
+    const saved=api.createAnnotation(base,{...input,style:{color}}),loaded=JSON.parse(JSON.stringify(saved));
+    const svg=api.renderAnnotationsSVG(api.projectAnnotations(loaded,{phaseId:'setup',frame:12}));
+    assert.equal(loaded.annotations.items[0].style.color,color);
+    assert.match(svg,/stop-color="#ffffff"/);assert.match(svg,/data-part="spotlight-soft-light"/);assert.doesNotMatch(svg,/<text/);
+    assert.ok(!svg.includes(color),'the focus light stays white even for saved colored circles');
+  }
+  assert.equal(api.createAnnotation(base,{...input,origin,style:{color:'#ff0000'}}).annotations.items[0].style.color,'#ff0000');
+});
+
+test('visible spotlights dim the video once with one soft opening per player, and stop at the time boundary',async()=>{
+  let doc=await fixture();
+  for(const [i,x] of [400,800].entries())doc=api.createAnnotation(doc,{...route,id:`focus-${i}`,type:'spotlight',entityId:null,space:'video',points:[{x,y:450}],endFrameExclusive:30});
+  const scene=api.projectAnnotations(doc,{phaseId:'setup',frame:16,freeze:false}),svg=api.renderAnnotationsSVG(scene);
+  assert.equal((svg.match(/data-part="spotlight-dim"/g)??[]).length,1);
+  assert.equal((svg.match(/data-part="spotlight-opening"/g)??[]).length,2);
+  assert.match(svg,/fill="#000000" fill-opacity="0.3"/);
+  assert.doesNotMatch(api.renderAnnotationsSVG(api.projectAnnotations(doc,{phaseId:'setup',frame:30})),/spotlight-dim|spotlight-opening/);
+  for(const item of scene.items)item.video.opacity=0;
+  assert.doesNotMatch(api.renderAnnotationsSVG(scene),/spotlight-dim|spotlight-opening/);
+  for(const item of scene.items){item.video.opacity=1;item.video.subjectBounds={left:-300,top:100,right:-100,bottom:300};}
+  assert.doesNotMatch(api.renderAnnotationsSVG(scene),/spotlight-dim|spotlight-opening/);
+});
+
+test('spotlight illumination uses the observed body box and follows the existing manual offset',async()=>{
+  const base=await fixture(),p=base.review.entities[0].trajectory[16];p.box=[700,200,800,400];
+  base.playDefinition.sourceBinding=await createSourceBinding(base.review);
+  let doc=api.createAnnotation(base,{...route,id:'body-focus',type:'spotlight',space:'video',frame:16,points:[{x:p.x,y:p.y}],followEntity:false});
+  let scene=api.projectAnnotations(doc,{phaseId:'setup',frame:16});
+  assert.deepEqual(scene.items[0].video.subjectBounds,{left:700,top:200,right:800,bottom:400});
+  doc=api.updateAnnotation(doc,'body-focus',{points:[{x:p.x+20,y:p.y+10}]});
+  scene=api.projectAnnotations(doc,{phaseId:'setup',frame:16});
+  assert.deepEqual(scene.items[0].video.subjectBounds,{left:720,top:210,right:820,bottom:410});
+});
+
+test('legacy spotlight keeps its editable time range outside reference frames and gains the common glow',async()=>{
+  let doc=api.createAnnotation(await fixture(),{...route,id:'legacy-focus',type:'spotlight',entityId:null,space:'video',points:[{x:600,y:400}],endFrameExclusive:30});
+  doc=JSON.parse(JSON.stringify(doc));await validateDocument(doc);
+  assert.equal(api.annotationPresentation(doc).items[0].mode,'timeline');
+  const scene=api.projectAnnotations(doc,{phaseId:'setup',frame:16,freeze:false});
+  assert.ok(scene.items[0].video,'legacy spotlight must respect its range beyond its anchor frame');
+  assert.deepEqual(scene.items[0].handles,[{x:600,y:400,index:0}]);
+  assert.equal(api.hitTestAnnotation(scene,scene.items[0].video.ring[0]).id,'legacy-focus');
+  const svg=api.renderAnnotationsSVG(scene);
+  assert.match(svg,/data-part="spotlight-soft-light"/);assert.match(svg,/data-part="spotlight-halo"/);
+  assert.match(svg,/data-part="spotlight"/);assert.match(svg,/<radialGradient/);
+  const moved=api.updateAnnotation(doc,'legacy-focus',{points:[{x:620,y:410}],style:{size:2,color:'#00ff00'}});
+  const resized=api.projectAnnotations(moved,{phaseId:'setup',frame:16});
+  assert.deepEqual(resized.items[0].video.center,{x:620,y:410});
+  assert.ok(resized.items[0].video.ring[0].x-620>scene.items[0].video.ring[0].x-600);
+  assert.equal(api.projectAnnotations(moved,{phaseId:'setup',frame:30}).items[0].hiddenReason,'outside_time');
+  assert.equal(moved.annotations.items[0].style.color,'#00ff00');
+  assert.doesNotMatch(api.renderAnnotationsSVG(resized),/#00ff00/);
+});
+
 test('explicit observed later dashed routes retain each bend as one native editable route',async()=>{
   const base=await fixture();
   for(let count=2;count<=6;count++){

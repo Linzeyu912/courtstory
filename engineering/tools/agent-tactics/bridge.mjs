@@ -187,7 +187,8 @@ function locatePoints(intent,evidenceIndex,document,action){
 }
 
 function nativeInput(intent,actual,jobId){
-  return {id:`ann-${intent.intentId}`,type:intent.type,entityId:intent.playerId,phaseId:intent.phaseId,frame:intent.anchorFrame,...intent.range,space:intent.sourceSpace==='court_meters'?'court':'video',points:actual,followEntity:intent.displayIntent==='declared_player_follow',style:intent.style??{},origin:{kind:'agent',jobId,sourceFrames:intent.evidenceFrames.slice(0,40),note:'Evidence-backed agent workflow; roles and provenance remain in sidecars.'},...(intent.displayIntent==='declared_player_follow'?{anchorMode:'player_foot',offset:{x:0,y:0}}:{})};
+  const range=intent.type==='spotlight'&&intent.displayIntent==='reference_frame'?{startFrame:intent.anchorFrame,endFrameExclusive:intent.anchorFrame+1}:intent.range;
+  return {id:`ann-${intent.intentId}`,type:intent.type,entityId:intent.playerId,phaseId:intent.phaseId,frame:intent.anchorFrame,...range,space:intent.sourceSpace==='court_meters'?'court':'video',points:actual,followEntity:intent.displayIntent==='declared_player_follow',style:intent.style??{},origin:{kind:'agent',jobId,sourceFrames:intent.evidenceFrames.slice(0,40),note:'Evidence-backed agent workflow; roles and provenance remain in sidecars.'},...(intent.displayIntent==='declared_player_follow'?{anchorMode:'player_foot',offset:{x:0,y:0}}:{})};
 }
 
 export async function buildPlayerAnnotations(request){
@@ -340,7 +341,8 @@ export async function checkProjection(request){
     for(const id of annotationIds){
       const a=document.annotations?.items.find(a=>a.id===id);
       if(!a||a.entityId!==intent.playerId||a.phaseId!==intent.phaseId){add(id,intent.anchorFrame,'wrong_binding');continue;}
-      if(a.type!==intent.type||a.startFrame!==intent.range.startFrame||a.endFrameExclusive!==intent.range.endFrameExclusive||a.anchorFrame!==intent.anchorFrame)add(id,intent.anchorFrame,'annotation_timing_or_type_changed');
+      const cueLocalFocus=intent.type==='spotlight'&&intent.displayIntent==='reference_frame'&&a.startFrame===intent.anchorFrame&&a.endFrameExclusive===intent.anchorFrame+1;
+      if(a.type!==intent.type||!cueLocalFocus&&(a.startFrame!==intent.range.startFrame||a.endFrameExclusive!==intent.range.endFrameExclusive)||a.anchorFrame!==intent.anchorFrame)add(id,intent.anchorFrame,'annotation_timing_or_type_changed');
       if(!a.origin||a.origin.kind!=='agent')add(id,intent.anchorFrame,'agent_origin_missing');
       if(!equal(a.points,intent.points)&&!(a.points.length===4&&intent.points.length===2&&equal(a.points[0],intent.points[0])&&equal(a.points.at(-1),intent.points.at(-1))))add(id,intent.anchorFrame,'annotation_points_changed');
       if(intent.displayIntent==='reference_frame'&&(a.followEntity||a.videoMode==='fixed'||a.space!=='video'))add(id,intent.anchorFrame,'display_intent_mismatch');

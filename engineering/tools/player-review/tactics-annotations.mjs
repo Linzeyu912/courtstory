@@ -7,6 +7,7 @@ import {validateAuthoredPath,authoredBindingReason,authoredRouteGeometry,cubicBe
 
 // Authored illustrations are separate from observations and their review status.
 export const ANNOTATION_LIMITS=Object.freeze({items:256,points:6,dots:160});
+export const DEFAULT_SPOTLIGHT_COLOR='#ffffff';
 export const ANNOTATION_REASONS=Object.freeze({phase_changed:'阶段已调整，请重新绑定',phase_missing:'原阶段已合并，请重新绑定',
   source_changed:'轨迹快照已更新，请重新绑定',entity_missing:'关联球员已移除',outside_time:'不在显示时间内',
   reference_frame_only:'仅在绘制的参考帧显示',completed:'这条路线已走完',calibration_unavailable:'当前帧无可用球场映射',
@@ -91,8 +92,11 @@ export function createAnnotation(document,input){
   if(document.annotations?.items.some(a=>a.id===id))throw new Error('该标注已存在。');
   const annotation={id,type:input.type,phaseId:p.phaseId,entityId,startFrame:input.startFrame??input.frame,
     endFrameExclusive:input.endFrameExclusive??p.endFrameExclusive,anchorFrame:input.frame,space:input.space,points:copy(input.points),
-    style:{angle:0,size:1,color:input.type==='screen'||input.type==='spotlight'||input.type==='route'&&input.style?.pattern==='dots'?'#ffd45c':'#19a9e1',...input.style},
+    style:{angle:0,size:1,color:input.type==='spotlight'?DEFAULT_SPOTLIGHT_COLOR:input.type==='screen'||input.type==='route'&&input.style?.pattern==='dots'?'#ffd45c':'#19a9e1',...input.style},
     followEntity:input.followEntity??(input.type==='spotlight'&&entityId!==null),phaseSnapshot:phaseSnapshot(p),sourceBinding:sourceSnapshot(document)};
+  // Normalize historical Agent palette defaults only at creation; saved colors
+  // and deliberate custom colors continue to be read and edited unchanged.
+  if(input.type==='spotlight'&&input.origin?.kind==='agent'&&['#ffd45c','#ffd34e'].includes(annotation.style.color.toLowerCase()))annotation.style.color=DEFAULT_SPOTLIGHT_COLOR;
   if(input.anchorMode!==undefined)annotation.anchorMode=input.anchorMode;
   if(input.anchorMode==='player_foot'){annotation.space='video';annotation.offset=copy(input.offset??{x:0,y:0});}
   for(const key of ['actionRange','cueFrame','progressFrames','displayMode','curve','meaning','preparationBinding','timingMode','videoMode','referenceSize','name'])if(input[key]!==undefined)annotation[key]=copy(input[key]);
@@ -274,7 +278,7 @@ export function annotationPresentation(document,{annotationIds}={}){
   const stale=new Map(status.stale.map(item=>[item.id,item.reason])),scenes=new Map(),grouped=new Map(),items=[];
   for(const a of document.annotations?.items??[]){
     if(selected&&!selected.has(a.id))continue;
-    const mode=a.space==='video'&&!a.followEntity&&!a.authoredPath&&a.videoMode!=='fixed'||a.endFrameExclusive-a.startFrame===1?'reference_frame':'timeline';
+    const mode=a.type!=='spotlight'&&a.space==='video'&&!a.followEntity&&!a.authoredPath&&a.videoMode!=='fixed'||a.endFrameExclusive-a.startFrame===1?'reference_frame':'timeline';
     let reason=stale.get(a.id)??null,visible=false;
     if(!reason){
       if(!scenes.has(a.phaseId))scenes.set(a.phaseId,new Map());
@@ -404,7 +408,7 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
       if(item.video&&currentFrame===a.anchorFrame)item.handles=a.points.map((p,index)=>({...p,index}));
       continue;
     }
-    if(a.space==='video'&&a.videoMode!=='fixed'&&!a.followEntity&&currentFrame!==a.anchorFrame){item.hiddenReason='reference_frame_only';continue;}
+    if(a.type!=='spotlight'&&a.space==='video'&&a.videoMode!=='fixed'&&!a.followEntity&&currentFrame!==a.anchorFrame){item.hiddenReason='reference_frame_only';continue;}
     let geometry;
     if(a.type==='route'){
       const start=context.frames[a.startFrame].time,end=context.frames[a.endFrameExclusive-1].time;
@@ -448,6 +452,13 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
       }
     }
     if(!item.video){item.hiddenReason='projection_unavailable';continue;}
+    if(a.type==='spotlight'&&a.entityId){
+      const observation=context.pointMaps.get(a.entityId)?.get(currentFrame),box=observation?.box;
+      if(rawFoot(context,a.entityId,currentFrame).point&&Array.isArray(box)&&box.length===4&&box.every(finite)&&box[2]>box[0]&&box[3]>box[1]){
+        const dx=item.video.center.x-observation.x,dy=item.video.center.y-observation.y;
+        item.video.subjectBounds={left:box[0]+dx,top:box[1]+dy,right:box[2]+dx,bottom:box[3]+dy};
+      }
+    }
     const handles=a.type==='spotlight'?[geometry.center]:a.points;
     if(!a.actionRange||a.space!=='court')item.handles=handles.map((p,index)=>({...a.space==='court'?project(mapping.toImage,p.x,p.y):p,index})).filter(p=>finite(p.x)&&finite(p.y));
   }
@@ -456,9 +467,28 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
 
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
 const coordinates=points=>points.map(p=>`${p.x.toFixed(4)},${p.y.toFixed(4)}`).join(' ');
+function spotlightBounds(g){
+  const c=g.center,r=Math.max(g.strokeWidth,...g.ring.map(p=>Math.abs(p.x-c.x)));
+  return g.subjectBounds??{left:c.x-r,top:c.y-r*4,right:c.x+r,bottom:c.y+r*.2};
+}
 export function renderAnnotationsSVG(scene,{space='video',width=scene.width,height=scene.height}={}){
   if(!['video','court'].includes(space)||!finite(width)||!finite(height)||width<=0||height<=0)throw new Error('画布标注显示尺寸不正确。');
   const viewBox=space==='court'?`0 0 ${COURT.length} ${COURT.width}`:`0 0 ${scene.width} ${scene.height}`,parts=[];
+  const spotlights=scene.items.filter(item=>{
+    if(item.type!=='spotlight'||!item.video||(item.video.opacity??1)<=0)return false;
+    const b=spotlightBounds(item.video);
+    return b.right>0&&b.left<scene.width&&b.bottom>0&&b.top<scene.height;
+  });
+  if(space==='video'&&spotlights.length){
+    // One shared dim layer: overlapping focus areas never accumulate darkness.
+    // This mask is presentation-only; persisted geometry and hit targets stay intact.
+    const id=`focus-mask-${scene.frame}-${spotlights.map(item=>Array.from(item.id,c=>c.codePointAt(0).toString(16)).join('-')).join('_')}`;
+    const openings=spotlights.map(item=>{
+      const g=item.video,b=spotlightBounds(g);
+      return `<ellipse data-part="spotlight-opening" cx="${(b.left+b.right)/2}" cy="${(b.top+b.bottom)/2}" rx="${(b.right-b.left)*.9}" ry="${(b.bottom-b.top)*.8}" fill="url(#${id}-edge)" opacity="${g.opacity??1}"/>`;
+    }).join('');
+    parts.push(`<defs><radialGradient id="${id}-edge"><stop offset="0" stop-color="#000000"/><stop offset=".65" stop-color="#000000"/><stop offset="1" stop-color="#000000" stop-opacity="0"/></radialGradient><mask id="${id}" maskUnits="userSpaceOnUse" x="0" y="0" width="${scene.width}" height="${scene.height}"><rect width="${scene.width}" height="${scene.height}" fill="#ffffff"/>${openings}</mask></defs><rect data-part="spotlight-dim" width="${scene.width}" height="${scene.height}" fill="#000000" fill-opacity="${.3*Math.max(...spotlights.map(item=>item.video.opacity??1))}" mask="url(#${id})" pointer-events="none"/>`);
+  }
   for(const item of scene.items){
     const g=item[space];if(!g)continue;
     const color=item.original.style.color,stroke=g.strokeWidth,outline=stroke+(space==='court'?.07:3*(scene.height/1080));
@@ -484,7 +514,15 @@ export function renderAnnotationsSVG(scene,{space='video',width=scene.width,heig
       parts.push(...paths.map(points=>`<polyline data-part="screen-bar" points="${points}" stroke="${color}" stroke-width="${stroke}"/>`));
     }else{
       const ring=coordinates(g.ring);
-      parts.push(`<polygon data-part="spotlight" points="${ring}" fill="${color}" fill-opacity=".1" stroke="#251d0d" stroke-opacity=".4" stroke-width="${outline}"/><polyline points="${ring}" stroke="${color}" stroke-width="${stroke}"/>`);
+      // Keep the existing projected foot ring and editing geometry. These SVG
+      // gradients also rasterize in the export pipeline, without CSS.
+      const id=`spotlight-${space}-${scene.frame}-${Array.from(item.id,c=>c.codePointAt(0).toString(16)).join('-')}`;
+      const cx=g.center.x,cy=g.center.y,rx=Math.max(stroke,...g.ring.map(p=>Math.abs(p.x-cx)));
+      const ry=Math.max(stroke,...g.ring.map(p=>Math.abs(p.y-cy))),rise=rx*2;
+      parts.push(`<defs><linearGradient id="${id}-light" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0"/><stop offset=".2" stop-color="#ffffff" stop-opacity=".02"/><stop offset=".6" stop-color="#ffffff" stop-opacity=".1"/><stop offset="1" stop-color="#ffffff" stop-opacity=".18"/></linearGradient><linearGradient id="${id}-sides"><stop offset="0" stop-color="#ffffff" stop-opacity="0"/><stop offset=".25" stop-color="#ffffff"/><stop offset=".75" stop-color="#ffffff"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient><mask id="${id}-feather" maskUnits="userSpaceOnUse" x="${cx-rx*1.15}" y="${cy-rise}" width="${rx*2.3}" height="${rise}"><rect x="${cx-rx*1.15}" y="${cy-rise}" width="${rx*2.3}" height="${rise}" fill="url(#${id}-sides)"/></mask><radialGradient id="${id}-floor"><stop offset="0" stop-color="#ffffff" stop-opacity=".08"/><stop offset=".6" stop-color="#ffffff" stop-opacity=".04"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient></defs>`);
+      parts.push(`<rect data-part="spotlight-soft-light" x="${cx-rx*1.15}" y="${cy-rise}" width="${rx*2.3}" height="${rise}" fill="url(#${id}-light)" mask="url(#${id}-feather)" pointer-events="none"/>`);
+      parts.push(`<ellipse data-part="spotlight-halo" cx="${cx}" cy="${cy}" rx="${rx*1.4}" ry="${ry*1.65}" fill="url(#${id}-floor)" pointer-events="none"/>`);
+      parts.push(`<polygon data-part="spotlight" points="${ring}" fill="#ffffff" fill-opacity=".025"/>`);
     }
     parts.push('</g>');
   }
