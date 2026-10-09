@@ -1,5 +1,7 @@
 # 作品设计、功能与验收文档
 
+2026-10-10：[NBA UI 分类发布记录](ui-publication-20261010.md)记录用户授权的分支推送、主分支合并、分类提交与验证；前轮 [UI 与 main 同步验收](ui-main-sync-20261010.md)保留源提交、后端能力、归档入口与解说／绘图／成片适配过程。
+
 2026-10-10 00:55（Asia/Shanghai）：[远端解说功能整合](../../handoffs/thy-0629/2026-10-10-0055-commentary-remote-integration.md)完成回归与独立复核，保留润色／逐句人工编辑／配音口吻，并接入当前计划版本、姓名、关键节点、独立绘图和联合成片。下方 00:33 及其他“未提交”记录保留当时状态；本轮功能提交为 [4cae6b7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/4cae6b71ec1d7e420c5b8725f7c6531a6290d000)，真实服务验收和云部署边界不变。
 
 2026-10-10（本地未提交／未部署）：[解说先行、独立绘图与姓名接入设计](specs/2026-10-09-commentary-led-tactics-design.md)已按[实施计划](plans/2026-10-10-commentary-led-tactics-implementation.md)完成代码与独立复核。先解说后独立绘图，复用姓名（1A），绘图模型默认继承并可覆盖（2A），联合字幕／图形／姓名／音轨及音频缓存已接通；出手/2K 新规则暂缓。110 项 Python、前端及 Agent 全量 762 项 Node 通过，最后 UI 增量后 81 项完整 UI 回归通过；两段真实素材以测试音和测试图形验证渲染。真实模型与真实 TTS 凭据未配置，内容质量尚未验收。见[实施交接](../../handoffs/thy-0629/2026-10-10-0033-commentary-led-tactics-implementation.md)和[当前工作流](commentary-narration-workflow.md)。
@@ -45,7 +47,7 @@
 | EC2 直接代码上云与本轮交互验收 | [拆分与上传方案](ec2-code-deployment-plan-20261007.md)、[10 月 7 日真实网页验收](ec2-cloud-interaction-acceptance-20261007.md)：EC2 / AgentCore ZIP / S3 / CloudFront 串联通过，GPU 未接入 |
 | 产品规划 | [概念讨论](agent-concept-review.md)、`plans/`、`specs/` |
 | 成品仓库 | [CourtStory 定位与 README 记录](product-repository-proposal-20261007.md)，私有仓库已加入简短 README，说明观众定位与本地 / 云端两种部署计划；代码及 Tag / Release 暂缓 |
-| UI / UX 改版讨论 | [工作台简化与玻璃质感优化计划](plans/2026-10-07-workbench-ui-glass-plan.md)，先讨论布局、材质和动效，未改代码；此前[界面方向与开发工具建议](ui-ux-direction-20261007.md)保留作背景 |
+| UI / UX 当前版本 | [NBA 官网字体／导航实读与现行规范](broadcast-studio-style-20261009.md)、[当前交互验证](broadcast-studio-workbench-20261009.md)；[NBA Broadcast Studio 分支与设计入口](ui-nba-direction-20261009.md)及[四张参考图](images/nba-ui-20261009/README.md)；NBA 真实工作台采用黑白双层顶栏与浅灰白卡，分类提交和 main 合并状态见[发布记录](ui-publication-20261010.md) |
 | 已有功能的回归与问题 | [功能复检](function-audit-20261004.md)、[成果与问题](progress-and-open-issues-20261004.md)、[历次更新](workbench-history-20261005.md) |
 
 这里记录产品如何实现和使用。模型选型与独立实验去 [research](../../research/README.md)，安装和账号准备去 [environment](../../environment/README.md)，赛事官方要求去 [requirements](../../requirements/README.md)。
