@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-10 00:33（Asia/Shanghai，本地未提交／未推送）：用户批准的解说先行流程已实现并通过独立代码复核。解说和绘图分为顺序调用的两个 Agent，已有姓名进入解说；绘图默认继承保存计划的模型，可单独覆盖。统一字幕、语音、图形、姓名的联合成片及 TTS 缓存已接通，旧稿兼容保留。110 项 Python 与前端／Agent 全量 762 项 Node 通过，最后 UI 增量后 81 项回归通过；两段实际素材用测试音与测试图形完成成片解码检查。缺少真实理解与语音服务凭据，内容质量验收待实跑；未部署，出手／2K 规则仍暂缓。见[实施交接](../handoffs/thy-0629/2026-10-10-0033-commentary-led-tactics-implementation.md)。
+
 2026-10-09 12:30（America/New_York，UTC-04:00，已推送main）：解说新增逐句人工编辑/保存/恢复及语言标记，按cueId独立更新，保留其他句子未保存草稿；抽出无UI依赖的客户端，提供[迁移协议](../engineering/docs/commentary-cue-editing-api.md)。23项Python、83项Node回归通过，实际HTTP单句200/冲突409、浏览器保存/刷新/恢复通过，166段视频LFS索引检查通过。主提交[423d5a7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/423d5a7ef703dbda3398f22295a53358a8b6df79)包含前序润色与本次逐句接口；推送后HEAD、origin/main、远端main一致。仅同步解说相关55文件，其他任务保留；未部署云端。下方未提交/认证失败记录保留各轮历史状态。
 
 2026-10-09 12:03（America/New_York，UTC-04:00，本机完成，未提交/推送/云部署）：解说工作台新增Astra整段润色、24条篮球表达材料、候选对照/采用/撤回与自然口吻配音。三段真实视频、虚构用梗场景、20句Seed语音和四个成片已实测；22项Python及7项Node检查通过，浏览器采用/保存/撤回与编辑保护通过。梗卡相对仅指南的优势尚未证明，主观听感待用户比较；见[实测](../research/agents/commentary-personality-20261009/README.md)。远端认证失败，未核对最新Issue或同步状态。

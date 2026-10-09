@@ -2,7 +2,27 @@ import { createCommentaryClient } from './commentary-client.mjs';
 
 const ACTIVE = new Set(['queued', 'running']);
 const clone = value => value == null ? value : structuredClone(value);
-
+const supportsJoint = plan => !!(plan?.planId && Number.isInteger(plan.revision) && plan.digest &&
+  plan.producerConfigSnapshot?.model && plan.nodes?.length && plan.cues?.every(cue =>
+    plan.nodes.filter(node => node.cueIds?.includes(cue.cueId)).length === 1));
+const EDITABLE_CUE_FIELDS = ['text', 'language', 'suggestedStartTime', 'suggestedEndTime', 'delivery'];
+function editableContent(value) {
+  return JSON.stringify({ summary: value?.summary, cues: value?.cues?.map(cue => ({ cueId: cue.cueId,
+    ...Object.fromEntries(EDITABLE_CUE_FIELDS.map(key => [key, key === 'language' ? cue[key] || 'zh-CN' : cue[key]])) })) });
+}
+function restoreContent(current, previous) {
+  const restored = clone(current), originals = new Map(previous.cues.map(cue => [cue.cueId, cue]));
+  restored.summary = previous.summary;
+  for (const cue of restored.cues) {
+    const original = originals.get(cue.cueId);
+    if (!original) continue;
+    for (const key of EDITABLE_CUE_FIELDS) {
+      if (key in original) cue[key] = clone(original[key]);
+      else delete cue[key];
+    }
+  }
+  return restored;
+}
 
 function setStatus(node, message, kind = '') {
   node.textContent = message || '';
@@ -13,7 +33,6 @@ function stageLabel(stage, status) {
   const labels = { understanding: '正在理解视频', polishing: '正在润色整段解说', speech: '正在合成配音', synthesizing: '正在合成配音', rendering: '正在生成字幕视频', queued: '任务排队中' };
   return `${labels[stage] || (status === 'queued' ? labels.queued : stage || '正在处理')}…`;
 }
-
 
 function make(tag, attrs = {}, parent) {
   const node = document.createElement(tag);
@@ -42,7 +61,7 @@ export function mountCommentaryUI(api) {
   const summaryHeading = make('summary', { text: '解说与配音' }, details);
   const body = make('div', { className: 'commentary-body' }, details);
   const intro = make('p', { className: 'commentary-intro' }, body);
-  intro.textContent = `${title} · 先生成解说稿，核对每句时间与讲法，再生成配音字幕视频。`;
+  intro.textContent = `${title} · 先生成解说和关键节点，再由独立绘图 Agent 制作图形，最后生成配音、字幕和姓名同步的联合视频。`;
   const modelLine = make('p', { className: 'commentary-muted', text: '读取解说服务状态…' }, body);
   const actions = make('div', { className: 'commentary-actions' }, body);
   const understand = make('button', { className: 'primary', text: '生成解说稿' }, actions);
@@ -52,7 +71,9 @@ export function mountCommentaryUI(api) {
   const voiceStyle = make('select', { 'aria-label': '配音口吻' }, actions);
   make('option', { value: 'natural', text: '配音：自然有趣' }, voiceStyle);
   make('option', { value: 'classic', text: '配音：原专业口吻' }, voiceStyle);
-  const render = make('button', { className: 'primary', text: '配音并生成字幕视频' }, actions);
+  const render = make('button', { className: 'primary', text: '配音并生成联合视频' }, actions);
+  const upgrade = make('button', { text: '重新分析并补齐关键节点', hidden: true }, actions);
+  const cancel = make('button', { text: '取消当前解说任务', hidden: true }, actions);
   const status = make('p', { className: 'commentary-status', role: 'status', 'aria-live': 'polite' }, body);
   const progress = make('progress', { hidden: true }, body);
   const summaryLabel = make('label', { className: 'commentary-label', text: '解说梗概（可选）' }, body);
@@ -115,11 +136,12 @@ export function mountCommentaryUI(api) {
     voiceStyle.disabled = locked;
     adopt.disabled = locked || !candidate || JSON.stringify(readPlan()) !== JSON.stringify(candidate.originalPlan);
     undo.hidden = !undoPlan;
-    undo.disabled = locked || !undoPlan || JSON.stringify(readPlan()) !== adoptedSnapshot;
+    undo.disabled = locked || !undoPlan || editableContent(readPlan()) !== adoptedSnapshot;
     if (candidate) candidateNote.textContent = adopt.disabled && !locked
       ? '原稿在生成后已有变化，请重新润色；候选仍可对照阅读。'
       : '核对动作、结果和用梗场景后采用；采用后仍需保存。';
     render.disabled = locked || !hasPlan;
+    render.textContent = hasPlan && !supportsJoint(plan) ? '配音并生成字幕视频' : '配音并生成联合视频';
     save.disabled = busy || !hasPlan || !changed();
     const editingLocked = busy || (ACTIVE.has(job?.status) && job?.action !== 'polish');
     for (const field of [summaryInput, ...cueEditors.flatMap(cue => [cue.text, cue.start, cue.end, cue.delivery, cue.language])]) field.disabled = editingLocked;
@@ -132,12 +154,15 @@ export function mountCommentaryUI(api) {
       fields.note.textContent = dirty ? '本句有未保存修改' : current.editedBy === 'human' ? '本句已人工保存' : '本句与已保存版本一致';
     }
     save.textContent = changed() ? '保存解说稿 · 有未保存修改' : '保存解说稿';
+    upgrade.hidden = !hasPlan || supportsJoint(plan);
+    upgrade.disabled = locked;
+    cancel.hidden = !ACTIVE.has(job?.status);
   }
   function clearResult() {
     resultVideo.pause(); resultVideo.removeAttribute('src'); resultVideo.load(); resultBox.hidden = true;
     mp4Link.removeAttribute('href'); srtLink.removeAttribute('href');
   }
-  function renderPlan(value) {
+  function renderPlan(value, savedPlan = value) {
     plan = clone(value);
     cueEditors.length = 0;
     cueList.replaceChildren();
@@ -146,6 +171,10 @@ export function mountCommentaryUI(api) {
       const card = make('article', { className: 'commentary-cue' }, cueList);
       const heading = make('div', { className: 'commentary-cue-heading' }, card);
       make('strong', { text: `第 ${index + 1} 句` }, heading);
+      for (const node of plan.nodes?.filter(node => node.cueIds?.includes(cue.cueId)) || []) {
+        const anchor = make('button', { type: 'button', text: `关键节点 · 帧 ${node.anchorAssetFrame + 1}` }, heading);
+        anchor.addEventListener('click', () => { pause(); sourceVideo.pause(); resultVideo.pause(); seek(node.anchorAssetFrame); });
+      }
       if (Array.isArray(clip?.frames) && clip.frames.length) {
         const view = make('button', { type: 'button', text: '查看来源画面' }, heading);
         view.addEventListener('click', () => {
@@ -187,7 +216,8 @@ export function mountCommentaryUI(api) {
       delivery.addEventListener('change', onEdit);
       language.addEventListener('change', onEdit);
     }
-    baseline = JSON.stringify(plan);
+    baseline = JSON.stringify(savedPlan);
+    api.onPlanChange?.(clone(plan), changed());
     updateButtons();
   }
   function onEdit() {
@@ -195,6 +225,7 @@ export function mountCommentaryUI(api) {
     if (!resultBox.hidden) resultNote.textContent = '解说稿已有修改，当前视频仍对应生成时保存的版本。';
     setStatus(status, changed() ? '有未保存修改。保存后再生成可更新配音字幕视频。' : '解说稿与已保存版本一致。');
     updateButtons();
+    api.onPlanChange?.(readPlan(), changed());
   }
   function showCandidate(value) {
     candidate = value;
@@ -214,8 +245,7 @@ export function mountCommentaryUI(api) {
     try {
       const envelope = JSON.parse(localStorage.getItem(storageKey) || 'null');
       if (envelope?.plan && envelope.baseline === baseline && JSON.stringify(envelope.plan) !== baseline && Array.isArray(envelope.plan.cues) && envelope.plan.cues.length === (plan.cues || []).length) {
-        renderPlan(envelope.plan);
-        baseline = envelope.baseline;
+        renderPlan(envelope.plan, JSON.parse(envelope.baseline));
         updateButtons();
         setStatus(status, '已恢复本机未保存草稿；保存后才会写入服务端。');
       }
@@ -229,6 +259,7 @@ export function mountCommentaryUI(api) {
       loaded = true; service = value.status || {};
       modelLine.textContent = `解说模型：${service.model || '服务端默认'} · 理解服务${service.understandingConfigured ? '已就绪' : '未配置'} · 配音服务${service.ttsConfigured ? '已就绪' : '未配置'}`;
       job = value.job || null;
+      if (['natural', 'classic'].includes(job?.voiceStyle)) voiceStyle.value = job.voiceStyle;
       if (value.plan) { renderPlan(value.plan); recoverLocal(); }
       else updateButtons();
       if (ACTIVE.has(job?.status)) { setStatus(status, `已有任务${job.stage ? `：${job.stage}` : ''}，正在恢复状态。`); poll(); }
@@ -249,8 +280,8 @@ export function mountCommentaryUI(api) {
       if (String(cue.suggestedStartTime).trim() === '' || String(cue.suggestedEndTime).trim() === '' || !Number.isFinite(start) || !Number.isFinite(end) || start < 0 || end <= start) throw new Error(`第 ${index + 1} 句时间无效，请填写有效的开始与结束秒数。`);
       if (!String(cue.text || '').trim()) throw new Error(`第 ${index + 1} 句解说文字不能为空。`);
     }
-    await client.savePlan(value);
-    plan = value; baseline = JSON.stringify(value); persistLocal(); updateButtons();
+    const saved = await client.savePlan(value, { expectedRevision: plan.revision ?? 0, review: api.commentaryReview?.() ?? api.snapshot?.() });
+    renderPlan(saved.plan || saved); persistLocal(); updateButtons();
     setStatus(status, '解说稿已保存。'); return true;
   }
   function resetOneCue(cueId) {
@@ -258,8 +289,7 @@ export function mountCommentaryUI(api) {
     const cue = saved.cues.find(c => c.cueId === cueId);
     if (!cue) return;
     draft.cues = draft.cues.map(c => c.cueId === cueId ? clone(cue) : c);
-    const previousBaseline = baseline;
-    renderPlan(draft); baseline = previousBaseline; onEdit();
+    renderPlan(draft, saved); onEdit();
     setStatus(status, '本句已恢复为上次保存的内容，其他句子保留。');
   }
   async function saveOneCue(cueId) {
@@ -273,7 +303,7 @@ export function mountCommentaryUI(api) {
     busy = true; updateButtons();
     const token = serial;
     try {
-      const result = await client.saveCue(cueId, patch, expected);
+      const result = await client.saveCue(cueId, patch, expected, { planId: saved.planId, expectedRevision: saved.revision ?? 0, review: api.commentaryReview?.() ?? api.snapshot?.() });
       if (disposed || token !== serial) return;
       const originals = new Map(saved.cues.map(c => [c.cueId, c]));
       const local = new Map(draft.cues.map(c => [c.cueId, c]));
@@ -281,7 +311,7 @@ export function mountCommentaryUI(api) {
       merged.cues = result.plan.cues.map(remote => remote.cueId === cueId
         || JSON.stringify(local.get(remote.cueId)) === JSON.stringify(originals.get(remote.cueId))
         ? remote : local.get(remote.cueId) || remote);
-      renderPlan(merged); baseline = JSON.stringify(result.plan); onEdit();
+      renderPlan(merged, result.plan); onEdit();
       setStatus(status, '本句已人工保存，其他句子的未保存修改保留。需要重新生成配音才能更新成片。');
     } catch (error) {
       if (!disposed && token === serial) setStatus(status, `本句保存失败：${error.message}`, 'error');
@@ -322,24 +352,43 @@ export function mountCommentaryUI(api) {
       }
     }, 1500);
   }
-  async function start(action) {
+  async function start(action, { wait = false } = {}) {
     if (busy || ACTIVE.has(job?.status)) return;
     busy = true; clearTimeout(timer); updateButtons();
     if (action !== 'polish') clearResult();
     pause(); candidate = null; candidateBox.hidden = true;
+    if (action === 'understand') { undoPlan = null; adoptedSnapshot = ''; }
     setStatus(status, action === 'understand' ? '正在生成解说稿…' : action === 'polish' ? '正在润色整段解说…' : '正在提交配音与视频生成…');
     const token = ++serial;
     try {
       if (action === 'render' && changed()) await savePlan();
-      const payload = { ...ctx, action, ...(action !== 'understand' ? { plan: readPlan() } : {}), voiceStyle: voiceStyle.value };
+      await api.beforeCommentary?.(action);
+      const joint = action === 'render' && supportsJoint(plan);
+      const renderSnapshot = joint ? await api.jointRenderSnapshot?.() : null;
+      const payload = { ...ctx, action, review: api.commentaryReview?.() ?? api.snapshot?.(), expectedRevision: plan?.revision ?? 0, voiceStyle: voiceStyle.value,
+        ...(action !== 'understand' ? { plan: readPlan() } : {}),
+        ...(joint ? { commentaryPlanRef: { planId: plan.planId, revision: plan.revision, digest: plan.digest }, ...renderSnapshot } : {}) };
       job = await client.startJob(payload);
       if (disposed || token !== serial) return;
+      updateButtons();
+      if (wait) {
+        const deadline = Date.now() + 20 * 60 * 1000;
+        while (ACTIVE.has(job.status)) {
+          if (disposed || token !== serial) throw new Error('解说等待已取消。');
+          if (Date.now() > deadline) throw new Error('解说仍在运行，可刷新状态后继续绘图。');
+          setStatus(status, stageLabel(job.stage, job.status));
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          if (disposed || token !== serial) throw new Error('解说等待已取消。');
+          job = await client.getJob(job.id);
+        }
+      }
       if (ACTIVE.has(job.status)) { setStatus(status, stageLabel(job.stage, job.status)); poll(); }
       else if (job.status === 'completed' && action === 'understand' && job.plan) { renderPlan(job.plan); persistLocal(); setStatus(status, '解说稿已生成，请逐句核对后保存。'); }
       else if (job.status === 'completed' && action === 'render') showResult(job);
       else if (job.status === 'completed' && action === 'polish') showCandidate(job);
-      else setStatus(status, job.error || '任务未能启动。', 'error');
-    } catch (error) { if (!disposed && token === serial) setStatus(status, error.message, 'error'); }
+      else { const message = job.error || '任务未能启动。'; setStatus(status, message, 'error'); if (wait) throw new Error(message); }
+      return clone(plan);
+    } catch (error) { if (!disposed && token === serial) setStatus(status, error.message, 'error'); if (wait) throw error; }
     finally { if (!disposed && token === serial) { busy = false; updateButtons(); } }
   }
   understand.addEventListener('click', () => start('understand'));
@@ -347,10 +396,11 @@ export function mountCommentaryUI(api) {
   adopt.addEventListener('click', () => {
     if (!candidate || adopt.disabled) return;
     undoPlan = readPlan();
-    const savedBaseline = baseline;
-    renderPlan(candidate.plan);
-    baseline = savedBaseline;
-    adoptedSnapshot = JSON.stringify(readPlan());
+    const adopted = readPlan(), texts = new Map(candidate.plan.cues.map(cue => [cue.cueId, cue.text]));
+    // A polish candidate contributes prose only; the saved plan owns nodes, names and revision.
+    adopted.cues = adopted.cues.map(cue => ({ ...cue, text: texts.get(cue.cueId) ?? cue.text }));
+    renderPlan(adopted, JSON.parse(baseline));
+    adoptedSnapshot = editableContent(readPlan());
     candidate = null; candidateBox.hidden = true;
     onEdit();
     setStatus(status, '已采用润色稿，可继续编辑或保存。');
@@ -358,10 +408,21 @@ export function mountCommentaryUI(api) {
   discard.addEventListener('click', () => { candidate = null; candidateBox.hidden = true; updateButtons(); });
   undo.addEventListener('click', () => {
     if (undo.disabled || !undoPlan) return;
-    const savedBaseline = baseline;
-    renderPlan(undoPlan); baseline = savedBaseline;
+    // Keep the newest server revision even when reverting prose after it was saved.
+    renderPlan(restoreContent(readPlan(), undoPlan), JSON.parse(baseline));
     undoPlan = null; adoptedSnapshot = ''; onEdit();
     setStatus(status, '已恢复润色前的稿件。');
+  });
+  upgrade.addEventListener('click', () => start('understand'));
+  cancel.addEventListener('click', async () => {
+    if (!job?.id || !ACTIVE.has(job.status)) return;
+    cancel.disabled = true;
+    try {
+      const cancelled = await client.cancelJob(job.id);
+      serial++; clearTimeout(timer); job = cancelled; busy = false;
+      setStatus(status, '任务已取消，已保存解说与人工草稿保留。'); updateButtons();
+    } catch (error) { setStatus(status, `取消失败：${error.message}`, 'error'); }
+    finally { cancel.disabled = false; }
   });
   render.addEventListener('click', () => start('render'));
   save.addEventListener('click', async () => {
@@ -370,6 +431,9 @@ export function mountCommentaryUI(api) {
     finally { busy = false; updateButtons(); }
   });
   summaryInput.addEventListener('input', onEdit);
+  voiceStyle.addEventListener('change', () => {
+    if (!resultBox.hidden) resultNote.textContent = '配音口吻已有修改，当前视频使用生成时的口吻。请重新生成视频。';
+  });
   resultVideo.addEventListener('play', pause);
   sourceVideo.addEventListener('play', () => { pause(); resultVideo.pause(); });
   resultVideo.addEventListener('play', () => sourceVideo.pause());
@@ -377,9 +441,20 @@ export function mountCommentaryUI(api) {
     if (disposed) return;
     disposed = true; serial++; clearTimeout(timer); resultVideo.pause(); sourceVideo.pause();
   }
-  void load();
+  const loadedPlan = load();
   return {
     dispose,
+    markResultStale() { if (!resultBox.hidden) resultNote.textContent = '图形或姓名展示已有修改，当前视频对应之前保存的版本。请重新生成联合视频。'; },
+    getPlan: () => clone(plan),
+    renderVideo: () => start('render'),
+    async ensurePlan() {
+      await loadedPlan;
+      if (busy || ACTIVE.has(job?.status)) throw new Error('解说任务正在运行，请在解说完成后继续绘图。');
+      if (!plan) await start('understand', { wait: true });
+      if (!supportsJoint(plan)) throw new Error('这份旧解说没有完整的关键节点依据，请点击「重新分析并补齐关键节点」。');
+      if (changed()) await savePlan();
+      return clone(plan);
+    },
     async saveDraft() {
       if (!plan) return true;
       persistLocal();

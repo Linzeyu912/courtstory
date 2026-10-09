@@ -10,6 +10,20 @@ import {project} from './court.mjs';
 const api=await import('./tactics-production.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
 const geometry=await import('./tactics-authored-geometry.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
 const fixture=async()=>createTacticsDocument((await makePresentationDemo()).review);
+test('native production exposes asset frame and review time without relabeling parent footage',async()=>{
+  const document=await fixture(),plan=api.compileProduction(document),state=plan.frames[0];
+  assert.equal(state.assetFrame,state.sourceFrame);
+  assert.equal(state.reviewTimeSeconds,document.review.sourceFrameMapping[state.assetFrame].time);
+});
+test('an externally compiled joint snapshot renders through the native SVG path and rejects source drift',async()=>{
+  const document=await fixture(),plan=api.compileProduction(document);
+  assert.equal(typeof api.validateProductionSnapshot,'function');
+  assert.equal(api.validateProductionSnapshot(document,plan),plan);
+  const changed=structuredClone(plan);changed.frames[0].sourceFrame=99999;
+  assert.throws(()=>api.validateProductionSnapshot(document,changed),/成片/);
+  changed.frames[0]=structuredClone(plan.frames[0]);changed.frames[0].phaseId='wrong-phase';
+  assert.throws(()=>api.validateProductionSnapshot(document,changed),/成片/);
+});
 const camera=d=>({id:'cam',phaseId:'phase-1',phaseSnapshot:geometry.productionPhaseSnapshot(d.playDefinition.phases[0]),approximate:true,groundQuad:[[0,0],[10,0],[10,10],[0,10]],keyframes:[{frame:0,quad:[[100,100],[1100,100],[1100,650],[100,650]],evidenceFrames:[0]},{frame:60,quad:[[120,100],[1120,100],[1120,650],[120,650]],evidenceFrames:[60]}]});
 async function authored(){
   let d=await fixture();assert.equal(typeof api.updateProductionCamera,'function');d=api.updateProductionCamera(d,'cam',camera(d));

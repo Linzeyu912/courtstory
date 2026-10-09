@@ -59,3 +59,33 @@ test('tool reads images, preserves both clocks, checkpoints plans, and rejects c
   const aborted=new AbortController();aborted.abort();
   await assert.rejects(reader.execute('aborted',{startTime:2,endTime:4,mode:'sheet'},aborted.signal),/取消/);
 });
+
+test('handoff nodes require actually seen event frames and respect name intervals',()=>{
+  const frames=new Set([10,20]);frames.detailRead=true;frames.detailFrames=new Set([20]);
+  const p=plan();p.participants=[{participantId:'P1-f10',entityId:'P1',nameRecordRef:'name-1',validRange:{startFrame:10,endFrame:10},displayName:'Alice'}];
+  p.nodes=[{nodeId:'n1',eventId:'e1',cueIds:['c1','c2','c3'],anchorAssetFrame:20,evidenceWindow:{startFrame:10,endFrame:20},participantRefs:['P1-f10'],focus:'传球',uncertainties:[]}];
+  assert.ok(validateCommentaryPlan(p,{duration:8,readFrames:frames,frameTimes:new Map([[10,{time:1}],[20,{time:3}]]),requireContract:true}).some(e=>e.includes('区间')));
+  p.nodes[0].participantRefs=[];
+  assert.deepEqual(validateCommentaryPlan(p,{duration:8,readFrames:frames,frameTimes:new Map([[10,{time:1}],[20,{time:3}]]),requireContract:true}),[]);
+  p.nodes[0].anchorAssetFrame=99;
+  assert.ok(validateCommentaryPlan(p,{duration:8,readFrames:frames,requireContract:true}).some(e=>e.includes('证据')));
+});
+
+test('new handoff covers every cue once, and during_play keeps its delivery',()=>{
+  const p=plan(),readFrames=new Set([10,20]);readFrames.detailRead=true;readFrames.detailFrames=new Set([20]);
+  const options={duration:8,readFrames,requireContract:true};p.participants=[];
+  p.nodes=[{nodeId:'n1',eventId:'e1',cueIds:['c1','c2','c3'],anchorAssetFrame:20,evidenceWindow:{startFrame:10,endFrame:20},participantRefs:[],focus:'推进',uncertainties:[]}];
+  assert.deepEqual(validateCommentaryPlan(p,options),[]);assert.equal(p.cues[0].delivery,'during_play');
+  p.nodes[0].cueIds=['c1','c2'];
+  assert.ok(validateCommentaryPlan(p,options).some(e=>e.includes('恰好一个节点')));
+  p.nodes.push({...p.nodes[0],nodeId:'n2',cueIds:['c1','c3']});
+  assert.ok(validateCommentaryPlan(p,options).some(e=>e.includes('恰好一个节点')));
+  p.nodes[0].cueIds=['c1','c1','c2'];p.nodes[1].cueIds=['c3'];
+  assert.ok(validateCommentaryPlan(p,options).some(e=>e.includes('恰好一个节点')));
+});
+
+test('missing region frames cannot become seen evidence',async()=>{
+  const runtime=createCommentaryTools(start,{budget:{maxToolCalls:5,toolCalls:0},rpc:async()=>({content:[{type:'image',data:'aGVsbG8=',mimeType:'image/png'}],details:{frames:[{frame:10,time:1,sourceTime:11},{frame:20,time:3,sourceTime:13}],returnedFrames:[10],unavailableFrames:[20],assets:[]}})});
+  await runtime.tools.find(t=>t.name==='inspect_region').execute('region',{frames:[10,20]});
+  assert.equal(runtime.state.seenFrames.has(20),false);
+});

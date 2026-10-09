@@ -126,7 +126,7 @@ def convert_cues(cues, segments, placements):
         p = by_id[cue['cueId']]
         row.update(previewStart=p['previewStart'], previewEnd=p['previewEnd'],
                    narrationSpeed=p['speed'], convertedToHold=p['fallback'])
-        hold = next((s for s in segments if s.get('cueId') == cue['cueId'] and s['kind'] == 'hold'), None)
+        hold = next((s for s in segments if s['kind'] == 'hold' and (s.get('cueId') == cue['cueId'] or cue['cueId'] in s.get('cueIds',[]))), None)
         if hold:
             row['holdSourceTime'] = hold['sourceStart']
         else:
@@ -135,10 +135,8 @@ def convert_cues(cues, segments, placements):
     return rows
 
 
-def render_video(video_path, output, cues, segments, placements, duration, font_path, cache_dir):
-    helper = CommentaryVideo(video_path, cache_dir)
-    context = helper.context()
-    width, height = context['width'], context['height']
+def subtitle_overlays(cues, placements, width, height, font_path):
+    """Same saved cue text and safe subtitle layout for both render paths."""
     font_size = max(24, width//48)
     subtitle_images = {}
     cue_by_id = {c['cueId']: c for c in cues}
@@ -171,6 +169,14 @@ def render_video(video_path, output, cues, segments, placements, duration, font_
         for n, value in enumerate(lines):
             draw.text((40, 14+n*(font.size+8)), value, font=font, fill='white')
         subtitle_images[cue_id] = overlay
+    return subtitle_images
+
+
+def render_video(video_path, output, cues, segments, placements, duration, font_path, cache_dir):
+    helper = CommentaryVideo(video_path, cache_dir)
+    context = helper.context()
+    width, height = context['width'], context['height']
+    subtitle_images = subtitle_overlays(cues, placements, width, height, font_path)
     frame_count = math.ceil(duration*FPS)
     with av.open(str(video_path)) as src, av.open(str(output), 'w', options={'movflags': '+faststart'}) as dst:
         stream = src.streams.video[0]; stream.thread_type = 'AUTO'
@@ -240,12 +246,14 @@ def main():
     parser.add_argument('--video',type=Path,required=True)
     parser.add_argument('--plan',type=Path,required=True)
     parser.add_argument('--audio-manifest',type=Path,required=True)
+    parser.add_argument('--document',type=Path,help='Saved native tactical document and optional name overlay for joint rendering')
     parser.add_argument('--output',type=Path,required=True,help='New output directory')
     parser.add_argument('--font',type=Path,default=Path('C:/Windows/Fonts/msyh.ttc'))
     args=parser.parse_args()
     if args.output.exists(): parser.error('Choose a new output directory')
     if not args.font.is_file(): parser.error(f'Font not found: {args.font}')
-    ffmpeg=shutil.which('ffmpeg')
+    from tactics_render import discover_ffmpeg
+    ffmpeg=discover_ffmpeg()
     if not ffmpeg: parser.error('ffmpeg is required')
     args.output.mkdir(parents=True)
     plan=json.loads(args.plan.read_text(encoding='utf-8'))
@@ -259,10 +267,16 @@ def main():
     with tempfile.TemporaryDirectory(dir=args.output) as tmp:
         helper=CommentaryVideo(args.video,Path(tmp)/'index-cache')
         ctx=helper.context()
-        segments,placements=build_timeline(ctx['duration'],cues,rows,[f['time'] for f in ctx['frames']])
-        duration=segments[-1]['previewEnd'] if segments else ctx['duration']
         silent=Path(tmp)/'silent.mp4'
-        render_video(args.video,silent,cues,segments,placements,duration,args.font,Path(tmp)/'frames')
+        if args.document:
+            from commentary_joint_render import render_joint
+            composition=render_joint(args.video,silent,args.document,plan,rows,ctx,cues,args.font,Path(tmp)/'joint')
+            segments,placements,duration=composition['segments'],composition['placements'],composition['duration']
+            (args.output/'composition.json').write_text(json.dumps(composition,ensure_ascii=False,indent=2),encoding='utf-8')
+        else:
+            segments,placements=build_timeline(ctx['duration'],cues,rows,[f['time'] for f in ctx['frames']])
+            duration=segments[-1]['previewEnd'] if segments else ctx['duration']
+            render_video(args.video,silent,cues,segments,placements,duration,args.font,Path(tmp)/'frames')
         mux_audio(silent,args.output/'commentary-final.mp4',args.video,rows,placements,segments,duration,ctx['sourceStartTime'],ffmpeg)
     rows_out=convert_cues(cues,segments,placements)
     with (args.output/'commentary.srt').open('w',encoding='utf-8-sig') as f:
@@ -272,6 +286,8 @@ def main():
             f.write(f"{i}\n{stamp(start)} --> {stamp(end)}\n{c['text']}\n\n")
     data=dict(sourceVideo=str(args.video),sourceDuration=ctx['duration'],duration=duration,
               video='commentary-final.mp4',subtitles='commentary.srt',segments=segments,cues=rows_out)
+    if args.document:
+        data.update(composition='composition.json',timing='measured_audio',commentaryPlanRef=composition['commentaryPlanRef'],sourceRef=composition['sourceRef'])
     (args.output/'timeline.json').write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding='utf-8')
     print(args.output.resolve())
 

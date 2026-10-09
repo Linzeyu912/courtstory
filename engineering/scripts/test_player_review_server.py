@@ -180,7 +180,36 @@ class ReviewServerTests(unittest.TestCase):
             self.assertTrue(state.is_file(),'Fixture HTTP server did not reach readiness')
             url=json.loads(state.read_text())['url'];static=Path(__file__).resolve().parents[1]/'tools/player-review'
             with urlopen(url+'app.mjs',timeout=3) as response:self.assertEqual(response.status,200)
+            with urlopen(url+'api/commentary-drawing/status',timeout=3) as response:
+                drawing=json.load(response)
+            self.assertIn('available',drawing)
+            self.assertNotIn('codex',str(drawing).lower())
+            request=Request(url+'api/commentary-drawing/jobs',data=json.dumps({'sample':'legacy','variant':'original','qa':True}).encode(),
+                            headers={'Content-Type':'application/json'},method='POST')
+            with self.assertRaises(HTTPError) as missing_plan:urlopen(request,timeout=3)
+            self.assertEqual(missing_plan.exception.code,400)
+            def post_commentary(path,payload):
+                request=Request(url+path,data=json.dumps({'sample':'legacy','variant':'original','qa':True,**payload}).encode(),
+                                headers={'Content-Type':'application/json'},method='POST')
+                with urlopen(request,timeout=5) as response:return json.load(response)
+            plan={'summary':'人工测试稿','cues':[
+                {'cueId':'c1','text':'传球','suggestedStartTime':0,'suggestedEndTime':.08,'delivery':'pause'},
+                {'cueId':'c2','text':'接应','suggestedStartTime':.08,'suggestedEndTime':.16,'delivery':'pause'}]}
+            saved=post_commentary('api/commentary/save',{'plan':plan,'expectedRevision':0})
+            saved=saved.get('plan',saved)
+            edited=post_commentary('api/commentary/cues/c1',{'patch':{'text':'传给队友','language':'zh-CN'},'expectedCue':saved['cues'][0]})
+            self.assertEqual(edited['plan']['revision'],2)
+            self.assertEqual(edited['plan']['cues'][1],saved['cues'][1])
+            self.assertNotEqual(edited['plan']['digest'],saved['digest'])
+            with self.assertRaises(HTTPError) as cue_conflict:
+                post_commentary('api/commentary/cues/c1',{'patch':{'text':'过期修改'},'expectedCue':saved['cues'][0]})
+            self.assertEqual(cue_conflict.exception.code,409)
+            with self.assertRaises(HTTPError) as unknown_cancel:
+                post_commentary('api/commentary/jobs/'+'a'*32+'/cancel',{})
+            self.assertEqual(unknown_cancel.exception.code,400)
             for name,mime in [('team-overlay.mjs','text/javascript'),('team-overlay-policy.json','application/json'),
+                              ('commentary-client.mjs','text/javascript'),('commentary-ui.mjs','text/javascript'),
+                              ('commentary-ui.css','text/css'),
                               ('automatic-annotations.mjs','text/javascript'),
                               ('identity-continuation.mjs','text/javascript'),('identity-agent-client.mjs','text/javascript'),
                               ('tracking-display.mjs','text/javascript'),('court-trails.mjs','text/javascript'),

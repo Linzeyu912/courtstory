@@ -2,6 +2,8 @@
 
 2026-10-09，America/New_York。已接入工作台第三部分「解说与配音」，适用于初稿以及采用润色后的稿件。五条解说对应五个独立编辑入口，以`cueId`定位，不以数组下标作为持久身份。
 
+2026-10-10，Asia/Shanghai：与版本化解说、姓名快照、独立绘图及联合成片整合。逐句编辑仍使用下述细粒度冲突规则，同时产生新的计划 revision／digest 和不可变历史；已依据旧版本生成的绘图须重新核对。
+
 ## 用户操作
 
 每条卡片可编辑文字、源视频开始/结束秒数、播放中/暂停讲法、语言标记，并有「保存本句」「恢复本句」。保存本句只更新这一条；其他卡片未保存的编辑留在本机草稿中。恢复本句只把当前卡片恢复到上次保存内容，不写服务端、不影响其他条目。保存后页面显示“本句已人工保存”。刷新会恢复已保存稿件，以及与该基线匹配的本机未保存草稿。
@@ -37,23 +39,29 @@
 
 示例expectedCue仅展示一个简化cue；真实调用必须使用最近读取/保存返回的**完整原始cue对象**，包含已有证据等字段，不能手工删减。patch可传部分字段，只允许text、language、suggestedStartTime、suggestedEndTime、delivery。cueId、事件和证据不可通过此接口修改。
 
-成功返回`200 {cue, plan}`。cue是保存后的条目，附`editedBy: "human"`与UTC `editedAt`；plan是保存后的完整当前稿件，供前端更新基线。服务端在锁内读取、比较目标cue、合并并原子写入原`plan.json`，保留其他句子的最新服务端版本。
+成功返回`200 {cue, plan}`。cue是保存后的条目，附`editedBy: "human"`与UTC `editedAt`；plan是保存后的完整当前稿件，供前端更新基线。服务端在锁内读取、比较目标cue、合并最新计划，再走版本化保存，更新 `plan.json` 并追加不可变历史，保留其他句子的最新服务端版本。前端以响应 plan 的 revision／digest 为新基线，只把其他卡片的未保存可编辑字段合回草稿，不能复制旧版本元数据。
 
 - `400`：无稿件/无此cue、非法字段、空文本、越界时间或语言标记无效，不写入。
 - `409`：expectedCue与服务端该句不一致，不覆盖，前端保留人工草稿供核对。另一句改变不会造成当前句冲突。
 - 原有本机同源/请求格式限制保持。上下文隔离仍由视频SHA、跟踪指纹、variant和qa决定。
 
-整份保存仍走`POST /api/commentary/save`，属于主动保存全部稿件；上述逐句冲突检查只适用于新接口。未改成通用版本管理或多人实时协作系统。
+当前工作台调用同时传入 `review`（当前已保存来源和姓名快照）及 `planId`，以校验来源、身份绑定与计划身份。`expectedRevision` 可随客户端 options 提交；单句接口的写冲突仍以 `expectedCue` 为准，服务端在锁内使用最新整份 revision 保存，所以其他句子的更新不会导致同句无谓冲突。来源、姓名绑定或计划身份变化则拒绝混用旧稿。
+
+整份保存仍走`POST /api/commentary/save`，属于主动保存全部稿件，传 `expectedRevision` 与 `review`，整份版本必须匹配；上述逐句冲突规则只适用于单句接口。旧无节点计划可独立成片，新计划联合成片还需携带保存的计划引用和原生图形文档。
 
 ## 更换UI时复用什么
 
-前端通用客户端：[commentary-client.mjs](../tools/player-review/commentary-client.mjs)。没有DOM、React或组件依赖，支持注入fetch，提供getState、savePlan、saveCue、startJob、getJob。旧工作台已通过同一客户端调用，避免新旧UI分别拼接协议。
+前端通用客户端：[commentary-client.mjs](../tools/player-review/commentary-client.mjs)。没有DOM、React或组件依赖，支持注入fetch，提供getState、savePlan、saveCue、startJob、getJob、cancelJob。工作台通过同一客户端调用。
 
 ```javascript
 const api = createCommentaryClient({ sample, variant, qa });
 const { plan } = await api.getState();
 const original = plan.cues.find(cue => cue.cueId === selectedCueId);
-const result = await api.saveCue(original.cueId, { text: editedText }, original);
+// currentReview 来自当前工作台已保存的来源与姓名快照。
+const result = await api.saveCue(original.cueId, { text: editedText }, original, {
+  planId: plan.planId, expectedRevision: plan.revision ?? 0, review: currentReview,
+});
+// 主动整份保存：api.savePlan(editedPlan, {expectedRevision, review})。
 ```
 
 迁移时保留这几个行为：
@@ -63,6 +71,7 @@ const result = await api.saveCue(original.cueId, { text: editedText }, original)
 3. 字段默认值只用于显示，不要因打开旧稿就视为用户修改。旧稿language缺省显示中文。
 4. 失败/409不丢弃输入；同一时间只保存一个请求。更换视频或卸载组件后不把旧响应填入新页面。
 5. 配音成片对应生成时的稿件；文字改变后提示重新生成，不把旧成片标为已更新。
+6. 润色采用／撤回只移动可编辑内容，保留最新服务器 planId／revision／digest／生产模型快照。采用后保存或保存本句都生成新版本，再触发独立绘图依据失效；没有保存的候选不能冒充已保存计划。
 
 后端业务位于[commentary_jobs.py](../scripts/commentary_jobs.py)的`save_cue`，HTTP路由位于[serve_player_review.py](../scripts/serve_player_review.py)。稿件仍存原`commentary-jobs/<context>/plan.json`，更换UI无需迁移存储格式或重跑理解Agent。新UI部署时需包含通用客户端模块。
 

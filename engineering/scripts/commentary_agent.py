@@ -15,6 +15,7 @@ import time
 from dotenv import dotenv_values
 
 from commentary_video import CommentaryVideo
+from commentary_plan import build_name_snapshot, model_config
 
 ROOT = Path(__file__).resolve().parents[2]
 WORKER = ROOT / "engineering/tools/player-review/agents/commentary-worker.mjs"
@@ -193,6 +194,10 @@ def run_worker(video, context, overview, output, child_env, secret, config, goal
     result["provider"] = ({"name": "openrouter", "model": child_env["OPENROUTER_MODEL"], "reasoningEffort": "medium"}
                           if child_env.get("COMMENTARY_PROVIDER") == "openrouter" else
                           {"name": "token-plan" if child_env["QWEN_BASE_URL"] == TOKEN_PLAN_URL else "qwen", "model": child_env["QWEN_MODEL"], "reasoningEffort": "off"})
+    if child_env.get("COMMENTARY_MODEL_CONFIG"):
+        actual = json.loads(child_env["COMMENTARY_MODEL_CONFIG"])
+        result["producerConfigSnapshot"] = actual
+        result["provider"]["reasoningEffort"] = actual["reasoning"]
     write_json(output / "tool-calls.json", trace)
     return result
 
@@ -204,6 +209,8 @@ def main():
     source.add_argument("--sample", help="Registered review-library sample ID")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--observations", type=Path)
+    parser.add_argument("--review", type=Path, help="Saved review identity snapshot, source-bound")
+    parser.add_argument("--producer-config", type=Path, help="Host-owned non-secret locked model configuration")
     parser.add_argument("--provider", choices=("token-plan", "qwen", "openrouter"), default="token-plan")
     parser.add_argument("--model")
     parser.add_argument("--env-file", type=Path, default=ROOT / ".env")
@@ -228,6 +235,13 @@ def main():
     output.mkdir(parents=True)
     video = CommentaryVideo(video_path, output / "images", args.observations)
     context = video.context()
+    if args.review:
+        review = json.loads(args.review.read_text(encoding="utf-8"))
+        source_clip = json.loads(args.observations.read_text(encoding="utf-8")) if args.observations else {"video_sha256": video.video_ref, "frames": context["frames"]}
+        if source_clip.get("video_sha256", source_clip.get("videoSha256")) != video.video_ref:
+            raise ValueError("Saved review does not match decoded video")
+        context["nameSnapshot"] = build_name_snapshot(review, source_clip)
+    context["planContract"] = True
     fps = min(2, 120 / max(context["duration"], 1))
     overview = video.read_video_window({"startTime": 0, "endTime": context["duration"], "fps": fps, "mode": "sheet"})
     write_json(output / "context.json", context)
@@ -237,6 +251,11 @@ def main():
         print(f"Prepared: {output}")
         return 0
     child_env, secret = provider_environment(args.env_file, args.provider, args.model)
+    if args.producer_config:
+        locked = model_config(json.loads(args.producer_config.read_text(encoding="utf-8")))
+        if locked["provider"] != args.provider or locked["model"] != child_env.get("OPENROUTER_MODEL"):
+            raise ValueError("Locked producer config differs from actual provider/model")
+        child_env["COMMENTARY_MODEL_CONFIG"] = json.dumps(locked, ensure_ascii=False)
     config = {"maxRequests": args.max_requests, "maxToolCalls": args.max_tools, "timeoutSeconds": args.timeout}
     result = run_worker(video, context, overview, output, child_env, secret, config, args.goal)
     write_json(output / "result.json", result)

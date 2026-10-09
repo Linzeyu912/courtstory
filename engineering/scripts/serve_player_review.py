@@ -46,6 +46,7 @@ def main():
     parser.add_argument("--shared-video-catalog", default="data/videos/catalog.json")
     parser.add_argument("--tactics-folder", default="data/local-workbench/tactics")
     parser.add_argument("--commentary-python", help="Python with PyAV, Pillow and python-dotenv for commentary jobs")
+    parser.add_argument("--commentary-model-config", type=Path, help="Trusted JSON provider/model/capabilities configuration shared by commentary and inherited drawing")
     parser.add_argument("--inference-python", default="tmp/model-runtime/Scripts/python.exe")
     parser.add_argument("--models", default="tmp/models")
     parser.add_argument("--workspace-collection", help="Service-local active/archive manifest; defaults to import cache")
@@ -148,7 +149,12 @@ def main():
     from ground_trajectory_agent import GroundTrajectoryAgent
     ground_agent = GroundTrajectoryAgent(Path(args.tactics_folder)/'ground-trajectory-jobs', tactics)
     from commentary_jobs import CommentaryJobs, CueConflict
-    commentary = CommentaryJobs(Path(args.tactics_folder)/'commentary-jobs', **({'python': args.commentary_python} if args.commentary_python else {}))
+    commentary_config=json.loads(args.commentary_model_config.read_text(encoding='utf-8')) if args.commentary_model_config else None
+    commentary = CommentaryJobs(Path(args.tactics_folder)/'commentary-jobs', model_config=commentary_config,
+                               **({'python': args.commentary_python} if args.commentary_python else {}))
+    from commentary_drawing_jobs import CommentaryDrawingJobs
+    drawing = CommentaryDrawingJobs(Path(args.tactics_folder)/'commentary-drawing-jobs', tactics, commentary,
+                                    **({'python': args.commentary_python} if args.commentary_python else {}))
     cache=Path(args.trim_root).resolve();cache.mkdir(parents=True,exist_ok=True)
     saved_path=cache/'library.json';saved=[]
     if saved_path.is_file():
@@ -234,7 +240,8 @@ def main():
         def do_POST(self):
             route=urlsplit(self.path).path
             cue_route = re.fullmatch(r'/api/commentary/cues/([A-Za-z0-9_-]{1,64})', route)
-            if route in {'/api/commentary/save', '/api/commentary/jobs'} or cue_route:
+            cancel_route = re.fullmatch(r'/api/commentary/jobs/([a-f0-9]{32})/cancel',route)
+            if route in {'/api/commentary/save', '/api/commentary/jobs'} or cue_route or cancel_route:
                 try:
                     origin=f'http://127.0.0.1:{self.server.server_port}'
                     if self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or self.headers.get('Origin',origin)!=origin:
@@ -242,7 +249,7 @@ def main():
                     if self.headers.get('Content-Type','').split(';')[0]!='application/json':
                         self.send_error(415);return
                     size=int(self.headers.get('Content-Length','0'))
-                    if not 0<size<=2*1024*1024:raise ValueError('解说请求大小不正确。')
+                    if not 0<size<=32*1024*1024:raise ValueError('解说请求大小不正确。')
                     request=json.loads(self.rfile.read(size));finite_json(request,'Commentary request')
                     if not isinstance(request,dict):raise ValueError('解说请求必须是 JSON 对象。')
                     source=clips.get(request.get('sample'));variant=request.get('variant');qa=request.get('qa',False)
@@ -251,6 +258,8 @@ def main():
                     clip=json.loads(source['payloads'][variant])
                     if cue_route:
                         result=commentary.save_cue(cue_route[1],request,clip,variant,qa)
+                    elif cancel_route:
+                        result=commentary.cancel(cancel_route[1],clip,variant,qa)
                     else:
                         result=(commentary.save(request,clip,variant,qa) if route.endswith('/save')
                                 else commentary.create(request,clip,source['video'],variant,qa))
@@ -301,7 +310,7 @@ def main():
                 except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
                     self.json_response(400,{'error':str(error)})
                 return
-            if re.fullmatch(r'/api/(?:tactics|identity|ground-trajectory)-agent/jobs(?:/[a-zA-Z0-9-]+/(?:cancel|adopt))?',route) or re.fullmatch(r'/api/tactics-agent/jobs/[a-zA-Z0-9-]+/retry',route):
+            if re.fullmatch(r'/api/(?:(?:tactics|identity|ground-trajectory)-agent|commentary-drawing)/jobs(?:/[a-zA-Z0-9-]+/(?:cancel|adopt))?',route) or re.fullmatch(r'/api/(?:tactics-agent|commentary-drawing)/jobs/[a-zA-Z0-9-]+/retry',route):
                 try:
                     if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
                         self.headers.get('Origin',f'http://127.0.0.1:{self.server.server_port}')!=f'http://127.0.0.1:{self.server.server_port}'):
@@ -315,12 +324,12 @@ def main():
                     source=clips.get(request.get('sample'));variant=request.get('variant');qa=request.get('qa',False);kind=request.get('kind','workspace')
                     if not source or variant not in source['payloads'] or type(qa) is not bool:raise ValueError('找不到视频、模型或草稿空间。')
                     clip=json.loads(source['payloads'][variant])
-                    selected_agent=(ground_agent if route.startswith('/api/ground-trajectory-agent/') else
+                    selected_agent=(drawing if route.startswith('/api/commentary-drawing/') else ground_agent if route.startswith('/api/ground-trajectory-agent/') else
                                     identity_agent if route.startswith('/api/identity-agent/') else agent)
-                    extra=(kind,) if selected_agent is agent else ()
+                    extra=(kind,) if selected_agent in (agent,drawing) else ()
                     if route.endswith('/adopt'):result=selected_agent.adopt(route.split('/')[-2],request,clip,variant,qa,*extra)
                     elif route.endswith('/cancel'):result=selected_agent.cancel(route.split('/')[-2],clip,variant,qa)
-                    elif route.endswith('/retry'):result=agent.retry(route.split('/')[-2],request,clip,variant,qa,kind)
+                    elif route.endswith('/retry'):result=selected_agent.retry(route.split('/')[-2],request,clip,variant,qa,kind)
                     else:result=selected_agent.create(request,clip,source['video'],variant,qa,*extra)
                     self.json_response(200,result)
                 except (ValueError,TypeError,KeyError,OSError,subprocess.TimeoutExpired) as error:
@@ -558,9 +567,9 @@ def main():
                 except (ValueError,TypeError,KeyError,OSError) as error:
                     self.json_response(400,{'error':str(error)},head_only)
                 return
-            if re.fullmatch(r'/api/(?:tactics|identity|ground-trajectory)-agent/(?:status|jobs/[a-zA-Z0-9-]+)',route):
+            if re.fullmatch(r'/api/(?:(?:tactics|identity|ground-trajectory)-agent|commentary-drawing)/(?:status|jobs/[a-zA-Z0-9-]+)',route):
                 try:
-                    selected_agent=(ground_agent if route.startswith('/api/ground-trajectory-agent/') else
+                    selected_agent=(drawing if route.startswith('/api/commentary-drawing/') else ground_agent if route.startswith('/api/ground-trajectory-agent/') else
                                     identity_agent if route.startswith('/api/identity-agent/') else agent)
                     if selected_agent is not agent:
                         if (self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or
@@ -697,6 +706,7 @@ def main():
     try:server.serve_forever()
     except KeyboardInterrupt:pass
     finally:
+        drawing.close()
         commentary.close()
         name_jobs.close()
         renderer.close()

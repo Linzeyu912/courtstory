@@ -12,6 +12,7 @@ import urllib.error
 import urllib.request
 
 from commentary_agent import ROOT, provider_environment, redact
+from commentary_plan import model_config, resolve_catalog_config
 
 MODEL = 'openai/gpt-6-astra'
 MATERIALS = ROOT / 'engineering/tools/player-review/agents/commentary-style'
@@ -67,11 +68,16 @@ def messages_for(plan, include_memes=True):
 不得返回或修改其他字段，不写解释、舞台指示、语气标签或来源链接。每句中文为主，最多120字符。
 during_play严格服从给定秒数，标点停顿和英文也占时间；pause句也要简短，不因暂停就写长段子。
 不要把片段结束说成比赛结束；末节、绝杀、连进、球员身份和伤病都需要输入明确支持。
+人物姓名只能沿用本句已用的有效姓名记录和显示名，不新增球员名字或翻译别名。participants/nameRecordRefs是身份资料，nodes是已有画面节点；它们不是润色时可以重新判断的内容。
 提交前检查整段事实与用梗语境，压缩超时句；普通句也可以不改。'''
     compact = {'summary': plan.get('summary', ''), 'uncertainties': plan.get('uncertainties', []),
                'events': [{k: event[k] for k in ('eventId', 'startTime', 'endTime', 'description', 'participants', 'uncertainties') if k in event}
-                          for event in plan.get('events', [])]}
-    compact['cues'] = [{**{k: cue[k] for k in ('cueId', 'eventId', 'text', 'focus', 'delivery', 'suggestedStartTime', 'suggestedEndTime') if k in cue},
+                          for event in plan.get('events', [])],
+               'participants': [{k: p[k] for k in ('participantId', 'entityId', 'nameRecordRef', 'validRange', 'identityStatus', 'identityVerified', 'displayName') if k in p}
+                                for p in plan.get('participants', [])],
+               'nodes': [{k: n[k] for k in ('nodeId', 'eventId', 'cueIds', 'anchorAssetFrame', 'participantRefs', 'focus', 'uncertainties') if k in n}
+                         for n in plan.get('nodes', [])]}
+    compact['cues'] = [{**{k: cue[k] for k in ('cueId', 'eventId', 'text', 'language', 'focus', 'delivery', 'suggestedStartTime', 'suggestedEndTime', 'participantRefs', 'nameRecordRefs') if k in cue},
                         'availableSeconds': round(cue['suggestedEndTime'] - cue['suggestedStartTime'], 3),
                         'suggestedHanBudget': max(1, math.floor((cue['suggestedEndTime'] - cue['suggestedStartTime'] - .6) * 4)) if cue['delivery'] == 'during_play' else max(12, len(re.findall(r'[\u3400-\u9fff]', cue['text'])) - 2),
                         'pauseSpeechBudgetSeconds': pause_budget(cue) if cue['delivery'] == 'pause' else None,
@@ -112,9 +118,14 @@ def merge_texts(plan, response):
     return result
 
 
-def request_completion(messages, key, model=MODEL):
-    body = {'model': model, 'messages': messages, 'max_tokens': 8192,
-            'reasoning': {'effort': 'medium'}, 'response_format': {'type': 'json_object'}}
+def request_completion(messages, key, model=MODEL, config=None):
+    locked = model_config(config or {'model': model})
+    if locked['model'] != model:
+        raise ValueError('润色实际模型与锁定配置不同')
+    body = {'model': model, 'messages': messages, 'max_tokens': locked['modelCapabilities']['maxTokens'],
+            'response_format': {'type': 'json_object'}}
+    if locked['reasoning'] != 'off':
+        body['reasoning'] = {'effort': locked['reasoning']}
     request = urllib.request.Request(ENDPOINT, data=json.dumps(body).encode('utf-8'), headers={
         'Content-Type': 'application/json', 'Authorization': f'Bearer {key}'})
     started = time.monotonic()
@@ -139,13 +150,16 @@ def request_completion(messages, key, model=MODEL):
     return content, meta
 
 
-def polish_plan(value, env_file, model=MODEL, include_memes=True, feedback='', complete=None):
+def polish_plan(value, env_file, model=MODEL, include_memes=True, feedback='', complete=None, config=None):
     plan = unwrap(value)
     _, key = provider_environment(env_file, 'openrouter', model)
+    locked = model_config(config) if config else (model_config() if model == MODEL else resolve_catalog_config(model, key))
+    if locked['model'] != model:
+        raise ValueError('润色模型与服务锁定配置不同')
     messages = messages_for(plan, include_memes)
     if feedback:
         messages.append({'role': 'user', 'content': '定向修改意见：' + feedback[:2000]})
-    complete = complete or request_completion
+    complete = complete or (lambda messages, secret, selected: request_completion(messages, secret, selected, locked))
     attempts = []
     for attempt in range(2):
         content, meta = complete(messages, key, model)
@@ -162,7 +176,7 @@ def polish_plan(value, env_file, model=MODEL, include_memes=True, feedback='', c
             continue
         attempts.append(meta)
         return {'status': 'completed', 'plan': candidate, 'originalPlan': deepcopy(plan),
-                'polish': {'requestedModel': model, 'materialsVersion': '2026-10-09-v3.1', 'includeMemes': include_memes,
+                'polish': {'requestedModel': model, 'configSnapshot': locked, 'materialsVersion': '2026-10-09-v3.1', 'includeMemes': include_memes,
                            'attempts': attempts, 'elapsedSeconds': round(sum(a['elapsedSeconds'] for a in attempts), 3),
                            'timing': [{'cueId': c['cueId'], 'estimateSeconds': estimate_speech_seconds(c['text']),
                                        'windowSeconds': round(c['suggestedEndTime'] - c['suggestedStartTime'], 3),
@@ -175,6 +189,7 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--env-file', type=Path, default=ROOT / '.env')
     parser.add_argument('--model', default=MODEL)
+    parser.add_argument('--producer-config', type=Path, help='Service-owned locked non-secret polish configuration')
     parser.add_argument('--without-memes', action='store_true', help='Expression-only research comparison')
     parser.add_argument('--feedback', default='')
     args = parser.parse_args()
@@ -183,7 +198,8 @@ def main():
     args.output.mkdir(parents=True)
     try:
         result = polish_plan(json.loads(args.plan.read_text(encoding='utf-8-sig')), args.env_file,
-                             args.model, not args.without_memes, args.feedback)
+                             args.model, not args.without_memes, args.feedback,
+                             config=json.loads(args.producer_config.read_text(encoding='utf-8')) if args.producer_config else None)
         (args.output / 'result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
         print(json.dumps({'status': result['status'], 'polish': result['polish']}, ensure_ascii=False))
     except (ValueError, RuntimeError, OSError) as exc:

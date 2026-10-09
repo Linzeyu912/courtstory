@@ -199,7 +199,11 @@ class CommentaryVideo:
 
     def _frame_meta(self, index):
         row = self._frames[index]
-        return {"frame": index, "time": row["time"], "sourceTime": row["sourceTime"]}
+        return {"frame": index, "time": row["time"], "sourceTime": row["sourceTime"],
+                "pts": row["pts"], "timeBase": row["timeBase"],
+                "assetFrame": index, "assetPts": row["pts"], "assetTimeBase": row["timeBase"],
+                "assetPtsSeconds": row["sourceTime"], "clipTimeSeconds": row["time"],
+                "parentFrame": None, "parentTimeSeconds": None, "parentVideoSha256": None}
 
     def _select_nearest(self, times):
         selected = set()
@@ -305,12 +309,22 @@ class CommentaryVideo:
         if not isinstance(params, dict):
             raise ValueError("params must be an object")
         mode = params.get("mode", "sheet")
-        if mode not in ("sheet", "full"):
-            raise ValueError("mode must be 'sheet' or 'full'")
-        indices = self._resolve_frames(params, self.MAX_FULL_FRAMES if mode == "full" else None)
+        if mode not in ("sheet", "full", "raw"):
+            raise ValueError("mode must be 'sheet', 'full' or 'raw'")
+        indices = self._resolve_frames(params, self.MAX_FULL_FRAMES if mode in ("full", "raw") else None)
         decoded = self._decode(indices)
         contents, assets = [], []
-        if mode == "full":
+        if mode == "raw":
+            for index in indices:
+                image = Image.open(io.BytesIO(decoded[index])).convert("RGB")
+                content, asset = self._asset(image, "raw", {
+                    **self._frame_meta(index), "sourceSize": list(image.size),
+                    "crop": [0, 0, image.width, image.height], "scale": 1, "labelHeight": 0,
+                    "coordinateSpace": "asset_pixels",
+                    "transform": {"scaleX": 1, "scaleY": 1, "offsetX": 0, "offsetY": 0},
+                })
+                contents.append(content); assets.append(asset)
+        elif mode == "full":
             for index in indices:
                 meta = self._frame_meta(index)
                 image = Image.open(io.BytesIO(decoded[index])).convert("RGB")
@@ -324,6 +338,7 @@ class CommentaryVideo:
                     **meta, "sourceSize": list(original), "crop": [0, 0, *original],
                     "scale": fitted.width / original[0], "labelHeight": 28,
                     "coordinateSpace": "source_image_pixels",
+                    "transform": {"scaleX": fitted.width / original[0], "scaleY": fitted.height / original[1], "offsetX": 0, "offsetY": 28},
                 })
                 contents.append(content); assets.append(asset)
         else:
@@ -340,7 +355,8 @@ class CommentaryVideo:
                 tiles.append(canvas)
                 tile_meta.append({**meta, "sourceSize": list(original), "crop": [0, 0, *original],
                                   "scale": fitted.width / original[0], "labelHeight": 28,
-                                  "coordinateSpace": "source_image_pixels"})
+                                  "coordinateSpace": "source_image_pixels",
+                                  "transform": {"scaleX": fitted.width / original[0], "scaleY": fitted.height / original[1], "offsetX": 0, "offsetY": 28}})
             for offset in range(0, len(tiles), self.SHEET_FRAMES):
                 group = tiles[offset:offset + self.SHEET_FRAMES]
                 cell_w = max(tile.width for tile in group)
@@ -350,12 +366,15 @@ class CommentaryVideo:
                 for i, tile in enumerate(group):
                     origin = [(i % 2) * cell_w, (i // 2) * cell_h]
                     sheet.paste(tile, origin)
-                    metadata.append({**tile_meta[offset + i], "tileOrigin": origin})
+                    tile_contract = tile_meta[offset + i]
+                    metadata.append({**tile_contract, "tileOrigin": origin, "transform": {
+                        **tile_contract["transform"], "offsetX": origin[0], "offsetY": origin[1] + 28}})
                 content, asset = self._asset(sheet, "sheet", {"tiles": metadata})
                 contents.append(content); assets.append(asset)
         frames = [self._frame_meta(i) for i in indices]
         contents.insert(0, {"type": "text", "text": json.dumps({"mode": mode, "frames": frames}, ensure_ascii=False)})
-        return {"content": contents, "details": {"frames": frames, "assets": assets}}
+        return {"content": contents, "details": {"frames": frames, "requestedFrames": indices,
+                "returnedFrames": frames, "unavailableFrames": [], "assets": assets}}
 
     def inspect_region(self, params):
         if not isinstance(params, dict):
@@ -390,12 +409,15 @@ class CommentaryVideo:
                 **meta, "entityId": params.get("entityId"), "trackId": params.get("trackId"),
                 "candidate": entity, "crop": rect,
                 "sourceSize": list(original), "scale": 1, "labelHeight": 0,
+                "transform": {"scaleX": 1, "scaleY": 1, "offsetX": -rect[0], "offsetY": -rect[1]},
                 "coordinateSpace": "source_image_pixels",
             })
             contents.append(content); assets.append(asset)
-        frames = [self._frame_meta(i) for i in indices]
+        returned = [asset["frame"] for asset in assets]
+        frames = [self._frame_meta(i) for i in returned]
         contents.insert(0, {"type": "text", "text": json.dumps({"region": params.get("box"), "frames": frames}, ensure_ascii=False)})
-        return {"content": contents, "details": {"frames": frames, "assets": assets}}
+        return {"content": contents, "details": {"frames": frames, "requestedFrames": indices,
+                "returnedFrames": frames, "unavailableFrames": sorted(set(indices) - set(returned)), "assets": assets}}
 
     def _entity_observation(self, params, frame):
         if self._observation_source_state == "mismatch":
