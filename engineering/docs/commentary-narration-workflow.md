@@ -4,6 +4,8 @@
 
 ## 工作台入口
 
+2026-10-09：每条解说现在有「保存本句」「恢复本句」及语言标记，可在采用润色后单独人工修改。保存本句不写其他句子的草稿；接口和未来UI接续见[逐句编辑与迁移](commentary-cue-editing-api.md)。
+
 在当前视频的第三部分展开「解说与配音」：
 
 1. 「生成解说稿」调用 Pi 解说 Agent，固定使用 OpenRouter `openai/gpt-6-astra`，以当前原视频和当前跟踪版本的检测数据为输入。沿用多页概览、按需回看原图/窗口/裁图的循环。
@@ -15,6 +17,22 @@
 后端入口为 `commentary_jobs.py`，提供 `/api/commentary` 状态、`/save` 保存、`/jobs` 生成和对应任务的 `/video`、`/subtitles` 下载。工作台服务须使用安装了 `engineering/requirements-review.txt` 的 Python；可用 `--commentary-python` 指定解说子进程解释器。Node 依赖、FFmpeg 和中文字体仍需按下文准备。后台任务可在页面刷新后继续查看；服务重启会将未完成任务标记为中断，已保存的文字保留。
 
 ## 运行
+
+### 2026-10-09：解说润色与口吻选择
+
+已有稿件可直接点击「润色解说」，将当前整段稿件送到OpenRouter `openai/gpt-6-astra`，无需重新理解视频。代码明确加载[表达材料](../tools/player-review/agents/commentary-style/README.md)：指南、8组原创例子、24条带语境的篮球文化与表达卡片。正常一次请求，结构或时长无效时最多修正一次；失败保留原稿。
+
+候选区逐句对照，点击「采用润色稿」后成为可编辑草稿，再保存；可「撤回本次润色」。请求中手动改过稿时禁止直接采用旧候选，避免覆盖新编辑。事件、证据、时间窗、delivery不由润色模型修改。事实正确性仍需读稿核对，结构校验不能证明没有语义变化。
+
+配音可选「自然有趣」或「原专业口吻」，音色仍为Vivi。页面默认自然口吻，CLI及未指定voiceStyle的API沿用原口吻。中英文都纳入播放时长粗估；暂停句也限制扩写，最终按实际TTS时长走现有渲染。普通句被转换成定格时，页面显示提醒。配音口吻或文字改变后不复用旧音频。
+
+独立润色命令（输出目录必须为新目录）：
+
+```powershell
+python engineering/scripts/commentary_polish.py --plan path/to/result.json --output tmp/my-polish
+```
+
+`--without-memes`用于只含指南和例子的对照，`--feedback`用于独立试验中的定向修改。Key复用根目录`.env`的`OPENROUTER_API_KEY`或`OPEN_ROUTER_KEY`。生成的`result.json`可传给既有`commentary_workflow.py --plan`。实际样片、失败记录、速度和试听说明见[研究结果](../../research/agents/commentary-personality-20261009/README.md)。
 
 依赖沿用 PyAV、Pillow、NumPy、python-dotenv，以及可在 PATH 找到的 FFmpeg。默认字体为 Windows 微软雅黑，其他平台使用 `--font` 指定中文字体。Node/Pi 依赖见[理解 Agent](video-commentary-agent.md)。
 

@@ -6,6 +6,7 @@
 
 | 专题 | 入口 | 范围 |
 | --- | --- | --- |
+| 解说口语感与幽默表达 | [开源项目与技术调研](commentary-personality-20261009.md)、[2026-10-09 实测](commentary-personality-20261009/README.md) | 24条表达材料、Astra三段真实视频润色、虚构用梗测试、Seed两种口吻及四个成片；梗卡增益尚未证明 |
 | 视频理解与带时机的解说复用 | [2026-10-07 核查](video-commentary-reuse-20261007.md) | Pi、多页拼帧、主动取证、Codex 实际边界与现有代码复用；附独立解说 Agent 协作建议，未实施 |
 | 当前多模态模型与篮球战术理解 | [2026-10-06 调研](multimodal-basketball-20261006/README.md)、[10 月 7 日云端多模态实测](../../environment/aws/openrouter-multimodal-connectivity-20261007.md) | 官方规格、价格、篮球专项证据；后续九模型合成样例调用通过，真实篮球质量待测 |
 | Qwen 主动看帧、修正地面轨迹 | [讨论与来源](qwen-video-trajectory-agent-20261005.md) | Agent 多轮工具与证据循环 |

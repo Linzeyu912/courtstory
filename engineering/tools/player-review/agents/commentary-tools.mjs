@@ -32,8 +32,9 @@ export function validateCommentaryPlan(plan,{duration,readFrames,frameTimes,requ
     if(!['during_play','pause'].includes(cue.delivery))fail(`讲解 ${cue.cueId??'?'} delivery 无效`);
     if(cue.delivery==='during_play'&&Number.isFinite(cue.suggestedStartTime)&&Number.isFinite(cue.suggestedEndTime)){
       const han=(cue.text.match(/\p{Script=Han}/gu)??[]).length;
+      const latin=(cue.text.match(/[A-Za-z]+/g)??[]).reduce((sum,word)=>sum+Math.max(1,Math.ceil(word.length/3)),0);
       const allowed=Math.floor(Math.max(0,cue.suggestedEndTime-cue.suggestedStartTime)*4+1e-9);
-      if(han>allowed)fail(`讲解 ${cue.cueId??'?'} 超出普通语速约每秒 4 个汉字的时间；请压缩或改为 pause`);
+      if(han+latin>allowed)fail(`讲解 ${cue.cueId??'?'} 超出普通语速约每秒 4 个汉字的时间（含英文粗估）；请压缩或改为 pause`);
     }
     if(typeof cue.focus!=='string'||!cue.focus.trim())fail(`讲解 ${cue.cueId??'?'} 缺少 focus`);
     if(!Array.isArray(cue.evidenceFrames)||!cue.evidenceFrames.length||cue.evidenceFrames.some(frame=>!readFrames.has(frame)))fail(`讲解 ${cue.cueId??'?'} 必须引用已读取图片中的证据帧`);

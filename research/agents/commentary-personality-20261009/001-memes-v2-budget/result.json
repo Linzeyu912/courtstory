@@ -1,0 +1,1089 @@
+{
+  "status": "completed",
+  "plan": {
+    "summary": "片段从独行侠已持球推进时开始，并未展示球权的起点。独行侠落入半场后，在右侧由队友上提掩护，持球人尝试向内推进，火箭主防球员继续跟随。持球人随后退回右侧外线重新调整，再次突破进入禁区，在篮下补防干扰下上篮命中。球穿过篮网后由火箭球员接住，随后火箭从底线发球，独行侠转入防守；这不是一次防守篮板。出手在篮下，记分牌随后由独行侠103分更新为105分、火箭仍为107分，支持两分命中。讲解重点是掩护后的防守跟随、持球人的重新调整，以及第二次突破后的终结。",
+    "events": [
+      {
+        "eventId": "E1",
+        "startTime": 0.5,
+        "endTime": 5.5,
+        "description": "独行侠深色球衣持球人推进至前场右侧，队友向两侧和底角分布，火箭白色球衣球员落位防守。片段未展示此次球权如何开始。",
+        "participants": [
+          "独行侠持球人",
+          "独行侠无球队员",
+          "火箭防守球员"
+        ],
+        "evidenceFrames": [
+          30,
+          120,
+          210,
+          300
+        ],
+        "uncertainties": [
+          "未展示球权起点，不将素材认定为从发球开始的完整回合。"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 30,
+            "time": 0.5005,
+            "sourceTime": 0.5005
+          },
+          {
+            "frame": 120,
+            "time": 2.002,
+            "sourceTime": 2.002
+          },
+          {
+            "frame": 210,
+            "time": 3.5035,
+            "sourceTime": 3.5035
+          },
+          {
+            "frame": 300,
+            "time": 5.005,
+            "sourceTime": 5.005
+          }
+        ]
+      },
+      {
+        "eventId": "E2",
+        "startTime": 5.5,
+        "endTime": 11.5,
+        "description": "独行侠内线队友上提至右侧持球人身旁形成掩护配合，持球人继续运球并尝试向内推进。火箭主防球员仍跟随持球人，其他白衣球员保持篮下及禁区附近的防守位置，未出现直接出手。",
+        "participants": [
+          "独行侠持球人",
+          "独行侠掩护队员",
+          "火箭主防球员",
+          "火箭内线防守球员"
+        ],
+        "evidenceFrames": [
+          360,
+          390,
+          450,
+          569,
+          599,
+          629,
+          659,
+          689
+        ],
+        "uncertainties": [],
+        "evidenceTimes": [
+          {
+            "frame": 360,
+            "time": 6.006011111111111,
+            "sourceTime": 6.006011111111111
+          },
+          {
+            "frame": 390,
+            "time": 6.506511111111111,
+            "sourceTime": 6.506511111111111
+          },
+          {
+            "frame": 450,
+            "time": 7.5075111111111115,
+            "sourceTime": 7.5075111111111115
+          },
+          {
+            "frame": 569,
+            "time": 9.492822222222221,
+            "sourceTime": 9.492822222222221
+          },
+          {
+            "frame": 599,
+            "time": 9.993322222222222,
+            "sourceTime": 9.993322222222222
+          },
+          {
+            "frame": 629,
+            "time": 10.493822222222223,
+            "sourceTime": 10.493822222222223
+          },
+          {
+            "frame": 659,
+            "time": 10.994322222222221,
+            "sourceTime": 10.994322222222221
+          },
+          {
+            "frame": 689,
+            "time": 11.494833333333334,
+            "sourceTime": 11.494833333333334
+          }
+        ]
+      },
+      {
+        "eventId": "E3",
+        "startTime": 11.5,
+        "endTime": 14.5,
+        "description": "持球人没有直接攻筐，而是保持运球退回右侧外线，主防球员随之外移，独行侠队友继续分布在外围及篮下。这段可解释为重新调整进攻、寻找下一次突破机会，不推断具体战术口令。",
+        "participants": [
+          "独行侠持球人",
+          "火箭主防球员",
+          "双方无球队员"
+        ],
+        "evidenceFrames": [
+          719,
+          779,
+          809,
+          839,
+          869
+        ],
+        "uncertainties": [
+          "重新调整、寻找突破机会属于对可见动作的战术概括，并非已核实的球队战术安排。"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 719,
+            "time": 11.995333333333333,
+            "sourceTime": 11.995333333333333
+          },
+          {
+            "frame": 779,
+            "time": 12.996333333333334,
+            "sourceTime": 12.996333333333334
+          },
+          {
+            "frame": 809,
+            "time": 13.496833333333333,
+            "sourceTime": 13.496833333333333
+          },
+          {
+            "frame": 839,
+            "time": 13.997333333333334,
+            "sourceTime": 13.997333333333334
+          },
+          {
+            "frame": 869,
+            "time": 14.497833333333332,
+            "sourceTime": 14.497833333333332
+          }
+        ]
+      },
+      {
+        "eventId": "E4",
+        "startTime": 14.5,
+        "endTime": 18,
+        "description": "独行侠持球人从右侧再次启动，越过主防球员身侧进入禁区；另一名火箭球员在篮前起跳干扰。持球人在近篮位置起跳上篮，球落入篮筐并穿过篮网。随后白衣球员接住进球后的球，不能描述为抢下防守篮板。",
+        "participants": [
+          "独行侠持球人",
+          "火箭主防球员",
+          "火箭篮下补防球员"
+        ],
+        "evidenceFrames": [
+          899,
+          929,
+          959,
+          974,
+          989,
+          1004,
+          1019,
+          1034,
+          1049,
+          1064
+        ],
+        "uncertainties": [],
+        "evidenceTimes": [
+          {
+            "frame": 899,
+            "time": 14.998333333333333,
+            "sourceTime": 14.998333333333333
+          },
+          {
+            "frame": 929,
+            "time": 15.498833333333334,
+            "sourceTime": 15.498833333333334
+          },
+          {
+            "frame": 959,
+            "time": 15.999333333333333,
+            "sourceTime": 15.999333333333333
+          },
+          {
+            "frame": 974,
+            "time": 16.249577777777777,
+            "sourceTime": 16.249577777777777
+          },
+          {
+            "frame": 989,
+            "time": 16.499833333333335,
+            "sourceTime": 16.499833333333335
+          },
+          {
+            "frame": 1004,
+            "time": 16.75007777777778,
+            "sourceTime": 16.75007777777778
+          },
+          {
+            "frame": 1019,
+            "time": 17.000333333333334,
+            "sourceTime": 17.000333333333334
+          },
+          {
+            "frame": 1034,
+            "time": 17.250577777777778,
+            "sourceTime": 17.250577777777778
+          },
+          {
+            "frame": 1049,
+            "time": 17.500833333333333,
+            "sourceTime": 17.500833333333333
+          },
+          {
+            "frame": 1064,
+            "time": 17.751077777777777,
+            "sourceTime": 17.751077777777777
+          }
+        ]
+      },
+      {
+        "eventId": "E5",
+        "startTime": 18,
+        "endTime": 21.5382,
+        "description": "火箭球员持球走到底线外发球，队友接应，独行侠球员转入防守。记分牌稍后由DAL 103、HOU 107更新为DAL 105、HOU 107；结合篮下出手及球穿网画面，确认此前为独行侠两分命中。片段在火箭开始下一次进攻时结束。",
+        "participants": [
+          "火箭底线发球队员",
+          "火箭接应球员",
+          "独行侠退防球员"
+        ],
+        "evidenceFrames": [
+          1079,
+          1139,
+          1199,
+          1229,
+          1259,
+          1289
+        ],
+        "uncertainties": [],
+        "evidenceTimes": [
+          {
+            "frame": 1079,
+            "time": 18.001333333333335,
+            "sourceTime": 18.001333333333335
+          },
+          {
+            "frame": 1139,
+            "time": 19.002333333333333,
+            "sourceTime": 19.002333333333333
+          },
+          {
+            "frame": 1199,
+            "time": 20.003333333333334,
+            "sourceTime": 20.003333333333334
+          },
+          {
+            "frame": 1229,
+            "time": 20.503833333333333,
+            "sourceTime": 20.503833333333333
+          },
+          {
+            "frame": 1259,
+            "time": 21.004333333333335,
+            "sourceTime": 21.004333333333335
+          },
+          {
+            "frame": 1289,
+            "time": 21.504833333333334,
+            "sourceTime": 21.504833333333334
+          }
+        ]
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "C1",
+        "eventId": "E1",
+        "suggestedStartTime": 1,
+        "suggestedEndTime": 5,
+        "text": "独行侠推进，队友拉开站位。",
+        "focus": "交代半场进攻的展开与无球站位，不补写球权来源。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          120,
+          210,
+          300
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 120,
+            "time": 2.002,
+            "sourceTime": 2.002
+          },
+          {
+            "frame": 210,
+            "time": 3.5035,
+            "sourceTime": 3.5035
+          },
+          {
+            "frame": 300,
+            "time": 5.005,
+            "sourceTime": 5.005
+          }
+        ]
+      },
+      {
+        "cueId": "C2",
+        "eventId": "E2",
+        "suggestedStartTime": 6,
+        "suggestedEndTime": 10.5,
+        "text": "右侧挡了一下，火箭还跟着。",
+        "focus": "掩护与主防跟随之间的关系，不夸大为已经摆脱防守或形成空位。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          360,
+          390,
+          450,
+          599,
+          629
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 360,
+            "time": 6.006011111111111,
+            "sourceTime": 6.006011111111111
+          },
+          {
+            "frame": 390,
+            "time": 6.506511111111111,
+            "sourceTime": 6.506511111111111
+          },
+          {
+            "frame": 450,
+            "time": 7.5075111111111115,
+            "sourceTime": 7.5075111111111115
+          },
+          {
+            "frame": 599,
+            "time": 9.993322222222222,
+            "sourceTime": 9.993322222222222
+          },
+          {
+            "frame": 629,
+            "time": 10.493822222222223,
+            "sourceTime": 10.493822222222223
+          }
+        ]
+      },
+      {
+        "cueId": "C3",
+        "eventId": "E3",
+        "suggestedStartTime": 12,
+        "suggestedEndTime": 14.5,
+        "text": "这防守，想甩开还真不容易。先退回右侧外线，不硬挤，重新找个突破口。",
+        "focus": "暂停解释持球人退回外线重新调整，而非把前后两次推进说成一次连续突破。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          719,
+          779,
+          809,
+          839
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 719,
+            "time": 11.995333333333333,
+            "sourceTime": 11.995333333333333
+          },
+          {
+            "frame": 779,
+            "time": 12.996333333333334,
+            "sourceTime": 12.996333333333334
+          },
+          {
+            "frame": 809,
+            "time": 13.496833333333333,
+            "sourceTime": 13.496833333333333
+          },
+          {
+            "frame": 839,
+            "time": 13.997333333333334,
+            "sourceTime": 13.997333333333334
+          }
+        ]
+      },
+      {
+        "cueId": "C4",
+        "eventId": "E4",
+        "suggestedStartTime": 14.5,
+        "suggestedEndTime": 18,
+        "text": "右侧再突，迎着补防上篮！",
+        "focus": "第二次启动进入禁区及篮下防守干扰；命中结果留给下一条确认。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          899,
+          929,
+          959,
+          974,
+          989,
+          1004
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 899,
+            "time": 14.998333333333333,
+            "sourceTime": 14.998333333333333
+          },
+          {
+            "frame": 929,
+            "time": 15.498833333333334,
+            "sourceTime": 15.498833333333334
+          },
+          {
+            "frame": 959,
+            "time": 15.999333333333333,
+            "sourceTime": 15.999333333333333
+          },
+          {
+            "frame": 974,
+            "time": 16.249577777777777,
+            "sourceTime": 16.249577777777777
+          },
+          {
+            "frame": 989,
+            "time": 16.499833333333335,
+            "sourceTime": 16.499833333333335
+          },
+          {
+            "frame": 1004,
+            "time": 16.75007777777778,
+            "sourceTime": 16.75007777777778
+          }
+        ]
+      },
+      {
+        "cueId": "C5",
+        "eventId": "E5",
+        "suggestedStartTime": 18,
+        "suggestedEndTime": 21.5382,
+        "text": "两分进了，火箭底线发球。",
+        "focus": "结合穿网、延迟更新的记分牌和底线发球确认两分命中，避免误说篮板转换。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          1034,
+          1049,
+          1064,
+          1199,
+          1229,
+          1259,
+          1289
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 1034,
+            "time": 17.250577777777778,
+            "sourceTime": 17.250577777777778
+          },
+          {
+            "frame": 1049,
+            "time": 17.500833333333333,
+            "sourceTime": 17.500833333333333
+          },
+          {
+            "frame": 1064,
+            "time": 17.751077777777777,
+            "sourceTime": 17.751077777777777
+          },
+          {
+            "frame": 1199,
+            "time": 20.003333333333334,
+            "sourceTime": 20.003333333333334
+          },
+          {
+            "frame": 1229,
+            "time": 20.503833333333333,
+            "sourceTime": 20.503833333333333
+          },
+          {
+            "frame": 1259,
+            "time": 21.004333333333335,
+            "sourceTime": 21.004333333333335
+          },
+          {
+            "frame": 1289,
+            "time": 21.504833333333334,
+            "sourceTime": 21.504833333333334
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "球员姓名未作独立核实，讲解统一使用球队和场上角色。",
+      "不推断球队战术名称、口令或未显示的球权起点；末段未展示火箭下一次进攻的结果。"
+    ]
+  },
+  "originalPlan": {
+    "summary": "片段从独行侠已持球推进时开始，并未展示球权的起点。独行侠落入半场后，在右侧由队友上提掩护，持球人尝试向内推进，火箭主防球员继续跟随。持球人随后退回右侧外线重新调整，再次突破进入禁区，在篮下补防干扰下上篮命中。球穿过篮网后由火箭球员接住，随后火箭从底线发球，独行侠转入防守；这不是一次防守篮板。出手在篮下，记分牌随后由独行侠103分更新为105分、火箭仍为107分，支持两分命中。讲解重点是掩护后的防守跟随、持球人的重新调整，以及第二次突破后的终结。",
+    "events": [
+      {
+        "eventId": "E1",
+        "startTime": 0.5,
+        "endTime": 5.5,
+        "description": "独行侠深色球衣持球人推进至前场右侧，队友向两侧和底角分布，火箭白色球衣球员落位防守。片段未展示此次球权如何开始。",
+        "participants": [
+          "独行侠持球人",
+          "独行侠无球队员",
+          "火箭防守球员"
+        ],
+        "evidenceFrames": [
+          30,
+          120,
+          210,
+          300
+        ],
+        "uncertainties": [
+          "未展示球权起点，不将素材认定为从发球开始的完整回合。"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 30,
+            "time": 0.5005,
+            "sourceTime": 0.5005
+          },
+          {
+            "frame": 120,
+            "time": 2.002,
+            "sourceTime": 2.002
+          },
+          {
+            "frame": 210,
+            "time": 3.5035,
+            "sourceTime": 3.5035
+          },
+          {
+            "frame": 300,
+            "time": 5.005,
+            "sourceTime": 5.005
+          }
+        ]
+      },
+      {
+        "eventId": "E2",
+        "startTime": 5.5,
+        "endTime": 11.5,
+        "description": "独行侠内线队友上提至右侧持球人身旁形成掩护配合，持球人继续运球并尝试向内推进。火箭主防球员仍跟随持球人，其他白衣球员保持篮下及禁区附近的防守位置，未出现直接出手。",
+        "participants": [
+          "独行侠持球人",
+          "独行侠掩护队员",
+          "火箭主防球员",
+          "火箭内线防守球员"
+        ],
+        "evidenceFrames": [
+          360,
+          390,
+          450,
+          569,
+          599,
+          629,
+          659,
+          689
+        ],
+        "uncertainties": [],
+        "evidenceTimes": [
+          {
+            "frame": 360,
+            "time": 6.006011111111111,
+            "sourceTime": 6.006011111111111
+          },
+          {
+            "frame": 390,
+            "time": 6.506511111111111,
+            "sourceTime": 6.506511111111111
+          },
+          {
+            "frame": 450,
+            "time": 7.5075111111111115,
+            "sourceTime": 7.5075111111111115
+          },
+          {
+            "frame": 569,
+            "time": 9.492822222222221,
+            "sourceTime": 9.492822222222221
+          },
+          {
+            "frame": 599,
+            "time": 9.993322222222222,
+            "sourceTime": 9.993322222222222
+          },
+          {
+            "frame": 629,
+            "time": 10.493822222222223,
+            "sourceTime": 10.493822222222223
+          },
+          {
+            "frame": 659,
+            "time": 10.994322222222221,
+            "sourceTime": 10.994322222222221
+          },
+          {
+            "frame": 689,
+            "time": 11.494833333333334,
+            "sourceTime": 11.494833333333334
+          }
+        ]
+      },
+      {
+        "eventId": "E3",
+        "startTime": 11.5,
+        "endTime": 14.5,
+        "description": "持球人没有直接攻筐，而是保持运球退回右侧外线，主防球员随之外移，独行侠队友继续分布在外围及篮下。这段可解释为重新调整进攻、寻找下一次突破机会，不推断具体战术口令。",
+        "participants": [
+          "独行侠持球人",
+          "火箭主防球员",
+          "双方无球队员"
+        ],
+        "evidenceFrames": [
+          719,
+          779,
+          809,
+          839,
+          869
+        ],
+        "uncertainties": [
+          "重新调整、寻找突破机会属于对可见动作的战术概括，并非已核实的球队战术安排。"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 719,
+            "time": 11.995333333333333,
+            "sourceTime": 11.995333333333333
+          },
+          {
+            "frame": 779,
+            "time": 12.996333333333334,
+            "sourceTime": 12.996333333333334
+          },
+          {
+            "frame": 809,
+            "time": 13.496833333333333,
+            "sourceTime": 13.496833333333333
+          },
+          {
+            "frame": 839,
+            "time": 13.997333333333334,
+            "sourceTime": 13.997333333333334
+          },
+          {
+            "frame": 869,
+            "time": 14.497833333333332,
+            "sourceTime": 14.497833333333332
+          }
+        ]
+      },
+      {
+        "eventId": "E4",
+        "startTime": 14.5,
+        "endTime": 18,
+        "description": "独行侠持球人从右侧再次启动，越过主防球员身侧进入禁区；另一名火箭球员在篮前起跳干扰。持球人在近篮位置起跳上篮，球落入篮筐并穿过篮网。随后白衣球员接住进球后的球，不能描述为抢下防守篮板。",
+        "participants": [
+          "独行侠持球人",
+          "火箭主防球员",
+          "火箭篮下补防球员"
+        ],
+        "evidenceFrames": [
+          899,
+          929,
+          959,
+          974,
+          989,
+          1004,
+          1019,
+          1034,
+          1049,
+          1064
+        ],
+        "uncertainties": [],
+        "evidenceTimes": [
+          {
+            "frame": 899,
+            "time": 14.998333333333333,
+            "sourceTime": 14.998333333333333
+          },
+          {
+            "frame": 929,
+            "time": 15.498833333333334,
+            "sourceTime": 15.498833333333334
+          },
+          {
+            "frame": 959,
+            "time": 15.999333333333333,
+            "sourceTime": 15.999333333333333
+          },
+          {
+            "frame": 974,
+            "time": 16.249577777777777,
+            "sourceTime": 16.249577777777777
+          },
+          {
+            "frame": 989,
+            "time": 16.499833333333335,
+            "sourceTime": 16.499833333333335
+          },
+          {
+            "frame": 1004,
+            "time": 16.75007777777778,
+            "sourceTime": 16.75007777777778
+          },
+          {
+            "frame": 1019,
+            "time": 17.000333333333334,
+            "sourceTime": 17.000333333333334
+          },
+          {
+            "frame": 1034,
+            "time": 17.250577777777778,
+            "sourceTime": 17.250577777777778
+          },
+          {
+            "frame": 1049,
+            "time": 17.500833333333333,
+            "sourceTime": 17.500833333333333
+          },
+          {
+            "frame": 1064,
+            "time": 17.751077777777777,
+            "sourceTime": 17.751077777777777
+          }
+        ]
+      },
+      {
+        "eventId": "E5",
+        "startTime": 18,
+        "endTime": 21.5382,
+        "description": "火箭球员持球走到底线外发球，队友接应，独行侠球员转入防守。记分牌稍后由DAL 103、HOU 107更新为DAL 105、HOU 107；结合篮下出手及球穿网画面，确认此前为独行侠两分命中。片段在火箭开始下一次进攻时结束。",
+        "participants": [
+          "火箭底线发球队员",
+          "火箭接应球员",
+          "独行侠退防球员"
+        ],
+        "evidenceFrames": [
+          1079,
+          1139,
+          1199,
+          1229,
+          1259,
+          1289
+        ],
+        "uncertainties": [],
+        "evidenceTimes": [
+          {
+            "frame": 1079,
+            "time": 18.001333333333335,
+            "sourceTime": 18.001333333333335
+          },
+          {
+            "frame": 1139,
+            "time": 19.002333333333333,
+            "sourceTime": 19.002333333333333
+          },
+          {
+            "frame": 1199,
+            "time": 20.003333333333334,
+            "sourceTime": 20.003333333333334
+          },
+          {
+            "frame": 1229,
+            "time": 20.503833333333333,
+            "sourceTime": 20.503833333333333
+          },
+          {
+            "frame": 1259,
+            "time": 21.004333333333335,
+            "sourceTime": 21.004333333333335
+          },
+          {
+            "frame": 1289,
+            "time": 21.504833333333334,
+            "sourceTime": 21.504833333333334
+          }
+        ]
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "C1",
+        "eventId": "E1",
+        "suggestedStartTime": 1,
+        "suggestedEndTime": 5,
+        "text": "独行侠推进，队友拉开站位。",
+        "focus": "交代半场进攻的展开与无球站位，不补写球权来源。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          120,
+          210,
+          300
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 120,
+            "time": 2.002,
+            "sourceTime": 2.002
+          },
+          {
+            "frame": 210,
+            "time": 3.5035,
+            "sourceTime": 3.5035
+          },
+          {
+            "frame": 300,
+            "time": 5.005,
+            "sourceTime": 5.005
+          }
+        ]
+      },
+      {
+        "cueId": "C2",
+        "eventId": "E2",
+        "suggestedStartTime": 6,
+        "suggestedEndTime": 10.5,
+        "text": "右侧掩护后，火箭仍紧跟持球人。",
+        "focus": "掩护与主防跟随之间的关系，不夸大为已经摆脱防守或形成空位。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          360,
+          390,
+          450,
+          599,
+          629
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 360,
+            "time": 6.006011111111111,
+            "sourceTime": 6.006011111111111
+          },
+          {
+            "frame": 390,
+            "time": 6.506511111111111,
+            "sourceTime": 6.506511111111111
+          },
+          {
+            "frame": 450,
+            "time": 7.5075111111111115,
+            "sourceTime": 7.5075111111111115
+          },
+          {
+            "frame": 599,
+            "time": 9.993322222222222,
+            "sourceTime": 9.993322222222222
+          },
+          {
+            "frame": 629,
+            "time": 10.493822222222223,
+            "sourceTime": 10.493822222222223
+          }
+        ]
+      },
+      {
+        "cueId": "C3",
+        "eventId": "E3",
+        "suggestedStartTime": 12,
+        "suggestedEndTime": 14.5,
+        "text": "这次没有直接攻筐，而是退回右侧，再找一对一的突破机会。",
+        "focus": "暂停解释持球人退回外线重新调整，而非把前后两次推进说成一次连续突破。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          719,
+          779,
+          809,
+          839
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 719,
+            "time": 11.995333333333333,
+            "sourceTime": 11.995333333333333
+          },
+          {
+            "frame": 779,
+            "time": 12.996333333333334,
+            "sourceTime": 12.996333333333334
+          },
+          {
+            "frame": 809,
+            "time": 13.496833333333333,
+            "sourceTime": 13.496833333333333
+          },
+          {
+            "frame": 839,
+            "time": 13.997333333333334,
+            "sourceTime": 13.997333333333334
+          }
+        ]
+      },
+      {
+        "cueId": "C4",
+        "eventId": "E4",
+        "suggestedStartTime": 14.5,
+        "suggestedEndTime": 18,
+        "text": "再突右侧，迎着补防上篮。",
+        "focus": "第二次启动进入禁区及篮下防守干扰；命中结果留给下一条确认。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          899,
+          929,
+          959,
+          974,
+          989,
+          1004
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 899,
+            "time": 14.998333333333333,
+            "sourceTime": 14.998333333333333
+          },
+          {
+            "frame": 929,
+            "time": 15.498833333333334,
+            "sourceTime": 15.498833333333334
+          },
+          {
+            "frame": 959,
+            "time": 15.999333333333333,
+            "sourceTime": 15.999333333333333
+          },
+          {
+            "frame": 974,
+            "time": 16.249577777777777,
+            "sourceTime": 16.249577777777777
+          },
+          {
+            "frame": 989,
+            "time": 16.499833333333335,
+            "sourceTime": 16.499833333333335
+          },
+          {
+            "frame": 1004,
+            "time": 16.75007777777778,
+            "sourceTime": 16.75007777777778
+          }
+        ]
+      },
+      {
+        "cueId": "C5",
+        "eventId": "E5",
+        "suggestedStartTime": 18,
+        "suggestedEndTime": 21.5382,
+        "text": "两分打进，火箭随后底线发球。",
+        "focus": "结合穿网、延迟更新的记分牌和底线发球确认两分命中，避免误说篮板转换。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          1034,
+          1049,
+          1064,
+          1199,
+          1229,
+          1259,
+          1289
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 1034,
+            "time": 17.250577777777778,
+            "sourceTime": 17.250577777777778
+          },
+          {
+            "frame": 1049,
+            "time": 17.500833333333333,
+            "sourceTime": 17.500833333333333
+          },
+          {
+            "frame": 1064,
+            "time": 17.751077777777777,
+            "sourceTime": 17.751077777777777
+          },
+          {
+            "frame": 1199,
+            "time": 20.003333333333334,
+            "sourceTime": 20.003333333333334
+          },
+          {
+            "frame": 1229,
+            "time": 20.503833333333333,
+            "sourceTime": 20.503833333333333
+          },
+          {
+            "frame": 1259,
+            "time": 21.004333333333335,
+            "sourceTime": 21.004333333333335
+          },
+          {
+            "frame": 1289,
+            "time": 21.504833333333334,
+            "sourceTime": 21.504833333333334
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "球员姓名未作独立核实，讲解统一使用球队和场上角色。",
+      "不推断球队战术名称、口令或未显示的球权起点；末段未展示火箭下一次进攻的结果。"
+    ]
+  },
+  "polish": {
+    "requestedModel": "openai/gpt-6-astra",
+    "materialsVersion": "2026-10-09-v2",
+    "includeMemes": true,
+    "attempts": [
+      {
+        "model": "openai/gpt-6-astra",
+        "requestId": "gen-1791560601-uYtdGH6tAmP8DsV2qikA",
+        "usage": {
+          "prompt_tokens": 5694,
+          "completion_tokens": 454,
+          "total_tokens": 6148,
+          "cost": 0.046982,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 4077,
+            "cache_write_tokens": 1614,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.046982,
+            "upstream_inference_prompt_cost": 0.024282,
+            "upstream_inference_completions_cost": 0.0227
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 315,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "elapsedSeconds": 15.454
+      }
+    ],
+    "elapsedSeconds": 15.454,
+    "timing": [
+      {
+        "cueId": "C1",
+        "estimateSeconds": 2.99,
+        "windowSeconds": 4,
+        "delivery": "during_play"
+      },
+      {
+        "cueId": "C2",
+        "estimateSeconds": 2.99,
+        "windowSeconds": 4.5,
+        "delivery": "during_play"
+      },
+      {
+        "cueId": "C3",
+        "estimateSeconds": 7.6,
+        "windowSeconds": 2.5,
+        "delivery": "pause"
+      },
+      {
+        "cueId": "C4",
+        "estimateSeconds": 2.74,
+        "windowSeconds": 3.5,
+        "delivery": "during_play"
+      },
+      {
+        "cueId": "C5",
+        "estimateSeconds": 2.74,
+        "windowSeconds": 3.538,
+        "delivery": "during_play"
+      }
+    ]
+  }
+}

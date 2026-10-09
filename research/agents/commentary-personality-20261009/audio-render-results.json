@@ -1,0 +1,3319 @@
+[
+  {
+    "sample": "official-training-001",
+    "voice": "natural",
+    "audio": {
+      "config": {
+        "provider": "volcengine",
+        "resourceId": "seed-tts-2.0",
+        "speaker": "zh_female_vv_uranus_bigtts",
+        "style": "像熟悉篮球的中文解说自然聊天，分析清楚，调侃时带一点笑意；精彩动作短促兴奋，句间有轻重和停顿，英文感叹顺口，不要每句都喊，不额外添加文字。",
+        "sampleRate": 24000
+      },
+      "sectionId": "756f2bab-48eb-4814-afe7-dc3a77dbb113",
+      "cues": [
+        {
+          "cueId": "C1",
+          "text": "独行侠推进，队友拉开站位。",
+          "path": "cue-01.wav",
+          "durationSeconds": 2.59175,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "独行侠推进，队友拉开站位。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "独行侠推进，队友拉开站位。",
+              "words": [
+                {
+                  "confidence": 0.9431104,
+                  "endTime": 0.415,
+                  "startTime": 0.275,
+                  "word": "独"
+                },
+                {
+                  "confidence": 0.95090497,
+                  "endTime": 0.585,
+                  "startTime": 0.415,
+                  "word": "行"
+                },
+                {
+                  "confidence": 0.93172127,
+                  "endTime": 0.765,
+                  "startTime": 0.585,
+                  "word": "侠"
+                },
+                {
+                  "confidence": 0.97192436,
+                  "endTime": 0.965,
+                  "startTime": 0.765,
+                  "word": "推"
+                },
+                {
+                  "confidence": 0.894563,
+                  "endTime": 1.215,
+                  "startTime": 0.965,
+                  "word": "进，"
+                },
+                {
+                  "confidence": 0.9610936,
+                  "endTime": 1.525,
+                  "startTime": 1.355,
+                  "word": "队"
+                },
+                {
+                  "confidence": 0.88546985,
+                  "endTime": 1.665,
+                  "startTime": 1.525,
+                  "word": "友"
+                },
+                {
+                  "confidence": 0.95857424,
+                  "endTime": 1.815,
+                  "startTime": 1.665,
+                  "word": "拉"
+                },
+                {
+                  "confidence": 0.97366,
+                  "endTime": 1.965,
+                  "startTime": 1.815,
+                  "word": "开"
+                },
+                {
+                  "confidence": 0.77084935,
+                  "endTime": 2.105,
+                  "startTime": 1.965,
+                  "word": "站"
+                },
+                {
+                  "confidence": 0.9607141,
+                  "endTime": 2.275,
+                  "startTime": 2.105,
+                  "word": "位。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 13
+          },
+          "logId": "202610092347216CB91525C686FFF08E4B"
+        },
+        {
+          "cueId": "C2",
+          "text": "右侧挡了一下，防守还挂在身边。",
+          "path": "cue-02.wav",
+          "durationSeconds": 3.015125,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "右侧挡了一下，防守还挂在身边。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "右侧挡了一下，防守还挂在身边。",
+              "words": [
+                {
+                  "confidence": 0.9323912,
+                  "endTime": 0.385,
+                  "startTime": 0.225,
+                  "word": "右"
+                },
+                {
+                  "confidence": 0.9654517,
+                  "endTime": 0.585,
+                  "startTime": 0.385,
+                  "word": "侧"
+                },
+                {
+                  "confidence": 0.8884899,
+                  "endTime": 0.785,
+                  "startTime": 0.585,
+                  "word": "挡"
+                },
+                {
+                  "confidence": 0.91263604,
+                  "endTime": 0.925,
+                  "startTime": 0.785,
+                  "word": "了"
+                },
+                {
+                  "confidence": 0.91334385,
+                  "endTime": 1.045,
+                  "startTime": 0.925,
+                  "word": "一"
+                },
+                {
+                  "confidence": 0.9794495,
+                  "endTime": 1.335,
+                  "startTime": 1.045,
+                  "word": "下，"
+                },
+                {
+                  "confidence": 0.98286766,
+                  "endTime": 1.635,
+                  "startTime": 1.435,
+                  "word": "防"
+                },
+                {
+                  "confidence": 0.9548063,
+                  "endTime": 1.805,
+                  "startTime": 1.635,
+                  "word": "守"
+                },
+                {
+                  "confidence": 0.95945454,
+                  "endTime": 1.955,
+                  "startTime": 1.805,
+                  "word": "还"
+                },
+                {
+                  "confidence": 0.82795346,
+                  "endTime": 2.125,
+                  "startTime": 1.955,
+                  "word": "挂"
+                },
+                {
+                  "confidence": 0.94422305,
+                  "endTime": 2.215,
+                  "startTime": 2.125,
+                  "word": "在"
+                },
+                {
+                  "confidence": 0.9512735,
+                  "endTime": 2.395,
+                  "startTime": 2.215,
+                  "word": "身"
+                },
+                {
+                  "confidence": 0.97730666,
+                  "endTime": 2.615,
+                  "startTime": 2.395,
+                  "word": "边。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 15
+          },
+          "logId": "20261009234722E4A685E2AEB34EF85353"
+        },
+        {
+          "cueId": "C3",
+          "text": "退回右侧外线再找突破，不硬挤，换个起点再较量。",
+          "path": "cue-03.wav",
+          "durationSeconds": 4.192833333333334,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "退回右侧外线再找突破，不硬挤，换个起点再较量。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "退回右侧外线再找突破，不硬挤，换个起点再较量。",
+              "words": [
+                {
+                  "confidence": 0.8588512,
+                  "endTime": 0.395,
+                  "startTime": 0.235,
+                  "word": "退"
+                },
+                {
+                  "confidence": 0.8596032,
+                  "endTime": 0.545,
+                  "startTime": 0.395,
+                  "word": "回"
+                },
+                {
+                  "confidence": 0.89856565,
+                  "endTime": 0.685,
+                  "startTime": 0.545,
+                  "word": "右"
+                },
+                {
+                  "confidence": 0.69626004,
+                  "endTime": 0.825,
+                  "startTime": 0.685,
+                  "word": "侧"
+                },
+                {
+                  "confidence": 0.97966266,
+                  "endTime": 0.985,
+                  "startTime": 0.825,
+                  "word": "外"
+                },
+                {
+                  "confidence": 0.864207,
+                  "endTime": 1.155,
+                  "startTime": 0.985,
+                  "word": "线"
+                },
+                {
+                  "confidence": 0.9375256,
+                  "endTime": 1.295,
+                  "startTime": 1.155,
+                  "word": "再"
+                },
+                {
+                  "confidence": 0.843888,
+                  "endTime": 1.415,
+                  "startTime": 1.295,
+                  "word": "找"
+                },
+                {
+                  "confidence": 0.916444,
+                  "endTime": 1.565,
+                  "startTime": 1.415,
+                  "word": "突"
+                },
+                {
+                  "confidence": 0.9682874,
+                  "endTime": 1.835,
+                  "startTime": 1.565,
+                  "word": "破，"
+                },
+                {
+                  "confidence": 0.831072,
+                  "endTime": 2.305,
+                  "startTime": 2.115,
+                  "word": "不"
+                },
+                {
+                  "confidence": 0.8667897,
+                  "endTime": 2.475,
+                  "startTime": 2.305,
+                  "word": "硬"
+                },
+                {
+                  "confidence": 0.77549887,
+                  "endTime": 2.715,
+                  "startTime": 2.475,
+                  "word": "挤，"
+                },
+                {
+                  "confidence": 0.9261298,
+                  "endTime": 3.065,
+                  "startTime": 2.845,
+                  "word": "换"
+                },
+                {
+                  "confidence": 0.9169954,
+                  "endTime": 3.145,
+                  "startTime": 3.065,
+                  "word": "个"
+                },
+                {
+                  "confidence": 0.77676445,
+                  "endTime": 3.285,
+                  "startTime": 3.145,
+                  "word": "起"
+                },
+                {
+                  "confidence": 0.89115053,
+                  "endTime": 3.425,
+                  "startTime": 3.285,
+                  "word": "点"
+                },
+                {
+                  "confidence": 0.9033774,
+                  "endTime": 3.585,
+                  "startTime": 3.425,
+                  "word": "再"
+                },
+                {
+                  "confidence": 0.90606534,
+                  "endTime": 3.735,
+                  "startTime": 3.585,
+                  "word": "较"
+                },
+                {
+                  "confidence": 0.8655534,
+                  "endTime": 3.895,
+                  "startTime": 3.735,
+                  "word": "量。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 23
+          },
+          "logId": "20261009234723FC672974BC9A906EEBE9"
+        },
+        {
+          "cueId": "C4",
+          "text": "右侧再突！迎着补防上篮！",
+          "path": "cue-04.wav",
+          "durationSeconds": 2.3675,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "右侧再突！迎着补防上篮！",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "右侧再突！",
+              "words": [
+                {
+                  "confidence": 0.84543276,
+                  "endTime": 0.405,
+                  "startTime": 0.225,
+                  "word": "右"
+                },
+                {
+                  "confidence": 0.8489771,
+                  "endTime": 0.535,
+                  "startTime": 0.405,
+                  "word": "侧"
+                },
+                {
+                  "confidence": 0.9416375,
+                  "endTime": 0.745,
+                  "startTime": 0.535,
+                  "word": "再"
+                },
+                {
+                  "confidence": 0.87218857,
+                  "endTime": 1.035,
+                  "startTime": 0.745,
+                  "word": "突！"
+                }
+              ]
+            },
+            {
+              "phonemes": [],
+              "text": "迎着补防上篮！",
+              "words": [
+                {
+                  "confidence": 0.3876347,
+                  "endTime": 1.4050416,
+                  "startTime": 1.3600416,
+                  "word": "迎"
+                },
+                {
+                  "confidence": 0.2464875,
+                  "endTime": 1.4650416,
+                  "startTime": 1.4050416,
+                  "word": "着"
+                },
+                {
+                  "confidence": 0.44779226,
+                  "endTime": 1.5250416,
+                  "startTime": 1.4650416,
+                  "word": "补"
+                },
+                {
+                  "confidence": 0.9012408,
+                  "endTime": 1.6550416,
+                  "startTime": 1.5250416,
+                  "word": "防"
+                },
+                {
+                  "confidence": 0.9259701,
+                  "endTime": 1.8650416,
+                  "startTime": 1.6550416,
+                  "word": "上"
+                },
+                {
+                  "confidence": 0.6269033,
+                  "endTime": 1.9550416,
+                  "startTime": 1.8650416,
+                  "word": "篮！"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 12
+          },
+          "logId": "202610092347245E86259E3591B017C9D6"
+        },
+        {
+          "cueId": "C5",
+          "text": "两分进了，火箭底线发球。",
+          "path": "cue-05.wav",
+          "durationSeconds": 2.21625,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "两分进了，火箭底线发球。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "两分进了，火箭底线发球。",
+              "words": [
+                {
+                  "confidence": 0.7220528,
+                  "endTime": 0.365,
+                  "startTime": 0.265,
+                  "word": "两"
+                },
+                {
+                  "confidence": 0.79263574,
+                  "endTime": 0.535,
+                  "startTime": 0.365,
+                  "word": "分"
+                },
+                {
+                  "confidence": 0.7757041,
+                  "endTime": 0.675,
+                  "startTime": 0.535,
+                  "word": "进"
+                },
+                {
+                  "confidence": 0.9493276,
+                  "endTime": 0.905,
+                  "startTime": 0.675,
+                  "word": "了，"
+                },
+                {
+                  "confidence": 0.86637527,
+                  "endTime": 1.195,
+                  "startTime": 1.035,
+                  "word": "火"
+                },
+                {
+                  "confidence": 0.8793718,
+                  "endTime": 1.355,
+                  "startTime": 1.195,
+                  "word": "箭"
+                },
+                {
+                  "confidence": 0.927333,
+                  "endTime": 1.475,
+                  "startTime": 1.355,
+                  "word": "底"
+                },
+                {
+                  "confidence": 0.90751314,
+                  "endTime": 1.615,
+                  "startTime": 1.475,
+                  "word": "线"
+                },
+                {
+                  "confidence": 0.96297777,
+                  "endTime": 1.765,
+                  "startTime": 1.615,
+                  "word": "发"
+                },
+                {
+                  "confidence": 0.9409043,
+                  "endTime": 2.035,
+                  "startTime": 1.765,
+                  "word": "球。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 12
+          },
+          "logId": "2026100923472558431C681241C742BAA3"
+        }
+      ]
+    },
+    "segments": [
+      {
+        "kind": "play",
+        "sourceStart": 0.0,
+        "sourceEnd": 1.0,
+        "previewStart": 0.0,
+        "previewEnd": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 1.0,
+        "sourceEnd": 5.0,
+        "previewStart": 1.0,
+        "previewEnd": 5.0,
+        "cueId": "C1",
+        "speed": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 5.0,
+        "sourceEnd": 6.0,
+        "previewStart": 5.0,
+        "previewEnd": 6.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 6.0,
+        "sourceEnd": 10.5,
+        "previewStart": 6.0,
+        "previewEnd": 10.5,
+        "cueId": "C2",
+        "speed": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 10.5,
+        "sourceEnd": 13.246577777777778,
+        "previewStart": 10.5,
+        "previewEnd": 13.24657777777778
+      },
+      {
+        "kind": "hold",
+        "sourceStart": 13.246577777777778,
+        "sourceEnd": 13.246577777777778,
+        "previewStart": 13.24657777777778,
+        "previewEnd": 17.939411111111113,
+        "cueId": "C3",
+        "fallback": false
+      },
+      {
+        "kind": "play",
+        "sourceStart": 13.246577777777778,
+        "sourceEnd": 14.5,
+        "previewStart": 17.939411111111113,
+        "previewEnd": 19.192833333333333
+      },
+      {
+        "kind": "play",
+        "sourceStart": 14.5,
+        "sourceEnd": 18.0,
+        "previewStart": 19.192833333333333,
+        "previewEnd": 22.692833333333333,
+        "cueId": "C4",
+        "speed": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 18.0,
+        "sourceEnd": 21.5382,
+        "previewStart": 22.692833333333333,
+        "previewEnd": 26.23103333333333,
+        "cueId": "C5",
+        "speed": 1.0
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "C1",
+        "eventId": "E1",
+        "suggestedStartTime": 1,
+        "suggestedEndTime": 5,
+        "text": "独行侠推进，队友拉开站位。",
+        "focus": "交代半场进攻的展开与无球站位，不补写球权来源。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          120,
+          210,
+          300
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 120,
+            "time": 2.002,
+            "sourceTime": 2.002
+          },
+          {
+            "frame": 210,
+            "time": 3.5035,
+            "sourceTime": 3.5035
+          },
+          {
+            "frame": 300,
+            "time": 5.005,
+            "sourceTime": 5.005
+          }
+        ],
+        "previewStart": 1.0,
+        "previewEnd": 3.59175,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      },
+      {
+        "cueId": "C2",
+        "eventId": "E2",
+        "suggestedStartTime": 6,
+        "suggestedEndTime": 10.5,
+        "text": "右侧挡了一下，防守还挂在身边。",
+        "focus": "掩护与主防跟随之间的关系，不夸大为已经摆脱防守或形成空位。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          360,
+          390,
+          450,
+          599,
+          629
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 360,
+            "time": 6.006011111111111,
+            "sourceTime": 6.006011111111111
+          },
+          {
+            "frame": 390,
+            "time": 6.506511111111111,
+            "sourceTime": 6.506511111111111
+          },
+          {
+            "frame": 450,
+            "time": 7.5075111111111115,
+            "sourceTime": 7.5075111111111115
+          },
+          {
+            "frame": 599,
+            "time": 9.993322222222222,
+            "sourceTime": 9.993322222222222
+          },
+          {
+            "frame": 629,
+            "time": 10.493822222222223,
+            "sourceTime": 10.493822222222223
+          }
+        ],
+        "previewStart": 6.0,
+        "previewEnd": 9.015125,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      },
+      {
+        "cueId": "C3",
+        "eventId": "E3",
+        "suggestedStartTime": 12,
+        "suggestedEndTime": 14.5,
+        "text": "退回右侧外线再找突破，不硬挤，换个起点再较量。",
+        "focus": "暂停解释持球人退回外线重新调整，而非把前后两次推进说成一次连续突破。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          719,
+          779,
+          809,
+          839
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 719,
+            "time": 11.995333333333333,
+            "sourceTime": 11.995333333333333
+          },
+          {
+            "frame": 779,
+            "time": 12.996333333333334,
+            "sourceTime": 12.996333333333334
+          },
+          {
+            "frame": 809,
+            "time": 13.496833333333333,
+            "sourceTime": 13.496833333333333
+          },
+          {
+            "frame": 839,
+            "time": 13.997333333333334,
+            "sourceTime": 13.997333333333334
+          }
+        ],
+        "previewStart": 13.49657777777778,
+        "previewEnd": 17.689411111111113,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false,
+        "holdSourceTime": 13.246577777777778
+      },
+      {
+        "cueId": "C4",
+        "eventId": "E4",
+        "suggestedStartTime": 14.5,
+        "suggestedEndTime": 18,
+        "text": "右侧再突！迎着补防上篮！",
+        "focus": "第二次启动进入禁区及篮下防守干扰；命中结果留给下一条确认。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          899,
+          929,
+          959,
+          974,
+          989,
+          1004
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 899,
+            "time": 14.998333333333333,
+            "sourceTime": 14.998333333333333
+          },
+          {
+            "frame": 929,
+            "time": 15.498833333333334,
+            "sourceTime": 15.498833333333334
+          },
+          {
+            "frame": 959,
+            "time": 15.999333333333333,
+            "sourceTime": 15.999333333333333
+          },
+          {
+            "frame": 974,
+            "time": 16.249577777777777,
+            "sourceTime": 16.249577777777777
+          },
+          {
+            "frame": 989,
+            "time": 16.499833333333335,
+            "sourceTime": 16.499833333333335
+          },
+          {
+            "frame": 1004,
+            "time": 16.75007777777778,
+            "sourceTime": 16.75007777777778
+          }
+        ],
+        "previewStart": 19.192833333333333,
+        "previewEnd": 21.560333333333332,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      },
+      {
+        "cueId": "C5",
+        "eventId": "E5",
+        "suggestedStartTime": 18,
+        "suggestedEndTime": 21.5382,
+        "text": "两分进了，火箭底线发球。",
+        "focus": "结合穿网、延迟更新的记分牌和底线发球确认两分命中，避免误说篮板转换。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          1034,
+          1049,
+          1064,
+          1199,
+          1229,
+          1259,
+          1289
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 1034,
+            "time": 17.250577777777778,
+            "sourceTime": 17.250577777777778
+          },
+          {
+            "frame": 1049,
+            "time": 17.500833333333333,
+            "sourceTime": 17.500833333333333
+          },
+          {
+            "frame": 1064,
+            "time": 17.751077777777777,
+            "sourceTime": 17.751077777777777
+          },
+          {
+            "frame": 1199,
+            "time": 20.003333333333334,
+            "sourceTime": 20.003333333333334
+          },
+          {
+            "frame": 1229,
+            "time": 20.503833333333333,
+            "sourceTime": 20.503833333333333
+          },
+          {
+            "frame": 1259,
+            "time": 21.004333333333335,
+            "sourceTime": 21.004333333333335
+          },
+          {
+            "frame": 1289,
+            "time": 21.504833333333334,
+            "sourceTime": 21.504833333333334
+          }
+        ],
+        "previewStart": 22.692833333333333,
+        "previewEnd": 24.90908333333333,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      }
+    ],
+    "video": "tmp/commentary-personality-20261009/001-natural-render/commentary-final.mp4"
+  },
+  {
+    "sample": "official-training-001",
+    "voice": "classic",
+    "audio": {
+      "config": {
+        "provider": "volcengine",
+        "resourceId": "seed-tts-2.0",
+        "speaker": "zh_female_vv_uranus_bigtts",
+        "style": "请用专业中文篮球解说的口吻说话，清晰利落，节奏紧凑自然；战术分析沉稳，进球时适度兴奋，不要喊叫，不要添加文字。",
+        "sampleRate": 24000
+      },
+      "sectionId": "efe1c1e4-eb1c-43b8-9b4b-90e33fa4f017",
+      "cues": [
+        {
+          "cueId": "C1",
+          "text": "独行侠推进，队友拉开站位。",
+          "path": "cue-01.wav",
+          "durationSeconds": 2.615083333333333,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "独行侠推进，队友拉开站位。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "独行侠推进，队友拉开站位。",
+              "words": [
+                {
+                  "confidence": 0.9096726,
+                  "endTime": 0.325,
+                  "startTime": 0.215,
+                  "word": "独"
+                },
+                {
+                  "confidence": 0.8162175,
+                  "endTime": 0.475,
+                  "startTime": 0.325,
+                  "word": "行"
+                },
+                {
+                  "confidence": 0.8763047,
+                  "endTime": 0.645,
+                  "startTime": 0.475,
+                  "word": "侠"
+                },
+                {
+                  "confidence": 0.9673723,
+                  "endTime": 0.825,
+                  "startTime": 0.645,
+                  "word": "推"
+                },
+                {
+                  "confidence": 0.7996494,
+                  "endTime": 1.025,
+                  "startTime": 0.825,
+                  "word": "进，"
+                },
+                {
+                  "confidence": 0.9151079,
+                  "endTime": 1.515,
+                  "startTime": 1.355,
+                  "word": "队"
+                },
+                {
+                  "confidence": 0.93631494,
+                  "endTime": 1.675,
+                  "startTime": 1.515,
+                  "word": "友"
+                },
+                {
+                  "confidence": 0.9621181,
+                  "endTime": 1.825,
+                  "startTime": 1.675,
+                  "word": "拉"
+                },
+                {
+                  "confidence": 0.9792087,
+                  "endTime": 1.985,
+                  "startTime": 1.825,
+                  "word": "开"
+                },
+                {
+                  "confidence": 0.8316845,
+                  "endTime": 2.125,
+                  "startTime": 1.985,
+                  "word": "站"
+                },
+                {
+                  "confidence": 0.96926063,
+                  "endTime": 2.295,
+                  "startTime": 2.125,
+                  "word": "位。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 13
+          },
+          "logId": "2026100923472991F248EBF09BAFB7B97E"
+        },
+        {
+          "cueId": "C2",
+          "text": "右侧挡了一下，防守还挂在身边。",
+          "path": "cue-02.wav",
+          "durationSeconds": 3.0126666666666666,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "右侧挡了一下，防守还挂在身边。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "右侧挡了一下，防守还挂在身边。",
+              "words": [
+                {
+                  "confidence": 0.9424918,
+                  "endTime": 0.395,
+                  "startTime": 0.215,
+                  "word": "右"
+                },
+                {
+                  "confidence": 0.92781657,
+                  "endTime": 0.595,
+                  "startTime": 0.395,
+                  "word": "侧"
+                },
+                {
+                  "confidence": 0.94574755,
+                  "endTime": 0.815,
+                  "startTime": 0.595,
+                  "word": "挡"
+                },
+                {
+                  "confidence": 0.9394311,
+                  "endTime": 0.945,
+                  "startTime": 0.815,
+                  "word": "了"
+                },
+                {
+                  "confidence": 0.92242134,
+                  "endTime": 1.055,
+                  "startTime": 0.945,
+                  "word": "一"
+                },
+                {
+                  "confidence": 0.970995,
+                  "endTime": 1.345,
+                  "startTime": 1.055,
+                  "word": "下，"
+                },
+                {
+                  "confidence": 0.94788855,
+                  "endTime": 1.645,
+                  "startTime": 1.415,
+                  "word": "防"
+                },
+                {
+                  "confidence": 0.944761,
+                  "endTime": 1.805,
+                  "startTime": 1.645,
+                  "word": "守"
+                },
+                {
+                  "confidence": 0.9311062,
+                  "endTime": 1.965,
+                  "startTime": 1.805,
+                  "word": "还"
+                },
+                {
+                  "confidence": 0.81101865,
+                  "endTime": 2.125,
+                  "startTime": 1.965,
+                  "word": "挂"
+                },
+                {
+                  "confidence": 0.9696542,
+                  "endTime": 2.225,
+                  "startTime": 2.125,
+                  "word": "在"
+                },
+                {
+                  "confidence": 0.9430244,
+                  "endTime": 2.405,
+                  "startTime": 2.225,
+                  "word": "身"
+                },
+                {
+                  "confidence": 0.973031,
+                  "endTime": 2.605,
+                  "startTime": 2.405,
+                  "word": "边。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 15
+          },
+          "logId": "2026100923473009B7A0F82AF912121071"
+        },
+        {
+          "cueId": "C3",
+          "text": "退回右侧外线再找突破，不硬挤，换个起点再较量。",
+          "path": "cue-03.wav",
+          "durationSeconds": 4.399166666666667,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "退回右侧外线再找突破，不硬挤，换个起点再较量。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "退回右侧外线再找突破，不硬挤，换个起点再较量。",
+              "words": [
+                {
+                  "confidence": 0.8857002,
+                  "endTime": 0.425,
+                  "startTime": 0.225,
+                  "word": "退"
+                },
+                {
+                  "confidence": 0.96479136,
+                  "endTime": 0.575,
+                  "startTime": 0.425,
+                  "word": "回"
+                },
+                {
+                  "confidence": 0.89996403,
+                  "endTime": 0.735,
+                  "startTime": 0.575,
+                  "word": "右"
+                },
+                {
+                  "confidence": 0.81896675,
+                  "endTime": 0.895,
+                  "startTime": 0.735,
+                  "word": "侧"
+                },
+                {
+                  "confidence": 0.96234584,
+                  "endTime": 1.055,
+                  "startTime": 0.895,
+                  "word": "外"
+                },
+                {
+                  "confidence": 0.9170859,
+                  "endTime": 1.265,
+                  "startTime": 1.055,
+                  "word": "线"
+                },
+                {
+                  "confidence": 0.8813111,
+                  "endTime": 1.465,
+                  "startTime": 1.265,
+                  "word": "再"
+                },
+                {
+                  "confidence": 0.91560555,
+                  "endTime": 1.615,
+                  "startTime": 1.465,
+                  "word": "找"
+                },
+                {
+                  "confidence": 0.9288597,
+                  "endTime": 1.755,
+                  "startTime": 1.615,
+                  "word": "突"
+                },
+                {
+                  "confidence": 0.9746946,
+                  "endTime": 1.975,
+                  "startTime": 1.755,
+                  "word": "破，"
+                },
+                {
+                  "confidence": 0.8962292,
+                  "endTime": 2.415,
+                  "startTime": 2.265,
+                  "word": "不"
+                },
+                {
+                  "confidence": 0.90982604,
+                  "endTime": 2.585,
+                  "startTime": 2.415,
+                  "word": "硬"
+                },
+                {
+                  "confidence": 0.8260979,
+                  "endTime": 2.865,
+                  "startTime": 2.585,
+                  "word": "挤，"
+                },
+                {
+                  "confidence": 0.9523211,
+                  "endTime": 3.215,
+                  "startTime": 2.965,
+                  "word": "换"
+                },
+                {
+                  "confidence": 0.8518961,
+                  "endTime": 3.295,
+                  "startTime": 3.215,
+                  "word": "个"
+                },
+                {
+                  "confidence": 0.8032898,
+                  "endTime": 3.475,
+                  "startTime": 3.295,
+                  "word": "起"
+                },
+                {
+                  "confidence": 0.9628924,
+                  "endTime": 3.625,
+                  "startTime": 3.475,
+                  "word": "点"
+                },
+                {
+                  "confidence": 0.95785815,
+                  "endTime": 3.755,
+                  "startTime": 3.625,
+                  "word": "再"
+                },
+                {
+                  "confidence": 0.94740874,
+                  "endTime": 3.915,
+                  "startTime": 3.755,
+                  "word": "较"
+                },
+                {
+                  "confidence": 0.91286206,
+                  "endTime": 4.065,
+                  "startTime": 3.915,
+                  "word": "量。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 23
+          },
+          "logId": "20261009234731FE277C9220B876D10DD2"
+        },
+        {
+          "cueId": "C4",
+          "text": "右侧再突！迎着补防上篮！",
+          "path": "cue-04.wav",
+          "durationSeconds": 2.3757083333333333,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "右侧再突！迎着补防上篮！",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "右侧再突！",
+              "words": [
+                {
+                  "confidence": 0.94032615,
+                  "endTime": 0.365,
+                  "startTime": 0.225,
+                  "word": "右"
+                },
+                {
+                  "confidence": 0.93529385,
+                  "endTime": 0.495,
+                  "startTime": 0.365,
+                  "word": "侧"
+                },
+                {
+                  "confidence": 0.9267747,
+                  "endTime": 0.675,
+                  "startTime": 0.495,
+                  "word": "再"
+                },
+                {
+                  "confidence": 0.86222106,
+                  "endTime": 0.945,
+                  "startTime": 0.675,
+                  "word": "突！"
+                }
+              ]
+            },
+            {
+              "phonemes": [],
+              "text": "迎着补防上篮！",
+              "words": [
+                {
+                  "confidence": 0.3769773,
+                  "endTime": 1.4050416,
+                  "startTime": 1.3600416,
+                  "word": "迎"
+                },
+                {
+                  "confidence": 0.20495185,
+                  "endTime": 1.4650416,
+                  "startTime": 1.4050416,
+                  "word": "着"
+                },
+                {
+                  "confidence": 0.41738087,
+                  "endTime": 1.5250416,
+                  "startTime": 1.4650416,
+                  "word": "补"
+                },
+                {
+                  "confidence": 0.95244807,
+                  "endTime": 1.6550416,
+                  "startTime": 1.5250416,
+                  "word": "防"
+                },
+                {
+                  "confidence": 0.9539504,
+                  "endTime": 1.8750416,
+                  "startTime": 1.6550416,
+                  "word": "上"
+                },
+                {
+                  "confidence": 0.7736712,
+                  "endTime": 2.0550416,
+                  "startTime": 1.8750416,
+                  "word": "篮！"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 12
+          },
+          "logId": "20261009234733BC2AC52C76D8B29E1EF7"
+        },
+        {
+          "cueId": "C5",
+          "text": "两分进了，火箭底线发球。",
+          "path": "cue-05.wav",
+          "durationSeconds": 2.3804166666666666,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "两分进了，火箭底线发球。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "两分进了，火箭底线发球。",
+              "words": [
+                {
+                  "confidence": 0.98023367,
+                  "endTime": 0.365,
+                  "startTime": 0.215,
+                  "word": "两"
+                },
+                {
+                  "confidence": 0.9053193,
+                  "endTime": 0.535,
+                  "startTime": 0.365,
+                  "word": "分"
+                },
+                {
+                  "confidence": 0.7052173,
+                  "endTime": 0.685,
+                  "startTime": 0.535,
+                  "word": "进"
+                },
+                {
+                  "confidence": 0.9451045,
+                  "endTime": 0.905,
+                  "startTime": 0.685,
+                  "word": "了，"
+                },
+                {
+                  "confidence": 0.87784714,
+                  "endTime": 1.235,
+                  "startTime": 1.055,
+                  "word": "火"
+                },
+                {
+                  "confidence": 0.91839194,
+                  "endTime": 1.415,
+                  "startTime": 1.235,
+                  "word": "箭"
+                },
+                {
+                  "confidence": 0.90507555,
+                  "endTime": 1.545,
+                  "startTime": 1.415,
+                  "word": "底"
+                },
+                {
+                  "confidence": 0.9526799,
+                  "endTime": 1.705,
+                  "startTime": 1.545,
+                  "word": "线"
+                },
+                {
+                  "confidence": 0.95936424,
+                  "endTime": 1.845,
+                  "startTime": 1.705,
+                  "word": "发"
+                },
+                {
+                  "confidence": 0.94318837,
+                  "endTime": 2.105,
+                  "startTime": 1.845,
+                  "word": "球。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 12
+          },
+          "logId": "202610092347340D127F4DC2C9668F4D49"
+        }
+      ]
+    },
+    "segments": [
+      {
+        "kind": "play",
+        "sourceStart": 0.0,
+        "sourceEnd": 1.0,
+        "previewStart": 0.0,
+        "previewEnd": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 1.0,
+        "sourceEnd": 5.0,
+        "previewStart": 1.0,
+        "previewEnd": 5.0,
+        "cueId": "C1",
+        "speed": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 5.0,
+        "sourceEnd": 6.0,
+        "previewStart": 5.0,
+        "previewEnd": 6.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 6.0,
+        "sourceEnd": 10.5,
+        "previewStart": 6.0,
+        "previewEnd": 10.5,
+        "cueId": "C2",
+        "speed": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 10.5,
+        "sourceEnd": 13.246577777777778,
+        "previewStart": 10.5,
+        "previewEnd": 13.24657777777778
+      },
+      {
+        "kind": "hold",
+        "sourceStart": 13.246577777777778,
+        "sourceEnd": 13.246577777777778,
+        "previewStart": 13.24657777777778,
+        "previewEnd": 18.145744444444446,
+        "cueId": "C3",
+        "fallback": false
+      },
+      {
+        "kind": "play",
+        "sourceStart": 13.246577777777778,
+        "sourceEnd": 14.5,
+        "previewStart": 18.145744444444446,
+        "previewEnd": 19.399166666666666
+      },
+      {
+        "kind": "play",
+        "sourceStart": 14.5,
+        "sourceEnd": 18.0,
+        "previewStart": 19.399166666666666,
+        "previewEnd": 22.899166666666666,
+        "cueId": "C4",
+        "speed": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 18.0,
+        "sourceEnd": 21.5382,
+        "previewStart": 22.899166666666666,
+        "previewEnd": 26.437366666666662,
+        "cueId": "C5",
+        "speed": 1.0
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "C1",
+        "eventId": "E1",
+        "suggestedStartTime": 1,
+        "suggestedEndTime": 5,
+        "text": "独行侠推进，队友拉开站位。",
+        "focus": "交代半场进攻的展开与无球站位，不补写球权来源。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          120,
+          210,
+          300
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 120,
+            "time": 2.002,
+            "sourceTime": 2.002
+          },
+          {
+            "frame": 210,
+            "time": 3.5035,
+            "sourceTime": 3.5035
+          },
+          {
+            "frame": 300,
+            "time": 5.005,
+            "sourceTime": 5.005
+          }
+        ],
+        "previewStart": 1.0,
+        "previewEnd": 3.615083333333333,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      },
+      {
+        "cueId": "C2",
+        "eventId": "E2",
+        "suggestedStartTime": 6,
+        "suggestedEndTime": 10.5,
+        "text": "右侧挡了一下，防守还挂在身边。",
+        "focus": "掩护与主防跟随之间的关系，不夸大为已经摆脱防守或形成空位。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          360,
+          390,
+          450,
+          599,
+          629
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 360,
+            "time": 6.006011111111111,
+            "sourceTime": 6.006011111111111
+          },
+          {
+            "frame": 390,
+            "time": 6.506511111111111,
+            "sourceTime": 6.506511111111111
+          },
+          {
+            "frame": 450,
+            "time": 7.5075111111111115,
+            "sourceTime": 7.5075111111111115
+          },
+          {
+            "frame": 599,
+            "time": 9.993322222222222,
+            "sourceTime": 9.993322222222222
+          },
+          {
+            "frame": 629,
+            "time": 10.493822222222223,
+            "sourceTime": 10.493822222222223
+          }
+        ],
+        "previewStart": 6.0,
+        "previewEnd": 9.012666666666666,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      },
+      {
+        "cueId": "C3",
+        "eventId": "E3",
+        "suggestedStartTime": 12,
+        "suggestedEndTime": 14.5,
+        "text": "退回右侧外线再找突破，不硬挤，换个起点再较量。",
+        "focus": "暂停解释持球人退回外线重新调整，而非把前后两次推进说成一次连续突破。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          719,
+          779,
+          809,
+          839
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 719,
+            "time": 11.995333333333333,
+            "sourceTime": 11.995333333333333
+          },
+          {
+            "frame": 779,
+            "time": 12.996333333333334,
+            "sourceTime": 12.996333333333334
+          },
+          {
+            "frame": 809,
+            "time": 13.496833333333333,
+            "sourceTime": 13.496833333333333
+          },
+          {
+            "frame": 839,
+            "time": 13.997333333333334,
+            "sourceTime": 13.997333333333334
+          }
+        ],
+        "previewStart": 13.49657777777778,
+        "previewEnd": 17.895744444444446,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false,
+        "holdSourceTime": 13.246577777777778
+      },
+      {
+        "cueId": "C4",
+        "eventId": "E4",
+        "suggestedStartTime": 14.5,
+        "suggestedEndTime": 18,
+        "text": "右侧再突！迎着补防上篮！",
+        "focus": "第二次启动进入禁区及篮下防守干扰；命中结果留给下一条确认。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          899,
+          929,
+          959,
+          974,
+          989,
+          1004
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 899,
+            "time": 14.998333333333333,
+            "sourceTime": 14.998333333333333
+          },
+          {
+            "frame": 929,
+            "time": 15.498833333333334,
+            "sourceTime": 15.498833333333334
+          },
+          {
+            "frame": 959,
+            "time": 15.999333333333333,
+            "sourceTime": 15.999333333333333
+          },
+          {
+            "frame": 974,
+            "time": 16.249577777777777,
+            "sourceTime": 16.249577777777777
+          },
+          {
+            "frame": 989,
+            "time": 16.499833333333335,
+            "sourceTime": 16.499833333333335
+          },
+          {
+            "frame": 1004,
+            "time": 16.75007777777778,
+            "sourceTime": 16.75007777777778
+          }
+        ],
+        "previewStart": 19.399166666666666,
+        "previewEnd": 21.774874999999998,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      },
+      {
+        "cueId": "C5",
+        "eventId": "E5",
+        "suggestedStartTime": 18,
+        "suggestedEndTime": 21.5382,
+        "text": "两分进了，火箭底线发球。",
+        "focus": "结合穿网、延迟更新的记分牌和底线发球确认两分命中，避免误说篮板转换。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          1034,
+          1049,
+          1064,
+          1199,
+          1229,
+          1259,
+          1289
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 1034,
+            "time": 17.250577777777778,
+            "sourceTime": 17.250577777777778
+          },
+          {
+            "frame": 1049,
+            "time": 17.500833333333333,
+            "sourceTime": 17.500833333333333
+          },
+          {
+            "frame": 1064,
+            "time": 17.751077777777777,
+            "sourceTime": 17.751077777777777
+          },
+          {
+            "frame": 1199,
+            "time": 20.003333333333334,
+            "sourceTime": 20.003333333333334
+          },
+          {
+            "frame": 1229,
+            "time": 20.503833333333333,
+            "sourceTime": 20.503833333333333
+          },
+          {
+            "frame": 1259,
+            "time": 21.004333333333335,
+            "sourceTime": 21.004333333333335
+          },
+          {
+            "frame": 1289,
+            "time": 21.504833333333334,
+            "sourceTime": 21.504833333333334
+          }
+        ],
+        "previewStart": 22.899166666666666,
+        "previewEnd": 25.27958333333333,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      }
+    ],
+    "video": "tmp/commentary-personality-20261009/001-classic-render/commentary-final.mp4"
+  },
+  {
+    "sample": "official-training-002",
+    "voice": "natural",
+    "audio": {
+      "config": {
+        "provider": "volcengine",
+        "resourceId": "seed-tts-2.0",
+        "speaker": "zh_female_vv_uranus_bigtts",
+        "style": "像熟悉篮球的中文解说自然聊天，分析清楚，调侃时带一点笑意；精彩动作短促兴奋，句间有轻重和停顿，英文感叹顺口，不要每句都喊，不额外添加文字。",
+        "sampleRate": 24000
+      },
+      "sectionId": "226c9907-1aa1-4865-8651-08d3d61b5a52",
+      "cues": [
+        {
+          "cueId": "C1",
+          "text": "左侧一挡，独行侠换个人继续跟。",
+          "path": "cue-01.wav",
+          "durationSeconds": 3.0109166666666667,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "左侧一挡，独行侠换个人继续跟。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "左侧一挡，独行侠换个人继续跟。",
+              "words": [
+                {
+                  "confidence": 0.6763926,
+                  "endTime": 0.485,
+                  "startTime": 0.265,
+                  "word": "左"
+                },
+                {
+                  "confidence": 0.955714,
+                  "endTime": 0.745,
+                  "startTime": 0.485,
+                  "word": "侧"
+                },
+                {
+                  "confidence": 0.90120447,
+                  "endTime": 0.845,
+                  "startTime": 0.745,
+                  "word": "一"
+                },
+                {
+                  "confidence": 0.79887056,
+                  "endTime": 1.075,
+                  "startTime": 0.845,
+                  "word": "挡，"
+                },
+                {
+                  "confidence": 0.92490333,
+                  "endTime": 1.405,
+                  "startTime": 1.295,
+                  "word": "独"
+                },
+                {
+                  "confidence": 0.7410658,
+                  "endTime": 1.575,
+                  "startTime": 1.405,
+                  "word": "行"
+                },
+                {
+                  "confidence": 0.84286696,
+                  "endTime": 1.765,
+                  "startTime": 1.575,
+                  "word": "侠"
+                },
+                {
+                  "confidence": 0.9048137,
+                  "endTime": 1.995,
+                  "startTime": 1.765,
+                  "word": "换"
+                },
+                {
+                  "confidence": 0.9320194,
+                  "endTime": 2.085,
+                  "startTime": 1.995,
+                  "word": "个"
+                },
+                {
+                  "confidence": 0.9578276,
+                  "endTime": 2.235,
+                  "startTime": 2.085,
+                  "word": "人"
+                },
+                {
+                  "confidence": 0.8360089,
+                  "endTime": 2.395,
+                  "startTime": 2.235,
+                  "word": "继"
+                },
+                {
+                  "confidence": 0.97425735,
+                  "endTime": 2.545,
+                  "startTime": 2.395,
+                  "word": "续"
+                },
+                {
+                  "confidence": 0.97061586,
+                  "endTime": 2.765,
+                  "startTime": 2.545,
+                  "word": "跟。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 15
+          },
+          "logId": "20261009235119D5BEBDECACE961A9A71D"
+        },
+        {
+          "cueId": "C2",
+          "text": "突进禁区没出手，转身回传左翼。",
+          "path": "cue-02.wav",
+          "durationSeconds": 3.00875,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "突进禁区没出手，转身回传左翼。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "突进禁区没出手，转身回传左翼。",
+              "words": [
+                {
+                  "confidence": 0.95213073,
+                  "endTime": 0.435,
+                  "startTime": 0.235,
+                  "word": "突"
+                },
+                {
+                  "confidence": 0.91976124,
+                  "endTime": 0.615,
+                  "startTime": 0.435,
+                  "word": "进"
+                },
+                {
+                  "confidence": 0.9267467,
+                  "endTime": 0.795,
+                  "startTime": 0.615,
+                  "word": "禁"
+                },
+                {
+                  "confidence": 0.74917585,
+                  "endTime": 0.965,
+                  "startTime": 0.795,
+                  "word": "区"
+                },
+                {
+                  "confidence": 0.9274101,
+                  "endTime": 1.095,
+                  "startTime": 0.965,
+                  "word": "没"
+                },
+                {
+                  "confidence": 0.99144435,
+                  "endTime": 1.245,
+                  "startTime": 1.095,
+                  "word": "出"
+                },
+                {
+                  "confidence": 0.96586806,
+                  "endTime": 1.565,
+                  "startTime": 1.245,
+                  "word": "手，"
+                },
+                {
+                  "confidence": 0.95640385,
+                  "endTime": 1.885,
+                  "startTime": 1.715,
+                  "word": "转"
+                },
+                {
+                  "confidence": 0.92951196,
+                  "endTime": 2.085,
+                  "startTime": 1.885,
+                  "word": "身"
+                },
+                {
+                  "confidence": 0.9367887,
+                  "endTime": 2.215,
+                  "startTime": 2.085,
+                  "word": "回"
+                },
+                {
+                  "confidence": 0.8414153,
+                  "endTime": 2.375,
+                  "startTime": 2.215,
+                  "word": "传"
+                },
+                {
+                  "confidence": 0.813663,
+                  "endTime": 2.535,
+                  "startTime": 2.375,
+                  "word": "左"
+                },
+                {
+                  "confidence": 0.7918577,
+                  "endTime": 2.835,
+                  "startTime": 2.535,
+                  "word": "翼。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 15
+          },
+          "logId": "20261009235120B0C05A5A055A52896DD4"
+        },
+        {
+          "cueId": "C3",
+          "text": "左翼两人夹，球转弧顶。别跟人堆较劲，先把球转出来，再找机会。",
+          "path": "cue-03.wav",
+          "durationSeconds": 5.387875,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "左翼两人夹，球转弧顶。",
+              "words": [
+                {
+                  "confidence": 0.7293092,
+                  "endTime": 0.395,
+                  "startTime": 0.225,
+                  "word": "左"
+                },
+                {
+                  "confidence": 0.70811844,
+                  "endTime": 0.545,
+                  "startTime": 0.395,
+                  "word": "翼"
+                },
+                {
+                  "confidence": 0.91579175,
+                  "endTime": 0.685,
+                  "startTime": 0.545,
+                  "word": "两"
+                },
+                {
+                  "confidence": 0.95039415,
+                  "endTime": 0.845,
+                  "startTime": 0.685,
+                  "word": "人"
+                },
+                {
+                  "confidence": 0.84827024,
+                  "endTime": 1.075,
+                  "startTime": 0.845,
+                  "word": "夹，"
+                },
+                {
+                  "confidence": 0.88422954,
+                  "endTime": 1.435,
+                  "startTime": 1.225,
+                  "word": "球"
+                },
+                {
+                  "confidence": 0.889981,
+                  "endTime": 1.575,
+                  "startTime": 1.435,
+                  "word": "转"
+                },
+                {
+                  "confidence": 0.94640005,
+                  "endTime": 1.745,
+                  "startTime": 1.575,
+                  "word": "弧"
+                },
+                {
+                  "confidence": 0.9066856,
+                  "endTime": 1.915,
+                  "startTime": 1.745,
+                  "word": "顶。"
+                }
+              ]
+            },
+            {
+              "phonemes": [],
+              "text": "左翼两人夹，球转弧顶。别跟人堆较劲，先把球转出来，再找机会。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "别跟人堆较劲，先把球转出来，再找机会。",
+              "words": [
+                {
+                  "confidence": 0.3687008,
+                  "endTime": 2.5150418,
+                  "startTime": 2.4400418,
+                  "word": "别"
+                },
+                {
+                  "confidence": 0.56296384,
+                  "endTime": 2.5850418,
+                  "startTime": 2.5150418,
+                  "word": "跟"
+                },
+                {
+                  "confidence": 0.95100087,
+                  "endTime": 2.7350419,
+                  "startTime": 2.5850418,
+                  "word": "人"
+                },
+                {
+                  "confidence": 0.69797003,
+                  "endTime": 2.8750417,
+                  "startTime": 2.7350419,
+                  "word": "堆"
+                },
+                {
+                  "confidence": 0.8953835,
+                  "endTime": 3.0450418,
+                  "startTime": 2.8750417,
+                  "word": "较"
+                },
+                {
+                  "confidence": 0.8463106,
+                  "endTime": 3.2650418,
+                  "startTime": 3.0450418,
+                  "word": "劲，"
+                },
+                {
+                  "confidence": 0.9365986,
+                  "endTime": 3.5450418,
+                  "startTime": 3.3750417,
+                  "word": "先"
+                },
+                {
+                  "confidence": 0.93904895,
+                  "endTime": 3.665042,
+                  "startTime": 3.5450418,
+                  "word": "把"
+                },
+                {
+                  "confidence": 0.95684785,
+                  "endTime": 3.8450418,
+                  "startTime": 3.665042,
+                  "word": "球"
+                },
+                {
+                  "confidence": 0.900815,
+                  "endTime": 4.015042,
+                  "startTime": 3.8450418,
+                  "word": "转"
+                },
+                {
+                  "confidence": 0.9558834,
+                  "endTime": 4.1950417,
+                  "startTime": 4.015042,
+                  "word": "出"
+                },
+                {
+                  "confidence": 0.9490561,
+                  "endTime": 4.395042,
+                  "startTime": 4.1950417,
+                  "word": "来，"
+                },
+                {
+                  "confidence": 0.9719128,
+                  "endTime": 4.5650415,
+                  "startTime": 4.435042,
+                  "word": "再"
+                },
+                {
+                  "confidence": 0.94725746,
+                  "endTime": 4.705042,
+                  "startTime": 4.5650415,
+                  "word": "找"
+                },
+                {
+                  "confidence": 0.35783276,
+                  "endTime": 4.7750416,
+                  "startTime": 4.705042,
+                  "word": "机"
+                },
+                {
+                  "confidence": 0.23875688,
+                  "endTime": 4.835042,
+                  "startTime": 4.7750416,
+                  "word": "会。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 30
+          },
+          "logId": "2026100923512202084FFF55CFAB25BA2D"
+        },
+        {
+          "cueId": "C4",
+          "text": "接球往里突，顿一下，中投！",
+          "path": "cue-04.wav",
+          "durationSeconds": 2.610333333333333,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "接球往里突，顿一下，中投！",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "接球往里突，顿一下，中投！",
+              "words": [
+                {
+                  "confidence": 0.88615185,
+                  "endTime": 0.395,
+                  "startTime": 0.225,
+                  "word": "接"
+                },
+                {
+                  "confidence": 0.9374077,
+                  "endTime": 0.545,
+                  "startTime": 0.395,
+                  "word": "球"
+                },
+                {
+                  "confidence": 0.907326,
+                  "endTime": 0.675,
+                  "startTime": 0.545,
+                  "word": "往"
+                },
+                {
+                  "confidence": 0.9395561,
+                  "endTime": 0.795,
+                  "startTime": 0.675,
+                  "word": "里"
+                },
+                {
+                  "confidence": 0.9136816,
+                  "endTime": 1.095,
+                  "startTime": 0.795,
+                  "word": "突，"
+                },
+                {
+                  "confidence": 0.7282552,
+                  "endTime": 1.405,
+                  "startTime": 1.275,
+                  "word": "顿"
+                },
+                {
+                  "confidence": 0.730279,
+                  "endTime": 1.515,
+                  "startTime": 1.405,
+                  "word": "一"
+                },
+                {
+                  "confidence": 0.9614141,
+                  "endTime": 1.725,
+                  "startTime": 1.515,
+                  "word": "下，"
+                },
+                {
+                  "confidence": 0.96803117,
+                  "endTime": 2.025,
+                  "startTime": 1.845,
+                  "word": "中"
+                },
+                {
+                  "confidence": 0.95321923,
+                  "endTime": 2.285,
+                  "startTime": 2.025,
+                  "word": "投！"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 13
+          },
+          "logId": "20261009235123E4C209A23A567D125E08"
+        },
+        {
+          "cueId": "C5",
+          "text": "两分拿下，火箭转身退防。",
+          "path": "cue-05.wav",
+          "durationSeconds": 2.3782083333333333,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "两分拿下，火箭转身退防。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "两分拿下，火箭转身退防。",
+              "words": [
+                {
+                  "confidence": 0.90927756,
+                  "endTime": 0.435,
+                  "startTime": 0.275,
+                  "word": "两"
+                },
+                {
+                  "confidence": 0.92428714,
+                  "endTime": 0.575,
+                  "startTime": 0.435,
+                  "word": "分"
+                },
+                {
+                  "confidence": 0.94453806,
+                  "endTime": 0.735,
+                  "startTime": 0.575,
+                  "word": "拿"
+                },
+                {
+                  "confidence": 0.95122725,
+                  "endTime": 0.935,
+                  "startTime": 0.735,
+                  "word": "下，"
+                },
+                {
+                  "confidence": 0.9336042,
+                  "endTime": 1.275,
+                  "startTime": 1.075,
+                  "word": "火"
+                },
+                {
+                  "confidence": 0.9582291,
+                  "endTime": 1.485,
+                  "startTime": 1.275,
+                  "word": "箭"
+                },
+                {
+                  "confidence": 0.97180575,
+                  "endTime": 1.685,
+                  "startTime": 1.485,
+                  "word": "转"
+                },
+                {
+                  "confidence": 0.9564427,
+                  "endTime": 1.865,
+                  "startTime": 1.685,
+                  "word": "身"
+                },
+                {
+                  "confidence": 0.88509053,
+                  "endTime": 2.015,
+                  "startTime": 1.865,
+                  "word": "退"
+                },
+                {
+                  "confidence": 0.96766764,
+                  "endTime": 2.215,
+                  "startTime": 2.015,
+                  "word": "防。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 12
+          },
+          "logId": "202610092351243573538D76C839A93DDF"
+        }
+      ]
+    },
+    "segments": [
+      {
+        "kind": "play",
+        "sourceStart": 0.0,
+        "sourceEnd": 3.0,
+        "previewStart": 0.0,
+        "previewEnd": 3.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 3.0,
+        "sourceEnd": 8.0,
+        "previewStart": 3.0,
+        "previewEnd": 8.0,
+        "cueId": "C1",
+        "speed": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 8.0,
+        "sourceEnd": 8.5,
+        "previewStart": 8.0,
+        "previewEnd": 8.5
+      },
+      {
+        "kind": "play",
+        "sourceStart": 8.5,
+        "sourceEnd": 13.0,
+        "previewStart": 8.5,
+        "previewEnd": 13.0,
+        "cueId": "C2",
+        "speed": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 13.0,
+        "sourceEnd": 15.749077777777778,
+        "previewStart": 13.0,
+        "previewEnd": 15.749077777777778
+      },
+      {
+        "kind": "hold",
+        "sourceStart": 15.749077777777778,
+        "sourceEnd": 15.749077777777778,
+        "previewStart": 15.749077777777778,
+        "previewEnd": 21.63695277777778,
+        "cueId": "C3",
+        "fallback": false
+      },
+      {
+        "kind": "play",
+        "sourceStart": 15.749077777777778,
+        "sourceEnd": 16.0,
+        "previewStart": 21.63695277777778,
+        "previewEnd": 21.887875
+      },
+      {
+        "kind": "play",
+        "sourceStart": 16.0,
+        "sourceEnd": 19.2,
+        "previewStart": 21.887875,
+        "previewEnd": 25.087874999999997,
+        "cueId": "C4",
+        "speed": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 19.2,
+        "sourceEnd": 19.3,
+        "previewStart": 25.087874999999997,
+        "previewEnd": 25.187874999999995
+      },
+      {
+        "kind": "play",
+        "sourceStart": 19.3,
+        "sourceEnd": 22.8,
+        "previewStart": 25.187874999999995,
+        "previewEnd": 28.687874999999995,
+        "cueId": "C5",
+        "speed": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 22.8,
+        "sourceEnd": 22.872866666666663,
+        "previewStart": 28.687874999999995,
+        "previewEnd": 28.760741666666657
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "C1",
+        "eventId": "E1",
+        "suggestedStartTime": 3,
+        "suggestedEndTime": 8,
+        "text": "左侧一挡，独行侠换个人继续跟。",
+        "focus": "左侧掩护与两名防守者交换对位；不把掩护描述成直接创造得分机会。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          210,
+          240,
+          270,
+          330,
+          420
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 210,
+            "time": 3.5035,
+            "sourceTime": 3.5035
+          },
+          {
+            "frame": 240,
+            "time": 4.004,
+            "sourceTime": 4.004
+          },
+          {
+            "frame": 270,
+            "time": 4.5045,
+            "sourceTime": 4.5045
+          },
+          {
+            "frame": 330,
+            "time": 5.5055,
+            "sourceTime": 5.5055
+          },
+          {
+            "frame": 420,
+            "time": 7.007011111111111,
+            "sourceTime": 7.007011111111111
+          }
+        ],
+        "previewStart": 3.0,
+        "previewEnd": 6.010916666666667,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      },
+      {
+        "cueId": "C2",
+        "eventId": "E2",
+        "suggestedStartTime": 8.5,
+        "suggestedEndTime": 13,
+        "text": "突进禁区没出手，转身回传左翼。",
+        "focus": "强调禁区持球受阻后的回传，这一段没有投篮，也没有篮板。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          509,
+          599,
+          659,
+          719,
+          749,
+          779
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 509,
+            "time": 8.491822222222222,
+            "sourceTime": 8.491822222222222
+          },
+          {
+            "frame": 599,
+            "time": 9.993322222222222,
+            "sourceTime": 9.993322222222222
+          },
+          {
+            "frame": 659,
+            "time": 10.994322222222221,
+            "sourceTime": 10.994322222222221
+          },
+          {
+            "frame": 719,
+            "time": 11.995333333333333,
+            "sourceTime": 11.995333333333333
+          },
+          {
+            "frame": 749,
+            "time": 12.495833333333334,
+            "sourceTime": 12.495833333333334
+          },
+          {
+            "frame": 779,
+            "time": 12.996333333333334,
+            "sourceTime": 12.996333333333334
+          }
+        ],
+        "previewStart": 8.5,
+        "previewEnd": 11.50875,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      },
+      {
+        "cueId": "C3",
+        "eventId": "E3",
+        "suggestedStartTime": 15.5,
+        "suggestedEndTime": 15.999333333333333,
+        "text": "左翼两人夹，球转弧顶。别跟人堆较劲，先把球转出来，再找机会。",
+        "focus": "暂停解释左翼夹击与弧顶接应的关系；这一传解除局部持球压力，但不等同于直接形成空位。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          779,
+          899,
+          929,
+          959
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 779,
+            "time": 12.996333333333334,
+            "sourceTime": 12.996333333333334
+          },
+          {
+            "frame": 899,
+            "time": 14.998333333333333,
+            "sourceTime": 14.998333333333333
+          },
+          {
+            "frame": 929,
+            "time": 15.498833333333334,
+            "sourceTime": 15.498833333333334
+          },
+          {
+            "frame": 959,
+            "time": 15.999333333333333,
+            "sourceTime": 15.999333333333333
+          }
+        ],
+        "previewStart": 15.999077777777778,
+        "previewEnd": 21.38695277777778,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false,
+        "holdSourceTime": 15.749077777777778
+      },
+      {
+        "cueId": "C4",
+        "eventId": "E4",
+        "suggestedStartTime": 16,
+        "suggestedEndTime": 19.2,
+        "text": "接球往里突，顿一下，中投！",
+        "focus": "接应者进入中距离后的节奏变化；不夸大成完全摆脱防守，也不误称节末压哨。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          959,
+          989,
+          1019,
+          1049,
+          1064,
+          1079,
+          1094
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 959,
+            "time": 15.999333333333333,
+            "sourceTime": 15.999333333333333
+          },
+          {
+            "frame": 989,
+            "time": 16.499833333333335,
+            "sourceTime": 16.499833333333335
+          },
+          {
+            "frame": 1019,
+            "time": 17.000333333333334,
+            "sourceTime": 17.000333333333334
+          },
+          {
+            "frame": 1049,
+            "time": 17.500833333333333,
+            "sourceTime": 17.500833333333333
+          },
+          {
+            "frame": 1064,
+            "time": 17.751077777777777,
+            "sourceTime": 17.751077777777777
+          },
+          {
+            "frame": 1079,
+            "time": 18.001333333333335,
+            "sourceTime": 18.001333333333335
+          },
+          {
+            "frame": 1094,
+            "time": 18.25157777777778,
+            "sourceTime": 18.25157777777778
+          }
+        ],
+        "previewStart": 21.887875,
+        "previewEnd": 24.498208333333334,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      },
+      {
+        "cueId": "C5",
+        "eventId": "E5",
+        "suggestedStartTime": 19.3,
+        "suggestedEndTime": 22.8,
+        "text": "两分拿下，火箭转身退防。",
+        "focus": "用篮筐画面、三分线内出手位置及延迟更新的记分牌共同确认两分；随后是独行侠底线发球。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          1079,
+          1139,
+          1145,
+          1151,
+          1229,
+          1259,
+          1289
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 1079,
+            "time": 18.001333333333335,
+            "sourceTime": 18.001333333333335
+          },
+          {
+            "frame": 1139,
+            "time": 19.002333333333333,
+            "sourceTime": 19.002333333333333
+          },
+          {
+            "frame": 1145,
+            "time": 19.102433333333334,
+            "sourceTime": 19.102433333333334
+          },
+          {
+            "frame": 1151,
+            "time": 19.202533333333335,
+            "sourceTime": 19.202533333333335
+          },
+          {
+            "frame": 1229,
+            "time": 20.503833333333333,
+            "sourceTime": 20.503833333333333
+          },
+          {
+            "frame": 1259,
+            "time": 21.004333333333335,
+            "sourceTime": 21.004333333333335
+          },
+          {
+            "frame": 1289,
+            "time": 21.504833333333334,
+            "sourceTime": 21.504833333333334
+          }
+        ],
+        "previewStart": 25.187874999999995,
+        "previewEnd": 27.566083333333328,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      }
+    ],
+    "video": "tmp/commentary-personality-20261009/002-natural-render/commentary-final.mp4"
+  },
+  {
+    "sample": "nba-lal-min-005",
+    "voice": "natural",
+    "audio": {
+      "config": {
+        "provider": "volcengine",
+        "resourceId": "seed-tts-2.0",
+        "speaker": "zh_female_vv_uranus_bigtts",
+        "style": "像熟悉篮球的中文解说自然聊天，分析清楚，调侃时带一点笑意；精彩动作短促兴奋，句间有轻重和停顿，英文感叹顺口，不要每句都喊，不额外添加文字。",
+        "sampleRate": 24000
+      },
+      "sectionId": "daada2dd-5b95-444d-afba-5e5b8532c103",
+      "cues": [
+        {
+          "cueId": "c1",
+          "text": "湖人保住球权，传回外线。",
+          "path": "cue-01.wav",
+          "durationSeconds": 2.3815,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "湖人保住球权，传回外线。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "湖人保住球权，传回外线。",
+              "words": [
+                {
+                  "confidence": 0.89809924,
+                  "endTime": 0.425,
+                  "startTime": 0.275,
+                  "word": "湖"
+                },
+                {
+                  "confidence": 0.88536245,
+                  "endTime": 0.575,
+                  "startTime": 0.425,
+                  "word": "人"
+                },
+                {
+                  "confidence": 0.95943904,
+                  "endTime": 0.745,
+                  "startTime": 0.575,
+                  "word": "保"
+                },
+                {
+                  "confidence": 0.9674628,
+                  "endTime": 0.865,
+                  "startTime": 0.745,
+                  "word": "住"
+                },
+                {
+                  "confidence": 0.95787215,
+                  "endTime": 1.055,
+                  "startTime": 0.865,
+                  "word": "球"
+                },
+                {
+                  "confidence": 0.9626526,
+                  "endTime": 1.325,
+                  "startTime": 1.055,
+                  "word": "权，"
+                },
+                {
+                  "confidence": 0.8565475,
+                  "endTime": 1.685,
+                  "startTime": 1.485,
+                  "word": "传"
+                },
+                {
+                  "confidence": 0.8893494,
+                  "endTime": 1.835,
+                  "startTime": 1.685,
+                  "word": "回"
+                },
+                {
+                  "confidence": 0.9818211,
+                  "endTime": 1.985,
+                  "startTime": 1.835,
+                  "word": "外"
+                },
+                {
+                  "confidence": 0.9339718,
+                  "endTime": 2.245,
+                  "startTime": 1.985,
+                  "word": "线。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 12
+          },
+          "logId": "2026100923520112E9E768CDB748EFEF82"
+        },
+        {
+          "cueId": "c2",
+          "text": "先传侧翼，再转底角，防守忙着赶场，球又走了。",
+          "path": "cue-02.wav",
+          "durationSeconds": 4.591208333333333,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "先传侧翼，再转底角，防守忙着赶场，球又走了。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "先传侧翼，再转底角，防守忙着赶场，球又走了。",
+              "words": [
+                {
+                  "confidence": 0.9674525,
+                  "endTime": 0.435,
+                  "startTime": 0.205,
+                  "word": "先"
+                },
+                {
+                  "confidence": 0.9539471,
+                  "endTime": 0.615,
+                  "startTime": 0.435,
+                  "word": "传"
+                },
+                {
+                  "confidence": 0.9418649,
+                  "endTime": 0.855,
+                  "startTime": 0.615,
+                  "word": "侧"
+                },
+                {
+                  "confidence": 0.8926356,
+                  "endTime": 1.065,
+                  "startTime": 0.855,
+                  "word": "翼，"
+                },
+                {
+                  "confidence": 0.9425479,
+                  "endTime": 1.365,
+                  "startTime": 1.165,
+                  "word": "再"
+                },
+                {
+                  "confidence": 0.9468573,
+                  "endTime": 1.515,
+                  "startTime": 1.365,
+                  "word": "转"
+                },
+                {
+                  "confidence": 0.86465865,
+                  "endTime": 1.695,
+                  "startTime": 1.515,
+                  "word": "底"
+                },
+                {
+                  "confidence": 0.89907146,
+                  "endTime": 1.935,
+                  "startTime": 1.695,
+                  "word": "角，"
+                },
+                {
+                  "confidence": 0.9874569,
+                  "endTime": 2.475,
+                  "startTime": 2.255,
+                  "word": "防"
+                },
+                {
+                  "confidence": 0.95900357,
+                  "endTime": 2.675,
+                  "startTime": 2.475,
+                  "word": "守"
+                },
+                {
+                  "confidence": 0.77127755,
+                  "endTime": 2.805,
+                  "startTime": 2.675,
+                  "word": "忙"
+                },
+                {
+                  "confidence": 0.808864,
+                  "endTime": 2.915,
+                  "startTime": 2.805,
+                  "word": "着"
+                },
+                {
+                  "confidence": 0.95809275,
+                  "endTime": 3.075,
+                  "startTime": 2.915,
+                  "word": "赶"
+                },
+                {
+                  "confidence": 0.9359244,
+                  "endTime": 3.345,
+                  "startTime": 3.075,
+                  "word": "场，"
+                },
+                {
+                  "confidence": 0.9145447,
+                  "endTime": 3.775,
+                  "startTime": 3.485,
+                  "word": "球"
+                },
+                {
+                  "confidence": 0.9475295,
+                  "endTime": 3.945,
+                  "startTime": 3.775,
+                  "word": "又"
+                },
+                {
+                  "confidence": 0.96418834,
+                  "endTime": 4.135,
+                  "startTime": 3.945,
+                  "word": "走"
+                },
+                {
+                  "confidence": 0.94906,
+                  "endTime": 4.325,
+                  "startTime": 4.135,
+                  "word": "了。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 22
+          },
+          "logId": "202610092352034D89AE1D2A51146114EB"
+        },
+        {
+          "cueId": "c3",
+          "text": "底角接球就跳！空当只够起手，出手还得迎着扑防。",
+          "path": "cue-03.wav",
+          "durationSeconds": 4.39075,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "底角接球就跳！空当只够起手，出手还得迎着扑防。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "底角接球就跳！",
+              "words": [
+                {
+                  "confidence": 0.82907486,
+                  "endTime": 0.395,
+                  "startTime": 0.215,
+                  "word": "底"
+                },
+                {
+                  "confidence": 0.91121966,
+                  "endTime": 0.605,
+                  "startTime": 0.395,
+                  "word": "角"
+                },
+                {
+                  "confidence": 0.9353476,
+                  "endTime": 0.825,
+                  "startTime": 0.605,
+                  "word": "接"
+                },
+                {
+                  "confidence": 0.8963929,
+                  "endTime": 0.975,
+                  "startTime": 0.825,
+                  "word": "球"
+                },
+                {
+                  "confidence": 0.9395721,
+                  "endTime": 1.105,
+                  "startTime": 0.975,
+                  "word": "就"
+                },
+                {
+                  "confidence": 0.9469544,
+                  "endTime": 1.365,
+                  "startTime": 1.105,
+                  "word": "跳！"
+                }
+              ]
+            },
+            {
+              "phonemes": [],
+              "text": "空当只够起手，出手还得迎着扑防。",
+              "words": [
+                {
+                  "confidence": 0.45751536,
+                  "endTime": 1.9350417,
+                  "startTime": 1.8600416,
+                  "word": "空"
+                },
+                {
+                  "confidence": 0.46531966,
+                  "endTime": 2.0050416,
+                  "startTime": 1.9350417,
+                  "word": "当"
+                },
+                {
+                  "confidence": 0.86132586,
+                  "endTime": 2.1450417,
+                  "startTime": 2.0050416,
+                  "word": "只"
+                },
+                {
+                  "confidence": 0.968583,
+                  "endTime": 2.3050416,
+                  "startTime": 2.1450417,
+                  "word": "够"
+                },
+                {
+                  "confidence": 0.7104316,
+                  "endTime": 2.4750416,
+                  "startTime": 2.3050416,
+                  "word": "起"
+                },
+                {
+                  "confidence": 0.923304,
+                  "endTime": 2.7050416,
+                  "startTime": 2.4750416,
+                  "word": "手，"
+                },
+                {
+                  "confidence": 0.9700672,
+                  "endTime": 3.1250415,
+                  "startTime": 2.9450417,
+                  "word": "出"
+                },
+                {
+                  "confidence": 0.94935143,
+                  "endTime": 3.3250418,
+                  "startTime": 3.1250415,
+                  "word": "手"
+                },
+                {
+                  "confidence": 0.96582425,
+                  "endTime": 3.4850416,
+                  "startTime": 3.3250418,
+                  "word": "还"
+                },
+                {
+                  "confidence": 0.8684175,
+                  "endTime": 3.6050415,
+                  "startTime": 3.4850416,
+                  "word": "得"
+                },
+                {
+                  "confidence": 0.8599541,
+                  "endTime": 3.7250416,
+                  "startTime": 3.6050415,
+                  "word": "迎"
+                },
+                {
+                  "confidence": 0.8027216,
+                  "endTime": 3.8150415,
+                  "startTime": 3.7250416,
+                  "word": "着"
+                },
+                {
+                  "confidence": 0.9431539,
+                  "endTime": 3.9650416,
+                  "startTime": 3.8150415,
+                  "word": "扑"
+                },
+                {
+                  "confidence": 0.9753303,
+                  "endTime": 4.2150416,
+                  "startTime": 3.9650416,
+                  "word": "防。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 23
+          },
+          "logId": "202610092352055EBDD9446D8829EBA75F"
+        },
+        {
+          "cueId": "c4",
+          "text": "球进了！森林狼底线发球。",
+          "path": "cue-04.wav",
+          "durationSeconds": 2.370458333333333,
+          "sentences": [
+            {
+              "phonemes": [],
+              "text": "球进了！森林狼底线发球。",
+              "words": []
+            },
+            {
+              "phonemes": [],
+              "text": "球进了！",
+              "words": [
+                {
+                  "confidence": 0.94202626,
+                  "endTime": 0.415,
+                  "startTime": 0.205,
+                  "word": "球"
+                },
+                {
+                  "confidence": 0.7913273,
+                  "endTime": 0.535,
+                  "startTime": 0.415,
+                  "word": "进"
+                },
+                {
+                  "confidence": 0.95084226,
+                  "endTime": 0.775,
+                  "startTime": 0.535,
+                  "word": "了！"
+                }
+              ]
+            },
+            {
+              "phonemes": [],
+              "text": "森林狼底线发球。",
+              "words": [
+                {
+                  "confidence": 0.56964225,
+                  "endTime": 1.3350418,
+                  "startTime": 1.2600417,
+                  "word": "森"
+                },
+                {
+                  "confidence": 0.33723667,
+                  "endTime": 1.3950417,
+                  "startTime": 1.3350418,
+                  "word": "林"
+                },
+                {
+                  "confidence": 0.401329,
+                  "endTime": 1.4550416,
+                  "startTime": 1.3950417,
+                  "word": "狼"
+                },
+                {
+                  "confidence": 0.92018753,
+                  "endTime": 1.6150417,
+                  "startTime": 1.4550416,
+                  "word": "底"
+                },
+                {
+                  "confidence": 0.9648315,
+                  "endTime": 1.7850417,
+                  "startTime": 1.6150417,
+                  "word": "线"
+                },
+                {
+                  "confidence": 0.9697493,
+                  "endTime": 1.9450417,
+                  "startTime": 1.7850417,
+                  "word": "发"
+                },
+                {
+                  "confidence": 0.94546795,
+                  "endTime": 2.1750417,
+                  "startTime": 1.9450417,
+                  "word": "球。"
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "text_words": 12
+          },
+          "logId": "20261009235207D0A9E45EB876D61B82C5"
+        }
+      ]
+    },
+    "segments": [
+      {
+        "kind": "play",
+        "sourceStart": 0.0,
+        "sourceEnd": 3.0,
+        "previewStart": 0.0,
+        "previewEnd": 3.0,
+        "cueId": "c1",
+        "speed": 1.0
+      },
+      {
+        "kind": "play",
+        "sourceStart": 3.0,
+        "sourceEnd": 5.12,
+        "previewStart": 3.0,
+        "previewEnd": 5.120000000000001
+      },
+      {
+        "kind": "hold",
+        "sourceStart": 5.12,
+        "sourceEnd": 5.12,
+        "previewStart": 5.120000000000001,
+        "previewEnd": 10.211208333333335,
+        "cueId": "c2",
+        "fallback": false
+      },
+      {
+        "kind": "play",
+        "sourceStart": 5.12,
+        "sourceEnd": 6.24,
+        "previewStart": 10.211208333333335,
+        "previewEnd": 11.331208333333333
+      },
+      {
+        "kind": "hold",
+        "sourceStart": 6.24,
+        "sourceEnd": 6.24,
+        "previewStart": 11.331208333333333,
+        "previewEnd": 16.221958333333333,
+        "cueId": "c3",
+        "fallback": false
+      },
+      {
+        "kind": "play",
+        "sourceStart": 6.24,
+        "sourceEnd": 7.8,
+        "previewStart": 16.221958333333333,
+        "previewEnd": 17.781958333333336
+      },
+      {
+        "kind": "play",
+        "sourceStart": 7.8,
+        "sourceEnd": 10.68,
+        "previewStart": 17.781958333333336,
+        "previewEnd": 20.661958333333335,
+        "cueId": "c4",
+        "speed": 1.0
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "c1",
+        "eventId": "e1",
+        "suggestedStartTime": 0,
+        "suggestedEndTime": 3,
+        "text": "湖人保住球权，传回外线。",
+        "focus": "交代篮下争抢后的球权延续，不指定个人篮板。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          8,
+          12,
+          25,
+          37
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 8,
+            "time": 0.32,
+            "sourceTime": 0.44
+          },
+          {
+            "frame": 12,
+            "time": 0.48,
+            "sourceTime": 0.6
+          },
+          {
+            "frame": 25,
+            "time": 1,
+            "sourceTime": 1.12
+          },
+          {
+            "frame": 37,
+            "time": 1.48,
+            "sourceTime": 1.6
+          }
+        ],
+        "previewStart": 0.0,
+        "previewEnd": 2.3815,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      },
+      {
+        "cueId": "c2",
+        "eventId": "e2",
+        "suggestedStartTime": 4.52,
+        "suggestedEndTime": 5.76,
+        "text": "先传侧翼，再转底角，防守忙着赶场，球又走了。",
+        "focus": "在侧翼接球至底角接球处暂停，解释两次传球与防守连续外扑的关系。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          87,
+          100,
+          113,
+          125,
+          138,
+          144
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 87,
+            "time": 3.48,
+            "sourceTime": 3.6
+          },
+          {
+            "frame": 100,
+            "time": 4,
+            "sourceTime": 4.12
+          },
+          {
+            "frame": 113,
+            "time": 4.52,
+            "sourceTime": 4.64
+          },
+          {
+            "frame": 125,
+            "time": 5,
+            "sourceTime": 5.12
+          },
+          {
+            "frame": 138,
+            "time": 5.52,
+            "sourceTime": 5.64
+          },
+          {
+            "frame": 144,
+            "time": 5.76,
+            "sourceTime": 5.88
+          }
+        ],
+        "previewStart": 5.370000000000001,
+        "previewEnd": 9.961208333333335,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false,
+        "holdSourceTime": 5.12
+      },
+      {
+        "cueId": "c3",
+        "eventId": "e3",
+        "suggestedStartTime": 6,
+        "suggestedEndTime": 6.52,
+        "text": "底角接球就跳！空当只够起手，出手还得迎着扑防。",
+        "focus": "停在投篮起手附近，区分短暂起手空间与完全无人干扰。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          144,
+          150,
+          157,
+          163
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 144,
+            "time": 5.76,
+            "sourceTime": 5.88
+          },
+          {
+            "frame": 150,
+            "time": 6,
+            "sourceTime": 6.12
+          },
+          {
+            "frame": 157,
+            "time": 6.28,
+            "sourceTime": 6.4
+          },
+          {
+            "frame": 163,
+            "time": 6.52,
+            "sourceTime": 6.64
+          }
+        ],
+        "previewStart": 11.581208333333333,
+        "previewEnd": 15.971958333333333,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false,
+        "holdSourceTime": 6.24
+      },
+      {
+        "cueId": "c4",
+        "eventId": "e4",
+        "suggestedStartTime": 7.8,
+        "suggestedEndTime": 10.68,
+        "text": "球进了！森林狼底线发球。",
+        "focus": "确认投篮命中后的球权转换，不误报为抢下防守篮板。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          183,
+          187,
+          191,
+          225,
+          237,
+          250,
+          262,
+          266
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 183,
+            "time": 7.32,
+            "sourceTime": 7.44
+          },
+          {
+            "frame": 187,
+            "time": 7.4799999999999995,
+            "sourceTime": 7.6
+          },
+          {
+            "frame": 191,
+            "time": 7.64,
+            "sourceTime": 7.76
+          },
+          {
+            "frame": 225,
+            "time": 9,
+            "sourceTime": 9.12
+          },
+          {
+            "frame": 237,
+            "time": 9.48,
+            "sourceTime": 9.6
+          },
+          {
+            "frame": 250,
+            "time": 10,
+            "sourceTime": 10.12
+          },
+          {
+            "frame": 262,
+            "time": 10.48,
+            "sourceTime": 10.6
+          },
+          {
+            "frame": 266,
+            "time": 10.64,
+            "sourceTime": 10.76
+          }
+        ],
+        "previewStart": 17.781958333333336,
+        "previewEnd": 20.152416666666667,
+        "narrationSpeed": 1.0,
+        "convertedToHold": false
+      }
+    ],
+    "video": "tmp/commentary-personality-20261009/third-natural-render/commentary-final.mp4"
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "status": "failed",
+  "error": "润色候选两次均未通过校验，原稿保留：C3暂停句估计6.48秒，超过原稿语音预算6.36秒；缩短，不靠加长暂停来装笑话",
+  "attempts": [
+    {
+      "model": "openai/gpt-6-astra",
+      "requestId": "gen-1791561166-o21wh3nstPkHatCkqNdP",
+      "usage": {
+        "prompt_tokens": 5864,
+        "completion_tokens": 370,
+        "total_tokens": 6234,
+        "cost": 0.024391,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 5861,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.024391,
+          "upstream_inference_prompt_cost": 0.005891,
+          "upstream_inference_completions_cost": 0.0185
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 234,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "elapsedSeconds": 14.359,
+      "validationError": "C3暂停句估计6.98秒，超过原稿语音预算6.36秒；缩短，不靠加长暂停来装笑话"
+    },
+    {
+      "model": "openai/gpt-6-astra",
+      "requestId": "gen-1791561180-FEmH4pxfBnBHzk67UszC",
+      "usage": {
+        "prompt_tokens": 6046,
+        "completion_tokens": 133,
+        "total_tokens": 6179,
+        "cost": 0.014816,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 5861,
+          "cache_write_tokens": 182,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.014816,
+          "upstream_inference_prompt_cost": 0.008166,
+          "upstream_inference_completions_cost": 0.00665
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "elapsedSeconds": 5.766,
+      "validationError": "C3暂停句估计6.48秒，超过原稿语音预算6.36秒；缩短，不靠加长暂停来装笑话"
+    }
+  ]
+}

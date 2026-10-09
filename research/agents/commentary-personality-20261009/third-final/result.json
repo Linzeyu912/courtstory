@@ -1,0 +1,969 @@
+{
+  "status": "completed",
+  "plan": {
+    "summary": "素材从篮下争抢开始，并非完整回合。湖人保住前场球权后把球送回外线；外线持球人面对靠近的防守，先传给远侧边线附近的队友，后者再转给底角。底角球员接球后迅速起跳，迎着扑防出手并命中，随后森林狼从底线发球。最值得讲的是连续传球与防守外扑的先后关系，而不是把这次出手描述成完全无人干扰。片尾常规比分尚未更新，讲解不报具体比分或投篮分值。",
+    "events": [
+      {
+        "eventId": "e1",
+        "startTime": 0,
+        "endTime": 1.48,
+        "description": "开头球在篮筐附近，双方多人争抢。湖人留住前场球权，随后把球传到画面右侧外线，由外线队友接住。片段未包含此前完整出手过程，不指定个人篮板归属。",
+        "participants": [
+          "湖人篮下球员",
+          "湖人外线接球队员",
+          "森林狼篮下防守球员"
+        ],
+        "evidenceFrames": [
+          0,
+          8,
+          12,
+          20,
+          25,
+          37
+        ],
+        "uncertainties": [
+          "开头此前的投篮过程不在素材内；争抢中的完整控球细节有遮挡，不指定个人篮板归属。"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 0,
+            "time": 0,
+            "sourceTime": 0.12
+          },
+          {
+            "frame": 8,
+            "time": 0.32,
+            "sourceTime": 0.44
+          },
+          {
+            "frame": 12,
+            "time": 0.48,
+            "sourceTime": 0.6
+          },
+          {
+            "frame": 20,
+            "time": 0.8,
+            "sourceTime": 0.92
+          },
+          {
+            "frame": 25,
+            "time": 1,
+            "sourceTime": 1.12
+          },
+          {
+            "frame": 37,
+            "time": 1.48,
+            "sourceTime": 1.6
+          }
+        ]
+      },
+      {
+        "eventId": "e2",
+        "startTime": 1.48,
+        "endTime": 5.76,
+        "description": "湖人外线重新组织。画面右侧持球人身前及内侧有两名森林狼防守人靠近；他把球传到远侧边线附近的队友。防守随球外扑，接球队员再把球传向底角，底角队友接球。可见机制是连续转移让防守不断改变扑防目标，不强行认定挡拆或预设包夹战术。",
+        "participants": [
+          "湖人外线持球人",
+          "湖人远侧侧翼接应球员",
+          "湖人底角球员",
+          "森林狼外围防守球员"
+        ],
+        "evidenceFrames": [
+          37,
+          75,
+          87,
+          100,
+          113,
+          125,
+          138,
+          144
+        ],
+        "uncertainties": [],
+        "evidenceTimes": [
+          {
+            "frame": 37,
+            "time": 1.48,
+            "sourceTime": 1.6
+          },
+          {
+            "frame": 75,
+            "time": 3,
+            "sourceTime": 3.12
+          },
+          {
+            "frame": 87,
+            "time": 3.48,
+            "sourceTime": 3.6
+          },
+          {
+            "frame": 100,
+            "time": 4,
+            "sourceTime": 4.12
+          },
+          {
+            "frame": 113,
+            "time": 4.52,
+            "sourceTime": 4.64
+          },
+          {
+            "frame": 125,
+            "time": 5,
+            "sourceTime": 5.12
+          },
+          {
+            "frame": 138,
+            "time": 5.52,
+            "sourceTime": 5.64
+          },
+          {
+            "frame": 144,
+            "time": 5.76,
+            "sourceTime": 5.88
+          }
+        ]
+      },
+      {
+        "eventId": "e3",
+        "startTime": 5.52,
+        "endTime": 7.8,
+        "description": "底角球员接球后举球起跳，森林狼防守人从内侧向底角扑出并起跳干扰。湖人球员迎着扑防完成投篮，球随后入筐。这里有接球起手的空间，但不是全程无人防守的空位。",
+        "participants": [
+          "湖人底角投篮球员",
+          "森林狼底角扑防球员"
+        ],
+        "evidenceFrames": [
+          138,
+          144,
+          150,
+          157,
+          175,
+          179,
+          183,
+          187,
+          191,
+          195
+        ],
+        "uncertainties": [
+          "常规比分在片尾仍未完成更新，解说只说投篮命中，不报分值。"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 138,
+            "time": 5.52,
+            "sourceTime": 5.64
+          },
+          {
+            "frame": 144,
+            "time": 5.76,
+            "sourceTime": 5.88
+          },
+          {
+            "frame": 150,
+            "time": 6,
+            "sourceTime": 6.12
+          },
+          {
+            "frame": 157,
+            "time": 6.28,
+            "sourceTime": 6.4
+          },
+          {
+            "frame": 175,
+            "time": 7,
+            "sourceTime": 7.12
+          },
+          {
+            "frame": 179,
+            "time": 7.16,
+            "sourceTime": 7.28
+          },
+          {
+            "frame": 183,
+            "time": 7.32,
+            "sourceTime": 7.44
+          },
+          {
+            "frame": 187,
+            "time": 7.4799999999999995,
+            "sourceTime": 7.6
+          },
+          {
+            "frame": 191,
+            "time": 7.64,
+            "sourceTime": 7.76
+          },
+          {
+            "frame": 195,
+            "time": 7.8,
+            "sourceTime": 7.92
+          }
+        ]
+      },
+      {
+        "eventId": "e4",
+        "startTime": 7.8,
+        "endTime": 10.68,
+        "description": "命中后，森林狼球员在篮下取球并走到底线外发球，队友接球准备推进；湖人球员退防。不能将这一段取球描述成防守篮板。片尾另出现湖人得分提示动画。",
+        "participants": [
+          "森林狼底线发球队员",
+          "森林狼接球队员",
+          "湖人退防球员"
+        ],
+        "evidenceFrames": [
+          200,
+          212,
+          225,
+          237,
+          250,
+          262,
+          266
+        ],
+        "uncertainties": [
+          "片尾没有显示下一回合完整推进过程。"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 200,
+            "time": 7.999999999999999,
+            "sourceTime": 8.12
+          },
+          {
+            "frame": 212,
+            "time": 8.48,
+            "sourceTime": 8.6
+          },
+          {
+            "frame": 225,
+            "time": 9,
+            "sourceTime": 9.12
+          },
+          {
+            "frame": 237,
+            "time": 9.48,
+            "sourceTime": 9.6
+          },
+          {
+            "frame": 250,
+            "time": 10,
+            "sourceTime": 10.12
+          },
+          {
+            "frame": 262,
+            "time": 10.48,
+            "sourceTime": 10.6
+          },
+          {
+            "frame": 266,
+            "time": 10.64,
+            "sourceTime": 10.76
+          }
+        ]
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "c1",
+        "eventId": "e1",
+        "suggestedStartTime": 0,
+        "suggestedEndTime": 3,
+        "text": "湖人保住球权，传回外线。",
+        "focus": "交代篮下争抢后的球权延续，不指定个人篮板。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          8,
+          12,
+          25,
+          37
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 8,
+            "time": 0.32,
+            "sourceTime": 0.44
+          },
+          {
+            "frame": 12,
+            "time": 0.48,
+            "sourceTime": 0.6
+          },
+          {
+            "frame": 25,
+            "time": 1,
+            "sourceTime": 1.12
+          },
+          {
+            "frame": 37,
+            "time": 1.48,
+            "sourceTime": 1.6
+          }
+        ]
+      },
+      {
+        "cueId": "c2",
+        "eventId": "e2",
+        "suggestedStartTime": 4.52,
+        "suggestedEndTime": 5.76,
+        "text": "先传侧翼，再转底角，防守忙着赶场，球又走了。",
+        "focus": "在侧翼接球至底角接球处暂停，解释两次传球与防守连续外扑的关系。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          87,
+          100,
+          113,
+          125,
+          138,
+          144
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 87,
+            "time": 3.48,
+            "sourceTime": 3.6
+          },
+          {
+            "frame": 100,
+            "time": 4,
+            "sourceTime": 4.12
+          },
+          {
+            "frame": 113,
+            "time": 4.52,
+            "sourceTime": 4.64
+          },
+          {
+            "frame": 125,
+            "time": 5,
+            "sourceTime": 5.12
+          },
+          {
+            "frame": 138,
+            "time": 5.52,
+            "sourceTime": 5.64
+          },
+          {
+            "frame": 144,
+            "time": 5.76,
+            "sourceTime": 5.88
+          }
+        ]
+      },
+      {
+        "cueId": "c3",
+        "eventId": "e3",
+        "suggestedStartTime": 6,
+        "suggestedEndTime": 6.52,
+        "text": "底角接球就跳！空当只够起手，出手还得迎着扑防。",
+        "focus": "停在投篮起手附近，区分短暂起手空间与完全无人干扰。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          144,
+          150,
+          157,
+          163
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 144,
+            "time": 5.76,
+            "sourceTime": 5.88
+          },
+          {
+            "frame": 150,
+            "time": 6,
+            "sourceTime": 6.12
+          },
+          {
+            "frame": 157,
+            "time": 6.28,
+            "sourceTime": 6.4
+          },
+          {
+            "frame": 163,
+            "time": 6.52,
+            "sourceTime": 6.64
+          }
+        ]
+      },
+      {
+        "cueId": "c4",
+        "eventId": "e4",
+        "suggestedStartTime": 7.8,
+        "suggestedEndTime": 10.68,
+        "text": "球进了！森林狼底线发球。",
+        "focus": "确认投篮命中后的球权转换，不误报为抢下防守篮板。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          183,
+          187,
+          191,
+          225,
+          237,
+          250,
+          262,
+          266
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 183,
+            "time": 7.32,
+            "sourceTime": 7.44
+          },
+          {
+            "frame": 187,
+            "time": 7.4799999999999995,
+            "sourceTime": 7.6
+          },
+          {
+            "frame": 191,
+            "time": 7.64,
+            "sourceTime": 7.76
+          },
+          {
+            "frame": 225,
+            "time": 9,
+            "sourceTime": 9.12
+          },
+          {
+            "frame": 237,
+            "time": 9.48,
+            "sourceTime": 9.6
+          },
+          {
+            "frame": 250,
+            "time": 10,
+            "sourceTime": 10.12
+          },
+          {
+            "frame": 262,
+            "time": 10.48,
+            "sourceTime": 10.6
+          },
+          {
+            "frame": 266,
+            "time": 10.64,
+            "sourceTime": 10.76
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "球员姓名未经核实，全部使用球队及场上位置称呼。",
+      "素材从回合中途开始，不能据此重建前一次完整投篮。",
+      "常规比分显示存在延迟，不报具体得分变化；以球筐附近画面、随后底线发球和片尾得分提示共同核实命中。"
+    ]
+  },
+  "originalPlan": {
+    "summary": "素材从篮下争抢开始，并非完整回合。湖人保住前场球权后把球送回外线；外线持球人面对靠近的防守，先传给远侧边线附近的队友，后者再转给底角。底角球员接球后迅速起跳，迎着扑防出手并命中，随后森林狼从底线发球。最值得讲的是连续传球与防守外扑的先后关系，而不是把这次出手描述成完全无人干扰。片尾常规比分尚未更新，讲解不报具体比分或投篮分值。",
+    "events": [
+      {
+        "eventId": "e1",
+        "startTime": 0,
+        "endTime": 1.48,
+        "description": "开头球在篮筐附近，双方多人争抢。湖人留住前场球权，随后把球传到画面右侧外线，由外线队友接住。片段未包含此前完整出手过程，不指定个人篮板归属。",
+        "participants": [
+          "湖人篮下球员",
+          "湖人外线接球队员",
+          "森林狼篮下防守球员"
+        ],
+        "evidenceFrames": [
+          0,
+          8,
+          12,
+          20,
+          25,
+          37
+        ],
+        "uncertainties": [
+          "开头此前的投篮过程不在素材内；争抢中的完整控球细节有遮挡，不指定个人篮板归属。"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 0,
+            "time": 0,
+            "sourceTime": 0.12
+          },
+          {
+            "frame": 8,
+            "time": 0.32,
+            "sourceTime": 0.44
+          },
+          {
+            "frame": 12,
+            "time": 0.48,
+            "sourceTime": 0.6
+          },
+          {
+            "frame": 20,
+            "time": 0.8,
+            "sourceTime": 0.92
+          },
+          {
+            "frame": 25,
+            "time": 1,
+            "sourceTime": 1.12
+          },
+          {
+            "frame": 37,
+            "time": 1.48,
+            "sourceTime": 1.6
+          }
+        ]
+      },
+      {
+        "eventId": "e2",
+        "startTime": 1.48,
+        "endTime": 5.76,
+        "description": "湖人外线重新组织。画面右侧持球人身前及内侧有两名森林狼防守人靠近；他把球传到远侧边线附近的队友。防守随球外扑，接球队员再把球传向底角，底角队友接球。可见机制是连续转移让防守不断改变扑防目标，不强行认定挡拆或预设包夹战术。",
+        "participants": [
+          "湖人外线持球人",
+          "湖人远侧侧翼接应球员",
+          "湖人底角球员",
+          "森林狼外围防守球员"
+        ],
+        "evidenceFrames": [
+          37,
+          75,
+          87,
+          100,
+          113,
+          125,
+          138,
+          144
+        ],
+        "uncertainties": [],
+        "evidenceTimes": [
+          {
+            "frame": 37,
+            "time": 1.48,
+            "sourceTime": 1.6
+          },
+          {
+            "frame": 75,
+            "time": 3,
+            "sourceTime": 3.12
+          },
+          {
+            "frame": 87,
+            "time": 3.48,
+            "sourceTime": 3.6
+          },
+          {
+            "frame": 100,
+            "time": 4,
+            "sourceTime": 4.12
+          },
+          {
+            "frame": 113,
+            "time": 4.52,
+            "sourceTime": 4.64
+          },
+          {
+            "frame": 125,
+            "time": 5,
+            "sourceTime": 5.12
+          },
+          {
+            "frame": 138,
+            "time": 5.52,
+            "sourceTime": 5.64
+          },
+          {
+            "frame": 144,
+            "time": 5.76,
+            "sourceTime": 5.88
+          }
+        ]
+      },
+      {
+        "eventId": "e3",
+        "startTime": 5.52,
+        "endTime": 7.8,
+        "description": "底角球员接球后举球起跳，森林狼防守人从内侧向底角扑出并起跳干扰。湖人球员迎着扑防完成投篮，球随后入筐。这里有接球起手的空间，但不是全程无人防守的空位。",
+        "participants": [
+          "湖人底角投篮球员",
+          "森林狼底角扑防球员"
+        ],
+        "evidenceFrames": [
+          138,
+          144,
+          150,
+          157,
+          175,
+          179,
+          183,
+          187,
+          191,
+          195
+        ],
+        "uncertainties": [
+          "常规比分在片尾仍未完成更新，解说只说投篮命中，不报分值。"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 138,
+            "time": 5.52,
+            "sourceTime": 5.64
+          },
+          {
+            "frame": 144,
+            "time": 5.76,
+            "sourceTime": 5.88
+          },
+          {
+            "frame": 150,
+            "time": 6,
+            "sourceTime": 6.12
+          },
+          {
+            "frame": 157,
+            "time": 6.28,
+            "sourceTime": 6.4
+          },
+          {
+            "frame": 175,
+            "time": 7,
+            "sourceTime": 7.12
+          },
+          {
+            "frame": 179,
+            "time": 7.16,
+            "sourceTime": 7.28
+          },
+          {
+            "frame": 183,
+            "time": 7.32,
+            "sourceTime": 7.44
+          },
+          {
+            "frame": 187,
+            "time": 7.4799999999999995,
+            "sourceTime": 7.6
+          },
+          {
+            "frame": 191,
+            "time": 7.64,
+            "sourceTime": 7.76
+          },
+          {
+            "frame": 195,
+            "time": 7.8,
+            "sourceTime": 7.92
+          }
+        ]
+      },
+      {
+        "eventId": "e4",
+        "startTime": 7.8,
+        "endTime": 10.68,
+        "description": "命中后，森林狼球员在篮下取球并走到底线外发球，队友接球准备推进；湖人球员退防。不能将这一段取球描述成防守篮板。片尾另出现湖人得分提示动画。",
+        "participants": [
+          "森林狼底线发球队员",
+          "森林狼接球队员",
+          "湖人退防球员"
+        ],
+        "evidenceFrames": [
+          200,
+          212,
+          225,
+          237,
+          250,
+          262,
+          266
+        ],
+        "uncertainties": [
+          "片尾没有显示下一回合完整推进过程。"
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 200,
+            "time": 7.999999999999999,
+            "sourceTime": 8.12
+          },
+          {
+            "frame": 212,
+            "time": 8.48,
+            "sourceTime": 8.6
+          },
+          {
+            "frame": 225,
+            "time": 9,
+            "sourceTime": 9.12
+          },
+          {
+            "frame": 237,
+            "time": 9.48,
+            "sourceTime": 9.6
+          },
+          {
+            "frame": 250,
+            "time": 10,
+            "sourceTime": 10.12
+          },
+          {
+            "frame": 262,
+            "time": 10.48,
+            "sourceTime": 10.6
+          },
+          {
+            "frame": 266,
+            "time": 10.64,
+            "sourceTime": 10.76
+          }
+        ]
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "c1",
+        "eventId": "e1",
+        "suggestedStartTime": 0,
+        "suggestedEndTime": 3,
+        "text": "湖人保住球权，回传外线。",
+        "focus": "交代篮下争抢后的球权延续，不指定个人篮板。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          8,
+          12,
+          25,
+          37
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 8,
+            "time": 0.32,
+            "sourceTime": 0.44
+          },
+          {
+            "frame": 12,
+            "time": 0.48,
+            "sourceTime": 0.6
+          },
+          {
+            "frame": 25,
+            "time": 1,
+            "sourceTime": 1.12
+          },
+          {
+            "frame": 37,
+            "time": 1.48,
+            "sourceTime": 1.6
+          }
+        ]
+      },
+      {
+        "cueId": "c2",
+        "eventId": "e2",
+        "suggestedStartTime": 4.52,
+        "suggestedEndTime": 5.76,
+        "text": "先传侧翼，再转底角，湖人用连续传球调动防守。",
+        "focus": "在侧翼接球至底角接球处暂停，解释两次传球与防守连续外扑的关系。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          87,
+          100,
+          113,
+          125,
+          138,
+          144
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 87,
+            "time": 3.48,
+            "sourceTime": 3.6
+          },
+          {
+            "frame": 100,
+            "time": 4,
+            "sourceTime": 4.12
+          },
+          {
+            "frame": 113,
+            "time": 4.52,
+            "sourceTime": 4.64
+          },
+          {
+            "frame": 125,
+            "time": 5,
+            "sourceTime": 5.12
+          },
+          {
+            "frame": 138,
+            "time": 5.52,
+            "sourceTime": 5.64
+          },
+          {
+            "frame": 144,
+            "time": 5.76,
+            "sourceTime": 5.88
+          }
+        ]
+      },
+      {
+        "cueId": "c3",
+        "eventId": "e3",
+        "suggestedStartTime": 6,
+        "suggestedEndTime": 6.52,
+        "text": "底角接球迅速起跳，迎着扑防出手，并不是完全空位。",
+        "focus": "停在投篮起手附近，区分短暂起手空间与完全无人干扰。",
+        "delivery": "pause",
+        "evidenceFrames": [
+          144,
+          150,
+          157,
+          163
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 144,
+            "time": 5.76,
+            "sourceTime": 5.88
+          },
+          {
+            "frame": 150,
+            "time": 6,
+            "sourceTime": 6.12
+          },
+          {
+            "frame": 157,
+            "time": 6.28,
+            "sourceTime": 6.4
+          },
+          {
+            "frame": 163,
+            "time": 6.52,
+            "sourceTime": 6.64
+          }
+        ]
+      },
+      {
+        "cueId": "c4",
+        "eventId": "e4",
+        "suggestedStartTime": 7.8,
+        "suggestedEndTime": 10.68,
+        "text": "球进，森林狼底线发球。",
+        "focus": "确认投篮命中后的球权转换，不误报为抢下防守篮板。",
+        "delivery": "during_play",
+        "evidenceFrames": [
+          183,
+          187,
+          191,
+          225,
+          237,
+          250,
+          262,
+          266
+        ],
+        "evidenceTimes": [
+          {
+            "frame": 183,
+            "time": 7.32,
+            "sourceTime": 7.44
+          },
+          {
+            "frame": 187,
+            "time": 7.4799999999999995,
+            "sourceTime": 7.6
+          },
+          {
+            "frame": 191,
+            "time": 7.64,
+            "sourceTime": 7.76
+          },
+          {
+            "frame": 225,
+            "time": 9,
+            "sourceTime": 9.12
+          },
+          {
+            "frame": 237,
+            "time": 9.48,
+            "sourceTime": 9.6
+          },
+          {
+            "frame": 250,
+            "time": 10,
+            "sourceTime": 10.12
+          },
+          {
+            "frame": 262,
+            "time": 10.48,
+            "sourceTime": 10.6
+          },
+          {
+            "frame": 266,
+            "time": 10.64,
+            "sourceTime": 10.76
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "球员姓名未经核实，全部使用球队及场上位置称呼。",
+      "素材从回合中途开始，不能据此重建前一次完整投篮。",
+      "常规比分显示存在延迟，不报具体得分变化；以球筐附近画面、随后底线发球和片尾得分提示共同核实命中。"
+    ]
+  },
+  "polish": {
+    "requestedModel": "openai/gpt-6-astra",
+    "materialsVersion": "2026-10-09-v3",
+    "includeMemes": true,
+    "attempts": [
+      {
+        "model": "openai/gpt-6-astra",
+        "requestId": "gen-1791560798-SriHNaOxXcmMJ4ikIUyj",
+        "usage": {
+          "prompt_tokens": 5585,
+          "completion_tokens": 634,
+          "total_tokens": 6219,
+          "cost": 0.053159,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 4204,
+            "cache_write_tokens": 1378,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.053159,
+            "upstream_inference_prompt_cost": 0.021459,
+            "upstream_inference_completions_cost": 0.0317
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 516,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "elapsedSeconds": 20.047
+      }
+    ],
+    "elapsedSeconds": 20.047,
+    "timing": [
+      {
+        "cueId": "c1",
+        "estimateSeconds": 2.74,
+        "windowSeconds": 3,
+        "delivery": "during_play"
+      },
+      {
+        "cueId": "c2",
+        "estimateSeconds": 4.98,
+        "windowSeconds": 1.24,
+        "delivery": "pause"
+      },
+      {
+        "cueId": "c3",
+        "estimateSeconds": 5.36,
+        "windowSeconds": 0.52,
+        "delivery": "pause"
+      },
+      {
+        "cueId": "c4",
+        "estimateSeconds": 2.74,
+        "windowSeconds": 2.88,
+        "delivery": "during_play"
+      }
+    ]
+  }
+}
