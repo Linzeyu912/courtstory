@@ -2,30 +2,32 @@
 
 - 日期 / 时区：2026-10-10，Asia/Singapore（UTC+8）。
 - 范围：用户明确要求按类别分别 commit，先推送 `codex/courtstory-ui-broadcast`，再合并并推送 `main`；本轮不包含云端部署。
-- 当前状态：代码分类与验证完成，资料归档和远端发布进行中。发布完成后在本文补记远端核对结果。
+- 当前状态：六类提交及整合后验证完成，待执行远端推送与 main 合并。发布完成后在本文补记远端核对结果。
 - 起始基线：远端 main `12c7413d897908c1b262025af153b096004c19bc`；原本地 UI `acdcdda7b026639225d6e2376c6cf6697cc28a91`。开工时两个工作区均干净，远端只有 main，没有已共享的 UI 分支；GitHub open Issues 为空。
+- 推送前 main 新增 [`deb48da`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/deb48da55bfd769ec97ed472cfb1029ee8418a5a) 出手冻结与三色反馈。按流程仅重放本轮六个尚未推送的分类提交，保留该功能；只有工程入口和团队状态两份文档冲突，均保留双方内容。
 
 ## 分类提交
 
 | 类别 | 提交 | 内容 |
 | --- | --- | --- |
-| 独立设计样稿 | [`75eea62`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/75eea62973ea67771622e7e236736347dc28bfe8) | 可交互 Broadcast Studio 样稿、组件、示例画面、样稿字体及许可证 |
-| 视觉主题与交互表现 | [`60dc83b`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/60dc83b22c56a2ec755af45ea7780e2953c9dd31) | 正式工作台／回放主题、字体、篮球标记、放大的局部灰线、共享页签与底线组件 |
-| 静态资源服务 | [`22f83e4`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/22f83e4363359d6e8c940914808e3a4cd2952a66) | 设计资源白名单路由、WOFF2 MIME 与服务回归断言 |
-| 工作台流程适配 | [`4052e18`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/4052e18d26964d3873a3877860e243264d2cd59d) | 双行顶栏、归档入口、解说先行页签、草稿保留、联合成片入口及相关回归 |
-| 设计资料与验收证据 | 本文所在资料提交，发布后补记哈希 | 视觉规范、NBA 参考图、实际工作台审核截图、工程索引 |
+| 独立设计样稿 | [`6890b79`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/6890b792680597ea1d66d0313c9b1d6b0f991dab) | 可交互 Broadcast Studio 样稿、组件、示例画面、样稿字体及许可证 |
+| 视觉主题与交互表现 | [`78b535a`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/78b535afb4217d4761ae6f061877634aaea12292) | 正式工作台／回放主题、字体、篮球标记、放大的局部灰线、共享页签与底线组件 |
+| 静态资源服务 | [`e5a20af`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/e5a20af661a216dffd9aa3ef059f35efd5154aa2) | 设计资源白名单路由、WOFF2 MIME 与服务回归断言 |
+| 工作台流程适配 | [`3517ebd`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/3517ebde4708341f00242d2210e1df72e7a41863) | 双行顶栏、归档入口、解说先行页签、草稿保留、联合成片入口及相关回归 |
+| 设计资料与验收证据 | [`0934e30`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/0934e30b691bf760f2d29b7d58b387f77dcf335b) | 视觉规范、NBA 参考图、实际工作台审核截图、工程索引 |
 | 协作与交接记录 | 分类记录提交，发布后补记哈希 | 当前授权边界、团队入口与状态、各轮历史交接及本轮交接 |
 
-分类只调整尚未共享的本地提交组织。源代码、构建产物和设计资源与用户刚审核的 `acdcdda` 相同；仅更新文档以反映本轮发布授权。main 已有的解说、独立绘图、逐句接口和其他成员历史不重新提交、不改写。
+分类只调整尚未共享的本地提交组织。首次分类后的代码、构建产物和设计资源与用户刚审核的 `acdcdda` 相同；随后完整吸收 main 的出手反馈功能。`git range-diff` 确认样稿、主题和 UI 流程改动保持，服务测试仅增加新 main 的相邻上下文；文档保留双方记录。main 已有的解说、独立绘图、逐句接口和其他成员历史不重新提交、不改写。
 
 ## 验证
 
 - 重新构建 `player-review` 成功，产物与审核快照一致。
-- 前端定向回归：124 项全部通过，涵盖工作区、导航、战术／解说、视频库及集成。
-- HTTP 服务回归：33 项全部通过，包含新增主题／字体资源和已有解说接口。
+- 首次分类前端定向回归 124 项、HTTP 服务回归 33 项全部通过。
+- 整合 main 新增功能后重新执行前端／Agent／战术共享渲染全量回归：853 项中 852 通过、1 项已有可选跳过、0 失败。
+- 整合后执行 15 个 Python 模块的顺序回归：168 项全部通过，包括出手反馈、独立绘图、联合成片、字幕配音、姓名、HTTP 及渲染；使用本机已有 FFmpeg，没有新增真实模型调用。
 - 在主 checkout 运行 `scripts/validate_video_data.py --check-index`：10 个数据集、166 条视频、166 个本地文件摘要、166 个 Git LFS 索引全部通过。两个分支视频目录一致，本轮不改视频。
-- 代码与资源相对审核快照无差异。前轮全量和浏览器验证分别见[同步验收](ui-main-sync-20261010.md)及[篮球顶栏交接](../../handoffs/Linzeyu912/2026-10-10-0153-basketball-header.md)，本轮没有将历史测试写成重新执行。
-- 本轮文档链接、字体摘要和差异检查在发布前核对。原版 OFL 许可证中的行尾空格保留，不修改上游许可文本。
+- 视觉资源相对审核快照无差异，后端相对最新 main 只保留静态资源路由／MIME 及对应测试差异。前轮浏览器验证见[同步验收](ui-main-sync-20261010.md)及[篮球顶栏交接](../../handoffs/Linzeyu912/2026-10-10-0153-basketball-header.md)。
+- 818 个相对文档链接和 10 个字体摘要／字节数核对通过。原版 OFL 许可证中的行尾空格保留，其余差异检查通过。
 
 ## 历史与恢复
 
