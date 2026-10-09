@@ -1,6 +1,30 @@
 # 团队状态
 
+2026-10-10 01:58（Asia/Singapore，UI 分类发布进行中）：用户明确要求将本轮 UI 按类别提交、先推送原 UI 分支再合并 main。代码部分已拆分，124 项前端、33 项服务回归和 166 条视频完整校验通过；设计资料与协作记录单独归档。实际分类和远端结果见[发布记录](../engineering/docs/ui-publication-20261010.md)。下方未推送／未合并描述保留历史时点。
+
 2026-10-10 01:56（Asia/Shanghai，本轮功能发布）：已将出手冻结、高亮及绿／黄／红反馈接入解说先行、独立绘图和联合成片。出手前一秒实际画面与同赛季 2K 背景进入解说，绘图只读评价；反馈框采用用户确认的最终尺寸和亮黄色，不新增工作台分析面板。168 项 Python、849 项 Node 通过（另 1 项已有可选跳过），独立复核通过；真实素材配测试输入完成 1080p 渲染和严格解码，166 条视频与 LFS 索引通过。真实模型／TTS 内容质量和云部署未验收；见[实施交接](../handoffs/thy-0629/2026-10-10-0156-shot-feedback-agent.md)。
+
+2026-10-10 01:46（Asia/Singapore，仅本地 UI 分支）：按用户授权将 main 的 4 个前后端提交同步至现有 UI 分支；本地 main 快进到 `12c7413` 并保持干净。LIVE DESK 恢复微斜字形，球场映射移入归档，界面按“解说 → 独立绘图 → 联合成片”适配。836 项 Node 通过、1 项已有可选跳过；Python 123 项相关检查通过（含补跑原先缺少 FFmpeg 的 3 项）；桌面与手机、草稿保留及成片入口验证通过。UI 快照为 `64c06b9`，本轮同步仅本地提交，未推送／合入 main／部署。见[同步与验收](../engineering/docs/ui-main-sync-20261010.md)。下方各轮状态保留当时事实。
+
+2026-10-10 01:21（Asia/Singapore，仅本地 UI 分支，未提交 / 推送）：按用户最新澄清区分块面与纯文字。任务栏使用整块底线、字体不划线；普通框状按钮也不加文字线；纯文字链接悬停才加字体下划线。桌面、手机、悬停移出及内部页签检查通过，位置稳定，原控件完整。本轮只改 CSS，沿用前轮通过的功能测试。见[交接](../handoffs/Linzeyu912/2026-10-10-0121-block-nav-underline.md)。
+
+2026-10-10 01:14（Asia/Singapore，仅本地 UI 分支，未提交 / 推送）：按用户澄清修复下划线反馈。悬停只给文字加细线，移出消失；选中页签保留底部标记，只有换页签时滑动，尺寸重算与重复状态不重播动画。浏览器重复移入／移出几何稳定，三档尺寸与内部页签检查通过，Node 730 项通过。main 工作区仍干净；远端只读查询为 12c7413，未整合。见[交接](../handoffs/Linzeyu912/2026-10-10-0114-underline-feedback-fix.md)。
+
+2026-10-10 01:04（Asia/Singapore，仅本地 UI 分支，未提交 / 推送）：NBA 官网样式实读完成；正文 Roboto、直立窄体标题、普通文字交互黑白、悬停黑线和选中移动底线已落地。复选勾保持蓝色，滑块白色，恢复并保留红色 AGENT 和原有重要提醒。97 个按钮完整、Node 730 项通过，桌面／手机及回放检查通过。main 本地干净且仍为 1a14be3；本轮查询远端已为 e2db182，未合并，不声称最新功能已同步。见[交接](../handoffs/Linzeyu912/2026-10-10-0104-nba-text-interactions.md)与[审核图](../engineering/docs/images/nba-ui-20261009/workbench-nba-interactions-20261010.jpg)。
+
+2026-10-10 00:25（Asia/Singapore，仅本地 UI 分支，未提交 / 推送）：按用户反馈把顶部装饰减至两组粗线局部图案，黑白为主、灰红点缀、蓝色用于交互；静态斜切标题改黑底白字，解说卡仅进入编辑时使用淡蓝底蓝框。只改两份 CSS，原 DOM、JS、标志与全部操作保持；桌面／手机、焦点状态及回放样式检查通过。main 干净。见[交接](../handoffs/Linzeyu912/2026-10-10-0025-sparse-monochrome-ui.md)和[审核图](../engineering/docs/images/nba-ui-20261009/workbench-monochrome-20261010.jpg)。
+
+2026-10-10 00:12（Asia/Singapore，仅本地 UI 分支，未提交 / 推送）：按用户反馈把黑色第一行简化为原标志与灰色篮球／球场／三秒区线稿，四个工作流入口移到第二行白栏，内部步骤回到内容区。97 个原按钮、295 个原 ID 保留，730 项前端测试与桌面／手机导航检查通过。main 仍干净，远端仍为 1a14be3。见[交接](../handoffs/Linzeyu912/2026-10-10-0012-brand-header-workflow.md)和[当前截图](../engineering/docs/images/nba-ui-20261009/workbench-brand-header-20261010.jpg)。
+
+2026-10-09 23:49（Asia/Singapore，仅本地 UI 分支，未提交 / 推送）：按用户最新规格把左侧流程导航移到 56px 黑色全局栏，44px 白色分区栏承载原处理步骤与战术／解说页签；正文浅灰白卡、蓝色斜切标题、280 / 自适应 / 340 三栏。97 个原 HTML 按钮和全部原标识保留，Node 730 项、服务 33 项及四档浏览器布局检查通过。main 保持干净，远端仍为 1a14be3。见[本轮交接](../handoffs/Linzeyu912/2026-10-09-2349-nba-double-topbar.md)、[规范](../engineering/docs/broadcast-studio-style-20261009.md)与[验收](../engineering/docs/broadcast-studio-workbench-20261009.md)。
+
+2026-10-09 23:14（Asia/Singapore，UI 分支，本地未提交 / 未推送）：用户再次明确本人只负责 UI，所有设计在分支上进行。已将本聊天此前误放 main 的 15 个设计相关文件迁至 `codex/courtstory-ui-broadcast`，保留该分支原有记录，纸感稿恢复包也迁入 UI worktree；main 本轮差异已精确撤回，工作区恢复干净。UI 分支的协作约定、入口和交接同步明确边界，产品代码保持 `eeb9169` 原样。见[迁移交接](../handoffs/Linzeyu912/2026-10-09-2314-ui-branch-only.md)。此前两轮记录保留当时执行位置。
+
+2026-10-09（Asia/Singapore，UTC+8，本地清理已完成，文档未提交 / 未推送）：经用户指出并补查全部分支与 worktree，确认原有 NBA 与 Anthropic 两套实现；上一轮仅检查 main 的“只有讨论稿”判断已纠正。已删除 `codex/courtstory-ui-paper-rebuild@7898e07` 及对应工作区，保留 NBA `codex/courtstory-ui-broadcast@eeb9169`，其真实工作台适配及干净工作区保持原样。当前活动 UI 分支只剩 NBA；删除前保存并验证本地恢复包。见[当前入口](../engineering/docs/ui-nba-direction-20261009.md)、[D013](decisions.md#d013ui-采用-nba-蓝红白黑灰方向)和[删除交接](../handoffs/Linzeyu912/2026-10-09-2257-remove-paper-ui-branch.md)。NBA 版本尚未合入 main、推送或部署。
+
+2026-10-09 18:08（Asia/Singapore，UI 分支真实页面集成，未推送）：按用户后续授权，将已认可的 Broadcast Studio 用于真实 `player-review` 全部工作区、内部步骤、视频库与轨迹回放。战术／解说页签保留草稿，修复跨区返回后画布不能编辑及手机映射面板重叠；业务 API、数据结构与模型策略保持。730 项前端、33 项服务测试通过；真实 005 生成 1920×1080、4.766667 秒 MP4，预览与下载一致。再次 fetch 确认远端 main 为 `1a14be3`，UI 分支已包含该版本；主 checkout 未改动。见[集成验收](../engineering/docs/broadcast-studio-workbench-20261009.md)及[交接](../handoffs/Linzeyu912/2026-10-09-1808-broadcast-studio-workbench.md)。此前 17:13 的“尚未套用”记录为样稿阶段历史。
+
+2026-10-09 17:13（Asia/Singapore，独立 UI 分支设计交付，未推送）：用户将 CourtStory UI 方向改为 **Broadcast Studio**。新增[风格规范](../engineering/docs/broadcast-studio-style-20261009.md)与[独立交互样稿](../engineering/tools/courtstory-broadcast-preview/README.md)，旧玻璃／纸感分支已创建恢复标签及 bundle 后删除活动分支，原目录以 detached HEAD 留存；8896／8897 旧服务已停，新预览在 8898。Chrome 验证主要交互、字体、四档窗口和 166 视频索引通过；正式工作台和云部署尚未套用，详见[交接](../handoffs/Linzeyu912/2026-10-09-1713-broadcast-studio-ui.md)。 全部设计成果现已迁入 `codex/courtstory-ui-broadcast` 的独立 worktree；主开发 checkout 保持 main 且已恢复干净。
 
 2026-10-10 00:55（Asia/Shanghai，本轮同步发布）：已把远端 `423d5a7`／`e2db182` 的解说润色、逐句人工编辑、语言和配音口吻接入当前解说先行／独立绘图流程，功能提交 [4cae6b7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/4cae6b71ec1d7e420c5b8725f7c6531a6290d000)。采用／撤回保留当前计划版本，单句保存追加历史并使旧绘图依据失效，口吻进入音频缓存。118 项 Python、832 项 Node 通过（1 项已有可选跳过），最后 UI 91 项与后端关键契约 38 项复测通过，独立审查通过；166 条视频及 LFS 索引校验通过。代码同步不代表真实模型／TTS 或云部署验收；见[整合交接](../handoffs/thy-0629/2026-10-10-0055-commentary-remote-integration.md)。
 
