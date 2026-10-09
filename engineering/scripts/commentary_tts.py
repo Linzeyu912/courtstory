@@ -18,6 +18,7 @@ ENDPOINT = 'https://openspeech.bytedance.com/api/v3/tts/unidirectional'
 RESOURCE = 'seed-tts-2.0'
 SPEAKER = 'zh_female_vv_uranus_bigtts'
 STYLE = '请用专业中文篮球解说的口吻说话，清晰利落，节奏紧凑自然；战术分析沉稳，进球时适度兴奋，不要喊叫，不要添加文字。'
+NATURAL_STYLE = '像熟悉篮球的中文解说自然聊天，分析清楚，调侃时带一点笑意；精彩动作短促兴奋，句间有轻重和停顿，英文感叹顺口，不要每句都喊，不额外添加文字。'
 SAMPLE_RATE = 24000
 
 

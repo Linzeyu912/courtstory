@@ -2,7 +2,7 @@
 
 2026-10-08姓名功能当前成果按用户要求发布，见[v4方法和实际结果](player-name-optimization-20261007.md)、[完整演示](../../data/videos/demos/player-name-v4-20261008/README.md)及[发布交接](../../handoffs/chuali-zi/2026-10-08-0230-player-name-v4-publication.md)。下文记录保留历史时点；全量前端测试尚未全部通过。
 
-2026-10-07：总工作台第三部分的[解说与配音工作流](commentary-narration-workflow.md)：多轮视频理解、文字与时间编辑、火山语音、原片字幕成片及下载；当前接入本机工作台，未更新运行中的云服务。
+2026-10-09：总工作台第三部分的[解说与配音工作流](commentary-narration-workflow.md)新增整段文本润色、候选对照/采用/撤回、自然有趣配音口吻及[逐句人工编辑与UI迁移接口](commentary-cue-editing-api.md)；[三段实测与试听](../../research/agents/commentary-personality-20261009/README.md)。当前接入本机工作台，未更新运行中的云服务。
 
 2026-10-07 配音成片增量：[火山 TTS 与字幕成片工作流](commentary-narration-workflow.md)，复用 Astra 两段结果，10句真实语音合成成功，原视频烧录字幕并混入配音；两片本机成片和播放已验证，未部署到团队工作台。
 

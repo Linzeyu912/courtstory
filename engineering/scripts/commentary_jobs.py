@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import hashlib
+from copy import deepcopy
+from datetime import datetime, timezone
 import json
 import math
 import os
@@ -16,6 +18,11 @@ import uuid
 from dotenv import dotenv_values
 
 from commentary_agent import ROOT as SCRIPT_ROOT, redact
+from commentary_tts import NATURAL_STYLE, STYLE
+
+
+class CueConflict(ValueError):
+    """The same cue changed since this editor loaded it."""
 
 
 def _json(path, value):
@@ -85,7 +92,7 @@ class CommentaryJobs:
 
     @staticmethod
     def _public(state):
-        return {key: state[key] for key in ("id", "status", "stage", "action", "error", "plan") if key in state}
+        return {key: state[key] for key in ("id", "status", "stage", "action", "error", "plan", "originalPlan", "polish", "timingWarnings") if key in state}
 
     def get_state(self, clip, variant, qa):
         folder = self._dir(clip, variant, qa)
@@ -94,16 +101,18 @@ class CommentaryJobs:
         return {"plan": _read(folder / "plan.json"), "job": job, "status": self.status()}
 
     def create(self, request, clip, video, variant, qa):
-        if not isinstance(request, dict) or request.get("action") not in ("understand", "render"):
-            raise ValueError("action must be understand or render")
+        if not isinstance(request, dict) or request.get("action") not in ("understand", "polish", "render"):
+            raise ValueError("action must be understand, polish or render")
         video = Path(video).resolve()
         if not video.is_file():
             raise ValueError("source video is unavailable")
         status = self.status()
-        if request["action"] == "understand" and not status["understandingConfigured"]:
+        if request["action"] in ("understand", "polish") and not status["understandingConfigured"]:
             raise ValueError("commentary understanding credential is not configured")
         if request["action"] == "render" and not status["ttsConfigured"]:
             raise ValueError("speech credential is not configured")
+        if request.get("voiceStyle", "classic") not in ("classic", "natural"):
+            raise ValueError("unknown voice style")
         folder = self._dir(clip, variant, qa)
         with self._lock:
             for path in (folder / "jobs").glob("*/job.json"):
@@ -115,7 +124,7 @@ class CommentaryJobs:
             output.mkdir(parents=True)
             action = request["action"]
             plan = request.get("plan")
-            if action == "render":
+            if action in ("render", "polish"):
                 self._validate_plan(plan, clip)
                 if isinstance(plan.get("plan"), dict):
                     plan = plan["plan"]
@@ -162,6 +171,8 @@ class CommentaryJobs:
                 raise ValueError("cue times must be inside the source clip")
             if cue.get("delivery") not in ("during_play", "pause"):
                 raise ValueError("cue delivery must be during_play or pause")
+            if cue.get('language', 'zh-CN') not in ('zh-CN', 'en-US', 'mul'):
+                raise ValueError('unsupported commentary language')
 
     def _run(self, initial, output, request, clip, video, folder):
         state = dict(initial)
@@ -188,6 +199,18 @@ class CommentaryJobs:
                 self._validate_plan(result["plan"], clip)
                 _json(folder / "plan.json", result["plan"])
                 state["plan"] = result["plan"]
+            elif state["action"] == "polish":
+                state["stage"] = "polishing"
+                _json(output / "job.json", state)
+                self._run_command([self.python, str(SCRIPT_ROOT / "engineering/scripts/commentary_polish.py"),
+                                   "--plan", str(output / "edited-plan.json"), "--output", str(output / "polish"),
+                                   "--env-file", str(env_file)])
+                result = _read(output / "polish/result.json", {})
+                if result.get("status") != "completed" or not isinstance(result.get("plan"), dict):
+                    raise RuntimeError("polish did not produce a completed candidate")
+                self._validate_plan(result["plan"], clip)
+                state.update(plan=result["plan"], originalPlan=result["originalPlan"], polish=result["polish"])
+                # A candidate never replaces the saved draft; the user explicitly adopts and saves it.
             else:
                 state["stage"] = "rendering"
                 _json(output / "job.json", state)
@@ -195,6 +218,7 @@ class CommentaryJobs:
                 command = [self.python, str(SCRIPT_ROOT / "engineering/scripts/commentary_workflow.py"),
                            "--video", str(video), "--plan", str(plan_path), "--output", str(output / "render"),
                            "--env-file", str(env_file)]
+                command += ["--style", NATURAL_STYLE if request.get("voiceStyle") == "natural" else STYLE]
                 self._run_command(command)
                 state["video"] = "render/render/commentary-final.mp4"
                 state["subtitles"] = "render/render/commentary.srt"
@@ -202,6 +226,9 @@ class CommentaryJobs:
                 for field in ("video", "subtitles"):
                     if not (output / state[field]).is_file():
                         raise RuntimeError(f"render did not produce {field}")
+                timeline = _read(output / 'render/render/timeline.json', {})
+                state['timingWarnings'] = [f"{c['cueId']}：配音超出时间或发生重叠，成片改用了定格。"
+                                           for c in timeline.get('cues', []) if c.get('convertedToHold')]
             state.update(status="completed", stage="complete", error=None)
         except Exception as exc:
             stderr = getattr(exc, "stderr", "") or getattr(exc, "stdout", "") or str(exc)
@@ -254,8 +281,37 @@ class CommentaryJobs:
             plan = plan["plan"]
         folder = self._dir(clip, variant, qa)
         folder.mkdir(parents=True, exist_ok=True)
-        _json(folder / "plan.json", plan)
+        with self._lock:
+            _json(folder / "plan.json", plan)
         return plan
+
+    def save_cue(self, cue_id, request, clip, variant, qa):
+        """Atomically update one saved cue; independent of any frontend framework."""
+        patch = request.get('patch')
+        allowed = {'text', 'language', 'suggestedStartTime', 'suggestedEndTime', 'delivery'}
+        if not isinstance(patch, dict) or not patch or not set(patch) <= allowed:
+            raise ValueError('patch只允许文字、语言、开始/结束时间和讲法')
+        if not isinstance(request.get('expectedCue'), dict):
+            raise ValueError('需要expectedCue用于检查本句是否已被修改')
+        with self._lock:
+            folder = self._dir(clip, variant, qa)
+            plan = _read(folder / 'plan.json')
+            if not isinstance(plan, dict):
+                raise ValueError('请先生成或保存解说稿')
+            cue = next((c for c in plan['cues'] if c['cueId'] == cue_id), None)
+            if cue is None:
+                raise ValueError('找不到这条解说')
+            if cue != request['expectedCue']:
+                raise CueConflict('这句已在别处修改，请重新读取后核对；你的草稿仍保留。')
+            edited = {**deepcopy(cue), **patch}
+            edited['language'] = edited.get('language', 'zh-CN')
+            edited['editedBy'] = 'human'
+            edited['editedAt'] = datetime.now(timezone.utc).isoformat()
+            updated = deepcopy(plan)
+            updated['cues'] = [edited if c['cueId'] == cue_id else c for c in updated['cues']]
+            self._validate_plan(updated, clip)
+            _json(folder / 'plan.json', updated)
+            return {'cue': edited, 'plan': updated}
 
     def close(self):
         with self._lock:

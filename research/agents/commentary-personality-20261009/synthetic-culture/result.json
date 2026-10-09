@@ -1,0 +1,179 @@
+{
+  "status": "completed",
+  "plan": {
+    "summary": "虚构的篮球表达测试，不对应真实比赛或视频。三个独立教学场景，不互相推断因果。测试模型能否按语境运用篮球文化，同时保留动作结果。",
+    "uncertainties": [
+      "所有场景均为人为设定，只用于测试表达，不能写为真实赛事记录。"
+    ],
+    "events": [
+      {
+        "eventId": "e1",
+        "description": "场景一：高大内线错位面对明显矮小的后卫，连续两次背身顶开后在篮下得分。双方姓名未知。",
+        "participants": [
+          "内线",
+          "后卫"
+        ],
+        "uncertainties": []
+      },
+      {
+        "eventId": "e2",
+        "description": "场景二：库里已被确认身份，末节最后十秒投进三分，将领先扩大到十二分，随后做出双手放脸旁的晚安庆祝。",
+        "participants": [
+          "库里"
+        ],
+        "uncertainties": []
+      },
+      {
+        "eventId": "e3",
+        "description": "场景三：防守者从后方追防，干净地封盖了上篮。双方姓名未知。",
+        "participants": [
+          "防守者",
+          "上篮者"
+        ],
+        "uncertainties": []
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "mismatch",
+        "eventId": "e1",
+        "text": "内线背打小后卫，顶两下，篮下打进！这错位，奥尼尔看了都馋。",
+        "suggestedStartTime": 0,
+        "suggestedEndTime": 8,
+        "delivery": "during_play"
+      },
+      {
+        "cueId": "curry",
+        "eventId": "e2",
+        "text": "最后十秒，库里三分命中，领先十二分！双手往脸边一放：晚安。",
+        "suggestedStartTime": 9,
+        "suggestedEndTime": 17,
+        "delivery": "during_play"
+      },
+      {
+        "cueId": "block",
+        "eventId": "e3",
+        "text": "上篮出手——身后追来，干净一帽！都到篮下了，还有人来退货。",
+        "suggestedStartTime": 18,
+        "suggestedEndTime": 26,
+        "delivery": "during_play"
+      }
+    ]
+  },
+  "originalPlan": {
+    "summary": "虚构的篮球表达测试，不对应真实比赛或视频。三个独立教学场景，不互相推断因果。测试模型能否按语境运用篮球文化，同时保留动作结果。",
+    "uncertainties": [
+      "所有场景均为人为设定，只用于测试表达，不能写为真实赛事记录。"
+    ],
+    "events": [
+      {
+        "eventId": "e1",
+        "description": "场景一：高大内线错位面对明显矮小的后卫，连续两次背身顶开后在篮下得分。双方姓名未知。",
+        "participants": [
+          "内线",
+          "后卫"
+        ],
+        "uncertainties": []
+      },
+      {
+        "eventId": "e2",
+        "description": "场景二：库里已被确认身份，末节最后十秒投进三分，将领先扩大到十二分，随后做出双手放脸旁的晚安庆祝。",
+        "participants": [
+          "库里"
+        ],
+        "uncertainties": []
+      },
+      {
+        "eventId": "e3",
+        "description": "场景三：防守者从后方追防，干净地封盖了上篮。双方姓名未知。",
+        "participants": [
+          "防守者",
+          "上篮者"
+        ],
+        "uncertainties": []
+      }
+    ],
+    "cues": [
+      {
+        "cueId": "mismatch",
+        "eventId": "e1",
+        "text": "内线利用身材优势背打后卫，近筐出手命中。",
+        "suggestedStartTime": 0,
+        "suggestedEndTime": 8,
+        "delivery": "during_play"
+      },
+      {
+        "cueId": "curry",
+        "eventId": "e2",
+        "text": "库里投进三分拉开分差，做出晚安庆祝。",
+        "suggestedStartTime": 9,
+        "suggestedEndTime": 17,
+        "delivery": "during_play"
+      },
+      {
+        "cueId": "block",
+        "eventId": "e3",
+        "text": "防守球员追上进攻球员，从后方封盖上篮。",
+        "suggestedStartTime": 18,
+        "suggestedEndTime": 26,
+        "delivery": "during_play"
+      }
+    ]
+  },
+  "polish": {
+    "requestedModel": "openai/gpt-6-astra",
+    "materialsVersion": "2026-10-09-v3",
+    "includeMemes": true,
+    "attempts": [
+      {
+        "model": "openai/gpt-6-astra",
+        "requestId": "gen-1791560986-roaGKOismAj2QktZ4xvZ",
+        "usage": {
+          "prompt_tokens": 4784,
+          "completion_tokens": 401,
+          "total_tokens": 5185,
+          "cost": 0.0314965,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 4204,
+            "cache_write_tokens": 577,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0314965,
+            "upstream_inference_prompt_cost": 0.0114465,
+            "upstream_inference_completions_cost": 0.02005
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 278,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "elapsedSeconds": 13.797
+      }
+    ],
+    "elapsedSeconds": 13.797,
+    "timing": [
+      {
+        "cueId": "mismatch",
+        "estimateSeconds": 6.6,
+        "windowSeconds": 8,
+        "delivery": "during_play"
+      },
+      {
+        "cueId": "curry",
+        "estimateSeconds": 6.6,
+        "windowSeconds": 8,
+        "delivery": "during_play"
+      },
+      {
+        "cueId": "block",
+        "estimateSeconds": 6.35,
+        "windowSeconds": 8,
+        "delivery": "during_play"
+      }
+    ]
+  }
+}

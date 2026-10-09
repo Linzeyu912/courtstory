@@ -147,7 +147,7 @@ def main():
                              vision_folder=Path(args.tactics_folder)/'team-identification-jobs')
     from ground_trajectory_agent import GroundTrajectoryAgent
     ground_agent = GroundTrajectoryAgent(Path(args.tactics_folder)/'ground-trajectory-jobs', tactics)
-    from commentary_jobs import CommentaryJobs
+    from commentary_jobs import CommentaryJobs, CueConflict
     commentary = CommentaryJobs(Path(args.tactics_folder)/'commentary-jobs', **({'python': args.commentary_python} if args.commentary_python else {}))
     cache=Path(args.trim_root).resolve();cache.mkdir(parents=True,exist_ok=True)
     saved_path=cache/'library.json';saved=[]
@@ -197,7 +197,7 @@ def main():
     for filename in ["ball-court.mjs","ground-position.mjs","ground-comparison-ui.mjs","identity-ocr.mjs","style.css","pipeline.css","app.mjs","player-identity.mjs","missing-player-range.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","identity-initial-review.mjs","identity-review-workflow.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
         routes['/'+filename]=static/filename
     routes['/video-library.mjs']=static/'video-library.mjs'
-    for filename in ['commentary-ui.mjs', 'commentary-ui.css']:
+    for filename in ['commentary-ui.mjs', 'commentary-client.mjs', 'commentary-ui.css']:
         routes['/'+filename]=static/filename
     for filename in ['player-name-identity.mjs', 'player-name-client.mjs', 'player-name-ui.mjs']:
         routes['/'+filename]=static/filename
@@ -233,7 +233,8 @@ def main():
 
         def do_POST(self):
             route=urlsplit(self.path).path
-            if route in {'/api/commentary/save', '/api/commentary/jobs'}:
+            cue_route = re.fullmatch(r'/api/commentary/cues/([A-Za-z0-9_-]{1,64})', route)
+            if route in {'/api/commentary/save', '/api/commentary/jobs'} or cue_route:
                 try:
                     origin=f'http://127.0.0.1:{self.server.server_port}'
                     if self.headers.get('Host')!=f'127.0.0.1:{self.server.server_port}' or self.headers.get('Origin',origin)!=origin:
@@ -248,9 +249,14 @@ def main():
                     if not source or variant not in source['payloads'] or type(qa) is not bool:
                         raise ValueError('找不到视频、跟踪版本或草稿空间。')
                     clip=json.loads(source['payloads'][variant])
-                    result=(commentary.save(request,clip,variant,qa) if route.endswith('/save')
-                            else commentary.create(request,clip,source['video'],variant,qa))
+                    if cue_route:
+                        result=commentary.save_cue(cue_route[1],request,clip,variant,qa)
+                    else:
+                        result=(commentary.save(request,clip,variant,qa) if route.endswith('/save')
+                                else commentary.create(request,clip,source['video'],variant,qa))
                     self.json_response(200,result)
+                except CueConflict as error:
+                    self.json_response(409,{'error':str(error)})
                 except (ValueError,TypeError,KeyError,OSError,RuntimeError) as error:
                     self.json_response(400,{'error':str(error)})
                 return

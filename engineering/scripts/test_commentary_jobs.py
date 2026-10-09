@@ -6,7 +6,7 @@ import threading
 import unittest
 from unittest.mock import patch
 
-from commentary_jobs import CommentaryJobs
+from commentary_jobs import CommentaryJobs, CueConflict
 
 
 class CommentaryJobsTests(unittest.TestCase):
@@ -88,6 +88,8 @@ class CommentaryJobsTests(unittest.TestCase):
             render.mkdir(parents=True)
             (render / "commentary-final.mp4").write_bytes(b"mp4")
             (render / "commentary.srt").write_text("", encoding="utf-8")
+            (render / "timeline.json").write_text(json.dumps({'cues': [
+                {'cueId': 'cue-one', 'convertedToHold': True}]}), encoding='utf-8')
 
         with patch.object(self.jobs, "_run_command", side_effect=run):
             job = self.jobs.create({"action": "render", "plan": self.plan}, self.clip,
@@ -95,8 +97,58 @@ class CommentaryJobsTests(unittest.TestCase):
             for thread in list(self.jobs._threads):
                 thread.join(30)
         self.assertEqual(self.jobs.get(job["id"], self.clip, "v1", "qa")["status"], "completed")
+        self.assertEqual(len(self.jobs.get(job['id'], self.clip, 'v1', 'qa')['timingWarnings']), 1)
         self.assertEqual(self.jobs.video(job["id"], self.clip, "v1", "qa").read_bytes(), b"mp4")
         self.assertTrue(self.jobs.subtitles(job["id"], self.clip, "v1", "qa").is_file())
+
+    def test_polish_candidate_does_not_replace_saved_draft(self):
+        self.jobs.save({'plan': self.plan}, self.clip, 'v1', 'qa')
+        candidate = json.loads(json.dumps(self.plan))
+        candidate['cues'][0]['text'] = '这球喂得舒服！'
+        def run(command):
+            output = Path(command[command.index('--output') + 1])
+            output.mkdir(parents=True)
+            (output / 'result.json').write_text(json.dumps({'status': 'completed', 'plan': candidate,
+                'originalPlan': self.plan, 'polish': {'attempts': []}}), encoding='utf-8')
+        with patch.object(self.jobs, '_run_command', side_effect=run):
+            job = self.jobs.create({'action': 'polish', 'plan': self.plan}, self.clip, self.video, 'v1', 'qa')
+            for thread in list(self.jobs._threads):
+                thread.join(30)
+        state = self.jobs.get(job['id'], self.clip, 'v1', 'qa')
+        self.assertEqual(state['status'], 'completed')
+        self.assertEqual(state['plan'], candidate)
+        self.assertEqual(state['originalPlan'], self.plan)
+        self.assertEqual(self.jobs.get_state(self.clip, 'v1', 'qa')['plan'], self.plan)
+        with patch.object(self.jobs, '_run_command', side_effect=RuntimeError('network unavailable')):
+            failed = self.jobs.create({'action': 'polish', 'plan': self.plan}, self.clip, self.video, 'v1', 'qa')
+            for thread in list(self.jobs._threads):
+                thread.join(30)
+        self.assertEqual(self.jobs.get(failed['id'], self.clip, 'v1', 'qa')['status'], 'failed')
+        self.assertEqual(self.jobs.get_state(self.clip, 'v1', 'qa')['plan'], self.plan)
+
+    def test_individual_manual_edits_preserve_other_cues_and_evidence(self):
+        self.plan['cues'][0]['evidenceFrames'] = [4, 8]
+        second = {**self.plan['cues'][0], 'cueId': 'cue-two', 'text': '下一句。',
+                  'suggestedStartTime': 5, 'suggestedEndTime': 8}
+        self.plan['cues'].append(second)
+        self.jobs.save({'plan': self.plan}, self.clip, 'v1', 'qa')
+        first = self.plan['cues'][0]
+        result = self.jobs.save_cue('cue-one', {'patch': {'text': 'Oh my god！球进了！', 'language': 'mul'},
+            'expectedCue': first}, self.clip, 'v1', 'qa')
+        self.assertEqual(result['plan']['cues'][1], second)
+        self.assertEqual(result['cue']['evidenceFrames'], [4, 8])
+        self.assertEqual(result['cue']['suggestedStartTime'], first['suggestedStartTime'])
+        self.assertEqual(result['cue']['editedBy'], 'human')
+        # A stale editor can still save a different, unchanged cue.
+        other = self.jobs.save_cue('cue-two', {'patch': {'text': '换个方向，再来！'},
+            'expectedCue': second}, self.clip, 'v1', 'qa')
+        self.assertEqual(other['plan']['cues'][0], result['cue'])
+        with self.assertRaises(CueConflict):
+            self.jobs.save_cue('cue-one', {'patch': {'text': '过期的改稿'}, 'expectedCue': first}, self.clip, 'v1', 'qa')
+        for invalid in ({'cueId': 'renamed'}, {'text': ''}, {'suggestedEndTime': 99}, {'language': 'invalid'}):
+            with self.assertRaises(ValueError):
+                self.jobs.save_cue('cue-one', {'patch': invalid, 'expectedCue': result['cue']}, self.clip, 'v1', 'qa')
+        self.assertEqual(self.jobs.get_state(self.clip, 'v1', 'qa')['plan'], other['plan'])
 
 
 if __name__ == "__main__":

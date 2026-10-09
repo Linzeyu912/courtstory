@@ -29,6 +29,8 @@ test('validates duration, image-backed evidence, and detail evidence before comp
   assert.ok(validateCommentaryPlan(rushed,{duration:8,readFrames:frames}).some(error=>error.includes('每秒 4 个汉字')));
   rushed.cues[0].delivery='pause';
   assert.deepEqual(validateCommentaryPlan(rushed,{duration:8,readFrames:frames}),[]);
+  const mixed=plan();mixed.cues[0].text='Oh my god unbelievable incredible 进球';mixed.cues[0].suggestedEndTime=2;
+  assert.ok(validateCommentaryPlan(mixed,{duration:8,readFrames:frames}).some(error=>error.includes('含英文')));
   const overviewOnly=new Set([10]);
   assert.ok(validateCommentaryPlan(plan(),{duration:8,readFrames:overviewOnly}).some(error=>error.includes('细化视频窗口')));
 });

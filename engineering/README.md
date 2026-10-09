@@ -1,5 +1,7 @@
 # 作品工程
 
+2026-10-09：[解说润色](docs/commentary-narration-workflow.md)已接入本机工作台：整段Astra文本润色、24条篮球表达材料、候选采用/撤回与两种配音口吻。三段真实视频与四个成片的[实测结果](../research/agents/commentary-personality-20261009/README.md)已保存；未部署云端。
+
 2026-10-08按用户要求发布当前[全员姓名v4](docs/player-name-optimization-20261007.md)代码、复测记录与[完整渲染演示](../data/videos/demos/player-name-v4-20261008/README.md)。实际推送核对见[发布交接](../handoffs/chuali-zi/2026-10-08-0230-player-name-v4-publication.md)；历史“本地未提交”保留当时状态，Git共享不代表云端部署或准确率验收。
 
 2026-10-07：总工作台第三部分现已接入「解说与配音」：Astra 生成带时间解说，逐句编辑保存，火山 TTS 配音、字幕成片预览与下载。运行与限制见[工作流](docs/commentary-narration-workflow.md)。
