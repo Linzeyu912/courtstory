@@ -1,0 +1,38 @@
+{
+  "source_commit": "2eb0b48d5f760f62e286216f0859a8c540dbc1bd",
+  "date": "2026-10-09",
+  "fonts": [
+    {
+      "file": "barlow-bold-italic.woff2",
+      "source": "https://raw.githubusercontent.com/google/fonts/2eb0b48d5f760f62e286216f0859a8c540dbc1bd/ofl/barlowcondensed/BarlowCondensed-BoldItalic.ttf",
+      "source_sha256": "d8694f65cd70c3e5e600ead37657aab0adb5f63b275d0c1f6f4a7046de222145",
+      "sha256": "3bebd1532ccb8fddf75e62d15010ccf31c7bdefc6c036f0b04eedde044a8181b",
+      "bytes": 25008,
+      "internal_family": "CourtStory Broadcast Display"
+    },
+    {
+      "file": "ibm-plex-sans.woff2",
+      "source": "https://raw.githubusercontent.com/google/fonts/2eb0b48d5f760f62e286216f0859a8c540dbc1bd/ofl/ibmplexsans/IBMPlexSans%5Bwdth%2Cwght%5D.ttf",
+      "source_sha256": "3b031aa4216174205bd8471f88a49b91f093169e9e87bd5262242bc5967fe2e3",
+      "sha256": "dd253a8bec77843cc376bb5695660aadb8f8f02b5c7d881c8a05c174e5085c08",
+      "bytes": 53864,
+      "internal_family": "CourtStory Broadcast Sans"
+    },
+    {
+      "file": "jetbrains-mono.woff2",
+      "source": "https://raw.githubusercontent.com/google/fonts/2eb0b48d5f760f62e286216f0859a8c540dbc1bd/ofl/jetbrainsmono/JetBrainsMono%5Bwght%5D.ttf",
+      "source_sha256": "48715a42ec242c21e9f02692891e147d022299a52e48d5e413e1a942193ffeda",
+      "sha256": "ac46e1f435439a2410ef82842a212b93c90506b90a5f1490a2fea630c51d5ada",
+      "bytes": 41488,
+      "internal_family": "CourtStory Broadcast Mono"
+    },
+    {
+      "file": "noto-sans-sc.woff2",
+      "source": "https://raw.githubusercontent.com/google/fonts/2eb0b48d5f760f62e286216f0859a8c540dbc1bd/ofl/notosanssc/NotoSansSC%5Bwght%5D.ttf",
+      "source_sha256": "a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da",
+      "sha256": "76834dab96cf5f5cceb3cc3e2cdcd9bef9e5febc21b0800e8410346ffe6afbf3",
+      "bytes": 115992,
+      "internal_family": "CourtStory Broadcast Chinese"
+    }
+  ]
+}
