@@ -1,0 +1,41 @@
+:root {
+  color-scheme: light;
+  --blue: #1D428A;
+  --red: #C8102E;
+  --white: #FFFFFF;
+  --wood: #D9A86C;
+  --basketball: #B85A1E;
+  --canvas: #EEF1F6;
+  --surface: #FFFFFF;
+  --text: #0F1B33;
+  --muted: #5B6B82;
+  --line: #D5DCE8;
+  --selected: #EAF0FA;
+  --accent: var(--blue);
+  --focus: var(--blue);
+  --stage: #0F1B33;
+  --font-body: 'IBM Plex Sans', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Noto Sans SC', monospace;
+  --font-display: 'Barlow Condensed', 'Noto Sans SC', sans-serif;
+  --radius: 2px;
+  --control: 34px;
+  --motion-feedback: 120ms;
+  --motion-enter: 160ms;
+  --motion-exit: 120ms;
+}
+/* A secondary reading mode; the default design is the daylight studio above. */
+body[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #0F1B33;
+  --surface: #162744;
+  --text: #F4F7FC;
+  --muted: #B7C5DA;
+  --line: #425777;
+  --selected: #253F66;
+  --accent: #BFD4FF;
+  --focus: #BFD4FF;
+}
+@media (pointer: coarse) { :root { --control: 44px; } }
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion-feedback: 0ms; --motion-enter: 0ms; --motion-exit: 0ms; }
+}

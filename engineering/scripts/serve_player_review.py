@@ -197,6 +197,12 @@ def main():
             'defaultVariant':clips[s['id']]['defaultVariant']} for s in active_samples]},ensure_ascii=False).encode('utf-8')
     static = Path(__file__).resolve().parents[1] / "tools/player-review"
     routes = {"/": static / "index.html"}
+    for filename in ['broadcast-studio.css', 'studio-tabs.mjs', 'broadcast-replay.css']:
+        routes['/' + filename] = static / filename
+    # Local, licensed design assets; no CDN or generic filesystem route.
+    for asset in (static / 'broadcast-studio').rglob('*'):
+        if asset.is_file() and asset.suffix in {'.css', '.woff2', '.svg'}:
+            routes['/' + asset.relative_to(static).as_posix()] = asset
     routes['/trajectory-replay'] = static / 'trajectory-replay.html'
     for filename in ['trajectory-replay.css', 'trajectory-replay.mjs', 'trajectory-replay-model.mjs']:
         routes['/' + filename] = static / filename
@@ -681,7 +687,7 @@ def main():
                     self.send_response(416);self.send_header('Content-Range',f'bytes */{size}');self.end_headers();return
                 status=206
             self.send_response(status)
-            mime='text/javascript' if path.suffix=='.mjs' else mimetypes.guess_type(path.name)[0] or 'application/octet-stream'
+            mime={'.mjs':'text/javascript','.woff2':'font/woff2'}.get(path.suffix) or mimetypes.guess_type(path.name)[0] or 'application/octet-stream'
             self.send_header('Content-Type',mime);self.send_header('Content-Length',str(end-start+1))
             self.send_header('Accept-Ranges','bytes');self.send_header('Cache-Control','no-cache')
             if status==206:self.send_header('Content-Range',f'bytes {start}-{end}/{size}')

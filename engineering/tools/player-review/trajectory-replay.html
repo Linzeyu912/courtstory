@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>视频 × 地面轨迹 · Qwen 实测回放</title><link rel="icon" href="data:,">
-  <link rel="stylesheet" href="/trajectory-replay.css">
+  <link rel="stylesheet" href="/trajectory-replay.css"><link rel="stylesheet" href="/broadcast-studio.css"><link rel="stylesheet" href="/broadcast-replay.css">
 </head>
-<body>
-  <aside class="rail"><a href="/" class="brand" aria-label="返回球场工作台">BC<span>↗</span></a><span class="rail-line"></span><span class="rail-active" title="轨迹对比">◎</span><span class="rail-label">COURTSIDE</span></aside>
+<body class="studio-replay">
+  <div class="rail"><a href="/" class="brand" aria-label="返回球场工作台"><img src="/broadcast-studio/mark.svg" width="30" height="30" alt=""><span>COURTSIDE <em>AGENT</em></span></a></div>
   <main>
-    <header class="page-header"><div><div class="eyebrow">QWEN / MOTION REVIEW</div><h1>视频 <span>×</span> 地面轨迹</h1></div><a href="/" class="back-link">返回标定工作台 ↗</a></header>
+    <header class="page-header"><div><div class="eyebrow">REPLAY DESK</div><h1>视频 <span>×</span> 地面轨迹</h1></div><a href="/" class="back-link">返回标定工作台 ↗</a></header>
     <div class="intro"><p>同一时刻，两个视角。播放视频，观察球员与地面位置的对应。</p><span class="local-tag"><i></i>真实 API 结果回放</span></div>
     <nav id="samples" class="samples" aria-label="选择实测片段"></nav>
     <p id="error" role="alert" hidden></p>

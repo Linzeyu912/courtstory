@@ -1,5 +1,25 @@
 # 作品工程
 
+2026-10-10 NBA UI 分类发布：用户已授权将真实工作台界面、资源服务、独立样稿及设计资料分别提交，先推送 UI 分支再合入 main；当前结果与验证见[发布记录](docs/ui-publication-20261010.md)。下方“未提交／未推送／未合并”保留各轮历史时点，Git 同步不等同于云部署。
+
+2026-10-10：NBA UI 已同步 main `12c7413` 的前后端功能，按解说先行、独立绘图与联合成片调整真实页面；LIVE DESK 恢复斜体，球场映射入口归档。只在 UI 分支保存，未推送或部署；见[同步验收](docs/ui-main-sync-20261010.md)。
+
+2026-10-10 01:04：按 NBA 官网实际样式更新正文 Roboto、直立窄体标题、黑白文字按钮和移动黑底线；复选勾蓝色、滑块白色，原红色品牌与重要状态点缀保留。只在 UI 分支维护，未提交／推送；见[规范](docs/broadcast-studio-style-20261009.md)、[审核图](docs/images/nba-ui-20261009/workbench-nba-interactions-20261010.jpg)与[交接](../handoffs/Linzeyu912/2026-10-10-0104-nba-text-interactions.md)。
+
+2026-10-10 00:25：NBA UI 进一步统一为黑白主色、灰红点缀、蓝色交互；顶部只保留两组加粗的局部篮球／球场线稿，正文标题改为黑底白字。功能与标志保持，仅 UI 分支修改；见[规范](docs/broadcast-studio-style-20261009.md)和[交接](../handoffs/Linzeyu912/2026-10-10-0025-sparse-monochrome-ui.md)。
+
+2026-10-10 00:12：NBA UI 黑栏简化为品牌与灰色篮球／球场线稿，四个工作流入口集中到第二行白栏，内部页签与原按钮完整保留。仅在 UI 分支修改，main 干净；见[当前规范](docs/broadcast-studio-style-20261009.md)和[交接](../handoffs/Linzeyu912/2026-10-10-0012-brand-header-workflow.md)。
+
+2026-10-09 23:49：当前 NBA UI 已按最新要求改为黑白双层顶栏与浅灰白卡，原有按钮和业务功能保留。修改、文档及截图仅在 UI 分支，main 干净；见[当前规范](docs/broadcast-studio-style-20261009.md)和[交接](../handoffs/Linzeyu912/2026-10-09-2349-nba-double-topbar.md)。
+
+2026-10-09 23:14：本聊天全部 UI 设计与配套文档已集中到 `codex/courtstory-ui-broadcast`，main 恢复干净；当前约定见 [AGENTS.md](../AGENTS.md)，设计入口见 [NBA Broadcast Studio](docs/ui-nba-direction-20261009.md)。本轮仅迁移与记录，没有改动现有产品代码，未提交 / 推送。
+
+2026-10-09：按用户要求删除 Anthropic 纸感 UI 分支及其工作区，保留已有 [NBA Broadcast Studio](docs/ui-nba-direction-20261009.md)。NBA 的真实工作台适配位于本地 `codex/courtstory-ui-broadcast@eeb9169`，本轮保持原样；上一轮仅检查 main 导致的“尚未实现”判断已纠正。main 与云端未切换，本轮文档未提交 / 推送。
+
+2026-10-09（真实 UI 集成，独立分支）：用户确认风格后授权覆盖现有产品页面。`player-review` 的四个工作区、内部步骤、视频库、解说与成片，以及独立轨迹回放页已统一为 Broadcast Studio。真实视频标注、草稿保存和 1080p 成片通过；730 项前端和 33 项服务测试通过。见[集成与验收](docs/broadcast-studio-workbench-20261009.md)。改动只在 `codex/courtstory-ui-broadcast`，main 与运行中的云服务保持原版本，本轮未推送。
+
+2026-10-09（独立 UI 分支设计样稿）：用户选定 **Broadcast Studio／转播演播室**，旧玻璃与纸感 UI 分支已归档并从活动分支移除。新增[风格规范](docs/broadcast-studio-style-20261009.md)与[可交互样稿](tools/courtstory-broadcast-preview/README.md)，蓝红白、木色与篮球橙棕各有明确职责。真实视频、标注交互与四档窗口检查通过；尚未套用正式工作台，未推送。见[交接](../handoffs/Linzeyu912/2026-10-09-1713-broadcast-studio-ui.md)。 全部设计成果现已迁入 `codex/courtstory-ui-broadcast` 的独立 worktree；主开发 checkout 保持 main 且已恢复干净。
+
 2026-10-10：[出手冻结与三色反馈](docs/shot-feedback-agent.md)接入解说先行、独立绘图和联合成片：分析出手前一秒，在已确认离手帧高亮出手者，显示投篮机会与防守压力。评价由后端保存，工作台不新增评分面板；代码验证与真实模型、云部署验收分别记录。
 
 2026-10-09：[解说润色](docs/commentary-narration-workflow.md)已接入本机工作台：整段Astra文本润色、24条篮球表达材料、候选采用/撤回与两种配音口吻。三段真实视频与四个成片的[实测结果](../research/agents/commentary-personality-20261009/README.md)已保存；未部署云端。

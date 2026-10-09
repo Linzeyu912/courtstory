@@ -155,6 +155,18 @@ test('model picker selection during import renders each row once',async()=>{
   }finally{app.restore();}
 });
 
+test('a search with no matches explains the empty list and clearing it restores entries',async()=>{
+  const app=setup();try{
+    app.get('openVideoLibrary').onclick();await app.flush();
+    app.get('videoLibrarySearch').value='no-such-video';app.get('videoLibrarySearch').oninput();
+    assert.match(app.get('localVideoList').children[0].textContent,/没有符合条件的视频/);
+    assert.match(app.get('videoLibraryCount').textContent,/0 \/ 1 段/);
+    app.get('videoLibrarySearch').value='';app.get('videoLibrarySearch').oninput();
+    assert.equal(app.get('localVideoList').children[0].className,'local-video-row');
+    assert.equal(app.inventory.entries.length,1);assert.equal(app.events.filter(e=>e.options?.method==='POST').length,0);
+  }finally{app.restore();}
+});
+
 test('a refresh after mutation waits for the in-flight inventory before reading new state',async()=>{
   const app=setup();const originalFetch=globalThis.fetch;let release;const held=new Promise(resolve=>{release=resolve;});let reads=0;
   try{
