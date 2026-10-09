@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createCommentaryTools,validateCommentaryPlan} from './commentary-tools.mjs';
 
-const plan=()=>({summary:'一次快速转换进攻。',events:[{eventId:'e1',startTime:1,endTime:4,description:'持球方推进并完成进攻。',participants:['未知球员'],evidenceFrames:[10,20],uncertainties:[]}],
+const plan=()=>({summary:'一次快速转换进攻。',events:[{eventId:'e1',kind:'other',startTime:1,endTime:4,description:'持球方推进并完成进攻。',participants:['未知球员'],evidenceFrames:[10,20],uncertainties:[]}],
   cues:[1,2,3].map((n)=>({cueId:`c${n}`,eventId:'e1',suggestedStartTime:1,suggestedEndTime:4,text:`转换推进后完成第${n}次进攻。`,focus:'推进路线',delivery:'during_play',evidenceFrames:[10,20]})),uncertainties:[]});
 const start={context:{videoRef:'clip',width:1280,height:720,duration:8,observations:'verified',frames:[{frame:10,time:1,sourceTime:11},{frame:20,time:3,sourceTime:13}]},
   overview:{content:[{type:'text',text:'overview'},{type:'image',data:'aGVsbG8=',mimeType:'image/png'}],details:{frames:[{frame:10,time:1,sourceTime:11}],assets:[]}}};

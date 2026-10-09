@@ -9,7 +9,7 @@ candidateSchema.properties.phases.maxItems=1;
 const annotation=candidateSchema.properties.phases.items.properties.annotations.items;
 annotation.properties.assetId={type:'string',minLength:1,maxLength:100};annotation.required.push('assetId');
 
-export function validateNodeCandidate(candidate,node,seen,assets){
+export function validateNodeCandidate(candidate,node,seen,assets,participants=[]){
   if(!candidate||candidate.schemaVersion!==4||candidate.phases?.length!==1)throw new Error('每节点需要一个原生 V4 几何候选。');
   const phase=candidate.phases[0],window=node.evidenceWindow;
   if(phase.freezeFrame!==node.anchorAssetFrame||!seen.has(node.anchorAssetFrame))throw new Error('节点锚点必须本轮实际读取。');
@@ -21,6 +21,19 @@ export function validateNodeCandidate(candidate,node,seen,assets){
   for(const a of phase.annotations??[]){
     if(a.anchorFrame!==node.anchorAssetFrame||!assets.some(asset=>asset.assetId===a.assetId&&asset.frame===a.anchorFrame))throw new Error('坐标资产和节点锚帧不匹配。');
     if(a.type==='route'&&new Set(a.evidenceFrames).size<2)throw new Error('路线需要至少两帧真实观察。');
+  }
+  const focus=phase.annotations.map((a,index)=>({a,index})).filter(({a})=>a.type==='spotlight');
+  if(node.kind==='shot_release'){
+    const shooterRef=node.shotFeedback?.shooterRef,shooter=participants.find(p=>p.participantId===shooterRef);
+    if(!shooter)throw new Error('出手节点缺少保存的出手者引用。');
+    if(focus.length!==1)throw new Error('确定出手节点必须有且仅有出手者 spotlight。');
+    const {a,index}=focus[0],owners=(phase.participants??[]).filter(p=>p.annotationIndexes?.includes(index));
+    if(owners.length!==1||owners[0].entityId!==a.entityId||
+        (shooter.entityId!==null&&shooter.entityId!==undefined?owners[0].entityId!==shooter.entityId:owners[0].entityId!==null||owners[0].subjectId!==shooterRef))
+      throw new Error('出手例外只允许保存的出手者 spotlight，匿名人物需匹配 subjectId。');
+  }else for(const {index} of focus){
+    const owners=(phase.participants??[]).filter(p=>p.annotationIndexes?.includes(index));
+    if(owners.length!==1||owners[0].role!=='ball_handler')throw new Error('普通节点重点圈只允许当前持球人。');
   }
   return true;
 }
@@ -70,7 +83,7 @@ export function createDrawingTools(start,{rpc,budget,emit}={}){
     call('save_node_drawing',Type.Object({nodeId,status:Type.Union(['ready','partial','unavailable','needs_upstream_review'].map(Type.Literal)),reason:Type.String({maxLength:1800}),candidate:Type.Union([candidateSchema,Type.Null()])}),
       '保存局部原生几何候选。冲突返回needs_upstream_review，缺少证据保留缺口。图形仅说明已保存节点重点；每个annotation填写实际图像assetId。',async args=>{
         if(args.nodeId!==node.nodeId)throw new Error('未知节点。');
-        if(['ready','partial'].includes(args.status)){validateNodeCandidate(args.candidate,node,state.seen,state.assets);}
+        if(['ready','partial'].includes(args.status)){validateNodeCandidate(args.candidate,node,state.seen,state.assets,start.participants??[]);}
         else if(args.candidate!==null||!args.reason.trim())throw new Error('不可用节点需要明确原因且无候选。');
         state.candidate=structuredClone(args.candidate);state.nodeStatus=args.status;state.reason=args.reason;state.finished=true;
         emit?.({type:'progress',status:'checkpoint',nodeId:node.nodeId,nodeStatus:args.status});

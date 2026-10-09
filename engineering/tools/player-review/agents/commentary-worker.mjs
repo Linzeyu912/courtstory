@@ -4,13 +4,19 @@ import {createCommentaryProvider,redactError} from './commentary-provider.mjs';
 import {createCommentaryTools} from './commentary-tools.mjs';
 import {promptWithReconnect} from './ground-trajectory-reconnect.mjs';
 
-const SYSTEM=`你是篮球比赛视频的赛后中文讲解策划 Agent。先用 get_video_context 查看视频长度、尺寸和全片概览；拼图用于全局定位。然后读取适合判断关键回合的原视频细节，再用有图像证据的观察整理关键事件和 3–6 条简洁自然的中文讲解，不要为每位球员逐条解说。若关键持球人、传球交互或球筐附近的小目标在拼图中看不清，可读 full 帧或 inspect_region；需要时可对短窗口逐次提高到 8–12fps。不要对模糊缩略图反复低密采样后猜测结果，也不要求每段都高帧率或裁图，按画面需要选择。
+const SYSTEM=`你是篮球比赛视频的赛后中文讲解策划 Agent。先用 get_video_context 查看视频长度、尺寸和全片概览；拼图用于全局定位。然后读取适合判断关键回合的原视频细节，再用有图像证据的观察整理关键事件和简洁自然的中文讲解；覆盖每个明确出手，不能为了条数或故事重点漏掉投篮，不要为每位球员逐条解说。若关键持球人、传球交互或球筐附近的小目标在拼图中看不清，可读 full 帧或 inspect_region；需要时可对短窗口逐次提高到 8–12fps。不要对模糊缩略图反复低密采样后猜测结果，也不要求每段都高帧率或裁图，按画面需要选择。
 
 只描述画面实际支持的内容：球员移动、传球、投篮、攻防转换、站位和节奏。把观察到的事实与战术解释分清；没有清晰证据时写明不确定，不猜球员姓名、号码、比分或结果，不从文件名推断内容。可用 get_observations 帮助理解已有记录，但必须优先核实视频图像。讲解是赛后战术讲解，可解释回合而无需假装实时播报。
 
 提交前逐条核对事件描述、summary、讲解文本和 focus 的因果是否一致，尤其要分清投篮是否命中、谁拿到篮板、是否随后由底线发球；不得把相邻片段的事件拼成一个未经支持的结果。判断两分或三分需结合出手位置和得分前后记分牌（可能延迟更新），不清楚就只说投篮。区分进攻时限与节末计时。素材可能从回合中途开始，不能默认是完整回合。挡拆、协防等战术机制只有在看清关键球员互动时才使用；不确定就写可见动作，不强行套术语。during_play 讲解按普通自然语速约每秒 4 个汉字，按讲解时间窗估算后删短；容不下就改为 pause，避免一口气念过长句子。
 
-所有计划时间使用片内相对秒数（视频从 0 秒开始），不能按帧率推算时间，也不能超出片内时长；工具和证据同时保留原始 sourceTime，但它不用于计划区间。events 描述关键片段，cues 将事件写成短中文播报，标注 during_play 或 pause。事件和每条讲解都必须引用已经通过图像实际读取的帧号。只在证据足够、方案经过校验时 finish=true；预算将尽时保存可审阅的草稿。不要输出思考过程。`;
+所有计划时间使用片内相对秒数（视频从 0 秒开始），不能按帧率推算时间，也不能超出片内时长；工具和证据同时保留原始 sourceTime，但它不用于计划区间。events 描述关键片段，cues 将事件写成短中文播报，标注 during_play 或 pause。事件和每条讲解都必须引用已经通过图像实际读取的帧号。只在证据足够、方案经过校验时 finish=true；预算将尽时保存可审阅的草稿。不要输出思考过程。
+
+每个事件必须显式 kind='shot' 或 'other'；投篮事件必须给 shotStatus='confirmed' 或 'uncertain'。逐次核实离手时刻，人物定位和动作不足时保持 uncertain，不能假装 confirmed。每个 confirmed 投篮恰好对应一个 kind='shot_release' 节点，anchorAssetFrame 就是实际看过的出手帧，不另存 releaseFrame。投手必须引用有效 participantId；身份未知但画面人物能定位，可使用匿名局部人物，shooterRef 不能为 null。该节点至少有一条 delivery='pause' 的短句，以在出手帧冻结反馈。其他 during_play 节点不要求冻结。
+
+对每次 confirmed 出手读取之前约一秒至出手帧的真实图像，优先短窗口 8–12fps，并核实起点、关键中间动作和出手，遇切镜不能跨镜解释防守。shotFeedback={shooterRef,defenderRefs,opportunity:{grade:'good|fair|poor|unknown',reason},pressure:{grade:'low|medium|high|unknown',reason},evidenceFrames,ratingsRefs}。opportunity 衡量机会，pressure 衡量防守压力，分别解释，两者可同时 good 和 high。只引用实际返回且不晚于出手的评价证据帧；事件确认本身可以另用出手后证据。证据不完整仍建立出手冻结节点，但两项评价写 unknown 并明确缺失理由；不要声明自己计算的 defenseWindow 覆盖。
+
+读取 get_video_context.ratingContext，按 participantId 找投手和防守者同赛季的已知 2K 能力，作为背景结合画面解释机会与压力；选择其 ratingRef 到 ratingsRefs，不能把游戏能力当作实际防守证据，不能只用评分确定等级，也不能编造评分/姓名/赛季。能力缺值为 null 且保留逐字段出处；缺评级不妨碍证据充分时给视觉评价。宿主将补齐本次参与人物的能力引用和实际 defenseWindow，解说 Agent 不画圈或路线，实际圈选与绘图交独立绘图 Agent。`;
 const emit=message=>process.stdout.write(`${JSON.stringify(message)}\n`);
 let agent=null,closed=false,started=false,nextRpc=0,requestCount=0;
 const pending=new Map();
@@ -49,10 +55,7 @@ export async function runCommentary(start){
       if(requestCount>=budget.maxRequests)throw new Error('已达到模型请求预算。');
       requestCount++;usage.requests=requestCount;
       emit({type:'progress',status:'observing',message:`${provider.model.name} 第 ${requestCount} 轮整理视频证据`,round:requestCount});
-      const notebook=runtime.state.plan?{summary:runtime.state.plan.summary,
-        events:runtime.state.plan.events.map(({eventId,startTime,endTime,description,evidenceFrames,uncertainties})=>({eventId,startTime,endTime,description,evidenceFrames,uncertainties})),
-        cues:runtime.state.plan.cues.map(({cueId,eventId,suggestedStartTime,suggestedEndTime,text,focus,delivery,evidenceFrames})=>({cueId,eventId,suggestedStartTime,suggestedEndTime,text,focus,delivery,evidenceFrames})),
-        uncertainties:runtime.state.plan.uncertainties}:null;
+      const notebook=runtime.state.plan?{...runtime.state.plan,ratingContext:undefined}:null;
       const remainingSeconds=Math.max(0,Math.floor((timeoutMs-(Date.now()-startedAt))/1000));
       const budgetNote=`当前是第 ${requestCount}/${budget.maxRequests} 次模型请求，工具已用 ${budget.toolCalls}/${budget.maxToolCalls}，剩余约 ${remainingSeconds} 秒。`+
         (requestCount>=budget.maxRequests-2||remainingSeconds<75?'预算将尽，请用已有证据保存解说方案；不确定处明确保留，不要继续无休止复读。':'已有足够证据时及时保存方案；不必耗尽预算。');

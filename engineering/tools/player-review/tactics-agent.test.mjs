@@ -151,6 +151,17 @@ test('V4 direct-video drafts preserve independent participants and expose uncert
   assert.match(annotations.renderAnnotationsSVG(annotations.projectAnnotations(next,{phaseId:next.playDefinition.phases[0].phaseId,frame:12})),/data-part="position-mark"/);
   assert.ok(next.agentRuns[0].issues.some(issue=>issue.includes('重点圈已改为位置标记')));
 });
+test('host-bound shot release focus preserves only its designated released shooter spotlight',async()=>{
+  const doc=await setup(),candidate=videoCandidate();
+  const focus={annotationIndex:1,anchorFrame:12,subjectId:'local-1',entityId:'P2'};
+  const next=await agent.adoptAgentCandidate(doc,candidate,{jobId:'released-shooter',scope:'play',phaseId:'phase-1',shotReleaseFocus:[focus]});
+  assert.equal(next.annotations.items[1].type,'spotlight');assert.equal(next.annotations.items[1].entityId,'P2');
+  for(const patch of [{entityId:'P1'},{subjectId:'local-0'},{anchorFrame:20},{annotationIndex:0}]){
+    await assert.rejects(()=>agent.adoptAgentCandidate(doc,candidate,{jobId:'wrong-shot',scope:'play',phaseId:'phase-1',shotReleaseFocus:[{...focus,...patch}]}),/出手|release/);
+  }
+  const ordinary=await agent.adoptAgentCandidate(doc,candidate,{jobId:'ordinary-screener',scope:'play',phaseId:'phase-1'});
+  assert.equal(ordinary.annotations.items[1].type,'position');
+});
 
 test('V4 route-first output preserves several observed routes and uses a single holder circle while keeping manual circles',async()=>{
   let {document:doc}=await makeV2Fixture();

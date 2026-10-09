@@ -79,6 +79,32 @@ def build_joint_composition(document, plan, audio_rows, context, production, mar
             if not start<=asset_frame<end:raise ValueError('Native hold outside joint asset range')
             block.append(state)
     remember()
+    shot_nodes={node['nodeId']:node for node in plan.get('nodes',[]) if node.get('kind')=='shot_release'}
+    shot_items=document.get('shotFeedback',{}).get('items',[])
+    for item in shot_items:
+        if item.get('nodeId') not in shot_nodes or item.get('commentaryPlanRef')!=selected_ref:
+            raise ValueError('Joint shot feedback is not bound to the current commentary plan node')
+    for node_id,node in shot_nodes.items():
+        matching=[item for item in shot_items if item.get('nodeId')==node_id]
+        if len(matching)!=1:raise ValueError('Confirmed shot release needs adopted shot graphics and evaluation')
+        item=matching[0];feedback=node.get('shotFeedback') or {};anchor=node['anchorAssetFrame']
+        if (item.get('frame')!=anchor or item.get('eventId')!=node.get('eventId') or
+            any(item.get(key)!=feedback.get(key) for key in ('shooterRef','opportunity','pressure'))):
+            raise ValueError('Joint shot feedback differs from the saved plan node evaluation')
+        annotation=next((a for a in document.get('annotations',{}).get('items',[]) if a.get('id')==item.get('spotlightAnnotationId')),None)
+        if (not annotation or annotation.get('type')!='spotlight' or annotation.get('anchorFrame')!=anchor or
+            not annotation.get('startFrame',anchor)<=anchor<annotation.get('endFrameExclusive',anchor)):
+            raise ValueError('Confirmed shot release has no valid linked shooter spotlight')
+        shooters=[person for person in plan.get('participants',[]) if person.get('participantId')==feedback.get('shooterRef')]
+        if len(shooters)!=1 or 'entityId' not in shooters[0]:
+            raise ValueError('Confirmed shot release has no saved shooter participant')
+        if annotation.get('entityId')!=shooters[0]['entityId']:
+            raise ValueError('Confirmed shot release spotlight shooter identity differs from the saved plan')
+        if not any(cue.get('frame')==anchor and cue.get('freeze') is True and cue.get('holdSeconds',0)>=2.5 and
+                   annotation['id'] in cue.get('annotationIds',[]) for cue in document.get('tacticKeyframes',{}).get('items',[])):
+            raise ValueError('Confirmed shot release needs one native pause of at least 2.5 seconds')
+        if len(native.get(anchor,[]))<math.ceil(2.5*fps-1e-9):
+            raise ValueError('Native shot pause is shorter than the required 2.5 seconds')
     nodes={}
     for node in plan.get('nodes',[]):
         anchor=node.get('anchorAssetFrame');window=node.get('evidenceWindow',{})
@@ -104,7 +130,7 @@ def build_joint_composition(document, plan, audio_rows, context, production, mar
         delivery=cue['delivery']
         if delivery not in ('pause','during_play'):raise ValueError('Unknown cue delivery')
         events.append(dict(cue=cue,node=nodes[ident],length=length,start=begin,end=finish,
-                           hold=delivery=='pause' or length>finish-begin+1e-7))
+                           hold=nodes[ident].get('kind')=='shot_release' or delivery=='pause' or length>finish-begin+1e-7))
     # Decide all pauses before placing voices. Playback narration that would
     # cross another pause or overlap a previous sentence uses its verified node.
     events.sort(key=lambda e:(e['start'],cues.index(e['cue'])))

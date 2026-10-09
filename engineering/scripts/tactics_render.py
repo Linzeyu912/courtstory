@@ -266,9 +266,10 @@ class TacticsRenderer:
                    progress={'completed': 0, 'total': len(frames)})
         atomic_json(directory/'plan.json', plan)
         subtitles={};placements=job.get('subtitlePlacements',[])
+        subtitle_layout='bottom' if job['document'].get('shotFeedback',{}).get('items') else 'top'
         if job.get('subtitleCues'):
             from render_commentary_narration import subtitle_overlays
-            subtitles=subtitle_overlays(job['subtitleCues'],placements,width,height,job['subtitleFont'])
+            subtitles=subtitle_overlays(job['subtitleCues'],placements,width,height,job['subtitleFont'],layout=subtitle_layout)
         flags = getattr(subprocess, 'CREATE_NO_WINDOW', 0)
         timed_out = threading.Event()
         def deadline(): timed_out.set(); self._stop(job)
@@ -304,7 +305,8 @@ class TacticsRenderer:
                         if active:
                             from PIL import Image
                             image=Image.fromarray(composite);subtitle=subtitles[active['cueId']]
-                            image.paste(subtitle,(0,0),subtitle);composite=np.asarray(image)
+                            subtitle_y=max(0,height-subtitle.height-round(height*.032)) if subtitle_layout=='bottom' else 0
+                            image.paste(subtitle,(0,subtitle_y),subtitle);composite=np.asarray(image)
                         encoder.stdin.write(composite.tobytes())
                         job['progress'] = {'completed': output_index+1, 'total':len(frames)}
                 encoder.stdin.close()

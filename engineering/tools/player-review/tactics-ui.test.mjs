@@ -7,9 +7,54 @@ import {courtToVideo} from './tactics-presentation.mjs';
 import {createTacticsDocument,splitPhase,refreshSnapshot} from './tactics-document.mjs';
 import {adoptAgentCandidate} from './tactics-agent.mjs';
 import {createAnnotation} from './tactics-annotations.mjs';
+import {upsertTacticKeyframe} from './tactics-keyframes.mjs';
 import {createManualAnnotation} from './tactics-manual-editor.mjs';
 import {updateProductionCamera,productionPhaseSnapshot,DEFAULT_RIBBON,compileProduction} from './tactics-production.mjs';
 let environmentId=0;
+
+async function shotHudDocument(){
+  const {review}=await makePresentationDemo();review.court.calibration.keyframes=[];
+  let d=await createTacticsDocument(review);
+  d=createAnnotation(d,{id:'shot-focus',phaseId:'phase-1',frame:20,startFrame:20,endFrameExclusive:21,type:'spotlight',space:'video',points:[{x:600,y:400}],
+    origin:{kind:'agent',jobId:'shot-preview',sourceFrames:[20],note:'shot release'}});
+  d=upsertTacticKeyframe(d,{id:'release',frame:20,annotationIds:['shot-focus'],freeze:true,holdSeconds:2.5});
+  const ref={planId:'shot-plan',revision:1,digest:'d'.repeat(64)};
+  d.agentRuns=[{jobId:'shot-preview',commentaryPlanRef:ref,nodeIds:['shot-node'],annotationNodeRefs:{'shot-focus':'shot-node'},shotParticipantSnapshot:[{participantId:'shooter',entityId:null}]}];
+  d.shotFeedback={schemaVersion:1,items:[{id:'shot-hud',nodeId:'shot-node',eventId:'event-shot',frame:20,spotlightAnnotationId:'shot-focus',shooterRef:'shooter',
+    opportunity:{grade:'fair',reason:'contested'},pressure:{grade:'low',reason:'late'},commentaryPlanRef:ref}]};
+  return d;
+}
+
+test('mounted Agent candidate release preview contains the shared shot HUD only with its spotlight',async()=>{
+  const d=await shotHudDocument(),phase={...partialCandidate().phases[0],annotations:[{type:'spotlight',anchorFrame:20}]};
+  const env=environment(d,{agent:async(path)=>path.endsWith('/status')?{available:true,message:'ready'}:{jobId:'shot-preview',status:'ready',
+    candidate:{schemaVersion:4,production:null,summary:'shot',issues:[],phases:[phase]},previewDocument:d,
+    presentation:{items:[{id:'shot-focus',frame:20,visible:true,mode:'reference_frame'}]},
+    previewFrames:[{frame:20,videoSha256:d.review.videoSha256,dataUrl:'data:image/jpeg;base64,/9j/'}]}});
+  const walk=node=>[node,...(node.children??[]).filter(n=>typeof n==='object').flatMap(walk)];
+  try{
+    await env.load();await env.get('tacticsAgentRun').onclick();
+    const surfaces=walk(env.get('tacticsAgentPreview')).filter(n=>n.className==='tactics-agent-image');
+    assert.equal(surfaces.length,1);assert.match(surfaces[0].children[1].innerHTML,/data-part="shot-feedback"/);
+    assert.match(surfaces[0].children[1].innerHTML,/data-part="spotlight"/);
+  }finally{env.restore();}
+});
+
+test('mounted checking playback shows shot HUD when paused at release and hides it during normal playback',async()=>{
+  const env=environment(await shotHudDocument(),{player:true});
+  try{
+    await env.load();const overlay=env.get('tacticsCanvas').children[0].children[1];
+    assert.doesNotMatch(overlay.innerHTML,/data-part="shot-feedback"/);
+    await env.get('tacticsContinue').onclick();env.present(22);await env.ui.ready();await Promise.resolve();
+    assert.equal(env.ui.getPlaybackState().status,'paused');assert.equal(env.ui.getSceneState().frame,20);
+    assert.match(overlay.innerHTML,/data-part="shot-feedback"/);
+    await env.get('tacticsContinue').onclick();env.present(20);await env.ui.ready();
+    assert.equal(env.ui.getPlaybackState().status,'playing');assert.doesNotMatch(overlay.innerHTML,/data-part="shot-feedback"/);
+    env.ui.externalSeek(20);env.present(20);await env.ui.ready();
+    assert.equal(env.ui.getPlaybackState().status,'paused');assert.match(overlay.innerHTML,/data-part="shot-feedback"/);
+    env.ui.externalSeek(21);env.present(21);await env.ui.ready();assert.doesNotMatch(overlay.innerHTML,/data-part="shot-feedback"/);
+  }finally{env.restore();}
+});
 // The storage module keeps one IDB connection for the mounted application.
 // Route that connection to each test's transaction store rather than the first fixture.
 let activeDatabase;

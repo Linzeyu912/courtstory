@@ -156,6 +156,10 @@ class CommentaryJobs:
                 self._validate_plan(plan, clip)
                 if isinstance(plan.get("plan"), dict):
                     plan = plan["plan"]
+                has_shots = (any(n.get("kind") == "shot_release" for n in plan.get("nodes", [])) or
+                             any(e.get("kind") == "shot" and e.get("shotStatus") == "confirmed" for e in plan.get("events", [])))
+                if action == "render" and has_shots and request.get("document") is None:
+                    raise ValueError("shot release rendering requires an independent drawing document")
                 if action == "polish":
                     if current and current.get("sourceRef") is not None and current["sourceRef"] != locked_request["_sourceRef"]:
                         raise ValueError("polish source or name snapshot is stale")
@@ -266,7 +270,7 @@ class CommentaryJobs:
                     plan = finalize_plan(result["plan"], clip, request.get("review"), context,
                                          result.get("evidence"), request["_producerConfig"], state["id"], current,
                                          require_contract=True)
-                    plan["decodeContext"] = {"videoRef": context.get("videoRef"), "frames": context.get("frames", [])}
+                    plan["decodeContext"] = {k: context[k] for k in ("videoRef", "frames", "sourceCuts", "ratingContext") if k in context}
                     plan.pop("digest", None); plan["digest"] = digest(plan)
                     self._persist(folder, plan)
                     state["plan"] = plan

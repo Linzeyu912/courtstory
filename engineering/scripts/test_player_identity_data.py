@@ -235,12 +235,18 @@ class IdentityDataTests(unittest.TestCase):
         self.assertIn('bdf93420a846f073e4028de432a5cbd8a557ed51', curry['field_provenance']['overall']['url'])
         self.assertEqual(curry['field_provenance']['overall']['snapshot_date'], '2024-11-26T02:25:26Z')
 
-    def test_real_data_bos_44_and_curry_next_season_do_not_force_match(self):
+    def test_real_data_bos_44_keeps_candidates_and_curry_uses_requested_game_version(self):
         data = self.data(DATA_ROOT)
         self.assertEqual(len(data.lookup('2024-25', 'BOS', '44')['candidates']), 2)
-        absent = data.lookup('2025-26', 'GSW', '30')['candidates'][0]['rating']
-        self.assertEqual(absent['status'], 'not_in_rating_scope')
-        self.assertTrue(all(value is None for value in absent['ratings'].values()))
+        # Dataset 2.0 includes all teams in both seasons; the synthetic package
+        # above still tests genuinely out-of-scope records independently.
+        rating = data.lookup('2025-26', 'GSW', '30')['candidates'][0]['rating']
+        self.assertEqual(rating['status'], 'complete')
+        self.assertEqual(rating['record_id'], 'name:stephencurry@2025-26')
+        self.assertEqual(rating['game'], 'NBA 2K26')
+        self.assertEqual(rating['ratings']['three_point_shot'], 99)
+        self.assertEqual(rating['field_provenance']['three_point_shot']['game'], 'NBA 2K26')
+        self.assertIsNone(rating['field_provenance']['three_point_shot']['snapshot_date'])
 
 
 class IdentityHTTPTests(unittest.TestCase):

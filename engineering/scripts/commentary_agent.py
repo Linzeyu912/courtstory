@@ -16,6 +16,7 @@ from dotenv import dotenv_values
 
 from commentary_video import CommentaryVideo
 from commentary_plan import build_name_snapshot, model_config
+from shot_feedback import build_rating_context
 
 ROOT = Path(__file__).resolve().parents[2]
 WORKER = ROOT / "engineering/tools/player-review/agents/commentary-worker.mjs"
@@ -241,6 +242,10 @@ def main():
         if source_clip.get("video_sha256", source_clip.get("videoSha256")) != video.video_ref:
             raise ValueError("Saved review does not match decoded video")
         context["nameSnapshot"] = build_name_snapshot(review, source_clip)
+        context["sourceCuts"] = sorted(set(source_clip.get("sourceCuts", [])) |
+                                       set(review.get("settings", {}).get("cuts", [])) |
+                                       set(review.get("settings", {}).get("sourceCuts", [])))
+        context["ratingContext"] = build_rating_context(review, source_clip, context["nameSnapshot"])
     context["planContract"] = True
     fps = min(2, 120 / max(context["duration"], 1))
     overview = video.read_video_window({"startTime": 0, "endTime": context["duration"], "fps": fps, "mode": "sheet"})

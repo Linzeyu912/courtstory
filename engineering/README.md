@@ -1,5 +1,7 @@
 # 作品工程
 
+2026-10-10：[出手冻结与三色反馈](docs/shot-feedback-agent.md)接入解说先行、独立绘图和联合成片：分析出手前一秒，在已确认离手帧高亮出手者，显示投篮机会与防守压力。评价由后端保存，工作台不新增评分面板；代码验证与真实模型、云部署验收分别记录。
+
 2026-10-09：[解说润色](docs/commentary-narration-workflow.md)已接入本机工作台：整段Astra文本润色、24条篮球表达材料、候选采用/撤回与两种配音口吻。三段真实视频与四个成片的[实测结果](../research/agents/commentary-personality-20261009/README.md)已保存；未部署云端。
 
 2026-10-08按用户要求发布当前[全员姓名v4](docs/player-name-optimization-20261007.md)代码、复测记录与[完整渲染演示](../data/videos/demos/player-name-v4-20261008/README.md)。实际推送核对见[发布交接](../handoffs/chuali-zi/2026-10-08-0230-player-name-v4-publication.md)；历史“本地未提交”保留当时状态，Git共享不代表云端部署或准确率验收。
