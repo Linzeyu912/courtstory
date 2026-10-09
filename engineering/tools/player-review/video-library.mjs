@@ -70,6 +70,7 @@ export function mountVideoLibrary({beforeNavigate, sample, variant, localVideo=f
     if(!entries.length){const empty=document.createElement('p');empty.className='library-empty';empty.textContent=archived?'没有已归档的视频。':'还没有活动视频。点击“导入并识别球员”，或从“已归档”恢复。';list.append(empty);}
     const search=($('videoLibrarySearch').value||'').trim().toLowerCase(),origin=$('videoLibraryOrigin').value||'all';
     const visible=entries.filter(e=>(origin==='all'||(e.origin||'local')===origin)&&`${e.filename} ${e.relativePath||''}`.toLowerCase().includes(search));
+    if(entries.length&&!visible.length){const empty=document.createElement('p');empty.className='library-empty';empty.textContent='没有符合条件的视频。调整关键词或来源筛选后再试。';list.append(empty);}
     $('videoLibraryCount').textContent=`${archived?'已归档':'活动视频'} ${visible.length} / ${entries.length} 段 · 已归档 ${(catalog.archivedEntries||[]).length} 段`;
     for(const entry of visible){
       const row=document.createElement('article');row.className='local-video-row';
