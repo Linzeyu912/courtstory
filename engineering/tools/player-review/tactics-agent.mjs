@@ -47,9 +47,25 @@ export const AGENT_SCHEMA_VIDEO=object({schemaVersion:{type:'integer',enum:[4]},
 
 // Older saved V4 candidates used spotlight for every static person. Repair only
 // the new candidate; never rewrite an existing human annotation or invent paths.
-export function normalizeVideoCandidate(candidate,{diagnostics=[]}={}){
+function releaseFocusMatches(focus,index,a,person){
+  return focus.some(f=>f.annotationIndex===index&&f.anchorFrame===a.anchorFrame&&f.subjectId===person?.subjectId&&f.entityId===person?.entityId&&a.entityId===f.entityId);
+}
+function validateReleaseFocus(candidate,focus){
+  if(!Array.isArray(focus)||focus.length>40)throw new Error('出手 release 绑定无效。');
+  const flattened=candidate.phases?.flatMap(p=>(p.annotations??[]).map((a,index)=>({a,owners:(p.participants??[]).filter(person=>person.annotationIndexes?.includes(index))})))??[];
+  const seen=new Set();
+  for(const f of focus){
+    if(!f||Object.keys(f).sort().join(',')!=='anchorFrame,annotationIndex,entityId,subjectId'||!Number.isSafeInteger(f.annotationIndex)||f.annotationIndex<0||
+        !Number.isSafeInteger(f.anchorFrame)||f.anchorFrame<0||typeof f.subjectId!=='string'||f.entityId!==null&&typeof f.entityId!=='string'||seen.has(f.annotationIndex))throw new Error('出手 release 绑定无效。');
+    const item=flattened[f.annotationIndex];
+    if(!item||item.a.type!=='spotlight'||item.owners.length!==1||!releaseFocusMatches([f],f.annotationIndex,item.a,item.owners[0]))throw new Error('出手 release 绑定必须精确引用宿主指定的出手者重点圈。');
+    seen.add(f.annotationIndex);
+  }
+}
+export function normalizeVideoCandidate(candidate,{diagnostics=[],shotReleaseFocus=[]}={}){
   const next=structuredClone(candidate);
   if(next?.schemaVersion!==4)return next;
+  validateReleaseFocus(next,shotReleaseFocus);let annotationOffset=0;
   const report=text=>{
     const issue=text.slice(0,string.maxLength);
     if(!diagnostics.includes(issue))diagnostics.push(issue);
@@ -62,7 +78,7 @@ export function normalizeVideoCandidate(candidate,{diagnostics=[]}={}){
     for(const a of phase.annotations??[]){
       a.pattern??='solid';a.meaning??=a.type==='route'?'current_action':a.type==='screen'?'screen':a.type==='position'?'position':'focus';
       const owners=(phase.participants??[]).filter(p=>p.annotationIndexes?.includes(phase.annotations.indexOf(a)));
-      if(a.type==='spotlight'&&owners.length===1&&owners[0].role!=='ball_handler'){
+      if(a.type==='spotlight'&&owners.length===1&&owners[0].role!=='ball_handler'&&!releaseFocusMatches(shotReleaseFocus,annotationOffset+phase.annotations.indexOf(a),a,owners[0])){
         a.type='position';a.meaning='position';a.pattern='solid';
         converted.push(owners[0].label);
       }
@@ -75,13 +91,15 @@ export function normalizeVideoCandidate(candidate,{diagnostics=[]}={}){
       const issue=`${phase.title}：尚无有前后画面依据的路线，仅保留位置或掩护标记；请核对移动参与者并补充路线。`;
       report(issue);
     }
+    annotationOffset+=(phase.annotations??[]).length;
   }
   return next;
 }
-export function videoCandidateCoverage(document,candidate){
-  candidate=normalizeVideoCandidate(candidate);
+export function videoCandidateCoverage(document,candidate,{shotReleaseFocus=[]}={}){
+  candidate=normalizeVideoCandidate(candidate,{shotReleaseFocus});
   schemaCheck(candidate,AGENT_SCHEMA_VIDEO);
   const ids=new Set(document.playDefinition.participants.map(p=>p.id));
+  let annotationOffset=0;
   return candidate.phases.map((phase,index)=>{
     const subjects=new Set(),entities=new Set(),drawings=new Set(),highlightFrames=new Set();
     for(const person of phase.participants){
@@ -97,7 +115,7 @@ export function videoCandidateCoverage(document,candidate){
         const a=phase.annotations[i];
         if(!a||drawings.has(i)||a.entityId!==person.entityId)throw new Error('参与者图形引用无效；不能用同一个图形充当多人的标注。');
         if(a.type==='spotlight'){
-          if(person.role!=='ball_handler'||!person.evidenceFrames.includes(a.anchorFrame))throw new Error('重点圈仅用于该参考帧有持球证据的当前持球人；请改为位置标记或补充持球依据。');
+          if(person.role!=='ball_handler'&&!releaseFocusMatches(shotReleaseFocus,annotationOffset+i,a,person)||!person.evidenceFrames.includes(a.anchorFrame))throw new Error('重点圈仅用于该参考帧有持球证据的当前持球人或宿主指定的出手者；请改为位置标记或补充持球依据。');
           if(highlightFrames.has(a.anchorFrame))throw new Error('同一暂停帧只能圈出一个当前持球人；请按球权转移拆分参考帧。');
           highlightFrames.add(a.anchorFrame);
         }
@@ -122,6 +140,7 @@ export function videoCandidateCoverage(document,candidate){
     const observed=document.review.entities.filter(e=>e.trajectory.some(p=>p.frame>=phase.startFrame&&p.frame<phase.endFrameExclusive&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&!p.reviewExcluded)).map(e=>e.id);
     const pending=observed.filter(id=>!entities.has(id));
     if(phase.annotations.length&&pending.length)throw new Error(`仍有有位置证据的球员未说明是否参与：${pending.join('、')}。请补标或明确不确定原因。`);
+    annotationOffset+=phase.annotations.length;
     return {phaseIndex:index,annotated:phase.participants.filter(p=>p.disposition==='annotated').length,
       uncertain:phase.participants.filter(p=>p.disposition==='uncertain').length,notInvolved:phase.participants.filter(p=>p.disposition==='not_involved').length,
       participants:structuredClone(phase.participants)};
@@ -264,12 +283,12 @@ function schemaCheck(value,schema,path='方案'){
   else if(type==='string'&&(value.length<(schema.minLength??0)||value.length>(schema.maxLength??Infinity)||schema.pattern&&!new RegExp(schema.pattern).test(value)))throw new Error(`${path} 文本不正确。`);
   if(schema.enum&&!schema.enum.includes(value))throw new Error(`${path} 值不受支持。`);
 }
-export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseId,range:selectedRange,selectedIds,directVideo=false}){
+export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseId,range:selectedRange,selectedIds,directVideo=false,shotReleaseFocus=[]}){
   if(typeof jobId!=='string'||!/^[a-zA-Z0-9-]{1,80}$/.test(jobId)||!['phase','play','range'].includes(scope))throw new Error('Agent 任务绑定无效。');
   if(document.agentRuns?.some(run=>run.jobId===jobId))return structuredClone(document);
   if(candidate?.schemaVersion===4){
-    const diagnostics=[];candidate=normalizeVideoCandidate(candidate,{diagnostics});
-    const coverage=videoCandidateCoverage(document,candidate),legacy=structuredClone(candidate);legacy.schemaVersion=2;
+    const diagnostics=[];candidate=normalizeVideoCandidate(candidate,{diagnostics,shotReleaseFocus});
+    const coverage=videoCandidateCoverage(document,candidate,{shotReleaseFocus}),legacy=structuredClone(candidate);legacy.schemaVersion=2;
     for(const phase of legacy.phases)delete phase.participants;
     if(scope==='play'&&hasTacticsContent(document)){
       await validateDocument(document);

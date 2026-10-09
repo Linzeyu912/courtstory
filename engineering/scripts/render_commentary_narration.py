@@ -135,9 +135,11 @@ def convert_cues(cues, segments, placements):
     return rows
 
 
-def subtitle_overlays(cues, placements, width, height, font_path):
+def subtitle_overlays(cues, placements, width, height, font_path, *, layout='top'):
     """Same saved cue text and safe subtitle layout for both render paths."""
-    font_size = max(24, width//48)
+    if layout not in ('top','bottom'): raise ValueError('Unknown subtitle layout')
+    bottom = layout == 'bottom'
+    font_size = max(16, round(width*.0145)) if bottom else max(24, width//48)
     subtitle_images = {}
     cue_by_id = {c['cueId']: c for c in cues}
     for placement in placements:
@@ -146,6 +148,7 @@ def subtitle_overlays(cues, placements, width, height, font_path):
             continue
         cue = cue_by_id[cue_id]
         band_h = max(100, height//8)
+        max_text_width = width*.78-32 if bottom else width-80
         text = cue['text']
         chosen = None
         for size in range(font_size, 15, -2):
@@ -153,7 +156,7 @@ def subtitle_overlays(cues, placements, width, height, font_path):
             measure = ImageDraw.Draw(Image.new('RGB', (1, 1)))
             lines, line = [], ''
             for ch in text:
-                if line and measure.textlength(line+ch, font=candidate) > width-80:
+                if line and measure.textlength(line+ch, font=candidate) > max_text_width:
                     lines.append(line); line = ch
                 else:
                     line += ch
@@ -164,10 +167,17 @@ def subtitle_overlays(cues, placements, width, height, font_path):
         if chosen is None:
             raise ValueError(f"Cue {cue_id} text does not fit the safe subtitle band")
         font, lines = chosen
-        overlay = Image.new('RGBA', (width, band_h), (0, 0, 0, 170))
+        if bottom: band_h = min(height, round(len(lines)*(font.size*1.65)+16))
+        overlay = Image.new('RGBA', (width, band_h), (0, 0, 0, 0 if bottom else 170))
         draw = ImageDraw.Draw(overlay)
+        if bottom:
+            draw.rounded_rectangle((round(width*.11),0,round(width*.89),band_h-1),radius=6,fill=(0,0,0,75))
         for n, value in enumerate(lines):
-            draw.text((40, 14+n*(font.size+8)), value, font=font, fill='white')
+            if bottom:
+                x=(width-draw.textlength(value,font=font))/2
+                draw.text((x,8+n*font.size*1.65),value,font=font,fill='white',stroke_width=1,stroke_fill=(0,0,0,180))
+            else:
+                draw.text((40, 14+n*(font.size+8)), value, font=font, fill='white')
         subtitle_images[cue_id] = overlay
     return subtitle_images
 
@@ -251,13 +261,17 @@ def main():
     parser.add_argument('--font',type=Path,default=Path('C:/Windows/Fonts/msyh.ttc'))
     args=parser.parse_args()
     if args.output.exists(): parser.error('Choose a new output directory')
+    plan=json.loads(args.plan.read_text(encoding='utf-8'))
+    plan=plan.get('plan',plan); cues=plan['cues']
+    has_shots=any(n.get('kind')=='shot_release' for n in plan.get('nodes',[])) or any(
+        e.get('kind')=='shot' and e.get('shotStatus')=='confirmed' for e in plan.get('events',[]))
+    if has_shots and not args.document:
+        parser.error('shot_release requires --document with the adopted shooter spotlight and feedback')
     if not args.font.is_file(): parser.error(f'Font not found: {args.font}')
     from tactics_render import discover_ffmpeg
     ffmpeg=discover_ffmpeg()
     if not ffmpeg: parser.error('ffmpeg is required')
     args.output.mkdir(parents=True)
-    plan=json.loads(args.plan.read_text(encoding='utf-8'))
-    plan=plan.get('plan',plan); cues=plan['cues']
     manifest=json.loads(args.audio_manifest.read_text(encoding='utf-8'))
     rows=manifest['cues']; root=args.audio_manifest.resolve().parent
     for row in rows:

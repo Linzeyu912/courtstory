@@ -4,6 +4,7 @@ import {createGeometryContext,observedPoint,crossCutCompatible} from '../tactica
 import {DEFAULT_OPTIONS,evidenceQuality} from '../tactical-overlay/validation.mjs';
 import {COURT,project} from './court.mjs';
 import {validateAuthoredPath,authoredBindingReason,authoredRouteGeometry,cubicBezier} from './tactics-authored-geometry.mjs';
+import {projectShotFeedback,renderShotFeedbackSVG} from './shot-feedback.mjs';
 
 // Authored illustrations are separate from observations and their review status.
 export const ANNOTATION_LIMITS=Object.freeze({items:256,points:6,dots:160});
@@ -391,7 +392,7 @@ function followingCenter(a,context,currentFrame){
   const p=a.space==='court'?initial.point.courtPoint:initial.point,q=a.space==='court'?current.point.courtPoint:current.point;
   return {point:{x:q.x+a.points[0].x-p.x,y:q.y+a.points[0].y-p.y},reason:null};
 }
-export function projectAnnotations(document,{phaseId,frame:currentFrame,model,selectedId,editing=false,reference=false,reveal=1,freeze=false}={}){
+export function projectAnnotations(document,{phaseId,frame:currentFrame,model,selectedId,editing=false,reference=false,reveal=1,freeze=false,shotFreeze=freeze}={}){
   assertAnnotations(document.annotations,document);
   const status=annotationStatus(document,{phaseId}),context=geometryContext(document,phaseId,model);
   if(!frame(currentFrame)||!context.frames[currentFrame])throw new Error('当前帧超出视频范围。');
@@ -462,7 +463,8 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
     const handles=a.type==='spotlight'?[geometry.center]:a.points;
     if(!a.actionRange||a.space!=='court')item.handles=handles.map((p,index)=>({...a.space==='court'?project(mapping.toImage,p.x,p.y):p,index})).filter(p=>finite(p.x)&&finite(p.y));
   }
-  return {width,height,frame:currentFrame,phaseId,items,stale:status.stale};
+  return {width,height,frame:currentFrame,phaseId,items,stale:status.stale,
+    shotFeedback:projectShotFeedback(document,{frame:currentFrame,freeze:shotFreeze,items,width,height})};
 }
 
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
@@ -526,6 +528,7 @@ export function renderAnnotationsSVG(scene,{space='video',width=scene.width,heig
     }
     parts.push('</g>');
   }
+  if(space==='video')parts.push(renderShotFeedbackSVG(scene));
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="${viewBox}" aria-label="战术画布标注">${parts.join('')}</svg>`;
 }
 function segmentDistance(point,a,b){

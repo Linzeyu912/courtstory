@@ -224,6 +224,8 @@ def validate_handoff(plan, clip, review, context=None, evidence=None, *, require
             if (not isinstance(event.get("description"), str) or not event["description"].strip() or
                     not isinstance(event.get("participants"), list) or not isinstance(event.get("uncertainties"), list)):
                 raise ValueError("new understanding event fields are incomplete")
+            if event.get("kind") not in ("shot", "other"):
+                raise ValueError("new understanding event requires explicit shot or other kind")
             start, end = event.get("startTime"), event.get("endTime")
             if (type(start) not in (int, float) or type(end) not in (int, float) or
                     not math.isfinite(start) or not math.isfinite(end) or not 0 <= start <= end or
@@ -291,11 +293,16 @@ def validate_handoff(plan, clip, review, context=None, evidence=None, *, require
                     raise ValueError("cue name reference is outside its valid interval")
         if any(ref not in [by_person[p].get("nameRecordRef") for p in refs] for ref in records):
             raise ValueError("cue nameRecordRef is not one of its participant references")
+    from shot_feedback import prepare_shot_feedback
+    prepare_shot_feedback(plan, context, review, evidence)
     return snapshot
 
 
 def finalize_plan(plan, clip, review, context, evidence, config, job_id, current, *, require_contract=False):
     result = copy.deepcopy(plan)
+    if (context or {}).get("ratingContext") is not None:
+        result["ratingContext"] = copy.deepcopy(context["ratingContext"])
+        result["ratingSnapshotRef"] = {"digest": context["ratingContext"]["digest"]}
     snapshot = validate_handoff(result, clip, review, context, evidence, require_contract=require_contract)
     result.update(schemaVersion=SCHEMA_VERSION, planId=(current or {}).get("planId") or uuid.uuid4().hex,
                   revision=(current or {}).get("revision", 0) + 1, sourceRef=source_ref(clip, review),

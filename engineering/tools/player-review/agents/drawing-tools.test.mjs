@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createDrawingTools} from './drawing-tools.mjs';
+import {createDrawingTools,validateNodeCandidate} from './drawing-tools.mjs';
 const node={nodeId:'n1',anchorAssetFrame:2,evidenceWindow:{startFrame:1,endFrame:4}};
 const start={node,nodes:[node]};
 const budget=()=>({maxToolCalls:20,toolCalls:0});
@@ -35,4 +35,17 @@ test('redrawing can read prior rejection feedback while audit context has only i
   const result=await tools.find(t=>t.name==='read_commentary_node').execute('x',{});
   assert.deepEqual(JSON.parse(result.content[0].text).auditFeedback,auditFeedback);
   assert.deepEqual(createDrawingTools({...start,mode:'audit'},{budget:budget()}).tools.map(t=>t.name),['save_drawing_audit']);
+});
+test('shot spotlight is mandatory and restricted to the saved shooter, including an anonymous released shooter',()=>{
+  const shotNode={...node,kind:'shot_release',shotFeedback:{shooterRef:'shooter'}};
+  const candidate={schemaVersion:4,phases:[{freezeFrame:2,startFrame:1,endFrameExclusive:5,evidenceFrames:[2],actions:[],
+    participants:[{subjectId:'shooter',entityId:null,role:'receiver',annotationIndexes:[0],evidenceFrames:[2]}],
+    annotations:[{type:'spotlight',assetId:'image',anchorFrame:2,startFrame:2,endFrameExclusive:5,entityId:null,evidenceFrames:[2]}]}]};
+  const seen=new Set([2]),assets=[{assetId:'image',frame:2}],participants=[{participantId:'shooter',entityId:null}];
+  assert.equal(validateNodeCandidate(candidate,shotNode,seen,assets,participants),true);
+  const wrong=structuredClone(candidate);wrong.phases[0].participants[0].subjectId='other';
+  assert.throws(()=>validateNodeCandidate(wrong,shotNode,seen,assets,participants),/出手/);
+  const missing=structuredClone(candidate);missing.phases[0].annotations[0].type='position';
+  assert.throws(()=>validateNodeCandidate(missing,shotNode,seen,assets,participants),/spotlight/);
+  assert.throws(()=>validateNodeCandidate(candidate,node,seen,assets,participants),/持球/);
 });

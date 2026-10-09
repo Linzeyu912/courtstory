@@ -170,7 +170,7 @@ class CommentaryDrawingJobs:
             job['process']=process
             if process and job['cancel'].is_set(): process.terminate()
 
-    def _validate_node(self,row,evidence,candidate):
+    def _validate_node(self,row,evidence,candidate,participants=()):
         node=row.get('effectiveNode',row['node']);window=node['evidenceWindow'];seen=evidence.seen[node['nodeId']]
         if candidate.get('schemaVersion')!=4 or len(candidate.get('phases',[]))!=1: raise ValueError('绘图需返回原生单节点V4。')
         phase=candidate['phases'][0]
@@ -180,6 +180,22 @@ class CommentaryDrawingJobs:
             if 'startFrame' in item and not window['startFrame']<=item['startFrame']<item['endFrameExclusive']<=window['endFrame']+1: raise ValueError('图形超出节点窗口。')
         if any(a['anchorFrame']!=node['anchorAssetFrame'] for a in phase.get('annotations',[])): raise ValueError('图形锚点不属于当前解说节点。')
         if not phase.get('annotations') and not phase.get('actions'): raise ValueError('此节点尚无可采用的几何候选，不能标为已完成。')
+        focus=[(i,a) for i,a in enumerate(phase.get('annotations',[])) if a.get('type')=='spotlight']
+        if node.get('kind')=='shot_release':
+            shooter_ref=node.get('shotFeedback',{}).get('shooterRef')
+            shooter=next((p for p in participants if p.get('participantId')==shooter_ref),None)
+            if not shooter: raise ValueError('出手节点缺少保存的出手者引用。')
+            if len(focus)!=1: raise ValueError('确定出手节点必须有且仅有出手者spotlight。')
+            index,annotation=focus[0];owners=[p for p in phase.get('participants',[]) if index in p.get('annotationIndexes',[])]
+            if len(owners)!=1 or owners[0].get('entityId')!=annotation.get('entityId') or (
+                owners[0].get('entityId')!=shooter['entityId'] if shooter.get('entityId') is not None else
+                owners[0].get('entityId') is not None or owners[0].get('subjectId')!=shooter_ref):
+                raise ValueError('出手例外只允许保存的出手者spotlight，匿名人物需匹配subjectId。')
+            row['shotSpotlightIndex']=index
+        else:
+            for index,_ in focus:
+                owners=[p for p in phase.get('participants',[]) if index in p.get('annotationIndexes',[])]
+                if len(owners)!=1 or owners[0].get('role')!='ball_handler': raise ValueError('普通节点重点圈只允许当前持球人。')
         return map_candidate(candidate,evidence,node['nodeId'])
 
     def _extend_window(self,job,row,request,video,evidence):
@@ -274,7 +290,7 @@ class CommentaryDrawingJobs:
                         row.update(reason=result.get('reason',''),extensionRequest=result.get('extensionRequest'))
                         if result.get('nodeStatus') in ('unavailable','needs_upstream_review'):
                             row.update(status=result['nodeStatus']);self._persist(job);continue
-                        row['candidate']=self._validate_node(row,evidence,result.get('candidate') or {})
+                        row['candidate']=self._validate_node(row,evidence,result.get('candidate') or {},job['plan'].get('participants',[]))
                         row['generationEvidence']={'frames':sorted(evidence.seen[row['nodeId']]),'assets':deepcopy(evidence.node_assets[row['nodeId']])}
                         row['generationStatus']=result.get('nodeStatus','partial');row['status']='awaiting_audit';self._persist(job)
                     self._state(job,'validating',f"独立复核节点 {row['nodeId']} 原图几何")
@@ -302,9 +318,9 @@ class CommentaryDrawingJobs:
         finally:
             with self.lock: job['running']=False;job['process']=None
 
-    def _replace_old(self,job):
+    def _replace_old(self,job,ready_node_ids=None):
         document=deepcopy(job['document']);runs={r['jobId']:r for r in document.get('agentRuns',[]) if r.get('commentaryPlanRef')}
-        selected={n['nodeId'] for n in job['nodes']};archived=[];removed=set();old_jobs=set();human=[]
+        selected=set(ready_node_ids) if ready_node_ids is not None else {n['nodeId'] for n in job['nodes']};archived=[];removed=set();old_jobs=set();human=[]
         for a in document.get('annotations',{}).get('items',[]):
             old=runs.get(a.get('origin',{}).get('jobId'));node_id=old.get('annotationNodeRefs',{}).get(a['id']) if old else None
             if old and (node_id in selected or old.get('commentaryPlanRef')!=job['request']['commentaryPlanRef']):
@@ -326,17 +342,21 @@ class CommentaryDrawingJobs:
             document['playDefinition']['relations']=[r for r in document['playDefinition']['relations'] if r['id'] not in relation_ids]
             for p in document['playDefinition']['phases']:
                 p['actionIds']=[i for i in p['actionIds'] if i not in action_ids];p['relationIds']=[i for i in p['relationIds'] if i not in relation_ids]
-        return document,archived,archived_actions,archived_relations,human
+        old_feedback=document.get('shotFeedback',{}).get('items',[])
+        feedback_archive=[deepcopy(item) for item in old_feedback if item.get('nodeId') in selected or item.get('commentaryPlanRef')!=job['request']['commentaryPlanRef'] or item.get('spotlightAnnotationId') in removed]
+        if 'shotFeedback' in document: document['shotFeedback']['items']=[item for item in old_feedback if item not in feedback_archive]
+        return document,archived,archived_actions,archived_relations,human,feedback_archive
 
     def _publish(self,job,ready):
-        document,archived,old_actions,old_relations,human=self._replace_old(job);play=document['playDefinition'];ready=sorted(ready,key=lambda r:r['node']['anchorAssetFrame'])
+        document,archived,old_actions,old_relations,human,feedback_archive=self._replace_old(job,{r['nodeId'] for r in ready});play=document['playDefinition'];ready=sorted(ready,key=lambda r:r['node']['anchorAssetFrame'])
         combined={'schemaVersion':4,'summary':'；'.join(r['candidate']['summary'] for r in ready)[:1800],'issues':[], 'production':None,
                   'phases':[{'title':'已保存解说节点','reason':'按节点局部取证','startFrame':play['startFrame'],'endFrameExclusive':play['endFrameExclusive'],'freezeFrame':ready[0]['node']['anchorAssetFrame'],
                              'evidenceFrames':[],'annotations':[],'actions':[],'participants':[]}]}
-        phase=combined['phases'][0];people={};annotation_nodes={}
+        phase=combined['phases'][0];people={};annotation_nodes={};shot_rows=[]
         for row in ready:
             p=row['candidate']['phases'][0];offset=len(phase['annotations']);phase['annotations'].extend(deepcopy(p['annotations']));phase['actions'].extend(deepcopy(p['actions']));phase['evidenceFrames'].extend(p['evidenceFrames']);combined['issues'].extend(row['candidate']['issues'])
             for index in range(len(p['annotations'])): annotation_nodes[f"{job['jobId']}-annotation-{offset+index}"]=row['nodeId']
+            if row['node'].get('kind')=='shot_release': shot_rows.append((row,offset+row['shotSpotlightIndex']))
             for person in p['participants']:
                 key=('entity',person['entityId']) if person['entityId'] is not None else (row['nodeId'],person['subjectId'])
                 fresh=deepcopy(person);fresh['subjectId']=f"s{len(people)}";fresh['annotationIndexes']=[i+offset for i in person['annotationIndexes']]
@@ -353,13 +373,31 @@ class CommentaryDrawingJobs:
                 people[('entity',entity['id'])]={'subjectId':f"s{len(people)}",'entityId':entity['id'],'label':entity['id'],'role':'other','disposition':'uncertain','annotationIndexes':[],
                     'evidenceFrames':[next(iter(available))],'reason':'当前解说节点未可靠定位此已保存人物，保留待核对。'}
         phase['participants']=list(people.values());phase['evidenceFrames']=sorted(available);combined['issues']=list(dict.fromkeys(combined['issues']))[:60]
-        converted=self.tactics.run('agent-adopt',document=document,candidate=combined,options={'scope':'play','phaseId':play['phases'][0]['phaseId'],'jobId':job['jobId']})
+        release_focus=[]
+        for row,index in shot_rows:
+            owners=[p for p in phase['participants'] if index in p['annotationIndexes']]
+            if len(owners)!=1: raise ValueError('原生出手者图形主体不唯一。')
+            release_focus.append({'annotationIndex':index,'anchorFrame':row['node']['anchorAssetFrame'],'subjectId':owners[0]['subjectId'],'entityId':owners[0]['entityId']})
+        converted=self.tactics.run('agent-adopt',document=document,candidate=combined,options={'scope':'play','phaseId':play['phases'][0]['phaseId'],'jobId':job['jobId'],'shotReleaseFocus':release_focus})
         doc=converted['document'];run=next(r for r in doc['agentRuns'] if r['jobId']==job['jobId'])
         visual={'allApproved':True,'approved':True,'status':'approved','stages':{r['nodeId']:r['visualAudit'] for r in ready}}
         run.update(commentaryPlanRef=deepcopy(job['request']['commentaryPlanRef']),nodeIds=[r['nodeId'] for r in ready],annotationNodeRefs=annotation_nodes,
                    drawingConfigSnapshot=deepcopy(job['drawingConfigSnapshot']),nodeEvidence={r['nodeId']:r['generationEvidence'] for r in ready},
                    nodeDigests={r['nodeId']:_digest(r['node']) for r in ready},visualAudit=visual,archivedAnnotations=archived,archivedActions=old_actions,archivedRelations=old_relations)
         run['nodeWindowExtensions']={r['nodeId']:deepcopy(r['windowExtension']) for r in ready if r.get('windowExtension')}
+        run['archivedShotFeedback']=feedback_archive
+        shot_refs={ref for row,_ in shot_rows for ref in [row['node']['shotFeedback']['shooterRef'],*row['node']['shotFeedback'].get('defenderRefs',[])]}
+        run['shotParticipantSnapshot']=[deepcopy(p) for p in job['plan'].get('participants',[]) if p['participantId'] in shot_refs]
+        for row,index in shot_rows:
+            node=row['node'];feedback=node['shotFeedback'];ident=f"{job['jobId']}-annotation-{index}"
+            annotation=next((a for a in doc.get('annotations',{}).get('items',[]) if a['id']==ident),None)
+            if not annotation or annotation.get('type')!='spotlight' or annotation.get('anchorFrame')!=node['anchorAssetFrame']: raise ValueError('确定出手节点没有被原生采用的合法spotlight，不能完成。')
+            doc.setdefault('shotFeedback',{'schemaVersion':1,'items':[]})['items'].append({'id':f"{job['jobId']}-shot-{index}",'nodeId':node['nodeId'],'eventId':node['eventId'],
+                'frame':node['anchorAssetFrame'],'spotlightAnnotationId':ident,'shooterRef':feedback['shooterRef'],'opportunity':deepcopy(feedback['opportunity']),
+                'pressure':deepcopy(feedback['pressure']),'commentaryPlanRef':deepcopy(job['request']['commentaryPlanRef'])})
+            cues=doc.setdefault('tacticKeyframes',{'schemaVersion':1,'items':[]})['items']
+            if not any(k['frame']==node['anchorAssetFrame'] and k.get('freeze') and k['holdSeconds']>=2.5 and ident in k['annotationIds'] for k in cues):
+                cues.append({'id':f"{job['jobId']}-shot-cue-{index}",'frame':node['anchorAssetFrame'],'annotationIds':[ident],'freeze':True,'holdSeconds':2.5})
         pending=[{'annotationId':a['id'],'phaseId':a.get('phaseId'),'anchorFrame':a.get('anchorFrame'),
                   'reason':'人工编辑依赖旧解说，已保留在画布；需重核并明确确认当前版本归属或删除重画。','annotation':a} for a in human]
         run['pendingHumanReview']=pending

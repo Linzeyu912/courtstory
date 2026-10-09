@@ -209,6 +209,7 @@ class ReviewServerTests(unittest.TestCase):
             self.assertEqual(unknown_cancel.exception.code,400)
             for name,mime in [('team-overlay.mjs','text/javascript'),('team-overlay-policy.json','application/json'),
                               ('commentary-client.mjs','text/javascript'),('commentary-ui.mjs','text/javascript'),
+                              ('shot-feedback.mjs','text/javascript'),('player-review/shot-feedback.mjs','text/javascript'),
                               ('commentary-ui.css','text/css'),
                               ('automatic-annotations.mjs','text/javascript'),
                               ('identity-continuation.mjs','text/javascript'),('identity-agent-client.mjs','text/javascript'),
@@ -220,7 +221,7 @@ class ReviewServerTests(unittest.TestCase):
                     with response:
                         self.assertEqual(response.status,200)
                         self.assertEqual(response.headers.get_content_type(),mime)
-                        self.assertEqual(response.read(),(static/name).read_bytes())
+                        self.assertEqual(response.read(),(static/name.removeprefix('player-review/')).read_bytes())
         finally:
             if process.poll() is None:process.terminate()
             process.communicate(timeout=5)

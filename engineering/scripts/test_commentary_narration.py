@@ -3,17 +3,61 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+import json
+import sys
+from unittest.mock import patch
 
 import av
 import numpy as np
 from fractions import Fraction
 
 from render_commentary_narration import (build_timeline, source_at, render_video,
-                                         mux_audio, convert_cues)
+                                         mux_audio, convert_cues, subtitle_overlays)
 from commentary_video import CommentaryVideo
 
 
 class CommentaryNarrationTimelineTests(unittest.TestCase):
+    def test_feedback_subtitle_band_is_compact_centered_and_leaves_hud_clear(self):
+        font=Path('C:/Windows/Fonts/msyh.ttc')
+        if not font.is_file(): self.skipTest('CJK font unavailable')
+        cues=[{'cueId':'a','text':'投篮冻结与防守反馈'}];placements=[{'cueId':'a'}]
+        bottom=subtitle_overlays(cues,placements,1920,1080,font,layout='bottom')['a']
+        self.assertLess(bottom.height,110)
+        alpha=bottom.getchannel('A');box=alpha.getbbox()
+        self.assertGreater(box[0],0);self.assertLess(box[2],1920)
+        self.assertAlmostEqual((box[0]+box[2])/2,960,delta=1)
+        origin=1080-bottom.height-round(1080*.032)
+        self.assertGreater(origin,1080*.05+1920*.0645)
+        top=subtitle_overlays(cues,placements,1920,1080,font)['a']
+        self.assertEqual(top.size,(1920,135))
+        self.assertEqual(top.getpixel((0,0))[3],170)
+
+    def test_shot_workflow_stops_before_speech_without_adopted_document(self):
+        import commentary_workflow
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);source=root/'source.mp4';source.touch();plan=root/'plan.json'
+            plan.write_text(json.dumps({'nodes':[{'kind':'shot_release'}],'cues':[]}),encoding='utf-8')
+            with patch.object(sys,'argv',['workflow','--video',str(source),'--plan',str(plan),'--output',str(root/'out')]), \
+                 patch.object(commentary_workflow,'credentials'), patch.object(commentary_workflow,'synthesize_plan') as speech:
+                with self.assertRaises(SystemExit) as stopped: commentary_workflow.main()
+                self.assertEqual(stopped.exception.code,1)
+                speech.assert_not_called()
+            state=json.loads((root/'out/workflow.json').read_text(encoding='utf-8'))
+            self.assertEqual(state['status'],'failed')
+            self.assertIn('shot_release requires --document',state['error'])
+
+    def test_shot_plan_cannot_silently_use_legacy_subtitle_only_render(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            plan = root / 'plan.json'
+            plan.write_text(json.dumps({'nodes':[{'kind':'shot_release'}],'cues':[]}),encoding='utf-8')
+            result = subprocess.run([sys.executable,str(Path(__file__).with_name('render_commentary_narration.py')),
+                '--video',str(root/'source.mp4'),'--plan',str(plan),'--audio-manifest',str(root/'missing.json'),
+                '--output',str(root/'output')],capture_output=True,text=True,encoding='utf-8')
+            self.assertNotEqual(result.returncode,0)
+            self.assertIn('shot_release requires --document',result.stderr)
+            self.assertFalse((root/'output').exists())
+
     def test_pause_length_uses_audio_duration_and_shifts_later_source_mapping(self):
         cues = [
             dict(cueId='pause', delivery='pause', text='暂停说明', suggestedStartTime=2, suggestedEndTime=4),

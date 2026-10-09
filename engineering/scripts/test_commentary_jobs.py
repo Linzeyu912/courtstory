@@ -33,7 +33,7 @@ class CommentaryJobsTests(unittest.TestCase):
     def complete_plan(self):
         plan = json.loads(json.dumps(self.plan))
         plan["uncertainties"] = []
-        plan["events"] = [{"eventId": "e", "startTime": 0, "endTime": 3, "description": "A pass opens space.",
+        plan["events"] = [{"eventId": "e", "kind": "other", "startTime": 0, "endTime": 3, "description": "A pass opens space.",
                            "participants": [], "evidenceFrames": [0], "uncertainties": []}]
         for cue in plan["cues"]:
             cue.update(eventId="e", evidenceFrames=[0], focus="Space", participantRefs=[], nameRecordRefs=[])
@@ -41,6 +41,12 @@ class CommentaryJobsTests(unittest.TestCase):
                     "anchorAssetFrame": 0, "evidenceWindow": {"startFrame": 0, "endFrame": 0},
                     "participantRefs": [], "focus": "Space", "uncertainties": []}])
         return plan
+
+    def test_shot_render_requires_drawing_document_before_starting_process(self):
+        for shot in ({"nodes": [{"kind": "shot_release"}]}, {"events": [{"kind": "shot", "shotStatus": "confirmed"}]}):
+            plan = {**json.loads(json.dumps(self.plan)), **shot}
+            with self.assertRaisesRegex(ValueError, "document"):
+                self.jobs.create({"action": "render", "plan": plan}, self.clip, self.video, "v1", "qa")
 
     def write_understanding(self, command, plan=None):
         output = Path(command[command.index("--output") + 1]); output.mkdir(parents=True)

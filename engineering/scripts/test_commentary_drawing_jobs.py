@@ -22,6 +22,9 @@ class FakeTactics:
         if operation=='agent-digest': return {'digest':'base'}
         if operation=='agent-adopt':
             doc=deepcopy(payload['document']);doc['agentRuns']=[{'jobId':payload['options']['jobId']}]
+            candidate=payload['candidate'];doc['annotations']={'schemaVersion':1,'items':[dict(a,id=f"{payload['options']['jobId']}-annotation-{i}",
+                origin={'kind':'agent','jobId':payload['options']['jobId'],'sourceFrames':a['evidenceFrames'],'note':''}) for i,a in enumerate(candidate['phases'][0]['annotations'])]}
+            doc['tacticKeyframes']={'schemaVersion':1,'items':[dict(id='short-human-cue',frame=2,annotationIds=[doc['annotations']['items'][0]['id']],freeze=True,holdSeconds=.5)]}
             return {'document':doc,'presentation':{'items':[]}}
         return {}
 
@@ -41,9 +44,9 @@ class DrawingJobTests(unittest.TestCase):
         context=CommentaryVideo(self.video,self.root/'probe').context()
         self.clip={'video_sha256':context['videoRef'],'tracking_fingerprint':'track','tracking_revision':'v1','frames':context['frames'],'width':96,'height':64}
         self.document={'review':{'sourceFrameMapping':context['frames']},'playDefinition':{'startFrame':0,'endFrameExclusive':15,'phases':[{'phaseId':'p1'}],'participants':[]}}
-        self.plan={'planId':'plan','revision':1,'digest':'digest','producerConfigSnapshot':model_config(),'nodes':[{'nodeId':'n1','anchorAssetFrame':2,'focus':'站位','evidenceWindow':{'startFrame':1,'endFrame':4},'participantRefs':[]}],'participants':[],'events':[],'cues':[]}
+        self.plan={'planId':'plan','revision':1,'digest':'a'*64,'producerConfigSnapshot':model_config(),'nodes':[{'nodeId':'n1','anchorAssetFrame':2,'focus':'站位','evidenceWindow':{'startFrame':1,'endFrame':4},'participantRefs':[]}],'participants':[],'events':[],'cues':[]}
         self.commentary=FakeCommentary(self.plan)
-        self.request={'expectedVersion':0,'clientRevision':0,'documentDigest':'base','document':self.document,'commentaryPlanRef':{'planId':'plan','revision':1,'digest':'digest'},'nodeIds':['n1'],'review':{'nameSnapshot':'current'}}
+        self.request={'expectedVersion':0,'clientRevision':0,'documentDigest':'base','document':self.document,'commentaryPlanRef':{'planId':'plan','revision':1,'digest':'a'*64},'nodeIds':['n1'],'review':{'nameSnapshot':'current'}}
         self.service=CommentaryDrawingJobs(self.root/'jobs',FakeTactics(),self.commentary,execute=self.execute)
         self.audits=[]
     def tearDown(self): self.service.close();self.temp.cleanup()
@@ -56,11 +59,13 @@ class DrawingJobTests(unittest.TestCase):
                             'angle':0,'size':1,'color':'#26baff','explanation':'站位','authoredPath':None,'meaning':'position','pattern':'solid','evidenceFrames':[2]}]}
         return {'status':'completed','nodeStatus':'ready','candidate':{'schemaVersion':4,'summary':'站位','issues':[],'phases':[phase],'production':None}}
     def wait(self,id):
-        for _ in range(200):
+        deadline=time.monotonic()+15
+        state=None
+        while time.monotonic()<deadline:
             state=self.service.get(id,self.clip,'original',False)
             if state['status'] not in ('queued','preparing','analyzing','validating'): return state
-            time.sleep(.01)
-        self.fail('job did not finish')
+            time.sleep(min(.01,max(0,deadline-time.monotonic())))
+        self.fail(f'job did not finish within 15 seconds; latest state: {state!r}')
     def test_separate_drawing_audit_and_stale_adoption(self):
         state=self.service.create(self.request,self.clip,self.video,'original',False);state=self.wait(state['jobId'])
         self.assertEqual(state['status'],'ready');self.assertEqual([mode for mode,_ in self.audits],['draw','audit'])
@@ -102,6 +107,7 @@ class DrawingJobTests(unittest.TestCase):
         self.service.execute=rejected
         state=self.wait(self.service.create(self.request,self.clip,self.video,'original',False)['jobId'])
         self.assertEqual(state['status'],'failed');self.assertNotIn('previewDocument',state)
+
         self.service.retry(state['jobId'],self.request,self.clip,'original',False)
         state=self.wait(state['jobId'])
         self.assertEqual(state['status'],'ready');self.assertEqual(calls,['draw','audit','draw','audit'])
@@ -120,6 +126,77 @@ class DrawingJobTests(unittest.TestCase):
         request={**self.request,'review':{'nameSnapshot':'latest'}}
         self.service.adopt(state['jobId'],request,self.clip,'original',False)
         self.assertEqual(self.commentary.reviews[-1],request['review'])
+
+    def shot_setup(self):
+        node=self.plan['nodes'][0];node.update(kind='shot_release',eventId='shot',participantRefs=['shooter'],shotFeedback={'shooterRef':'shooter','defenderRefs':[],
+            'opportunity':{'grade':'good','reason':'保存的空位机会评价'},'pressure':{'grade':'low','reason':'保存的防守距离评价'},'evidenceFrames':[2]})
+        self.plan['participants']=[{'participantId':'shooter','entityId':None,'displayName':'已确认的名字','nameRecordRef':'name-record','validRange':{'startFrame':0,'endFrame':14}}]
+        execute=self.execute
+        def shot(start,*args,**kwargs):
+            result=execute(start,*args,**kwargs)
+            if start['mode']=='draw':
+                p=result['candidate']['phases'][0];p['participants'][0]['subjectId']='shooter'
+                a=p['annotations'][0];a.update(type='spotlight',meaning='focus',points=[{'x':30,'y':30}],angle=0,size=1)
+                result['shotFeedback']={'opportunity':{'grade':'poor','reason':'模型试图改评价'},'pressure':{'grade':'high','reason':'不得采用'}}
+            return result
+        return shot
+
+    def test_shot_release_requires_designated_shooter_spotlight_and_persists_saved_evaluation(self):
+        self.service.execute=self.shot_setup()
+        state=self.wait(self.service.create(self.request,self.clip,self.video,'original',False)['jobId'])
+        self.assertEqual(state['status'],'ready',state.get('message'))
+        doc=state['previewDocument'];item=doc['shotFeedback']['items'][0]
+        self.assertEqual(item['opportunity'],self.plan['nodes'][0]['shotFeedback']['opportunity'])
+        self.assertEqual(item['pressure'],self.plan['nodes'][0]['shotFeedback']['pressure'])
+        self.assertEqual(item['spotlightAnnotationId'],doc['annotations']['items'][0]['id'])
+        self.assertEqual(item['commentaryPlanRef'],self.request['commentaryPlanRef'])
+        self.assertGreaterEqual(max(k['holdSeconds'] for k in doc['tacticKeyframes']['items'] if k['frame']==2),2.5)
+        self.assertEqual(doc['agentRuns'][-1]['shotParticipantSnapshot'],self.plan['participants'])
+
+    def test_shot_without_required_spotlight_or_wrong_subject_cannot_be_ready(self):
+        shot=self.shot_setup();execute=self.execute
+        self.service.execute=execute
+        state=self.wait(self.service.create(self.request,self.clip,self.video,'original',False)['jobId'])
+        self.assertEqual(state['status'],'failed');self.assertNotIn('previewDocument',state)
+        def wrong(*args,**kwargs):
+            result=shot(*args,**kwargs)
+            if args[0]['mode']=='draw': result['candidate']['phases'][0]['participants'][0]['subjectId']='other'
+            return result
+        self.service.execute=wrong
+        state=self.wait(self.service.create(self.request,self.clip,self.video,'original',False)['jobId'])
+        self.assertEqual(state['status'],'failed');self.assertNotIn('previewDocument',state)
+
+    def test_shot_native_adoption_and_rerun_replace_linked_feedback(self):
+        self.service.close()
+        self.clip['frames']=[{'frame':i,'time':row['time'],'tracks':[]} for i,row in enumerate(self.clip['frames'])]
+        script="import {blankSession,exportReview} from './engineering/tools/player-review/trajectory.mjs';import {createTacticsDocument} from './engineering/tools/player-review/tactics-document.mjs';let s='';for await(const c of process.stdin)s+=c;const clip=JSON.parse(s);console.log(JSON.stringify(await createTacticsDocument(exportReview(blankSession(clip.video_sha256),clip,null,{allowEmpty:true}))));"
+        self.document=json.loads(subprocess.check_output(['node','--input-type=module','-e',script],input=json.dumps(self.clip).encode(),cwd=ROOT))
+        tactics=TacticalWorkbench(self.root/'shot-native');self.request.update(document=self.document,documentDigest=tactics.run('agent-digest',document=self.document)['digest'])
+        self.service=CommentaryDrawingJobs(self.root/'shot-native-jobs',tactics,self.commentary,execute=self.shot_setup())
+        state=self.wait(self.service.create(self.request,self.clip,self.video,'original',False)['jobId'])
+        self.assertEqual(state['status'],'ready',state.get('message'));old=state['previewDocument'];item=old['shotFeedback']['items'][0]
+        spotlight=next(a for a in old['annotations']['items'] if a['id']==item['spotlightAnnotationId'])
+        self.assertEqual(spotlight['type'],'spotlight');self.assertEqual(spotlight['entityId'],None)
+        self.assertEqual(item['opportunity'],self.plan['nodes'][0]['shotFeedback']['opportunity'])
+        self.request.update(document=old,documentDigest=tactics.run('agent-digest',document=old)['digest'])
+        state=self.wait(self.service.create(self.request,self.clip,self.video,'original',False)['jobId'])
+        self.assertEqual(state['status'],'ready',state.get('message'));doc=state['previewDocument']
+        self.assertEqual(len(doc['shotFeedback']['items']),1);self.assertEqual(len(doc['annotations']['items']),1)
+        self.assertEqual(doc['agentRuns'][-1]['archivedShotFeedback'],[item])
+        self.assertNotEqual(doc['shotFeedback']['items'][0]['spotlightAnnotationId'],item['spotlightAnnotationId'])
+
+    def test_stale_feedback_clears_while_human_modified_spotlight_is_preserved(self):
+        self.service.execute=self.shot_setup()
+        state=self.wait(self.service.create(self.request,self.clip,self.video,'original',False)['jobId'])
+        doc=deepcopy(state['previewDocument']);item=deepcopy(doc['shotFeedback']['items'][0]);doc['annotations']['items'][0]['origin']['kind']='human_modified'
+        job={'document':doc,'request':deepcopy(self.request),'nodes':[{'nodeId':'n1'}]}
+        unchanged=self.service._replace_old(job,{'another-failed-node'})[0]
+        self.assertEqual(unchanged['shotFeedback']['items'],[item])
+        job['request']['commentaryPlanRef']={**self.request['commentaryPlanRef'],'revision':2,'digest':'b'*64}
+        replaced,*archives=self.service._replace_old(job,{'n1'})
+        self.assertEqual(replaced['shotFeedback']['items'],[])
+        self.assertEqual(replaced['annotations']['items'],doc['annotations']['items'])
+        self.assertEqual(archives[-1],[item]);self.assertEqual(archives[-2],doc['annotations']['items'])
 
     def test_window_extension_is_bounded_by_saved_event_and_restarts_local_evidence(self):
         self.plan['nodes'][0]['eventId']='e1'

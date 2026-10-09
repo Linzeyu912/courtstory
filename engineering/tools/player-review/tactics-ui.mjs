@@ -816,8 +816,10 @@ export function mountTacticsUI(api){
         point.className='tactics-agent-point';point.setAttribute('data-preview-frame',String(at));
         heading.textContent=`${Number.isFinite(time)?`${time.toFixed(2)} 秒 · `:''}第 ${at+1} 帧 · ${at===phaseSuggestion.freezeFrame?'阶段参考画面':'标记参考画面'} · ${presentation?`本帧可见 ${visible.length} 个图形`:'可见数量待核对'}`;point.append(heading);
         if(frame?.dataUrl?.startsWith('data:image/jpeg;base64,')&&doc&&phase&&(!frame.videoSha256||frame.videoSha256===doc.review.videoSha256)){
-          const surface=document.createElement('div'),image=document.createElement('img'),overlay=document.createElement('div'),scene=projectAnnotations(doc,{phaseId:phase.phaseId,frame:at,editing:true});
+          const surface=document.createElement('div'),image=document.createElement('img'),overlay=document.createElement('div'),scene=projectAnnotations(doc,{phaseId:phase.phaseId,frame:at,editing:true,
+            shotFreeze:doc.shotFeedback?.items.some(item=>item.frame===at)??false});
           const shownIds=new Set(visible.map(item=>item.id));scene.items=scene.items.filter(item=>shownIds.has(item.id));
+          scene.shotFeedback=scene.shotFeedback.filter(item=>shownIds.has(item.spotlightAnnotationId));
           surface.className='tactics-agent-image';surface.style.aspectRatio=`${doc.review.width} / ${doc.review.height}`;image.width=doc.review.width;image.height=doc.review.height;image.src=frame.dataUrl;image.alt=`第 ${at+1} 帧标记建议预览`;image.loading='lazy';image.decoding='async';
           overlay.innerHTML=renderAnnotationsSVG(scene);overlay.hidden=true;image.onload=()=>{overlay.hidden=false;};
           image.onerror=()=>{const missing=document.createElement('p');missing.className='small muted';missing.textContent='该帧预览图加载失败，暂不能核对画面中的标记。';surface.className='';surface.replaceChildren(missing);};
@@ -1106,7 +1108,9 @@ export function mountTacticsUI(api){
       if(nodes.background.height!==model.height)nodes.background.height=model.height;
       const source=backgroundSource||background?.image;if(source)nodes.background.getContext('2d').drawImage(source,0,0,model.width,model.height);
     }
-    annotationScene=projectAnnotations(productionPreview||annotationPreview||documentValue,{phaseId,frame,model,selectedId:selectedAnnotationId,editing:editingEnabled,freeze:rangePlayback?.holding===frame});
+    const sceneDocument=productionPreview||annotationPreview||documentValue,freeze=rangePlayback?.holding===frame;
+    const shotFreeze=freeze||['paused','ended'].includes(playbackState.status)&&(sceneDocument.shotFeedback?.items.some(item=>item.frame===frame)??false);
+    annotationScene=projectAnnotations(sceneDocument,{phaseId,frame,model,selectedId:selectedAnnotationId,editing:editingEnabled,freeze,shotFreeze});
     const sourceSvg=renderPresentationSVG($('tacticsShowReference').checked?projected:{...projected,routes:[]},{space:mode,width,height});
     const marks=renderAnnotationsSVG(annotationScene,{space:mode,width,height}).replace(/^<svg\b[^>]*>/,'').replace(/<\/svg>\s*$/,'');
     const source=backgroundSource||background?.image,check=$('tacticsSyncVideo');if(source){check.width=model.width;check.height=model.height;check.getContext('2d').drawImage(source,0,0,model.width,model.height);}

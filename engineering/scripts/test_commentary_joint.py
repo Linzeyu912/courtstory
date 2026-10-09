@@ -137,5 +137,58 @@ class JointCompositionTests(unittest.TestCase):
         result=self.build(*args)
         self.assertEqual(result['sourceRef']['reviewDigest'],args[1]['sourceRef']['reviewDigest'])
 
+    def shot_fixture(self):
+        d,p,a,c,n=self.fixture();node=p['nodes'][0]
+        feedback={'shooterRef':'shooter','opportunity':{'grade':'fair','reason':'contested'},'pressure':{'grade':'low','reason':'late'}}
+        node.update(kind='shot_release',eventId='event-shot',shotFeedback=feedback)
+        p['participants']=[{'participantId':'shooter','entityId':None}]
+        ref={key:p[key] for key in ('planId','revision','digest')}
+        d['shotFeedback']={'schemaVersion':1,'items':[{'id':'shot-hud','nodeId':'n','eventId':'event-shot','frame':2,
+            'spotlightAnnotationId':'focus','shooterRef':'shooter','opportunity':feedback['opportunity'].copy(),
+            'pressure':feedback['pressure'].copy(),'commentaryPlanRef':ref}]}
+        d['annotations']={'items':[{'id':'focus','type':'spotlight','anchorFrame':2,'startFrame':2,'endFrameExclusive':3}]}
+        d['tacticKeyframes']={'items':[{'frame':2,'freeze':True,'holdSeconds':2.5,'annotationIds':['focus']}]}
+        n['frames']=[dict(sourceFrame=2,sourceTime=12.3,state='hold',reveal=1.,phaseId='p') for _ in range(25)]
+        return d,p,a,c,n
+
+    def test_release_spotlight_entity_must_match_current_saved_shooter(self):
+        args=list(self.shot_fixture());args[1]['participants'][0]['entityId']='P1'
+        args[0]['annotations']['items'][0]['entityId']='P1'
+        self.build(*args)
+        for entity_id in ['P2',None]:
+            changed=deepcopy(args);changed[0]['annotations']['items'][0]['entityId']=entity_id
+            with self.assertRaisesRegex(ValueError,'shooter.*(identity|participant)'):self.build(*changed)
+        args=list(self.shot_fixture());self.build(*args)
+        args[0]['annotations']['items'][0]['entityId']='P2'
+        with self.assertRaisesRegex(ValueError,'shooter.*identity'):self.build(*args)
+        args=list(self.shot_fixture());args[1]['participants']=[]
+        with self.assertRaisesRegex(ValueError,'shooter.*participant'):self.build(*args)
+
+    def test_confirmed_release_without_linked_shot_graphics_cannot_render_silently(self):
+        args=list(self.shot_fixture());args[0].pop('shotFeedback')
+        with self.assertRaisesRegex(ValueError,'shot.*graphics'):self.build(*args)
+        args=list(self.shot_fixture());args[0]['annotations']['items']=[]
+        with self.assertRaisesRegex(ValueError,'shot.*spotlight'):self.build(*args)
+
+    def test_shot_hud_must_match_current_saved_node_and_plan_evaluation(self):
+        for change in [lambda d:d['shotFeedback']['items'][0]['opportunity'].update(grade='good'),
+                       lambda d:d['shotFeedback']['items'][0].update(frame=3),
+                       lambda d:d['shotFeedback']['items'][0]['commentaryPlanRef'].update(revision=0)]:
+            args=list(self.shot_fixture());change(args[0])
+            with self.assertRaisesRegex(ValueError,'shot.*(plan|node)'):self.build(*args)
+
+    def test_release_cues_share_one_minimum_pause_and_longer_voice_extends_that_pause(self):
+        args=list(self.shot_fixture())
+        for cue in args[1]['cues']:cue.update(delivery='during_play',suggestedStartTime=0.,suggestedEndTime=1.2)
+        args[2][0]['durationSeconds']=.2
+        result=self.build(*args);holds=[s for s in result['segments'] if s['kind']=='hold']
+        self.assertEqual(len(holds),1)
+        self.assertAlmostEqual(holds[0]['previewEnd']-holds[0]['previewStart'],2.5)
+        self.assertTrue(all(p.get('assetFrame')==2 for p in result['placements']))
+        args[2][0]['durationSeconds']=3.
+        result=self.build(*args);holds=[s for s in result['segments'] if s['kind']=='hold']
+        self.assertEqual(len(holds),1)
+        self.assertGreaterEqual(holds[0]['previewEnd']-holds[0]['previewStart'],4.6)
+
 
 if __name__=='__main__':unittest.main()

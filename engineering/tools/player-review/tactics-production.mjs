@@ -6,6 +6,7 @@ import {validQuad} from './court.mjs';
 import {createAnnotation,updateAnnotation,annotationStatus,annotationPausePoints,projectAnnotations,renderAnnotationsSVG} from './tactics-annotations.mjs';
 import {validateDocument,reindexPhases} from './tactics-document.mjs';
 import {DEFAULT_RIBBON,productionPhaseSnapshot,productionSourceSnapshot,productionEqual,productionCameraDigest,productionCameraAt,sha256} from './tactics-authored-geometry.mjs';
+import {shotFeedbackStatus} from './shot-feedback.mjs';
 export {DEFAULT_RIBBON,productionPhaseSnapshot,productionCameraDigest};
 export const DEFAULT_PRODUCTION_CUE=Object.freeze({settleFrames:5,drawFrames:0,holdFrames:40});
 export function productionCue(document,{phaseId,frame}){
@@ -116,6 +117,13 @@ export function compileProduction(document,{fps=30}={}){
   const production=document.production,phases=document.playDefinition.phases,mapping=document.review.sourceFrameMapping;
   if(production&&!productionEqual(production.sourceBinding,productionSourceSnapshot(document)))throw new Error('编排来源已变化，请重新绑定。');
   if(annotationStatus(document).stale.length)throw new Error('含失效图形，请重新绑定后导出。');
+  const shotStatus=shotFeedbackStatus(document);
+  if(shotStatus.stale.length)throw new Error('投篮反馈关联已失效，请核对出手者重点圈、节点版本与至少 2.5 秒冻结。');
+  for(const shot of shotStatus.active){
+    const phase=phases.find(p=>shot.frame>=p.startFrame&&shot.frame<p.endFrameExclusive);
+    const scene=projectAnnotations(document,{phaseId:phase.phaseId,frame:shot.frame,shotFreeze:true});
+    if(!scene.shotFeedback.some(item=>item.id===shot.id))throw new Error('投篮反馈没有可见的出手者重点圈，请重新绘图或核对位置。');
+  }
   for(const a of document.annotations?.items??[])if(a.authoredPath){
     const camera=production.cameras.find(c=>c.id===a.authoredPath.cameraId),cuts=document.review.settings?.cuts??[];
     if(!productionCameraAt(camera,a.startFrame,cuts)||!productionCameraAt(camera,a.endFrameExclusive-1,cuts)||cuts.some(c=>c>a.startFrame&&c<a.endFrameExclusive))throw new Error(`路线 ${a.id} 的示意相机不能覆盖完整显示区间。`);
@@ -166,7 +174,7 @@ export function validateProductionSnapshot(document,plan){
 }
 export function renderProductionSvg(document,frameState){
   if(!frame(frameState?.sourceFrame)||!finite(frameState.reveal)||frameState.reveal<0||frameState.reveal>1)throw new Error('成片显示状态无效。');
-  return renderAnnotationsSVG(projectAnnotations(document,{phaseId:frameState.phaseId,frame:frameState.sourceFrame,reveal:frameState.reveal,production:true,freeze:document.schemaVersion===2&&frameState.state!=='source'}));
+  return renderAnnotationsSVG(projectAnnotations(document,{phaseId:frameState.phaseId,frame:frameState.sourceFrame,reveal:frameState.reveal,production:true,freeze:document.schemaVersion===2&&frameState.state!=='source',shotFreeze:frameState.state!=='source'}));
 }
 
 /** Explicit source-locked migration: these become ordinary editable annotations, never a second routes list. */

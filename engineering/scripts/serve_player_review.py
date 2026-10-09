@@ -211,7 +211,7 @@ def main():
     routes['/court-trails.mjs']=static/'court-trails.mjs'
     for filename in ['identity-continuation.mjs', 'identity-agent-client.mjs', 'identity-role-guard.mjs']:
         routes['/'+filename]=static/filename
-    for filename in ['tactics-ui.mjs','tactics-player-identity.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','tactics-agent.mjs','tactics.css']:
+    for filename in ['tactics-ui.mjs','tactics-player-identity.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','shot-feedback.mjs','tactics-agent.mjs','tactics.css']:
         routes['/'+filename]=static/filename
     for filename in ['tactics-production.mjs','tactics-authored-geometry.mjs','tactics-production-ui.mjs']:
         routes['/'+filename]=static/filename

@@ -6,6 +6,7 @@ import {validateInputs} from '../tactical-overlay/validation.mjs';
 import {validatePresentation} from './tactics-presentation.mjs';
 import {validateAnnotations,updateAnnotation,annotationStatus} from './tactics-annotations.mjs';
 import {validateProduction,preserveProductionMediaBinding} from './tactics-production.mjs';
+import {validateShotFeedback} from './shot-feedback.mjs';
 
 export const ACTION_KINDS={move:'跑位',cut:'切入',roll:'顺下',pop:'外弹',hold:'持位',space:'拉开',screen:'掩护'};
 export const clone=value=>JSON.parse(JSON.stringify(value));
@@ -24,6 +25,7 @@ export async function validateDocument(document){
   if(document.schemaVersion===2)validateFrameMapping(document.review.sourceFrameMapping,document.review.mediaEndTime);
   if(document.legacyTiming!==undefined&&(document.schemaVersion!==2||document.legacyTiming!==true))throw new Error('旧稿时间兼容标记无效。');
   validateTacticKeyframes(document);
+  validateShotFeedback(document);
   if(document.review.courtPreparation)validateCourtPreparation(document.review.courtPreparation);
   const presentationIssues=validatePresentation(document.presentation);
   if(presentationIssues.length)throw new Error(`展示修正无效：${presentationIssues.map(i=>i.details.field).join('、')}`);

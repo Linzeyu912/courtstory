@@ -101,6 +101,12 @@ def main():
                 if args.observations:
                     command += ['--observations', str(args.observations)]
                 subprocess.run(command, check=True)
+        saved_plan=json.loads(Path(plan).read_text(encoding='utf-8'))
+        saved_plan=saved_plan.get('plan',saved_plan)
+        has_shots=any(n.get('kind')=='shot_release' for n in saved_plan.get('nodes',[])) or any(
+            e.get('kind')=='shot' and e.get('shotStatus')=='confirmed' for e in saved_plan.get('events',[]))
+        if has_shots and not args.document:
+            raise ValueError('shot_release requires --document with the adopted shooter spotlight and feedback before speech synthesis')
         state['stage'] = 'speech'; save()
         manifest = synthesize_plan(plan, output/'audio', args.env_file, args.speaker, args.style,audio_cache=args.audio_cache)
         state['stage'] = 'render'; save()
