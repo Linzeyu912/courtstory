@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180">
+  <defs><pattern id="boards" width="60" height="20" patternUnits="userSpaceOnUse"><rect width="60" height="20" fill="#D9A86C"/><path d="M0 20H60M0 0V20" stroke="#0F1B33" stroke-opacity=".09" stroke-width="1"/></pattern><marker id="arrow" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#1D428A" stroke-width="1.5"/></marker></defs>
+  <rect width="360" height="180" fill="url(#boards)"/>
+  <g stroke="#fff" stroke-width="1.5" fill="none">
+    <rect x="10" y="10" width="340" height="160"/>
+    <path d="M180 10V170"/><circle cx="180" cy="90" r="24"/>
+    <path d="M10 61H73V119H10M350 61H287V119H350" fill="#1D428A"/>
+    <circle cx="73" cy="90" r="23"/><circle cx="287" cy="90" r="23"/>
+    <path d="M10 27H36A70 70 0 0 1 36 153H10M350 27H324A70 70 0 0 0 324 153H350"/>
+    <path d="M22 80v20M338 80v20"/><circle cx="27" cy="90" r="5"/><circle cx="333" cy="90" r="5"/>
+  </g>
+  <path d="M236 131Q255 98 304 80" fill="none" stroke="#1D428A" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <g fill="#fff" stroke="#1D428A" stroke-width="2"><circle cx="260" cy="75" r="9"/><circle cx="300" cy="110" r="9"/><circle cx="264" cy="125" r="9"/></g>
+  <g fill="#B85A1E" stroke="#fff" stroke-width="1.5"><circle cx="232" cy="135" r="10"/><circle cx="282" cy="63" r="10"/><circle cx="319" cy="138" r="10"/></g>
+  <g fill="#fff" font-family="Arial,sans-serif" text-anchor="middle" font-size="9" font-weight="bold"><text x="232" y="138">1</text><text x="282" y="66">5</text><text x="319" y="141">3</text></g>
+  <circle cx="221" cy="124" r="4" fill="#B85A1E" stroke="#fff"/>
+</svg>

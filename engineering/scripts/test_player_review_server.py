@@ -208,6 +208,9 @@ class ReviewServerTests(unittest.TestCase):
                 post_commentary('api/commentary/jobs/'+'a'*32+'/cancel',{})
             self.assertEqual(unknown_cancel.exception.code,400)
             for name,mime in [('team-overlay.mjs','text/javascript'),('team-overlay-policy.json','application/json'),
+                              ('studio-tabs.mjs','text/javascript'),('broadcast-studio.css','text/css'),('broadcast-replay.css','text/css'),
+                              ('broadcast-studio/fonts.css','text/css'),('broadcast-studio/mark.svg','image/svg+xml'),
+                              ('broadcast-studio/fonts/noto-sans-sc.woff2','font/woff2'),
                               ('commentary-client.mjs','text/javascript'),('commentary-ui.mjs','text/javascript'),
                               ('shot-feedback.mjs','text/javascript'),('player-review/shot-feedback.mjs','text/javascript'),
                               ('commentary-ui.css','text/css'),

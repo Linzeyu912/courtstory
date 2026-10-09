@@ -74,13 +74,17 @@ export function mountCommentaryUI(api) {
   const render = make('button', { className: 'primary', text: '配音并生成联合视频' }, actions);
   const upgrade = make('button', { text: '重新分析并补齐关键节点', hidden: true }, actions);
   const cancel = make('button', { text: '取消当前解说任务', hidden: true }, actions);
+  const workflow = make('div', { className: 'commentary-workflow-note' }, body);
+  const workflowNote = make('span', {}, workflow);
+  const continueDrawing = api.onOpenDrawing ? make('button', { text: '继续：战术绘图' }, workflow) : null;
+  continueDrawing?.addEventListener('click', () => api.onOpenDrawing());
   const status = make('p', { className: 'commentary-status', role: 'status', 'aria-live': 'polite' }, body);
   const progress = make('progress', { hidden: true }, body);
   const summaryLabel = make('label', { className: 'commentary-label', text: '解说梗概（可选）' }, body);
   const summaryInput = make('textarea', { rows: 2, placeholder: '可补充整体讲解重点' }, summaryLabel);
   const candidateBox = make('section', { className: 'commentary-cue', hidden: true }, body);
   make('h3', { text: '润色候选 · 原稿尚未改变' }, candidateBox);
-  const candidateList = make('div', {}, candidateBox);
+  const candidateList = make('div', { className: 'commentary-candidate-list' }, candidateBox);
   const candidateNote = make('p', { className: 'commentary-muted' }, candidateBox);
   const candidateActions = make('div', { className: 'commentary-actions' }, candidateBox);
   const adopt = make('button', { text: '采用润色稿', className: 'primary' }, candidateActions);
@@ -131,6 +135,11 @@ export function mountCommentaryUI(api) {
   function updateButtons() {
     const hasPlan = !!plan;
     const locked = busy || ACTIVE.has(job?.status);
+    workflowNote.textContent = !hasPlan ? '先生成并核对解说，保存后即可按关键节点绘图。'
+      : !supportsJoint(plan) ? '这是旧版解说。可继续编辑与配音；补齐关键节点后可按解说绘图。'
+      : changed() ? '解说有未保存修改。保存后再继续绘图，已有图形需按新稿核对。'
+      : '解说已保存。下一步核对战术图形，再生成配音、字幕与画面同步的联合视频。';
+    if (continueDrawing) continueDrawing.disabled = locked || !supportsJoint(plan) || changed();
     understand.disabled = locked;
     polish.disabled = locked || !hasPlan;
     voiceStyle.disabled = locked;
@@ -145,7 +154,7 @@ export function mountCommentaryUI(api) {
     save.disabled = busy || !hasPlan || !changed();
     const editingLocked = busy || (ACTIVE.has(job?.status) && job?.action !== 'polish');
     for (const field of [summaryInput, ...cueEditors.flatMap(cue => [cue.text, cue.start, cue.end, cue.delivery, cue.language])]) field.disabled = editingLocked;
-    const savedCues = new Map((baseline ? JSON.parse(baseline).cues : []).map(c => [c.cueId, c]));
+    const savedCues = new Map((baseline ? JSON.parse(baseline)?.cues || [] : []).map(c => [c.cueId, c]));
     for (const [index, fields] of cueEditors.entries()) {
       const current = readPlan().cues[index], saved = savedCues.get(current.cueId);
       const dirty = JSON.stringify(current) !== JSON.stringify(saved);
@@ -167,6 +176,7 @@ export function mountCommentaryUI(api) {
     cueEditors.length = 0;
     cueList.replaceChildren();
     summaryInput.value = plan?.summary || '';
+    if (!plan?.cues?.length) make('p', { className: 'studio-empty-note', text: '还没有解说稿。生成后可以逐句核对文字、起止时间和讲述方式，再制作配音字幕视频。' }, cueList);
     for (const [index, cue] of (plan?.cues || []).entries()) {
       const card = make('article', { className: 'commentary-cue' }, cueList);
       const heading = make('div', { className: 'commentary-cue-heading' }, card);
@@ -261,7 +271,7 @@ export function mountCommentaryUI(api) {
       job = value.job || null;
       if (['natural', 'classic'].includes(job?.voiceStyle)) voiceStyle.value = job.voiceStyle;
       if (value.plan) { renderPlan(value.plan); recoverLocal(); }
-      else updateButtons();
+      else renderPlan(null);
       if (ACTIVE.has(job?.status)) { setStatus(status, `已有任务${job.stage ? `：${job.stage}` : ''}，正在恢复状态。`); poll(); }
       else if (job?.action === 'render' && job.status === 'completed') showResult(job);
       else if (job?.action === 'polish' && job.status === 'completed') showCandidate(job);
@@ -444,6 +454,7 @@ export function mountCommentaryUI(api) {
   const loadedPlan = load();
   return {
     dispose,
+    pause() { resultVideo.pause(); sourceVideo.pause(); },
     markResultStale() { if (!resultBox.hidden) resultNote.textContent = '图形或姓名展示已有修改，当前视频对应之前保存的版本。请重新生成联合视频。'; },
     getPlan: () => clone(plan),
     renderVideo: () => start('render'),
