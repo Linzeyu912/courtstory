@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-10 00:55（Asia/Shanghai，本轮同步发布）：已把远端 `423d5a7`／`e2db182` 的解说润色、逐句人工编辑、语言和配音口吻接入当前解说先行／独立绘图流程，功能提交 [4cae6b7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/4cae6b71ec1d7e420c5b8725f7c6531a6290d000)。采用／撤回保留当前计划版本，单句保存追加历史并使旧绘图依据失效，口吻进入音频缓存。118 项 Python、832 项 Node 通过（1 项已有可选跳过），最后 UI 91 项与后端关键契约 38 项复测通过，独立审查通过；166 条视频及 LFS 索引校验通过。代码同步不代表真实模型／TTS 或云部署验收；见[整合交接](../handoffs/thy-0629/2026-10-10-0055-commentary-remote-integration.md)。
+
 2026-10-10 00:33（Asia/Shanghai，本地未提交／未推送）：用户批准的解说先行流程已实现并通过独立代码复核。解说和绘图分为顺序调用的两个 Agent，已有姓名进入解说；绘图默认继承保存计划的模型，可单独覆盖。统一字幕、语音、图形、姓名的联合成片及 TTS 缓存已接通，旧稿兼容保留。110 项 Python 与前端／Agent 全量 762 项 Node 通过，最后 UI 增量后 81 项回归通过；两段实际素材用测试音与测试图形完成成片解码检查。缺少真实理解与语音服务凭据，内容质量验收待实跑；未部署，出手／2K 规则仍暂缓。见[实施交接](../handoffs/thy-0629/2026-10-10-0033-commentary-led-tactics-implementation.md)。
 
 2026-10-09 12:30（America/New_York，UTC-04:00，已推送main）：解说新增逐句人工编辑/保存/恢复及语言标记，按cueId独立更新，保留其他句子未保存草稿；抽出无UI依赖的客户端，提供[迁移协议](../engineering/docs/commentary-cue-editing-api.md)。23项Python、83项Node回归通过，实际HTTP单句200/冲突409、浏览器保存/刷新/恢复通过，166段视频LFS索引检查通过。主提交[423d5a7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/423d5a7ef703dbda3398f22295a53358a8b6df79)包含前序润色与本次逐句接口；推送后HEAD、origin/main、远端main一致。仅同步解说相关55文件，其他任务保留；未部署云端。下方未提交/认证失败记录保留各轮历史状态。
