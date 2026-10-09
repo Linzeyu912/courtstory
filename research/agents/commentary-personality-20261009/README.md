@@ -1,5 +1,7 @@
 # 解说表达与篮球梗：实现实测
 
+同步补充：本记录与代码已随2026-10-09主提交[423d5a7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/423d5a7ef703dbda3398f22295a53358a8b6df79)推送main；本机媒体仍在忽略目录。下文12:03的未提交/认证失败描述保留当时状态。
+
 2026-10-09 12:03，America/New_York（UTC-04:00）。用户批准方案后实施。本机main未提交、未推送、未部署云端。Git远端认证失败，GitHub Issue查询401，未声称与远端同步。
 
 ## 实现与材料
