@@ -566,7 +566,7 @@ test('entering tactics synchronizes corrected feet and participants, archives re
   }finally{env.restore();}
 });
 
-function environment(source,{player=false,empty=false,agent=null,renderJob=null,loadDocument=null,storage=null,storageKey=null,serverVersion=0,commentary=null,currentPipeline=false,nameOverlay=null}={}){
+function environment(source,{player=false,empty=false,agent=null,renderJob=null,loadDocument=null,storage=null,storageKey=null,serverVersion=0,commentary=null,currentPipeline=false,nameOverlay=null,initialTab='visual'}={}){
   const nodes=new Map(),events={},writes=[],metadataWrites=[],saved=[],requests=[],store=storage??new Map();let hold=false,releases=[],frameRequests=0,resizeCallback;
   function make(tag='div'){
     const queries=new Map();
@@ -592,7 +592,7 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
     if(tag==='video')Object.assign(node,{paused:true,pause(){this.paused=true;},load(){}});
     return node;
   }
-  const get=id=>{if(!nodes.has(id))nodes.set(id,make());return nodes.get(id);};
+  const get=id=>{if(!nodes.has(id)){const node=make();node.id=id;nodes.set(id,node);}return nodes.get(id);};
   const originals=new Map(['document','window','location','Image','ResizeObserver','indexedDB','localStorage','fetch'].map(k=>[k,globalThis[k]]));
   const database={transaction(_store,mode){const tx={objectStore:()=>({
     get(key){const r={};queueMicrotask(()=>{r.result=store.get(key);r.onsuccess();});return r;},
@@ -617,6 +617,7 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
   const present=(frame)=>{seekSerial++;point={frame,time:source.review.sourceFrameMapping[frame].time,source:background,paused};ui.onPresentedFrame?.(point);};
   const bridge=player?{seek(frame){const serial=++seekSerial;playerCalls.push(['seek',frame]);paused=true;const done=()=>{if(serial===seekSerial)present(frame);};if(seekHeld)pendingSeeks.push(done);else queueMicrotask(done);},play(){paused=false;playerCalls.push(['play']);},getPresentedFrame:()=>point}:{};
   const ui=mountTacticsUI({key:storageKey??`player-review:ui-fixture-${++environmentId}:qa`,sample:'test',variant:'test',qa:true,title:'fixture',clip:{video_sha256:source.review.videoSha256},pause(){paused=true;playerCalls.push(['pause']);},snapshot:()=>source.review,nameOverlaySnapshot:()=>nameOverlay,frame:()=>point?.frame??12,openStep(){},...bridge});
+  if(initialTab==='visual')for(const listener of get('studioVisualTab').listeners.click)listener();
   if(!currentPipeline)get('tacticsAgentBackend').value='legacy';
   return {get,ui,writes,metadataWrites,saved,requests,store,playerCalls,present,background,get frameRequests(){return frameRequests;},get pendingWrites(){return releases.length;},
     holdSeek(){seekHeld=true;},finishSeek(){seekHeld=false;for(const done of pendingSeeks.splice(0))done();},
@@ -633,17 +634,80 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
   };
 }
 
-test('the tactics workspace mounts commentary after its heading and loads an isolated empty commentary draft',async()=>{
-  const env=environment(await createTacticsDocument((await makePresentationDemo()).review));
+test('commentary opens first and loads the existing drawing before returning to its canvas',async()=>{
+  let d=await createTacticsDocument((await makePresentationDemo()).review);
+  d=createAnnotation(d,{id:'kept-screen',type:'screen',phaseId:'phase-1',frame:12,space:'video',points:[{x:600,y:320}]});
+  const env=environment(d,{player:true,initialTab:'commentary',currentPipeline:true,
+    commentary:async()=>({status:{},plan:null,job:null})});
   try{
     await env.load();
-    const panel=env.get('tacticsPanel'),heading=panel.querySelector('.tactics-heading'),commentary=panel.children[panel.children.indexOf(heading)+1];
+    const panel=env.get('tacticsPanel').children.find(node=>node.id==='studioCommentaryPanel');
+    assert.equal(panel.hidden,false);assert.equal(env.get('studioVisualPanel').hidden,true);
+    assert.equal(env.ui.getSceneState().active,false);
+    for(const listener of env.get('studioVisualTab').listeners.click)listener();
+    await env.ui.ready();await Promise.resolve();
+    assert.equal(env.ui.getSceneState().active,true);
+    assert.deepEqual(env.ui.getSceneState().annotations,d.annotations);
+    assert.equal(env.get('tacticsToolScreen').disabled,false);
+  }finally{env.restore();}
+});
+
+test('canvas preview opens the mounted narration panel so joint-render progress and errors remain visible',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),calls=[];
+  const plan={planId:'p',revision:1,digest:'d',producerConfigSnapshot:{model:'m'},summary:'传球',
+    nodes:[{nodeId:'n',anchorAssetFrame:12,cueIds:['c']}],
+    cues:[{cueId:'c',text:'传给队友',suggestedStartTime:1,suggestedEndTime:2,delivery:'pause'}]};
+  const env=environment(d,{currentPipeline:true,commentary:async(path,payload)=>{
+    calls.push([path,payload]);
+    return path==='/api/commentary/jobs'?{id:'render',action:'render',status:'failed',error:'fixture render error'}:{status:{},plan,job:null};
+  }});
+  try{
+    await env.load();await env.get('tacticsPreviewCurrent').onclick();
+    const panel=env.get('tacticsPanel').children.find(node=>node.id==='studioCommentaryPanel');
+    assert.equal(panel.hidden,false);assert.equal(env.get('studioVisualPanel').hidden,true);
+    const walk=n=>[n,...n.children.flatMap(walk)];
+    assert.ok(walk(panel).some(n=>n.textContent==='fixture render error'));
+    const submitted=calls.find(([path])=>path==='/api/commentary/jobs')[1];
+    assert.equal(submitted.action,'render');assert.deepEqual(submitted.document.annotations,d.annotations);
+  }finally{env.restore();}
+});
+
+test('tactics task tabs retain the mounted commentary draft, pause hidden media and support keyboard navigation',async()=>{
+  const env=environment(await createTacticsDocument((await makePresentationDemo()).review),{player:true});
+  try{
+    await env.load();
+    const panel=env.get('tacticsPanel'),commentary=panel.children.find(node=>node.id==='studioCommentaryPanel');
     assert.equal(commentary.tag,'section');assert.equal(commentary.parentElement,panel);assert.equal(commentary.classList.contains('commentary-ui'),true);
+    assert.equal(commentary.hidden,true);assert.equal(env.get('studioVisualPanel').hidden,false);
     assert.deepEqual(env.requests.filter(path=>path.startsWith('/api/commentary?')),['/api/commentary?sample=test&variant=test&qa=1']);
     const descendants=node=>[node,...node.children.flatMap(descendants)];
     assert.ok(descendants(commentary).some(node=>node.textContent.includes('fixture-commentary')));
     assert.ok(descendants(commentary).some(node=>node.textContent==='配音并生成联合视频'&&node.disabled));
     const videos=descendants(commentary).filter(node=>node.tag==='video');assert.equal(videos.length,2);
+    const visual=env.get('studioVisualTab'),narration=env.get('studioCommentaryTab');
+    for(const listener of narration.listeners.click)listener();
+    assert.equal(commentary.hidden,false);assert.equal(env.get('studioVisualPanel').hidden,true);
+    assert.equal(env.ui.getSceneState().active,false,'hidden canvas must not handle playback shortcuts');
+    assert.equal(narration.attrs['aria-selected'],'true');assert.equal(visual.tabIndex,-1);
+    const script=descendants(commentary).find(node=>node.tag==='textarea');script.value='未保存的解说修改';
+    for(const video of videos)video.paused=false;
+    for(const listener of narration.listeners.keydown)listener({key:'ArrowLeft',preventDefault(){},stopPropagation(){}});
+    assert.equal(commentary.hidden,true);assert.equal(env.get('studioVisualPanel').hidden,false);
+    assert.equal(env.ui.getSceneState().active,true);assert.equal(script.value,'未保存的解说修改');
+    assert.ok(videos.every(video=>video.paused));assert.equal(document.activeElement,visual);
+    assert.equal(env.ui.getPlaybackState().status,'paused');
+    assert.equal(env.get('tacticsToolScreen').disabled,false);
+    for(const listener of narration.listeners.click)listener();
+    document.body.dataset.area='production';await env.exit();
+    assert.equal(env.ui.getPlaybackState().status,'inactive');
+    document.body.dataset.area='tactics';await env.load();
+    assert.equal(commentary.hidden,false,'reopening workbench preserves the chosen editor');
+    for(const listener of visual.listeners.click)listener();
+    await env.ui.ready();await Promise.resolve();
+    assert.equal(env.ui.getPlaybackState().status,'paused','returning to the canvas restores source playback');
+    assert.equal(env.get('tacticsToolScreen').disabled,false,'drawing is available after changing workbench areas');
+    assert.equal(script.value,'未保存的解说修改');
+    assert.equal(env.requests.filter(path=>path.startsWith('/api/commentary?')).length,1,'switching preserves the mounted editor');
     for(const video of videos)video.paused=false;
     env.ui.dispose();assert.ok(videos.every(video=>video.paused));
   }finally{env.restore();}

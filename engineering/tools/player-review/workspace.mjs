@@ -207,7 +207,7 @@ export function createWorkspace(api){
       savedReady?'已有保存的标定，可查看 2D 或重新自动标定。':
       candidateValidCount?'已有历史候选；可重新自动标定，或在详情中载入检查。':'点击自动标定开始；也可以直接展开人工选点。');
     const diagram=$('calibrationDiagram'),context=diagram.getContext('2d'),w=diagram.width,h=diagram.height,margin=28,scale=Math.min((w-2*margin)/(COURT.length/2),(h-2*margin)/COURT.width),start=side==='right'?COURT.length/2:0;
-    const toScreen=(x,y)=>[margin+(x-start)*scale,margin+y*scale];context.clearRect(0,0,w,h);context.fillStyle='#f0dfbf';context.fillRect(margin,margin,COURT.length/2*scale,COURT.width*scale);context.save();context.beginPath();context.rect(margin-3,margin-3,COURT.length/2*scale+6,COURT.width*scale+6);context.clip();
+    const toScreen=(x,y)=>[margin+(x-start)*scale,margin+y*scale];context.clearRect(0,0,w,h);context.fillStyle='#d9a86c';context.fillRect(margin,margin,COURT.length/2*scale,COURT.width*scale);context.save();context.beginPath();context.rect(margin-3,margin-3,COURT.length/2*scale+6,COURT.width*scale+6);context.clip();
     for(const line of courtMarkings()){context.beginPath();line.points.forEach((point,index)=>{const p=toScreen(...point);index?context.lineTo(...p):context.moveTo(...p);});context.strokeStyle=line.color;context.lineWidth=1.5;context.stroke();}
     context.restore();context.fillStyle='#546275';context.font='11px sans-serif';context.fillText('远侧边线（示意图上边）',margin,14);context.fillText('近侧边线（示意图下边）',margin,h-5);
     for(const landmark of courtLandmarks(side)){const[x,y]=toScreen(landmark.x,landmark.y),selected=landmark.id===id,done=keyframePoints(key||{}).some(p=>p.id===landmark.id&&p.enabled!==false);context.beginPath();context.arc(x,y,selected?9:6,0,Math.PI*2);context.fillStyle=selected?'#c75632':done?'#4d8677':'#fff';context.fill();context.strokeStyle='#67707a';context.stroke();context.fillStyle=selected||done?'#fff':'#27384b';context.font='bold 11px sans-serif';context.fillText(landmark.id,x-4,y+4);}
@@ -280,15 +280,15 @@ export function createWorkspace(api){
     const rect=(x,y,ww,hh,fill)=>{const[a,b]=screen(x,y);if(fill){ctx.fillStyle=fill;ctx.fillRect(a,b,ww*scale,hh*scale);}ctx.strokeRect(a,b,ww*scale,hh*scale);};
     const line=(x1,y1,x2,y2)=>{ctx.beginPath();ctx.moveTo(...screen(x1,y1));ctx.lineTo(...screen(x2,y2));ctx.stroke();};
     const arc=(x,y,r,a,b)=>{ctx.beginPath();const [xx,yy]=screen(x,y);ctx.arc(xx,yy,r*scale,a,b);ctx.stroke();};
-    ctx.strokeStyle='#75614b';ctx.lineWidth=1.5;rect(0,0,COURT.length,COURT.width,'#eacfa0');
-    ctx.strokeStyle='#e1c293';for(let x=1;x<COURT.length;x++)line(x,0,x,COURT.width);
-    ctx.strokeStyle='#665742';rect(0,5.1816,5.7912,4.8768,'#b7cad6');rect(COURT.length-5.7912,5.1816,5.7912,4.8768,'#b7cad6');
+    ctx.strokeStyle='#ffffff';ctx.lineWidth=1.5;rect(0,0,COURT.length,COURT.width,'#d9a86c');
+    ctx.strokeStyle='#c9985c';for(let x=1;x<COURT.length;x++)line(x,0,x,COURT.width);
+    ctx.strokeStyle='#ffffff';rect(0,5.1816,5.7912,4.8768,'#1d428a');rect(COURT.length-5.7912,5.1816,5.7912,4.8768,'#1d428a');
     line(COURT.length/2,0,COURT.length/2,COURT.width);arc(COURT.length/2,7.62,1.8288,0,Math.PI*2);
     const threeR=7.239,cornerY=.9144,theta=Math.asin((7.62-cornerY)/threeR),cornerX=1.6002+Math.sqrt(threeR**2-(7.62-cornerY)**2);
     arc(1.6002,7.62,threeR,-theta,theta);line(0,cornerY,cornerX,cornerY);line(0,COURT.width-cornerY,cornerX,COURT.width-cornerY);
     arc(COURT.length-1.6002,7.62,threeR,Math.PI-theta,Math.PI+theta);line(COURT.length,cornerY,COURT.length-cornerX,cornerY);line(COURT.length,COURT.width-cornerY,COURT.length-cornerX,COURT.width-cornerY);
     for(const x of [5.7912,COURT.length-5.7912])arc(x,7.62,1.8288,0,Math.PI*2);
-    for(const x of [1.6002,COURT.length-1.6002]){ctx.strokeStyle='#c16422';arc(x,7.62,.2286,0,Math.PI*2);}ctx.strokeStyle='#665742';line(1.2192,6.7056,1.2192,8.5344);line(COURT.length-1.2192,6.7056,COURT.length-1.2192,8.5344);
+    for(const x of [1.6002,COURT.length-1.6002]){ctx.strokeStyle='#b85a1e';arc(x,7.62,.2286,0,Math.PI*2);}ctx.strokeStyle='#ffffff';line(1.2192,6.7056,1.2192,8.5344);line(COURT.length-1.2192,6.7056,COURT.length-1.2192,8.5344);
     // Draw each adjacent observed pair separately. A missing frame or cut breaks the line.
     for(const segment of pathSegments(displayPoints,s.session.cuts))for(let i=1;i<segment.length;i++){
       const a=segment[i-1],b=segment[i];

@@ -26,7 +26,7 @@ export function mountWorkbenchShell(api) {
   const drawer = $('dataDrawer');
   const handle = $('drawerResize');
   const videoCard = document.querySelector('.video-card');
-  const titles = {video:'① 球员标定', data:'② 球场映射 · 可选', tactics:'③ 战术制作', production:'④ 成片'};
+  const titles = {video:'① 球员标定', data:'球场映射 · 已归档', tactics:'② 战术制作', production:'③ 成片'};
   let area = 'video', drawerState = 'closed', returnArea = 'video', halfRatio = .45;
   let videoStep = null;
   let drag = null, layoutFrame = 0, entitySignature = '';
@@ -50,7 +50,7 @@ export function mountWorkbenchShell(api) {
     }
     if (future) {
       $('futureTitle').textContent = titles[area];
-      $('futureDescription').textContent = '将当前草稿中的路线、标记和冻结动画编码为 MP4。生成过程不修改草稿。';
+      $('futureDescription').textContent = '可生成包含解说、配音、字幕与战术图形的联合视频，也可单独导出静音战术画面。';
     }
     const open = drawerState !== 'closed';
     $('drawerBody').hidden = !open;
@@ -79,6 +79,7 @@ export function mountWorkbenchShell(api) {
   }
 
   function showArea(next) {
+    if ($('archivedTools')) $('archivedTools').open = false;
     $('sourceDetails').open = false;
     if (next === 'data') setDrawer('full');
     else {
@@ -110,7 +111,14 @@ export function mountWorkbenchShell(api) {
   });
   $('backToVideo').onclick = () => showArea('video');
   $('deliveryData').onclick = () => showArea('data');
-  $('deliveryTactics').onclick = () => showArea('tactics');
+  $('deliveryTactics').onclick = () => {
+    showArea('tactics');
+    document.dispatchEvent(new CustomEvent('workbench-drawing'));
+  };
+  $('deliveryCommentary').onclick = () => {
+    showArea('tactics');
+    document.dispatchEvent(new CustomEvent('workbench-commentary'));
+  };
   $('drawerToggle').onclick = () => setDrawer(drawerState === 'closed' ? 'half' : 'closed');
   $('drawerHalf').onclick = () => setDrawer('half');
   $('drawerFull').onclick = () => setDrawer('full');
@@ -188,13 +196,17 @@ export function mountWorkbenchShell(api) {
   });
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
-    if ($('sourceDetails').open) {
+    if ($('archivedTools')?.open) {
+      $('archivedTools').open = false;
+      $('archivedTools').querySelector('summary').focus();
+    } else if ($('sourceDetails').open) {
       $('sourceDetails').open = false;
       $('sourceDetails').querySelector('summary').focus();
     } else if (drawerState !== 'closed') setDrawer('closed', true);
   });
   document.addEventListener('pointerdown', event => {
     if (!$('sourceDetails').contains(event.target)) $('sourceDetails').open = false;
+    if (!$('archivedTools')?.contains(event.target) && $('archivedTools')) $('archivedTools').open = false;
   });
 
   // The overlay and video share the exact same rectangle, including in half view.

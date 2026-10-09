@@ -66,8 +66,8 @@ function drawCourt() {
   const ox = (w - spanX * scale) / 2, oy = (h - width * scale) / 2;
   const point = ([x, y]) => [ox + (x - minX) * scale, oy + y * scale];
   courtTransform = point;
-  ctx.fillStyle = '#1b2b2b'; ctx.fillRect(0, 0, w, h);
-  ctx.fillStyle = '#223836'; ctx.fillRect(ox, oy, spanX * scale, width * scale);
+  ctx.fillStyle = '#eef1f6'; ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = '#d9a86c'; ctx.fillRect(ox, oy, spanX * scale, width * scale);
   for (let x = 0; x < length; x += 1.2) {
     if (x < minX || x >= minX + spanX) continue;
     ctx.fillStyle = Math.round(x / 1.2) % 2 ? '#ffffff03' : '#00000003';
@@ -76,14 +76,14 @@ function drawCourt() {
   ctx.save(); ctx.beginPath(); ctx.rect(ox - 1, oy - 1, spanX * scale + 2, width * scale + 2); ctx.clip();
   for (const side of ['left', 'right']) {
     const x = side === 'left' ? 0 : length - 5.7912;
-    ctx.fillStyle = '#2b4540'; ctx.fillRect(...point([x, 5.1816]), 5.7912 * scale, 4.8768 * scale);
+    ctx.fillStyle = '#1d428a'; ctx.fillRect(...point([x, 5.1816]), 5.7912 * scale, 4.8768 * scale);
   }
-  for (const marking of courtMarkings()) line(ctx, marking.points.map(point), '#738d7f', 1);
+  for (const marking of courtMarkings()) line(ctx, marking.points.map(point), '#ffffff', 1);
   for (const [cx, cy, r] of [[length / 2, width / 2, 1.8288], [5.7912, width / 2, 1.8288], [length - 5.7912, width / 2, 1.8288]]) {
-    ctx.beginPath(); ctx.arc(...point([cx, cy]), r * scale, 0, Math.PI * 2); ctx.strokeStyle = '#738d7f'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.beginPath(); ctx.arc(...point([cx, cy]), r * scale, 0, Math.PI * 2); ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1; ctx.stroke();
   }
   for (const x of [1.6002, length - 1.6002]) {
-    ctx.beginPath(); ctx.arc(...point([x, width / 2]), .2286 * scale, 0, Math.PI * 2); ctx.strokeStyle = '#c1cbb0'; ctx.stroke();
+    ctx.beginPath(); ctx.arc(...point([x, width / 2]), .2286 * scale, 0, Math.PI * 2); ctx.strokeStyle = '#b85a1e'; ctx.stroke();
   }
   ctx.restore();
   text(ctx, '0 m', ox, oy + width * scale + 17, '#7f9a91', 9);

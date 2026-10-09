@@ -337,7 +337,7 @@ test('the actual app gives scene picking priority over an existing P path mode w
     }
     const AsyncFunction=Object.getPrototypeOf(async function(){}).constructor;
     await new AsyncFunction(...Object.keys(dependencies),source.replace(/^import .*;\r?\n/gm,''))(...Object.values(dependencies));
-    const panel=dom.get('tacticsPanel'),heading=panel.querySelector('.tactics-heading'),commentary=panel.children[panel.children.indexOf(heading)+1];
+    const panel=dom.get('tacticsPanel'),commentary=panel.children.find(node=>node.id==='studioCommentaryPanel');
     assert.equal(commentary.tag,'section');assert.equal(commentary.parentElement,panel);assert.equal(commentary.className,'commentary-ui');
     appApi.setMode('path');dom.get('stableDisplay').checked=true;
     for(const handler of dom.get('stableDisplay').listeners.change)handler({target:dom.get('stableDisplay')});

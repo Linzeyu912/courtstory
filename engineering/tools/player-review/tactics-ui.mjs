@@ -1,4 +1,5 @@
 import {mountCommentaryUI} from './commentary-ui.mjs';
+import {mountStudioTabs} from './studio-tabs.mjs';
 import {createManualAnnotation,duplicateAnnotation,correctAnnotationProgress,nearestRouteProgress} from './tactics-manual-editor.mjs';
 import {removeTacticKeyframe} from './tactics-keyframes.mjs';
 import {mountTacticsTimeline} from './tactics-timeline-ui.mjs';
@@ -204,7 +205,9 @@ export function agentStageStatusDescription(stage,job){
 
 export function mountTacticsUI(api){
   const $=id=>document.getElementById(id),root=$('tacticsPanel');
-  root.innerHTML=`<div class="tactics-heading"><div><h2>战术画布</h2><span class="tactics-subtitle">选时间 · 在视频上画 · 暂停讲解 · 导出</span></div><div class="tactics-buttons"><span id="tacticsSaveState" class="tactics-save-state">正在读取</span><button id="tacticsUndo" title="撤销上一次修改（Ctrl / ⌘ Z）">撤销</button><button id="tacticsRedo">重做</button><button id="tacticsSave" class="primary">保存</button><button id="tacticsPreviewCurrent">成片效果预览</button><button id="tacticsExportCurrent">导出 MP4</button></div></div>
+  root.innerHTML=`<div class="tactics-heading"><div><h2 id="studioPanelTitle">解说与配音</h2><span id="studioPanelSubtitle" class="tactics-subtitle">生成并核对解说 · 保存关键节点 · 绘图后联合成片</span></div><div id="studioVisualActions" class="tactics-buttons" hidden><span id="tacticsSaveState" class="tactics-save-state">正在读取</span><button id="tacticsUndo" title="撤销上一次修改（Ctrl / ⌘ Z）">撤销</button><button id="tacticsRedo">重做</button><button id="tacticsSave" class="primary">保存</button><button id="tacticsPreviewCurrent">成片效果预览</button><button id="tacticsExportCurrent">导出 MP4</button></div></div>
+  <nav class="studio-task-tabs" role="tablist" aria-label="战术制作方式"><button id="studioCommentaryTab" role="tab" aria-controls="studioCommentaryPanel" aria-selected="true">1 · 解说与配音</button><button id="studioVisualTab" role="tab" aria-controls="studioVisualPanel" aria-selected="false" tabindex="-1">2 · 战术绘图</button></nav>
+  <section id="studioVisualPanel" role="tabpanel" aria-labelledby="studioVisualTab" hidden>
   <p id="tacticsStatus" role="status" aria-live="polite">正在读取当前视频的战术草稿。</p>
   <details class="tactics-production-panel"><summary>成片预览</summary><section id="tacticsRender" class="tactics-production"></section></details>
   <div id="tacticsAgentHome"></div>
@@ -242,7 +245,7 @@ export function mountTacticsUI(api){
   <div class="tactics-secondary"><details id="tacticsProductionSettings"><summary>冻结动画与示意相机</summary><div class="tactics-secondary-grid"><section><label class="field">冻结讲解点<select id="tacticsProductionCue"></select></label><div class="tactics-timing-fields"><label class="field">绘制前（秒）<input id="tacticsCueSettle" type="number" min="0" max="30" step="0.1"></label><label class="field">绘制（秒）<input id="tacticsCueDraw" type="number" min="0" max="30" step="0.1"></label><label class="field">绘制后（秒）<input id="tacticsCueHold" type="number" min="0" max="30" step="0.1"></label></div><button id="tacticsApplyCue">应用冻结时长</button></section><section><label class="field">示意相机<select id="tacticsProductionCamera"></select></label><label class="field">相机参考帧<select id="tacticsCameraFrame"></select></label><p id="tacticsCameraStatus" class="small muted"></p><div class="tactics-buttons"><button id="tacticsEditCamera">定位并调整四角</button><button id="tacticsFinishCamera" hidden>结束角点调整</button></div><p class="small muted">这是近似地面投影，修改会影响关联路线；不会改写球场标定或人工核对结果。拖角点后可撤销。</p></section></div><div class="tactics-production-removal"><button id="tacticsRebindProduction">重新绑定此视频编排</button><p id="tacticsProductionRebindHint" class="small muted"></p></div><div class="tactics-production-removal"><button id="tacticsRemoveProduction" class="tactics-danger">移除成片编排</button><p class="small muted">保留图形与控制点，移除镜头跟随、路线进度和冻结动画；编排路线退回参考帧静态图形，之后可重新生成。此操作可撤销。</p></div></details><details id="tacticsPhaseSettings"><summary>阶段设置</summary><div class="tactics-secondary-grid"><label class="field">作品标题<input id="tacticsTitle" maxlength="120"></label><label class="field">阶段名称<input id="tacticsPhaseTitle" maxlength="100"></label><p id="tacticsPhaseRange" class="small muted"></p><div class="range-fields"><label class="field">暂停讲解帧<input id="tacticsFreeze" type="number" min="1"></label><button id="tacticsUseFrame">用当前帧</button></div><button id="tacticsApplyPhase">更新阶段</button><div class="range-fields"><label class="field">从此帧分为下一阶段<input id="tacticsSplitAt" type="number" min="2"></label><button id="tacticsSplit">分段</button></div><button id="tacticsRemovePhase">合并当前阶段</button></div></details>
   <details id="tacticsReferenceDetails"><summary>识别路线参考</summary><p class="small muted">需要参考机器识别时再打开。手绘路线独立保存，不要求先有识别路线。</p><label class="tactics-check"><input id="tacticsShowReference" type="checkbox">在画面显示识别路线</label><label class="tactics-check"><input id="tacticsShowAll" type="checkbox">显示全部球员参考路线</label><label class="field">原始路线段<select id="tacticsRoute"></select></label><p id="tacticsRouteHint" class="small muted" role="status"></p><label class="field">参考路线控制点<select id="tacticsControlPoint"></select></label><label class="field">插入控制点的帧<select id="tacticsInsertFrame"></select></label><div class="tactics-buttons"><button id="tacticsInsertPoint">插入控制点</button><button id="tacticsDeletePoint">删除控制点</button><button id="tacticsRestoreRoute">恢复来源路线</button></div></details>
   <details id="tacticsActionReview"><summary>动作审核与讲解</summary><div class="tactics-secondary-grid"><label class="field">选择动作<select id="tacticsAction"></select></label><label class="field">执行球员<select id="tacticsActor"></select></label><label class="field">动作类型<select id="tacticsKind"></select></label><div class="range-fields"><label class="field">起始帧<input id="tacticsStart" type="number" min="1"></label><label class="field">结束帧（包含）<input id="tacticsEnd" type="number" min="1"></label></div><div id="tacticsScreenFields"><label class="field">受掩护球员<select id="tacticsBeneficiary"></select></label><label class="field">相关防守者<select id="tacticsDefender"></select></label><p class="small muted">这里记录动作关系；画面上的挡拆符号用上方「挡拆标记」添加。</p></div><label class="field">动作说明<input id="tacticsActionNote" maxlength="300"></label><div class="tactics-buttons"><button id="tacticsApplyAction">保存动作记录</button><button id="tacticsDeleteAction">删除动作</button></div><label class="field">审核人<input id="tacticsReviewer" maxlength="80" placeholder="你的姓名或账号"></label><div class="tactics-buttons"><button id="tacticsConfirmAction">我已核对本动作</button><button id="tacticsUnconfirmAction">撤回动作审核</button></div><p id="tacticsActionStatus" class="small muted"></p><label class="field">讲解草稿与审核意见<textarea id="tacticsNotes" rows="4" maxlength="8000" placeholder="记录看到的动作、配合关系和需要改进的地方"></textarea></label></div></details>
-  <details id="tacticsAdvanced"><summary>来源、草稿与导出</summary><p id="tacticsSource" class="tactics-source"></p><div class="tactics-buttons"><button id="tacticsSnapshot">使用当前轨迹建立草稿</button><button id="tacticsCandidate">THY 三阶段示例</button><button id="tacticsWorkspace">当前视频草稿</button><button id="tacticsReload">重新读取已保存版本</button><button id="tacticsIdentity">核对球员</button><button id="tacticsCalibration">核对球场</button><button id="tacticsJson">导出完整数据 JSON</button><button id="tacticsReport">导出审核冻结报告</button></div><p class="small muted">完整数据含所有手绘路线、挡拆标记和重点球员圈。审核冻结报告仅包含原有动作与审核，不包含新画布图形。</p><div id="tacticsRoster" class="tactics-roster"></div><div id="tacticsIssues"></div></details></div>`;
+  <details id="tacticsAdvanced"><summary>来源、草稿与导出</summary><p id="tacticsSource" class="tactics-source"></p><div class="tactics-buttons"><button id="tacticsSnapshot">使用当前轨迹建立草稿</button><button id="tacticsCandidate">THY 三阶段示例</button><button id="tacticsWorkspace">当前视频草稿</button><button id="tacticsReload">重新读取已保存版本</button><button id="tacticsIdentity">核对球员</button><button id="tacticsCalibration">核对球场</button><button id="tacticsJson">导出完整数据 JSON</button><button id="tacticsReport">导出审核冻结报告</button></div><p class="small muted">完整数据含所有手绘路线、挡拆标记和重点球员圈。审核冻结报告仅包含原有动作与审核，不包含新画布图形。</p><div id="tacticsRoster" class="tactics-roster"></div><div id="tacticsIssues"></div></details></div></section>`;
   let commentaryUI=null;
   let documentValue=null,phaseId=null,kind='workspace',version=0,history=[],redo=[],revision=0,epoch=0,context=0,loading=false,lastScene=null,active=false,pendingDraft=Promise.resolve();
   let selectedEntityId=api.selectedEntityId?.()??null,selectedRouteId=null,selectedControlFrame=null,temporaryRoute=null,editBusy=false,sceneReady=Promise.resolve(),sceneNodes=null,editingEnabled=true,loadSequence=0;
@@ -1295,10 +1298,10 @@ export function mountTacticsUI(api){
   }
   $('tacticsSave').onclick=safe(saveCurrent);
   $('tacticsPreviewCurrent').onclick=safe(async()=>{
-    if(commentaryUI?.getPlan()){await commentaryUI.renderVideo();commentaryRoot.scrollIntoView?.({block:'start',behavior:'smooth'});return;}
+    if(commentaryUI?.getPlan()){showCommentary();await commentaryUI.renderVideo();return;}
     root.querySelector('.tactics-production-panel').open=true;await $('tacticsRenderStart').onclick();$('tacticsRender').scrollIntoView?.({block:'start',behavior:'smooth'});
   });
-  $('tacticsExportCurrent').onclick=safe(async()=>{if(commentaryUI?.getPlan()){await commentaryUI.renderVideo();commentaryRoot.scrollIntoView?.({block:'start',behavior:'smooth'});}else api.openStep('export');});
+  $('tacticsExportCurrent').onclick=safe(async()=>{if(commentaryUI?.getPlan()){showCommentary();await commentaryUI.renderVideo();}else api.openStep('export');});
   $('tacticsAnnotationName').onchange=safe(()=>patchAnnotation({name:$('tacticsAnnotationName').value.trim()}));
   $('tacticsDuplicate').onclick=safe(async()=>{const a=selectedAnnotation();if(!a||!editAllowed())return;const id=`draw-${crypto.randomUUID()}`,next=duplicateAnnotation(documentValue,a.id,id);if(await saveAnnotation(next)){selectAnnotation(id);status('已复制，形状、时间与首次讲解关联保留；可从列表选择副本修改。');}});
   $('tacticsShowTangents').onchange=()=>drawScene();
@@ -1549,7 +1552,11 @@ export function mountTacticsUI(api){
   for(const [id,field] of [['tacticsTitle','title'],['tacticsNotes','notes']])$(id).oninput=()=>{if(documentValue){documentValue[field]=$(id).value;revision++;markUnsaved();draft();}};
   const resize=new ResizeObserver(()=>{try{drawScene();}catch(error){status(error.message);}});resize.observe($('tacticsCanvas'));
   document.addEventListener('workbench-area',safe(async()=>{
-    active=document.body.dataset.area==='tactics';productionUI.pause();if(!active){rangePlayback=null;clearTimeout(holdTimer);epoch++;cancelEditing();if(synchronized)runPlayback(playback.leave());if(document.body.dataset.area==='production'&&!documentValue&&!loading)await load('workspace');return;}api.pause();editingEnabled=true;
+    active=document.body.dataset.area==='tactics'&&!$('studioVisualPanel').hidden;productionUI.pause();
+    // Both editors use the current document; opening narration must load it too.
+    if(['tactics','production'].includes(document.body.dataset.area)&&!documentValue&&!loading)
+      await load(new URLSearchParams(location.search).has('candidate')?'candidate':'workspace');
+    if(document.body.dataset.area!=='tactics')commentaryUI.pause();if(!active){rangePlayback=null;clearTimeout(holdTimer);epoch++;cancelEditing();if(synchronized)runPlayback(playback.leave());if(document.body.dataset.area==='production'&&!documentValue&&!loading)await load('workspace');return;}api.pause();editingEnabled=true;
     if(!documentValue&&!loading)await load(new URLSearchParams(location.search).has('candidate')?'candidate':'workspace');
     else if(documentValue){if(synchronized)selectPhase(phaseId);else drawScene();}
     await syncSnapshot();agentControls();
@@ -1596,8 +1603,11 @@ export function mountTacticsUI(api){
   $('tacticsMigrate').onclick=safe(async()=>{const result=await migrateTacticsDocument(documentValue,api.clip.mediaEndTime);await writeTacticsDraft(cacheKey()+':before-v2',result.backup);await commit(result.document);});
   $('tacticsRedo').onclick=safe(async()=>{if(!redo.length||editBusy)return;const next=redo.pop();history.push({document:clone(documentValue),selectedAnnotationId});documentValue=next.document;selectedAnnotationId=next.selectedAnnotationId;revision++;markUnsaved();await draft();render({reuseScene:true});});
   const commentaryRoot=document.createElement('section');
-  root.querySelector('.tactics-heading').after(commentaryRoot);
+  commentaryRoot.id='studioCommentaryPanel';
+  commentaryRoot.setAttribute('role','tabpanel');commentaryRoot.setAttribute('aria-labelledby','studioCommentaryTab');
+  root.append(commentaryRoot);
   commentaryUI=mountCommentaryUI({...api,root:commentaryRoot,commentaryReview,
+    onOpenDrawing:()=>studioTabs.select('studioVisualTab'),
     beforeCommentary:async()=>{if(!documentValue)await $('tacticsSnapshot').onclick();await syncSnapshot();if(!await saveCurrent())throw new Error('当前人物与战术草稿未保存，请重试。');},
     jointRenderSnapshot:async()=>({document:clone(documentValue),nameOverlay:clone(api.nameOverlaySnapshot?.()??null)}),
     onPlanChange(plan,dirty){
@@ -1607,6 +1617,34 @@ export function mountTacticsUI(api){
         agentStatus(agentCapture.readonlyReason);agentControls();
       }
     }});
+  const studioTabs=mountStudioTabs([{tab:$('studioCommentaryTab'),panel:commentaryRoot},{tab:$('studioVisualTab'),panel:$('studioVisualPanel')}],{onChange(panel){
+    // Pause source, freeze timers and narration media when changing tasks. Both
+    // editors stay mounted so an unsaved script or drawing remains available.
+    api.pause();rangePlayback=null;clearTimeout(holdTimer);cancelEditing();
+    if(synchronized)runPlayback(playback.pause());productionUI.pause();
+    commentaryUI.pause();
+    active=panel==='studioVisualPanel'&&document.body.dataset.area==='tactics';
+    $('studioVisualActions').hidden=!active;
+    $('studioPanelTitle').textContent=active?'战术画布':'解说与配音';
+    $('studioPanelSubtitle').textContent=active?'按已保存解说绘图 · 核对并编辑 · 保存图形':'生成并核对解说 · 保存关键节点 · 绘图后联合成片';
+    root.scrollTop=0;
+    if(active&&documentValue){
+      // Leaving the workbench while narration is selected deactivates the
+      // source player. Re-enter its phase before enabling drawing again.
+      if(synchronized&&playback.state().status==='inactive')selectPhase(phaseId);
+      else if(synchronized){
+        const point=api.getPresentedFrame?.()||presentedPoint;
+        if(point)onPresentedFrame(point);else drawScene();
+      }else drawScene();
+      fillRouteControls();fillAnnotationControls();
+    }
+  }});
+  function showCommentary(){
+    studioTabs.select('studioCommentaryTab');
+    root.scrollTop=0;
+  }
+  document.addEventListener('workbench-commentary',showCommentary);
+  document.addEventListener('workbench-drawing',()=>studioTabs.select('studioVisualTab'));
   render();return {saveDraft:async()=>{await draft();return commentaryUI.saveDraft();},ready:()=>sceneReady,cancelEditing,onPresentedFrame,syncNameOverlay:()=>{productionUI.sync();commentaryUI.markResultStale();},dispose,
     getPlaybackState:playback.state,
     togglePlayback(){if(!active)return false;if(rangePlayback){$('tacticsPause').onclick();return true;}if(playback.state().status==='playing')$('tacticsPause').onclick();else $('tacticsContinue').onclick();return true;},
