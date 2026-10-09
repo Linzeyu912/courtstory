@@ -28,13 +28,13 @@ const text=value=>({type:'text',text:String(value)});
 export async function runCommentary(start){
   if(!start?.context||!Number.isFinite(start.context.duration)||start.context.duration<=0||!Array.isArray(start.context.frames)||!start.overview||!Array.isArray(start.overview.content))
     throw new Error('讲解任务缺少有效的视频上下文或概览图片。');
-  const provider=createCommentaryProvider();const config=start.config??{};
+  const provider=createCommentaryProvider(process.env,start.modelConfig??null);const config=start.config??{};
   const budget={maxRequests:limit(config.maxRequests,12,1,24),maxToolCalls:limit(config.maxToolCalls,30,1,60),toolCalls:0,imagesReturned:0};
   const timeoutMs=limit(config.timeoutSeconds,480,10,600)*1000,startedAt=Date.now();
   const usage={input:0,output:0,cacheRead:0,cacheWrite:0,totalTokens:0,requests:0};
   const runtime=createCommentaryTools(start,{rpc,emit,budget,requestNumber:()=>requestCount});
   agent=new Agent({
-    initialState:{systemPrompt:SYSTEM,model:provider.model,tools:runtime.tools,thinkingLevel:provider.thinkingLevel},
+    initialState:{systemPrompt:SYSTEM+`\n解说只输出文字、结构化人物引用和关键节点，不输出坐标/路线/绘图。先读取 get_video_context 的姓名快照；只有快照中 displayName 非空的有效区间可以称名。复制 participantId/nameRecordRef；人工优先与已采用机器姓名保留来源，候选/冲突/未知匿名。不可按同一P编号跨换人或切镜称名，不读出?或~，不自动翻译姓名。每个节点含 nodeId/eventId/cueIds/anchorAssetFrame/evidenceWindow={startFrame,endFrame}/participantRefs/focus/uncertainties；anchorAssetFrame 必须是实际看过的该事件帧，窗口属于事件，不能猜区间中点。每条cue必须且只能归属恰好一个node，不能漏句或在同一/不同节点重复cueId；多个cue可共享同一节点。during_play句子仍有实际帧锚点，但保持播放中讲解，不强制冻结。计划participants为结构化数组；具名cue保存participantRefs和nameRecordRefs，引用证据不得越过姓名区间。`,model:provider.model,tools:runtime.tools,thinkingLevel:provider.thinkingLevel},
     streamFn:provider.streamFn,toolExecution:'sequential',getApiKey:()=>provider.apiKey,
     transformContext:async messages=>{
       const detailed=messages.flatMap((m,i)=>m.role==='toolResult'&&Array.isArray(m.content)&&m.content.some(c=>c.type==='image')?[i]:[]);
@@ -93,7 +93,7 @@ export async function runCommentary(start){
     runtime.state.error=redactError(error);
   }finally{clearTimeout(timer);}
   const plan=runtime.state.plan;
-  const result={status:runtime.state.finished?'completed':plan?'partial':'failed',plan,usage:{...usage,toolCalls:budget.toolCalls,imagesReturned:budget.imagesReturned,
+  const result={status:runtime.state.finished?'completed':plan?'partial':'failed',plan,producerConfigSnapshot:provider.configSnapshot??null,usage:{...usage,toolCalls:budget.toolCalls,imagesReturned:budget.imagesReturned,
     uniqueFrames:runtime.state.seenFrames.size,elapsedMs:Date.now()-startedAt},evidence:{frames:[...runtime.state.seenFrames],detailFrames:[...runtime.state.detailFrames],assets:runtime.state.assets},
     ...(runtime.state.error?{error:runtime.state.error}:!plan?{error:'模型没有保存可审阅的讲解方案。'}:{})};
   emit({type:'result',result});return result;

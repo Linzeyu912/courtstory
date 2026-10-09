@@ -4,7 +4,7 @@ import {createRequire} from 'node:module';
 import {homedir} from 'node:os';
 import {join} from 'node:path';
 import {once} from 'node:events';
-import {compileProduction, renderProductionSvg, sampleProduction} from '../player-review/tactics-production.mjs';
+import {compileProduction, validateProductionSnapshot, renderProductionSvg, sampleProduction} from '../player-review/tactics-production.mjs';
 import {validateDocument} from '../player-review/tactics-document.mjs';
 
 const require = createRequire(import.meta.url);
@@ -18,7 +18,8 @@ try {
   const sharp = loadSharp(); sharp.cache(false); sharp.concurrency(2);
   const request = JSON.parse(await readFile(process.argv[2], 'utf8'));
   await validateDocument(request.document);
-  const plan = compileProduction(request.document, request.options);
+  const nativePlan = compileProduction(request.document, request.options);
+  const plan = request.productionPlan ? validateProductionSnapshot(request.document, request.productionPlan) : nativePlan;
   if (plan.totalFrames > 18000 || plan.width * plan.height > 3840 * 2160) throw new Error('成片超出本地渲染上限。');
   for (let i = 0; i < plan.totalFrames; i++) {
     const svg = renderProductionSvg(request.document, sampleProduction(plan, i));

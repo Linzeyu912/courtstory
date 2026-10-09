@@ -3,9 +3,11 @@ from __future__ import annotations
 
 import argparse
 import base64
+import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import urllib.error
 import urllib.request
 import uuid
@@ -88,8 +90,46 @@ def synthesize(text, key, speaker, style, section_id):
         raise RuntimeError(str(exc).replace(key, '[REDACTED]')) from None
 
 
+def _wav_sha256(path):
+    digest=hashlib.sha256()
+    with Path(path).open('rb') as source:
+        for chunk in iter(lambda:source.read(1024*1024),b''):digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _verified_wav(path, row):
+    """Require both the saved byte digest and a complete, correctly typed WAV."""
+    try:
+        if not row.get('wavSha256') or _wav_sha256(path)!=row['wavSha256']:return False
+        with wave.open(str(path),'rb') as audio:
+            frames=audio.getnframes()
+            if (audio.getnchannels(),audio.getsampwidth(),audio.getframerate(),audio.getcomptype())!=(1,2,SAMPLE_RATE,'NONE') or frames<=0:return False
+            if len(audio.readframes(frames))!=frames*2:return False
+            return abs(frames/SAMPLE_RATE-float(row['durationSeconds']))<1e-8
+    except (OSError,ValueError,KeyError,TypeError,EOFError,wave.Error):return False
+
+
+def _atomic_json(path, value):
+    target=Path(path);temporary=target.with_name(target.name+'.'+uuid.uuid4().hex+'.tmp')
+    try:
+        temporary.write_text(json.dumps(value,ensure_ascii=False,indent=2),encoding='utf-8')
+        temporary.replace(target)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _copy_verified_wav(source, destination, row):
+    destination=Path(destination);temporary=destination.with_name(destination.name+'.'+uuid.uuid4().hex+'.tmp')
+    try:
+        shutil.copyfile(source,temporary)
+        if not _verified_wav(temporary,row):raise ValueError('Cached TTS WAV changed while copying')
+        temporary.replace(destination)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
 def synthesize_plan(plan_path, output, env_file, speaker=SPEAKER, style=STYLE,
-                    key_env='VOLCENGINE_TTS_API_KEY'):
+                    key_env='VOLCENGINE_TTS_API_KEY', audio_cache=None):
     key = credentials(env_file, key_env)
     result = json.loads(Path(plan_path).read_text(encoding='utf-8'))
     cues = result.get('plan', result)['cues']
@@ -105,26 +145,48 @@ def synthesize_plan(plan_path, output, env_file, speaker=SPEAKER, style=STYLE,
     else:
         manifest = {'config': config, 'sectionId': str(uuid.uuid4()), 'cues': []}
     existing = {c['cueId']: c for c in manifest['cues']}
+    manifest['cues']=[]
+    cache_folder=Path(audio_cache) if audio_cache else None
+    if cache_folder:cache_folder.mkdir(parents=True,exist_ok=True)
     for index, cue in enumerate(cues, 1):
+        cache_input={'version':1,'text':cue['text'],**config,'endpoint':ENDPOINT,
+                     'format':'pcm_s16le','channels':1,'speechRate':0,'enableSubtitle':True}
+        cache_key=hashlib.sha256(json.dumps(cache_input,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode('utf-8')).hexdigest()
+        name=f'cue-{cache_key}.wav'
         cached = existing.get(cue['cueId'])
         if cached:
-            if cached['text'] != cue['text']:
+            if cached['text'] != cue['text'] and not cache_folder:
                 raise ValueError('Existing audio belongs to different commentary; choose a new output directory')
-            if (output / cached['path']).is_file():
+            if cached['text']==cue['text'] and cached.get('cacheKey')==cache_key and _verified_wav(output/cached['path'],cached):
+                manifest['cues'].append(cached);_atomic_json(manifest_path,manifest)
                 print(f"TTS cached {cue['cueId']}: {cached['durationSeconds']:.2f}s", flush=True)
                 continue
-            manifest['cues'].remove(cached)
+        cached=None
+        if cache_folder:
+            try:
+                cached=json.loads((cache_folder/f'{cache_key}.json').read_text(encoding='utf-8'))
+            except (OSError,ValueError):pass
+            if cached and cached.get('cacheKey')==cache_key and cached.get('text')==cue['text'] and _verified_wav(cache_folder/f'{cache_key}.wav',cached):
+                _copy_verified_wav(cache_folder/f'{cache_key}.wav',output/name,cached)
+                row={**cached,'cueId':cue['cueId'],'path':name}
+                manifest['cues'].append(row);_atomic_json(manifest_path,manifest)
+                print(f"TTS shared cache {cue['cueId']}: {row['durationSeconds']:.2f}s",flush=True)
+                continue
         pcm, details = synthesize(cue['text'], key, speaker, style, manifest['sectionId'])
-        name = f'cue-{index:02d}.wav'
         with wave.open(str(output / name), 'wb') as audio:
             audio.setnchannels(1)
             audio.setsampwidth(2)
             audio.setframerate(SAMPLE_RATE)
             audio.writeframes(pcm)
         row = {'cueId': cue['cueId'], 'text': cue['text'], 'path': name,
-               'durationSeconds': len(pcm) / (SAMPLE_RATE * 2), **details}
+               'durationSeconds': len(pcm) / (SAMPLE_RATE * 2), **details,
+               'cacheKey':cache_key,'wavSha256':_wav_sha256(output/name)}
+        if not _verified_wav(output/name,row):raise ValueError('Synthesized TTS WAV failed validation')
+        if cache_folder:
+            _copy_verified_wav(output/name,cache_folder/f'{cache_key}.wav',row)
+            _atomic_json(cache_folder/f'{cache_key}.json',row)
         manifest['cues'].append(row)
-        manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
+        _atomic_json(manifest_path,manifest)
         print(f"TTS {cue['cueId']}: {row['durationSeconds']:.2f}s", flush=True)
     return manifest_path
 
@@ -137,9 +199,10 @@ def main():
     parser.add_argument('--key-env', default='VOLCENGINE_TTS_API_KEY')
     parser.add_argument('--speaker', default=SPEAKER)
     parser.add_argument('--style', default=STYLE)
+    parser.add_argument('--audio-cache',type=Path,help='Shared verified WAV cache keyed by text and fixed voice configuration')
     args = parser.parse_args()
     try:
-        print(synthesize_plan(args.plan, args.output, args.env_file, args.speaker, args.style, args.key_env))
+        print(synthesize_plan(args.plan, args.output, args.env_file, args.speaker, args.style, args.key_env,audio_cache=args.audio_cache))
     except (ValueError, RuntimeError) as exc:
         parser.exit(1, f'{exc}\n')
 

@@ -242,7 +242,7 @@ class TacticsRenderer:
         ffmpeg = discover_ffmpeg(self.ffmpeg)
         if file_hash(job['video']) != job['clip']['video_sha256']:
             raise ValueError('视频文件已变化，无法使用旧标记生成成片。')
-        plan = self.tactics.run('production-compile', document=job['document'], options=job['options'])
+        plan = job.get('composition') or self.tactics.run('production-compile', document=job['document'], options=job['options'])
         frames, width, height, fps = plan['frames'], plan['width'], plan['height'], plan['fps']
         name_overlay=job['options'].get('nameOverlay');name_index={}
         if name_overlay is not None:
@@ -265,6 +265,10 @@ class TacticsRenderer:
         job.update(totalFrames=len(frames), width=width, height=height, fps=fps, duration=len(frames)/fps,
                    progress={'completed': 0, 'total': len(frames)})
         atomic_json(directory/'plan.json', plan)
+        subtitles={};placements=job.get('subtitlePlacements',[])
+        if job.get('subtitleCues'):
+            from render_commentary_narration import subtitle_overlays
+            subtitles=subtitle_overlays(job['subtitleCues'],placements,width,height,job['subtitleFont'])
         flags = getattr(subprocess, 'CREATE_NO_WINDOW', 0)
         timed_out = threading.Event()
         def deadline(): timed_out.set(); self._stop(job)
@@ -296,6 +300,11 @@ class TacticsRenderer:
                         composite = ((rgb.astype(np.uint16)*(255-alpha)+overlay[:,:,:3].astype(np.uint16)*alpha+127)//255).astype(np.uint8)
                         if name_overlay and name_overlay['nameDisplay'].get('enabled') is True:
                             composite=draw_name_overlay(composite,state['sourceFrame'],name_overlay,name_index)
+                        active=next((p for p in placements if p['previewStart']<=output_index/fps<p['previewEnd']),None)
+                        if active:
+                            from PIL import Image
+                            image=Image.fromarray(composite);subtitle=subtitles[active['cueId']]
+                            image.paste(subtitle,(0,0),subtitle);composite=np.asarray(image)
                         encoder.stdin.write(composite.tobytes())
                         job['progress'] = {'completed': output_index+1, 'total':len(frames)}
                 encoder.stdin.close()

@@ -15,3 +15,14 @@ test('OpenRouter selects Astra image tools and supported reasoning without reusi
   assert.throws(()=>createCommentaryProvider({COMMENTARY_PROVIDER:'openrouter',QWEN_KEY:'different-key'}),/OPENROUTER_API_KEY/);
   assert.equal(createCommentaryProvider({COMMENTARY_PROVIDER:'token-plan',QWEN_KEY:'different-key'}).model.provider,'qwen');
 });
+
+test('unknown model cannot reuse Astra metadata and explicit trusted config is locked',()=>{
+  const env={COMMENTARY_PROVIDER:'openrouter',OPENROUTER_API_KEY:'test-key',OPENROUTER_MODEL:'other/model'};
+  assert.throws(()=>createCommentaryProvider(env),/capabilities|能力/i);
+  const config={provider:'openrouter',model:'other/model',reasoning:'off',modelCapabilities:{input:['text','image'],reasoning:false,contextWindow:32000,maxTokens:4000,cost:null}};
+  const provider=createCommentaryProvider(env,config);
+  assert.equal(provider.model.contextWindow,32000);assert.equal(provider.model.reasoning,false);
+  assert.equal(provider.thinkingLevel,'off');assert.equal(provider.configSnapshot.modelCapabilities.cost,null);
+  env.OPENROUTER_MODEL='openai/gpt-6-astra';
+  assert.equal(provider.model.id,'other/model');
+});

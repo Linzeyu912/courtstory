@@ -4,7 +4,8 @@ from pathlib import Path
 import unittest
 from unittest.mock import patch
 
-from commentary_polish import MATERIALS, estimate_speech_seconds, merge_texts, messages_for, polish_plan, unwrap
+from commentary_polish import MATERIALS, estimate_speech_seconds, merge_texts, messages_for, polish_plan, unwrap, request_completion
+from commentary_plan import model_config
 
 
 class PolishTests(unittest.TestCase):
@@ -49,6 +50,38 @@ class PolishTests(unittest.TestCase):
         merge_texts(self.plan, {'cues': [{'cueId': 'c1', 'text': '这球喂得舒服，接球就进！'}]})
         with self.assertRaisesRegex(ValueError, '暂停句'):
             merge_texts(self.plan, {'cues': [{'cueId': 'c1', 'text': '这球喂得舒服，接球就进！' * 5}]})
+
+    def test_identity_nodes_and_config_survive_text_polish_and_reach_prompt(self):
+        self.plan.update(planId='host-plan', revision=2, digest='saved-only',
+                         producerConfigSnapshot=model_config(), participants=[{'participantId': 'P1-f10',
+                            'entityId': 'P1', 'displayName': 'Alice', 'nameRecordRef': 'named-record',
+                            'validRange': {'startFrame': 10, 'endFrame': 12}, 'identityStatus': 'machine_accepted', 'identityVerified': False}],
+                         nodes=[{'nodeId': 'n1', 'eventId': 'e', 'cueIds': ['c1'], 'anchorAssetFrame': 10}])
+        self.plan['cues'][0].update(participantRefs=['P1-f10'], nameRecordRefs=['named-record'])
+        before = deepcopy(self.plan)
+        edited = merge_texts(self.plan, {'cues': [{'cueId': 'c1', 'text': '这球喂得舒服！'}]})
+        edited['cues'][0]['text'] = before['cues'][0]['text']
+        self.assertEqual(edited, before)
+        inputs = json.loads(messages_for(self.plan)[1]['content'])
+        self.assertEqual(inputs['participants'][0]['displayName'], 'Alice')
+        self.assertEqual(inputs['cues'][0]['nameRecordRefs'], ['named-record'])
+        self.assertEqual(inputs['nodes'][0]['anchorAssetFrame'], 10)
+
+    @patch('commentary_polish.urllib.request.urlopen')
+    def test_request_uses_locked_real_model_capabilities_without_astra_reasoning(self, urlopen):
+        locked = model_config({'model': 'test/vision', 'reasoning': 'off',
+            'modelCapabilities': {'input': ['text', 'image'], 'reasoning': False, 'contextWindow': 32000, 'maxTokens': 4000}})
+        class Response:
+            def __enter__(self): return self
+            def __exit__(self, *_): pass
+            def read(self): return json.dumps({'model': 'test/vision', 'choices': [{'finish_reason': 'stop', 'message': {'content': '{}'}}]}).encode()
+        urlopen.return_value = Response()
+        _, meta = request_completion([], 'fake-key', 'test/vision', locked)
+        body = json.loads(urlopen.call_args.args[0].data)
+        self.assertEqual(body['model'], 'test/vision')
+        self.assertEqual(body['max_tokens'], 4000)
+        self.assertNotIn('reasoning', body)
+        self.assertEqual(meta['model'], 'test/vision')
 
     @patch('commentary_polish.provider_environment', return_value=({}, 'test-secret'))
     def test_one_targeted_repair_and_bounded_failure(self, env):

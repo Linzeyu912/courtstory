@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {makePresentationDemo} from '../tactical-overlay/fixtures/presentation-demo.mjs';
-import {mountTacticsUI,suggestManualDrawingRange} from './tactics-ui.mjs';
+import {mountTacticsUI,suggestManualDrawingRange,confirmManualCommentaryAnnotation} from './tactics-ui.mjs';
 import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {courtToVideo} from './tactics-presentation.mjs';
 import {createTacticsDocument,splitPhase,refreshSnapshot} from './tactics-document.mjs';
@@ -14,6 +14,127 @@ let environmentId=0;
 // Route that connection to each test's transaction store rather than the first fixture.
 let activeDatabase;
 const connection={transaction(...args){return activeDatabase.transaction(...args);}};
+
+test('explicit manual confirmation preserves edited geometry and provenance while detaching stale commentary dependency',async()=>{
+  let d=await createTacticsDocument((await makePresentationDemo()).review);
+  d=createAnnotation(d,{id:'edited',type:'screen',phaseId:'phase-1',frame:12,space:'video',points:[{x:600,y:320}],
+    origin:{kind:'human_modified',jobId:'old-draw',sourceFrames:[12],note:'original basis'}});
+  d.annotations.items[0].origin.kind='human_modified';
+  d.agentRuns=[{jobId:'old-draw',commentaryPlanRef:{planId:'p',revision:1,digest:'old'},pendingAnnotations:[{annotationId:'edited',reason:'stale'}]}];
+  const next=confirmManualCommentaryAnnotation(d,'edited');
+  assert.deepEqual(next.annotations.items[0].points,d.annotations.items[0].points);assert.equal(next.annotations.items[0].origin,undefined);
+  assert.deepEqual(next.agentRuns[0].manualConfirmations[0].previousOrigin,d.annotations.items[0].origin);
+  assert.equal(next.agentRuns[0].pendingAnnotations.length,0);assert.ok(d.annotations.items[0].origin,'input stays unchanged');
+});
+
+test('default drawing waits for saved commentary and forwards resolved names and the exact plan reference to a separate job',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),calls=[];
+  const plan={schemaVersion:2,planId:'plan-a',revision:1,digest:'digest-a',summary:'传球',events:[],
+    producerConfigSnapshot:{model:'model-a'},nodes:[{nodeId:'node-a',anchorAssetFrame:12,cueIds:['cue-a']}],
+    cues:[{cueId:'cue-a',text:'库里接球',suggestedStartTime:1,suggestedEndTime:2,delivery:'pause'}]};
+  const names={nameIdentitySource:{videoSha256:d.review.videoSha256},playerNameIdentities:[{id:'P1',observations:[{frame:12,nameIdentity:{name:'库里',nameStatus:'human_confirmed'}}]}]};
+  const env=environment(d,{currentPipeline:true,nameOverlay:names,
+    commentary:async(path,payload)=>{calls.push([path,payload]);return path==='/api/commentary/jobs'?{id:'understand-a',status:'completed',action:'understand',plan}:path==='/api/commentary/save'?plan:{status:{model:'model-a',understandingConfigured:true},plan:null,job:null};},
+    agent:async(path,payload)=>{calls.push([path,payload]);return path.endsWith('/status')?{available:true,message:'ready'}:{jobId:'drawing-a',status:'failed',error:'fixture stopped'};}});
+  try{
+    await env.load();await env.get('tacticsAgentRun').onclick();
+    const understanding=calls.find(([p])=>p==='/api/commentary/jobs'),drawing=calls.find(([p])=>p==='/api/commentary-drawing/jobs');
+    assert.ok(understanding,'first create a commentary job');assert.ok(drawing,`then create a separate drawing job: ${env.get('tacticsAgentStatus').textContent}`);
+    assert.ok(calls.indexOf(understanding)<calls.indexOf(drawing));
+    assert.deepEqual(understanding[1].review.playerNameIdentities,names.playerNameIdentities);
+    assert.deepEqual(drawing[1].commentaryPlanRef,{planId:'plan-a',revision:1,digest:'digest-a'});
+    assert.deepEqual(drawing[1].review.playerNameIdentities,names.playerNameIdentities);
+    assert.equal(drawing[1].drawingModelOverride,null);
+    assert.equal(calls.some(([p])=>p==='/api/tactics-agent/jobs'),false);
+  }finally{env.restore();}
+});
+
+test('failed commentary prevents drawing and retains the existing document',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),calls=[];
+  const env=environment(d,{currentPipeline:true,
+    commentary:async(path)=>path==='/api/commentary/jobs'?{id:'failed-a',status:'failed',error:'理解失败'}:{status:{},plan:null,job:null},
+    agent:async(path)=>{calls.push(path);return {available:true,message:'ready'};}});
+  try{await env.load();const before=structuredClone(env.ui.getSceneState().annotations);await env.get('tacticsAgentRun').onclick();
+    assert.equal(calls.some(p=>p.endsWith('/jobs')),false);assert.match(env.get('tacticsAgentStatus').textContent,/理解失败/);
+    assert.deepEqual(env.ui.getSceneState().annotations,before);
+  }finally{env.restore();}
+});
+
+test('drawing override stays separate, edited commentary uses the saved revision, and joint render receives graphics and names',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),calls=[];
+  let plan={schemaVersion:2,planId:'plan-a',revision:1,digest:'digest-a',summary:'接球',events:[],
+    producerConfigSnapshot:{model:'model-a'},nodes:[{nodeId:'node-a',anchorAssetFrame:12,cueIds:['cue-a']}],
+    cues:[{cueId:'cue-a',text:'接球进攻',suggestedStartTime:1,suggestedEndTime:2,delivery:'pause'}]};
+  const names={nameIdentitySource:{videoSha256:d.review.videoSha256},playerNameIdentities:[]};
+  const env=environment(d,{currentPipeline:true,nameOverlay:names,
+    commentary:async(path,payload)=>{
+      calls.push([path,payload]);
+      if(path==='/api/commentary/save'){assert.equal(payload.expectedRevision,1);plan={...payload.plan,revision:2,digest:'digest-b'};return plan;}
+      if(path==='/api/commentary/jobs')return {id:'render-a',status:'failed',error:'fixture stopped'};
+      return {status:{model:'model-a'},plan,job:null};
+    },agent:async(path,payload)=>{calls.push([path,payload]);return path.endsWith('/status')?{available:true,message:'ready'}:{jobId:'drawing-a',status:'failed',error:'fixture stopped'};}});
+  try{
+    await env.load();env.get('tacticsDrawingModel').value='provider/drawing-only';await env.get('tacticsAgentRun').onclick();
+    assert.equal(calls.find(([p])=>p==='/api/commentary-drawing/jobs')[1].drawingModelOverride,'provider/drawing-only');
+    const walk=n=>[n,...n.children.flatMap(walk)],all=walk(env.get('tacticsPanel'));
+    const text=all.find(n=>n.tag==='textarea'&&n.value==='接球进攻');text.value='接球后传给队友';await text.listeners.input[0]();
+    assert.match(env.get('tacticsAgentStatus').textContent,/依据已过期/);
+    env.get('tacticsDrawingModel').value='';await env.get('tacticsAgentRun').onclick();
+    const latest=calls.filter(([p])=>p==='/api/commentary-drawing/jobs').at(-1)[1];
+    assert.deepEqual(latest.commentaryPlanRef,{planId:'plan-a',revision:2,digest:'digest-b'});assert.equal(latest.drawingModelOverride,null);
+    const render=all.find(n=>n.tag==='button'&&n.textContent==='配音并生成联合视频');await render.listeners.click[0]();
+    const payload=calls.find(([p])=>p==='/api/commentary/jobs')[1];
+    assert.equal(payload.action,'render');assert.equal(payload.plan.cues[0].text,'接球后传给队友');
+    assert.deepEqual(payload.document.annotations,d.annotations);assert.deepEqual(payload.nameOverlay,names);
+  }finally{env.restore();}
+});
+
+test('legacy commentary remains editable and uses standalone narration without inventing joint provenance',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),calls=[];
+  let plan={summary:'旧稿',cues:[{cueId:'old-cue',text:'原解说',suggestedStartTime:1,suggestedEndTime:2,delivery:'during_play'}]};
+  const env=environment(d,{currentPipeline:true,commentary:async(path,payload)=>{
+    calls.push([path,payload]);
+    if(path==='/api/commentary/save'){assert.equal(payload.expectedRevision,0);plan={...payload.plan,planId:'legacy',revision:1,digest:'saved',producerConfigSnapshot:null};return plan;}
+    if(path==='/api/commentary/jobs')return {id:'legacy-render',status:'failed',error:'fixture stopped'};
+    return {status:{},plan,job:null};
+  }});
+  try{
+    await env.load();const walk=n=>[n,...n.children.flatMap(walk)],all=walk(env.get('tacticsPanel'));
+    const editor=all.find(n=>n.tag==='textarea'&&n.value==='原解说');editor.value='已修改的旧解说';await editor.listeners.input[0]();
+    const render=all.find(n=>n.tag==='button'&&n.textContent==='配音并生成字幕视频');assert.ok(render,'legacy render remains explicitly available');
+    await render.listeners.click[0]();const payload=calls.find(([p])=>p==='/api/commentary/jobs')[1];
+    assert.equal(payload.plan.cues[0].text,'已修改的旧解说');assert.equal(payload.document,undefined);assert.equal(payload.commentaryPlanRef,undefined);
+  }finally{env.restore();}
+});
+
+test('commentary drawing recovery preserves node scope and validates retry against fresh names',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),storage=new Map(),storageKey='recover-commentary',service=recoverableAgent();
+  const plan={planId:'p',revision:3,digest:'digest',producerConfigSnapshot:{model:'m'},nodes:[{nodeId:'n',anchorAssetFrame:12,cueIds:['c']}],summary:'传球',cues:[{cueId:'c',text:'传球',suggestedStartTime:1,suggestedEndTime:2,delivery:'pause'}]};
+  const names={playerNameIdentities:[{id:'P1',observations:[]}],nameDisplay:{enabled:true}};
+  const options={currentPipeline:true,agent:service.request,storage,storageKey,nameOverlay:names,commentary:async()=>({status:{},plan,job:null})};
+  let env=environment(d,options);
+  try{
+    await env.load();env.get('tacticsDrawingModel').value='vendor/drawing';await env.get('tacticsAgentRun').onclick();await env.ui.saveDraft();
+    const original=service.submits[0],saved=env.saved.at(-1);env.restore();
+    names.nameDisplay.enabled=false;
+    env=environment(saved.document,{...options,serverVersion:saved.expectedVersion+1});await env.load();
+    assert.equal(env.get('tacticsAgentBackend').value,'commentary');assert.equal(env.get('tacticsDrawingModel').value,'vendor/drawing');
+    await env.get('tacticsAgentRetry').onclick();const retry=service.retries[0];assert.ok(retry,env.get('tacticsAgentStatus').textContent);
+    assert.deepEqual(retry.nodeIds,original.nodeIds);assert.deepEqual(retry.commentaryPlanRef,original.commentaryPlanRef);
+    assert.equal(retry.drawingModelOverride,'vendor/drawing');assert.equal(retry.review.nameDisplay.enabled,false);
+    assert.equal(retry.documentDigest,original.documentDigest);assert.equal(retry.clientRevision,original.clientRevision);
+    assert.ok(env.requests.some(p=>p.startsWith('/api/commentary-drawing/jobs/reload-job/retry')));
+  }finally{env.restore();}
+});
+
+test('a legacy-only range never starts paid commentary in the default drawing flow',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),calls=[];
+  const env=environment(d,{currentPipeline:true,commentary:async(path)=>{calls.push(path);return {status:{},plan:null,job:null};}});
+  try{await env.load();env.get('tacticsAgentScope').value='range';await env.get('tacticsAgentRun').onclick();
+    assert.equal(calls.includes('/api/commentary/jobs'),false);assert.match(env.get('tacticsAgentStatus').textContent,/旧版兼容入口/);
+  }finally{env.restore();}
+});
+
 async function productionFixture(){
   let d=await createTacticsDocument((await makePresentationDemo()).review);
   d=updateProductionCamera(d,'cam',{id:'cam',phaseId:'phase-1',phaseSnapshot:productionPhaseSnapshot(d.playDefinition.phases[0]),approximate:true,groundQuad:[[0,0],[10,0],[10,10],[0,10]],keyframes:[{frame:0,quad:[[100,100],[1100,100],[1100,650],[100,650]],evidenceFrames:[0]},{frame:60,quad:[[120,100],[1120,100],[1120,650],[120,650]],evidenceFrames:[60]}]});
@@ -400,7 +521,7 @@ test('entering tactics synchronizes corrected feet and participants, archives re
   }finally{env.restore();}
 });
 
-function environment(source,{player=false,empty=false,agent=null,renderJob=null,loadDocument=null,storage=null,storageKey=null,serverVersion=0}={}){
+function environment(source,{player=false,empty=false,agent=null,renderJob=null,loadDocument=null,storage=null,storageKey=null,serverVersion=0,commentary=null,currentPipeline=false,nameOverlay=null}={}){
   const nodes=new Map(),events={},writes=[],metadataWrites=[],saved=[],requests=[],store=storage??new Map();let hold=false,releases=[],frameRequests=0,resizeCallback;
   function make(tag='div'){
     const queries=new Map();
@@ -410,7 +531,7 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
       after(...children){const parent=this.parentElement;if(!parent)return;for(const child of children){if(child?.parentElement)child.parentElement.children=child.parentElement.children.filter(n=>n!==child);if(child&&typeof child==='object')child.parentElement=parent;}parent.children.splice(parent.children.indexOf(this)+1,0,...children);},
       classList:{add(...names){node.className=[...new Set([...(node.className??'').split(/\s+/).filter(Boolean),...names])].join(' ');},contains(name){return (node.className??'').split(/\s+/).includes(name);}},
       replaceChildren(...children){this.children=[];this.append(...children);if(tag==='select')this.value=children[0]?.value||'';},focus(){document.activeElement=this;},
-      setAttribute(k,v){this.attrs[k]=v;},getAttribute(k){return this.attrs[k]??null;},remove(){this.removed=true;},
+      setAttribute(k,v){this.attrs[k]=v;},getAttribute(k){return this.attrs[k]??null;},removeAttribute(k){delete this.attrs[k];},remove(){this.removed=true;},
       querySelector(selector){
         if(selector==='svg')return this.children.find(n=>n.tag==='svg')||null;
         if(selector==='[data-edit-handles]')return this.children.find(n=>!n.removed&&n.attrs?.['data-edit-handles'])||null;
@@ -422,7 +543,8 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
       addEventListener(name,fn){(this.listeners[name]||=[]).push(fn);},setPointerCapture(id){this.pointer=id;},hasPointerCapture(id){return this.pointer===id;},releasePointerCapture(){this.pointer=null;},click(){},
       drawCalls:[],getContext:()=>({drawImage(...args){node.drawCalls.push(args);},clearRect(){}}),getScreenCTM:()=>({inverse:()=>({})}),createSVGPoint:()=>({matrixTransform(){return {x:this.x,y:this.y};}})};
     Object.defineProperty(node,'innerHTML',{get(){return this.html||'';},set(value){this.html=value;this.children=value.startsWith('<svg')?[make('svg')]:[];}});
-    if(tag==='video')Object.assign(node,{paused:true,pause(){this.paused=true;}});
+    if(['input','textarea','select'].includes(tag)){let value='';Object.defineProperty(node,'value',{get(){return value;},set(next){value=String(next);}});}
+    if(tag==='video')Object.assign(node,{paused:true,pause(){this.paused=true;},load(){}});
     return node;
   }
   const get=id=>{if(!nodes.has(id))nodes.set(id,make());return nodes.get(id);};
@@ -438,10 +560,10 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
     fetch:async(path,options)=>{
       requests.push(path);
       let value;if(path.startsWith('/api/tactics?'))value={version:serverVersion,document:empty?null:loadDocument?await loadDocument():source};
-      else if(path.startsWith('/api/commentary?'))value={status:{model:'fixture-commentary',understandingConfigured:false,ttsConfigured:false},plan:null,job:null};
+      else if(path.startsWith('/api/commentary?')||path.startsWith('/api/commentary/'))value=commentary?await commentary(path,options?JSON.parse(options.body):null):{status:{model:'fixture-commentary',understandingConfigured:false,ttsConfigured:false},plan:null,job:null};
       else if(path==='/api/tactics/frame'){frameRequests++;value={frames:JSON.parse(options.body).frames.map(frame=>({...source.review.sourceFrameMapping[frame],videoSha256:source.review.videoSha256,dataUrl:'data:image/jpeg;base64,/9j/'}))};}
       else if(path==='/api/tactics/save'){const payload=JSON.parse(options.body);saved.push(payload);value={version:payload.expectedVersion+1};}
-      else if(path.startsWith('/api/tactics-agent/')&&agent)value=await agent(path,options?JSON.parse(options.body):null);
+      else if((path.startsWith('/api/tactics-agent/')||path.startsWith('/api/commentary-drawing/'))&&agent)value=await agent(path,options?JSON.parse(options.body):null);
       else if(path.startsWith('/api/tactics-render/')&&renderJob)value=await renderJob(path,options?JSON.parse(options.body):null);
       else throw new Error(path);return {ok:true,json:async()=>value};
     }
@@ -449,7 +571,8 @@ function environment(source,{player=false,empty=false,agent=null,renderJob=null,
   let point=null,paused=true,seekSerial=0,seekHeld=false,pendingSeeks=[];const playerCalls=[],background={kind:'decoded-canvas'};
   const present=(frame)=>{seekSerial++;point={frame,time:source.review.sourceFrameMapping[frame].time,source:background,paused};ui.onPresentedFrame?.(point);};
   const bridge=player?{seek(frame){const serial=++seekSerial;playerCalls.push(['seek',frame]);paused=true;const done=()=>{if(serial===seekSerial)present(frame);};if(seekHeld)pendingSeeks.push(done);else queueMicrotask(done);},play(){paused=false;playerCalls.push(['play']);},getPresentedFrame:()=>point}:{};
-  const ui=mountTacticsUI({key:storageKey??`player-review:ui-fixture-${++environmentId}:qa`,sample:'test',variant:'test',qa:true,title:'fixture',clip:{video_sha256:source.review.videoSha256},pause(){paused=true;playerCalls.push(['pause']);},snapshot:()=>source.review,frame:()=>point?.frame??12,openStep(){},...bridge});
+  const ui=mountTacticsUI({key:storageKey??`player-review:ui-fixture-${++environmentId}:qa`,sample:'test',variant:'test',qa:true,title:'fixture',clip:{video_sha256:source.review.videoSha256},pause(){paused=true;playerCalls.push(['pause']);},snapshot:()=>source.review,nameOverlaySnapshot:()=>nameOverlay,frame:()=>point?.frame??12,openStep(){},...bridge});
+  if(!currentPipeline)get('tacticsAgentBackend').value='legacy';
   return {get,ui,writes,metadataWrites,saved,requests,store,playerCalls,present,background,get frameRequests(){return frameRequests;},get pendingWrites(){return releases.length;},
     holdSeek(){seekHeld=true;},finishSeek(){seekHeld=false;for(const done of pendingSeeks.splice(0))done();},
     async load(){await events['workbench-area']();await ui.ready();},resize(){resizeCallback();},
@@ -474,7 +597,7 @@ test('the tactics workspace mounts commentary after its heading and loads an iso
     assert.deepEqual(env.requests.filter(path=>path.startsWith('/api/commentary?')),['/api/commentary?sample=test&variant=test&qa=1']);
     const descendants=node=>[node,...node.children.flatMap(descendants)];
     assert.ok(descendants(commentary).some(node=>node.textContent.includes('fixture-commentary')));
-    assert.ok(descendants(commentary).some(node=>node.textContent==='配音并生成字幕视频'&&node.disabled));
+    assert.ok(descendants(commentary).some(node=>node.textContent==='配音并生成联合视频'&&node.disabled));
     const videos=descendants(commentary).filter(node=>node.tag==='video');assert.equal(videos.length,2);
     for(const video of videos)video.paused=false;
     env.ui.dispose();assert.ok(videos.every(video=>video.paused));
@@ -1178,8 +1301,8 @@ test('mounted facts stages show anonymous analysis separately from unbound ident
   const env=environment(d,{agent:async(path)=>path.endsWith('/status')?{available:true,message:'ready'}:job});
   try{
     await env.load();await env.get('tacticsAgentRun').onclick();
-    assert.match(env.get('tacticsPanel').innerHTML,/自动核对并尝试修复/);
-    assert.match(env.get('tacticsPanel').innerHTML,/限定次数内仍不明确的事项再交人工处理/);
+    assert.match(env.get('tacticsPanel').innerHTML,/绘图与解说分别调用/);
+    assert.match(env.get('tacticsPanel').innerHTML,/按解说关键节点取证和绘图/);
     assert.doesNotMatch(env.get('tacticsPanel').innerHTML,/无法确认的路线留待人工补充/);
     const rows=env.get('tacticsAgentStages').children;
     assert.match(uiWords(rows[0]),/已分析 11 人 · 路线覆盖 2 人 · 0 项疑点/);

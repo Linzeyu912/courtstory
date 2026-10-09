@@ -132,7 +132,7 @@ export function compileProduction(document,{fps=30}={}){
   for(const c of all)if(!explicit.has(`${c.phaseId}:${c.frame}`))explicit.set(`${c.phaseId}:${c.frame}`,productionCue(document,c));
   const frames=[],start=document.playDefinition.startFrame,end=document.playDefinition.endFrameExclusive,first=mapping[start].time;
   const step=end-start>1?mapping[end-1].time-mapping[end-2].time:1/fps,duration=v2Timing?rangeToSeconds(mapping,{startFrame:start,endFrameExclusive:end},document.review.mediaEndTime).endSeconds-first:mapping[end-1].time-first+step,total=Math.max(1,Math.round(duration*fps)),seen=new Set();let local=start;
-  const add=(f,state,reveal)=>{const phase=phases.find(p=>f>=p.startFrame&&f<p.endFrameExclusive);frames.push({sourceFrame:f,sourceTime:mapping[f].time,state,reveal,phaseId:phase.phaseId});if(frames.length>108000)throw new Error('导出时长超出一小时限制。');};
+  const add=(f,state,reveal)=>{const phase=phases.find(p=>f>=p.startFrame&&f<p.endFrameExclusive);frames.push({sourceFrame:f,sourceTime:mapping[f].time,assetFrame:f,reviewTimeSeconds:mapping[f].time,state,reveal,phaseId:phase.phaseId});if(frames.length>108000)throw new Error('导出时长超出一小时限制。');};
   const addCue=cue=>{
     seen.add(`${cue.phaseId}:${cue.frame}`);const scale=fps/timeline.timebaseFps,settle=Math.round(cue.settleFrames*scale),draw=Math.round(cue.drawFrames*scale),hold=Math.round(cue.holdFrames*scale);
     for(let n=0;n<settle+draw+hold;n++){const u=draw?Math.max(0,Math.min(1,(n-settle)/draw)):1;add(cue.frame,n<settle?'settle':n<settle+draw?'draw':'hold',n<settle?0:u*u*(3-2*u));}
@@ -150,6 +150,20 @@ export function compileProduction(document,{fps=30}={}){
   return {schemaVersion:1,engineVersion:'authored-production-v1',fps,width:document.review.width,height:document.review.height,totalFrames:frames.length,frames};
 }
 export function sampleProduction(plan,index){if(!frame(index)||index>=plan.frames.length)throw new Error('成片帧超出范围。');return clone(plan.frames[index]);}
+/** Media-owned joint timelines still render ordinary native annotations. */
+export function validateProductionSnapshot(document,plan){
+  if(!plan||!Array.isArray(plan.frames)||plan.frames.length!==plan.totalFrames||!plan.frames.length||plan.frames.length>18000||
+     !Number.isSafeInteger(plan.fps)||plan.fps<1||plan.fps>120||plan.width!==document.review.width||plan.height!==document.review.height)throw new Error('成片快照尺寸或时间线无效。');
+  const mapping=document.review.sourceFrameMapping,play=document.playDefinition;let previous=-1;
+  for(const state of plan.frames){
+    const f=state.sourceFrame,phase=play.phases.find(p=>f>=p.startFrame&&f<p.endFrameExclusive);
+    if(!frame(f)||f<play.startFrame||f>=play.endFrameExclusive||f<previous||state.assetFrame!==f||
+       state.sourceTime!==mapping[f]?.time||state.reviewTimeSeconds!==mapping[f]?.time||state.phaseId!==phase?.phaseId||
+       !['source','settle','draw','hold'].includes(state.state)||!finite(state.reveal)||state.reveal<0||state.reveal>1)throw new Error('成片快照源帧或图形状态无效。');
+    previous=f;
+  }
+  return plan;
+}
 export function renderProductionSvg(document,frameState){
   if(!frame(frameState?.sourceFrame)||!finite(frameState.reveal)||frameState.reveal<0||frameState.reveal>1)throw new Error('成片显示状态无效。');
   return renderAnnotationsSVG(projectAnnotations(document,{phaseId:frameState.phaseId,frame:frameState.sourceFrame,reveal:frameState.reveal,production:true,freeze:document.schemaVersion===2&&frameState.state!=='source'}));

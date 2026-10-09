@@ -41,6 +41,16 @@ export function tacticsSceneSize({mode,modelWidth,modelHeight,canvasWidth,viewpo
   const width=Math.max(200,Math.min(canvasWidth-2,availableHeight/ratio));return {width,height:width*ratio};
 }
 
+export function confirmManualCommentaryAnnotation(document,annotationId){
+  const next=clone(document),annotation=next.annotations?.items.find(item=>item.id===annotationId);
+  const run=next.agentRuns?.find(item=>item.jobId===annotation?.origin?.jobId);
+  if(annotation?.origin?.kind!=='human_modified'||!run?.commentaryPlanRef)throw new Error('这不是保留待核对的解说图形。');
+  (run.manualConfirmations??=[]).push({annotationId,previousOrigin:clone(annotation.origin),previousPlanRef:clone(run.commentaryPlanRef),decision:'keep_as_independent_manual_graphic'});
+  delete annotation.origin;
+  for(const record of next.agentRuns??[])if(record.pendingAnnotations)record.pendingAnnotations=record.pendingAnnotations.filter(item=>item.annotationId!==annotationId);
+  return next;
+}
+
 export function agentRuntimeDescription(stage){
   const runtime=stage?.runtime;
   if(!runtime)return '';
@@ -198,7 +208,7 @@ export function mountTacticsUI(api){
   <p id="tacticsStatus" role="status" aria-live="polite">正在读取当前视频的战术草稿。</p>
   <details class="tactics-production-panel"><summary>成片预览</summary><section id="tacticsRender" class="tactics-production"></section></details>
   <div id="tacticsAgentHome"></div>
-  <details id="tacticsAgentPanel" class="tactics-agent-panel" open><summary>Agent 战术初稿</summary><p class="small muted">分段抽取原视频画面，适合 24 秒以内的片段；优先画有证据的跑动路线，重点圈仅提示持球人，静止参与者用简洁位置标记。Agent 会自动核对并尝试修复；限定次数内仍不明确的事项再交人工处理。生成结果先供核对，点击采用后才加入草稿。</p><div class="tactics-agent-inputs"><label class="field">分析范围<select id="tacticsAgentScope"><option value="play">整段原视频，分阶段分析</option><option value="phase">当前阶段，追加初稿</option><option value="range">所选区间（需要已采用的 2D）</option></select></label><label class="field">希望讲清楚什么<input id="tacticsAgentGoal" maxlength="2000" placeholder="例如：持球掩护后切入、接应和弱侧参与者"></label><button id="tacticsAgentRun" class="primary">生成战术初稿</button><button id="tacticsAgentCancel" hidden>取消生成</button></div><p id="tacticsAgentStatus" role="status" aria-live="polite">可直接生成整段初稿，也可先手工绘制。现有草稿会保留。</p><div id="tacticsAgentStages" class="tactics-agent-stages" aria-label="分段生成进度"></div><details id="tacticsAgentPending" class="tactics-agent-pending" hidden><summary id="tacticsAgentPendingTitle">待人工建议</summary><p class="small muted">这些建议未加入画布。定位原片后可自行绘制；保存后仍可查看原始待核对理由。</p><div id="tacticsAgentPendingList"></div></details><section id="tacticsAgentAuditIssues" class="tactics-agent-pending" hidden><strong id="tacticsAgentAuditTitle">需要核对的画面</strong><div id="tacticsAgentAuditList"></div></section><div id="tacticsAgentActions" class="tactics-buttons"><button id="tacticsAgentAdopt" class="primary" hidden disabled>采用到草稿，继续编辑</button><button id="tacticsAgentRetry" hidden>仅重试失败段</button><button id="tacticsAgentRefresh" hidden>刷新任务状态</button><button id="tacticsAgentManual">继续人工编辑</button><button id="tacticsAgentRestore" hidden>返回上次生成的候选</button></div><p id="tacticsAgentRetained" class="small muted" hidden></p><div id="tacticsAgentPreview" class="tactics-agent-preview"></div></details>
+  <details id="tacticsAgentPanel" class="tactics-agent-panel" open><summary>独立战术绘图 Agent</summary><p class="small muted">先生成解说，再按解说关键节点取证和绘图。绘图与解说分别调用；已有姓名结果随解说传入。图形保留原生编辑和采用流程。</p><div class="tactics-agent-inputs"><label class="field">绘图入口<select id="tacticsAgentBackend"><option value="commentary">根据已保存解说绘图</option><option value="legacy">旧版独立分析（兼容）</option></select></label><label class="field">绘图模型（留空跟随解说）<input id="tacticsDrawingModel" maxlength="160" placeholder="跟随本份解说使用的模型"></label><label class="field">分析范围<select id="tacticsAgentScope"><option value="play">整段原视频，分阶段分析</option><option value="phase">当前阶段，追加初稿</option><option value="range">所选区间（需要已采用的 2D）</option></select></label><label class="field">希望讲清楚什么<input id="tacticsAgentGoal" maxlength="2000" placeholder="例如：持球掩护后切入、接应和弱侧参与者"></label><button id="tacticsAgentRun" class="primary">生成战术初稿</button><button id="tacticsAgentCancel" hidden>取消生成</button></div><p id="tacticsAgentStatus" role="status" aria-live="polite">可直接生成整段初稿，也可先手工绘制。现有草稿会保留。</p><div id="tacticsAgentStages" class="tactics-agent-stages" aria-label="分段生成进度"></div><details id="tacticsAgentPending" class="tactics-agent-pending" hidden><summary id="tacticsAgentPendingTitle">待人工建议</summary><p class="small muted">这些建议未加入画布。定位原片后可自行绘制；保存后仍可查看原始待核对理由。</p><div id="tacticsAgentPendingList"></div></details><section id="tacticsAgentAuditIssues" class="tactics-agent-pending" hidden><strong id="tacticsAgentAuditTitle">需要核对的画面</strong><div id="tacticsAgentAuditList"></div></section><div id="tacticsAgentActions" class="tactics-buttons"><button id="tacticsAgentAdopt" class="primary" hidden disabled>采用到草稿，继续编辑</button><button id="tacticsAgentRetry" hidden>仅重试失败段</button><button id="tacticsAgentRefresh" hidden>刷新任务状态</button><button id="tacticsAgentManual">继续人工编辑</button><button id="tacticsAgentRestore" hidden>返回上次生成的候选</button></div><p id="tacticsAgentRetained" class="small muted" hidden></p><div id="tacticsAgentPreview" class="tactics-agent-preview"></div></details>
   <div id="tacticsEmpty" class="tactics-empty" hidden><strong>先建立这个视频的战术画布</strong><p>没有识别结果也能画路线、虚线箭头、传球路线，或放挡拆标记和重点球员圈。</p><div id="tacticsEmptyActions" class="tactics-buttons"><button id="tacticsCreateCanvas" class="primary">建立画布，开始手工标注</button></div></div>
   <div id="tacticsEditor" hidden><div id="tacticsPhases" class="tactics-phases" aria-label="选择战术阶段"></div>
   <div class="tactics-layout"><section class="tactics-view"><div class="tactics-author-tools" role="toolbar" aria-label="画布工具">
@@ -233,6 +243,7 @@ export function mountTacticsUI(api){
   <details id="tacticsReferenceDetails"><summary>识别路线参考</summary><p class="small muted">需要参考机器识别时再打开。手绘路线独立保存，不要求先有识别路线。</p><label class="tactics-check"><input id="tacticsShowReference" type="checkbox">在画面显示识别路线</label><label class="tactics-check"><input id="tacticsShowAll" type="checkbox">显示全部球员参考路线</label><label class="field">原始路线段<select id="tacticsRoute"></select></label><p id="tacticsRouteHint" class="small muted" role="status"></p><label class="field">参考路线控制点<select id="tacticsControlPoint"></select></label><label class="field">插入控制点的帧<select id="tacticsInsertFrame"></select></label><div class="tactics-buttons"><button id="tacticsInsertPoint">插入控制点</button><button id="tacticsDeletePoint">删除控制点</button><button id="tacticsRestoreRoute">恢复来源路线</button></div></details>
   <details id="tacticsActionReview"><summary>动作审核与讲解</summary><div class="tactics-secondary-grid"><label class="field">选择动作<select id="tacticsAction"></select></label><label class="field">执行球员<select id="tacticsActor"></select></label><label class="field">动作类型<select id="tacticsKind"></select></label><div class="range-fields"><label class="field">起始帧<input id="tacticsStart" type="number" min="1"></label><label class="field">结束帧（包含）<input id="tacticsEnd" type="number" min="1"></label></div><div id="tacticsScreenFields"><label class="field">受掩护球员<select id="tacticsBeneficiary"></select></label><label class="field">相关防守者<select id="tacticsDefender"></select></label><p class="small muted">这里记录动作关系；画面上的挡拆符号用上方「挡拆标记」添加。</p></div><label class="field">动作说明<input id="tacticsActionNote" maxlength="300"></label><div class="tactics-buttons"><button id="tacticsApplyAction">保存动作记录</button><button id="tacticsDeleteAction">删除动作</button></div><label class="field">审核人<input id="tacticsReviewer" maxlength="80" placeholder="你的姓名或账号"></label><div class="tactics-buttons"><button id="tacticsConfirmAction">我已核对本动作</button><button id="tacticsUnconfirmAction">撤回动作审核</button></div><p id="tacticsActionStatus" class="small muted"></p><label class="field">讲解草稿与审核意见<textarea id="tacticsNotes" rows="4" maxlength="8000" placeholder="记录看到的动作、配合关系和需要改进的地方"></textarea></label></div></details>
   <details id="tacticsAdvanced"><summary>来源、草稿与导出</summary><p id="tacticsSource" class="tactics-source"></p><div class="tactics-buttons"><button id="tacticsSnapshot">使用当前轨迹建立草稿</button><button id="tacticsCandidate">THY 三阶段示例</button><button id="tacticsWorkspace">当前视频草稿</button><button id="tacticsReload">重新读取已保存版本</button><button id="tacticsIdentity">核对球员</button><button id="tacticsCalibration">核对球场</button><button id="tacticsJson">导出完整数据 JSON</button><button id="tacticsReport">导出审核冻结报告</button></div><p class="small muted">完整数据含所有手绘路线、挡拆标记和重点球员圈。审核冻结报告仅包含原有动作与审核，不包含新画布图形。</p><div id="tacticsRoster" class="tactics-roster"></div><div id="tacticsIssues"></div></details></div>`;
+  let commentaryUI=null;
   let documentValue=null,phaseId=null,kind='workspace',version=0,history=[],redo=[],revision=0,epoch=0,context=0,loading=false,lastScene=null,active=false,pendingDraft=Promise.resolve();
   let selectedEntityId=api.selectedEntityId?.()??null,selectedRouteId=null,selectedControlFrame=null,temporaryRoute=null,editBusy=false,sceneReady=Promise.resolve(),sceneNodes=null,editingEnabled=true,loadSequence=0;
   const playback=createPhasePlayback(),synchronized=typeof api.seek==='function'&&typeof api.play==='function';
@@ -585,6 +596,9 @@ export function mountTacticsUI(api){
     beforePreview(){api.pause();if(synchronized)runPlayback(playback.pause());},
     beforeGenerate:async()=>{if(!await saveCurrent())throw new Error('保存过程中草稿有新修改，请再次生成；修改已保留。');}});
   function agentStatus(text){$('tacticsAgentStatus').textContent=text;}
+  const selectedAgentApi=()=>$('tacticsAgentBackend').value==='legacy'?'/api/tactics-agent':'/api/commentary-drawing';
+  const agentApi=capture=>(capture?.request?.backend??capture?.backend)==='commentary'?'/api/commentary-drawing':'/api/tactics-agent';
+  const commentaryReview=()=>({...clone(api.snapshot()),...clone(api.nameOverlaySnapshot?.()??{})});
   const candidateReady=job=>!!job?.candidate&&['ready','partial'].includes(job.status);
   const candidateApplied=job=>!!job&&(job.locallyAdopted===true||!!documentValue?.agentRuns?.some(run=>run.jobId===job.jobId));
   const agentInProgress=job=>['queued','preparing','analyzing','validating','retrying'].includes(job?.status);
@@ -592,7 +606,7 @@ export function mountTacticsUI(api){
     const request=captured?.request;if(!job?.jobId||!request)return null;
     return {schemaVersion:1,jobId:job.jobId,videoSha256:request.document.review.videoSha256,
       expectedVersion:request.expectedVersion,documentDigest:request.documentDigest,clientRevision:request.clientRevision,
-      scope:request.scope,phaseId:request.phaseId,goal:request.goal,...(request.range?{range:clone(request.range)}:{})};
+      backend:request.backend,commentaryPlanRef:request.commentaryPlanRef,drawingModelOverride:request.drawingModelOverride,...(request.nodeIds?{nodeIds:clone(request.nodeIds)}:{}),scope:request.scope,phaseId:request.phaseId,goal:request.goal,...(request.range?{range:clone(request.range)}:{})};
   }
   async function rememberAgent(job,captured){
     const handle=agentHandle(job,captured);if(!handle)return;
@@ -605,7 +619,7 @@ export function mountTacticsUI(api){
   function recoveredCapture(handle,job,snapshot,local){
     const binding=job.base??handle;
     const request={document:snapshot,expectedVersion:binding.expectedVersion,clientRevision:binding.clientRevision,
-      documentDigest:binding.documentDigest,scope:handle.scope,phaseId:handle.phaseId,goal:handle.goal??'',...(handle.range?{range:clone(handle.range)}:{})};
+      documentDigest:binding.documentDigest,backend:handle.backend,commentaryPlanRef:handle.commentaryPlanRef,drawingModelOverride:handle.drawingModelOverride,...(handle.nodeIds?{nodeIds:clone(handle.nodeIds)}:{}),scope:handle.scope,phaseId:handle.phaseId,goal:handle.goal??'',...(handle.range?{range:clone(handle.range)}:{})};
     const adopted=!!snapshot.agentRuns?.some(run=>run.jobId===job.jobId);
     const readonlyReason=adopted?'上次建议已采用到这份草稿，可继续手工修改或生成新候选。':
       binding.documentDigest!==local.digest||binding.expectedVersion!==local.version||local.revision!==revision?'当前草稿或保存版本已改变；恢复的候选仅供查看。请重新生成，现有修改会保留。':null;
@@ -620,16 +634,18 @@ export function mountTacticsUI(api){
     agentBusy=true;agentStatus('正在恢复上次任务的进度和候选…');agentControls();
     try{
       local.digest=await documentDigest(snapshot);
-      const job=await request(`/api/tactics-agent/jobs/${handle.jobId}?${new URLSearchParams({...base,kind})}`);
+      const job=await request(`${agentApi(handle)}/jobs/${handle.jobId}?${new URLSearchParams({...base,kind})}`);
       if(context!==local.context||loading)return;
       if(job.jobId!==handle.jobId)throw new Error('服务返回了不同任务，未将它绑定到当前草稿。');
       const captured=recoveredCapture(handle,job,snapshot,local);agentCapture=captured;agentRequest=captured.request;agentRecoveryHandle=null;
       $('tacticsAgentScope').value=handle.scope;$('tacticsAgentGoal').value=handle.goal??'';
+      $('tacticsAgentBackend').value=handle.backend==='commentary'?'commentary':'legacy';
+      $('tacticsDrawingModel').value=handle.drawingModelOverride??'';
       if(captured.adopted)job.adopted=true;
       await receiveAgent(job,captured);
       if(!job.candidate&&previousHandle?.jobId!==job.jobId&&previousHandle?.videoSha256===snapshot.review.videoSha256&&/^[a-zA-Z0-9-]{1,80}$/.test(previousHandle.jobId)){
         try{
-          const previous=await request(`/api/tactics-agent/jobs/${previousHandle.jobId}?${new URLSearchParams({...base,kind})}`);
+          const previous=await request(`${agentApi(previousHandle)}/jobs/${previousHandle.jobId}?${new URLSearchParams({...base,kind})}`);
           if(context!==local.context||agentCapture!==captured||previous.jobId!==previousHandle.jobId||!previous.candidate)return;
           agentPreviewJob=previous;agentPreviewCapture=recoveredCapture(previousHandle,previous,snapshot,local);
           previewAgent(previous);agentControls();
@@ -641,7 +657,7 @@ export function mountTacticsUI(api){
     $('tacticsSave').disabled=loading||!documentValue||agentAdopting;
     const interrupted=agentInProgress(agentJob)&&!agentBusy;
     $('tacticsAgentRun').disabled=agentBusy||interrupted||loading||editBusy||!active;
-    $('tacticsAgentRun').textContent=agentBusy?'正在生成…':agentAvailable===false?'重试连接并生成':'生成战术初稿';
+    $('tacticsAgentRun').textContent=agentBusy?'正在生成…':agentAvailable===false?'重试连接并生成':($('tacticsAgentBackend').value==='legacy'?'生成战术初稿':'按解说生成战术图形');
     $('tacticsAgentCancel').hidden=!agentBusy||agentAdopting||!agentJob?.jobId;$('tacticsAgentAdopt').hidden=!candidateReady(agentJob);
     $('tacticsAgentAdopt').disabled=agentBusy||!candidateReady(agentJob)||candidateApplied(agentJob)||!!agentCapture?.readonlyReason;
     $('tacticsAgentAdopt').textContent=agentJob?.adopted&&!candidateApplied(agentJob)&&!agentCapture?.readonlyReason?'恢复上次采用的结果':agentJob?.completionKind==='manual_review'?'采用可展示图形，保留待确认项':agentJob?.status==='partial'?'采用已完成阶段，继续人工补充':'采用到草稿，继续编辑';
@@ -652,7 +668,7 @@ export function mountTacticsUI(api){
     const retained=!!agentPreviewJob&&agentPreviewJob.jobId!==agentJob?.jobId;
     $('tacticsAgentRestore').hidden=!retained;$('tacticsAgentRestore').disabled=agentBusy||loading;
     $('tacticsAgentRetained').hidden=!retained;$('tacticsAgentRetained').textContent=retained?'上次生成的候选已保留在下方。新请求未覆盖它；可返回上次候选继续核对。':'';
-    for(const id of ['tacticsAgentScope','tacticsAgentGoal'])$(id).disabled=agentBusy||loading;
+    for(const id of ['tacticsAgentScope','tacticsAgentGoal','tacticsAgentBackend','tacticsDrawingModel'])$(id).disabled=agentBusy||loading;
     if(!agentJob)showAgentAuditIssues(null);
   }
   function showAgentStages(job){
@@ -735,7 +751,7 @@ export function mountTacticsUI(api){
       entries.set(key,{...pending,type,jobId:run.jobId});
     }
     const items=[...entries.values()],mapping=documentValue?.review.sourceFrameMapping;
-    $('tacticsAgentPending').hidden=!items.length;$('tacticsAgentPendingTitle').textContent=`待人工建议 · ${items.length} 项未加入画布`;
+    $('tacticsAgentPending').hidden=!items.length;$('tacticsAgentPendingTitle').textContent=`待人工建议 · ${items.length} 项待核对`;
     $('tacticsAgentPendingList').replaceChildren(...items.map(item=>{
       const row=document.createElement('div'),description=document.createElement('p'),source=item.annotation??item.action??{},at=item.anchorFrame??source.anchorFrame??source.startFrame;
       row.className='tactics-agent-pending-item';
@@ -743,6 +759,16 @@ export function mountTacticsUI(api){
       if(Number.isInteger(at)&&at>=0&&at<mapping?.length){
         const locate=document.createElement('button');locate.textContent=`定位 ${mapping[at].time.toFixed(2)} 秒后人工绘制`;locate.disabled=loading||agentAdopting;
         locate.onclick=safe(async()=>{await beginManualEditing({tool:'select'});seekCanvas(at);status('已定位建议参考画面。此建议尚未加入画布；请依据原片，用上方工具人工绘制。');});row.append(locate);
+      }
+      const existing=documentValue?.annotations?.items.find(a=>a.id===item.annotationId);
+      if(existing?.origin?.kind==='human_modified'&&documentValue.agentRuns?.some(run=>run.jobId===existing.origin.jobId&&run.commentaryPlanRef)){
+        const confirm=document.createElement('button');confirm.textContent='已核对，保留为人工图形';confirm.disabled=loading||editBusy||agentAdopting;
+        confirm.onclick=safe(async()=>{
+          if(await commit(confirmManualCommentaryAnnotation(documentValue,item.annotationId))){
+            if(agentJob?.pendingAnnotations)agentJob.pendingAnnotations=agentJob.pendingAnnotations.filter(p=>p.annotationId!==item.annotationId);
+            showAgentPending();status('已保留为独立人工图形，原解说来源仍记录在历史中。保存后可生成联合成片。');
+          }
+        });row.append(confirm);
       }
       return row;
     }));
@@ -816,23 +842,41 @@ export function mountTacticsUI(api){
     agentControls();showAgentStages(job);showAgentPending(job);previewAgent(job);
     try{await rememberAgent(job,captured);}catch(error){if(agentCapture===captured)agentStatus(`候选和当前草稿仍保留；刷新恢复信息暂未保存：${error.message}`);}
     if(agentCapture!==captured||context!==captured.context)return;
-    if(agentBusy){clearTimeout(agentTimer);agentTimer=setTimeout(async()=>{try{await receiveAgent(await request(`/api/tactics-agent/jobs/${job.jobId}?${new URLSearchParams({...base,kind})}`),captured);}catch(error){if(agentCapture===captured){agentBusy=false;agentStatus(`任务状态读取失败：${error.message}。可以刷新任务状态；候选和人工草稿已保留。`);agentControls();}}},1000);}
+    if(agentBusy){clearTimeout(agentTimer);agentTimer=setTimeout(async()=>{try{await receiveAgent(await request(`${agentApi(captured)}/jobs/${job.jobId}?${new URLSearchParams({...base,kind})}`),captured);}catch(error){if(agentCapture===captured){agentBusy=false;agentStatus(`任务状态读取失败：${error.message}。可以刷新任务状态；候选和人工草稿已保留。`);agentControls();}}},1000);}
   }
   async function generateAgent(){
     if(agentBusy||loading||editBusy)return;
     if(agentInProgress(agentJob)){agentStatus('上个任务的状态尚未确认，请先点击「刷新任务状态」。人工编辑可以继续。');return;}
     if(!documentValue)await $('tacticsSnapshot').onclick();if(!documentValue)return;
+    const backend=$('tacticsAgentBackend').value==='legacy'?'legacy':'commentary';
+    if(backend==='commentary'&&$('tacticsAgentScope').value==='range'){
+      agentStatus('解说绘图按关键节点取证；所选 2D 区间请使用旧版兼容入口。');return;
+    }
+    let upstream=null;
+    if(backend==='commentary'){
+      agentBusy=true;agentStatus('先准备解说与关键节点，完成后启动独立绘图…');agentControls();
+      try{upstream=await commentaryUI.ensurePlan();await syncSnapshot();if(!await saveCurrent())throw new Error('当前草稿保存失败，请重试。');}
+      catch(error){agentBusy=false;agentStatus(error.message);agentControls();return;}
+      if(!active||loading){agentBusy=false;agentControls();return;}
+    }
     const scope=$('tacticsAgentScope').value||'play',captured={...stamp(),version,clientRevision:revision,cacheKey:cacheKey()},snapshot=clone(documentValue);
     agentCapture=captured;agentJob=null;agentRecoveryHandle=null;agentBusy=true;agentStatus('正在准备原视频；现有草稿与上一份候选会保留…');agentControls();showAgentStages(null);
     try{
-      if(agentAvailable===false){const health=await request('/api/tactics-agent/status');agentAvailable=health.available;if(!agentAvailable)throw new Error(health.message||'Agent 服务暂不可用，可以继续人工编辑。');}
+      if(agentAvailable===false){const health=await request(`${selectedAgentApi()}/status`);agentAvailable=health.available;if(!agentAvailable)throw new Error(health.message||'Agent 服务暂不可用，可以继续人工编辑。');}
       const digest=await documentDigest(snapshot);
       if(revision!==captured.revision||context!==captured.context)throw new Error('草稿已有修改，请重新生成。');
       captured.digest=digest;
       if(scope==='range'&&!timeline.range())throw new Error('尚未选择 2D 分析区间。可切回「整段原视频」，或先设置所选区间。');
       agentRequest={document:snapshot,expectedVersion:captured.version,clientRevision:captured.revision,documentDigest:digest,scope,phaseId,...(scope==='range'?{range:timeline.range()}:{}),goal:$('tacticsAgentGoal').value||''};
       captured.request=agentRequest;
-      const result=await request('/api/tactics-agent/jobs',agentRequest);
+      if(backend==='commentary'){
+        if(scope==='range')throw new Error('解说绘图按关键节点取证；所选 2D 区间请使用旧版兼容入口。');
+        Object.assign(agentRequest,{backend,commentaryPlanRef:{planId:upstream.planId,revision:upstream.revision,digest:upstream.digest},
+          review:commentaryReview(),drawingModelOverride:$('tacticsDrawingModel').value.trim()||null,
+          nodeIds:upstream.nodes.filter(node=>scope!=='phase'||node.anchorAssetFrame>=phase().startFrame&&node.anchorAssetFrame<phase().endFrameExclusive).map(node=>node.nodeId)});
+        if(!agentRequest.nodeIds.length)throw new Error('当前阶段没有解说关键节点，请选择整段视频或补充解说。');
+      }
+      const result=await request(`${agentApi(captured)}/jobs`,agentRequest);
       await receiveAgent(result,captured);
     }catch(error){if(agentCapture===captured){agentBusy=false;agentStatus(error.message);agentControls();}}
   }
@@ -844,7 +888,8 @@ export function mountTacticsUI(api){
       const digest=await documentDigest(documentValue);
       if(captured!==agentCapture||context!==captured.context||revision!==captured.revision||version!==captured.version||digest!==captured.digest)throw new Error('生成后草稿已有修改，不能把旧分析混入新草稿。修改已保留；请点击「生成战术初稿」重新分析。');
       agentBusy=true;agentStatus('只重试未完成的阶段，已完成候选会保留…');agentControls();
-      await receiveAgent(await request(`/api/tactics-agent/jobs/${job.jobId}/retry`,agentRequest),captured);
+      const retryRequest={...agentRequest,...(agentRequest.backend==='commentary'?{review:commentaryReview()}: {})};
+      await receiveAgent(await request(`${agentApi(captured)}/jobs/${job.jobId}/retry`,retryRequest),captured);
     }catch(error){if(agentCapture===captured){agentBusy=false;agentStatus(error.message);agentControls();}}
   }
   async function refreshAgent(){
@@ -852,7 +897,7 @@ export function mountTacticsUI(api){
     if(agentRecoveryHandle&&!agentJob)return recoverAgent(agentRecoveryHandle);
     if(!agentJob?.jobId||!agentCapture)return;
     const captured=agentCapture,job=agentJob;agentBusy=true;agentControls();
-    try{await receiveAgent(await request(`/api/tactics-agent/jobs/${job.jobId}?${new URLSearchParams({...base,kind})}`),captured);}
+    try{await receiveAgent(await request(`${agentApi(captured)}/jobs/${job.jobId}?${new URLSearchParams({...base,kind})}`),captured);}
     catch(error){if(agentCapture===captured){agentBusy=false;agentStatus(`仍无法读取任务状态：${error.message}。候选和人工草稿已保留，可稍后刷新。`);agentControls();}}
   }
   async function beginManualEditing({tool='route'}={}){
@@ -873,7 +918,8 @@ export function mountTacticsUI(api){
       const digest=await documentDigest(snapshot);
       if(agentCapture!==captured||loading||context!==captured.context||revision!==captured.revision||version!==captured.version||digest!==captured.digest)throw new Error('生成后草稿已有修改或版本变化，请重新生成建议。');
       agentBusy=true;agentControls();
-      const response=await request(`/api/tactics-agent/jobs/${job.jobId}/adopt`,{document:snapshot,expectedVersion:version,clientRevision:captured.clientRevision??captured.revision,documentDigest:digest,...(job.candidate.schemaVersion===3?{selectedIds:[...agentSelectedIds]}:{})});
+      const response=await request(`${agentApi(captured)}/jobs/${job.jobId}/adopt`,{document:snapshot,expectedVersion:version,clientRevision:captured.clientRevision??captured.revision,documentDigest:digest,
+        ...(captured.request?.backend==='commentary'?{commentaryPlanRef:captured.request.commentaryPlanRef,review:commentaryReview()}:{}),...(job.candidate.schemaVersion===3?{selectedIds:[...agentSelectedIds]}:{})});
       if(agentCapture!==captured||revision!==current.revision||context!==current.context||version!==captured.version)throw new Error('等待采用时草稿已有修改，建议未覆盖当前内容。');
       if(!await commit(response.document,current))throw new Error('草稿状态已变化，请重新生成。');
       if(agentCapture===captured){
@@ -944,6 +990,7 @@ export function mountTacticsUI(api){
   async function commit(next,captured=stamp(),{reuseScene=false}={}){
     return commitWhenCurrent({next,stamp:captured,getStamp:stamp,validate:validateDocument,apply:async value=>{
       redo=[];history.push({document:clone(documentValue),selectedAnnotationId});if(history.length>30)history.shift();documentValue=value;personInspection=null;revision++;markUnsaved();
+      commentaryUI?.markResultStale();
       const applied=stamp();await draft();
       // Title/notes mutate this same document while its draft is queued. Render
       // the latest document after persistence; metadata revisions do not make
@@ -1243,8 +1290,11 @@ export function mountTacticsUI(api){
     try{return await savePromise;}finally{savePromise=null;}
   }
   $('tacticsSave').onclick=safe(saveCurrent);
-  $('tacticsPreviewCurrent').onclick=safe(async()=>{root.querySelector('.tactics-production-panel').open=true;await $('tacticsRenderStart').onclick();$('tacticsRender').scrollIntoView?.({block:'start',behavior:'smooth'});});
-  $('tacticsExportCurrent').onclick=()=>api.openStep('export');
+  $('tacticsPreviewCurrent').onclick=safe(async()=>{
+    if(commentaryUI?.getPlan()){await commentaryUI.renderVideo();commentaryRoot.scrollIntoView?.({block:'start',behavior:'smooth'});return;}
+    root.querySelector('.tactics-production-panel').open=true;await $('tacticsRenderStart').onclick();$('tacticsRender').scrollIntoView?.({block:'start',behavior:'smooth'});
+  });
+  $('tacticsExportCurrent').onclick=safe(async()=>{if(commentaryUI?.getPlan()){await commentaryUI.renderVideo();commentaryRoot.scrollIntoView?.({block:'start',behavior:'smooth'});}else api.openStep('export');});
   $('tacticsAnnotationName').onchange=safe(()=>patchAnnotation({name:$('tacticsAnnotationName').value.trim()}));
   $('tacticsDuplicate').onclick=safe(async()=>{const a=selectedAnnotation();if(!a||!editAllowed())return;const id=`draw-${crypto.randomUUID()}`,next=duplicateAnnotation(documentValue,a.id,id);if(await saveAnnotation(next)){selectAnnotation(id);status('已复制，形状、时间与首次讲解关联保留；可从列表选择副本修改。');}});
   $('tacticsShowTangents').onchange=()=>drawScene();
@@ -1314,7 +1364,7 @@ export function mountTacticsUI(api){
     if(agentJob.candidate.schemaVersion===3)agentSelectedIds=new Set(agentJob.candidate.annotations.map(a=>a.id));
     agentStatus(agentCapture.readonlyReason||'已返回上次生成的候选。采用前会检查草稿是否仍为同一版本；人工修改会保留。');agentControls();showAgentStages(agentJob);showAgentPending(agentJob);previewAgent(agentJob);await rememberAgent(agentJob,agentCapture);
   });
-  $('tacticsAgentCancel').onclick=async()=>{if(!agentJob||agentAdopting)return;const job=agentJob,captured=agentCapture;try{clearTimeout(agentTimer);await receiveAgent(await request(`/api/tactics-agent/jobs/${job.jobId}/cancel`,{}),captured);}catch(error){if(agentCapture===captured){agentBusy=false;agentStatus(`取消状态尚未确认：${error.message}。请刷新任务状态；草稿已保留。`);agentControls();}}};
+  $('tacticsAgentCancel').onclick=async()=>{if(!agentJob||agentAdopting)return;const job=agentJob,captured=agentCapture;try{clearTimeout(agentTimer);await receiveAgent(await request(`${agentApi(captured)}/jobs/${job.jobId}/cancel`,{}),captured);}catch(error){if(agentCapture===captured){agentBusy=false;agentStatus(`取消状态尚未确认：${error.message}。请刷新任务状态；草稿已保留。`);agentControls();}}};
   $('tacticsProductionCue').onchange=fillCueFields;
   $('tacticsRebindProduction').onclick=safe(async()=>{
     if(!documentValue?.production||loading||editBusy||agentAdopting)return;
@@ -1499,7 +1549,7 @@ export function mountTacticsUI(api){
     if(!documentValue&&!loading)await load(new URLSearchParams(location.search).has('candidate')?'candidate':'workspace');
     else if(documentValue){if(synchronized)selectPhase(phaseId);else drawScene();}
     await syncSnapshot();agentControls();
-    try{const executor=await request('/api/tactics-agent/status');agentAvailable=executor.available;if(!agentJob&&!agentBusy)agentStatus(executor.message);agentControls();}catch(error){agentAvailable=false;if(!agentJob&&!agentBusy)agentStatus(`Agent 服务不可用：${error.message}`);agentControls();}
+    try{const executor=await request(`${selectedAgentApi()}/status`);agentAvailable=executor.available;if(!agentJob&&!agentBusy)agentStatus(executor.message);agentControls();}catch(error){agentAvailable=false;if(!agentJob&&!agentBusy)agentStatus(`Agent 服务不可用：${error.message}`);agentControls();}
   }));
   function renderFrame(frame,mediaTime,backgroundSource,{editing=true}={}){
     if(!lastScene||loading)return false;
@@ -1536,14 +1586,24 @@ export function mountTacticsUI(api){
   $('tacticsSyncVideo').hidden=true;
   root.querySelector?.('.tactics-instruction')?.prepend?.($('tacticsDrawingRange'));
   $('tacticsTangentSettings').append($('tacticsAnnotationRouteFields'),$('tacticsAuthoredFields'));
-  $('tacticsAgentPanel').open=true;$('tacticsAgentScope').value='play';
+  $('tacticsAgentPanel').open=true;$('tacticsAgentScope').value='play';$('tacticsAgentBackend').value='commentary';
+  $('tacticsAgentBackend').onchange=()=>{agentAvailable=null;agentControls();};
   $('tacticsCourtView').onclick=()=>{canvasView='court';$('tacticsSyncVideo').hidden=false;drawScene();};$('tacticsVideoView').onclick=()=>{canvasView='video';$('tacticsSyncVideo').hidden=true;drawScene();};
   $('tacticsMigrate').onclick=safe(async()=>{const result=await migrateTacticsDocument(documentValue,api.clip.mediaEndTime);await writeTacticsDraft(cacheKey()+':before-v2',result.backup);await commit(result.document);});
   $('tacticsRedo').onclick=safe(async()=>{if(!redo.length||editBusy)return;const next=redo.pop();history.push({document:clone(documentValue),selectedAnnotationId});documentValue=next.document;selectedAnnotationId=next.selectedAnnotationId;revision++;markUnsaved();await draft();render({reuseScene:true});});
   const commentaryRoot=document.createElement('section');
   root.querySelector('.tactics-heading').after(commentaryRoot);
-  const commentaryUI=mountCommentaryUI({...api,root:commentaryRoot});
-  render();return {saveDraft:async()=>{await draft();return commentaryUI.saveDraft();},ready:()=>sceneReady,cancelEditing,onPresentedFrame,syncNameOverlay:()=>productionUI.sync(),dispose,
+  commentaryUI=mountCommentaryUI({...api,root:commentaryRoot,commentaryReview,
+    beforeCommentary:async()=>{if(!documentValue)await $('tacticsSnapshot').onclick();await syncSnapshot();if(!await saveCurrent())throw new Error('当前人物与战术草稿未保存，请重试。');},
+    jointRenderSnapshot:async()=>({document:clone(documentValue),nameOverlay:clone(api.nameOverlaySnapshot?.()??null)}),
+    onPlanChange(plan,dirty){
+      const ref=agentCapture?.request?.commentaryPlanRef;
+      if(ref&&(dirty||plan?.digest!==ref.digest)){
+        agentCapture.readonlyReason='解说已有修改，这份绘图依据已过期。请根据当前解说重新绘图；原图形仍保留。';
+        agentStatus(agentCapture.readonlyReason);agentControls();
+      }
+    }});
+  render();return {saveDraft:async()=>{await draft();return commentaryUI.saveDraft();},ready:()=>sceneReady,cancelEditing,onPresentedFrame,syncNameOverlay:()=>{productionUI.sync();commentaryUI.markResultStale();},dispose,
     getPlaybackState:playback.state,
     togglePlayback(){if(!active)return false;if(rangePlayback){$('tacticsPause').onclick();return true;}if(playback.state().status==='playing')$('tacticsPause').onclick();else $('tacticsContinue').onclick();return true;},
     externalSeek(frame){
