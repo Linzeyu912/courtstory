@@ -1,4 +1,19 @@
-# 视频理解、火山配音与字幕成片
+# 视频理解、Polly 配音与字幕成片
+
+## 当前配音：Amazon Polly（2026-10-09，America/New_York）
+
+按用户要求只替换 TTS；姓名识别、解说模型、润色、绘图、时间轴和成片逻辑保持。默认 `Zhiyu / neural / us-east-1`，输出 16 kHz、单声道、16-bit WAV，继续使用原 `audio-manifest.json` 的 cueId、path、durationSeconds。暂停与混音仍按实际音频时长计算。
+
+- 安装 `engineering/requirements-review.txt`，使用 AWS SDK 的凭据链：已登录的 `AWS_PROFILE`、环境凭据或 EC2 IAM role。本机 `.env` 支持 `AWS_PROFILE`、`AWS_REGION`、`AWS_CONFIG_FILE`、`AWS_SHARED_CREDENTIALS_FILE`；不要提交凭据。运行角色需要 `polly:SynthesizeSpeech`。不再读取火山 TTS Key。
+- 可用 `POLLY_VOICE_ID`、`POLLY_ENGINE` 配置音色和引擎，CLI 的 `--speaker` / `--engine` 优先。普通话默认 Zhiyu；其他音色与引擎组合须由 Polly 支持。
+- 现有“原专业口吻”对应 SSML 100% 语速，“自然有趣”对应 105% 语速。它们现在是语速预设，不承诺复现 Seed 的情绪控制；不支持任意自然语言 `--style` 指令。
+- provider、引擎、音色、区域和口吻进入缓存配置，旧火山音频不会作为 Polly 命中。旧成片保留可播放；旧任务换服务后需新建输出任务，不能直接 `--resume`。已保存解说稿可以继续传入 `--plan`，无需重新调用理解模型。
+- 工作台状态只检查 AWS 凭据能否解析，不进行收费语音探测；IAM 权限、音色可用性在实际调用时检查。预览会标识 Amazon Polly，并继续识别历史火山预览。
+- CDK 的 EC2 运行角色已增加合成权限；代码推送不会更新线上角色或运行服务，需要后续部署才生效。
+
+验证：60 项配音、缓存、任务入口、时间轴、联合成片与预览相关检查通过，包含 16 kHz 测试音实际生成 MP4。AWS 合成请求使用模拟响应验证，本机无 AWS profile，尚未进行真实 Polly 中文试听或云部署。工程声明沿用现有 EC2 安装版本 boto3 1.43.108，已在隔离依赖目录使用该版本完成上述检查。
+
+接口依据（2026-10-09 查阅）：[Polly SynthesizeSpeech](https://docs.aws.amazon.com/polly/latest/APIReference/API_SynthesizeSpeech.html)、[音色列表](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)、[SSML 支持](https://docs.aws.amazon.com/polly/latest/dg/supportedtags.html)。下方涉及火山密钥、Vivi 音色与 Seed 实测的段落保留历史上下文，当前配置以上述 Polly 说明为准。
 
 2026-10-10 增量：[出手冻结与投篮反馈](shot-feedback-agent.md)沿下述两个独立 Agent 顺序执行。新解说任务会为确认出手保存评价节点；绘图读取同一保存版本生成出手者高亮及冻结反馈，绿／黄／红分别表示好／一般／不佳的机会和低／中度／高的防守压力，缺证据为灰色未知。旧稿不会自动补造分析，需要重新生成解说才能应用新规则。
 

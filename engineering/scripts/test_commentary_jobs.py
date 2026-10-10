@@ -30,6 +30,14 @@ class CommentaryJobsTests(unittest.TestCase):
         self.jobs.close()
         self.temp.cleanup()
 
+    def test_status_uses_aws_credentials_for_polly(self):
+        with patch('commentary_jobs.speech_credentials') as credentials:
+            status = CommentaryJobs.status(self.jobs)
+            self.assertTrue(status['ttsConfigured'])
+            self.assertEqual(status['speechProvider'], 'amazon-polly')
+            credentials.side_effect = ValueError('AWS login required')
+            self.assertFalse(CommentaryJobs.status(self.jobs)['ttsConfigured'])
+
     def complete_plan(self):
         plan = json.loads(json.dumps(self.plan))
         plan["uncertainties"] = []

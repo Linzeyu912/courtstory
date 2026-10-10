@@ -19,7 +19,7 @@ import uuid
 from dotenv import dotenv_values
 
 from commentary_agent import ROOT as SCRIPT_ROOT, redact
-from commentary_tts import NATURAL_STYLE, STYLE
+from commentary_tts import NATURAL_STYLE, STYLE, credentials as speech_credentials
 from commentary_plan import (build_name_snapshot, digest, finalize_plan, model_config,
                              plan_ref, source_ref, validate_handoff)
 
@@ -81,11 +81,15 @@ class CommentaryJobs:
         values = {**dotenv_values(SCRIPT_ROOT / ".env", encoding="utf-8-sig"), **os.environ}
         model = model_config(self.model_config)["model"]
         configured = bool(values.get("OPENROUTER_API_KEY") or values.get("OPEN_ROUTER_KEY"))
-        tts_configured = bool(values.get("VOLCENGINE_TTS_API_KEY"))
+        try:
+            speech_credentials(SCRIPT_ROOT / '.env')
+            tts_configured = True
+        except ValueError:
+            tts_configured = False
         return {
             "model": model, "understandingConfigured": configured, "ttsConfigured": tts_configured,
             "understandingCredential": configured, "understandingProvider": "openrouter",
-            "understandingModel": model, "speechCredential": tts_configured,
+            "understandingModel": model, "speechCredential": tts_configured, "speechProvider": "amazon-polly",
         }
 
     @staticmethod
@@ -121,7 +125,7 @@ class CommentaryJobs:
         if request["action"] in ("understand", "polish") and not status["understandingConfigured"]:
             raise ValueError("commentary understanding credential is not configured")
         if request["action"] == "render" and not status["ttsConfigured"]:
-            raise ValueError("speech credential is not configured")
+            raise ValueError("Amazon Polly AWS credential is not configured; check AWS_PROFILE or IAM role")
         if request.get("voiceStyle", "classic") not in ("classic", "natural"):
             raise ValueError("unknown voice style")
         folder = self._dir(clip, variant, qa)
