@@ -26,6 +26,12 @@
 
 | 记录 | 内容 |
 |---|---|
+| [TEAM 25 分类发布与旧分支清理](Linzeyu912/2026-10-10-1115-team25-publication.md) | 定稿与最新 main 整合、分类提交、验证、远端核对和本地恢复资料；当前发布入口 |
+| [任务栏灰色图案定稿](Linzeyu912/2026-10-10-1103-freeze-header-pattern.md) | 用户确认当前图案及位置固定；规范、Agent 约定与 CSS 注释记录基准，实际渲染保持 |
+| [TEAM 25 附近的斜向灰线](Linzeyu912/2026-10-10-1101-angled-header-line.md) | 右侧球场线顺时针倾斜 7°，保持连贯并避开队伍文字；仅本地 UI 分支 |
+| [顶栏字标主次与连贯灰线](Linzeyu912/2026-10-10-1056-header-hierarchy.md) | 主品牌／队伍／LIVE DESK 为 32／30／24px，56px 黑栏保留留白；灰色背景缩小、取消右侧截断 |
+| [TEAM 25 深蓝队伍字标](Linzeyu912/2026-10-10-1044-team25-header.md) | 白色 TEAM、深蓝 25，等大粗斜体、无底色，置于顶栏右侧；仅本地 UI 分支 |
+| [UI 与 main 同步状态核对](Linzeyu912/2026-10-10-0833-ui-main-sync-check.md) | 2026-10-10 实查两条远端分支及本地引用均为 c443d9e，已提交内容一致；本次核对记录仅保留本地 |
 | [官方训练片打标与工作台接入](Linzeyu912/2026-10-05-2318-official-training-ingestion.md) | 两段 1080p 原片、10 维场景标签、2662 帧自动候选及远端 LFS 下载校验 |
 | [六类提交与发布记录](Linzeyu912/2026-10-05-2250-classified-publication.md) | 全部现有本地成果按主题提交，main 推送、证据与视频检查范围 |
 | [拉取合作者更新与成果总览](Linzeyu912/2026-10-05-2231-collaborator-sync-and-index.md) | 远端两条提交已合入、双方改动保留，研究与作品接续入口统一 |
