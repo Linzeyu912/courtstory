@@ -2,10 +2,11 @@
 import {readFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 import {homedir} from 'node:os';
-import {join} from 'node:path';
+import {join,dirname} from 'node:path';
 import {once} from 'node:events';
 import {compileProduction, validateProductionSnapshot, renderProductionSvg, sampleProduction} from '../player-review/tactics-production.mjs';
 import {validateDocument} from '../player-review/tactics-document.mjs';
+import {studioTeamIdSvg} from '../player-review/studio-team-id.mjs';
 
 const require = createRequire(import.meta.url);
 function loadSharp() {
@@ -21,6 +22,8 @@ try {
   const nativePlan = compileProduction(request.document, request.options);
   const plan = request.productionPlan ? validateProductionSnapshot(request.document, request.productionPlan) : nativePlan;
   if (plan.totalFrames > 18000 || plan.width * plan.height > 3840 * 2160) throw new Error('成片超出本地渲染上限。');
+  // Reused by the media compositor to keep the signature above top subtitles.
+  await sharp(Buffer.from(studioTeamIdSvg(plan.width,plan.height))).png().toFile(join(dirname(process.argv[2]),'team-id.png'));
   for (let i = 0; i < plan.totalFrames; i++) {
     const svg = renderProductionSvg(request.document, sampleProduction(plan, i), {nameOverlay:request.options?.nameOverlay});
     const {data, info} = await sharp(Buffer.from(svg), {limitInputPixels: 3840 * 2160}).ensureAlpha().raw().toBuffer({resolveWithObject: true});

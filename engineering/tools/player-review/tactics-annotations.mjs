@@ -5,6 +5,8 @@ import {DEFAULT_OPTIONS,evidenceQuality} from '../tactical-overlay/validation.mj
 import {COURT,project} from './court.mjs';
 import {validateAuthoredPath,authoredBindingReason,authoredRouteGeometry,cubicBezier} from './tactics-authored-geometry.mjs';
 import {projectShotFeedback,renderShotFeedbackSVG} from './shot-feedback.mjs';
+import {trackedRoutePoints,annotationReveal} from './tactics-motion.mjs';
+import {renderRoutePaint,renderFootRingPaint,renderScreenPaint} from './tactics-paint.mjs';
 
 // Authored illustrations are separate from observations and their review status.
 export const ANNOTATION_LIMITS=Object.freeze({items:256,points:6,dots:160});
@@ -59,10 +61,10 @@ export function validateAnnotations(annotations,document){
     const manualCubic=a.timingMode==='manual'&&a.style?.pattern==='dashed'&&a.curve==='cubic_bezier'&&a.points?.length===4;
     if(['dashed','dots'].includes(a.style?.pattern)&&(!Array.isArray(a.points)||(a.points.length!==2&&!observedLaterPolyline&&!manualCubic)||
       !object(a.points[0])||!object(a.points[1])||distance(a.points[0],a.points[1])<=1e-6))bad('annotation_straight_points');
-    if(typeof a.followEntity!=='boolean'||a.followEntity&&(a.type!=='spotlight'||!a.entityId))bad('annotation_follow');
+    if(typeof a.followEntity!=='boolean'||a.followEntity&&!a.entityId)bad('annotation_follow');
     if(a.anchorMode!==undefined&&!['manual_offset','player_foot','court_player_foot'].includes(a.anchorMode))bad('annotation_anchor_mode');
-    if(a.anchorMode==='player_foot'&&(a.type!=='spotlight'||a.space!=='video'||!a.entityId||!a.followEntity))bad('annotation_foot_anchor');
-    if(a.anchorMode==='court_player_foot'&&(a.type!=='spotlight'||a.space!=='court'||!a.entityId||!a.followEntity))bad('annotation_court_foot');
+    if(a.anchorMode==='player_foot'&&(a.type==='route'||a.space!=='video'||!a.entityId||!a.followEntity))bad('annotation_foot_anchor');
+    if(a.anchorMode==='court_player_foot'&&(a.type==='route'||a.space!=='court'||!a.entityId||!a.followEntity))bad('annotation_court_foot');
     if(a.actionRange!==undefined){
       try{validateFrameRange(document.review.sourceFrameMapping,a.actionRange);}catch{bad('annotation_action_range');}
       if(!['remaining','full'].includes(a.displayMode)||!['polyline','cubic_bezier'].includes(a.curve)||a.curve==='cubic_bezier'&&(a.type!=='route'||a.points.length!==4)||!['current_action','later_observed_action','pass','screen','focus','position'].includes(a.meaning)||!frame(a.cueFrame)||(a.timingMode==='manual'?(a.cueFrame<p.startFrame||a.cueFrame>=p.endFrameExclusive):(a.cueFrame<a.startFrame||a.cueFrame>=a.endFrameExclusive)))bad('annotation_v2');
@@ -112,6 +114,7 @@ export function updateAnnotation(document,id,patch){
   if(!fields(patch,[],['phaseId','entityId','frame','startFrame','endFrameExclusive','points','style','followEntity','space','anchorMode','offset','authoredPath','actionRange','cueFrame','progressFrames','displayMode','curve','meaning','preparationBinding','timingMode','videoMode','referenceSize','name']))throw new Error('画布标注修改字段不正确。');
   if(Object.hasOwn(patch,'space')&&patch.space!==previous.space&&patch.anchorMode!=='player_foot')throw new Error('修改控制点时不能更换坐标空间，请重新绘制。');
   const a={...copy(previous),...copy(patch),style:{...previous.style,...patch.style}};delete a.frame;
+  if(previous.type==='route'&&patch.points&&patch.followEntity===undefined)a.followEntity=false;
   if(Object.hasOwn(patch,'entityId'))assertEntity(document,a.entityId);
   if(a.entityId===null||patch.followEntity===false){a.followEntity=false;if(['player_foot','court_player_foot'].includes(a.anchorMode))a.anchorMode='manual_offset';}
   if(a.anchorMode==='player_foot'){
@@ -177,7 +180,13 @@ function smooth(points){
   }
   result.push(copy(points.at(-1)));return result;
 }
-export function sampleAnnotationCurve(a,reveal=1){return a.curve==='cubic_bezier'?Array.from({length:97},(_,i)=>cubicBezier(a.points,reveal*i/96)):smooth(a.points);}
+export function sampleAnnotationCurve(a,reveal=1){
+  const curve=a.curve==='cubic_bezier'?Array.from({length:97},(_,i)=>cubicBezier(a.points,i/96)):smooth(a.points);
+  if(reveal>=1)return curve;
+  if(reveal<=0)return [];
+  const tail=trimCurve([...curve].reverse(),1-reveal);
+  return tail?tail.reverse():[];
+}
 function trimCurve(points,progress){
   if(progress<=0)return points;
   if(progress>=1)return null;
@@ -268,7 +277,7 @@ function annotationIntersectsViewport(item,width,height){
     return paintedPathVisible(g.curve,width,height,outline/2,g.pattern==='dashed'?g.dashArray:null)||
       paintedPolygonVisible(g.arrow,width,height,.75*unit);
   }
-  if(item.type==='screen'||item.type==='position')return g.paths.some(path=>paintedPathVisible(path,width,height,(outline+(item.type==='screen'?g.strokeWidth*.4:0))/2));
+  if(item.type==='screen')return g.paths.some(path=>paintedPathVisible(path,width,height,(outline+g.strokeWidth*.4)/2));
   return paintedPolygonVisible(g.ring,width,height,outline/2);
 }
 
@@ -325,16 +334,16 @@ function routeGeometry(curve,size,space,height,pattern='solid'){
   const head=Math.min((space==='court'?.7:46)*size*unit,length*.6),half=Math.min((space==='court'?.4:25)*size*unit,length*.4);
   return routePatternGeometry({curve,arrow:[{x:end.x-ux*head-uy*half,y:end.y-uy*head+ux*half},end,{x:end.x-ux*head+uy*half,y:end.y-uy*head-ux*half}],strokeWidth:(space==='court'?.18:12)*size*unit},pattern,size,space,height);
 }
+// Pending mouse previews use the same route geometry and paint as saved marks.
+export function renderAnnotationRoutePreview(points,{pattern,space='video',height=1080,color}){
+  const geometry=routeGeometry(points,1,space,height,pattern);
+  return geometry?renderRoutePaint(geometry,color,'drawing-route'):'';
+}
 function markerGeometry(a,center,height){
   const unit=a.space==='court'?1:height/1080,size=a.style.size,angle=a.style.angle*Math.PI/180;
-  if(a.type==='position'){
-    const half=(a.space==='court'?.18:14)*unit*size;
-    return {center,paths:[[{x:center.x-half,y:center.y},{x:center.x+half,y:center.y}],
-      [{x:center.x,y:center.y-half},{x:center.x,y:center.y+half}]],strokeWidth:(a.space==='court'?.06:4)*unit*size};
-  }
-  if(a.type==='spotlight'){
+  if(a.type==='spotlight'||a.type==='position'){
     const radius=(a.space==='court'?.46:39)*unit*size,ry=a.space==='court'?radius:radius*.38;
-    return {center,ring:Array.from({length:49},(_,i)=>({x:center.x+Math.cos(i/48*Math.PI*2)*radius,y:center.y+Math.sin(i/48*Math.PI*2)*ry})),strokeWidth:(a.space==='court'?.08:5)*unit*size};
+    return {center,ring:Array.from({length:49},(_,i)=>({x:center.x+Math.cos(i/48*Math.PI*2)*radius,y:center.y+Math.sin(i/48*Math.PI*2)*ry})),strokeWidth:(a.space==='court'?.055:3)*unit*size};
   }
   const half=(a.space==='court'?.55:43)*unit*size,cap=half*.28,ux=Math.cos(angle),uy=Math.sin(angle);
   const ends=[-1,1].map(sign=>({x:center.x+ux*half*sign,y:center.y+uy*half*sign}));
@@ -349,7 +358,7 @@ function mapGeometry(geometry,mapping,height,size,type){
   if(geometry.ring)mapped.ring=list(geometry.ring);
   if(geometry.center)mapped.center=point(geometry.center);
   if([...(mapped.curve??[]),...(mapped.arrow??[]),...(mapped.paths?.flat()??[]),...(mapped.ring??[]),...(geometry.center?[mapped.center]:[])].some(p=>!p||!finite(p.x)||!finite(p.y)))return null;
-  mapped.strokeWidth=(type==='route'?12:type==='screen'?8:5)*(height/1080)*size;
+  mapped.strokeWidth=(type==='route'?12:type==='screen'?8:3)*(height/1080)*size;
   // Re-sample after projection so perspective cannot stretch the dot spacing
   // or turn small passing markers into large ellipses on the video surface.
   return type==='route'?routePatternGeometry(mapped,geometry.pattern??'solid',size,'video',height):mapped;
@@ -401,10 +410,12 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
     const item={id:a.id,type:a.type,entityId:a.entityId,original:a,selected:a.id===selectedId,video:null,court:null,handles:[],hiddenReason:null};items.push(item);
     const early=(document.tacticKeyframes?.items??[]).filter(k=>k.kind==='explanation'&&k.annotationIds.includes(a.id)).map(k=>k.frame);
     const visibleStart=Math.min(a.startFrame,...early);
+    const atCue=freeze&&(currentFrame===a.anchorFrame||document.tacticKeyframes?.items.some(k=>k.frame===currentFrame&&k.annotationIds.includes(a.id)));
+    const draw=atCue&&!editing?annotationReveal(a,status.active,reveal):1;
     if(!(reference&&a.id===selectedId)&&(currentFrame<visibleStart||currentFrame>=a.endFrameExclusive)){item.hiddenReason='outside_time';continue;}
     if(a.authoredPath){
       // A new explanation cue must not erase or redraw earlier unfinished routes.
-      const result=authoredRouteGeometry(document,a,currentFrame,{reveal:editing||a.anchorFrame!==currentFrame?1:reveal,editing});
+      const result=authoredRouteGeometry(document,a,currentFrame,{reveal:draw,editing});
       item.video=result.geometry??null;item.hiddenReason=result.reason??null;
       if(item.video&&currentFrame===a.anchorFrame)item.handles=a.points.map((p,index)=>({...p,index}));
       continue;
@@ -413,12 +424,19 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
     let geometry;
     if(a.type==='route'){
       const start=context.frames[a.startFrame].time,end=context.frames[a.endFrameExclusive-1].time;
-      const explaining=freeze&&(a.timingMode==='manual'?currentFrame<=(a.actionRange??a).startFrame&&document.tacticKeyframes?.items.some(k=>k.frame===currentFrame&&k.annotationIds.includes(a.id)):(a.cueFrame===currentFrame||document.tacticKeyframes?.items.some(k=>k.frame===currentFrame&&k.annotationIds.includes(a.id))));
+      const explaining=atCue;
       const progress=reference&&a.id===selectedId||editing&&a.timingMode!=='manual'||explaining||a.displayMode==='full'?0:a.actionRange?annotationProgress(document,a,currentFrame):end<=start?0:(context.frames[currentFrame].time-start)/(end-start);
-      const curve=sampleAnnotationCurve(a,explaining?reveal:1);
+      let source=a;
+      if(a.followEntity&&!editing){
+        const tracked=trackedRoutePoints(context,a,currentFrame,rawFoot);
+        if(!tracked.points){item.hiddenReason=tracked.reason;continue;}
+        source={...a,points:tracked.points,curve:'polyline'};
+        item.trackingSpace=tracked.trackingSpace;
+      }
+      const curve=sampleAnnotationCurve(source,draw);
       const full=routeGeometry(curve,a.style.size,a.space,height,a.style.pattern??'solid');
-      geometry=routeGeometry(trimCurve(curve,progress),a.style.size,a.space,height,a.style.pattern??'solid');
-      if(a.timingMode==='manual'&&geometry&&(a.style.pattern??'solid')==='solid'){
+      geometry=routeGeometry(trimCurve(curve,a.followEntity?0:progress),a.style.size,a.space,height,a.style.pattern??'solid');
+      if(a.timingMode==='manual'&&!a.followEntity&&geometry&&(a.style.pattern??'solid')==='solid'){
         // Keep the destination head unchanged; fade the whole remaining mark before it becomes a hook.
         geometry.arrow=full.arrow;
         const length=geometry.curve.slice(1).reduce((sum,p,i)=>sum+distance(p,geometry.curve[i]),0),head=distance(full.arrow[1],{x:(full.arrow[0].x+full.arrow[2].x)/2,y:(full.arrow[0].y+full.arrow[2].y)/2});
@@ -426,12 +444,20 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
         geometry.opacity=progress>0?.94*Math.max(0,Math.min(1,(length-2*head)/fade)):.94;
         if(geometry.opacity<=0)geometry=null;
       }
+      if(a.followEntity&&geometry){
+        geometry.strokeWidth*=.65;
+        const length=curve.slice(1).reduce((sum,p,i)=>sum+distance(p,curve[i]),0);
+        geometry.opacity=atCue?1:Math.min(1,length/(a.space==='court'?.8:55*height/1080));
+      }
       if(!geometry){item.hiddenReason='completed';continue;}
     }else{
       const center=followingCenter(a,context,currentFrame);
       if(!center.point){item.hiddenReason=center.reason;continue;}
       geometry=markerGeometry(a,center.point,height);
-      if(a.timingMode==='manual'&&freeze&&early.includes(currentFrame))geometry.opacity=reveal;
+      geometry.opacity=draw;
+      if(a.type==='screen'&&draw<1){
+        geometry.paths=geometry.paths.map(path=>path.map(p=>({x:geometry.center.x+(p.x-geometry.center.x)*draw,y:geometry.center.y+(p.y-geometry.center.y)*draw})));
+      }
     }
     if(a.space==='court'){
       if(a.curve==='cubic_bezier'&&(a.style.pattern??'solid')==='solid')geometry=wideRouteGeometry(geometry,a.style.size,'court',height);
@@ -441,13 +467,16 @@ export function projectAnnotations(document,{phaseId,frame:currentFrame,model,se
       if(!crossCutCompatible({...context,freezeFrame:a.anchorFrame},currentFrame)){item.hiddenReason='court_reference_mismatch';continue;}
       item.video=mapGeometry(geometry,mapping,height,a.style.size,a.type);
     }else{
-      item.video=a.timingMode==='manual'&&a.curve==='cubic_bezier'&&(a.style.pattern??'solid')==='solid'?wideRouteGeometry(geometry,a.style.size,'video',height):geometry;
+      item.video=!a.followEntity&&a.timingMode==='manual'&&a.curve==='cubic_bezier'&&(a.style.pattern??'solid')==='solid'?wideRouteGeometry(geometry,a.style.size,'video',height):geometry;
       // A valid mapping shapes the circle on the floor; its center remains the
       // observed image foot. Missing mapping never removes an image foot circle.
       if(a.anchorMode==='player_foot'&&mapping){
         const center=project(mapping.toCourt,geometry.center.x,geometry.center.y);
         if(center&&finite(center.x)&&finite(center.y)){
-          const court=markerGeometry({...a,space:'court'},center,height),video=mapGeometry(court,mapping,height,a.style.size,a.type);
+          const court=markerGeometry({...a,space:'court'},center,height);
+          court.opacity=draw;
+          if(a.type==='screen'&&draw<1)court.paths=court.paths.map(path=>path.map(p=>({x:center.x+(p.x-center.x)*draw,y:center.y+(p.y-center.y)*draw})));
+          const video=mapGeometry(court,mapping,height,a.style.size,a.type);
           if(video){video.center=geometry.center;item.video=video;item.court=court;}
         }
       }
@@ -489,31 +518,19 @@ export function renderAnnotationsSVG(scene,{space='video',width=scene.width,heig
       const g=item.video,b=spotlightBounds(g);
       return `<ellipse data-part="spotlight-opening" cx="${(b.left+b.right)/2}" cy="${(b.top+b.bottom)/2}" rx="${(b.right-b.left)*.9}" ry="${(b.bottom-b.top)*.8}" fill="url(#${id}-edge)" opacity="${g.opacity??1}"/>`;
     }).join('');
-    parts.push(`<defs><radialGradient id="${id}-edge"><stop offset="0" stop-color="#000000"/><stop offset=".65" stop-color="#000000"/><stop offset="1" stop-color="#000000" stop-opacity="0"/></radialGradient><mask id="${id}" maskUnits="userSpaceOnUse" x="0" y="0" width="${scene.width}" height="${scene.height}"><rect width="${scene.width}" height="${scene.height}" fill="#ffffff"/>${openings}</mask></defs><rect data-part="spotlight-dim" width="${scene.width}" height="${scene.height}" fill="#000000" fill-opacity="${.3*Math.max(...spotlights.map(item=>item.video.opacity??1))}" mask="url(#${id})" pointer-events="none"/>`);
+    parts.push(`<defs><radialGradient id="${id}-edge"><stop offset="0" stop-color="#000000"/><stop offset=".65" stop-color="#000000"/><stop offset="1" stop-color="#000000" stop-opacity="0"/></radialGradient><mask id="${id}" maskUnits="userSpaceOnUse" x="0" y="0" width="${scene.width}" height="${scene.height}"><rect width="${scene.width}" height="${scene.height}" fill="#ffffff"/>${openings}</mask></defs><rect data-part="spotlight-dim" width="${scene.width}" height="${scene.height}" fill="#000000" fill-opacity="${.14*Math.max(...spotlights.map(item=>item.video.opacity??1))}" mask="url(#${id})" pointer-events="none"/>`);
   }
   for(const item of scene.items){
     const g=item[space];if(!g)continue;
-    const color=item.original.style.color,stroke=g.strokeWidth,outline=stroke+(space==='court'?.07:3*(scene.height/1080));
+    const color=item.original.style.color,stroke=g.strokeWidth;
+    const paintId=`paint-${space}-${Array.from(item.id,c=>c.codePointAt(0).toString(16)).join('-')}`;
     parts.push(`<g data-annotation-id="${escape(item.id)}" data-type="${item.type}" ${g.ribbon?'':`opacity="${g.opacity??1}"`} fill="none" stroke-linecap="round" stroke-linejoin="round">`);
     if(item.type==='route'){
-      if(g.ribbon){
-        // Draw the full fill over the inner half of a doubled edge, matching the
-        // authored raster pipeline. Group opacity composites both layers once.
-        const polygon=coordinates(g.ribbon);
-        parts.push(`<g data-part="authored-ribbon" opacity="${g.opacity}"><polygon points="${polygon}" fill="none" stroke="${g.edgeColor}" stroke-width="${2*g.strokeWidth}"/><polygon points="${polygon}" fill="${color}" stroke="none"/></g>`);
-      }else if(g.pattern==='dots'){
-        parts.push(...g.dots.map(point=>`<circle data-part="route-dot" cx="${point.x.toFixed(4)}" cy="${point.y.toFixed(4)}" r="${g.dotRadius}" fill="${color}" stroke="#5a4105" stroke-opacity=".88" stroke-width="${space==='court'?.03:1.5*(scene.height/1080)}"/>`));
-      }else{
-        const line=coordinates(g.curve),arrow=coordinates(g.arrow),dash=g.pattern==='dashed'?` stroke-dasharray="${g.dashArray.map(n=>n.toFixed(4)).join(' ')}"`:'';
-        parts.push(`<polyline points="${line}" stroke="#ffffff" stroke-opacity=".88" stroke-width="${outline}"${dash}/><polyline data-part="route" points="${line}" stroke="${color}" stroke-width="${stroke}"${dash}/>`);
-        parts.push(`<polygon data-part="arrow" points="${arrow}" fill="${color}" stroke="#ffffff" stroke-opacity=".88" stroke-width="${space==='court'?.035:1.5*(scene.height/1080)}"/>`);
-      }
+      parts.push(renderRoutePaint(g,color,paintId));
     }else if(item.type==='position'){
-      parts.push(...g.paths.map(path=>`<polyline data-part="position-mark" points="${coordinates(path)}" stroke="#ffffff" stroke-width="${outline}"/><polyline points="${coordinates(path)}" stroke="${color}" stroke-width="${stroke}"/>`));
+      parts.push(renderFootRingPaint(g,color,paintId));
     }else if(item.type==='screen'){
-      const paths=g.paths.map(path=>coordinates(path));
-      parts.push(...paths.map(points=>`<polyline points="${points}" stroke="#493611" stroke-opacity=".7" stroke-width="${outline+stroke*.4}"/>`));
-      parts.push(...paths.map(points=>`<polyline data-part="screen-bar" points="${points}" stroke="${color}" stroke-width="${stroke}"/>`));
+      parts.push(renderScreenPaint(g,color,paintId));
     }else{
       const ring=coordinates(g.ring);
       // Keep the existing projected foot ring and editing geometry. These SVG
@@ -525,6 +542,7 @@ export function renderAnnotationsSVG(scene,{space='video',width=scene.width,heig
       parts.push(`<rect data-part="spotlight-soft-light" x="${cx-rx*1.15}" y="${cy-rise}" width="${rx*2.3}" height="${rise}" fill="url(#${id}-light)" mask="url(#${id}-feather)" pointer-events="none"/>`);
       parts.push(`<ellipse data-part="spotlight-halo" cx="${cx}" cy="${cy}" rx="${rx*1.4}" ry="${ry*1.65}" fill="url(#${id}-floor)" pointer-events="none"/>`);
       parts.push(`<polygon data-part="spotlight" points="${ring}" fill="#ffffff" fill-opacity=".025"/>`);
+      parts.push(renderFootRingPaint(g,'#ffffff',paintId,{focus:true}));
     }
     parts.push('</g>');
   }
@@ -548,6 +566,7 @@ export function hitTestAnnotation(scene,point,tolerance=16){
   for(const item of items.filter(i=>i.selected))for(const h of item.handles??[])if(distance(point,h)<=tolerance)return {id:item.id,index:h.index};
   for(const item of items){
     const g=item.video;if(!g)continue;
+    if(item.type==='position'&&distance(point,g.center)<=tolerance)return {id:item.id,index:null};
     if(g.ribbon&&polygonContains(point,g.ribbon))return {id:item.id,index:null};
     const paths=[...(g.curve?[g.curve]:[]),...(g.arrow?[g.arrow]:[]),...(g.paths??[]),...(g.ring?[g.ring]:[]),...(g.ribbon?[[...g.ribbon,g.ribbon[0]]]:[])];
     if(paths.some(path=>path.slice(1).some((p,i)=>segmentDistance(point,path[i],p)<=tolerance)))return {id:item.id,index:null};

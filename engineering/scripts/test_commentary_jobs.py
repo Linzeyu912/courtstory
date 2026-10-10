@@ -38,6 +38,26 @@ class CommentaryJobsTests(unittest.TestCase):
             credentials.side_effect = ValueError('AWS login required')
             self.assertFalse(CommentaryJobs.status(self.jobs)['ttsConfigured'])
 
+    def test_latest_failed_job_does_not_hide_the_previous_completed_video(self):
+        folder = self.jobs._dir(self.clip, 'v1', 'qa')
+        for ident, action, status in [('finished', 'render', 'completed'), ('later', 'understand', 'failed')]:
+            output = folder / 'jobs' / ident
+            output.mkdir(parents=True)
+            (output / 'job.json').write_text(json.dumps(dict(id=ident, action=action, status=status)), encoding='utf-8')
+        (folder / 'latest.json').write_text(json.dumps({'id': 'later'}), encoding='utf-8')
+        with patch.object(self.jobs, 'get', return_value={'id': 'later', 'status': 'failed'}):
+            state = self.jobs.get_state(self.clip, 'v1', 'qa')
+        self.assertEqual(state['job']['id'], 'later')
+        self.assertEqual(state['result']['id'], 'finished')
+
+    def test_shot_graphics_are_checked_before_starting_speech(self):
+        plan = {**self.plan, 'nodes': [{'nodeId': 'release', 'kind': 'shot_release'}]}
+        with patch('commentary_jobs.threading.Thread') as thread, patch.object(self.jobs, 'resolve_plan', return_value=plan):
+            with self.assertRaisesRegex(ValueError, '投篮图形尚未就绪'):
+                self.jobs.create({'action': 'render', 'plan': plan, 'document': {}, 'commentaryPlanRef': {'test': True}},
+                                 self.clip, self.video, 'v1', 'qa')
+            thread.assert_not_called()
+
     def complete_plan(self):
         plan = json.loads(json.dumps(self.plan))
         plan["uncertainties"] = []

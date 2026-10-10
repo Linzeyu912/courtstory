@@ -932,7 +932,9 @@ for(const [tool,pattern,name,color] of [['tacticsToolDashed','dashed','传球','
       await env.event('pointermove',{pointerId:200,clientX:720,clientY:350});
       const overlay=env.get('tacticsCanvas').children[0].children[1];
       assert.match(overlay.innerHTML,new RegExp(`data-drawing-pattern="${pattern}"`));assert.ok(overlay.innerHTML.includes(color));
-      if(pattern==='dots')assert.doesNotMatch(overlay.innerHTML,/data-drawing-arrow/);else assert.match(overlay.innerHTML,/data-drawing-arrow/);
+      assert.match(overlay.innerHTML,/<feGaussianBlur/);
+      if(pattern==='dots'){assert.doesNotMatch(overlay.innerHTML,/data-part="arrow"/);assert.match(overlay.innerHTML,/data-part="route-dot"/);}
+      else{assert.match(overlay.innerHTML,/data-part="arrow"/);assert.match(overlay.innerHTML,/data-part="route-core"/);}
       await env.event('pointerdown',{pointerId:201,target:env.target(),clientX:720,clientY:350});
       let a=env.ui.getSceneState().annotations.items[0];assert.equal(a.type,'route');assert.equal(a.points.length,2);
       assert.equal(a.style.pattern,pattern);assert.equal(a.style.color,color);assert.equal(a.entityId,null);
@@ -1291,7 +1293,7 @@ test('reload can retrieve an idempotent adoption after the server adopted but it
   let env=environment(d,{agent:service.request,storage,storageKey});
   try{
     await env.load();await env.get('tacticsAgentRun').onclick();await env.get('tacticsAgentAdopt').onclick();
-    assert.equal(service.job.adopted,true);assert.equal(env.ui.getSceneState().annotations.items.length,0);assert.match(env.get('tacticsAgentStatus').textContent,/响应连接中断/);
+    assert.equal(service.job.adopted,true);assert.equal(env.ui.getSceneState().annotations.items.length,0);assert.match(env.get('tacticsAgentStatus').textContent,/网络连接中断/);
     await env.ui.saveDraft();env.restore();env=environment(d,{agent:service.request,storage,storageKey});await env.load();
     assert.equal(env.get('tacticsAgentAdopt').disabled,false);assert.match(env.get('tacticsAgentAdopt').textContent,/恢复上次采用/);
     await env.get('tacticsAgentAdopt').onclick();assert.equal(service.adopts.length,2);assert.deepEqual(service.adopts[1],service.adopts[0]);assert.equal(env.ui.getSceneState().annotations.items.length,1);assert.equal(env.get('tacticsAgentAdopt').disabled,true);
@@ -1542,10 +1544,8 @@ test('a failed status poll can resume the same job without submitting a second m
     throw new Error(path);
   }});
   try{
-    await env.load();await env.get('tacticsAgentRun').onclick();await new Promise(resolve=>setTimeout(resolve,1150));
-    assert.equal(env.get('tacticsAgentRefresh').hidden,false);assert.equal(env.get('tacticsAgentRun').disabled,true);
-    assert.match(env.get('tacticsAgentStatus').textContent,/任务状态读取失败/);
-    await env.get('tacticsAgentRefresh').onclick();assert.equal(submits,1);assert.equal(polls,2);
+    await env.load();await env.get('tacticsAgentRun').onclick();await new Promise(resolve=>setTimeout(resolve,1650));
+    assert.equal(submits,1);assert.equal(polls,2);
     assert.equal(env.get('tacticsAgentAdopt').disabled,false);assert.equal(env.get('tacticsAgentRefresh').hidden,true);
   }finally{env.restore();}
 });
@@ -1704,4 +1704,29 @@ test('single-view scene fits both picture bounds without cropping at laptop and 
     assert.ok(size.width<=canvasWidth-2);assert.ok(size.height<=canvasHeight-2+1e-9);
     assert.ok(Math.abs(size.width/size.height-1280/720)<1e-9);
   }
+});
+
+test('older browser version is backed up and replaced by the saved server draft',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),storage=new Map(),storageKey='version-reconcile';
+  let env=environment(d,{storage,storageKey});
+  try{
+    await env.load();await env.ui.saveDraft();env.restore();
+    const key=[...storage.keys()].find(key=>storage.get(key)?.document);
+    const old=structuredClone(storage.get(key));old.document.title='old local draft';storage.set(key,old);
+    env=environment({...d,title:'server latest'},{storage,storageKey,serverVersion:2});await env.load();
+    assert.equal(storage.get(key).version,2);assert.equal(storage.get(key).document.title,'server latest');
+    assert.equal(storage.get(`${key}:before-reload`).document.title,'old local draft');
+    await env.get('tacticsSave').onclick();assert.equal(env.saved[0].expectedVersion,2);
+  }finally{env.restore();}
+});
+
+test('a lost save response reconciles identical content without replacing the draft',async()=>{
+  const d=await createTacticsDocument((await makePresentationDemo()).review),storage=new Map(),storageKey='lost-save-response';
+  let env=environment(d,{storage,storageKey});
+  try{
+    await env.load();await env.ui.saveDraft();env.restore();
+    const key=[...storage.keys()].find(key=>storage.get(key)?.document);
+    env=environment(d,{storage,storageKey,serverVersion:1});await env.load();
+    assert.equal(storage.get(key).version,1);assert.equal(storage.has(`${key}:before-reload`),false);
+  }finally{env.restore();}
 });

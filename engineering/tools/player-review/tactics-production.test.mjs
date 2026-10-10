@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
+import {readFile} from 'node:fs/promises';
+import {STUDIO_TEAM_ID} from './studio-team-id.mjs';
 import {makePresentationDemo} from '../tactical-overlay/fixtures/presentation-demo.mjs';
 import {createTacticsDocument,validateDocument,splitPhase,refreshSnapshot} from './tactics-document.mjs';
 import {createSourceBinding} from '../tactical-overlay/binding.mjs';
@@ -10,6 +12,20 @@ import {project} from './court.mjs';
 const api=await import('./tactics-production.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
 const geometry=await import('./tactics-authored-geometry.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
 const fixture=async()=>createTacticsDocument((await makePresentationDemo()).review);
+
+test('frontend team signature is always visible in production, including unrevealed and empty frames',async()=>{
+  const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
+  assert.equal(html.match(/class="studio-team-number">([^<]+)/)[1],STUDIO_TEAM_ID);
+  const document=await fixture();let previous;
+  for(const state of ['source','settle','draw','hold']){
+    const svg=api.renderProductionSvg(document,{sourceFrame:0,phaseId:'phase-1',state,reveal:state==='hold'?1:0});
+    assert.equal((svg.match(/data-part="studio-team-id"/g)??[]).length,1);
+    const mark=svg.slice(svg.indexOf('<g data-part="studio-team-id"'));
+    assert.match(mark,/aria-label="TEAM 25"/);assert.match(mark,/fill="#1d428a"/);assert.match(mark,/fill="#ffffff"/);
+    assert.doesNotMatch(mark,/<text|opacity=/);
+    if(previous)assert.equal(mark,previous);previous=mark;
+  }
+});
 test('native production exposes asset frame and review time without relabeling parent footage',async()=>{
   const document=await fixture(),plan=api.compileProduction(document),state=plan.frames[0];
   assert.equal(state.assetFrame,state.sourceFrame);
@@ -105,12 +121,13 @@ test('Bezier has four edit handles, fixed projected destination, shrinking tail 
   assert.equal(annotationPresentation(d).items[0].mode,'timeline');
   assert.throws(()=>updateAnnotation(d,'bezier',{points:a.original.points.slice(0,3)}));
 });
-test('authored ribbons preserve the full fill with an outer edge composited at one opacity',async()=>{
+test('authored ribbons retain their geometry and configured edge with the shared luminous paint',async()=>{
   const d=await authored(),state={sourceFrame:10,sourceTime:1,state:'source',reveal:1,phaseId:'phase-1'},svg=api.renderProductionSvg(d,state);
   const g=projectAnnotations(d,{phaseId:'phase-1',frame:10}).items[0].video;
   assert.match(svg,new RegExp(`<g data-part="authored-ribbon" opacity="${g.opacity}">`));
-  assert.match(svg,new RegExp(`fill="none" stroke="${g.edgeColor}" stroke-width="${2*g.strokeWidth}"/><polygon`));
-  assert.match(svg,/fill="#19a9e1" stroke="none"\/><\/g>/);
+  assert.match(svg,new RegExp(`fill="none" stroke="${g.edgeColor}" stroke-width="${g.strokeWidth}" stroke-opacity=".18"`));
+  assert.match(svg,/<linearGradient/);assert.match(svg,/<feGaussianBlur/);
+  assert.deepEqual(projectAnnotations(d,{phaseId:'phase-1',frame:10}).items[0].video,g);
 });
 test('lower output frame rate flushes late exact-frame cues in source order',async()=>{
   const {review}=await makePresentationDemo();review.sourceFrameMapping.forEach((f,i)=>{f.time=i/60;f.sourceTime=i/60;});

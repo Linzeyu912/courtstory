@@ -15,6 +15,36 @@ def _number(value, field):
     return float(value)
 
 
+def validate_shot_graphics(document, plan, native=None, fps=None):
+    selected_ref={key:plan.get(key) for key in ('planId','revision','digest')}
+    shot_nodes={node['nodeId']:node for node in plan.get('nodes',[]) if node.get('kind')=='shot_release'}
+    shot_items=document.get('shotFeedback',{}).get('items',[])
+    for item in shot_items:
+        if item.get('nodeId') not in shot_nodes or item.get('commentaryPlanRef')!=selected_ref:
+            raise ValueError('Joint shot feedback is not bound to the current commentary plan node')
+    for node_id,node in shot_nodes.items():
+        matching=[item for item in shot_items if item.get('nodeId')==node_id]
+        if len(matching)!=1:raise ValueError('Confirmed shot release needs adopted shot graphics and evaluation')
+        item=matching[0];feedback=node.get('shotFeedback') or {};anchor=node['anchorAssetFrame']
+        if (item.get('frame')!=anchor or item.get('eventId')!=node.get('eventId') or
+            any(item.get(key)!=feedback.get(key) for key in ('shooterRef','opportunity','pressure'))):
+            raise ValueError('Joint shot feedback differs from the saved plan node evaluation')
+        annotation=next((a for a in document.get('annotations',{}).get('items',[]) if a.get('id')==item.get('spotlightAnnotationId')),None)
+        if (not annotation or annotation.get('type')!='spotlight' or annotation.get('anchorFrame')!=anchor or
+            not annotation.get('startFrame',anchor)<=anchor<annotation.get('endFrameExclusive',anchor)):
+            raise ValueError('Confirmed shot release has no valid linked shooter spotlight')
+        shooters=[person for person in plan.get('participants',[]) if person.get('participantId')==feedback.get('shooterRef')]
+        if len(shooters)!=1 or 'entityId' not in shooters[0]:
+            raise ValueError('Confirmed shot release has no saved shooter participant')
+        if annotation.get('entityId')!=shooters[0]['entityId']:
+            raise ValueError('Confirmed shot release spotlight shooter identity differs from the saved plan')
+        if not any(cue.get('frame')==anchor and cue.get('freeze') is True and cue.get('holdSeconds',0)>=2.5 and
+                   annotation['id'] in cue.get('annotationIds',[]) for cue in document.get('tacticKeyframes',{}).get('items',[])):
+            raise ValueError('Confirmed shot release needs one native pause of at least 2.5 seconds')
+        if native is not None and len(native.get(anchor,[]))<math.ceil(2.5*fps-1e-9):
+            raise ValueError('Native shot pause is shorter than the required 2.5 seconds')
+
+
 def build_joint_composition(document, plan, audio_rows, context, production, margin=.25, identity_review=None):
     review = document['review']; mapping = review['sourceFrameMapping']; decoded = context['frames']
     fps = production['fps']; start = document['playDefinition']['startFrame']; end = document['playDefinition']['endFrameExclusive']
@@ -79,32 +109,7 @@ def build_joint_composition(document, plan, audio_rows, context, production, mar
             if not start<=asset_frame<end:raise ValueError('Native hold outside joint asset range')
             block.append(state)
     remember()
-    shot_nodes={node['nodeId']:node for node in plan.get('nodes',[]) if node.get('kind')=='shot_release'}
-    shot_items=document.get('shotFeedback',{}).get('items',[])
-    for item in shot_items:
-        if item.get('nodeId') not in shot_nodes or item.get('commentaryPlanRef')!=selected_ref:
-            raise ValueError('Joint shot feedback is not bound to the current commentary plan node')
-    for node_id,node in shot_nodes.items():
-        matching=[item for item in shot_items if item.get('nodeId')==node_id]
-        if len(matching)!=1:raise ValueError('Confirmed shot release needs adopted shot graphics and evaluation')
-        item=matching[0];feedback=node.get('shotFeedback') or {};anchor=node['anchorAssetFrame']
-        if (item.get('frame')!=anchor or item.get('eventId')!=node.get('eventId') or
-            any(item.get(key)!=feedback.get(key) for key in ('shooterRef','opportunity','pressure'))):
-            raise ValueError('Joint shot feedback differs from the saved plan node evaluation')
-        annotation=next((a for a in document.get('annotations',{}).get('items',[]) if a.get('id')==item.get('spotlightAnnotationId')),None)
-        if (not annotation or annotation.get('type')!='spotlight' or annotation.get('anchorFrame')!=anchor or
-            not annotation.get('startFrame',anchor)<=anchor<annotation.get('endFrameExclusive',anchor)):
-            raise ValueError('Confirmed shot release has no valid linked shooter spotlight')
-        shooters=[person for person in plan.get('participants',[]) if person.get('participantId')==feedback.get('shooterRef')]
-        if len(shooters)!=1 or 'entityId' not in shooters[0]:
-            raise ValueError('Confirmed shot release has no saved shooter participant')
-        if annotation.get('entityId')!=shooters[0]['entityId']:
-            raise ValueError('Confirmed shot release spotlight shooter identity differs from the saved plan')
-        if not any(cue.get('frame')==anchor and cue.get('freeze') is True and cue.get('holdSeconds',0)>=2.5 and
-                   annotation['id'] in cue.get('annotationIds',[]) for cue in document.get('tacticKeyframes',{}).get('items',[])):
-            raise ValueError('Confirmed shot release needs one native pause of at least 2.5 seconds')
-        if len(native.get(anchor,[]))<math.ceil(2.5*fps-1e-9):
-            raise ValueError('Native shot pause is shorter than the required 2.5 seconds')
+    validate_shot_graphics(document, plan, native, fps)
     nodes={}
     for node in plan.get('nodes',[]):
         anchor=node.get('anchorAssetFrame');window=node.get('evidenceWindow',{})

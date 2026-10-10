@@ -54,6 +54,8 @@ test('native production uses the same SVG policy with the global switch off',asy
   const source=Object.fromEntries(['videoSha256','trackingFingerprint','trackingRevision','width','height'].map(key=>[key,document.review[key]]));
   const nameOverlay={nameIdentitySource:source,nameDisplay:{enabled:false},playerNameIdentities:[{id:'P1',observations:[{
     frame,x:300,y:300,trackId:11,nameIdentity:{name:'Production Name',trackId:11,start:frame,end:frame,identityVerified:true}}]}]};
-  const plan=compileProduction(document),state=plan.frames.find(row=>row.sourceFrame===frame);
+  const plan=compileProduction(document),state=plan.frames.find(row=>row.sourceFrame===frame&&row.reveal===1);
+  const settle=plan.frames.find(row=>row.sourceFrame===frame&&row.reveal===0);
+  assert.doesNotMatch(renderProductionSvg(document,settle,{nameOverlay}),/Production Name/);
   const svg=renderProductionSvg(document,state,{nameOverlay});assert.match(svg,/Production Name/);assert.match(svg,/data-forced-name="true"/);
 });

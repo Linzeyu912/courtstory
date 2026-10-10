@@ -109,6 +109,10 @@ class TacticalWorkbench:
         self.run('validate', document=document)
         with self.lock:
             current = self.load(clip, variant, qa, kind)
+            # A response can be lost after the write commits. Retrying that same
+            # snapshot must return its version instead of creating a conflict.
+            if type(expected_version) is int and 0 <= expected_version < current['version'] and current.get('document') == document:
+                return current
             if type(expected_version) is not int or expected_version != current['version']:
                 raise ValueError('另一页面已保存新版本。请导出当前草稿备份，再重新读取已保存版本。')
             result = {'version': expected_version + 1, 'savedAt': datetime.now(timezone.utc).isoformat(), 'document': document}

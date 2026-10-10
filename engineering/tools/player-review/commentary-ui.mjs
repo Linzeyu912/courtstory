@@ -28,6 +28,7 @@ function restoreContent(current, previous) {
 function setStatus(node, message, kind = '') {
   node.textContent = message || '';
   node.dataset.kind = kind;
+  if(node.deliveryStatus){node.deliveryStatus.textContent=message||'';node.deliveryStatus.dataset.kind=kind;}
 }
 
 function stageLabel(stage, status) {
@@ -52,6 +53,18 @@ export function mountCommentaryUI(api) {
   const ctx = { sample, variant, qa: !!qa };
   const client = createCommentaryClient(ctx);
   const query = client.query;
+  const deliveryHost=document.getElementById?.('deliveryCommentaryResult');
+  let deliveryStart,deliveryStatus,deliveryVideo,deliveryDownload,deliverySubtitles;
+  if(deliveryHost){
+    deliveryHost.replaceChildren();
+    deliveryStart=make('button',{className:'primary',text:'生成配音与战术联合成片'},deliveryHost);
+    deliveryStart.addEventListener('click',()=>start('render'));
+    deliveryStatus=make('p',{'role':'status','aria-live':'polite'},deliveryHost);
+    deliveryVideo=make('video',{controls:true,playsInline:true,preload:'metadata',hidden:true,'aria-label':'解说联合成片预览'},deliveryHost);
+    const links=make('div',{className:'tactics-buttons'},deliveryHost);
+    deliveryDownload=make('a',{text:'下载联合视频 MP4',hidden:true},links);
+    deliverySubtitles=make('a',{text:'下载字幕 SRT',hidden:true},links);
+  }
   const sourceKey = [sample, variant, qa ? '1' : '0', clip?.video_sha256 || '', clip?.tracking_fingerprint || ''].join(':');
   const storageKey = `player-review-commentary:${encodeURIComponent(sourceKey)}`;
   root.replaceChildren();
@@ -135,6 +148,7 @@ export function mountCommentaryUI(api) {
     } catch { /* storage may be unavailable */ }
   }
   function updateButtons() {
+    status.deliveryStatus=deliveryStatus;
     const hasPlan = !!plan;
     const locked = busy || ACTIVE.has(job?.status);
     workflowNote.textContent = !hasPlan ? '先生成并核对解说，保存后即可按关键节点绘图。'
@@ -152,6 +166,7 @@ export function mountCommentaryUI(api) {
       ? '原稿在生成后已有变化，请重新润色；候选仍可对照阅读。'
       : '核对动作、结果和用梗场景后采用；采用后仍需保存。';
     render.disabled = locked || !hasPlan;
+    if(deliveryStart)deliveryStart.disabled=locked||!hasPlan;
     render.textContent = hasPlan && !supportsJoint(plan) ? '配音并生成字幕视频' : '配音并生成联合视频';
     save.disabled = busy || !hasPlan || !changed();
     const editingLocked = busy || (ACTIVE.has(job?.status) && job?.action !== 'polish');
@@ -275,6 +290,7 @@ export function mountCommentaryUI(api) {
       if (['natural', 'classic'].includes(job?.voiceStyle)) voiceStyle.value = job.voiceStyle;
       if (value.plan) { renderPlan(value.plan); recoverLocal(); }
       else renderPlan(null);
+      if(value.result)showResult(value.result);
       if (ACTIVE.has(job?.status)) { setStatus(status, `已有任务${job.stage ? `：${job.stage}` : ''}，正在恢复状态。`); poll(); }
       else if (job?.action === 'render' && job.status === 'completed') showResult(job);
       else if (job?.action === 'polish' && job.status === 'completed') showCandidate(job);
@@ -337,6 +353,11 @@ export function mountCommentaryUI(api) {
     const videoUrl = `/api/commentary/jobs/${encodeURIComponent(value.id)}/video?${resultQuery}`;
     const subtitlesUrl = `/api/commentary/jobs/${encodeURIComponent(value.id)}/subtitles?${resultQuery}`;
     resultVideo.src = videoUrl; resultVideo.load();
+    if(deliveryVideo){
+      deliveryVideo.src=videoUrl;deliveryVideo.hidden=false;deliveryVideo.load();
+      deliveryDownload.href=videoUrl;deliveryDownload.download=`${sample}-commentary.mp4`;deliveryDownload.hidden=false;
+      deliverySubtitles.href=subtitlesUrl;deliverySubtitles.download=`${sample}-commentary.srt`;deliverySubtitles.hidden=false;
+    }
     mp4Link.href = videoUrl; mp4Link.download = `${sample}-commentary.mp4`;
     srtLink.href = subtitlesUrl; srtLink.download = `${sample}-commentary.srt`;
     resultNote.textContent = changed() || (value.plan && JSON.stringify(value.plan) !== JSON.stringify(readPlan()))
@@ -457,7 +478,7 @@ export function mountCommentaryUI(api) {
   const loadedPlan = load();
   return {
     dispose,
-    pause() { resultVideo.pause(); sourceVideo.pause(); },
+    pause() { resultVideo.pause(); sourceVideo.pause(); deliveryVideo?.pause(); },
     markResultStale() { if (!resultBox.hidden) resultNote.textContent = '图形或姓名展示已有修改，当前视频对应之前保存的版本。请重新生成联合视频。'; },
     getPlan: () => clone(plan),
     renderVideo: () => start('render'),

@@ -39,7 +39,7 @@ test('visible spotlights dim the video once with one soft opening per player, an
   const scene=api.projectAnnotations(doc,{phaseId:'setup',frame:16,freeze:false}),svg=api.renderAnnotationsSVG(scene);
   assert.equal((svg.match(/data-part="spotlight-dim"/g)??[]).length,1);
   assert.equal((svg.match(/data-part="spotlight-opening"/g)??[]).length,2);
-  assert.match(svg,/fill="#000000" fill-opacity="0.3"/);
+  assert.match(svg,/fill="#000000" fill-opacity="0.14"/);
   assert.doesNotMatch(api.renderAnnotationsSVG(api.projectAnnotations(doc,{phaseId:'setup',frame:30})),/spotlight-dim|spotlight-opening/);
   for(const item of scene.items)item.video.opacity=0;
   assert.doesNotMatch(api.renderAnnotationsSVG(scene),/spotlight-dim|spotlight-opening/);
@@ -228,12 +228,12 @@ test('a video with no detected or associated players can still start a complete 
   assert.equal(doc.annotations.items.find(i=>i.type==='spotlight').followEntity,false);
 });
 
-test('static position marker renders as a small cross without a spotlight or player label and stays editable',async()=>{
+test('static position marker renders as a thin floor ring without a spotlight or player label and stays editable',async()=>{
   const doc=api.createAnnotation(await fixture(),{id:'static-position',type:'position',phaseId:'setup',entityId:null,frame:12,space:'video',points:[{x:600,y:400}]});
   await validateDocument(JSON.parse(JSON.stringify(doc)));
   const scene=api.projectAnnotations(doc,{phaseId:'setup',frame:12}),svg=api.renderAnnotationsSVG(scene);
   assert.match(svg,/data-type="position"/);assert.match(svg,/data-part="position-mark"/);
-  assert.doesNotMatch(svg,/data-part="spotlight"|<text/);assert.equal(scene.items[0].video.ring,undefined);
+  assert.doesNotMatch(svg,/data-part="spotlight"|<text/);assert.equal(scene.items[0].video.ring.length,49);assert.equal(scene.items[0].video.paths,undefined);
   assert.equal(api.hitTestAnnotation(scene,{x:600,y:400}).id,'static-position');
   assert.equal(api.annotationPresentation(doc).items[0].visible,true);
   const edited=api.updateAnnotation(doc,'static-position',{points:[{x:650,y:420}]});assert.equal(edited.annotations.items[0].points[0].x,650);
@@ -400,12 +400,12 @@ test('straight route patterns keep legacy defaults and reject incompatible impor
   await assert.rejects(validateDocument(imported),/画布标注/);
 });
 
-test('dashed arrows use matching gaps in the white outline and colored line while keeping the head solid',async()=>{
+test('dashed arrows preserve matching gaps through the glow and bright core while keeping the head solid',async()=>{
   const doc=api.createAnnotation(await fixture(),{...route,points:[{x:17,y:10},{x:24,y:10}],style:{pattern:'dashed'}});
   const first=api.projectAnnotations(doc,{phaseId:'setup',frame:12}),later=api.projectAnnotations(doc,{phaseId:'setup',frame:20});
   const svg=api.renderAnnotationsSVG(first),lines=[...svg.matchAll(/<polyline\b[^>]*>/g)].map(match=>match[0]);
-  assert.equal(lines.length,2);assert.ok(lines.every(line=>/stroke-dasharray="[^"]+"/.test(line)));
-  assert.equal(lines[0].match(/stroke-dasharray="([^"]+)"/)[1],lines[1].match(/stroke-dasharray="([^"]+)"/)[1]);
+  assert.ok(lines.length>=2);assert.ok(lines.every(line=>/stroke-dasharray="[^"]+"/.test(line)));
+  assert.equal(new Set(lines.map(line=>line.match(/stroke-dasharray="([^"]+)"/)[1])).size,1);
   const arrow=svg.match(/<polygon\b[^>]*data-part="arrow"[^>]*>/)?.[0];assert.ok(arrow);assert.doesNotMatch(arrow,/stroke-dasharray/);
   assert.ok(later.items[0].video.curve[0].x>first.items[0].video.curve[0].x);
   assert.ok(first.items[0].video.curve.every(point=>Math.abs(point.y-first.items[0].video.curve[0].y)<1e-6));
@@ -428,9 +428,9 @@ test('passing dots remain equally spaced after perspective projection and gaps s
   const middle=Math.floor(geometry.dots.length/2),a=geometry.dots[middle],b=geometry.dots[middle+1];
   assert.deepEqual(api.hitTestAnnotation(scene,{x:(a.x+b.x)/2,y:(a.y+b.y)/2},1),{id:'route-a',index:null});
   const svg=api.renderAnnotationsSVG(scene);
-  assert.equal((svg.match(/<circle\b/g)||[]).length,geometry.dots.length);
+  assert.equal((svg.match(/data-part="route-dot"/g)||[]).length,geometry.dots.length);
   assert.doesNotMatch(svg,/<polyline|data-part="arrow"/);assert.match(svg,/fill="#ffd45c"/);
-  assert.ok([...svg.matchAll(/<circle\b[^>]*>/g)].every(match=>/stroke="#5a4105"/.test(match[0])&&/stroke-width="1"/.test(match[0])));
+  assert.match(svg,/<feGaussianBlur/);assert.doesNotMatch(svg,/stroke="#5a4105"/);
   const larger=api.projectAnnotations(api.updateAnnotation(doc,'route-a',{style:{size:2}}),{phaseId:'setup',frame:12}).items[0].video;
   assert.equal(larger.dotRadius,geometry.dotRadius*2);assert.ok(larger.dots.length<geometry.dots.length);
   const later=api.projectAnnotations(doc,{phaseId:'setup',frame:20}).items[0].video;

@@ -3,13 +3,29 @@ import assert from 'node:assert/strict';
 import {makeV2Fixture} from './tactics-v2-fixture.mjs';
 import {createManualAnnotation,setManualAnnotationRange,duplicateAnnotation,correctAnnotationProgress,nearestRouteProgress} from './tactics-manual-editor.mjs';
 import {upsertTacticKeyframe,removeTacticKeyframe,compileTacticKeyframes} from './tactics-keyframes.mjs';
-import {projectAnnotations,removeAnnotation} from './tactics-annotations.mjs';
+import {projectAnnotations,renderAnnotationsSVG,removeAnnotation} from './tactics-annotations.mjs';
 import {compileProduction,renderProductionSvg} from './tactics-production.mjs';
 import {validateDocument,createTacticsDocument} from './tactics-document.mjs';
 
 async function base(){const {document:d}=await makeV2Fixture();delete d.review.courtPreparation;return createTacticsDocument(d.review);}
 const route=(d,id='a',range={startFrame:10,endFrameExclusive:50})=>createManualAnnotation(d,{id,type:'route',phaseId:'phase-1',range,frame:10,space:'video',points:[{x:200,y:400},{x:900,y:300}]});
 const geometry=(d,frame)=>projectAnnotations(d,{phaseId:'phase-1',frame}).items[0].video;
+
+test('manual route, passes, focus ring and screen keep the canvas paint in production',async()=>{
+  let d=await base();
+  for(const [id,type,pattern] of [['run','route','solid'],['pass','route','dashed'],['dots','route','dots'],['focus','spotlight'],['screen','screen'],['position','position']]){
+    d=createManualAnnotation(d,{id,type,pattern,phaseId:'phase-1',range:{startFrame:10,endFrameExclusive:50},frame:10,space:'video',points:type==='route'?[{x:200,y:400},{x:900,y:300}]:[{x:700,y:400}]});
+  }
+  await validateDocument(d);const before=structuredClone(d);
+  for(const frame of [10,20,30]){
+    const canvas=renderAnnotationsSVG(projectAnnotations(d,{phaseId:'phase-1',frame,editing:true}));
+    const output=renderProductionSvg(d,{phaseId:'phase-1',sourceFrame:frame,reveal:1,state:'source'});
+    assert.ok(output.startsWith(canvas.replace(/<\/svg>$/,'')),`manual preview and exported annotation paint match at frame ${frame}`);
+    for(const part of ['authored-ribbon','route-core','route-dot','focus-ring-core','screen-glow','position-ring'])assert.ok(canvas.includes(`data-part="${part}"`),part);
+    assert.match(output,/data-part="studio-team-id"/);
+  }
+  assert.deepEqual(d,before);
+});
 
 test('manual fixed video route consumes its own range, stores explicit pixels, trims the tail and keeps its head',async()=>{
   const d=route(await base());await validateDocument(d);const a=d.annotations.items[0];

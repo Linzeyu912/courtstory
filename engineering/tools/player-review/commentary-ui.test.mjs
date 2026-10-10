@@ -19,13 +19,13 @@ const fixture=()=>({summary:'半场进攻',events:[],uncertainties:[],cues:[{cue
 function all(node) { return [node,...node.children.flatMap(all)]; }
 function harness({running=false,fail=false,conflict=false,contract=false,loadedVoiceStyle=null}={}) {
   const previous={document:global.document,localStorage:global.localStorage,fetch:global.fetch,setTimeout:global.setTimeout,clearTimeout:global.clearTimeout};
-  const root=new Element('section'), storage=new Map(), writes=[], requests=[], changes=[];
+  const root=new Element('section'), delivery=new Element('section'), storage=new Map(), writes=[], requests=[], changes=[];
   let saved=fixture(), submitted=null, tick=null;
   if(contract)saved={...saved,schemaVersion:2,planId:'plan-1',revision:1,digest:'saved-1',
     sourceRef:{reviewDigest:'names-and-review'},producerConfigSnapshot:{model:'understanding-model'},
     nodes:[{nodeId:'n1',anchorAssetFrame:30,cueIds:['c1']},{nodeId:'n2',anchorAssetFrame:150,cueIds:['c2']}]};
   const review={playerNameIdentities:[{id:'P1',name:'已核对球员'}]}, document={annotations:{items:[{id:'manual-arrow'}]}}, nameOverlay={enabled:true};
-  global.document={createElement:tag=>new Element(tag)};
+  global.document={createElement:tag=>new Element(tag),getElementById:id=>id==='deliveryCommentaryResult'?delivery:null};
   global.localStorage={getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)};
   global.setTimeout=fn=>{tick=fn;return 1;};global.clearTimeout=()=>{tick=null;};
   const candidate=()=>{const plan=structuredClone(submitted);plan.cues[0].text='这个跟防，真不下班。';if(contract)plan.digest=null;return {id:'test',action:'polish',status:'completed',originalPlan:submitted,plan};};
@@ -58,7 +58,7 @@ function harness({running=false,fail=false,conflict=false,contract=false,loadedV
   };
   const ui=mountCommentaryUI({root,clip:{},sample:'test',variant:'v1',commentaryReview:()=>review,
     jointRenderSnapshot:()=>({document,nameOverlay}),onPlanChange:(plan,dirty)=>changes.push({plan,dirty})});
-  return {root,writes,requests,changes,review,document,nameOverlay,ui,get:label=>all(root).find(n=>n.textContent===label),
+  return {root,delivery,writes,requests,changes,review,document,nameOverlay,ui,get:label=>all(root).find(n=>n.textContent===label),
     field:label=>all(root).find(n=>n.attrs['aria-label']===label),
     text:()=>all(root).find(n=>n.attrs['aria-label']==='第 1 句解说文字'),
     ready:()=>new Promise(resolve=>setImmediate(resolve)),tick:async()=>{await tick();},
@@ -186,5 +186,20 @@ test('reloading a completed render restores its voice style without submitting a
   const h=harness({contract:true,loadedVoiceStyle:'classic'});try{
     await h.ready();assert.equal(h.field('配音口吻').value,'classic');
     assert.equal(h.requests.filter(r=>r.url==='/api/commentary/jobs').length,0);
+  }finally{h.restore();}
+});
+
+test('delivery page restores a playable joint result and can generate the current snapshot',async()=>{
+  const h=harness({contract:true,loadedVoiceStyle:'natural'});
+  try{
+    await h.ready();
+    const video=all(h.delivery).find(n=>n.tag==='video');
+    assert.equal(video.hidden,false);assert.match(video.src,/saved-render\/video/);
+    const download=all(h.delivery).find(n=>n.textContent==='下载联合视频 MP4');
+    assert.equal(download.hidden,false);assert.equal(download.href,video.src);
+    await all(h.delivery).find(n=>n.tag==='button').fire('click');
+    assert.match(video.src,/\/render\/video/);
+    assert.deepEqual(h.requests.find(r=>r.url==='/api/commentary/jobs').payload.document,h.document);
+    assert.match(all(h.delivery).find(n=>n.attrs.role==='status').textContent,/已生成/);
   }finally{h.restore();}
 });
