@@ -221,6 +221,10 @@ def main():
             'defaultVariant':clips[s['id']]['defaultVariant']} for s in active_samples]},ensure_ascii=False).encode('utf-8')
     static = Path(__file__).resolve().parents[1] / "tools/player-review"
     routes = {"/": static / "index.html"}
+    # Published team delivery is independent of the selected sample and job history.
+    deliverables = Path(__file__).resolve().parents[2] / "deliverables"
+    routes['/team25-final.mp4'] = deliverables / 'single.mp4'
+    routes['/team25-final.srt'] = deliverables / 'single.srt'
     for filename in ['broadcast-studio.css', 'studio-tabs.mjs', 'broadcast-replay.css',
                      'player-single-view.css', 'player-single-view.mjs',
                      'tactics-single-view.css', 'tactics-single-view.mjs', 'tactics-name-overlay.mjs']:
