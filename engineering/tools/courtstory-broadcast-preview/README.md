@@ -2,9 +2,9 @@
 
 2026-10-09：当前唯一的视觉方向为 **Broadcast Studio／白天的篮球转播演播室**。以用户提供的 NBA 蓝红白、木地板和篮球橙棕为基础，使用斜切模块标题、等宽数据标签、2px 圆角与平面白色面板。
 
-完整规则见[视觉规范](../../docs/broadcast-studio-style-20261009.md)。本目录是可交互设计样稿，尚未集成到正式工作台。原有玻璃、纸感两条本地分支已归档，不继续迭代。
+完整规则见[视觉规范](../../docs/broadcast-studio-style-20261009.md)。本目录保留早期可交互设计样稿，当前真实产品使用 [player-review](../player-review/README.md)，已采用后续 Broadcast Studio 设计。玻璃、纸感方案不继续迭代。
 
-**工作位置：`codex/courtstory-ui-broadcast` 独立分支与独立 worktree。** 用户明确要求 UI 设计不得在 main 上进行，相关文档和交接也随本分支保存。主开发 checkout 保持 main 且工作区干净。
+2026-10-10 用户授权将 UI 成果分类收敛到 main，并在核对后清理旧 UI 分支；本目录随成果保留，后续不再以旧 UI worktree 作为运行前提。实际状态见[TEAM 25 发布记录](../../docs/ui-team25-publication-20261010.md)。
 
 ## 启动和入口
 
