@@ -52,6 +52,11 @@ videoPhase.required.push('participants');
 // Keep each individual annotation's limit while retaining the combined provenance.
 videoPhase.properties.evidenceFrames={...frames,maxItems:144};
 videoPhase.properties.participants.items.properties.evidenceFrames={...frames,maxItems:144};
+// Each node can contain 40 drawings, actions and participant records.
+videoPhase.properties.annotations.maxItems=480;
+videoPhase.properties.actions.maxItems=480;
+videoPhase.properties.participants.maxItems=480;
+videoPhase.properties.participants.items.properties.annotationIndexes={type:'array',maxItems:480,items:{type:'integer',minimum:0,maximum:479}};
 export const AGENT_SCHEMA_VIDEO=object({schemaVersion:{type:'integer',enum:[4]},summary:string,issues:{...AGENT_SCHEMA_V1.properties.issues,maxItems:60},
   phases:{...AGENT_SCHEMA_V1.properties.phases,items:videoPhase},production:{type:'null'}});
 
@@ -326,6 +331,8 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
   if(directVideo){const annotations=legacySchema.properties.phases.items.properties.annotations.items;
     legacySchema.properties.issues=AGENT_SCHEMA_VIDEO.properties.issues;
     legacySchema.properties.phases.items.properties.evidenceFrames=videoPhase.properties.evidenceFrames;
+    legacySchema.properties.phases.items.properties.annotations.maxItems=videoPhase.properties.annotations.maxItems;
+    legacySchema.properties.phases.items.properties.actions.maxItems=videoPhase.properties.actions.maxItems;
     annotations.properties.type.enum.push('position');
     annotations.properties.meaning=videoPhase.properties.annotations.items.properties.meaning;
     annotations.properties.pattern=videoPhase.properties.annotations.items.properties.pattern;

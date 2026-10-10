@@ -122,11 +122,16 @@ test('combined commentary evidence survives native adoption without truncation',
   const doc=await setup(),candidate=videoCandidate(),frames=Array.from({length:50},(_,i)=>i);
   candidate.phases[0].evidenceFrames=frames;
   candidate.phases[0].participants[0].evidenceFrames=frames;
+  const phase=candidate.phases[0];
+  while(phase.annotations.length<50){phase.participants[0].annotationIndexes.push(phase.annotations.length);phase.annotations.push(structuredClone(phase.annotations[0]));}
   const adopted=await agent.adoptAgentCandidate(doc,candidate,{jobId:'combined-evidence',scope:'play',phaseId:'phase-1'});
   await validateDocument(adopted);
+  assert.equal(adopted.annotations.items.length,50);
   assert.deepEqual(candidate.phases[0].evidenceFrames,frames);
   candidate.phases[0].evidenceFrames=Array(145).fill(12);
   await assert.rejects(()=>agent.adoptAgentCandidate(doc,candidate,{jobId:'too-many',scope:'play',phaseId:'phase-1'}),/evidenceFrames/);
+  phase.evidenceFrames=frames;phase.annotations=Array(481).fill(phase.annotations[0]);
+  await assert.rejects(()=>agent.adoptAgentCandidate(doc,candidate,{jobId:'too-many-drawings',scope:'play',phaseId:'phase-1'}),/annotations/);
 });
 
 test('Agent focus defaults to its cue but a user can extend the same glow through ordinary playback',async()=>{
