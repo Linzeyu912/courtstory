@@ -10,13 +10,15 @@
 
 - `config.json`：基础设施参数、S3 代码键、GPU 任务前缀和实例输出。
 - `core-outputs.json`、`delivery-outputs.json`：CDK 资源输出。
-- `access-code.txt`：临时入口访问码。
+- `access-code.txt`：旧版门户的历史访问码，当前部署不再使用。
 - `manage.py`：本次发布的上传、状态查询和 SSM 操作工具；不会输出产品密钥。
 - `verify.sh`：从 EC2 实际调用 Polly、FFmpeg、GPU 跟踪、GPU 场地模型和 AgentCore/OpenRouter。
 
 `.env` 经解析编码后独立上传至私有 S3，在 EC2 落地为 `/etc/hks/product.env`（`root:hks`，权限 `0640`）。它不进入代码 ZIP、前端或 Git。AWS 权限由实例角色提供，不复制开发电脑的临时 AWS 登录凭据。AgentCore 从同一发布前缀读取独立的 OpenRouter 配置对象。
 
 ## 服务与恢复
+
+工作台现直接公开访问，不再要求访问码或会话 Cookie。旧 `/login` 地址跳转到首页；网关仍校验请求的 Host / Origin，并保持密钥文件与工作台静态资源隔离。
 
 - EC2：`hks-workbench` 与 `hks-gateway` systemd 服务；工作目录 `/opt/hks/current`。
 - SageMaker：`courtstory-gpu` systemd 服务；工作目录 `~/SageMaker/courtstory-live/current`，复用 `~/SageMaker/hks-vision/runtime`。

@@ -21,15 +21,34 @@ class GatewaySecurityTests(unittest.TestCase):
             handler.handle_request()
         self.assertEqual(handler.reply.call_args.args[0], 200)
 
-    def test_expired_api_login_returns_json_instead_of_redirect(self):
+    def test_legacy_login_redirects_to_workbench_without_code(self):
         handler = object.__new__(gateway.Handler)
-        handler.path, handler.command = '/api/library', 'GET'
+        handler.path, handler.command = '/login', 'GET'
         handler.headers = {'Host': 'demo.cloudfront.net'}
         handler.reply = Mock()
         with patch.object(gateway, 'configuration', return_value={'origin': 'https://demo.cloudfront.net'}):
             handler.handle_request()
-        self.assertEqual(handler.reply.call_args.args[0], 401)
-        self.assertIn('application/json', handler.reply.call_args.args[2])
+        self.assertEqual(handler.reply.call_args.args[0], 303)
+        self.assertEqual(handler.reply.call_args.kwargs['headers']['Location'], '/')
+
+    def test_api_without_session_is_forwarded(self):
+        handler = object.__new__(gateway.Handler)
+        handler.path, handler.command = '/api/library', 'GET'
+        handler.headers = {'Host': 'demo.cloudfront.net'}
+        handler.reply = Mock()
+        handler.send_response = Mock()
+        handler.send_header = Mock()
+        handler.end_headers = Mock()
+        handler.wfile = Mock()
+        response = Mock(status=200)
+        response.getheaders.return_value = [('Content-Type', 'application/json')]
+        response.read.side_effect = [b'{"samples":[]}', b'']
+        with patch.object(gateway, 'configuration', return_value={'origin': 'https://demo.cloudfront.net'}), patch.object(gateway.http.client, 'HTTPConnection') as connection:
+            connection.return_value.getresponse.return_value = response
+            handler.handle_request()
+        handler.reply.assert_not_called()
+        handler.send_response.assert_called_once_with(200)
+        handler.wfile.write.assert_called_once_with(b'{"samples":[]}')
 
     def test_backup_includes_library_state_and_excludes_credentials(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -57,11 +76,6 @@ class GatewaySecurityTests(unittest.TestCase):
 
     def test_get_without_origin_still_requires_correct_host(self):
         self.assertTrue(gateway.trusted_origin({'Host': 'demo.cloudfront.net'}, 'https://demo.cloudfront.net'))
-
-    def test_requires_correct_session(self):
-        self.assertFalse(gateway.authenticated({}))
-        self.assertFalse(gateway.authenticated({'Cookie': 'hks_session=wrong'}))
-        self.assertTrue(gateway.authenticated({'Cookie': 'hks_session=' + gateway.SESSION}))
 
 
 if __name__ == '__main__':

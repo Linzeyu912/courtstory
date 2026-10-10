@@ -90,7 +90,7 @@ WantedBy=multi-user.target
 UNIT
 cat > /etc/systemd/system/hks-gateway.service <<'UNIT'
 [Unit]
-Description=HKS authenticated CloudFront gateway
+Description=HKS CloudFront gateway
 After=hks-workbench.service network-online.target
 [Service]
 User=hks
