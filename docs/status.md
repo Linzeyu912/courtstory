@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-09 20:57（America/New_York，本机真实试跑）：005 已用 OpenRouter Astra 完成看图解说、润色、四节点独立绘图及审核，接入出手者高亮和机会 / 压力评价，并以真实 Seed TTS 生成 24.63 秒 1080p 成片。试跑修复图片元数据传递、字段兼容、多节点原生采用和 Windows 音频缓存路径问题；18 项 Node、42 项 Python 检查通过。媒体留本机，云服务未部署；001 长片仍未完成。见[完整记录](../engineering/docs/full-commentary-astra-20261009.md)。
+
 2026-10-09（America/New_York，当前任务）：用户明确以截图对应的 `player-review` 为最终核心工作台；后续确认整个 2D 轨迹核对模块退出工作台流程。已调整视频与标注区高度、压缩说明并衔接球场标定到战术制作；实施和验证见[记录](../engineering/docs/core-workbench-layout-20261009.md)。这条用户确认覆盖本任务早先的独立样稿迁移选择，不代指其他成员已表达共识。
 
 2026-10-10 02:06（Asia/Singapore，UI 已发布并合入 main）：按用户要求将独立样稿、主题资源、静态服务、工作台适配、设计资料、协作记录拆为六类提交，先推送 `codex/courtstory-ui-broadcast`，再以 `2fc2f92` 合并并推送 main。推送前整合队友新增 `deb48da` 出手反馈，852 项 Node 通过、1 项已有可选跳过，168 项 Python 全部通过；166 个视频摘要与 LFS 索引通过。分类与实际远端核对见[发布记录](../engineering/docs/ui-publication-20261010.md)。云服务未部署，本地旧预览重启被自动审批拦截；下方未推送／未合并描述保留历史时点。

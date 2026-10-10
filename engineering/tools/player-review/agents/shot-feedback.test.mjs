@@ -32,8 +32,10 @@ test('save tool uses locked host rating context and refuses invented values or m
   const runtime=createCommentaryTools({context:{duration:1.3,videoRef:'v',frames,planContract:true,ratingContext},overview:{details:{frames},content:[]}},{budget:{toolCalls:0,maxToolCalls:4}});
   runtime.state.seenFrames.detailRead=true;runtime.state.seenFrames.detailFrames.add(10);
   const context=JSON.parse((await runtime.tools.find(t=>t.name==='get_video_context').execute('context',{})).content[0].text);
-  assert.deepEqual(context.ratingContext,ratingContext);
+  assert.deepEqual(context.ratingContext.records[0].ratings,{block:null});
+  assert.deepEqual(context.ratingContext.records[0].fieldProvenanceRefs,{block:null});
   const saver=runtime.tools.find(t=>t.name==='save_commentary_plan');await saver.execute('save',{plan,finish:false});
+  assert.deepEqual(runtime.state.plan.ratingContext,ratingContext);
   assert.deepEqual(runtime.state.plan.nodes[0].shotFeedback.ratingsRefs,['r']);
   plan.nodes[0].shotFeedback.ratingsRefs=['fake'];await assert.rejects(saver.execute('bad',{plan}),/rating/);
 });

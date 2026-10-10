@@ -1,11 +1,43 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createCommentaryTools,validateCommentaryPlan} from './commentary-tools.mjs';
+import {compactRatingContext,createCommentaryTools,normalizeCommentaryOptions,validateCommentaryPlan} from './commentary-tools.mjs';
+
+test('non-shot uncertain status is redundant; confirmed shots and conflicting confirmed status remain explicit',()=>{
+  const candidate={events:[{kind:'other',shotStatus:'uncertain'},{kind:'shot',shotStatus:'confirmed'},{kind:'other',shotStatus:'confirmed'}]};
+  const normalized=normalizeCommentaryOptions(candidate);
+  assert.equal('shotStatus' in normalized.events[0],false);
+  assert.equal(candidate.events[0].shotStatus,'uncertain');
+  assert.equal(normalized.events[1].shotStatus,'confirmed');
+  assert.equal(normalized.events[2].shotStatus,'confirmed');
+});
+
+test('rating source compaction is lossless and leaves the locked snapshot intact',()=>{
+  const source={url:'https://example.test/ratings',game:'NBA 2K26',snapshot_date:null};
+  const original={records:[{ratingRef:'r1',ratings:{layup:85,block:null},field_provenance:{layup:source,block:null}},
+    {ratingRef:'r2',ratings:{layup:87},field_provenance:{layup:source}}]};
+  const before=structuredClone(original),compact=compactRatingContext(original);
+  assert.deepEqual(original,before);
+  assert.equal(Object.keys(compact.provenanceSources).length,1);
+  const restored=compact.records.map(({fieldProvenanceRefs,...record})=>({...record,field_provenance:
+    Object.fromEntries(Object.entries(fieldProvenanceRefs).map(([field,ref])=>[field,ref===null?null:compact.provenanceSources[ref]]))}));
+  assert.deepEqual(restored,original.records);
+});
 
 const plan=()=>({summary:'一次快速转换进攻。',events:[{eventId:'e1',kind:'other',startTime:1,endTime:4,description:'持球方推进并完成进攻。',participants:['未知球员'],evidenceFrames:[10,20],uncertainties:[]}],
   cues:[1,2,3].map((n)=>({cueId:`c${n}`,eventId:'e1',suggestedStartTime:1,suggestedEndTime:4,text:`转换推进后完成第${n}次进攻。`,focus:'推进路线',delivery:'during_play',evidenceFrames:[10,20]})),uncertainties:[]});
 const start={context:{videoRef:'clip',width:1280,height:720,duration:8,observations:'verified',frames:[{frame:10,time:1,sourceTime:11},{frame:20,time:3,sourceTime:13}]},
   overview:{content:[{type:'text',text:'overview'},{type:'image',data:'aGVsbG8=',mimeType:'image/png'}],details:{frames:[{frame:10,time:1,sourceTime:11}],assets:[]}}};
+
+test('save treats null optional shot fields as omitted but rejects a real shot status on another event',async()=>{
+  const runtime=createCommentaryTools(start,{budget:{maxToolCalls:3,toolCalls:0}});
+  runtime.state.seenFrames.add(20);
+  const save=runtime.tools.find(t=>t.name==='save_commentary_plan'),candidate=plan();
+  candidate.events[0].shotStatus=null;
+  await save.execute('null-option',{plan:candidate,finish:false});
+  assert.equal('shotStatus' in runtime.state.plan.events[0],false);
+  candidate.events[0].shotStatus='confirmed';
+  await assert.rejects(save.execute('invalid-status',{plan:candidate,finish:false}),/shotStatus requires shot event kind/);
+});
 
 test('repeating overview tiles is not finer evidence; full size reread is',async()=>{
   const runtime=createCommentaryTools({...start,context:{...start.context,observations:'unknown'}},{budget:{maxToolCalls:5,toolCalls:0},rpc:async()=>({content:[{type:'image',data:'aGVsbG8=',mimeType:'image/png'}],details:{frames:[{frame:10,time:1,sourceTime:11}],assets:[]}})});

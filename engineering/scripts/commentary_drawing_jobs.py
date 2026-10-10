@@ -179,6 +179,9 @@ class CommentaryDrawingJobs:
             if not item.get('evidenceFrames') or any(type(f) is not int or f not in seen for f in item['evidenceFrames']): raise ValueError('候选引用本轮未发送的证据帧。')
             if 'startFrame' in item and not window['startFrame']<=item['startFrame']<item['endFrameExclusive']<=window['endFrame']+1: raise ValueError('图形超出节点窗口。')
         if any(a['anchorFrame']!=node['anchorAssetFrame'] for a in phase.get('annotations',[])): raise ValueError('图形锚点不属于当前解说节点。')
+        entities={p.get('entityId') for p in phase.get('participants',[]) if p.get('entityId')}
+        if any(ref not in entities for action in phase.get('actions',[]) for ref in (action.get('entityId'),action.get('beneficiaryId'),action.get('defenderId')) if ref):
+            raise ValueError('原生actions只能引用已绑定entityId；匿名人物动作请用有证据的annotation路线表达。')
         if not phase.get('annotations') and not phase.get('actions'): raise ValueError('此节点尚无可采用的几何候选，不能标为已完成。')
         focus=[(i,a) for i,a in enumerate(phase.get('annotations',[])) if a.get('type')=='spotlight']
         if node.get('kind')=='shot_release':
@@ -358,6 +361,8 @@ class CommentaryDrawingJobs:
             for index in range(len(p['annotations'])): annotation_nodes[f"{job['jobId']}-annotation-{offset+index}"]=row['nodeId']
             if row['node'].get('kind')=='shot_release': shot_rows.append((row,offset+row['shotSpotlightIndex']))
             for person in p['participants']:
+                # Anonymous background observations remain in node coverage, not duplicated native subjects.
+                if person['entityId'] is None and not person['annotationIndexes']: continue
                 key=('entity',person['entityId']) if person['entityId'] is not None else (row['nodeId'],person['subjectId'])
                 fresh=deepcopy(person);fresh['subjectId']=f"s{len(people)}";fresh['annotationIndexes']=[i+offset for i in person['annotationIndexes']]
                 if key not in people: people[key]=fresh
@@ -383,6 +388,7 @@ class CommentaryDrawingJobs:
         visual={'allApproved':True,'approved':True,'status':'approved','stages':{r['nodeId']:r['visualAudit'] for r in ready}}
         run.update(commentaryPlanRef=deepcopy(job['request']['commentaryPlanRef']),nodeIds=[r['nodeId'] for r in ready],annotationNodeRefs=annotation_nodes,
                    drawingConfigSnapshot=deepcopy(job['drawingConfigSnapshot']),nodeEvidence={r['nodeId']:r['generationEvidence'] for r in ready},
+                   nodeParticipantCoverage={r['nodeId']:deepcopy(r['candidate']['phases'][0]['participants']) for r in ready},
                    nodeDigests={r['nodeId']:_digest(r['node']) for r in ready},visualAudit=visual,archivedAnnotations=archived,archivedActions=old_actions,archivedRelations=old_relations)
         run['nodeWindowExtensions']={r['nodeId']:deepcopy(r['windowExtension']) for r in ready if r.get('windowExtension')}
         run['archivedShotFeedback']=feedback_archive

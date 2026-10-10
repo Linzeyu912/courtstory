@@ -11,10 +11,13 @@ test('drawing has no commentary write tool; audit has no drawing tool',()=>{
 });
 test('node tools reject outside frames before RPC and track only actual assets',async()=>{
   let calls=0;
-  const {tools,state}=createDrawingTools(start,{budget:budget(),rpc:async()=>{calls++;return {content:[{type:'image',data:'real-pixels',mimeType:'image/jpeg'}],details:{frames:[{frame:1},{frame:2}],assets:[{assetId:'one',frame:1}]}};}});
+  const asset={assetId:'one',frame:1,width:640,height:360,transform:{scaleX:0.5,scaleY:0.5,offsetX:20,offsetY:30}};
+  const {tools,state}=createDrawingTools(start,{budget:budget(),rpc:async()=>{calls++;return {content:[{type:'image',data:'real-pixels',mimeType:'image/jpeg'}],details:{frames:[{frame:1},{frame:2}],assets:[{...asset,path:'host-only.jpg'}]}};}});
   const tool=tools.find(t=>t.name==='read_node_frames');
   await assert.rejects(tool.execute('x',{nodeId:'n1',frames:[0,2]}),/窗口/);assert.equal(calls,0);
-  await tool.execute('y',{nodeId:'n1',frames:[1,2]});assert.deepEqual([...state.seen],[1]);
+  const result=await tool.execute('y',{nodeId:'n1',frames:[1,2]});assert.deepEqual([...state.seen],[1]);
+  assert.deepEqual(JSON.parse(result.content.find(item=>item.type==='text').text),{assets:[asset]});
+  assert.equal(result.content[0].data,'real-pixels');
 });
 test('saving unseen anchor is rejected; upstream conflict preserves separate status',async()=>{
   const {tools,state}=createDrawingTools(start,{budget:budget()});const tool=tools.find(t=>t.name==='save_node_drawing');
@@ -43,6 +46,9 @@ test('shot spotlight is mandatory and restricted to the saved shooter, including
     annotations:[{type:'spotlight',assetId:'image',anchorFrame:2,startFrame:2,endFrameExclusive:5,entityId:null,evidenceFrames:[2]}]}]};
   const seen=new Set([2]),assets=[{assetId:'image',frame:2}],participants=[{participantId:'shooter',entityId:null}];
   assert.equal(validateNodeCandidate(candidate,shotNode,seen,assets,participants),true);
+  const anonymousAction=structuredClone(candidate);
+  anonymousAction.phases[0].actions=[{entityId:'shooter',evidenceFrames:[2]}];
+  assert.throws(()=>validateNodeCandidate(anonymousAction,shotNode,seen,assets,participants),/匿名subjectId/);
   const wrong=structuredClone(candidate);wrong.phases[0].participants[0].subjectId='other';
   assert.throws(()=>validateNodeCandidate(wrong,shotNode,seen,assets,participants),/出手/);
   const missing=structuredClone(candidate);missing.phases[0].annotations[0].type='position';
