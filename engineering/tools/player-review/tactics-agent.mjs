@@ -48,6 +48,10 @@ videoPhase.properties.participants={type:'array',maxItems:40,items:object({
   annotationIndexes:{type:'array',maxItems:40,items:{type:'integer',minimum:0,maximum:39}},evidenceFrames:frames,reason:string
 })};
 videoPhase.required.push('participants');
+// The host combines up to 12 commentary nodes, each with at most 12 evidence frames.
+// Keep each individual annotation's limit while retaining the combined provenance.
+videoPhase.properties.evidenceFrames={...frames,maxItems:144};
+videoPhase.properties.participants.items.properties.evidenceFrames={...frames,maxItems:144};
 export const AGENT_SCHEMA_VIDEO=object({schemaVersion:{type:'integer',enum:[4]},summary:string,issues:{...AGENT_SCHEMA_V1.properties.issues,maxItems:60},
   phases:{...AGENT_SCHEMA_V1.properties.phases,items:videoPhase},production:{type:'null'}});
 
@@ -321,6 +325,7 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
   const legacySchema=structuredClone(Object.hasOwn(candidate,'schemaVersion')?AGENT_SCHEMA:AGENT_SCHEMA_V1);
   if(directVideo){const annotations=legacySchema.properties.phases.items.properties.annotations.items;
     legacySchema.properties.issues=AGENT_SCHEMA_VIDEO.properties.issues;
+    legacySchema.properties.phases.items.properties.evidenceFrames=videoPhase.properties.evidenceFrames;
     annotations.properties.type.enum.push('position');
     annotations.properties.meaning=videoPhase.properties.annotations.items.properties.meaning;
     annotations.properties.pattern=videoPhase.properties.annotations.items.properties.pattern;
