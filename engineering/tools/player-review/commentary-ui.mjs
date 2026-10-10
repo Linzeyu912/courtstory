@@ -1,3 +1,4 @@
+import {mountCommentarySingleView} from './tactics-single-view.mjs';
 import { createCommentaryClient } from './commentary-client.mjs';
 
 const ACTIVE = new Set(['queued', 'running']);
@@ -106,6 +107,7 @@ export function mountCommentaryUI(api) {
   const mp4Link = make('a', { className: 'primary commentary-download', text: '下载 MP4' }, downloads);
   const srtLink = make('a', { className: 'commentary-download', text: '下载 SRT' }, downloads);
 
+  const singleView=mountCommentarySingleView({root,body,columns,mediaColumn,sourceBox,sourceVideo,resultBox,resultVideo,actions,modelLine,intro,workflow,status,progress,summaryLabel,candidateBox,cueList,clip,pause,seek});
   let plan = null, baseline = '', job = null, service = null, disposed = false, busy = false;
   let timer = null, serial = 0, loaded = false;
   let candidate = null, undoPlan = null, adoptedSnapshot = '';
@@ -183,11 +185,12 @@ export function mountCommentaryUI(api) {
       make('strong', { text: `第 ${index + 1} 句` }, heading);
       for (const node of plan.nodes?.filter(node => node.cueIds?.includes(cue.cueId)) || []) {
         const anchor = make('button', { type: 'button', text: `关键节点 · 帧 ${node.anchorAssetFrame + 1}` }, heading);
-        anchor.addEventListener('click', () => { pause(); sourceVideo.pause(); resultVideo.pause(); seek(node.anchorAssetFrame); });
+        anchor.addEventListener('click', () => { singleView?.selectSource(); pause(); sourceVideo.pause(); resultVideo.pause(); const time=clip?.frames?.[node.anchorAssetFrame]?.time;if(Number.isFinite(time))sourceVideo.currentTime=time;seek(node.anchorAssetFrame); });
       }
       if (Array.isArray(clip?.frames) && clip.frames.length) {
         const view = make('button', { type: 'button', text: '查看来源画面' }, heading);
         view.addEventListener('click', () => {
+          singleView?.selectSource();
           const startTime = Number(start.value);
           if (!Number.isFinite(startTime)) { setStatus(status, `第 ${index + 1} 句开始时间无效。`, 'error'); return; }
           const offset = clip.frames[0]?.time || 0;

@@ -22,7 +22,7 @@ try {
   const plan = request.productionPlan ? validateProductionSnapshot(request.document, request.productionPlan) : nativePlan;
   if (plan.totalFrames > 18000 || plan.width * plan.height > 3840 * 2160) throw new Error('成片超出本地渲染上限。');
   for (let i = 0; i < plan.totalFrames; i++) {
-    const svg = renderProductionSvg(request.document, sampleProduction(plan, i));
+    const svg = renderProductionSvg(request.document, sampleProduction(plan, i), {nameOverlay:request.options?.nameOverlay});
     const {data, info} = await sharp(Buffer.from(svg), {limitInputPixels: 3840 * 2160}).ensureAlpha().raw().toBuffer({resolveWithObject: true});
     if (info.width !== plan.width || info.height !== plan.height || info.channels !== 4) throw new Error('叠加图尺寸不一致。');
     const header = Buffer.alloc(4); header.writeUInt32BE(data.length);

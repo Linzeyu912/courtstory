@@ -1,3 +1,5 @@
+import {renderTacticsNameSVG} from './tactics-name-overlay.mjs';
+import {mountTacticsSingleView,compactTacticsTimeline} from './tactics-single-view.mjs';
 import {mountCommentaryUI} from './commentary-ui.mjs';
 import {mountStudioTabs} from './studio-tabs.mjs';
 import {createManualAnnotation,duplicateAnnotation,correctAnnotationProgress,nearestRouteProgress} from './tactics-manual-editor.mjs';
@@ -30,12 +32,13 @@ export function suggestManualDrawingRange(document,frame,phaseId,seconds=3){
   return {startFrame:frame,endFrameExclusive:end};
 }
 
-// Video follows the source aspect ratio at the container width. The panel owns
+// Video fits the available canvas in both dimensions when the single-view layout is active.
+// The normal responsive layout retains its width-based sizing. The panel owns
 // vertical scrolling; only the court overview retains the viewport height cap.
-export function tacticsSceneSize({mode,modelWidth,modelHeight,canvasWidth,viewportHeight,selectionHeight=42}){
+export function tacticsSceneSize({mode,modelWidth,modelHeight,canvasWidth,canvasHeight,viewportHeight,selectionHeight=42}){
   const ratio=mode==='video'?modelHeight/modelWidth:15.24/28.6512;
   if(mode==='video'){
-    const width=Math.max(1,canvasWidth-2);return {width,height:width*ratio};
+    const width=Math.max(1,Math.min(canvasWidth-2,Number.isFinite(canvasHeight)?Math.max(1,canvasHeight-2)/ratio:Infinity));return {width,height:width*ratio};
   }
   const actionsHeight=(selectionHeight||42)+6;
   const availableHeight=Number.isFinite(viewportHeight)?Math.max(220,Math.min(480,viewportHeight-450-actionsHeight)):Infinity;
@@ -215,7 +218,7 @@ export function mountTacticsUI(api){
   <div id="tacticsEmpty" class="tactics-empty" hidden><strong>先建立这个视频的战术画布</strong><p>没有识别结果也能画路线、虚线箭头、传球路线，或放挡拆标记和重点球员圈。</p><div id="tacticsEmptyActions" class="tactics-buttons"><button id="tacticsCreateCanvas" class="primary">建立画布，开始手工标注</button></div></div>
   <div id="tacticsEditor" hidden><div id="tacticsPhases" class="tactics-phases" aria-label="选择战术阶段"></div>
   <div class="tactics-layout"><section class="tactics-view"><div class="tactics-author-tools" role="toolbar" aria-label="画布工具">
-  <button id="tacticsToolSelect" aria-pressed="true"><span aria-hidden="true">↖</span>选择 / 修改</button><button id="tacticsToolRoute" aria-pressed="false"><span aria-hidden="true">↗</span>跑位</button><button id="tacticsToolDashed" aria-pressed="false"><span aria-hidden="true">⇢</span>传球</button><button id="tacticsToolScreen" aria-pressed="false"><span aria-hidden="true">⊣</span>挡拆标记</button><button id="tacticsToolSpotlight" aria-pressed="false"><span aria-hidden="true">◯</span>重点球员圈</button><details class="tactics-more-tools"><summary>更多标记</summary><button id="tacticsToolDots" aria-pressed="false">黄色圆点传球</button></details></div>
+  <button id="tacticsToolSelect" aria-pressed="true"><span aria-hidden="true">↖</span>选择 / 修改</button><button id="tacticsToolRoute" aria-pressed="false"><span aria-hidden="true">↗</span>跑位</button><button id="tacticsToolDashed" aria-pressed="false"><span aria-hidden="true">⇢</span>传球</button><button id="tacticsToolScreen" aria-pressed="false"><span aria-hidden="true">⊣</span>挡拆标记</button><button id="tacticsToolSpotlight" aria-pressed="false"><span aria-hidden="true">◯</span>重点球员圈</button><details class="tactics-more-tools"><summary>更多标记</summary><button id="tacticsToolDots" aria-pressed="false">黄色圆点传球</button></details><label class="tactics-name-display" title="重点球员圈关联的球员始终显示身份"><input id="tacticsShowNames" type="checkbox" checked>球员姓名</label></div>
   <div class="tactics-instruction"><p id="tacticsToolHint" role="status" aria-live="polite">选择一个工具，在视频画面上直接操作。</p><div class="tactics-buttons"><button id="tacticsFinishDrawing" class="primary" hidden>完成绘制</button><button id="tacticsCancelDrawing" hidden>取消</button></div></div>
   <div id="tacticsDrawingRange" class="tactics-drawing-range" hidden><span id="tacticsDrawingRangeText"></span><button id="tacticsDrawingRangeHere">从当前画面开始约 3 秒</button></div>
   <div id="tacticsSpotlightFallback" class="tactics-spotlight-fallback" role="status" hidden><p id="tacticsSpotlightFallbackReason"></p><button id="tacticsPlaceManualSpotlight" class="primary">在刚才点击处放人工圈</button><button id="tacticsDismissSpotlightFallback">取消这次定位</button></div>
@@ -1010,7 +1013,7 @@ export function mountTacticsUI(api){
     showAgentPending();
     $('tacticsEditor').hidden=!documentValue;
     $('tacticsEmpty').hidden=!!documentValue;
-    const agentHost=documentValue?root.querySelector?.('.tactics-controls'):$('tacticsAgentHome');
+    const agentHost=documentValue?(root.querySelector?.('#tacticsAgentDock')??root.querySelector?.('.tactics-controls')):$('tacticsAgentHome');
     if(agentHost&&$('tacticsAgentPanel').parentElement!==agentHost)agentHost.prepend?.($('tacticsAgentPanel'));
     for(const id of ['tacticsPhaseSettings','tacticsReferenceDetails','tacticsActionReview'])$(id).hidden=!documentValue;
     if(!documentValue)$('tacticsSaveState').textContent='尚未建立画布';
@@ -1098,7 +1101,7 @@ export function mountTacticsUI(api){
     const renderModel=temporaryRoute?{...model,routes:model.routes.map(r=>r.routeId===temporaryRoute.routeId?temporaryRoute:r)}:model;
     const projected=projectPhaseRoutes(renderModel,{frame,mediaTime,selectedEntityId,showAll:$('tacticsShowAll').checked});
     const mode=documentValue.schemaVersion===2?canvasView:synchronized||backgroundSource||projected.videoAvailable?'video':'court';lastScene.mode=mode;lastScene.projected=projected;
-    const {width,height}=tacticsSceneSize({mode,modelWidth:model.width,modelHeight:model.height,canvasWidth:$('tacticsCanvas').clientWidth,viewportHeight:typeof window!=='undefined'?window.innerHeight:undefined,selectionHeight:$('tacticsSelectionActions').offsetHeight}),nodes=ensureScene();
+    const {width,height}=tacticsSceneSize({mode,modelWidth:model.width,modelHeight:model.height,canvasWidth:$('tacticsCanvas').clientWidth,canvasHeight:root.classList?.contains?.('tactics-single-view')&&window.innerWidth>1000?$('tacticsCanvas').clientHeight:undefined,viewportHeight:typeof window!=='undefined'?window.innerHeight:undefined,selectionHeight:$('tacticsSelectionActions').offsetHeight}),nodes=ensureScene();
     nodes.width=width;nodes.canvas.style.width=`${width}px`;nodes.canvas.style.height=`${height}px`;
     const playbackState=playback.state(),decoded=api.getPresentedFrame?.()||presentedPoint;
     if(mode==='video'&&synchronized&&(!backgroundSource||playbackState.status==='seeking'&&decoded?.frame!==playbackState.targetFrame)){
@@ -1118,7 +1121,8 @@ export function mountTacticsUI(api){
     const marks=renderAnnotationsSVG(annotationScene,{space:mode,width,height}).replace(/^<svg\b[^>]*>/,'').replace(/<\/svg>\s*$/,'');
     const source=backgroundSource||background?.image,check=$('tacticsSyncVideo');if(source){check.width=model.width;check.height=model.height;check.getContext('2d').drawImage(source,0,0,model.width,model.height);}
     const playerMarks=mode==='court'?documentValue.review.entities.map(e=>{const p=documentValue.review.courtPreparation?.preparedByPlayer[e.id]?.[frame]??e.courtTrajectory?.[frame];return p&&Number.isFinite(p.x)&&Number.isFinite(p.y)?`<g data-player-id="${e.id}"><circle cx="${p.x}" cy="${p.y}" r=".24" fill="${e.id===selectedEntityId?'#ffd45c':'#7ec8ed'}"/><text x="${p.x+.28}" y="${p.y}" fill="#ffffff" font-size=".28">${e.id}</text></g>`:'';}).join(''):'';
-    nodes.overlay.innerHTML=sourceSvg.replace('</svg>',`${playerMarks}${marks}${manualReferenceMarkup()}${drawingMarkup()}${spotlightFallbackMarkup()}${personInspectionMarkup()}${cameraMarkup()}</svg>`);drawHandles();drawAnnotationHandles();fillPersonCard();
+    const nameMarks=renderTacticsNameSVG({document:sceneDocument,nameOverlay:api.nameOverlaySnapshot?.(),frame,annotationScene,space:mode,showNames:$('tacticsShowNames').checked});
+    nodes.overlay.innerHTML=sourceSvg.replace('</svg>',`${playerMarks}${marks}${nameMarks}${manualReferenceMarkup()}${drawingMarkup()}${spotlightFallbackMarkup()}${personInspectionMarkup()}${cameraMarkup()}</svg>`);drawHandles();drawAnnotationHandles();fillPersonCard();
     const ps=model.presentation,manual=ps.applied.length,stale=ps.stale.length;
     const hidden=projected.routes.filter(r=>mode==='video'&&!r.video).length;
     const authoredVisible=annotationScene.items.filter(a=>a[mode]).length;
@@ -1591,9 +1595,11 @@ export function mountTacticsUI(api){
         commit:next=>saveAnnotation(next),seek:seekCanvas,select:id=>selectAnnotation(id),name:annotationName,
         commitRange:async range=>{const next=clone(documentValue);next.newDrawingRange={...range};await saveAnnotation(next);},
         play:range=>{clearTimeout(holdTimer);rangePlayback=null;seekCanvas(range.startFrame);void waitForFrame(range.startFrame).then(()=>runPlayback(playback.playSource?.(range.startFrame,range.endFrameExclusive)??playback.continue(range.startFrame)));},status});
-      timelineInstance.render();
+      timelineInstance.render();compactTacticsTimeline(root.querySelector?.('.tactics-source-timeline'),timelineInstance);
     }
   };
+  $('tacticsShowNames').checked=api.nameOverlaySnapshot?.()?.nameDisplay?.enabled!==false;
+  $('tacticsShowNames').onchange=()=>{api.setNameDisplayEnabled?.($('tacticsShowNames').checked);drawScene();};
   $('tacticsSyncVideo').hidden=true;
   root.querySelector?.('.tactics-instruction')?.prepend?.($('tacticsDrawingRange'));
   $('tacticsTangentSettings').append($('tacticsAnnotationRouteFields'),$('tacticsAuthoredFields'));
@@ -1617,6 +1623,7 @@ export function mountTacticsUI(api){
         agentStatus(agentCapture.readonlyReason);agentControls();
       }
     }});
+  mountTacticsSingleView(root,{pause:()=>api.pause(),step:delta=>{if(documentValue)seekCanvas(Math.max(0,Math.min(documentValue.review.sourceFrameMapping.length-1,(lastScene?.frame??api.frame())+delta)));}});
   const studioTabs=mountStudioTabs([{tab:$('studioCommentaryTab'),panel:commentaryRoot},{tab:$('studioVisualTab'),panel:$('studioVisualPanel')}],{onChange(panel){
     // Pause source, freeze timers and narration media when changing tasks. Both
     // editors stay mounted so an unsaved script or drawing remains available.
@@ -1645,7 +1652,7 @@ export function mountTacticsUI(api){
   }
   document.addEventListener('workbench-commentary',showCommentary);
   document.addEventListener('workbench-drawing',()=>studioTabs.select('studioVisualTab'));
-  render();return {saveDraft:async()=>{await draft();return commentaryUI.saveDraft();},ready:()=>sceneReady,cancelEditing,onPresentedFrame,syncNameOverlay:()=>{productionUI.sync();commentaryUI.markResultStale();},dispose,
+  render();return {saveDraft:async()=>{await draft();return commentaryUI.saveDraft();},ready:()=>sceneReady,cancelEditing,onPresentedFrame,syncNameOverlay:()=>{$('tacticsShowNames').checked=api.nameOverlaySnapshot?.()?.nameDisplay?.enabled!==false;drawScene();productionUI.sync();commentaryUI.markResultStale();},dispose,
     getPlaybackState:playback.state,
     togglePlayback(){if(!active)return false;if(rangePlayback){$('tacticsPause').onclick();return true;}if(playback.state().status==='playing')$('tacticsPause').onclick();else $('tacticsContinue').onclick();return true;},
     externalSeek(frame){

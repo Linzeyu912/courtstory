@@ -1,0 +1,157 @@
+/* One-screen authoring: source picture, transport and the real PTS timeline share
+   a bounded workspace. Advanced controls open over it, rather than extending it. */
+@media (min-width:1001px) {
+.workbench-shell #tacticsPanel.tactics-single-view {display:flex;flex-direction:column;min-height:0;overflow:hidden;padding:8px 12px;gap:5px;}
+.workbench-shell #tacticsPanel .tactics-heading {min-height:30px;flex-wrap:nowrap;flex:none;}
+.workbench-shell #tacticsPanel .tactics-heading h2 {font-size:16px;margin:0;}
+.workbench-shell #tacticsPanel .tactics-subtitle {display:none;}
+.workbench-shell #tacticsPanel .studio-task-tabs {margin:0;flex:none;min-height:32px;}
+.workbench-shell #tacticsPanel .studio-task-tabs button {padding:7px 12px;font-size:12px;}
+.workbench-shell #studioVisualPanel:not([hidden]) {display:flex;flex-direction:column;flex:1;min-height:0;gap:5px;}
+.workbench-shell #tacticsStatus {flex:none;margin:0;padding:3px 8px;line-height:1.4;font-size:11px;max-height:32px;overflow:auto;}
+.workbench-shell #tacticsEditor:not([hidden]) {flex:1;min-height:0;display:flex;flex-direction:column;}
+.workbench-shell #tacticsPhases {margin:0;flex:none;}
+.workbench-shell #tacticsPanel .tactics-layout {flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 334px;gap:10px;align-items:stretch;}
+.workbench-shell #tacticsPanel .tactics-view {display:flex;flex-direction:column;min-height:0;overflow:visible;gap:4px;position:relative;}
+.workbench-shell #tacticsPanel .tactics-author-tools {flex:none;gap:4px;flex-wrap:nowrap;}
+.workbench-shell #tacticsPanel .tactics-author-tools>button,.workbench-shell #tacticsPanel .tactics-more-tools>summary {font-size:11px;min-width:0;padding:6px 8px;white-space:nowrap;}
+.workbench-shell #tacticsPanel .tactics-author-tools span {font-size:17px;}
+.workbench-shell #tacticsPanel .tactics-instruction {min-height:25px;flex:none;gap:4px;}
+.workbench-shell #tacticsPanel .tactics-instruction p {font-size:10px;margin:0;}
+.workbench-shell #tacticsPanel .tactics-drawing-range {padding:0;gap:4px;font-size:10px;}
+.workbench-shell #tacticsPanel .tactics-drawing-range button {font-size:10px;padding:4px;}
+.workbench-shell #tacticsCanvas {flex:1;min-height:100px;height:0;overflow:hidden;border-radius:3px;}
+.workbench-shell #tacticsPanel .tactics-transport {flex:none;gap:4px;margin:0;}
+.workbench-shell #tacticsPanel .tactics-transport button {font-size:10px;padding:5px 7px;}
+.workbench-shell #tacticsPanel .tactics-source-position {font-size:10px;gap:4px;}
+.workbench-shell #tacticsPanel .tactics-source-position input {width:65px;padding:4px;}
+.workbench-shell #tacticsPanel .tactics-seek {margin:0;flex:none;}
+.workbench-shell #tacticsPresentationStatus {margin:0;font-size:10px;padding:0;}
+.workbench-shell #tacticsPanel .tactics-source-timeline {flex:none;margin:0;padding:5px 8px;border-radius:3px;position:relative;}
+.workbench-shell #tacticsPanel .tactics-time-axis {margin-top:5px;}
+.workbench-shell #tacticsPanel .tactics-time-rows {max-height:78px;overflow:auto;}
+.workbench-shell #tacticsPanel .tactics-object-time-row {min-height:22px;}
+.workbench-shell #tacticsPanel .tactics-object-time-row>button {font-size:10px;padding:3px 5px;}
+.workbench-shell #tacticsPanel .tactics-single-side {display:flex;flex-direction:column;min-height:0;gap:8px;}
+.workbench-shell #tacticsPanel .tactics-controls {flex:1;position:static;min-height:0;max-height:none;overflow:auto;padding:9px;}
+.workbench-shell #tacticsPanel .tactics-selection-actions {min-height:0;padding:4px;margin:0 0 5px;}
+.workbench-shell #tacticsPanel .tactics-selection-actions[hidden] {display:none!important;}
+.workbench-shell #tacticsPanel .tactics-controls .field {font-size:11px;margin:6px 0;}
+.workbench-shell #tacticsPanel .tactics-controls :is(input,select,button) {font-size:11px;padding:5px 7px;}
+.workbench-shell #tacticsPanel .tactics-controls p {font-size:10px;line-height:1.5;margin:5px 0;}
+.workbench-shell #tacticsPanel .tactics-object-heading {margin-top:8px;padding-top:7px;}
+.workbench-shell #tacticsPanel .tactics-object-list {gap:3px;margin-top:5px;}
+.workbench-shell #tacticsPanel .tactics-secondary {grid-template-columns:1fr;margin-top:8px;gap:4px;}
+.workbench-shell #tacticsPanel .tactics-secondary>details {padding:6px;}
+.workbench-shell #tacticsPanel .tactics-secondary-grid {grid-template-columns:1fr;}
+.workbench-shell #tacticsAgentDock {flex:none;}
+.workbench-shell #tacticsAgentDock .tactics-agent-panel {margin:0;padding:8px 10px;border-top:3px solid #17191d;}
+.workbench-shell #tacticsAgentDock .tactics-agent-panel>summary {color:#bc2636;font-size:12px;}
+.workbench-shell #tacticsAgentDock .tactics-agent-inputs {display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;}
+.workbench-shell #tacticsAgentDock .tactics-agent-inputs>.field {width:100%;margin:0;font-size:10px;gap:3px;}
+.workbench-shell #tacticsAgentDock input {font-size:11px;padding:5px 7px;}
+.workbench-shell #tacticsAgentDock button {font-size:11px;padding:5px 8px;}
+.workbench-shell #tacticsAgentDock p {font-size:10px;line-height:1.4;margin:5px 0;}
+.workbench-shell #tacticsAgentDock #tacticsAgentStatus {max-height:42px;overflow:auto;}
+.workbench-shell #tacticsPanel .single-view-popover {position:relative;font-size:11px;padding:3px 0;margin:0;}
+.workbench-shell #tacticsPanel .single-view-popover[open] {position:fixed;z-index:90;inset:auto 30px 32px auto;width:min(600px,80vw);max-height:70vh;overflow:auto;background:white;border:1px solid #aeb4bd;box-shadow:0 12px 45px #1114;padding:14px;}
+.workbench-shell #tacticsPanel .single-view-popover[open]>summary {position:sticky;top:-14px;background:white;padding:8px 0;z-index:1;}
+.workbench-shell #tacticsPanel .single-view-popover[open]>summary::after {content:'　收起 ×';float:right;}
+.workbench-shell #tacticsPanel .single-view-production {margin:5px 0;padding:6px;font-size:11px;}
+.workbench-shell #tacticsPanel .single-view-production[open] {position:absolute;z-index:60;inset:0;background:white;overflow:auto;margin:0;padding:12px;}
+.workbench-shell #studioVisualPanel {position:relative;}
+.workbench-shell #tacticsPanel .single-view-production[open] video {max-height:calc(100vh - 420px);}
+.workbench-shell #tacticsPanel .single-view-production-close {position:absolute;top:8px;right:10px;}
+.workbench-shell #studioCommentaryPanel.commentary-single-view {flex:1;min-height:0;margin:0;overflow:hidden;border:0;background:transparent;}
+.workbench-shell #studioCommentaryPanel .commentary-details {height:100%;margin:0;}
+.workbench-shell #studioCommentaryPanel .commentary-details>summary {display:none;}
+.workbench-shell #studioCommentaryPanel .commentary-body {height:100%;padding:0;border:0;}
+.workbench-shell #studioCommentaryPanel .commentary-columns {height:100%;display:grid;grid-template-columns:minmax(0,1fr) 334px;gap:10px;}
+.workbench-shell #studioCommentaryPanel .commentary-media-column {grid-column:1;grid-row:1;min-height:0;display:flex;flex-direction:column;}
+.workbench-shell #studioCommentaryPanel .commentary-media-tabs {display:flex;gap:6px;flex:none;margin-bottom:5px;}
+.workbench-shell #studioCommentaryPanel .commentary-media-tabs button {padding:6px 10px;font-size:11px;}
+.workbench-shell #studioCommentaryPanel .commentary-source {position:static;margin:0;min-height:0;display:flex;flex-direction:column;flex:1;}
+.workbench-shell #studioCommentaryPanel .commentary-source h3 {font-size:11px;margin:3px 0;}
+.workbench-shell #studioCommentaryPanel .commentary-source video {flex:1;min-height:0;height:0;max-height:none;}
+.workbench-shell #studioCommentaryPanel .commentary-source-transport {display:flex;gap:7px;flex-wrap:wrap;align-items:center;padding:8px;background:white;font-size:11px;}
+.workbench-shell #studioCommentaryPanel .commentary-source-transport button {font-size:11px;padding:5px 8px;}
+.workbench-shell #studioCommentaryPanel .commentary-source-transport input {width:100%;margin:0;}
+.workbench-shell #studioCommentaryPanel .commentary-single-side {grid-column:2;min-height:0;display:flex;flex-direction:column;gap:8px;}
+.workbench-shell #studioCommentaryPanel .commentary-single-editor {min-height:0;flex:1;overflow:auto;background:white;border:1px solid #d4d7dc;padding:8px;}
+.workbench-shell #studioCommentaryPanel .commentary-cue-pagination {display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;}
+.workbench-shell #studioCommentaryPanel .commentary-cue-pagination button {font-size:11px;padding:5px 8px;}
+.workbench-shell #studioCommentaryPanel .commentary-cues {display:block;max-height:none;overflow:visible;padding:0;margin:6px 0;}
+.workbench-shell #studioCommentaryPanel .commentary-cue {padding:8px;}
+.workbench-shell #studioCommentaryPanel .commentary-cue-heading {font-size:11px;margin-bottom:5px;}
+.workbench-shell #studioCommentaryPanel .commentary-cue button {font-size:10px;padding:5px 7px;}
+.workbench-shell #studioCommentaryPanel .commentary-timing {gap:6px;margin-top:6px;}
+.workbench-shell #studioCommentaryPanel .commentary-timing :is(input,select) {font-size:11px;padding:5px 6px;}
+.workbench-shell #studioCommentaryPanel .commentary-cue textarea {min-height:60px;max-height:130px;resize:vertical;padding:6px;font-size:12px;}
+.workbench-shell #studioCommentaryPanel .commentary-single-agent {flex:none;padding:9px 10px;border:1px solid #d4d7dc;border-top:3px solid #17191d;background:white;}
+.workbench-shell #studioCommentaryPanel .commentary-single-agent>strong {color:#bc2636;font-size:12px;}
+.workbench-shell #studioCommentaryPanel .commentary-actions {gap:5px;margin:6px 0;}
+.workbench-shell #studioCommentaryPanel .commentary-actions :is(button,select) {font-size:11px;padding:5px 7px;}
+.workbench-shell #studioCommentaryPanel :is(.commentary-muted,.commentary-status) {font-size:10px;line-height:1.4;margin:5px 0;}
+.workbench-shell #studioCommentaryPanel .commentary-status {max-height:42px;overflow:auto;padding:4px 6px;}
+.workbench-shell #studioCommentaryPanel .commentary-result {flex:1;min-height:0;margin:0;padding:0;display:flex;flex-direction:column;}
+.workbench-shell #studioCommentaryPanel .commentary-result video {flex:1;min-height:0;height:0;max-height:none;}
+.workbench-shell #studioCommentaryPanel .commentary-candidate-list {max-height:180px;overflow:auto;}
+}
+@media(max-width:1000px){.tactics-single-side{min-width:0}.commentary-media-tabs,.commentary-cue-pagination,.commentary-source-transport{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.commentary-source-transport input{width:100%}.single-view-production-close{margin:8px 0}.commentary-single-agent{margin-top:12px}.commentary-single-editor{margin:10px 0}}
+@media(min-width:1001px){
+.workbench-shell #tacticsPanel .tactics-heading{margin-bottom:0}
+.workbench-shell #tacticsPanel .tactics-instruction{padding:0}
+.workbench-shell #tacticsPanel .tactics-transport{padding:4px 6px}
+.workbench-shell #tacticsPanel .tactics-seek{padding:3px 8px}
+.workbench-shell #tacticsPanel .tactics-source-timeline [hidden],.workbench-shell #tacticsPanel .tactics-controls [hidden]{display:none!important}
+.workbench-shell #tacticsPanel .tactics-time-rows{overflow:visible;max-height:none}
+.workbench-shell #tacticsPanel .single-view-pagination,.workbench-shell #tacticsPanel .single-view-property-tabs{display:flex;align-items:center;justify-content:space-between;gap:5px;font-size:10px;margin:3px 0}
+.workbench-shell #tacticsPanel .single-view-pagination button{font-size:10px;padding:3px 6px}
+.workbench-shell #tacticsPanel .single-view-property-tabs{margin-bottom:6px;border-bottom:1px solid #d8dce2;padding-bottom:5px}
+.workbench-shell #tacticsPanel .single-view-property-tabs button{flex:1;padding:5px 3px;border-color:transparent;font-size:11px}
+.workbench-shell #tacticsPanel .single-view-property-tabs [aria-pressed=true]{border-bottom-color:#191c20;background:#f0f2f4}
+.workbench-shell #tacticsPanel .tactics-object-time{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:6px;margin:4px 0}
+.workbench-shell #tacticsPanel .tactics-object-time>strong,.workbench-shell #tacticsPanel .tactics-object-time>.tactics-check,.workbench-shell #tacticsPanel .tactics-object-time>p,.workbench-shell #tacticsPanel .tactics-object-time>details{grid-column:1/-1}
+.workbench-shell #tacticsPanel .tactics-object-time>label:not(.tactics-check){display:flex;flex-direction:column;align-items:stretch;gap:2px;font-size:10px}
+.workbench-shell #tacticsPanel .tactics-object-time input{width:100%;min-width:0}
+.workbench-shell #tacticsPanel .tactics-object-time>button{font-size:10px;padding:4px}
+.workbench-shell #tacticsPanel #tacticsAnnotationProperties>.field{margin:4px 0}
+.workbench-shell #tacticsPanel #tacticsSyncVideo:not([hidden]){position:absolute;right:7px;top:80px;width:160px;height:90px;z-index:4;box-shadow:0 2px 8px #0004}
+}
+.tactics-name-display{display:flex;align-items:center;gap:4px;white-space:nowrap;font-size:11px;margin-left:auto;align-self:center}.tactics-name-display input{width:auto;margin:0}
+@media(min-width:1001px){
+.workbench-shell[data-area=tactics] .workspace-summary{display:none}
+.workbench-shell[data-area=tactics] .source-toolbar{padding:6px 10px;margin-bottom:0}
+.workbench-shell #tacticsPanel.tactics-single-view{position:relative;padding:6px 10px;gap:5px}
+.workbench-shell #tacticsPanel .tactics-heading{height:34px;min-height:34px;align-items:center}
+.workbench-shell #tacticsPanel .tactics-heading h2{padding:5px 12px;min-height:0;font-size:14px}
+.workbench-shell #tacticsPanel .studio-task-tabs{position:absolute;left:150px;top:6px;height:34px;min-height:34px;border:0;background:transparent}
+.workbench-shell #tacticsPanel .studio-task-tabs button{min-height:0;height:34px;padding:5px 10px}
+.workbench-shell #tacticsPanel #studioVisualActions button{min-height:28px;padding:5px 9px;font-size:11px}
+.workbench-shell #tacticsPanel .tactics-author-tools{align-items:center;gap:4px;height:32px;min-height:32px}
+.workbench-shell #tacticsPanel .tactics-author-tools>button,.workbench-shell #tacticsPanel .tactics-more-tools>summary{min-height:28px;padding:4px 7px;box-sizing:border-box}
+.workbench-shell #tacticsPanel .tactics-more-tools{padding:0;border:0}
+.workbench-shell #tacticsPanel .tactics-drawing-range{white-space:nowrap}
+.workbench-shell #tacticsDrawingRangeText{display:none}
+.workbench-shell #tacticsPanel .tactics-drawing-range button{min-height:28px;padding:4px 6px}
+.workbench-shell #tacticsPanel .tactics-instruction{display:none}
+.workbench-shell #tacticsPresentationStatus{display:none}
+.workbench-shell #tacticsPanel .tactics-transport button{min-height:25px;padding:3px 6px}
+.workbench-shell #tacticsPanel .tactics-transport{padding:3px 6px}
+.workbench-shell #tacticsPanel .tactics-source-position input{height:25px;box-sizing:border-box}
+.workbench-shell #tacticsPanel .tactics-seek{padding:0 3px;border:0;flex:1;min-width:150px;max-width:230px}
+.workbench-shell #tacticsPanel .tactics-time-axis{height:28px;margin-top:3px;margin-bottom:3px}
+.workbench-shell #tacticsPanel .tactics-single-side{gap:6px}
+.workbench-shell #tacticsAgentDock .tactics-agent-panel{padding:6px 8px}
+.workbench-shell #tacticsAgentDock button{min-height:27px;padding:4px 7px}
+.workbench-shell #tacticsAgentDock .tactics-agent-inputs>.field{display:flex;flex-direction:row;align-items:center;font-size:0}
+.workbench-shell #tacticsAgentGoal{flex:1;min-width:0}
+.workbench-shell #tacticsAgentDock .tactics-agent-inputs>details{width:100%}
+.workbench-shell #studioCommentaryPanel.commentary-single-view{height:0;flex:1 1 0;min-height:0}
+.workbench-shell #studioCommentaryPanel .commentary-details{display:flex;flex-direction:column;min-height:0;height:100%;padding:0;border:0}
+.workbench-shell #studioCommentaryPanel .commentary-body{flex:1;min-height:0;height:0}
+.workbench-shell #studioCommentaryPanel .commentary-columns{min-height:0;box-sizing:border-box}
+.workbench-shell #studioCommentaryPanel .commentary-source,.workbench-shell #studioCommentaryPanel .commentary-result{height:0;flex:1 1 0}
+.workbench-shell #studioCommentaryPanel .commentary-source video,.workbench-shell #studioCommentaryPanel .commentary-result video{height:0;flex:1 1 0;min-height:0}
+}
+@media(min-width:1001px){.workbench-shell #studioCommentaryPanel.commentary-single-view{display:flex;flex-direction:column}.workbench-shell #studioCommentaryPanel .commentary-columns{align-items:stretch;grid-template-rows:minmax(0,1fr)}.workbench-shell #studioCommentaryPanel .commentary-body{height:auto;flex:1 1 0}}

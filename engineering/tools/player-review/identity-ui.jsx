@@ -120,14 +120,14 @@ function EntityRoster({state,api}) {
       <div className="team-slot-row">{state.entities.filter(e=>{const number=Number(e.id.slice(1));return isPlayerSlot(e.id)&&number>=team.start&&number<=team.end;}).sort((a,b)=>Number(a.id.slice(1))-Number(b.id.slice(1))).map(slotButton)}</div>
     </section>)}
     {referees.length>0&&<section className="referee-group" aria-label="裁判槽位"><h3>裁判</h3><div className="team-slot-row">{referees.map(slotButton)}</div></section>}
-    <div className="roster-swap-controls">
+    <details className="roster-swap-details"><summary>交换球员槽位</summary><div className="roster-swap-controls">
       <button disabled={busy||!isPlayerSlot(selectedId)} aria-pressed={!!swapSource} onClick={()=>{
         if(swapSource){setSwapSource(null);setNotice('已取消交换。');}
         else{setSwapSource(selectedId);setNotice(`已选 ${slotLabel(selectedId)}，点击另一个球员槽位完成交换。`);}
       }}>{swapSource?'取消交换':`交换 ${isPlayerSlot(selectedId)?slotLabel(selectedId):'球员'} 槽位`}</button>
       <span>{swapSource?'再点一个球员槽位':'也可直接拖动球员槽位'}</span>
     </div>
-    <p className="roster-swap-scope">交换会移动整段身份、位置与绑定，空槽也可交换；不是只改当前帧。</p>
+    <p className="roster-swap-scope">交换会移动整段身份、位置与绑定，空槽也可交换；不是只改当前帧。</p></details>
     <p className="roster-swap-notice" role="status" aria-live="polite">{drag?`${drag.sourceId} → ${drag.targetId||'拖到其他球员槽位'}；松开完成交换。`:notice}</p>
   </div>;
 }

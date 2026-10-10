@@ -1,0 +1,546 @@
+[
+  {
+    "name": "01-commentary",
+    "viewport": [
+      1440,
+      900
+    ],
+    "page": [
+      1440,
+      900
+    ],
+    "areas": [
+      {
+        "area": "screen",
+        "bounds": [
+          19,
+          207,
+          1046,
+          464
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "transport row",
+        "bounds": [
+          19,
+          671,
+          1046,
+          46
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "timeline",
+        "bounds": [
+          19,
+          717,
+          1046,
+          146
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel mainpanel",
+        "bounds": [
+          1078,
+          162,
+          344,
+          474
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel agent",
+        "bounds": [
+          1078,
+          646,
+          344,
+          145
+        ],
+        "overflow": false,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "02-annotation",
+    "viewport": [
+      1440,
+      900
+    ],
+    "page": [
+      1440,
+      900
+    ],
+    "areas": [
+      {
+        "area": "screen",
+        "bounds": [
+          19,
+          207,
+          1046,
+          464
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "transport row",
+        "bounds": [
+          19,
+          671,
+          1046,
+          46
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "timeline",
+        "bounds": [
+          19,
+          717,
+          1046,
+          146
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel mainpanel",
+        "bounds": [
+          1078,
+          162,
+          344,
+          534
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel agent",
+        "bounds": [
+          1078,
+          706,
+          344,
+          158
+        ],
+        "overflow": false,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "03-agent-review",
+    "viewport": [
+      1440,
+      900
+    ],
+    "page": [
+      1440,
+      900
+    ],
+    "areas": [
+      {
+        "area": "screen",
+        "bounds": [
+          19,
+          207,
+          1046,
+          464
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "transport row",
+        "bounds": [
+          19,
+          671,
+          1046,
+          46
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "timeline",
+        "bounds": [
+          19,
+          717,
+          1046,
+          146
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel mainpanel",
+        "bounds": [
+          1078,
+          162,
+          344,
+          532
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel agent",
+        "bounds": [
+          1078,
+          704,
+          344,
+          160
+        ],
+        "overflow": false,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "04-output",
+    "viewport": [
+      1440,
+      900
+    ],
+    "page": [
+      1440,
+      900
+    ],
+    "areas": [
+      {
+        "area": "screen",
+        "bounds": [
+          19,
+          207,
+          1046,
+          464
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "transport row",
+        "bounds": [
+          19,
+          671,
+          1046,
+          46
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "timeline",
+        "bounds": [
+          19,
+          717,
+          1046,
+          146
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel mainpanel",
+        "bounds": [
+          1078,
+          162,
+          344,
+          572
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel agent",
+        "bounds": [
+          1078,
+          744,
+          344,
+          120
+        ],
+        "overflow": false,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "compact-1",
+    "viewport": [
+      1366,
+      768
+    ],
+    "page": [
+      1366,
+      768
+    ],
+    "areas": [
+      {
+        "area": "screen",
+        "bounds": [
+          19,
+          200,
+          972,
+          356
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "transport row",
+        "bounds": [
+          19,
+          556,
+          972,
+          42
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "timeline",
+        "bounds": [
+          19,
+          598,
+          972,
+          136
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel mainpanel",
+        "bounds": [
+          1004,
+          159,
+          344,
+          437
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel agent",
+        "bounds": [
+          1004,
+          604,
+          344,
+          131
+        ],
+        "overflow": false,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "compact-2",
+    "viewport": [
+      1366,
+      768
+    ],
+    "page": [
+      1366,
+      768
+    ],
+    "areas": [
+      {
+        "area": "screen",
+        "bounds": [
+          19,
+          200,
+          972,
+          356
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "transport row",
+        "bounds": [
+          19,
+          556,
+          972,
+          42
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "timeline",
+        "bounds": [
+          19,
+          598,
+          972,
+          136
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel mainpanel",
+        "bounds": [
+          1004,
+          159,
+          344,
+          437
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel agent",
+        "bounds": [
+          1004,
+          604,
+          344,
+          131
+        ],
+        "overflow": false,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "compact-3",
+    "viewport": [
+      1366,
+      768
+    ],
+    "page": [
+      1366,
+      768
+    ],
+    "areas": [
+      {
+        "area": "screen",
+        "bounds": [
+          19,
+          200,
+          972,
+          356
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "transport row",
+        "bounds": [
+          19,
+          556,
+          972,
+          42
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "timeline",
+        "bounds": [
+          19,
+          598,
+          972,
+          136
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel mainpanel",
+        "bounds": [
+          1004,
+          159,
+          344,
+          449
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel agent",
+        "bounds": [
+          1004,
+          616,
+          344,
+          119
+        ],
+        "overflow": false,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "name": "compact-4",
+    "viewport": [
+      1366,
+      768
+    ],
+    "page": [
+      1366,
+      768
+    ],
+    "areas": [
+      {
+        "area": "screen",
+        "bounds": [
+          19,
+          200,
+          972,
+          356
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "transport row",
+        "bounds": [
+          19,
+          556,
+          972,
+          42
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "timeline",
+        "bounds": [
+          19,
+          598,
+          972,
+          136
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel mainpanel",
+        "bounds": [
+          1004,
+          159,
+          344,
+          462
+        ],
+        "overflow": false,
+        "visible": true
+      },
+      {
+        "area": "panel agent",
+        "bounds": [
+          1004,
+          629,
+          344,
+          106
+        ],
+        "overflow": false,
+        "visible": true
+      }
+    ]
+  }
+]

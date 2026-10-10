@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-09 23:14（America/New_York，本轮 main 实施）：球员与战术单屏布局直接落到 main，保留 Astra 全员姓名接线，新增姓名开关及有效重点圈强制姓名显示。784 项 Node、92 项相关 Python 通过；桌面同屏、手机无横向溢出、绘制／切页／编辑／保存及真实短片导出完成。推送前同步 TEAM 25 顶栏；详见[实施记录](../engineering/docs/single-view-workbench-20261009.md)及[交接](../handoffs/chuali-zi/2026-10-09-2314-single-view-main.md)。用户草稿与 8892 服务未改动，未部署云端。
+
 2026-10-10（Asia/Singapore，TEAM 25 已发布）：已将顶栏与定稿资料分三类提交并推送 main，实查远端 `9bf75cc` 完整保留本轮成果和队友 `902aeaf`。旧 UI 本地／远端分支及 worktree 注册已删除；恢复资料已备份，旧路径仅剩审批拒绝删除的空目录。原有 22 个未提交文件已保全恢复，未混入发布。前端现有测试、34 项服务测试、六档浏览器顶栏与 166 视频检查通过；[发布记录](../engineering/docs/ui-team25-publication-20261010.md)提供分类和实证。本轮未部署云端。
 
 2026-10-09（America/New_York，姓名前端接线）：顶部主入口改为 v4 全员姓名流程，显示真实 OpenRouter Astra 状态，移除旧单人 OCR 的自动调用，官方 001 预填比赛上下文。已重建入口 bundle，将本机 8892 从独立 UI 副本切回主目录服务，保留原工作数据；51 项 Node、83 项 Python 和 166 条视频索引检查通过，浏览器已验证。本轮未重跑付费推理或生成新成片，未部署云端。详见[接线记录](../engineering/docs/player-name-workbench-integration-20261009.md)。

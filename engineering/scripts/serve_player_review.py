@@ -231,7 +231,9 @@ def main():
             'defaultVariant':clips[s['id']]['defaultVariant']} for s in active_samples]},ensure_ascii=False).encode('utf-8')
     static = Path(__file__).resolve().parents[1] / "tools/player-review"
     routes = {"/": static / "index.html"}
-    for filename in ['broadcast-studio.css', 'studio-tabs.mjs', 'broadcast-replay.css']:
+    for filename in ['broadcast-studio.css', 'studio-tabs.mjs', 'broadcast-replay.css',
+                     'player-single-view.css', 'player-single-view.mjs',
+                     'tactics-single-view.css', 'tactics-single-view.mjs', 'tactics-name-overlay.mjs']:
         routes['/' + filename] = static / filename
     # Local, licensed design assets; no CDN or generic filesystem route.
     for asset in (static / 'broadcast-studio').rglob('*'):

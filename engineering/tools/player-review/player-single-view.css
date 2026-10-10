@@ -1,0 +1,103 @@
+/* The editor owns the viewport; only the active inspector may scroll. */
+#panel-identity>#playerViewTabs{order:-10;display:flex;gap:0;flex-shrink:0;border-bottom:1px solid var(--studio-line);margin-bottom:10px}
+#playerViewTabs button{flex:1;padding:7px 3px;border:0;border-bottom:3px solid transparent;border-radius:0;font-size:12px;white-space:nowrap}
+#playerViewTabs button[aria-pressed='true']{border-bottom-color:var(--studio-ink);background:white}
+#panel-identity[data-view='link'] #identityControls>:not(.identity-quick-controls),
+#panel-identity[data-view='link'] #identityMain>:not(#identityControls):not(.identity-continue),
+#panel-identity[data-view='continuation'] #identityMain>:not(#identityControls):not(#bindingControls),
+#panel-identity[data-view='continuation'] #identityControls>:not(#identityReferenceTools),
+#panel-identity[data-view='names'] #identityMain>:not(#playerNamePanel):not(#playerProfilePanel),
+#panel-identity[data-view='more'] #identityControls>.identity-quick-controls,
+#panel-identity[data-view='more'] #identityControls>#identityReferenceTools,
+#panel-identity[data-view='more'] #playerNamePanel{display:none}
+#panel-identity[data-view='continuation'] #identityReferenceTools>summary,
+#panel-identity[data-view='names'] #playerNamePanel>summary{display:none}
+#identityMain :is(#playerNamePanel,#identityReferenceTools){margin:0;padding:0;border:0}
+#panel-identity>h2,#panel-identity>p{display:none}
+#identityRoster .roster-swap-controls{flex-wrap:wrap}
+#identityRoster .roster-swap-scope{font-size:10px;line-height:1.4}
+#identityRoster .roster-swap-notice:empty{display:none}
+#identityMain .player-name-context{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#identityMain .player-name-context label{min-width:0}
+#identityMain .player-name-context input{width:100%}
+#identityMain .player-name-actions{display:flex;flex-wrap:wrap;gap:6px}
+#identityMain .player-name-panel{display:flex;flex-direction:column;border:0;padding:0;margin:0}
+#identityMain .player-name-panel>[aria-label='姓名识别服务']{order:-1;overflow-wrap:anywhere;border-bottom:1px solid var(--studio-line);padding-bottom:7px}
+#identityMain .player-name-results{max-height:none;overflow:visible;padding-left:18px;font-size:12px}
+#identityMain .player-name-provider{overflow-wrap:anywhere}
+#identityMain .identity-quick-controls{margin:0;padding:0;border:0;background:white}
+#identityMain .identity-quick-controls h3{margin-top:0}
+#identityMain .identity-quick-actions{display:flex;flex-wrap:wrap;gap:5px}
+#identityMain .identity-quick-actions button{flex:1 1 auto;font-size:11px;padding:5px 7px}
+#identityMain .identity-quick-edit>.small,#identityMain .identity-quick-range-controls>.small{font-size:11px;line-height:1.45;margin:6px 0}
+#identityMain .identity-quick-bounds{margin-top:7px;padding-top:7px}
+#identityMain .identity-continue{margin-top:12px}
+#identityMain details{margin-top:10px;padding-top:8px}
+#identityMain .identity-agent-panel{padding:0;border:0}
+#identityInitialReview{border-top:3px solid var(--studio-ink);margin-top:10px;padding-top:8px;flex-shrink:0}
+#identityInitialReview .identity-initial-review{border:0;margin:0;padding:0;background:white}
+#identityInitialReview .identity-agent-heading h3{font-size:13px;margin:0}
+#identityInitialReview .identity-agent-label{font-size:10px}
+#identityInitialReview p{font-size:11px;margin:5px 0;line-height:1.5}
+#identityInitialReview details{margin:5px 0 0;padding-top:5px}
+#identityInitialReview details[open]{max-height:200px;overflow:auto}
+
+@media(min-width:1051px){
+ body.workbench-shell[data-area='video']{height:100dvh;min-height:0;overflow:hidden}
+ .workbench-shell[data-area='video'] .app-main{height:calc(100dvh - 56px);min-height:0;flex:1 1 0;overflow:hidden}
+ .workbench-shell[data-area='video'] main.workbench-main{flex:1 1 0;min-height:0;overflow:hidden;padding:8px 16px;gap:7px}
+ .workbench-shell[data-area='video'] :is(.workbench-content,.operations){flex:1 1 0;min-height:0;overflow:hidden}
+ .workbench-shell[data-area='video'] .operation-body{flex:1 1 0;min-height:0;height:100%;overflow:hidden;align-items:stretch;grid-template-columns:172px minmax(0,1fr) 344px;gap:10px}
+ .workbench-shell[data-area='video'][data-info='closed'] .operation-body{grid-template-columns:minmax(0,1fr) 344px}
+ .workbench-shell[data-area='video'][data-tools='collapsed'] .operation-body{grid-template-columns:172px minmax(0,1fr)}
+ .workbench-shell[data-area='video'][data-info='closed'][data-tools='collapsed'] .operation-body{grid-template-columns:minmax(0,1fr)}
+ .workbench-shell[data-area='video'] .operation-body>.video-card{--video-fit:height;position:relative;top:auto;height:100%;min-height:0;align-self:stretch;display:flex;flex-direction:column;justify-content:center;padding:0;overflow:hidden}
+ .workbench-shell[data-area='video'] .video-heading{min-height:32px;padding:7px 10px;flex-shrink:0}
+ .workbench-shell[data-area='video'] #stage{flex:0 0 auto;margin:auto;background:#111214}
+ .workbench-shell[data-area='video'] .shared-timeline{padding:8px 10px;flex-shrink:0}
+ .workbench-shell[data-area='video'] .shared-timeline .transport{gap:5px;padding:0 0 5px}
+ .workbench-shell[data-area='video'] .shared-timeline .transport button{font-size:11px;padding:4px 6px;min-height:28px}
+ .workbench-shell[data-area='video'] .shared-timeline #time{font-size:12px}
+ .workbench-shell[data-area='video'] .shared-timeline #frameLabel{font-size:11px}
+ .workbench-shell[data-area='video'] .shared-timeline .review-status-line{font-size:10px;min-height:0;margin:3px 0}
+ .workbench-shell[data-area='video'] .shared-timeline .timeline-row{margin:2px 0}
+ .workbench-shell[data-area='video'] .operation-body>.video-info{position:relative;top:auto;max-height:none;height:100%;overflow:auto;padding:10px;gap:7px}
+ .workbench-shell[data-area='video'] .video-info>h2{font-size:12px;margin:6px 0}
+ .workbench-shell[data-area='video'] .video-info .video-footer{padding:0;margin:8px 0;gap:7px}
+ .workbench-shell[data-area='video'] .video-info .check{font-size:11px;margin-top:0}
+ .workbench-shell[data-area='video'] .video-info .check{min-height:20px}
+ .workbench-shell[data-area='video'] .video-info .name-display-controls{padding:7px 0;margin:7px 0}
+ .workbench-shell[data-area='video'] .video-info :is(.display-settings,.review-details,.source-details){margin-top:8px;padding-top:7px}
+ .workbench-shell[data-area='video'] .video-info summary{font-size:11px}
+ .workbench-shell[data-area='video'] .video-info #pointStatus{font-size:10px;line-height:1.4;margin:5px 0}
+ .workbench-shell[data-area='video'] .step-panels{min-height:0;max-height:none;height:100%;overflow:auto;padding:10px;scrollbar-gutter:auto}
+ .workbench-shell[data-area='video'][data-step='identity'] .step-panels{overflow:hidden}
+ .workbench-shell[data-area='video'] #panel-identity{display:flex;flex-direction:column;height:100%;min-height:0}
+ .workbench-shell[data-area='video'] #identityMain{flex:1 1 0;min-height:0;overflow:auto;overscroll-behavior:contain;padding:0 3px 0 0}
+ .workbench-shell[data-area='video'] #identityMain :is(button,input,select){min-height:29px;font-size:12px}
+ .workbench-shell[data-area='video'] #identityMain .field{margin:7px 0;gap:4px}
+ .workbench-shell[data-area='video'] #identityMain h3{font-size:13px}
+ .workbench-shell[data-area='video'] #identityMain p{font-size:11px;line-height:1.5}
+ .workbench-shell[data-area='video'] #identityRoster .player-overview{border:0;padding:0;background:white;overflow:visible}
+ .workbench-shell[data-area='video'] #identityRoster .section-heading h2{font-size:12px}
+ .workbench-shell[data-area='video'] #identityRoster .section-heading h2,.workbench-shell[data-area='video'] .video-info>h2{background:none;clip-path:none;color:var(--studio-ink);padding:0;min-height:0;white-space:nowrap}
+ .workbench-shell[data-area='video'] #identityRoster .section-heading{align-items:center;gap:5px}
+ .workbench-shell[data-area='video'] #identityRoster .section-heading button{font-size:11px;padding:4px;min-height:25px;white-space:nowrap}
+ .workbench-shell[data-area='video'] #identityRoster .roster-swap-details{margin:6px 0;padding:4px 0}
+ .workbench-shell[data-area='video'] #identityRoster .team-row-heading{margin:3px 0}
+ .workbench-shell[data-area='video'] #identityRoster h3{font-size:10px;margin:4px 0}
+ .workbench-shell[data-area='video'] #identityRoster .entity-grid{display:block;margin-bottom:4px}
+ .workbench-shell[data-area='video'] #identityRoster .team-slot-row{gap:3px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+ .workbench-shell[data-area='video'] #identityRoster .entity{min-width:0;min-height:29px;padding:4px 0;font-size:11px}
+ .workbench-shell[data-area='video'] #identityRoster .entity-slot-state{font-size:0;min-height:3px;line-height:3px}
+ .workbench-shell[data-area='video'] #identityRoster .roster-swap-controls{gap:4px;margin-top:6px}
+ .workbench-shell[data-area='video'] #identityRoster .roster-swap-controls button{font-size:10px;min-height:26px;padding:4px 6px}
+ .workbench-shell[data-area='video'] #identityRoster .roster-swap-controls span{font-size:9px}
+ .workbench-shell[data-area='video'] #identityRoster .roster-swap-scope{margin:5px 0}
+ .workbench-shell[data-area='video'] #identityRoster :is(.scene-objects,.foot-candidates){margin-top:6px;padding:6px 0 0}
+ .workbench-shell[data-area='video'] .operation-toolbar{flex-wrap:nowrap;min-height:38px}
+ .workbench-shell[data-area='video'] .step-tabs button{padding:8px 11px;font-size:12px}
+ .workbench-shell[data-area='video'] .identity-shortcuts button{font-size:11px;min-height:29px;padding:5px 7px}
+ .workbench-shell[data-area='video'] .header-tools button{font-size:11px;min-height:29px;padding:5px 7px}
+}
+@media(max-width:1050px){#identityMain{min-width:0}#identityInitialReview details[open]{max-height:none}#playerViewTabs{position:sticky;top:0;background:white;z-index:2}}

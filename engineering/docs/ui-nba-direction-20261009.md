@@ -1,5 +1,7 @@
 # 工作台 UI：NBA Broadcast Studio
 
+当前单屏工作台任务按用户明确指令直接在 main 开发、提交并推送，保留 TEAM 25 顶栏与冻结图案；[实施说明](single-view-workbench-20261009.md)记录球员、战术和姓名显示变化。
+
 更新日期：2026-10-10，Asia/Singapore（UTC+8）。用户要求将现有更新分类推送 main，并删除没有用途的旧 UI 分支。本轮在 main `902aeaf` 功能基线上整合已认可的 TEAM 25 顶栏；当前发布与分支清理状态见[本轮记录](ui-team25-publication-20261010.md)。
 
 ## 当前设计与入口

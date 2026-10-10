@@ -1,5 +1,7 @@
 # 作品工程
 
+2026-10-09（America/New_York，单屏实施）：球员标定与战术布局直接在 main 开发，普通姓名可隐藏，有效重点圈始终显示关联姓名；见[实施说明与真实截图](docs/single-view-workbench-20261009.md)。此前[球员审核稿](docs/designs/player-single-view-20261009/README.md)和[战术审核稿](docs/designs/tactics-single-view-20261009/README.md)一并保留，产品实现以实际截图为准。
+
 2026-10-10 本轮 TEAM 25 收敛：白色 TEAM／深蓝 25、顶栏字号层级、灰色图案定稿与最新 main 功能已完成整合验证，按界面、设计资料、协作记录分类发布；[发布与旧分支清理记录](docs/ui-team25-publication-20261010.md)提供实际状态。
 
 2026-10-10 NBA UI 分类发布：用户已授权将真实工作台界面、资源服务、独立样稿及设计资料分别提交，先推送 UI 分支再合入 main；当前结果与验证见[发布记录](docs/ui-publication-20261010.md)。下方“未提交／未推送／未合并”保留各轮历史时点，Git 同步不等同于云部署。

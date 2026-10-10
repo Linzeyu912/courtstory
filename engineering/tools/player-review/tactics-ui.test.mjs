@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {makePresentationDemo} from '../tactical-overlay/fixtures/presentation-demo.mjs';
-import {mountTacticsUI,suggestManualDrawingRange,confirmManualCommentaryAnnotation} from './tactics-ui.mjs';
+import {mountTacticsUI,tacticsSceneSize,suggestManualDrawingRange,confirmManualCommentaryAnnotation} from './tactics-ui.mjs';
 import {createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {courtToVideo} from './tactics-presentation.mjs';
 import {createTacticsDocument,splitPhase,refreshSnapshot} from './tactics-document.mjs';
@@ -976,7 +976,8 @@ test('screen and player spotlight are visible independent objects; playback and 
     assert.equal(items[1].style.color,'#ffffff');
     assert.equal(env.get('tacticsAnnotationColor').value,'#ffffff');assert.equal(env.get('tacticsAnnotationColor').disabled,true);
     assert.match(overlay.innerHTML,/data-part="spotlight-soft-light"/);assert.match(overlay.innerHTML,/data-part="spotlight-halo"/);
-    assert.match(overlay.innerHTML,/<(?:ellipse|polygon|path)\b/);assert.doesNotMatch(overlay.innerHTML,/<text\b/);
+    assert.match(overlay.innerHTML,/<(?:ellipse|polygon|path)\b/);assert.match(overlay.innerHTML,/data-player-name="P1" data-forced-name="true"/);
+    env.get('tacticsShowNames').checked=false;env.get('tacticsShowNames').onchange();assert.match(overlay.innerHTML,/data-player-name="P1" data-forced-name="true"/);
     await env.get('tacticsAnnotationDelete').onclick();assert.equal(env.writes.at(-1).document.annotations.items.length,1);
     await env.get('tacticsUndo').onclick();assert.equal(env.writes.at(-1).document.annotations.items.length,2);
     await env.get('tacticsToolRoute').onclick();await env.event('pointerdown',{pointerId:43,target:env.target(),clientX:600,clientY:360});
@@ -1661,4 +1662,12 @@ test('same-phase seek during a saved presentation rebuild applies the new model 
     await env.event('pointermove',{pointerId:8,clientX:second.x*40,clientY:(second.y+.1)*40});await env.event('pointerup',{pointerId:8});
     await env.get('tacticsSave').onclick();assert.ok(Math.abs(env.saved.at(-1).document.presentation.routes[0].controlPoints[0].x-changedX)<1e-6,'editing another point must retain the saved first point');
   }finally{release();if(own)Object.defineProperty(subtle,'digest',own);else delete subtle.digest;env.restore();}
+});
+
+test('single-view scene fits both picture bounds without cropping at laptop and desktop sizes',()=>{
+  for(const [canvasWidth,canvasHeight] of [[950,310],[1060,420],[820,225]]){
+    const size=tacticsSceneSize({mode:'video',modelWidth:1280,modelHeight:720,canvasWidth,canvasHeight});
+    assert.ok(size.width<=canvasWidth-2);assert.ok(size.height<=canvasHeight-2+1e-9);
+    assert.ok(Math.abs(size.width/size.height-1280/720)<1e-9);
+  }
 });
