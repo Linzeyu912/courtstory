@@ -328,15 +328,11 @@ export function mountTacticsUI(api){
     if(!await saveAnnotation(next))return false;
     status(`新标注显示区间：${drawingRangeLabel()}（约 3 秒，止于阶段或镜头边界）。可在下方时间轴调整；已有图形不变。`);return true;
   }
-  function drawingTimeReady(){
-    if(documentValue.schemaVersion!==2)return true;
+  function drawingRangeAt(frame){
     const range=timeline.range();
-    if(!range){timelineInstance?.focusRange();return false;}
-    if(lastScene.frame<range.startFrame||lastScene.frame>=range.endFrameExclusive){
-      status(`当前画面不在新标注区间 ${drawingRangeLabel()} 内。请点「从当前画面开始约 3 秒」，或定位到选区内再画。`);
-      $('tacticsToolHint').textContent=$('tacticsStatus').textContent;return false;
-    }
-    return true;
+    // Reuse the interval while drawing on the same passage. After seeking away,
+    // start a new interval; save it with the new object so undo remains atomic.
+    return range&&frame>=range.startFrame&&frame<range.endFrameExclusive?range:suggestManualDrawingRange(documentValue,frame,phaseId);
   }
   async function chooseTool(tool){
     cameraEditing=null;
@@ -539,8 +535,9 @@ export function mountTacticsUI(api){
   function locatedPoint(point){return lastScene.mode==='court'?{space:'court',point}:$('tacticsCoordinateMode').value==='fixed'?{space:'video',point}:annotationPointFromVideo(lastScene.model,lastScene.frame,point);}
   function makeAnnotation(input){
     if(documentValue.schemaVersion!==2)return createAnnotation(documentValue,input);
-    const range=timeline.range();if(!range)throw new Error('先设置新标注的开始和结束时间。');
-    let next=createManualAnnotation(documentValue,{...input,range,frame:input.frame??lastScene.frame,pattern:input.style?.pattern??'solid',name:input.name??`${typeNames[input.type==='route'?(input.style?.pattern??'solid')==='solid'?'route':input.style.pattern:input.type]} ${annotations().length+1}`});
+    const frame=input.frame??lastScene.frame,range=drawingRangeAt(frame);
+    let next=createManualAnnotation(documentValue,{...input,range,frame,pattern:input.style?.pattern??'solid',name:input.name??`${typeNames[input.type==='route'?(input.style?.pattern??'solid')==='solid'?'route':input.style.pattern:input.type]} ${annotations().length+1}`});
+    next.newDrawingRange={...range};
     return timelineInstance?.associateNew(next,input.id)??next;
   }
   function canvasPoint(event){
@@ -1339,7 +1336,6 @@ export function mountTacticsUI(api){
   $('tacticsPlaceManualSpotlight').onclick=safe(async()=>{
     const pending=pendingSpotlight;if(!pending||!editAllowed())return;
     if(pending.frame!==lastScene.frame||pending.context!==context||pending.revision!==revision){pendingSpotlight=null;fillAnnotationControls();status('画面或草稿已改变，请在当前画面重新点击定位。');return;}
-    if(!drawingTimeReady())return;
     staticSpotlight=true;selectedEntityId=null;await placeSpotlight(null,pending.point);
   });
   $('tacticsDismissSpotlightFallback').onclick=()=>{pendingSpotlight=null;footCandidates=[];fillAnnotationControls();drawScene();};
@@ -1446,7 +1442,7 @@ export function mountTacticsUI(api){
         const points=structuredClone(a.points),index=selectedAnnotationPoint+1;points.splice(index,0,{x:p.x,y:p.y});addingAnnotationPoint=false;selectedAnnotationPoint=index;await patchAnnotation({points});return;
       }
       if(point&&['route','dashed','dots'].includes(annotationTool)){
-        if(!drawing){if(!drawingTimeReady())return;const located=locatedPoint(point);drawing={space:located.space,points:[located.point],frame:lastScene.frame,stamp:stamp(),pattern:annotationTool==='route'?'solid':annotationTool};}
+        if(!drawing){const located=locatedPoint(point);drawing={space:located.space,points:[located.point],frame:lastScene.frame,stamp:stamp(),pattern:annotationTool==='route'?'solid':annotationTool};}
         else if(drawing.points.length>=ANNOTATION_LIMITS.points){status(`一条路线最多 ${ANNOTATION_LIMITS.points} 个点，点「完成绘制」后可继续拖动调整。`);return;}
         else{
           const p=originalPoint(point,drawing.space);if(!p){status('这个位置暂时不能对应到球场，请选择画面内的球场位置。');return;}
@@ -1458,7 +1454,6 @@ export function mountTacticsUI(api){
         fillAnnotationControls();drawScene();return;
       }
       if(point&&['screen','spotlight'].includes(annotationTool)){
-        if(!drawingTimeReady())return;
         if(annotationTool==='spotlight'){
           if(staticSpotlight){await placeSpotlight(null,point);event.preventDefault();return;}
           const hits=lastScene.mode==='court'?documentValue.review.entities.filter(e=>{const p=documentValue.review.courtPreparation?.preparedByPlayer[e.id]?.[lastScene.frame]??e.courtTrajectory?.[lastScene.frame];return p&&Number.isFinite(p.x)&&Math.hypot(p.x-point.x,p.y-point.y)<.6;}):playersAtVideoPoint(documentValue,lastScene.frame,point,{phaseId,model:lastScene.model});

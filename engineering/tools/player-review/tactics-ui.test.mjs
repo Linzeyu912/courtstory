@@ -1146,16 +1146,50 @@ test('manual range suggestions follow source timestamps and stop at a cut, phase
   assert.throws(()=>suggestManualDrawingRange(d,6,'a'),/当前阶段/);assert.deepEqual(d,before);
 });
 
-test('an explicit drawing interval outside the current picture is kept and offers a current-frame reset',async()=>{
+test('drawing outside a saved interval starts at the current frame without requiring a range reset',async()=>{
   const {review}=await makePresentationDemo();review.entities=[];review.court.calibration.keyframes=[];review.mediaEndTime=6.1;
   const d=await createTacticsDocument(review);d.newDrawingRange={startFrame:20,endFrameExclusive:30};const env=environment(d,{player:true});
   try{
     await env.load();await env.get('tacticsToolSpotlight').onclick();await env.get('tacticsSpotlightManual').onclick();
     await env.event('pointerdown',{target:env.target(),clientX:450,clientY:410});
-    assert.equal(env.ui.getSceneState().annotations.items.length,0);assert.deepEqual(env.writes.at(-1).document.newDrawingRange,d.newDrawingRange);
-    assert.match(env.get('tacticsStatus').textContent,/当前画面不在新标注区间/);
-    await env.get('tacticsDrawingRangeHere').onclick();await env.event('pointerdown',{target:env.target(),clientX:450,clientY:410});
     assert.equal(env.ui.getSceneState().annotations.items.length,1);assert.equal(env.ui.getSceneState().annotations.items[0].startFrame,0);
+    assert.deepEqual(env.writes.at(-1).document.newDrawingRange,{startFrame:0,endFrameExclusive:30});
+  }finally{env.restore();}
+});
+
+test('all drawing tools keep working after three annotations and seeking beyond their interval',async()=>{
+  const {review}=await makePresentationDemo();review.entities=[];review.court.calibration.keyframes=[];
+  review.sourceFrameMapping=Array.from({length:601},(_,frame)=>({frame,time:frame/60,sourceFrame:frame,sourceTime:frame/60}));review.mediaEndTime=601/60;
+  const d=await createTacticsDocument(review),env=environment(d,{player:true});
+  const click=(x=450,y=410)=>env.event('pointerdown',{target:env.target(),clientX:x,clientY:y});
+  async function draw(tool,frame){
+    await env.get(`tacticsTool${tool}`).onclick();
+    if(tool==='Spotlight')await env.get('tacticsSpotlightManual').onclick();
+    // Also cover moving the playhead after choosing the tool.
+    env.present(frame);
+    await click();if(['Route','Dashed','Dots'].includes(tool))await click(600,400);
+    await env.ui.ready();
+  }
+  try{
+    await env.load();env.present(39);
+    for(const tool of ['Route','Spotlight','Spotlight'])await draw(tool,39);
+    const original=structuredClone(env.ui.getSceneState().annotations.items);
+    assert.equal(original.length,3);
+    for(const a of original)assert.deepEqual([a.startFrame,a.endFrameExclusive],[39,219]);
+    for(const [i,tool] of ['Route','Dashed','Dots','Screen','Spotlight'].entries()){
+      // First at 4.55 seconds; then at the exclusive end and the final frame.
+      const frame=[273,453,599,600,600][i];await draw(tool,frame);
+      const items=env.ui.getSceneState().annotations.items,a=items.at(-1);
+      assert.equal(items.length,4+i,`${tool} must create an annotation`);
+      assert.ok(a.startFrame<=frame&&frame<a.endFrameExclusive);
+      if(i===0)assert.deepEqual([a.startFrame,a.endFrameExclusive],[273,453]);
+      assert.deepEqual(items.slice(0,3),original);
+    }
+    const completed=structuredClone(env.ui.getSceneState().annotations.items);
+    await env.get('tacticsUndo').onclick();assert.equal(env.ui.getSceneState().annotations.items.length,7);
+    await env.get('tacticsRedo').onclick();assert.deepEqual(env.ui.getSceneState().annotations.items,completed);
+    await env.get('tacticsSave').onclick();assert.deepEqual(env.saved.at(-1).document.annotations.items,completed);
+    await env.get('tacticsWorkspace').onclick();await env.ui.ready();assert.deepEqual(env.ui.getSceneState().annotations.items,completed);
   }finally{env.restore();}
 });
 
