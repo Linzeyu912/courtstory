@@ -159,6 +159,11 @@
     {
       "id": "official-training-001",
       "title": "官方训练 001 · 弗拉格片 · DAL–HOU 第四节",
+      "nameContext": {
+        "season": "2025-26",
+        "gameId": "0022500701",
+        "teamMap": {"A": "HOU", "B": "DAL"}
+      },
       "description": "21.55 秒 · 官方训练重点样例 · 1080p / 59.94 fps / 原声；场景已打标，检测身份和坐标仍需复核。",
       "sourceUrl": "https://comfile.csdnimg.cn/file/train_video.zip",
       "video": "data/videos/uploads/2026-10-05-official-training/clips/训练_弗拉格2月1日.mp4",

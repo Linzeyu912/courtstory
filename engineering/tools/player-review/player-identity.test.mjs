@@ -20,7 +20,7 @@ const options={seasons:['2024-25','2025-26'],teams:[{abbreviation:'MIN',name:'Mi
   {abbreviation:'BOS',name:'Boston Celtics'},{abbreviation:'DET',name:'Detroit Pistons'}],dataset_scope:{roster:'season_roster_including_departed'}};
 const flush=async()=>{for(let n=0;n<5;n++)await new Promise(resolve=>setImmediate(resolve));};
 
-async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSession=null,recognition=null}={}){
+async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSession=null,recognition=null,legacyRecognition=false,nameService=null}={}){
   const frames=[.12,.158,.205].map((time,frame)=>({frame,time,source_frame:100+frame,source_time:12.12+(time-.12),
     tracks:[[100,80,220,320,7,.95,2],[400,100,530,330,8,.93,2]],track_roles:{7:'player',8:'player'}}));
   const clip={video_sha256:'identity-video',tracking_fingerprint:'identity-raw-v1',tracking_revision:'team-stable',
@@ -61,12 +61,13 @@ async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSe
     location:{search:`?sample=test&variant=team-stable${qa?'&qa=1':''}`,assign(){}},requestAnimationFrame(){},setTimeout:()=>1,clearTimeout(){},
     localStorage:{getItem:key=>saved.get(key)||null,setItem:(key,value)=>saved.set(key,value)},
     fetch:async (raw,init)=>{requests.push(raw);const url=new URL(raw,'http://localhost');let body;
-      if(url.pathname==='/api/identity-ocr'&&recognition)body=await recognition(JSON.parse(init.body));
+      if(url.pathname.startsWith('/api/player-name-identity/')&&nameService)body=await nameService(url,init);
+      else if(url.pathname==='/api/identity-ocr'&&recognition)body=await recognition(JSON.parse(init.body));
       else if(url.pathname==='/api/player-identity/options')body=optionsResponse?await optionsResponse(url):{...options,teams:url.searchParams.has('season')?options.teams:[]};
       else if(url.pathname==='/api/player-identity/lookup'){
         const query=Object.fromEntries(['season','team','jersey'].map(key=>[key,url.searchParams.get(key)]));
         body=lookup?await lookup(query):{query,status:'unique_candidate',candidates:[conley]};
-      }else body=raw==='/api/library'?{defaultSample:'test',samples:[{id:'test',title:'测试视频',defaultVariant:'team-stable'}]}:raw==='/team-overlay-policy.json'?policy:clip;
+      }else body=raw==='/api/library'?{defaultSample:'test',samples:[{id:'test',title:'测试视频',defaultVariant:'team-stable',nameContext:{season:'2025-26',gameId:'0022500701',teamMap:{A:'MIN',B:'BOS'}}}]}:raw==='/team-overlay-policy.json'?policy:clip;
       return {ok:true,status:200,json:async()=>{const copy=structuredClone(body);responses.push(copy);return copy;}};
     }});
   let appApi,identityActions,identityState,presentFrame;
@@ -89,6 +90,7 @@ async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSe
       const module=await import(new URL(match[2],import.meta.url));
       for(const part of match[1].split(',')){const [name,alias=name]=part.trim().split(/\s+as\s+/);dependencies[alias]=module[name];}
     }
+    if(legacyRecognition){const mount=dependencies.mountPlayerIdentityUI;dependencies.mountPlayerIdentityUI=api=>mount({...api,legacyRecognition:true});}
     const AsyncFunction=Object.getPrototypeOf(async function(){}).constructor;
     await new AsyncFunction(...Object.keys(dependencies),source.replace(/^import .*;\r?\n/gm,''))(...Object.values(dependencies));await flush();
     return {get,clip,key,saved,requests,responses,created,state:()=>appApi.getState(),body,restore,
@@ -102,13 +104,35 @@ async function openIdentityApp({qa=true,lookup=null,optionsResponse=null,savedSe
       },
       choose:pid=>{get('profileCandidate').value=pid;get('profileCandidate').dispatch('change');},
       async confirm(){get('profileConfirm').click();await flush();},
-      textTree:node=>{const visit=current=>`${current.textContent||''} ${current.children.map(visit).join(' ')}`;return visit(node);}};
+      textTree:node=>{const visit=current=>`${current.textContent||''} ${(current.children||[]).map(visit).join(' ')}`;return visit(node);}};
   }catch(error){restore();throw error;}
 }
 
-test('one recognition reads selected player then automatically matches the chosen season without confirming identity',async()=>{
+test('workbench uses the whole-session name service and does not automatically run legacy OCR',async()=>{
+ const posted=[],status={available:true,provider:'openrouter',model:'openai/gpt-6-astra'};
+ const app=await openIdentityApp({nameService:(url,init)=>{
+  if(url.pathname.endsWith('/status'))return status;
+  const input=JSON.parse(init.body);posted.push(input);
+  return {purpose:'player_names',jobId:'names',sourceKey:'source',status:'ready',
+   base:{videoHash:input.videoHash,trackingFingerprint:input.trackingFingerprint,trackingRevision:input.trackingRevision},
+   candidate:{verified:false,reviewRequired:true,candidates:[]}};
+ }});
+ try{
+  assert.equal(app.requests.some(url=>url.startsWith('/api/identity-ocr')),false);
+  assert.equal(app.get('identityOcr').hidden,true);
+  const root=app.get('playerNameIdentityTools'),panel=root.children[0],inputs=panel.children[2].children.map(label=>label.children[0]);
+  assert.deepEqual(inputs.map(input=>input.value),['2024-25','0022500701','MIN','BOS'],'saved season wins over catalog context');
+  assert.match(app.textTree(root),/openrouter · openai\/gpt-6-astra/);
+  const start=app.created.find(node=>node.textContent==='识别全员姓名');assert.equal(start.disabled,false);
+  start.click();await flush();assert.equal(posted.length,1);assert.equal(posted[0].session.entities.length,10);
+  assert.deepEqual(posted[0].teamMap,{A:'MIN',B:'BOS'});assert.equal(posted[0].gameId,'0022500701');
+  assert.equal(app.state().session.entities[0].machineNameIdentities,undefined,'a completed job requires explicit adoption');
+ }finally{await flush();app.restore();}
+});
+
+test('legacy opt-in recognition still matches the chosen season without confirming identity',async()=>{
  const calls=[];
- const app=await openIdentityApp({recognition:request=>{calls.push(request);return request.mode==='scoreboard_vision'?{
+ const app=await openIdentityApp({legacyRecognition:true,recognition:request=>{calls.push(request);return request.mode==='scoreboard_vision'?{
    mode:request.mode,engine:'codex-vision',videoSha256:'identity-video',trackingFingerprint:'identity-raw-v1',candidates:[{value:'MIN'},{value:'BOS'}]}:{
    mode:request.mode,engine:'codex-vision',videoSha256:'identity-video',trackingFingerprint:'identity-raw-v1',observation:request.observations[0],reading:{team:'MIN',jersey:'10',reason:'visible',confidence:.9}};}});
  try{
@@ -123,7 +147,7 @@ test('one recognition reads selected player then automatically matches the chose
 });
 
 test('manual team and jersey entered during recognition survive the late model result',async()=>{
- let finish;const app=await openIdentityApp({recognition:request=>request.mode==='scoreboard_vision'?{
+ let finish;const app=await openIdentityApp({legacyRecognition:true,recognition:request=>request.mode==='scoreboard_vision'?{
   mode:request.mode,engine:'codex-vision',videoSha256:'identity-video',trackingFingerprint:'identity-raw-v1',candidates:[{value:'MIN'},{value:'BOS'}]}:new Promise(resolve=>finish=()=>resolve({
   mode:request.mode,engine:'codex-vision',videoSha256:'identity-video',trackingFingerprint:'identity-raw-v1',observation:request.observations[0],reading:{team:'MIN',jersey:'10',reason:'visible',confidence:.9}}))});
  try{app.select('P1');app.present();await flush();app.created.find(n=>n.textContent==='识别选中球员').click();await flush();

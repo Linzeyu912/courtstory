@@ -206,8 +206,11 @@ class PlayerNameIdentityTests(unittest.TestCase):
         self.assertNotIn('enable_thinking',body)
         self.assertEqual(body['reasoning'],{'effort':'low'})
         self.assertEqual(provider.status()['provider'],'openrouter')
+        unavailable=OpenRouterVision(config={'QWEN_TOKEN_PLAN_KEY':'not-openrouter'},opener=open_request)
+        self.assertFalse(unavailable.status()['available'])
         with self.assertRaises(ValueError):
-            OpenRouterVision(config={'QWEN_TOKEN_PLAN_KEY':'not-openrouter'})
+            unavailable.review([],[])
+        self.assertEqual(len(requests),1)
 
     def test_unique_roster_match_is_candidate_and_never_verified(self):
         session, clip = fixture()

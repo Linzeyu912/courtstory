@@ -174,12 +174,15 @@ class OpenRouterVision(TokenPlanVision):
         self.key = str(self.config.get('OPEN_ROUTER_KEY') or self.config.get('OPENROUTER_API_KEY') or '').strip()
         self.model = 'openai/gpt-6-astra'
         self.base_url = 'https://openrouter.ai/api/v1'
-        if not self.key:
-            raise ValueError('OpenRouter 未配置；请在服务端 .env 设置 OPEN_ROUTER_KEY。')
-
     def status(self):
-        return {'available': True, 'provider': 'openrouter', 'model': self.model,
-                'message': 'OpenRouter Astra 已配置，供球衣证据读取和姓名续接使用。'}
+        return {'available': bool(self.key), 'provider': 'openrouter', 'model': self.model,
+                'message': 'OpenRouter Astra 已配置，供球衣证据读取和姓名续接使用。' if self.key else
+                    'OpenRouter 未配置；请在服务端 .env 设置 OPEN_ROUTER_KEY。'}
+
+    def review(self, images, labels, context=None):
+        if not self.key:
+            raise ValueError(self.status()['message'])
+        return super().review(images, labels, context)
 
 
 def create_openrouter_name_provider(*, opener=None, timeout=120):

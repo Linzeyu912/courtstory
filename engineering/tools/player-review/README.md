@@ -1,5 +1,7 @@
 # CourtStory 核心工作台
 
+2026-10-09（America/New_York，姓名入口修正）：顶部「球员姓名识别」直接展开 v4 全员姓名流程，使用当前视频和十个球员的草稿调用 `/api/player-name-identity/jobs`。页面显示服务端实际 provider / model；默认 OpenRouter Astra，未配置 Key 时显示原因并禁用启动。官方 001 自动带入 2025-26 / 0022500701 / A=HOU、B=DAL，已保存的赛季和球队优先。旧单人 OCR 不再自动挂载，名单手工修正仍可用；结果须点「加入候选结果」后才进入按帧姓名显示与成片。入口模块在 `ui.bundle.mjs` 中，修改 `workbench-shell.mjs` 后须 `npm run build`。接线、启动目录与验证见[本轮记录](../../docs/player-name-workbench-integration-20261009.md)。下方旧的「球队 / 号码识别」路径为历史记录。
+
 2026-10-10 09:12（Asia/Shanghai，本轮发布）：用户已授权将人工范围关联、显式环境配置加载及配套测试直接提交并推送 main，范围与验证见[发布交接](../../../handoffs/thy-0629/2026-10-10-0912-identity-backend-publication.md)。下方“本地／未提交”描述保留各轮完成时点；本轮未部署云端，也未调用 OpenRouter。配音专用凭据仍待配置。
 
 2026-10-10（本地后端接续）：已同步 `0c219ae`，保留人工范围关联，接入远端 Astra 解说／独立绘图与语音缓存修复。启动服务可加 `--env-file ../.env` 指定仓库外配置，支持 UTF-8 及带 BOM 的 UTF-16；已有同名进程环境变量优先，配置由任务子进程继承。解说接受 `OPENROUTER_API_KEY` 或 `OPEN_ROUTER_KEY`，现有 Seed TTS 单独要求 `VOLCENGINE_TTS_API_KEY`，不将 `ARK_API_KEY` 自动复用。文件不复制进仓库，缺文件／无效编码会在启动时报错；修改配置后需重启服务。状态就绪只表示配置存在，不代表已实际调用模型。验证与尚缺配置见[接续交接](../../../handoffs/thy-0629/2026-10-10-0907-backend-sync-env.md)。本轮未提交／推送，未部署云端。

@@ -350,6 +350,7 @@ class ReviewServerTests(unittest.TestCase):
         self.sample.update(defaultVariant='team-stable', title='HTTP fixture', trackingVariants=[
             {'id': 'ebard', 'label': '远端篮球模型', 'tracks': str(ebard), 'recommended': True},
             {'id': 'team-stable', 'label': '本机分队', 'tracks': str(ebard), 'metadata': str(team.with_suffix('.meta.json'))}])
+        self.sample['nameContext']={'season':'2025-26','gameId':'0022500701','teamMap':{'A':'HOU','B':'DAL'}}
         team.unlink()  # The real HTTP trim must retain separate metadata for shared records.
         library = self.root / 'input-library.json'
         library.write_text(json.dumps({'defaultSample': 'fixture', 'samples': [self.sample]}), encoding='utf-8')
@@ -374,6 +375,11 @@ class ReviewServerTests(unittest.TestCase):
                 exposed = json.load(response)
             self.assertEqual([sample['id'] for sample in exposed['samples']], ['fixture'])
             self.assertEqual(exposed['samples'][0]['defaultVariant'], 'team-stable')
+            self.assertEqual(exposed['samples'][0]['nameContext'], self.sample['nameContext'])
+            with urlopen(url + 'api/player-name-identity/status?sample=fixture', timeout=3) as response:
+                name_status=json.load(response)
+            self.assertEqual(name_status['provider'],'openrouter')
+            self.assertEqual(name_status['model'],'openai/gpt-6-astra')
             with urlopen(url + 'api/clip?sample=fixture', timeout=3) as response:
                 self.assertEqual(json.load(response)['variant'], 'team-stable')
             request = Request(url + 'api/trim', data=json.dumps({'sample': 'fixture', 'qa': True,

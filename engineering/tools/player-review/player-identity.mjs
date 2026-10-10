@@ -90,8 +90,9 @@ export function mountPlayerIdentityUI(api){
     const current=state(),item=entity(),profile=item?.playerProfile,reference=item?.ratingReference;
     const known=confirmed(item),number=/^P(?:[1-9]|10)$/.test(current.active)?current.active.slice(1):'—';
     const unassigned=unassignedSelection(current);
-    $('profileSummary').textContent=known&&!unassigned?`${profile.name} · 球队与球衣号码`:'本场球队与球员姓名';
-    $('profileSelected').textContent=unassigned?'已选中画面中的人。可以先识别号码，再关联到球员。':known?`球员 ${number}：${profile.name} · ${profile.team_abbreviation} · 球衣 #${profile.jersey_number}`:`选中球员 ${number} · 识别球队与球衣号码后，按所选赛季匹配姓名。`;
+    $('profileSummary').textContent=known&&!unassigned?`${profile.name} · 球队与球衣号码`:
+      api.legacyRecognition===false?'人工填写 / 修正球员身份':'本场球队与球员姓名';
+    $('profileSelected').textContent=api.legacyRecognition===false&&!known?`选中球员 ${number} · 可人工填写球队与号码，再从赛季名单确认姓名。`:unassigned?'已选中画面中的人。可以先识别号码，再关联到球员。':known?`球员 ${number}：${profile.name} · ${profile.team_abbreviation} · 球衣 #${profile.jersey_number}`:`选中球员 ${number} · 识别球队与球衣号码后，按所选赛季匹配姓名。`;
     $('profileClear').disabled=unassigned||(!item?.playerProfile&&!item?.ratingReference);
     const point=current.point;
     $('profileObservation').textContent=point?.x==null?'当前没有可靠位置。资料跟随此编号，画面中的对应关系仍需核对。':'资料跟随此编号，当前框仍需核对。';
@@ -199,6 +200,7 @@ export function mountPlayerIdentityUI(api){
     if(reading.jersey)$('profileJersey').value=reading.jersey;
     invalidate();if(ready()){await $('profileLookup').onclick();if(!stillCurrent())return;if(lookup?.candidates.length===1){$('profileCandidate').value=lookup.candidates[0].player_id;$('profileConfirm').disabled=false;$('profileLookupStatus').textContent='已匹配姓名，核对后点“确认身份”。';}}
   }
-  ocrUI=mountSimpleIdentityRecognition({...api,getTeams:()=>teamsCatalog,getFormRevision:formStamp,onReading:fillReading,onTeam:()=>{ocrUI?.render();}});
+  if(api.legacyRecognition!==false)ocrUI=mountSimpleIdentityRecognition({...api,getTeams:()=>teamsCatalog,getFormRevision:formStamp,onReading:fillReading,onTeam:()=>{ocrUI?.render();}});
+  else $('identityOcr').hidden=true;
   return {render,recognizeSelected:()=>ocrUI?.recognizeSelected()};
 }

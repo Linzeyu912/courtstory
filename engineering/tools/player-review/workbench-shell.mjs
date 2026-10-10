@@ -4,14 +4,14 @@ export function mountIdentityShortcuts({openIdentity,document:doc=globalThis.doc
   function open(kind) {
     openIdentity();
     if(doc.body.dataset.step!=='identity')return;
-    const profile=doc.getElementById('playerProfilePanel');
+    const profile=doc.getElementById('playerNamePanel');
     if(kind==='profile')profile.open=true;
     schedule(()=>{
       const target=kind==='profile'?profile:doc.querySelector('.identity-agent-panel');
       if(!target)return;
       for(let parent=target.closest?.('details');parent;parent=parent.parentElement?.closest?.('details'))parent.open=true;
       target.scrollIntoView({block:'start'});
-      const focus=kind==='profile'?doc.getElementById('profileSummary'):target.querySelector('[aria-label="身份参考人物"]');
+      const focus=kind==='profile'?doc.getElementById('playerNameSummary'):target.querySelector('[aria-label="身份参考人物"]');
       focus?.focus({preventScroll:true});
     });
   }
