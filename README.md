@@ -6,6 +6,8 @@
 
 三人参加 BroadcastCode「深度赛场」比赛的共享仓库。正文优先使用中文；目录按用途分开，所有工作直接在 `main` 上维护。
 
+**准备决赛答辩，先看[官方要求与时间](requirements/finals-defense-requirements-20261010.md)和[技术路线、5 分钟页序与问答](engineering/docs/finals-defense-technical-route-20261010.md)**：2026-10-10 重新核对两份组委会指南，并以当前工程区分可展示成果、历史验收和待补证据。
+
 **仓库**：https://github.com/Linzeyu912/broadcastcode-team-hub
 
 **接手已有成果先看[成果与接续总览](docs/work-index.md)**：汇集三位成员的跟踪 / 脚点研究、2D 与 Qwen 实现、005 成片基准、导入视频问题、论文模型和环境准备，标明验证范围与缺口。
