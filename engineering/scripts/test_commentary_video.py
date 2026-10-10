@@ -5,6 +5,8 @@ from pathlib import Path
 import tempfile
 import unittest
 from fractions import Fraction
+from types import SimpleNamespace
+from unittest.mock import MagicMock, patch
 
 import av
 import numpy as np
@@ -63,6 +65,20 @@ class CommentaryVideoTests(unittest.TestCase):
         self.assertEqual(result["details"]["frames"][0]["time"], 0)
         self.assertAlmostEqual(result["details"]["frames"][0]["sourceTime"], 2.0, places=3)
         self.assertGreaterEqual(context["duration"], context["frames"][-1]["time"])
+
+    def test_stream_endpoint_wins_over_rounded_last_frame_duration(self):
+        stream = SimpleNamespace(start_time=90000, duration=1975975, time_base=Fraction(1, 90000),
+                                 codec_context=SimpleNamespace(width=96, height=64))
+        frames = [SimpleNamespace(pts=90000, time=1.0, duration=1501, time_base=Fraction(1, 90000), width=96, height=64),
+                  SimpleNamespace(pts=2064474, time=2064474/90000, duration=1502, time_base=Fraction(1, 90000), width=96, height=64)]
+        container = MagicMock()
+        container.__enter__.return_value = container
+        container.streams.video = [stream]
+        container.decode.return_value = frames
+        with patch('commentary_video.av.open', return_value=container):
+            tool = CommentaryVideo(self.video, self.output)
+        self.assertAlmostEqual(tool.duration, stream.duration / 90000, places=12)
+        self.assertLess(tool.duration, tool._frames[-1]['time'] + tool._frames[-1]['displayDuration'])
 
     def test_sheet_pages_stop_at_six_tiles_and_keep_source_transform(self):
         original_sha = hashlib.sha256(self.video.read_bytes()).hexdigest()

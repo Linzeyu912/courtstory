@@ -169,7 +169,12 @@ export function mountVideoDisplay({video,canvas,status,message,retry,stage,rateC
   });
   listen('ended',()=>{wantsPlayback=false;cancelFrames();present();});
   listen('waiting',()=>show(awaitingSeek?'seeking':'loading',awaitingSeek?'正在定位视频画面…':'正在等待视频数据…'));
-  listen('stalled',()=>show('loading','视频数据暂未就绪，可以重新载入。',true));
+  listen('stalled',()=>{
+    // A paused video can stop fetching even though its current frame is decoded.
+    // Keep that usable frame visible; an unfinished seek must still show loading.
+    if(present())return;
+    show('loading','视频数据暂未就绪，可以重新载入。',true);
+  });
   listen('error',()=>fail(video.error||new Error('Video media error'),video.error?.code===3?'视频解码失败，请重新载入。':'视频加载失败，请检查本地服务后重试。'));
   retry.addEventListener('click',reload);
   show('loading','正在载入视频…');applyPendingSeek();attemptPlayback();
