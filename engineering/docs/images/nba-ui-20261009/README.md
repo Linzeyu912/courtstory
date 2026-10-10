@@ -1,6 +1,14 @@
 # NBA UI 参考图
 
-[header-basketball-detail-20261010.jpg](header-basketball-detail-20261010.jpg)：2026-10-10 最新顶栏局部截图，2201 × 216。左上角篮球球缝拉开；灰色背景篮球放大约 2.2 倍、线宽增至 8px，球场只露出一个边角。保留双行导航、字标与红色点缀；图片来自真实工作台，没有拼贴。
+本目录按各轮采集时间保留原图，正文工作区可能早于最新 main；灰色图案基准不随正文布局变化。本轮整合后的桌面／手机顶栏已再次验证，发布范围见[TEAM 25 发布记录](../../ui-team25-publication-20261010.md)。
+
+**灰色图案定稿基准：** 用户于 2026-10-10 11:03（Asia/Singapore）确认固定下方 `workbench-team25-angle-20261010.png` 中的灰色线条图案及位置；参数和后续维护边界见[定稿规范](../../broadcast-studio-style-20261009.md#灰色图案定稿)。
+
+[workbench-team25-angle-20261010.png](workbench-team25-angle-20261010.png)：2026-10-10 11:01（Asia/Singapore）最新桌面顶栏，右侧灰色球场线向右下方倾斜 7°，与黑栏边界形成角度；字号、颜色、留白和黑栏高度沿用上一轮。[交接](../../../../handoffs/Linzeyu912/2026-10-10-1101-angled-header-line.md)。
+
+[workbench-team25-hierarchy-20261010.png](workbench-team25-hierarchy-20261010.png) 与 [workbench-team25-mobile-20261010.png](workbench-team25-mobile-20261010.png)：2026-10-10 10:56（Asia/Singapore）当前桌面／手机顶栏。桌面主品牌 32px、TEAM 25 为 30px、LIVE DESK 保持 24px；第一行 56px，灰色篮球缩小，球场线从队伍文字下方连续延伸。截图来自本地真实 UI，未拼贴；[验证记录](../../../../handoffs/Linzeyu912/2026-10-10-1056-header-hierarchy.md)。
+
+[header-basketball-detail-20261010.jpg](header-basketball-detail-20261010.jpg)：2026-10-10 较早顶栏局部截图，2201 × 216。左上角篮球球缝拉开；当时灰色背景篮球放大约 2.2 倍、线宽增至 8px，球场只露出一个边角。后续比例与字标由上方当前截图替代；图片来自真实工作台，没有拼贴。
 
 [workbench-main-sync-20261010.png](workbench-main-sync-20261010.png)：2026-10-10 本轮实际工作台。LIVE DESK 微斜、三个主工作流与归档入口、解说先行和逐句控件；具体同步及验收见[说明](../../ui-main-sync-20261010.md)。画面内文字为明确标识的验收样稿，未调用真实模型。
 
