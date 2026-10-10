@@ -1,10 +1,52 @@
 /** Identity jobs are proposals. No transport response is allowed to mutate a draft. */
-export function createIdentityAgentClient({context,snapshot,onChange=()=>{},fetch:request=globalThis.fetch.bind(globalThis),schedule=setTimeout,cancelSchedule=clearTimeout}){
+const hasObservations=clip=>clip.frames?.some(frame=>frame.tracks?.some(row=>Number.isInteger(row[4])&&row[4]>0&&row.slice(0,4).every(Number.isFinite)&&row[2]>row[0]&&row[3]>row[1]));
+
+/** Reuse the existing detector queue; never submit an empty manual clip as a completed review. */
+export async function prepareInitialIdentityObservations({clip,sample,variant,detectorVariant='team-stable',fetch:request=globalThis.fetch.bind(globalThis),
+  onProgress=()=>{},isCurrent=()=>true,wait=()=>new Promise(resolve=>setTimeout(resolve,1200)),maxPolls=900}){
+  if(hasObservations(clip))return {clip,sample,variant};
+  const json=async(url,body)=>{const response=await request(url,body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:undefined);
+    const value=await response.json();if(!response.ok)throw new Error(value.error||'人物检测准备失败，请在视频库检查模型环境后重试。');return value;};
+  onProgress('当前视频缺少人物观察，正在准备检测器；已有人工草稿已保留。');
+  let job=await json('/api/video-library/process',{sample,variant:detectorVariant});
+  for(let attempt=0;attempt<maxPolls;attempt++){
+    if(!isCurrent())return null;
+    if(job.status==='error')throw new Error(job.message||'人物检测失败，请在视频库检查模型环境后重试。');
+    if(job.status==='ready'&&job.variant===detectorVariant){
+      const targetSample=job.sampleId||sample,targetClip=await json(`/api/clip?sample=${encodeURIComponent(targetSample)}&variant=${encodeURIComponent(detectorVariant)}`);
+      if(!isCurrent())return null;
+      if(!hasObservations(targetClip))throw new Error('检测已结束，但没有可用人物观察。请检查视频和检测模型；本轮身份初检尚未完成。');
+      return {clip:targetClip,sample:targetSample,variant:targetClip.tracking_revision||targetClip.variant||detectorVariant};
+    }
+    onProgress(job.message||'正在运行人物检测；完成后自动继续身份初检。');await wait();
+    if(!isCurrent())return null;
+    const catalog=await json('/api/video-library'),entry=catalog.entries?.find(item=>item.id===job.sampleId||item.sampleId===job.sampleId);
+    if(!entry)throw new Error('检测任务暂不在视频库中，请刷新视频库后重试初检；原草稿已保留。');
+    if(entry.status==='error')throw new Error(entry.message||'人物检测失败，请检查模型环境。');
+    if(entry.variants?.includes(detectorVariant))job={status:'ready',sampleId:entry.sampleId||entry.id,variant:detectorVariant};
+    else if(entry.status==='ready')job=await json('/api/video-library/process',{sample,variant:detectorVariant});
+    else job={...job,message:entry.message};
+  }
+  throw new Error('人物检测仍未完成，请在视频库查看任务状态，完成后重试初检。');
+}
+
+/** Carry an empty-detector draft only across a proven identical source/time grid. */
+export function initialIdentityDraftForPreparedClip(session,source,target){
+  if(session.videoHash!==source.video_sha256||source.video_sha256!==target.video_sha256||source.width!==target.width||source.height!==target.height||
+    source.frames.length!==target.frames.length||source.frames.some((frame,index)=>frame.frame!==target.frames[index].frame||frame.time!==target.frames[index].time))
+    throw new Error('检测结果的视频或帧时间与人工稿不同；原稿已保存，请从视频库打开检测结果后核对，不能自动迁移。');
+  if(session.entities.some(entity=>['anchors','bindings','identityKeyframes','modelBindings','machineIdentityBindings'].some(field=>
+    entity[field]?.some(item=>Number.isInteger(item.trackId)&&item.trackId>0))))
+    throw new Error('原稿含旧跟踪编号，不能直接套用新检测编号；已保存原稿，请在视频库打开检测结果后核对。');
+  return structuredClone(session);
+}
+
+export function createIdentityAgentClient({context,snapshot,onChange=()=>{},fetch:request=globalThis.fetch.bind(globalThis),schedule=setTimeout,cancelSchedule=clearTimeout,requestContext=()=>undefined,prepareInitialReview=null}){
   let status={available:false,message:'正在检查身份 Agent…'},job=null,error='',pending=false,base=null,epoch=0,timer=null;
   let selected=new Set(),edits=new Map();
   let displaySource=null,displayJob=null,editRevision=0,displayRevision=-1;
   let initialJob=null,initialError='',initialBase=null,initialPending=false,initialStarted=false,initialEpoch=0,initialTimer=null;
-  let initialAwaitingApplication=false;
+  let initialAwaitingApplication=false,initialContextKey=null;
   const explicitlyCancelledInitialTickets=new Set();
   const running=()=>['queued','preparing','analyzing','running','validating'].includes(job?.status);
   const stamp=()=>{const s=snapshot();return {session:JSON.stringify(s.session),revision:s.revision,entityId:s.entityId};};
@@ -17,11 +59,11 @@ export function createIdentityAgentClient({context,snapshot,onChange=()=>{},fetc
   const sourceQuery=()=>new URLSearchParams({...context,qa:context.qa?'1':'0'}).toString();
   function stopTimer(){if(timer!==null)cancelSchedule(timer);timer=null;}
   const initialRunning=()=>['queued','preparing','analyzing','running','validating'].includes(initialJob?.status);
-  const initialStamp=()=>{const s=snapshot();return {session:JSON.stringify(s.session),revision:s.revision};};
-  const initialStale=()=>{if(!initialBase)return initialJob?.status==='ready'&&!initialWasApplied();const now=initialStamp();return initialBase.compatible===false||now.session!==initialBase.session||now.revision!==initialBase.revision;};
+  const initialStamp=()=>{const s=snapshot();return {session:JSON.stringify(s.session),revision:s.revision,identityContext:JSON.stringify(requestContext()??null)};};
+  const initialStale=()=>{if(!initialBase)return initialJob?.status==='ready'&&!initialWasApplied();const now=initialStamp();return initialBase.compatible===false||now.session!==initialBase.session||now.revision!==initialBase.revision||now.identityContext!==initialBase.identityContext;};
   function initialWasApplied(){
     const marker=snapshot().session?.initialIdentityReview;
-    return Boolean(initialJob?.jobId&&marker?.sourceKey===initialJob.sourceKey&&
+    return Boolean(initialJob?.jobId&&(initialContextKey===null||initialStamp().identityContext===initialContextKey)&&marker?.sourceKey===initialJob.sourceKey&&
       (marker.generationJobId??marker.jobId)===(initialJob.generationJobId??initialJob.jobId));
   }
   function initialState(){return {job:initialJob,error:initialError,busy:initialPending||initialAwaitingApplication||initialRunning(),
@@ -66,10 +108,20 @@ export function createIdentityAgentClient({context,snapshot,onChange=()=>{},fetc
     if(initialPending||initialRunning())return initialJob;
     if(initialStarted&&!options.forceRetry&&!options.reuseCached&&!options.restore)return initialJob;
     initialStarted=true;stopInitialTimer();const ticket=++initialEpoch;
-    initialBase={...initialStamp(),compatible:true};initialError='';initialPending=true;initialAwaitingApplication=false;changed();
+    initialBase={...initialStamp(),compatible:true};initialContextKey=initialBase.identityContext;initialError='';initialPending=true;initialAwaitingApplication=false;changed();
     try{
-      if(!status.available)throw new Error(status.message||'身份 Agent 尚未配置；可直接手工编辑。');
+      const initialStatus=status.initialReview??status;
+      if(!initialStatus.available)throw new Error(initialStatus.message||'身份 Agent 尚未配置；可直接手工编辑。');
+      if(prepareInitialReview){
+        const previous=initialJob;initialJob={purpose:'initial_review',status:'preparing',message:'正在检查并准备人物检测观察…'};changed();
+        const prepared=await prepareInitialReview({isCurrent:()=>ticket===initialEpoch,onProgress:message=>{
+          if(ticket===initialEpoch){initialJob={...initialJob,message};changed();}
+        }});
+        if(ticket!==initialEpoch||prepared===false)return null;
+        initialJob=previous;initialBase={...initialStamp(),compatible:true};initialContextKey=initialBase.identityContext;
+      }
       const result=await json('/api/identity-agent/jobs',{...context,purpose:'initial_review',
+        ...(JSON.parse(initialBase.identityContext)?{identityContext:JSON.parse(initialBase.identityContext)}:{}),
         session:JSON.parse(initialBase.session),clientRevision:initialBase.revision,
         ...(options.forceRetry?{forceRetry:true}:{}),...(options.reuseCached?{reuseCached:true}:{})});
       if(ticket!==initialEpoch){
@@ -88,6 +140,8 @@ export function createIdentityAgentClient({context,snapshot,onChange=()=>{},fetc
     finally{if(ticket===initialEpoch){initialPending=false;changed();}}
   }
   async function retryInitialReview(){
+    if(initialContextKey!==null&&initialContextKey!==initialStamp().identityContext)return startInitialReview({forceRetry:true,restore:true});
+    if(initialJob?.candidate?.completionStatus==='partial')return startInitialReview({forceRetry:true,restore:true});
     if(initialJob?.candidate&&['ready','review_required'].includes(initialJob.status))return startInitialReview({reuseCached:true});
     return startInitialReview({forceRetry:true,restore:true});
   }
@@ -105,6 +159,7 @@ export function createIdentityAgentClient({context,snapshot,onChange=()=>{},fetc
     const ticket=initialEpoch,original=initialJob;initialPending=true;initialError='';changed();
     try{
       const value=await json(`/api/identity-agent/jobs/${encodeURIComponent(original.jobId)}/adopt`,{
+        ...(JSON.parse(initialBase.identityContext)?{identityContext:JSON.parse(initialBase.identityContext)}:{}),
         ...context,purpose:'initial_review',session:JSON.parse(initialBase.session),clientRevision:initialBase.serverRevision});
       if(ticket!==initialEpoch||initialStale())throw new Error('等待期间草稿或任务已变化；结果没有覆盖当前编辑。');
       if(value.purpose!=='initial_review'||value.jobId!==original.jobId||value.sourceKey!==original.sourceKey||value.base?.sessionDigest!==original.base.sessionDigest)

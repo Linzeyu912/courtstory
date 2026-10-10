@@ -6,7 +6,6 @@ limited to visible text and never confirms a person's identity.
 import base64
 import json
 import math
-import os
 from pathlib import Path
 import re
 import threading
@@ -17,6 +16,7 @@ from PIL import Image, ImageOps, ImageDraw, ImageFilter, ImageStat
 
 from identity_ocr import TEAM_ALIASES, jersey_number, team_codes
 from initial_identity_review import rows_at
+from environment_file import environment_values
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parents[1]
@@ -69,22 +69,9 @@ def _jpeg_request_payload(path,quality=85):
     return original if was_jpeg and len(original)<=len(compressed) else compressed
 
 
-def _load_server_config():
-    """Read only model configuration names from env / root .env; never return key."""
-    values = dict(os.environ)
-    path = REPO_ROOT / '.env'
-    if path.is_file():
-        for line in path.read_text(encoding='utf-8-sig').splitlines():
-            line = line.strip()
-            if not line or line.startswith('#') or '=' not in line:
-                continue
-            key, value = line.split('=', 1)
-            key, value = key.strip(), value.strip()
-            if len(value) >= 2 and value[0] == value[-1] and value[0] in ('"', "'"):
-                value = value[1:-1]
-            if key and key not in values:
-                values[key] = value
-    return values
+def _load_server_config(env_path=None):
+    """Read a known host config path; only sanitized status reaches the UI."""
+    return environment_values(env_path if env_path is not None else REPO_ROOT/'.env')
 
 
 class TokenPlanVision:
@@ -185,20 +172,13 @@ class OpenRouterVision(TokenPlanVision):
         return super().review(images, labels, context)
 
 
-def create_openrouter_name_provider(*, opener=None, timeout=120):
-    return OpenRouterVision(opener=opener, timeout=timeout)
+def create_openrouter_name_provider(env_path=None, *, opener=None, timeout=120):
+    return OpenRouterVision(config=_load_server_config(env_path),opener=opener, timeout=timeout)
 
 
 def create_qwen_token_plan_provider(env_path=None, *, opener=None, timeout=90):
     """Explicit opt-in factory for user-started Token Plan experiments only."""
-    config = _load_server_config()
-    if env_path is not None:
-        path = Path(env_path)
-        for line in path.read_text(encoding='utf-8-sig').splitlines():
-            line = line.strip()
-            if line and not line.startswith('#') and '=' in line:
-                key, value = line.split('=', 1)
-                config[key.strip()] = value.strip().strip('"\'')
+    config = _load_server_config(env_path)
     return TokenPlanVision(config=config, opener=opener, timeout=timeout)
 
 

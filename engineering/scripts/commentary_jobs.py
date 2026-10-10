@@ -16,7 +16,7 @@ import sys
 import threading
 import uuid
 
-from dotenv import dotenv_values
+from environment_file import environment_values
 
 from commentary_agent import ROOT as SCRIPT_ROOT, redact
 from commentary_tts import NATURAL_STYLE, STYLE, credentials as speech_credentials
@@ -57,9 +57,10 @@ def _safe_error(text, secrets=()):
 class CommentaryJobs:
     """Owns job files and subprocesses under a private server-side root."""
 
-    def __init__(self, root, python=sys.executable, model_config=None):
+    def __init__(self, root, python=sys.executable, model_config=None, env_file=None):
         self.root = Path(root).resolve()
         self.python = str(python)
+        self.env_file = Path(env_file) if env_file is not None else SCRIPT_ROOT / '.env'
         self.root.mkdir(parents=True, exist_ok=True)
         self._lock = threading.RLock()
         self._threads = set()
@@ -78,11 +79,11 @@ class CommentaryJobs:
                 _json(path, state)
 
     def status(self):
-        values = {**dotenv_values(SCRIPT_ROOT / ".env", encoding="utf-8-sig"), **os.environ}
+        values = environment_values(self.env_file)
         model = model_config(self.model_config)["model"]
         configured = bool(values.get("OPENROUTER_API_KEY") or values.get("OPEN_ROUTER_KEY"))
         try:
-            speech_credentials(SCRIPT_ROOT / '.env')
+            speech_credentials(self.env_file)
             tts_configured = True
         except ValueError:
             tts_configured = False
@@ -241,7 +242,7 @@ class CommentaryJobs:
             state["stage"] = "starting"
             _json(output / "job.json", state)
         try:
-            env_file = SCRIPT_ROOT / ".env"
+            env_file = self.env_file
             if state["action"] == "understand":
                 self._set_stage(output, state, "understanding")
                 obs = output / "observations.json"
@@ -360,8 +361,13 @@ class CommentaryJobs:
             state.update(status="completed", stage="complete", error=None)
         except Exception as exc:
             stderr = getattr(exc, "stderr", "") or getattr(exc, "stdout", "") or str(exc)
-            values = {**dotenv_values(SCRIPT_ROOT / ".env", encoding="utf-8-sig"), **os.environ}
-            secrets = [value for key, value in values.items() if "KEY" in key.upper() and isinstance(value, str)]
+            try:
+                values = environment_values(self.env_file)
+            except ValueError:
+                values = dict(os.environ)
+                stderr = '服务端配置读取失败；已省略子进程错误详情。'
+            secrets = [value for key, value in values.items()
+                       if any(part in key.upper() for part in ('KEY','TOKEN','SECRET','PASSWORD')) and isinstance(value, str)]
             state.update(status="failed", stage="failed", error=_safe_error(stderr, secrets))
         finally:
             with self._lock:

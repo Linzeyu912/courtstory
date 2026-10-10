@@ -99,6 +99,13 @@ test('stale initial result can be rebased explicitly but cannot be adopted; fail
   assert.equal(unavailable.button('重试自动初检').props.disabled,true);assert.equal(unavailable.button('直接人工修改').props.disabled,undefined);
 });
 
+test('initial video provider and partial completion remain distinct from legacy availability and complete coverage',()=>{
+  const f=initialFixture({identityAgent:{status:{available:false,initialReview:{available:true}}},initialReviewView:{job:{status:'ready'},ready:true,issues:[],completionStatus:'partial'}});
+  assert.notEqual(f.button('继续检查未完成区间').props.disabled,true);
+  assert(f.all.some(node=>node.type==='p'&&text(node).includes('部分')));
+  assert(!f.all.some(node=>node.props?.role==='status'&&text(node)==='初检已完成'));
+});
+
 function quickFixture(patch={}){
   const calls=[],api=new Proxy({},{get:(_,name)=>(...args)=>calls.push([name,...args])});
   const state={entity:{id:'P1'},entities:[{id:'P1',role:'player',name:'球员 1'},{id:'P2',role:'player',name:'球员 2'}],frame:2,frameTimes:[0,.1,.2,.3,.4],canUndo:true,reviewBusy:false,quickIdentity:{trackId:2,ownerId:'P1',targetId:'P1',action:'replace',range:{start:1,end:3},preview:{changed:3,affectedPlayers:{P2:2}}},...patch};

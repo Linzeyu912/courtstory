@@ -9,6 +9,22 @@ from commentary_agent import TOKEN_PLAN_URL, commentary_markdown, provider_envir
 
 
 class CommentaryDriverTests(unittest.TestCase):
+    def test_worker_proxy_opt_in_preserves_explicit_choices_and_unsupported_nodes(self):
+        import commentary_agent
+        self.assertTrue(hasattr(commentary_agent,'worker_environment'),'shared worker needs explicit proxy inheritance')
+        base={'HTTPS_PROXY':'http://127.0.0.1:7897','NO_PROXY':'localhost'}
+        with patch('commentary_agent.subprocess.run') as probe:
+            probe.return_value.stdout='--use-env-proxy'
+            self.assertEqual(commentary_agent.worker_environment('node',base)['NODE_USE_ENV_PROXY'],'1')
+            self.assertNotIn('NODE_USE_ENV_PROXY',base)
+            for setting in ('0','1',''):
+                actual=commentary_agent.worker_environment('node',{**base,'NODE_USE_ENV_PROXY':setting})
+                self.assertEqual(actual['NODE_USE_ENV_PROXY'],setting)
+            self.assertNotIn('NODE_USE_ENV_PROXY',commentary_agent.worker_environment('node',{**base,'NODE_OPTIONS':'--no-use-env-proxy'}))
+            self.assertNotIn('NODE_USE_ENV_PROXY',commentary_agent.worker_environment('node',{}))
+            probe.return_value.stdout='older node without proxy switch'
+            self.assertNotIn('NODE_USE_ENV_PROXY',commentary_agent.worker_environment('old-node',base))
+
     def test_exited_worker_keeps_failure_result_instead_of_broken_pipe_traceback(self):
         scratch = Path(__file__).resolve().parents[2] / "tmp"
         scratch.mkdir(exist_ok=True)
@@ -29,13 +45,13 @@ class CommentaryDriverTests(unittest.TestCase):
             self.assertEqual(result["workerExitCode"], 7)
 
     def test_openrouter_uses_its_own_key_and_model(self):
-        with patch('commentary_agent.dotenv_values', return_value={"OPEN_ROUTER_KEY": "test-router-token", "QWEN_TOKEN_PLAN_KEY": "other-token"}), patch.dict(os.environ, {}, clear=True):
+        with patch('commentary_agent.environment_values', return_value={"OPEN_ROUTER_KEY": "test-router-token", "QWEN_TOKEN_PLAN_KEY": "other-token"}), patch.dict(os.environ, {}, clear=True):
             child, secret = provider_environment(Path("unused"), "openrouter")
             self.assertEqual(secret, "test-router-token")
             self.assertEqual(child["COMMENTARY_PROVIDER"], "openrouter")
             self.assertEqual(child["OPENROUTER_MODEL"], "openai/gpt-6-astra")
             self.assertNotIn("QWEN_KEY", child)
-        with patch('commentary_agent.dotenv_values', return_value={"QWEN_TOKEN_PLAN_KEY": "other-token"}), patch.dict(os.environ, {}, clear=True):
+        with patch('commentary_agent.environment_values', return_value={"QWEN_TOKEN_PLAN_KEY": "other-token"}), patch.dict(os.environ, {}, clear=True):
             with self.assertRaisesRegex(ValueError, "OPENROUTER"):
                 provider_environment(Path("unused"), "openrouter")
 

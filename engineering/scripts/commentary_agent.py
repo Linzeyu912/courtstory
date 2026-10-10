@@ -12,7 +12,7 @@ import subprocess
 import threading
 import time
 
-from dotenv import dotenv_values
+from environment_file import environment_values
 
 from commentary_video import CommentaryVideo
 from commentary_plan import build_name_snapshot, model_config
@@ -24,7 +24,7 @@ TOKEN_PLAN_URL = "https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mod
 
 
 def provider_environment(env_file, provider, model=None):
-    values = {**dotenv_values(env_file, encoding="utf-8-sig"), **os.environ}
+    values = environment_values(env_file)
     if provider == "openrouter":
         key = values.get("OPENROUTER_API_KEY") or values.get("OPEN_ROUTER_KEY")
         if not key:
@@ -78,16 +78,41 @@ def commentary_markdown(result):
     return "\n".join(lines)
 
 
-def run_worker(video, context, overview, output, child_env, secret, config, goal):
+def worker_environment(node, child_env):
+    """Honor the host's existing proxy for Node fetch without changing global settings.
+
+    Node documents NODE_USE_ENV_PROXY since 24.0 / 22.21. Feature detection
+    avoids passing unsupported flags to older installations. Explicit choices
+    (including zero and NODE_OPTIONS) always win.
+    """
+    child = child_env.copy()
+    if ('NODE_USE_ENV_PROXY' in child or 'use-env-proxy' in child.get('NODE_OPTIONS','') or
+            not any(child.get(key) for key in ('HTTP_PROXY','HTTPS_PROXY','http_proxy','https_proxy'))):
+        return child
+    try:
+        probe=subprocess.run([node,'--help'],env=child,stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+            text=True,encoding='utf-8',timeout=5,
+            creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
+        if '--use-env-proxy' in probe.stdout:
+            child['NODE_USE_ENV_PROXY']='1'
+    except (OSError,subprocess.TimeoutExpired):
+        pass
+    return child
+
+
+def run_worker(video, context, overview, output, child_env, secret, config, goal, *,
+               worker_path=None, cancel_event=None, on_progress=None, rpc_methods=None, set_process=None):
     node = shutil.which("node")
     if not node:
         raise RuntimeError("Node.js is required; see agents/package.json")
     process = subprocess.Popen(
-        [node, str(WORKER)], cwd=ROOT, env=child_env,
+        [node, str(worker_path or WORKER)], cwd=ROOT, env=worker_environment(node,child_env),
         stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
         text=True, encoding="utf-8", bufsize=1,
         creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
     )
+    if set_process:
+        set_process(process)
     messages = queue.Queue()
     errors = []
 
@@ -121,9 +146,13 @@ def run_worker(video, context, overview, output, child_env, secret, config, goal
         "inspect_region": video.inspect_region,
         "get_observations": video.get_observations,
     }
+    methods.update(rpc_methods or {})
     try:
         send({"type": "start", "context": context, "overview": overview, "config": config, "goal": goal})
         while time.monotonic() - started < config["timeoutSeconds"] + 10:
+            if cancel_event is not None and cancel_event.is_set():
+                result = {"status": "cancelled", "plan": None, "error": "任务已取消。"}
+                break
             try:
                 line = messages.get(timeout=0.5)
             except queue.Empty:
@@ -159,6 +188,8 @@ def run_worker(video, context, overview, output, child_env, secret, config, goal
                 result = message.get("result")
                 break
             elif kind in ("progress", "status"):
+                if on_progress:
+                    on_progress(message)
                 if message.get("status") == "checkpoint" and isinstance(message.get("safePlan"), dict):
                     checkpoint = json.loads(redact(json.dumps(message["safePlan"], ensure_ascii=False), secret))
                     write_json(output / "draft.json", checkpoint)

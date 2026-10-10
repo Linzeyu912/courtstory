@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 1,
+  "gameId": "0022500160",
+  "gameDate": "2025-11-03",
+  "season": "2025-26",
+  "teams": [
+    "DAL",
+    "HOU"
+  ],
+  "sourceUrl": "https://www.nba.com/game/dal-vs-hou-0022500160/box-score",
+  "retrievedDate": "2026-10-10",
+  "retrievedAt": "2026-10-10T01:41:28.670182+00:00",
+  "scope": "Official final game box-score participants and explicitly listed DNP rows. Only played=true rows are name candidates. This does not establish who is visible in a video frame.",
+  "sources": [
+    {
+      "id": "nba_game_page",
+      "url": "https://www.nba.com/game/dal-vs-hou-0022500160/box-score",
+      "retrievedAt": "2026-10-10T01:41:28.670182+00:00",
+      "rawHtmlSha256": "fe9b6dd8c307bd1843e2b30c3796ed6f762df90f91b924dd7e20678d835c7417",
+      "extractedNextDataSha256": "17e0fe198f9164ef0a78556b27e07b2f1f63f44d41fe84ff9f4187b444f8cca3",
+      "rootPointer": "/props/pageProps/game"
+    }
+  ],
+  "fieldProvenance": {
+    "nbaPlayerId,name,jersey": "nba_game_page: homeTeamPlayers / awayTeamPlayers, joined by personId to the same-game team players array. jerseyNum remains text.",
+    "played,participationStatus,minutesRaw,officialComment": "nba_game_page: homeTeam.players / awayTeam.players. Positive minutes with no nonparticipation comment => played; explicit DNP comment with blank minutes => not played."
+  },
+  "players": [
+    {
+      "team": "DAL",
+      "jersey": "31",
+      "name": "Klay Thompson",
+      "nbaPlayerId": "202691",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "18:00",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/0"
+    },
+    {
+      "team": "DAL",
+      "jersey": "25",
+      "name": "P.J. Washington",
+      "nbaPlayerId": "1629023",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "35:54",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/1"
+    },
+    {
+      "team": "DAL",
+      "jersey": "21",
+      "name": "Daniel Gafford",
+      "nbaPlayerId": "1629655",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "24:51",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/2"
+    },
+    {
+      "team": "DAL",
+      "jersey": "32",
+      "name": "Cooper Flagg",
+      "nbaPlayerId": "1642843",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "33:57",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/3"
+    },
+    {
+      "team": "DAL",
+      "jersey": "00",
+      "name": "Max Christie",
+      "nbaPlayerId": "1631108",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "32:39",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/4"
+    },
+    {
+      "team": "DAL",
+      "jersey": "7",
+      "name": "Dwight Powell",
+      "nbaPlayerId": "203939",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "9:10",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/5"
+    },
+    {
+      "team": "DAL",
+      "jersey": "13",
+      "name": "Naji Marshall",
+      "nbaPlayerId": "1630230",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "21:51",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/6"
+    },
+    {
+      "team": "DAL",
+      "jersey": "5",
+      "name": "D'Angelo Russell",
+      "nbaPlayerId": "1626156",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "28:53",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/7"
+    },
+    {
+      "team": "DAL",
+      "jersey": "1",
+      "name": "Jaden Hardy",
+      "nbaPlayerId": "1630702",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "7:52",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/8"
+    },
+    {
+      "team": "DAL",
+      "jersey": "30",
+      "name": "Moussa Cisse",
+      "nbaPlayerId": "1630619",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "13:53",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/9"
+    },
+    {
+      "team": "DAL",
+      "jersey": "10",
+      "name": "Brandon Williams",
+      "nbaPlayerId": "1630314",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "8:18",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/10"
+    },
+    {
+      "team": "DAL",
+      "jersey": "16",
+      "name": "Caleb Martin",
+      "nbaPlayerId": "1628997",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "4:42",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/11"
+    },
+    {
+      "team": "DAL",
+      "jersey": "9",
+      "name": "Ryan Nembhard",
+      "nbaPlayerId": "1642948",
+      "played": false,
+      "participationStatus": "did_not_play",
+      "minutesRaw": null,
+      "officialComment": "DNP - Coach's Decision",
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/awayTeam/players/12"
+    },
+    {
+      "team": "HOU",
+      "jersey": "7",
+      "name": "Kevin Durant",
+      "nbaPlayerId": "201142",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "38:24",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/0"
+    },
+    {
+      "team": "HOU",
+      "jersey": "17",
+      "name": "Tari Eason",
+      "nbaPlayerId": "1631106",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "29:38",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/1"
+    },
+    {
+      "team": "HOU",
+      "jersey": "28",
+      "name": "Alperen Sengun",
+      "nbaPlayerId": "1630578",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "39:49",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/2"
+    },
+    {
+      "team": "HOU",
+      "jersey": "20",
+      "name": "Josh Okogie",
+      "nbaPlayerId": "1629006",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "24:39",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/3"
+    },
+    {
+      "team": "HOU",
+      "jersey": "1",
+      "name": "Amen Thompson",
+      "nbaPlayerId": "1641708",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "39:05",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/4"
+    },
+    {
+      "team": "HOU",
+      "jersey": "12",
+      "name": "Steven Adams",
+      "nbaPlayerId": "203500",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "23:08",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/5"
+    },
+    {
+      "team": "HOU",
+      "jersey": "15",
+      "name": "Reed Sheppard",
+      "nbaPlayerId": "1642263",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "16:31",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/6"
+    },
+    {
+      "team": "HOU",
+      "jersey": "8",
+      "name": "Jae'Sean Tate",
+      "nbaPlayerId": "1630256",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "8:29",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/7"
+    },
+    {
+      "team": "HOU",
+      "jersey": "30",
+      "name": "Clint Capela",
+      "nbaPlayerId": "203991",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "10:36",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/8"
+    },
+    {
+      "team": "HOU",
+      "jersey": "0",
+      "name": "Aaron Holiday",
+      "nbaPlayerId": "1628988",
+      "played": true,
+      "participationStatus": "played",
+      "minutesRaw": "9:42",
+      "officialComment": null,
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/9"
+    },
+    {
+      "team": "HOU",
+      "jersey": "32",
+      "name": "Jeff Green",
+      "nbaPlayerId": "201145",
+      "played": false,
+      "participationStatus": "did_not_play",
+      "minutesRaw": null,
+      "officialComment": "DNP - Coach's Decision",
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/10"
+    },
+    {
+      "team": "HOU",
+      "jersey": "00",
+      "name": "Kevon Harris",
+      "nbaPlayerId": "1630284",
+      "played": false,
+      "participationStatus": "did_not_play",
+      "minutesRaw": null,
+      "officialComment": "DNP - Coach's Decision",
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/11"
+    },
+    {
+      "team": "HOU",
+      "jersey": "10",
+      "name": "Jabari Smith Jr.",
+      "nbaPlayerId": "1631095",
+      "played": false,
+      "participationStatus": "did_not_play",
+      "minutesRaw": null,
+      "officialComment": "DNP - Injury/Illness",
+      "sourceRef": "nba_game_page",
+      "sourcePointer": "/props/pageProps/game/homeTeam/players/12"
+    }
+  ],
+  "limitations": [
+    "Only the official page box-score rows are represented; inactive players absent from those rows are not reconstructed.",
+    "The unchanged PlayerGameRoster consumer returns normalized name keys, not these NBA IDs. NBA IDs are preserved as source data only.",
+    "minutesRaw is the exact NBA page string and is not a calibrated video timestamp."
+  ],
+  "counts": {
+    "listed": 26,
+    "played": 22,
+    "didNotPlay": 4
+  }
+}

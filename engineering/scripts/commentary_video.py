@@ -527,6 +527,10 @@ class CommentaryVideo:
             raise ValueError("trackIds must be a list of at most 32 integer track identifiers")
         if requested is not None and requested_tracks is not None and len(requested) + len(requested_tracks) > 32:
             raise ValueError("At most 32 entity or track identifiers may be requested")
+        # Optional empty arrays are not a selection. Discover available tracks
+        # unless at least one selector actually names an entity or track.
+        requested = requested or None
+        requested_tracks = requested_tracks or None
         if self._observations is None or self._observation_source_state == "mismatch":
             return {"status": "unknown", "source": "unavailable", "sourceState": self._observation_source_state,
                     "startTime": start,

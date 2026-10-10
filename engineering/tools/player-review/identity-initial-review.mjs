@@ -1,13 +1,18 @@
 import {identityAt,frameIdentityConfirmed,filterDismissedModelBindings} from './identity-timeline.mjs';
+import {applyPlayerNameIdentities} from './player-name-identity.mjs';
 
 const copy=value=>structuredClone(value);
 const lists=['modelBindings','anchors','courtAnchors','bindings','identityKeyframes','frameConfirmations','visibilityRanges','dismissedModelBindings'];
+const nameLists=['machineNameIdentities','machineIdentityBindings','machineNameIdentityConflicts'];
+const nameObjects=['nameIdentity','playerProfile','machinePlayerProfile'];
+const normalizeBasis=basis=>({...basis,...Object.fromEntries(nameLists.map(k=>[k,basis?.[k]??[]])),...Object.fromEntries(nameObjects.map(k=>[k,basis?.[k]??null]))});
 const stable=value=>JSON.stringify(value,(_key,item)=>item&&typeof item==='object'&&!Array.isArray(item)?Object.fromEntries(Object.entries(item).sort(([a],[b])=>a<b?-1:a>b?1:0)):item);
 export function initialIdentitySlotBasis(session){
   return Object.fromEntries(session.entities.filter(e=>e.role==='player').map(e=>[e.id,{
     ...Object.fromEntries(lists.map(k=>[k,copy(e[k]??[])])),
     ...Object.fromEntries(['name','team','jersey'].map(k=>[k,e[k]??''])),
-    identityReference:copy(e.identityReference??null),identitySuggestionsDismissed:e.identitySuggestionsDismissed??false}]));
+    identityReference:copy(e.identityReference??null),identitySuggestionsDismissed:e.identitySuggestionsDismissed??false,
+    ...Object.fromEntries(nameLists.map(k=>[k,copy(e[k]??[])])),...Object.fromEntries(nameObjects.map(k=>[k,copy(e[k]??null)]))}]));
 }
 const observed=(clip,frame,track)=>{
   const rows=(clip.frames[frame]?.tracks??[]).filter(r=>r[4]===track);
@@ -19,7 +24,7 @@ const risk=(clip,frame,track)=>{
 function validate(result,clip){
   const b=result?.base,c=result?.candidate;
   if(result?.purpose!=='initial_review'||typeof result.jobId!=='string'||!result.jobId||typeof result.sourceKey!=='string'||!result.sourceKey||
-    result.algoVersion!=='initial-identity-review-v1'||b?.videoHash!==clip.video_sha256||b?.trackingFingerprint!==clip.tracking_fingerprint||b?.trackingRevision!==clip.tracking_revision||
+    !['initial-identity-review-v1','video-identity-review-v2'].includes(result.algoVersion)||b?.videoHash!==clip.video_sha256||b?.trackingFingerprint!==clip.tracking_fingerprint||b?.trackingRevision!==clip.tracking_revision||
     c?.schemaVersion!==1||c.identityVerified!==false||c.reviewRequired!==true||!Array.isArray(c.subjects)||!Array.isArray(c.segments)||!Array.isArray(c.issues)||!c.slotBasis)
     throw new Error('初检结果与当前视频、跟踪版本或候选合同不符，未修改草稿。');
   const people=new Map();for(const p of c.subjects){
@@ -56,9 +61,21 @@ export function applyInitialIdentityReview(session,result,clip){
   const report={changedModelBindings:0,excludedObservations:0,preservedHuman:0,issues:copy(result.candidate.issues)};
   if(session.initialIdentityReview?.generationJobId===generationJobId&&session.initialIdentityReview?.sourceKey===result.sourceKey)
     return {session:copy(session),report:{...report,alreadyApplied:true}};
-  const next=copy(session),people=new Map(next.entities.map(e=>[e.id,e])),basis=initialIdentitySlotBasis(session);
+  let next=copy(session);const people=new Map(next.entities.map(e=>[e.id,e])),basis=initialIdentitySlotBasis(session);
   const cuts=new Set([...(session.cuts??[]),...(clip.sourceCuts??[])]),count=clip.frames.length;
-  const changedSlots=new Set([...people.values()].filter(e=>e.role==='player'&&stable(basis[e.id])!==stable(result.candidate.slotBasis[e.id])).map(e=>e.id));
+  const prior=session.initialIdentityReview;
+  const changedSlots=new Set([...people.values()].filter(e=>{
+    if(e.role!=='player')return false;
+    const current=stable(basis[e.id]),input=stable(normalizeBasis(result.candidate.slotBasis[e.id]));
+    if(current===input)return false;
+    // A partial retry keeps the original Agent basis. Only our exact previous
+    // application from this source is eligible for continuation; human edits
+    // between runs still differ from the saved after-state and remain protected.
+    return !(result.algoVersion==='video-identity-review-v2'&&prior?.algoVersion===result.algoVersion&&
+      result.candidate.resumeFrom&&(prior.jobId===result.candidate.resumeFrom||prior.generationJobId===result.candidate.resumeFrom)&&
+      prior.sourceKey===result.sourceKey&&prior.slotBasisBefore?.[e.id]&&prior.slotBasisAfter?.[e.id]&&
+      input===stable(normalizeBasis(prior.slotBasisBefore[e.id]))&&current===stable(prior.slotBasisAfter[e.id]));
+  }).map(e=>e.id));
   const issues=new Map();const addIssue=(kind,s,reason)=>{
     const key=`${kind}:${s.id??s.entityId??s.trackId}`;
     if(!issues.has(key))issues.set(key,{id:`apply-${issues.size+1}`,kind,entityId:s.entityId??null,trackId:s.trackId??null,
@@ -67,8 +84,8 @@ export function applyInitialIdentityReview(session,result,clip){
   const protections=new Map(),frozen=new Map();
   for(const e of session.entities){
     const set=new Set();for(let f=0;f<count;f++){
-      const identity=identityAt(e,f,[...cuts],clip.frames[f]);
-      if(identity&&identity.identitySource!=='model_suggestion'||
+      const identity=identityAt(e,f,[...cuts],clip.frames[f],clip);
+      if(identity&&!['model_suggestion','machine_name_binding'].includes(identity.identitySource)||
         frameIdentityConfirmed(e,{frame:f,x:0,y:0,trackId:identity?.trackId??null,source:'tracked'},identity)||
         (e.anchors??[]).some(a=>a.frame===f)||(e.courtAnchors??[]).some(a=>a.frame===f)||
         (e.frameConfirmations??[]).some(a=>a.frame===f)||(e.visibilityRanges??[]).some(r=>r.start<=f&&f<=r.end))set.add(f);
@@ -78,6 +95,7 @@ export function applyInitialIdentityReview(session,result,clip){
     const retained=new Set();for(const [i,b] of (e.modelBindings??[]).entries())if([...set].some(f=>b.start<=f&&f<=b.end)){
       retained.add(i);for(let f=b.start;f<=b.end;f++)set.add(f);
     }
+    for(const b of e.machineIdentityBindings??[])if([...set].some(f=>b.start<=f&&f<=b.end))for(let f=b.start;f<=b.end;f++)set.add(f);
     protections.set(e.id,set);frozen.set(e.id,retained);
   }
   const claims=new Map();
@@ -105,12 +123,12 @@ export function applyInitialIdentityReview(session,result,clip){
     const s=list[0],f=Number(key.split(':')[0]);
     if(new Set(list.map(s=>`${s.subjectId}:${s.entityId}:${s.role}`)).size>1)continue;
     if(s.role==='player'&&targets.get(`${f}:${s.entityId}`)?.conflict){addIssue('identity_conflict',s,'同一球员槽位在本帧对应多个框，未自动关联。');continue;}
-    if(session.entities.some(e=>changedSlots.has(e.id)&&(e.modelBindings??[]).some(b=>b.trackId===s.trackId&&b.start<=f&&f<=b.end))){
+    if(session.entities.some(e=>changedSlots.has(e.id)&&[...e.modelBindings??[],...e.machineIdentityBindings??[]].some(b=>b.trackId===s.trackId&&b.start<=f&&f<=b.end))){
       addIssue('slot_basis_changed',s,'该观察在当前草稿中的球员归属已变化，未用缓存结果替换。');continue;
     }
     const blocked=session.entities.some(e=>{
       if(!protections.get(e.id).has(f))return false;
-      const identity=identityAt(e,f,[...cuts],clip.frames[f]);
+      const identity=identityAt(e,f,[...cuts],clip.frames[f],clip);
       return e.id===s.entityId||identity?.trackId===s.trackId||identity?.candidateTrackIds?.includes(s.trackId)||
         (e.anchors??[]).some(a=>a.frame===f&&a.trackId===s.trackId);
     });
@@ -119,7 +137,7 @@ export function applyInitialIdentityReview(session,result,clip){
     if(!dismissed.length){addIssue('manual_exclusion',s,'该观察已被人工排除，未自动恢复。');continue;}
     for(const e of next.entities){
       const map=removals.get(e.id),frames=map.get(s.trackId)??new Set();frames.add(f);map.set(s.trackId,frames);
-      if(e.id===s.entityId)for(const b of e.modelBindings??[]){const own=map.get(b.trackId)??new Set();own.add(f);map.set(b.trackId,own);}
+      if(e.id===s.entityId)for(const b of [...e.modelBindings??[],...e.machineIdentityBindings??[],...e.machineNameIdentities??[]]){const own=map.get(b.trackId)??new Set();own.add(f);map.set(b.trackId,own);}
     }
     const store=s.role==='player'?additions:exclusions;
     const group=store.get(s.id)??{segment:s,frames:[]};group.frames.push(f);store.set(s.id,group);
@@ -127,6 +145,11 @@ export function applyInitialIdentityReview(session,result,clip){
   for(const e of next.entities){
     const before=copy(e.modelBindings??[]),map=removals.get(e.id);
     if(before.some(b=>map.get(b.trackId)?.size))e.modelBindings=before.flatMap((b,i)=>frozen.get(e.id).has(i)||!map.has(b.trackId)?[b]:subtract(b,map.get(b.trackId),cuts));
+    // Old name/correction records must not follow a newly assigned P/T interval.
+    for(const field of ['machineNameIdentities','machineIdentityBindings'])if(e[field]?.length){
+      const previous=stable(e[field]);e[field]=e[field].flatMap(b=>map.has(b.trackId)?subtract(b,map.get(b.trackId),cuts):[b]);
+      if(field==='machineNameIdentities'&&previous!==stable(e[field]))delete e.machinePlayerProfile;
+    }
   }
   for(const {segment:s,frames} of additions.values()){
     const e=people.get(s.entityId);e.modelBindings??=[];
@@ -140,9 +163,42 @@ export function applyInitialIdentityReview(session,result,clip){
     report.excludedObservations+=range.end-range.start+1;
   }
   report.issues.push(...issues.values());
+  if(result.candidate.playerNames){
+    const names=copy(result.candidate.playerNames),allowed=new Map();
+    for(const {segment:s,frames} of additions.values())for(const f of frames){
+      const identity=identityAt(people.get(s.entityId),f,[...cuts],clip.frames[f],clip);
+      if(identity?.kind==='track'&&identity.trackId===s.trackId){const key=`${s.entityId}:${s.trackId}`,set=allowed.get(key)??new Set();set.add(f);allowed.set(key,set);}
+    }
+    const retained=(item)=>{const set=allowed.get(`${item.entityId}:${Number(item.trackId)}`);return set?[...set].filter(f=>item.start<=f&&f<=item.end):[];};
+    if(!Array.isArray(names.candidate?.candidates))throw new Error('姓名候选合同不完整，未修改草稿。');
+    names.candidate.candidates=names.candidate.candidates.flatMap(item=>ranges(retained(item),cuts).map(range=>({...item,...range})));
+    const namedIds=new Set(names.candidate.candidates.map(item=>item.entityId));
+    names.candidate.playerProfiles=(names.candidate.playerProfiles??[]).filter(item=>namedIds.has(item.entityId));
+    // Retain name ambiguity inside accepted observations, without letting a name
+    // issue release a binding that the identity guard deliberately preserved.
+    const trimIssueRange=(item,entityId)=>{
+      const tracks=item.trackId==null?[...allowed.keys()].filter(key=>key.startsWith(`${entityId}:`)).map(key=>Number(key.split(':')[1])):[Number(item.trackId)];
+      return tracks.flatMap(trackId=>ranges(retained({...item,entityId,trackId}),cuts).map(range=>({...item,trackId,...range})));
+    };
+    report.issues.push(...copy(names.candidate.issues??[]));
+    names.candidate.issues=(names.candidate.issues??[]).flatMap(issue=>{
+      if(!namedIds.has(issue.entityId))return [];
+      if(issue.kind==='association_conflict')return trimIssueRange(issue,issue.entityId);
+      if(issue.kind!=='identity_conflict')return [];
+      return [{...issue,segments:(issue.segments??[]).flatMap(item=>trimIssueRange(item,issue.entityId)),
+        blockedSegments:(issue.blockedSegments??issue.ambiguousSegments??[]).flatMap(item=>trimIssueRange(item,issue.entityId))}];
+    });
+    const profilesBefore=new Map(next.entities.map(entity=>[entity.id,copy(entity.machinePlayerProfile)]));
+    const applied=applyPlayerNameIdentities(next,names,clip);next=applied.session;report.playerNames=applied.report;
+    for(const entity of next.entities)if(entity.machinePlayerProfile?.jobId===names.jobId&&
+      !(entity.machineNameIdentities??[]).some(record=>record.jobId===names.jobId&&record.sourceKey===names.sourceKey)){
+      const previous=profilesBefore.get(entity.id);if(previous)entity.machinePlayerProfile=previous;else delete entity.machinePlayerProfile;
+    }
+  }
   next.initialIdentityReview={version:1,jobId:result.jobId,generationJobId,sourceKey:result.sourceKey,algoVersion:result.algoVersion,
     videoHash:clip.video_sha256,trackingFingerprint:clip.tracking_fingerprint,trackingRevision:clip.tracking_revision,
     identityVerified:false,reviewRequired:true,exclusions:excluded,subjects:copy(result.candidate.subjects),
-    summary:result.candidate.summary,issues:copy(report.issues),report:copy(report)};
+    ...(result.algoVersion==='video-identity-review-v2'?{slotBasisBefore:copy(result.candidate.slotBasis),slotBasisAfter:initialIdentitySlotBasis(next)}:{}),
+    summary:result.candidate.summary,completionStatus:result.candidate.completionStatus??'completed',coverage:copy(result.candidate.coverage??null),issues:copy(report.issues),report:copy(report)};
   return {session:next,report};
 }

@@ -8,6 +8,9 @@ import {sceneObjectsAt,updateSceneObject} from './scene-objects.mjs';
 import {acceptCourtCandidates,invalidateCameraDependents,confirmCalibrationProjection} from './calibration-guide.mjs';
 import {calibrationAt} from './court.mjs';
 import {createWorkspace} from './workspace.mjs';
+import {initialIdentitySlotBasis} from './identity-initial-review.mjs';
+import {mountPlayerNameUI} from './player-name-ui.mjs';
+import {createPlayerNameClient} from './player-name-client.mjs';
 
 const image=[[100,100],[400,120],[350,350],[50,330]];
 const frames=Array.from({length:9},(_,frame)=>({frame,time:frame/30,
@@ -50,7 +53,7 @@ function domFixture(){
     },
     insertBefore(child,before){this.children.splice(this.children.indexOf(before),0,child);},get lastChild(){return this.children.at(-1);},
     setAttribute(key,value){this.attributes[key]=value;},getAttribute(key){return this.attributes[key]??null;},removeAttribute(key){delete this.attributes[key];},contains:()=>false,
-    addEventListener(key,fn){(this.listeners[key]||=[]).push(fn);},focus(){},scrollIntoView(){},
+    addEventListener(key,fn){(this.listeners[key]||=[]).push(fn);},click(){this.onclick?.({target:this});for(const handler of this.listeners.click||[])handler({target:this});},focus(){},scrollIntoView(){},
     getContext:()=>context,getBoundingClientRect:()=>({left:0,top:0,width:1280,height:720}),
     setPointerCapture(){},hasPointerCapture:()=>false,releasePointerCapture(){},
     pause(){this.paused=true;},play(){this.paused=false;return Promise.resolve();},requestVideoFrameCallback(){}};return node;};
@@ -440,5 +443,116 @@ test('identity reference actions in the actual app require the decoded target fr
     assert.equal(references.length,1);assert.equal(references[0].reference.frame,4);
     dom.get('undo').click=()=>{for(const handler of dom.get('undo').listeners.click||[])handler({});};
     uiApi.undo();assert.deepEqual(workspaceApi.getState().session,before,'one undo restores the complete pre-reference draft');
+  }finally{dom.restore();}
+});
+
+for(const fromSample of [false,true])test(`actual app runs one video review with ${fromSample?'sample':'saved'} roster context, saves atomic names and supplies Part 3 plus undo`,async()=>{
+  const dom=domFixture();
+  try{
+    const session=blankSession('video'),nameContext={season:'2025-26',teamMap:{A:'HOU',B:'DAL'},gameId:'0022500701'};
+    if(!fromSample)session.identityContext={...nameContext,teamMap:{A:'HOU',B:'LAL'}};
+    const key=draftStorageKey(clip,'ebard',true),saved=new Map([[key,JSON.stringify(session)]]),calls=[],nameCalls=[];
+    const policy=JSON.parse(readFileSync(new URL('./team-overlay-policy.json',import.meta.url)));let initial;
+    Object.assign(globalThis,{localStorage:{getItem:key=>saved.get(key)||null,setItem:(key,value)=>saved.set(key,value)},
+      fetch:async(url,options)=>{
+        let value;
+        if(url==='/api/library')value={defaultSample:'test',samples:[{id:'test',defaultVariant:'ebard',nameContext}]};
+        else if(url.startsWith('/api/commentary?'))value={status:{},plan:null,job:null};
+        else if(url==='/team-overlay-policy.json')value=policy;
+        else if(url==='/api/identity-agent/status')value={available:false,initialReview:{available:true}};
+        else if(url.startsWith('/api/player-name-identity/status'))value={available:false,message:'独立姓名服务未配置'};
+        else if(url.startsWith('/api/player-name-identity/jobs')){nameCalls.push(url);throw new Error('No independent name job is needed');}
+        else if(url==='/api/identity-agent/jobs'){
+          const request=JSON.parse(options.body);calls.push(request);
+          const base={videoHash:'video',trackingFingerprint:'rich-draft-key',trackingRevision:'ebard',sessionDigest:'fixture',clientRevision:request.clientRevision};
+          value=initial={purpose:'initial_review',jobId:'video-1',generationJobId:'video-1',sourceKey:'source-1',algoVersion:'video-identity-review-v2',status:'ready',matchesCurrentInput:true,base,
+            candidate:{schemaVersion:1,identityVerified:false,reviewRequired:true,completionStatus:'partial',issues:[],slotBasis:initialIdentitySlotBasis(request.session),summary:'fixture',
+              subjects:[{subjectId:'s1',entityId:'P1',role:'player',reason:'visible player'}],
+              segments:[{id:'s1',subjectId:'s1',entityId:'P1',role:'player',trackId:7,start:0,end:8,confidence:.9,evidenceFrames:[0,8],reason:'observed throughout'}],
+              playerNames:{purpose:'player_names',jobId:'names-1',sourceKey:'names-source',base,candidate:{verified:false,candidates:[{entityId:'P1',trackId:7,start:0,end:8,status:'candidate',nameCandidate:{name:'Test Player',jersey:'00',team:'HOU',season:'2025-26',lookupStatus:'unique_candidate'},evidence:[{frame:0,trackId:7}],evidenceMethod:'direct_jersey'}]}}}};
+        }else if(url.includes('/api/identity-agent/jobs/')&&url.endsWith('/adopt'))value=initial;
+        else value=clip;
+        return {ok:true,json:async()=>value};
+      }});
+    let uiApi,workspaceApi,tacticsApi;
+    const source=readFileSync(new URL('./app.mjs',import.meta.url),'utf8'),imports=[...source.matchAll(/^import \{([^}]+)\} from '([^']+)';$/gm)],dependencies={};
+    for(const match of imports){
+      if(match[2]==='./ui.bundle.mjs'){
+        dependencies.mountIdentityUI=api=>{uiApi=api;return {render(){}};};
+        dependencies.mountVideoDisplay=()=>({pause(){},seek(){},play(){}});continue;
+      }
+      if(match[2]==='./footage-ui.mjs'){dependencies.mountFootageUI=()=>({render(){}});continue;}
+      if(match[2]==='./workspace.mjs'){dependencies.createWorkspace=api=>{workspaceApi=api;return {refresh(){},draw(){},drawImageOverlay(){},switchStep(){},handleImageClick:()=>false};};continue;}
+      if(match[2]==='./tactics-ui.mjs'){dependencies.mountTacticsUI=api=>{tacticsApi=api;return {render(){},saveDraft(){},syncNameOverlay(){}};};continue;}
+      const module=await import(new URL(match[2],import.meta.url));
+      for(const specifier of match[1].split(',')){const [name,alias=name]=specifier.trim().split(/\s+as\s+/);dependencies[alias]=module[name];}
+    }
+    const AsyncFunction=Object.getPrototypeOf(async function(){}).constructor;
+    await new AsyncFunction(...Object.keys(dependencies),source.replace(/^import .*;\r?\n/gm,''))(...Object.values(dependencies));
+    await new Promise(resolve=>setImmediate(resolve));
+    assert.equal(calls.length,1);assert.deepEqual(calls[0].identityContext,fromSample?nameContext:session.identityContext);
+    const persisted=JSON.parse(saved.get(key));assert.equal(persisted.entities[0].machineNameIdentities[0].name,'Test Player');
+    assert.equal(persisted.initialIdentityReview.identityVerified,false);
+    const namePanel=dom.get('playerNameIdentityTools').children[0];
+    assert.match(namePanel.children[5].textContent,/初检.*已保存/);
+    assert.match(namePanel.children[6].children.map(row=>row.textContent).join('\n'),/Test Player.*机器候选.*待人工审核/);
+    const reloaded=JSON.parse(saved.get(key)),reloadRoot=document.createElement('div');
+    const reloadClient=createPlayerNameClient({context:{sample:'test',variant:'ebard',qa:true},snapshot:()=>({session:reloaded,revision:0,clip})});
+    const reloadUI=mountPlayerNameUI({root:reloadRoot,client:reloadClient,api:{getState:()=>({session:reloaded,clip,nameContext,trajectories:buildTrajectories(reloaded,clip.frames,clip.sourceCuts,clip)})}});
+    await new Promise(resolve=>setImmediate(resolve));
+    assert.match(reloadRoot.children[0].children[5].textContent,/初检.*已保存/);
+    assert.match(reloadRoot.children[0].children[6].children.map(row=>row.textContent).join('\n'),/Test Player.*机器候选/);
+    assert.equal(nameCalls.length,0,'applied and reloaded names do not start an independent model job');reloadUI.dispose();
+    assert.equal(tacticsApi.nameOverlaySnapshot().playerNameIdentities[0].observations[0].nameIdentity.name,'Test Player');
+    assert.equal(tacticsApi.nameOverlaySnapshot().playerNameIdentities[0].observations[0].nameIdentity.identityVerified,false);
+    assert.equal(tacticsApi.snapshot().entities[0].machineNameIdentities[0].jersey,'00');
+    uiApi.setField('name','Human audit');assert.equal(workspaceApi.getState().session.entities[0].name,'Human audit');
+    uiApi.undo();assert.equal(JSON.parse(saved.get(key)).entities[0].machineNameIdentities[0].name,'Test Player');
+    uiApi.undo();assert.equal(JSON.parse(saved.get(key)).entities[0].machineNameIdentities,undefined);
+    assert.match(namePanel.children[5].textContent,/尚未开始/);
+    assert.equal(tacticsApi.nameOverlaySnapshot().playerNameIdentities[0].observations[0].nameIdentity,null);
+    assert.equal(calls.length,1,'undo does not rerun the model');
+  }finally{dom.restore();}
+});
+
+test('actual app prepares a manual import before agent submission and carries its compatible human draft to detector results',async()=>{
+  const dom=domFixture();
+  try{
+    const manual={...clip,tracking_revision:'manual',tracking_fingerprint:'manual-grid',frames:frames.map(record=>({...record,tracks:[]}))};
+    const detected={...clip,tracking_revision:'team-stable',tracking_fingerprint:'detected-grid'};
+    const session=blankSession('video');session.note='Keep my manual work';session.entities[0].anchors=[{frame:3,x:104,y:220,trackId:null,identityConfirmed:false}];
+    const sourceKey=draftStorageKey(manual,'manual',true),saved=new Map([[sourceKey,JSON.stringify(session)]]),calls=[];let navigated;
+    globalThis.location={search:'?sample=test&variant=manual&qa=1',assign:value=>navigated=value};
+    const policy=JSON.parse(readFileSync(new URL('./team-overlay-policy.json',import.meta.url)));
+    Object.assign(globalThis,{localStorage:{getItem:key=>saved.get(key)||null,setItem:(key,value)=>saved.set(key,value)},fetch:async(url,options)=>{
+      calls.push({url,body:options?.body&&JSON.parse(options.body)});let value;
+      if(url==='/api/library')value={defaultSample:'test',samples:[{id:'test',defaultVariant:'manual'}]};
+      else if(url==='/api/identity-agent/status')value={available:false,initialReview:{available:true}};
+      else if(url==='/api/video-library/process')value={status:'ready',sampleId:'detected',variant:'team-stable'};
+      else if(url==='/team-overlay-policy.json')value=policy;
+      else if(url.startsWith('/api/clip?')&&url.includes('team-stable'))value=detected;
+      else value=manual;
+      return {ok:true,json:async()=>value};
+    }});
+    const source=readFileSync(new URL('./app.mjs',import.meta.url),'utf8'),dependencies={};
+    for(const match of source.matchAll(/^import \{([^}]+)\} from '([^']+)';$/gm)){
+      if(match[2]==='./ui.bundle.mjs'){dependencies.mountIdentityUI=()=>({render(){}});dependencies.mountVideoDisplay=()=>({pause(){},seek(){}});continue;}
+      if(match[2]==='./footage-ui.mjs'){dependencies.mountFootageUI=()=>({render(){}});continue;}
+      if(match[2]==='./workspace.mjs'){dependencies.createWorkspace=()=>({refresh(){},draw(){},drawImageOverlay(){},switchStep(){}});continue;}
+      if(match[2]==='./tactics-ui.mjs'){dependencies.mountTacticsUI=()=>({render(){},saveDraft(){}});continue;}
+      const module=await import(new URL(match[2],import.meta.url));
+      for(const specifier of match[1].split(',')){const [name,alias=name]=specifier.trim().split(/\s+as\s+/);dependencies[alias]=module[name];}
+    }
+    const AsyncFunction=Object.getPrototypeOf(async function(){}).constructor;
+    await new AsyncFunction(...Object.keys(dependencies),source.replace(/^import .*;\r?\n/gm,''))(...Object.values(dependencies));
+    await new Promise(resolve=>setImmediate(resolve));
+    assert.deepEqual(calls.find(call=>call.url==='/api/video-library/process').body,{sample:'test',variant:'team-stable'});
+    assert.equal(calls.filter(call=>call.url==='/api/identity-agent/jobs').length,0,'no request may analyze the empty observation grid');
+    const target=new URL(navigated,'http://local');assert.equal(target.searchParams.get('variant'),'team-stable');assert.equal(target.searchParams.get('sample'),'detected');
+    assert.equal(target.searchParams.get('step'),'players');
+    const migrated=JSON.parse(saved.get(draftStorageKey(detected,'team-stable',true)));
+    assert.equal(migrated.note,'Keep my manual work');assert.deepEqual(migrated.entities[0].anchors,session.entities[0].anchors);
+    assert.deepEqual(JSON.parse(saved.get(sourceKey)).entities[0].anchors,session.entities[0].anchors);
+    assert.equal(migrated.initialIdentityReview,undefined);
   }finally{dom.restore();}
 });

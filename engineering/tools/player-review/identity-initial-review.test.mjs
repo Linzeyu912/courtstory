@@ -4,6 +4,7 @@ import {blankSession,buildTrajectories,confirmFrameIdentity} from './trajectory.
 import {identityAt} from './identity-timeline.mjs';
 import {initializeAutomaticAnnotations,automaticPlayerCandidates} from './automatic-annotations.mjs';
 import {applyInitialIdentityReview,initialIdentitySlotBasis} from './identity-initial-review.mjs';
+import {nameIdentityAt} from './player-name-identity.mjs';
 
 function fixture(){
   const clip={video_sha256:'video',tracking_fingerprint:'tracks',tracking_revision:'v1',width:600,height:300,sourceCuts:[],
@@ -25,6 +26,117 @@ function fixture(){
 }
 const basis=(session,result)=>{result.candidate.slotBasis=initialIdentitySlotBasis(session);};
 const ranges=entity=>(entity.modelBindings??[]).map(({start,end})=>[start,end]);
+
+function videoNameFixture(){
+  const value=fixture(),{result}=value;result.algoVersion='video-identity-review-v2';
+  result.candidate.playerNames={purpose:'player_names',jobId:'names-a',sourceKey:'names-source',base:structuredClone(result.base),
+    candidate:{verified:false,reviewRequired:true,candidates:[{entityId:'P1',trackId:1,start:0,end:11,status:'candidate',
+      nameCandidate:{name:'Test Player',lookupStatus:'unique_candidate',team:'HOU',season:'2025-26',jersey:'00'},
+      evidenceMethod:'direct_jersey',evidence:[0,4,6,9,11].map(frame=>({frame,trackId:1,evidenceId:`e-${frame}`}))}]}};
+  return value;
+}
+
+test('video review atomically applies names only to surviving finite associations and persists machine provenance',()=>{
+  const {session,clip,result}=videoNameFixture();
+  clip.frames[3].tracks=[];clip.sourceCuts=[6];
+  const before=structuredClone(session),applied=applyInitialIdentityReview(session,result,clip);
+  assert.deepEqual(session,before);
+  assert.deepEqual(applied.session.entities[0].machineNameIdentities.map(n=>[n.start,n.end,n.jersey]),[[0,2,'00'],[4,5,'00'],[6,11,'00']]);
+  const saved=JSON.parse(JSON.stringify(applied.session)),points=buildTrajectories(saved,clip.frames,clip.sourceCuts,clip);
+  assert.equal(nameIdentityAt(saved,saved.entities[0],points.P1[9],clip).name,'Test Player');
+  assert.equal(nameIdentityAt(saved,saved.entities[0],points.P1[9],clip).identityVerified,false);
+  assert.equal(nameIdentityAt(saved,saved.entities[0],points.P1[3],clip),null);
+  assert.equal(saved.initialIdentityReview.identityVerified,false);
+  assert.deepEqual(applyInitialIdentityReview(saved,result,clip).session,saved);
+});
+
+test('video name envelope cannot bypass manual bindings, names, profile changes or rejected P slots',()=>{
+  for(const edit of ['manual-binding','manual-name','profile-change','slot-change','orphan-profile']){
+    const {session,clip,result}=videoNameFixture(),player=session.entities[0];
+    if(edit==='manual-binding'){player.bindings=[{kind:'track',trackId:1,start:0,end:11,origin:'human_range_replacement',order:1}];basis(session,result);}
+    if(edit==='manual-name'){player.nameIdentity={source:'manual',name:'Human Name'};basis(session,result);}
+    if(edit==='profile-change')player.playerProfile={status:'confirmed',name:'Recent human profile',evidence:{videoSha256:'video'}};
+    if(edit==='slot-change')player.modelBindings=[{kind:'track',trackId:3,start:0,end:11}];
+    if(edit==='orphan-profile'){
+      result.candidate.segments=[];result.candidate.playerNames.candidate.playerProfiles=[{entityId:'P1',status:'reference_candidate',
+        nameCandidate:{name:'Orphan Name',lookupStatus:'unique_candidate'},evidence:[{frame:0,trackId:1}]}];
+    }
+    const original=structuredClone(player),applied=applyInitialIdentityReview(session,result,clip);
+    assert.equal(applied.session.entities[0].machineNameIdentities?.length??0,0,edit);
+    assert.equal(applied.session.entities[0].machinePlayerProfile,undefined,edit);
+    assert.deepEqual(applied.session.entities[0].nameIdentity,original.nameIdentity);
+    assert.deepEqual(applied.session.entities[0].playerProfile,original.playerProfile);
+  }
+});
+
+test('invalid nested name source rejects the entire review without partial identity application',()=>{
+  const {session,clip,result}=videoNameFixture(),before=structuredClone(session);
+  result.candidate.playerNames.base.trackingFingerprint='stale';
+  assert.throws(()=>applyInitialIdentityReview(session,result,clip),/姓名候选/);assert.deepEqual(session,before);
+});
+
+test('nested name conflicts and unsupported orphan profiles cannot create a displayed name',()=>{
+  for(const kind of ['conflict','unsupported-profile']){
+    const {session,clip,result}=videoNameFixture(),names=result.candidate.playerNames.candidate;
+    if(kind==='conflict')names.issues=[{kind:'identity_conflict',entityId:'P1',reason:'contradictory visual evidence',
+      segments:[{trackId:1,start:0,end:11}],blockedSegments:[{trackId:1,start:0,end:11}]}];
+    else{
+      names.candidates[0].evidence=[];
+      names.playerProfiles=[{entityId:'P1',status:'reference_candidate',nameCandidate:{name:'Orphan Name',lookupStatus:'unique_candidate'},evidence:[{frame:0,trackId:1}]}];
+    }
+    const applied=applyInitialIdentityReview(session,result,clip);
+    assert.equal(applied.session.entities[0].machineNameIdentities?.length??0,0,kind);
+    assert.equal(applied.session.entities[0].machinePlayerProfile,undefined,kind);
+  }
+});
+
+test('reassigning an old machine interval without new name evidence cannot carry an old name forward',()=>{
+  const first=videoNameFixture(),named=applyInitialIdentityReview(first.session,first.result,first.clip).session;
+  const next=structuredClone(first.result);next.jobId='new-review';next.generationJobId='new-review';next.sourceKey='new-source';
+  next.candidate.slotBasis=initialIdentitySlotBasis(named);delete next.candidate.playerNames;
+  const applied=applyInitialIdentityReview(named,next,first.clip),player=applied.session.entities[0];
+  assert.equal(player.machineNameIdentities.length,0);assert.equal(player.machinePlayerProfile,undefined);
+  assert.equal(nameIdentityAt(applied.session,player,0,first.clip),null);
+});
+
+test('an obsolete machine correction to another T cannot shadow a newly accepted P interval',()=>{
+  const {session,clip,result}=videoNameFixture(),player=session.entities[0];
+  player.machineIdentityBindings=[{kind:'track',trackId:3,start:0,end:11,origin:'machine_name_correction',evidenceMethod:'direct_jersey',
+    baseVideoHash:'video',baseTrackingFingerprint:'tracks',baseTrackingRevision:'v1',appliedOrder:2,sourceKey:'old',jobId:'old'}];
+  basis(session,result);
+  const applied=applyInitialIdentityReview(session,result,clip),points=buildTrajectories(applied.session,clip.frames,[],clip);
+  assert.equal(points.P1[5].trackId,1);assert.equal(nameIdentityAt(applied.session,applied.session.entities[0],points.P1[5],clip).name,'Test Player');
+});
+
+test('a reviewed machine correction owned by another player cannot be stolen through the initial name lane',()=>{
+  const {session,clip,result}=videoNameFixture(),owner=session.entities[1];
+  session.entities[0].modelBindings=[];owner.modelBindings=[];
+  owner.machineIdentityBindings=[{kind:'track',trackId:1,start:0,end:11,origin:'machine_name_correction',evidenceMethod:'direct_jersey',
+    baseVideoHash:'video',baseTrackingFingerprint:'tracks',baseTrackingRevision:'v1',appliedOrder:2,sourceKey:'old',jobId:'old'}];
+  confirmFrameIdentity(session,'P2',5,clip.frames,[],clip);basis(session,result);
+  const before=structuredClone(owner),applied=applyInitialIdentityReview(session,result,clip);
+  assert.deepEqual(applied.session.entities[1],before);
+  assert.equal(applied.session.entities[0].machineNameIdentities?.length??0,0);
+  assert.equal(buildTrajectories(applied.session,clip.frames,[],clip).P2[5].frameIdentityConfirmed,true);
+});
+
+test('same-source partial continuation recognizes its own prior application but never rebases over a human edit',()=>{
+  for(const edited of [false,true]){
+    const {session,clip,result}=videoNameFixture(),initial=structuredClone(result);
+    initial.candidate.completionStatus='partial';initial.candidate.segments[0].end=4;initial.candidate.segments[0].evidenceFrames=[0,4];
+    const partial=applyInitialIdentityReview(session,initial,clip).session;
+    const resume=structuredClone(result);resume.jobId='resume-job';resume.generationJobId='resume-job';resume.candidate.resumeFrom=initial.jobId;
+    resume.candidate.playerNames.jobId='resume-names';
+    if(edited)partial.entities[0].nameIdentity={source:'manual',name:'My correction'};
+    const before=structuredClone(partial.entities[0]),applied=applyInitialIdentityReview(partial,resume,clip);
+    if(edited){assert.deepEqual(applied.session.entities[0],before);assert(applied.report.issues.some(issue=>issue.kind==='slot_basis_changed'));}
+    else{
+      assert(!applied.report.issues.some(issue=>issue.kind==='slot_basis_changed'&&issue.entityId==='P1'));
+      assert.equal(nameIdentityAt(applied.session,applied.session.entities[0],9,clip).name,'Test Player');
+      assert.equal(applied.session.entities[0].machineNameIdentities[0].jobId,'resume-names');
+    }
+  }
+});
 
 test('applies finite model suggestions and role exclusions without creating any human review fact',()=>{
   const {clip,session,result}=fixture(),original=structuredClone(session),source=structuredClone(clip);
