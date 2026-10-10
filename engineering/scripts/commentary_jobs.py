@@ -139,6 +139,8 @@ class CommentaryJobs:
         folder = self._dir(clip, variant, qa)
         with self._lock:
             current = _read(folder / "plan.json")
+            if current and request['action'] != 'understand':
+                request = {**request, 'review': self._bound_review(current, clip, request.get('review'), folder)}
             if request["action"] in ("understand", "polish") and "expectedRevision" in request and (type(request["expectedRevision"]) is not int or request["expectedRevision"] != (current or {}).get("revision", 0)):
                 raise ValueError("commentary revision changed before generation; reload current plan")
             locked_request = json.loads(json.dumps(request, ensure_ascii=False))
@@ -195,6 +197,7 @@ class CommentaryJobs:
                     if not isinstance(document, dict):
                         raise ValueError("render document must be an object")
                     _json(output / "document.json", {"document": document,
+                                                   "identityReview": request.get("review"),
                                                    "options": {"nameOverlay": request.get("nameOverlay")}})
             state = {"id": job_id, "status": "running", "stage": "queued", "action": action,
                      "output": str(output), "producerConfigSnapshot": locked_request["_producerConfig"] if action == "understand" else plan.get("producerConfigSnapshot")}
@@ -480,7 +483,7 @@ class CommentaryJobs:
                 expected = plan.get("revision", 0)
             if type(expected) is not int or expected != revision:
                 raise ValueError("commentary revision conflict; reload the current saved plan")
-            review = request.get("review")
+            review = self._bound_review(current, clip, request.get("review"), folder) if current else request.get("review")
             if current and current.get("sourceRef") is not None and current["sourceRef"] != source_ref(clip, review):
                 raise ValueError("commentary source/name snapshot changed; regenerate or explicitly upgrade")
             if current and plan.get("planId") not in (None, current.get("planId")):
@@ -506,6 +509,19 @@ class CommentaryJobs:
             json.dump(plan, stream, ensure_ascii=False, indent=2)
         _json(folder / "plan.json", plan)
 
+    @staticmethod
+    def _bound_review(plan, clip, review, folder):
+        if plan.get('sourceRef') == source_ref(clip, review):
+            return review
+        producer = plan.get('producerJobRef')
+        if not isinstance(producer, str) or not re.fullmatch(r'[A-Za-z0-9_-]+', producer):
+            return review
+        original = _read(folder / 'jobs' / producer / 'review.json')
+        if (isinstance(original, dict) and source_ref(clip, original) == plan.get('sourceRef')
+                and source_ref(clip, original, identity_only=True) == source_ref(clip, review, identity_only=True)):
+            return original
+        return review
+
     def resolve_plan(self, ref, clip, variant, qa, review=None):
         with self._lock:
             current = _read(self._dir(clip, variant, qa) / "plan.json")
@@ -514,8 +530,9 @@ class CommentaryJobs:
             unsigned = {k: v for k, v in current.items() if k != "digest"}
             if digest(unsigned) != current.get("digest"):
                 raise ValueError("commentary plan digest mismatch")
+            review = self._bound_review(current, clip, review, self._dir(clip, variant, qa))
             if current.get("sourceRef") != source_ref(clip, review):
-                raise ValueError("commentary source or name snapshot is stale")
+                raise ValueError("人物关联、姓名或源视频已变化，请重新生成解说并按新稿绘图后再配音；已有稿件和图形仍保留。")
             if not current.get("nodes") or not current.get("producerConfigSnapshot"):
                 raise ValueError("legacy plan needs explicit evidence/model upgrade before drawing")
             validate_handoff(current, clip, review, current.get("decodeContext"))

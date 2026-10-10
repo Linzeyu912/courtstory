@@ -38,6 +38,32 @@ class CommentaryJobsTests(unittest.TestCase):
             credentials.side_effect = ValueError('DASHSCOPE_API_KEY required')
             self.assertFalse(CommentaryJobs.status(self.jobs)['ttsConfigured'])
 
+    def test_display_positions_reuse_bound_review_but_identity_edits_do_not(self):
+        from copy import deepcopy
+        from commentary_plan import source_ref
+        folder = self.jobs._dir(self.clip, 'v1', 'qa')
+        producer = folder / 'jobs' / 'producer'
+        producer.mkdir(parents=True)
+        original = {'playerNameIdentities': [{'id': 'P1', 'observations': [
+            {'frame': 0, 'trackId': 8, 'x': 100, 'y': 200, 'nameIdentity': None}]}],
+            'nameIdentitySource': {'videoSha256': self.clip['video_sha256'], 'trackingFingerprint': None, 'trackingRevision': 'original'},
+            'entities': [{'id': 'P1', 'trajectory': [{'frame': 0, 'x': 100, 'y': 200}]}]}
+        (producer / 'review.json').write_text(json.dumps(original))
+        plan = {'producerJobRef': 'producer', 'sourceRef': source_ref(self.clip, original)}
+        displayed = deepcopy(original)
+        displayed['playerNameIdentities'][0]['observations'][0]['x'] = 105
+        self.assertNotEqual(source_ref(self.clip, displayed), plan['sourceRef'])
+        self.assertEqual(self.jobs._bound_review(plan, self.clip, displayed, folder), original)
+        for field, value in [('trackId', 9), ('nameIdentity', {'name': 'Someone'})]:
+            changed = deepcopy(displayed)
+            changed['playerNameIdentities'][0]['observations'][0][field] = value
+            self.assertEqual(self.jobs._bound_review(plan, self.clip, changed, folder), changed)
+        changed = deepcopy(displayed); changed['entities'][0]['trajectory'][0]['x'] = 106
+        self.assertEqual(self.jobs._bound_review(plan, self.clip, changed, folder), changed)
+        # No trustworthy frozen baseline means no compatibility exception.
+        (producer / 'review.json').unlink()
+        self.assertEqual(self.jobs._bound_review(plan, self.clip, displayed, folder), displayed)
+
     def test_latest_failed_job_does_not_hide_the_previous_completed_video(self):
         folder = self.jobs._dir(self.clip, 'v1', 'qa')
         for ident, action, status in [('finished', 'render', 'completed'), ('later', 'understand', 'failed')]:

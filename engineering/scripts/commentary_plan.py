@@ -115,7 +115,7 @@ def _mapping(clip, review):
     return expected
 
 
-def source_ref(clip, review=None):
+def source_ref(clip, review=None, *, identity_only=False):
     identity = _clip_identity(clip)
     if not identity["videoSha256"]:
         raise ValueError("source video digest is required")
@@ -136,6 +136,14 @@ def source_ref(clip, review=None):
     # Display toggles and graphical edits do not change identity or commentary provenance.
     lanes = {key: (review or {}).get(key) for key in
              ("nameIdentitySource", "playerNameIdentities", "playerIdentities", "identitySelection", "settings", "entities")}
+    if identity_only and isinstance(lanes['playerNameIdentities'], list):
+        # Label positions can be smoothed for display. Raw trajectories remain
+        # in entities; names and track/frame associations must still match.
+        lanes['playerNameIdentities'] = copy.deepcopy(lanes['playerNameIdentities'])
+        for person in lanes['playerNameIdentities']:
+            for observation in person.get('observations', []):
+                observation.pop('x', None)
+                observation.pop('y', None)
     lanes["sourceCuts"] = clip.get("sourceCuts", [])
     return {**identity, "frameMappingDigest": digest(_mapping(clip, review)), "reviewDigest": digest(lanes)}
 
