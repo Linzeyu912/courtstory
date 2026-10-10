@@ -5,5 +5,6 @@ numpy==2.4.3
 pillow==11.3.0
 # Commentary providers read local credentials without exposing them to the UI.
 python-dotenv==1.2.2
-# Amazon Polly speech synthesis (same SDK version as the EC2 bootstrap).
+# AWS storage and remote worker integration (same SDK version as EC2).
 boto3==1.43.108
+requests>=2.32,<3
