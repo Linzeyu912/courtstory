@@ -1,5 +1,7 @@
 /* One-screen authoring: source picture, transport and the real PTS timeline share
    a bounded workspace. Advanced controls open over it, rather than extending it. */
+.workbench-shell #tacticsPanel .studio-heading-group {display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;}
+.workbench-shell #tacticsPanel .studio-heading-group .studio-task-tabs {position:static;margin:0;max-width:100%;}
 @media (min-width:1001px) {
 .workbench-shell #tacticsPanel.tactics-single-view {display:flex;flex-direction:column;min-height:0;overflow:hidden;padding:8px 12px;gap:5px;}
 .workbench-shell #tacticsPanel .tactics-heading {min-height:30px;flex-wrap:nowrap;flex:none;}
@@ -123,9 +125,9 @@
 .workbench-shell[data-area=tactics] .workspace-summary{display:none}
 .workbench-shell[data-area=tactics] .source-toolbar{padding:6px 10px;margin-bottom:0}
 .workbench-shell #tacticsPanel.tactics-single-view{position:relative;padding:6px 10px;gap:5px}
-.workbench-shell #tacticsPanel .tactics-heading{height:34px;min-height:34px;align-items:center}
+.workbench-shell #tacticsPanel .tactics-heading{min-height:34px;align-items:center;flex-wrap:wrap}
 .workbench-shell #tacticsPanel .tactics-heading h2{padding:5px 12px;min-height:0;font-size:14px}
-.workbench-shell #tacticsPanel .studio-task-tabs{position:absolute;left:150px;top:6px;height:34px;min-height:34px;border:0;background:transparent}
+.workbench-shell #tacticsPanel .studio-task-tabs{height:34px;min-height:34px;border:0;background:transparent}
 .workbench-shell #tacticsPanel .studio-task-tabs button{min-height:0;height:34px;padding:5px 10px}
 .workbench-shell #tacticsPanel #studioVisualActions button{min-height:28px;padding:5px 9px;font-size:11px}
 .workbench-shell #tacticsPanel .tactics-author-tools{align-items:center;gap:4px;height:32px;min-height:32px}
