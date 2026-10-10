@@ -1,9 +1,29 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createDrawingTools,validateNodeCandidate} from './drawing-tools.mjs';
+import {createDrawingTools,validateNodeCandidate,drawingOverviewFrames} from './drawing-tools.mjs';
 const node={nodeId:'n1',anchorAssetFrame:2,evidenceWindow:{startFrame:1,endFrame:4}};
 const start={node,nodes:[node]};
 const budget=()=>({maxToolCalls:20,toolCalls:0});
+test('temporal overview covers late anchors and both window edges without exhausting evidence slots',()=>{
+  for(const [startFrame,anchorAssetFrame,endFrame] of [[0,330,480],[480,749,809],[1022,1083,1083],[4,4,4],[1,2,4]]){
+    const frames=drawingOverviewFrames({anchorAssetFrame,evidenceWindow:{startFrame,endFrame}});
+    assert(frames.includes(startFrame));assert(frames.includes(anchorAssetFrame));assert(frames.includes(endFrame));
+    assert(frames.length<=7);assert.equal(new Set(frames).size,frames.length);
+    assert(frames.every(f=>Number.isInteger(f)&&f>=startFrame&&f<=endFrame));
+  }
+});
+test('anonymous multi-person routes can describe observed movement before a late anchor',()=>{
+  const phase={freezeFrame:2,startFrame:1,endFrameExclusive:5,evidenceFrames:[1,2,4],actions:[],
+    participants:['handler','defender'].map((subjectId,i)=>({subjectId,entityId:null,role:i?'defender':'ball_handler',
+      disposition:'annotated',annotationIndexes:[i],evidenceFrames:[1,2,4]})),
+    annotations:[0,1].map(i=>({type:'route',assetId:'image',entityId:null,anchorFrame:2,startFrame:1,endFrameExclusive:5,
+      meaning:i?'later_observed_action':'current_action',pattern:i?'dashed':'solid',
+      evidenceFrames:i?[2,4]:[1,2],points:[{x:10+i*10,y:30},{x:40+i*10,y:30}]}))};
+  const seen=new Set([1,2,4]),assets=[{assetId:'image',frame:2,width:100,height:100}];
+  assert.equal(validateNodeCandidate({schemaVersion:4,phases:[phase]},node,seen,assets),true);
+  phase.annotations[1].evidenceFrames=[2];
+  assert.throws(()=>validateNodeCandidate({schemaVersion:4,phases:[phase]},node,seen,assets),/至少两帧/);
+});
 test('drawing has no commentary write tool; audit has no drawing tool',()=>{
   const {tools}=createDrawingTools(start,{budget:budget()});
   assert(!tools.some(t=>t.name==='save_commentary_plan'));

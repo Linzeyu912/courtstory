@@ -245,7 +245,7 @@ def main():
         routes['/'+filename]=static/filename
     for filename in ['tactics-ui.mjs','tactics-player-identity.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','shot-feedback.mjs','tactics-agent.mjs','tactics.css']:
         routes['/'+filename]=static/filename
-    for filename in ['tactics-production.mjs','tactics-authored-geometry.mjs','tactics-production-ui.mjs','tactics-motion.mjs']:
+    for filename in ['tactics-production.mjs','tactics-authored-geometry.mjs','tactics-production-ui.mjs','tactics-motion.mjs','tactics-paint.mjs']:
         routes['/'+filename]=static/filename
     for filename in ['tactics-time-range.mjs','court-preparation.mjs','court-smoothing.mjs','court-preparation-ui.mjs','identity-coverage.mjs','tactics-court-editor.mjs','tactics-keyframes.mjs','tactics-court-projection.mjs','tactics-timeline-ui.mjs','tactics-manual-editor.mjs']:
         routes['/'+filename]=static/filename
