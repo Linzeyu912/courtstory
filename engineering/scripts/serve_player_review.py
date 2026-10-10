@@ -76,7 +76,7 @@ def main():
     parser.add_argument("--tactics-agent-transport", choices=('auto', 'http-sse'), default='auto',
                         help="Tactics child transport only; http-sse disables Responses WebSockets without changing global configuration")
     parser.add_argument("--tactics-ffmpeg", help="FFmpeg executable for finished tactical MP4s (or TACTICS_FFMPEG / PATH)")
-    parser.add_argument("--identity-agent-provider", choices=('codex', 'multimodal-api'), default='codex',
+    parser.add_argument("--identity-agent-provider", choices=('codex', 'multimodal-api', 'openrouter'), default='codex',
                         help="Visual identity provider; multimodal-api is an unconfigured adapter seam")
     parser.add_argument("--player-data-root", default=str(Path(__file__).resolve().parents[2] / '2K Player Data'),
                         help="Local read-only identity data package (default: repository 2K Player Data)")

@@ -19,7 +19,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[3]
 HERE = Path(__file__).resolve().parent
 CODE_PREFIXES = ('engineering/scripts/', 'engineering/configs/',
-                 'engineering/tools/player-review/', 'engineering/tools/tactical-overlay/',
+                 'engineering/tools/player-review/', 'engineering/tools/tactical-overlay/', 'engineering/tools/commentary-preview/',
                  'engineering/archive/tactical-video/005-authored-v2/', '2K Player Data/', 'data/player-rosters/')
 REPLAY_PREFIXES = ('research/agents/qwen-ground-official-20261005/replay/',
                    'research/agents/qwen-parallel-20261007/replay/')
@@ -66,7 +66,7 @@ def validate_selection(library, previous):
     registered = {item['path']: item for item in videos}
     if len(samples) not in (2, 3) or len(videos) != len(samples) or len(registered) != len(samples):
         raise ValueError('Expected the existing two- or three-sample deployment selection')
-    if len({sample['id'] for sample in samples}) != 3 or library.get('defaultSample') not in {s['id'] for s in samples}:
+    if len({sample['id'] for sample in samples}) != len(samples) or library.get('defaultSample') not in {s['id'] for s in samples}:
         raise ValueError('Invalid existing sample IDs or default sample')
     if {sample['video'] for sample in samples} != set(registered):
         raise ValueError('Library selection differs from the previous release manifest')
@@ -141,6 +141,7 @@ def collect_files(root, library, previous):
              PurePosixPath(name).suffix.lower() not in MEDIA_SUFFIXES}
     files.update(name for name in tracked if name.startswith(REPLAY_PREFIXES) and name.endswith('.json'))
     files.add('engineering/scripts/cloud_tactics_agent.py')
+    files.add('engineering/scripts/cloud_gpu.py')
     files.update(path.relative_to(root).as_posix() for path in (root / 'engineering/infra/ec2-workbench').iterdir()
                  if path.suffix in {'.py', '.sh', '.json'})
     # Keep all original registered sample sidecars, including implicit metadata files.

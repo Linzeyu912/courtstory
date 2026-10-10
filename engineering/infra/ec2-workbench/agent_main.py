@@ -4,6 +4,7 @@ import json
 import os
 import re
 import time
+import urllib.request
 from functools import lru_cache
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
@@ -20,8 +21,8 @@ def get_clients():
     from botocore.config import Config
 
     s3 = boto3.client('s3', region_name='us-east-1')
-    model = boto3.client('bedrock-runtime', region_name='us-east-1', config=Config(
-        connect_timeout=10, read_timeout=240, retries={'total_max_attempts': 2, 'mode': 'standard'}))
+    with s3.get_object(Bucket=BUCKET, Key=os.environ['HKS_PROVIDER_KEY'])['Body'] as stream:
+        model = json.load(stream)
     print(f'CLIENT_INIT ready elapsed_seconds={time.monotonic() - started:.3f}', flush=True)
     return s3, model
 
@@ -37,17 +38,22 @@ def analyze(request):
     images = payload['images']
     if not isinstance(images, list) or not 1 <= len(images) <= 24:
         raise ValueError('Expected 1-24 evidence images')
-    content = [{'text': payload['prompt'] + '\n只输出符合以下 schema 的 JSON 对象，不添加 Markdown：\n'
+    content = [{'type': 'text', 'text': payload['prompt'] + '\n只输出符合以下 schema 的 JSON 对象，不添加 Markdown：\n'
                 + json.dumps(payload['schema'], ensure_ascii=False)}]
     for encoded in images:
         image = base64.b64decode(encoded, validate=True)
         if len(image) > 3_500_000:
             raise ValueError('Evidence image too large')
-        content.append({'image': {'format': 'jpeg', 'source': {'bytes': image}}})
-    response = model.converse(modelId='qwen.qwen3-vl-235b-a22b',
-        messages=[{'role': 'user', 'content': content}],
-        inferenceConfig={'maxTokens': 8192, 'temperature': 0.2})
-    answer = '\n'.join(c.get('text', '') for c in response['output']['message']['content']).strip()
+        content.append({'type': 'image_url', 'image_url': {'url': 'data:image/jpeg;base64,' + encoded}})
+    request_body = {'model': model.get('model', 'openai/gpt-6-astra'),
+        'messages': [{'role': 'user', 'content': content}], 'max_tokens': 8192,
+        'reasoning': {'effort': 'low'}, 'response_format': {'type': 'json_object'}}
+    call = urllib.request.Request('https://openrouter.ai/api/v1/chat/completions',
+        data=json.dumps(request_body).encode(), headers={'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + model['apiKey']})
+    with urllib.request.urlopen(call, timeout=240) as incoming:
+        response = json.load(incoming)
+    answer = response['choices'][0]['message']['content'].strip()
     if answer.startswith('```'):
         answer = re.sub(r'^```(?:json)?\s*|\s*```$', '', answer)
     candidate = json.loads(answer)
@@ -57,7 +63,7 @@ def analyze(request):
     s3.put_object(Bucket=BUCKET, Key=result_key,
         Body=json.dumps(candidate, ensure_ascii=False).encode('utf-8'),
         ContentType='application/json', ServerSideEncryption='AES256')
-    return {'resultKey': result_key, 'usage': response.get('usage'), 'model': 'qwen.qwen3-vl-235b-a22b'}
+    return {'resultKey': result_key, 'usage': response.get('usage'), 'model': request_body['model']}
 
 
 class Handler(BaseHTTPRequestHandler):

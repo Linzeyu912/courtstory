@@ -1,6 +1,7 @@
 """Build explicit native deployment archives and upload immutable release objects."""
 import argparse
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import secrets
@@ -64,10 +65,12 @@ def main():
     (dest / 'access-code.txt').write_text(code, encoding='utf-8')
     tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=ROOT).decode('utf-8').split('\0')
     files = {p for p in tracked if p and (
-        p.startswith(('engineering/scripts/', 'engineering/configs/', 'engineering/tools/player-review/', 'engineering/tools/tactical-overlay/',
+        p.startswith(('engineering/scripts/', 'engineering/configs/', 'engineering/tools/player-review/', 'engineering/tools/tactical-overlay/', 'engineering/tools/commentary-preview/',
                       'engineering/archive/tactical-video/005-authored-v2/', '2K Player Data/', 'data/player-rosters/'))
         or p == 'engineering/requirements-review.txt') and Path(p).suffix.lower() not in ('.mp4', '.mov')}
     files.add('engineering/scripts/cloud_tactics_agent.py')
+    files.add('engineering/scripts/cloud_gpu.py')
+    files.add('engineering/scripts/commentary_fonts.py')
     files.update(p.relative_to(ROOT).as_posix() for p in HERE.iterdir() if p.suffix in ('.py', '.sh', '.json'))
     library = json.loads((ROOT / 'data/videos/tactics/acceptance/review-library.json').read_text(encoding='utf-8'))
     selected = [s for s in library['samples'] if 'official-training' in s['video']]
@@ -100,9 +103,14 @@ def main():
         if 'official-training' in sample['video']:
             item = next(e for e in manifest['entries'] if e['asset']['sha256'] == digest)
             key = f"workbench/datasets/broadcastcode-training-20261005/{item['local_id']}/{digest}/video.mp4"
-            head = s3.head_object(Bucket=bucket, Key=key)
-            if head['ContentLength'] != path.stat().st_size or head.get('Metadata', {}).get('sha256') != digest:
-                raise ValueError('Existing official S3 object differs')
+            try:
+                head = s3.head_object(Bucket=bucket, Key=key)
+                if head['ContentLength'] != path.stat().st_size or head.get('Metadata', {}).get('sha256') != digest:
+                    raise ValueError('Existing official S3 object differs')
+            except s3.exceptions.ClientError as error:
+                if error.response['Error']['Code'] not in ('404', 'NoSuchKey'):
+                    raise
+                key = prefix + '/datasets/' + item['local_id'] + '.mp4'
         else:
             key = prefix + '/datasets/005.mp4'
         videos.append({'path': sample['video'], 'key': key, 'sha256': digest, 'bytes': path.stat().st_size})
@@ -120,7 +128,16 @@ def main():
         archive.writestr('cloud-library.json', json.dumps({'defaultSample': selected[0]['id'], 'initiallyActiveSamples': [s['id'] for s in selected], 'samples': selected}, ensure_ascii=False))
         archive.writestr('cloud-release.json', json.dumps({'release': release, 'videos': videos}, ensure_ascii=False))
     target = dest / 'agent-package'
-    subprocess.run([sys.executable, '-m', 'pip', 'install', '--disable-pip-version-check', '--quiet', '--target', str(target), 'boto3==1.43.108'], check=True)
+    if boto3.__version__ == '1.43.108':
+        target.mkdir(exist_ok=True)
+        for name in ('boto3', 'botocore', 's3transfer', 'dateutil', 'jmespath', 'urllib3', 'six'):
+            source = Path(importlib.util.find_spec(name).origin)
+            if source.name == '__init__.py':
+                shutil.copytree(source.parent, target / name, dirs_exist_ok=True)
+            else:
+                shutil.copy2(source, target / source.name)
+    else:
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '--disable-pip-version-check', '--quiet', '--target', str(target), 'boto3==1.43.108'], check=True)
     shutil.copy2(HERE / 'agent_main.py', target / 'agent_main.py')
     with zipfile.ZipFile(dest / 'agent.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         for path in target.rglob('*'):
@@ -147,7 +164,7 @@ def main():
                     received.update(chunk)
             if received.hexdigest() != digest:
                 raise ValueError('Uploaded object readback digest differs')
-            print('Uploaded and verified: ' + path.name, flush=True)
+            print('Uploaded and verified: ' + json.dumps(path.name, ensure_ascii=True), flush=True)
 
 
 if __name__ == '__main__':

@@ -14,6 +14,7 @@ import av
 from PIL import Image, ImageDraw, ImageFont
 
 from commentary_video import CommentaryVideo
+from commentary_fonts import resolve_font
 
 FPS = 30
 
@@ -258,7 +259,7 @@ def main():
     parser.add_argument('--audio-manifest',type=Path,required=True)
     parser.add_argument('--document',type=Path,help='Saved native tactical document and optional name overlay for joint rendering')
     parser.add_argument('--output',type=Path,required=True,help='New output directory')
-    parser.add_argument('--font',type=Path,default=Path('C:/Windows/Fonts/msyh.ttc'))
+    parser.add_argument('--font',type=Path,help='CJK font; automatically selects the installed system font')
     args=parser.parse_args()
     if args.output.exists(): parser.error('Choose a new output directory')
     plan=json.loads(args.plan.read_text(encoding='utf-8'))
@@ -267,7 +268,8 @@ def main():
         e.get('kind')=='shot' and e.get('shotStatus')=='confirmed' for e in plan.get('events',[]))
     if has_shots and not args.document:
         parser.error('shot_release requires --document with the adopted shooter spotlight and feedback')
-    if not args.font.is_file(): parser.error(f'Font not found: {args.font}')
+    try: args.font = resolve_font(args.font)
+    except ValueError as exc: parser.error(str(exc))
     from tactics_render import discover_ffmpeg
     ffmpeg=discover_ffmpeg()
     if not ffmpeg: parser.error('ffmpeg is required')

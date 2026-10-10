@@ -54,9 +54,24 @@ class MultimodalApiProvider:
         raise ValueError(self.status()['message'])
 
 
+class OpenRouterCloudProvider:
+    """Use the same configured AgentCore/OpenRouter executor as cloud tactics."""
+    def __init__(self):
+        from cloud_tactics_agent import CloudTacticsExecutor
+        self.execute = CloudTacticsExecutor()
+
+    def status(self):
+        return self.execute.status()
+
+    def generate(self, **kwargs):
+        return self.execute(**kwargs)
+
+
 def create_provider(name='codex', **kwargs) -> VisionProvider:
     if name == 'codex':
         return CodexVisionProvider(**kwargs)
     if name == 'multimodal-api':
         return MultimodalApiProvider()
+    if name == 'openrouter':
+        return OpenRouterCloudProvider()
     raise ValueError('不支持的视觉 provider。')

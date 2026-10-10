@@ -12,6 +12,7 @@ import av
 from PIL import Image, ImageDraw, ImageFont
 
 from commentary_video import CommentaryVideo
+from commentary_fonts import resolve_font
 
 ROOT = Path(__file__).resolve().parents[2]
 FPS = 30
@@ -146,8 +147,10 @@ def render_clip(video_path, result, output, title, font_path):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,required=True)
-    parser.add_argument('--font',type=Path,default=Path('C:/Windows/Fonts/msyh.ttc'))
+    parser.add_argument('--font',type=Path,help='CJK font; automatically selects the installed system font')
     args=parser.parse_args()
+    try: args.font = resolve_font(args.font)
+    except ValueError as exc: parser.error(str(exc))
     if args.output.exists():parser.error('Choose a new output directory')
     args.output.mkdir(parents=True)
     library=json.loads((ROOT/'data/videos/tactics/acceptance/review-library.json').read_text(encoding='utf-8'))

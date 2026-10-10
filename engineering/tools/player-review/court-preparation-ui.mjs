@@ -1,7 +1,6 @@
 import {buildCourtPreparation,preparationDependencies,courtPreparationStatus,preparationDigest} from './court-preparation.mjs';
 import {previewCourtSmoothing,adoptCourtSmoothing} from './court-smoothing.mjs';
 import {rangeFromSeconds} from './tactics-time-range.mjs';
-import {mountGroundTrajectoryAgentUI} from './ground-trajectory-agent-ui.mjs';
 import {entityLabel,hasAssociation} from './trajectory.mjs';
 
 const finitePoint=point=>Number.isFinite(point?.x)&&Number.isFinite(point?.y);
@@ -46,7 +45,7 @@ export function openPreparationSource(action,{frame},api){
 }
 
 export function mountCourtPreparationUI({host,clip,sample,variant,state,change,redraw,next,seek,undo,openSource=()=>{},points=()=>({}),maps=()=>[]},
-  {document:doc=globalThis.document,search=globalThis.location?.search??'',fetch:requestFetch=globalThis.fetch,mountGroundAgent=mountGroundTrajectoryAgentUI}={}){
+  {document:doc=globalThis.document,search=globalThis.location?.search??'',fetch:requestFetch=globalThis.fetch}={}){
   const purpose=doc.createElement('section');purpose.className='preparation-purpose';
   purpose.innerHTML=`<div><span class="preparation-optional">可选步骤</span><h2>把视频里的球员位置放到球场上</h2><p>贴地标注、球场路线需要这一步。暂停视频画圈、固定箭头可直接去战术制作。</p></div><div class="preparation-purpose-actions"><button data-skip>直接去战术制作 →</button><button data-source>对照原视频</button></div>`;
   const section=doc.createElement('section');section.className='court-preparation-panel';section.setAttribute('aria-label','2D 准备步骤');
@@ -56,7 +55,7 @@ export function mountCourtPreparationUI({host,clip,sample,variant,state,change,r
     <section data-panel-source><h3>先确定缺的是哪一项</h3><div class="preparation-checks"><div><span>球员身份</span><p data-identity-state></p><button data-identity>核对人物</button></div><div><span>球场映射</span><p data-mapping-state></p><button data-calibration>核对场地线</button></div><div><span>球员位置</span><p data-position-state></p><button data-image>去原视频补点</button></div></div><p data-guidance class="preparation-guidance"></p><button data-resolve></button><button data-build class="primary wide">生成球场预览</button><p data-build-help class="small muted">根据已有身份、标定和人工补点生成。没有依据的位置继续留空。</p></section>
     <section data-panel-preview hidden><h3>对照视频，检查这一段</h3><p data-preview-summary></p><div class="tactics-buttons"><button data-compare-video>原视频与球场同屏</button><button data-seek-start>定位到区间起点</button></div><p class="small muted">位置有误时，回到原视频核对；球员不在镜头内，无需补点。</p><div class="tactics-buttons"><button data-repair-image>在原视频补点</button><button data-repair-court>在球场补当前帧</button></div>
       <details class="preparation-advanced"><summary>轨迹抖动时：预览平滑</summary><p class="small muted">仅调整所选球员和区间。原始点、人工锁定点与缺口保留。</p><label>调整幅度 <select data-preset><option value="off">不调整</option><option value="light" selected>轻度</option><option value="standard">标准</option></select></label><div class="tactics-buttons"><button data-preview>预览平滑效果</button><button data-adopt disabled>采用这段平滑</button><button data-discard disabled>取消预览</button></div><label class="preparation-check"><input data-compare type="checkbox">叠加原始轨迹作对照</label><p data-smoothing-status class="small"></p></details>
-      <details class="preparation-advanced" data-agent-details><summary>AI 复核地面位置（可选）</summary><p class="small muted">适用于已经有球场位置、仍需复核的片段。没有可用模型时，可继续人工补点。</p><div data-agent-host></div></details><button data-ready class="primary wide">核对完成，继续采用 →</button></section>
+      <button data-ready class="primary wide">核对完成，继续采用 →</button></section>
     <section data-panel-use hidden><h3>保存给战术制作使用</h3><p data-use-summary></p><button data-save class="primary wide">保存准备结果</button><button data-next class="wide">进入战术制作 →</button><p class="small muted">保存只更新 2D 来源。已有战术草稿保留；来源变化后仍需重新核对相关图形。</p></section>
     <p data-status class="preparation-status" role="status" aria-live="polite"></p>`;
   host.prepend(purpose,section);const $=key=>section.querySelector(`[data-${key}]`),qa=new URLSearchParams(search).has('qa');
@@ -70,7 +69,6 @@ export function mountCourtPreparationUI({host,clip,sample,variant,state,change,r
   function selectedRange(requireCurrent=true){if(requireCurrent&&!courtPreparationStatus(current(),preparationDependencies(state().session,clip)).current)throw new Error('来源尚未更新。请在「核对来源」生成球场预览。');return rangeFromSeconds(frameMapping,{startSeconds:Number($('start').value),endSeconds:Number($('end').value),durationSeconds:clip.mediaEndTime});}
   function guidance(){const s=state();return courtPreparationGuidance({session:s.session,clip,active:s.active,range:selectedRange(false),imagePoints:s.trajectories?.[s.active]??[],courtPoints:points()[s.active]??current()?.preparedByPlayer[s.active]??[],maps:maps()});}
   function navigate(action,frame){openSource(state().session.liveSelection?action:'footage',{frame:Number.isInteger(frame)?frame:state().frame,entityId:state().active});}
-  const groundAgent=mountGroundAgent({host:$('agent-host'),clip,source:source(),state,change,redraw,seek,undo,range:selectedRange});
   purpose.querySelector('[data-skip]').onclick=safe(()=>next());purpose.querySelector('[data-source]').onclick=safe(()=>navigate('compare'));
   for(const name of ['source','preview','use'])$(`step-${name}`).onclick=safe(()=>{step=name;});
   $('current-range').onclick=safe(useCurrentRange);
@@ -111,7 +109,7 @@ export function mountCourtPreparationUI({host,clip,sample,variant,state,change,r
     $('save').disabled=!status.current||!hasPositions||busy;$('save').textContent=busy?'正在保存…':saved?'再次保存准备结果':'保存准备结果';
     $('use-summary').textContent=!status.current?'来源尚未准备或已变化，请返回「核对来源」更新。':!hasPositions?'准备中还没有可用球场位置。先人工修补来源，或跳过本步直接制作视频标注。':saved?`准备结果 ${version} 已保存。可用于球场路线；贴回视频时仍需核对位置。`:'当前结果已保留在本地草稿中。保存后，战术制作可以读取这份准备结果。';
     const statusText=!p?'尚未生成球场预览':status.current?`准备修订 ${p.revision} · 来源未变化${saved?' · 已保存':' · 本地草稿'}`:`来源变化：${status.reasons.map(reason=>dependencyLabels[reason]??'来源').join('、')}。请更新预览。`;
-    $('status').textContent=[statusText,message].filter(Boolean).join('。');groundAgent.render();
+    $('status').textContent=[statusText,message].filter(Boolean).join('。');
   }
   void request('/api/court-preparation?'+new URLSearchParams({...source(),qa:qa?'1':'0'})).then(v=>{
     version=v.version;
@@ -122,5 +120,5 @@ export function mountCourtPreparationUI({host,clip,sample,variant,state,change,r
     render();
   }).catch(e=>{message=`暂时无法读取服务保存的版本：${e.message}。可继续本地预览与人工修补。`;render();});
   render();
-  return {render,display:()=>sourceCurrent?{...current()?.preparedByPlayer,...preview?.candidate.pointsByPlayer,...groundAgent.display()}:null,previewEntityIds:()=>groundAgent.previewEntityIds(),compare:()=>$('compare').checked||groundAgent.compare(),raw:()=>sourceCurrent?current()?.rawByPlayer:null};
+  return {render,display:()=>sourceCurrent?{...current()?.preparedByPlayer,...preview?.candidate.pointsByPlayer}:null,previewEntityIds:()=>[],compare:()=>$('compare').checked,raw:()=>sourceCurrent?current()?.rawByPlayer:null};
 }

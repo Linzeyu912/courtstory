@@ -14,11 +14,31 @@ from fractions import Fraction
 from render_commentary_narration import (build_timeline, source_at, render_video,
                                          mux_audio, convert_cues, subtitle_overlays)
 from commentary_video import CommentaryVideo
+from commentary_fonts import resolve_font
 
 
 class CommentaryNarrationTimelineTests(unittest.TestCase):
+    def test_automatic_font_selection_on_linux_and_windows(self):
+        for available in ('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc', 'C:/Windows/Fonts/msyh.ttc'):
+            with self.subTest(available=available), patch.object(Path, 'is_file', autospec=True, side_effect=lambda p: p.as_posix() == available):
+                self.assertEqual(resolve_font(), Path(available).resolve())
+
+    def test_missing_explicit_font_stops_before_paid_work(self):
+        import commentary_workflow
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder); source=root/'source.mp4'; source.touch()
+            with patch.object(sys, 'argv', ['workflow', '--video', str(source), '--output', str(root/'out'), '--font', str(root/'missing.ttf')]), \
+                 patch.object(commentary_workflow, 'credentials'), \
+                 patch.object(commentary_workflow.subprocess, 'run') as model, \
+                 patch.object(commentary_workflow, 'synthesize_plan') as speech:
+                with self.assertRaises(SystemExit): commentary_workflow.main()
+                model.assert_not_called(); speech.assert_not_called()
+            state=json.loads((root/'out/workflow.json').read_text(encoding='utf-8'))
+            self.assertEqual(state['status'], 'failed')
+            self.assertIn('Font not found', state['error'])
+
     def test_feedback_subtitle_band_is_compact_centered_and_leaves_hud_clear(self):
-        font=Path('C:/Windows/Fonts/msyh.ttc')
+        font=resolve_font()
         if not font.is_file(): self.skipTest('CJK font unavailable')
         cues=[{'cueId':'a','text':'投篮冻结与防守反馈'}];placements=[{'cueId':'a'}]
         bottom=subtitle_overlays(cues,placements,1920,1080,font,layout='bottom')['a']
@@ -58,6 +78,19 @@ class CommentaryNarrationTimelineTests(unittest.TestCase):
             self.assertIn('shot_release requires --document',result.stderr)
             self.assertFalse((root/'output').exists())
 
+    def test_empty_drawing_document_stops_before_speech(self):
+        import commentary_workflow
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);source=root/'source.mp4';source.touch()
+            plan=root/'plan.json';plan.write_text(json.dumps({'nodes':[{'nodeId':'shot','kind':'shot_release'}],'cues':[]}),encoding='utf-8')
+            document=root/'document.json';document.write_text(json.dumps({'document':{'annotations':{'items':[]}}}),encoding='utf-8')
+            with patch.object(sys,'argv',['workflow','--video',str(source),'--plan',str(plan),'--document',str(document),'--output',str(root/'out')]), \
+                 patch.object(commentary_workflow,'credentials'), patch.object(commentary_workflow,'synthesize_plan') as speech:
+                with self.assertRaises(SystemExit): commentary_workflow.main()
+                speech.assert_not_called()
+            state=json.loads((root/'out/workflow.json').read_text(encoding='utf-8'))
+            self.assertIn('投篮标记和评价',state['error'])
+
     def test_pause_length_uses_audio_duration_and_shifts_later_source_mapping(self):
         cues = [
             dict(cueId='pause', delivery='pause', text='暂停说明', suggestedStartTime=2, suggestedEndTime=4),
@@ -90,9 +123,9 @@ class CommentaryNarrationTimelineTests(unittest.TestCase):
     def test_local_test_tone_renders_with_silent_source_video(self):
         """Use a synthetic tone fixture only; this is not a TTS sample."""
         ffmpeg = shutil.which('ffmpeg')
-        font = Path('C:/Windows/Fonts/msyh.ttc')
+        font = resolve_font()
         if not ffmpeg or not font.is_file():
-            self.skipTest('FFmpeg or the Windows CJK font is unavailable')
+            self.skipTest('FFmpeg or a CJK font is unavailable')
         with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[2]/'tmp') as folder:
             root = Path(folder)
             source = root/'fixture.mkv'
@@ -130,9 +163,9 @@ class CommentaryNarrationTimelineTests(unittest.TestCase):
     def test_source_audio_with_nonzero_pts_is_trimmed_from_video_start(self):
         """Exercise audio trimming where both original streams start at PTS 2s."""
         ffmpeg = shutil.which('ffmpeg')
-        font = Path('C:/Windows/Fonts/msyh.ttc')
+        font = resolve_font()
         if not ffmpeg or not font.is_file():
-            self.skipTest('FFmpeg or the Windows CJK font is unavailable')
+            self.skipTest('FFmpeg or a CJK font is unavailable')
         with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[2]/'tmp') as folder:
             root=Path(folder); source=root/'offset.mkv'; wav=root/'synthetic-test-tone.wav'
             silent=root/'silent.mp4'; output=root/'finished.mp4'
@@ -162,9 +195,9 @@ class CommentaryNarrationTimelineTests(unittest.TestCase):
 
     def test_nonzero_pts_trim_selects_later_frequency_segment(self):
         """Prove a 1.2s source trim selects 880 Hz, not the opening 220 Hz tone."""
-        ffmpeg=shutil.which('ffmpeg'); font=Path('C:/Windows/Fonts/msyh.ttc')
+        ffmpeg=shutil.which('ffmpeg'); font=resolve_font()
         if not ffmpeg or not font.is_file():
-            self.skipTest('FFmpeg or the Windows CJK font is unavailable')
+            self.skipTest('FFmpeg or a CJK font is unavailable')
         with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[2]/'tmp') as folder:
             root=Path(folder); source=root/'two-tone-offset.mkv'; silent=root/'silent.mp4'; output=root/'trimmed.mp4'
             subprocess.run([ffmpeg,'-hide_banner','-loglevel','error','-y',
