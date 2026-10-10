@@ -6,6 +6,10 @@
 
 2026-10-09 22:11（America/New_York）：[官方 001 的 Astra 姓名与全流程复跑](official-astra-names-and-reliability-20261009.md)已生成 36.2 秒 1080p 真实配音成片，姓名 / 号码、绘图和投篮反馈均进入 MP4；记录实际失败原因、阶段恢复和只重跑失败节点的修复，以及姓名 pending、身份冲突和定格节奏等剩余质量问题。
 
+2026-10-10 决赛答辩入口：[技术路线与答辩母稿](finals-defense-technical-route-20261010.md)包含流程/部署图、Agent 分工、数据边界、验收证据、7 页 5 分钟安排和评委问答；发布整理已纳入 005/001 历史成片及质量缺口、TEAM25、单屏 UI、GPU 实测与 Polly 代码替换。官方条款、评分与时间见[当日核验表](../../requirements/finals-defense-requirements-20261010.md)；最终 PPT、赛事提交和新版云端全流程仍待执行。
+
+同日用户补充的[八项推进工作与更新位置](finals-defense-technical-route-20261010.md#13-推进中的工作与更新位置)记录后端流程 Tab/按钮、UI 适配、人工全流程测试、成品仓库转移、README 架构与亮点、云端部署测试、火箭队数据强化和 TEAM25 标识。按证据区分已实现、部分验收与待补项，附填写模板和答辩页映射。
+
 2026-10-09（America/New_York）：[Astra 全流程真实试跑](full-commentary-astra-20261009.md)记录真实 OpenRouter 理解、润色、独立绘图与审核、Seed TTS 和投篮评价成片的实际进度，以及试跑暴露的接口修复；区分短样片结果与未完成的 001 长片。
 
 2026-10-09（America/New_York）：用户最终确认以截图中的 `player-review` 为核心工作台，并移除整个 2D 轨迹核对模块。本轮放大视频、展开标注区、精简画面说明并调整制作衔接，见[核心工作台布局与流程调整](core-workbench-layout-20261009.md)。此前[独立样稿接入检查](broadcast-studio-integration-audit-20261009.md)仅作历史参考。
