@@ -54,3 +54,5 @@ build/
 !data/videos/**/*.mkv
 !data/videos/**/*.webm
 !data/videos/**/*.avi
+
+!deliverables/*.mp4
