@@ -1,7 +1,7 @@
 import readline from 'node:readline';
 import {Agent} from '@earendil-works/pi-agent-core';
 import {createCommentaryProvider,redactError} from './commentary-provider.mjs';
-import {createDrawingTools,drawingOverviewFrames} from './drawing-tools.mjs';
+import {createDrawingTools,drawingOverviewFrames,drawingGeometryContract} from './drawing-tools.mjs';
 import {promptWithReconnect} from './ground-trajectory-reconnect.mjs';
 
 const emit=value=>process.stdout.write(`${JSON.stringify(value)}\n`);
@@ -50,7 +50,7 @@ export async function runDrawing(start){
         ...(error?{error}:{}),usage:event.message.usage}});
     }
   });
-  const timer=setTimeout(()=>{closed=true;active.abort();rejectPending('绘图时间预算用尽。');},Math.min(480,config.timeoutSeconds??240)*1000);
+  const timer=setTimeout(()=>{error='绘图时间预算用尽。';closed=true;active.abort();rejectPending(error);},Math.min(480,config.timeoutSeconds??240)*1000);
   const data={node:start.node??start.nodes?.[0],planRef:start.planRef,participants:start.participants,event:start.event,cues:start.cues,
     drawingConstraint:'shot_release必须为shotFeedback.shooterRef所指主体生成恰好一个spotlight，球已离手合法。匿名出手者的participant.subjectId必须等于shooterRef，entityId=null；有可靠绑定时entityId须匹配保存的人物引用。其他节点仍只给当前持球人重点圈。shotFeedback机会/压迫评价是只读保存解说，禁止生成或改写评价。缺合格spotlight不能标ready；缺图像返回unavailable或needs_upstream_review。',
     ...(audit?{candidate:start.candidate,evidence:start.evidence?.details}:{auditFeedback:start.auditFeedback??null})};
@@ -58,6 +58,7 @@ export async function runDrawing(start){
     // Give every drawing call temporal evidence before it can settle for a static frame.
     const overview=audit?start.evidence:await runtime.tools.find(t=>t.name==='read_node_frames').execute('overview',{
       nodeId:data.node.nodeId,frames:drawingOverviewFrames(data.node)});
+    if(!audit)data.geometryContract=drawingGeometryContract(data.node,runtime.state.assets,start.participants);
     await promptWithReconnect(active,{role:'user',content:[text(JSON.stringify(data)),...(overview?.content??[]).filter(c=>['text','image'].includes(c.type))],timestamp:Date.now()},{
     getLastError:()=>error,clearLastError:()=>{error=null;active.state.errorMessage=undefined;},
     shouldStop:()=>closed||runtime.state.finished||requests>=maxRequests||budget.toolCalls>=budget.maxToolCalls,

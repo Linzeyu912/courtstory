@@ -1,9 +1,23 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createDrawingTools,validateNodeCandidate,drawingOverviewFrames} from './drawing-tools.mjs';
+import {createDrawingTools,validateNodeCandidate,drawingOverviewFrames,drawingGeometryContract} from './drawing-tools.mjs';
 const node={nodeId:'n1',anchorAssetFrame:2,evidenceWindow:{startFrame:1,endFrame:4}};
 const start={node,nodes:[node]};
 const budget=()=>({maxToolCalls:20,toolCalls:0});
+test('per-node schema and explicit image contract prevent anonymous action and anchor mismatches',()=>{
+  const schemaFor=value=>createDrawingTools(value,{budget:budget()}).tools.find(t=>t.name==='save_node_drawing').parameters.properties.candidate.anyOf[0].properties.phases.items;
+  const schema=schemaFor(start);
+  assert.equal(schema.properties.freezeFrame.const,2);
+  assert.equal(schema.properties.annotations.items.properties.startFrame.maximum,2);
+  assert.equal(schema.properties.annotations.items.properties.endFrameExclusive.minimum,3);
+  assert.equal(schema.properties.actions.maxItems,0);
+  const bound=schemaFor({...start,participants:[{entityId:'entity-1'}]});
+  assert.notEqual(bound.properties.actions.maxItems,0);
+  const contract=drawingGeometryContract(node,[{assetId:'wrong',frame:1},{assetId:'anchor',frame:2}]);
+  assert.deepEqual(contract.annotation.validAssetIds,['anchor']);
+  assert.deepEqual(contract.allowedActionEntityIds,[]);
+  assert.match(contract.anonymousActionRule,/actions必须是\[\]/);
+});
 test('temporal overview covers late anchors and both window edges without exhausting evidence slots',()=>{
   for(const [startFrame,anchorAssetFrame,endFrame] of [[0,330,480],[480,749,809],[1022,1083,1083],[4,4,4],[1,2,4]]){
     const frames=drawingOverviewFrames({anchorAssetFrame,evidenceWindow:{startFrame,endFrame}});

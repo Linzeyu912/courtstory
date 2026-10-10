@@ -16,6 +16,16 @@ export function drawingOverviewFrames(node){
     Math.round(start+(end-start)/3),Math.round(start+2*(end-start)/3)])].sort((a,b)=>a-b);
 }
 
+export function drawingGeometryContract(node,assets,participants=[]){
+  const anchor=node.anchorAssetFrame,window=node.evidenceWindow;
+  return {phase:{startFrame:window.startFrame,endFrameExclusive:window.endFrame+1,freezeFrame:anchor,production:null},
+    annotation:{anchorFrame:anchor,space:'video',authoredPath:null,
+      validAssetIds:assets.filter(a=>a.frame===anchor).map(a=>a.assetId),
+      timeRule:`startFrame在${window.startFrame}至${anchor}之间；endFrameExclusive在${anchor+1}至${window.endFrame+1}之间。每个图形显示区间必须包含锚帧，即使路线表达锚帧之前或之后的移动。实际动作帧写入evidenceFrames。`},
+    allowedActionEntityIds:participants.map(p=>p.entityId).filter(Boolean),
+    anonymousActionRule:'匿名人物的移动直接用annotations中的route表示，participants用稳定subjectId和entityId=null；没有已绑定entityId时actions必须是[]，不能把subjectId填进actions的entityId。'};
+}
+
 export function validateNodeCandidate(candidate,node,seen,assets,participants=[]){
   if(!candidate||candidate.schemaVersion!==4||candidate.phases?.length!==1)throw new Error('每节点需要一个原生 V4 几何候选。');
   const phase=candidate.phases[0],window=node.evidenceWindow;
@@ -27,8 +37,8 @@ export function validateNodeCandidate(candidate,node,seen,assets,participants=[]
   }
   for(const a of phase.annotations??[]){
     validateAnnotationControls(a);
-    if(a.startFrame>=a.endFrameExclusive||a.anchorFrame<a.startFrame||a.anchorFrame>=a.endFrameExclusive)throw new Error('图形时间或参考帧无效。');
-    if(a.anchorFrame!==node.anchorAssetFrame||!assets.some(asset=>asset.assetId===a.assetId&&asset.frame===a.anchorFrame))throw new Error('坐标资产和节点锚帧不匹配。');
+    if(a.startFrame>=a.endFrameExclusive||a.anchorFrame<a.startFrame||a.anchorFrame>=a.endFrameExclusive)throw new Error(`图形时间或参考帧无效：startFrame必须<=${node.anchorAssetFrame}，endFrameExclusive必须>${node.anchorAssetFrame}；实际移动时间用evidenceFrames表达。`);
+    if(a.anchorFrame!==node.anchorAssetFrame||!assets.some(asset=>asset.assetId===a.assetId&&asset.frame===a.anchorFrame))throw new Error(`坐标资产和节点锚帧不匹配：anchorFrame必须是${node.anchorAssetFrame}，assetId必须取自${JSON.stringify(assets.filter(asset=>asset.frame===node.anchorAssetFrame).map(asset=>asset.assetId))}。`);
     if(a.type==='route'&&new Set(a.evidenceFrames).size<2)throw new Error('路线需要至少两帧真实观察。');
     const asset=assets.find(asset=>asset.assetId===a.assetId),transform=asset.transform;
     for(const point of a.points??[]){
@@ -81,6 +91,15 @@ export function createDrawingTools(start,{rpc,budget,emit}={}){
   const nodes=new Map((start.nodes??[]).map(n=>[n.nodeId,n]));
   const node=nodes.get(start.node?.nodeId)??start.nodes?.[0];
   if(!node)throw new Error('绘图需要已保存解说节点。');
+  const nodeSchema=structuredClone(candidateSchema),phaseSchema=nodeSchema.properties.phases.items;
+  phaseSchema.properties.startFrame=Type.Literal(node.evidenceWindow.startFrame);
+  phaseSchema.properties.endFrameExclusive=Type.Literal(node.evidenceWindow.endFrame+1);
+  phaseSchema.properties.freezeFrame=Type.Literal(node.anchorAssetFrame);
+  const annotationSchema=phaseSchema.properties.annotations.items;
+  annotationSchema.properties.anchorFrame=Type.Literal(node.anchorAssetFrame);
+  annotationSchema.properties.startFrame=Type.Integer({minimum:node.evidenceWindow.startFrame,maximum:node.anchorAssetFrame});
+  annotationSchema.properties.endFrameExclusive=Type.Integer({minimum:node.anchorAssetFrame+1,maximum:node.evidenceWindow.endFrame+1});
+  if(!(start.participants??[]).some(p=>p.entityId))phaseSchema.properties.actions.maxItems=0;
   const call=(name,parameters,description,execute)=>({name,label:name,parameters,description,executionMode:'sequential',execute:async(id,args,signal)=>{
     if(signal?.aborted)throw new Error('任务已取消。');
     if(state.finished)throw new Error('本阶段已保存。');
@@ -119,7 +138,7 @@ export function createDrawingTools(start,{rpc,budget,emit}={}){
     call('request_window_extension',Type.Object({nodeId,startFrame:Type.Integer({minimum:0}),endFrame:Type.Integer({minimum:0}),reason:Type.String({minLength:1,maxLength:600})}),'明确记录窗口不足及所需范围，交给编排器处理；本轮不会自动扩大成全片。',async args=>{
       if(args.nodeId!==node.nodeId)throw new Error('未知节点。');state.extensionRequest=structuredClone(args);return {content:[json({status:'requires_orchestrator',request:args})]};
     }),
-    call('save_node_drawing',Type.Object({nodeId,status:Type.Union(['ready','partial','unavailable','needs_upstream_review'].map(Type.Literal)),reason:Type.String({maxLength:1800}),candidate:Type.Union([candidateSchema,Type.Null()])}),
+    call('save_node_drawing',Type.Object({nodeId,status:Type.Union(['ready','partial','unavailable','needs_upstream_review'].map(Type.Literal)),reason:Type.String({maxLength:1800}),candidate:Type.Union([nodeSchema,Type.Null()])}),
       '保存局部原生几何候选。冲突返回needs_upstream_review，缺少证据保留缺口。图形说明已保存节点的动作及相关配合；每个annotation填写实际图像assetId。优先用route表达有前后帧支持的移动，重点圈、位置环不能替代突破、切入、上提、退回、顺下、跟防、补位路线。匿名主体也可以画路线，entityId=null并关联独立subjectId即可。route从动作起始帧的脚下位置起步，所有点用球场线参照统一到锚帧视角；当前动作可包含锚帧之前已发生的部分，不要求起点一定是锚帧脚点。锚帧之后的真实移动用later_observed_action虚线。直线至少两点，转弯用3至6个关键点，不把检测抖动当转折。可靠绑定且起点匹配时宿主按实际轨迹跟随，否则保留可编辑参考帧路线。screen/position/spotlight只用脚下一个锚点；静止接应或空间位置才用position。screen方向和长度用angle/size，时间范围只覆盖掩护动作；与同节点路线自动分步显现。',async args=>{
         if(args.nodeId!==node.nodeId)throw new Error('未知节点。');
         if(['ready','partial'].includes(args.status)){validateNodeCandidate(args.candidate,node,state.seen,state.assets,start.participants??[]);}

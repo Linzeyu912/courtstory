@@ -1,4 +1,11 @@
 import test from 'node:test';
+test('commentary drawing reports actual node progress before there is a candidate',()=>{
+  const job={status:'analyzing',commentaryPlanRef:{jobId:'commentary'},nodes:[{status:'analyzing'}],auditPending:true,
+    message:'根据解说节点 n1 局部绘图',progress:{completed:0,total:5}};
+  assert.equal(agentAuditStatusDescription(job),'');
+  assert.match(agentStatusDescription(job),/根据解说节点 n1 局部绘图/);
+  assert.doesNotMatch(agentStatusDescription(job),/已生成/);
+});
 import assert from 'node:assert/strict';
 import {tacticsSceneSize,agentRuntimeDescription,agentFailureDescription,isStraightPass,agentReviewIssues,agentStageCoverageDescription,agentVisualAuditIssues,agentVisualAuditGroups,agentStatusDescription,savedVisualAuditRun,agentStageStatusDescription,agentAuditStatusDescription} from './tactics-ui.mjs';
 import {createTacticsDocument,refreshSnapshot} from './tactics-document.mjs';
