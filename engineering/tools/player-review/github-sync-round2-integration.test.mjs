@@ -482,8 +482,8 @@ for(const fromSample of [false,true])test(`actual app runs one video review with
         dependencies.mountVideoDisplay=()=>({pause(){},seek(){},play(){}});continue;
       }
       if(match[2]==='./footage-ui.mjs'){dependencies.mountFootageUI=()=>({render(){}});continue;}
-      if(match[2]==='./workspace.mjs'){dependencies.createWorkspace=api=>{workspaceApi=api;return {refresh(){},draw(){},drawImageOverlay(){},switchStep(){},handleImageClick:()=>false};};continue;}
-      if(match[2]==='./tactics-ui.mjs'){dependencies.mountTacticsUI=api=>{tacticsApi=api;return {render(){},saveDraft(){},syncNameOverlay(){}};};continue;}
+      if(match[2]==='./workspace.mjs'){dependencies.createWorkspace=api=>{workspaceApi=api;return {refresh(){if(tacticsApi)assert.equal(tacticsApi.nameOverlaySnapshot().playerNameIdentities[0].observations.length,api.getState().trajectories.P1.length,'initial empty name overlay must not survive trajectory refresh');},draw(){},drawImageOverlay(){},switchStep(){},handleImageClick:()=>false};};continue;}
+      if(match[2]==='./tactics-ui.mjs'){dependencies.mountTacticsUI=api=>{tacticsApi=api;api.nameOverlaySnapshot();return {render(){},saveDraft(){},syncNameOverlay(){}};};continue;}
       const module=await import(new URL(match[2],import.meta.url));
       for(const specifier of match[1].split(',')){const [name,alias=name]=specifier.trim().split(/\s+as\s+/);dependencies[alias]=module[name];}
     }

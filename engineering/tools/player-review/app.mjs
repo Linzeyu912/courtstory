@@ -629,6 +629,8 @@ function refresh(){
   if(rangeEdit.entityId!==active){clearRangePreview();rangeEdit.entityId=active;rangeEdit.trackId=null;rangeEdit.keyframes=[];}
   session.cuts=mergeSourceCuts(session.cuts,sourceCuts,clip.frames.length);
   trajectories=buildTrajectories(session,clip.frames,sourceCuts,clip);
+  // Mounting the tactics panel can request names before the first trajectory build.
+  cachedPlayerNameOverlay=null;
   basketballTrajectory=buildBasketballTrajectory(session,clip.frames,session.cuts,{width:clip.width,height:clip.height});
   playerTrailCuts=Object.fromEntries(session.entities.map(item=>[item.id,reviewTrailCuts([item],session.cuts,clip.frames.length)]));
   temporaryTrailCuts=new Map(catalog.map(item=>[item.id,reviewTrailCuts(session.entities,session.cuts,clip.frames.length,item.id)]));
