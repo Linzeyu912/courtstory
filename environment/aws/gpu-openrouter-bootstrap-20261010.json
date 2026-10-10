@@ -1,0 +1,274 @@
+{
+  "recorded_at": "2026-10-10T09:34:20.469826+08:00",
+  "timezone": "Asia/Singapore",
+  "region": "us-east-1",
+  "code_snapshot": "0c219aea9eae2822773a8c72c4597db8bc73dc47",
+  "latest_remote_checked": "503a547af56871d1990ba30050798f19782a25c5",
+  "gpu_workload_unchanged_in_latest_remote": true,
+  "notebook": {
+    "NotebookInstanceStatus": "Stopped",
+    "InstanceType": "ml.g5.2xlarge",
+    "VolumeSizeInGB": 50,
+    "PlatformIdentifier": "notebook-al2023-v1"
+  },
+  "notebook_created_at": "2026-10-10T09:22:43.010000+08:00",
+  "notebook_last_modified_at": "2026-10-10T09:33:46.733000+08:00",
+  "cloudformation_state": "CREATE_COMPLETE",
+  "quota_request_submitted": false,
+  "quotas": [
+    {
+      "QuotaName": "ml.g5.xlarge for processing job usage",
+      "QuotaCode": "L-BE792A7A",
+      "Value": 0.0,
+      "Adjustable": true
+    },
+    {
+      "QuotaName": "ml.g5.xlarge for spot training job usage",
+      "QuotaCode": "L-DE07CBDF",
+      "Value": 0.0,
+      "Adjustable": true
+    },
+    {
+      "QuotaName": "ml.g5.2xlarge for notebook instance usage",
+      "QuotaCode": "L-19973BE2",
+      "Value": 1.0,
+      "Adjustable": true
+    },
+    {
+      "QuotaName": "ml.g5.2xlarge for training job usage",
+      "QuotaCode": "L-2D6DEB3C",
+      "Value": 1.0,
+      "Adjustable": true
+    },
+    {
+      "QuotaName": "ml.g5.2xlarge for transform job usage",
+      "QuotaCode": "L-12740493",
+      "Value": 0.0,
+      "Adjustable": true
+    },
+    {
+      "QuotaName": "ml.g5.2xlarge for spot training job usage",
+      "QuotaCode": "L-CAEE7DB7",
+      "Value": 0.0,
+      "Adjustable": true
+    },
+    {
+      "QuotaName": "ml.g5.xlarge for notebook instance usage",
+      "QuotaCode": "L-E8917BB7",
+      "Value": 1.0,
+      "Adjustable": true
+    },
+    {
+      "QuotaName": "ml.g5.2xlarge for processing job usage",
+      "QuotaCode": "L-23412DF7",
+      "Value": 0.0,
+      "Adjustable": true
+    },
+    {
+      "QuotaName": "ml.g5.xlarge for transform job usage",
+      "QuotaCode": "L-135CF62D",
+      "Value": 0.0,
+      "Adjustable": true
+    },
+    {
+      "QuotaName": "ml.g5.xlarge for training job usage",
+      "QuotaCode": "L-B6D80D9C",
+      "Value": 1.0,
+      "Adjustable": true
+    }
+  ],
+  "gpu_runtime": {
+    "passed": true,
+    "fixture": "005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4",
+    "frames_per_tracker": 30,
+    "gpu": "NVIDIA A10G",
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8",
+    "ultralytics": "8.4.171",
+    "tracking": [
+      {
+        "detector": "ebard",
+        "variant": "optimized",
+        "elapsed_seconds": 5.375,
+        "device": {
+          "name": "NVIDIA A10G",
+          "actual_model_parameter_device": "cuda:0",
+          "parameter_dtype": "torch.float32",
+          "torch_version": "2.11.0+cu128",
+          "torch_cuda_version": "12.8",
+          "ultralytics_version": "8.4.171",
+          "pyav_version": "17.0.0",
+          "native_reid_features_observed": true,
+          "peak_allocated_bytes": 34015232
+        },
+        "statistics": {
+          "candidate_count_min_median_max": [
+            7,
+            9.0,
+            11
+          ],
+          "candidate_count_distribution": {
+            "7": 3,
+            "8": 6,
+            "9": 12,
+            "10": 8,
+            "11": 1
+          },
+          "unique_track_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            17
+          ],
+          "pending_detections": 14,
+          "low_confidence_continuations": 6,
+          "suppressed_detections": 0,
+          "team_gate_rejections": 0,
+          "relinked_track_fragments": 0
+        },
+        "timing_seconds": {
+          "initialization_and_warmup": 1.6998142260000009,
+          "decode_infer_candidates_evidence": 1.0066877289999638
+        },
+        "frames": 30,
+        "output_bytes": 195242
+      },
+      {
+        "detector": "yolo",
+        "variant": "yolo",
+        "elapsed_seconds": 5.024,
+        "device": {
+          "name": "NVIDIA A10G",
+          "actual_model_parameter_device": "cuda:0",
+          "parameter_dtype": "torch.float32",
+          "torch_version": "2.11.0+cu128",
+          "torch_cuda_version": "12.8",
+          "ultralytics_version": "8.4.171",
+          "pyav_version": "17.0.0",
+          "native_reid_features_observed": false,
+          "peak_allocated_bytes": 117636096
+        },
+        "statistics": {
+          "candidate_count_min_median_max": [
+            26,
+            33.5,
+            42
+          ],
+          "candidate_count_distribution": {
+            "26": 1,
+            "27": 1,
+            "28": 1,
+            "29": 3,
+            "30": 3,
+            "31": 3,
+            "32": 1,
+            "33": 2,
+            "34": 5,
+            "35": 3,
+            "36": 5,
+            "41": 1,
+            "42": 1
+          },
+          "unique_track_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            14,
+            18,
+            26
+          ],
+          "pending_detections": 649,
+          "low_confidence_continuations": 16,
+          "suppressed_detections": 0,
+          "team_gate_rejections": 0
+        },
+        "timing_seconds": {
+          "initialization_and_warmup": 1.8438483070000302,
+          "decode_infer_candidates_evidence": 0.7924330030000419
+        },
+        "frames": 30,
+        "output_bytes": 340261
+      }
+    ],
+    "court_keypoints": {
+      "shape": [
+        48,
+        3
+      ],
+      "device": 0,
+      "confident_points": 24,
+      "elapsed_seconds": 4.36,
+      "weights_sha256": "68e5faf5fb5388cf83477238abe22e9824a69fb33a4cf34f79ab61858f410064"
+    }
+  },
+  "initial_verification": {
+    "stage": "gpu_validation_complete",
+    "elapsed_seconds": 136.07,
+    "passed": true,
+    "nvidia_smi": "NVIDIA A10G, 23028 MiB, 595.91.07"
+  },
+  "openrouter": {
+    "origin": "SageMaker Notebook",
+    "region": "us-east-1",
+    "model_requested": "openai/gpt-6-astra",
+    "http_status": 200,
+    "elapsed_seconds": 2.281,
+    "model_returned": "openai/gpt-6-astra",
+    "provider": "OpenAI",
+    "response_text": "TEAM25_ASTRA_OK",
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 20,
+      "completion_tokens": 9,
+      "total_tokens": 29,
+      "cost": 0.00065,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00065,
+        "upstream_inference_prompt_cost": 0.0002,
+        "upstream_inference_completions_cost": 0.00045
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    },
+    "passed": true
+  },
+  "credential_exchange_cleanup": {
+    "encrypted_key_and_public_handshake_versions_deleted": 2,
+    "remaining_versions": 0,
+    "plaintext_key_saved_locally": false,
+    "plaintext_key_saved_in_cloud": false
+  },
+  "limitations": [
+    "30-frame smoke checks only; no tracking or calibration accuracy claim.",
+    "OpenRouter test used synthetic text only.",
+    "Notebook is not connected to the existing workbench job scheduler.",
+    "AWS invoice costs were not queried; OpenRouter usage cost is reported by the API."
+  ]
+}
