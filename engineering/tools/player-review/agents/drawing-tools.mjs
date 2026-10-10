@@ -9,6 +9,13 @@ candidateSchema.properties.phases.maxItems=1;
 const annotation=candidateSchema.properties.phases.items.properties.annotations.items;
 annotation.properties.assetId={type:'string',minLength:1,maxLength:100};annotation.required.push('assetId');
 
+// Leave five of the twelve evidence slots for targeted follow-up reads.
+export function drawingOverviewFrames(node){
+  const {startFrame:start,endFrame:end}=node.evidenceWindow,anchor=node.anchorAssetFrame;
+  return [...new Set([start,Math.round((start+anchor)/2),anchor,Math.round((anchor+end)/2),end,
+    Math.round(start+(end-start)/3),Math.round(start+2*(end-start)/3)])].sort((a,b)=>a-b);
+}
+
 export function validateNodeCandidate(candidate,node,seen,assets,participants=[]){
   if(!candidate||candidate.schemaVersion!==4||candidate.phases?.length!==1)throw new Error('每节点需要一个原生 V4 几何候选。');
   const phase=candidate.phases[0],window=node.evidenceWindow;
@@ -113,7 +120,7 @@ export function createDrawingTools(start,{rpc,budget,emit}={}){
       if(args.nodeId!==node.nodeId)throw new Error('未知节点。');state.extensionRequest=structuredClone(args);return {content:[json({status:'requires_orchestrator',request:args})]};
     }),
     call('save_node_drawing',Type.Object({nodeId,status:Type.Union(['ready','partial','unavailable','needs_upstream_review'].map(Type.Literal)),reason:Type.String({maxLength:1800}),candidate:Type.Union([candidateSchema,Type.Null()])}),
-      '保存局部原生几何候选。冲突返回needs_upstream_review，缺少证据保留缺口。图形仅说明已保存节点重点；每个annotation填写实际图像assetId。route从关联球员的脚下起步，直线至少两点，观察到转弯时用3至6个关键点表达弯曲，不把检测抖动当转折。绑定已有entityId后宿主使用实际轨迹逐帧跟随并平滑绘制，无可靠绑定保持参考帧标注。screen/position/spotlight只用脚下一个锚点；position渲染为薄环，不用交叉路线画小叉。screen方向和长度用angle/size，时间范围只覆盖掩护动作；与同节点路线自动分步显现。',async args=>{
+      '保存局部原生几何候选。冲突返回needs_upstream_review，缺少证据保留缺口。图形说明已保存节点的动作及相关配合；每个annotation填写实际图像assetId。优先用route表达有前后帧支持的移动，重点圈、位置环不能替代突破、切入、上提、退回、顺下、跟防、补位路线。匿名主体也可以画路线，entityId=null并关联独立subjectId即可。route从动作起始帧的脚下位置起步，所有点用球场线参照统一到锚帧视角；当前动作可包含锚帧之前已发生的部分，不要求起点一定是锚帧脚点。锚帧之后的真实移动用later_observed_action虚线。直线至少两点，转弯用3至6个关键点，不把检测抖动当转折。可靠绑定且起点匹配时宿主按实际轨迹跟随，否则保留可编辑参考帧路线。screen/position/spotlight只用脚下一个锚点；静止接应或空间位置才用position。screen方向和长度用angle/size，时间范围只覆盖掩护动作；与同节点路线自动分步显现。',async args=>{
         if(args.nodeId!==node.nodeId)throw new Error('未知节点。');
         if(['ready','partial'].includes(args.status)){validateNodeCandidate(args.candidate,node,state.seen,state.assets,start.participants??[]);}
         else if(args.candidate!==null||!args.reason.trim())throw new Error('不可用节点需要明确原因且无候选。');
