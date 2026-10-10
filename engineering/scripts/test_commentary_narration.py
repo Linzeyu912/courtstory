@@ -110,7 +110,7 @@ class CommentaryNarrationTimelineTests(unittest.TestCase):
                 for packet in stream.encode(): container.mux(packet)
             subprocess.run([ffmpeg, '-hide_banner', '-loglevel', 'error', '-y',
                             '-f', 'lavfi', '-i', 'sine=frequency=440:duration=0.7',
-                            '-ac', '1', '-ar', '24000', str(wav)], check=True)
+                            '-ac', '1', '-ar', '16000', str(wav)], check=True)
             cue = dict(cueId='test-pause', delivery='pause', text='这是本地合成测试音，不是 TTS 成片。',
                        suggestedStartTime=.4, suggestedEndTime=.8)
             audio = [dict(cueId='test-pause', durationSeconds=.7, _absolute=str(wav))]

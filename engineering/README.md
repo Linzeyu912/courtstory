@@ -1,5 +1,7 @@
 # 作品工程
 
+2026-10-09（America/New_York）：配音已切换为 Amazon Polly，默认 Zhiyu；其余模型与制作流程保持。AWS 配置、缓存兼容和验证范围见[配音工作流](docs/commentary-narration-workflow.md)。本轮未部署云端，真实中文试听待 AWS 登录后验证。
+
 2026-10-09（America/New_York，单屏实施）：球员标定与战术布局直接在 main 开发，普通姓名可隐藏，有效重点圈始终显示关联姓名；见[实施说明与真实截图](docs/single-view-workbench-20261009.md)。此前[球员审核稿](docs/designs/player-single-view-20261009/README.md)和[战术审核稿](docs/designs/tactics-single-view-20261009/README.md)一并保留，产品实现以实际截图为准。
 
 2026-10-10 本轮 TEAM 25 收敛：白色 TEAM／深蓝 25、顶栏字号层级、灰色图案定稿与最新 main 功能已完成整合验证，按界面、设计资料、协作记录分类发布；[发布与旧分支清理记录](docs/ui-team25-publication-20261010.md)提供实际状态。

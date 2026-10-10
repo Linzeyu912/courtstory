@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-09（America/New_York，Polly 配音）：按用户要求仅将 TTS 从火山 Seed 切到 Amazon Polly，默认 Zhiyu/neural；解说、姓名、绘图模型与成片顺序保持。60 项相关检查通过，包括 16 kHz 测试音实际 MP4；本机无 AWS profile，真实中文合成尚未验证。已补充 EC2 CDK 合成权限，未部署云端；配置与旧任务兼容见[配音工作流](../engineering/docs/commentary-narration-workflow.md)。
+
 2026-10-09 23:14（America/New_York，本轮 main 实施）：球员与战术单屏布局直接落到 main，保留 Astra 全员姓名接线，新增姓名开关及有效重点圈强制姓名显示。784 项 Node、92 项相关 Python 通过；桌面同屏、手机无横向溢出、绘制／切页／编辑／保存及真实短片导出完成。推送前同步 TEAM 25 顶栏；详见[实施记录](../engineering/docs/single-view-workbench-20261009.md)及[交接](../handoffs/chuali-zi/2026-10-09-2314-single-view-main.md)。用户草稿与 8892 服务未改动，未部署云端。
 
 2026-10-10（Asia/Singapore，TEAM 25 已发布）：已将顶栏与定稿资料分三类提交并推送 main，实查远端 `9bf75cc` 完整保留本轮成果和队友 `902aeaf`。旧 UI 本地／远端分支及 worktree 注册已删除；恢复资料已备份，旧路径仅剩审批拒绝删除的空目录。原有 22 个未提交文件已保全恢复，未混入发布。前端现有测试、34 项服务测试、六档浏览器顶栏与 166 视频检查通过；[发布记录](../engineering/docs/ui-team25-publication-20261010.md)提供分类和实证。本轮未部署云端。

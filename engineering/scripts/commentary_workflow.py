@@ -1,4 +1,4 @@
-"""Run video understanding, Volcengine narration, and subtitled MP4 rendering."""
+"""Run video understanding, Amazon Polly narration, and subtitled MP4 rendering."""
 from __future__ import annotations
 
 import argparse
@@ -7,14 +7,14 @@ from pathlib import Path
 import subprocess
 import sys
 
-from commentary_tts import ROOT, SPEAKER, STYLE, credentials, synthesize_plan
+from commentary_tts import ROOT, STYLE, credentials, synthesize_plan, voice_settings
 
 
 def write_preview(output, render, plan, title):
     import av
     timeline = json.loads((render/'timeline.json').read_text(encoding='utf-8'))
     result = json.loads(Path(plan).read_text(encoding='utf-8'))
-    timeline.update(id=title, title=title, audio='volcengine_tts',
+    timeline.update(id=title, title=title, audio='amazon_polly',
                     summary=result.get('plan', result).get('summary', ''),
                     video=(render/'commentary-final.mp4').relative_to(output).as_posix(),
                     poster='poster.jpg')
@@ -46,7 +46,8 @@ def main():
     parser.add_argument('--observations', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--env-file', type=Path, default=ROOT / '.env')
-    parser.add_argument('--speaker', default=SPEAKER)
+    parser.add_argument('--speaker', help='Polly voice ID; default POLLY_VOICE_ID or Zhiyu')
+    parser.add_argument('--engine', help='Polly engine; default POLLY_ENGINE or neural')
     parser.add_argument('--style', default=STYLE)
     parser.add_argument('--font', type=Path, default=Path('C:/Windows/Fonts/msyh.ttc'))
     parser.add_argument('--provider', choices=['openrouter', 'token-plan', 'qwen'], default='openrouter')
@@ -71,7 +72,8 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     state_path = output/'workflow.json'
     config = {'video': str(video.resolve()), 'plan': str(args.plan.resolve()) if args.plan else None,
-              'provider': args.provider, 'model': args.model, 'speaker': args.speaker,
+              'provider': args.provider, 'model': args.model,
+              'speech': voice_settings(args.env_file, args.speaker, args.engine),
               'style': args.style, 'observations': str(args.observations.resolve()) if args.observations else None}
     if args.document:
         if not args.document.is_file():parser.error('Joint document file does not exist')
@@ -108,7 +110,7 @@ def main():
         if has_shots and not args.document:
             raise ValueError('shot_release requires --document with the adopted shooter spotlight and feedback before speech synthesis')
         state['stage'] = 'speech'; save()
-        manifest = synthesize_plan(plan, output/'audio', args.env_file, args.speaker, args.style,audio_cache=args.audio_cache)
+        manifest = synthesize_plan(plan, output/'audio', args.env_file, args.speaker, args.style, args.engine,audio_cache=args.audio_cache)
         state['stage'] = 'render'; save()
         render = output/'render'
         if not (render/'timeline.json').is_file():

@@ -69,6 +69,7 @@ runtime = resource(core, 'AgentRuntime', 'AWS::BedrockAgentCore::Runtime', {
 })
 runtime_arn = runtime.get_att('AgentRuntimeArn').to_string()
 ec2_role = role(core, 'Ec2Role', 'ec2.amazonaws.com', [
+    allow('polly:SynthesizeSpeech', '*'),
     allow('s3:GetObject', [objects, f"arn:aws:s3:::{config['bucket']}/workbench/datasets/broadcastcode-training-20261005/*"]),
     allow('s3:PutObject', [agent_objects, f"arn:aws:s3:::{config['bucket']}/{config['prefix']}/workspace/*"]),
     allow(['bedrock-agentcore:InvokeAgentRuntime', 'bedrock-agentcore:StopRuntimeSession'], [runtime_arn, runtime_arn + '/*'])

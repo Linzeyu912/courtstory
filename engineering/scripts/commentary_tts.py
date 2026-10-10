@@ -1,93 +1,96 @@
-"""Synthesize timed commentary with Volcengine Seed TTS 2.0."""
+"""Synthesize timed commentary with Amazon Polly; retain the WAV manifest contract."""
 from __future__ import annotations
 
 import argparse
-import base64
 import hashlib
 import json
 import os
 from pathlib import Path
 import shutil
-import urllib.error
-import urllib.request
 import uuid
 import wave
+from xml.sax.saxutils import escape
 
 from dotenv import dotenv_values
 
 ROOT = Path(__file__).resolve().parents[2]
-ENDPOINT = 'https://openspeech.bytedance.com/api/v3/tts/unidirectional'
-RESOURCE = 'seed-tts-2.0'
-SPEAKER = 'zh_female_vv_uranus_bigtts'
+SPEAKER = 'Zhiyu'
 STYLE = '请用专业中文篮球解说的口吻说话，清晰利落，节奏紧凑自然；战术分析沉稳，进球时适度兴奋，不要喊叫，不要添加文字。'
 NATURAL_STYLE = '像熟悉篮球的中文解说自然聊天，分析清楚，调侃时带一点笑意；精彩动作短促兴奋，句间有轻重和停顿，英文感叹顺口，不要每句都喊，不额外添加文字。'
-SAMPLE_RATE = 24000
+SAMPLE_RATE = 16000
 
 
-def credentials(env_file, key_env='VOLCENGINE_TTS_API_KEY'):
-    values = {**dotenv_values(env_file, encoding='utf-8-sig'), **os.environ}
-    key = (values.get(key_env) or '').strip()
-    if not key:
-        raise ValueError(f'Missing {key_env}. Use the Doubao Speech console API key: '
-                         'https://console.volcengine.com/speech/new/setting/apikeys')
-    return key
+def environment(env_file):
+    return {**dotenv_values(env_file, encoding='utf-8-sig'), **os.environ}
 
 
-def request_body(text, speaker, style, section_id):
-    return {'user': {'uid': 'broadcastcode-commentary'}, 'req_params': {
-        'text': text, 'speaker': speaker,
-        'audio_params': {'format': 'pcm', 'sample_rate': SAMPLE_RATE,
-                         'speech_rate': 0, 'enable_subtitle': True},
-        'additions': json.dumps({'context_texts': [style], 'section_id': section_id}, ensure_ascii=False),
-    }}
+def voice_settings(env_file, speaker=None, engine=None):
+    values = environment(env_file)
+    selected_engine = engine or values.get('POLLY_ENGINE') or 'neural'
+    if selected_engine not in ('standard', 'neural', 'long-form', 'generative'):
+        raise ValueError('Invalid POLLY_ENGINE')
+    return {'provider': 'amazon-polly', 'speaker': speaker or values.get('POLLY_VOICE_ID') or SPEAKER,
+            'engine': selected_engine, 'sampleRate': SAMPLE_RATE,
+            'region': values.get('AWS_REGION') or values.get('AWS_DEFAULT_REGION') or 'us-east-1'}
 
 
-def read_audio_stream(lines):
-    """An explicit terminal packet is needed before accepting streamed audio."""
-    chunks, sentences, usage, completed = [], [], {}, False
-    for line in lines:
-        line = line.decode('utf-8') if isinstance(line, bytes) else line
-        line = line.strip()
-        if not line or line.startswith(('event:', ':')):
-            continue
-        if line.startswith('data:'):
-            line = line[5:].strip()
-        packet = json.loads(line)
-        code = packet.get('code')
-        if code not in (0, 20000000):
-            raise RuntimeError(f"TTS code {code}: {packet.get('message', 'unknown error')}")
-        if packet.get('data'):
-            chunks.append(base64.b64decode(packet['data'], validate=True))
-        if packet.get('sentence'):
-            sentences.append(packet['sentence'])
-        if packet.get('usage'):
-            usage = packet['usage']
-        if code == 20000000:
-            completed = True
-            break
-    pcm = b''.join(chunks)
-    if not completed or not pcm or len(pcm) % 2:
-        raise RuntimeError('TTS stream incomplete or invalid PCM; no finished audio was saved')
-    return pcm, sentences, usage
-
-
-def synthesize(text, key, speaker, style, section_id):
-    body = request_body(text, speaker, style, section_id)
-    request = urllib.request.Request(ENDPOINT, data=json.dumps(body).encode('utf-8'), headers={
-        'Content-Type': 'application/json', 'X-Api-Key': key,
-        'X-Api-Resource-Id': RESOURCE, 'X-Api-Request-Id': str(uuid.uuid4()),
-        'X-Control-Require-Usage-Tokens-Return': '*',
-    })
+def credentials(env_file):
+    """Use the SDK credential chain (SSO/profile, environment or instance role)."""
     try:
-        with urllib.request.urlopen(request, timeout=90) as response:
-            pcm, sentences, usage = read_audio_stream(response)
-            return pcm, {'sentences': sentences, 'usage': usage,
-                         'logId': response.headers.get('X-Tt-Logid')}
-    except urllib.error.HTTPError as exc:
-        detail = exc.read(4096).decode('utf-8', errors='replace').replace(key, '[REDACTED]')
-        raise RuntimeError(f'Volcengine TTS HTTP {exc.code}: {detail}') from None
-    except (urllib.error.URLError, RuntimeError) as exc:
-        raise RuntimeError(str(exc).replace(key, '[REDACTED]')) from None
+        import boto3
+        import botocore.session
+        from botocore.config import Config
+        values = environment(env_file)
+        session = botocore.session.get_session()
+        for name, variable in (('AWS_CONFIG_FILE', 'config_file'),
+                               ('AWS_SHARED_CREDENTIALS_FILE', 'credentials_file')):
+            if values.get(name):
+                session.set_config_variable(variable, values[name])
+        options = {'botocore_session': session, 'region_name': voice_settings(env_file)['region']}
+        if values.get('AWS_PROFILE'):
+            options['profile_name'] = values['AWS_PROFILE']
+        if values.get('AWS_ACCESS_KEY_ID') or values.get('AWS_SECRET_ACCESS_KEY'):
+            if not values.get('AWS_ACCESS_KEY_ID') or not values.get('AWS_SECRET_ACCESS_KEY'):
+                raise ValueError('AWS access key and secret must be configured together')
+            options.update(aws_access_key_id=values['AWS_ACCESS_KEY_ID'],
+                           aws_secret_access_key=values['AWS_SECRET_ACCESS_KEY'],
+                           aws_session_token=values.get('AWS_SESSION_TOKEN'))
+        aws = boto3.Session(**options)
+        resolved = aws.get_credentials()
+        if resolved is None:
+            raise ValueError('Missing AWS credentials for Amazon Polly; configure AWS_PROFILE or an IAM role')
+        resolved.get_frozen_credentials()  # Resolve expired SSO before starting paid model work.
+        return aws.client('polly', config=Config(connect_timeout=10, read_timeout=90,
+                          retries={'total_max_attempts': 2, 'mode': 'standard'}))
+    except ValueError:
+        raise
+    except Exception as exc:
+        raise ValueError(f'Amazon Polly credentials unavailable ({type(exc).__name__}); check AWS login and boto3') from None
+
+
+def synthesize(text, client, speaker, style, engine):
+    # Preserve the two UI presets; Polly controls pace, not natural-language emotion.
+    rates = {STYLE: '100%', NATURAL_STYLE: '105%'}
+    if style not in rates:
+        raise ValueError('Polly supports the classic and natural voice presets only')
+    ssml = f'<speak><prosody rate="{rates[style]}">{escape(text)}</prosody></speak>'
+    try:
+        response = client.synthesize_speech(Text=ssml, TextType='ssml', VoiceId=speaker,
+                                           Engine=engine, OutputFormat='pcm', SampleRate=str(SAMPLE_RATE))
+        stream = response['AudioStream']
+        try:
+            pcm = stream.read()
+        finally:
+            stream.close()
+        if not pcm or len(pcm) % 2:
+            raise ValueError('Amazon Polly returned empty or invalid PCM')
+        return pcm, {'sentences': [], 'usage': {'requestCharacters': response.get('RequestCharacters')},
+                     'requestId': response.get('ResponseMetadata', {}).get('RequestId')}
+    except Exception as exc:
+        if isinstance(exc, ValueError):
+            raise
+        code = getattr(exc, 'response', {}).get('Error', {}).get('Code', type(exc).__name__)
+        raise RuntimeError(f'Amazon Polly synthesis failed ({code}); check voice, engine and IAM permission') from None
 
 
 def _wav_sha256(path):
@@ -128,16 +131,15 @@ def _copy_verified_wav(source, destination, row):
         temporary.unlink(missing_ok=True)
 
 
-def synthesize_plan(plan_path, output, env_file, speaker=SPEAKER, style=STYLE,
-                    key_env='VOLCENGINE_TTS_API_KEY', audio_cache=None):
-    key = credentials(env_file, key_env)
+def synthesize_plan(plan_path, output, env_file, speaker=None, style=STYLE,
+                    engine=None, audio_cache=None):
+    config = {**voice_settings(env_file, speaker, engine), 'style': style}
+    client = credentials(env_file)
     result = json.loads(Path(plan_path).read_text(encoding='utf-8'))
     cues = result.get('plan', result)['cues']
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
     manifest_path = output / 'audio-manifest.json'
-    config = {'provider': 'volcengine', 'resourceId': RESOURCE, 'speaker': speaker,
-              'style': style, 'sampleRate': SAMPLE_RATE}
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
         if manifest['config'] != config:
@@ -149,8 +151,8 @@ def synthesize_plan(plan_path, output, env_file, speaker=SPEAKER, style=STYLE,
     cache_folder=Path(audio_cache) if audio_cache else None
     if cache_folder:cache_folder.mkdir(parents=True,exist_ok=True)
     for index, cue in enumerate(cues, 1):
-        cache_input={'version':1,'text':cue['text'],**config,'endpoint':ENDPOINT,
-                     'format':'pcm_s16le','channels':1,'speechRate':0,'enableSubtitle':True}
+        cache_input={'version':2,'text':cue['text'],**config,
+                     'format':'pcm_s16le','channels':1,'ssmlPresetVersion':1}
         cache_key=hashlib.sha256(json.dumps(cache_input,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode('utf-8')).hexdigest()
         name=f'cue-{cache_key}.wav'
         cached = existing.get(cue['cueId'])
@@ -172,7 +174,7 @@ def synthesize_plan(plan_path, output, env_file, speaker=SPEAKER, style=STYLE,
                 manifest['cues'].append(row);_atomic_json(manifest_path,manifest)
                 print(f"TTS shared cache {cue['cueId']}: {row['durationSeconds']:.2f}s",flush=True)
                 continue
-        pcm, details = synthesize(cue['text'], key, speaker, style, manifest['sectionId'])
+        pcm, details = synthesize(cue['text'], client, config['speaker'], style, config['engine'])
         with wave.open(str(output / name), 'wb') as audio:
             audio.setnchannels(1)
             audio.setsampwidth(2)
@@ -196,13 +198,13 @@ def main():
     parser.add_argument('--plan', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--env-file', type=Path, default=ROOT / '.env')
-    parser.add_argument('--key-env', default='VOLCENGINE_TTS_API_KEY')
-    parser.add_argument('--speaker', default=SPEAKER)
+    parser.add_argument('--speaker', help='Polly voice ID; default POLLY_VOICE_ID or Zhiyu')
+    parser.add_argument('--engine', help='Polly engine; default POLLY_ENGINE or neural')
     parser.add_argument('--style', default=STYLE)
     parser.add_argument('--audio-cache',type=Path,help='Shared verified WAV cache keyed by text and fixed voice configuration')
     args = parser.parse_args()
     try:
-        print(synthesize_plan(args.plan, args.output, args.env_file, args.speaker, args.style, args.key_env,audio_cache=args.audio_cache))
+        print(synthesize_plan(args.plan, args.output, args.env_file, args.speaker, args.style, args.engine,audio_cache=args.audio_cache))
     except (ValueError, RuntimeError) as exc:
         parser.exit(1, f'{exc}\n')
 
