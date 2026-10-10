@@ -27,7 +27,7 @@ MANIFEST = 'manifest.json'
 STATE_DIRECTORIES = ('data/local-workbench', 'data/local-videos',
                      'artifacts/cloud-imports', 'artifacts/cloud-trims')
 STATE_FILES = ('cloud-library.json', 'artifacts/cloud-state.json')
-STATE_SUFFIXES = {'.json', '.mp4', '.jpg', '.png'}
+STATE_SUFFIXES = {'.json', '.mp4', '.jpg', '.png', '.srt', '.wav'}
 UPLOAD_SUFFIXES = {'.mp4', '.mov', '.mkv', '.webm', '.avi'}
 BLOCKED_PARTS = {'node_modules', '__pycache__', 'sdkcache', 'sdk-cache', 'code'}
 BLOCKED_NAMES = {'auth.json', 'gateway.json', 'runtime.env', 'credentials',

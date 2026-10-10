@@ -40,6 +40,8 @@ class StateArchiveTests(unittest.TestCase):
                  'artifacts/cloud-state.json': b'{"port":8876}',
                  'data/local-workbench/tactics/saved.json': b'{"version":3}',
                  'data/local-workbench/tactics/render-jobs/job/video.mp4': b'movie',
+                 'data/local-workbench/tactics/commentary-jobs/job/render/commentary.srt': b'1\n00:00:01,000 --> 00:00:02,000\nNarration\n',
+                 'data/local-workbench/tactics/commentary-jobs/job/audio/cue.wav': b'RIFF narration audio',
                  'data/local-workbench/tactics/agent-jobs/job/frame.jpg': b'image',
                  'data/local-videos/Chinese\u4e2d\u6587.MOV': b'uploaded original',
                  'artifacts/cloud-imports/workspace.json': b'{"active":[]}',
