@@ -698,7 +698,7 @@ $('pathStart').value=1;$('pathEnd').value=clip.frames.length;
 $('pathUseGap').onclick=()=>{const gaps=gapRanges(trajectories[active]),gap=gaps.find(g=>g.start<=frame&&g.end>=frame)||gaps.find(g=>g.start>frame);if(!gap){toast('当前没有可补的缺口。');return;}$('pathStart').value=gap.start+1;$('pathEnd').value=gap.end+1;seek(gap.start);};
 $('drawPath').onclick=()=>{if(!hasAssociation(entity())){toast('先对应当前球员，再补他的缺口。');return;}pauseVideo();setMode('path');toast('在原视频按住并画出路径；只拟补缺失帧，时间分配待核对。');};
 $('cancelPath').onclick=()=>setMode('point');
-$('identityDone').onclick=()=>{if(reviewBusy)return;workspace.showArea('data');};
+$('identityDone').onclick=()=>{if(!reviewBusy)workspace.switchStep('calibration',true);};
 $('identityTactics').onclick=()=>{if(!reviewBusy)workspace.showArea('tactics');};
 $('play').addEventListener('click',()=>{if(!tacticsUI?.togglePlayback?.())videoDisplay?.togglePlayback();});
 $('reloadVideo').addEventListener('click',()=>videoDisplay?.reload());
@@ -806,7 +806,7 @@ tacticsUI=mountTacticsUI({clip,sample,variant,qa,key,title:sampleInfo?.title||sa
 playerIdentityUI=mountPlayerIdentityUI({getState:()=>({session,active,frame,clip,sample,variant,trajectories,point:annotationPoint(trajectories[active]?.[frame]),selectedTrackId:previewTrackId??trajectories[active]?.[frame]?.trackId??null,selectedPlayerId:identityPersonSelection(trajectories,frame,previewTrackId??trajectories[active]?.[frame]?.trackId??null).entityId,selectedFrameReady:identityReferenceFrameReady()}),commit:copy=>change(()=>session=copy),pause:pauseVideo,seek,toast});
 playerNameClient=createPlayerNameClient({context:()=>({sample,variant,qa}),snapshot:()=>({session,revision:sessionRevision,entityId:'all',clip}),onChange:()=>playerNameUI?.render()});
 playerNameUI=mountPlayerNameUI({client:playerNameClient,root:$('playerNameIdentityTools'),api:{getState:()=>({session,clip,trajectories}),commit:copy=>change(()=>session=copy),toast}});
-if(clip.supportsCourtCalibration===false){$('tab-calibration').disabled=true;$('repairCourt').disabled=true;$('identityDone').textContent='带当前结果继续 2D';}
+if(clip.supportsCourtCalibration===false){$('tab-calibration').disabled=true;$('repairCourt').disabled=true;$('identityDone').hidden=true;}
 identityAgent=createIdentityAgentClient({context:{sample,variant,qa},snapshot:()=>({session,revision:sessionRevision,entityId:active}),onChange:()=>{draw();coverageUI?.render();queueMicrotask(()=>void adoptInitialReview(true));}});
 if(Number.isFinite(clip.mediaEndTime))coverageUI=mountIdentityCoverage({host:$('identityCoverageTools'),clip,state:()=>({session,entityId:active}),agent:()=>identityAgent,seek,storageKey:key+':identity-continuation-queue'});
 await identityAgent.init();

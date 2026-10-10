@@ -1,5 +1,7 @@
 # 作品设计、功能与验收文档
 
+2026-10-09（America/New_York）：用户最终确认以截图中的 `player-review` 为核心工作台，并移除整个 2D 轨迹核对模块。本轮放大视频、展开标注区、精简画面说明并调整制作衔接，见[核心工作台布局与流程调整](core-workbench-layout-20261009.md)。此前[独立样稿接入检查](broadcast-studio-integration-audit-20261009.md)仅作历史参考。
+
 2026-10-10：[NBA UI 分类发布记录](ui-publication-20261010.md)记录用户授权的分支推送、主分支合并、分类提交与验证；前轮 [UI 与 main 同步验收](ui-main-sync-20261010.md)保留源提交、后端能力、归档入口与解说／绘图／成片适配过程。
 
 2026-10-10 00:55（Asia/Shanghai）：[远端解说功能整合](../../handoffs/thy-0629/2026-10-10-0055-commentary-remote-integration.md)完成回归与独立复核，保留润色／逐句人工编辑／配音口吻，并接入当前计划版本、姓名、关键节点、独立绘图和联合成片。下方 00:33 及其他“未提交”记录保留当时状态；本轮功能提交为 [4cae6b7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/4cae6b71ec1d7e420c5b8725f7c6531a6290d000)，真实服务验收和云部署边界不变。
