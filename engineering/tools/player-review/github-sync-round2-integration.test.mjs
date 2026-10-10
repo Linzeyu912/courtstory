@@ -223,6 +223,24 @@ test('step navigation preserves stable display while the explicit player edit co
   }finally{dom.restore();}
 });
 
+test('retired 2D routes return to identity and calibrated results continue to tactics without losing data',()=>{
+  const dom=domFixture();
+  try{
+    dom.get('tab-repair').hidden=true;
+    const session=calibratedSession(),before=structuredClone(session);
+    const workspace=createWorkspace({clip,getState:()=>({session,active:'P1',frame:0,video:dom.get('video'),trajectories:buildTrajectories(session,frames)}),
+      setMode(){},change:fn=>fn(),redraw(){},seek(){},toast(){},isSelected:hasAssociation,color:()=> '#38bdf8'});
+    workspace.switchStep('repair');
+    assert.equal(document.body.dataset.step,'identity');
+    assert.equal(dom.get('panel-repair').hidden,true);
+    workspace.switchStep('calibration');
+    dom.get('acceptCourtCandidates').onclick();
+    assert.equal(document.body.dataset.area,'tactics');
+    assert.equal(document.body.dataset.drawer,'closed');
+    assert.deepEqual(session,before);
+  }finally{dom.restore();}
+});
+
 test('entering 2D review shows the calibrated half without changing player or court data',()=>{
   const dom=domFixture();
   try{

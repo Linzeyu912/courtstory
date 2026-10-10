@@ -14,6 +14,7 @@ import {playerCourtTrail,temporaryCourtTrail} from './court-trails.mjs';
 export function createWorkspace(api){
   const $=id=>document.getElementById(id),{clip,sample,variant,getState,change,seek,toast,isSelected,color}=api;
   const court=$('court'),ctx=court.getContext('2d');
+  const review2DEnabled = !$('tab-repair').hidden;
   let step='identity',view='half',pan=0,courtPoints={},pending=null,pointMode=false,transform=null,hits=[],drag=null,lastControlFrame=-1;
   let courtCandidateSettings=clip.courtCandidates||{},courtCandidates=normalizeCourtCandidates(clip.courtCandidates,clip.frames.length),propagating=false,candidateCache=null,candidateValidCount=0;
   let reviewCache=null,reviewStates=[];
@@ -24,15 +25,16 @@ export function createWorkspace(api){
   const time=i=>`${clip.frames[i].time.toFixed(2)} s`;
   const shell=mountWorkbenchShell({...api,openIdentity:()=>switchStep('identity',true)});
   let ballPoints=[],courtMaps=[];
-  const preparationUI=Number.isFinite(clip.mediaEndTime)?mountCourtPreparationUI({host:$('drawerBody'),clip,sample,variant,state,change,redraw:api.redraw,next:()=>shell.showArea('tactics'),seek,undo:api.undo,points:()=>courtPoints,maps:()=>courtMaps,openSource:openPreparationAction}):{render(){},display(){},raw(){},compare(){return false;}};
-  const groundUI=mountGroundComparison({sample,variant,clip,state,change});
-  const ballUI=mountBallCourt({clip,state,change,redraw:api.redraw});
+  const preparationUI=review2DEnabled&&Number.isFinite(clip.mediaEndTime)?mountCourtPreparationUI({host:$('drawerBody'),clip,sample,variant,state,change,redraw:api.redraw,next:()=>shell.showArea('tactics'),seek,undo:api.undo,points:()=>courtPoints,maps:()=>courtMaps,openSource:openPreparationAction}):{render(){},display(){},raw(){},compare(){return false;}};
+  const groundUI=review2DEnabled?mountGroundComparison({sample,variant,clip,state,change}):{render(){}};
+  const ballUI=review2DEnabled?mountBallCourt({clip,state,change,redraw:api.redraw}):{render(){},cancelPick(){},handleImageClick(){return false;}};
   function openPreparationAction(action,context){
     return openPreparationSource(action,context,{seek,openStep:next=>switchStep(next,true),step:()=>step,
       pause:()=>getState().video.pause(),repairImage:()=>$('repairImage').click(),repairCourt:()=>$('repairCourt').click(),
       viewOnly:()=>api.setMode('select'),openData:()=>shell.openData(),closeData:()=>shell.showArea('video')});
   }
   function switchStep(next,scroll=false){
+    if(next==='repair'&&!review2DEnabled)next='identity';
     if(next==='export'){shell.showArea('production');return;}
     const session=getState().session;
     if(['identity','calibration','repair'].includes(next)&&!session.liveSelection){toast('先在第一步保留并确认直播画面。');next='footage';}
@@ -68,7 +70,7 @@ export function createWorkspace(api){
   $('panLeft').onclick=()=>{$('followPlayer').checked=false;setPan(0);};$('panRight').onclick=()=>{$('followPlayer').checked=false;setPan(COURT.length/2);};$('followPlayer').onchange=draw;
 
   $('openCourtCalibration').onclick=()=>switchStep('calibration',true);
-  $('returnToRepair').onclick=()=>switchStep('repair',true);
+  $('returnToRepair').onclick=()=>shell.showArea('tactics');
   $('calibrationPlayers').onclick=$('repairPlayers').onclick=()=>switchStep('identity',true);
   $('repairCalibration').onclick=()=>switchStep('calibration',true);
   $('repairCalibration').hidden=clip.supportsCourtCalibration===false;
@@ -130,7 +132,7 @@ export function createWorkspace(api){
     acceptCourtCandidates(s.session,baseline,clip.frames.length,clip.video_sha256);
   });
   $('guideNext').onclick=()=>{$('calibrationLandmark').value=calibrationGuideState(keyAtCurrent(),$('calibrationLandmark').value).nextId;$('pickLandmark').click();renderGuide();};
-  $('confirmCalibration').onclick=()=>{let key=keyAtCurrent();if(!fitKeyframe(key)){toast('需要至少 4 个有效且不共线的地面参照点。');return;}key=confirmCalibrationProjection(key,state().frame,new Date().toISOString());pending=null;change(()=>storeKey(key));if(view==='half')setPan(key.side==='right'?COURT.length/2:0);shell.openData();$('calibrationPreviewStatus').textContent='已接通当前帧原图脚点 → 2D。镜头运动需要继续生成或补充标定，位置精度仍待核对。';toast('当前帧已可预览 2D 位置，仍保留精度待核对状态。');};
+  $('confirmCalibration').onclick=()=>{let key=keyAtCurrent();if(!fitKeyframe(key)){toast('需要至少 4 个有效且不共线的地面参照点。');return;}key=confirmCalibrationProjection(key,state().frame,new Date().toISOString());pending=null;change(()=>storeKey(key));if(view==='half')setPan(key.side==='right'?COURT.length/2:0);$('calibrationPreviewStatus').textContent='已确认当前帧标定。镜头运动时，继续核对投影线并补充标定。';toast('当前帧标定已确认。');};
   $('loadCourtCandidate').onclick=()=>{candidateNotice='';previewCandidates=true;const s=state(),candidate=currentCourtKey();if(!candidate||candidate.status==='invalid'){toast('当前帧没有可用候选，请换到候选帧或人工点选。');api.redraw();return;}const old=s.session.courtCalibration?.keyframes.find(key=>key.frame===s.frame);if(old&&isHumanCalibrationKey(old)){toast('当前帧已有人工参照点，已保留；可逐点修正或用它生成镜头跟随候选。');return;}pending=null;change(()=>storeKey(structuredClone(candidate)));if(view==='half')setPan(candidate.side==='right'?COURT.length/2:0);$('calibrationHelp').textContent='候选已显示在原图。播放视频核对多条投影线，有偏差时可逐点修正。';};
   const referenceFrame=()=>{const frame=courtCandidateSettings.referenceFrame??clip.courtCandidates?.referenceFrame??clip.referenceFrame;return Number.isInteger(frame)&&frame>=0&&frame<clip.frames.length?frame:null;};
   $('autoCalibrateCourt').onclick=async()=>{
@@ -157,7 +159,7 @@ export function createWorkspace(api){
     finally{propagating=false;automaticCalibrating=false;renderGuide();api.redraw();}
   };
   $('jumpCourtReference').onclick=()=>{const frame=referenceFrame();if(frame===null)return;seek(frame);if(!$('loadCourtCandidate').disabled)$('loadCourtCandidate').click();else toast('已定位参考帧，可检查已有标定或人工补选参照点。');};
-  $('acceptCourtCandidates').onclick=()=>{if(propagating||pending)return;if(!previewCandidates&&hasSavedCalibration()){switchStep('repair',true);return;}if(!courtCandidates.length)return;candidateNotice='';let result;change(()=>{result=acceptCourtCandidates(state().session,{...courtCandidateSettings,keyframes:courtCandidates},clip.frames.length,clip.video_sha256);});previewCandidates=false;toast(`已采用 ${result.accepted} 帧待复核映射，保留 ${result.preserved} 帧人工标定，${result.invalid} 帧失败留空。`);const current=state().session.courtCalibration.keyframes.find(k=>k.frame===state().frame);if(current&&view==='half')setPan(current.side==='right'?COURT.length/2:0);$('calibrationPreviewStatus').textContent='已采用，仍可返回核对和修正。';switchStep('repair',true);};
+  $('acceptCourtCandidates').onclick=()=>{if(propagating||pending)return;if(!previewCandidates&&hasSavedCalibration()){shell.showArea('tactics');return;}if(!courtCandidates.length)return;candidateNotice='';let result;change(()=>{result=acceptCourtCandidates(state().session,{...courtCandidateSettings,keyframes:courtCandidates},clip.frames.length,clip.video_sha256);});previewCandidates=false;toast(`已采用 ${result.accepted} 帧待复核映射，保留 ${result.preserved} 帧人工标定，${result.invalid} 帧失败留空。`);const current=state().session.courtCalibration.keyframes.find(k=>k.frame===state().frame);if(current&&view==='half')setPan(current.side==='right'?COURT.length/2:0);$('calibrationPreviewStatus').textContent='已采用，仍可返回核对和修正。';shell.showArea('tactics');};
   $('propagateCalibration').onclick=async()=>{
     if(propagating)return;
     const s=state(),cuts=structuredClone(s.session.cuts||[]);let seed=keyAtCurrent();
@@ -193,7 +195,7 @@ export function createWorkspace(api){
     if(candidateCache!==courtCandidates){candidateCache=courtCandidates;candidateValidCount=courtCandidates.filter(k=>k.status!=='invalid'&&fitKeyframe(k)).length;}const candidate=courtCandidates.find(k=>k.frame===s.frame);
     const savedReady=!previewCandidates&&hasSavedCalibration();
     $('loadCourtCandidate').disabled=!candidate||candidate.status==='invalid';$('acceptCourtCandidates').disabled=(!candidateValidCount&&!savedReady)||propagating||Boolean(pending);
-    $('acceptCourtCandidates').textContent=savedReady?'查看已保存的 2D':'采用结果并进入 2D';
+    $('acceptCourtCandidates').textContent=savedReady?'使用已保存标定继续制作':'采用标定并继续制作';
     const reference=referenceFrame(),referenceKey=courtCandidates.find(k=>k.frame===reference),referenceSource=courtCandidateSettings.referenceSource||referenceKey?.source;
     $('jumpCourtReference').disabled=reference===null||propagating;$('jumpCourtReference').textContent=reference===null?'尚无参考帧':`跳到参考帧（第 ${reference+1} 帧）`;
     const referenceNote=[courtCandidateSettings.referenceDescription,...(courtCandidateSettings.notes||[]).slice(0,1)].filter(Boolean).join(' ');
@@ -202,9 +204,9 @@ export function createWorkspace(api){
     $('candidateStatus').textContent=propagating?(automaticCalibrating?'正在运行本地场地点模型与标线拟合，生成当前镜头候选…':'正在从已核对的标定生成镜头跟随候选…'):candidateNotice||(courtCandidates.length?`${candidateValidCount} 帧可用候选 / ${courtCandidates.length} 帧。当前帧：${candidate?candidate.status==='invalid'?'无效，保持留空':`待核对 ${candidate.source}${candidate.quality?.reason?` · ${candidate.quality.reason}`:''}${Number.isFinite(candidate.quality?.inlierRatio)?` · 地面匹配内点 ${Math.round(candidate.quality.inlierRatio*100)}%`:''}${Number.isFinite(candidate.quality?.medianResidualPixels)?` · 匹配残差 ${candidate.quality.medianResidualPixels.toFixed(1)} px（非地面精度）`:''}${lineEvidenceText(candidate)}`:'暂无候选'}。`:'尚无自动场地候选。可点击自动识别，或先人工标定再跟随镜头。');
     $('calibrationFlowStatus').textContent=propagating?'正在处理当前镜头，请稍候…':candidateNotice||(
       pending?'请在原视频中点选地面交点。':key?.status==='invalid'?'当前帧无法映射，请换清楚的帧或展开人工修正。':
-      key&&isHumanCalibrationKey(key)?'当前帧的人工标定已保留。修正后可跟随镜头，或查看已有 2D。':
+      key&&isHumanCalibrationKey(key)?'当前帧的人工标定已保留。修正后可跟随镜头，或继续战术制作。':
       previewCandidates&&candidateValidCount?`${candidateValidCount} 帧已生成，继续核对画面。`:
-      savedReady?'已有保存的标定，可查看 2D 或重新自动标定。':
+      savedReady?'已有保存的标定，可继续制作或重新自动标定。':
       candidateValidCount?'已有历史候选；可重新自动标定，或在详情中载入检查。':'点击自动标定开始；也可以直接展开人工选点。');
     const diagram=$('calibrationDiagram'),context=diagram.getContext('2d'),w=diagram.width,h=diagram.height,margin=28,scale=Math.min((w-2*margin)/(COURT.length/2),(h-2*margin)/COURT.width),start=side==='right'?COURT.length/2:0;
     const toScreen=(x,y)=>[margin+(x-start)*scale,margin+y*scale];context.clearRect(0,0,w,h);context.fillStyle='#d9a86c';context.fillRect(margin,margin,COURT.length/2*scale,COURT.width*scale);context.save();context.beginPath();context.rect(margin-3,margin-3,COURT.length/2*scale+6,COURT.width*scale+6);context.clip();
@@ -377,7 +379,7 @@ export function createWorkspace(api){
       if(pending.image.length===4){if(!validQuad(pending.image)){pending.image=[];pending.captureRegions=[];$('calibrationHelp').textContent='四点顺序交叉或过于接近，请重新按 A → B → C → D 点选。';api.redraw();return true;}const k={frame:pending.frame,side:pending.side,source:'human',status:'needs_review',points:pending.image.map((image,index)=>({id:'ABCD'[index],image,source:'human',...(pending.captureRegions[index]==='outside_frame'?{captureRegion:'outside_frame'}:{})}))};pending=null;change(()=>storeKey(k));$('calibrationHelp').textContent=`第 ${k.frame+1} 帧四角已保存。请播放检查投影；画外点是估计位置，建议用可见交点复核。`;toast('当前帧标定已保存，可撤销。');}
       else{$('calibrationHelp').textContent=`请点击 ${LANDMARK_NAMES[pending.image.length]}`;api.redraw();}return true;
     }
-    if(step==='events'){toast('当前步骤用于核对画面；修改位置请进入“2D 轨迹核对”。');return true;}
+    if(step==='events'){toast('当前步骤用于核对画面；修改位置请进入“球员标定”。');return true;}
     return false;
   }
   function drawImageOverlay(context){

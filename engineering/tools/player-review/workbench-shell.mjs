@@ -23,18 +23,18 @@ export function mountWorkbenchShell(api) {
   const $ = id => document.getElementById(id);
   const body = document.body;
   const content = $('workbenchContent');
-  const drawer = $('dataDrawer');
-  const handle = $('drawerResize');
   const videoCard = document.querySelector('.video-card');
-  const titles = {video:'① 球员标定', data:'球场映射 · 已归档', tactics:'② 战术制作', production:'③ 成片'};
-  let area = 'video', drawerState = 'closed', returnArea = 'video', halfRatio = .45;
-  let videoStep = null;
-  let drag = null, layoutFrame = 0, entitySignature = '';
+  const timeline = document.querySelector('.shared-timeline');
+  const timelineHome = timeline?.parentElement;
+  const titles = {video:'① 球员标定', tactics:'② 战术制作', production:'③ 成片'};
+  let area = 'video', layoutFrame = 0, entitySignature = '';
 
   function renderLayout() {
     body.dataset.area = area;
-    body.dataset.drawer = drawerState;
-    content.style.setProperty('--drawer-height', `${halfRatio * 100}%`);
+    body.dataset.drawer = 'closed';
+    // Keep playback next to the video while the long tool panel uses page scroll.
+    const timelineTarget = area === 'video' ? videoCard : timelineHome;
+    if (timeline && timelineTarget && timeline.parentElement !== timelineTarget) timelineTarget.append(timeline);
     $('areaTitle').textContent = titles[area];
     document.querySelectorAll('[data-area-target]').forEach(button => {
       if (button.dataset.areaTarget === area) button.setAttribute('aria-current', 'page');
@@ -52,65 +52,29 @@ export function mountWorkbenchShell(api) {
       $('futureTitle').textContent = titles[area];
       $('futureDescription').textContent = '可生成包含解说、配音、字幕与战术图形的联合视频，也可单独导出静音战术画面。';
     }
-    const open = drawerState !== 'closed';
-    $('drawerBody').hidden = !open;
-    $('drawerToggle').setAttribute('aria-expanded', String(open));
-    $('drawerToggle').setAttribute('aria-label', open ? '收起数据核对' : '打开数据核对');
-    $('drawerClose').hidden = !open;
-    $('drawerHalf').setAttribute('aria-pressed', String(drawerState === 'half'));
-    $('drawerFull').setAttribute('aria-pressed', String(drawerState === 'full'));
-    handle.setAttribute('aria-valuenow', String(drawerState === 'closed' ? 0 : drawerState === 'full' ? 100 : Math.round(halfRatio * 100)));
-    handle.setAttribute('aria-valuetext', drawerState === 'closed' ? '已收起' : drawerState === 'full' ? '完整数据工作区' : '视频与数据同时可见');
     scheduleLayout();
     document.dispatchEvent(new CustomEvent('workbench-area',{detail:{area}}));
   }
 
-  function setDrawer(next, restoreFocus = false) {
-    if (next === 'full') {
-      if (area !== 'data') returnArea = area;
-      area = 'data';
-    } else if (next === 'half') {
-      area = 'video';
-      returnArea = 'video';
-    } else if (area === 'data') area = returnArea;
-    drawerState = next;
-    if (next === 'closed' && (restoreFocus || $('drawerBody').contains(document.activeElement))) $('drawerToggle').focus();
+  function showArea(next) {
+    $('sourceDetails').open = false;
+    // Old saved actions can still request data; continue in the current editor.
+    area = next === 'data' ? 'tactics' : next;
+    if(area==='video')setTools(true);
     renderLayout();
   }
 
-  function showArea(next) {
-    if ($('archivedTools')) $('archivedTools').open = false;
-    $('sourceDetails').open = false;
-    if (next === 'data') setDrawer('full');
-    else {
-      area = next;
-      returnArea = next;
-      drawerState = 'closed';
-      if(next==='video')setTools(true);
-      renderLayout();
-    }
-  }
-
-  function enterVideo(step) {
-    const changedStep = step !== videoStep;
-    const drawerHadFocus = $('drawerBody').contains(document.activeElement);
-    videoStep = step;
+  function enterVideo() {
     area = 'video';
-    returnArea = 'video';
-    // A preview belongs to the current step; tab navigation starts a fresh layout.
-    if (changedStep) drawerState = ['calibration','repair'].includes(step) ? 'half' : 'closed';
-    else if (drawerState === 'full') drawerState = 'half';
     $('sourceDetails').open = false;
     setTools(true);
     renderLayout();
-    if (drawerState === 'closed' && drawerHadFocus) $(`tab-${step}`)?.focus({preventScroll:true});
   }
 
   document.querySelectorAll('[data-area-target]').forEach(button => {
     button.addEventListener('click', () => showArea(button.dataset.areaTarget));
   });
   $('backToVideo').onclick = () => showArea('video');
-  $('deliveryData').onclick = () => showArea('data');
   $('deliveryTactics').onclick = () => {
     showArea('tactics');
     document.dispatchEvent(new CustomEvent('workbench-drawing'));
@@ -119,11 +83,6 @@ export function mountWorkbenchShell(api) {
     showArea('tactics');
     document.dispatchEvent(new CustomEvent('workbench-commentary'));
   };
-  $('drawerToggle').onclick = () => setDrawer(drawerState === 'closed' ? 'half' : 'closed');
-  $('drawerHalf').onclick = () => setDrawer('half');
-  $('drawerFull').onclick = () => setDrawer('full');
-  $('returnPreparation').onclick = () => showArea('data');
-  $('drawerClose').onclick = () => setDrawer('closed', true);
   function setTools(expanded) {
     body.dataset.tools = expanded ? 'expanded' : 'collapsed';
     $('toolsToggle').setAttribute('aria-expanded', String(expanded));
@@ -145,71 +104,18 @@ export function mountWorkbenchShell(api) {
   });
   objectSelection.observe($('sceneObjectEditor'), {attributes:true, attributeFilter:['hidden']});
 
-  handle.addEventListener('pointerdown', event => {
-    if (event.button !== 0) return;
-    drag = {id:event.pointerId, y:event.clientY, height:drawer.getBoundingClientRect().height, moved:false, state:drawerState, area, returnArea, ratio:halfRatio};
-    handle.setPointerCapture(event.pointerId);
-    handle.focus();
-  });
-  handle.addEventListener('pointermove', event => {
-    if (!drag || event.pointerId !== drag.id) return;
-    const delta = drag.y - event.clientY;
-    if (Math.abs(delta) < 4 && !drag.moved) return;
-    drag.moved = true;
-    const ratio = (drag.height + delta) / content.clientHeight;
-    area = 'video';
-    drawerState = 'half';
-    halfRatio = Math.max(.12, Math.min(.97, ratio));
-    body.classList.add('drawer-dragging');
-    renderLayout();
-  });
-  function endDrag(event, cancelled = false) {
-    if (!drag || event.pointerId !== drag.id) return;
-    const previous = drag;
-    drag = null;
-    body.classList.remove('drawer-dragging');
-    if (handle.hasPointerCapture(event.pointerId)) handle.releasePointerCapture(event.pointerId);
-    if (cancelled) {
-      area = previous.area;
-      returnArea = previous.returnArea;
-      drawerState = previous.state;
-      halfRatio = previous.ratio;
-      renderLayout();
-    } else if (!previous.moved) setDrawer(previous.state === 'closed' ? 'half' : 'closed');
-    else {
-      const next = halfRatio < .22 ? 'closed' : halfRatio > .8 ? 'full' : 'half';
-      halfRatio = next === 'half' ? Math.max(.3, Math.min(.68, halfRatio)) : previous.ratio;
-      setDrawer(next);
-    }
-  }
-  handle.addEventListener('pointerup', event => endDrag(event));
-  handle.addEventListener('pointercancel', event => endDrag(event, true));
-  handle.addEventListener('keydown', event => {
-    if (!['ArrowUp','ArrowDown','Home','End','Enter',' '].includes(event.key)) return;
-    event.preventDefault();
-    event.stopPropagation();
-    if (event.key === 'Home') setDrawer('closed');
-    else if (event.key === 'End') setDrawer('full');
-    else if (event.key === 'ArrowUp') setDrawer(drawerState === 'closed' ? 'half' : 'full');
-    else if (event.key === 'ArrowDown') setDrawer(drawerState === 'full' ? 'half' : 'closed');
-    else setDrawer(drawerState === 'closed' ? 'half' : 'closed');
-  });
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
-    if ($('archivedTools')?.open) {
-      $('archivedTools').open = false;
-      $('archivedTools').querySelector('summary').focus();
-    } else if ($('sourceDetails').open) {
+    if ($('sourceDetails').open) {
       $('sourceDetails').open = false;
       $('sourceDetails').querySelector('summary').focus();
-    } else if (drawerState !== 'closed') setDrawer('closed', true);
+    }
   });
   document.addEventListener('pointerdown', event => {
     if (!$('sourceDetails').contains(event.target)) $('sourceDetails').open = false;
-    if (!$('archivedTools')?.contains(event.target) && $('archivedTools')) $('archivedTools').open = false;
   });
 
-  // The overlay and video share the exact same rectangle, including in half view.
+  // The overlay and video share the exact same rectangle.
   function fitVideo() {
     if (!videoCard.clientWidth || !videoCard.clientHeight) return;
     const stage = $('stage'), style = getComputedStyle(videoCard);
@@ -220,7 +126,9 @@ export function mountWorkbenchShell(api) {
       const css = getComputedStyle(child);
       return total + child.getBoundingClientRect().height + parseFloat(css.marginTop) + parseFloat(css.marginBottom);
     }, 0);
-    const available = Math.max(0, videoCard.clientHeight - paddingY - otherHeight);
+    const available = style.getPropertyValue('--video-fit').trim() === 'width'
+      ? Math.max(0, (videoCard.clientWidth - paddingX) / (api.clip.width / api.clip.height))
+      : Math.max(0, videoCard.clientHeight - paddingY - otherHeight);
     const ratio = api.clip.width / api.clip.height;
     const width = Math.max(0, Math.min(videoCard.clientWidth - paddingX, available * ratio));
     const w = `${Math.floor(width * 10) / 10}px`, h = `${Math.floor(width / ratio * 10) / 10}px`;
@@ -260,5 +168,5 @@ export function mountWorkbenchShell(api) {
   }
   renderLayout();
   refresh();
-  return {enterVideo, refresh, showArea, openData:() => setDrawer('half'), scheduleLayout};
+  return {enterVideo, refresh, showArea, openData:() => {}, scheduleLayout};
 }

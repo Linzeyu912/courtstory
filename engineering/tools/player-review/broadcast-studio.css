@@ -1,5 +1,5 @@
-/* Broadcast Studio: presentation only. Business IDs, review colours, video
-   coordinates and the existing panel scroll/visibility rules remain authoritative. */
+/* Core workbench presentation. Business IDs, review colours and media coordinates
+   are shared with the existing editors and backend. */
 @import url('/broadcast-studio/fonts.css');
 
 :root {
@@ -468,6 +468,51 @@ body.workbench-shell {
   .workbench-shell .local-video-row>div { flex-basis: 100%; }
   .workbench-shell #videoLibraryDialog { padding: 16px; width: calc(100vw - 24px); max-height: 90dvh; }
 }
+/* Give the core editing surface its own height instead of squeezing it between
+   the toolbars and timeline. Long tools use the page's scroll, not tiny panes. */
+body.workbench-shell[data-area='video'] { height: auto; min-height: 100dvh; overflow: auto; }
+.workbench-shell[data-area='video'] .app-main { height: auto; min-height: calc(100dvh - 56px); flex: 0 0 auto; }
+.workbench-shell[data-area='video'] main.workbench-main { flex: 0 0 auto; overflow: visible; padding: 12px 20px; gap: 8px; }
+.workbench-shell[data-area='video'] :is(.workbench-content,.operations) { flex: 0 0 auto; min-height: 0; overflow: visible; }
+.workbench-shell[data-area='video'] .operations { gap: 8px; }
+.workbench-shell .operation-toolbar .identity-shortcuts { border: 0; padding: 0; margin: 0 0 0 auto; gap: 6px; flex-shrink: 0; }
+.workbench-shell .operation-toolbar .identity-shortcuts>span { display: none; }
+.workbench-shell .operation-toolbar { gap: 8px; flex-wrap: wrap; }
+.workbench-shell .operation-toolbar .header-tools { margin-left: 0; }
+.workbench-shell[data-area='video'] .operation-body { flex: 0 0 auto; height: auto; overflow: visible; align-items: start; }
+.workbench-shell[data-area='video'] .video-info,
+.workbench-shell[data-area='video'][data-info='open'] .video-info { max-height: none; overflow: visible; padding: 14px; }
+.workbench-shell .video-info .video-footer { gap: 7px; margin: 12px 0; }
+.workbench-shell .video-info .name-display-controls { display: block; margin: 12px 0; padding: 12px 0; border-block: 1px solid var(--studio-line); }
+.workbench-shell .video-info .name-display-controls>.check { display: flex; }
+.workbench-shell .video-info :is(.display-settings,.review-details,.source-details) { margin-top: 12px; }
+.workbench-shell .video-info .name-display-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
+.workbench-shell .video-info .name-player-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.workbench-shell .video-info .name-player-picker .check { margin: 0; }
+.workbench-shell .video-info .review-legend { gap: 6px; margin-top: 10px; }
+.workbench-shell .video-info #pointStatus:empty { display: none; }
+.workbench-shell[data-area='video'] .step-panels { overflow: visible; max-height: none; scrollbar-gutter: auto; padding: 16px; }
+.workbench-shell[data-area='video'] .operation-body>.video-card { --video-fit: width; height: auto; min-height: 0; align-self: start; }
+.workbench-shell[data-area='video'] #stage { margin: 0 auto; }
+.workbench-shell[data-area='video'] .video-heading { min-height: 40px; padding: 8px 12px; }
+.workbench-shell[data-area='video'] .shared-timeline { position: static; flex: 0 0 auto; width: 100%; margin: 0; border: 0; border-top: 1px solid var(--studio-line); box-shadow: none; }
+.workbench-shell[data-area='video'] .shared-timeline .transport { flex-wrap: wrap; }
+.workbench-shell[data-area='video'] .shared-timeline #time { margin-left: auto; }
+@media (min-width: 1051px) {
+  .workbench-shell[data-area='video'] .operation-body { grid-template-columns: 210px minmax(0,1fr) clamp(340px,25vw,400px); gap: 12px; }
+  .workbench-shell[data-area='video'][data-info='closed'] .operation-body { grid-template-columns: minmax(0,1fr) clamp(340px,25vw,400px); }
+  .workbench-shell[data-area='video'][data-tools='collapsed'] .operation-body { grid-template-columns: 210px minmax(0,1fr); }
+  .workbench-shell[data-area='video'][data-info='closed'][data-tools='collapsed'] .operation-body { grid-template-columns: minmax(0,1fr); }
+}
+@media (min-width: 901px) {
+  .workbench-shell[data-area='video'] .video-card { position: sticky; top: 12px; }
+}
+@media (max-width: 900px) {
+  .workbench-shell[data-area='video'] main.workbench-main { padding: 12px; }
+  .workbench-shell[data-area='video'] .video-card { position: relative; top: auto; }
+  .workbench-shell[data-area='video'] .shared-timeline { position: static; }
+}
+
 @media (pointer: coarse) {
   .workbench-shell main :is(button,select,summary,input[type='number']) { min-height: 44px; }
   .workbench-shell .tactics-time-edge { min-height: 0; }
