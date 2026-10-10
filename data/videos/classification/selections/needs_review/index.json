@@ -1,6 +1,19 @@
 {
   "schema_version": "1.0.0",
   "path_base": "repository_root",
-  "count": 0,
-  "clips": []
+  "count": 1,
+  "clips": [
+    {
+      "clip_id": "courtstory-exam-20261010-001",
+      "dataset_id": "courtstory-exam-20261010",
+      "video_path": "data/videos/uploads/2026-10-10-exam/clips/single.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-10-exam/labels/001.json",
+      "sha256": "ef8eff48ab21bd2a5bf4e6a081c986704a63d88afe495400fb5ad79bdf7766dc",
+      "status": "needs_review",
+      "recommended": true,
+      "reason": "用户指定为唯一考试素材；画面与动作标签待复核。",
+      "human_reviewed": false,
+      "labeling_origin": "user_selected_unreviewed"
+    }
+  ]
 }

@@ -1,19 +1,6 @@
 {
   "schema_version": "1.0.0",
   "path_base": "repository_root",
-  "count": 1,
-  "clips": [
-    {
-      "clip_id": "broadcastcode-training-20261005-001",
-      "dataset_id": "broadcastcode-training-20261005",
-      "video_path": "data/videos/uploads/2026-10-05-official-training/clips/训练_弗拉格2月1日.mp4",
-      "annotation_path": "data/videos/uploads/2026-10-05-official-training/labels/001.json",
-      "sha256": "9c3e4606d04e7f79e29a112952fcf069ebab202af207af500bfbc3338bc079ce",
-      "status": "clear",
-      "recommended": true,
-      "reason": "官方训练重点样例；保留原画质、原时间轴与音轨，用于回归和后续处理验收。",
-      "human_reviewed": false,
-      "labeling_origin": "ai_visual_review"
-    }
-  ]
+  "count": 0,
+  "clips": []
 }

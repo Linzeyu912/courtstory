@@ -1,0 +1,128 @@
+{
+  "id": "001",
+  "clip_id": "courtstory-exam-20261010-001",
+  "season": null,
+  "sha256": "ef8eff48ab21bd2a5bf4e6a081c986704a63d88afe495400fb5ad79bdf7766dc",
+  "size_bytes": 85310217,
+  "source": {
+    "kind": "user_upload",
+    "uploaded_filename": "single.mp4",
+    "url": null,
+    "publisher": null,
+    "collected_at": "2026-10-10T06:07:05-04:00",
+    "start_seconds": null,
+    "end_seconds": null,
+    "unknown_reason": "用户指定 D 盘根目录 single.mp4 为考试视频；原始网页及整场裁切起点未提供。"
+  },
+  "game": {
+    "season": null,
+    "date_local": null,
+    "unknown_reason": "比赛信息尚未核实。"
+  },
+  "tactic": {
+    "title": "考试视频 · single.mp4",
+    "tags": [
+      "待复核"
+    ],
+    "label_status": "provisional_from_collector_notes",
+    "basis": "用户指定考试素材，尚未标注动作或身份。"
+  },
+  "material_labels": {
+    "schema_version": "1.0.0",
+    "clip_id": "courtstory-exam-20261010-001",
+    "asset": {
+      "video_path": "data/videos/uploads/2026-10-10-exam/clips/single.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-10-exam/labels/001.json",
+      "sha256": "ef8eff48ab21bd2a5bf4e6a081c986704a63d88afe495400fb5ad79bdf7766dc"
+    },
+    "source": {
+      "manifest_path": "data/videos/uploads/2026-10-10-exam/manifest.json",
+      "url": null,
+      "source_start_seconds": null,
+      "source_end_seconds": null,
+      "uploaded_filename": "single.mp4",
+      "season": null,
+      "source_time_note": "原转播裁切起点未知。"
+    },
+    "quality": {
+      "clarity": "uncertain",
+      "core_actions_visible": null,
+      "reason": "尚未进行视觉审核。"
+    },
+    "scenarios": {
+      "camera_zoom": {
+        "value": null,
+        "intervals": [],
+        "note": "尚未进行视觉审核。"
+      },
+      "full_court_movement": {
+        "value": null,
+        "intervals": [],
+        "note": "尚未进行视觉审核。"
+      },
+      "image_blur": {
+        "value": null,
+        "intervals": [],
+        "note": "尚未进行视觉审核。"
+      },
+      "closeup_insertion": {
+        "value": null,
+        "intervals": [],
+        "note": "尚未进行视觉审核。"
+      },
+      "view_switch": {
+        "value": null,
+        "intervals": [],
+        "note": "尚未进行视觉审核。"
+      },
+      "half_court_only": {
+        "value": null,
+        "intervals": [],
+        "note": "尚未进行视觉审核。"
+      },
+      "motion_blur": {
+        "value": null,
+        "intervals": [],
+        "note": "尚未进行视觉审核。"
+      },
+      "occlusion": {
+        "value": null,
+        "intervals": [],
+        "note": "尚未进行视觉审核。"
+      },
+      "players_out_of_frame": {
+        "value": null,
+        "intervals": [],
+        "note": "尚未进行视觉审核。"
+      },
+      "replay_or_teaching": {
+        "value": null,
+        "intervals": [],
+        "note": "尚未进行视觉审核。"
+      }
+    },
+    "content": {
+      "scope": "uncertain",
+      "action_tags": [],
+      "description": "用户指定的考试视频。",
+      "usable_intervals": []
+    },
+    "selection": {
+      "status": "needs_review",
+      "recommended": true,
+      "reason": "用户指定为唯一考试素材；画面与动作标签待复核。"
+    },
+    "content_relations": [],
+    "provenance": {
+      "reviewer_model": "not_reviewed",
+      "review_method": "仅校验文件与解码，未做视觉标注。",
+      "human_reviewed": false,
+      "labeling_origin": "user_selected_unreviewed",
+      "reviewed_at": null,
+      "sample_count": 0,
+      "evidence_sheets": [],
+      "extra_frames": [],
+      "timestamp_precision": "未标注场景区间。"
+    }
+  }
+}

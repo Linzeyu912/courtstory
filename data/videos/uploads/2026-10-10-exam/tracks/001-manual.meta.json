@@ -1,0 +1,6 @@
+{
+  "video_sha256": "ef8eff48ab21bd2a5bf4e6a081c986704a63d88afe495400fb5ad79bdf7766dc",
+  "frames": 1316,
+  "pipeline_version": "manual-source-pts-v1",
+  "method": "decoded_source_without_tracking"
+}

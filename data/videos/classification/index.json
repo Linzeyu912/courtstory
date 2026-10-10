@@ -1,51 +1,100 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-10-10T00:02:17-04:00",
+  "updated_at": "2026-10-10T06:07:16-04:00",
   "path_base": "repository_root",
   "annotation_field": "material_labels",
-  "registry_count": 2,
+  "registry_count": 1,
   "counts": {
-    "clear": 2
+    "needs_review": 1
   },
   "clips": [
     {
-      "clip_id": "broadcastcode-training-20261005-001",
-      "dataset_id": "broadcastcode-training-20261005",
-      "video_path": "data/videos/uploads/2026-10-05-official-training/clips/训练_弗拉格2月1日.mp4",
-      "annotation_path": "data/videos/uploads/2026-10-05-official-training/labels/001.json",
-      "sha256": "9c3e4606d04e7f79e29a112952fcf069ebab202af207af500bfbc3338bc079ce",
-      "status": "clear",
+      "clip_id": "courtstory-exam-20261010-001",
+      "dataset_id": "courtstory-exam-20261010",
+      "video_path": "data/videos/uploads/2026-10-10-exam/clips/single.mp4",
+      "annotation_path": "data/videos/uploads/2026-10-10-exam/labels/001.json",
+      "sha256": "ef8eff48ab21bd2a5bf4e6a081c986704a63d88afe495400fb5ad79bdf7766dc",
+      "status": "needs_review",
       "recommended": true,
-      "reason": "官方训练重点样例；保留原画质、原时间轴与音轨，用于回归和后续处理验收。",
+      "reason": "用户指定为唯一考试素材；画面与动作标签待复核。",
       "human_reviewed": false,
-      "labeling_origin": "ai_visual_review"
-    },
-    {
-      "clip_id": "broadcastcode-training-20261005-002",
-      "dataset_id": "broadcastcode-training-20261005",
-      "video_path": "data/videos/uploads/2026-10-05-official-training/clips/训练_阿门1月4日 .mp4",
-      "annotation_path": "data/videos/uploads/2026-10-05-official-training/labels/002.json",
-      "sha256": "7ec745f5f1e75b0c6d6dd27d409875f67c2ac3ab76c73f7123794c96be5aee22",
-      "status": "clear",
-      "recommended": true,
-      "reason": "官方训练重点样例；保留原画质、原时间轴与音轨，用于回归和后续处理验收。",
-      "human_reviewed": false,
-      "labeling_origin": "ai_visual_review"
+      "labeling_origin": "user_selected_unreviewed"
     }
   ],
-  "unresolved_scenarios": [],
+  "unresolved_scenarios": [
+    {
+      "clip_id": "courtstory-exam-20261010-001",
+      "scenario": "camera_zoom",
+      "intervals": [],
+      "note": "尚未进行视觉审核。"
+    },
+    {
+      "clip_id": "courtstory-exam-20261010-001",
+      "scenario": "full_court_movement",
+      "intervals": [],
+      "note": "尚未进行视觉审核。"
+    },
+    {
+      "clip_id": "courtstory-exam-20261010-001",
+      "scenario": "image_blur",
+      "intervals": [],
+      "note": "尚未进行视觉审核。"
+    },
+    {
+      "clip_id": "courtstory-exam-20261010-001",
+      "scenario": "closeup_insertion",
+      "intervals": [],
+      "note": "尚未进行视觉审核。"
+    },
+    {
+      "clip_id": "courtstory-exam-20261010-001",
+      "scenario": "view_switch",
+      "intervals": [],
+      "note": "尚未进行视觉审核。"
+    },
+    {
+      "clip_id": "courtstory-exam-20261010-001",
+      "scenario": "half_court_only",
+      "intervals": [],
+      "note": "尚未进行视觉审核。"
+    },
+    {
+      "clip_id": "courtstory-exam-20261010-001",
+      "scenario": "motion_blur",
+      "intervals": [],
+      "note": "尚未进行视觉审核。"
+    },
+    {
+      "clip_id": "courtstory-exam-20261010-001",
+      "scenario": "occlusion",
+      "intervals": [],
+      "note": "尚未进行视觉审核。"
+    },
+    {
+      "clip_id": "courtstory-exam-20261010-001",
+      "scenario": "players_out_of_frame",
+      "intervals": [],
+      "note": "尚未进行视觉审核。"
+    },
+    {
+      "clip_id": "courtstory-exam-20261010-001",
+      "scenario": "replay_or_teaching",
+      "intervals": [],
+      "note": "尚未进行视觉审核。"
+    }
+  ],
   "selections": {
     "default": {
       "path": "data/videos/classification/selections/default/index.json",
-      "count": 2
+      "count": 1
     },
     "all_usable": {
       "path": "data/videos/classification/selections/all_usable/index.json",
-      "count": 2
+      "count": 0
     },
     "clear": {
       "path": "data/videos/classification/selections/clear/index.json",
-      "count": 2
+      "count": 0
     },
     "challenge": {
       "path": "data/videos/classification/selections/challenge/index.json",
@@ -57,7 +106,7 @@
     },
     "needs_review": {
       "path": "data/videos/classification/selections/needs_review/index.json",
-      "count": 0
+      "count": 1
     },
     "redundant": {
       "path": "data/videos/classification/selections/redundant/index.json",
@@ -67,23 +116,23 @@
   "by_scenario": {
     "camera_zoom": {
       "path": "data/videos/classification/by_scenario/camera_zoom/index.json",
-      "count": 2
+      "count": 0
     },
     "full_court_movement": {
       "path": "data/videos/classification/by_scenario/full_court_movement/index.json",
-      "count": 2
+      "count": 0
     },
     "image_blur": {
       "path": "data/videos/classification/by_scenario/image_blur/index.json",
-      "count": 2
+      "count": 0
     },
     "closeup_insertion": {
       "path": "data/videos/classification/by_scenario/closeup_insertion/index.json",
-      "count": 2
+      "count": 0
     },
     "view_switch": {
       "path": "data/videos/classification/by_scenario/view_switch/index.json",
-      "count": 2
+      "count": 0
     },
     "half_court_only": {
       "path": "data/videos/classification/by_scenario/half_court_only/index.json",
@@ -91,15 +140,15 @@
     },
     "motion_blur": {
       "path": "data/videos/classification/by_scenario/motion_blur/index.json",
-      "count": 2
+      "count": 0
     },
     "occlusion": {
       "path": "data/videos/classification/by_scenario/occlusion/index.json",
-      "count": 2
+      "count": 0
     },
     "players_out_of_frame": {
       "path": "data/videos/classification/by_scenario/players_out_of_frame/index.json",
-      "count": 2
+      "count": 0
     },
     "replay_or_teaching": {
       "path": "data/videos/classification/by_scenario/replay_or_teaching/index.json",
@@ -113,11 +162,11 @@
     },
     "drive": {
       "path": "data/videos/classification/by_action/drive/index.json",
-      "count": 2
+      "count": 0
     },
     "pass": {
       "path": "data/videos/classification/by_action/pass/index.json",
-      "count": 2
+      "count": 0
     },
     "cut": {
       "path": "data/videos/classification/by_action/cut/index.json",
@@ -125,7 +174,7 @@
     },
     "shot": {
       "path": "data/videos/classification/by_action/shot/index.json",
-      "count": 2
+      "count": 0
     },
     "rebound": {
       "path": "data/videos/classification/by_action/rebound/index.json",
@@ -133,11 +182,11 @@
     },
     "transition": {
       "path": "data/videos/classification/by_action/transition/index.json",
-      "count": 2
+      "count": 0
     },
     "defense": {
       "path": "data/videos/classification/by_action/defense/index.json",
-      "count": 2
+      "count": 0
     },
     "post": {
       "path": "data/videos/classification/by_action/post/index.json",
@@ -145,7 +194,7 @@
     },
     "inbound": {
       "path": "data/videos/classification/by_action/inbound/index.json",
-      "count": 1
+      "count": 0
     }
   },
   "human_reviewed_count": 0

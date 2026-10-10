@@ -84,8 +84,7 @@ def original_selection(root, source_path, source):
         videos = update_release.validate_selection(library, previous)
     else:
         registered = load_json(root / 'data/videos/tactics/acceptance/review-library.json')
-        samples = [sample for sample in registered['samples']
-                   if sample['id'] == '005' or 'official-training' in sample.get('video', '')]
+        samples = registered['samples']
         library = {'defaultSample': registered['defaultSample'], 'initiallyActiveSamples': [s['id'] for s in samples], 'samples': samples}
         videos = [{'path': sample['video'], 'sha256': sample['videoSha256'],
                    'bytes': update_release.source_path(root, sample['video']).stat().st_size}
