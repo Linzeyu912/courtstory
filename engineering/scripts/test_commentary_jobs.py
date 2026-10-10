@@ -82,6 +82,25 @@ class CommentaryJobsTests(unittest.TestCase):
         self.assertIn(state["status"], ("running", "failed"))
         self.assertNotIn("source.mp4", json.dumps(job))
 
+    def test_pause_can_anchor_at_one_instant_but_playback_needs_a_window(self):
+        plan=json.loads(json.dumps(self.plan));cue=plan['cues'][0]
+        cue.update(delivery='pause',suggestedStartTime=2,suggestedEndTime=2)
+        self.jobs._validate_plan(plan,self.clip)
+        cue['delivery']='during_play'
+        with self.assertRaises(ValueError):self.jobs._validate_plan(plan,self.clip)
+
+    def test_completed_worker_survives_host_save_failure_without_another_model_call(self):
+        with patch.object(self.jobs,'_run_command',side_effect=self.write_understanding) as command:
+            with patch('commentary_jobs.finalize_plan',side_effect=ValueError('host save failed')):
+                first=self.jobs.create({'action':'understand'},self.clip,self.video,'v1','qa')
+                for thread in list(self.jobs._threads):thread.join(30)
+            self.assertEqual(self.jobs.get(first['id'],self.clip,'v1','qa')['status'],'failed')
+            second=self.jobs.create({'action':'understand'},self.clip,self.video,'v1','qa')
+            for thread in list(self.jobs._threads):thread.join(30)
+            self.assertEqual(self.jobs.get(second['id'],self.clip,'v1','qa')['status'],'completed')
+            self.assertEqual(self.jobs.get(second['id'],self.clip,'v1','qa')['reusedWorkerJobRef'],first['id'])
+            self.assertEqual(command.call_count,1)
+
     def test_understand_success_persists_plan_and_observations(self):
         entered = threading.Event()
 

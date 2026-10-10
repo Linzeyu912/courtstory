@@ -1,6 +1,22 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {compactRatingContext,createCommentaryTools,normalizeCommentaryOptions,validateCommentaryPlan} from './commentary-tools.mjs';
+import {compactRatingContext,modelRatingContext,modelNameSnapshot,createCommentaryTools,normalizeCommentaryOptions,validateCommentaryPlan} from './commentary-tools.mjs';
+
+test('model context preserves named intervals and shared rating values without unknown segment duplication',()=>{
+  const named={participantId:'P1-f10',entityId:'P1',nameRecordRef:'name-1',displayName:'Player',validRange:{startFrame:10,endFrame:20},nameRecord:{privateHostProvenance:'kept'}};
+  const snapshot={participants:[named,{participantId:'P1-f0',displayName:null,nameRecordRef:null}]};
+  const view=modelNameSnapshot(snapshot);
+  assert.equal(view.participants.length,1);assert.deepEqual(view.participants[0].validRange,named.validRange);
+  assert.equal(view.participants[0].nameRecord,undefined);assert.ok(named.nameRecord);
+  const profile={ratings:{layup:80,block:null},field_provenance:{layup:{url:'source'},block:null}};
+  const input={records:[{participantId:'P1-f10',ratingRef:'r1',...profile},{participantId:'P1-f30',ratingRef:'r2',...profile},
+    {participantId:'P2',ratingRef:'r3',ratings:{layup:null}}]};
+  const compact=modelRatingContext(input);
+  assert.equal(Object.keys(compact.profiles).length,1);assert.equal(compact.records.length,2);
+  assert.equal(compact.profiles[compact.records[1].profileRef].ratings.layup,80);
+  assert.equal(compact.profiles[compact.records[1].profileRef].ratings.block,null);
+  assert.equal(compact.records[1].ratingRef,'r2');assert.equal(input.records.length,3);
+});
 
 test('non-shot uncertain status is redundant; confirmed shots and conflicting confirmed status remain explicit',()=>{
   const candidate={events:[{kind:'other',shotStatus:'uncertain'},{kind:'shot',shotStatus:'confirmed'},{kind:'other',shotStatus:'confirmed'}]};
@@ -27,6 +43,18 @@ const plan=()=>({summary:'一次快速转换进攻。',events:[{eventId:'e1',kin
   cues:[1,2,3].map((n)=>({cueId:`c${n}`,eventId:'e1',suggestedStartTime:1,suggestedEndTime:4,text:`转换推进后完成第${n}次进攻。`,focus:'推进路线',delivery:'during_play',evidenceFrames:[10,20]})),uncertainties:[]});
 const start={context:{videoRef:'clip',width:1280,height:720,duration:8,observations:'verified',frames:[{frame:10,time:1,sourceTime:11},{frame:20,time:3,sourceTime:13}]},
   overview:{content:[{type:'text',text:'overview'},{type:'image',data:'aGVsbG8=',mimeType:'image/png'}],details:{frames:[{frame:10,time:1,sourceTime:11}],assets:[]}}};
+
+test('save restores cue name provenance from locked participants but still rejects out-of-range evidence',async()=>{
+  const person={participantId:'P1-f10',entityId:'P1',nameRecordRef:'locked-name',validRange:{startFrame:10,endFrame:20},displayName:'Player',identityStatus:'machine_accepted'};
+  const runtime=createCommentaryTools({...start,context:{...start.context,nameSnapshot:{participants:[person]}}},{budget:{maxToolCalls:3,toolCalls:0}});
+  runtime.state.seenFrames.add(20);
+  const candidate=plan();candidate.participants=[person];candidate.cues[0].participantRefs=[person.participantId];candidate.cues[0].nameRecordRefs=[];
+  const save=runtime.tools.find(t=>t.name==='save_commentary_plan');
+  await save.execute('names',{plan:candidate,finish:false});
+  assert.deepEqual(runtime.state.plan.cues[0].nameRecordRefs,['locked-name']);
+  runtime.state.seenFrames.add(21);candidate.cues[0].evidenceFrames=[10,21];
+  await assert.rejects(save.execute('outside',{plan:candidate,finish:false}),/P1-f10.*10–20/);
+});
 
 test('save treats null optional shot fields as omitted but rejects a real shot status on another event',async()=>{
   const runtime=createCommentaryTools(start,{budget:{maxToolCalls:3,toolCalls:0}});

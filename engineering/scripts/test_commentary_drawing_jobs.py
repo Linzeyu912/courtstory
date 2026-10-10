@@ -91,6 +91,17 @@ class DrawingJobTests(unittest.TestCase):
         self.assertEqual(state['drawingConfigSnapshot']['reasoning'],'medium')
         self.assertEqual(calls,['draw','audit','audit'])
 
+    def test_non_shot_placeholder_feedback_does_not_invent_drawing_subject(self):
+        node=self.plan['nodes'][0];node.update(kind='key_moment',shotFeedback={'shooterRef':'unrelated'})
+        execute=self.service.execute
+        def checked(start,*args,**kwargs):
+            self.assertNotIn('shotFeedback',start['node'])
+            return execute(start,*args,**kwargs)
+        self.service.execute=checked
+        state=self.wait(self.service.create(self.request,self.clip,self.video,'original',False)['jobId'])
+        self.assertEqual(state['status'],'ready',state.get('message'))
+        self.assertEqual(node['shotFeedback'],{'shooterRef':'unrelated'})
+
     def test_combined_nodes_preserve_background_coverage_without_duplicating_native_subjects(self):
         state=self.wait(self.service.create(self.request,self.clip,self.video,'original',False)['jobId'])
         job=self.service.jobs[state['jobId']];rows=[]

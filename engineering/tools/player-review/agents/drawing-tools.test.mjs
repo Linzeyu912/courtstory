@@ -43,12 +43,18 @@ test('shot spotlight is mandatory and restricted to the saved shooter, including
   const shotNode={...node,kind:'shot_release',shotFeedback:{shooterRef:'shooter'}};
   const candidate={schemaVersion:4,phases:[{freezeFrame:2,startFrame:1,endFrameExclusive:5,evidenceFrames:[2],actions:[],
     participants:[{subjectId:'shooter',entityId:null,role:'receiver',annotationIndexes:[0],evidenceFrames:[2]}],
-    annotations:[{type:'spotlight',assetId:'image',anchorFrame:2,startFrame:2,endFrameExclusive:5,entityId:null,evidenceFrames:[2]}]}]};
+    annotations:[{type:'spotlight',assetId:'image',anchorFrame:2,startFrame:2,endFrameExclusive:5,entityId:null,evidenceFrames:[2],points:[{x:100,y:100}]}]}]};
   const seen=new Set([2]),assets=[{assetId:'image',frame:2}],participants=[{participantId:'shooter',entityId:null}];
   assert.equal(validateNodeCandidate(candidate,shotNode,seen,assets,participants),true);
+  const invalidScreen=structuredClone(candidate);invalidScreen.phases[0].annotations[0].type='screen';invalidScreen.phases[0].annotations[0].points.push({x:150,y:100});
+  assert.throws(()=>validateNodeCandidate(invalidScreen,shotNode,seen,assets,participants),/screen.*一个锚点/);
   const anonymousAction=structuredClone(candidate);
   anonymousAction.phases[0].actions=[{entityId:'shooter',evidenceFrames:[2]}];
   assert.throws(()=>validateNodeCandidate(anonymousAction,shotNode,seen,assets,participants),/匿名subjectId/);
+  const unowned=structuredClone(candidate);unowned.phases[0].participants[0].annotationIndexes=[];
+  assert.throws(()=>validateNodeCandidate(unowned,shotNode,seen,assets,participants),/归属/);
+  const outside=structuredClone(candidate);outside.phases[0].annotations[0].points=[{x:641,y:100}];
+  assert.throws(()=>validateNodeCandidate(outside,shotNode,seen,[{assetId:'image',frame:2,width:640,height:360}],participants),/超出返回图片/);
   const wrong=structuredClone(candidate);wrong.phases[0].participants[0].subjectId='other';
   assert.throws(()=>validateNodeCandidate(wrong,shotNode,seen,assets,participants),/出手/);
   const missing=structuredClone(candidate);missing.phases[0].annotations[0].type='position';

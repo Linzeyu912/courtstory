@@ -23,6 +23,25 @@ export function compactRatingContext(context){
   compact.provenanceSources=sources;
   return compact;
 }
+export function modelNameSnapshot(snapshot){
+  if(!snapshot)return null;
+  const participants=(snapshot.participants??[]).filter(p=>p.displayName&&p.nameRecordRef).map(({nameRecord,...p})=>copy(p));
+  return {digest:snapshot.digest,participants,omittedUnknownSegments:(snapshot.participants?.length??0)-participants.length,
+    note:'Only these named intervals may be used by name. Outside them use anonymous local participants. Full provenance is restored by the host on save.'};
+}
+export function modelRatingContext(context){
+  if(!context)return null;
+  const compact=compactRatingContext(context),profiles={},ids=new Map(),records=[];
+  for(const {participantId,entityId,ratingRef,...profile} of compact.records??[]){
+    if(!Object.values(profile.ratings??{}).some(v=>v!==null&&v!==undefined))continue;
+    const key=JSON.stringify(profile);
+    if(!ids.has(key)){const id=`rating-${ids.size+1}`;ids.set(key,id);profiles[id]=profile;}
+    records.push({participantId,entityId,ratingRef,profileRef:ids.get(key)});
+  }
+  return {season:compact.season,digest:compact.digest,records,profiles,provenanceSources:compact.provenanceSources,
+    note:'records map participants and ratingRef to shared profiles. Omitted participants have no known ratings; missing values remain null.'};
+}
+const frameSummary=f=>typeof f==='number'?{frame:f}:({frame:f.frame,time:f.time,sourceTime:f.sourceTime});
 export function normalizeCommentaryOptions(plan){
   const result=copy(plan);
   for(const event of result.events??[]){
@@ -93,7 +112,10 @@ export function validateCommentaryPlan(plan,{duration,readFrames,frameTimes,sour
   if((requireContract||plan.nodes?.length)&&[...cueNodes.values()].some(n=>n!==1))fail('每条讲解必须且只能归属恰好一个节点');
   for(const cue of plan.cues)for(const pid of cue.participantRefs??[]){
     const p=people.get(pid);if(!p){fail('句子人物引用无效');continue;}
-    if(p.nameRecordRef&&(!(cue.nameRecordRefs??[]).includes(p.nameRecordRef)||cue.evidenceFrames.some(f=>f<p.validRange.startFrame||f>p.validRange.endFrame)))fail('句子姓名引用超过有效区间');
+    if(p.nameRecordRef){
+      if(!(cue.nameRecordRefs??[]).includes(p.nameRecordRef))fail(`句子 ${cue.cueId} 缺少 ${pid} 的姓名来源引用`);
+      if(cue.evidenceFrames.some(f=>f<p.validRange.startFrame||f>p.validRange.endFrame))fail(`句子 ${cue.cueId} 的人物 ${pid} 仅在帧 ${p.validRange.startFrame}–${p.validRange.endFrame} 有效；请缩小具名证据或改用匿名引用`);
+    }
   }
   try{prepareShotFeedback(plan,{readFrames,frameTimes,sourceCuts,ratingContext});}catch(error){fail(error.message);}
   return errors;
@@ -149,10 +171,11 @@ export function createCommentaryTools(start,{rpc,emit,budget,requestNumber=()=>0
   };
   const tools=[
     call('get_video_context',Type.Object({}),'读取视频来源、范围、原始帧时间映射和已读概览帧。',async()=>({content:[json({context:{videoRef:start.context.videoRef,width:start.context.width,height:start.context.height,duration,
-      overviewFrames:[...(start.overview?.details?.frames??[])].map(f=>typeof f==='number'?{frame:f,...frameTimes.get(f)}:f),
+      overviewFrames:[...(start.overview?.details?.frames??[])].map(f=>frameSummary(typeof f==='number'?{frame:f,...frameTimes.get(f)}:f)),
       observationAvailability:{available:!['unknown','mismatch',null,undefined].includes(start.context.observations),sourceState:start.context.observations??'unknown'},
-      timelineFrames:start.context.frames?.length??0},overview:{details:start.overview?.details,summary:(start.overview?.content??[]).filter(c=>c.type==='text').map(c=>c.text).join('\n')},assets:state.assets,
-      nameSnapshot:start.context.nameSnapshot??null,ratingContext:compactRatingContext(start.context.ratingContext),sourceCuts:start.context.sourceCuts??[],readFrames:[...seenFrames],plan:state.plan})]})),
+      timelineFrames:start.context.frames?.length??0},
+      nameSnapshot:modelNameSnapshot(start.context.nameSnapshot),ratingContext:modelRatingContext(start.context.ratingContext),sourceCuts:start.context.sourceCuts??[],readFrames:[...seenFrames],
+      plan:state.plan?{summary:state.plan.summary,nodeIds:state.plan.nodes?.map(n=>n.nodeId)}:null})]})),
     call('read_video_window',Type.Object({startTime:Type.Number({minimum:0}),endTime:Type.Number({minimum:0}),fps:Type.Optional(Type.Number({minimum:0.1,maximum:30})),mode:Type.Union([Type.Literal('sheet'),Type.Literal('full')]),frames:Type.Optional(frameList)}),'片内相对秒（0开始），默认2fps。sheet每页6格、每次最多128帧；full每次最多12张单帧大图。采样数=floor((endTime-startTime)*fps)+1，例如full 15–16秒@8fps=9帧。过长窗口请缩短或降低fps，也可用frames精确指定。',async(args,signal)=>{
       if(args.endTime<args.startTime||args.endTime>duration)throw new Error('视频窗口时间范围无效。');
       const result=images(await rpc('read_video_window',args,signal),args.mode==='full');record('read_video_window',{startTime:args.startTime,endTime:args.endTime,frames:result.details.frames});return result;
@@ -165,7 +188,7 @@ export function createCommentaryTools(start,{rpc,emit,budget,requestNumber=()=>0
       const result=await rpc('get_observations',args,signal);record('get_observations',{startTime:args.startTime,endTime:args.endTime});
       return {content:[json(result)]};
     }),
-    call('save_commentary_plan',Type.Object({plan:Type.Object({summary:text,events:Type.Array(Type.Object({eventId:text,kind:Type.Union([Type.Literal('shot'),Type.Literal('other')]),shotStatus:Type.Optional(Type.Union([Type.Literal('confirmed'),Type.Literal('uncertain')])),startTime:Type.Number(),endTime:Type.Number(),description:text,participants:Type.Array(Type.String()),evidenceFrames:frameList,uncertainties:Type.Array(Type.String())})),cues:Type.Array(Type.Object({cueId:text,eventId:text,suggestedStartTime:Type.Number(),suggestedEndTime:Type.Number(),text,focus:text,delivery:Type.Union([Type.Literal('during_play'),Type.Literal('pause')]),evidenceFrames:frameList,participantRefs:Type.Optional(Type.Array(Type.String())),nameRecordRefs:Type.Optional(Type.Array(Type.String()))})),participants:Type.Optional(Type.Array(Type.Object({participantId:text,entityId:Type.Union([Type.String(),Type.Null()]),nameRecordRef:Type.Union([Type.String(),Type.Null()]),validRange:Type.Object({startFrame:integer,endFrame:integer}),identityStatus:text,displayName:Type.Union([Type.String(),Type.Null()])}))),nodes:Type.Optional(Type.Array(Type.Object({nodeId:text,kind:Type.Optional(Type.Union([Type.Literal('shot_release'),Type.Literal('key_moment')])),shotFeedback:Type.Optional(shotSchema),eventId:text,cueIds:Type.Array(Type.String(),{minItems:1}),anchorAssetFrame:integer,evidenceWindow:Type.Object({startFrame:integer,endFrame:integer}),participantRefs:Type.Array(Type.String()),focus:text,uncertainties:Type.Array(Type.String())}))),uncertainties:Type.Array(Type.String())}),finish:Type.Optional(Type.Boolean())}),'保存片内时间、已看图像证据、结构化人物及关键节点；不允许绘图坐标。',async(args)=>{
+    call('save_commentary_plan',Type.Object({plan:Type.Object({summary:text,events:Type.Array(Type.Object({eventId:text,kind:Type.Union([Type.Literal('shot'),Type.Literal('other')]),shotStatus:Type.Optional(Type.Union([Type.Literal('confirmed'),Type.Literal('uncertain'),Type.Null()],{description:'kind=other时为null；只有shot事件填写confirmed或uncertain'})),startTime:Type.Number(),endTime:Type.Number(),description:text,participants:Type.Array(Type.String()),evidenceFrames:frameList,uncertainties:Type.Array(Type.String())})),cues:Type.Array(Type.Object({cueId:text,eventId:text,suggestedStartTime:Type.Number(),suggestedEndTime:Type.Number(),text,focus:text,delivery:Type.Union([Type.Literal('during_play'),Type.Literal('pause')]),evidenceFrames:frameList,participantRefs:Type.Optional(Type.Array(Type.String())),nameRecordRefs:Type.Optional(Type.Array(Type.String()))})),participants:Type.Optional(Type.Array(Type.Object({participantId:text,entityId:Type.Union([Type.String(),Type.Null()]),nameRecordRef:Type.Union([Type.String(),Type.Null()]),validRange:Type.Object({startFrame:integer,endFrame:integer}),identityStatus:text,displayName:Type.Union([Type.String(),Type.Null()])}))),nodes:Type.Optional(Type.Array(Type.Object({nodeId:text,kind:Type.Optional(Type.Union([Type.Literal('shot_release'),Type.Literal('key_moment')])),shotFeedback:Type.Optional(Type.Union([shotSchema,Type.Null()],{description:'非shot_release节点为null；仅确认出手节点填写评价'})),eventId:text,cueIds:Type.Array(Type.String(),{minItems:1}),anchorAssetFrame:integer,evidenceWindow:Type.Object({startFrame:integer,endFrame:integer}),participantRefs:Type.Array(Type.String()),focus:text,uncertainties:Type.Array(Type.String())}))),uncertainties:Type.Array(Type.String())}),finish:Type.Optional(Type.Boolean())}),'保存片内时间、已看图像证据、结构化人物及关键节点；不允许绘图坐标。',async(args)=>{
       const plan=normalizeCommentaryOptions(args.plan);
       const known=new Map((start.context.nameSnapshot?.participants??[]).map(p=>[p.participantId,p]));
       plan.participants=(plan.participants??[]).map(p=>{
@@ -173,6 +196,12 @@ export function createCommentaryTools(start,{rpc,emit,budget,requestNumber=()=>0
         if(saved){if(p.nameRecordRef!==saved.nameRecordRef||p.entityId!==saved.entityId)throw new Error('姓名引用不属于当前保存快照。');return copy(saved);}
         if(p.entityId!==null||p.displayName||p.nameRecordRef)throw new Error('未核实人物只能使用匿名局部ID。');return p;
       });
+      const people=new Map(plan.participants.map(p=>[p.participantId,p]));
+      for(const cue of plan.cues??[]){
+        const refs=[...new Set((cue.participantRefs??[]).map(id=>people.get(id)?.nameRecordRef).filter(Boolean))];
+        if((cue.nameRecordRefs??[]).some(ref=>!refs.includes(ref)))throw new Error(`句子 ${cue.cueId} 的姓名来源与人物引用不匹配。`);
+        cue.nameRecordRefs=refs;
+      }
       if(start.context.ratingContext){plan.ratingContext=copy(start.context.ratingContext);plan.ratingSnapshotRef={digest:start.context.ratingContext.digest};}
       const errors=validateCommentaryPlan(plan,{duration,readFrames:seenFrames,frameTimes,sourceCuts:start.context.sourceCuts??[],ratingContext:start.context.ratingContext??{},requireDetail:args.finish===true,requireContract:start.context.planContract===true});
       if(errors.length)throw new Error(`方案校验失败：${errors.join('；')}`);
@@ -182,7 +211,7 @@ export function createCommentaryTools(start,{rpc,emit,budget,requestNumber=()=>0
       }
       state.plan=plan;state.finished=args.finish===true;record('save_commentary_plan',{finish:state.finished,eventCount:plan.events.length,cueCount:plan.cues.length});
       emit?.({type:'progress',status:'checkpoint',message:'讲解方案已安全保存',safePlan:copy(plan)});
-      return {content:[json({saved:true,finish:state.finished,plan})],details:{finish:state.finished},...(state.finished?{terminate:true}:{})};
+      return {content:[json({saved:true,finish:state.finished,eventCount:plan.events.length,cueCount:plan.cues.length,nodeIds:plan.nodes?.map(n=>n.nodeId)})],details:{finish:state.finished},...(state.finished?{terminate:true}:{})};
     }),
   ];
   return {tools,state};

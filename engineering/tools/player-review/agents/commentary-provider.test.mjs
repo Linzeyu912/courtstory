@@ -1,6 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createCommentaryProvider,redactError} from './commentary-provider.mjs';
+import {createCommentaryProvider,diagnosticFetch,redactError} from './commentary-provider.mjs';
+
+test('transport diagnostics report error codes and sizes without request or secret contents',async()=>{
+  const entries=[],secret='private-header-and-body';
+  const error=new Error(secret,{cause:Object.assign(new Error(secret),{code:'ECONNRESET'})});
+  const fetcher=diagnosticFetch(async()=>{throw error;},entry=>entries.push(entry));
+  await assert.rejects(fetcher('https://example.test/?secret='+secret,{body:secret,headers:{Authorization:secret}}),error);
+  assert.equal(entries[0].bodyBytes,Buffer.byteLength(secret));
+  assert.equal(entries[0].causes[1].code,'ECONNRESET');
+  assert.equal(JSON.stringify(entries).includes(secret),false);
+});
 
 test('OpenRouter selects Astra image tools and supported reasoning without reusing Qwen credentials',()=>{
   const env={COMMENTARY_PROVIDER:'openrouter',OPENROUTER_API_KEY:'private-test-token',QWEN_KEY:'different-key'};

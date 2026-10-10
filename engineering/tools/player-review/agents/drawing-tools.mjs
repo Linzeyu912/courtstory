@@ -1,5 +1,5 @@
 import {Type} from 'typebox';
-import {AGENT_SCHEMA_VIDEO} from '../tactics-agent.mjs';
+import {AGENT_SCHEMA_VIDEO,validateAnnotationControls} from '../tactics-agent.mjs';
 
 const json=value=>({type:'text',text:JSON.stringify(value)});
 const frames=Type.Array(Type.Integer({minimum:0}),{minItems:1,maxItems:12});
@@ -19,12 +19,39 @@ export function validateNodeCandidate(candidate,node,seen,assets,participants=[]
     if(item.startFrame!==undefined&&(item.startFrame<window.startFrame||item.endFrameExclusive>window.endFrame+1))throw new Error('图形超出节点窗口。');
   }
   for(const a of phase.annotations??[]){
+    validateAnnotationControls(a);
+    if(a.startFrame>=a.endFrameExclusive||a.anchorFrame<a.startFrame||a.anchorFrame>=a.endFrameExclusive)throw new Error('图形时间或参考帧无效。');
     if(a.anchorFrame!==node.anchorAssetFrame||!assets.some(asset=>asset.assetId===a.assetId&&asset.frame===a.anchorFrame))throw new Error('坐标资产和节点锚帧不匹配。');
     if(a.type==='route'&&new Set(a.evidenceFrames).size<2)throw new Error('路线需要至少两帧真实观察。');
+    const asset=assets.find(asset=>asset.assetId===a.assetId),transform=asset.transform;
+    for(const point of a.points??[]){
+      if(!Number.isFinite(point.x)||!Number.isFinite(point.y)||point.x<0||point.y<0||point.x>asset.width||point.y>asset.height)
+        throw new Error('图形坐标超出返回图片。');
+      if(transform&&asset.sourceSize){
+        const x=(point.x-transform.offsetX)/transform.scaleX,y=(point.y-transform.offsetY)/transform.scaleY;
+        if(x<0||y<0||x>asset.sourceSize[0]||y>asset.sourceSize[1])throw new Error('图形坐标超出原视频。');
+      }
+    }
   }
+  const subjects=new Set(),bound=new Set(),owned=new Set();
+  for(const person of phase.participants??[]){
+    if(subjects.has(person.subjectId)||person.entityId!=null&&bound.has(person.entityId))throw new Error('参与者subjectId或已绑定entityId重复。');
+    subjects.add(person.subjectId);if(person.entityId!=null)bound.add(person.entityId);
+    if(person.disposition&&person.disposition!=='annotated'&&person.annotationIndexes?.length)throw new Error('未标注参与者不能拥有图形。');
+    for(const index of person.annotationIndexes??[]){
+      if(owned.has(index)||!phase.annotations[index]||phase.annotations[index].entityId!==person.entityId)throw new Error('每个图形必须归属一个匹配的参与者。');
+      owned.add(index);
+    }
+  }
+  if(owned.size!==phase.annotations.length)throw new Error('每个图形必须有参与者归属。');
   const entities=new Set((phase.participants??[]).map(p=>p.entityId).filter(Boolean));
   for(const action of phase.actions??[])for(const ref of [action.entityId,action.beneficiaryId,action.defenderId].filter(Boolean)){
     if(!entities.has(ref))throw new Error('actions只能引用participants中已绑定的entityId；匿名subjectId不能当作entityId，请仅使用有证据的annotation路线表达匿名人物动作。');
+  }
+  for(const action of phase.actions??[]){
+    const person=phase.participants.find(p=>p.entityId===action.entityId);
+    if(['move','cut','roll','pop'].includes(action.kind)&&person?.disposition==='annotated'&&!person.annotationIndexes.some(i=>phase.annotations[i].type==='route'))
+      throw new Error('已标注的移动动作需要同一参与者的真实路线，不能只画重点圈或位置。');
   }
   const focus=phase.annotations.map((a,index)=>({a,index})).filter(({a})=>a.type==='spotlight');
   if(node.kind==='shot_release'){
@@ -86,7 +113,7 @@ export function createDrawingTools(start,{rpc,budget,emit}={}){
       if(args.nodeId!==node.nodeId)throw new Error('未知节点。');state.extensionRequest=structuredClone(args);return {content:[json({status:'requires_orchestrator',request:args})]};
     }),
     call('save_node_drawing',Type.Object({nodeId,status:Type.Union(['ready','partial','unavailable','needs_upstream_review'].map(Type.Literal)),reason:Type.String({maxLength:1800}),candidate:Type.Union([candidateSchema,Type.Null()])}),
-      '保存局部原生几何候选。冲突返回needs_upstream_review，缺少证据保留缺口。图形仅说明已保存节点重点；每个annotation填写实际图像assetId。',async args=>{
+      '保存局部原生几何候选。冲突返回needs_upstream_review，缺少证据保留缺口。图形仅说明已保存节点重点；每个annotation填写实际图像assetId。route至少两个控制点；screen/position/spotlight只用一个锚点，screen方向和长度用angle/size。',async args=>{
         if(args.nodeId!==node.nodeId)throw new Error('未知节点。');
         if(['ready','partial'].includes(args.status)){validateNodeCandidate(args.candidate,node,state.seen,state.assets,start.participants??[]);}
         else if(args.candidate!==null||!args.reason.trim())throw new Error('不可用节点需要明确原因且无候选。');

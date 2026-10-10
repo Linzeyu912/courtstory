@@ -9,6 +9,11 @@ import {preparationDigest} from './court-preparation.mjs';
 import {validateFrameRange} from './tactics-time-range.mjs';
 
 const object=properties=>({type:'object',additionalProperties:false,required:Object.keys(properties),properties});
+export function validateAnnotationControls(annotation){
+  const count=annotation.points?.length??0;
+  if(annotation.type==='route'?count<2:count!==1)
+    throw new Error('图形控制点数量不正确：route 至少两个点；screen、position、spotlight 只用一个锚点，screen 的方向和长度由 angle、size 表达。');
+}
 const string={type:'string',maxLength:2000},frame={type:'integer',minimum:0},frames={type:'array',items:frame,minItems:1,maxItems:40};
 const person={type:['string','null'],maxLength:100},point=object({x:{type:'number'},y:{type:'number'}});
 export const AGENT_SCHEMA_V1=object({summary:string,issues:{type:'array',items:string,maxItems:30},phases:{type:'array',minItems:1,maxItems:12,items:object({
@@ -363,7 +368,7 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
       checkRange(a);if(a.startFrame<s.startFrame||a.endFrameExclusive>s.endFrameExclusive||a.anchorFrame<a.startFrame||a.anchorFrame>=a.endFrameExclusive)throw new Error('图形时间或参考帧无效。');
       if(a.entityId!==null&&!ids.has(a.entityId))throw new Error('Agent 引用了未知球员。');
       evidence(a.evidenceFrames,s.startFrame,s.endFrameExclusive);
-      if(a.type==='route'&&a.points.length<2||a.type!=='route'&&a.points.length!==1)throw new Error('图形控制点数量不正确。');
+      validateAnnotationControls(a);
       if(a.space==='court'&&!calibrationAt(d.review.court?.calibration,a.anchorFrame,d.review.sourceFrameMapping,d.review.settings?.cuts??[]))throw new Error('Agent 地面图形没有有效参考标定。');
       let path;
       if(a.authoredPath){const id=cameraIds.get(a.authoredPath.cameraId),camera=d.production?.cameras.find(c=>c.id===id);if(!camera)throw new Error('Agent 路线没有对应的示意相机。');

@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import re
 import signal
+import shutil
 import subprocess
 import sys
 import threading
@@ -102,7 +103,7 @@ class CommentaryJobs:
 
     @staticmethod
     def _public(state):
-        return {key: state[key] for key in ("id", "status", "stage", "action", "error", "plan", "originalPlan", "polish", "timingWarnings", "producerConfigSnapshot", "basePlanRef", "polishConfigSnapshot", "voiceStyle") if key in state}
+        return {key: state[key] for key in ("id", "status", "stage", "action", "error", "plan", "originalPlan", "polish", "timingWarnings", "producerConfigSnapshot", "basePlanRef", "polishConfigSnapshot", "voiceStyle", "reusedWorkerJobRef") if key in state}
 
     def get_state(self, clip, variant, qa):
         folder = self._dir(clip, variant, qa)
@@ -218,7 +219,7 @@ class CommentaryJobs:
             if (isinstance(start, bool) or not isinstance(start, (int, float)) or
                     isinstance(end, bool) or not isinstance(end, (int, float)) or
                     not math.isfinite(start) or not math.isfinite(end) or
-                    start < 0 or end <= start or
+                    start < 0 or end < start or (end == start and cue.get('delivery') != 'pause') or
                     (isinstance(duration, (int, float)) and end > duration)):
                 raise ValueError("cue times must be inside the source clip")
             if cue.get("delivery") not in ("during_play", "pause"):
@@ -251,7 +252,39 @@ class CommentaryJobs:
                            "--env-file", str(env_file)]
                 if obs.is_file():
                     command += ["--observations", str(obs)]
-                self._run_command(command)
+                # A completed model result can survive a later host-save failure.
+                # Resume only the same frozen input, before any plan has been saved.
+                reused = None
+                if not (folder / 'plan.json').exists():
+                    for previous in sorted((folder / 'jobs').glob('*/job.json'), key=lambda p:p.stat().st_mtime, reverse=True):
+                        old = _read(previous, {})
+                        if old.get('status') != 'failed' or old.get('action') != 'understand':
+                            continue
+                        prior = previous.parent
+                        completed = _read(prior / 'understanding/result.json', {})
+                        if (completed.get('status') != 'completed' or completed.get('producerConfigSnapshot') != request['_producerConfig'] or
+                                _read(prior / 'review.json', {}) != (request.get('review') or {}) or
+                                obs.is_file() and _read(prior / 'observations.json') != clip):
+                            continue
+                        context = _read(prior / 'understanding/context.json', {})
+                        if context.get('videoRef') != request['_sourceRef']['videoSha256']:
+                            continue
+                        producer_job = old.get('reusedWorkerJobRef', old['id'])
+                        try:
+                            self._validate_plan(completed.get('plan'), clip)
+                            finalize_plan(completed['plan'], clip, request.get('review'), context,
+                                          completed.get('evidence'), request['_producerConfig'], producer_job, None,
+                                          require_contract=True)
+                        except (ValueError, KeyError, TypeError):
+                            continue
+                        target = output / 'understanding'; target.mkdir()
+                        for name in ('result.json', 'context.json', 'overview.json', 'tool-calls.json', 'worker-stderr.log'):
+                            if (prior / 'understanding' / name).is_file():
+                                shutil.copyfile(prior / 'understanding' / name, target / name)
+                        reused = producer_job;state['reusedWorkerJobRef'] = reused
+                        break
+                if reused is None:
+                    self._run_command(command)
                 result = _read(output / "understanding" / "result.json", {})
                 if result.get("status") != "completed" or not isinstance(result.get("plan"), dict):
                     raise RuntimeError("understanding did not produce a completed plan")
@@ -268,7 +301,7 @@ class CommentaryJobs:
                     if _read(output / "job.json", {}).get("status") != "running":
                         raise ValueError("commentary job was cancelled or interrupted")
                     plan = finalize_plan(result["plan"], clip, request.get("review"), context,
-                                         result.get("evidence"), request["_producerConfig"], state["id"], current,
+                                         result.get("evidence"), request["_producerConfig"], reused or state["id"], current,
                                          require_contract=True)
                     plan["decodeContext"] = {k: context[k] for k in ("videoRef", "frames", "sourceCuts", "ratingContext") if k in context}
                     plan.pop("digest", None); plan["digest"] = digest(plan)

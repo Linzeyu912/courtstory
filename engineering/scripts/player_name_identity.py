@@ -27,11 +27,11 @@ MAX_ENTITY_CALLS = 10
 ALGORITHM = 'target-evidence-continuity-roster-v4'
 
 
-def _safe_request_error(exc):
+def _safe_request_error(exc, provider='Token Plan'):
     """Safe, useful transport diagnostics; never stringify an exception reason."""
     import ssl
     if isinstance(exc,urllib.error.HTTPError):
-        return f'Token Plan 视觉请求失败（http_error HTTP {int(exc.code)}）。'
+        return f'{provider} 视觉请求失败（http_error HTTP {int(exc.code)}）。'
     reason=exc.reason if isinstance(exc,urllib.error.URLError) else exc
     number=getattr(reason,'errno',None)
     number=number if type(number) is int else None
@@ -54,7 +54,7 @@ def _safe_request_error(exc):
     fields=[category,reason_type]
     if number is not None:
         fields.append('errno='+str(number))
-    return 'Token Plan 视觉请求失败（'+' '.join(fields)+'）。'
+    return provider+' 视觉请求失败（'+' '.join(fields)+'）。'
 
 
 def _jpeg_request_payload(path,quality=85):
@@ -89,6 +89,8 @@ def _load_server_config():
 
 class TokenPlanVision:
     """One request per player using the existing Qwen OpenAI-compatible endpoint."""
+    provider_label = 'Token Plan'
+    request_options = {'enable_thinking': False, 'max_tokens': 4096}
     def __init__(self, config=None, opener=None, timeout=90):
         self.config = _load_server_config() if config is None else config
         self.opener = opener or urllib.request.urlopen
@@ -134,8 +136,7 @@ class TokenPlanVision:
             content.append({'type': 'image_url', 'image_url': {'url': 'data:image/jpeg;base64,' + encoded}})
         payload = json.dumps({'model': self.model,
             'messages': [{'role': 'user', 'content': content}], 'temperature': 0,
-            'enable_thinking': False,
-            'response_format': {'type': 'json_object'}, 'max_tokens': 4096}, ensure_ascii=False).encode()
+            'response_format': {'type': 'json_object'}, **self.request_options}, ensure_ascii=False).encode()
         request = urllib.request.Request(self.base_url + '/chat/completions', data=payload,
             headers={'Authorization': 'Bearer ' + self.key, 'Content-Type': 'application/json'}, method='POST')
         try:
@@ -143,14 +144,14 @@ class TokenPlanVision:
                 result = json.loads(response.read())
         except Exception as exc:
             # Never expose token, auth header, or request body in the service error.
-            raise ValueError(_safe_request_error(exc)) from None
+            raise ValueError(_safe_request_error(exc, self.provider_label)) from None
         try:
             text = result['choices'][0]['message']['content']
             if isinstance(text, list):
                 text = ''.join(part.get('text', '') for part in text if isinstance(part, dict))
             output = json.loads(text)
         except (KeyError, IndexError, TypeError, ValueError):
-            raise ValueError('Token Plan 未返回可读的结构化号码结果。') from None
+            raise ValueError(self.provider_label+' 未返回可读的结构化号码结果。') from None
         return output
 
     def generate(self, *, job, directory, schema, result, images, prompt):
@@ -159,6 +160,30 @@ class TokenPlanVision:
         output = self.review(images, labels, {'task': prompt})
         result.write_text(json.dumps(output, ensure_ascii=False), encoding='utf-8')
         return output
+
+
+class OpenRouterVision(TokenPlanVision):
+    """Use Astra for the same evidence reading / continuity contract as the UI."""
+    provider_label = 'OpenRouter Astra'
+    request_options = {'reasoning': {'effort': 'low'}, 'max_tokens': 8192}
+
+    def __init__(self, config=None, opener=None, timeout=120):
+        self.config = _load_server_config() if config is None else config
+        self.opener = opener or urllib.request.urlopen
+        self.timeout = timeout
+        self.key = str(self.config.get('OPEN_ROUTER_KEY') or self.config.get('OPENROUTER_API_KEY') or '').strip()
+        self.model = 'openai/gpt-6-astra'
+        self.base_url = 'https://openrouter.ai/api/v1'
+        if not self.key:
+            raise ValueError('OpenRouter 未配置；请在服务端 .env 设置 OPEN_ROUTER_KEY。')
+
+    def status(self):
+        return {'available': True, 'provider': 'openrouter', 'model': self.model,
+                'message': 'OpenRouter Astra 已配置，供球衣证据读取和姓名续接使用。'}
+
+
+def create_openrouter_name_provider(*, opener=None, timeout=120):
+    return OpenRouterVision(opener=opener, timeout=timeout)
 
 
 def create_qwen_token_plan_provider(env_path=None, *, opener=None, timeout=90):

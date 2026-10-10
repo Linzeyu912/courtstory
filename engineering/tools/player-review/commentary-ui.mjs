@@ -287,7 +287,7 @@ export function mountCommentaryUI(api) {
     const value = readPlan();
     for (const [index, cue] of value.cues.entries()) {
       const start = Number(cue.suggestedStartTime), end = Number(cue.suggestedEndTime);
-      if (String(cue.suggestedStartTime).trim() === '' || String(cue.suggestedEndTime).trim() === '' || !Number.isFinite(start) || !Number.isFinite(end) || start < 0 || end <= start) throw new Error(`第 ${index + 1} 句时间无效，请填写有效的开始与结束秒数。`);
+      if (String(cue.suggestedStartTime).trim() === '' || String(cue.suggestedEndTime).trim() === '' || !Number.isFinite(start) || !Number.isFinite(end) || start < 0 || end < start || (end === start && cue.delivery !== 'pause')) throw new Error(`第 ${index + 1} 句时间无效，请填写有效的开始与结束秒数。`);
       if (!String(cue.text || '').trim()) throw new Error(`第 ${index + 1} 句解说文字不能为空。`);
     }
     const saved = await client.savePlan(value, { expectedRevision: plan.revision ?? 0, review: api.commentaryReview?.() ?? api.snapshot?.() });
