@@ -5,6 +5,7 @@ import {createTacticsDocument,validateDocument} from './tactics-document.mjs';
 import {createAnnotation,removeAnnotation,updateAnnotation,projectAnnotations,renderAnnotationsSVG} from './tactics-annotations.mjs';
 import {upsertTacticKeyframe} from './tactics-keyframes.mjs';
 import {compileProduction,renderProductionSvg} from './tactics-production.mjs';
+import {renderStudioTeamId} from './studio-team-id.mjs';
 
 const api=await import('./shot-feedback.mjs').catch(error=>{if(error.code!=='ERR_MODULE_NOT_FOUND')throw error;return {};});
 const ref={planId:'shot-plan',revision:1,digest:'d'.repeat(64)};
@@ -116,7 +117,8 @@ test('formal production renders the same HUD SVG and enforces one at least 2.5s 
   const document=await fixture(),production=compileProduction(document,{fps:30});
   const release=production.frames.filter(f=>f.sourceFrame===20&&f.state!=='source');
   assert.equal(release.length,75);
-  assert.equal(renderProductionSvg(document,release.at(-1)),renderAnnotationsSVG(frozen(document)));
+  const expected=renderAnnotationsSVG(frozen(document)).replace('</svg>',`${renderStudioTeamId(document.review.width,document.review.height)}</svg>`);
+  assert.equal(renderProductionSvg(document,release.at(-1)),expected);
   document.tacticKeyframes.items.find(k=>k.id==='release').holdSeconds=1;
   assert.throws(()=>compileProduction(document),/投篮反馈/);
 });
