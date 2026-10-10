@@ -53,7 +53,7 @@ export function identityQuickRange({session,clip,frame,trackId,entityId}){
     reason:start===end?'仅当前画面':'当前连续出现的一段；遇到缺帧、突变、切镜或人工边界停止'};
 }
 
-/** Low-priority T occurrence assignment. Human corrections and review tokens survive. */
+/** An explicit assignment replaces earlier ownership on this T's observed frames. */
 export function assignIdentityTrackOccurrences(session,{entityId,trackId,start,end,selectionFrame},clip){
   const frames=clip.frames;
   if(!session.entities.some(entity=>entity.id===entityId&&entity.role==='player')||!Number.isInteger(trackId)||trackId<1||
@@ -63,39 +63,47 @@ export function assignIdentityTrackOccurrences(session,{entityId,trackId,start,e
   const before=buildTrajectories(session,frames,clip.sourceCuts||[],clip),draft=structuredClone(session);
   migrateIdentitySession(draft);
   const entity=draft.entities.find(entity=>entity.id===entityId),cuts=new Set([...(session.cuts||[]),...(clip.sourceCuts||[])]);
-  const excluded=session.entities.flatMap(item=>item.dismissedModelBindings||[]).filter(item=>Number(item.trackId)===trackId);
-  const protectedFrames=new Set(observations.filter(at=>{
-    const point=before[entityId][at];
-    return point.frameIdentityConfirmed||point.reviewExcluded||['manual','manual_range','manual_path','out_of_view'].includes(point.source)||
-      ['manual_range','human_unassigned'].includes(point.identitySource)||
-      point.identitySource==='manual_forward'&&observed(frames[at],point.trackId)||
-      (entity.visibilityRanges||[]).some(range=>rangeContains(range,at)&&range.state!=='visible')||
-      excluded.some(range=>rangeContains(range,at))||
-      Object.entries(before).some(([id,points])=>id!==entityId&&points[at]?.trackId===trackId&&points[at].x!=null&&(points[at].identityExclusive||points[at].frameIdentityConfirmed||points[at].source==='manual'));
-  }));
+  const assignedFrames=new Set(observations);
   entity.bindings||=[];
-  const existing=entity.bindings.filter(binding=>binding.scope==='track_occurrences'&&binding.trackId===trackId);
-  const missing=observations.filter(at=>!protectedFrames.has(at)&&!existing.some(binding=>rangeContains(binding,at)));
   const ranges=[];
-  for(const at of missing){
+  for(const at of observations){
     const previous=ranges.at(-1);
     if(previous&&previous.end===at-1&&!cuts.has(at)&&continuousPerson(frames[at-1],frames[at],trackId))previous.end=at;
     else ranges.push({start:at,end:at});
   }
   if(ranges.length){
     const order=nextIdentityOrder(draft);
-    entity.bindings.push(...ranges.map(range=>({kind:'track',trackId,...range,scope:'track_occurrences',origin:'human_track_assignment',
-      selectionFrame:Number.isInteger(selectionFrame)?selectionFrame:observations[0],order,exclusive:false,reviewRequired:true})));
+    entity.bindings.push(...ranges.map(range=>({kind:'track',trackId,...range,origin:'human_range_replacement',
+      selectionFrame:Number.isInteger(selectionFrame)?selectionFrame:observations[0],order,exclusive:true,reviewRequired:true})));
+    // Keep position edits for this person, but remove stale points and review
+    // tokens for the replaced identity. The input draft remains available to undo.
+    entity.anchors=entity.anchors.filter(anchor=>!assignedFrames.has(anchor.frame)||
+      (anchor.trackId===trackId&&anchor.source!=='manual_path'));
+    entity.frameConfirmations=(entity.frameConfirmations||[]).filter(review=>!assignedFrames.has(review.frame));
+    for(const range of ranges)setPlayerVisibility(draft,entityId,range.start,range.end,'visible',frames);
+    // Remove this T from other players' old bulk claims as well. Otherwise a
+    // multi-T conflict there has no single owner for resolveIdentityOwners to release.
+    for(const other of draft.entities){
+      if(other.id===entityId||!other.bindings)continue;
+      for(const range of ranges)other.bindings=other.bindings.flatMap(binding=>{
+        if(binding.scope!=='track_occurrences'||Number(binding.trackId)!==trackId||
+          binding.end<range.start||binding.start>range.end)return [binding];
+        return [...(binding.start<range.start?[{...binding,end:range.start-1}]:[]),
+          ...(binding.end>range.end?[{...binding,start:range.end+1}]:[])];
+      });
+    }
     draft.identitySelection=null;
   }
   const after=buildTrajectories(draft,frames,clip.sourceCuts||[],clip);
-  const preview={start,end,observationCount:observations.length,changed:0,missing:0,conflicts:0,preservedHuman:protectedFrames.size,segments:ranges.length,affectedPlayers:{}};
+  const preview={start,end,observationCount:observations.length,changed:0,missing:0,conflicts:0,segments:ranges.length,affectedPlayers:{}};
   for(const at of observations){
     const point=after[entityId][at];
     if(point.source==='conflict')preview.conflicts++;
-    if(!protectedFrames.has(at)&&point.trackId===trackId&&point.x!=null)preview.changed++;
-    else if(!protectedFrames.has(at)&&point.x==null)preview.missing++;
-    for(const id of Object.keys(after))if(id!==entityId&&after[id][at].claimedBy===entityId&&before[id][at].x!=null)preview.affectedPlayers[id]=(preview.affectedPlayers[id]||0)+1;
+    if(point.trackId===trackId&&point.x!=null)preview.changed++;
+    else if(point.x==null)preview.missing++;
+    for(const id of Object.keys(after))if(id!==entityId&&
+      (before[id][at].trackId===trackId||before[id][at].candidateTrackIds?.includes(trackId)))
+      preview.affectedPlayers[id]=(preview.affectedPlayers[id]||0)+1;
   }
   return {session:draft,preview};
 }

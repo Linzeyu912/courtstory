@@ -227,7 +227,7 @@ function setIdentityQuickPreset(preset){
   }else{
     quickIdentity.scope='track_occurrences';
     quickIdentity.range={start:preset==='all'?0:frame,end:clip.frames.length-1,
-      reason:preset==='all'?'整个 T 编号的全部实际出现帧（含之前）；保留人工纠错，不补缺帧':'从当前帧往后该 T 的实际出现帧；保留人工纠错，不补缺帧'};
+      reason:preset==='all'?'整个 T 编号的全部实际出现帧（含之前）；以本次人工选择为准，不补缺帧':'从当前帧往后该 T 的实际出现帧；以本次人工选择为准，不补缺帧'};
   }
   quickIdentity.preset=preset;previewIdentityQuickEdit();draw();
 }
@@ -237,7 +237,7 @@ function setIdentityQuickEndpoint(field){
   if(!quickIdentity.action)beginIdentityQuickEdit('replace');
   const range={...quickIdentity.range,[field]:frame};
   if(range.start>range.end)range[field==='start'?'end':'start']=frame;
-  quickIdentity.preset='custom';quickIdentity.range={...range,reason:quickIdentity.scope==='track_occurrences'?'人工选段，仅归并此范围内该 T 的实际出现帧；保留人工纠错，不补缺帧':'人工选段；仅应用上面的范围。'};
+  quickIdentity.preset='custom';quickIdentity.range={...range,reason:quickIdentity.scope==='track_occurrences'?'人工选段，仅归并此范围内该 T 的实际出现帧；以本次人工选择为准，不补缺帧':'人工选段；仅应用上面的范围。'};
   previewIdentityQuickEdit();draw();
 }
 function setIdentityQuickRange(field,seconds){
@@ -246,7 +246,7 @@ function setIdentityQuickRange(field,seconds){
   if(!Number.isFinite(seconds)||seconds<0||seconds>clip.frames.at(-1).time){quickIdentity.pending=null;quickIdentity.error='请输入视频范围内的有效时间，或用当前帧设置端点。';draw();return;}
   const range={...quickIdentity.range,[field]:frameAtMediaTime(clip.frames,seconds,quickIdentity.range[field])};
   if(range.start>range.end){quickIdentity.pending=null;quickIdentity.error='起点不能晚于终点。';draw();return;}
-  quickIdentity.preset='custom';quickIdentity.range={...range,reason:quickIdentity.scope==='track_occurrences'?'人工选段，仅归并此范围内该 T 的实际出现帧；保留人工纠错，不补缺帧':'人工调整的时间段；仅应用上面的范围。'};previewIdentityQuickEdit();draw();
+  quickIdentity.preset='custom';quickIdentity.range={...range,reason:quickIdentity.scope==='track_occurrences'?'人工选段，仅归并此范围内该 T 的实际出现帧；以本次人工选择为准，不补缺帧':'人工调整的时间段；仅应用上面的范围。'};previewIdentityQuickEdit();draw();
 }
 function applyIdentityQuickEdit(){
   if(reviewBusy)return;
@@ -254,10 +254,10 @@ function applyIdentityQuickEdit(){
   if(!quickIdentity.action)beginIdentityQuickEdit('replace');
   if(!quickIdentity.pending||quickIdentity.error)return;
   if(quickIdentity.revision!==sessionRevision){quickIdentity.error='草稿已有新修改，请重新选择这段后应用。';quickIdentity.pending=null;draw();return;}
-  const {session:next,preview}=quickIdentity.pending,action=quickIdentity.action,targetId=quickIdentity.targetId,scope=quickIdentity.scope;
+  const {session:next,preview}=quickIdentity.pending,action=quickIdentity.action,targetId=quickIdentity.targetId,scope=quickIdentity.scope,trackId=quickIdentity.trackId;
   cancelIdentityQuickEdit(false);if(action!=='exclude')active=targetId;
   change(()=>session=next);previewTrackId=null;draw();
-  toast(action==='missing'?`已补入 ${preview.changed} 帧位置，其中 ${preview.estimated} 帧为估计；可一次撤销。`:action==='exclude'?`已排除这人第 ${preview.start+1}–${preview.end+1} 帧的球员关联，可一次撤销。`:scope==='track_occurrences'?`已关联 ${preview.changed} 个实际观测帧到 ${entityLabel(targetId)}；保留 ${preview.preservedHuman} 帧人工记录，${preview.conflicts} 帧冲突待处理。关联已生效，未核对标记保留，可一次撤销。`:`已将这段 ${preview.changed} 帧对应到 ${entityLabel(targetId)}，仍为待核对，可一次撤销。`);
+  toast(action==='missing'?`已补入 ${preview.changed} 帧位置，其中 ${preview.estimated} 帧为估计；可一次撤销。`:action==='exclude'?`已排除这人第 ${preview.start+1}–${preview.end+1} 帧的球员关联，可一次撤销。`:scope==='track_occurrences'?`已将 T${trackId} 的 ${preview.changed} 个实际观测帧关联到 ${entityLabel(targetId)}，以本次人工选择为准；可一次撤销。`:`已将这段 ${preview.changed} 帧对应到 ${entityLabel(targetId)}，仍为待核对，可一次撤销。`);
 }
 function captureMissingPlayerPoint(x,y){
   if(quickIdentity.revision!==sessionRevision){quickIdentity.pending=null;quickIdentity.error='草稿已有新修改，请重新点击“补漏人”。';draw();return;}

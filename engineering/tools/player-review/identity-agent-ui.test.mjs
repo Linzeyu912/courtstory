@@ -130,11 +130,11 @@ test('quick range can be selected using the video and visible endpoint or preset
   const loading=quickFixture({referenceFrameReady:false});assert.equal(loading.button('当前帧设为起点').props.disabled,true);
 });
 
-test('whole-T preview warns about conflicts and preserved manual records before explicit association',()=>{
-  const f=quickFixture({quickIdentity:{trackId:2,targetId:'P1',action:'replace',scope:'track_occurrences',preset:'all',range:{start:0,end:4},preview:{observationCount:4,changed:2,conflicts:1,preservedHuman:1,segments:2,affectedPlayers:{}}}});
-  assert(f.all.some(node=>node.props?.role==='status'&&text(node).includes('1 帧冲突')));
-  assert(f.all.some(node=>text(node).includes('保留 1 帧人工记录')));
-  assert(f.all.some(node=>text(node).includes('批量关联不会标成逐帧已确认')));
+test('whole-T preview explains that the explicit human choice replaces old assignments',()=>{
+  const f=quickFixture({quickIdentity:{trackId:2,targetId:'P1',action:'replace',scope:'track_occurrences',preset:'all',range:{start:0,end:4},preview:{observationCount:4,changed:4,conflicts:0,segments:2,affectedPlayers:{}}}});
+  assert(f.all.some(node=>node.props?.role==='status'&&text(node).includes('可关联 4 帧')));
+  assert(f.all.some(node=>text(node).includes('以这次人工选择为准，替换旧关联')));
+  assert(f.all.some(node=>text(node).includes('点击关联才保存，仍可逐帧核对')));
   assert.equal(f.calls.length,0);f.button('将 T2 关联到球员 1').props.onClick();assert.deepEqual(f.calls,[['applyIdentityQuickEdit']]);
 });
 
