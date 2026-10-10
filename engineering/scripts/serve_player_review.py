@@ -1,7 +1,9 @@
 """Serve the local player review UI and an explicit video library on loopback."""
 
 import argparse
+import codecs
 import hashlib
+import io
 import json
 import math
 import mimetypes
@@ -18,6 +20,28 @@ from urllib.parse import urlsplit
 from scene_profiles import finite_json, validate_court_candidates, validate_feet_candidates
 from review_session import apply_review_edit
 from detector_evidence import validate_frame_evidence, detector_evidence_for_clip
+
+
+def load_server_environment(path):
+    """Load only an explicitly supplied file; existing same-name variables win."""
+    if path is None:
+        return
+    from dotenv import load_dotenv
+    try:
+        content = Path(path).read_bytes()
+    except OSError:
+        raise ValueError(f'Cannot read --env-file: {path}') from None
+    try:
+        if content.startswith((codecs.BOM_UTF32_LE, codecs.BOM_UTF32_BE)):
+            raise ValueError('unsupported encoding')
+        encoding = 'utf-16' if content.startswith((codecs.BOM_UTF16_LE, codecs.BOM_UTF16_BE)) else 'utf-8-sig'
+        text = content.decode(encoding)
+        if '\x00' in text:
+            raise ValueError('unsupported encoding')
+    except (UnicodeError, ValueError):
+        # Decoding exceptions can include raw credential bytes; never relay them.
+        raise ValueError(f'Invalid encoding in --env-file: {path}; use UTF-8 or UTF-16 with a BOM') from None
+    load_dotenv(stream=io.StringIO(text), override=False)
 
 
 def initially_active_samples(library, retained):
@@ -38,6 +62,8 @@ def main():
     parser.add_argument("--library", help="JSON library with explicit sample video / tracks paths")
     parser.add_argument("--alternative-tracks", help="Optional jersey-constrained experiment; separate browser drafts")
     parser.add_argument("--port", type=int, default=8876)
+    parser.add_argument("--env-file", type=Path,
+                        help="Explicit UTF-8 or BOM-tagged UTF-16 environment file; existing same-name environment variables take priority")
     parser.add_argument("--court-profile", default="research/vision/vision-player-refinement/clip001-court-expanded.json")
     parser.add_argument("--state-file", default="artifacts/vision-player-refinement/review-server.json")
     parser.add_argument("--trim-root", default="artifacts/player-review-clips")
@@ -76,6 +102,10 @@ def main():
     parser.add_argument("--trajectory-replay-root", default="research/agents/qwen-ground-official-20261005/replay",
                         help="Read-only exported Qwen result replays; no model calls or draft writes")
     args = parser.parse_args()
+    try:
+        load_server_environment(args.env_file)
+    except ValueError as error:
+        parser.error(str(error))
     if args.library:
         if args.video or args.tracks or args.alternative_tracks:
             parser.error("Use --library or --video/--tracks, not both")

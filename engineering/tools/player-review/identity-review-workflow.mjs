@@ -1,5 +1,5 @@
 import {buildTrajectories,setPlayerVisibility} from './trajectory.mjs';
-import {nextIdentityOrder} from './identity-timeline.mjs';
+import {identityKeyframes,migrateIdentitySession,nextIdentityOrder} from './identity-timeline.mjs';
 
 const observed=(record,trackId)=>record?.tracks?.some(box=>Number(box[4])===trackId);
 const rangeContains=(range,frame)=>range.start<=frame&&frame<=range.end;
@@ -27,12 +27,16 @@ export function identityPersonSelection(trajectories,frame,trackId){
 }
 
 /** Inclusive, observed run; never propagate a correction across a gap or boundary. */
-export function identityQuickRange({session,clip,frame,trackId}){
+export function identityQuickRange({session,clip,frame,trackId,entityId}){
   const last=clip.frames.length-1;
   if(!Number.isInteger(frame)||frame<0||frame>last)throw new Error('请先定位到视频中的一帧。');
   const boundaries=new Set([0,last+1,...(session.cuts||[]),...(clip.sourceCuts||[])]);
   for(const entity of session.entities||[]){
-    for(const key of entity.identityKeyframes||[])boundaries.add(key.frame);
+    const keys=identityKeyframes(entity);
+    const related=entity.id===entityId||Number.isInteger(trackId)&&[...keys,...(entity.bindings||[]),...(entity.modelBindings||[]),...(entity.machineIdentityBindings||[]),...(entity.anchors||[]),...(entity.frameConfirmations||[])]
+      .some(record=>record.trackId!=null&&Number(record.trackId)===trackId);
+    if(!related)continue;
+    for(const key of keys)boundaries.add(key.frame);
     for(const binding of entity.bindings||[]){
       if(binding.scope==='track_occurrences')continue;
       boundaries.add(binding.start);boundaries.add(binding.end+1);
@@ -47,6 +51,53 @@ export function identityQuickRange({session,clip,frame,trackId}){
   }
   return {start,end,trackId:Number.isInteger(trackId)?trackId:null,
     reason:start===end?'仅当前画面':'当前连续出现的一段；遇到缺帧、突变、切镜或人工边界停止'};
+}
+
+/** Low-priority T occurrence assignment. Human corrections and review tokens survive. */
+export function assignIdentityTrackOccurrences(session,{entityId,trackId,start,end,selectionFrame},clip){
+  const frames=clip.frames;
+  if(!session.entities.some(entity=>entity.id===entityId&&entity.role==='player')||!Number.isInteger(trackId)||trackId<1||
+    !Number.isInteger(start)||!Number.isInteger(end)||start<0||end>=frames.length||start>end)throw new Error('请选择球员、有效临时编号和起止区间。');
+  const observations=frames.flatMap((record,index)=>index>=start&&index<=end&&observed(record,trackId)?[index]:[]);
+  if(!observations.length)throw new Error('所选时间段没有这个临时编号的观测。');
+  const before=buildTrajectories(session,frames,clip.sourceCuts||[],clip),draft=structuredClone(session);
+  migrateIdentitySession(draft);
+  const entity=draft.entities.find(entity=>entity.id===entityId),cuts=new Set([...(session.cuts||[]),...(clip.sourceCuts||[])]);
+  const excluded=session.entities.flatMap(item=>item.dismissedModelBindings||[]).filter(item=>Number(item.trackId)===trackId);
+  const protectedFrames=new Set(observations.filter(at=>{
+    const point=before[entityId][at];
+    return point.frameIdentityConfirmed||point.reviewExcluded||['manual','manual_range','manual_path','out_of_view'].includes(point.source)||
+      ['manual_range','human_unassigned'].includes(point.identitySource)||
+      point.identitySource==='manual_forward'&&observed(frames[at],point.trackId)||
+      (entity.visibilityRanges||[]).some(range=>rangeContains(range,at)&&range.state!=='visible')||
+      excluded.some(range=>rangeContains(range,at))||
+      Object.entries(before).some(([id,points])=>id!==entityId&&points[at]?.trackId===trackId&&points[at].x!=null&&(points[at].identityExclusive||points[at].frameIdentityConfirmed||points[at].source==='manual'));
+  }));
+  entity.bindings||=[];
+  const existing=entity.bindings.filter(binding=>binding.scope==='track_occurrences'&&binding.trackId===trackId);
+  const missing=observations.filter(at=>!protectedFrames.has(at)&&!existing.some(binding=>rangeContains(binding,at)));
+  const ranges=[];
+  for(const at of missing){
+    const previous=ranges.at(-1);
+    if(previous&&previous.end===at-1&&!cuts.has(at)&&continuousPerson(frames[at-1],frames[at],trackId))previous.end=at;
+    else ranges.push({start:at,end:at});
+  }
+  if(ranges.length){
+    const order=nextIdentityOrder(draft);
+    entity.bindings.push(...ranges.map(range=>({kind:'track',trackId,...range,scope:'track_occurrences',origin:'human_track_assignment',
+      selectionFrame:Number.isInteger(selectionFrame)?selectionFrame:observations[0],order,exclusive:false,reviewRequired:true})));
+    draft.identitySelection=null;
+  }
+  const after=buildTrajectories(draft,frames,clip.sourceCuts||[],clip);
+  const preview={start,end,observationCount:observations.length,changed:0,missing:0,conflicts:0,preservedHuman:protectedFrames.size,segments:ranges.length,affectedPlayers:{}};
+  for(const at of observations){
+    const point=after[entityId][at];
+    if(point.source==='conflict')preview.conflicts++;
+    if(!protectedFrames.has(at)&&point.trackId===trackId&&point.x!=null)preview.changed++;
+    else if(!protectedFrames.has(at)&&point.x==null)preview.missing++;
+    for(const id of Object.keys(after))if(id!==entityId&&after[id][at].claimedBy===entityId&&before[id][at].x!=null)preview.affectedPlayers[id]=(preview.affectedPlayers[id]||0)+1;
+  }
+  return {session:draft,preview};
 }
 
 /** Human exclusion is finite and undoable; records outside the interval survive. */

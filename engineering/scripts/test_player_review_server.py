@@ -2,6 +2,7 @@
 import copy
 import hashlib
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -25,6 +26,35 @@ class RaisingParser:
 
 
 class ReviewServerTests(unittest.TestCase):
+    def test_explicit_utf16_environment_reaches_commentary_status_without_exposing_keys_or_enabling_tts(self):
+        state=self.root/'environment-server.json'
+        env_file=self.root/'explicit.env'
+        env_file.write_text('OPEN_ROUTER_KEY=fake-router-value\nARK_API_KEY=fake-ark-value\nVOLCENGINE_TTS_API_KEY=\n',encoding='utf-16')
+        command=[sys.executable,str(Path(__file__).with_name('serve_player_review.py')),'--video',str(self.video),
+            '--tracks',str(self.tracks),'--port','0','--state-file',str(state),'--env-file',str(env_file),
+            '--trim-root',str(self.root/'trim'),'--court-profile',str(self.root/'no-court.json'),
+            '--import-cache',str(self.root/'imports'),'--video-folder',str(self.root/'inbox'),
+            '--tactics-folder',str(self.root/'tactics'),'--tactics-agent-cli',str(self.root/'not-a-cli')]
+        child_env={key:value for key,value in os.environ.items() if key not in
+            {'OPENROUTER_API_KEY','OPEN_ROUTER_KEY','ARK_API_KEY','VOLCENGINE_TTS_API_KEY','HKS_AGENT_RUNTIME','PYTHON_DOTENV_DISABLED'}}
+        process=subprocess.Popen(command,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=child_env)
+        try:
+            deadline=time.monotonic()+10
+            while not state.is_file() and process.poll() is None and time.monotonic()<deadline:time.sleep(.02)
+            self.assertTrue(state.is_file(),'Explicit environment fixture HTTP server did not reach readiness')
+            url=json.loads(state.read_text())['url']
+            with urlopen(url+'api/commentary?sample=legacy&variant=original&qa=true',timeout=3) as response:
+                payload=json.load(response)
+            self.assertTrue(payload['status']['understandingConfigured'])
+            self.assertFalse(payload['status']['ttsConfigured'])
+            self.assertNotIn('fake-router-value',json.dumps(payload))
+            self.assertNotIn('fake-ark-value',json.dumps(payload))
+        finally:
+            if process.poll() is None:process.terminate()
+            stdout,stderr=process.communicate(timeout=5)
+            self.assertNotIn(b'fake-router-value',stdout+stderr)
+            self.assertNotIn(b'fake-ark-value',stdout+stderr)
+
     def test_vfr_media_end_uses_stream_tail_instead_of_nominal_decoded_frame_duration(self):
         video=self.root/'vfr.mp4'
         with av.open(str(video),'w') as container:

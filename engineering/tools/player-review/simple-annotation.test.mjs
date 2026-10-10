@@ -43,7 +43,7 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit,tactic
   const get=id=>{if(!nodes.has(id)){const node=make(),tag=html.match(new RegExp(`<[^>]+\\bid="${id}"[^>]*>`))?.[0]||'';
     node.checked=/\bchecked\b/.test(tag);node.hidden=/\bhidden\b/.test(tag);nodes.set(id,node);}return nodes.get(id);};
   const tabs=['footage','identity','calibration','repair','events'].map(step=>{const tab=get(`tab-${step}`);tab.dataset.step=step;tab.setAttribute('aria-selected',String(step==='footage'));return tab;});
-  const areas=['video','data','tactics','production'].map(area=>{const node=get(`area-${area}`);node.dataset.areaTarget=area;return node;});
+  const areas=[...html.matchAll(/data-area-target="([^"]+)"/g)].map(([,area])=>{const node=get(`area-${area}`);node.dataset.areaTarget=area;return node;});
   const body={dataset:{},classList:{add(){},remove(){}}},initialView=html.match(/<body[^>]+data-review-view="([^"]+)"/)?.[1];if(initialView)body.dataset.reviewView=initialView;
   const document={body,activeElement:null,getElementById:get,createElement:make,createTextNode:text=>({nodeType:3,textContent:String(text)}),addEventListener(){},dispatchEvent(){},querySelector:()=>get('player-overview'),querySelectorAll:selector=>selector==='button[data-step]'?tabs:selector==='[data-area-target]'?areas:[]};
   const globals=['document','window','devicePixelRatio','location','fetch','localStorage','requestAnimationFrame','setTimeout','clearTimeout','MutationObserver','ResizeObserver'];
@@ -95,7 +95,7 @@ async function openApp({modelConflict=false,liveConfirmed=true,reviewEdit,tactic
   }catch(error){for(const [name,value] of previous){if(value===undefined)delete globalThis[name];else globalThis[name]=value;}throw error;}
 }
 
-test('visibility actions share state across player and repair panels, persist drafts, and undo without modifying identities',async()=>{
+test('visibility edits persist in the identity panel when a retired repair route redirects, and undo preserves identities',async()=>{
   const app=await openApp();try{
     const before=structuredClone(app.state().session);
     app.actions.setVisibility('out_of_view',0,1);
@@ -103,8 +103,9 @@ test('visibility actions share state across player and repair panels, persist dr
     assert.deepEqual(app.identityState().visibilityRange,{start:0,end:1,state:'out_of_view',origin:'human_visibility_review'});
     assert.equal(JSON.parse(app.saved.get(app.key)).entities[0].visibilityRanges[0].state,'out_of_view');
     app.workbench.switchStep('repair');
+    assert.equal(app.body.dataset.step,'identity');assert.equal(app.get('panel-repair').hidden,true);
     assert.equal(app.identityState().point.source,'out_of_view');
-    assert(app.get('repairIdentityControls').children.includes(app.get('identityControls')));
+    assert(app.get('identityMain').children.includes(app.get('identityControls')));
     const anchors=structuredClone(app.state().session.entities[0].anchors);
     app.clickBox(120,200);
     assert.deepEqual(app.state().session.entities[0].anchors,anchors,'offscreen image clicks cannot save hidden points');
@@ -155,7 +156,7 @@ test('name overlay hides during a paused seek and returns only for the decoded t
   }finally{app.restore();}
 });
 
-test('the default workbench keeps step navigation and the bottom data drawer without granting clipping confirmation',async()=>{
+test('the default workbench gates identity on footage confirmation and keeps retired data controls inactive',async()=>{
   const app=await openApp({liveConfirmed:false});try{
     assert.notEqual(app.body.dataset.reviewView,'simple');assert.equal(app.body.dataset.step,'footage');
     assert.equal(app.get('overlay').hidden,true);assert.equal(app.body.dataset.drawer,'closed');
@@ -163,9 +164,10 @@ test('the default workbench keeps step navigation and the bottom data drawer wit
     assert.deepEqual(app.identityState().entities.map(entity=>entity.teamSide),Array(5).fill('red').concat(Array(5).fill('blue')));
     const before=structuredClone(app.state().session);app.clickBox(450,200);assert.deepEqual(app.state().session,before);
     app.get('tab-identity').click();assert.equal(app.body.dataset.step,'footage');assert.equal(app.state().session.liveSelection,null);
-    app.get('drawerToggle').click();assert.equal(app.body.dataset.drawer,'half');
-    app.get('drawerFull').click();assert.equal(app.body.dataset.drawer,'full');assert.equal(app.body.dataset.area,'data');
-    app.get('drawerClose').click();assert.equal(app.body.dataset.drawer,'closed');assert.deepEqual(app.state().session,before);
+    assert.equal(app.get('dataDrawer').hidden,true);assert.equal(app.get('tab-repair').hidden,true);
+    for(const id of ['drawerToggle','drawerFull','drawerClose'])app.get(id).click();
+    assert.equal(app.body.dataset.drawer,'closed');assert.equal(app.body.dataset.area,'video');
+    assert.deepEqual(app.state().session,before);assert.equal(app.state().session.liveSelection,null);
   }finally{app.restore();}
 });
 
@@ -205,36 +207,37 @@ test('scrubbing seeks just inside source frames without changing timestamps or c
   }finally{app.restore();}
 });
 
-test('left navigation and step controls preserve the draft and stable display while moving the data drawer',async()=>{
+test('active navigation and legacy data routes preserve the draft and stable display without reopening the retired drawer',async()=>{
   const app=await openApp();try{
     const before=structuredClone(app.state().session);assert.equal(app.body.dataset.step,'identity');
-    app.get('area-data').click();assert.equal(app.body.dataset.area,'data');assert.equal(app.body.dataset.drawer,'full');
-    app.get('tab-repair').click();assert.equal(app.body.dataset.step,'repair');assert.equal(app.body.dataset.area,'video');
-    assert.equal(app.body.dataset.drawer,'half');assert.equal(app.state().session.presentationStable,true);
-    app.get('drawerToggle').click();assert.equal(app.body.dataset.drawer,'closed');
-    app.get('tab-identity').click();assert.equal(app.body.dataset.drawer,'closed');
+    app.get('area-tactics').click();assert.equal(app.body.dataset.area,'tactics');assert.equal(app.body.dataset.drawer,'closed');
+    app.workbench.showArea('data');assert.equal(app.body.dataset.area,'tactics');
+    app.workbench.switchStep('repair');assert.equal(app.body.dataset.step,'identity');assert.equal(app.body.dataset.area,'video');
+    assert.equal(app.body.dataset.drawer,'closed');assert.equal(app.state().session.presentationStable,true);
+    app.get('area-production').click();assert.equal(app.body.dataset.area,'production');
+    app.get('backToVideo').click();assert.equal(app.body.dataset.area,'video');assert.equal(app.body.dataset.drawer,'closed');
     assert.deepEqual(app.state().session,before);assert.equal(app.saved.get(app.key),JSON.stringify(before));
   }finally{app.restore();}
 });
 
-test('court calibration and 2D review continue inside the workbench without changing or downloading the draft',async()=>{
+test('court calibration continues directly to tactics and delivery without changing or downloading the draft',async()=>{
   const app=await openApp();try{
     const before=structuredClone(app.state().session),saved=app.saved.get(app.key);
     app.get('tab-calibration').click();assert.equal(app.body.dataset.step,'calibration');
-    assert.equal(app.body.dataset.drawer,'closed','court calibration starts in the original video, before opening 2D review');
+    assert.equal(app.body.dataset.drawer,'closed','court calibration remains in the original-video workspace');
     app.get('calibrationPlayers').click();assert.equal(app.body.dataset.step,'identity');
     app.get('tab-calibration').click();app.get('returnToRepair').click();
-    assert.equal(app.body.dataset.step,'repair');assert.equal(app.body.dataset.drawer,'half');
-    assert.match(app.get('workflowCourt').textContent,/第 1 帧待标定/);
-    app.get('next').click();assert.match(app.get('workflowCourt').textContent,/第 2 帧待标定/);
-    app.get('continueData').click();assert.equal(app.body.dataset.area,'data');assert.equal(app.body.dataset.drawer,'full');
-    app.get('tab-repair').click();app.get('continueTactics').click();assert.equal(app.body.dataset.area,'tactics');
-    app.get('area-production').click();app.get('deliveryData').click();assert.equal(app.body.dataset.area,'data');
+    assert.equal(app.body.dataset.area,'tactics');assert.equal(app.body.dataset.drawer,'closed');
+    assert.equal(app.get('panel-repair').hidden,true);
+    app.get('next').click();assert.equal(app.state().frame,1);
+    app.get('area-production').click();assert.equal(app.body.dataset.area,'production');
+    app.get('deliveryTactics').click();assert.equal(app.body.dataset.area,'tactics');
+    app.get('backToVideo').click();assert.equal(app.body.dataset.area,'video');
     assert.deepEqual(app.state().session,before);assert.equal(app.saved.get(app.key),saved);
   }finally{app.restore();}
 });
 
-test('continuing to 2D preserves player positions without certifying the roster',async()=>{
+test('continuing to court calibration preserves player positions without certifying the roster or inventing calibration',async()=>{
   const app=await openApp();try{
     const session=app.state().session;
     session.entities.filter(entity=>entity.role==='player').forEach((entity,index)=>{
@@ -242,7 +245,7 @@ test('continuing to 2D preserves player positions without certifying the roster'
     });
     app.select('P1');const people=structuredClone(session.entities);
     assert.equal(app.get('identityDone').disabled,false);app.get('identityDone').click();
-    assert.equal(app.body.dataset.area,'data');assert.equal(app.body.dataset.drawer,'full');
+    assert.equal(app.body.dataset.step,'calibration');assert.equal(app.body.dataset.area,'video');assert.equal(app.body.dataset.drawer,'closed');
     assert.equal(session.identitySelection?.playerIds,undefined);assert.deepEqual(session.entities,people);
     assert.equal(session.courtCalibration?.keyframes?.length||0,0,'continuing cannot invent court mapping');
   }finally{app.restore();}
@@ -360,13 +363,27 @@ test('clicking an unassigned person prepares direct bounded association to P10 a
   }finally{app.restore();}
 });
 
-test('seeking away clears the selected person and prepared association instead of applying an old frame',async()=>{
-  const app=await openApp();try{
+test('seeking retains the chosen person, target and range but waits for decoded video and rebuilds preview when choosing another T',async()=>{
+  const app=await openApp({holdSeek:true});try{
     app.select('P10');app.clickBox(780,180);const before=structuredClone(app.state().session);
+    const range=structuredClone(app.identityState().quickIdentity.range);
     app.get('next').click();
-    assert.equal(app.identityState().quickIdentity.action,null);
-    assert.equal(app.identityState().previewTrackId,null);
+    assert.equal(app.identityState().quickIdentity.action,'replace');
+    assert.equal(app.identityState().quickIdentity.trackId,9);
+    assert.equal(app.identityState().quickIdentity.targetId,'P10');
+    assert.deepEqual(app.identityState().quickIdentity.range,range);
+    assert.equal(app.identityState().referenceFrameReady,false);
     app.actions.applyIdentityQuickEdit();assert.deepEqual(app.state().session,before);
+    assert.equal(app.get('undo').disabled,true,'a seek still awaiting decoded video cannot write the prepared draft');
+    app.presentFrame(1);app.clickBox(450,180);
+    assert.equal(app.identityState().quickIdentity.trackId,8);
+    assert.equal(app.identityState().quickIdentity.targetId,'P10');
+    assert.deepEqual(app.state().session,before,'choosing the new T still only previews');
+    app.actions.applyIdentityQuickEdit();
+    assert.equal(app.state().trajectories.P10[0].trackId,8);
+    assert.equal(app.state().trajectories.P10[1].trackId,8,'the new T preview replaced the old T9 draft');
+    assert.equal(app.state().trajectories.P10[2].x,null,'the source cut still bounds the new continuous range');
+    app.get('undo').click();assert.deepEqual(app.state().session,before);
   }finally{app.restore();}
 });
 

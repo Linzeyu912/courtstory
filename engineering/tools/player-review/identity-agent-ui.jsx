@@ -58,6 +58,21 @@ export function IdentityQuickControls({state,api}){
       <p className="small muted">{range.reason||'仅应用上面的时间段。'} · 可撤销</p>
       {quick.error&&<p className="identity-agent-error" role="alert">{quick.error}</p>}
       {preview&&Object.keys(preview.affectedPlayers||{}).length>0&&<p className="identity-quick-preview" role="status">{Object.entries(preview.affectedPlayers).map(([id,count])=>`球员 ${id.slice(1)} 有 ${count} 帧重叠归属会释放。`).join('')}其他时间保留，可一次撤销。</p>}
+      {action==='replace'&&quick.scope==='track_occurrences'&&preview&&<p className="identity-quick-preview" role="status">已预览 {preview.observationCount} 个实际观测帧，可关联 {preview.changed} 帧；保留 {preview.preservedHuman} 帧人工记录，{preview.conflicts} 帧冲突待处理。批量关联不会标成逐帧已确认；点击关联才保存。</p>}
+      {action!=='missing'&&<div className="identity-quick-range-controls">
+        <p className="small muted">拖动视频进度条看画面，再设起点和终点。端点顺序相反时，另一端会移到当前帧。</p>
+        <div className="identity-quick-actions">
+          <button disabled={busy||state.referenceFrameReady===false} onClick={()=>api.setIdentityQuickEndpoint('start')}>当前帧设为起点</button>
+          <button disabled={busy||state.referenceFrameReady===false} onClick={()=>api.setIdentityQuickEndpoint('end')}>当前帧设为终点</button>
+          <button disabled={busy} onClick={()=>api.seek(range.start)}>跳到起点</button>
+          <button disabled={busy} onClick={()=>api.seek(range.end)}>跳到终点</button>
+        </div>
+        <div className="identity-quick-actions">
+          <button disabled={busy} aria-pressed={quick.preset==='continuous'} onClick={()=>api.setIdentityQuickPreset('continuous')}>当前连续段</button>
+          {action==='replace'&&<><button disabled={busy} aria-pressed={quick.preset==='forward'} onClick={()=>api.setIdentityQuickPreset('forward')}>从当前帧往后</button>
+          <button disabled={busy} aria-pressed={quick.preset==='all'} onClick={()=>api.setIdentityQuickPreset('all')}>整个 T 编号</button></>}
+        </div>
+      </div>}
       {action==='missing'&&<div className="identity-missing-range">
         <p className="identity-agent-notice" role="status">{preview?`已预览 ${preview.changed} 帧补位：${preview.keyframes} 个画面由你点选，${preview.estimated} 帧为估计位置。`:quick.missingKeys?.length?(range.start===range.end?'这一段只缺当前一帧，脚下位置已点选，可直接补入。':'起点已记录。跳到建议终点，或拖动视频到漏人结束处，再点同一人的脚下。'):'先选漏人的球员编号，再点当前画面中他的脚下作为起点。'}</p>
         {!!quick.missingKeys?.length&&<div className="identity-quick-actions">
@@ -70,7 +85,7 @@ export function IdentityQuickControls({state,api}){
         {preview&&<button className="primary identity-associate-primary" disabled={busy||!!quick.error||state.referenceFrameReady!==true} onClick={()=>api.applyIdentityQuickEdit()}>应用这段补位（{preview.changed} 帧）</button>}
       </div>}
       {action==='exclude'&&<p className="small muted">只排除本段的球员关联，保留原始检测。</p>}
-      {action!=='missing'&&<details className="identity-quick-bounds"><summary>调整时间范围</summary><div className="range-fields">{[['start','起点'],['end','终点']].map(([field,label])=><label key={field} className="field">{label}（秒）<input key={`${field}:${range[field]}`} aria-label={`快速修改${label}秒`} type="number" min="0" max={state.frameTimes?.at(-1)??0} step="any" defaultValue={state.frameTimes?.[range[field]]??0} disabled={busy} onBlur={event=>{if(event.target.value!=='')api.setIdentityQuickRange(field,Number(event.target.value));}} onKeyDown={event=>{if(event.key==='Enter')event.currentTarget.blur();}}/></label>)}</div><button disabled={busy} onClick={()=>api.openIdentityRange()}>更多范围 / 位置工具</button></details>}
+      {action!=='missing'&&<details className="identity-quick-bounds"><summary>高级：输入时间 / 更多工具</summary><div className="range-fields">{[['start','起点'],['end','终点']].map(([field,label])=><label key={field} className="field">{label}（秒）<input key={`${field}:${range[field]}`} aria-label={`快速修改${label}秒`} type="number" min="0" max={state.frameTimes?.at(-1)??0} step="any" defaultValue={state.frameTimes?.[range[field]]??0} disabled={busy} onBlur={event=>api.setIdentityQuickRange(field,event.target.value.trim()===''?NaN:Number(event.target.value))} onKeyDown={event=>{if(event.key==='Enter')event.currentTarget.blur();}}/></label>)}</div><button disabled={busy} onClick={()=>api.openIdentityRange()}>更多范围 / 位置工具</button></details>}
     </div>}
     <div className="identity-quick-actions"><button disabled={busy||!selected} aria-pressed={action==='exclude'} onClick={()=>api.beginIdentityQuickEdit(action==='exclude'?'replace':'exclude')}>{action==='exclude'?'返回关联球员':'不是球员'}</button><button disabled={busy} aria-pressed={action==='missing'} onClick={()=>api.beginIdentityQuickEdit('missing')}>补漏人</button><button disabled={busy} onClick={()=>api.openIdentityReference()}>Agent 查找同一球员</button><button disabled={busy||!state.canUndo} onClick={()=>api.undo()}>撤销上次修改</button></div>
     {quick.action&&<button disabled={busy} onClick={()=>api.cancelIdentityQuickEdit()}>取消修改</button>}

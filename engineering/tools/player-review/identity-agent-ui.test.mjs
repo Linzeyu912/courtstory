@@ -113,6 +113,29 @@ test('quick controls expose the exact continuous interval and apply once only af
   assert(f.all.some(node=>node.props?.role==='status'&&text(node).includes('球员 2 有 2 帧重叠归属会释放')));
 });
 
+test('quick range can be selected using the video and visible endpoint or preset buttons without entering seconds',()=>{
+  const f=quickFixture({referenceFrameReady:true});
+  const labels=['当前帧设为起点','当前帧设为终点','跳到起点','跳到终点','当前连续段','从当前帧往后','整个 T 编号'];
+  const hidden=new Set(f.all.filter(node=>node.type==='details').flatMap(children));
+  for(const label of labels){const button=f.button(label);assert(button,`${label} is available`);assert(!hidden.has(button),`${label} is not hidden in details`);button.props.onClick();}
+  assert.deepEqual(f.calls,[['setIdentityQuickEndpoint','start'],['setIdentityQuickEndpoint','end'],['seek',1],['seek',3],['setIdentityQuickPreset','continuous'],['setIdentityQuickPreset','forward'],['setIdentityQuickPreset','all']]);
+  assert(hidden.has(f.named('快速修改起点秒')));assert(hidden.has(f.named('快速修改终点秒')));
+  const loading=quickFixture({referenceFrameReady:false});assert.equal(loading.button('当前帧设为起点').props.disabled,true);
+});
+
+test('whole-T preview warns about conflicts and preserved manual records before explicit association',()=>{
+  const f=quickFixture({quickIdentity:{trackId:2,targetId:'P1',action:'replace',scope:'track_occurrences',preset:'all',range:{start:0,end:4},preview:{observationCount:4,changed:2,conflicts:1,preservedHuman:1,segments:2,affectedPlayers:{}}}});
+  assert(f.all.some(node=>node.props?.role==='status'&&text(node).includes('1 帧冲突')));
+  assert(f.all.some(node=>text(node).includes('保留 1 帧人工记录')));
+  assert(f.all.some(node=>text(node).includes('批量关联不会标成逐帧已确认')));
+  assert.equal(f.calls.length,0);f.button('将 T2 关联到球员 1').props.onClick();assert.deepEqual(f.calls,[['applyIdentityQuickEdit']]);
+});
+
+test('clearing advanced time input reports an invalid range rather than keeping the old preview silently',()=>{
+  const f=quickFixture();f.named('快速修改起点秒').props.onBlur({target:{value:''}});
+  assert.equal(f.calls.length,1);assert.equal(f.calls[0][0],'setIdentityQuickRange');assert(Number.isNaN(f.calls[0][2]));
+});
+
 test('missing-person flow asks for two clicks with a suggested endpoint and no required frame inputs or T',()=>{
   const f=quickFixture({quickIdentity:{trackId:null,targetId:'P1',action:'missing',range:{start:2,end:4},missingKeys:[{frame:2,x:1,y:2}]}});
   assert(f.all.some(node=>text(node).includes('起点已记录')));
