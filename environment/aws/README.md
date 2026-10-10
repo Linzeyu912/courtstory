@@ -1,5 +1,9 @@
 # AWS 账号与部署工具准备
 
+### 2026-10-10：新账号 GPU 与 OpenRouter 验证
+
+[当日部署与实测记录](gpu-openrouter-bootstrap-20261010.md)：基于 `0c219ae` 的 YOLO、跟踪器与场地关键点流程准备单台 SageMaker G5 Notebook，并验证云端 Astra API。以记录内的运行版本、结果与停机时间为准；该快照不代表最新 main 已部署或资源当前仍在线。
+
 ### 2026-10-07：既有 EC2 安装 Codex CLI
 
 [Codex CLI 安装与登录记录](codex-cli-ec2-20261007.md)：官方 Linux x64 `0.160.1` 包已在本机下载并校验，经既有私有 S3 / SSM 传入 Ubuntu 服务器，用户级安装通过。22:24 已完成 ChatGPT 设备码授权、真实请求与只读 `pwd` 命令测试；既有工作台两个服务仍正常。项目修改和长任务未验收，本轮文档仅本地保存。
