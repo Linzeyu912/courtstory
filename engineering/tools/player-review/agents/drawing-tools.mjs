@@ -22,6 +22,10 @@ export function validateNodeCandidate(candidate,node,seen,assets,participants=[]
     if(a.anchorFrame!==node.anchorAssetFrame||!assets.some(asset=>asset.assetId===a.assetId&&asset.frame===a.anchorFrame))throw new Error('坐标资产和节点锚帧不匹配。');
     if(a.type==='route'&&new Set(a.evidenceFrames).size<2)throw new Error('路线需要至少两帧真实观察。');
   }
+  const entities=new Set((phase.participants??[]).map(p=>p.entityId).filter(Boolean));
+  for(const action of phase.actions??[])for(const ref of [action.entityId,action.beneficiaryId,action.defenderId].filter(Boolean)){
+    if(!entities.has(ref))throw new Error('actions只能引用participants中已绑定的entityId；匿名subjectId不能当作entityId，请仅使用有证据的annotation路线表达匿名人物动作。');
+  }
   const focus=phase.annotations.map((a,index)=>({a,index})).filter(({a})=>a.type==='spotlight');
   if(node.kind==='shot_release'){
     const shooterRef=node.shotFeedback?.shooterRef,shooter=participants.find(p=>p.participantId===shooterRef);
@@ -70,7 +74,8 @@ export function createDrawingTools(start,{rpc,budget,emit}={}){
     if(images.length!==assets.length||images.some(c=>!c.data||!['image/jpeg','image/png','image/webp'].includes(c.mimeType)))throw new Error('图像与资产不匹配。');
     for(const asset of assets){if(asset.frame<node.evidenceWindow.startFrame||asset.frame>node.evidenceWindow.endFrame)throw new Error('返回资产超出窗口。');state.seen.add(asset.frame);state.assets.push(structuredClone(asset));}
     budget.imagesReturned=(budget.imagesReturned??0)+images.length;
-    return result;
+    // Tool details stay on the host; the model needs the asset binding and crop transform too.
+    return {...result,content:[...(result.content??[]),json({assets:assets.map(({path,...asset})=>asset)})]};
   };
   const tools=[
     call('read_commentary_node',Type.Object({}),'只读已保存的当前解说节点、人物引用、事件、句子和上轮审核纠错意见，不重新讲解全片。',async()=>({content:[json({node,participants:start.participants??[],event:start.event,cues:start.cues,planRef:start.planRef,auditFeedback:start.auditFeedback??null})]})),

@@ -7,6 +7,30 @@ const integer=Type.Integer({minimum:0});
 const frameList=Type.Array(integer,{minItems:1,maxItems:24});
 const regionFrameList=Type.Array(integer,{minItems:1,maxItems:12});
 const copy=value=>structuredClone(value);
+export function compactRatingContext(context){
+  if(!context)return null;
+  const compact=copy(context),sources={},ids=new Map();
+  for(const record of compact.records??[]){
+    const refs={};
+    for(const [field,source] of Object.entries(record.field_provenance??{})){
+      if(source===null){refs[field]=null;continue;}
+      const key=JSON.stringify(source);
+      if(!ids.has(key)){const id=`source-${ids.size+1}`;ids.set(key,id);sources[id]=source;}
+      refs[field]=ids.get(key);
+    }
+    delete record.field_provenance;record.fieldProvenanceRefs=refs;
+  }
+  compact.provenanceSources=sources;
+  return compact;
+}
+export function normalizeCommentaryOptions(plan){
+  const result=copy(plan);
+  for(const event of result.events??[]){
+    if(event.shotStatus===null||(event.kind==='other'&&event.shotStatus==='uncertain'))delete event.shotStatus;
+  }
+  for(const node of result.nodes??[])for(const key of ['kind','shotFeedback'])if(node[key]===null)delete node[key];
+  return result;
+}
 const gradeSchema=grades=>Type.Object({grade:Type.Union(grades.map(g=>Type.Literal(g))),reason:text});
 const shotSchema=Type.Object({shooterRef:text,defenderRefs:Type.Array(Type.String()),
   opportunity:gradeSchema(['good','fair','poor','unknown']),pressure:gradeSchema(['low','medium','high','unknown']),
@@ -105,7 +129,8 @@ export function createCommentaryTools(start,{rpc,emit,budget,requestNumber=()=>0
     if(signal?.aborted)throw new Error('任务已取消。');
     if(state.finished)throw new Error('讲解方案已结束。');
     if(++budget.toolCalls>budget.maxToolCalls)throw new Error('已达到工具调用预算。');
-    return execute(args,signal);
+    try{return await execute(args,signal);}
+    catch(error){record(name,{error:String(error?.message??error),...(name==='save_commentary_plan'?{candidatePlan:copy(args.plan)}:{})});throw error;}
   }});
   const images=(result,largerView=false)=>{
     if(!result||!Array.isArray(result.content))throw new Error('视频工具返回格式无效。');
@@ -127,7 +152,7 @@ export function createCommentaryTools(start,{rpc,emit,budget,requestNumber=()=>0
       overviewFrames:[...(start.overview?.details?.frames??[])].map(f=>typeof f==='number'?{frame:f,...frameTimes.get(f)}:f),
       observationAvailability:{available:!['unknown','mismatch',null,undefined].includes(start.context.observations),sourceState:start.context.observations??'unknown'},
       timelineFrames:start.context.frames?.length??0},overview:{details:start.overview?.details,summary:(start.overview?.content??[]).filter(c=>c.type==='text').map(c=>c.text).join('\n')},assets:state.assets,
-      nameSnapshot:start.context.nameSnapshot??null,ratingContext:start.context.ratingContext??null,sourceCuts:start.context.sourceCuts??[],readFrames:[...seenFrames],plan:state.plan})]})),
+      nameSnapshot:start.context.nameSnapshot??null,ratingContext:compactRatingContext(start.context.ratingContext),sourceCuts:start.context.sourceCuts??[],readFrames:[...seenFrames],plan:state.plan})]})),
     call('read_video_window',Type.Object({startTime:Type.Number({minimum:0}),endTime:Type.Number({minimum:0}),fps:Type.Optional(Type.Number({minimum:0.1,maximum:30})),mode:Type.Union([Type.Literal('sheet'),Type.Literal('full')]),frames:Type.Optional(frameList)}),'片内相对秒（0开始），默认2fps。sheet每页6格、每次最多128帧；full每次最多12张单帧大图。采样数=floor((endTime-startTime)*fps)+1，例如full 15–16秒@8fps=9帧。过长窗口请缩短或降低fps，也可用frames精确指定。',async(args,signal)=>{
       if(args.endTime<args.startTime||args.endTime>duration)throw new Error('视频窗口时间范围无效。');
       const result=images(await rpc('read_video_window',args,signal),args.mode==='full');record('read_video_window',{startTime:args.startTime,endTime:args.endTime,frames:result.details.frames});return result;
@@ -141,7 +166,7 @@ export function createCommentaryTools(start,{rpc,emit,budget,requestNumber=()=>0
       return {content:[json(result)]};
     }),
     call('save_commentary_plan',Type.Object({plan:Type.Object({summary:text,events:Type.Array(Type.Object({eventId:text,kind:Type.Union([Type.Literal('shot'),Type.Literal('other')]),shotStatus:Type.Optional(Type.Union([Type.Literal('confirmed'),Type.Literal('uncertain')])),startTime:Type.Number(),endTime:Type.Number(),description:text,participants:Type.Array(Type.String()),evidenceFrames:frameList,uncertainties:Type.Array(Type.String())})),cues:Type.Array(Type.Object({cueId:text,eventId:text,suggestedStartTime:Type.Number(),suggestedEndTime:Type.Number(),text,focus:text,delivery:Type.Union([Type.Literal('during_play'),Type.Literal('pause')]),evidenceFrames:frameList,participantRefs:Type.Optional(Type.Array(Type.String())),nameRecordRefs:Type.Optional(Type.Array(Type.String()))})),participants:Type.Optional(Type.Array(Type.Object({participantId:text,entityId:Type.Union([Type.String(),Type.Null()]),nameRecordRef:Type.Union([Type.String(),Type.Null()]),validRange:Type.Object({startFrame:integer,endFrame:integer}),identityStatus:text,displayName:Type.Union([Type.String(),Type.Null()])}))),nodes:Type.Optional(Type.Array(Type.Object({nodeId:text,kind:Type.Optional(Type.Union([Type.Literal('shot_release'),Type.Literal('key_moment')])),shotFeedback:Type.Optional(shotSchema),eventId:text,cueIds:Type.Array(Type.String(),{minItems:1}),anchorAssetFrame:integer,evidenceWindow:Type.Object({startFrame:integer,endFrame:integer}),participantRefs:Type.Array(Type.String()),focus:text,uncertainties:Type.Array(Type.String())}))),uncertainties:Type.Array(Type.String())}),finish:Type.Optional(Type.Boolean())}),'保存片内时间、已看图像证据、结构化人物及关键节点；不允许绘图坐标。',async(args)=>{
-      const plan=copy(args.plan);
+      const plan=normalizeCommentaryOptions(args.plan);
       const known=new Map((start.context.nameSnapshot?.participants??[]).map(p=>[p.participantId,p]));
       plan.participants=(plan.participants??[]).map(p=>{
         const saved=known.get(p.participantId);

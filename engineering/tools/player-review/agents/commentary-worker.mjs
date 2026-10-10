@@ -72,6 +72,7 @@ export async function runCommentary(start){
     },
   });
   agent.subscribe(event=>{
+    if(event.type==='tool_execution_end'&&event.isError)emit({type:'progress',status:'tool_error',event:{tool:event.toolName,error:redactError((JSON.stringify(event.result?.content??event.result)??'工具调用失败').slice(0,3000))}});
     if(event.type!=='message_end'||event.message.role!=='assistant')return;
     const u=event.message.usage??{};for(const key of ['input','output','cacheRead','cacheWrite','totalTokens'])if(Number.isFinite(u[key]))usage[key]+=u[key];
     if(event.message.stopReason==='error')runtime.state.error=redactError(event.message.errorMessage||agent.state.errorMessage||'模型请求失败');

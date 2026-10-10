@@ -119,7 +119,7 @@ def _atomic_json(path, value):
 
 
 def _copy_verified_wav(source, destination, row):
-    destination=Path(destination);temporary=destination.with_name(destination.name+'.'+uuid.uuid4().hex+'.tmp')
+    destination=Path(destination);temporary=destination.with_name('.tts-'+uuid.uuid4().hex+'.tmp')
     try:
         shutil.copyfile(source,temporary)
         if not _verified_wav(temporary,row):raise ValueError('Cached TTS WAV changed while copying')

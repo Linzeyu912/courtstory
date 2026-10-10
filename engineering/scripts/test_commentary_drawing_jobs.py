@@ -91,6 +91,25 @@ class DrawingJobTests(unittest.TestCase):
         self.assertEqual(state['drawingConfigSnapshot']['reasoning'],'medium')
         self.assertEqual(calls,['draw','audit','audit'])
 
+    def test_combined_nodes_preserve_background_coverage_without_duplicating_native_subjects(self):
+        state=self.wait(self.service.create(self.request,self.clip,self.video,'original',False)['jobId'])
+        job=self.service.jobs[state['jobId']];rows=[]
+        for index in range(4):
+            row=deepcopy(job['nodes'][0]);row['nodeId']=row['node']['nodeId']=f'n{index}'
+            participants=row['candidate']['phases'][0]['participants']
+            for other in range(39):
+                participants.append(dict(subjectId=f'background-{other}',entityId=None,label='背景球员',role='other',
+                    disposition='not_involved',annotationIndexes=[],evidenceFrames=[2],reason='本节点非重点'))
+            rows.append(row)
+        job['nodes']=rows
+        self.service._publish(job,rows)
+        phase=job['candidate']['phases'][0]
+        self.assertEqual(len(phase['participants']),4)
+        self.assertEqual([p['annotationIndexes'] for p in phase['participants']],[[0],[1],[2],[3]])
+        coverage=job['previewDocument']['agentRuns'][-1]['nodeParticipantCoverage']
+        self.assertEqual([len(people) for people in coverage.values()],[40]*4)
+        self.assertEqual(coverage['n0'],rows[0]['candidate']['phases'][0]['participants'])
+
     def test_content_rejection_retry_redraws_with_feedback_then_independently_audits(self):
         execute=self.service.execute;calls=[];reject=True;feedback=[]
         def rejected(start,*args,**kwargs):
@@ -121,6 +140,18 @@ class DrawingJobTests(unittest.TestCase):
         state=self.service.create(self.request,self.clip,self.video,'original',False)
         self.assertTrue(entered.wait(1));self.service.cancel(state['jobId'],self.clip,'original',False);release.set()
         state=self.wait(state['jobId']);self.assertEqual(state['status'],'cancelled');self.assertNotIn('previewDocument',state)
+    def test_anonymous_action_reference_is_rejected_before_visual_audit(self):
+        execute=self.execute
+        def anonymous_action(*args,**kwargs):
+            result=execute(*args,**kwargs)
+            if args[0]['mode']=='draw':
+                result['candidate']['phases'][0]['actions']=[{'entityId':'anon','evidenceFrames':[2]}]
+            return result
+        self.service.execute=anonymous_action
+        state=self.wait(self.service.create(self.request,self.clip,self.video,'original',False)['jobId'])
+        self.assertEqual(state['status'],'failed')
+        self.assertIn('entityId',state['nodes'][0]['reason'])
+        self.assertEqual([mode for mode,_ in self.audits],['draw'])
     def test_adopt_checks_latest_review_snapshot(self):
         state=self.wait(self.service.create(self.request,self.clip,self.video,'original',False)['jobId'])
         request={**self.request,'review':{'nameSnapshot':'latest'}}

@@ -1,5 +1,7 @@
 # 作品设计、功能与验收文档
 
+2026-10-09（America/New_York）：[Astra 全流程真实试跑](full-commentary-astra-20261009.md)记录真实 OpenRouter 理解、润色、独立绘图与审核、Seed TTS 和投篮评价成片的实际进度，以及试跑暴露的接口修复；区分短样片结果与未完成的 001 长片。
+
 2026-10-09（America/New_York）：用户最终确认以截图中的 `player-review` 为核心工作台，并移除整个 2D 轨迹核对模块。本轮放大视频、展开标注区、精简画面说明并调整制作衔接，见[核心工作台布局与流程调整](core-workbench-layout-20261009.md)。此前[独立样稿接入检查](broadcast-studio-integration-audit-20261009.md)仅作历史参考。
 
 2026-10-10：[NBA UI 分类发布记录](ui-publication-20261010.md)记录用户授权的分支推送、主分支合并、分类提交与验证；前轮 [UI 与 main 同步验收](ui-main-sync-20261010.md)保留源提交、后端能力、归档入口与解说／绘图／成片适配过程。

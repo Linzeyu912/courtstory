@@ -162,11 +162,14 @@ def run_worker(video, context, overview, output, child_env, secret, config, goal
                 if message.get("status") == "checkpoint" and isinstance(message.get("safePlan"), dict):
                     checkpoint = json.loads(redact(json.dumps(message["safePlan"], ensure_ascii=False), secret))
                     write_json(output / "draft.json", checkpoint)
-                # Only allow known small progress fields; never persist arbitrary model text.
+                # Keep progress compact; rejected structured plans are diagnostic files, not checkpoints.
                 progress = {k: message[k] for k in ("type", "status", "round", "usage") if k in message}
                 if isinstance(message.get("event"), dict):
+                    if isinstance(message["event"].get("candidatePlan"), dict):
+                        write_json(output / "rejected-plan.json", json.loads(redact(json.dumps(message["event"]["candidatePlan"], ensure_ascii=False), secret)))
                     progress["event"] = {k: v for k, v in message["event"].items() if k in ("tool", "request", "stopReason", "toolCalls", "usage", "error", "finish", "eventCount", "cueCount")}
                 trace.append(json.loads(redact(json.dumps(progress, ensure_ascii=False), secret)))
+                write_json(output / "tool-calls.json", trace)
         if result is None:
             result = {"status": "partial" if checkpoint else "failed", "plan": checkpoint, "error": "Worker ended without a result or exceeded wall-clock limit", "diagnostics": errors}
     except (BrokenPipeError, OSError) as exc:
