@@ -17,8 +17,13 @@
   --studio-button-line: #cdd0d5;
   --studio-on-dark: #a4a8af;
   --studio-selected: #f2f2f2;
-  /* Oversized fragments: one basketball edge/seam and one court corner. */
-  --studio-header-pattern: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271280%27%20height%3D%2756%27%20viewBox%3D%270%200%201280%2056%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23757a82%27%20stroke-opacity%3D%27.32%27%20stroke-width%3D%278%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cg%20transform%3D%27translate%28355%20215%29%20rotate%28-16%29%27%3E%3Ccircle%20r%3D%27260%27%2F%3E%3Cpath%20d%3D%27M0%20-260C-42%20-115%20-42%20115%200%20260%27%2F%3E%3C%2Fg%3E%3Cpath%20transform%3D%27translate%281140%20-60%29%20rotate%28-8%29%27%20d%3D%27M-160%20-220V90H240%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --studio-header-height: 56px;
+  --studio-brand-size: 32px;
+  --studio-team-size: 30px;
+  --studio-brand-mark-size: 32px;
+  /* User-approved 2026-10-10: keep this grey pattern's geometry and placement.
+     Baseline: engineering/docs/broadcast-studio-style-20261009.md, frozen header pattern. */
+  --studio-header-pattern: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271280%27%20height%3D%2756%27%20viewBox%3D%270%200%201280%2056%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23757a82%27%20stroke-opacity%3D%27.32%27%20stroke-width%3D%276%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cg%20transform%3D%27translate(410%20145)%20rotate(-16)%27%3E%3Ccircle%20r%3D%27175%27%2F%3E%3Cpath%20d%3D%27M0%20-175C-30%20-76%20-30%2076%200%20175%27%2F%3E%3C%2Fg%3E%3Cpath%20transform%3D%27rotate(7%201150%2049)%27%20d%3D%27M940%20-90V49H1360%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
   --studio-sans: 'Roboto', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
   --studio-mono: var(--studio-sans);
   --studio-display: 'Roboto Condensed', 'Noto Sans SC', sans-serif;
@@ -30,7 +35,6 @@
 
 body.workbench-shell {
   --rail-width: 0px;
-  --studio-header-height: 56px;
   display: flex;
   flex-direction: column;
   --shell-border: var(--studio-line);
@@ -96,19 +100,30 @@ body.workbench-shell {
 
 /* The first row is branding only; workflow navigation belongs to row two. */
 .workbench-shell .studio-masthead {
-  display: flex; position: relative; z-index: 70; width: 100%; height: 56px; min-height: 56px;
-  flex: 0 0 56px; align-items: center; padding: 0 24px; overflow: hidden;
+  display: flex; position: relative; z-index: 70; width: 100%; height: var(--studio-header-height); min-height: var(--studio-header-height);
+  flex: 0 0 var(--studio-header-height); align-items: center; padding: 0 32px; overflow: hidden;
   border: 0; background: var(--studio-ink); color: white; isolation: isolate;
 }
 .workbench-shell .studio-masthead::after, .studio-replay .rail::after {
-  content: ''; position: absolute; inset: 0 0 0 250px; z-index: -1; pointer-events: none;
+  content: ''; position: absolute; inset: 0 0 0 330px; z-index: -1; pointer-events: none;
   background: var(--studio-header-pattern) right center / 1280px 56px no-repeat;
 }
-.workbench-shell .rail-brand { display: flex; align-items: center; gap: 9px; flex: 0 0 auto; width: auto; height: auto; margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: white; }
-.workbench-shell .rail-brand img { width: 30px; height: 30px; filter: grayscale(1) brightness(0) invert(1); transform: rotate(-16deg); }
-.workbench-shell .rail-wordmark { font: italic 700 25px/1 var(--studio-brand); white-space: nowrap; letter-spacing: -.015em; }
+.workbench-shell .rail-brand { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; width: auto; height: auto; margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: white; }
+.workbench-shell .rail-brand img { width: var(--studio-brand-mark-size); height: var(--studio-brand-mark-size); filter: grayscale(1) brightness(0) invert(1); transform: rotate(-16deg); }
+.workbench-shell .rail-wordmark { font: italic 700 var(--studio-brand-size)/1 var(--studio-brand); white-space: nowrap; letter-spacing: -.015em; }
 .workbench-shell .rail-wordmark em { color: #e5334f; font-style: inherit; }
-.workbench-shell .app-main { height: calc(100dvh - 56px); min-height: 0; flex: 1 1 0; margin: 0; }
+/* Team identity is a static masthead signature, shared with the replay page. */
+.studio-team-id {
+  display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; align-self: center;
+  gap: 6px; margin-left: auto;
+  color: white; white-space: nowrap;
+  font: italic 700 var(--studio-team-size)/1 var(--studio-brand); letter-spacing: -.015em;
+}
+.studio-team-label { color: white; font: inherit; letter-spacing: inherit; }
+.studio-team-number {
+  color: var(--studio-blue); font: inherit; letter-spacing: inherit; font-variant-numeric: tabular-nums;
+}
+.workbench-shell .app-main { height: calc(100dvh - var(--studio-header-height)); min-height: 0; flex: 1 1 0; margin: 0; }
 .workbench-shell header.app-header { height: 44px; min-height: 44px; flex: 0 0 44px; padding: 0 24px; gap: 16px; background: white; color: var(--studio-ink); border: 0; border-bottom: 1px solid #d0d3d8; box-shadow: 0 2px 2px #11121406; z-index: 30; justify-content: flex-start; }
 .workbench-shell .app-heading { display: flex; align-items: center; flex: 0 0 auto; }
 .workbench-shell .app-header .eyebrow { margin: 0; padding-right: 16px; border-right: 1px solid var(--studio-ink); color: var(--studio-ink); font: italic 700 24px/24px var(--studio-brand); letter-spacing: -.01em; white-space: nowrap; }
@@ -420,8 +435,7 @@ body.workbench-shell {
 }
 @media (max-width: 760px) {
   .workbench-shell .studio-masthead { position: sticky; top: 0; padding-inline: 16px; }
-  .workbench-shell .studio-masthead::after, .studio-replay .rail::after { left: 230px; }
-  .workbench-shell header.app-header { position: sticky; top: 56px; flex-wrap: nowrap; padding: 0 12px; }
+  .workbench-shell header.app-header { position: sticky; top: var(--studio-header-height); flex-wrap: nowrap; padding: 0 12px; }
   .workbench-shell .app-heading { display: none; }
   .workbench-shell .workflow-links { flex: 1; justify-content: space-between; }
   .workbench-shell .rail-button { flex: 1 1 0; padding: 0 10px; }
@@ -436,7 +450,7 @@ body.workbench-shell {
   .workbench-shell .source-open-actions button { flex: 1 1 auto; white-space: nowrap; }
 
   body.workbench-shell { height: auto; min-height: 100dvh; overflow: auto; padding: 0; }
-  .workbench-shell .app-main { height: auto; min-height: calc(100dvh - 56px); flex: 0 0 auto; }
+  .workbench-shell .app-main { height: auto; min-height: calc(100dvh - var(--studio-header-height)); flex: 0 0 auto; }
   .workbench-shell main.workbench-main { flex: 0 0 auto; height: auto; min-height: 0; overflow: visible; padding: 12px; gap: 10px; }
   .workbench-shell :is(.workbench-main,.workbench-content,.operations,.operation-body) { flex: 0 0 auto; height: auto; min-height: 0; overflow: visible; }
   .workbench-shell[data-step='repair'] .operation-body { flex: 0 0 auto; height: auto; overflow: visible; }
@@ -513,6 +527,18 @@ body.workbench-shell[data-area='video'] { height: auto; min-height: 100dvh; over
   .workbench-shell[data-area='video'] .shared-timeline { position: static; }
 }
 
+
+@media (max-width: 480px) {
+  :root { --studio-brand-size: 28px; --studio-team-size: 27px; --studio-brand-mark-size: 30px; }
+  body.workbench-shell .studio-masthead, body.studio-replay .rail { padding-inline: 16px; gap: 12px; }
+  .workbench-shell .studio-masthead::after, .studio-replay .rail::after { display: none; }
+  .workbench-shell .rail-brand, body.studio-replay .brand { gap: 8px; flex-shrink: 0; }
+}
+@media (max-width: 360px) {
+  :root { --studio-brand-size: 26px; --studio-team-size: 25px; --studio-brand-mark-size: 28px; }
+  body.workbench-shell .studio-masthead, body.studio-replay .rail { gap: 8px; }
+  .workbench-shell .rail-brand, body.studio-replay .brand { gap: 6px; }
+}
 @media (pointer: coarse) {
   .workbench-shell main :is(button,select,summary,input[type='number']) { min-height: 44px; }
   .workbench-shell .tactics-time-edge { min-height: 0; }
