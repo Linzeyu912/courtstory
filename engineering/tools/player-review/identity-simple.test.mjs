@@ -11,6 +11,9 @@ test('explicit unassigned T60 uses its raw box, never the active P9 box',()=>{
 const tick=async()=>{for(let i=0;i<4;i++)await new Promise(r=>setImmediate(r));};
 function panelFixture(t,{manual=false,teams=[]}={}){
  const doc=globalThis.document,fetcher=globalThis.fetch;
+ const storageDescriptor=Object.getOwnPropertyDescriptor(globalThis,'sessionStorage'),storage=new Map();
+ Object.defineProperty(globalThis,'sessionStorage',{configurable:true,value:{getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,String(value))}});
+ t.after(()=>{if(storageDescriptor)Object.defineProperty(globalThis,'sessionStorage',storageDescriptor);else delete globalThis.sessionStorage;});
  const make=tag=>({tagName:tag,children:[],textContent:'',value:'',disabled:false,attributes:{},append(...n){this.children.push(...n);},replaceChildren(...n){this.children=n;},setAttribute(k,v){this.attributes[k]=v;}});
  const host=make('div'),calls=[],reads=[],commits=[];
  const s={active:'P9',selectedPlayerId:null,selectedTrackId:60,selectedFrameReady:true,frame:0,sample:'002',variant:'stable',clip:{video_sha256:'v',tracking_fingerprint:'fp',width:100,height:100,frames:[{tracks:[[1,2,30,90,60,.9,0]]}]},session:{videoHash:'v',gameContext:{season:'2024-25'}}};

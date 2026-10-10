@@ -514,6 +514,7 @@ body.workbench-shell[data-area='video'] { height: auto; min-height: 100dvh; over
 .workbench-shell[data-area='video'] .shared-timeline #time { margin-left: auto; }
 @media (min-width: 1051px) {
   .workbench-shell[data-area='video'] .operation-body { grid-template-columns: 210px minmax(0,1fr) clamp(340px,25vw,400px); gap: 12px; }
+  .workbench-shell[data-area='video'] .operation-body>.video-info { position: sticky; top: 12px; max-height: calc(100dvh - 24px); overflow-y: auto; }
   .workbench-shell[data-area='video'][data-info='closed'] .operation-body { grid-template-columns: minmax(0,1fr) clamp(340px,25vw,400px); }
   .workbench-shell[data-area='video'][data-tools='collapsed'] .operation-body { grid-template-columns: 210px minmax(0,1fr); }
   .workbench-shell[data-area='video'][data-info='closed'][data-tools='collapsed'] .operation-body { grid-template-columns: minmax(0,1fr); }

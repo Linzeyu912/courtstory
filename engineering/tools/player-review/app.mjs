@@ -827,6 +827,7 @@ workspace=createWorkspace({clip,sample,variant,getState:()=>({session,sessionRev
 tacticsUI=mountTacticsUI({clip,sample,variant,qa,key,title:sampleInfo?.title||sample,
   snapshot:()=>JSON.parse(JSON.stringify(exportPlayerIdentities(exportReview(session,clip,null,{allowEmpty:true}),session))),
   nameOverlaySnapshot:playerNameOverlaySnapshot,nameOverlayRevision:playerNameOverlayRevision,
+  setNameDisplayEnabled:enabled=>{displayInputs.enabled.checked=enabled===true;saveNameDisplay();},
   selectedEntityId:()=>active,selectEntity:id=>{if(session.entities.some(e=>e.id===id)){active=id;draw();}},
   frame:()=>frame,pause:pauseVideo,play:()=>videoDisplay?.play(),seek:index=>seek(index,{tactics:true}),
   getPresentedFrame:()=>$('stage').dataset.videoState==='ready'?presentedFrame:null,

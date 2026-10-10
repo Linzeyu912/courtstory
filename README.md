@@ -1,5 +1,7 @@
 # BroadcastCode Team Hub
 
+> 当前单屏工作台与重点圈姓名功能按用户要求直接在 main 开发并推送，见[实施说明](engineering/docs/single-view-workbench-20261009.md)。
+
 > TEAM 25 顶栏定稿及相关 UI 成果按用户授权分类收敛至 `main`，原 UI 分支在远端核对后清理。当前范围与同步结果见[TEAM 25 发布记录](engineering/docs/ui-team25-publication-20261010.md)，设计入口见 [NBA Broadcast Studio](engineering/docs/ui-nba-direction-20261009.md)。
 
 三人参加 BroadcastCode「深度赛场」比赛的共享仓库。正文优先使用中文；目录按用途分开，所有工作直接在 `main` 上维护。

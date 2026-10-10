@@ -1,5 +1,6 @@
 // Layout and navigation only. Video time, selections and review data stay in app.mjs.
 import {entityLabel} from './trajectory.mjs';
+import {mountPlayerSingleView} from './player-single-view.mjs';
 export function mountIdentityShortcuts({openIdentity,document:doc=globalThis.document,schedule=globalThis.requestAnimationFrame}) {
   function open(kind) {
     openIdentity();
@@ -20,6 +21,7 @@ export function mountIdentityShortcuts({openIdentity,document:doc=globalThis.doc
   if(continuation)continuation.onclick=()=>open('continuation');
 }
 export function mountWorkbenchShell(api) {
+  mountPlayerSingleView();
   const $ = id => document.getElementById(id);
   const body = document.body;
   const content = $('workbenchContent');

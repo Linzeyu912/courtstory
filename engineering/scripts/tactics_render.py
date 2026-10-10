@@ -299,8 +299,8 @@ class TacticsRenderer:
                         overlay = np.frombuffer(read_exact(raster.stdout,size),dtype=np.uint8).reshape(height,width,4)
                         alpha = overlay[:,:,3:4].astype(np.uint16)
                         composite = ((rgb.astype(np.uint16)*(255-alpha)+overlay[:,:,:3].astype(np.uint16)*alpha+127)//255).astype(np.uint8)
-                        if name_overlay and name_overlay['nameDisplay'].get('enabled') is True:
-                            composite=draw_name_overlay(composite,state['sourceFrame'],name_overlay,name_index)
+                        # The SVG worker shares the browser name/spotlight policy;
+                        # do not burn the same labels into the frame a second time.
                         active=next((p for p in placements if p['previewStart']<=output_index/fps<p['previewEnd']),None)
                         if active:
                             from PIL import Image

@@ -4,6 +4,7 @@ import {courtProjectionGaps} from './tactics-court-projection.mjs';
 import {canonicalJSON,createSourceBinding} from '../tactical-overlay/binding.mjs';
 import {validQuad} from './court.mjs';
 import {createAnnotation,updateAnnotation,annotationStatus,annotationPausePoints,projectAnnotations,renderAnnotationsSVG} from './tactics-annotations.mjs';
+import {renderTacticsNameSVG} from './tactics-name-overlay.mjs';
 import {validateDocument,reindexPhases} from './tactics-document.mjs';
 import {DEFAULT_RIBBON,productionPhaseSnapshot,productionSourceSnapshot,productionEqual,productionCameraDigest,productionCameraAt,sha256} from './tactics-authored-geometry.mjs';
 import {shotFeedbackStatus} from './shot-feedback.mjs';
@@ -172,9 +173,11 @@ export function validateProductionSnapshot(document,plan){
   }
   return plan;
 }
-export function renderProductionSvg(document,frameState){
+export function renderProductionSvg(document,frameState,{nameOverlay}={}){
   if(!frame(frameState?.sourceFrame)||!finite(frameState.reveal)||frameState.reveal<0||frameState.reveal>1)throw new Error('成片显示状态无效。');
-  return renderAnnotationsSVG(projectAnnotations(document,{phaseId:frameState.phaseId,frame:frameState.sourceFrame,reveal:frameState.reveal,production:true,freeze:document.schemaVersion===2&&frameState.state!=='source',shotFreeze:frameState.state!=='source'}));
+  const annotationScene=projectAnnotations(document,{phaseId:frameState.phaseId,frame:frameState.sourceFrame,reveal:frameState.reveal,production:true,freeze:document.schemaVersion===2&&frameState.state!=='source',shotFreeze:frameState.state!=='source'});
+  const svg=renderAnnotationsSVG(annotationScene);
+  return nameOverlay?svg.replace('</svg>',`${renderTacticsNameSVG({document,nameOverlay,frame:frameState.sourceFrame,annotationScene})}</svg>`):svg;
 }
 
 /** Explicit source-locked migration: these become ordinary editable annotations, never a second routes list. */

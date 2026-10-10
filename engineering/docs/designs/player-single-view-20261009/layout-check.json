@@ -1,0 +1,538 @@
+[
+  {
+    "stage": 1,
+    "viewport": [
+      1440,
+      900
+    ],
+    "page": [
+      1440,
+      900
+    ],
+    "areas": [
+      {
+        "area": "left",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          700,
+          700
+        ]
+      },
+      {
+        "area": "screen",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          464,
+          464
+        ]
+      },
+      {
+        "area": "transport row",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          45,
+          45
+        ]
+      },
+      {
+        "area": "timeline",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          145,
+          145
+        ]
+      },
+      {
+        "area": "panel mainpanel",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          548,
+          548
+        ]
+      },
+      {
+        "area": "panel agent",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          138,
+          138
+        ]
+      }
+    ]
+  },
+  {
+    "stage": 2,
+    "viewport": [
+      1440,
+      900
+    ],
+    "page": [
+      1440,
+      900
+    ],
+    "areas": [
+      {
+        "area": "left",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          700,
+          700
+        ]
+      },
+      {
+        "area": "screen",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          464,
+          464
+        ]
+      },
+      {
+        "area": "transport row",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          45,
+          45
+        ]
+      },
+      {
+        "area": "timeline",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          145,
+          145
+        ]
+      },
+      {
+        "area": "panel mainpanel",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          535,
+          535
+        ]
+      },
+      {
+        "area": "panel agent",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          151,
+          151
+        ]
+      }
+    ]
+  },
+  {
+    "stage": 3,
+    "viewport": [
+      1440,
+      900
+    ],
+    "page": [
+      1440,
+      900
+    ],
+    "areas": [
+      {
+        "area": "left",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          700,
+          700
+        ]
+      },
+      {
+        "area": "screen",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          464,
+          464
+        ]
+      },
+      {
+        "area": "transport row",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          45,
+          45
+        ]
+      },
+      {
+        "area": "timeline",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          145,
+          145
+        ]
+      },
+      {
+        "area": "panel mainpanel",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          565,
+          565
+        ]
+      },
+      {
+        "area": "panel agent",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          121,
+          121
+        ]
+      }
+    ]
+  },
+  {
+    "stage": 4,
+    "viewport": [
+      1440,
+      900
+    ],
+    "page": [
+      1440,
+      900
+    ],
+    "areas": [
+      {
+        "area": "left",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          700,
+          700
+        ]
+      },
+      {
+        "area": "screen",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          464,
+          464
+        ]
+      },
+      {
+        "area": "transport row",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          45,
+          45
+        ]
+      },
+      {
+        "area": "timeline",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          145,
+          145
+        ]
+      },
+      {
+        "area": "panel mainpanel",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          550,
+          550
+        ]
+      },
+      {
+        "area": "panel agent",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          136,
+          136
+        ]
+      }
+    ]
+  },
+  {
+    "stage": 1,
+    "viewport": [
+      1366,
+      768
+    ],
+    "page": [
+      1366,
+      768
+    ],
+    "areas": [
+      {
+        "area": "left",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          574,
+          574
+        ]
+      },
+      {
+        "area": "screen",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          356,
+          356
+        ]
+      },
+      {
+        "area": "transport row",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          41,
+          41
+        ]
+      },
+      {
+        "area": "timeline",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          135,
+          135
+        ]
+      },
+      {
+        "area": "panel mainpanel",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          468,
+          468
+        ]
+      },
+      {
+        "area": "panel agent",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          94,
+          94
+        ]
+      }
+    ]
+  },
+  {
+    "stage": 2,
+    "viewport": [
+      1366,
+      768
+    ],
+    "page": [
+      1366,
+      768
+    ],
+    "areas": [
+      {
+        "area": "left",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          574,
+          574
+        ]
+      },
+      {
+        "area": "screen",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          356,
+          356
+        ]
+      },
+      {
+        "area": "transport row",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          41,
+          41
+        ]
+      },
+      {
+        "area": "timeline",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          135,
+          135
+        ]
+      },
+      {
+        "area": "panel mainpanel",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          441,
+          441
+        ]
+      },
+      {
+        "area": "panel agent",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          121,
+          121
+        ]
+      }
+    ]
+  },
+  {
+    "stage": 3,
+    "viewport": [
+      1366,
+      768
+    ],
+    "page": [
+      1366,
+      768
+    ],
+    "areas": [
+      {
+        "area": "left",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          574,
+          574
+        ]
+      },
+      {
+        "area": "screen",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          356,
+          356
+        ]
+      },
+      {
+        "area": "transport row",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          41,
+          41
+        ]
+      },
+      {
+        "area": "timeline",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          135,
+          135
+        ]
+      },
+      {
+        "area": "panel mainpanel",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          468,
+          468
+        ]
+      },
+      {
+        "area": "panel agent",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          94,
+          94
+        ]
+      }
+    ]
+  },
+  {
+    "stage": 4,
+    "viewport": [
+      1366,
+      768
+    ],
+    "page": [
+      1366,
+      768
+    ],
+    "areas": [
+      {
+        "area": "left",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          574,
+          574
+        ]
+      },
+      {
+        "area": "screen",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          356,
+          356
+        ]
+      },
+      {
+        "area": "transport row",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          41,
+          41
+        ]
+      },
+      {
+        "area": "timeline",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          135,
+          135
+        ]
+      },
+      {
+        "area": "panel mainpanel",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          444,
+          444
+        ]
+      },
+      {
+        "area": "panel agent",
+        "visible": true,
+        "overflow": false,
+        "heights": [
+          118,
+          118
+        ]
+      }
+    ]
+  }
+]

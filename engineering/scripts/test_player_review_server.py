@@ -239,6 +239,9 @@ class ReviewServerTests(unittest.TestCase):
             self.assertEqual(unknown_cancel.exception.code,400)
             for name,mime in [('team-overlay.mjs','text/javascript'),('team-overlay-policy.json','application/json'),
                               ('studio-tabs.mjs','text/javascript'),('broadcast-studio.css','text/css'),('broadcast-replay.css','text/css'),
+                              ('player-single-view.css','text/css'),('player-single-view.mjs','text/javascript'),
+                              ('tactics-single-view.css','text/css'),('tactics-single-view.mjs','text/javascript'),
+                              ('tactics-name-overlay.mjs','text/javascript'),
                               ('broadcast-studio/fonts.css','text/css'),('broadcast-studio/mark.svg','image/svg+xml'),
                               ('broadcast-studio/fonts/noto-sans-sc.woff2','font/woff2'),
                               ('commentary-client.mjs','text/javascript'),('commentary-ui.mjs','text/javascript'),

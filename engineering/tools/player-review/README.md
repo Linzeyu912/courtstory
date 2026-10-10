@@ -1,5 +1,7 @@
 # CourtStory 核心工作台
 
+2026-10-09（America/New_York，单屏布局）：球员视频与时间轴常驻，右侧关联／续接／姓名／更多切换；战术与解说按视口排布并逐项分页。战术画布新增“球员姓名”开关，有效重点圈关联球员始终显示姓名信息，缺少姓名回退编号；预览与成片共用规则。见[实施与验证](../../docs/single-view-workbench-20261009.md)。包含新增静态路由，更新代码后需重启原本地服务；用户数据和接口不变。
+
 2026-10-09（America/New_York，姓名入口修正）：顶部「球员姓名识别」直接展开 v4 全员姓名流程，使用当前视频和十个球员的草稿调用 `/api/player-name-identity/jobs`。页面显示服务端实际 provider / model；默认 OpenRouter Astra，未配置 Key 时显示原因并禁用启动。官方 001 自动带入 2025-26 / 0022500701 / A=HOU、B=DAL，已保存的赛季和球队优先。旧单人 OCR 不再自动挂载，名单手工修正仍可用；结果须点「加入候选结果」后才进入按帧姓名显示与成片。入口模块在 `ui.bundle.mjs` 中，修改 `workbench-shell.mjs` 后须 `npm run build`。接线、启动目录与验证见[本轮记录](../../docs/player-name-workbench-integration-20261009.md)。下方旧的「球队 / 号码识别」路径为历史记录。
 
 2026-10-10 09:12（Asia/Shanghai，本轮发布）：用户已授权将人工范围关联、显式环境配置加载及配套测试直接提交并推送 main，范围与验证见[发布交接](../../../handoffs/thy-0629/2026-10-10-0912-identity-backend-publication.md)。下方“本地／未提交”描述保留各轮完成时点；本轮未部署云端，也未调用 OpenRouter。配音专用凭据仍待配置。
