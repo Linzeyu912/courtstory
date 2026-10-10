@@ -56,6 +56,8 @@ class CommentaryVideo:
             stream = container.streams.video[0]
             stream.thread_type = "AUTO"
             width, height = stream.codec_context.width, stream.codec_context.height
+            stream_end = (float(((stream.start_time or 0) + stream.duration) * stream.time_base)
+                          if stream.duration is not None and stream.time_base else None)
             for index, frame in enumerate(container.decode(stream)):
                 if frame.pts is None or frame.time is None:
                     raise ValueError(f"Decoded frame {index} has no presentation timestamp")
@@ -82,6 +84,9 @@ class CommentaryVideo:
         if last_display_duration <= 0 and len(self._frames) > 1:
             last_display_duration = self._frames[-1]["time"] - self._frames[-2]["time"]
         self.duration = max(0.0, last["time"] + last_display_duration)
+        # Match the source clip endpoint; decoded frame duration can round up by a tick.
+        if stream_end is not None and 0 < stream_end - last["sourceTime"] <= 1:
+            self.duration = stream_end - source_start
 
     def _load_observations(self):
         if not self.observations_path:

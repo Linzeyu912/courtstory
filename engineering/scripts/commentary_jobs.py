@@ -241,7 +241,9 @@ class CommentaryJobs:
                     isinstance(end, bool) or not isinstance(end, (int, float)) or
                     not math.isfinite(start) or not math.isfinite(end) or
                     start < 0 or end < start or (end == start and cue.get('delivery') != 'pause') or
-                    (isinstance(duration, (int, float)) and end > duration)):
+                    # Older workers derived the endpoint from decoded frame durations.
+                    # Allow sub-millisecond timestamp rounding when recovering their output.
+                    (isinstance(duration, (int, float)) and end > duration + 0.0001)):
                 raise ValueError("cue times must be inside the source clip")
             if cue.get("delivery") not in ("during_play", "pause"):
                 raise ValueError("cue delivery must be during_play or pause")

@@ -124,6 +124,20 @@ test('paused frame steps keep the old canvas pending until the new seek finishes
   s.video.finishSeek();assert.equal(s.draws.at(-1).time,4);assert.equal(s.stage.dataset.videoState,'ready');assert.equal(s.video.paused,true);
 });
 
+test('a stalled network request does not cover a decoded paused frame',t=>{
+  const s=setup(t);s.video.metadata();s.video.data();s.video.readyState=3;
+  s.video.emit('stalled');
+  assert.equal(s.stage.dataset.videoState,'ready');assert.equal(s.status.hidden,true);
+  assert.equal(s.retry.hidden,true);assert.equal(s.video.plays,0);
+});
+
+test('stalled requests during a seek keep the old frame pending',t=>{
+  const s=setup(t);s.video.metadata();s.video.data();s.display.seek(4);
+  const count=s.draws.length;s.video.emit('stalled');
+  assert.equal(s.draws.length,count);assert.equal(s.status.hidden,false);assert.equal(s.retry.hidden,false);
+  s.video.finishSeek();assert.equal(s.stage.dataset.videoState,'ready');assert.equal(s.status.hidden,true);
+});
+
 test('frame navigation survives quantized seeks followed by actual decoded-frame callbacks',t=>{
   const records=JSON.parse(fs.readFileSync(new URL('../../../engineering/tests/fixtures/player-observations/004-team-stable.json',import.meta.url),'utf8'));
   const pts=records.map(record=>record.source_frame_pts*record.source_time_base[0]/record.source_time_base[1]);

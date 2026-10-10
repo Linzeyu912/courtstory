@@ -124,6 +124,15 @@ class CommentaryJobsTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.jobs.save({"plan": invalid}, shifted, "v1", "qa")
 
+    def test_clip_endpoint_accepts_only_timestamp_rounding(self):
+        plan = json.loads(json.dumps(self.plan))
+        clip = {**self.clip, "mediaEndTime": 21.955277777777777, "frames": [{"time": 0}]}
+        plan["cues"][0]["suggestedEndTime"] = 21.95528888888889
+        self.jobs._validate_plan(plan, clip)
+        plan["cues"][0]["suggestedEndTime"] = clip["mediaEndTime"] + .001
+        with self.assertRaises(ValueError):
+            self.jobs._validate_plan(plan, clip)
+
     def test_context_isolation_and_source_owned_video(self):
         self.jobs.save({"plan": self.plan}, self.clip, "v1", "qa")
         self.assertIsNone(self.jobs.get_state({**self.clip, "video_sha256": "b" * 64}, "v1", "qa")["plan"])
