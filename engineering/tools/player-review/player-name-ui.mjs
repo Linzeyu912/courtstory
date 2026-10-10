@@ -22,8 +22,10 @@ export function mountPlayerNameUI({api,client,root,onVisibilityChange=()=>{}}){
   const blue=doc.createElement('input');blue.type='text';blue.placeholder='例如 NYK';blue.maxLength=3;blue.autocomplete='off';blueLabel.append(blue);
   const seedContext=()=>{
     const state=api.getState(),groups=state.session.teamIdentities||{};
-    season.value=state.session.gameContext?.season||season.value;
-    red.value=groups.red?.team||red.value;blue.value=groups.blue?.team||blue.value;
+    const saved=state.nameContext||{};
+    season.value=state.session.gameContext?.season||season.value||saved.season||'';
+    gameId.value=state.session.gameContext?.gameId||gameId.value||saved.gameId||'';
+    red.value=groups.red?.team||red.value||saved.teamMap?.A||'';blue.value=groups.blue?.team||blue.value||saved.teamMap?.B||'';
   };
   const contextReady=()=>/^\d{4}-\d{2}$/.test(season.value.trim())&&/^[A-Z]{3}$/.test(red.value.trim().toUpperCase())&&
     /^[A-Z]{3}$/.test(blue.value.trim().toUpperCase())&&red.value.trim().toUpperCase()!==blue.value.trim().toUpperCase();
@@ -31,7 +33,7 @@ export function mountPlayerNameUI({api,client,root,onVisibilityChange=()=>{}}){
     ...(gameId.value.trim()?{gameId:gameId.value.trim()}:{})});
   context.append(seasonLabel,gameLabel,redLabel,blueLabel);seedContext();
   const actions=doc.createElement('div');actions.className='player-name-actions';
-  const start=doc.createElement('button');start.type='button';start.textContent='识别姓名';
+  const start=doc.createElement('button');start.type='button';start.textContent='识别全员姓名';
   const retry=doc.createElement('button');retry.type='button';retry.textContent='重试';retry.hidden=true;
   const cancel=doc.createElement('button');cancel.type='button';cancel.textContent='取消';cancel.hidden=true;
   const apply=doc.createElement('button');apply.type='button';apply.textContent='加入候选结果';apply.hidden=true;
@@ -39,13 +41,17 @@ export function mountPlayerNameUI({api,client,root,onVisibilityChange=()=>{}}){
   const visibilityLabel=doc.createElement('label'),visibility=doc.createElement('input');
   visibility.type='checkbox';visibility.checked=true;visibilityLabel.append(visibility,doc.createTextNode('显示姓名候选结果'));
   const status=doc.createElement('p');status.setAttribute('role','status');
+  const provider=doc.createElement('p');provider.className='small muted';provider.setAttribute('aria-label','姓名识别服务');
   const list=doc.createElement('ul');list.className='player-name-results';
   let summaryCandidate=null,summaryClip=null,summarySession=null,summaryTrajectories=null,summaryRows=[];
-  panel.append(title,description,context,actions,visibilityLabel,status,list);root.append(panel);
+  panel.append(title,description,context,actions,visibilityLabel,status,list,provider);root.append(panel);
   function render(){
     const state=client.state(),job=state.job;
-    start.disabled=state.busy||!contextReady();cancel.hidden=!state.busy;retry.hidden=state.busy||!job||!['failed','cancelled','review_required'].includes(job.status);
-    retry.disabled=!contextReady();
+    const unavailable=state.providerStatus===null||state.providerStatus?.available===false;
+    start.disabled=state.busy||!contextReady()||unavailable;cancel.hidden=!state.busy;retry.hidden=state.busy||!job||!['failed','cancelled','review_required'].includes(job.status);
+    retry.disabled=!contextReady()||unavailable;
+    provider.textContent=state.providerStatus?.available?`姓名识别：${state.providerStatus.provider} · ${state.providerStatus.model}`:
+      state.providerStatus?.message||'正在读取姓名识别服务配置…';
     apply.hidden=!job?.candidate||job.status!=='ready';apply.disabled=!state.canApply;
     status.textContent=state.error?state.error:state.stale?'草稿、视频或跟踪上下文已变化；请重新识别，旧结果未应用。':
       (job?.message||(job?.status==='ready'?'结果待核对，可按区间加入姓名候选。':

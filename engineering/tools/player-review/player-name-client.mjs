@@ -1,7 +1,7 @@
 /** A small polling client for name proposals. Responses never edit a draft themselves. */
 export function createPlayerNameClient({context={},snapshot,onChange=()=>{},fetch:request=globalThis.fetch.bind(globalThis),
   schedule=setTimeout,cancelSchedule=clearTimeout,pollInterval=1200,requestContext=()=>({})}){
-  let job=null,error='',pending=false,epoch=0,timer=null,base=null,disposed=false;
+  let job=null,error='',pending=false,epoch=0,timer=null,base=null,disposed=false,providerStatus=null;
   const listeners=new Set();
   const contextValue=()=>typeof context==='function'?context():context;
   let readRequestContext=requestContext;
@@ -26,7 +26,7 @@ export function createPlayerNameClient({context={},snapshot,onChange=()=>{},fetc
   function stopTimer(){if(timer!==null)cancelSchedule(timer);timer=null;}
   const running=()=>['queued','preparing','analyzing','running','validating'].includes(job?.status);
   function state(){return {job:job?structuredClone(job):null,error,busy:pending||running(),stale:stale(),canApply:Boolean(job?.status==='ready'&&!stale()&&!pending),
-    visibility:true};}
+    visibility:true,providerStatus:providerStatus?structuredClone(providerStatus):null};}
   async function poll(ticket){
     if(disposed||ticket!==epoch||!job?.jobId)return;
     try{
@@ -37,7 +37,11 @@ export function createPlayerNameClient({context={},snapshot,onChange=()=>{},fetc
       if(running())timer=schedule(()=>void poll(ticket),pollInterval);
     }catch(cause){if(disposed||ticket!==epoch)return;error=cause.message;job={...job,status:'failed',message:'读取姓名任务失败，可重试。'};changed();}
   }
-  async function init(){try{return await json(`/api/player-name-identity/status?${query()}`);}catch(cause){error=cause.message;changed();return {available:false,message:error};}}
+  async function init(){
+    try{providerStatus=await json(`/api/player-name-identity/status?${query()}`);}
+    catch(cause){providerStatus={available:false,message:cause.message};}
+    changed();return structuredClone(providerStatus);
+  }
   async function start(input={}){
     if(disposed)throw new Error('姓名识别客户端已关闭。');
     if(pending||running())throw new Error('姓名识别仍在进行，请先取消当前任务。');

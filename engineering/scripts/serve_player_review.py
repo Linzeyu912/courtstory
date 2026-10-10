@@ -94,7 +94,7 @@ def main():
                         help="Visual identity provider; multimodal-api is an unconfigured adapter seam")
     parser.add_argument("--player-data-root", default=str(Path(__file__).resolve().parents[2] / '2K Player Data'),
                         help="Local read-only identity data package (default: repository 2K Player Data)")
-    parser.add_argument('--player-name-provider', choices=('codex', 'openrouter', 'qwen-token-plan-interactive'), default='codex',
+    parser.add_argument('--player-name-provider', choices=('codex', 'openrouter', 'qwen-token-plan-interactive'), default='openrouter',
                         help='Name vision provider; openrouter uses Astra and OPEN_ROUTER_KEY')
     parser.add_argument("--court-model", default="tmp/court-models-v2/best.pt", help="Pinned local 48-point weights; loaded on calibration requests only")
     parser.add_argument("--court-imgsz", type=int, choices=(640, 960), default=640)
@@ -227,6 +227,7 @@ def main():
         current_default=default if any(s['id']==default for s in active_samples) else active_samples[0]['id'] if active_samples else default
         return json.dumps({"defaultSample":current_default,"processingPresets":PRESETS,"modelChoices":MODEL_CHOICES,"samples":[{
             **{k:s.get(k) for k in ['id','title','description','sourceUrl']},
+            **({'nameContext':s['nameContext']} if s.get('nameContext') else {}),
             'defaultVariant':clips[s['id']]['defaultVariant']} for s in active_samples]},ensure_ascii=False).encode('utf-8')
     static = Path(__file__).resolve().parents[1] / "tools/player-review"
     routes = {"/": static / "index.html"}

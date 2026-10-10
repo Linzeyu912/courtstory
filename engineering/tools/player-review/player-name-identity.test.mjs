@@ -126,9 +126,9 @@ test('UI forwards optional game ID and hiding results changes presentation only'
   const makeNode=()=>({children:[],value:'',checked:false,append(...items){this.children.push(...items);},replaceChildren(...items){this.children=[...items];},setAttribute(){},
     ownerDocument:doc});
   const doc={createElement:makeNode,createTextNode:text=>({textContent:text})};
-  const root=makeNode(),original=session();let commits=0,started=null;const visibility=[];
+  const root=makeNode(),original=session();let commits=0,started=null,providerStatus=null;const visibility=[];
   const api={getState:()=>({session:original,clip:clip()}),commit:()=>commits++};
-  const client={state:()=>({job:null,error:'',busy:false,stale:false,canApply:false}),subscribe:()=>()=>{},init:async()=>{},
+  const client={state:()=>({job:null,error:'',busy:false,stale:false,canApply:false,providerStatus}),subscribe:()=>()=>{},init:async()=>{},
     start:async(value)=>{started=value;},dispose(){}};
   const ui=mountPlayerNameUI({api,client,root,onVisibilityChange:value=>visibility.push(value)});
   const checkbox=root.children[0].children[4].children[0];checkbox.checked=false;checkbox.onchange();
@@ -136,6 +136,12 @@ test('UI forwards optional game ID and hiding results changes presentation only'
   context[0].children[0].value='2025-26';context[1].children[0].value='0022500701';
   context[2].children[0].value='BOS';context[3].children[0].value='NYK';
   for(const label of context)label.children[0].oninput();
+  assert.equal(root.children[0].children[3].children[0].disabled,true,'configuration must be loaded before start');
+  providerStatus={available:false,message:'OpenRouter 未配置'};ui.render();
+  assert.equal(root.children[0].children[3].children[0].disabled,true);
+  assert.equal(root.children[0].children[7].textContent,'OpenRouter 未配置');
+  providerStatus={available:true,provider:'openrouter',model:'openai/gpt-6-astra'};ui.render();
+  assert.equal(root.children[0].children[3].children[0].disabled,false);
   await root.children[0].children[3].children[0].onclick();
   assert.equal(started.gameId,'0022500701');assert.deepEqual(started.teamMap,{A:'BOS',B:'NYK'});
   assert.deepEqual(visibility,[false]);assert.equal(commits,0);assert.deepEqual(original,session());ui.dispose();

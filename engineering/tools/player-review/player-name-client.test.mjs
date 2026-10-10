@@ -4,6 +4,19 @@ import {createPlayerNameClient} from './player-name-client.mjs';
 
 const response=(value,ok=true)=>({ok,json:async()=>value});
 
+test('initialization keeps the actual provider status and handles unavailable configuration without creating a job',async()=>{
+  const requests=[],status={available:true,provider:'openrouter',model:'openai/gpt-6-astra'};
+  let fail=false;
+  const client=createPlayerNameClient({snapshot:()=>({session:{}}),fetch:async(url,options)=>{
+    requests.push({url,options});if(fail)throw new Error('service unavailable');return response(status);
+  }});
+  assert.equal(client.state().providerStatus,null);await client.init();
+  assert.deepEqual(client.state().providerStatus,status);
+  fail=true;await client.init();assert.equal(client.state().providerStatus.available,false);
+  assert.equal(client.state().providerStatus.message,'service unavailable');
+  assert.ok(requests.every(r=>r.url.startsWith('/api/player-name-identity/status?')&&!r.options));client.dispose();
+});
+
 test('start uses the current snapshot and a context switch marks the response stale',async()=>{
   let current={session:{id:1},revision:1,entityId:'P1',clip:{video_sha256:'v',tracking_fingerprint:'f',tracking_revision:'r'}};
   let posted,requestContext={season:'2025-26',teamMap:{A:'BOS',B:'NYK'},gameId:'0022500701'};
