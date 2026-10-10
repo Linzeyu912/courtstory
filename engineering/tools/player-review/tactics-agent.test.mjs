@@ -118,6 +118,17 @@ const videoCandidate=()=>{
     annotationIndexes:i<2?[i]:[],evidenceFrames:[12],reason:i<2?'本帧可见动作':'未能判断本阶段战术参与，需要人工检查'}));
   return c;
 };
+test('combined commentary evidence survives native adoption without truncation',async()=>{
+  const doc=await setup(),candidate=videoCandidate(),frames=Array.from({length:50},(_,i)=>i);
+  candidate.phases[0].evidenceFrames=frames;
+  candidate.phases[0].participants[0].evidenceFrames=frames;
+  const adopted=await agent.adoptAgentCandidate(doc,candidate,{jobId:'combined-evidence',scope:'play',phaseId:'phase-1'});
+  await validateDocument(adopted);
+  assert.deepEqual(candidate.phases[0].evidenceFrames,frames);
+  candidate.phases[0].evidenceFrames=Array(145).fill(12);
+  await assert.rejects(()=>agent.adoptAgentCandidate(doc,candidate,{jobId:'too-many',scope:'play',phaseId:'phase-1'}),/evidenceFrames/);
+});
+
 test('Agent focus defaults to its cue but a user can extend the same glow through ordinary playback',async()=>{
   const {createManualAnnotation,setManualAnnotationRange}=await import('./tactics-manual-editor.mjs');
   const {document:doc}=await makeV2Fixture(),candidate=videoCandidate();
