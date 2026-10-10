@@ -1,6 +1,6 @@
 # BroadcastCode Team Hub
 
-> NBA UI 设计继续在 `codex/courtstory-ui-broadcast` 维护；用户已明确授权将本轮成果分类提交、推送该分支并合入 `main`。发布状态与验证见[分类发布记录](engineering/docs/ui-publication-20261010.md)，当前设计见 [NBA Broadcast Studio](engineering/docs/ui-nba-direction-20261009.md)。下文 main 流程适用于普通团队开发，UI 例外见 [AGENTS.md](AGENTS.md)。
+> TEAM 25 顶栏定稿及相关 UI 成果按用户授权分类收敛至 `main`，原 UI 分支在远端核对后清理。当前范围与同步结果见[TEAM 25 发布记录](engineering/docs/ui-team25-publication-20261010.md)，设计入口见 [NBA Broadcast Studio](engineering/docs/ui-nba-direction-20261009.md)。
 
 三人参加 BroadcastCode「深度赛场」比赛的共享仓库。正文优先使用中文；目录按用途分开，所有工作直接在 `main` 上维护。
 

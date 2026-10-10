@@ -1,10 +1,18 @@
 # 作品设计、功能与验收文档
 
+2026-10-10 本轮：[TEAM 25 分类发布与旧 UI 分支清理](ui-team25-publication-20261010.md)记录最新 main 整合、定稿保存、验证与推送核对；下方“仅本地”描述保留各轮历史状态。
+
 2026-10-09 22:11（America/New_York）：[官方 001 的 Astra 姓名与全流程复跑](official-astra-names-and-reliability-20261009.md)已生成 36.2 秒 1080p 真实配音成片，姓名 / 号码、绘图和投篮反馈均进入 MP4；记录实际失败原因、阶段恢复和只重跑失败节点的修复，以及姓名 pending、身份冲突和定格节奏等剩余质量问题。
 
 2026-10-09（America/New_York）：[Astra 全流程真实试跑](full-commentary-astra-20261009.md)记录真实 OpenRouter 理解、润色、独立绘图与审核、Seed TTS 和投篮评价成片的实际进度，以及试跑暴露的接口修复；区分短样片结果与未完成的 001 长片。
 
 2026-10-09（America/New_York）：用户最终确认以截图中的 `player-review` 为核心工作台，并移除整个 2D 轨迹核对模块。本轮放大视频、展开标注区、精简画面说明并调整制作衔接，见[核心工作台布局与流程调整](core-workbench-layout-20261009.md)。此前[独立样稿接入检查](broadcast-studio-integration-audit-20261009.md)仅作历史参考。
+
+2026-10-10 11:03：用户已确认[任务栏灰色图案及位置定稿](broadcast-studio-style-20261009.md#灰色图案定稿)，后续普通 UI 调整不改动这一基准；[定稿交接](../../handoffs/Linzeyu912/2026-10-10-1103-freeze-header-pattern.md)。
+
+2026-10-10 11:01（UI 分支本地）：[TEAM 25 附近灰线角度](../../handoffs/Linzeyu912/2026-10-10-1101-angled-header-line.md)已改为向右下方倾斜 7°，保留上一轮字号与留白；[最新截图](images/nba-ui-20261009/workbench-team25-angle-20261010.png)。
+
+2026-10-10（UI 分支本地）：[最新顶栏层级](broadcast-studio-style-20261009.md#字体形状与质感)采用主品牌／队伍／LIVE DESK 为 32／30／24px，第一行保持 56px；TEAM 白色、25 深蓝无底块，灰色球场线连续延伸。[本轮交接](../../handoffs/Linzeyu912/2026-10-10-1056-header-hierarchy.md)记录留白、手机与回放页验证。此次尚未提交、推送或合入 main。
 
 2026-10-10：[NBA UI 分类发布记录](ui-publication-20261010.md)记录用户授权的分支推送、主分支合并、分类提交与验证；前轮 [UI 与 main 同步验收](ui-main-sync-20261010.md)保留源提交、后端能力、归档入口与解说／绘图／成片适配过程。
 

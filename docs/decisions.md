@@ -4,6 +4,10 @@
 
 ## D013：UI 采用 NBA 蓝红白黑灰方向
 
+- 2026-10-10 本轮收敛授权：用户要求把现有更新分类整理、推送 main，并删除没有用途的旧 UI 分支。全部已审核成果及最新 main 功能保留后，清理 `codex/courtstory-ui-broadcast` 本地／远端分支和工作区，先保存被忽略的历史恢复资料。此前“后续继续原 UI 分支”不再作为接续要求；不自动恢复旧方案、发布无关任务或部署云服务。执行与核对见[本轮发布记录](../engineering/docs/ui-team25-publication-20261010.md)。
+
+- 2026-10-10 11:03 灰色背景定稿：本聊天用户明确要求固定任务栏灰色线条图案和位置，以[7° 斜向球场线截图](../engineering/docs/images/nba-ui-20261009/workbench-team25-angle-20261010.png)为基准。后续 UI 工作保持其 SVG 形状、尺度、定位、描边与响应式规则，除非用户再次明确要求调整该图案。参数与依据见[定稿规范](../engineering/docs/broadcast-studio-style-20261009.md#灰色图案定稿)，当前仅在 UI 分支本地记录。
+
 - 2026-10-10 发布授权补充：用户明确要求将已审核 UI 按类别整理为独立 commit，先推送 `codex/courtstory-ui-broadcast`，再合并并推送 main；本轮允许上述操作，后续 UI 设计继续在原分支，未授权云端部署。分类与实际同步结果见[发布记录](../engineering/docs/ui-publication-20261010.md)。下方本地阶段记录保留当时事实。
 
 - 日期：2026-10-09，Asia/Singapore（UTC+8）；状态：按本聊天用户明确要求采用，不代指其他成员已表达共识。
