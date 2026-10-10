@@ -175,6 +175,8 @@ function stageAuditProgress(job){
 }
 
 export function agentAuditStatusDescription(job){
+  // Commentary drawing is sequential: auditPending does not mean a node has been drawn yet.
+  if(job?.commentaryPlanRef&&Array.isArray(job.nodes))return '';
   const progress=job?.progress??{},active=agentAuditActive(job),auditProgress=stageAuditProgress(job);
   if(progress.auditRepairStatus==='analyzing'&&active)return '已生成，正在自动修复';
   if(auditProgress){
