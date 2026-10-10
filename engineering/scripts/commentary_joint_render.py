@@ -28,7 +28,19 @@ def render_joint(video, output, document_path, plan, audio_rows, context, cues, 
     tactics=TacticalWorkbench(directory/'native-validation')
     tactics.run('validate',document=document)
     native=tactics.run('production-compile',document=document,options=options)
-    composition=build_joint_composition(document,plan,audio_rows,context,native,identity_review={**review,**(name_overlay or {})})
+    identity_review = snapshot.get('identityReview') or {**review,**(name_overlay or {})}
+    # Display positions may differ from the frozen identity evidence. Reject
+    # any actual name, track, source or raw trajectory change before rendering.
+    if snapshot.get('identityReview'):
+        from commentary_plan import source_ref
+        registered = dict(video_sha256=review['videoSha256'], source_video_sha256=review.get('sourceVideoSha256'),
+                          tracking_fingerprint=review.get('trackingFingerprint'), tracking_revision=review.get('trackingRevision'),
+                          sourceCuts=review.get('settings', {}).get('sourceCuts', []),
+                          frames=[dict(frame=r['frame'], time=r['time'], source_frame=r.get('sourceFrame', r['frame']),
+                                       source_time=r.get('sourceTime', r['time'])) for r in review['sourceFrameMapping']])
+        if source_ref(registered, identity_review, identity_only=True) != source_ref(registered, {**review, **(name_overlay or {})}, identity_only=True):
+            raise ValueError('Joint render identity changed after commentary validation')
+    composition=build_joint_composition(document,plan,audio_rows,context,native,identity_review=identity_review)
     # Retain all consumer snapshots alongside the final shared output frame map.
     composition['document']=document;composition['options']=options
     composition['documentDigest']=tactics.run('agent-digest',document=document)['digest']
