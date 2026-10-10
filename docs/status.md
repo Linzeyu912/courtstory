@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-10 11:58（Asia/Singapore，答辩与 GPU 资料分类发布）：按用户授权，将此前保留的 22 个未提交文件分为答辩要求/工程母稿、SageMaker 工程、GPU 环境报告和历史交接记录，直接发布到 TeamHub main。同步保留 `53b1fc8` Polly、`7cd78d6` 身份初稿/火箭名单及 `e0e5682` 发布记录；母稿补齐 001 成片、TEAM25、单屏 UI 和名单进展，分别注明实测与待验收范围。CDK 严格合成、189 文件离线打包及保护检查、文档链接/凭据扫描、166 视频与 LFS 索引通过。本轮无云端部署或收费模型调用；分类提交和远端实查见[发布交接](../handoffs/Linzeyu912/2026-10-10-1158-finals-gpu-publication.md)。下方“未提交/未推送”均保留各轮历史时点。
+
 2026-10-10 11:47（Asia/Shanghai，身份初稿与远端对齐）：将本地第一部分初稿功能重放到远端 `53b1fc8`，保留 TEAM 25 单屏、重点圈姓名、Astra 姓名、阶段恢复与 Polly；补齐首次比赛上下文、保存稿姓名显示、共用配置文件和独立绘图代理。805 项前端、41 项 Agent 工具及相关后端回归通过，独立复核通过真实 API 采用／人工保护／保存和 Part 3 消费，166 段视频与 LFS 索引核验通过。Agent 仅生成待人工审核的初稿；未新增模型／TTS 调用、未部署云端。当前推送及本机加载结果见[发布交接](../handoffs/thy-0629/2026-10-10-1147-identity-remote-sync.md)，下方及前次“未推送”文字保留其历史时点。
 
 2026-10-09（America/New_York，Polly 配音）：按用户要求仅将 TTS 从火山 Seed 切到 Amazon Polly，默认 Zhiyu/neural；解说、姓名、绘图模型与成片顺序保持。60 项相关检查通过，包括 16 kHz 测试音实际 MP4；本机无 AWS profile，真实中文合成尚未验证。已补充 EC2 CDK 合成权限，未部署云端；配置与旧任务兼容见[配音工作流](../engineering/docs/commentary-narration-workflow.md)。
@@ -13,6 +15,12 @@
 2026-10-09 22:11（America/New_York，本机真实试跑）：官方训练 001 复用现有轨迹，重新使用 OpenRouter Astra 识别姓名、看图解说、润色、四节点绘图及独立审核，再用真实 Seed TTS 生成 36.2 秒 1080p 成片。姓名 19 次调用全部成功，最终视频已显示姓名 / 号码及出手反馈；带姓名位置覆盖约 78.9%，仍有 pending 和 P2 关联冲突。修复上下文冗余、暂停句校验不一致、姓名来源引用、原生绘图控制点检查，并复用已完成理解结果、仅重跑失败绘图节点。代码 `f5f00c5` 已推送，保留远端 `503a547` 的身份区间与环境更新；媒体留本机，未部署云端。见[失败复盘与实际验收](../engineering/docs/official-astra-names-and-reliability-20261009.md)。下方 20:57 的“001 未完成”是前轮状态。
 
 2026-10-10 09:12（Asia/Shanghai，本轮发布）：按用户明确要求，将人工看画面设置关联起止、向后／整 T 归并和 `--env-file` 配置加载直接发布到 main，保留远端 `0c219ae` 的最新布局和 Astra 后端修复。776 项前端及相关后端测试通过，隔离浏览器逐句保存／刷新恢复与 143 帧静音 MP4 已验证；本轮没有 OpenRouter／TTS 调用、没有云部署。本机理解与绘图配置已加载，配音仍缺专用凭据。详见[发布交接](../handoffs/thy-0629/2026-10-10-0912-identity-backend-publication.md)。
+
+2026-10-10 09:34（Asia/Singapore，AWS 实测完成；本地资料未提交 / 未推送）：按用户授权在新账号创建单台 SageMaker G5 视觉 Notebook，原有 YOLOv8n + BoT-SORT、YOLOv8s + ByteTrack 各 30 帧及 YOLO11n 场地关键点均通过 CUDA 实测；同机 OpenRouter `openai/gpt-6-astra` 请求 HTTP 200，成本 0.00065 USD。09:33:46 已确认 Stopped，保留环境和 50 GiB 数据卷，临时凭据交换对象已清理。工作台远程 GPU 调度与新账号主站恢复尚未接通；详见[环境报告](../environment/aws/gpu-openrouter-bootstrap-20261010.md)及[交接](../handoffs/Linzeyu912/2026-10-10-0934-sagemaker-gpu-openrouter.md)。收尾已读远端 `503a547`，GPU 相关代码未变化；保留其他会话修改，本地仍为 `0c219ae`。
+
+2026-10-10 09:17（Asia/Singapore，本地文档更新，未提交/未推送）：按用户补充，将后端流程 Tab/按钮、UI 适配、人工全流程测试、成品仓库转移、README 架构与亮点、云端部署测试、火箭队数据强化和界面 team ID 八项标为推进中。在[答辩母稿第 13 节](../engineering/docs/finals-defense-technical-route-20261010.md#13-推进中的工作与更新位置)预留实现、验收、展示、改进和 README 填写位置；具体完成度、team ID 含义与后续验证待补。UI 设计仍在现有 UI 分支，本轮仅整理技术/答辩材料，见[交接](../handoffs/Linzeyu912/2026-10-10-0917-finals-progress-placeholders.md)。
+
+2026-10-10 09:05 起（Asia/Singapore，本轮文档整理，未提交/未推送）：从干净 main 同步 `2fc1edf`，收尾保留本轮材料再快进至 `0c219ae`，纳入队友最新 005 真实全流程；开放 Issue 为空。重新直接核对两份飞书正文，整理[决赛要求](../requirements/finals-defense-requirements-20261010.md)与[技术路线、7 页 5 分钟答辩母稿](../engineering/docs/finals-defense-technical-route-20261010.md)。确认权重 18/18/15/9/40、10 月 11 日 09:00 前交材料；初赛同分规则不套用决赛。005 已有修复后真实成片，001 长片/姓名/2K、官方指标与当前完整 AWS 链路仍待补证据。本轮没有改产品代码、提交赛事作品或部署，见[交接](../handoffs/Linzeyu912/2026-10-10-0905-finals-defense-route.md)。
 
 2026-10-09 20:57（America/New_York，本机真实试跑）：005 已用 OpenRouter Astra 完成看图解说、润色、四节点独立绘图及审核，接入出手者高亮和机会 / 压力评价，并以真实 Seed TTS 生成 24.63 秒 1080p 成片。试跑修复图片元数据传递、字段兼容、多节点原生采用和 Windows 音频缓存路径问题；18 项 Node、42 项 Python 检查通过。媒体留本机，云服务未部署；001 长片仍未完成。见[完整记录](../engineering/docs/full-commentary-astra-20261009.md)。
 
@@ -309,7 +317,7 @@ NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../resea
 | 成果 | 文件 / 入口 | 状态 |
 |---|---|---|
 | 多人分阶段战术轨迹 | [接口 / 复现说明](../engineering/tools/tactical-overlay/README.md)、[批准规格](../engineering/docs/specs/2026-10-02-tactical-trajectory-overlay-design.md)、[实现交接](../handoffs/thy-0629/2026-10-03-0055-tactical-overlay-engine.md)、[同步交接](../handoffs/thy-0629/2026-10-03-1103-tactical-overlay-sync.md) | 首版功能已推送 main（21d24df）：来源绑定 manifest、SVG、三阶段真实候选、多人实虚线与掩护关系；标签避让路线、窄画布滚动及 8 场景实际验证通过，最终独立复核通过。真实精度与前端接入待完成；预览、图像与 QA 仍仅在本地 |
-| 人工身份资料与初步 2K 匹配 | [实测记录](../research/vision/player-identity-2k-20261002.md)、[使用说明](../engineering/tools/player-review/README.md#2026-10-02人工身份资料与-2k-能力) | 本地折叠面板、精确名单候选、明确确认和13项能力卡；整季名单不证明当场阵容，null不补值、轨道不升级。144 JS / 102 Python全量通过，真实QA与独立产品审查通过；850项原文件 / 67备份 / 17版clip字节保持。正式草稿及真实下载未操作，代码 / 文档未提交推送 |
+| 人工身份资料与初步 2K 匹配 | [实测记录](../research/vision/player-identity-2k-20261002.md)、[使用说明](../engineering/tools/player-review/README.md#球员身份与-2k-能力) | 本地折叠面板、精确名单候选、明确确认和13项能力卡；整季名单不证明当场阵容，null不补值、轨道不升级。144 JS / 102 Python全量通过，真实QA与独立产品审查通过；850项原文件 / 67备份 / 17版clip字节保持。正式草稿及真实下载未操作，代码 / 文档未提交推送 |
 | 默认球员单标注与漏框修复 | [原因与同片结果](../research/vision/player-annotation-simple-20261002.md)、[操作说明](../engineering/tools/player-review/README.md)、[交接](../handoffs/thy-0629/2026-10-02-1745-player-annotation-simple.md) | 简版视频、固定数字与可撤销纠正，自动补空编号，未知队色不删身份；004第178帧原被隐藏的三个球员框重新可见。最终127JS / 80Python、独立代码 / 数据 / API与真实浏览器验证通过，原检测重复与同队串人未解决；未提交推送 |
 | 最新工作台同步与兼容整合 | [同步交接](../handoffs/thy-0629/2026-10-02-1657-workbench-remote-sync.md)、[当前工作台](../engineering/tools/player-review/README.md) | 本机main与origin/main同为72c74e0；四个新增提交已同步，本机两队 / 稳定展示 / 精确人工标注与新对象 / 脚部 / 球场工具共同保留；105JS、78Python及独立验收通过，原始视频 / 数据保留，本机整合未提交推送 |
 | 两队颜色、稳定框与脚下编号 | [实现 / 同片指标](../research/vision/player-team-overlay-20261002.md)、[操作说明](../engineering/tools/player-review/README.md) | 本地四段team-stable、两组五人槽位及蓝 / 橙框色，独立人工分队、稳定展示与脚下编号；149项回归、最终17项输入相关回归、独立代码 / 媒体 / 数据验证及真实QA通过。LAL仅4+4个未确认分队建议，脚环为图像近似，身份串号未解决；原数据 / 草稿保留，未提交推送 |
