@@ -55,10 +55,12 @@ export async function runCommentary(start){
       if(requestCount>=budget.maxRequests)throw new Error('已达到模型请求预算。');
       requestCount++;usage.requests=requestCount;
       emit({type:'progress',status:'observing',message:`${provider.model.name} 第 ${requestCount} 轮整理视频证据`,round:requestCount});
-      const notebook=runtime.state.plan?{...runtime.state.plan,ratingContext:undefined}:null;
+      const notebook=runtime.state.plan?{...runtime.state.plan,ratingContext:undefined,
+        participants:runtime.state.plan.participants?.map(({nameRecord,...p})=>p)}:null;
       const remainingSeconds=Math.max(0,Math.floor((timeoutMs-(Date.now()-startedAt))/1000));
       const budgetNote=`当前是第 ${requestCount}/${budget.maxRequests} 次模型请求，工具已用 ${budget.toolCalls}/${budget.maxToolCalls}，剩余约 ${remainingSeconds} 秒。`+
-        (requestCount>=budget.maxRequests-2||remainingSeconds<75?'预算将尽，请用已有证据保存解说方案；不确定处明确保留，不要继续无休止复读。':'已有足够证据时及时保存方案；不必耗尽预算。');
+        (requestCount>=budget.maxRequests-4||remainingSeconds<180?'现在先用已有证据调用 save_commentary_plan 保存；证据已充分则 finish=true，否则保存草稿后只补缺口。保留至少两分钟输出结构化计划并修正，不要继续重复取证。':'已有足够证据时及时保存方案；不必耗尽预算。')+
+        'ratingContext.records 通过 profileRef 指向 profiles 的能力值和来源；没有记录即缺评分。participants 仅加入节点确实使用的人物，不复制整份快照。';
       return {context:{...context,messages:[...context.messages,{role:'user',content:[text(`${budgetNote}\n当前讲解笔记（保留先前事件，不代表新增视觉证据）：${JSON.stringify(notebook)}`)],timestamp:Date.now()}]}};
     },
     finishTurn:async({message})=>{

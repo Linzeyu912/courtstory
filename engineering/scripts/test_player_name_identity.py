@@ -13,7 +13,7 @@ from pathlib import Path
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from player_name_identity import (REPO_ROOT, TokenPlanVision, _effective_ranges, _select_evidence,
+from player_name_identity import (REPO_ROOT, TokenPlanVision, OpenRouterVision, _effective_ranges, _select_evidence,
                                   _resolve_team, create_qwen_token_plan_provider, recognize_player_names,
                                   apply_reference_slot_identities, _safe_request_error, _jpeg_request_payload)
 
@@ -192,6 +192,22 @@ class PlayerNameIdentityTests(unittest.TestCase):
     def test_existing_qwen_key_does_not_implicitly_enable_token_plan(self):
         with self.assertRaises(ValueError):
             TokenPlanVision(config={'QWEN_KEY': 'paid-key'})
+
+    def test_openrouter_names_use_astra_and_the_existing_reading_contract(self):
+        requests=[]
+        def open_request(request, timeout):
+            requests.append((request,timeout))
+            return io.BytesIO(json.dumps({'choices':[{'message':{'content':json.dumps({'readings':[], 'continuities':[]})}}]}).encode())
+        provider=OpenRouterVision(config={'OPEN_ROUTER_KEY':'test-key'},opener=open_request)
+        self.assertEqual(provider.review([],[]),{'readings':[], 'continuities':[]})
+        request,timeout=requests[0];body=json.loads(request.data)
+        self.assertEqual(request.full_url,'https://openrouter.ai/api/v1/chat/completions')
+        self.assertEqual(body['model'],'openai/gpt-6-astra')
+        self.assertNotIn('enable_thinking',body)
+        self.assertEqual(body['reasoning'],{'effort':'low'})
+        self.assertEqual(provider.status()['provider'],'openrouter')
+        with self.assertRaises(ValueError):
+            OpenRouterVision(config={'QWEN_TOKEN_PLAN_KEY':'not-openrouter'})
 
     def test_unique_roster_match_is_candidate_and_never_verified(self):
         session, clip = fixture()

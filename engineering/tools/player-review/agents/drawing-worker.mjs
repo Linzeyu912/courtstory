@@ -2,6 +2,7 @@ import readline from 'node:readline';
 import {Agent} from '@earendil-works/pi-agent-core';
 import {createCommentaryProvider,redactError} from './commentary-provider.mjs';
 import {createDrawingTools} from './drawing-tools.mjs';
+import {promptWithReconnect} from './ground-trajectory-reconnect.mjs';
 
 const emit=value=>process.stdout.write(`${JSON.stringify(value)}\n`);
 let active=null,closed=false,started=false,nextId=0;
@@ -36,12 +37,26 @@ export async function runDrawing(start){
       if(!message.content.some(c=>c.type==='toolCall'))active.steer({role:'user',content:[text(audit?'请逐项保存独立审核。':'请查看局部图片并保存当前节点的绘图或明确缺口。')],timestamp:Date.now()});
       return {action:'continue'};
     }});
-  active.subscribe(event=>{if(event.type==='message_end'&&event.message.role==='assistant'&&event.message.stopReason==='error')error=redactError(event.message.errorMessage);});
+  active.subscribe(event=>{
+    if(event.type==='tool_execution_end'&&event.isError)emit({type:'progress',status:'tool_error',event:{tool:event.toolName,
+      error:redactError((JSON.stringify(event.result?.content??event.result)??'工具调用失败').slice(0,3000))}});
+    if(event.type==='message_end'&&event.message.role==='assistant'){
+      if(event.message.stopReason==='error')error=redactError(event.message.errorMessage);
+      else if(event.message.stopReason!=='aborted')error=null;
+      emit({type:'progress',status:audit?'auditing':'drawing',event:{tool:'model_response',request:requests,
+        stopReason:event.message.stopReason,toolCalls:event.message.content.filter(c=>c.type==='toolCall').map(c=>c.name),
+        ...(error?{error}:{}),usage:event.message.usage}});
+    }
+  });
   const timer=setTimeout(()=>{closed=true;active.abort();rejectPending('绘图时间预算用尽。');},Math.min(480,config.timeoutSeconds??240)*1000);
   const data={node:start.node??start.nodes?.[0],planRef:start.planRef,participants:start.participants,event:start.event,cues:start.cues,
     drawingConstraint:'shot_release必须为shotFeedback.shooterRef所指主体生成恰好一个spotlight，球已离手合法。匿名出手者的participant.subjectId必须等于shooterRef，entityId=null；有可靠绑定时entityId须匹配保存的人物引用。其他节点仍只给当前持球人重点圈。shotFeedback机会/压迫评价是只读保存解说，禁止生成或改写评价。缺合格spotlight不能标ready；缺图像返回unavailable或needs_upstream_review。',
     ...(audit?{candidate:start.candidate,evidence:start.evidence?.details}:{auditFeedback:start.auditFeedback??null})};
-  try{await active.prompt({role:'user',content:[text(JSON.stringify(data)),...(audit?(start.evidence?.content??[]).filter(c=>['text','image'].includes(c.type)):[])],timestamp:Date.now()});}
+  try{await promptWithReconnect(active,{role:'user',content:[text(JSON.stringify(data)),...(audit?(start.evidence?.content??[]).filter(c=>['text','image'].includes(c.type)):[])],timestamp:Date.now()},{
+    getLastError:()=>error,clearLastError:()=>{error=null;active.state.errorMessage=undefined;},
+    shouldStop:()=>closed||runtime.state.finished||requests>=maxRequests||budget.toolCalls>=budget.maxToolCalls,
+    maxReconnects:1,onReconnect:async({attempt,error:reason})=>emit({type:'progress',status:'reconnecting',event:{tool:'request_reconnect',attempt,error:redactError(reason)}}),
+  });}
   catch(exc){error=redactError(exc);}finally{clearTimeout(timer);}
   const result={status:runtime.state.finished?'completed':'failed',nodeStatus:runtime.state.nodeStatus,reason:runtime.state.reason,
     candidate:runtime.state.candidate,audit:runtime.state.audit,extensionRequest:runtime.state.extensionRequest??null,

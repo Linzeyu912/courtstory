@@ -11,6 +11,22 @@ const DEFAULT='openai/gpt-6-astra';
 const ASTRA={input:['text','image'],reasoning:true,contextWindow:1050000,maxTokens:8192,
   cost:{input:10,output:50,cacheRead:1,cacheWrite:12.5}};
 
+export function diagnosticFetch(fetcher=globalThis.fetch,log=value=>process.stderr.write(JSON.stringify(value)+'\n')){
+  return async(...args)=>{
+    const started=Date.now(),bodyBytes=typeof args[1]?.body==='string'?Buffer.byteLength(args[1].body):null;
+    try{
+      const response=await fetcher(...args);
+      log({type:'openrouter_request',status:response.status,elapsedMs:Date.now()-started,bodyBytes});
+      return response;
+    }catch(error){
+      const causes=[];let cause=error;
+      for(let i=0;cause&&i<4;i++,cause=cause.cause)causes.push({name:cause.name,code:cause.code});
+      log({type:'openrouter_connection_error',elapsedMs:Date.now()-started,bodyBytes,causes});
+      throw error;
+    }
+  };
+}
+
 export function resolveCommentaryConfig(config={}){
   const provider=config.provider??'openrouter',id=config.model??DEFAULT;
   if(provider!=='openrouter'||typeof id!=='string'||!/^[A-Za-z0-9._:/-]{1,160}$/.test(id))throw new Error('无效模型配置。');
@@ -39,6 +55,6 @@ export function createCommentaryProvider(env=process.env,config=null){
     compat:{supportsStore:false,supportsDeveloperRole:true,supportsReasoningEffort:caps.reasoning,
       supportsUsageInStreaming:true,maxTokensField:'max_tokens',supportsStrictMode:false,thinkingFormat:'openrouter',...caps.compat}};
   return {model,apiKey,configSnapshot:snapshot,thinkingLevel:snapshot.reasoning,streamFn:(selected,context,options)=>streamSimple(selected,context,{
-    ...options,apiKey,maxRetries:0,timeoutMs:120000,maxTokens:caps.maxTokens,
+    ...options,apiKey,maxRetries:0,timeoutMs:120000,maxTokens:caps.maxTokens,fetch:diagnosticFetch(),
   })};
 }

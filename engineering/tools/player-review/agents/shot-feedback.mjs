@@ -2,7 +2,7 @@
 export function prepareShotFeedback(plan,{readFrames,frameTimes,sourceCuts=[],ratingContext={}}={}){
   const events=new Map(plan.events.map(e=>[e.eventId,e])),nodes=(plan.nodes??[]).filter(n=>n.kind==='shot_release');
   for(const event of events.values()){
-    if(event.shotStatus!==undefined&&event.kind!=='shot')throw new Error('shotStatus requires shot event kind');
+    if(event.shotStatus!==undefined&&event.kind!=='shot')throw new Error(`shotStatus requires shot event kind：事件 ${event.eventId} 是 other，非投篮请省略 shotStatus 或设为 null，不要为填字段把事件改成投篮。`);
     if(event.kind!=='shot')continue;
     if(!['confirmed','uncertain'].includes(event.shotStatus))throw new Error('shot requires confirmed or uncertain shotStatus');
     const count=nodes.filter(n=>n.eventId===event.eventId).length;
@@ -36,7 +36,7 @@ export function prepareShotFeedback(plan,{readFrames,frameTimes,sourceCuts=[],ra
     const release=actualTime(a),target=release-1,prior=[...frameTimes.keys()].filter(f=>f<=a).sort((a,b)=>a-b);
     const targetStart=prior.reduce((best,f)=>Math.abs(actualTime(f)-target)<Math.abs(actualTime(best)-target)?f:best,prior[0]);
     const start=Math.max(targetStart,node.evidenceWindow?.startFrame??0,0,...sourceCuts.filter(c=>c<=a));
-    if(s.evidenceFrames.some(f=>f<start))throw new Error('shot evidence outside pre-release window');
+    if(s.evidenceFrames.some(f=>f<start))throw new Error(`shot evidence outside pre-release window：节点 ${node.nodeId} 的评价证据仅允许帧 ${start}–${a}；较早帧可放在事件证据中，不放进 shotFeedback.evidenceFrames。`);
     const duration=release-actualTime(start),times=[...new Set(s.evidenceFrames.map(actualTime))].sort((a,b)=>a-b);
     const complete=duration>=.9&&times.length>=5&&times[0]<=target+.15&&s.evidenceFrames.includes(a)&&times.slice(1).every((t,i)=>t-times[i]<=.25+1e-8);
     const coverage=complete?'complete':times.length?'partial':'unavailable';

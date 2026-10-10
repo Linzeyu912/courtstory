@@ -94,8 +94,8 @@ def main():
                         help="Visual identity provider; multimodal-api is an unconfigured adapter seam")
     parser.add_argument("--player-data-root", default=str(Path(__file__).resolve().parents[2] / '2K Player Data'),
                         help="Local read-only identity data package (default: repository 2K Player Data)")
-    parser.add_argument('--player-name-provider', choices=('codex', 'qwen-token-plan-interactive'), default='codex',
-                        help='Explicit local name vision provider; Token Plan is for interactive user-started tests only')
+    parser.add_argument('--player-name-provider', choices=('codex', 'openrouter', 'qwen-token-plan-interactive'), default='codex',
+                        help='Name vision provider; openrouter uses Astra and OPEN_ROUTER_KEY')
     parser.add_argument("--court-model", default="tmp/court-models-v2/best.pt", help="Pinned local 48-point weights; loaded on calibration requests only")
     parser.add_argument("--court-imgsz", type=int, choices=(640, 960), default=640)
     parser.add_argument("--ground-comparison-root", help="Optional read-only pose comparison directory")
@@ -202,6 +202,9 @@ def main():
     player_data=PlayerIdentityData(args.player_data_root)
     from player_name_jobs import PlayerNameJobs
     name_provider=identity_agent.provider
+    if args.player_name_provider=='openrouter':
+        from player_name_identity import create_openrouter_name_provider
+        name_provider=create_openrouter_name_provider()
     if args.player_name_provider=='qwen-token-plan-interactive':
         from player_name_identity import create_qwen_token_plan_provider
         name_provider=create_qwen_token_plan_provider()

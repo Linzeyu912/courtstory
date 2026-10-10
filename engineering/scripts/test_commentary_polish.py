@@ -47,6 +47,8 @@ class PolishTests(unittest.TestCase):
 
     def test_pause_budget_allows_small_variation_but_not_long_monologues(self):
         self.plan['cues'][0]['delivery'] = 'pause'
+        self.plan['cues'][0]['suggestedEndTime'] = self.plan['cues'][0]['suggestedStartTime']
+        self.assertEqual(unwrap(self.plan), self.plan)
         merge_texts(self.plan, {'cues': [{'cueId': 'c1', 'text': '这球喂得舒服，接球就进！'}]})
         with self.assertRaisesRegex(ValueError, '暂停句'):
             merge_texts(self.plan, {'cues': [{'cueId': 'c1', 'text': '这球喂得舒服，接球就进！' * 5}]})

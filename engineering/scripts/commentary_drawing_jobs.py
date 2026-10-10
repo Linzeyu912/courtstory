@@ -155,7 +155,8 @@ class CommentaryDrawingJobs:
             self._check_cancel(job);job.update(status=status,message=message);self._persist(job)
 
     def _start(self,job,row,mode,evidence=None):
-        node=row.get('effectiveNode',row['node']);plan=job['plan'];remaining=job['deadline']-time.monotonic()
+        node=deepcopy(row.get('effectiveNode',row['node']));plan=job['plan'];remaining=job['deadline']-time.monotonic()
+        if node.get('kind')!='shot_release': node.pop('shotFeedback',None)
         if remaining<=1: raise ValueError('绘图剩余预算不足。')
         return {'mode':mode,'nodes':[node],'node':node,'planRef':job['request']['commentaryPlanRef'],'modelConfig':job['drawingConfigSnapshot'],
                 'participants':[p for p in plan.get('participants',[]) if p['participantId'] in node.get('participantRefs',[])],

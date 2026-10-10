@@ -109,6 +109,7 @@ def map_candidate(candidate,evidence,node_id):
 
 
 def run_pi(start,evidence,output,config,cancel=None,process_callback=None):
+    output=Path(output);output.mkdir(parents=True,exist_ok=True)
     node=shutil.which('node')
     if not node: raise ValueError('独立绘图需要 Node.js。')
     child_env,secret=provider_environment(ROOT/'.env',config['provider'],config['model'])
@@ -123,6 +124,7 @@ def run_pi(start,evidence,output,config,cancel=None,process_callback=None):
     def read_errors():
         for line in process.stderr:
             errors.append(redact(line,secret)[-1500:]); del errors[:-20]
+            (output/'worker-stderr.log').write_text(''.join(errors),encoding='utf-8')
     readers=[threading.Thread(target=read,daemon=True),threading.Thread(target=read_errors,daemon=True)]
     for reader in readers: reader.start()
     def send(value):
@@ -150,6 +152,10 @@ def run_pi(start,evidence,output,config,cancel=None,process_callback=None):
                     entry['error']=redact(str(exc),secret)
                     send({'type':'rpc_result','id':message['id'],'error':entry['error']})
                 trace.append(entry)
+            elif message.get('type')=='progress':
+                trace.append(json.loads(redact(json.dumps(message,ensure_ascii=False),secret)))
+                output.mkdir(parents=True,exist_ok=True)
+                (output/'tool-calls.json').write_text(json.dumps(trace,ensure_ascii=False,indent=2),encoding='utf-8')
             elif message.get('type')=='result': result=message.get('result');break
     finally:
         if process.poll() is None:
@@ -162,7 +168,9 @@ def run_pi(start,evidence,output,config,cancel=None,process_callback=None):
         (output/'tool-calls.json').write_text(json.dumps(trace,ensure_ascii=False,indent=2),encoding='utf-8')
         if process_callback: process_callback(None)
     if not result: raise ValueError('独立 Pi worker 未返回完整结果。'+''.join(errors))
-    return json.loads(redact(json.dumps(result,ensure_ascii=False),secret))
+    result=json.loads(redact(json.dumps(result,ensure_ascii=False),secret))
+    (output/'result.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+    return result
 
 
 def main():

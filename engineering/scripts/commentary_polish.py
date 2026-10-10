@@ -48,7 +48,8 @@ def unwrap(value):
         if not isinstance(cue.get('text'), str) or not cue['text'].strip():
             raise ValueError('解说文字不能为空')
         a, b = cue.get('suggestedStartTime'), cue.get('suggestedEndTime')
-        if any(isinstance(n, bool) or not isinstance(n, (int, float)) or not math.isfinite(n) for n in (a, b)) or not 0 <= a < b:
+        if (any(isinstance(n, bool) or not isinstance(n, (int, float)) or not math.isfinite(n) for n in (a, b)) or
+                not 0 <= a <= b or (a == b and cue.get('delivery') != 'pause')):
             raise ValueError('解说时间窗无效')
         if cue.get('delivery') not in ('during_play', 'pause'):
             raise ValueError('讲法必须为during_play或pause')
