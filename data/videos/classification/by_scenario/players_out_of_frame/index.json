@@ -3,21 +3,8 @@
   "scenario": "players_out_of_frame",
   "title": "球员出画",
   "path_base": "repository_root",
-  "count": 2,
-  "usable_count": 2,
-  "default_count": 2,
-  "samples": [
-    {
-      "clip_id": "broadcastcode-training-20261005-001",
-      "path": "data/videos/classification/by_scenario/players_out_of_frame/broadcastcode-training-20261005-001.json",
-      "status": "clear",
-      "recommended": true
-    },
-    {
-      "clip_id": "broadcastcode-training-20261005-002",
-      "path": "data/videos/classification/by_scenario/players_out_of_frame/broadcastcode-training-20261005-002.json",
-      "status": "clear",
-      "recommended": true
-    }
-  ]
+  "count": 0,
+  "usable_count": 0,
+  "default_count": 0,
+  "samples": []
 }

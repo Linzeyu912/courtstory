@@ -1,10 +1,9 @@
-# CourtStory 训练视频
+# CourtStory 考试视频
 
-本仓库只保留两段官方训练视频：
+当前素材库只保留 [single.mp4](uploads/2026-10-10-exam/clips/single.mp4)，由用户于 2026-10-10 提供为考试视频。
 
-- [训练_弗拉格2月1日.mp4](uploads/2026-10-05-official-training/clips/训练_弗拉格2月1日.mp4)
-- [训练_阿门1月4日 .mp4](uploads/2026-10-05-official-training/clips/训练_阿门1月4日%20.mp4)
+原文件共 85,310,217 字节，1920 × 1080、约 21.97 秒、59.94 fps，保留原字节和音轨，通过 Git LFS 保存。来源与实测信息见 [manifest.json](uploads/2026-10-10-exam/manifest.json)。两段旧训练视频及其标签、候选轨迹已从当前素材库移除。
 
-合计 171,215,644 字节，通过 Git LFS 保存。来源、文件摘要、标签和候选轨迹见 [训练批次](uploads/2026-10-05-official-training/manifest.json)，工作台默认打开这两段。其他视频库保留在原 Team Hub，不迁入本仓库。
+工作台默认打开此考试视频。随库仅提供真实解码帧时间和空轨迹，尚未运行识别；可直接人工制作，或在工作台选择模型处理。比赛信息、场景与人物身份尚未审核，不沿用训练视频的识别结果。
 
-运行 `git lfs pull` 下载；运行 `python scripts/validate_video_data.py --check-index` 校验。场景分类索引见 [classification/index.json](classification/index.json)，候选身份和位置仍需人工复核。
+运行 `git lfs pull` 下载；运行 `python scripts/validate_video_data.py --check-index` 校验。场景分类索引见 [classification/index.json](classification/index.json)。

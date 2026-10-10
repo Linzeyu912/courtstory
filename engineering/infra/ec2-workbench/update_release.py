@@ -64,8 +64,8 @@ def validate_selection(library, previous):
     videos = previous.get('videos', [])
     samples = library.get('samples', [])
     registered = {item['path']: item for item in videos}
-    if len(samples) not in (2, 3) or len(videos) != len(samples) or len(registered) != len(samples):
-        raise ValueError('Expected the existing two- or three-sample deployment selection')
+    if not samples or len(videos) != len(samples) or len(registered) != len(samples):
+        raise ValueError('Expected a nonempty registered deployment selection')
     if len({sample['id'] for sample in samples}) != len(samples) or library.get('defaultSample') not in {s['id'] for s in samples}:
         raise ValueError('Invalid existing sample IDs or default sample')
     if {sample['video'] for sample in samples} != set(registered):

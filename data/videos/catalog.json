@@ -1,19 +1,18 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-10-08T02:28:04-04:00",
+  "updated_at": "2026-10-10T06:07:05-04:00",
   "path_base": "repository_root",
   "datasets": [
     {
-      "dataset_id": "broadcastcode-training-20261005",
+      "dataset_id": "courtstory-exam-20261010",
       "season": null,
       "purpose": "user_upload",
-      "category": "official_training",
-      "priority": "primary_regression",
-      "display_name": "BroadcastCode 官方训练重点素材",
-      "root": "data/videos/uploads/2026-10-05-official-training",
-      "manifest": "data/videos/uploads/2026-10-05-official-training/manifest.json",
-      "entry_count": 2,
-      "included_count": 2,
+      "category": "exam",
+      "display_name": "考试视频",
+      "root": "data/videos/uploads/2026-10-10-exam",
+      "manifest": "data/videos/uploads/2026-10-10-exam/manifest.json",
+      "entry_count": 1,
+      "included_count": 1,
       "awaiting_upload_count": 0
     }
   ],

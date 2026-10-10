@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "courtstory-exam-20261010",
+  "season": null,
+  "timezone": "Asia/Shanghai",
+  "created_at": "2026-10-10T06:07:05-04:00",
+  "source_manifest": "data/videos/uploads/2026-10-10-exam/sources/source.json",
+  "usage": {
+    "category": "exam"
+  },
+  "entries": [
+    {
+      "clip_id": "courtstory-exam-20261010-001",
+      "local_id": "001",
+      "asset": {
+        "path": "clips/single.mp4",
+        "bytes": 85310217,
+        "sha256": "ef8eff48ab21bd2a5bf4e6a081c986704a63d88afe495400fb5ad79bdf7766dc",
+        "storage": "git-lfs",
+        "availability": "included"
+      },
+      "annotation_path": "labels/001.json",
+      "source": {
+        "kind": "user_upload",
+        "uploaded_filename": "single.mp4",
+        "url": null,
+        "publisher": null,
+        "collected_at": "2026-10-10T06:07:05-04:00",
+        "start_seconds": null,
+        "end_seconds": null,
+        "unknown_reason": "用户指定 D 盘根目录 single.mp4 为考试视频；原始网页及整场裁切起点未提供。"
+      },
+      "game": {
+        "season": null,
+        "date_local": null,
+        "unknown_reason": "比赛信息尚未核实。"
+      },
+      "tactic": {
+        "title": "考试视频 · single.mp4",
+        "tags": [
+          "待复核"
+        ],
+        "label_status": "provisional_from_collector_notes",
+        "basis": "用户指定考试素材，尚未标注动作或身份。"
+      },
+      "video": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 59.93999927124621,
+        "fps_fraction": "14805000/246997",
+        "codec": "h264",
+        "duration_seconds": 21.966077,
+        "measurement_status": "measured",
+        "measurement_basis": "PyAV 完整解码，保留原字节与帧时间。",
+        "audio_stream_count": 1,
+        "frame_count": 1316
+      },
+      "review": {
+        "normal_speed": null,
+        "original_broadcast": null,
+        "full_possession": null,
+        "decode_status": "passed",
+        "visual_status": "unverified"
+      },
+      "dedup": {
+        "similar_to": []
+      },
+      "usage": {
+        "category": "exam",
+        "user_required": true
+      },
+      "material_labels": {
+        "schema_version": "1.0.0",
+        "status": "needs_review",
+        "recommended": true,
+        "annotation_field": "material_labels",
+        "human_reviewed": false,
+        "labeling_origin": "user_selected_unreviewed",
+        "classification_index": "data/videos/classification/index.json"
+      }
+    }
+  ],
+  "material_labels_summary": {
+    "needs_review": 1
+  }
+}

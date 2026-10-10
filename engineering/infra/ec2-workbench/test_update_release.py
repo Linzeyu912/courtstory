@@ -18,6 +18,14 @@ spec.loader.exec_module(release)
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_single_exam_sample_is_valid_but_empty_selection_is_not(self):
+        video = {'path': 'data/videos/exam.mp4', 'sha256': 'a' * 64, 'bytes': 1}
+        library = {'defaultSample': 'exam-001', 'samples': [
+            {'id': 'exam-001', 'video': video['path'], 'videoSha256': video['sha256']}]}
+        self.assertEqual(release.validate_selection(library, {'videos': [video]}), [video])
+        with self.assertRaises(ValueError):
+            release.validate_selection({'samples': []}, {'videos': []})
+
     def test_build_preserves_deployment_and_includes_untracked_imports_and_replay(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
