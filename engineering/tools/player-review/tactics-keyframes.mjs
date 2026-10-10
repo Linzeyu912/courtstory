@@ -1,7 +1,7 @@
 import {validateFrameRange} from './tactics-time-range.mjs';
 export const MIN_EXPLANATION_HOLD_SECONDS=.9;
-export function explanationTiming(holdSeconds,fps=30){
-  const total=Math.round(holdSeconds*fps),settleFrames=Math.min(Math.round(fps/6),total),drawFrames=Math.min(Math.round(.7*fps),total-settleFrames);
+export function explanationTiming(holdSeconds,fps=30,{staged=false}={}){
+  const total=Math.round(holdSeconds*fps),settleFrames=Math.min(Math.round(fps/6),total),drawFrames=Math.min(Math.round((staged?1.2:.7)*fps),total-settleFrames);
   return {settleFrames,drawFrames,holdFrames:total-settleFrames-drawFrames};
 }
 export function validateTacticKeyframes(document){

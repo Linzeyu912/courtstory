@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import secrets
+import socket
 import threading
 import time
 from urllib.parse import parse_qs, urlsplit
@@ -109,7 +110,12 @@ class Handler(BaseHTTPRequestHandler):
             config = configuration()
             route = urlsplit(self.path).path
             if route == '/health' and self.command in ('GET', 'HEAD'):
-                return self.reply(200, '{"gateway":"ready"}', 'application/json')
+                try:
+                    with socket.create_connection(('127.0.0.1', 8876), timeout=2):
+                        pass
+                except OSError:
+                    return self.reply(503, '{"gateway":"ready","workbench":"starting"}', 'application/json')
+                return self.reply(200, '{"gateway":"ready","workbench":"ready"}', 'application/json')
             if not trusted_origin(self.headers, config.get('origin')):
                 return self.reply(403, '请求来源不正确。')
             if route == '/login':
@@ -129,6 +135,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self.reply(303, headers={'Location': '/', 'Set-Cookie':
                     'hks_session=' + SESSION + '; Path=/; Secure; HttpOnly; SameSite=Strict; Max-Age=14400'})
             if not authenticated(self.headers):
+                if route.startswith('/api/'):
+                    return self.reply(401, json.dumps({'error':'登录已失效，请重新登录工作台；当前草稿保留。'}, ensure_ascii=False), 'application/json; charset=utf-8')
                 return self.reply(303 if self.command in ('GET', 'HEAD') else 401,
                                   headers={'Location': '/login'})
             if route == '/api/cloud-state' and self.command in ('GET', 'HEAD'):
@@ -169,13 +177,18 @@ class Handler(BaseHTTPRequestHandler):
             connection.close()
         except (BrokenPipeError, ConnectionResetError):
             pass
+        except ConnectionRefusedError:
+            self.reply(503, json.dumps({'error':'工作台正在启动，请稍后刷新；已有草稿保留。'}, ensure_ascii=False), 'application/json; charset=utf-8')
         except Exception as error:
             self.reply(502, '云端工作台尚未就绪：' + type(error).__name__)
 
 
 def main():
     threading.Thread(target=sync_loop, daemon=True).start()
-    ThreadingHTTPServer(('0.0.0.0', 8080), Handler).serve_forever()
+    # ES module loading and job polling create bursts of parallel connections.
+    class Server(ThreadingHTTPServer):
+        request_queue_size = 128
+    Server(('0.0.0.0', 8080), Handler).serve_forever()
 
 
 if __name__ == '__main__':

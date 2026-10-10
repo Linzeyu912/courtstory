@@ -2,6 +2,7 @@ import importlib.util
 from pathlib import Path
 import unittest
 import tempfile
+from unittest.mock import Mock, patch
 
 spec = importlib.util.spec_from_file_location('gateway', Path(__file__).with_name('gateway.py'))
 gateway = importlib.util.module_from_spec(spec)
@@ -9,6 +10,27 @@ spec.loader.exec_module(gateway)
 
 
 class GatewaySecurityTests(unittest.TestCase):
+    def test_health_waits_for_workbench_listener(self):
+        handler = object.__new__(gateway.Handler)
+        handler.path, handler.command = '/health', 'GET'
+        handler.reply = Mock()
+        with patch.object(gateway, 'configuration', return_value={}), patch.object(gateway.socket, 'create_connection', side_effect=ConnectionRefusedError):
+            handler.handle_request()
+        self.assertEqual(handler.reply.call_args.args[0], 503)
+        with patch.object(gateway, 'configuration', return_value={}), patch.object(gateway.socket, 'create_connection'):
+            handler.handle_request()
+        self.assertEqual(handler.reply.call_args.args[0], 200)
+
+    def test_expired_api_login_returns_json_instead_of_redirect(self):
+        handler = object.__new__(gateway.Handler)
+        handler.path, handler.command = '/api/library', 'GET'
+        handler.headers = {'Host': 'demo.cloudfront.net'}
+        handler.reply = Mock()
+        with patch.object(gateway, 'configuration', return_value={'origin': 'https://demo.cloudfront.net'}):
+            handler.handle_request()
+        self.assertEqual(handler.reply.call_args.args[0], 401)
+        self.assertIn('application/json', handler.reply.call_args.args[2])
+
     def test_backup_includes_library_state_and_excludes_credentials(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

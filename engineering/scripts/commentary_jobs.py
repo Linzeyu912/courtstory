@@ -114,7 +114,13 @@ class CommentaryJobs:
         folder = self._dir(clip, variant, qa)
         latest = _read(folder / "latest.json", {})
         job = self.get(latest["id"], clip, variant, qa) if latest.get("id") else None
-        return {"plan": _read(folder / "plan.json"), "job": job, "status": self.status()}
+        result = None
+        for path in sorted((folder / 'jobs').glob('*/job.json'), key=lambda p: p.stat().st_mtime, reverse=True):
+            state = _read(path, {})
+            if state.get('action') == 'render' and state.get('status') == 'completed':
+                result = self._public(state)
+                break
+        return {"plan": _read(folder / "plan.json"), "job": job, "result": result, "status": self.status()}
 
     def create(self, request, clip, video, variant, qa):
         if not isinstance(request, dict) or request.get("action") not in ("understand", "polish", "render"):
@@ -166,6 +172,12 @@ class CommentaryJobs:
                              any(e.get("kind") == "shot" and e.get("shotStatus") == "confirmed" for e in plan.get("events", [])))
                 if action == "render" and has_shots and request.get("document") is None:
                     raise ValueError("shot release rendering requires an independent drawing document")
+                if action == "render" and request.get("document") is not None:
+                    from commentary_joint import validate_shot_graphics
+                    try:
+                        validate_shot_graphics(request["document"], plan)
+                    except ValueError as error:
+                        raise ValueError("投篮图形尚未就绪，请先生成并采纳对应战术绘图，再生成联合成片。" + str(error)) from error
                 if action == "polish":
                     if current and current.get("sourceRef") is not None and current["sourceRef"] != locked_request["_sourceRef"]:
                         raise ValueError("polish source or name snapshot is stale")

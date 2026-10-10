@@ -131,7 +131,7 @@ test('Agent focus defaults to its cue but a user can extend the same glow throug
   await validateDocument(JSON.parse(JSON.stringify(extended)));
   const ordinary=annotations.projectAnnotations(extended,{phaseId:focus.phaseId,frame:16,freeze:false});
   assert.ok(ordinary.items.find(a=>a.id===focus.id).video);
-  const renderFocus=(document,id,frame)=>annotations.renderAnnotationsSVG({...annotations.projectAnnotations(document,{phaseId:focus.phaseId,frame}),items:annotations.projectAnnotations(document,{phaseId:focus.phaseId,frame}).items.filter(a=>a.id===id)}).replaceAll(id,'same').replace(/spotlight-video-[0-9a-f-]+/g,'focus-').replace(/focus-mask-[0-9a-f-]+/g,'mask-');
+  const renderFocus=(document,id,frame)=>annotations.renderAnnotationsSVG({...annotations.projectAnnotations(document,{phaseId:focus.phaseId,frame}),items:annotations.projectAnnotations(document,{phaseId:focus.phaseId,frame}).items.filter(a=>a.id===id)}).replaceAll(id,'same').replace(/spotlight-video-[0-9a-f-]+/g,'focus-').replace(/focus-mask-[0-9a-f-]+/g,'mask-').replace(/paint-video-[0-9a-f-]+/g,'paint-');
   // The manual creation entry and the stored Agent entry share the exact visual.
   const manual=createManualAnnotation(extended,{id:'manual-focus',phaseId:focus.phaseId,type:'spotlight',entityId:focus.entityId,followEntity:false,range:{startFrame:12,endFrameExclusive:30},frame:12,space:'video',points:focus.points,style:focus.style});
   const autoSvg=renderFocus(extended,focus.id,16),manualSvg=renderFocus(manual,'manual-focus',16);
@@ -143,7 +143,8 @@ test('V4 direct-video drafts preserve independent participants and expose uncert
   const doc=await setup();delete doc.review.court;
   const {createSourceBinding}=await import('../tactical-overlay/binding.mjs');doc.playDefinition.sourceBinding=await createSourceBinding(doc.review);
   const c=videoCandidate(),next=await agent.adoptAgentCandidate(doc,c,{jobId:'video-many',scope:'play',phaseId:'phase-1'});
-  assert.equal(next.annotations.items.length,2);assert.equal(next.annotations.items[1].followEntity,false);
+  assert.equal(next.annotations.items.length,2);assert.equal(next.annotations.items[1].followEntity,true);
+  assert.equal(next.annotations.items[1].anchorMode,'player_foot');
   assert.equal(next.production,undefined);assert.deepEqual(next.review,doc.review);
   assert.equal(next.agentRuns[0].coverage[0].annotated,2);assert.equal(next.agentRuns[0].coverage[0].uncertain,4);
   assert.ok(annotations.annotationPresentation(next).items.every(i=>i.visible));
@@ -303,7 +304,7 @@ test('V4 appends reference-frame holds to seconds-based drafts while preserving 
   assert.equal(plan.frames.filter(f=>f.sourceFrame===20&&f.state!=='source').length,75);
   for(const item of next.annotations.items.slice(1)){
     assert.equal(item.cueFrame,item.anchorFrame);assert.equal(item.timingMode,'manual');assert.equal(item.displayMode,'full');
-    assert.equal(item.videoMode,undefined);assert.equal(item.followEntity,false);
+    assert.equal(item.videoMode,undefined);assert.equal(item.followEntity,item.type==='position');
     assert.deepEqual(item.actionRange,{startFrame:item.startFrame,endFrameExclusive:item.endFrameExclusive});
     assert.ok(annotations.projectAnnotations(next,{phaseId:item.phaseId,frame:item.anchorFrame,freeze:true,reveal:1}).items.find(a=>a.id===item.id).video);
     assert.equal(annotations.projectAnnotations(next,{phaseId:item.phaseId,frame:item.anchorFrame+1}).items.find(a=>a.id===item.id).video,null);

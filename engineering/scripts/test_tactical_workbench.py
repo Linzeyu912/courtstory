@@ -98,7 +98,10 @@ class TacticalWorkbenchTests(unittest.TestCase):
     def test_concurrent_save_cannot_overwrite_newer_version(self):
         with patch.object(self.store, 'run', return_value={'valid': True}):
             self.store.save(self.document, self.clip, 'test', False, 'workspace', 0)
-            with self.assertRaises(ValueError): self.store.save(self.document, self.clip, 'test', False, 'workspace', 0)
+            retried = self.store.save(self.document, self.clip, 'test', False, 'workspace', 0)
+            self.assertEqual(retried['version'], 1)
+            changed = {**self.document, 'title': 'Other page changed this draft'}
+            with self.assertRaises(ValueError): self.store.save(changed, self.clip, 'test', False, 'workspace', 0)
         self.assertEqual(self.store.load(self.clip, 'test', False, 'workspace')['version'], 1)
 
     def test_foreign_model_and_modified_candidate_cannot_be_saved(self):

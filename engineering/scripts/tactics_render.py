@@ -283,6 +283,7 @@ class TacticsRenderer:
                     '-crf','18','-pix_fmt','yuv420p','-movflags','+faststart',str(directory/'rendering.mp4')], stdin=subprocess.PIPE, stderr=encode_error, creationflags=flags)
                 job['processes'].append(encoder); timer.start()
                 if job['cancel'].is_set(): self._stop(job); return
+                team_id = None
                 with av.open(str(job['video'])) as container:
                     decoder = enumerate(container.decode(video=0)); current = -1; rgb = None
                     for output_index, state in enumerate(frames):
@@ -306,7 +307,12 @@ class TacticsRenderer:
                             from PIL import Image
                             image=Image.fromarray(composite);subtitle=subtitles[active['cueId']]
                             subtitle_y=max(0,height-subtitle.height-round(height*.032)) if subtitle_layout=='bottom' else 0
-                            image.paste(subtitle,(0,subtitle_y),subtitle);composite=np.asarray(image)
+                            image.paste(subtitle,(0,subtitle_y),subtitle)
+                            if team_id is None:
+                                with Image.open(directory/'team-id.png') as badge:
+                                    team_id=badge.convert('RGBA')
+                            image.paste(team_id,(0,0),team_id)
+                            composite=np.asarray(image)
                         encoder.stdin.write(composite.tobytes())
                         job['progress'] = {'completed': output_index+1, 'total':len(frames)}
                 encoder.stdin.close()

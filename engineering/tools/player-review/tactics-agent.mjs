@@ -7,6 +7,7 @@ import {createCourtAnnotation} from './tactics-court-editor.mjs';
 import {upsertTacticKeyframe,MIN_EXPLANATION_HOLD_SECONDS} from './tactics-keyframes.mjs';
 import {preparationDigest} from './court-preparation.mjs';
 import {validateFrameRange} from './tactics-time-range.mjs';
+import {canFollowAnnotation} from './tactics-motion.mjs';
 
 const object=properties=>({type:'object',additionalProperties:false,required:Object.keys(properties),properties});
 export function validateAnnotationControls(annotation){
@@ -161,10 +162,10 @@ function videoReferenceTiming(document,jobId){
   const next=structuredClone(document),byFrame=new Map();
   for(const a of next.annotations?.items??[]){
     if(a.origin?.jobId!==jobId)continue;
-    // V4 supplies pixel geometry at an observed reference frame, not a tracked
-    // path. Seconds-based documents need explicit holds for those frames.
+    // V4 starts from a visible pixel anchor. Matching observations can supply
+    // tracking; the first explanation still receives an explicit hold.
     const range={startFrame:a.startFrame,endFrameExclusive:a.endFrameExclusive};
-    Object.assign(a,{timingMode:'manual',actionRange:range,cueFrame:a.anchorFrame,displayMode:'full',curve:'polyline',
+    Object.assign(a,{timingMode:'manual',actionRange:range,cueFrame:a.anchorFrame,displayMode:a.followEntity&&a.type==='route'?'remaining':'full',curve:'polyline',
       progressFrames:[{frame:range.startFrame,t:0},{frame:range.endFrameExclusive,t:1}],
       meaning:a.meaning??(a.type==='route'?'current_action':a.type==='screen'?'screen':a.type==='position'?'position':'focus')});
     const group=byFrame.get(a.anchorFrame)??[];group.push(a);byFrame.set(a.anchorFrame,group);
@@ -195,7 +196,7 @@ async function appendVideoCandidate(document,generated,candidate,coverage,jobId)
       continue;
     }
     next=createAnnotation(next,{...a,phaseId:phase.phaseId,frame:a.anchorFrame,
-      startFrame:Math.max(a.startFrame,phase.startFrame),endFrameExclusive:Math.min(a.endFrameExclusive,phase.endFrameExclusive),followEntity:false});
+      startFrame:Math.max(a.startFrame,phase.startFrame),endFrameExclusive:Math.min(a.endFrameExclusive,phase.endFrameExclusive),followEntity:a.followEntity});
     added.add(a.id);
   }
   const proposedActions=candidate.phases.flatMap(p=>p.actions);
@@ -374,9 +375,10 @@ export async function adoptAgentCandidate(document,candidate,{jobId,scope,phaseI
       if(a.authoredPath){const id=cameraIds.get(a.authoredPath.cameraId),camera=d.production?.cameras.find(c=>c.id===id);if(!camera)throw new Error('Agent 路线没有对应的示意相机。');
         if(camera.phaseId!==phase.phaseId||camera.keyframes[0].frame>a.startFrame||camera.keyframes.at(-1).frame<a.endFrameExclusive-1)throw new Error('Agent 示意相机必须覆盖路线完整显示区间。');
         path={...structuredClone(a.authoredPath),cameraId:id,cameraDigest:camera.digest};}
+      const tracked=directVideo&&canFollowAnnotation(d.review,a);
       d=createAnnotation(d,{id:`${jobId}-annotation-${annotationCount++}`,type:a.type,entityId:a.entityId,phaseId:phase.phaseId,frame:a.anchorFrame,startFrame:a.startFrame,endFrameExclusive:a.endFrameExclusive,space:a.space,points:a.points,
         ...(a.type==='spotlight'?{startFrame:a.anchorFrame,endFrameExclusive:a.anchorFrame+1}:{}),
-        ...(directVideo?{followEntity:false,meaning:a.meaning,curve:'polyline'}:a.type==='spotlight'&&a.entityId?{anchorMode:'player_foot'}:{}),...(path?{authoredPath:path}:{}),style:{angle:a.angle,size:a.size,color:a.color,...(a.type==='route'&&a.pattern?{pattern:a.pattern}:{})},origin:{kind:'agent',jobId,sourceFrames:a.evidenceFrames,note:a.explanation}});
+        ...(directVideo?{followEntity:tracked,meaning:a.meaning,curve:'polyline',...(tracked&&a.type!=='route'?{anchorMode:'player_foot'}:{})}:a.type==='spotlight'&&a.entityId?{anchorMode:'player_foot'}:{}),...(path?{authoredPath:path}:{}),style:{angle:a.angle,size:a.size,color:a.color,...(a.type==='route'&&a.pattern?{pattern:a.pattern}:{})},origin:{kind:'agent',jobId,sourceFrames:a.evidenceFrames,note:a.explanation}});
     }
     for(const [i,a] of s.actions.entries()){
       checkRange(a);evidence(a.evidenceFrames,s.startFrame,s.endFrameExclusive);

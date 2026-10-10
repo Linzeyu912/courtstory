@@ -30,7 +30,7 @@ class DrawingAuditRejected(ValueError):
 
 
 class CommentaryDrawingJobs:
-    def __init__(self,root,tactics,commentary,python=sys.executable,*,execute=None,timeout=480,model_catalog=None):
+    def __init__(self,root,tactics,commentary,python=sys.executable,*,execute=None,timeout=1800,model_catalog=None):
         self.root=Path(root).resolve();self.root.mkdir(parents=True,exist_ok=True)
         self.tactics,self.commentary,self.python=tactics,commentary,str(python)
         self.execute=execute or run_pi;self.timeout=timeout;self.model_catalog=model_catalog or {}
@@ -299,7 +299,9 @@ class CommentaryDrawingJobs:
                         row['generationStatus']=result.get('nodeStatus','partial');row['status']='awaiting_audit';self._persist(job)
                     self._state(job,'validating',f"独立复核节点 {row['nodeId']} 原图几何")
                     self._audit(job,row,video,evidence,directory)
-                    row.update(status='ready');row.pop('failure',None);self._persist(job)
+                    row.update(status='ready');row.pop('failure',None)
+                    job['progress']['completed']=sum(r['status']=='ready' for r in job['nodes'])
+                    self._persist(job)
                 except Exception as exc:
                     if job['cancel'].is_set(): raise
                     row.update(status='failed',reason=redact(str(exc)),failure={'code':getattr(exc,'code','node_failed'),'retryable':True});self._persist(job)

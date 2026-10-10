@@ -113,7 +113,7 @@ export function createDrawingTools(start,{rpc,budget,emit}={}){
       if(args.nodeId!==node.nodeId)throw new Error('未知节点。');state.extensionRequest=structuredClone(args);return {content:[json({status:'requires_orchestrator',request:args})]};
     }),
     call('save_node_drawing',Type.Object({nodeId,status:Type.Union(['ready','partial','unavailable','needs_upstream_review'].map(Type.Literal)),reason:Type.String({maxLength:1800}),candidate:Type.Union([candidateSchema,Type.Null()])}),
-      '保存局部原生几何候选。冲突返回needs_upstream_review，缺少证据保留缺口。图形仅说明已保存节点重点；每个annotation填写实际图像assetId。route至少两个控制点；screen/position/spotlight只用一个锚点，screen方向和长度用angle/size。',async args=>{
+      '保存局部原生几何候选。冲突返回needs_upstream_review，缺少证据保留缺口。图形仅说明已保存节点重点；每个annotation填写实际图像assetId。route从关联球员的脚下起步，直线至少两点，观察到转弯时用3至6个关键点表达弯曲，不把检测抖动当转折。绑定已有entityId后宿主使用实际轨迹逐帧跟随并平滑绘制，无可靠绑定保持参考帧标注。screen/position/spotlight只用脚下一个锚点；position渲染为薄环，不用交叉路线画小叉。screen方向和长度用angle/size，时间范围只覆盖掩护动作；与同节点路线自动分步显现。',async args=>{
         if(args.nodeId!==node.nodeId)throw new Error('未知节点。');
         if(['ready','partial'].includes(args.status)){validateNodeCandidate(args.candidate,node,state.seen,state.assets,start.participants??[]);}
         else if(args.candidate!==null||!args.reason.trim())throw new Error('不可用节点需要明确原因且无候选。');

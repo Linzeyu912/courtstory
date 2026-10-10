@@ -8,6 +8,7 @@ import {renderTacticsNameSVG} from './tactics-name-overlay.mjs';
 import {validateDocument,reindexPhases} from './tactics-document.mjs';
 import {DEFAULT_RIBBON,productionPhaseSnapshot,productionSourceSnapshot,productionEqual,productionCameraDigest,productionCameraAt,sha256} from './tactics-authored-geometry.mjs';
 import {shotFeedbackStatus} from './shot-feedback.mjs';
+import {renderStudioTeamId} from './studio-team-id.mjs';
 export {DEFAULT_RIBBON,productionPhaseSnapshot,productionCameraDigest};
 export const DEFAULT_PRODUCTION_CUE=Object.freeze({settleFrames:5,drawFrames:0,holdFrames:40});
 export function productionCue(document,{phaseId,frame}){
@@ -134,7 +135,8 @@ export function compileProduction(document,{fps=30}={}){
   // Ordinary reference-only annotations also receive a stable explanatory hold.
   const points=v2Timing?[]:annotationPausePoints(document),all=v2Timing?[]:[...phases.map(p=>({phaseId:p.phaseId,frame:p.freezeFrame})),...points];
   for(const cue of compileTacticKeyframes(document)){
-    const key=`${cue.phaseId}:${cue.frame}`,previous=explicit.get(key),timing=cue.kind==='explanation'?explanationTiming(cue.holdSeconds,timeline.timebaseFps):{settleFrames:0,drawFrames:Math.min(15,Math.round(cue.holdSeconds*timeline.timebaseFps)),holdFrames:Math.max(0,Math.round(cue.holdSeconds*timeline.timebaseFps)-15)};
+    const staged=cue.annotationIds.some(id=>document.annotations?.items.some(a=>a.id===id&&a.type==='screen'));
+    const key=`${cue.phaseId}:${cue.frame}`,previous=explicit.get(key),timing=cue.kind==='explanation'?explanationTiming(cue.holdSeconds,timeline.timebaseFps,{staged}):{settleFrames:0,drawFrames:Math.min(15,Math.round(cue.holdSeconds*timeline.timebaseFps)),holdFrames:Math.max(0,Math.round(cue.holdSeconds*timeline.timebaseFps)-15)};
     // Same source frame is one hold even when an old authored cue is present.
     explicit.set(key,{...cue,...(previous&&previous.settleFrames+previous.drawFrames+previous.holdFrames>=timing.settleFrames+timing.drawFrames+timing.holdFrames?previous:timing)});
   }
@@ -175,9 +177,10 @@ export function validateProductionSnapshot(document,plan){
 }
 export function renderProductionSvg(document,frameState,{nameOverlay}={}){
   if(!frame(frameState?.sourceFrame)||!finite(frameState.reveal)||frameState.reveal<0||frameState.reveal>1)throw new Error('成片显示状态无效。');
-  const annotationScene=projectAnnotations(document,{phaseId:frameState.phaseId,frame:frameState.sourceFrame,reveal:frameState.reveal,production:true,freeze:document.schemaVersion===2&&frameState.state!=='source',shotFreeze:frameState.state!=='source'});
+  const annotationScene=projectAnnotations(document,{phaseId:frameState.phaseId,frame:frameState.sourceFrame,reveal:frameState.reveal,production:true,freeze:frameState.state!=='source',shotFreeze:frameState.state!=='source'});
   const svg=renderAnnotationsSVG(annotationScene);
-  return nameOverlay?svg.replace('</svg>',`${renderTacticsNameSVG({document,nameOverlay,frame:frameState.sourceFrame,annotationScene})}</svg>`):svg;
+  const names=nameOverlay?renderTacticsNameSVG({document,nameOverlay,frame:frameState.sourceFrame,annotationScene}):'';
+  return svg.replace('</svg>',`${names}${renderStudioTeamId(document.review.width,document.review.height)}</svg>`);
 }
 
 /** Explicit source-locked migration: these become ordinary editable annotations, never a second routes list. */

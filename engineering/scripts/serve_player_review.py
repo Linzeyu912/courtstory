@@ -235,7 +235,7 @@ def main():
     for filename in ["ball-court.mjs","ground-position.mjs","ground-comparison-ui.mjs","identity-ocr.mjs","style.css","pipeline.css","app.mjs","player-identity.mjs","missing-player-range.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","identity-initial-review.mjs","identity-review-workflow.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
         routes['/'+filename]=static/filename
     routes['/video-library.mjs']=static/'video-library.mjs'
-    for filename in ['commentary-ui.mjs', 'commentary-client.mjs', 'commentary-ui.css']:
+    for filename in ['commentary-ui.mjs', 'commentary-client.mjs', 'api-request.mjs', 'commentary-ui.css']:
         routes['/'+filename]=static/filename
     for filename in ['player-name-identity.mjs', 'player-name-client.mjs', 'player-name-ui.mjs']:
         routes['/'+filename]=static/filename
@@ -245,7 +245,7 @@ def main():
         routes['/'+filename]=static/filename
     for filename in ['tactics-ui.mjs','tactics-player-identity.mjs','tactics-document.mjs','tactics-presentation.mjs','tactics-route-editor.mjs','tactics-playback.mjs','tactics-storage.mjs','tactics-annotations.mjs','shot-feedback.mjs','tactics-agent.mjs','tactics.css']:
         routes['/'+filename]=static/filename
-    for filename in ['tactics-production.mjs','tactics-authored-geometry.mjs','tactics-production-ui.mjs']:
+    for filename in ['tactics-production.mjs','tactics-authored-geometry.mjs','tactics-production-ui.mjs','tactics-motion.mjs']:
         routes['/'+filename]=static/filename
     for filename in ['tactics-time-range.mjs','court-preparation.mjs','court-smoothing.mjs','court-preparation-ui.mjs','identity-coverage.mjs','tactics-court-editor.mjs','tactics-keyframes.mjs','tactics-court-projection.mjs','tactics-timeline-ui.mjs','tactics-manual-editor.mjs']:
         routes['/'+filename]=static/filename
@@ -388,6 +388,9 @@ def main():
                         result={'frames':tactics.frames(source['video'],clip,request.get('frames'))}
                     elif route.endswith('/save'):
                         result=tactics.save(request.get('document'),clip,variant,request.get('qa',False),request.get('kind','workspace'),request.get('expectedVersion'))
+                        # The browser already owns this snapshot. Returning its
+                        # multi-megabyte trajectories delays the save acknowledgement.
+                        result={key:result[key] for key in ('version','savedAt')}
                     else:
                         document=request.get('document');tactics.check_source(document,clip,request.get('kind','workspace'))
                         tactics.run('validate',document=document)
@@ -730,7 +733,9 @@ def main():
 
         def log_message(self,message,*values):print(message%values,flush=True)
 
-    server=ThreadingHTTPServer(('127.0.0.1',args.port),Handler)
+    class Server(ThreadingHTTPServer):
+        request_queue_size = 128
+    server=Server(('127.0.0.1',args.port),Handler)
     state_path=Path(args.state_file);state_path.parent.mkdir(parents=True,exist_ok=True)
     state={'url':f'http://127.0.0.1:{server.server_port}/','pid':os.getpid(),'samples':len(samples),
            'video_sha256':clips[default]['digest'],'frames':clips[default]['frames']}
