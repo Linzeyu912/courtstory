@@ -19,7 +19,7 @@ import uuid
 from environment_file import environment_values
 
 from commentary_agent import ROOT as SCRIPT_ROOT, redact
-from commentary_tts import NATURAL_STYLE, STYLE, credentials as speech_credentials
+from commentary_tts import NATURAL_STYLE, STYLE, credentials as speech_credentials, voice_settings
 from commentary_plan import (build_name_snapshot, digest, finalize_plan, model_config,
                              plan_ref, source_ref, validate_handoff)
 
@@ -90,7 +90,8 @@ class CommentaryJobs:
         return {
             "model": model, "understandingConfigured": configured, "ttsConfigured": tts_configured,
             "understandingCredential": configured, "understandingProvider": "openrouter",
-            "understandingModel": model, "speechCredential": tts_configured, "speechProvider": "amazon-polly",
+            "understandingModel": model, "speechCredential": tts_configured, "speechProvider": "aliyun-qwen-audio",
+            "speechModel": voice_settings(self.env_file)["model"], "speechVoice": voice_settings(self.env_file)["speaker"],
         }
 
     @staticmethod
@@ -132,7 +133,7 @@ class CommentaryJobs:
         if request["action"] in ("understand", "polish") and not status["understandingConfigured"]:
             raise ValueError("commentary understanding credential is not configured")
         if request["action"] == "render" and not status["ttsConfigured"]:
-            raise ValueError("Amazon Polly AWS credential is not configured; check AWS_PROFILE or IAM role")
+            raise ValueError("阿里云 TTS 未配置；请设置北京地域 DASHSCOPE_API_KEY。")
         if request.get("voiceStyle", "classic") not in ("classic", "natural"):
             raise ValueError("unknown voice style")
         folder = self._dir(clip, variant, qa)

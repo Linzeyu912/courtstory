@@ -6,9 +6,7 @@ from pathlib import Path
 import tempfile
 from unittest.mock import patch, Mock
 
-from commentary_tts import synthesize, synthesize_plan, credentials, voice_settings, STYLE, NATURAL_STYLE, SAMPLE_RATE
-from botocore.response import StreamingBody
-from botocore.exceptions import ClientError
+from commentary_tts import synthesize, synthesize_plan, credentials, voice_settings, STYLE, NATURAL_STYLE, SAMPLE_RATE, SPEAKER, MODEL
 
 
 class TtsStreamTests(unittest.TestCase):
@@ -27,62 +25,64 @@ class TtsStreamTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'voice settings'):
                 synthesize_plan(plan, root / 'audio', root / '.env', style=NATURAL_STYLE)
 
-    def test_polly_request_escapes_text_and_reads_complete_pcm(self):
+    @patch('commentary_tts.requests.get')
+    @patch('commentary_tts.requests.post')
+    def test_aliyun_request_and_download_keep_key_off_audio_host(self, post, get):
         pcm = b'\x01\x00' * SAMPLE_RATE
-        raw = io.BytesIO(pcm)
-        stream = StreamingBody(raw, len(pcm))
-        client = Mock()
-        client.synthesize_speech.return_value = {'AudioStream': stream, 'RequestCharacters': 8}
-        actual, details = synthesize('传球 < 2 & 得分', client, 'Zhiyu', NATURAL_STYLE, 'neural')
+        data = io.BytesIO()
+        with wave.open(data, 'wb') as audio:
+            audio.setnchannels(1); audio.setsampwidth(2); audio.setframerate(SAMPLE_RATE); audio.writeframes(pcm)
+        response = post.return_value.__enter__.return_value
+        response.status_code = 200
+        response.json.return_value = {'output': {'finish_reason': 'stop', 'audio': {'url': 'http://result.oss-cn-beijing.aliyuncs.com/test.wav?signature=private'}}, 'usage': {'total_tokens': 12}}
+        download = get.return_value.__enter__.return_value
+        download.status_code = 200; download.content = data.getvalue()
+        actual, details = synthesize('传球 < 2 & 得分', {'apiKey':'private-key','endpoint':'https://dashscope.aliyuncs.com/api/v1/services/audio/tts/SpeechSynthesizer'}, SPEAKER, NATURAL_STYLE, MODEL)
         self.assertEqual(actual, pcm)
-        request = client.synthesize_speech.call_args.kwargs
-        self.assertEqual(request['SampleRate'], '16000')
-        self.assertEqual(request['Engine'], 'neural')
-        self.assertEqual(request['VoiceId'], 'Zhiyu')
-        self.assertIn('&lt; 2 &amp;', request['Text'])
-        self.assertIn('105%', request['Text'])
-        self.assertTrue(raw.closed)
-        self.assertEqual(details['usage']['requestCharacters'], 8)
+        request = post.call_args.kwargs
+        self.assertEqual(request['json']['model'], MODEL)
+        self.assertEqual(request['json']['input']['voice'], 'anmingyuan_v3.1')
+        self.assertEqual(request['json']['input']['text'], '传球 < 2 & 得分')
+        self.assertIn('instruction', request['json']['input'])
+        self.assertNotIn('headers', get.call_args.kwargs)
+        self.assertTrue(get.call_args.args[0].startswith('https://'))
+        self.assertEqual(details['usage']['total_tokens'], 12)
+        # The real service uses FFmpeg's streaming placeholder for WAV lengths.
+        streaming = bytearray(data.getvalue())
+        streaming[4:8] = (0x7fffffff).to_bytes(4, 'little')
+        streaming[40:44] = (0x7ffffffe).to_bytes(4, 'little')
+        download.content = bytes(streaming)
+        self.assertEqual(synthesize('投篮', {'apiKey':'private-key','endpoint':'https://dashscope.aliyuncs.com/test'}, SPEAKER, STYLE, MODEL)[0], pcm)
+        download.content = data.getvalue()[:-2]
+        with self.assertRaisesRegex(ValueError, 'incomplete audio'):
+            synthesize('投篮', {'apiKey':'private-key','endpoint':'https://dashscope.aliyuncs.com/test'}, SPEAKER, STYLE, MODEL)
+        download.content = b'not a WAV'
+        with self.assertRaisesRegex(RuntimeError, 'audio failure'):
+            synthesize('投篮', {'apiKey':'private-key','endpoint':'https://dashscope.aliyuncs.com/test'}, SPEAKER, STYLE, MODEL)
 
-    def test_incomplete_stream_and_invalid_pcm_are_rejected(self):
-        for pcm, declared in ((b'\0\0', 10), (b'', 0), (b'\0', 1)):
-            with self.subTest(pcm=pcm):
-                client = Mock()
-                raw = io.BytesIO(pcm)
-                stream = StreamingBody(raw, declared)
-                client.synthesize_speech.return_value = {'AudioStream': stream}
-                with self.assertRaises((ValueError, RuntimeError)):
-                    synthesize('投篮', client, 'Zhiyu', STYLE, 'neural')
-                self.assertTrue(raw.closed)
+    @patch('commentary_tts.requests.post')
+    def test_api_failure_does_not_expose_key_or_response_message(self, post):
+        response = post.return_value.__enter__.return_value
+        response.status_code = 403
+        response.json.return_value = {'code':'AccessDenied','message':'private-key'}
+        with self.assertRaisesRegex(RuntimeError, 'AccessDenied') as error:
+            synthesize('投篮', {'apiKey':'private-key','endpoint':'https://dashscope.aliyuncs.com/test'}, SPEAKER, STYLE, MODEL)
+        self.assertNotIn('private-key', str(error.exception))
 
-    def test_aws_failure_reports_code_without_secret_message(self):
-        client = Mock()
-        client.synthesize_speech.side_effect = ClientError(
-            {'Error': {'Code': 'AccessDeniedException', 'Message': 'private-token'}}, 'SynthesizeSpeech')
-        with self.assertRaisesRegex(RuntimeError, 'AccessDeniedException') as error:
-            synthesize('投篮', client, 'Zhiyu', STYLE, 'neural')
-        self.assertNotIn('private-token', str(error.exception))
+    @patch('commentary_tts.environment', return_value={'QWEN_API_KEY':'existing-key','SFM_WORKSPACE_ID':'7670306'})
+    def test_credentials_support_workspace_and_existing_key(self, env):
+        result = credentials('unused')
+        self.assertEqual(result['apiKey'], 'existing-key')
+        self.assertIn('7670306.cn-beijing.maas.aliyuncs.com', result['endpoint'])
+        env.return_value = {'DASHSCOPE_API_KEY':'tts-key'}
+        self.assertEqual(credentials('unused')['endpoint'], 'https://dashscope.aliyuncs.com/api/v1/services/audio/tts/SpeechSynthesizer')
+        env.return_value = {}
+        with self.assertRaisesRegex(ValueError, 'DASHSCOPE_API_KEY'): credentials('unused')
 
-    @patch('commentary_tts.environment', return_value={'AWS_PROFILE': 'team', 'AWS_REGION': 'us-east-1'})
-    @patch('boto3.Session')
-    def test_credentials_use_profile_and_resolve_sso(self, session, env):
-        client = credentials('unused.env')
-        self.assertEqual(session.call_args.kwargs['profile_name'], 'team')
-        session.return_value.get_credentials.return_value.get_frozen_credentials.assert_called_once()
-        self.assertEqual(client, session.return_value.client.return_value)
-
-    @patch('commentary_tts.environment', return_value={})
-    @patch('boto3.Session')
-    def test_missing_aws_credentials_is_actionable(self, session, env):
-        session.return_value.get_credentials.return_value = None
-        with self.assertRaisesRegex(ValueError, 'Missing AWS credentials'):
-            credentials('unused.env')
-
-    @patch('commentary_tts.environment', return_value={'POLLY_ENGINE': 'standard', 'POLLY_VOICE_ID': 'Joanna'})
+    @patch('commentary_tts.environment', return_value={'QWEN_TTS_VOICE':'longsanshu_v3.1','QWEN_TTS_MODEL':MODEL})
     def test_voice_configuration_and_explicit_override(self, env):
-        self.assertEqual(voice_settings('unused')['speaker'], 'Joanna')
-        settings = voice_settings('unused', 'Zhiyu', 'neural')
-        self.assertEqual((settings['speaker'], settings['engine']), ('Zhiyu', 'neural'))
+        self.assertEqual(voice_settings('unused')['speaker'], 'longsanshu_v3.1')
+        self.assertEqual(voice_settings('unused', SPEAKER)['speaker'], SPEAKER)
 
 
 class TtsCacheTests(unittest.TestCase):
@@ -129,26 +129,26 @@ class TtsCacheTests(unittest.TestCase):
         self.assertEqual(self.calls,['句子甲。','句子乙。','句子甲。'])
         self.assertEqual(result['cues'][0]['durationSeconds'],.1)
 
-    def test_manifest_contains_polly_and_actual_wav_duration(self):
+    def test_manifest_contains_aliyun_and_actual_wav_duration(self):
         result = self.run_plan('polly')
-        self.assertEqual(result['config']['provider'], 'amazon-polly')
+        self.assertEqual(result['config']['provider'], 'aliyun-qwen-audio')
         row = result['cues'][0]
         with wave.open(str(self.root/'polly'/row['path']), 'rb') as audio:
             self.assertEqual(audio.getframerate(), 16000)
             self.assertEqual(row['durationSeconds'], audio.getnframes()/audio.getframerate())
 
-    def test_old_provider_audio_is_not_resumed_as_polly(self):
+    def test_old_provider_audio_is_not_resumed_as_aliyun(self):
         self.run_plan('old')
         path = self.root/'old/audio-manifest.json'
         saved = json.loads(path.read_text(encoding='utf-8'))
-        saved['config']['provider'] = 'volcengine'
+        saved['config']['provider'] = 'amazon-polly'
         path.write_text(json.dumps(saved))
         with self.assertRaisesRegex(ValueError, 'voice settings'):
             self.run_plan('old')
 
-    def test_engine_change_creates_new_cache(self):
+    def test_voice_change_creates_new_cache(self):
         first = self.run_plan('neural')
-        with patch.dict('os.environ', {'POLLY_ENGINE': 'standard'}):
+        with patch.dict('os.environ', {'QWEN_TTS_VOICE': 'longsanshu_v3.1'}):
             second = self.run_plan('standard')
         self.assertNotEqual(first['cues'][0]['cacheKey'], second['cues'][0]['cacheKey'])
         self.assertEqual(len(self.calls), 4)

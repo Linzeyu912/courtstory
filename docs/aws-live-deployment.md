@@ -2,7 +2,7 @@
 
 部署沿用 EC2 + AgentCore + CloudFront，GPU 使用现有 SageMaker `ml.g5.2xlarge`（NVIDIA A10G）。EC2 的 G/VT 按需配额为 0，因此通过私有 S3 任务目录调用 SageMaker；视频检测、跟踪和 48 点场地模型均在 GPU worker 中执行。手工制作仍在工作台本地运行。
 
-所有在用语言与视觉模型统一通过 OpenRouter；AgentCore 战术分析与旧身份/球队识别适配器也使用 OpenRouter。旧 Qwen 地面轨迹和实测回放已移除工作台入口，其历史文件保留供归档查阅。中文配音使用 Amazon Polly `Zhiyu` / `neural`，EC2 通过实例角色取得权限。
+所有在用语言与视觉模型统一通过 OpenRouter；AgentCore 战术分析与旧身份/球队识别适配器也使用 OpenRouter。旧 Qwen 地面轨迹和实测回放已移除工作台入口，其历史文件保留供归档查阅。中文配音使用阿里云 `qwen-audio-3.1-tts-flash`，默认男声 `anmingyuan_v3.1`。TTS 不再调用 Amazon Polly。
 
 ## 私有部署记录
 
@@ -63,3 +63,11 @@ CloudFront HTTPS 登录、8 个前端静态资源、两个官方样例列表与�
 此次发布保留了原运行数据。服务器发布前备份位于 `/opt/hks/backups/flow-repair-20261010/`，实际流程验证文件位于 `/opt/hks/current/artifacts/flow-repair/`；公网模块和保存重试的检查结果在本地私有部署目录的 `flow-network-validation.json` 与 `flow-save-validation.json`。完整流程是否通过以 `artifacts/flow-repair/validation.json` 和最终视频为准。
 
 实际流程已完成一次联合成片：官方训练 001 的已保存解说包含 6 段，6 个绘图节点完成后采纳候选，使用 18 个图形输出 1920×1080、42.77 秒的 H.264 / AAC MP4（56,060,333 字节）。验证使用该解说原有身份快照的独立文档，没有覆盖用户后来修改的工作区身份。该结果证明这条样例链路能完成；绘图候选仍有未定位对象等缺口，不等于所有动作识别质量已人工验收。
+
+## 阿里云男声配音
+
+TTS 使用北京地域百炼 API，服务端配置 `DASHSCOPE_API_KEY`（兼容已有 `QWEN_API_KEY`）。默认模型为 `qwen-audio-3.1-tts-flash`，默认男声为 `anmingyuan_v3.1`；可分别通过 `QWEN_TTS_MODEL`、`QWEN_TTS_VOICE` 覆盖。
+
+未设置 Workspace ID 时使用 `dashscope.aliyuncs.com`。仅在专属端点已验证可用后配置 `SFM_WORKSPACE_ID` 或 `DASHSCOPE_WORKSPACE_ID`。密钥保存在 `/etc/hks/product.env` 和私有 S3 环境配置中，不进入发布 ZIP。
+
+接入依据：[阿里云 HTTP API](https://help.aliyun.com/en/model-studio/qwen-audio-tts-http-api)和[音色列表](https://help.aliyun.com/en/model-studio/qwen-audio-tts-voice-list)。返回音频转换为现有成片流程所需的单声道 16 kHz WAV，并以实际 PCM 长度修正流式 WAV 文件头。缓存键包含服务商、模型、音色与风格，旧 Polly 配音不会被新任务复用。上文 Polly 验证记录属于迁移前的历史结果。

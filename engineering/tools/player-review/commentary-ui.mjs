@@ -83,8 +83,8 @@ export function mountCommentaryUI(api) {
   const undo = make('button', { text: '撤回本次润色', hidden: true }, actions);
   const save = make('button', { text: '保存解说稿' }, actions);
   const voiceStyle = make('select', { 'aria-label': '配音口吻' }, actions);
-  make('option', { value: 'natural', text: '配音：自然有趣' }, voiceStyle);
-  make('option', { value: 'classic', text: '配音：原专业口吻' }, voiceStyle);
+  make('option', { value: 'natural', text: '男声配音：自然有趣' }, voiceStyle);
+  make('option', { value: 'classic', text: '男声配音：专业解说' }, voiceStyle);
   const render = make('button', { className: 'primary', text: '配音并生成联合视频' }, actions);
   const upgrade = make('button', { text: '重新分析并补齐关键节点', hidden: true }, actions);
   const cancel = make('button', { text: '取消当前解说任务', hidden: true }, actions);
