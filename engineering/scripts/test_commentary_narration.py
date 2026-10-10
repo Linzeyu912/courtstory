@@ -18,6 +18,15 @@ from commentary_fonts import resolve_font
 
 
 class CommentaryNarrationTimelineTests(unittest.TestCase):
+    def test_old_plan_endpoint_rounding_does_not_extend_the_source(self):
+        cue={'cueId':'a','suggestedStartTime':0.,'suggestedEndTime':1.+1/90000,'delivery':'during_play'}
+        audio=[{'cueId':'a','durationSeconds':.5}]
+        segments,_=build_timeline(1.,[cue],audio,[0.,.5])
+        self.assertEqual(segments[-1]['sourceEnd'],1.)
+        cue['suggestedEndTime']=1.001
+        with self.assertRaisesRegex(ValueError,'invalid source window'):
+            build_timeline(1.,[cue],audio,[0.,.5])
+
     def test_automatic_font_selection_on_linux_and_windows(self):
         for available in ('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc', 'C:/Windows/Fonts/msyh.ttc'):
             with self.subTest(available=available), patch.object(Path, 'is_file', autospec=True, side_effect=lambda p: p.as_posix() == available):

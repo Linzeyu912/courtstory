@@ -43,6 +43,14 @@ class JointCompositionTests(unittest.TestCase):
         self.assertGreaterEqual(holds[0]['previewEnd'],b['previewEnd']+.25)
         self.assertEqual(result['totalFrames'],len(result['frames']))
 
+    def test_old_plan_endpoint_rounding_is_clamped_but_real_overrun_is_rejected(self):
+        d,p,a,c,n=self.fixture()
+        p['cues'][0]['suggestedEndTime']=c['duration']+1/90000
+        self.build(d,p,a,c,n)
+        self.assertGreater(p['cues'][0]['suggestedEndTime'],c['duration'])
+        p['cues'][0]['suggestedEndTime']=c['duration']+.001
+        with self.assertRaisesRegex(ValueError,'source window'):self.build(d,p,a,c,n)
+
     def test_asset_pts_review_time_and_parent_offsets_are_separate_and_vfr_uses_pts(self):
         result=self.build(*self.fixture())
         frame=next(f for f in result['frames'] if f['state']=='hold')
