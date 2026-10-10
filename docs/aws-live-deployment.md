@@ -73,3 +73,9 @@ TTS 使用北京地域百炼 API，服务端配置 `DASHSCOPE_API_KEY`（兼容�
 未设置 Workspace ID 时使用 `dashscope.aliyuncs.com`。仅在专属端点已验证可用后配置 `SFM_WORKSPACE_ID` 或 `DASHSCOPE_WORKSPACE_ID`。密钥保存在 `/etc/hks/product.env` 和私有 S3 环境配置中，不进入发布 ZIP。
 
 接入依据：[阿里云 HTTP API](https://help.aliyun.com/en/model-studio/qwen-audio-tts-http-api)和[音色列表](https://help.aliyun.com/en/model-studio/qwen-audio-tts-voice-list)。返回音频转换为现有成片流程所需的单声道 16 kHz WAV，并以实际 PCM 长度修正流式 WAV 文件头。缓存键包含服务商、模型、音色与风格，旧 Polly 配音不会被新任务复用。上文 Polly 验证记录属于迁移前的历史结果。
+
+## 固定展示成片
+
+“成片”页顶部固定展示 `deliverables/single.mp4`，字幕使用 `deliverables/single.srt`，由 `/team25-final.mp4` 和 `/team25-final.srt` 提供。该展示不依赖当前样本、浏览器草稿或解说任务记录，访客无需导入、识别或生成。当前样本自己的制作与导出仍在下方。
+
+部署时须同时发布上述两个交付文件、`engineering/tools/player-review/index.html` 和 `engineering/scripts/serve_player_review.py`，并重启 `hks-workbench` 以注册媒体路径。S3 发布包需保留同样内容，恢复或再次部署后即可继续展示。
