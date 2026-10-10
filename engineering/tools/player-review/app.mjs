@@ -28,7 +28,7 @@ import {migrateLegacyTacticsDrafts} from './tactics-storage.mjs';
 import {createIdentityAgentClient} from './identity-agent-client.mjs';
 import {createIdentityReference,saveReferenceToSession,applyIdentityCandidates} from './identity-continuation.mjs';
 import {applyInitialIdentityReview} from './identity-initial-review.mjs';
-import {identityPersonSelection,identityQuickRange,excludeIdentityPersonRange,initialIdentityReviewView,issueReviewFrame} from './identity-review-workflow.mjs';
+import {identityPersonSelection,identityQuickRange,assignIdentityTrackOccurrences,excludeIdentityPersonRange,initialIdentityReviewView,issueReviewFrame} from './identity-review-workflow.mjs';
 await migrateLegacyTacticsDrafts().catch(()=>{});
 const appDocument=document;
 const $=id=>appDocument.getElementById(id);
@@ -109,7 +109,7 @@ $('sampleSource').href=sampleInfo?.sourceUrl||'#';$('sampleSource').hidden=!samp
 mountVideoLibrary({sample,variant,clip,modelChoices:library.modelChoices,localVideo:!!clip.importSourceSha256,presets:library.processingPresets||[],beforeNavigate:()=>saveDraft()});
 let drag=null,suppressClick=false;
 const identityUI=mountIdentityUI({select:id=>{cancelIdentityQuickEdit(false);active=id;previewTrackId=null;refresh();},setField:(name,value)=>change(()=>entity()[name]=value|| (name==='name'?entityLabel(active):'')),prepareEdit:prepareGeometryEdit,setMode,setAssociationScope:value=>{if(['track_occurrences','forward'].includes(value)){associationScope=value;pauseVideo();draw();}},preview:proposal=>{previewTrackId=proposal?.trackId??null;draw();},associate:associateProposal,confirmCurrent:confirmCurrentFrame,associateCurrent:()=>{const point=trajectories[active]?.[frame];const proposal=proposals().find(item=>item.trackId===point?.trackId);if(proposal)return associateProposal({...proposal,preservePosition:true});},edit:commitImageEdit,seek,
-beginIdentityQuickEdit,setIdentityQuickTarget,setIdentityQuickRange,applyIdentityQuickEdit,applyMissingSingleFrame,cancelIdentityQuickEdit,openIdentityRange,openIdentityReference,reviewIdentityIssue,seekMissingEndpoint:()=>seek(quickIdentity.range.end),
+beginIdentityQuickEdit,setIdentityQuickTarget,setIdentityQuickRange,setIdentityQuickEndpoint,setIdentityQuickPreset,applyIdentityQuickEdit,applyMissingSingleFrame,cancelIdentityQuickEdit,openIdentityRange,openIdentityReference,reviewIdentityIssue,seekMissingEndpoint:()=>seek(quickIdentity.range.end),
 focusIdentityManual:()=>document.querySelector('.identity-quick-controls')?.scrollIntoView({block:'nearest'}),
 adoptInitialReview:()=>adoptInitialReview(false),retryInitialReview:async()=>{initialAutoApply=true;initialApplyError='';try{await identityAgent.retryInitialReview();}catch(error){initialApplyError=error.message;draw();}},cancelInitialReview:()=>{initialAutoApply=false;return identityAgent.cancelInitialReview();},
 setRange,setRangeTime:(field,seconds)=>{if(Number.isFinite(seconds))setRange(field,frameAtMediaTime(clip.frames,seconds,rangeEdit[field]));},captureRange,previewRange,applyRange,cancelRange,
@@ -180,7 +180,7 @@ function quickIdentityState(){
   const trackId=quickIdentity.action?quickIdentity.trackId:previewTrackId??trajectories[active]?.[frame]?.trackId??null;
   const selection=identityPersonSelection(trajectories,frame,trackId);
   return {...quickIdentity,targetId:quickIdentity.action?quickIdentity.targetId:selection.entityId||active,trackId,ownerId:selection.entityId,preview:quickIdentity.pending?.preview||null,
-    range:quickIdentity.range||identityQuickRange({session,clip,frame,trackId})};
+    range:quickIdentity.range||identityQuickRange({session,clip,frame,trackId,entityId:active})};
 }
 function cancelIdentityQuickEdit(redraw=true){
   quickIdentity={action:null,trackId:null,targetId:active,range:null,pending:null,revision:null,error:''};
@@ -189,17 +189,19 @@ function cancelIdentityQuickEdit(redraw=true){
 function previewIdentityQuickEdit(){
   if(quickIdentity.action==='missing')return;
   quickIdentity.pending=null;quickIdentity.error='';
+  if(quickIdentity.revision!==sessionRevision){quickIdentity.error='草稿已有新修改，请重新选择这段后应用。';return;}
   if(!quickIdentity.range||!Number.isInteger(quickIdentity.trackId)||quickIdentity.action==='missing')return;
   try{
-    const input={...quickIdentity.range,trackId:quickIdentity.trackId,entityId:quickIdentity.targetId};
-    quickIdentity.pending=quickIdentity.action==='exclude'?excludeIdentityPersonRange(session,input,clip):replaceIdentityRange(session,input,clip.frames,sourceCuts,clip);
-    quickIdentity.revision=sessionRevision;
+    const input={...quickIdentity.range,trackId:quickIdentity.trackId,entityId:quickIdentity.targetId,selectionFrame:quickIdentity.selectionFrame};
+    quickIdentity.pending=quickIdentity.action==='exclude'?excludeIdentityPersonRange(session,input,clip):quickIdentity.scope==='track_occurrences'?
+      assignIdentityTrackOccurrences(session,input,clip):replaceIdentityRange(session,input,clip.frames,sourceCuts,clip);
   }catch(error){quickIdentity.error=error.message;}
 }
 function beginIdentityQuickEdit(action){
   if(reviewBusy)return;pauseVideo();clearRangePreview();
   const trackId=previewTrackId??trajectories[active]?.[frame]?.trackId??null;
-  quickIdentity={action,trackId,targetId:action==='missing'?active:identityPersonSelection(trajectories,frame,trackId).entityId||active,range:identityQuickRange({session,clip,frame,trackId:action==='missing'?null:trackId}),pending:null,revision:sessionRevision,error:''};
+  const targetId=action==='missing'?active:identityPersonSelection(trajectories,frame,trackId).entityId||active;
+  quickIdentity={action,trackId,targetId,selectionFrame:frame,preset:'continuous',scope:'range',range:identityQuickRange({session,clip,frame,trackId:action==='missing'?null:trackId,entityId:targetId}),pending:null,revision:sessionRevision,error:''};
   mode=action==='missing'?'point':'select';$('showCandidates').checked=true;
   if(action==='missing'){
     quickIdentity.trackId=null;quickIdentity.missingKeys=[];
@@ -213,25 +215,49 @@ function setIdentityQuickTarget(id){
   if(!quickIdentity.action)beginIdentityQuickEdit('replace');
   quickIdentity.targetId=id;
   if(quickIdentity.action==='missing'){active=id;beginIdentityQuickEdit('missing');refresh();return;}
+  if(quickIdentity.preset==='continuous')quickIdentity.range=identityQuickRange({session,clip,frame:quickIdentity.rangeFrame??quickIdentity.selectionFrame,trackId:quickIdentity.trackId,entityId:id});
+  previewIdentityQuickEdit();draw();
+}
+function setIdentityQuickPreset(preset){
+  if(reviewBusy||!['continuous','forward','all'].includes(preset)||quickIdentity.action==='missing')return;
+  if(!quickIdentity.action)beginIdentityQuickEdit('replace');
+  if(preset==='continuous'){
+    quickIdentity.scope='range';quickIdentity.rangeFrame=frame;
+    quickIdentity.range=identityQuickRange({session,clip,frame,trackId:quickIdentity.trackId,entityId:quickIdentity.targetId});
+  }else{
+    quickIdentity.scope='track_occurrences';
+    quickIdentity.range={start:preset==='all'?0:frame,end:clip.frames.length-1,
+      reason:preset==='all'?'整个 T 编号的全部实际出现帧（含之前）；保留人工纠错，不补缺帧':'从当前帧往后该 T 的实际出现帧；保留人工纠错，不补缺帧'};
+  }
+  quickIdentity.preset=preset;previewIdentityQuickEdit();draw();
+}
+function setIdentityQuickEndpoint(field){
+  if(reviewBusy||!['start','end'].includes(field)||quickIdentity.action==='missing')return;
+  if(!identityReferenceFrameReady()){toast('画面正在定位，请等画面加载完成再设置范围。');return;}
+  if(!quickIdentity.action)beginIdentityQuickEdit('replace');
+  const range={...quickIdentity.range,[field]:frame};
+  if(range.start>range.end)range[field==='start'?'end':'start']=frame;
+  quickIdentity.preset='custom';quickIdentity.range={...range,reason:quickIdentity.scope==='track_occurrences'?'人工选段，仅归并此范围内该 T 的实际出现帧；保留人工纠错，不补缺帧':'人工选段；仅应用上面的范围。'};
   previewIdentityQuickEdit();draw();
 }
 function setIdentityQuickRange(field,seconds){
-  if(reviewBusy||!['start','end'].includes(field)||!Number.isFinite(seconds))return;
+  if(reviewBusy||!['start','end'].includes(field))return;
   if(!quickIdentity.action)beginIdentityQuickEdit('replace');
+  if(!Number.isFinite(seconds)||seconds<0||seconds>clip.frames.at(-1).time){quickIdentity.pending=null;quickIdentity.error='请输入视频范围内的有效时间，或用当前帧设置端点。';draw();return;}
   const range={...quickIdentity.range,[field]:frameAtMediaTime(clip.frames,seconds,quickIdentity.range[field])};
-  if(range.start>range.end){quickIdentity.error='起点不能晚于终点。';draw();return;}
-  quickIdentity.range={...range,reason:'人工调整的时间段；仅应用上面的范围。'};previewIdentityQuickEdit();draw();
+  if(range.start>range.end){quickIdentity.pending=null;quickIdentity.error='起点不能晚于终点。';draw();return;}
+  quickIdentity.preset='custom';quickIdentity.range={...range,reason:quickIdentity.scope==='track_occurrences'?'人工选段，仅归并此范围内该 T 的实际出现帧；保留人工纠错，不补缺帧':'人工调整的时间段；仅应用上面的范围。'};previewIdentityQuickEdit();draw();
 }
 function applyIdentityQuickEdit(){
   if(reviewBusy)return;
   if(!identityReferenceFrameReady()){toast('画面正在定位，请等画面加载完成再关联。');return;}
   if(!quickIdentity.action)beginIdentityQuickEdit('replace');
-  if(!quickIdentity.pending)return;
+  if(!quickIdentity.pending||quickIdentity.error)return;
   if(quickIdentity.revision!==sessionRevision){quickIdentity.error='草稿已有新修改，请重新选择这段后应用。';quickIdentity.pending=null;draw();return;}
-  const {session:next,preview}=quickIdentity.pending,action=quickIdentity.action,targetId=quickIdentity.targetId;
+  const {session:next,preview}=quickIdentity.pending,action=quickIdentity.action,targetId=quickIdentity.targetId,scope=quickIdentity.scope;
   cancelIdentityQuickEdit(false);if(action!=='exclude')active=targetId;
   change(()=>session=next);previewTrackId=null;draw();
-  toast(action==='missing'?`已补入 ${preview.changed} 帧位置，其中 ${preview.estimated} 帧为估计；可一次撤销。`:action==='exclude'?`已排除这人第 ${preview.start+1}–${preview.end+1} 帧的球员关联，可一次撤销。`:`已将这段 ${preview.changed} 帧对应到 ${entityLabel(targetId)}，仍为待核对，可一次撤销。`);
+  toast(action==='missing'?`已补入 ${preview.changed} 帧位置，其中 ${preview.estimated} 帧为估计；可一次撤销。`:action==='exclude'?`已排除这人第 ${preview.start+1}–${preview.end+1} 帧的球员关联，可一次撤销。`:scope==='track_occurrences'?`已关联 ${preview.changed} 个实际观测帧到 ${entityLabel(targetId)}；保留 ${preview.preservedHuman} 帧人工记录，${preview.conflicts} 帧冲突待处理。关联已生效，未核对标记保留，可一次撤销。`:`已将这段 ${preview.changed} 帧对应到 ${entityLabel(targetId)}，仍为待核对，可一次撤销。`);
 }
 function captureMissingPlayerPoint(x,y){
   if(quickIdentity.revision!==sessionRevision){quickIdentity.pending=null;quickIdentity.error='草稿已有新修改，请重新点击“补漏人”。';draw();return;}
@@ -269,7 +295,9 @@ function selectIdentityPerson(hit){
   if(reviewBusy||!hit)return;
   if(rangeEdit.capture==='identity'){void associateProposal(hit);return;}
   if(quickIdentity.action&&quickIdentity.action!=='missing'){
-    quickIdentity.trackId=hit.trackId;quickIdentity.range=identityQuickRange({session,clip,frame,trackId:hit.trackId});
+    if(quickIdentity.trackId===hit.trackId&&quickIdentity.revision===sessionRevision)return;
+    quickIdentity.trackId=hit.trackId;quickIdentity.selectionFrame=frame;quickIdentity.rangeFrame=frame;quickIdentity.preset='continuous';quickIdentity.scope='range';quickIdentity.revision=sessionRevision;
+    quickIdentity.range=identityQuickRange({session,clip,frame,trackId:hit.trackId,entityId:quickIdentity.targetId});
     previewTrackId=hit.trackId;previewIdentityQuickEdit();draw();return;
   }
   const selection=identityPersonSelection(trajectories,frame,hit.trackId);
@@ -430,8 +458,8 @@ async function reviewEdit(operation){
   finally{reviewBusy=false;draw();}
 }
 function pauseVideo(){if(videoDisplay)videoDisplay.pause();else video.pause();}
-function seek(index,{tactics=false}={}){const next=Math.max(0,Math.min(clip.frames.length-1,index));if(next!==frame){if(quickIdentity.action!=='missing')cancelIdentityQuickEdit(false);previewTrackId=null;drag=null;if(typeof rangeEdit.capture==='number'){rangeEdit.capture=null;rangeEdit.captureFrame=null;rangeEdit.error='画面已切换，请重新选择调整关键帧。';}}frame=next;const time=frameSeekTime(clip.frames,frame);tacticsSeekTime=tactics?time:null;if(!tactics)tacticsUI?.externalSeek?.(frame);if(videoDisplay)videoDisplay.seek(time);else{video.pause();video.currentTime=time;}draw();}
-function updateFrame(mediaTime){if(videoDisplay&&$('stage').dataset.videoState!=='ready')return;const next=frameAtMediaTime(clip.frames,Number.isFinite(mediaTime)?mediaTime:video.currentTime,frame);if(next!==frame){if(quickIdentity.action!=='missing')cancelIdentityQuickEdit(false);previewTrackId=null;}frame=next;draw();}
+function seek(index,{tactics=false}={}){const next=Math.max(0,Math.min(clip.frames.length-1,index));if(next!==frame){if(!quickIdentity.action)previewTrackId=null;drag=null;if(typeof rangeEdit.capture==='number'){rangeEdit.capture=null;rangeEdit.captureFrame=null;rangeEdit.error='画面已切换，请重新选择调整关键帧。';}}frame=next;const time=frameSeekTime(clip.frames,frame);tacticsSeekTime=tactics?time:null;if(!tactics)tacticsUI?.externalSeek?.(frame);if(videoDisplay)videoDisplay.seek(time);else{video.pause();video.currentTime=time;}draw();}
+function updateFrame(mediaTime){if(videoDisplay&&$('stage').dataset.videoState!=='ready')return;const next=frameAtMediaTime(clip.frames,Number.isFinite(mediaTime)?mediaTime:video.currentTime,frame);if(next!==frame){if(!quickIdentity.action)previewTrackId=null;}frame=next;draw();}
 function proposals(){return trackedPersonProposals(clip.frames[frame],clip.track_roles,clip.detectorEvidence);}
 function drawBox(box,stroke,label,dashed=false,labelSize=20){const[x1,y1,x2,y2]=box;ctx.strokeStyle=stroke;ctx.lineWidth=3;ctx.setLineDash(dashed?[10,7]:[]);ctx.strokeRect(x1,y1,x2-x1,y2-y1);ctx.setLineDash([]);if(label){ctx.font=`bold ${labelSize}px sans-serif`;const w=ctx.measureText(label).width+14;ctx.fillStyle=stroke;ctx.fillRect(x1,Math.max(0,y1-labelSize-8),w,labelSize+7);ctx.fillStyle='#102133';ctx.fillText(label,x1+7,Math.max(labelSize+1,y1-7));}}
 function drawTrail(points,stroke,selected=false){
