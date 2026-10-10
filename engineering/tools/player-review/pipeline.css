@@ -599,7 +599,7 @@ body[data-step="calibration"].workbench-shell #stage #videoFrame { inset: 20%; w
 .future-panel button { margin-top: 16px; }
 .future-panel .eyebrow { color: #8a9aab; }
 .future-badge { padding: 4px 9px; border: 1px solid #d8e3ed; border-radius: 4px; background: #eff4f9; color: #6b86a0; font-size: 11px; }
-.workbench-shell #toast { z-index: 100; bottom: 20px; padding: 10px 16px; border-radius: 6px; box-shadow: 0 5px 20px #14263c25; }
+.workbench-shell #toast { z-index: 100; top: 20px; bottom: auto; padding: 10px 16px; border-radius: 6px; box-shadow: 0 5px 20px #14263c25; }
 .workbench-shell [hidden] { display: none !important; }
 
 @media (max-width: 1100px) {

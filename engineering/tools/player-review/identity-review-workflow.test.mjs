@@ -48,7 +48,7 @@ test('other players single-frame confirmations do not fragment a continuous T bu
   assert.deepEqual(bounds(identityQuickRange({session,clip,frame:3,trackId:1,entityId:'P1'})),[0,4]);
 });
 
-test('occurrence preview retains manual evidence, gaps and cuts without marking a whole T manually checked',()=>{
+test('explicit occurrence assignment replaces old choices while preserving same-person geometry, gaps and cuts',()=>{
   assert.equal(typeof identityWorkflow.assignIdentityTrackOccurrences,'function');
   const {session,clip}=fixture();clip.frames[4].tracks=clip.frames[4].tracks.filter(box=>box[4]!==1);clip.sourceCuts=[6];
   const player=session.entities[0];
@@ -58,40 +58,77 @@ test('occurrence preview retains manual evidence, gaps and cuts without marking 
   player.anchors=[{frame:3,x:127,y:180,trackId:1,identityConfirmed:false}];
   const before=structuredClone(session),result=identityWorkflow.assignIdentityTrackOccurrences(session,{entityId:'P1',trackId:1,start:0,end:8,selectionFrame:5},clip);
   assert.deepEqual(session,before,'preview never mutates the current draft');
-  assert.deepEqual(result.session.entities[0].frameConfirmations,before.entities[0].frameConfirmations);
+  assert.deepEqual(result.session.entities[0].frameConfirmations,[]);
   assert.deepEqual(result.session.entities[0].anchors,before.entities[0].anchors);
   assert.deepEqual(result.session.entities[0].bindings.slice(0,2),before.entities[0].bindings);
   const points=buildTrajectories(result.session,clip.frames,clip.sourceCuts,clip).P1;
-  assert.equal(points[1].trackId,2);assert.equal(points[7].x,null);assert.equal(points[4].x,null);
-  assert.equal(points[2].frameIdentityConfirmed,true);assert.equal(points[3].x,127);
+  assert.equal(points[1].trackId,1);assert.equal(points[7].trackId,1);assert.equal(points[4].x,null);
+  assert.equal(points[2].frameIdentityConfirmed,false);assert.equal(points[3].x,127);
   assert(points.filter(point=>point.frame!==2).every(point=>!point.frameIdentityConfirmed));
   const added=result.session.entities[0].bindings.slice(2);
-  assert(added.every(binding=>binding.scope==='track_occurrences'&&binding.exclusive===false&&binding.reviewRequired));
+  assert(added.every(binding=>binding.origin==='human_range_replacement'&&binding.exclusive===true&&binding.reviewRequired));
   assert(added.every(binding=>!(binding.start<6&&binding.end>=6)),'a cut separates occurrence segments');
-  assert(result.preview.preservedHuman>=3);
+  assert.equal(result.preview.changed,8);assert.equal(result.preview.conflicts,0);
 });
 
-test('occurrence assignment reports equal-priority ownership conflicts and preserves human not-player exclusions',()=>{
+test('explicit occurrence assignment resolves previous ownership and allows correcting a not-player exclusion',()=>{
   const {session,clip}=fixture();
   session.entities[2].modelBindings=[{kind:'track',trackId:1,start:0,end:8}];
   session.entities[0].bindings=[{kind:'track',trackId:1,start:0,end:8,scope:'track_occurrences',exclusive:false,order:1}];
   const result=identityWorkflow.assignIdentityTrackOccurrences(session,{entityId:'P3',trackId:1,start:0,end:8,selectionFrame:3},clip);
-  assert.equal(result.preview.conflicts,9);assert.equal(result.preview.preservedHuman,0);
-  assert(buildTrajectories(result.session,clip.frames).P3.every(point=>point.source==='conflict'));
+  assert.equal(result.preview.conflicts,0);assert.equal(result.preview.changed,9);
+  assert(buildTrajectories(result.session,clip.frames).P3.every(point=>point.trackId===1&&point.x!=null));
+  assert.equal(result.preview.affectedPlayers.P1,9);
   const excluded=excludeIdentityPersonRange(session,{entityId:'P1',trackId:1,start:3,end:5},clip);
   const next=identityWorkflow.assignIdentityTrackOccurrences(excluded.session,{entityId:'P3',trackId:1,start:0,end:8,selectionFrame:3},clip);
-  assert.equal(next.preview.preservedHuman,3);
-  assert(next.session.entities[2].bindings.every(binding=>binding.end<3||binding.start>5));
+  assert.equal(next.preview.changed,9);
+  assert(buildTrajectories(next.session,clip.frames).P3.every(point=>point.trackId===1&&point.x!=null));
 });
 
-test('occurrence assignment can fill absent forward-track observations while protecting its remaining real observations',()=>{
+test('explicit occurrence assignment supersedes previous forward selections',()=>{
   const {session,clip}=fixture();session.entities[0].modelBindings=[];
   confirmIdentity(session,'P1',0,{trackId:2,box:clip.frames[0].tracks[1].slice(0,4)},clip.frames);
   for(const at of [2,3])clip.frames[at].tracks=clip.frames[at].tracks.filter(box=>box[4]!==2);
   const result=identityWorkflow.assignIdentityTrackOccurrences(session,{entityId:'P1',trackId:1,start:0,end:8,selectionFrame:3},clip);
   const points=buildTrajectories(result.session,clip.frames).P1;
-  assert.equal(points[2].trackId,1);assert.equal(points[3].trackId,1);assert.equal(points[4].trackId,2);
-  assert.equal(points[0].frameIdentityConfirmed,true);
+  assert.equal(points[2].trackId,1);assert.equal(points[3].trackId,1);assert.equal(points[4].trackId,1);
+  assert.equal(points[0].frameIdentityConfirmed,false);
+});
+
+test('T86 reassignment to P5 clears competing bulk conflicts only on observed frames and survives reload',()=>{
+  const {session,clip}=fixture();
+  for(const frame of clip.frames)frame.tracks[0][4]=86;
+  clip.frames[4].tracks=clip.frames[4].tracks.filter(box=>box[4]!==86);
+  session.entities[0].modelBindings=[];
+  session.entities[0].bindings=[86,2].map(trackId=>({kind:'track',trackId,start:0,end:8,scope:'track_occurrences',exclusive:false,order:1}));
+  const target=session.entities[4];
+  target.visibilityRanges=[{start:0,end:8,state:'out_of_view'}];
+  target.anchors=[{frame:3,x:999,y:999,trackId:2,identityConfirmed:false}];
+  const before=structuredClone(session);
+  assert.equal(buildTrajectories(session,clip.frames).P1[3].source,'conflict');
+  const result=identityWorkflow.assignIdentityTrackOccurrences(session,{entityId:'P5',trackId:86,start:2,end:6,selectionFrame:3},clip);
+  const restored=JSON.parse(JSON.stringify(result.session));
+  const points=buildTrajectories(restored,clip.frames);
+  assert.equal(result.preview.changed,4);assert.equal(result.preview.conflicts,0);
+  for(const at of [2,3,5,6]){
+    assert.equal(points.P5[at].trackId,86);assert.notEqual(points.P5[at].x,null);
+    assert.equal(points.P5[at].frameIdentityConfirmed,false);
+    assert.notEqual(points.P1[at].source,'conflict');
+  }
+  assert.equal(points.P5[4].source,'out_of_view');
+  assert.equal(points.P5[1].source,'out_of_view');assert.equal(points.P5[7].source,'out_of_view');
+  assert.equal(points.P1[1].source,'conflict');assert.equal(points.P1[7].source,'conflict');
+  assert.deepEqual(session,before);
+});
+
+test('latest occurrence assignment takes a T from an explicit human owner within the chosen interval',()=>{
+  const {session,clip}=fixture();
+  confirmIdentity(session,'P1',0,{trackId:1,box:clip.frames[0].tracks[0].slice(0,4)},clip.frames);
+  const result=identityWorkflow.assignIdentityTrackOccurrences(session,{entityId:'P5',trackId:1,start:2,end:5,selectionFrame:3},clip);
+  const points=buildTrajectories(result.session,clip.frames);
+  assert(points.P5.slice(2,6).every(point=>point.trackId===1&&point.x!=null));
+  assert(points.P1.slice(2,6).every(point=>point.x==null&&point.claimedBy==='P5'));
+  assert.equal(points.P1[1].trackId,1);assert.equal(points.P1[6].trackId,1);
 });
 
 test('same T cannot extend a correction through a large jump, area jump, duplicate observation or ambiguous role',()=>{

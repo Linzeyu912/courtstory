@@ -59,7 +59,7 @@ export function IdentityQuickControls({state,api}){
       <p className="small muted">{range.reason||'仅应用上面的时间段。'} · 可撤销</p>
       {quick.error&&<p className="identity-agent-error" role="alert">{quick.error}</p>}
       {preview&&Object.keys(preview.affectedPlayers||{}).length>0&&<p className="identity-quick-preview" role="status">{Object.entries(preview.affectedPlayers).map(([id,count])=>`球员 ${id.slice(1)} 有 ${count} 帧重叠归属会释放。`).join('')}其他时间保留，可一次撤销。</p>}
-      {action==='replace'&&quick.scope==='track_occurrences'&&preview&&<p className="identity-quick-preview" role="status">已预览 {preview.observationCount} 个实际观测帧，可关联 {preview.changed} 帧；保留 {preview.preservedHuman} 帧人工记录，{preview.conflicts} 帧冲突待处理。批量关联不会标成逐帧已确认；点击关联才保存。</p>}
+      {action==='replace'&&quick.scope==='track_occurrences'&&preview&&<p className="identity-quick-preview" role="status">已预览 {preview.observationCount} 个实际观测帧，可关联 {preview.changed} 帧。所选范围以这次人工选择为准，替换旧关联；缺帧不补位置。点击关联才保存，仍可逐帧核对。</p>}
       {action!=='missing'&&<div className="identity-quick-range-controls">
         <p className="small muted">拖动视频进度条看画面，再设起点和终点。端点顺序相反时，另一端会移到当前帧。</p>
         <div className="identity-quick-actions">
