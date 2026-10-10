@@ -27,6 +27,9 @@ def build_timeline(duration, cues, audio_rows, frame_times, margin=0.25):
         if cue['cueId'] not in audio:
             raise ValueError(f"Missing audio for cue {cue['cueId']}")
         start, end = float(cue['suggestedStartTime']), float(cue['suggestedEndTime'])
+        # Recover old plans whose decoded last-frame duration rounded up a tick.
+        if duration < end <= duration + 0.0001:
+            end = duration
         if not 0 <= start <= end <= duration:
             raise ValueError(f"Cue {cue['cueId']} has an invalid source window")
         length = float(audio[cue['cueId']]['durationSeconds'])

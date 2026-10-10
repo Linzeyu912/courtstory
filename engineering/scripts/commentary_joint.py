@@ -131,6 +131,8 @@ def build_joint_composition(document, plan, audio_rows, context, production, mar
         if length<=0:raise ValueError('Audio has no positive measured duration')
         if ident not in nodes:raise ValueError(f'Cue {ident} needs a verified node for joint rendering')
         begin=_number(cue['suggestedStartTime'],'cue start');finish=_number(cue['suggestedEndTime'],'cue end')
+        # Match the host's timestamp-rounding tolerance without extending the clip.
+        if last < finish <= last + 0.0001:finish=last
         if not first<=begin<=finish<=last+1e-7:raise ValueError('Cue source window is outside the joint range')
         delivery=cue['delivery']
         if delivery not in ('pause','during_play'):raise ValueError('Unknown cue delivery')
