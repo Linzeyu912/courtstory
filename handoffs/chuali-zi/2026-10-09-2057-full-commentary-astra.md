@@ -4,7 +4,7 @@
 - 成员：chuali-zi。
 - 任务 / Issue：用户要求同步后运行现有完整视频流程，所有 LLM 使用 OpenRouter Astra，加入新投篮反馈；远端 Issue 查询未发现 open issue，没有另行分配成员。
 - 分支：main。
-- 提交：待本轮选择性提交，具体提交以包含本交接的 main 提交为准。
+- 提交：[da87412](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/da874126128b749adcdbc5d50fe6f0e06530735b)，已推送 main；本记录随后补记核对结果。
 - 状态：005 成片已完成；001 长片未完成。
 
 ## 本次完成
@@ -40,5 +40,5 @@
 
 ## 同步状态
 
-- 本轮代码和文档待选择性提交并直接推送 main；不提交媒体、密钥、其他会话未跟踪文件。
+- 本轮 14 个代码、测试、文档文件已选择性提交并直接推送 main；`git ls-remote origin refs/heads/main` 与本地 HEAD 均为 `da874126128b749adcdbc5d50fe6f0e06530735b`。媒体、密钥和其他会话未跟踪文件未提交。
 - 开工同步时冲突后保留的 `codex-pre-full-commentary-sync-20261009` stash 未擅自删除，以便恢复；其旧修改已有其他会话分类处理，不要直接整份再次应用。
