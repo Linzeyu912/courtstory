@@ -1,17 +1,14 @@
-"""Authenticated CloudFront gateway for the unchanged loopback workbench."""
+"""CloudFront gateway for the unchanged loopback workbench."""
 import hashlib
-import hmac
 import http.client
-from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
 from pathlib import Path
-import secrets
 import socket
 import threading
 import time
-from urllib.parse import parse_qs, urlsplit
+from urllib.parse import urlsplit
 
 import boto3
 from state_archive import state_files
@@ -19,8 +16,6 @@ from state_archive import state_files
 ROOT = Path('/opt/hks/current')
 CONFIG = Path('/etc/hks/gateway.json')
 STATE = {'syncedFiles': 0, 'lastSync': None, 'error': None}
-SESSION = secrets.token_urlsafe(48)
-LOGIN_ATTEMPTS = []
 LOCK = threading.Lock()
 
 
@@ -30,15 +25,6 @@ def configuration():
 
 def trusted_origin(headers, expected):
     return bool(expected) and headers.get('Host') == urlsplit(expected).netloc and headers.get('Origin', expected) == expected
-
-
-def authenticated(headers):
-    cookies = SimpleCookie()
-    try:
-        cookies.load(headers.get('Cookie', ''))
-        return 'hks_session' in cookies and hmac.compare_digest(cookies['hks_session'].value, SESSION)
-    except Exception:
-        return False
 
 
 def sync_loop():
@@ -72,9 +58,6 @@ def sync_loop():
             with LOCK:
                 STATE['error'] = type(error).__name__
         time.sleep(10)
-
-
-LOGIN = '''<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>工作台 · 云端测试</title><style>body{font:17px system-ui;background:#111827;color:#edf2f7;display:grid;place-items:center;min-height:95vh}main{max-width:420px;padding:36px;border:1px solid #374151;border-radius:18px}input,button{box-sizing:border-box;width:100%;padding:13px;margin-top:16px;border-radius:8px;font:inherit}button{background:#b5ef6a;border:0}p{color:#a7b2c4;line-height:1.7}</style><main><h1>篮球战术工作台</h1><p>云端交互测试入口。输入本次测试访问码，进入现有工作台。</p><form method="post" action="/login"><input name="code" type="password" required autocomplete="current-password" placeholder="测试访问码"><button>进入工作台</button></form></main></html>'''
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -119,26 +102,7 @@ class Handler(BaseHTTPRequestHandler):
             if not trusted_origin(self.headers, config.get('origin')):
                 return self.reply(403, '请求来源不正确。')
             if route == '/login':
-                if self.command in ('GET', 'HEAD'):
-                    return self.reply(200, LOGIN)
-                size = int(self.headers.get('Content-Length', '0'))
-                if not 0 < size <= 2048:
-                    return self.reply(400, '访问码无效。')
-                with LOCK:
-                    LOGIN_ATTEMPTS[:] = [v for v in LOGIN_ATTEMPTS if time.time() - v < 60]
-                    if len(LOGIN_ATTEMPTS) >= 10:
-                        return self.reply(429, '请稍后重试。')
-                    LOGIN_ATTEMPTS.append(time.time())
-                code = parse_qs(self.rfile.read(size).decode()).get('code', [''])[0]
-                if not hmac.compare_digest(hashlib.sha256(code.encode()).hexdigest(), config['codeHash']):
-                    return self.reply(401, LOGIN)
-                return self.reply(303, headers={'Location': '/', 'Set-Cookie':
-                    'hks_session=' + SESSION + '; Path=/; Secure; HttpOnly; SameSite=Strict; Max-Age=14400'})
-            if not authenticated(self.headers):
-                if route.startswith('/api/'):
-                    return self.reply(401, json.dumps({'error':'登录已失效，请重新登录工作台；当前草稿保留。'}, ensure_ascii=False), 'application/json; charset=utf-8')
-                return self.reply(303 if self.command in ('GET', 'HEAD') else 401,
-                                  headers={'Location': '/login'})
+                return self.reply(303, headers={'Location': '/'})
             if route == '/api/cloud-state' and self.command in ('GET', 'HEAD'):
                 with LOCK:
                     status = dict(STATE)
