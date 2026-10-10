@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createIdentityAgentClient} from './identity-agent-client.mjs';
+import {createIdentityAgentClient,prepareInitialIdentityObservations,initialIdentityDraftForPreparedClip} from './identity-agent-client.mjs';
 
 function setup(){
   let state={session:{version:1,entities:[]},revision:4,entityId:'P1'};
@@ -193,4 +193,74 @@ test('a new cache request error cannot expose an old ready candidate for automat
   assert.equal(client.state().initialReview.job.status,'review_required');
   assert.equal(client.state().initialReview.job.candidate.summary,'抽样初检');
   await assert.rejects(()=>client.adoptInitialReview(),/可自动采用/);
+});
+
+test('initial video provider can run independently and captures name context for stale checks and retries',async()=>{
+  let identityContext={season:'2025-26',teamMap:{A:'HOU',B:'LAL'},gameId:'0022500701'};
+  const calls=[],client=createIdentityAgentClient({context:{sample:'clip',variant:'stable'},snapshot:()=>({session:{entities:[]},revision:0}),
+    requestContext:()=>identityContext,schedule:()=>0,cancelSchedule:()=>{},fetch:async(url,options)=>{
+      calls.push({url,body:options?.body&&JSON.parse(options.body)});
+      return {ok:true,json:async()=>url.endsWith('/status')?{available:false,initialReview:{available:true}}:initialReady};
+    }});
+  await client.init();await client.startInitialReview();assert.deepEqual(calls.at(-1).body.identityContext,identityContext);
+  identityContext={...identityContext,teamMap:{A:'BOS',B:'NYK'}};
+  assert.equal(client.state().initialReview.stale,true);await assert.rejects(()=>client.adoptInitialReview(),/草稿|上下文/);
+  await client.retryInitialReview();assert.deepEqual(calls.at(-1).body.identityContext,identityContext);
+  assert.equal(calls.at(-1).body.reuseCached,undefined,'changed context must not reuse old roster evidence');
+  assert.equal(calls.at(-1).body.forceRetry,true);
+});
+
+test('changing roster context after an applied review invalidates its job and avoids cache rebase',async()=>{
+  let identityContext={season:'2025-26'},snapshot={session:{},revision:0};const calls=[];
+  const client=createIdentityAgentClient({context:{},snapshot:()=>snapshot,requestContext:()=>identityContext,
+    fetch:async(url,options)=>{calls.push(options?.body&&JSON.parse(options.body));return {ok:true,json:async()=>url.endsWith('/status')?{available:true}:initialReady};}});
+  await client.init();await client.startInitialReview();snapshot.session.initialIdentityReview={sourceKey:'same-source',generationJobId:'initial-job'};client.initialApplied({});
+  identityContext={season:'2024-25'};assert.equal(client.state().initialReview.stale,true);assert.equal(client.state().initialReview.applied,false);
+  await client.retryInitialReview();assert.equal(calls.at(-1).reuseCached,undefined);assert.equal(calls.at(-1).forceRetry,true);
+});
+
+test('explicit partial retry resumes analysis with the current draft instead of endlessly reusing partial candidates',async()=>{
+  const partial={...initialReady,candidate:{...initialReady.candidate,completionStatus:'partial'}};
+  const f=await initialSetup(partial);f.state.session.note='new human note';f.state={...f.state,revision:5};
+  f.queue.push({...partial,status:'queued'});await f.client.retryInitialReview();
+  assert.equal(f.calls.at(-1).request.forceRetry,true);assert.equal(f.calls.at(-1).request.reuseCached,undefined);
+  assert.equal(f.calls.at(-1).request.session.note,'new human note');assert.equal(f.calls.at(-1).request.clientRevision,5);
+});
+
+test('initial preparation runs once before any identity request and cancellation blocks a late preparation result',async()=>{
+  let finish;const calls=[],client=createIdentityAgentClient({context:{},snapshot:()=>({session:{},revision:0}),
+    prepareInitialReview:()=>new Promise(resolve=>finish=resolve),fetch:async(url)=>{
+      calls.push(url);return {ok:true,json:async()=>url.endsWith('/status')?{available:true}:initialReady};
+    }});
+  await client.init();const run=client.startInitialReview();await client.startInitialReview();
+  assert.deepEqual(calls,['/api/identity-agent/status']);assert.equal(client.state().initialReview.job.status,'preparing');
+  await client.cancelInitialReview();finish(true);await run;
+  assert.deepEqual(calls,['/api/identity-agent/status']);assert.equal(client.state().initialReview.job.status,'cancelled');
+});
+
+test('a manual import prepares real observations through the video library before it can enter review',async()=>{
+  const clip={video_sha256:'v',width:100,height:100,frames:[{frame:0,time:0,tracks:[]}]};
+  const ready={...clip,tracking_revision:'team-stable',frames:[{frame:0,time:0,tracks:[[0,0,20,40,7]]}]},calls=[];
+  const prepared=await prepareInitialIdentityObservations({clip,sample:'manual-local',wait:async()=>{},fetch:async(url,options)=>{
+    calls.push({url,body:options?.body&&JSON.parse(options.body)});
+    return {ok:true,json:async()=>url.endsWith('/process')?{status:'queued',sampleId:'detected-local',variant:'team-stable'}:
+      url==='/api/video-library'?{entries:[{id:'detected-local',sampleId:'detected-local',status:'ready',variants:['team-stable']}]}:ready};
+  }});
+  assert.deepEqual(calls[0].body,{sample:'manual-local',variant:'team-stable'});
+  assert.equal(prepared.sample,'detected-local');assert.deepEqual(prepared.clip.frames[0].tracks,[[0,0,20,40,7]]);
+  const draft={videoHash:'v',note:'human note',entities:[{id:'P1',anchors:[{frame:0,x:8,y:35,trackId:null}]}]};
+  assert.deepEqual(initialIdentityDraftForPreparedClip(draft,clip,ready),draft);
+  assert.throws(()=>initialIdentityDraftForPreparedClip(draft,clip,{...ready,frames:[{frame:0,time:.1,tracks:[]}]}),/时间|帧/);
+});
+
+test('detector preparation reuses existing observations and reports unavailable or empty output honestly',async()=>{
+  const clip={video_sha256:'v',frames:[{tracks:[]}]};let calls=0;
+  const unavailable=async()=>{calls++;return {ok:false,json:async()=>({error:'检测器权重未安装'})};};
+  await assert.rejects(()=>prepareInitialIdentityObservations({clip,sample:'manual',fetch:unavailable}),/权重/);
+  assert.equal(calls,1);
+  await assert.rejects(()=>prepareInitialIdentityObservations({clip,sample:'manual',fetch:async(url)=>({ok:true,json:async()=>url.endsWith('/process')?
+    {status:'ready',sampleId:'manual',variant:'team-stable'}:clip})}),/没有.*人物|无.*人物/);
+  const tracked={...clip,frames:[{tracks:[[0,0,10,20,1]]}]};
+  assert.equal((await prepareInitialIdentityObservations({clip:tracked,sample:'ready',variant:'existing',fetch:unavailable})).clip,tracked);
+  assert.equal(calls,1);
 });

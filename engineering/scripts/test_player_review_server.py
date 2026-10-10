@@ -49,6 +49,14 @@ class ReviewServerTests(unittest.TestCase):
             self.assertFalse(payload['status']['ttsConfigured'])
             self.assertNotIn('fake-router-value',json.dumps(payload))
             self.assertNotIn('fake-ark-value',json.dumps(payload))
+            with urlopen(url+'api/identity-agent/status?sample=legacy&variant=original&qa=true',timeout=3) as response:
+                identity_status=json.load(response)
+            self.assertTrue(identity_status['initialReview']['available'])
+            self.assertEqual(identity_status['initialReview']['algoVersion'],'video-identity-review-v2')
+            with urlopen(url+'api/player-name-identity/status?sample=legacy',timeout=3) as response:
+                name_status=json.load(response)
+            self.assertTrue(name_status['available'])
+            self.assertEqual(name_status['provider'],'openrouter')
         finally:
             if process.poll() is None:process.terminate()
             stdout,stderr=process.communicate(timeout=5)

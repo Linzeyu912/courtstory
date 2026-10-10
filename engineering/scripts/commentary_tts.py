@@ -4,14 +4,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 from pathlib import Path
 import shutil
 import uuid
 import wave
 from xml.sax.saxutils import escape
 
-from dotenv import dotenv_values
+from environment_file import environment_values
 
 ROOT = Path(__file__).resolve().parents[2]
 SPEAKER = 'Zhiyu'
@@ -21,7 +20,7 @@ SAMPLE_RATE = 16000
 
 
 def environment(env_file):
-    return {**dotenv_values(env_file, encoding='utf-8-sig'), **os.environ}
+    return environment_values(env_file)
 
 
 def voice_settings(env_file, speaker=None, engine=None):

@@ -147,6 +147,66 @@ test('UI forwards optional game ID and hiding results changes presentation only'
   assert.deepEqual(visibility,[false]);assert.equal(commits,0);assert.deepEqual(original,session());ui.dispose();
 });
 
+test('name context form exposes saved context to the initial review and reports changed roster input',()=>{
+  const doc={createElement:()=>({children:[],value:'',append(...items){this.children.push(...items);},replaceChildren(...items){this.children=items;},setAttribute(){},ownerDocument:doc}),createTextNode:text=>({textContent:text})};
+  const root=doc.createElement(),saved={...session(),identityContext:{season:'2025-26',teamMap:{A:'HOU',B:'LAL'},gameId:'0022500701'}};
+  const changed=[],client={state:()=>({}),init:async()=>{},dispose(){}};
+  const ui=mountPlayerNameUI({root,client,api:{getState:()=>({session:saved,clip:clip()}),onContextChange:input=>changed.push(input)}});
+  assert.deepEqual(ui.requestContext(),saved.identityContext);
+  const inputs=root.children[0].children[2].children.map(label=>label.children[0]);
+  inputs[2].value='bos';inputs[2].oninput();assert.equal(changed.at(-1).teamMap.A,'BOS');
+  inputs[0].value='';inputs[0].oninput();assert.deepEqual(ui.initialIdentityContext(),{teamMap:{A:'BOS',B:'LAL'},gameId:'0022500701'});
+  inputs[3].value='';inputs[3].oninput();assert.deepEqual(ui.initialIdentityContext(),{teamMap:{A:'BOS'},gameId:'0022500701'});
+  saved.identityContext={season:'2024-25',teamMap:{A:'NYK'}};ui.render();assert.deepEqual(ui.initialIdentityContext(),saved.identityContext,'undo/restoration resynchronizes displayed roster context');
+  ui.dispose();
+});
+
+test('sample roster context seeds both recognition paths while saved edits and deliberate blanks win',async()=>{
+  const doc={createElement:()=>({children:[],value:'',append(...items){this.children.push(...items);},replaceChildren(...items){this.children=items;},setAttribute(){},ownerDocument:doc}),createTextNode:text=>({textContent:text})};
+  const root=doc.createElement(),saved=session();let nameContext;
+  let started;
+  const client={state:()=>({providerStatus:{available:true,provider:'openrouter',model:'openai/gpt-6-astra'}}),init:async()=>{},start:async input=>started=input,dispose(){}};
+  const ui=mountPlayerNameUI({root,client,api:{getState:()=>({session:saved,clip:clip(),nameContext}),onContextChange:input=>saved.identityContext=structuredClone(input)}});
+  assert.equal(ui.initialIdentityContext(),undefined,'unknown video must not use input placeholders as facts');
+  assert.equal(root.children[0].children[3].children[0].disabled,true);
+  nameContext={season:'2025-26',gameId:'0022500701',teamMap:{A:'HOU',B:'DAL'}};ui.render();
+  assert.deepEqual(ui.initialIdentityContext(),nameContext);
+  await root.children[0].children[3].children[0].onclick();assert.deepEqual(started,nameContext);
+  saved.gameContext={season:'2024-25',gameId:'0022400100'};saved.teamIdentities={red:{team:'BOS'}};ui.render();
+  assert.deepEqual(ui.initialIdentityContext(),{season:'2024-25',gameId:'0022400100',teamMap:{A:'BOS',B:'DAL'}});
+  const inputs=root.children[0].children[2].children.map(label=>label.children[0]);
+  inputs[0].value='';inputs[0].oninput();inputs[1].value='';inputs[1].oninput();inputs[3].value='';inputs[3].oninput();
+  ui.render();assert.deepEqual(ui.initialIdentityContext(),{teamMap:{A:'BOS'}},'render must not restore deliberately cleared sample defaults');
+  saved.identityContext={season:'2025-26',teamMap:{A:'HOU',B:'LAL'}};ui.render();
+  assert.deepEqual(ui.initialIdentityContext(),{season:'2025-26',teamMap:{A:'HOU',B:'LAL'}},'saved undo context must replace the form without borrowing sample game ID');
+  ui.dispose();
+});
+
+test('saved video review names remain source and range aware in the name panel without an independent job',()=>{
+  const doc={createElement:()=>({children:[],value:'',append(...items){this.children.push(...items);},replaceChildren(...items){this.children=items;},setAttribute(){},ownerDocument:doc}),createTextNode:text=>({textContent:text})};
+  const root=doc.createElement();let c=clip(),saved=applyPlayerNameIdentities(session(),result([item('P1',7,0,1,'Saved Candidate','00')]),c).session;
+  saved.entities[0].identityKeyframes.push({frame:2,kind:'track',trackId:9,order:3});
+  saved.initialIdentityReview={algoVersion:'video-identity-review-v2',videoHash:'video',trackingFingerprint:'tracks',trackingRevision:'r1',completionStatus:'partial'};
+  let trajectories=buildTrajectories(saved,c.frames,[],c);
+  const client={state:()=>({job:null,providerStatus:{available:false,message:'独立姓名服务未配置'}}),init:async()=>{},dispose(){}};
+  const ui=mountPlayerNameUI({root,client,api:{getState:()=>({session:saved,clip:c,trajectories})}});
+  const panel=root.children[0],rows=()=>panel.children[6].children.map(row=>row.textContent).join('\n');
+  assert.match(panel.children[5].textContent,/初检.*已保存.*部分/);
+  assert.match(rows(),/P1.*Saved Candidate.*机器候选.*待人工审核.*2\/3/);
+  assert.match(rows(),/P2.*姓名未知/);
+  assert.match(panel.children[3].children[0].textContent,/高级/);
+  assert.equal(panel.children[3].children[0].disabled,true);assert.equal(panel.children[7].textContent,'独立姓名服务未配置');
+  saved=structuredClone(saved);saved.entities[0].nameIdentity={source:'manual',name:'Human Name'};
+  trajectories=buildTrajectories(saved,c.frames,[],c);ui.render();assert.match(rows(),/Human Name.*人工姓名/);assert.doesNotMatch(rows(),/Saved Candidate/);
+  saved=structuredClone(saved);delete saved.entities[0].nameIdentity;saved.entities[0].identityKeyframes=[{frame:0,kind:'track',trackId:9,order:3}];
+  trajectories=buildTrajectories(saved,c.frames,[],c);ui.render();assert.doesNotMatch(rows(),/Saved Candidate/);
+  c={...clip(),tracking_revision:'r2'};saved=applyPlayerNameIdentities(session(),result([item('P1',7,0,1,'Old Source','0')]),clip()).session;
+  trajectories=buildTrajectories(saved,c.frames,[],c);ui.render();assert.doesNotMatch(rows(),/Old Source/);assert.match(panel.children[5].textContent,/尚未开始/);
+  saved={...session(),initialIdentityReview:{algoVersion:'video-identity-review-v2',videoHash:'video',trackingFingerprint:'tracks',trackingRevision:'r2',completionStatus:'partial'}};
+  trajectories=buildTrajectories(saved,c.frames,[],c);ui.render();assert.match(panel.children[5].textContent,/初检.*已保存/);assert.match(rows(),/P1.*姓名未知/);
+  ui.dispose();
+});
+
 test('a same-frame collision removes only its overlap and retains both clear tails',()=>{
   const s=session(),c=clip();c.frames[2].tracks.push([2,0,12,20,7]);
   const response=result([item('P1',7,0,2,'Duplicate','0'),item('P2',8,1,1,'Duplicate','00')]);

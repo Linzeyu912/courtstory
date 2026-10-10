@@ -25,7 +25,7 @@ import {modelResultLabel} from './model-selection.mjs';
 import {setPlayerVisibility,playerVisibilityAt} from './trajectory.mjs';
 import {mountTacticsUI} from './tactics-ui.mjs';
 import {migrateLegacyTacticsDrafts} from './tactics-storage.mjs';
-import {createIdentityAgentClient} from './identity-agent-client.mjs';
+import {createIdentityAgentClient,prepareInitialIdentityObservations,initialIdentityDraftForPreparedClip} from './identity-agent-client.mjs';
 import {createIdentityReference,saveReferenceToSession,applyIdentityCandidates} from './identity-continuation.mjs';
 import {applyInitialIdentityReview} from './identity-initial-review.mjs';
 import {identityPersonSelection,identityQuickRange,assignIdentityTrackOccurrences,excludeIdentityPersonRange,initialIdentityReviewView,issueReviewFrame} from './identity-review-workflow.mjs';
@@ -336,6 +336,19 @@ async function adoptInitialReview(automatic=false){
     initialAutoApply=false;identityAgent.initialApplied(applied.report);
   }catch(error){initialAutoApply=false;initialApplyError=error.message;identityAgent.reportInitialError?.(error.message);}
   finally{initialApplying=false;reviewBusy=false;draw();}
+}
+async function prepareInitialReview({isCurrent,onProgress}){
+  const prepared=await prepareInitialIdentityObservations({clip,sample,variant,isCurrent,onProgress});
+  if(!prepared||!isCurrent())return false;
+  if(prepared.clip===clip)return true;
+  await saveDraft();if(!isCurrent())return false;
+  const preparedKey=draftStorageKey(prepared.clip,prepared.variant,qa),draft=initialIdentityDraftForPreparedClip(session,clip,prepared.clip);
+  if(preparedKey!==key){
+    if(localStorage.getItem(preparedKey))throw new Error('检测结果已有独立草稿，当前人工稿也已保存。请从视频库打开检测版本继续核对，未覆盖任一草稿。');
+    const {courtPreparation,...smallDraft}=draft;localStorage.setItem(preparedKey,JSON.stringify(smallDraft));
+  }
+  params.set('sample',prepared.sample);params.set('variant',prepared.variant);params.set('step','players');params.delete('area');params.delete('candidate');
+  onProgress('人物检测已准备，正在载入检测结果并继续身份初检…');location.assign(`/?${params}`);return false;
 }
 function identityReferenceFrameReady(){return $('stage').dataset.videoState==='ready'&&presentedFrame?.frame===frame;}
 function identityReferenceInput(input){
@@ -834,9 +847,11 @@ tacticsUI=mountTacticsUI({clip,sample,variant,qa,key,title:sampleInfo?.title||sa
   beforeNavigate:saveDraft,openStep:step=>workspace.switchStep(step,true)});
 playerIdentityUI=mountPlayerIdentityUI({legacyRecognition:false,getState:()=>({session,active,frame,clip,sample,variant,trajectories,point:annotationPoint(trajectories[active]?.[frame]),selectedTrackId:previewTrackId??trajectories[active]?.[frame]?.trackId??null,selectedPlayerId:identityPersonSelection(trajectories,frame,previewTrackId??trajectories[active]?.[frame]?.trackId??null).entityId,selectedFrameReady:identityReferenceFrameReady()}),commit:copy=>change(()=>session=copy),pause:pauseVideo,seek,toast});
 playerNameClient=createPlayerNameClient({context:()=>({sample,variant,qa}),snapshot:()=>({session,revision:sessionRevision,entityId:'all',clip}),onChange:()=>playerNameUI?.render()});
-playerNameUI=mountPlayerNameUI({client:playerNameClient,root:$('playerNameIdentityTools'),api:{getState:()=>({session,clip,trajectories,nameContext:sampleInfo?.nameContext}),commit:copy=>change(()=>session=copy),toast}});
+playerNameUI=mountPlayerNameUI({client:playerNameClient,root:$('playerNameIdentityTools'),api:{getState:()=>({session,clip,trajectories,nameContext:sampleInfo?.nameContext}),commit:copy=>change(()=>session=copy),
+  onContextChange:value=>{if(JSON.stringify(session.identityContext)!==JSON.stringify(value))change(()=>session.identityContext=structuredClone(value));},toast}});
 if(clip.supportsCourtCalibration===false){$('tab-calibration').disabled=true;$('repairCourt').disabled=true;$('identityDone').hidden=true;}
-identityAgent=createIdentityAgentClient({context:{sample,variant,qa},snapshot:()=>({session,revision:sessionRevision,entityId:active}),onChange:()=>{draw();coverageUI?.render();queueMicrotask(()=>void adoptInitialReview(true));}});
+identityAgent=createIdentityAgentClient({context:{sample,variant,qa},snapshot:()=>({session,revision:sessionRevision,entityId:active}),requestContext:()=>playerNameUI?.initialIdentityContext(),prepareInitialReview,
+  onChange:()=>{draw();coverageUI?.render();queueMicrotask(()=>void adoptInitialReview(true));}});
 if(Number.isFinite(clip.mediaEndTime))coverageUI=mountIdentityCoverage({host:$('identityCoverageTools'),clip,state:()=>({session,entityId:active}),agent:()=>identityAgent,seek,storageKey:key+':identity-continuation-queue'});
 await identityAgent.init();
 window.addEventListener('pagehide',()=>identityAgent.dispose(),{once:true});

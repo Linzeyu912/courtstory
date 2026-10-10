@@ -1,7 +1,6 @@
 """Serve the local player review UI and an explicit video library on loopback."""
 
 import argparse
-import codecs
 import hashlib
 import io
 import json
@@ -20,6 +19,7 @@ from urllib.parse import urlsplit
 from scene_profiles import finite_json, validate_court_candidates, validate_feet_candidates
 from review_session import apply_review_edit
 from detector_evidence import validate_frame_evidence, detector_evidence_for_clip
+from environment_file import environment_text
 
 
 def load_server_environment(path):
@@ -27,21 +27,7 @@ def load_server_environment(path):
     if path is None:
         return
     from dotenv import load_dotenv
-    try:
-        content = Path(path).read_bytes()
-    except OSError:
-        raise ValueError(f'Cannot read --env-file: {path}') from None
-    try:
-        if content.startswith((codecs.BOM_UTF32_LE, codecs.BOM_UTF32_BE)):
-            raise ValueError('unsupported encoding')
-        encoding = 'utf-16' if content.startswith((codecs.BOM_UTF16_LE, codecs.BOM_UTF16_BE)) else 'utf-8-sig'
-        text = content.decode(encoding)
-        if '\x00' in text:
-            raise ValueError('unsupported encoding')
-    except (UnicodeError, ValueError):
-        # Decoding exceptions can include raw credential bytes; never relay them.
-        raise ValueError(f'Invalid encoding in --env-file: {path}; use UTF-8 or UTF-16 with a BOM') from None
-    load_dotenv(stream=io.StringIO(text), override=False)
+    load_dotenv(stream=io.StringIO(environment_text(path)), override=False)
 
 
 def initially_active_samples(library, retained):
@@ -171,16 +157,22 @@ def main():
                         no_response_timeout=args.tactics_agent_no_response_timeout,retry_model=args.tactics_agent_retry_model,
                         model_override=args.tactics_agent_model,transport_mode=args.tactics_agent_transport)
     from identity_agent import IdentityAgent
+    from identity_video import VideoIdentityRunner
+    from player_identity_data import PlayerIdentityData, PlayerIdentityDataUnavailable
+    player_data=PlayerIdentityData(args.player_data_root)
+    commentary_config=json.loads(args.commentary_model_config.read_text(encoding='utf-8')) if args.commentary_model_config else None
+    identity_video=VideoIdentityRunner(config=commentary_config,env_file=args.env_file,player_data=player_data,
+                                      timeout=min(args.tactics_agent_timeout,480))
     identity_agent = IdentityAgent(Path(args.tactics_folder)/'identity-jobs',tactics,
-                                  codex_path=args.tactics_agent_cli,timeout=min(args.tactics_agent_timeout,300),
-                                  provider=args.identity_agent_provider,reasoning_effort=args.tactics_agent_reasoning_effort)
+                                  codex_path=args.tactics_agent_cli,timeout=min(args.tactics_agent_timeout,480),
+                                  provider=args.identity_agent_provider,reasoning_effort=args.tactics_agent_reasoning_effort,
+                                  initial_video=identity_video)
     identity_ocr=IdentityOCR(vision_provider=identity_agent.provider,
                              vision_folder=Path(args.tactics_folder)/'team-identification-jobs')
     from ground_trajectory_agent import GroundTrajectoryAgent
     ground_agent = GroundTrajectoryAgent(Path(args.tactics_folder)/'ground-trajectory-jobs', tactics)
     from commentary_jobs import CommentaryJobs, CueConflict
-    commentary_config=json.loads(args.commentary_model_config.read_text(encoding='utf-8')) if args.commentary_model_config else None
-    commentary = CommentaryJobs(Path(args.tactics_folder)/'commentary-jobs', model_config=commentary_config,
+    commentary = CommentaryJobs(Path(args.tactics_folder)/'commentary-jobs', model_config=commentary_config,env_file=args.env_file,
                                **({'python': args.commentary_python} if args.commentary_python else {}))
     from commentary_drawing_jobs import CommentaryDrawingJobs
     drawing = CommentaryDrawingJobs(Path(args.tactics_folder)/'commentary-drawing-jobs', tactics, commentary,
@@ -198,16 +190,14 @@ def main():
             clips[sample['id']]=load_clip(parser,sample);samples.append(sample);saved.append(sample)
     court_models={}
     # The data package is opened only when these optional identity APIs are used.
-    from player_identity_data import PlayerIdentityData, PlayerIdentityDataUnavailable
-    player_data=PlayerIdentityData(args.player_data_root)
     from player_name_jobs import PlayerNameJobs
     name_provider=identity_agent.provider
     if args.player_name_provider=='openrouter':
         from player_name_identity import create_openrouter_name_provider
-        name_provider=create_openrouter_name_provider()
+        name_provider=create_openrouter_name_provider(env_path=args.env_file)
     if args.player_name_provider=='qwen-token-plan-interactive':
         from player_name_identity import create_qwen_token_plan_provider
-        name_provider=create_qwen_token_plan_provider()
+        name_provider=create_qwen_token_plan_provider(env_path=args.env_file)
     name_jobs=PlayerNameJobs(Path(args.tactics_folder)/'player-name-jobs', tactics, player_data, name_provider)
     for sample_item in samples:
         if Path(clips[sample_item['id']]['video']).is_file():

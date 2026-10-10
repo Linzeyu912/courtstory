@@ -71,10 +71,11 @@ def _digest(session):
 
 class IdentityAgent:
     def __init__(self, folder, tactics, codex_path=None, timeout=300, provider='codex', execute=None,
-                 system_proxy_fallback=True, reasoning_effort=None, max_scan_frames=13):
+                 system_proxy_fallback=True, reasoning_effort=None, max_scan_frames=13, initial_video=None):
         self.folder = Path(folder).resolve()
         self.folder.mkdir(parents=True, exist_ok=True)
         self.tactics = tactics
+        self.initial_video = initial_video
         self.lock = threading.RLock()
         self.provider = create_provider(provider, codex_path=codex_path, timeout=timeout, execute=execute,
             lock=self.lock, system_proxy_fallback=system_proxy_fallback, reasoning_effort=reasoning_effort)
@@ -85,7 +86,13 @@ class IdentityAgent:
         self.closed = False
 
     def status(self):
-        return self.provider.status()
+        status=self.provider.status()
+        return {**status,'initialReview':self.initial_video.status()} if self.initial_video else status
+
+    def _initial_key(self,clip,variant,qa,request,algo=None):
+        if algo==ALGO_VERSION or self.initial_video is None:
+            return source_key(clip,variant,qa)
+        return self.initial_video.source_key(clip,variant,qa,request)
 
     @staticmethod
     def _context(clip, variant, qa):
@@ -101,6 +108,9 @@ class IdentityAgent:
         session = request.get('session')
         count = validate_session(session, clip)
         if request.get('purpose') == 'initial_review':
+            if 'identityContext' in request:
+                from identity_video import identity_context
+                identity_context(request['identityContext'])
             for field in ('forceRetry','reuseCached'):
                 if field in request and type(request[field]) is not bool:
                     raise ValueError('初检重试选项必须是布尔值。')
@@ -153,9 +163,10 @@ class IdentityAgent:
                 state=json.loads((directory/'state.json').read_text(encoding='utf-8'))
                 source=json.loads((directory/'request.json').read_text(encoding='utf-8'))
                 if (state.get('purpose')=='initial_review' and source['context']==self._context(clip,variant,qa)
-                        and state.get('sourceKey')==source_key(clip,variant,qa)):
+                        and state.get('sourceKey')==self._initial_key(clip,variant,qa,source['request'],state.get('algoVersion'))):
                     job={**state,'request':source['request'],'context':source['context'],'clip':deepcopy(clip),
-                         'video':Path(source['video']),'cancel':threading.Event(),'process':None}
+                         'video':Path(source['video']),'cancel':threading.Event(),'process':None,
+                         **{k:source[k] for k in ('resumeFrom','resumeCount','resumeRequest') if k in source}}
                     if job['status'] in ('queued','preparing','analyzing','validating'):
                         job.update(status='failed',message='初检服务曾中断，手工工作不受影响；需要时可显式重试。',
                                    failure={'code':'interrupted','retryable':True})
@@ -163,7 +174,7 @@ class IdentityAgent:
                     self.jobs[job_id]=job
         if job is None or job['context'] != self._context(clip, variant, qa):
             raise ValueError('未找到当前视频与草稿空间的身份任务。')
-        if job.get('purpose')=='initial_review' and job.get('sourceKey')!=source_key(clip,variant,qa):
+        if job.get('purpose')=='initial_review' and job.get('sourceKey')!=self._initial_key(clip,variant,qa,job['request'],job.get('algoVersion')):
             raise ValueError('初检来源或角色证据已更新，旧候选不能采用；请读取当前来源的初检。')
         return job
 
@@ -178,7 +189,9 @@ class IdentityAgent:
         atomic_json(self.folder/job['jobId']/'state.json',self._public(job))
 
     def _create_initial(self,request,session,clip,video,variant,qa):
-        key=source_key(clip,variant,qa);index=self.folder/f'initial-{key}.json'
+        key=self._initial_key(clip,variant,qa,request);index=self.folder/f'initial-{key}.json'
+        from identity_video import ALGO_VERSION as VIDEO_ALGO_VERSION
+        algorithm=VIDEO_ALGO_VERSION if self.initial_video else ALGO_VERSION
         with self.lock:
             if self.closed:
                 raise ValueError('身份 Agent 服务已停止。')
@@ -191,28 +204,37 @@ class IdentityAgent:
                     cached=None
             running=cached and cached['status'] in ('queued','preparing','analyzing','validating')
             reuse=cached and cached['status']=='ready' and request.get('reuseCached') is True
-            retry=cached and cached['status'] in ('failed','cancelled') and request.get('forceRetry') is True
+            partial=cached and cached['status']=='ready' and cached.get('candidate',{}).get('completionStatus')=='partial'
+            retry=cached and (cached['status'] in ('failed','cancelled') or partial) and request.get('forceRetry') is True
             if cached and (running or not (reuse or retry)):
                 return self._public(cached)|{'matchesCurrentInput':_digest(session)==cached['base']['sessionDigest']}
-            if not reuse and not self.status()['available']:
-                raise ValueError(self.status()['message'])
+            initial_status=self.initial_video.status() if self.initial_video else self.status()
+            if not reuse and not initial_status['available']:
+                raise ValueError(initial_status['message'])
             ident=str(uuid.uuid4());context=self._context(clip,variant,qa)
             job=dict(jobId=ident,purpose='initial_review',status='ready' if reuse else 'queued',
                      message='已复用同源初检；未重复调用模型。' if reuse else '等待整片身份初检，仍可手工编辑。',
                      request=deepcopy(request),context=context,clip=deepcopy(clip),video=Path(video),
-                     sourceKey=key,algoVersion=ALGO_VERSION,manualFallback=True,cancel=threading.Event(),process=None,
+                     sourceKey=key,algoVersion=algorithm,manualFallback=True,cancel=threading.Event(),process=None,
                      progress={'stage':'cached' if reuse else 'queued','completed':1 if reuse else 0,'total':1,'budgetSeconds':self.timeout},
                      base={'clientRevision':request['clientRevision'],'sessionDigest':_digest(session),
                            'videoHash':context[0],'trackingFingerprint':context[1],'trackingRevision':context[2],
                            'variant':variant,'qa':qa})
             directory=self.folder/ident;directory.mkdir()
+            if retry and self.initial_video and (partial or (self.folder/cached['jobId']/'checkpoint.json').is_file()):
+                resume_count=cached.get('resumeCount',0)+1
+                if resume_count>2:
+                    raise ValueError('本来源已完成两轮局部续接；保留已完成候选，请人工核对剩余部分。')
+                job.update(resumeFrom=cached['jobId'],resumeCount=resume_count,
+                           resumeRequest=deepcopy(cached.get('resumeRequest',cached['request'])))
             if reuse:
                 job.update(candidate=deepcopy(cached['candidate']),previewFrames=deepcopy(cached.get('previewFrames',[])),
                            generationJobId=cached.get('generationJobId',cached['jobId']))
-            atomic_json(directory/'request.json',{'request':request,'context':context,'video':str(video)})
+            atomic_json(directory/'request.json',{'request':request,'context':context,'video':str(video),
+                **{k:deepcopy(job[k]) for k in ('resumeFrom','resumeCount','resumeRequest') if k in job}})
             self.jobs[ident]=job;self._persist_initial(job)
             if not reuse:
-                atomic_json(index,{'jobId':ident,'sourceKey':key,'algoVersion':ALGO_VERSION})
+                atomic_json(index,{'jobId':ident,'sourceKey':key,'algoVersion':algorithm})
                 self.pool.submit(self._run,job)
             return self._public(job)|{'matchesCurrentInput':True}
 
@@ -492,6 +514,9 @@ class IdentityAgent:
             job.pop('frames', None)
 
     def _run_initial(self,job):
+        if self.initial_video is not None:
+            self._run_video_initial(job)
+            return
         started=time.monotonic();directory=self.folder/job['jobId'];job['frames']={}
         try:
             if not self._state(job,'preparing','正在抽样整段人物与角色；手工修改仍可继续。'):
@@ -560,6 +585,33 @@ class IdentityAgent:
         finally:
             job.pop('frames',None)
 
+    def _run_video_initial(self,job):
+        started=time.monotonic()
+        try:
+            if not self._state(job,'preparing','正在建立全片概览与真实帧映射；手工编辑仍可继续。'):
+                return
+            def progress(**values):
+                with self.lock:
+                    if job['cancel'].is_set():return
+                    job['progress'].update({k:v for k,v in values.items() if v is not None})
+                    self._state(job,'analyzing','视频身份 Agent 正在按需核对原帧、短窗口与球衣局部。')
+            candidate,previews=self.initial_video.run(job,self.folder/job['jobId'],progress)
+            with self.lock:
+                if job['cancel'].is_set():return
+                partial=candidate.get('completionStatus')=='partial'
+                job.update(status='ready',candidate=candidate,previewFrames=previews,
+                    message='已保留通过校验的部分身份候选；未知仍需人工核对。' if partial else '视频身份候选已生成；请核对人物、球队与姓名。')
+                job['progress'].update(stage='partial' if partial else 'complete',completed=1,
+                    elapsedSeconds=round(time.monotonic()-started,3))
+                self._persist_initial(job)
+        except Exception as exc:
+            from commentary_agent import redact
+            with self.lock:
+                if job['cancel'].is_set():return
+                job['failure']={'code':getattr(exc,'code','video_identity'),'retryable':True}
+                job['progress'].update(stage='failed',elapsedSeconds=round(time.monotonic()-started,3))
+                self._state(job,'failed','视频身份初检未完成：'+redact(str(exc))[:1000]+' 可继续手工编辑，需要时显式重试。')
+
     def adopt(self, job_id, request, clip, variant, qa):
         if not isinstance(request, dict):
             raise ValueError('采用请求必须是对象。')
@@ -571,7 +623,7 @@ class IdentityAgent:
             original = job['request']
             if request.get('clientRevision') != original['clientRevision'] or _digest(request.get('session')) != job['base']['sessionDigest']:
                 raise ValueError('生成后草稿已有修改，请重新查找。')
-            for field in ('entityId', 'purpose', 'reference', 'range'):
+            for field in ('entityId', 'purpose', 'reference', 'range', 'identityContext'):
                 if field in request and request[field] != original.get(field):
                     raise ValueError('采用请求的身份或范围与原任务不符。')
             # Revalidate the full original session against the current registered clip.

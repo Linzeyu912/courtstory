@@ -127,6 +127,28 @@ class CommentaryVideoTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.tool.inspect_region({"frames": [0], "box": [1, 2, 1, 4]})
 
+    def test_empty_observation_selectors_discover_and_preserve_nonempty_selector(self):
+        observations = self.root / "selector-observations.json"
+        observations.write_text(json.dumps({"frames": [{"frame": 0, "tracks": [
+            [10, 12, 35, 48, 8, .73, 2], [40, 12, 65, 48, 9, .73, 2],
+        ]}]}), encoding="utf-8")
+        tool = CommentaryVideo(self.video, self.output, observations)
+        window = {"startTime": 0, "endTime": .1}
+        discovery = tool.get_observations(window)
+        for selectors in ({"entityIds": [], "trackIds": []}, {"entityIds": []}, {"trackIds": []}):
+            with self.subTest(selectors=selectors):
+                result = tool.get_observations({**window, **selectors})
+                self.assertEqual(result, discovery)
+                self.assertEqual([row["trackId"] for row in result["frames"][0]["tracks"]], [8, 9])
+        for selectors in ({"entityIds": [], "trackIds": [8]}, {"entityIds": ["8"], "trackIds": []}):
+            with self.subTest(selectors=selectors):
+                result = tool.get_observations({**window, **selectors})
+                self.assertEqual(len(result["entities"]), 1)
+                self.assertEqual(result["entities"][0]["frames"][0]["trackId"], 8)
+        for key in ("entityIds", "trackIds"):
+            with self.assertRaises(ValueError):
+                tool.get_observations({**window, key: ""})
+
 
 if __name__ == "__main__":
     unittest.main()

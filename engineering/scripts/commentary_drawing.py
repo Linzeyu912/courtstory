@@ -13,7 +13,7 @@ import subprocess
 import threading
 import time
 
-from commentary_agent import ROOT, provider_environment, redact
+from commentary_agent import ROOT, provider_environment, redact, worker_environment
 from commentary_video import CommentaryVideo
 
 WORKER = ROOT / 'engineering/tools/player-review/agents/drawing-worker.mjs'
@@ -114,7 +114,7 @@ def run_pi(start,evidence,output,config,cancel=None,process_callback=None):
     if not node: raise ValueError('独立绘图需要 Node.js。')
     child_env,secret=provider_environment(ROOT/'.env',config['provider'],config['model'])
     child_env['COMMENTARY_MODEL_CONFIG']=json.dumps(config,ensure_ascii=False)
-    process=subprocess.Popen([node,str(WORKER)],cwd=ROOT,env=child_env,stdin=subprocess.PIPE,stdout=subprocess.PIPE,
+    process=subprocess.Popen([node,str(WORKER)],cwd=ROOT,env=worker_environment(node,child_env),stdin=subprocess.PIPE,stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,text=True,encoding='utf-8',bufsize=1,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     if process_callback: process_callback(process)
     messages=queue.Queue(); errors=[];trace=[]

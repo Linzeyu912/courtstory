@@ -1,5 +1,7 @@
 # 作品设计、功能与验收文档
 
+2026-10-10：[第一部分视频身份初稿与人工审核](video-identity-review-20261010.md)复用第三部分视频工具，接通检测准备、暂定身份、名单候选、人工修改和保存；真实任务与有限草稿的下游读取已验证。Agent只做初步处理，UNKNOWN、partial和匿名身份均保留供人工审核；本次远端整合状态另见发布交接。
+
 2026-10-10 本轮：[TEAM 25 分类发布与旧 UI 分支清理](ui-team25-publication-20261010.md)记录最新 main 整合、定稿保存、验证与推送核对；下方“仅本地”描述保留各轮历史状态。
 
 2026-10-09 22:11（America/New_York）：[官方 001 的 Astra 姓名与全流程复跑](official-astra-names-and-reliability-20261009.md)已生成 36.2 秒 1080p 真实配音成片，姓名 / 号码、绘图和投篮反馈均进入 MP4；记录实际失败原因、阶段恢复和只重跑失败节点的修复，以及姓名 pending、身份冲突和定格节奏等剩余质量问题。
@@ -52,7 +54,7 @@
 | Agent 执行入口与工具合同 | [工作流程、默认策略与异常处理](agent-tactics-workflow.md)、[工具输入输出、状态及第三方 API 合同](specs/agent-tactics-tools-v1.md)；保留当前战术布局与模块 |
 | 工作台操作 | [人工视频制作（006）](manual-tactics-workbench-guide.md)、[2D 高级流程](2d-first-tactics-workbench-guide.md)、[视频库与导入](local-video-library.md) |
 | 人工制作实施与验收 | [Task 0 文件/缺口核实](manual-tactics-workbench-task0.md)、[浏览器 MP4 验收与限制](manual-tactics-workbench-acceptance.md) |
-| 人物与球场 | [身份审核](track-identity-review.md)、[可见性](player-visibility.md)、[球场标定](court-calibration-backend.md) |
+| 人物与球场 | [视频身份初稿与人工审核](video-identity-review-20261010.md)、[身份审核](track-identity-review.md)、[可见性](player-visibility.md)、[球场标定](court-calibration-backend.md) |
 | 战术编辑与成片 | [画布](tactics-canvas.md)、[成片生产](tactics-authored-production-guide.md)、[未来路线](future-route-editor.md) |
 | 已认可的 005 成片视觉基准 | [005 V2 流程](005-authored-v2-workflow.md)、[原始资料归档](../archive/tactical-video/005-authored-v2/README.md) |
 | 导入视频的待解决问题 | [人物 / 球场 / 战术诊断](../../research/vision/imported-video-diagnostics-20261005.md)，按原记录区分待验证结论与本机产物 |

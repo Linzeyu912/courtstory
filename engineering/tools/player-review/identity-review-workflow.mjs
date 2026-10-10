@@ -152,13 +152,13 @@ export function addMissingIdentityPoint(session,{entityId,frame,x,y},clip){
 
 export function initialIdentityReviewView(review={},session={}){
   const job=review.job,candidate=job?.candidate||{},record=session.initialIdentityReview;
-  const applied=Boolean(review.applied||record&&(record.jobId===job?.jobId||!job));
+  const applied=Boolean(review.applied||!review.stale&&record&&(record.jobId===job?.jobId||!job));
   const report=job?.applicationReport||(applied?record?.report:null);
   const issueRows=[...new Map((report?.issues||candidate.issues||record?.issues||[]).map(issue=>[JSON.stringify([issue.kind,issue.entityId,issue.trackId,issue.start,issue.end,issue.reason]),issue])).values()];
   const issues=issueRows.map((issue,index)=>({...issue,id:`${issue.id||'issue'}:${index}`,
     label:({wrong_person:'人物可能认错',referee:'可能是裁判',not_player:'可能不是球员',role_conflict:'球员 / 裁判待分辨',role_uncertain:'球员 / 裁判待分辨',role_mismatch:'裁判 / 其他人误入球员',unresolved:'这段人物尚未核对',unsampled:'短暂人物未抽样',missing:'可能漏人',missing_player:'可能漏人',identity_break:'身份可能断开',identity_uncertain:'身份待核对',team_uncertain:'所属球队待核对',continuation:'身份可能断开',uncertain:'需要看画面确认',manual_conflict:'与人工记录不同',slot_basis_changed:'当前球员已被人工修改',manual_exclusion:'保留人工排除',observation_gap:'缺测或身份风险，未延伸',identity_conflict:'同一画面有不同身份判断'})[issue.kind]||'需要看画面确认'}));
   const roles=(candidate.subjects||[]).reduce((counts,subject)=>({...counts,[subject.role]:(counts[subject.role]||0)+1}),{});
-  return {job,applied,issues,roles,report,summary:candidate.summary||record?.summary||'',
+  return {job,applied,issues,roles,report,summary:candidate.summary||record?.summary||'',completionStatus:candidate.completionStatus||record?.completionStatus,
     ready:job?.status==='ready',busy:Boolean(review.busy),stale:Boolean(review.stale||!applied&&job?.applicationReport),
     stage:job?.progress?.stage||job?.status||'idle',completed:job?.progress?.completed,total:job?.progress?.total};
 }

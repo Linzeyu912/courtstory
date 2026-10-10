@@ -7,26 +7,27 @@ const safeImage=url=>typeof url==='string'&&/^data:image\/(?:png|jpeg|webp);base
 
 export function InitialIdentityReviewControls({state,api}){
   const review=state.initialReview||{},view=state.initialReviewView||{},job=view.job;
-  const busy=!!(review.busy||state.initialApplying),available=state.identityAgent?.status?.available===true;
+  const busy=!!(review.busy||state.initialApplying),initialStatus=state.identityAgent?.status?.initialReview??state.identityAgent?.status,
+    available=initialStatus?.available===true;
   const stages={idle:'载入视频后自动开始',queued:'已排队',preparing:'正在整理人物与抽样画面',analyzing:'正在区分球员、裁判和其他人',running:'正在核对人物',validating:'正在检查身份片段与冲突',ready:'初检已完成',adopted:'初检已完成',cancelled:'初检已取消',failed:'初检未完成'};
   const issues=view.issues||[];
   const progress=Number.isFinite(view.completed)&&Number.isFinite(view.total)&&view.total>0?` · ${view.completed}/${view.total}`:'';
   const issueButton=issue=><button key={issue.id} className="identity-initial-issue" onClick={()=>api.reviewIdentityIssue(issue)}><strong>{issue.label}</strong><span>{issue.reason||'定位到画面后核对'}{Number.isInteger(issue.start)?` · ${timeAt(state.frameTimes,issue.start)}`:''}</span></button>;
   return <section className="identity-initial-review" aria-label="自动初检与待处理问题">
     <div className="identity-agent-heading"><h3>Agent 整段抽样初检</h3><span className="identity-agent-label">{view.applied?'机器建议已补入':'保留人工修改'}</span></div>
-    <p role="status" aria-live="polite">{state.initialApplying?'正在补入可用的机器建议…':job?.message||stages[job?.status||'idle']}{progress}</p>
+    <p role="status" aria-live="polite">{state.initialApplying?'正在补入可用的机器建议…':view.completionStatus==='partial'?'部分证据已整理，仍有区间待检查':job?.message||stages[job?.status||'idle']}{progress}</p>
     <details className="identity-initial-details"><summary>{issues.length?`查看 ${issues.length} 处提示与初检详情`:'查看初检详情'}</summary>
-    <ol className="identity-initial-steps"><li>读取已有检测框</li><li>检查错人、漏人和身份断开</li><li>补入有证据的机器建议</li></ol>
-    <p className="small muted">整段抽样处理一次，刷新复用结果。未看到的人仍留待核对，号码和姓名可稍后填写。</p>
+    <ol className="identity-initial-steps"><li>准备真实人物观察并阅读视频</li><li>检查人物、裁判和身份续接</li><li>按名单补入有证据的姓名候选</li></ol>
+    <p className="small muted">Agent 按需读取总览、时间窗口和人物细节，刷新复用结果。未看到的人仍留待核对；姓名随已有赛季和球队上下文一并识别，未知姓名保持空白。</p>
     {view.summary&&<p>{view.summary}</p>}
     {Boolean(view.roles?.player||view.roles?.referee||view.roles?.uncertain)&&<p className="identity-initial-counts">抽样人物：{view.roles.player||0} 个标为球员 · {view.roles.referee||0} 个标为裁判 · {view.roles.uncertain||0} 个待分辨</p>}
     {view.applied&&<p className="small muted">补入的片段仍标为待核对。没有观测的位置保持空白。</p>}
     {view.report&&<p className="small muted">更新 {view.report.changedModelBindings||0} 个球员的机器建议 · 排除 {view.report.excludedObservations||0} 个非球员观测 · 保留 {view.report.preservedHuman||0} 处人工记录。</p>}
     {view.stale&&<p className="identity-agent-notice">草稿已有新修改；旧结果只供查看。更新时复用初检结果，并重新检查人工修改。</p>}
     {(review.error||job?.status==='failed')&&<p className="identity-agent-error" role="alert">{review.error||job?.message||'初检失败，可重试或直接在画面修改。'}</p>}
-    {!available&&!busy&&<p className="identity-agent-notice">{state.identityAgent?.status?.message||'正在检查识别服务…'}；仍可直接在画面修改。</p>}
+    {!available&&!busy&&<p className="identity-agent-notice">{initialStatus?.message||'正在检查识别服务…'}；仍可直接在画面修改。</p>}
     <div className="identity-agent-actions">
-      {busy?<button onClick={()=>api.cancelInitialReview()}>停止初检</button>:<button disabled={!available||state.reviewBusy} onClick={()=>api.retryInitialReview()}>{view.stale?'更新初检到当前草稿':job?.status==='failed'||job?.status==='cancelled'?'重试自动初检':view.applied||job?.candidate?'用初检结果更新草稿':'开始自动初检'}</button>}
+      {busy?<button onClick={()=>api.cancelInitialReview()}>停止初检</button>:<button disabled={!available||state.reviewBusy} onClick={()=>api.retryInitialReview()}>{view.completionStatus==='partial'?'继续检查未完成区间':view.stale?'更新初检到当前草稿':job?.status==='failed'||job?.status==='cancelled'?'重试自动初检':view.applied||job?.candidate?'用初检结果更新草稿':'开始自动初检'}</button>}
       {view.ready&&!view.applied&&<button className="primary" disabled={busy||view.stale||state.reviewBusy} onClick={()=>api.adoptInitialReview()}>补入可用机器建议</button>}
       <button onClick={()=>api.focusIdentityManual()}>直接人工修改</button>
     </div>
