@@ -22,12 +22,12 @@ class ProviderEnvironmentAlignmentTests(unittest.TestCase):
         self.root=Path(self.temp.name);self.env=self.root/'.env'
 
     def test_name_speech_and_job_status_read_utf16_with_environment_precedence(self):
-        self.env.write_text('OPEN_ROUTER_KEY=file-secret\nPOLLY_VOICE_ID=Zhiyu\n',encoding='utf-16')
+        self.env.write_text('OPEN_ROUTER_KEY=file-secret\nQWEN_TTS_VOICE=anmingyuan_v3.1\n',encoding='utf-16')
         with patch.dict(os.environ,{'OPEN_ROUTER_KEY':'process-secret'},clear=True), \
                 patch.object(player_name_identity,'REPO_ROOT',self.root), \
                 patch('commentary_jobs.speech_credentials') as speech:
             self.assertEqual(player_name_identity._load_server_config()['OPEN_ROUTER_KEY'],'process-secret')
-            self.assertEqual(commentary_tts.voice_settings(self.env)['speaker'],'Zhiyu')
+            self.assertEqual(commentary_tts.voice_settings(self.env)['speaker'],'anmingyuan_v3.1')
             jobs=commentary_jobs.CommentaryJobs(self.root/'jobs',env_file=self.env)
             self.addCleanup(jobs.close)
             self.assertTrue(jobs.status()['understandingConfigured'])
@@ -36,7 +36,7 @@ class ProviderEnvironmentAlignmentTests(unittest.TestCase):
             self.assertTrue(names.status()['available'])
 
     def test_supported_encodings_and_invalid_bytes_do_not_leak_configuration(self):
-        source='OPEN_ROUTER_KEY=file-private-secret\nPOLLY_VOICE_ID=Zhiyu\n'
+        source='OPEN_ROUTER_KEY=file-private-secret\nQWEN_TTS_VOICE=anmingyuan_v3.1\n'
         readers=[lambda:commentary_tts.environment(self.env),
                  lambda:player_name_identity._load_server_config(),
                  lambda:commentary_agent.provider_environment(self.env,'openrouter')]

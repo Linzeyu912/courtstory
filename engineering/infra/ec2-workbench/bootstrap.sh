@@ -66,8 +66,8 @@ HKS_AGENT_RUNTIME=__RUNTIME_ARN__
 TACTICS_SHARP_MODULE=/opt/hks/node-deps/node_modules/sharp
 NODE_PATH=/opt/hks/node-deps/node_modules
 HKS_GPU_PREFIX=__GPU_PREFIX__
-POLLY_VOICE_ID=Zhiyu
-POLLY_ENGINE=neural
+QWEN_TTS_VOICE=anmingyuan_v3.1
+QWEN_TTS_MODEL=qwen-audio-3.1-tts-flash
 ENV
 chown -R hks:hks /opt/hks
 chown root:hks /etc/hks/gateway.json /etc/hks/runtime.env /etc/hks/product.env

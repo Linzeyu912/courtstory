@@ -1,4 +1,4 @@
-"""Run video understanding, Amazon Polly narration, and subtitled MP4 rendering."""
+"""Run video understanding, Alibaba Cloud Qwen-Audio narration, and subtitled MP4 rendering."""
 from __future__ import annotations
 
 import argparse
@@ -15,7 +15,7 @@ def write_preview(output, render, plan, title):
     import av
     timeline = json.loads((render/'timeline.json').read_text(encoding='utf-8'))
     result = json.loads(Path(plan).read_text(encoding='utf-8'))
-    timeline.update(id=title, title=title, audio='amazon_polly',
+    timeline.update(id=title, title=title, audio='aliyun_qwen_audio',
                     summary=result.get('plan', result).get('summary', ''),
                     video=(render/'commentary-final.mp4').relative_to(output).as_posix(),
                     poster='poster.jpg')
@@ -47,8 +47,8 @@ def main():
     parser.add_argument('--observations', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--env-file', type=Path, default=ROOT / '.env')
-    parser.add_argument('--speaker', help='Polly voice ID; default POLLY_VOICE_ID or Zhiyu')
-    parser.add_argument('--engine', help='Polly engine; default POLLY_ENGINE or neural')
+    parser.add_argument('--speaker', help='Alibaba Cloud voice ID; default anmingyuan_v3.1 (male)')
+    parser.add_argument('--tts-model', '--engine', dest='engine', help='Qwen-Audio TTS model ID')
     parser.add_argument('--style', default=STYLE)
     parser.add_argument('--font', type=Path, help='CJK font; automatically selects the installed system font')
     parser.add_argument('--provider', choices=['openrouter', 'token-plan', 'qwen'], default='openrouter')
