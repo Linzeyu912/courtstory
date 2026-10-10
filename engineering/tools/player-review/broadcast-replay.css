@@ -17,9 +17,9 @@ body.studio-replay {
 .studio-replay select { background-color: var(--studio-bg); }
 .studio-replay select option { background: white; color: var(--studio-ink); }
 .studio-replay select option:checked { background: var(--studio-ink); color: white; }
-.studio-replay .rail { display: flex; position: relative; inset: auto; width: 100%; height: 56px; padding: 0 24px; flex-direction: row; gap: 32px; background: var(--studio-ink); border: 0; color: white; isolation: isolate; overflow: hidden; }
-.studio-replay .brand { display: flex; width: auto; height: 56px; align-items: center; gap: 9px; background: transparent; color: white; font: italic 700 25px var(--studio-brand); white-space: nowrap; }
-.studio-replay .brand img { filter: grayscale(1) brightness(0) invert(1); transform: rotate(-16deg); }
+.studio-replay .rail { display: flex; position: relative; inset: auto; width: 100%; height: var(--studio-header-height); padding: 0 32px; flex-direction: row; gap: 32px; background: var(--studio-ink); border: 0; color: white; isolation: isolate; overflow: hidden; }
+.studio-replay .brand { display: flex; flex: 0 0 auto; width: auto; height: var(--studio-header-height); align-items: center; gap: 12px; background: transparent; color: white; font: italic 700 var(--studio-brand-size)/1 var(--studio-brand); letter-spacing: -.015em; white-space: nowrap; }
+.studio-replay .brand img { width: var(--studio-brand-mark-size); height: var(--studio-brand-mark-size); filter: grayscale(1) brightness(0) invert(1); transform: rotate(-16deg); }
 .studio-replay .brand span { position: static; font: inherit; }
 .studio-replay .brand em { color: #e5334f; font-style: inherit; }
 .studio-replay main { max-width: none; margin: 0; padding: 0 24px 24px; }
@@ -78,8 +78,7 @@ body.studio-replay {
 .studio-replay .note-mark { color: var(--studio-muted); border-color: var(--studio-button-line); }
 .studio-replay #error { background: white; color: var(--studio-red); border-color: var(--studio-line); border-radius: 4px; }
 @media (max-width: 790px) {
-  .studio-replay .rail { padding-inline: 12px; gap: 18px; }
-  .studio-replay .brand { font-size: 25px; }
+  .studio-replay .rail { padding-inline: 16px; gap: 18px; }
   .studio-replay main { margin: 0; padding: 0 12px 20px; }
   .studio-replay .page-header { margin: 0 -12px; padding: 0 12px; gap: 12px; }
   .studio-replay .page-header .eyebrow { display: none; }
