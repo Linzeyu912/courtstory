@@ -8,6 +8,7 @@ import subprocess
 import sys
 
 from commentary_tts import ROOT, STYLE, credentials, synthesize_plan, voice_settings
+from commentary_fonts import resolve_font
 
 
 def write_preview(output, render, plan, title):
@@ -49,7 +50,7 @@ def main():
     parser.add_argument('--speaker', help='Polly voice ID; default POLLY_VOICE_ID or Zhiyu')
     parser.add_argument('--engine', help='Polly engine; default POLLY_ENGINE or neural')
     parser.add_argument('--style', default=STYLE)
-    parser.add_argument('--font', type=Path, default=Path('C:/Windows/Fonts/msyh.ttc'))
+    parser.add_argument('--font', type=Path, help='CJK font; automatically selects the installed system font')
     parser.add_argument('--provider', choices=['openrouter', 'token-plan', 'qwen'], default='openrouter')
     parser.add_argument('--model', help='Understanding model; default is the selected provider default')
     parser.add_argument('--resume', action='store_true', help='Continue an interrupted run using already synthesized cues')
@@ -91,6 +92,8 @@ def main():
 
     save()
     try:
+        # Check the rendering dependency before any paid understanding or speech calls.
+        args.font = resolve_font(args.font)
         plan = args.plan or output/'understanding/result.json'
         if not args.plan:
             cached = json.loads(plan.read_text(encoding='utf-8')) if plan.is_file() else {}
@@ -109,6 +112,13 @@ def main():
             e.get('kind')=='shot' and e.get('shotStatus')=='confirmed' for e in saved_plan.get('events',[]))
         if has_shots and not args.document:
             raise ValueError('shot_release requires --document with the adopted shooter spotlight and feedback before speech synthesis')
+        if has_shots:
+            snapshot = json.loads(args.document.read_text(encoding='utf-8'))
+            document = snapshot.get('document', snapshot)
+            feedback = document.get('shotFeedback', {}).get('items', [])
+            shot_nodes = [node for node in saved_plan.get('nodes', []) if node.get('kind') == 'shot_release']
+            if not feedback or any(sum(item.get('nodeId') == node['nodeId'] for item in feedback) != 1 for node in shot_nodes):
+                raise ValueError('投篮解说尚未关联已采纳的投篮标记和评价；请先生成并采纳对应的战术绘制，再生成成片。已有配音会复用。')
         state['stage'] = 'speech'; save()
         manifest = synthesize_plan(plan, output/'audio', args.env_file, args.speaker, args.style, args.engine,audio_cache=args.audio_cache)
         state['stage'] = 'render'; save()

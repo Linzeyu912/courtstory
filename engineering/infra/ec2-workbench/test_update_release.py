@@ -38,6 +38,8 @@ class ReleaseTests(unittest.TestCase):
                 'data/player-rosters/0022500701.json': '{"gameId":"0022500701"}',
                 'engineering/scripts/new_dependency.py': 'value = 1\n',
                 'engineering/scripts/cloud_tactics_agent.py': 'value = 2\n',
+                'engineering/scripts/cloud_gpu.py': 'value = 4\n',
+                'engineering/tools/commentary-preview/index.html': '<html>Preview</html>',
                 'engineering/tools/player-review/app.mjs': "import './new-feature.mjs';\n",
                 'engineering/tools/player-review/new-feature.mjs': 'export const value = 1;\n',
                 'engineering/infra/ec2-workbench/gateway.py': 'value = 3\n',

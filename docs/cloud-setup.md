@@ -1,6 +1,6 @@
 # 云端工程
 
-`engineering/infra/ec2-workbench/` 保留现有 EC2 工作台、AgentCore 推理入口、CloudFront 网关及 S3 备份工程。本轮只迁移代码，没有创建或更新云资源。
+`engineering/infra/ec2-workbench/` 包含 EC2 工作台、AgentCore 推理入口、CloudFront 网关及 S3 备份工程。2026-10-10 已在赛事账号部署并通过公网登录与视频播放验证，运行方式与私有记录位置见 [AWS 工作台运行与维护](aws-live-deployment.md)。
 
 | 入口 | 用途 |
 | --- | --- |
@@ -15,10 +15,10 @@
 
 部署包仍采用两个官方训练样例。新仓库同时提供两段官方训练视频。本地安装见[本地启动](local-setup.md)，环境变量和服务选项以工程参数为准。
 
-现有网关使用临时共享访问码，尚不代表生产多用户系统。模型候选质量、真实 Polly 中文配音和新账号部署仍需在目标环境验证。
+现有网关使用临时共享访问码。中文配音采用 Polly `Zhiyu` 神经引擎；模型候选仍需用户核对。运行中的语言与视觉 API 统一使用 OpenRouter。
 
 ## GPU 工程与身份运行数据
 
-[SageMaker 视觉环境](../engineering/infra/sagemaker-vision/README.md)已迁入；默认探针改用本仓库官方训练 001，不再依赖旧 005 视频。它创建 Notebook 环境，尚未接通工作台远程 GPU 调度。
+[SageMaker 视觉环境](../engineering/infra/sagemaker-vision/README.md)保留开发与验证脚本。新增 `worker.py` / `start_worker.sh`，通过私有 S3 作业连接 EC2 工作台，执行视频检测、跟踪和 48 点场地模型。
 
 EC2 首次打包与更新打包已包含 `data/player-rosters/`，保证初稿 Agent 的明确比赛名单可随代码进入部署包。模型权重和凭据仍单独准备，迁入代码不代表已部署。

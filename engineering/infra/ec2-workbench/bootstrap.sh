@@ -23,8 +23,9 @@ PY
 unzip -q /tmp/workbench.zip -d /opt/hks/releases/__RELEASE__
 ln -sfn /opt/hks/releases/__RELEASE__ /opt/hks/current
 cd /opt/hks/current
-/opt/hks/venv/bin/pip install --disable-pip-version-check -r engineering/requirements-review.txt boto3==1.43.108
+/opt/hks/venv/bin/pip install --disable-pip-version-check -r engineering/requirements-review.txt boto3==1.43.108 opencv-python-headless scipy
 npm install --prefix /opt/hks/node-deps --omit=dev --no-audit --no-fund sharp@0.34.5
+npm ci --prefix engineering/tools/player-review/agents --omit=dev --no-audit --no-fund
 /opt/hks/venv/bin/python - <<'PY'
 import json, boto3
 from pathlib import Path
@@ -40,6 +41,10 @@ for item in json.loads(Path('cloud-release.json').read_text())['videos']:
 Path('/etc/hks/gateway.json').write_text(json.dumps({
     'origin': '', 'codeHash': '__CODE_HASH__', 'bucket': '__BUCKET__',
     'prefix': '__PREFIX__', 'runtimeArn': '__RUNTIME_ARN__', 'release': '__RELEASE__'}))
+if '__ENV_KEY__':
+    s3.download_file('__BUCKET__', '__ENV_KEY__', '/etc/hks/product.env')
+else:
+    Path('/etc/hks/product.env').touch()
 PY
 if [ -n '__STATE_KEY__' ]; then
   /opt/hks/venv/bin/python - <<'PY'
@@ -59,10 +64,14 @@ HKS_BUCKET=__BUCKET__
 HKS_PREFIX=__PREFIX__
 HKS_AGENT_RUNTIME=__RUNTIME_ARN__
 TACTICS_SHARP_MODULE=/opt/hks/node-deps/node_modules/sharp
+NODE_PATH=/opt/hks/node-deps/node_modules
+HKS_GPU_PREFIX=__GPU_PREFIX__
+POLLY_VOICE_ID=Zhiyu
+POLLY_ENGINE=neural
 ENV
 chown -R hks:hks /opt/hks
-chown root:hks /etc/hks/gateway.json /etc/hks/runtime.env
-chmod 640 /etc/hks/gateway.json /etc/hks/runtime.env
+chown root:hks /etc/hks/gateway.json /etc/hks/runtime.env /etc/hks/product.env
+chmod 640 /etc/hks/gateway.json /etc/hks/runtime.env /etc/hks/product.env
 cat > /etc/systemd/system/hks-workbench.service <<'UNIT'
 [Unit]
 Description=HKS native workbench
@@ -72,7 +81,7 @@ User=hks
 Group=hks
 WorkingDirectory=/opt/hks/current
 EnvironmentFile=/etc/hks/runtime.env
-ExecStart=/opt/hks/venv/bin/python engineering/scripts/serve_player_review.py --library cloud-library.json --port 8876 --state-file artifacts/cloud-state.json --trim-root artifacts/cloud-trims --import-cache artifacts/cloud-imports --inference-python /opt/hks/venv/bin/python --tactics-agent-max-images 4
+ExecStart=/opt/hks/venv/bin/python engineering/scripts/serve_player_review.py --library cloud-library.json --port 8876 --state-file artifacts/cloud-state.json --trim-root artifacts/cloud-trims --import-cache artifacts/cloud-imports --inference-python /opt/hks/venv/bin/python --tactics-agent-max-images 4 --env-file /etc/hks/product.env --identity-agent-provider openrouter
 Restart=on-failure
 RestartSec=5
 NoNewPrivileges=true

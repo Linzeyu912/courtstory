@@ -54,6 +54,9 @@ class RuntimeProbe:
         self.checked_at, self.runtime, self.weights = 0, None, {}
 
     def __call__(self):
+        if os.environ.get('HKS_GPU_PREFIX'):
+            from cloud_gpu import CloudGPU
+            return CloudGPU().status()
         with self.lock:
             # GPU/package startup is expensive; file signatures still refresh on every request.
             if self.runtime is None or time.monotonic() - self.checked_at > 60:

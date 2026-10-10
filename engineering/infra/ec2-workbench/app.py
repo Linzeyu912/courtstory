@@ -51,7 +51,6 @@ objects = f"arn:aws:s3:::{config['bucket']}/{config['prefix']}/*"
 agent_objects = f"arn:aws:s3:::{config['bucket']}/{config['prefix']}/agent-jobs/*"
 agent_role = role(core, 'AgentRole', 'bedrock-agentcore.amazonaws.com', [
     allow('s3:GetObject', [objects]), allow('s3:PutObject', agent_objects),
-    allow('bedrock:InvokeModel', 'arn:aws:bedrock:us-east-1::foundation-model/qwen.qwen3-vl-235b-a22b'),
     allow(['logs:CreateLogGroup', 'logs:CreateLogStream', 'logs:PutLogEvents', 'logs:DescribeLogStreams'],
           f"arn:aws:logs:us-east-1:{config['account']}:log-group:/aws/bedrock-agentcore/runtimes/*")
 ], {'StringEquals': {'aws:SourceAccount': config['account']},
@@ -65,13 +64,15 @@ runtime = resource(core, 'AgentRuntime', 'AWS::BedrockAgentCore::Runtime', {
     'RoleArn': agent_role.get_att('Arn').to_string(),
     'NetworkConfiguration': {'NetworkMode': 'PUBLIC'}, 'ProtocolConfiguration': 'HTTP',
     'LifecycleConfiguration': {'IdleRuntimeSessionTimeout': 60, 'MaxLifetime': 600},
-    'EnvironmentVariables': {'HKS_BUCKET': config['bucket'], 'HKS_PREFIX': config['prefix']}
+    'EnvironmentVariables': {'HKS_BUCKET': config['bucket'], 'HKS_PREFIX': config['prefix'],
+                            'HKS_PROVIDER_KEY': config.get('providerKey', config['prefix'] + '/secrets/provider.json')}
 })
 runtime_arn = runtime.get_att('AgentRuntimeArn').to_string()
 ec2_role = role(core, 'Ec2Role', 'ec2.amazonaws.com', [
     allow('polly:SynthesizeSpeech', '*'),
     allow('s3:GetObject', [objects, f"arn:aws:s3:::{config['bucket']}/workbench/datasets/broadcastcode-training-20261005/*"]),
     allow('s3:PutObject', [agent_objects, f"arn:aws:s3:::{config['bucket']}/{config['prefix']}/workspace/*"]),
+    allow(['s3:GetObject', 's3:PutObject'], f"arn:aws:s3:::{config['bucket']}/{config['prefix']}/gpu/*"),
     allow(['bedrock-agentcore:InvokeAgentRuntime', 'bedrock-agentcore:StopRuntimeSession'], [runtime_arn, runtime_arn + '/*'])
 ], managed=['arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore'])
 profile = resource(core, 'Ec2Profile', 'AWS::IAM::InstanceProfile', {'Roles': [ec2_role.ref]})
@@ -88,7 +89,8 @@ values = {'BUCKET': config['bucket'], 'PREFIX': config['prefix'], 'RELEASE': con
           'CODE_HASH': config['codeHash'], 'RUNTIME_ARN': runtime_arn,
           'NODE_SHA': config['nodeSha'], 'WORKBENCH_KEY': config.get('workbenchKey', config['prefix'] + '/release/workbench.zip'),
           'WORKBENCH_SHA': config.get('workbenchSha256', ''),
-          'STATE_KEY': config.get('stateKey', ''), 'STATE_SHA': config.get('stateSha256', '')}
+          'STATE_KEY': config.get('stateKey', ''), 'STATE_SHA': config.get('stateSha256', ''),
+          'ENV_KEY': config.get('envKey', ''), 'GPU_PREFIX': config.get('gpuPrefix', '')}
 for key, value in values.items():
     bootstrap = bootstrap.replace('__' + key + '__', value)
 instance = resource(core, 'Instance', 'AWS::EC2::Instance', {

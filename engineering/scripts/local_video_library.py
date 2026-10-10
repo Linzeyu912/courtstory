@@ -292,6 +292,9 @@ class LocalVideoLibrary:
         if variant=='manual':
             from process_local_video import prepare_manual_sample
             return prepare_manual_sample(source,destination/'video.mp4',run_dir,ident)
+        if os.environ.get('HKS_GPU_PREFIX'):
+            from cloud_gpu import CloudGPU
+            return CloudGPU().track(source, run_dir, ident, variant)
         command = [str(self.python), str(Path(__file__).with_name('process_local_video.py')),
             '--source', str(source), '--source-sha256', ident[6:], '--video', str(destination / 'video.mp4'),
             '--output-dir', str(run_dir), '--variant', variant, '--models', str(self.models), '--id', ident]

@@ -37,6 +37,10 @@ class CourtKeypointModel:
         self.metadata = {'name': 'yolo11n-court48', 'sha256': COURT_MODEL_SHA256, 'inputSize': imgsz}
 
     def __call__(self, image):
+        if os.environ.get('HKS_GPU_PREFIX'):
+            from cloud_gpu import CloudGPU
+            self.device = 'remote-cuda:0'
+            return CloudGPU().court(image, self.imgsz)
         if self.model is None:
             if not self.path.is_file():
                 raise CourtModelUnavailable('缺少本机场地模型，请按工程说明准备权重或使用 --court-model 指定路径。')

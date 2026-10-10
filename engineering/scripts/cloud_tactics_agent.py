@@ -19,8 +19,8 @@ class CloudTacticsExecutor:
             connect_timeout=10, read_timeout=300, retries={'total_max_attempts': 1}))
 
     def status(self):
-        return {'available': True, 'provider': 'agentcore-bedrock', 'sandbox': 'cloud',
-                'model': 'qwen.qwen3-vl-235b-a22b', 'reasoningEffort': 'default',
+        return {'available': True, 'provider': 'agentcore-openrouter', 'sandbox': 'cloud',
+                'model': 'openai/gpt-6-astra', 'reasoningEffort': 'low',
                 'message': '已配置云端 Agent；实际视觉调用与候选校验以任务结果为准。'}
 
     def __call__(self, *, job, directory, schema, result, images, prompt):
