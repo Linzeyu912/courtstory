@@ -17,10 +17,10 @@
 
 2026-10-04 20:13–20:15（Asia/Shanghai）读取远端和已有交接：
 
-- [df68c50](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/df68c5066e41619f9664c0fa922d27abcbf69fdc)：区间人工修正、视频导入与战术 Agent 流程。
-- [142e733](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/142e733e8b58b55bd70315518582e9ca0c43cdd7)：号码参考与球员 Agent 跨片段续接。
-- [290b80d](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/290b80de9e0a61063e9a7b5a0f7a3e5b62a02217)：战术球员预览、初稿输入与错误诊断。
-- [aada11c](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/aada11c039d877bf326f3c6369393b178ddfab87)：虚线箭头与点状传球线，当前远端最新提交。
+- [df68c50](https://github.com/Linzeyu912/courtstory/commit/df68c5066e41619f9664c0fa922d27abcbf69fdc)：区间人工修正、视频导入与战术 Agent 流程。
+- [142e733](https://github.com/Linzeyu912/courtstory/commit/142e733e8b58b55bd70315518582e9ca0c43cdd7)：号码参考与球员 Agent 跨片段续接。
+- [290b80d](https://github.com/Linzeyu912/courtstory/commit/290b80de9e0a61063e9a7b5a0f7a3e5b62a02217)：战术球员预览、初稿输入与错误诊断。
+- [aada11c](https://github.com/Linzeyu912/courtstory/commit/aada11c039d877bf326f3c6369393b178ddfab87)：虚线箭头与点状传球线，当前远端最新提交。
 
 前面的更新已分别在 [19:10 整合](2026-10-04-1910-thy-local-integration.md)与[功能复检](2026-10-04-1945-functional-audit.md)期间拉取。此次未发现更新的已推送版本，不能宣称又合入了一批新代码。
 

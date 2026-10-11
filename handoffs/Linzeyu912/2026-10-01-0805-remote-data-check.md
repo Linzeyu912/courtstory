@@ -9,7 +9,7 @@
 
 ## 本次完成
 
-- fetch发现两条新提交，Git作者为chuali：[bbe2222](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/bbe2222d4be9bdb8637810732bee750147322d48)新增素材清单及历史采集记录，[a640fdf](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/a640fdf93996d44691379cd9432c653e7bc3c567)补充同步核验。
+- fetch发现两条新提交，Git作者为chuali：[bbe2222](https://github.com/Linzeyu912/courtstory/commit/bbe2222d4be9bdb8637810732bee750147322d48)新增素材清单及历史采集记录，[a640fdf](https://github.com/Linzeyu912/courtstory/commit/a640fdf93996d44691379cd9432c653e7bc3c567)补充同步核验。
 - 按既有用户授权快进拉取main；保留本地2024–25赛季100段素材的全部文件和未提交文档。
 - 读取新入库的三份JSON清单、四份交接及团队状态更新；未下载视频或修改队友数据。
 

@@ -17,8 +17,8 @@
 
 | 本机目录（以共同父目录为参照） | GitHub 仓库 | 当前身份及结果 |
 | --- | --- | --- |
-| `HKS/` | [broadcastcode-team-hub](https://github.com/Linzeyu912/broadcastcode-team-hub) | 独立仓库的主工作目录，main 跟踪 origin/main；本地、缓存引用和实查远端均为 `56e6466057c0560701d3163d2dbd1384e59249d2` |
-| `courtstory/` | [courtstory](https://github.com/Linzeyu912/courtstory) | 另一个独立仓库，main 跟踪 origin/main；本地为 `769dca11ae7f56a451ce70f7da76bd1cfa3ca6fd`，远端为 `c914c145f5ea355482ae294d72ce6e8afa84ad35`，本地领先 0、落后 10 个提交 |
+| `HKS/` | [broadcastcode-team-hub](https://github.com/Linzeyu912/courtstory) | 独立仓库的主工作目录，main 跟踪 origin/main；本地、缓存引用和实查远端均为 `56e6466057c0560701d3163d2dbd1384e59249d2` |
+| `courtstory/` | [courtstory](https://github.com/Linzeyu912/courtstory-snapshot) | 另一个独立仓库，main 跟踪 origin/main；本地为 `769dca11ae7f56a451ce70f7da76bd1cfa3ca6fd`，远端为 `c914c145f5ea355482ae294d72ce6e8afa84ad35`，本地领先 0、落后 10 个提交 |
 | `HKS-thy-20261002/` | 同一个 Team Hub 仓库 | 附加 Git worktree；共享 `HKS/.git`，固定在 `1839dcde5b5cc0aa362baa474e58e5b530e6c695`，没有检出的命名分支 |
 
 - 两个正式仓库的 fetch / push 地址均对应各自仓库，没有互相指错。它们各有独立 `.git` 目录，分别维护提交与同步。

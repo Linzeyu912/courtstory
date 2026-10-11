@@ -4,7 +4,7 @@
 - 成员：thy-0629。
 - 任务 / Issue：用户明确授权将现有 `2K Player Data` 推送到本仓库；只读 Issue 查询返回空列表，未新建 Issue。
 - 分支：main。
-- 数据提交：[0584778933bb555d42f1985a8c56009d8316b718](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/0584778933bb555d42f1985a8c56009d8316b718)。
+- 数据提交：[0584778933bb555d42f1985a8c56009d8316b718](https://github.com/Linzeyu912/courtstory/commit/0584778933bb555d42f1985a8c56009d8316b718)。
 - 状态：资料已推送 main，独立检查通过，远端提交核验完成。
 
 ## 本次完成

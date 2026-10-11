@@ -4,7 +4,7 @@
 - 成员：chuali-zi
 - 任务／Issue：用户认可当前回放效果并明确要求推送远端；范围沿用专用 Qwen 地面轨迹测试与动态展示。
 - 分支：main
-- 实现提交：[b503573](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/b50357356ef4079455d55753ad082d6904f65fe6)
+- 实现提交：[b503573](https://github.com/Linzeyu912/courtstory/commit/b50357356ef4079455d55753ad082d6904f65fe6)
 - 状态：实现和实测示例已推送并核对远端；本记录与当前状态更新随后作为文档提交同步。
 
 ## 本次完成

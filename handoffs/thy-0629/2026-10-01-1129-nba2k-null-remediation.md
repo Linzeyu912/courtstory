@@ -4,7 +4,7 @@
 - 成员：thy-0629。
 - 任务 / Issue：用户同意补采原有空值并更新数据包，先完成数据任务，Agent 搭建后续讨论；只读 Issue 查询返回空列表，未新建 Issue。
 - 分支：main。
-- 数据提交：[a417fa749e51edb8b82fff07cc7b33afc69bd563](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/a417fa749e51edb8b82fff07cc7b33afc69bd563)。
+- 数据提交：[a417fa749e51edb8b82fff07cc7b33afc69bd563](https://github.com/Linzeyu912/courtstory/commit/a417fa749e51edb8b82fff07cc7b33afc69bd563)。
 - 状态：补采及导出已通过独立复核，已推送 main，远端逐文件回读通过。
 
 ## 本次完成

@@ -17,7 +17,7 @@
 
 检测候选索引只在当前帧有效，不是跨帧球员 ID。同一个人出现 T1、T2、T3 可能涉及遮挡、检测中断、过滤或跟踪关联；不能仅凭编号变化认定 YOLO 出错。未编号检测框可以说明本帧已有检测候选，但不能单独证明跟踪器匹配错误。旧 YOLO / E-BARD 输出没有逐框来源证据时，页面明确显示证据有限。
 
-实现依据为本地核读的 [THY 检测与跟踪输出](../scripts/basketball_run.py)、[诊断显示](../tools/player-review/tracking-diagnostics.mjs)；采集日 2026-10-02。整合来源为 [THY 1839dcd](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1839dcde5b5cc0aa362baa474e58e5b530e6c695) 与 [用户版 fffb6ea](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/fffb6ea7513b161dba0d0959ee4b822ae0469cf0)。本轮只读核对远端 main 仍为 1839dcd；GitHub open Issue 列表为空，范围依据用户本次指示。
+实现依据为本地核读的 [THY 检测与跟踪输出](../scripts/basketball_run.py)、[诊断显示](../tools/player-review/tracking-diagnostics.mjs)；采集日 2026-10-02。整合来源为 [THY 1839dcd](https://github.com/Linzeyu912/courtstory/commit/1839dcde5b5cc0aa362baa474e58e5b530e6c695) 与 [用户版 fffb6ea](https://github.com/Linzeyu912/courtstory/commit/fffb6ea7513b161dba0d0959ee4b822ae0469cf0)。本轮只读核对远端 main 仍为 1839dcd；GitHub open Issue 列表为空，范围依据用户本次指示。
 
 ## 如何操作
 

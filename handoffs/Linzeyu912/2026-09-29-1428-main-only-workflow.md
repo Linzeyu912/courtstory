@@ -12,7 +12,7 @@
 - 更新 [Agent 指引](../../AGENTS.md)、[README](../../README.md)、[协作流程](../../docs/workflow.md)、[团队状态](../../docs/status.md)和[决策 D004](../../docs/decisions.md#d004所有内容直接在-main-上改进)。
 - 更新 Issue、交接模板和交接目录说明，移除 PR 模板。
 - 将此前 Jev 调研提交 `cebd214` 和邮件记录提交 `24e2070` 直接纳入本地 main，保留提交历史；没有创建新分支或分支合并提交。
-- 关闭原 [PR #1](https://github.com/Linzeyu912/broadcastcode-team-hub/pull/1)，后续通过 main 的提交和交接同步。
+- 关闭原 [PR #1](https://github.com/Linzeyu912/courtstory/pull/1)，后续通过 main 的提交和交接同步。
 
 ## 结论与依据
 

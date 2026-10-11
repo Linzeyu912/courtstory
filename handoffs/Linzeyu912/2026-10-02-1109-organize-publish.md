@@ -19,7 +19,7 @@
 ## 结论与依据
 
 - 用户本轮明确授权同步此前所有积累成果，更新此前暂不发布开发增量的范围；已完成的目录归档不等于完整产品、模型准确率或云部署完成。
-- 来源与采集日期：2026-10-02，本机仓库状态、用户本轮要求、既有交接和数据清单；仓库 URL：https://github.com/Linzeyu912/broadcastcode-team-hub 。本轮不重新采集或解释外部规则。
+- 来源与采集日期：2026-10-02，本机仓库状态、用户本轮要求、既有交接和数据清单；仓库 URL：https://github.com/Linzeyu912/courtstory 。本轮不重新采集或解释外部规则。
 - 分类与迁移表见[仓库目录](../../docs/repository-map.md)；软件运行见[工程入口](../../engineering/README.md)，赛事资料见[要求索引](../../requirements/README.md)。
 
 ## 验证
@@ -46,11 +46,11 @@
 
 | 分类 | 提交 |
 |---|---|
-| 赛事要求与历史来源 | [5f63730](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/5f63730b501dcf37ce68a41d39f6015a2669c9d8) |
-| 工程设计、视觉实验和测量 | [e1d2b1a](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/e1d2b1add205290835292e3ff6827c47bb7bbc19) |
-| 复核软件与身份向后生效 | [486e8b9](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/486e8b99c07c7b76212799b8e81de1bd4f6f8032) |
-| 验收视频、候选和 LFS 校验 | [4149d58](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/4149d58415662a7a3479ebb9ff6fe37098b2e17d) |
-| 评分来源复核辅助表 | [bf77bf8](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/bf77bf868bb5d9de632aec88a4ea8a98b865cfd7) |
-| 目录约定、运行入口和协作状态 | [67179b8](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/67179b8e465fd8b4f2dcdd8fd80aa150ca15c2ca) |
+| 赛事要求与历史来源 | [5f63730](https://github.com/Linzeyu912/courtstory/commit/5f63730b501dcf37ce68a41d39f6015a2669c9d8) |
+| 工程设计、视觉实验和测量 | [e1d2b1a](https://github.com/Linzeyu912/courtstory/commit/e1d2b1add205290835292e3ff6827c47bb7bbc19) |
+| 复核软件与身份向后生效 | [486e8b9](https://github.com/Linzeyu912/courtstory/commit/486e8b99c07c7b76212799b8e81de1bd4f6f8032) |
+| 验收视频、候选和 LFS 校验 | [4149d58](https://github.com/Linzeyu912/courtstory/commit/4149d58415662a7a3479ebb9ff6fe37098b2e17d) |
+| 评分来源复核辅助表 | [bf77bf8](https://github.com/Linzeyu912/courtstory/commit/bf77bf868bb5d9de632aec88a4ea8a98b865cfd7) |
+| 目录约定、运行入口和协作状态 | [67179b8](https://github.com/Linzeyu912/courtstory/commit/67179b8e465fd8b4f2dcdd8fd80aa150ca15c2ca) |
 
 - 推送后再次 fetch：HEAD 与 origin/main 同为 `67179b8e465fd8b4f2dcdd8fd80aa150ca15c2ca`，工作区干净。独立下载核验报告保存在本机忽略目录，主要结果已在本交接公开；此验证记录另用收尾文档提交保存，最终提交可由文件历史查看。

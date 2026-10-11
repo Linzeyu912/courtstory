@@ -19,7 +19,7 @@
 ## 结论与依据
 
 - 开工fetch后本地与远端均为 `a640fdf93996d44691379cd9432c653e7bc3c567`，没有新提交。
-- THY（`thy-0629`）已上传 [NBA 2K数据包](../../2K%20Player%20Data/manifest.json)，数据提交为 [0584778](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/0584778933bb555d42f1985a8c56009d8316b718)，后续补记为020819f。本轮重新核对清单9个文件的字节数和SHA-256，9/9匹配；该包未修改。
+- THY（`thy-0629`）已上传 [NBA 2K数据包](../../2K%20Player%20Data/manifest.json)，数据提交为 [0584778](https://github.com/Linzeyu912/courtstory/commit/0584778933bb555d42f1985a8c56009d8316b718)，后续补记为020819f。本轮重新核对清单9个文件的字节数和SHA-256，9/9匹配；该包未修改。
 - 100段的来源、比赛和已看片标签沿用此前采集记录；3段1080p、97段720p，14段完整球权、86段局部片段。同类动作分16组，不能称为100种战术。
 - 30段原链接仍受登录验证或地区限制，成片未取得；旧8段与单段清单作为历史入口保留，不能在未核对关系时相加为新增独立素材。
 - LFS行为依据[GitHub说明](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage)及[LFS按路径拉取说明](https://github.com/git-lfs/git-lfs/blob/main/docs/man/git-lfs-pull.adoc)，读取于2026-10-01；本轮用户已授权私有仓库内上传。
@@ -44,7 +44,7 @@
 
 - 准备阶段：全部任务文件已选择性暂存；此前独立的 `2026-10-01-0805-remote-data-check.md` 留在本机未提交，不顺带纳入本次视频上传。
 - 仅操作main；未新建分支、PR或Issue，未发消息给组员，未使用force push。最终推送和独立缓存下载结果将在本节追加。
-- 实际素材与规范提交：[ef840fb1a0d73b13363e64becccb08d1770f6db4](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/ef840fb1a0d73b13363e64becccb08d1770f6db4)。正常推送main成功，LFS报告100/100对象、647 MB上传完成。
+- 实际素材与规范提交：[ef840fb1a0d73b13363e64becccb08d1770f6db4](https://github.com/Linzeyu912/courtstory/commit/ef840fb1a0d73b13363e64becccb08d1770f6db4)。正常推送main成功，LFS报告100/100对象、647 MB上传完成。
 - 素材提交核验：本地HEAD、origin/main、GitHub `commits/main` 和 `git ls-remote` 四处SHA均为上述提交。
 - 随后用原本不存在的独立LFS存储目录，从GitHub拉取该固定提交；实际读取100个下载对象，逐个核对字节数与SHA-256，100/100通过。原本机LFS缓存未用于此下载检查，原视频与标签未改写。
 - 完整本机核验记录在被忽略的 `artifacts/video-lfs/local-validation.json` 与 `artifacts/video-lfs/remote-verification.json`；共享结论和逐段预期哈希已分别保存在本交接及资产清单。本次补记仅更新交接与团队状态，随后正常推送，提交标识以文件Git历史为准。

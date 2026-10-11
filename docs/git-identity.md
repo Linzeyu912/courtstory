@@ -17,7 +17,7 @@ GitHub 根据提交邮箱关联账号。以上邮箱已通过仓库原有提交�
 用自己的 GitHub 凭据克隆本私有仓库；已有副本先同步最新版本：
 
 ```sh
-git clone https://github.com/Linzeyu912/broadcastcode-team-hub.git courtstory
+git clone https://github.com/Linzeyu912/courtstory.git courtstory
 cd courtstory
 ```
 

@@ -9,7 +9,7 @@
 
 ## 本次完成
 
-- 拉取 THY 的 [工作台进度提交 0d29df0](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/0d29df0f1adc1e64659d48b49b4e6c9dd880ffbd)，涉及 146 个文件，包含 Agent 工作流、战术失败重试、身份初检与人工修正、实验与交接资料。
+- 拉取 THY 的 [工作台进度提交 0d29df0](https://github.com/Linzeyu912/courtstory/commit/0d29df0f1adc1e64659d48b49b4e6c9dd880ffbd)，涉及 146 个文件，包含 Agent 工作流、战术失败重试、身份初检与人工修正、实验与交接资料。
 - 拉取前保存 35 份已有修改 / 未跟踪文件，临时 stash 后执行 `git pull --ff-only origin main`，随后恢复本机工作。
 - 合并 [团队状态](../../docs/status.md)和[工程入口](../../engineering/README.md)的两处文档冲突，保留双方记录；状态顶部按 10 月 7 日记录时间排列。
 - `engineering/docs/README.md`、`engineering/scripts/serve_player_review.py`、`engineering/scripts/tactics_agent.py` 自动合并成功，原有云端执行适配内容保留。

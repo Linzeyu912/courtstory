@@ -13,11 +13,11 @@
 
 | 分类 | 文件数 | 提交 | 主要产出 |
 | --- | ---: | --- | --- |
-| 工作台界面修复 | 2 | [ba8f249](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/ba8f249a56ae11f18477fa769ad9a1a491cde81f) | 人工编辑期间更新 Agent 按钮状态，结束后恢复可用入口，同时保留正在生成任务的锁定；补充回归测试 |
-| 云端部署与全账号重置恢复 | 34 | [7c5fbad](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/7c5fbad6f9ce85a6a4a9d351694f05a2e94e3979) | EC2 / AgentCore 适配、CDK 与启动脚本、更新打包器、快照 / 路径迁移 / 首启恢复、实际验收与次日重部署计划 |
-| 界面设计方案 | 4 | [c46211d](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/c46211d2c855c941a35e5200ecff4e02df8235b0) | UI / UX 建议、玻璃质感与工作台简化方案及交接；仍为方案 |
-| CourtStory 产品仓库规划 | 5 | [e761268](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/e76126885e3a9f4221ea9022fbf64f70f0ba1554) | 定位、品牌与仓库范围，保留建仓 / 简短 README 的历史记录，明确代码迁移尚未发生 |
-| 云工具与模型实测 | 17 | [d98cf3f](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/d98cf3f8f235f4eb1cdd7534487514d3b2515f5b) | EC2 Codex 安装 / 授权 / 短请求实测、OpenRouter 文本与多模态连接结果、视频理解研究补充及目录索引 |
+| 工作台界面修复 | 2 | [ba8f249](https://github.com/Linzeyu912/courtstory/commit/ba8f249a56ae11f18477fa769ad9a1a491cde81f) | 人工编辑期间更新 Agent 按钮状态，结束后恢复可用入口，同时保留正在生成任务的锁定；补充回归测试 |
+| 云端部署与全账号重置恢复 | 34 | [7c5fbad](https://github.com/Linzeyu912/courtstory/commit/7c5fbad6f9ce85a6a4a9d351694f05a2e94e3979) | EC2 / AgentCore 适配、CDK 与启动脚本、更新打包器、快照 / 路径迁移 / 首启恢复、实际验收与次日重部署计划 |
+| 界面设计方案 | 4 | [c46211d](https://github.com/Linzeyu912/courtstory/commit/c46211d2c855c941a35e5200ecff4e02df8235b0) | UI / UX 建议、玻璃质感与工作台简化方案及交接；仍为方案 |
+| CourtStory 产品仓库规划 | 5 | [e761268](https://github.com/Linzeyu912/courtstory/commit/e76126885e3a9f4221ea9022fbf64f70f0ba1554) | 定位、品牌与仓库范围，保留建仓 / 简短 README 的历史记录，明确代码迁移尚未发生 |
+| 云工具与模型实测 | 17 | [d98cf3f](https://github.com/Linzeyu912/courtstory/commit/d98cf3f8f235f4eb1cdd7534487514d3b2515f5b) | EC2 Codex 安装 / 授权 / 短请求实测、OpenRouter 文本与多模态连接结果、视频理解研究补充及目录索引 |
 | 协作索引与发布记录 | 8 | 本交接所在提交 | 根入口、团队状态、成果总览、工程索引与两次同步核对历史 |
 
 入口已整理到[根 README](../../README.md)、[成果总览](../../docs/work-index.md)、[工程入口](../../engineering/README.md)、[环境目录](../../environment/README.md)与[Agent 研究入口](../../research/agents/README.md)。

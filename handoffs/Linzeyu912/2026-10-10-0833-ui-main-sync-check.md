@@ -15,7 +15,7 @@
 
 ## 结论与依据
 
-- 采集日期：2026-10-10。来源为本地 Git 检查及对[私有仓库](https://github.com/Linzeyu912/broadcastcode-team-hub)执行的 `git ls-remote --heads origin main codex/courtstory-ui-broadcast`。
+- 采集日期：2026-10-10。来源为本地 Git 检查及对[私有仓库](https://github.com/Linzeyu912/courtstory)执行的 `git ls-remote --heads origin main codex/courtstory-ui-broadcast`。
 - 本地 main、UI 分支及其远端跟踪引用均为 `c443d9e0520b34df3b748e7307a1ca7c11d6c9f7`；GitHub 实际远端 main 与 UI 分支也返回相同哈希。
 - UI 成果通过 `2fc2f92` 合入 main，后续 `c443d9e` 补充发布记录。现有 UI 分支的全部已提交内容已在 main，并已推送 GitHub。
 

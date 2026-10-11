@@ -4,7 +4,7 @@
 - 成员：thy-0629
 - 任务 / Issue：用户授权将当前成果推送 GitHub `main`；无新 Issue
 - 分支：main
-- 提交：源码 / 数据为 [351292f](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/351292fba6c5e7accafea9f8780a81b93810caba)；本交接及最新发布说明随本次文档提交同步，具体提交以 Git 日志为准
+- 提交：源码 / 数据为 [351292f](https://github.com/Linzeyu912/courtstory/commit/351292fba6c5e7accafea9f8780a81b93810caba)；本交接及最新发布说明随本次文档提交同步，具体提交以 Git 日志为准
 - 状态：源码和数据已推送并核对远端；最新文档已通过另一代理独立审查，随本次文档提交同步
 
 ## 本次完成

@@ -19,11 +19,11 @@
 
 | 主题 | 提交 | 内容 |
 | --- | --- | --- |
-| 目录与运行路径迁移 | [4958797](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/495879761779e66384d066c7061e9146bde1b18b) | 研究、来源、脚本归位；代码、测试、候选清单和历史链接跟随路径更新 |
-| 篮球模型调研与导入视频诊断 | [e028b28](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/e028b28ece9e50631f015fed082f9fe0d6267592) | 14 篇功能说明、权重核查、复现脚本、证据及原交接 |
-| 赛事要求与素材核验 | [b582f25](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/b582f25b7d7aff17e7a8abc7e2646914e4517392) | 官方 Portal 约束、训练 ZIP 核验、要求索引和来源整理 |
-| 本机与 AWS 环境准备 | [bc5a1cf](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/bc5a1cfb3d11805aa09fb78c414168f1184e51c2) | 模型环境、CLI / CDK、profile / 身份、预置资源和 S3 / Bedrock 接通记录 |
-| 作品上云设计与接续 | [68227ef](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/68227ef2652b1aaa542fb4b6f03ff4b2292c41c1) | 文件上传、模型调用、应用部署的区别及待实现工程和验收项 |
+| 目录与运行路径迁移 | [4958797](https://github.com/Linzeyu912/courtstory/commit/495879761779e66384d066c7061e9146bde1b18b) | 研究、来源、脚本归位；代码、测试、候选清单和历史链接跟随路径更新 |
+| 篮球模型调研与导入视频诊断 | [e028b28](https://github.com/Linzeyu912/courtstory/commit/e028b28ece9e50631f015fed082f9fe0d6267592) | 14 篇功能说明、权重核查、复现脚本、证据及原交接 |
+| 赛事要求与素材核验 | [b582f25](https://github.com/Linzeyu912/courtstory/commit/b582f25b7d7aff17e7a8abc7e2646914e4517392) | 官方 Portal 约束、训练 ZIP 核验、要求索引和来源整理 |
+| 本机与 AWS 环境准备 | [bc5a1cf](https://github.com/Linzeyu912/courtstory/commit/bc5a1cfb3d11805aa09fb78c414168f1184e51c2) | 模型环境、CLI / CDK、profile / 身份、预置资源和 S3 / Bedrock 接通记录 |
+| 作品上云设计与接续 | [68227ef](https://github.com/Linzeyu912/courtstory/commit/68227ef2652b1aaa542fb4b6f03ff4b2292c41c1) | 文件上传、模型调用、应用部署的区别及待实现工程和验收项 |
 | 统一入口与协作交接 | 本文件所属提交，标题 `docs(repo): publish categorized navigation and synchronization handoff` | 根 README、目录规范、迁移表、成果索引、团队状态和发布记录 |
 
 ## 结论与依据

@@ -36,7 +36,7 @@
 
 ## 同步状态
 
-- 仓库：https://github.com/Linzeyu912/broadcastcode-team-hub
+- 仓库：https://github.com/Linzeyu912/courtstory
 - 首次提交：`81030b0e5b7c8216018ae9f138e0cf4f4bc881f9`，已推送至 `origin/main`。
 - 本地工作区已连接远端，28 个文件入库；39 个文档排版检查中间文件留在本地并由 `.gitignore` 排除。
 - 当前记录是首次发布后的状态补充；后续邀请结果继续更新成员表。

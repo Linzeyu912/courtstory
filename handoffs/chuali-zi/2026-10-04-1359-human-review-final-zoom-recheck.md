@@ -4,7 +4,7 @@
 - 成员：chuali-zi
 - 任务 / Issue：用户要求应用全部人工抽检、标记实际人工素材、丢弃其明确选择的素材、多子Agent复核推拉并提交远端；开工读取远端Issue列表为空，未自行分配队友任务。
 - 分支：main
-- 产出提交：[542cf6e](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/542cf6ecbf69a384e8a5f2ba3a1b6d529cfe398a)
+- 产出提交：[542cf6e](https://github.com/Linzeyu912/courtstory/commit/542cf6ecbf69a384e8a5f2ba3a1b6d529cfe398a)
 - 状态：任务产出已完成并推送main；本交接作为后续文档提交。
 
 ## 本次完成

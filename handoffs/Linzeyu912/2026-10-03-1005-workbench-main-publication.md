@@ -11,9 +11,9 @@
 
 | 类别 | 提交 | 内容 |
 |---|---|---|
-| 人物关联纠正 | [7825d90](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/7825d90) | P8 等重叠编号冲突的候选预览、仅本帧 / 向后纠正、原子更新及回归测试 |
-| 审核状态 | [cee1e70](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/cee1e70) | 人物与球场蓝绿逐帧审核、显式确认记录、修改撤回确认、轨迹 / 槽位 / 面板同步和 8 项审核回归 |
-| 合并主分支 | [7ee65bd](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/7ee65bd88694fab6341dac8e0060842958ef58f0) | 保留已验收的整合工作台，纳入 main 新增研究归档及双方历史记录 |
+| 人物关联纠正 | [7825d90](https://github.com/Linzeyu912/courtstory/commit/7825d90) | P8 等重叠编号冲突的候选预览、仅本帧 / 向后纠正、原子更新及回归测试 |
+| 审核状态 | [cee1e70](https://github.com/Linzeyu912/courtstory/commit/cee1e70) | 人物与球场蓝绿逐帧审核、显式确认记录、修改撤回确认、轨迹 / 槽位 / 面板同步和 8 项审核回归 |
+| 合并主分支 | [7ee65bd](https://github.com/Linzeyu912/courtstory/commit/7ee65bd88694fab6341dac8e0060842958ef58f0) | 保留已验收的整合工作台，纳入 main 新增研究归档及双方历史记录 |
 | 发布记录 | 本文所在文档提交 | 更新根 README、团队状态、工程工作台说明、研究和视频入口，纠正当前“尚未合入 main”的状态 |
 
 源改动原有 16 个文件全部备份并逐字节核对，分类暂存期间未改写本地工作文件；共享文件按功能拆分，第一项提交单独重建 bundle。备份及合并核查记录位于被忽略的 `artifacts/publish-20261003/`，不进入共享仓库。

@@ -1,6 +1,6 @@
 # CourtStory 协作流程
 
-> 2026-10-11 当前任务：用户已明确授权推送本轮整理结果；26 条接续提交已发布到 main `082d61c`，另补发布记录。GitHub 简介已更新为 CourtStory，仓库地址不变。不新建分支或 PR，不部署云端。核验见[发布交接](../handoffs/Linzeyu912/2026-10-11-2144-teamhub-courtstory-publication.md)。
+> 2026-10-11 当前入口：原 Team Hub 开发主仓库正式使用 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory)，比赛提交快照使用 [Linzeyu912/courtstory-snapshot](https://github.com/Linzeyu912/courtstory-snapshot)。后续工作在开发主仓库 main 继续，不新建分支或 PR。改名范围与验证见[本轮交接](../handoffs/Linzeyu912/2026-10-11-2337-repository-rename.md)。
 
 2026-10-10 UI 收敛更新：用户授权将 TEAM 25 等现有 UI 成果分类提交并推送 main，在确认成果完整保留后删除无用的旧 UI 分支。此前要求继续原 UI 分支的阶段约定不再作为接续入口；本轮保存旧工作区恢复资料并保留其他任务未提交内容。具体范围与结果见[TEAM 25 发布记录](../engineering/docs/ui-team25-publication-20261010.md)，后续工作遵循最新 [AGENTS.md](../AGENTS.md)。此次授权不包含云部署。
 
@@ -11,13 +11,13 @@
 接受私有仓库邀请，在自己的电脑上安装 Git，并使用自己的 GitHub 账号完成认证。然后执行：
 
 ```sh
-git clone https://github.com/Linzeyu912/broadcastcode-team-hub.git courtstory
+git clone https://github.com/Linzeyu912/courtstory.git courtstory
 cd courtstory
 ```
 
 将这个目录交给自己的 Agent 打开。先读 `AGENTS.md` 和 `docs/status.md`；新提交署名按 [统一身份说明](git-identity.md) 配置；GitHub 登录仍使用各人的凭据。
 
-本地目录名不必与 GitHub 仓库同名；旧 Team Hub 工作目录可继续使用，远端仍指向 broadcastcode-team-hub，产品名称使用 CourtStory。具体变更结果见[接续记录](repository-continuation-20261011.md)。
+本地目录名不必与 GitHub 仓库同名；原 Team Hub 工作目录可继续使用，将其 origin 更新为 `https://github.com/Linzeyu912/courtstory.git`。原独立成果仓库的 checkout 应改用 `https://github.com/Linzeyu912/courtstory-snapshot.git`；不要把它推送到已由开发主仓库使用的旧地址。具体变更结果见[接续记录](repository-continuation-20261011.md)。
 
 ## 2. 开工前同步 main
 

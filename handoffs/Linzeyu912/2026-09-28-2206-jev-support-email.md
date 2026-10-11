@@ -3,7 +3,7 @@
 - 日期 / 时区：2026-09-28 22:06，Asia/Shanghai
 - 成员：Linzeyu912
 - 任务 / Issue：用户要求结合团队背景拟定并发送邮件，无关联 Issue。
-- 分支 / PR：延续 Jev 调研分支 `work/Linzeyu912/jev-regional-availability`；[PR #1](https://github.com/Linzeyu912/broadcastcode-team-hub/pull/1)。
+- 分支 / PR：延续 Jev 调研分支 `work/Linzeyu912/jev-regional-availability`；[PR #1](https://github.com/Linzeyu912/courtstory/pull/1)。
 - 状态：邮件已发送，等待厂商答复。
 
 ## 本次完成

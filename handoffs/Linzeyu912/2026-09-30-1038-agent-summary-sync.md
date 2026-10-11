@@ -4,7 +4,7 @@
 - 成员：Linzeyu912。
 - 任务 / Issue：用户授权将本次方案总结推送远程仓库；只读 Issue 查询返回空列表。
 - 分支：main。
-- 方案提交：[8bb3611245bc02185c2421b60b1ee660b41f0205](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/8bb3611245bc02185c2421b60b1ee660b41f0205)。
+- 方案提交：[8bb3611245bc02185c2421b60b1ee660b41f0205](https://github.com/Linzeyu912/courtstory/commit/8bb3611245bc02185c2421b60b1ee660b41f0205)。
 - 状态：方案已推送，远端核验完成。
 
 ## 本次完成
@@ -17,7 +17,7 @@
 ## 结论与依据
 
 - 授权依据：用户于 2026-09-29 明确要求“推送到远程仓库”。
-- 远端：[broadcastcode-team-hub](https://github.com/Linzeyu912/broadcastcode-team-hub)。
+- 远端：[broadcastcode-team-hub](https://github.com/Linzeyu912/courtstory)。
 - 原方案讨论稿已经可通过远端 main 获取；技术实现、模型效果与数据接入仍待验证。
 - 三份早期交接中的“未提交、未推送”记录保留其撰写时的状态；当前同步状态以本记录为准。
 

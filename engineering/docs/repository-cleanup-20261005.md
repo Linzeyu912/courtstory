@@ -1,6 +1,6 @@
 # 2026-10-05 仓库清理记录
 
-更新：2026-10-05 10:14，Asia/Shanghai。按用户在代码审阅后确认的清单执行，基于已同步的 `main` 提交 [377c686](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/377c6860734272f7f3a262737d5eb916aefeb96f)。用户随后授权分类发布：代码清理 `e4654e5`、候选去重与兼容 `6774081`、历史归档 `9a0dc07` 已推送并核对；本说明与交接独立归入文档提交。分类明细见[发布交接](../../handoffs/Linzeyu912/2026-10-05-1014-cleanup-classified-publication.md)。
+更新：2026-10-05 10:14，Asia/Shanghai。按用户在代码审阅后确认的清单执行，基于已同步的 `main` 提交 [377c686](https://github.com/Linzeyu912/courtstory/commit/377c6860734272f7f3a262737d5eb916aefeb96f)。用户随后授权分类发布：代码清理 `e4654e5`、候选去重与兼容 `6774081`、历史归档 `9a0dc07` 已推送并核对；本说明与交接独立归入文档提交。分类明细见[发布交接](../../handoffs/Linzeyu912/2026-10-05-1014-cleanup-classified-publication.md)。
 
 ## 删除退出使用的代码
 

@@ -4,7 +4,7 @@
 - 成员：thy-0629。
 - 任务 / Issue：用户要求查找截图所列四个文件，存在时替换刚上传批次的对应编号；未修改 Issue。
 - 分支：main；本轮基线 `1e3c79a979befbbe625992676b91bd3e3da9d1a9`。
-- 数据提交：[0850e289298a271636f58323e2030db4aa89eefc](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/0850e289298a271636f58323e2030db4aa89eefc)，已正常推送 main；本收尾文档的后续提交以 Git 历史为准。
+- 数据提交：[0850e289298a271636f58323e2030db4aa89eefc](https://github.com/Linzeyu912/courtstory/commit/0850e289298a271636f58323e2030db4aa89eefc)，已正常推送 main；本收尾文档的后续提交以 Git 历史为准。
 - 状态：002 已完成替换、推送及远端独立下载核验；005、006、010 替换源未找到，原视频保留。
 
 ## 本次完成

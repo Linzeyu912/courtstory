@@ -15,7 +15,7 @@
 
 ## 结论与依据
 
-来源为本机当前源码与 JSON、Git 远端核对，读取日期 2026-10-02；工作台发布包含于 [486e8b9](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/486e8b99c07c7b76212799b8e81de1bd4f6f8032)。
+来源为本机当前源码与 JSON、Git 远端核对，读取日期 2026-10-02；工作台发布包含于 [486e8b9](https://github.com/Linzeyu912/courtstory/commit/486e8b99c07c7b76212799b8e81de1bd4f6f8032)。
 
 - [前端入口](../../engineering/tools/player-review/app.mjs)、[身份面板](../../engineering/tools/player-review/identity-ui.jsx)、[工作区](../../engineering/tools/player-review/workspace.mjs)：人工筛选直播区间 → P1–P10 对应球员 → 修正 T 编号及补轨迹 → 导出。姓名、球队和号码由人工填写。
 - [身份时间规则](../../engineering/tools/player-review/identity-timeline.mjs)：`forward_only_v1`，从确认帧向后生效，下一次确认或切镜形成边界；竞争者只释放实际重复占用的错误帧，位置编辑与身份修正分开。新 UI 草稿默认关闭自动插值。

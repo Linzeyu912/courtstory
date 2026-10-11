@@ -4,7 +4,7 @@
 - 成员：Linzeyu912。
 - 任务 / Issue：用户要求“team hub同步一下最新分支”；GitHub 开放 Issue 查询为空。
 - 分支：main。
-- 提交：同步至远端既有提交 [57e8ecc](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/57e8ecc378036b97b9961048eaa48581c275fe25)；本交接未提交、未推送。
+- 提交：同步至远端既有提交 [57e8ecc](https://github.com/Linzeyu912/courtstory/commit/57e8ecc378036b97b9961048eaa48581c275fe25)；本交接未提交、未推送。
 - 状态：本地代码同步完成，原有未提交工作已保留。
 
 ## 本次完成

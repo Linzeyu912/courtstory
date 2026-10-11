@@ -1,12 +1,12 @@
 # 独立分支工作台更新：2026-10-02
 
-更新时间：2026-10-02 23:30，Asia/Shanghai。发布分支：[codex/local-workbench-20261002](https://github.com/Linzeyu912/broadcastcode-team-hub/tree/codex/local-workbench-20261002)。
+更新时间：2026-10-02 23:30，Asia/Shanghai。发布分支：[codex/local-workbench-20261002](https://github.com/Linzeyu912/courtstory/tree/codex/local-workbench-20261002)。
 
 ## 2026-10-03 合入 main
 
-用户本轮明确授权分类提交、推送工作分支、核对一致后合并主分支。本次新增 [7825d90](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/7825d90)（人物关联冲突纠正）与 [cee1e70](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/cee1e70)（人物及球场蓝绿逐帧审核），先推送原工作分支并核对一致，再整合最新 main 的研究归档。
+用户本轮明确授权分类提交、推送工作分支、核对一致后合并主分支。本次新增 [7825d90](https://github.com/Linzeyu912/courtstory/commit/7825d90)（人物关联冲突纠正）与 [cee1e70](https://github.com/Linzeyu912/courtstory/commit/cee1e70)（人物及球场蓝绿逐帧审核），先推送原工作分支并核对一致，再整合最新 main 的研究归档。
 
-合并 [7ee65bd](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/7ee65bd88694fab6341dac8e0060842958ef58f0) 已同时推送两个分支，本地切回 main。工作台采用既有用户验收版本；保留队友研究原字节及双方历史，未改写已共享提交。241 项 JavaScript、216 项 Python、构建一致性与视频元数据 / 索引检查通过。完整检查范围和 LFS 限制见[发布交接](../../handoffs/Linzeyu912/2026-10-03-1005-workbench-main-publication.md)。下方“未合入 main”等描述记录此前各轮当时状态。
+合并 [7ee65bd](https://github.com/Linzeyu912/courtstory/commit/7ee65bd88694fab6341dac8e0060842958ef58f0) 已同时推送两个分支，本地切回 main。工作台采用既有用户验收版本；保留队友研究原字节及双方历史，未改写已共享提交。241 项 JavaScript、216 项 Python、构建一致性与视频元数据 / 索引检查通过。完整检查范围和 LFS 限制见[发布交接](../../handoffs/Linzeyu912/2026-10-03-1005-workbench-main-publication.md)。下方“未合入 main”等描述记录此前各轮当时状态。
 
 ## 2026-10-03 追加更新
 
@@ -14,9 +14,9 @@
 
 | 提交 | 实际范围 |
 |---|---|
-| [14c2cf7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/14c2cf7) | 检测分区原索引与数量、完整性校验、裁切统计、候选来源与诊断函数 |
-| [92ea072](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/92ea072) | 当前帧人工确认、原图 / 2D 虚实线、候选界面、单帧无 T 兜底与后端草稿兼容 |
-| [495a26c](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/495a26c5ec063c376b2a20847371c50cbbd5e51e) | 修复微秒截断造成实际解码上一帧，保持源时间戳并将跳转落在目标帧内 |
+| [14c2cf7](https://github.com/Linzeyu912/courtstory/commit/14c2cf7) | 检测分区原索引与数量、完整性校验、裁切统计、候选来源与诊断函数 |
+| [92ea072](https://github.com/Linzeyu912/courtstory/commit/92ea072) | 当前帧人工确认、原图 / 2D 虚实线、候选界面、单帧无 T 兜底与后端草稿兼容 |
+| [495a26c](https://github.com/Linzeyu912/courtstory/commit/495a26c5ec063c376b2a20847371c50cbbd5e51e) | 修复微秒截断造成实际解码上一帧，保持源时间戳并将跳转落在目标帧内 |
 
 229 项 JavaScript、216 项 Python、bundle 构建通过；8 帧 GPU 推理及 27 个旧版本兼容对照通过。浏览器验证检测 / 抑制来源、仅本帧实线、邻帧虚线、人工兜底不截断后续 T、撤销和精确定位。当前 8890 服务由本分支主工作目录提供。候选原文件、视频和正式人工草稿未改写。操作及限制见[审核文档](track-identity-review.md#检测候选与逐帧实线确认)，交接见[本轮记录](../../handoffs/Linzeyu912/2026-10-03-0010-detection-frame-review.md)。
 
@@ -26,19 +26,19 @@
 
 本轮按用户明确要求，将两版取舍后的整合结果提交到用户已有的独立分支。五个功能提交已推送，23:30 核对远端为 `537a88da8ca3c661db052eb43e3d3e3eca372335`；本文、来源归档和交接作为随后单独的文档提交保存。未向 main 推送、未合入 main、未创建 PR。远端 main 核对仍为 `1839dcde5b5cc0aa362baa474e58e5b530e6c695`。
 
-- 用户版基线：[fffb6ea](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/fffb6ea7513b161dba0d0959ee4b822ae0469cf0)。
-- THY 来源：[1839dcd](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1839dcde5b5cc0aa362baa474e58e5b530e6c695)。采用其模型 / 候选数据和资料查询能力，保留原研究与历史交接作为依据。
+- 用户版基线：[fffb6ea](https://github.com/Linzeyu912/courtstory/commit/fffb6ea7513b161dba0d0959ee4b822ae0469cf0)。
+- THY 来源：[1839dcd](https://github.com/Linzeyu912/courtstory/commit/1839dcde5b5cc0aa362baa474e58e5b530e6c695)。采用其模型 / 候选数据和资料查询能力，保留原研究与历史交接作为依据。
 - 本次是按功能选择整合代码，未将 main 分支整体合并过来。默认主分支协作规则不因此改变；本轮按用户明确指定的分支例外执行。
 
 ## 分类提交
 
 | 提交 | 内容 | 文件数 |
 |---|---|---:|
-| [50f9737](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/50f97373e35d2060ee9bb77d1fdbdea19fc20bba) | feat(tracking): 接入 THY 跟踪方案与多版本候选数据 | 65 |
-| [dfad783](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/dfad783c781420c525db36b9d02da0320e7f2ea9) | feat(identity): 增加球员资料与 2K 能力查询模块 | 3 |
-| [1006486](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/10064864a8539f078b1a70627497b484e673e8ce) | feat(api): 整合模型版本、2K 查询与裁切来源保留 | 11 |
-| [c00023a](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/c00023addde1e001f7bff2c6be56d1fb598b2b7c) | fix(video): 按实际呈现帧通知工作台更新 | 2 |
-| [537a88d](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/537a88da8ca3c661db052eb43e3d3e3eca372335) | feat(review): 整合整段编号审核与红蓝分队工作台 | 27 |
+| [50f9737](https://github.com/Linzeyu912/courtstory/commit/50f97373e35d2060ee9bb77d1fdbdea19fc20bba) | feat(tracking): 接入 THY 跟踪方案与多版本候选数据 | 65 |
+| [dfad783](https://github.com/Linzeyu912/courtstory/commit/dfad783c781420c525db36b9d02da0320e7f2ea9) | feat(identity): 增加球员资料与 2K 能力查询模块 | 3 |
+| [1006486](https://github.com/Linzeyu912/courtstory/commit/10064864a8539f078b1a70627497b484e673e8ce) | feat(api): 整合模型版本、2K 查询与裁切来源保留 | 11 |
+| [c00023a](https://github.com/Linzeyu912/courtstory/commit/c00023addde1e001f7bff2c6be56d1fb598b2b7c) | fix(video): 按实际呈现帧通知工作台更新 | 2 |
+| [537a88d](https://github.com/Linzeyu912/courtstory/commit/537a88da8ca3c661db052eb43e3d3e3eca372335) | feat(review): 整合整段编号审核与红蓝分队工作台 | 27 |
 
 共享文件有明确依赖：模型与查询模块先提交，服务和裁切随后接入，最后统一接上页面与生成的 bundle。视频回调模块单列提交，完整同步的 app 接线在工作台提交中。提交正文列出范围，不把源码模块的准备阶段写成已完成整套交互。来源文档、研究归档和本次交接单独提交。
 

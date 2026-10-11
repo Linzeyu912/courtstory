@@ -4,7 +4,7 @@
 - 成员：thy-0629
 - 任务 / Issue：用户授权同步独立战术轨迹首版；无新增 Issue
 - 分支：main
-- 提交：[21d24df](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/21d24dffb06284858669af9b66e14bab8a820dc2)（功能已推送；本交接与当前状态说明归属随后文档提交，文档提交哈希见 Git 日志）
+- 提交：[21d24df](https://github.com/Linzeyu912/courtstory/commit/21d24dffb06284858669af9b66e14bab8a820dc2)（功能已推送；本交接与当前状态说明归属随后文档提交，文档提交哈希见 Git 日志）
 - 状态：功能发布与独立兼容复核完成；本交接记录同步结果和后续验收边界
 
 ## 本次完成

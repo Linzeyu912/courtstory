@@ -22,7 +22,7 @@
 
 2026-10-10：[NBA UI 分类发布记录](ui-publication-20261010.md)记录用户授权的分支推送、主分支合并、分类提交与验证；前轮 [UI 与 main 同步验收](ui-main-sync-20261010.md)保留源提交、后端能力、归档入口与解说／绘图／成片适配过程。
 
-2026-10-10 00:55（Asia/Shanghai）：[远端解说功能整合](../../handoffs/thy-0629/2026-10-10-0055-commentary-remote-integration.md)完成回归与独立复核，保留润色／逐句人工编辑／配音口吻，并接入当前计划版本、姓名、关键节点、独立绘图和联合成片。下方 00:33 及其他“未提交”记录保留当时状态；本轮功能提交为 [4cae6b7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/4cae6b71ec1d7e420c5b8725f7c6531a6290d000)，真实服务验收和云部署边界不变。
+2026-10-10 00:55（Asia/Shanghai）：[远端解说功能整合](../../handoffs/thy-0629/2026-10-10-0055-commentary-remote-integration.md)完成回归与独立复核，保留润色／逐句人工编辑／配音口吻，并接入当前计划版本、姓名、关键节点、独立绘图和联合成片。下方 00:33 及其他“未提交”记录保留当时状态；本轮功能提交为 [4cae6b7](https://github.com/Linzeyu912/courtstory/commit/4cae6b71ec1d7e420c5b8725f7c6531a6290d000)，真实服务验收和云部署边界不变。
 
 2026-10-10（本地未提交／未部署）：[解说先行、独立绘图与姓名接入设计](specs/2026-10-09-commentary-led-tactics-design.md)已按[实施计划](plans/2026-10-10-commentary-led-tactics-implementation.md)完成代码与独立复核。先解说后独立绘图，复用姓名（1A），绘图模型默认继承并可覆盖（2A），联合字幕／图形／姓名／音轨及音频缓存已接通；出手/2K 新规则暂缓。110 项 Python、前端及 Agent 全量 762 项 Node 通过，最后 UI 增量后 81 项完整 UI 回归通过；两段真实素材以测试音和测试图形验证渲染。真实模型与真实 TTS 凭据未配置，内容质量尚未验收。见[实施交接](../../handoffs/thy-0629/2026-10-10-0033-commentary-led-tactics-implementation.md)和[当前工作流](commentary-narration-workflow.md)。
 

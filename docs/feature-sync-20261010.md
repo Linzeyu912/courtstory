@@ -4,7 +4,7 @@
 
 ## 同步结论
 
-第一部分 Agent 优化来自 Team Hub [`7cd78d6`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/7cd78d6f65f3bcaf69fcba5ca0a3a1a646833634)，此前未进入 CourtStory，本轮已经补齐。
+第一部分 Agent 优化来自 Team Hub [`7cd78d6`](https://github.com/Linzeyu912/courtstory/commit/7cd78d6f65f3bcaf69fcba5ca0a3a1a646833634)，此前未进入 CourtStory，本轮已经补齐。
 
 | 模块 | 本轮变化 |
 | --- | --- |

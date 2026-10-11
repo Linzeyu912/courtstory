@@ -1,6 +1,6 @@
 # 篮球、人物、球场与 2D 逐项复检
 
-日期：2026-10-04 19:45，Asia/Shanghai。任务来源为用户要求逐一检查四项功能。本轮查得开放 GitHub Issues 为空，没有自行分配团队职责。本地 `main` 已快进接收 THY 的 [aada11c](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/aada11c039d877bf326f3c6369393b178ddfab87)（虚线箭头和点状传球线）；19:44 复核远端仍为该提交。本轮检查和修复尚未提交、未推送。
+日期：2026-10-04 19:45，Asia/Shanghai。任务来源为用户要求逐一检查四项功能。本轮查得开放 GitHub Issues 为空，没有自行分配团队职责。本地 `main` 已快进接收 THY 的 [aada11c](https://github.com/Linzeyu912/courtstory/commit/aada11c039d877bf326f3c6369393b178ddfab87)（虚线箭头和点状传球线）；19:44 复核远端仍为该提交。本轮检查和修复尚未提交、未推送。
 
 ## 结论
 

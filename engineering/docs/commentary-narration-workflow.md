@@ -17,7 +17,7 @@
 
 2026-10-10 增量：[出手冻结与投篮反馈](shot-feedback-agent.md)沿下述两个独立 Agent 顺序执行。新解说任务会为确认出手保存评价节点；绘图读取同一保存版本生成出手者高亮及冻结反馈，绿／黄／红分别表示好／一般／不佳的机会和低／中度／高的防守压力，缺证据为灰色未知。旧稿不会自动补造分析，需要重新生成解说才能应用新规则。
 
-2026-10-07，America/New_York。按用户要求，先把已有解说 Agent、Astra/Qwen 结果及无声预览推送到 `main`：[`888df0f`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/888df0f95c914faf0d0c82fa0e2f143045bb6d93)。随后增量接通火山配音和原画面字幕，并接入本机总工作台第三部分「战术制作」。云端运行服务尚未更新。
+2026-10-07，America/New_York。按用户要求，先把已有解说 Agent、Astra/Qwen 结果及无声预览推送到 `main`：[`888df0f`](https://github.com/Linzeyu912/courtstory/commit/888df0f95c914faf0d0c82fa0e2f143045bb6d93)。随后增量接通火山配音和原画面字幕，并接入本机总工作台第三部分「战术制作」。云端运行服务尚未更新。
 
 ## 工作台入口
 

@@ -372,6 +372,8 @@ CourtStory 把**视频中的观测、球员身份、比赛名单和讲解内容*
 
 ## 开发过程与团队资料
 
+本仓库为持续开发的 **[CourtStory 主仓库](https://github.com/Linzeyu912/courtstory)**，由原 Team Hub 仓库改名而来。比赛提交版本单独保存在 **[courtstory-snapshot](https://github.com/Linzeyu912/courtstory-snapshot)**；后续功能和文档更新继续在本仓库进行。
+
 本仓库保留 Team Hub 原有开发历史，逐项接续 CourtStory 成果整理后的更新，每项更新在 main 中保留一份。各条提交注明原始来源；独立 CourtStory 历史保留在原仓库。分类与来源见[提交对照表](docs/repository-update-history-20261011.md)和[仓库接续记录](docs/repository-continuation-20261011.md)。
 
 - [调研与实验](research/README.md)、[赛事要求](requirements/README.md)、[环境准备](environment/README.md)。

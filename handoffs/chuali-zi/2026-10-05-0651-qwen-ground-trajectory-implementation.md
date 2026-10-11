@@ -4,7 +4,7 @@
 - 成员：chuali-zi。
 - 任务 / Issue：本轮聊天明确授权代码实现、多子 Agent 协作；未创建新的 Issue。
 - 分支：main。
-- 实现提交：[0dd6687d3636f0544d547277865553f0749655eb](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/0dd6687d3636f0544d547277865553f0749655eb)。
+- 实现提交：[0dd6687d3636f0544d547277865553f0749655eb](https://github.com/Linzeyu912/courtstory/commit/0dd6687d3636f0544d547277865553f0749655eb)。
 - 状态：首版代码已实现并推送；真实 API、视频效果、浏览器与完整回归按用户要求留给本地。
 
 ## 本次完成

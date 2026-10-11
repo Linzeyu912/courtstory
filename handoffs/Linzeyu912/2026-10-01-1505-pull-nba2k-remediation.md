@@ -17,7 +17,7 @@
 
 ## 结论与依据
 
-- 远端补采：[a417fa7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/a417fa749e51edb8b82fff07cc7b33afc69bd563)；同步补记：[ef476de](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/ef476de99db7a085a7840c146536f099dbd795aa)。本轮获取日期为2026-10-01。
+- 远端补采：[a417fa7](https://github.com/Linzeyu912/courtstory/commit/a417fa749e51edb8b82fff07cc7b33afc69bd563)；同步补记：[ef476de](https://github.com/Linzeyu912/courtstory/commit/ef476de99db7a085a7840c146536f099dbd795aa)。本轮获取日期为2026-10-01。
 - 来源与补采口径见[THY交接](../thy-0629/2026-10-01-1129-nba2k-null-remediation.md)、[新版包说明](../../2K%20Player%20Data/README.md)及[逐字段来源](../../2K%20Player%20Data/field_provenance.json)。
 - 1.1版涉及143条记录，仅原2K26空值新增4,792个评分值，其中77个为综合类别字段。
 - 2K26：318人都有总评，314人36项个人能力齐全，191人全部42项齐全，195人有防守综合原值；4人仅总评。`complete`只代表36项个人能力齐全。

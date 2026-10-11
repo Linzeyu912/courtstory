@@ -17,7 +17,7 @@
 
 ## 结论与依据
 
-- 2026-10-04 读取 [THY 最新提交](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/bedad2c2613e1b573db8f80cc020729b50184a77)与[参考帧交接](../thy-0629/2026-10-04-2055-tactics-presentation-contract.md)，保留双方功能。
+- 2026-10-04 读取 [THY 最新提交](https://github.com/Linzeyu912/courtstory/commit/bedad2c2613e1b573db8f80cc020729b50184a77)与[参考帧交接](../thy-0629/2026-10-04-2055-tactics-presentation-contract.md)，保留双方功能。
 - 全场离线矩阵原片覆盖 99.17%，但默认后端尚未接入；此前全场自动 P 加当前矩阵仅 72.78% 帧有场内 P，换离线矩阵仍仅 85.28%。来源和口径见共享报告，不混用覆盖和准确率。
 - 开源调研使用当日已有上游来源；未新增模型实跑或宣布替换 YOLOv8n + BoT-SORT。
 

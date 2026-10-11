@@ -4,7 +4,7 @@
 - 成员：chuali-zi
 - 任务 / Issue：用户要求每段解说单独人工修改，接入现有工作台，准备UI迁移并同步远端。开工GitHub查询无打开Issue，没有凭空新建任务或分配负责人。
 - 分支：main
-- 提交：[423d5a7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/423d5a7ef703dbda3398f22295a53358a8b6df79)，55个解说相关文件；本同步状态说明随文档提交补充。
+- 提交：[423d5a7](https://github.com/Linzeyu912/courtstory/commit/423d5a7ef703dbda3398f22295a53358a8b6df79)，55个解说相关文件；本同步状态说明随文档提交补充。
 - 状态：本机实现、验证和远端main同步完成
 
 ## 本次完成

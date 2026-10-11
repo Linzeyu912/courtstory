@@ -2,6 +2,16 @@
 
 只把已经做出的决定写为“采用”。讨论中的方案标为“待定”，并记录参与人或关联 Issue。
 
+## D016：正式区分 CourtStory 开发主仓库与比赛快照仓库
+
+- 日期：2026-10-11，Asia/Singapore（UTC+8）。状态：按用户本聊天明确要求采用。
+- 名称：原 `Linzeyu912/broadcastcode-team-hub` 改为 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory)；原独立 `Linzeyu912/courtstory` 改为 [Linzeyu912/courtstory-snapshot](https://github.com/Linzeyu912/courtstory-snapshot)。此决定替代 D015 中暂不更名的安排。
+- 定位：开发主仓库继续保留 Team Hub 开发历史并接续更新；快照仓库保留比赛提交版本，工程与成片基线为 `c914c14`。
+- 简介：两个仓库统一使用“CourtStory：由篮球观众打造的 AI 战术可视化与讲解工作台，支持球员标定、解说、战术绘制与成片。”；快照区别通过仓库名及 README 表达。
+- 标签：用户明确不保留上轮 `competition-snapshot-20261011` 标签，删除本地及远端标签，移除当前 README 的标签入口；对应提交继续保留在快照 main 历史中。
+- 同步：维护现有 checkout 的 origin 和文档链接；沿用 main，不更改仓库私有属性，不重写提交、不部署云端。
+- 结果记录：[仓库改名交接](../handoffs/Linzeyu912/2026-10-11-2337-repository-rename.md)。
+
 ## D015：继续使用 Team Hub 仓库，以 CourtStory 名称接续完整开发历史
 
 - 日期：2026-10-11，Asia/Singapore（UTC+8）。状态：按用户本聊天明确选择采用，不代指其他成员已表达意见。

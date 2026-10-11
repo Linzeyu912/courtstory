@@ -4,7 +4,7 @@
 - 成员：chuali-zi（沿用本聊天目录）
 - 任务 / Issue：本聊天用户“先推送上去”；未指定专属Issue。
 - 分支：main
-- 提交：主成果[585518823eea472bf49da8873ab5f506e605ca50](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/585518823eea472bf49da8873ab5f506e605ca50)，本同步回执随随后文档提交。
+- 提交：主成果[585518823eea472bf49da8873ab5f506e605ca50](https://github.com/Linzeyu912/courtstory/commit/585518823eea472bf49da8873ab5f506e605ca50)，本同步回执随随后文档提交。
 - 状态：2026-10-08 02:36主成果已推送main，LFS视频已实际独立下载核对；未云部署。
 
 ## 本次完成

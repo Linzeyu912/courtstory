@@ -4,7 +4,7 @@
 - 成员：Linzeyu912
 - 任务 / Issue：用户在当前会话明确要求继续上传 `train_video.zip` 中两段官方训练片，沿用合作者标签标准，作为重点素材供工作台使用；开工核对 GitHub 无开放 Issue，未虚构负责人或队友共识。
 - 分支：main
-- 提交：[af41fce：素材、标签与候选](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/af41fce50af98068a19f1b164ffd048516079530)、[0ffb9fe：工作台默认可用](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/0ffb9fea1598e355fc91e44c7d79cf31cac95ab7)；入口与本交接随随后文档提交发布。
+- 提交：[af41fce：素材、标签与候选](https://github.com/Linzeyu912/courtstory/commit/af41fce50af98068a19f1b164ffd048516079530)、[0ffb9fe：工作台默认可用](https://github.com/Linzeyu912/courtstory/commit/0ffb9fea1598e355fc91e44c7d79cf31cac95ab7)；入口与本交接随随后文档提交发布。
 - 状态：数据与功能已完成、已推送，远端原片下载已核实。
 
 ## 本次完成

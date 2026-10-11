@@ -2,7 +2,7 @@
 
 - 采集 / 验证日期：2026-10-02，Asia/Shanghai。
 - 依据：用户在本聊天确认“删除中间广告后拼接前后画面”，并要求 P1 与临时 ID 的新关联只从当前确认帧向后生效。
-- 范围：[仓库](https://github.com/Linzeyu912/broadcastcode-team-hub)本机未提交的工作台实现；不是赛事官方格式或团队选型共识。开工 fetch 成功，HEAD 与当时 origin/main 均为 `1c09caeed4d52f12a3b0d97b82c1c6cf5b2cfddb`；开放 Issue 列表为空。
+- 范围：[仓库](https://github.com/Linzeyu912/courtstory)本机未提交的工作台实现；不是赛事官方格式或团队选型共识。开工 fetch 成功，HEAD 与当时 origin/main 均为 `1c09caeed4d52f12a3b0d97b82c1c6cf5b2cfddb`；开放 Issue 列表为空。
 
 ## 核查结论
 
