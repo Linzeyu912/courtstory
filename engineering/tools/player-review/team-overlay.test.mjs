@@ -116,7 +116,7 @@ test('presented media time selects the containing source frame with an end-safe 
 
 test('source PTS and browser microsecond timestamps select the same frame throughout sample 004',()=>{
   const at=requireFeature('frameAtMediaTime');
-  const records=JSON.parse(fs.readFileSync(new URL('../../../data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.json',import.meta.url),'utf8'));
+  const records=JSON.parse(fs.readFileSync(new URL('../../../engineering/tests/fixtures/player-observations/004-team-stable.json',import.meta.url),'utf8'));
   assert.equal(records[1].time,.082707551);
   assert.equal(at(records,.082707),1,'browser seek to the second frame must not reset the UI to the first');
   for(let index=0;index<records.length;index++){
@@ -150,7 +150,7 @@ test('timestamp tolerance stays local with irregular presentation intervals and 
 
 test('seek positions remain inside every decoded sample 004 frame after browser microsecond truncation',()=>{
   const seekTime=requireFeature('frameSeekTime');
-  const records=JSON.parse(fs.readFileSync(new URL('../../../data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.json',import.meta.url),'utf8'));
+  const records=JSON.parse(fs.readFileSync(new URL('../../../engineering/tests/fixtures/player-observations/004-team-stable.json',import.meta.url),'utf8'));
   const before=structuredClone(records),pts=records.map(record=>record.source_frame_pts*record.source_time_base[0]/record.source_time_base[1]);
   assert.ok(Math.floor(records[1].time*1e6)/1e6<pts[1],'exact boundary requests can decode the preceding frame');
   for(let index=0;index<records.length;index++){

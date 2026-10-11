@@ -1,168 +1,16 @@
 {
-  "defaultSample": "005",
+  "defaultSample": "official-training-001",
   "samples": [
-    {
-      "id": "005",
-      "title": "样例 005 · SAS–MIA 第四节",
-      "description": "4.77 秒 · 1080p · 普通直播、正常速度、无声 · 发球/前场组织至投篮结果；先筛直播画面，再对应球员和补轨迹。动作标签仅为采集参考。",
-      "sourceUrl": "https://www.bilibili.com/video/BV1zqgd6DEPQ/",
-      "video": "data/videos/tactics/acceptance/clips/005_SAS_pick_roll.mp4",
-      "tracks": "data/videos/tactics/acceptance/tracks/005.json",
-      "defaultVariant": "team-stable",
-      "trackingVariants": [
-        {
-          "id": "team-stable",
-          "label": "THY 完整方案 · 分队与稳定显示",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json",
-          "optional": true,
-          "recommended": true
-        },
-        {
-          "id": "ebard",
-          "label": "E-BARD YOLOv8n · ByteTrack",
-          "recommended": false,
-          "tracks": "data/videos/tactics/acceptance/tracks/005-ebard.json"
-        },
-        {
-          "id": "optimized",
-          "label": "THY · 综合优化",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-team-stable.json",
-          "optional": true,
-          "recommended": false,
-          "metadata": "data/videos/tactics/acceptance/tracks/basketball-20261002/005-optimized.meta.json"
-        },
-        {
-          "id": "baseline",
-          "label": "THY · BoT-SORT 基线",
-          "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/005-baseline.json",
-          "recommended": false
-        },
-        {
-          "id": "low",
-          "label": "THY · 低分续接",
-          "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/005-low.json",
-          "recommended": false
-        },
-        {
-          "id": "reid",
-          "label": "THY · 原生 ReID 外观续接",
-          "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/005-reid.json",
-          "recommended": false
-        }
-      ],
-      "videoSha256": "1f7bd135ad8cde5ab877612e596f93200281b6902aac8084fad19a544d20b85d",
-      "originalLabel": "通用 YOLOv8s · ByteTrack",
-      "feetCandidates": "research/vision/vision-player-refinement/feet-candidates-005.json",
-      "courtCandidates": "research/vision/vision-player-refinement/court-candidates-005.json"
-    },
-    {
-      "id": "006",
-      "title": "样例 006 · SAS–MIA 第二节",
-      "description": "15.40 秒 · 1080p · 普通直播、正常速度、无声 · 发球/前场组织至投篮结果；先筛直播画面，再对应球员和补轨迹。动作标签仅为采集参考。",
-      "sourceUrl": "https://www.bilibili.com/video/BV1zqgd6DEPQ/",
-      "video": "data/videos/tactics/acceptance/clips/006_SAS_drive_kick.mp4",
-      "tracks": "data/videos/tactics/acceptance/tracks/006.json",
-      "defaultVariant": "team-stable",
-      "trackingVariants": [
-        {
-          "id": "team-stable",
-          "label": "THY 完整方案 · 分队与稳定显示",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-team-stable.json",
-          "optional": true,
-          "recommended": true
-        },
-        {
-          "id": "ebard",
-          "label": "E-BARD YOLOv8n · ByteTrack",
-          "recommended": false,
-          "tracks": "data/videos/tactics/acceptance/tracks/006-ebard.json"
-        },
-        {
-          "id": "optimized",
-          "label": "THY · 综合优化",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-team-stable.json",
-          "optional": true,
-          "recommended": false,
-          "metadata": "data/videos/tactics/acceptance/tracks/basketball-20261002/006-optimized.meta.json"
-        },
-        {
-          "id": "baseline",
-          "label": "THY · BoT-SORT 基线",
-          "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/006-baseline.json",
-          "recommended": false
-        },
-        {
-          "id": "low",
-          "label": "THY · 低分续接",
-          "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/006-low.json",
-          "recommended": false
-        },
-        {
-          "id": "reid",
-          "label": "THY · 原生 ReID 外观续接",
-          "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/006-reid.json",
-          "recommended": false
-        }
-      ],
-      "videoSha256": "b316ef2a520c4f1f1afca38d530956a2e61d811cd21055d138dd214fee727919",
-      "originalLabel": "通用 YOLOv8s · ByteTrack",
-      "feetCandidates": "research/vision/vision-player-refinement/feet-candidates-006.json",
-      "courtCandidates": "research/vision/vision-player-refinement/court-candidates-006.json"
-    },
-    {
-      "id": "nba-lal-min-005",
-      "title": "篮球模型对照 · LAL–MIN 第二节",
-      "description": "10.68 秒 · 720p · 原转播音轨与源时间戳 · 底线发球后推进分底角三分；模型建议仍需逐段人工复核。",
-      "sourceUrl": "https://v.qq.com/x/cover/mzc00200eygk9jw/w4101iq9j4m.html",
-      "video": "data/videos/nba/2024-25/clips/005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4",
-      "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-original.json",
-      "originalTrackingLabel": "THY · 原配置基线",
-      "defaultVariant": "team-stable",
-      "trackingVariants": [
-        {
-          "id": "team-stable",
-          "label": "THY 完整方案 · 分队与稳定显示",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-team-stable.json",
-          "optional": true,
-          "recommended": true
-        },
-        {
-          "id": "low",
-          "label": "THY · 低分续接",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-low.json",
-          "recommended": false
-        },
-        {
-          "id": "reid",
-          "label": "THY · 外观续接",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-reid.json",
-          "optional": true,
-          "recommended": false
-        },
-        {
-          "id": "optimized",
-          "label": "THY · 综合优化",
-          "tracks": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-team-stable.json",
-          "recommended": false,
-          "metadata": "data/videos/tactics/acceptance/tracks/basketball-20261002/nba-lal-min-005-optimized.meta.json"
-        },
-        {
-          "id": "yolo",
-          "label": "通用 YOLOv8s · ByteTrack",
-          "tracks": "data/videos/tactics/acceptance/tracks/integration-20261002/nba-lal-min-005-yolo.json",
-          "recommended": false
-        }
-      ],
-      "videoSha256": "e76feffb09ede3e1b336c2e470370bcf1ee0937326bdf672e3e7e4bc5b661885",
-      "optional": true
-    },
     {
       "id": "official-training-001",
       "title": "官方训练 001 · 弗拉格片 · DAL–HOU 第四节",
       "nameContext": {
         "season": "2025-26",
         "gameId": "0022500701",
-        "teamMap": {"A": "HOU", "B": "DAL"}
+        "teamMap": {
+          "A": "HOU",
+          "B": "DAL"
+        }
       },
       "description": "21.55 秒 · 官方训练重点样例 · 1080p / 59.94 fps / 原声；场景已打标，检测身份和坐标仍需复核。",
       "sourceUrl": "https://comfile.csdnimg.cn/file/train_video.zip",
@@ -189,8 +37,7 @@
           "label": "篮球 / 篮筐与裁判参照 · E-BARD",
           "tracks": "data/videos/uploads/2026-10-05-official-training/tracks/001-ebard.json"
         }
-      ],
-      "optional": true
+      ]
     },
     {
       "id": "official-training-002",
@@ -220,8 +67,7 @@
           "label": "篮球 / 篮筐与裁判参照 · E-BARD",
           "tracks": "data/videos/uploads/2026-10-05-official-training/tracks/002-ebard.json"
         }
-      ],
-      "optional": true
+      ]
     }
   ],
   "initiallyActiveSamples": [

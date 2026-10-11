@@ -149,7 +149,7 @@ test('model votes remain separate evidence and cannot recolor fixed row teams',(
 const repo=new URL('../../../',import.meta.url);
 const json=path=>JSON.parse(readFileSync(new URL(path,repo)));
 // Published observations are shared; presentation/suggestion sidecars remain distinct.
-const samplePath=(id,variant,suffix)=>`data/videos/tactics/acceptance/tracks/basketball-20261002/${id}-${variant==='optimized'&&suffix==='json'?'team-stable':variant}.${suffix}`;
+const samplePath=(id,variant,suffix)=>`engineering/tests/fixtures/player-observations/${id}-${variant==='optimized'&&suffix==='json'?'team-stable':variant}.${suffix}`;
 function actualClip(id){
   const raw=readFileSync(new URL(samplePath(id,'team-stable','json'),repo));
   const m=json(samplePath(id,'team-stable','meta.json'));

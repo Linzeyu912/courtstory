@@ -50,7 +50,7 @@ def main():
     parser.add_argument("--port", type=int, default=8876)
     parser.add_argument("--env-file", type=Path,
                         help="Explicit UTF-8 or BOM-tagged UTF-16 environment file; existing same-name environment variables take priority")
-    parser.add_argument("--court-profile", default="research/vision/vision-player-refinement/clip001-court-expanded.json")
+    parser.add_argument("--court-profile", default="data/workbench/clip001-court-expanded.json")
     parser.add_argument("--state-file", default="artifacts/vision-player-refinement/review-server.json")
     parser.add_argument("--trim-root", default="artifacts/player-review-clips")
     parser.add_argument("--video-folder", default="data/local-videos", help="Local video inbox, scanned from the UI")
@@ -85,7 +85,7 @@ def main():
     parser.add_argument("--court-model", default="tmp/court-models-v2/best.pt", help="Pinned local 48-point weights; loaded on calibration requests only")
     parser.add_argument("--court-imgsz", type=int, choices=(640, 960), default=640)
     parser.add_argument("--ground-comparison-root", help="Optional read-only pose comparison directory")
-    parser.add_argument("--trajectory-replay-root", default="research/agents/qwen-ground-official-20261005/replay",
+    parser.add_argument("--trajectory-replay-root", default="data/local-workbench/replays",
                         help="Read-only exported Qwen result replays; no model calls or draft writes")
     args = parser.parse_args()
     try:
@@ -986,7 +986,7 @@ def validated_clip(sample):
     if default not in versions:
         default=next((identifier for identifier,entry in versions.items() if entry['recommended']),'original')
     court_profile=None
-    court_path=Path(sample.get('courtProfile','research/vision/vision-player-refinement/clip001-court-expanded.json'))
+    court_path=Path(sample.get('courtProfile','data/workbench/clip001-court-expanded.json'))
     if court_path.is_file():
         candidate=read_json(court_path,'Court profile')
         if candidate.get('videoHash')==digest:

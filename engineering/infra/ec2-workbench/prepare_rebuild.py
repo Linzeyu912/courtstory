@@ -86,7 +86,7 @@ def original_selection(root, source_path, source):
         registered = load_json(root / 'data/videos/tactics/acceptance/review-library.json')
         samples = [sample for sample in registered['samples']
                    if sample['id'] == '005' or 'official-training' in sample.get('video', '')]
-        library = {'defaultSample': '005', 'initiallyActiveSamples': [s['id'] for s in samples], 'samples': samples}
+        library = {'defaultSample': registered['defaultSample'], 'initiallyActiveSamples': [s['id'] for s in samples], 'samples': samples}
         videos = [{'path': sample['video'], 'sha256': sample['videoSha256'],
                    'bytes': update_release.source_path(root, sample['video']).stat().st_size}
                   for sample in samples]
@@ -315,8 +315,8 @@ def upload_bundle(bundle, *, profile='nba'):
     expected = {config['workbenchKey']: config['workbenchSha256'], config['agentKey']: config['agentSha256']}
     if config.get('stateKey'):
         expected[config['stateKey']] = config['stateSha256']
-    if len(manifest.get('videos', [])) != 3:
-        raise ValueError('The rebuild manifest must include all three registered datasets')
+    if len(manifest.get('videos', [])) not in (2, 3):
+        raise ValueError('The rebuild manifest must include the two or three registered datasets')
     expected.update({item['key']: item['sha256'] for item in manifest['videos']})
     if any(not any(item['key'] == key and item['sha256'] == value for item in objects) for key, value in expected.items()):
         raise ValueError('Config archive checksums differ from rebuild manifest')

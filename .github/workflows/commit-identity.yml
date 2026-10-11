@@ -1,0 +1,27 @@
+name: Commit identity
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify author and committer
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out the submitted commits
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify contributor setup on Linux
+        # Checkout installs Git LFS hooks; our shared pre-push also runs Git LFS.
+        run: sh scripts/setup-git-identity.sh --replace-hooks-path
+      - name: Check all commits since the identity policy baseline
+        run: sh scripts/check-commit-identity.sh HEAD

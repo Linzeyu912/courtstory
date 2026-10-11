@@ -65,14 +65,14 @@ def main():
     tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=ROOT).decode('utf-8').split('\0')
     files = {p for p in tracked if p and (
         p.startswith(('engineering/scripts/', 'engineering/configs/', 'engineering/tools/player-review/', 'engineering/tools/tactical-overlay/',
-                      'engineering/archive/tactical-video/005-authored-v2/', '2K Player Data/'))
+                      'engineering/archive/tactical-video/005-authored-v2/', '2K Player Data/', 'data/player-rosters/'))
         or p == 'engineering/requirements-review.txt') and Path(p).suffix.lower() not in ('.mp4', '.mov')}
     files.add('engineering/scripts/cloud_tactics_agent.py')
     files.update(p.relative_to(ROOT).as_posix() for p in HERE.iterdir() if p.suffix in ('.py', '.sh', '.json'))
     library = json.loads((ROOT / 'data/videos/tactics/acceptance/review-library.json').read_text(encoding='utf-8'))
-    selected = [s for s in library['samples'] if s['id'] == '005' or 'official-training' in s['video']]
-    if len(selected) != 3:
-        raise ValueError('Expected 005 and two official training samples')
+    selected = [s for s in library['samples'] if 'official-training' in s['video']]
+    if len(selected) != 2:
+        raise ValueError('Expected the two official training samples')
 
     def referenced(value):
         if isinstance(value, dict):
@@ -117,7 +117,7 @@ def main():
                 raise ValueError('Private path in package')
             archive.write(path, value)
             hashes.append({'path': value, 'sha256': sha(path), 'bytes': path.stat().st_size})
-        archive.writestr('cloud-library.json', json.dumps({'defaultSample': '005', 'initiallyActiveSamples': [s['id'] for s in selected], 'samples': selected}, ensure_ascii=False))
+        archive.writestr('cloud-library.json', json.dumps({'defaultSample': selected[0]['id'], 'initiallyActiveSamples': [s['id'] for s in selected], 'samples': selected}, ensure_ascii=False))
         archive.writestr('cloud-release.json', json.dumps({'release': release, 'videos': videos}, ensure_ascii=False))
     target = dest / 'agent-package'
     subprocess.run([sys.executable, '-m', 'pip', 'install', '--disable-pip-version-check', '--quiet', '--target', str(target), 'boto3==1.43.108'], check=True)

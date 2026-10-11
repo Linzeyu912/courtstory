@@ -35,7 +35,7 @@ test('export keeps identity, events, calibration provenance and unresolved court
   const s=setup(),e=s.entities[0];e.team='IND';e.jersey='0';addCourtAnchor(e,2,7,5);addEvent(e,2,'传球','人工核对',frames);s.cuts=[3];const out=exportReview(s,{video_sha256:'test',width:1920,height:1080,frames},'2026-10-01');assert.equal(out.schemaVersion,2);assert.equal(out.entities[0].events[0].source,'human');assert.equal(out.entities[0].events[0].time,.2);assert.equal(out.entities[0].team,'IND');assert.equal(out.entities[0].courtTrajectory[2].source,'court_manual');assert.equal(out.court.metricAccuracyValidated,false);assert.ok(out.entities[0].courtUnresolved.length);assert.equal(out.entities[0].trajectory.length,5);assert.equal(out.court.units,'metres');assert.equal(out.allFramesManuallyVerified,false);
 });
 test('clip reference calibrates every sample frame with finite reversible coordinates',()=>{
-  const profile=JSON.parse(fs.readFileSync(new URL('../../../research/vision/vision-player-refinement/clip001-court-reference.json',import.meta.url),'utf8'));
+  const profile=JSON.parse(fs.readFileSync(new URL('../../../data/workbench/clip001-court-reference.json',import.meta.url),'utf8'));
   const clipFrames=Array.from({length:243},(_,frame)=>({time:.033+frame/29.97003}));for(let frame=0;frame<243;frame++){const map=calibrationAt(profile,frame,clipFrames);assert.ok(map);const p=project(map.toImage,5,7),q=project(map.toCourt,p.x,p.y);assert.ok(Math.hypot(q.x-5,q.y-7)<1e-7);assert.equal(map.reviewRequired,true);}assert.equal(COURT.length,28.6512);
 });
 test('named points use the key dimensions and match a wider court independently',()=>{
@@ -63,7 +63,7 @@ test('mixed control sets interpolate while keeping estimated controls unconfirme
   assert.ok(Math.hypot(mid.image[0][0]-458,mid.image[0][1]-541)<1e-7);
 });
 test('expanded clip profile remains invertible for all frames and carries reference provenance',()=>{
-  const profile=JSON.parse(fs.readFileSync(new URL('../../../research/vision/vision-player-refinement/clip001-court-expanded.json',import.meta.url),'utf8'));
+  const profile=JSON.parse(fs.readFileSync(new URL('../../../data/workbench/clip001-court-expanded.json',import.meta.url),'utf8'));
   const clipFrames=Array.from({length:243},(_,frame)=>({time:.033+frame/29.97003}));
   for(let frame=0;frame<243;frame++){const map=calibrationAt(profile,frame,clipFrames);assert.ok(map);assert.equal(map.referenceOnly,true);for(const p of [[0,0],[14.3256,15.24],[28.6512,0]]){const q=project(map.toImage,...p),back=project(map.toCourt,q.x,q.y);assert.ok(Math.hypot(back.x-p[0],back.y-p[1])<1e-7);}}
 });
