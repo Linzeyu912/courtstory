@@ -2,6 +2,16 @@
 
 只把已经做出的决定写为“采用”。讨论中的方案标为“待定”，并记录参与人或关联 Issue。
 
+## D015：继续使用 Team Hub 仓库，以 CourtStory 名称接续完整开发历史
+
+- 日期：2026-10-11，Asia/Singapore（UTC+8）。状态：按用户本聊天明确选择采用，不代指其他成员已表达意见。
+- 决定：本仓库继续作为主仓库，产品名称与介绍使用 CourtStory；仓库 URL 保持 `Linzeyu912/broadcastcode-team-hub`，原独立 `Linzeyu912/courtstory` 也不改名或删除。
+- 历史：保留 Team Hub `56e6466` 及此前 197 条原始提交，先对齐 CourtStory `38e47e0` 的成果布局，再把其后 23 条更新分别接续为 main 提交；每条注明原始来源。用户进一步要求避免重复，因此不再合入 CourtStory 的整段 31 条独立历史；原始来源在 CourtStory 仓库与本地恢复包中保留。当前共有 26 条接续提交，其中另 3 条为成果基线、README 和协作配置／记录。只调整未发布的本地历史，不改写共享历史，不 force push。
+- 内容：当前产品文件以最新成果版本为准，原研发支持资料保留；旧素材与候选可从原始提交恢复，当前活动库以考试 single 为准。新提交沿用统一署名，固定 Team Hub 既有历史保留原署名。
+- 展示与同步：用户要求移除独立技术亮点介绍、图片和短视频附件；根 README 以 Single 最终成片说明产品效果。当前仅本地提交，不推送或更新 GitHub 简介。
+- 提交分类：[逐项接续对照表](repository-update-history-20261011.md)。
+- 入口与验证：[仓库接续记录](repository-continuation-20261011.md)、[去重交接](../handoffs/Linzeyu912/2026-10-11-2127-teamhub-linear-history.md)。原先独立文件导入与双历史整合的说明保留历史时点，本轮更新后续开发入口。
+
 ## D014：前端回到 main，实施单屏工作台与重点圈姓名显示
 
 - 日期：2026-10-09，America/New_York。

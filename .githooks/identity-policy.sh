@@ -44,16 +44,7 @@ check_revision_identity() {
         printf '%s\n' 'Identity baseline is missing. Fetch full history before checking.' >&2
         return 1
     fi
-    identity_legacy_baseline=$(git config --file "$identity_config" --get identity.legacyBaseline) || identity_legacy_baseline=
-    if [ -n "$identity_legacy_baseline" ]; then
-        if ! git cat-file -e "${identity_legacy_baseline}^{commit}" 2>/dev/null; then
-            printf '%s\n' 'Legacy history baseline is missing. Fetch full history before checking.' >&2
-            return 1
-        fi
-        identity_commits=$(git rev-list "$identity_revision" "^$identity_baseline" "^$identity_legacy_baseline" --) || return 1
-    else
-        identity_commits=$(git rev-list "$identity_revision" "^$identity_baseline" --) || return 1
-    fi
+    identity_commits=$(git rev-list "$identity_revision" "^$identity_baseline" --) || return 1
     for identity_oid in $identity_commits; do
         check_commit_identity "$identity_oid" || return 1
     done
