@@ -369,3 +369,12 @@ CourtStory 把**视频中的观测、球员身份、比赛名单和讲解内容*
 - [AWS 运行维护记录](docs/aws-live-deployment.md)：部署、故障处理与服务调用记录。
 - [工程目录](engineering/README.md)：前端、服务、Agent、渲染与基础设施。
 - [视频素材库](data/videos/README.md)：样例与 Git LFS 素材管理。
+
+## 开发过程与团队资料
+
+本仓库保留 Team Hub 原有开发历史，逐项接续 CourtStory 成果整理后的更新，每项更新在 main 中保留一份。各条提交注明原始来源；独立 CourtStory 历史保留在原仓库。分类与来源见[提交对照表](docs/repository-update-history-20261011.md)和[仓库接续记录](docs/repository-continuation-20261011.md)。
+
+- [调研与实验](research/README.md)、[赛事要求](requirements/README.md)、[环境准备](environment/README.md)。
+- [团队状态](docs/status.md)、[协作流程](docs/workflow.md)、[历次交接](handoffs/README.md)。
+
+历史资料保留开发当时的结论与验证范围；当前产品、运行方式和成果以本页及安装文档为准。

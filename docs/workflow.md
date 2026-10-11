@@ -1,6 +1,6 @@
-# 协作流程
+# CourtStory 协作流程
 
-> 当前任务按用户明确指令直接在 main 开发并推送单屏工作台与姓名显示，不新建分支，不自动部署。保留其他会话变更，推送前同步远端 main。
+> 2026-10-11 当前任务：直接在 main 分类整理本地提交；用户要求暂不推送，也不修改 GitHub 简介。后续明确授权同步前，不执行本文中的远端写入步骤。不新建分支或 PR，不部署云端。
 
 2026-10-10 UI 收敛更新：用户授权将 TEAM 25 等现有 UI 成果分类提交并推送 main，在确认成果完整保留后删除无用的旧 UI 分支。此前要求继续原 UI 分支的阶段约定不再作为接续入口；本轮保存旧工作区恢复资料并保留其他任务未提交内容。具体范围与结果见[TEAM 25 发布记录](../engineering/docs/ui-team25-publication-20261010.md)，后续工作遵循最新 [AGENTS.md](../AGENTS.md)。此次授权不包含云部署。
 
@@ -11,13 +11,13 @@
 接受私有仓库邀请，在自己的电脑上安装 Git，并使用自己的 GitHub 账号完成认证。然后执行：
 
 ```sh
-git clone https://github.com/Linzeyu912/broadcastcode-team-hub.git
-cd broadcastcode-team-hub
+git clone https://github.com/Linzeyu912/broadcastcode-team-hub.git courtstory
+cd courtstory
 ```
 
-将这个目录交给自己的 Agent 打开。先读 `AGENTS.md` 和 `docs/status.md`；需要填写 Git 提交姓名、邮箱时使用本人的信息。
+将这个目录交给自己的 Agent 打开。先读 `AGENTS.md` 和 `docs/status.md`；新提交署名按 [统一身份说明](git-identity.md) 配置；GitHub 登录仍使用各人的凭据。
 
-发起人的本地目录是现有 `D:\HKS`；远端仓库名为 `broadcastcode-team-hub`。其他成员的本地目录名可以不同，相对路径保持一致即可。
+本地目录名不必与 GitHub 仓库同名；旧 Team Hub 工作目录可继续使用，远端仍指向 broadcastcode-team-hub，产品名称使用 CourtStory。具体变更结果见[接续记录](repository-continuation-20261011.md)。
 
 ## 2. 开工前同步 main
 

@@ -26,6 +26,12 @@
 
 | 记录 | 内容 |
 |---|---|
+| [Team Hub 历史去重与线性接续](Linzeyu912/2026-10-11-2127-teamhub-linear-history.md) | 保留 Team Hub 197 条原始提交，接续 26 条本地提交；移除独立 CourtStory 历史连接，23 条更新各一份；未推送 |
+| [分类接续更新与 Single 成果展示](Linzeyu912/2026-10-11-2113-classified-history-single-showcase.md) | 23 条独立更新、来源对照、技术介绍附件移出当前版本、README 展示 Single；仅本地，未推送 |
+| [Team Hub 接续 CourtStory 开发历史](Linzeyu912/2026-10-11-2055-teamhub-courtstory-continuation.md) | 主仓库地址不变，连接两段原始历史并采用最新成果，名称介绍统一为 CourtStory |
+| [开发 commit 保留方式比较](Linzeyu912/2026-10-11-2039-commit-history-preservation-options.md) | 核对两仓独立历史，比较原仓保留、Git 备份、历史标签及筛选历史；仅方案，未实施 |
+| [删除 THY 历史对照工作树](Linzeyu912/2026-10-11-2036-remove-thy-worktree.md) | 按用户要求移除同级 THY 目录及 Git 注册；旧提交保留，两个正式仓库不变 |
+| [本机仓库与 THY 工作目录核对](Linzeyu912/2026-10-11-2035-local-repository-mapping-audit.md) | Team Hub / CourtStory 的本地与远端对应、CourtStory 落后 10 个提交、THY 历史 worktree 的来源与状态 |
 | [UI 分支删除与 main 完整性复核](Linzeyu912/2026-10-10-1124-ui-main-recheck.md) | 全部 UI 与既有功能提交已包含；同步队友 d1192f2，784 项前端通过，原有未提交资料保全 |
 | [TEAM 25 分类发布与旧分支清理](Linzeyu912/2026-10-10-1115-team25-publication.md) | 定稿与最新 main 整合、分类提交、验证、远端核对和本地恢复资料；当前发布入口 |
 | [任务栏灰色图案定稿](Linzeyu912/2026-10-10-1103-freeze-header-pattern.md) | 用户确认当前图案及位置固定；规范、Agent 约定与 CSS 注释记录基准，实际渲染保持 |
