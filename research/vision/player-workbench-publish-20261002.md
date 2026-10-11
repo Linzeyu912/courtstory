@@ -1,6 +1,6 @@
 # 当前工作台与篮球候选发布记录
 
-记录时间：2026-10-02 20:27，Asia/Shanghai。当前工作台源码与候选已按授权推送至 GitHub `main`，实测提交为 [351292f](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/351292fba6c5e7accafea9f8780a81b93810caba)。本记录与[20:27交接](../../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)随本次文档提交同步，具体提交以 Git 日志为准。操作见[工作台](../../engineering/tools/player-review/README.md)；历史研究 / 交接中的未提交文字保留当时状态。
+记录时间：2026-10-02 20:27，Asia/Shanghai。当前工作台源码与候选已按授权推送至 GitHub `main`，实测提交为 [351292f](https://github.com/Linzeyu912/courtstory/commit/351292fba6c5e7accafea9f8780a81b93810caba)。本记录与[20:27交接](../../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)随本次文档提交同步，具体提交以 Git 日志为准。操作见[工作台](../../engineering/tools/player-review/README.md)；历史研究 / 交接中的未提交文字保留当时状态。
 
 ## 发布范围
 

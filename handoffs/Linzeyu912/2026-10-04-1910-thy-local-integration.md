@@ -18,7 +18,7 @@
 
 ## 结论与依据
 
-- 来源：[远端提交](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/290b80de9e0a61063e9a7b5a0f7a3e5b62a02217)与 THY 2026-10-04 交接，采集日期 2026-10-04。
+- 来源：[远端提交](https://github.com/Linzeyu912/courtstory/commit/290b80de9e0a61063e9a7b5a0f7a3e5b62a02217)与 THY 2026-10-04 交接，采集日期 2026-10-04。
 - 既有全场六个脚本与两段成片 SHA-256 均与前次验收一致。YOLO、人物 / 球原观测、正式用户草稿和模型未改写。
 - 不把测试通过解释为模型真实精度、泛化能力或 THY 外部 Agent 生成成功。
 

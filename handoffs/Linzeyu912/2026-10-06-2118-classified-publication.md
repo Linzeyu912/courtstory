@@ -19,12 +19,12 @@
 
 | 类别 | 提交 | 文件数 | 内容 |
 | --- | --- | --- | --- |
-| 多模态模型调研 | [627ff30](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/627ff30430adfa04e5bab59ae5140392cd00c4f8) | 6 | 篮球多模态比较、Qwen3-VL 规格、来源与交接 |
-| 点跟踪调研 | [b5f3da6](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/b5f3da63f0829aac4acfb7d463cc08899f99ad23) | 7 | TAPNext++ 报告、随机参数运行探针、成功与失败证据 |
-| 篮球论文核查 | [82b5438](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/82b543802abe770a364748ccf40bb63d53ca5556) | 3 | 遮挡球员热图论文及代码 / 权重公开状态 |
-| 赛事要求 | [864710b](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/864710bb0a9cb8697073bfe99c26a3c41a259c13) | 7 | AgentCore / GPU 要求、CDK 边界、两条评审路径和截止时间 |
-| AWS 环境与实测 | [9684bf3](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/9684bf3e5d7cf6237837d741411e89165b3ae24b) | 15 | 19 项服务、模型访问、CPU / GPU 配额、服务入门及证据 |
-| 工程部署准备 | [0336ac9](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/0336ac965bcdb7d6fb7f4631ec8ef0d0759c1198) | 10 | S3 条件上传脚本、实际上传记录、部署预检与架构建议 |
+| 多模态模型调研 | [627ff30](https://github.com/Linzeyu912/courtstory/commit/627ff30430adfa04e5bab59ae5140392cd00c4f8) | 6 | 篮球多模态比较、Qwen3-VL 规格、来源与交接 |
+| 点跟踪调研 | [b5f3da6](https://github.com/Linzeyu912/courtstory/commit/b5f3da63f0829aac4acfb7d463cc08899f99ad23) | 7 | TAPNext++ 报告、随机参数运行探针、成功与失败证据 |
+| 篮球论文核查 | [82b5438](https://github.com/Linzeyu912/courtstory/commit/82b543802abe770a364748ccf40bb63d53ca5556) | 3 | 遮挡球员热图论文及代码 / 权重公开状态 |
+| 赛事要求 | [864710b](https://github.com/Linzeyu912/courtstory/commit/864710bb0a9cb8697073bfe99c26a3c41a259c13) | 7 | AgentCore / GPU 要求、CDK 边界、两条评审路径和截止时间 |
+| AWS 环境与实测 | [9684bf3](https://github.com/Linzeyu912/courtstory/commit/9684bf3e5d7cf6237837d741411e89165b3ae24b) | 15 | 19 项服务、模型访问、CPU / GPU 配额、服务入门及证据 |
+| 工程部署准备 | [0336ac9](https://github.com/Linzeyu912/courtstory/commit/0336ac965bcdb7d6fb7f4631ec8ef0d0759c1198) | 10 | S3 条件上传脚本、实际上传记录、部署预检与架构建议 |
 | 协作索引与发布 | 本文件所在提交 | 5 | 根入口、团队状态、接续总览、早间合作者审阅和本交接 |
 
 ## 结论与依据

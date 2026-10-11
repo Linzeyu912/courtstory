@@ -11,9 +11,9 @@
 
 | 类别 | 内容与入口 | 已核对的提交 |
 | --- | --- | --- |
-| 赛事要求与工程答辩 | [官方要求和时间](../../requirements/finals-defense-requirements-20261010.md)、[技术路线/7 页 5 分钟母稿](../../engineering/docs/finals-defense-technical-route-20261010.md)及根目录、requirements、engineering 索引 | [211fe1f](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/211fe1fd528b80735e19801448a25073133fd7e1) |
-| SageMaker 工程 | [单 GPU Notebook 定义、打包与首次验证脚本](../../engineering/infra/sagemaker-vision/README.md)及 infra 索引 | [3ad2e82](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/3ad2e821cbb74fe18db962bd289cc1610ced4e76) |
-| AWS 环境实测 | [去标识化 GPU/OpenRouter 报告](../../environment/aws/gpu-openrouter-bootstrap-20261010.md)、原始结果 JSON 及环境索引 | [1f7f86d](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1f7f86df00b687dd5288adc0bcd54a2a11795ec0) |
+| 赛事要求与工程答辩 | [官方要求和时间](../../requirements/finals-defense-requirements-20261010.md)、[技术路线/7 页 5 分钟母稿](../../engineering/docs/finals-defense-technical-route-20261010.md)及根目录、requirements、engineering 索引 | [211fe1f](https://github.com/Linzeyu912/courtstory/commit/211fe1fd528b80735e19801448a25073133fd7e1) |
+| SageMaker 工程 | [单 GPU Notebook 定义、打包与首次验证脚本](../../engineering/infra/sagemaker-vision/README.md)及 infra 索引 | [3ad2e82](https://github.com/Linzeyu912/courtstory/commit/3ad2e821cbb74fe18db962bd289cc1610ced4e76) |
+| AWS 环境实测 | [去标识化 GPU/OpenRouter 报告](../../environment/aws/gpu-openrouter-bootstrap-20261010.md)、原始结果 JSON 及环境索引 | [1f7f86d](https://github.com/Linzeyu912/courtstory/commit/1f7f86df00b687dd5288adc0bcd54a2a11795ec0) |
 | 协作与进展记录 | [团队状态](../../docs/status.md)、09:05/09:17/09:34/10:34 四份历史交接、本文及同步新 main 后的母稿补充 | 本文所在提交；通过文件 Git 历史可定位 |
 
 - 将此前保留的 22 个文件全部纳入相应类别，并新增本交接。四份历史交接保留当时状态；新记录解释其后续发布结果，不把历史“未完成/未推送”改写成当时已完成。

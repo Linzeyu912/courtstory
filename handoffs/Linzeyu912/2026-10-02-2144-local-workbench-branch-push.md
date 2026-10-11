@@ -4,7 +4,7 @@
 - 成员：Linzeyu912。
 - 任务 / Issue：用户明确要求新建分支并直接推送本地内容，不推送 main；本轮读取全部状态 Issue，返回空列表。
 - 分支：`codex/local-workbench-20261002`。
-- 提交：[b557622](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/b5576222f7dc37638f515ecfe4a5a7d10cbc31a4)。本文件及当前状态说明随后单独提交。
+- 提交：[b557622](https://github.com/Linzeyu912/courtstory/commit/b5576222f7dc37638f515ecfe4a5a7d10cbc31a4)。本文件及当前状态说明随后单独提交。
 - 状态：38 个既有本地改动文件已提交、推送并核对远端。
 
 ## 本次完成

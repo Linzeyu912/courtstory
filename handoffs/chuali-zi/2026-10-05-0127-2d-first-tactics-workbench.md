@@ -4,7 +4,7 @@
 - 成员：chuali-zi。
 - 任务 / Issue：本聊天用户明确选择「按附件实现完整 T0–T8」，要求先同步、完成后推送；后续明确真实视频拉不下来则先推送并详细交接到本地。不代替用户创建 Issue 或分配成员职责。
 - 分支：main；没有建立任务分支或 PR。
-- 功能提交：[0bda1e94c221a65df005831457f39e2c7be31e21](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/0bda1e94c221a65df005831457f39e2c7be31e21)，已先推送并核对远端。
+- 功能提交：[0bda1e94c221a65df005831457f39e2c7be31e21](https://github.com/Linzeyu912/courtstory/commit/0bda1e94c221a65df005831457f39e2c7be31e21)，已先推送并核对远端。
 - 状态：功能和合成素材流程实现；真实素材、真实模型成功与独立人工验收待本地完成。没有将整份计划的最终验收标成已通过。
 
 ## 本次完成

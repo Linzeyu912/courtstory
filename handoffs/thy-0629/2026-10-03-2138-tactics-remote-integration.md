@@ -5,7 +5,7 @@
 - 任务 / Issue：用户要求检查远端新推送、同步并接入当前功能；本轮读取 GitHub 开放 Issue 列表为空。
 - 分支：main；未创建分支或 PR，未 force push。
 - 状态：功能已推送，远端提交核验完成。
-- 功能提交：[3a00c20](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/3a00c20e8412f969c891d209b515e426d15300aa)。
+- 功能提交：[3a00c20](https://github.com/Linzeyu912/courtstory/commit/3a00c20e8412f969c891d209b515e426d15300aa)。
 
 ## 本次完成
 

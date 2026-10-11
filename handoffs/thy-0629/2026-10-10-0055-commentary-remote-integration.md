@@ -4,7 +4,7 @@
 - 成员：thy-0629
 - 任务 / Issue：用户明确要求拉取 GitHub、接入当前解说模块并推送；未新建 Issue
 - 分支：main
-- 功能提交：[4cae6b7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/4cae6b71ec1d7e420c5b8725f7c6531a6290d000)
+- 功能提交：[4cae6b7](https://github.com/Linzeyu912/courtstory/commit/4cae6b71ec1d7e420c5b8725f7c6531a6290d000)
 - 状态：整合、回归与独立复核完成；本记录随功能同步至 main
 
 ## 本次完成
@@ -18,7 +18,7 @@
 
 ## 结论与依据
 
-远端功能来源为 [423d5a7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/423d5a7ef703dbda3398f22295a53358a8b6df79)，原本地实现见[前轮交接](2026-10-10-0033-commentary-led-tactics-implementation.md)。本轮保留“先解说，再独立绘图”，润色是可选文字步骤，没有把视频理解和绘图合并为同一个 Agent。出手冻结／2K 新规则仍暂缓。
+远端功能来源为 [423d5a7](https://github.com/Linzeyu912/courtstory/commit/423d5a7ef703dbda3398f22295a53358a8b6df79)，原本地实现见[前轮交接](2026-10-10-0033-commentary-led-tactics-implementation.md)。本轮保留“先解说，再独立绘图”，润色是可选文字步骤，没有把视频理解和绘图合并为同一个 Agent。出手冻结／2K 新规则仍暂缓。
 
 同步前对本地 44 个修改／新增文件建立仓库外备份，逐文件核对 SHA-256。备份目录名为 `commentary-sync-20261010-004007`，位于本机仓库上级的 `.sync-backups/`，包含文件副本、清单、二进制补丁和原始 Git 状态。整合后的功能提交涉及 49 个文件，新增的 5 个文件范围均为远端润色／客户端／测试／接口文档适配。
 

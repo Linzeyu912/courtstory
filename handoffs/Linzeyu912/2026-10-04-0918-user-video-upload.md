@@ -4,7 +4,7 @@
 - 成员：Linzeyu912。
 - 任务 / Issue：用户要求将本地文件夹 1 的视频推入私有素材库，并解释 100 段、30 段、THY 补充与本次视频的存放方式；后续明确“先标赛季待核实”。GitHub Issue 搜索未返回匹配项，本轮未创建或修改 Issue。
 - 分支：main；开工已 fetch，HEAD 与 origin/main 同为 `fb67533c28f41fce76f756bb5e2f0f4a81d2d4ab`。
-- 数据提交：[ba9d2b0](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/ba9d2b00ebf1cd988f91ae85daf6773c6736cc29)；本交接收尾文档另作提交，以 Git 历史为准。
+- 数据提交：[ba9d2b0](https://github.com/Linzeyu912/courtstory/commit/ba9d2b00ebf1cd988f91ae85daf6773c6736cc29)；本交接收尾文档另作提交，以 Git 历史为准。
 - 状态：18 段入库、main 推送、远端提交核对与独立空缓存下载核验完成；正式赛季标签按用户要求仍待核实。
 
 ## 本次完成
@@ -44,6 +44,6 @@
 
 ## 同步状态
 
-- 46 个本任务文件已选择性提交为 [ba9d2b0](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/ba9d2b00ebf1cd988f91ae85daf6773c6736cc29) 并正常推送 main；远端 refs/heads/main 与本地数据提交一致。18 个 LFS 对象全部上传成功，没有创建分支 / PR 或 force push。
+- 46 个本任务文件已选择性提交为 [ba9d2b0](https://github.com/Linzeyu912/courtstory/commit/ba9d2b00ebf1cd988f91ae85daf6773c6736cc29) 并正常推送 main；远端 refs/heads/main 与本地数据提交一致。18 个 LFS 对象全部上传成功，没有创建分支 / PR 或 force push。
 - 2026-10-04T09:25:28+08:00（Asia/Shanghai），从 origin / 上述提交使用初始不存在的独立 lfs.storage 缓存实际下载，18/18 对象大小及 SHA-256 匹配，共 399,356,830 字节。未复用原 .git/lfs 缓存，确认远端成片可下载。证据：本机 `artifacts/video-import-20261004-hou-sas/remote-download-proof.json`。
 - 本交接与批次 README 的核验完成说明随后单独提交并推送，最终文档提交以 Git 历史为准；原有其他任务的未提交修改继续留在工作区。

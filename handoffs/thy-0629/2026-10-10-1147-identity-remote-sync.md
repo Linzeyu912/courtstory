@@ -4,7 +4,7 @@
 - 成员：thy-0629
 - 任务 / Issue：用户要求同步远端并补齐未接入功能；当前 open Issue 查询为空
 - 分支：main；不创建分支或 PR
-- 提交：[功能提交 7cd78d6](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/7cd78d6f65f3bcaf69fcba5ca0a3a1a646833634) 已推送并核对远端；本交接及当前状态文档随随后文档提交同步
+- 提交：[功能提交 7cd78d6](https://github.com/Linzeyu912/courtstory/commit/7cd78d6f65f3bcaf69fcba5ca0a3a1a646833634) 已推送并核对远端；本交接及当前状态文档随随后文档提交同步
 - 状态：整合、独立验收、本机重载和功能发布完成；未部署云端
 
 ## 本次完成

@@ -13,9 +13,9 @@
 
 | 类别 | 提交 | 内容 |
 |---|---|---|
-| 球场标定后端 | [1219baf](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1219baf4716e4b24ad0c62dfb8e31769544c5550) | 7 个 Python 文件、后端流程说明及 3 份对应历史交接；局部禁区线拟合、多帧点线联合校正、相机传播与人工参照保护 |
-| 工作台交互 | [f07f136](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/f07f13621292860dd361f00878090224226ed29c) | 自动标定 → 核对画面 → 进入 2D；人工修正折叠入口、候选随帧预览、保存结果优先与审核时间轴修复，附既有交互检查文件和说明 |
-| 模型与标线调研 | [5850fe9](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/5850fe9592eadae5889302a6f5246df756671510) | Hugging Face / GitHub 候选、复用篮球 / 篮筐检测、旋转镜头映射方法与来源索引 |
+| 球场标定后端 | [1219baf](https://github.com/Linzeyu912/courtstory/commit/1219baf4716e4b24ad0c62dfb8e31769544c5550) | 7 个 Python 文件、后端流程说明及 3 份对应历史交接；局部禁区线拟合、多帧点线联合校正、相机传播与人工参照保护 |
+| 工作台交互 | [f07f136](https://github.com/Linzeyu912/courtstory/commit/f07f13621292860dd361f00878090224226ed29c) | 自动标定 → 核对画面 → 进入 2D；人工修正折叠入口、候选随帧预览、保存结果优先与审核时间轴修复，附既有交互检查文件和说明 |
+| 模型与标线调研 | [5850fe9](https://github.com/Linzeyu912/courtstory/commit/5850fe9592eadae5889302a6f5246df756671510) | Hugging Face / GitHub 候选、复用篮球 / 篮筐检测、旋转镜头映射方法与来源索引 |
 | 协作文档 | 本文件所在提交 | D011、团队状态、根入口、本轮发布记录及此前方案采用交接；保留各历史交接原先的未推送状态 |
 
 - 18 段新视频已由独立上传任务提交为 `ba9d2b0`，收尾文档为 `092c633`。本轮开工本地与远端均为 `092c633`，未重复提交这些视频。其来源、赛季待核实和远端下载证明见[原交接](2026-10-04-0918-user-video-upload.md)。

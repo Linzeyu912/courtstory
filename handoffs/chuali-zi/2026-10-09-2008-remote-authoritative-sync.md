@@ -4,7 +4,7 @@
 - 成员：chuali-zi。
 - 任务 / Issue：用户要求同步远端并处理错误、冲突，随后明确“一切都以远端为标准”；查询开放 Issue 与 PR 均为空。
 - 分支：main。
-- 提交：[c443d9e](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/c443d9e0520b34df3b748e7307a1ca7c11d6c9f7)；本交接仅本地未提交。
+- 提交：[c443d9e](https://github.com/Linzeyu912/courtstory/commit/c443d9e0520b34df3b748e7307a1ca7c11d6c9f7)；本交接仅本地未提交。
 - 状态：同步与必要验证完成。
 
 ## 本次完成

@@ -16,8 +16,8 @@
 
 - Team Hub main 为 `56e6466057c0560701d3163d2dbd1384e59249d2`，可达提交 197 条，根提交为 `81030b0e5b7c8216018ae9f138e0cf4f4bc881f9`；其他分支与标签不包含在这一 main 计数口径中。
 - CourtStory 根提交为 `91b31a2a978fc3dac12e5b884b877fab37dbb0c0`；当前本地 main 可达 21 条提交，前轮获取的 origin/main 可达 31 条。它与 Team Hub 为独立历史，本轮未重新 fetch 或推进本地 main。
-- [CourtStory 成品迁移说明](https://github.com/Linzeyu912/courtstory/blob/769dca11ae7f56a451ce70f7da76bd1cfa3ca6fd/docs/product-import.md)明确按当时用户要求只迁移成果文件，不导入 Team Hub 历史；初始来源快照为 `53b1fc8`。
-- [后续功能同步说明](https://github.com/Linzeyu912/courtstory/blob/769dca11ae7f56a451ce70f7da76bd1cfa3ca6fd/docs/feature-sync-20261010.md)记录补齐 Team Hub 至 `56e6466` 的成果文件，仍保持独立历史。两份说明均在本机 CourtStory 检出内容中直接读取。
+- [CourtStory 成品迁移说明](https://github.com/Linzeyu912/courtstory-snapshot/blob/769dca11ae7f56a451ce70f7da76bd1cfa3ca6fd/docs/product-import.md)明确按当时用户要求只迁移成果文件，不导入 Team Hub 历史；初始来源快照为 `53b1fc8`。
+- [后续功能同步说明](https://github.com/Linzeyu912/courtstory-snapshot/blob/769dca11ae7f56a451ce70f7da76bd1cfa3ca6fd/docs/feature-sync-20261010.md)记录补齐 Team Hub 至 `56e6466` 的成果文件，仍保持独立历史。两份说明均在本机 CourtStory 检出内容中直接读取。
 - HKS 原始 commit 仍在；此前删除 THY 历史工作目录未删除共享 Git 提交。
 
 | 方式 | 能保留什么 | 适用范围与代价 |

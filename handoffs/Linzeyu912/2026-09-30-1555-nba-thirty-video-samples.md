@@ -4,7 +4,7 @@
 - 成员：Linzeyu912；主 Agent 与三个子 agent 按用户要求采集、筛选及交叉复核。
 - 任务 / Issue：用户批准按前轮时长反思采集 30 段，并明确要求完成后推送、保留其他成员成果；开工只读查询未发现开放 Issue。
 - 分支：main。
-- 提交：素材清单及相关记录已提交并推送 [bbe2222](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/bbe2222d4be9bdb8637810732bee750147322d48)；本文件后续同步核验另作补充提交。
+- 提交：素材清单及相关记录已提交并推送 [bbe2222](https://github.com/Linzeyu912/courtstory/commit/bbe2222d4be9bdb8637810732bee750147322d48)；本文件后续同步核验另作补充提交。
 - 状态：30 段本地视频已采集并检查，待用户统一查看；未进行模型训练或效果评估。
 
 ## 本次完成

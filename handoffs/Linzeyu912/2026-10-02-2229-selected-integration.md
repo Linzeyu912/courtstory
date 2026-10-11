@@ -17,7 +17,7 @@
 
 ## 结论与依据
 
-- 依据：2026-10-02 本聊天用户的明确整合指示。原用户基线 [fffb6ea](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/fffb6ea7513b161dba0d0959ee4b822ae0469cf0) 与 THY 基线 [1839dcd](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1839dcde5b5cc0aa362baa474e58e5b530e6c695) 保留，可继续比较。此取舍是本次用户要求，不作为赛事规则或未经确认的全队共识。
+- 依据：2026-10-02 本聊天用户的明确整合指示。原用户基线 [fffb6ea](https://github.com/Linzeyu912/courtstory/commit/fffb6ea7513b161dba0d0959ee4b822ae0469cf0) 与 THY 基线 [1839dcd](https://github.com/Linzeyu912/courtstory/commit/1839dcde5b5cc0aa362baa474e58e5b530e6c695) 保留，可继续比较。此取舍是本次用户要求，不作为赛事规则或未经确认的全队共识。
 - 2K 查询复用原数据包；读取约定见[数据指引](../../2K%20Player%20Data/AGENTS.md)。新增的是查询、人工确认、展示和来源读取，数据值未重写。
 - 2024–25 / MIN / 文字号码 `10` 的实际接口结果为 Mike Conley；能力和来源与包内记录一致。名册包内采集日 2026-09-30，能力来源为固定 2024-11-26 GitHub 快照，补丁日未知；完整 URL 见取舍记录。此结果不证明某段视频中的人物身份。
 

@@ -4,7 +4,7 @@
 - 成员：chuali-zi
 - 任务 / Issue：用户明确要求“先把现有成果推送一下”；当前远端开放Issue列表为空。
 - 分支：main
-- 主成果提交：[b5c03af95b2efac8e41d6e3b6ca6eee0dda54807](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/b5c03af95b2efac8e41d6e3b6ca6eee0dda54807)
+- 主成果提交：[b5c03af95b2efac8e41d6e3b6ca6eee0dda54807](https://github.com/Linzeyu912/courtstory/commit/b5c03af95b2efac8e41d6e3b6ca6eee0dda54807)
 - 状态：主成果已提交、推送并核对远端；本文件记录发布事实
 
 ## 本次完成

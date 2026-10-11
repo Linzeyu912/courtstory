@@ -4,7 +4,7 @@
 - 成员：chuali-zi
 - 任务 / Issue：用户要求先推送、补上球员姓名显示、复盘整任务失败并减少重试、改用官方视频复跑；本轮查询未发现开放 Issue，不虚构负责人。
 - 分支：main
-- 提交：代码 [f5f00c5](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/f5f00c50fb3e3436166848e38254bc43d92884db) 已推送；本记录随本轮后续文档提交。
+- 提交：代码 [f5f00c5](https://github.com/Linzeyu912/courtstory/commit/f5f00c50fb3e3436166848e38254bc43d92884db) 已推送；本记录随本轮后续文档提交。
 - 状态：全流程产出完成；姓名连续性、局部关联与节奏仍有质量缺口。
 
 ## 本次完成

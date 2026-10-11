@@ -18,8 +18,8 @@ Git worktree 是同一仓库的独立文件目录，两边共享 Git 历史，�
 
 | 版本 | 完整提交 | 来源 |
 |---|---|---|
-| 用户版 | `fffb6ea7513b161dba0d0959ee4b822ae0469cf0` | [已推送工作分支](https://github.com/Linzeyu912/broadcastcode-team-hub/tree/codex/local-workbench-20261002) |
-| THY 版 | `1839dcde5b5cc0aa362baa474e58e5b530e6c695` | [远端 main 固定提交](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1839dcde5b5cc0aa362baa474e58e5b530e6c695) |
+| 用户版 | `fffb6ea7513b161dba0d0959ee4b822ae0469cf0` | [已推送工作分支](https://github.com/Linzeyu912/courtstory/tree/codex/local-workbench-20261002) |
+| THY 版 | `1839dcde5b5cc0aa362baa474e58e5b530e6c695` | [远端 main 固定提交](https://github.com/Linzeyu912/courtstory/commit/1839dcde5b5cc0aa362baa474e58e5b530e6c695) |
 
 远端相对共同基线有两次 THY 提交：`351292f` 为功能 / 数据，`1839dcd` 为发布记录。当前 GitHub 全部状态 Issue 列表为空，范围按用户指令和这些提交核对。
 
@@ -112,6 +112,6 @@ Git worktree 是同一仓库的独立文件目录，两边共享 Git 历史，�
 
 ## 来源
 
-- [THY 发布交接](https://github.com/Linzeyu912/broadcastcode-team-hub/blob/1839dcde5b5cc0aa362baa474e58e5b530e6c695/handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)：2026-10-02 本轮从 Git 对象读取，并核对源码。
+- [THY 发布交接](https://github.com/Linzeyu912/courtstory/blob/1839dcde5b5cc0aa362baa474e58e5b530e6c695/handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)：2026-10-02 本轮从 Git 对象读取，并核对源码。
 - [用户版同步交接](../../../handoffs/Linzeyu912/2026-10-02-2144-local-workbench-branch-push.md)：用户版基线与已完成验证。
 - [本轮隔离交接](../../../handoffs/Linzeyu912/2026-10-02-2203-thy-isolated-comparison.md)：目录准备与检查记录。

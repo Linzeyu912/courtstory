@@ -9,7 +9,7 @@
 
 ## 本次完成
 
-- 创建 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory)，可见性 Private。
+- 创建 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory-snapshot)，可见性 Private。
 - Description：由篮球观众打造的 AI 战术可视化与讲解工具，用可编辑的战术标注与回合解读，让比赛更容易看懂。
 - 未初始化 README、许可证、gitignore 或代码；未创建 Tag 或 Release。
 - 更新 Team Hub 的[方案](../../engineering/docs/product-repository-proposal-20261007.md)和[状态](../../docs/status.md)，记录真实创建结果与后续边界。

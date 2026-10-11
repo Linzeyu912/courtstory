@@ -4,7 +4,7 @@
 - 成员：chuali-zi。
 - 任务 / Issue：用户要求同步后运行现有完整视频流程，所有 LLM 使用 OpenRouter Astra，加入新投篮反馈；远端 Issue 查询未发现 open issue，没有另行分配成员。
 - 分支：main。
-- 提交：[da87412](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/da874126128b749adcdbc5d50fe6f0e06530735b)，已推送 main；本记录随后补记核对结果。
+- 提交：[da87412](https://github.com/Linzeyu912/courtstory/commit/da874126128b749adcdbc5d50fe6f0e06530735b)，已推送 main；本记录随后补记核对结果。
 - 状态：005 成片已完成；001 长片未完成。
 
 ## 本次完成

@@ -1,6 +1,6 @@
 # 成品迁移
 
-日期：2026-10-09（America/New_York）。来源：[broadcastcode-team-hub](https://github.com/Linzeyu912/broadcastcode-team-hub)，文件快照 `53b1fc85b06b7f1bdc3fea814f05f4c3aa879abb`。
+日期：2026-10-09（America/New_York）。来源：[broadcastcode-team-hub](https://github.com/Linzeyu912/courtstory)，文件快照 `53b1fc85b06b7f1bdc3fea814f05f4c3aa879abb`。
 
 按仓库所有者要求，只迁移成果文件，以 CourtStory 原有 main 为基线创建新提交；不导入 Team Hub 提交历史，不更改统一署名规则和历史基线。原仓库绑定与未提交工作保持。
 

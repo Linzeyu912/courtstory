@@ -1,8 +1,9 @@
 # CourtStory：在 Team Hub 接续成果更新与开发历史
 
 - 日期 / 时区：2026-10-11，Asia/Singapore（UTC+8）。
-- 用户决定：继续使用原 Team Hub 仓库作为主仓库，产品名称使用 CourtStory，两个 GitHub 仓库地址暂不更改；成果整理后的更新按不同 commit 接续。用户随后明确授权推送，26 条接续提交已发布至 `082d61c`。
-- 主仓库：[Linzeyu912/broadcastcode-team-hub](https://github.com/Linzeyu912/broadcastcode-team-hub)；成果来源：[Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory)。
+- 用户决定：继续使用原 Team Hub 仓库作为主仓库，成果整理后的更新按不同 commit 接续，26 条接续提交已发布至 `082d61c`。用户随后将开发主仓库正式改名为 CourtStory，原成果仓库改名为 CourtStory Snapshot；此前暂不更名的安排已被替代。
+- 开发主仓库：[Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory)；比赛成果快照：[Linzeyu912/courtstory-snapshot](https://github.com/Linzeyu912/courtstory-snapshot)。
+- 两个仓库使用相同的产品简介；快照的用途由仓库名与 README 说明。用户取消上轮快照标签，相关提交仍保留。改名与标签处理见[本轮交接](../handoffs/Linzeyu912/2026-10-11-2337-repository-rename.md)。
 
 ## 历史如何接续
 
@@ -25,8 +26,8 @@
 
 ## 本地与远端
 
-- 主工作目录继续使用原 Team Hub checkout，origin 地址不变；原 CourtStory checkout 和远端未修改。
-- 后续开发直接在主仓库 main 继续。用户已明确授权本轮推送，26 条接续提交和 CourtStory 简介已发布；仓库地址与私有属性保持。
+- 主工作目录继续使用原 Team Hub checkout，origin 改为 `https://github.com/Linzeyu912/courtstory.git`；原成果 checkout 的 origin 改为 `https://github.com/Linzeyu912/courtstory-snapshot.git`。
+- 后续开发直接在主仓库 main 继续；比赛快照留在独立仓库，两个仓库均保留私有属性。当前改名只更新名称、简介、Git 关联和文档，不改变已共享的开发历史。
 - 21:05 核验远端 main 为 `56e6466`，简介仍为原 Team Hub 文案；此前中断的推送已上传两个 LFS 对象（约 173 MB），但 Git 提交未发布。这是上轮事实，不代表本轮已同步。
 - 完整性证据与备份入口见[去重交接](../handoffs/Linzeyu912/2026-10-11-2127-teamhub-linear-history.md)；21:43 的成功推送及最终同步核对见[发布交接](../handoffs/Linzeyu912/2026-10-11-2144-teamhub-courtstory-publication.md)。
 

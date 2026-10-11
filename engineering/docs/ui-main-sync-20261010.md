@@ -2,7 +2,7 @@
 
 - 日期 / 时区：2026-10-10，Asia/Singapore（UTC+8）。
 - 分支：`codex/courtstory-ui-broadcast`，仅本地 UI 工作区。
-- 来源：用户本轮要求；远端 main [`12c7413`](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/12c7413d897908c1b262025af153b096004c19bc)；[主分支整合交接](../../handoffs/thy-0629/2026-10-10-0055-commentary-remote-integration.md)及[实际后端工作流](commentary-narration-workflow.md)。
+- 来源：用户本轮要求；远端 main [`12c7413`](https://github.com/Linzeyu912/courtstory/commit/12c7413d897908c1b262025af153b096004c19bc)；[主分支整合交接](../../handoffs/thy-0629/2026-10-10-0055-commentary-remote-integration.md)及[实际后端工作流](commentary-narration-workflow.md)。
 
 ## 同步范围
 

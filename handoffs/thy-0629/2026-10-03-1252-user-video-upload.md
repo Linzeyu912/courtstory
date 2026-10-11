@@ -4,7 +4,7 @@
 - 成员：thy-0629。
 - 任务 / Issue：用户直接要求“这几个视频你帮我放进 HKS 的视频文件夹然后推送”；没有据此创建或修改 Issue。
 - 分支：main。
-- 提交：[c7fa16ac6709b6c4e79fd633457c9eb90c3e6752](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/c7fa16ac6709b6c4e79fd633457c9eb90c3e6752)；本交接收尾文档的后续提交哈希以文件 Git 历史为准。
+- 提交：[c7fa16ac6709b6c4e79fd633457c9eb90c3e6752](https://github.com/Linzeyu912/courtstory/commit/c7fa16ac6709b6c4e79fd633457c9eb90c3e6752)；本交接收尾文档的后续提交哈希以文件 Git 历史为准。
 - 状态：接收、登记、独立复核、直接推送 main 及四段远端独立下载验证全部完成；内容信息与视觉复核仍按下方边界待确认。
 
 ## 本次完成

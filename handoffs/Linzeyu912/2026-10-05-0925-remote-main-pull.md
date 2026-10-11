@@ -15,7 +15,7 @@
 
 ## 结论与依据
 
-- 采集日期：2026-10-05。远端来源为 [GitHub main](https://github.com/Linzeyu912/broadcastcode-team-hub/tree/main)，本次终点为 [377c686](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/377c6860734272f7f3a262737d5eb916aefeb96f)。
+- 采集日期：2026-10-05。远端来源为 [GitHub main](https://github.com/Linzeyu912/courtstory/tree/main)，本次终点为 [377c686](https://github.com/Linzeyu912/courtstory/commit/377c6860734272f7f3a262737d5eb916aefeb96f)。
 - 战术更新为 `4b75b77`、`efce3ab`，功能与上游验收范围见 [THY 交接](../thy-0629/2026-10-04-2315-authored-tactics-production.md)。
 - 素材更新为 `542cf6e`、`377c686`，包括上游人工审核后移除的 12 段活动素材，活动库从 175 段变为 163 段；原意见和删除前元数据已归档，见 [素材交接](../chuali-zi/2026-10-04-1359-human-review-final-zoom-recheck.md)。本轮按远端提交同步该结果，未重新判断标签。
 

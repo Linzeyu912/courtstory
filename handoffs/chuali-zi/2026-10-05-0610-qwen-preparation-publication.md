@@ -46,7 +46,7 @@
 
 ## 同步状态
 
-研究 / 计划发布提交：[e9ac0623122f413cd5ea0c85ead09d5c55e3eba1](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/e9ac0623122f413cd5ea0c85ead09d5c55e3eba1)，13 个文档 / JSON 文件，1,233 行新增。正常 push 从 6d914d7 推进 main 至该提交，没有 force push。
+研究 / 计划发布提交：[e9ac0623122f413cd5ea0c85ead09d5c55e3eba1](https://github.com/Linzeyu912/courtstory/commit/e9ac0623122f413cd5ea0c85ead09d5c55e3eba1)，13 个文档 / JSON 文件，1,233 行新增。正常 push 从 6d914d7 推进 main 至该提交，没有 force push。
 
 2026-10-05 06:14:05 UTC，push 后重新 fetch，并用 git rev-parse 与 git ls-remote 核对：本地 HEAD、origin/main、远端 refs/heads/main 三者均为上述完整 SHA。工作区干净。
 

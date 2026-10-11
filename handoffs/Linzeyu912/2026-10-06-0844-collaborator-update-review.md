@@ -19,10 +19,10 @@
 
 | 提交 | 上海时间 | 内容 |
 | --- | --- | --- |
-| [873b11a](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/873b11a0fa6a00765984df1f164928cc3d8afab5) | 2026-10-06 00:11 | 人工视频战术制作功能、导入、时间控制、暂停与 MP4 链路改进 |
-| [1e26b63](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1e26b63450cfd601b2d410f435807c05b1d981e8) | 2026-10-06 00:18 | 人工制作的指南、验收与交接 |
-| [b503573](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/b50357356ef4079455d55753ad082d6904f65fe6) | 2026-10-06 02:30 | Qwen 实测修复、同步回放与轻量示例 |
-| [be5c43d](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/be5c43d17c78f04b4df55eda38aa6f82fde8f803) | 2026-10-06 02:32 | Qwen 发布状态和验证记录 |
+| [873b11a](https://github.com/Linzeyu912/courtstory/commit/873b11a0fa6a00765984df1f164928cc3d8afab5) | 2026-10-06 00:11 | 人工视频战术制作功能、导入、时间控制、暂停与 MP4 链路改进 |
+| [1e26b63](https://github.com/Linzeyu912/courtstory/commit/1e26b63450cfd601b2d410f435807c05b1d981e8) | 2026-10-06 00:18 | 人工制作的指南、验收与交接 |
+| [b503573](https://github.com/Linzeyu912/courtstory/commit/b50357356ef4079455d55753ad082d6904f65fe6) | 2026-10-06 02:30 | Qwen 实测修复、同步回放与轻量示例 |
+| [be5c43d](https://github.com/Linzeyu912/courtstory/commit/be5c43d17c78f04b4df55eda38aa6f82fde8f803) | 2026-10-06 02:32 | Qwen 发布状态和验证记录 |
 
 ### 人工战术制作
 

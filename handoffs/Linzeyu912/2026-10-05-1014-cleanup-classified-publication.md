@@ -11,9 +11,9 @@
 
 | 类别 | 提交 | 范围 |
 |---|---|---|
-| 工作台代码清理 | [e4654e5](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/e4654e5) | 旧简版模块及路由、旧像素尾迹、不可达分支、对应回归和前端构建产物 |
-| 候选去重与读取兼容 | [6774081](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/6774081) | 删除四份重复候选、保留独立元数据、默认样例修复、服务 / 裁剪 / 准备工具 / 研究读取适配和回归 |
-| 历史脚本归档 | [9a0dc07](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/9a0dc07) | 七个脚本移至工程归档，修正运行路径与历史可点击链接，补归档说明 |
+| 工作台代码清理 | [e4654e5](https://github.com/Linzeyu912/courtstory/commit/e4654e5) | 旧简版模块及路由、旧像素尾迹、不可达分支、对应回归和前端构建产物 |
+| 候选去重与读取兼容 | [6774081](https://github.com/Linzeyu912/courtstory/commit/6774081) | 删除四份重复候选、保留独立元数据、默认样例修复、服务 / 裁剪 / 准备工具 / 研究读取适配和回归 |
+| 历史脚本归档 | [9a0dc07](https://github.com/Linzeyu912/courtstory/commit/9a0dc07) | 七个脚本移至工程归档，修正运行路径与历史可点击链接，补归档说明 |
 | 共享文档与交接 | 本交接所在文档提交 | 根目录与工程入口、团队状态、清理说明及本聊天三轮独立交接 |
 
 - 对 `serve_player_review.py` 和 `test_player_review_server.py` 按改动片段暂存，旧模块路由清理与候选元数据兼容分别进入对应提交。

@@ -17,7 +17,7 @@
 ## 结论与依据
 
 - 原聊天 ID：`01a0fcd8-2c63-7e41-84b7-7e7312494071`；读取日期 2026-10-03。原用户明确要求分类提交并只推现有独立分支，本次继续该任务及范围，不切换或同步 main。
-- 检测证据已由 [14c2cf7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/14c2cf7) 提供；逐帧确认由 [92ea072](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/92ea072) 提供；定位修复由 [495a26c](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/495a26c5ec063c376b2a20847371c50cbbd5e51e) 提供。
+- 检测证据已由 [14c2cf7](https://github.com/Linzeyu912/courtstory/commit/14c2cf7) 提供；逐帧确认由 [92ea072](https://github.com/Linzeyu912/courtstory/commit/92ea072) 提供；定位修复由 [495a26c](https://github.com/Linzeyu912/courtstory/commit/495a26c5ec063c376b2a20847371c50cbbd5e51e) 提供。
 - “没有候选”只能在保存的检测输出范围内排查漏检；旧数据缺少完整声明时须保留“证据有限”。有候选未跟踪则检查关联、初始化、阈值及后处理。实线只表示该帧人物已确认。
 
 ## 验证

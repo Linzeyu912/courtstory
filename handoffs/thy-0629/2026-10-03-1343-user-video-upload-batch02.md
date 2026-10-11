@@ -4,7 +4,7 @@
 - 成员：thy-0629。
 - 任务 / Issue：用户直接要求将本轮十一段 MP4 同样放入 HKS 视频文件夹并推送；未新建或修改 Issue。
 - 分支：main。
-- 提交：[1fba7d7c096ed7c4e789aada127ae88c8ce67d48](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1fba7d7c096ed7c4e789aada127ae88c8ce67d48)；本收尾文档的后续提交以文件 Git 历史为准。
+- 提交：[1fba7d7c096ed7c4e789aada127ae88c8ce67d48](https://github.com/Linzeyu912/courtstory/commit/1fba7d7c096ed7c4e789aada127ae88c8ce67d48)；本收尾文档的后续提交以文件 Git 历史为准。
 - 状态：十一段接收、登记、独立复核、直接推送 main 与远端独立下载核对全部完成；来源及内容复核边界保留。
 
 ## 本次完成

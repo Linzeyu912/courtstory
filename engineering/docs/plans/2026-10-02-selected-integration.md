@@ -12,8 +12,8 @@
 
 ## 来源与采用范围
 
-- 用户版基线：[fffb6ea](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/fffb6ea7513b161dba0d0959ee4b822ae0469cf0)。保留左侧导航、分步骤操作、底部 2D 数据抽屉、人物编辑、球场标定和视频恢复能力。
-- THY 来源：[1839dcd](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1839dcde5b5cc0aa362baa474e58e5b530e6c695)。接入检测 / 跟踪方案、待核对编号建议、稳定显示和球员身份 / 2K 查询展示。
+- 用户版基线：[fffb6ea](https://github.com/Linzeyu912/courtstory/commit/fffb6ea7513b161dba0d0959ee4b822ae0469cf0)。保留左侧导航、分步骤操作、底部 2D 数据抽屉、人物编辑、球场标定和视频恢复能力。
+- THY 来源：[1839dcd](https://github.com/Linzeyu912/courtstory/commit/1839dcde5b5cc0aa362baa474e58e5b530e6c695)。接入检测 / 跟踪方案、待核对编号建议、稳定显示和球员身份 / 2K 查询展示。
 - 取舍依据：2026-10-02 本聊天用户明确要求现在开始整合；此前“只比较、不合并”的范围已由本次指示更新。本轮源码和本地接口采集日期均为 2026-10-02。
 - 既有来源说明：[用户版人物编辑交接](../../../handoffs/Linzeyu912/2026-10-02-2046-roster-cancel-swap.md)、[THY 身份与 2K 交接](../../../handoffs/thy-0629/2026-10-02-1930-player-identity-2k.md)、[THY 发布交接](../../../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)。历史记录保留当时状态。
 

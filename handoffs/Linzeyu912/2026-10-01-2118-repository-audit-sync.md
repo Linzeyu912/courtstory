@@ -4,7 +4,7 @@
 - 成员：Linzeyu912。
 - 任务 / Issue：用户要求阅读整个仓库，整理混乱的已完成资料并推送，正在开发的内容不要动。开工只读查询全部Issue为空，未新建或修改Issue。
 - 分支：main。
-- 提交：[已完成资料整理 b05e5ba](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/b05e5ba4fd8ba41d6a0072a5191dcca6627ef1ed)。开工HEAD与fetch后的origin/main均为 `3c69767018bd8e29ae6fb6e6247165b85affadc8`。
+- 提交：[已完成资料整理 b05e5ba](https://github.com/Linzeyu912/courtstory/commit/b05e5ba4fd8ba41d6a0072a5191dcca6627ef1ed)。开工HEAD与fetch后的origin/main均为 `3c69767018bd8e29ae6fb6e6247165b85affadc8`。
 - 状态：资料审阅、入口调整和已完成资料的选择性推送均完成；2026-10-01 21:31（Asia/Shanghai）核验远端提交一致。本次同步结果补记随独立文档提交保存，补记的提交号以Git历史为准。
 
 ## 本次完成

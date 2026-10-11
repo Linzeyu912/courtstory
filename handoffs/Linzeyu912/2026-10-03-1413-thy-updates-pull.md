@@ -20,11 +20,11 @@
 
 | 提交 | 内容 |
 |---|---|
-| [6e31fd3](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/6e31fd3) | 更新独立战术轨迹的发布状态与恢复边界，新增 [11:03 同步交接](../thy-0629/2026-10-03-1103-tactical-overlay-sync.md) |
-| [c7fa16a](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/c7fa16a) | 第一批 4 段用户上传视频、清单、标签及来源记录；增加上传来源校验规则和 8 项回归测试 |
-| [1b67cbe](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1b67cbe) | 补记第一批视频远端独立下载验证结果 |
-| [1fba7d7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1fba7d7) | 第二批 11 段用户上传视频、清单、标签及来源记录 |
-| [1e3c79a](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1e3c79a) | 补记第二批视频远端独立下载验证结果 |
+| [6e31fd3](https://github.com/Linzeyu912/courtstory/commit/6e31fd3) | 更新独立战术轨迹的发布状态与恢复边界，新增 [11:03 同步交接](../thy-0629/2026-10-03-1103-tactical-overlay-sync.md) |
+| [c7fa16a](https://github.com/Linzeyu912/courtstory/commit/c7fa16a) | 第一批 4 段用户上传视频、清单、标签及来源记录；增加上传来源校验规则和 8 项回归测试 |
+| [1b67cbe](https://github.com/Linzeyu912/courtstory/commit/1b67cbe) | 补记第一批视频远端独立下载验证结果 |
+| [1fba7d7](https://github.com/Linzeyu912/courtstory/commit/1fba7d7) | 第二批 11 段用户上传视频、清单、标签及来源记录 |
+| [1e3c79a](https://github.com/Linzeyu912/courtstory/commit/1e3c79a) | 补记第二批视频远端独立下载验证结果 |
 
 ### 两批视频
 

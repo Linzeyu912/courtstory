@@ -1,7 +1,7 @@
 # 成品仓库命名、定位与 README 草案
 
 - 日期：2026-10-07 10:53，Asia/Singapore（UTC+8）。
-- 当前状态（2026-10-07 11:13，Asia/Singapore）：私有仓库 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory) 已按用户后续授权加入[简短 README](https://github.com/Linzeyu912/courtstory/blob/main/README.md)，`main` 提交为 `91b31a2a978fc3dac12e5b884b877fab37dbb0c0`。远端文件树仅有 README，没有代码、Tag 或 Release，赛事绑定保持原状。
+- 当前状态（2026-10-07 11:13，Asia/Singapore）：私有仓库 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory-snapshot) 已按用户后续授权加入[简短 README](https://github.com/Linzeyu912/courtstory-snapshot/blob/main/README.md)，`main` 提交为 `91b31a2a978fc3dac12e5b884b877fab37dbb0c0`。远端文件树仅有 README，没有代码、Tag 或 Release，赛事绑定保持原状。
 - 用户范围：README 只说明「由观众打造，为观众打造」的定位，以及后续本地电脑部署和服务器云端部署两种版本；不要具体功能清单或使用步骤。代码待用户完成拆分整理后另行推送；Tag / Release 继续暂缓。下方完整功能型 README 为历史讨论稿，已被简版替代。
 - 2026-10-07 11:02（Asia/Singapore）历史讨论补充：用户提出品牌主张「由观众打造，为观众打造」，英文原提议为「By audience, for audience」。当时英文润色与产品名称仍待确定；11:13 已写入的版本见上方当前状态及第 3 节。
 
@@ -41,7 +41,7 @@ GitHub description 建议采用中文：
 
 ## 3. 当前 README 与历史草稿
 
-当前以[远端简短 README](https://github.com/Linzeyu912/courtstory/blob/main/README.md)为准：英文主张为 **By viewers. For viewers.**，中文为 **由观众打造，为观众打造。** 正文仅说明观众视角与两个部署版本：本地版用于个人电脑，云端版用于服务器及本次比赛的云端运行与作品展示；代码与说明将在拆分整理后加入。
+当前以[远端简短 README](https://github.com/Linzeyu912/courtstory-snapshot/blob/main/README.md)为准：英文主张为 **By viewers. For viewers.**，中文为 **由观众打造，为观众打造。** 正文仅说明观众视角与两个部署版本：本地版用于个人电脑，云端版用于服务器及本次比赛的云端运行与作品展示；代码与说明将在拆分整理后加入。
 
 以下完整稿保留最初讨论历史，**已被用户要求的简版替代，没有上传，也不再作为当前 README 内容计划**。其中核心能力、工程组成和复现等章节不应自动补回新仓库。
 
@@ -137,7 +137,7 @@ Release 可包含实际构建并验证的运行包和说明；模型、大型视
 - [产品概念](agent-concept-review.md)：普通观众、原视频、战术解释与声画表达；其中旧方案状态以较新验收补充。
 - [赛事接续清单](contest-readiness-20261005.md)：官方指标与视频关联、可视化交付、完整轨迹不作为主线。
 - [人工制作说明](manual-tactics-workbench-guide.md)、[云端实测](ec2-cloud-interaction-acceptance-20261007.md)：已实现制作能力与单样例云端验证范围；云端实测为本地未提交资料。
-- [远端工作台可用性说明](https://github.com/Linzeyu912/broadcastcode-team-hub/blob/0d29df0f1adc1e64659d48b49b4e6c9dd880ffbd/engineering/docs/workbench-usability-20261007.md)及[独立工作流验收](https://github.com/Linzeyu912/broadcastcode-team-hub/blob/0d29df0f1adc1e64659d48b49b4e6c9dd880ffbd/engineering/docs/agent-tactics-acceptance-20261006.md)：通过 `git show origin/main:<path>` 读取；有分段重试和人工接管进展，独立 runner 尚未整体签收。文件中的“未推送”保留其写作时点，当前已随该提交进入远端。
+- [远端工作台可用性说明](https://github.com/Linzeyu912/courtstory/blob/0d29df0f1adc1e64659d48b49b4e6c9dd880ffbd/engineering/docs/workbench-usability-20261007.md)及[独立工作流验收](https://github.com/Linzeyu912/courtstory/blob/0d29df0f1adc1e64659d48b49b4e6c9dd880ffbd/engineering/docs/agent-tactics-acceptance-20261006.md)：通过 `git show origin/main:<path>` 读取；有分段重试和人工接管进展，独立 runner 尚未整体签收。文件中的“未推送”保留其写作时点，当前已随该提交进入远端。
 - 官方来源：[Portal](https://du5imhgxabl0d.cloudfront.net/portal)、[Quick Start](https://csdn.feishu.cn/docx/Y21TdJqrHopofmx2w21cmqHLnLb)、[终极指南](https://csdn.feishu.cn/wiki/B3NSwj16GiSCR7kcM5vc9RjMnQb)。本轮采用前述仓库核验记录，网络重读未成功。
 
 已查询开放 Issue，结果为空；没有代认领任务。已 fetch：本地 HEAD 为 `043d257bc86c3c442075d653e6ba29e3d84b07d2`，远端 main 为 `0d29df0f1adc1e64659d48b49b4e6c9dd880ffbd`。远端新提交与本地其他任务未提交工程改动重叠，本轮只读远端资料，未拉取合并或覆盖工作区。

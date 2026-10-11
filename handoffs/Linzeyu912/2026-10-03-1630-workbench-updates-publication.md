@@ -11,9 +11,9 @@
 
 | 分类 | 提交与范围 |
 |---|---|
-| 视频库和模型组合 | [2eeca0e](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/2eeca0e9f056da606a56d64d651289eb395bebd1)：本机导入、共享视频入口、串行处理与缓存、独立 YOLO / 跟踪器目录、四种组合、参数和来源元数据；只共享本地目录 README |
-| 战术审核和数据入口 | [ee65937](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/ee65937449017ae5fcb5a25c1ba9386bce9f1943)：阶段 / 动作编辑、人工审核、IndexedDB 与本机文件保存、精确冻结帧和 HTML 报告；既有 005 候选以 100% 相同内容归位到 `data/tactics/` |
-| 工作台界面与服务整合 | [74967ed](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/74967ed576698db9972fee2b9997eb9d6b4b9d1a)：服务路由、战术 / 导出入口、两个模型选择框、左侧说明与更大视频、右侧操作保留、红蓝 T 对应、移除橙紫无 T 候选和补帧；同步构建产物、测试与操作说明 |
+| 视频库和模型组合 | [2eeca0e](https://github.com/Linzeyu912/courtstory/commit/2eeca0e9f056da606a56d64d651289eb395bebd1)：本机导入、共享视频入口、串行处理与缓存、独立 YOLO / 跟踪器目录、四种组合、参数和来源元数据；只共享本地目录 README |
+| 战术审核和数据入口 | [ee65937](https://github.com/Linzeyu912/courtstory/commit/ee65937449017ae5fcb5a25c1ba9386bce9f1943)：阶段 / 动作编辑、人工审核、IndexedDB 与本机文件保存、精确冻结帧和 HTML 报告；既有 005 候选以 100% 相同内容归位到 `data/tactics/` |
+| 工作台界面与服务整合 | [74967ed](https://github.com/Linzeyu912/courtstory/commit/74967ed576698db9972fee2b9997eb9d6b4b9d1a)：服务路由、战术 / 导出入口、两个模型选择框、左侧说明与更大视频、右侧操作保留、红蓝 T 对应、移除橙紫无 T 候选和补帧；同步构建产物、测试与操作说明 |
 | 文档与交接 | 本次文档提交：根 README、`docs/status.md`、目录说明、本交接，以及 10:13 至 15:45 的八份历史交接。历史文件保留当时的状态，不改写成当时已经发布 |
 
 入口：[工作台](../../engineering/tools/player-review/README.md)、[视频库](../../engineering/docs/local-video-library.md)、[模型与布局](../../engineering/docs/model-selection-layout.md)、[战术整合](../../engineering/docs/workbench-integration.md)。

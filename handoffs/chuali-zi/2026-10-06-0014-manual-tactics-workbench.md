@@ -4,7 +4,7 @@
 - 成员：chuali-zi
 - 任务 / Issue：用户附件 006 实施，005 视觉机制参考；开工查询开放 Issues 为空
 - 分支：main
-- 提交：功能 [873b11a](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/873b11a0fa6a00765984df1f164928cc3d8afab5)；本文件与最终说明单独同步
+- 提交：功能 [873b11a](https://github.com/Linzeyu912/courtstory/commit/873b11a0fa6a00765984df1f164928cc3d8afab5)；本文件与最终说明单独同步
 - 状态：基础人工闭环实现并验收；真实比赛/005 视频回归受 LFS 素材限制
 
 ## 本次完成

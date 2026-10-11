@@ -19,7 +19,7 @@
 
 ## 结论与依据
 
-- 2026-10-03 用户本轮需求；THY 来源为 [main 基线提交](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1e3c79a979befbbe625992676b91bd3e3da9d1a9)及[此前战术交接](../thy-0629/2026-10-03-1103-tactical-overlay-sync.md)。
+- 2026-10-03 用户本轮需求；THY 来源为 [main 基线提交](https://github.com/Linzeyu912/courtstory/commit/1e3c79a979befbbe625992676b91bd3e3da9d1a9)及[此前战术交接](../thy-0629/2026-10-03-1103-tactical-overlay-sync.md)。
 - THY 005 候选包含 6 人、14 动作、3 阶段；来源只作为待审候选，不升级为已核对身份、接地、标定或战术真值。
 - 实际完整视频与共享目录保留原内容，15 段 THY 新增视频已在先前拉取阶段下载并核对，详见[拉取交接](2026-10-03-1413-thy-updates-pull.md)。
 - Git 换行转换仅接受与锁定文本哈希等价的 LF/CRLF 差异，来源绑定仍使用实际文件字节；视频哈希必须完全匹配。

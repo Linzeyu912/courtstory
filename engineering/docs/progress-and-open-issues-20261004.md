@@ -77,19 +77,19 @@
 
 ## 5. THY 同步与分类提交
 
-本轮开始时 `main` 已包含 THY 最新战术参考帧提交 [bedad2c](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/bedad2c2613e1b573db8f80cc020729b50184a77)。当次 fetch 和远端分支核对没有发现更新版本；其身份参考 / 续接、区间人工修正、战术 Agent、虚线箭头 / 点状传球以及参考帧展示均保留。推送前再次核对的结果记录在[交接](../../handoffs/Linzeyu912/2026-10-04-2200-classified-publication.md)。
+本轮开始时 `main` 已包含 THY 最新战术参考帧提交 [bedad2c](https://github.com/Linzeyu912/courtstory/commit/bedad2c2613e1b573db8f80cc020729b50184a77)。当次 fetch 和远端分支核对没有发现更新版本；其身份参考 / 续接、区间人工修正、战术 Agent、虚线箭头 / 点状传球以及参考帧展示均保留。推送前再次核对的结果记录在[交接](../../handoffs/Linzeyu912/2026-10-04-2200-classified-publication.md)。
 
 | 分类 | 提交 | 内容 |
 |---|---|---|
-| 模型运行 | [9865891](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/9865891) | YOLO 加载与导入错误诊断 |
-| 篮球数据通路 | [eb64f68](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/eb64f68) | 球 / 篮筐同视频观测和来源保留 |
-| 数据、地面轨迹、身份 | [5de801f](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/5de801f) | 球场相对轨迹、脚点、OCR、画面状态与复核 |
-| 界面 | [7f5e8e9](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/7f5e8e9) | 单一导航、模型选项与展开推荐标记 |
-| 球场算法与实验 | [1ca29d1](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1ca29d1) | 全场联合求解、镜头传播及压力测试 |
-| 报告与复检 | [43a13f5](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/43a13f5) | 视频播放器及篮球 / 人物 / 球场 / 2D 审计 |
-| 同步兼容与测试 | [dd34088](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/dd34088) | PATH 查找 Node、测试取消清理、隔离共享素材库 |
-| 外部方案调研 | [67d3e2a](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/67d3e2a) | 全场开源工具对照及研究索引 |
-| 共享入口与进度 | [72d0eee](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/72d0eee) | README 摘要、问题清单、复现入口和发布交接 |
+| 模型运行 | [9865891](https://github.com/Linzeyu912/courtstory/commit/9865891) | YOLO 加载与导入错误诊断 |
+| 篮球数据通路 | [eb64f68](https://github.com/Linzeyu912/courtstory/commit/eb64f68) | 球 / 篮筐同视频观测和来源保留 |
+| 数据、地面轨迹、身份 | [5de801f](https://github.com/Linzeyu912/courtstory/commit/5de801f) | 球场相对轨迹、脚点、OCR、画面状态与复核 |
+| 界面 | [7f5e8e9](https://github.com/Linzeyu912/courtstory/commit/7f5e8e9) | 单一导航、模型选项与展开推荐标记 |
+| 球场算法与实验 | [1ca29d1](https://github.com/Linzeyu912/courtstory/commit/1ca29d1) | 全场联合求解、镜头传播及压力测试 |
+| 报告与复检 | [43a13f5](https://github.com/Linzeyu912/courtstory/commit/43a13f5) | 视频播放器及篮球 / 人物 / 球场 / 2D 审计 |
+| 同步兼容与测试 | [dd34088](https://github.com/Linzeyu912/courtstory/commit/dd34088) | PATH 查找 Node、测试取消清理、隔离共享素材库 |
+| 外部方案调研 | [67d3e2a](https://github.com/Linzeyu912/courtstory/commit/67d3e2a) | 全场开源工具对照及研究索引 |
+| 共享入口与进度 | [72d0eee](https://github.com/Linzeyu912/courtstory/commit/72d0eee) | README 摘要、问题清单、复现入口和发布交接 |
 
 这九类提交已正常推送 `main`，2026-10-04 22:03:02 核对本地 HEAD、origin/main 与远端 SHA 均为 `72d0eee73baa0c4b83f89c6ad6f693dfd3e76ac9`；推送核对记录另作文档收尾。这些提交整理的是本聊天已授权的积累工作。早期记录中的“未提交 / 未推送”保留当时事实，后续以本轮发布交接为准；没有创建任务分支或 PR。
 

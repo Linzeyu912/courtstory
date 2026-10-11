@@ -4,7 +4,7 @@
 - 成员：Linzeyu912。
 - 任务 / Issue：用户本轮要求；开工时远端没有开放 Issue，不代为分配其他成员职责。
 - 分支：main。
-- 功能提交：[b434660](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/b43466090f2ea392caa226a63ed6bf9eb71396be)。
+- 功能提交：[b434660](https://github.com/Linzeyu912/courtstory/commit/b43466090f2ea392caa226a63ed6bf9eb71396be)。
 - 状态：功能已在本机运行并完成验证；同步状态见文末。
 
 ## 本次完成

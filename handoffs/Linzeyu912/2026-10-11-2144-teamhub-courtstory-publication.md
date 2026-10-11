@@ -21,12 +21,12 @@
 - 推送前署名检查通过；视频校验为 1 个输入数据集、1 条记录、85,310,217 字节及 staged LFS 指针通过；`git lfs fsck HEAD` 通过。
 - Git LFS 推送确认 2/2 个活动对象（约 173 MB）在远端，无需重复传输其字节；两个对象分别是 Single 输入与最终成片。
 - `git push origin main` 成功：`56e6466..082d61c main -> main`。随后 GitHub API、HEAD 与 origin/main 均为 `082d61c`。
-- [Commit identity 检查](https://github.com/Linzeyu912/broadcastcode-team-hub/actions/runs/38144312311)在成果提交 `082d61c` 上成功。发布记录的远端提交和检查在本轮收尾继续核对。
+- [Commit identity 检查](https://github.com/Linzeyu912/courtstory/actions/runs/38144312311)在成果提交 `082d61c` 上成功。发布记录的远端提交和检查在本轮收尾继续核对。
 - 23 项更新只接续一次、原开发历史完整、业务代码／媒体一致及新克隆署名检查的证据见[去重交接](2026-10-11-2127-teamhub-linear-history.md)。本轮仅发布已验证成果，不重复运行整套业务测试。
 
 ## 产出位置
 
-- [GitHub 主仓库](https://github.com/Linzeyu912/broadcastcode-team-hub)。
+- [GitHub 主仓库](https://github.com/Linzeyu912/courtstory)。
 - [README](../../README.md)、[Single 最终成片](../../deliverables/single.mp4)、[逐项提交对照](../../docs/repository-update-history-20261011.md)。
 - GitHub 简介：CourtStory：由篮球观众打造的 AI 战术可视化与讲解工作台，支持球员标定、解说、战术绘制与成片，保留 Team Hub 开发历史。
 

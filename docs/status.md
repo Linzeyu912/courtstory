@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-11 23:37 起（Asia/Singapore，仓库正式改名）：用户要求原 Team Hub 使用 `courtstory` 名称，原成果仓库使用 `courtstory-snapshot`，两个仓库简介一致，并取消上轮快照标签。主仓库保留原开发历史，比赛快照保留独立历史与 Single 成片；同步修正 remote、克隆说明和历史文档链接。下方“仓库地址不变”等为此前阶段记录。本轮变更与验证见[改名交接](../handoffs/Linzeyu912/2026-10-11-2337-repository-rename.md)。
+
 2026-10-11 21:44 起（Asia/Singapore，已授权推送并完成成果发布）：用户明确要求“推送”。已将 `56e6466..082d61c` 的 26 条接续提交正常推送至原 Team Hub main，GitHub API 核对一致，Commit identity 检查成功；Git LFS 确认两项活动媒体已存在于远端。CourtStory 简介已同步，URL 与私有属性保持；原独立 CourtStory 仓库不变。另补本次发布记录，累计较原基线新增 27 条，其中功能／成果后续更新仍为 23 条，无重复历史。见[发布交接](../handoffs/Linzeyu912/2026-10-11-2144-teamhub-courtstory-publication.md)。下方“仅本地／不推送”均保留前轮时点，本轮未部署云端。
 
 2026-10-11 21:27 起（Asia/Singapore，仅本地历史去重）：用户明确只保留 Team Hub 原开发历史，再接续成果整理后的更新。已移除将 CourtStory 整段 31 条历史并入 main 的连接，23 条更新各保留一份，原接续提交编号不变。当前 main 共 223 条可达提交：Team Hub 原有 197 条，加成果基线 1 条、更新 23 条、README 1 条和协作配置／记录 1 条。业务代码与 Single 成片保持；署名检查使用 Team Hub 固定基线，支持只含 main 的新克隆。本轮不推送，详见[去重交接](../handoffs/Linzeyu912/2026-10-11-2127-teamhub-linear-history.md)。下方双历史连接记录已被本轮方案替代，保留当时事实。
@@ -62,15 +64,15 @@
 
 2026-10-09 17:13（Asia/Singapore，独立 UI 分支设计交付，未推送）：用户将 CourtStory UI 方向改为 **Broadcast Studio**。新增[风格规范](../engineering/docs/broadcast-studio-style-20261009.md)与[独立交互样稿](../engineering/tools/courtstory-broadcast-preview/README.md)，旧玻璃／纸感分支已创建恢复标签及 bundle 后删除活动分支，原目录以 detached HEAD 留存；8896／8897 旧服务已停，新预览在 8898。Chrome 验证主要交互、字体、四档窗口和 166 视频索引通过；正式工作台和云部署尚未套用，详见[交接](../handoffs/Linzeyu912/2026-10-09-1713-broadcast-studio-ui.md)。 全部设计成果现已迁入 `codex/courtstory-ui-broadcast` 的独立 worktree；主开发 checkout 保持 main 且已恢复干净。
 
-2026-10-10 00:55（Asia/Shanghai，本轮同步发布）：已把远端 `423d5a7`／`e2db182` 的解说润色、逐句人工编辑、语言和配音口吻接入当前解说先行／独立绘图流程，功能提交 [4cae6b7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/4cae6b71ec1d7e420c5b8725f7c6531a6290d000)。采用／撤回保留当前计划版本，单句保存追加历史并使旧绘图依据失效，口吻进入音频缓存。118 项 Python、832 项 Node 通过（1 项已有可选跳过），最后 UI 91 项与后端关键契约 38 项复测通过，独立审查通过；166 条视频及 LFS 索引校验通过。代码同步不代表真实模型／TTS 或云部署验收；见[整合交接](../handoffs/thy-0629/2026-10-10-0055-commentary-remote-integration.md)。
+2026-10-10 00:55（Asia/Shanghai，本轮同步发布）：已把远端 `423d5a7`／`e2db182` 的解说润色、逐句人工编辑、语言和配音口吻接入当前解说先行／独立绘图流程，功能提交 [4cae6b7](https://github.com/Linzeyu912/courtstory/commit/4cae6b71ec1d7e420c5b8725f7c6531a6290d000)。采用／撤回保留当前计划版本，单句保存追加历史并使旧绘图依据失效，口吻进入音频缓存。118 项 Python、832 项 Node 通过（1 项已有可选跳过），最后 UI 91 项与后端关键契约 38 项复测通过，独立审查通过；166 条视频及 LFS 索引校验通过。代码同步不代表真实模型／TTS 或云部署验收；见[整合交接](../handoffs/thy-0629/2026-10-10-0055-commentary-remote-integration.md)。
 
 2026-10-10 00:33（Asia/Shanghai，本地未提交／未推送）：用户批准的解说先行流程已实现并通过独立代码复核。解说和绘图分为顺序调用的两个 Agent，已有姓名进入解说；绘图默认继承保存计划的模型，可单独覆盖。统一字幕、语音、图形、姓名的联合成片及 TTS 缓存已接通，旧稿兼容保留。110 项 Python 与前端／Agent 全量 762 项 Node 通过，最后 UI 增量后 81 项回归通过；两段实际素材用测试音与测试图形完成成片解码检查。缺少真实理解与语音服务凭据，内容质量验收待实跑；未部署，出手／2K 规则仍暂缓。见[实施交接](../handoffs/thy-0629/2026-10-10-0033-commentary-led-tactics-implementation.md)。
 
-2026-10-09 12:30（America/New_York，UTC-04:00，已推送main）：解说新增逐句人工编辑/保存/恢复及语言标记，按cueId独立更新，保留其他句子未保存草稿；抽出无UI依赖的客户端，提供[迁移协议](../engineering/docs/commentary-cue-editing-api.md)。23项Python、83项Node回归通过，实际HTTP单句200/冲突409、浏览器保存/刷新/恢复通过，166段视频LFS索引检查通过。主提交[423d5a7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/423d5a7ef703dbda3398f22295a53358a8b6df79)包含前序润色与本次逐句接口；推送后HEAD、origin/main、远端main一致。仅同步解说相关55文件，其他任务保留；未部署云端。下方未提交/认证失败记录保留各轮历史状态。
+2026-10-09 12:30（America/New_York，UTC-04:00，已推送main）：解说新增逐句人工编辑/保存/恢复及语言标记，按cueId独立更新，保留其他句子未保存草稿；抽出无UI依赖的客户端，提供[迁移协议](../engineering/docs/commentary-cue-editing-api.md)。23项Python、83项Node回归通过，实际HTTP单句200/冲突409、浏览器保存/刷新/恢复通过，166段视频LFS索引检查通过。主提交[423d5a7](https://github.com/Linzeyu912/courtstory/commit/423d5a7ef703dbda3398f22295a53358a8b6df79)包含前序润色与本次逐句接口；推送后HEAD、origin/main、远端main一致。仅同步解说相关55文件，其他任务保留；未部署云端。下方未提交/认证失败记录保留各轮历史状态。
 
 2026-10-09 12:03（America/New_York，UTC-04:00，本机完成，未提交/推送/云部署）：解说工作台新增Astra整段润色、24条篮球表达材料、候选对照/采用/撤回与自然口吻配音。三段真实视频、虚构用梗场景、20句Seed语音和四个成片已实测；22项Python及7项Node检查通过，浏览器采用/保存/撤回与编辑保护通过。梗卡相对仅指南的优势尚未证明，主观听感待用户比较；见[实测](../research/agents/commentary-personality-20261009/README.md)。远端认证失败，未核对最新Issue或同步状态。
 
-2026-10-08 02:36（America/New_York，已推送main）：按用户要求发布球员姓名v4代码、研究与75文件当前成果，主提交[5855188](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/585518823eea472bf49da8873ab5f506e605ca50)。[完整全员姓名回放](../data/videos/demos/player-name-v4-20261008/README.md)已通过Git LFS上传，并从独立空缓存实际下载核对44,970,420字节及SHA-256一致；全库166个视频与LFS指针校验通过，新增1个为派生演示，不计独立素材。覆盖91.39%不代表准确率，全量前端未全通过的限制保留；没有云部署。主成果推送后HEAD／origin/main／远端main一致，其他任务未提交修改保留。见[发布交接](../handoffs/chuali-zi/2026-10-08-0230-player-name-v4-publication.md)。
+2026-10-08 02:36（America/New_York，已推送main）：按用户要求发布球员姓名v4代码、研究与75文件当前成果，主提交[5855188](https://github.com/Linzeyu912/courtstory/commit/585518823eea472bf49da8873ab5f506e605ca50)。[完整全员姓名回放](../data/videos/demos/player-name-v4-20261008/README.md)已通过Git LFS上传，并从独立空缓存实际下载核对44,970,420字节及SHA-256一致；全库166个视频与LFS指针校验通过，新增1个为派生演示，不计独立素材。覆盖91.39%不代表准确率，全量前端未全通过的限制保留；没有云部署。主成果推送后HEAD／origin/main／远端main一致，其他任务未提交修改保留。见[发布交接](../handoffs/chuali-zi/2026-10-08-0230-player-name-v4-publication.md)。
 
 2026-10-08 02:18（America/New_York，本任务未提交／未推送）：三个 GPT-6.1 Sol 子 agent 完成全员姓名 v4 诊断、实现与回放复核，真实模型优先使用 Qwen Token Plan。官方001十个 P 均有唯一姓名，姓名位置覆盖由同消费链 v3 的22.85%提升至91.39%，226帧同时有十人姓名；该指标不是准确率。完整21.538秒1080p回放保留原PTS与原声，原片／正式草稿保持。姓名后端48项、前端定向70项通过；共享前端全量647／723通过，解说挂载测试模拟DOM与两项历史身份测试仍失败。另一会话已将main更新至101d622，本任务改动保留在本地。见[v4实际结果](../engineering/docs/player-name-optimization-20261007.md)与[独立交接](../handoffs/chuali-zi/2026-10-08-0218-player-name-v4-full-replay.md)。
 
@@ -94,7 +96,7 @@
 
 2026-10-07 23:12（Asia/Singapore，UTC+8，云端更新已执行，Git 本地未提交 / 未推送）：复用 CloudFront / EC2 / AgentCore ZIP / S3 部署现版本，发布完整工作包并保留既有用户目录；CloudFront 实际播放、手绘路线、讲解暂停、服务端保存恢复、1920×1080 / 218 帧 MP4 下载与 S3 同摘要备份通过。修复人工编辑后 Agent 按钮未恢复及 Runtime 启动超时；真实模型返回后候选仍因空图形 / 证据帧不合规被拒绝，未采用到草稿。230 项定向回归及 2 项 Runtime 启动测试通过；GPU / 身份链路、生产多用户、换机恢复未接齐或未验收。开工已快进同步至 `9e18bee`，结束实查远端未变；见[服务分工与实测](../engineering/docs/cloud-current-version-20261007.md)、[接续交接](../handoffs/Linzeyu912/2026-10-07-2312-cloud-current-version.md)。
 
-2026-10-07 08:29（America/New_York，已推送main）：按用户要求发布当前001/002映射成果，主提交[b5c03af](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/b5c03af95b2efac8e41d6e3b6ca6eee0dda54807)。包含独立单人任务、两路并行、reconnecting、去噪、原观察台三层及两片完整轻量回放，47个相关文件；22项Python、20项Node及165段视频LFS索引检查通过。HEAD、origin/main和远端refs/heads/main在主成果推送后哈希一致；Key、原视频重复副本和调用中间文件未入库，其他旧任务未提交内容保留。当前候选精度仍未通过验收。见[发布交接](../handoffs/chuali-zi/2026-10-07-0829-qwen-mapping-publication.md)、[共享回放入口](../research/agents/qwen-parallel-20261007/README.md#已共享的当前回放)。
+2026-10-07 08:29（America/New_York，已推送main）：按用户要求发布当前001/002映射成果，主提交[b5c03af](https://github.com/Linzeyu912/courtstory/commit/b5c03af95b2efac8e41d6e3b6ca6eee0dda54807)。包含独立单人任务、两路并行、reconnecting、去噪、原观察台三层及两片完整轻量回放，47个相关文件；22项Python、20项Node及165段视频LFS索引检查通过。HEAD、origin/main和远端refs/heads/main在主成果推送后哈希一致；Key、原视频重复副本和调用中间文件未入库，其他旧任务未提交内容保留。当前候选精度仍未通过验收。见[发布交接](../handoffs/chuali-zi/2026-10-07-0829-qwen-mapping-publication.md)、[共享回放入口](../research/agents/qwen-parallel-20261007/README.md#已共享的当前回放)。
 
 2026-10-07 07:39（America/New_York，本地未提交／未推送）：Token Plan新Key＋qwen3.8-max两路单人映射测试结束，001/002各十人、47个有观测片段，分别ready12/partial35/failed0与ready10/partial37/failed0。5个实际任务进入reconnecting后均保留上下文恢复，连接仍偶发socket/超时，无明确429或额度耗尽。原观察台8876已加载两片最终候选，源身份/框/标定和原始坐标变化0。22项Python、20项Node及实际浏览器同步/缺口检查通过；独立AI参考不足以证明准确性提升，局部锯齿及002 P5@900边界原投影仍待核，不称全片精度通过。见[当前实验](../research/agents/qwen-parallel-20261007/README.md)、[本轮交接](../handoffs/chuali-zi/2026-10-07-0739-qwen-parallel-reconnect-test.md)。
 
@@ -106,9 +108,9 @@
 
 2026-10-07 22:16（Asia/Singapore，UTC+8，服务器安装完成，文档本地未提交）：按本聊天用户要求，把官方 Codex CLI `0.160.1` Linux x64 包先下载本机，再通过既有私有 S3 / SSM 传到当前 Ubuntu EC2，`ubuntu` 用户级安装与版本核验通过。设备码登录已启动，待用户授权与最小推理验证；既有工作台两个服务仍 active。详见[环境记录](../environment/aws/codex-cli-ec2-20261007.md)和[交接](../handoffs/Linzeyu912/2026-10-07-2216-codex-cli-ec2-install.md)。
 
-2026-10-07 11:13（Asia/Singapore，UTC+8）：按用户后续授权，CourtStory 已加入[简短 README](https://github.com/Linzeyu912/courtstory/blob/main/README.md)，直接提交 main 至 `91b31a2a978fc3dac12e5b884b877fab37dbb0c0` 并核对远端。只写「By viewers. For viewers. / 由观众打造，为观众打造」及后续本地电脑、服务器云端两个部署版本；没有功能清单或使用步骤。文件树仅 README，代码尚未上传，Tag / Release 仍为 0；详见[交接](../handoffs/Linzeyu912/2026-10-07-1113-courtstory-minimal-readme.md)。本轮 Team Hub 记录仅本地未提交。
+2026-10-07 11:13（Asia/Singapore，UTC+8）：按用户后续授权，CourtStory 已加入[简短 README](https://github.com/Linzeyu912/courtstory-snapshot/blob/main/README.md)，直接提交 main 至 `91b31a2a978fc3dac12e5b884b877fab37dbb0c0` 并核对远端。只写「By viewers. For viewers. / 由观众打造，为观众打造」及后续本地电脑、服务器云端两个部署版本；没有功能清单或使用步骤。文件树仅 README，代码尚未上传，Tag / Release 仍为 0；详见[交接](../handoffs/Linzeyu912/2026-10-07-1113-courtstory-minimal-readme.md)。本轮 Team Hub 记录仅本地未提交。
 
-2026-10-07 11:07（Asia/Singapore，UTC+8）：按用户授权建立私有成品仓库 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory)，只填写 description，API 确认完全空白，分支 / Tag / Release 均为 0。用户要求先整理代码再推送，当前不初始化 README、不发布版本；未更改 Team Hub remote 或赛事 Portal 绑定。[方案](../engineering/docs/product-repository-proposal-20261007.md)与[交接](../handoffs/Linzeyu912/2026-10-07-1107-create-empty-courtstory.md)已在本地更新，本轮 Team Hub 文档未提交 / 推送。
+2026-10-07 11:07（Asia/Singapore，UTC+8）：按用户授权建立私有成品仓库 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory-snapshot)，只填写 description，API 确认完全空白，分支 / Tag / Release 均为 0。用户要求先整理代码再推送，当前不初始化 README、不发布版本；未更改 Team Hub remote 或赛事 Portal 绑定。[方案](../engineering/docs/product-repository-proposal-20261007.md)与[交接](../handoffs/Linzeyu912/2026-10-07-1107-create-empty-courtstory.md)已在本地更新，本轮 Team Hub 文档未提交 / 推送。
 
 2026-10-07（Asia/Shanghai，自动核心实现已载入，本轮验收未全通过，本地未提交／推送）：原视频V4接入紧凑事实、高清独立审核、小型patch与复审；修复存储中断、完成竞态、匿名图形失效、审核无动作提前退出及相机反证被说明修改清除的问题。001一次提交475.190秒完成2/2；独立原图核对19条非平凡路线可作10人的端点示意、7圈均为实际持球者，另有一条极短线P2。隔离采用28图形/8讲解点、保存重载并正式渲染MP4。002 run9仅1/2，第二段两次断流；run8恢复实际自动重试一次，仍无审核完成结果。恢复机制已接通，模型连接稳定性尚未解决，不宣称连续全片验收通过。视频全宽、疑点分组定位；原片、正式草稿及其他任务保护摘要不变。见[本轮证据与待验收](../engineering/docs/automatic-tactics-core-20261007.md)及[交接](../handoffs/thy-0629/2026-10-07-2040-automatic-tactics-core.md)。
 
@@ -249,7 +251,7 @@
 
 2026-10-04 06:24（America/New_York）：按负责人“真实转播场景覆盖、为增强及泛化准备”的范围，完成本机175段[正式场景标签与结构化目录](../data/videos/classification/README.md)。四名GPT-6.1 Sol子Agent辅助逐段审核及独立抽查，每段显式标10项场景、来源与近似时间；清晰可用157、偏软可用17、教学加工排除1，已确认包含重复的短段转备选1，默认集合173段。模糊/推拉/特写/切镜保留，原视频和旧字段保留。远端已同步142e733，标签和目录尚未提交推送；AI初筛不代表用户最终审核或增强训练完成。详见[本轮交接](../handoffs/chuali-zi/2026-10-04-0624-structured-video-scenarios.md)。
 
-2026-10-04 09:46 分类发布：按用户最新授权，现有球场工作已分为后端算法 [1219baf](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/1219baf4716e4b24ad0c62dfb8e31769544c5550)、前端三步交互 [f07f136](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/f07f13621292860dd361f00878090224226ed29c)、模型 / 边线调研 [5850fe9](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/5850fe9592eadae5889302a6f5246df756671510) 三个提交推送 `main`，远端哈希已核对；决策、状态、入口与本轮交接另作第四类协作文档提交。175 个视频哈希 / LFS 指针、7 个 Python 文件语法、3 个 JavaScript 文件语法、前端构建及原待发布文档的 233 个相对链接检查通过；本轮未新增或运行测试。视频定位卡顿仍未修复，未新增精度结论或云部署。下方各轮“未提交 / 未推送”为历史状态，本次以[发布交接](../handoffs/Linzeyu912/2026-10-04-0946-court-work-publication.md)为准。
+2026-10-04 09:46 分类发布：按用户最新授权，现有球场工作已分为后端算法 [1219baf](https://github.com/Linzeyu912/courtstory/commit/1219baf4716e4b24ad0c62dfb8e31769544c5550)、前端三步交互 [f07f136](https://github.com/Linzeyu912/courtstory/commit/f07f13621292860dd361f00878090224226ed29c)、模型 / 边线调研 [5850fe9](https://github.com/Linzeyu912/courtstory/commit/5850fe9592eadae5889302a6f5246df756671510) 三个提交推送 `main`，远端哈希已核对；决策、状态、入口与本轮交接另作第四类协作文档提交。175 个视频哈希 / LFS 指针、7 个 Python 文件语法、3 个 JavaScript 文件语法、前端构建及原待发布文档的 233 个相对链接检查通过；本轮未新增或运行测试。视频定位卡顿仍未修复，未新增精度结论或云部署。下方各轮“未提交 / 未推送”为历史状态，本次以[发布交接](../handoffs/Linzeyu912/2026-10-04-0946-court-work-publication.md)为准。
 
 2026-10-04 09:24：球场标定前端已在本地简化为“自动标定 → 核对画面 → 进入 2D”，人工选点作为常驻折叠入口，合并当前帧确认与镜头跟随操作，细节与历史参照默认收起。新增独立本机 8896 预览服务，保留原 8890 服务；从真实页面处理 005 得到 139 / 143 帧映射，并完成采用、2D 导航、草稿保存及刷新恢复。修正旧库候选导致新保存结果在时间轴误报失效的问题。浏览器部分定位操作仍会停在“正在定位视频画面”，尚未解决，不代表播放器全部验收通过。语法 / 构建检查完成，本轮未运行测试套件；未部署云端、未提交推送。见[交接](../handoffs/Linzeyu912/2026-10-04-0924-court-simple-ui.md)。
 
@@ -259,7 +261,7 @@
 
 2026-10-03 21:20（America/New_York）：本机完成全库 [素材分类与审核目录](../data/videos/reviews/2026-10-03/README.md)。按用户指定使用 12 名 GPT-6.1 Sol 子 agent（11 批首审、1 名画质复核），覆盖 7 批 / 157 条、3,751 个 2fps 采样帧，22 段补看原尺寸帧复核。清晰主目录 140 段、难点补充 16 段、教学加工素材剔除 1 段；157 份标签及 7 份清单新增 `material_review`。AI 观察与原采集证据分开，源视频与旧字段保留，目录和标签尚未提交推送。详见 [本轮交接](../handoffs/chuali-zi/2026-10-03-2120-material-catalog-review.md)。
 
-2026-10-03 21:38：未来路线、阶段暂停 / 继续及人工战术画布已接入最新远端并推送 main，功能提交 [3a00c20](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/3a00c20e8412f969c891d209b515e426d15300aa) 已核对本地、origin/main 与远端一致。保留远端标定流程、篮球路线、2D 平滑及画外点，同时支持手绘路线、挡拆旋转 / 删除、脚底圈、撤销与保存；修复旧示例草稿因新增篮球字段无法保存的问题。前端 / 引擎 368 通过、1 既有权限跳过，后端 11 通过，157 个视频哈希及 LFS 指针检查通过；真实页面与独立审核通过，用户草稿保留。见[本轮同步交接](../handoffs/thy-0629/2026-10-03-2138-tactics-remote-integration.md)。下方“未推送”段落保留历史状态，由本条更新。
+2026-10-03 21:38：未来路线、阶段暂停 / 继续及人工战术画布已接入最新远端并推送 main，功能提交 [3a00c20](https://github.com/Linzeyu912/courtstory/commit/3a00c20e8412f969c891d209b515e426d15300aa) 已核对本地、origin/main 与远端一致。保留远端标定流程、篮球路线、2D 平滑及画外点，同时支持手绘路线、挡拆旋转 / 删除、脚底圈、撤销与保存；修复旧示例草稿因新增篮球字段无法保存的问题。前端 / 引擎 368 通过、1 既有权限跳过，后端 11 通过，157 个视频哈希及 LFS 指针检查通过；真实页面与独立审核通过，用户草稿保留。见[本轮同步交接](../handoffs/thy-0629/2026-10-03-2138-tactics-remote-integration.md)。下方“未推送”段落保留历史状态，由本条更新。
 
 2026-10-03 20:58：按用户要求先后同步多级 Tab / 球员与球场标定流程（`ed874d1`），再同步球员 2D 显示平滑、篮球候选路线、画外球场参照点及人工篮球点优先修正（`cb8eac1`、`fc3c673`）。最新功能提交后 `git fetch origin` 核对本地与 `origin/main` 均为 `fc3c673b5f74d5770c2142df33016f4b39fe50cc`。6 个受影响 JavaScript 模块 `node --check` 通过，`git diff --check` 通过；本轮没有做浏览器实操或精度验收，篮球路线仍待人工核对，画外点属于估计。见[本轮交接](../handoffs/Linzeyu912/2026-10-03-2058-ball-court-trajectory.md)。
 
@@ -277,7 +279,7 @@
 
 2026-10-03 04:40（America/New_York）：本机新增战术分析实验台（历史路径 `engineering/experiments/tactical_analysis/README.md`，该文件当前未入库）。选择新上传第一批 003，复用 E-BARD/ByteTrack 生成 629 帧真实像素候选并核对解码时间；只读网页支持视频、候选叠加与抽帧定位。已克隆 Pi、VideoAgent、basketball_analysis、SkillCorner 并归档版本/工具说明；第三方源码和运行大产物仅在忽略目录。暂未接入战术 LLM，未生成球权/掩护真值，纠错流程暂不展开；本轮新增内容仍本地未提交。fetch 后本地 main 与 origin/main 均为 `bbf69ae`，没有新提交。原交接路径为 `handoffs/chuali-zi/2026-10-03-0440-tactical-analysis-lab.md`，该历史文件当前未入库。
 
-2026-10-03 11:03：独立多人战术轨迹首版的 23 个选定文件已推送 main，[功能提交 21d24df](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/21d24dffb06284858669af9b66e14bab8a820dc2)于 11:03:12 核对本地 HEAD、origin/main 与远端一致。接收自 1839dcd 起的 17 个远端提交，以 c0d2dcf 为整合基线；仅状态文档两处文字冲突，双方历史均保留。整合测试、复现与独立兼容复核通过，7 个无关未跟踪文件原样保留。预览、图像、QA 与备份仍仅在本机，真实身份 / 地面与战术精度及播放器接入待验收。见[同步交接](../handoffs/thy-0629/2026-10-03-1103-tactical-overlay-sync.md)；下方“未提交推送”保留各轮当时事实，本条及交接文档的后续提交以 Git 日志为准。
+2026-10-03 11:03：独立多人战术轨迹首版的 23 个选定文件已推送 main，[功能提交 21d24df](https://github.com/Linzeyu912/courtstory/commit/21d24dffb06284858669af9b66e14bab8a820dc2)于 11:03:12 核对本地 HEAD、origin/main 与远端一致。接收自 1839dcd 起的 17 个远端提交，以 c0d2dcf 为整合基线；仅状态文档两处文字冲突，双方历史均保留。整合测试、复现与独立兼容复核通过，7 个无关未跟踪文件原样保留。预览、图像、QA 与备份仍仅在本机，真实身份 / 地面与战术精度及播放器接入待验收。见[同步交接](../handoffs/thy-0629/2026-10-03-1103-tactical-overlay-sync.md)；下方“未提交推送”保留各轮当时事实，本条及交接文档的后续提交以 Git 日志为准。
 
 2026-10-03 10:05：人物关联冲突纠正和统一蓝绿审核状态已分类提交并推送工作分支；核对本地 / 远端一致后，与最新 main 合并并正常推送。功能合并 `7ee65bd` 已在 main 与原工作分支同步，保留双方历史、研究归档和用户验收的整合工作台。241 项前端、216 项后端、构建一致性及 142 条视频元数据 / LFS 指针检查通过；完整视频字节校验仍受本机部分 LFS 视频未下载限制。见[分类发布与合并交接](../handoffs/Linzeyu912/2026-10-03-1005-workbench-main-publication.md)。本条更新下方各轮的“未合入 main”状态，历史记录保留当时事实。
 
@@ -293,7 +295,7 @@
 
 2026-10-02 22:29 按用户选择开展本地整合：以用户版 `fffb6ea` 保留左侧导航、分步骤操作、底部 2D 抽屉及球场 / 视频恢复，采用固定上红进攻、下蓝防守，接入 THY `1839dcd` 的模型方案和身份 / 2K 查询。THY 完整方案作为默认推荐，原 YOLO 保留可选。整合位于独立 detached 工作目录，未提交推送；后端 151 项测试及 8890 实际查询 / 编辑 / 球场接口核验通过，27 个样例 / 模型组合、GPU 补跑 2,712 帧与浏览器交互验收已完成，前端 171 项全部通过。见[本轮取舍](../engineering/docs/plans/2026-10-02-selected-integration.md)与[交接](../handoffs/Linzeyu912/2026-10-02-2229-selected-integration.md)。
 
-本次同步：按用户要求，2026-10-02 21:44 已将晚间本地工作台改动作为 `b557622` 推送到 [`codex/local-workbench-20261002`](https://github.com/Linzeyu912/broadcastcode-team-hub/tree/codex/local-workbench-20261002)。下文各轮“本地未提交”描述保留当时状态，本次同步结果见[分支交接](../handoffs/Linzeyu912/2026-10-02-2144-local-workbench-branch-push.md)。该分支基于本机 `72c74e0`，未合入远端 main 后续两次提交；此次分支操作是用户明确指定的任务例外。
+本次同步：按用户要求，2026-10-02 21:44 已将晚间本地工作台改动作为 `b557622` 推送到 [`codex/local-workbench-20261002`](https://github.com/Linzeyu912/courtstory/tree/codex/local-workbench-20261002)。下文各轮“本地未提交”描述保留当时状态，本次同步结果见[分支交接](../handoffs/Linzeyu912/2026-10-02-2144-local-workbench-branch-push.md)。该分支基于本机 `72c74e0`，未合入远端 main 后续两次提交；此次分支操作是用户明确指定的任务例外。
 
 
 ## 当前阶段
@@ -308,7 +310,7 @@ NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../resea
 
 2026-10-03 本机完成第一版独立多人战术轨迹引擎与冻结帧静态报告：当前完整动作实线、后续真实观测虚线、完成动作淡化，保留全参与者、分阶段和有朝向证据的掩护标记。真实 005 SAS–MIA 为 3 阶段 / 6 人待复核候选，与合成规则演示分开；全套曾完成 57 项（56 通过 / 1 Windows 权限跳过），最后路线避让修正重跑受影响消费器 27 项（26 通过 / 同一项跳过），均 0 失败。8 个实际浏览器场景及最终独立复核通过，标签不再遮住路线、箭头或掩护横杠；窄侧栏可横向查看完整画布。原工作台与正式草稿未改，真实身份/地面精度及播放器接入未验收；本轮未提交推送。见[工具与接口](../engineering/tools/tactical-overlay/README.md)、[本轮交接和恢复步骤](../handoffs/thy-0629/2026-10-03-0055-tactical-overlay-engine.md)。
 
-2026-10-02 20:27 发布记录：当前工作台源码与预计算候选已按授权推送 `main`，GitHub API、ls-remote 与 fetch 实测为 [351292f](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/351292fba6c5e7accafea9f8780a81b93810caba)。四样例 / 17 版所需本机结果复制为 22 份共享 JSON / metadata，库中 11 条路径改指向副本，完整 clip payload 与运行中原路径 API 一致；默认简版、人工资料确认和 13 项能力逻辑保持。本次新运行 144 JS、102 Python及 38 项离线篮球测试通过，视频校验 5 批 / 142 条及 142 文件 / LFS 指针通过。本次最新说明与[发布交接](../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)随本次文档提交同步，具体提交以 Git 日志为准；下方按轮次保留旧同步状态。模型权重、GPU 环境、原缓存、QA 草稿 / 测试成片不在发布范围，没有新增断轨续接或 OCR。
+2026-10-02 20:27 发布记录：当前工作台源码与预计算候选已按授权推送 `main`，GitHub API、ls-remote 与 fetch 实测为 [351292f](https://github.com/Linzeyu912/courtstory/commit/351292fba6c5e7accafea9f8780a81b93810caba)。四样例 / 17 版所需本机结果复制为 22 份共享 JSON / metadata，库中 11 条路径改指向副本，完整 clip payload 与运行中原路径 API 一致；默认简版、人工资料确认和 13 项能力逻辑保持。本次新运行 144 JS、102 Python及 38 项离线篮球测试通过，视频校验 5 批 / 142 条及 142 文件 / LFS 指针通过。本次最新说明与[发布交接](../handoffs/thy-0629/2026-10-02-2027-workbench-identity-publish.md)随本次文档提交同步，具体提交以 Git 日志为准；下方按轮次保留旧同步状态。模型权重、GPU 环境、原缓存、QA 草稿 / 测试成片不在发布范围，没有新增断轨续接或 OCR。
 
 2026-10-02 16:57，本机 `main` 已同步至远端 `72c74e0`，合并新增模型选择、球 / 筐编辑、脚部候选和场地工具，同时保留本机分队、稳定框与固定身份。105项JS / 78项Python、独立数据 / API / 六场景剪辑及浏览器QA通过；兼容整合与本机实验仍未提交推送。后续就在此工作台继续修改，见[本轮同步交接](../handoffs/thy-0629/2026-10-02-1657-workbench-remote-sync.md)。
 
@@ -337,7 +339,7 @@ NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../resea
 | 腾讯体育「深度赛场」官方参考片段 | 同上第 8 节 | G1–G4 链接已核验；日期为 2026 年 6 月 |
 | 官网与报名渠道核验、扩展调研、Word 手册 | [调研索引](../research/README.md) | 已归档；主要采集于 9 月 17 日 |
 | 共享文档结构、Agent 指引与交接模板 | [协作流程](workflow.md)、[交接目录](../handoffs/README.md) | 已准备 |
-| GitHub 私有仓库与首次同步 | [broadcastcode-team-hub](https://github.com/Linzeyu912/broadcastcode-team-hub) | 已创建并推送，已核对私有状态及本地与远端提交一致 |
+| GitHub 私有仓库与首次同步 | [broadcastcode-team-hub](https://github.com/Linzeyu912/courtstory) | 已创建并推送，已核对私有状态及本地与远端提交一致 |
 | TypeSafe Jev 珠海与澳门可用性调研 | [调研结论与验证步骤](../research/runtime/jev-regional-availability.md) | 已发邮件向厂商确认，等待答复；未实测，尚未决定采用 |
 | 解说 Agent 方案总结与直播纪要核对 | [方案讨论稿](../engineering/docs/agent-concept-review.md) | 已同步至 main（8bb3611）；按数据采集、数据处理、内容呈现整理；重点为战术意图、行为动因与声画同步；球员引力待验证，另两项核心指标后续再议 |
 | E-BARD 检测模型接入与评估 | [源码核查与本机对照](../research/vision/vision-player-refinement/ebard-assessment.md)、[工作台说明](../engineering/tools/player-review/README.md)、[管线测量](../research/vision/vision-player-refinement/ebard-tracking-probe.json) | 2026-10-02 三个样例已接入通用 YOLOv8s / E-BARD YOLOv8n 可选，默认推荐后者；独立草稿、篮球 / 篮筐显示与导出、多版本裁切已实现。815 帧解码检测跟踪共 15.83 秒，不含渲染或人工修正，身份与地面位置精度未验收。用户要求先提交此状态；ByteTrack 后续交另一合作者，脚点 / 2D 映射调研单独整理 |
@@ -345,15 +347,15 @@ NBA解释与纠错层研究按用户指令收尾归档，见[研究包](../resea
 | 人工选人与遮挡复核原型 | [改进实验及编号中断诊断](../research/vision/vision-player-refinement/README.md)、[本地界面说明](../engineering/tools/player-review/README.md)、[身份绑定核查](../research/vision/vision-player-refinement/identity-binding-review.md) | 本地已实现固定 P 编号、关键帧修正、短缺口估计、续接候选、按区间关联新旧编号、出画标记及导出。2026-10-02 选人改为从确认帧向后生效，位置编辑独立；重复 ID 只释放受影响错段，保留前段及后续正确确认，旧草稿原样备份。46 项 JavaScript、4 项裁切测试及独立浏览器 QA 通过；模型串号和旧草稿推断分界仍需复核，未接入 Agent 或云部署，分类共享状态见本次整理交接 |
 | 2D 球场数据工作台 | [界面与坐标说明](../engineering/tools/player-review/README.md)、[脚部实测](../research/vision/vision-player-refinement/feet-model-comparison.md)、[场地比较](../research/vision/vision-player-refinement/court-model-comparison.md)、[传播核查](../research/vision/vision-player-refinement/propagation-validation.md) | 支持球 / 筐目标修正、RTMPose-s左右脚人工采用、具名点标定向导、投影检查与SIFT / LK镜头跟随。三个样例有逐帧待复核候选，采用后接通2D，失败留空；004/005/006分别可映射102/210、139/143、300/462帧，这些不是准确率。模型左右误认、固定字幕干扰及遮挡错脚均已记录；真实地面精度、Agent和云部署未完成 |
 | 直播画面筛选与人工轨迹提取 | [三步流程](../research/vision/vision-player-refinement/data-extraction-workflow.md)、[替换样例](../data/videos/tactics/acceptance/README.md)、[操作说明](../engineering/tools/player-review/README.md) | 按用户要求先筛普通直播区间，再对应 P1–P10、归并多个 T 编号并手动补轨迹；实际裁切保留来源帧 / 时间，删除段之间断开，缓存重启可恢复；第三步直接显示同步 2D 球场并可补当前帧，校准独立；裁判和米制球场坐标可选。旧教学001–003已退回，004–006为三个正常速度、无音轨的前场配合，不冒充完整原始球权；界面不预设战术。当前46项JavaScript、6项Python及浏览器流程通过；自动画面分类、身份OCR、独立位置精度、战术分析与讲解未完成，分类共享状态见本次整理交接 |
-| NBA 2K25 / 2K26 季后赛球队球员能力数据 | [Agent 数据包](../2K%20Player%20Data/manifest.json)、[读取指引](../2K%20Player%20Data/AGENTS.md)、[覆盖说明](../2K%20Player%20Data/README.md) | 补采版 1.1 已推送 main（[a417fa7](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/a417fa749e51edb8b82fff07cc7b33afc69bd563)），独立验收 42/42 通过；635 条赛季记录、472 人、42 项能力，613 条有总评；仅原 2K26 空值新增 4,792 个值，2K26 为 318 条有总评、314 条个人能力完整、4 条仅总评，防守综合原值 195/318；2K25 保持 22 条评分缺失。已有评分、球队及号码不改，逐字段记录混合来源，剩余 null 保留；验证与远端同步见[补采交接](../handoffs/thy-0629/2026-10-01-1129-nba2k-null-remediation.md) |
-| 2024–25 NBA 训练素材100段 | [素材说明](../data/videos/nba/2024-25/collection-report.md)、[播放目录](../data/videos/nba/2024-25/INDEX.md) | 已推送main（[ef840fb](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/ef840fb1a0d73b13363e64becccb08d1770f6db4)）：100段LFS成片，共647,393,804字节，独立远端下载及哈希核验100/100通过；16场、17队，14段完整球权；同类动作16组，包含首批3段；见[交接](../handoffs/Linzeyu912/2026-10-01-0848-video-lfs-management.md) |
+| NBA 2K25 / 2K26 季后赛球队球员能力数据 | [Agent 数据包](../2K%20Player%20Data/manifest.json)、[读取指引](../2K%20Player%20Data/AGENTS.md)、[覆盖说明](../2K%20Player%20Data/README.md) | 补采版 1.1 已推送 main（[a417fa7](https://github.com/Linzeyu912/courtstory/commit/a417fa749e51edb8b82fff07cc7b33afc69bd563)），独立验收 42/42 通过；635 条赛季记录、472 人、42 项能力，613 条有总评；仅原 2K26 空值新增 4,792 个值，2K26 为 318 条有总评、314 条个人能力完整、4 条仅总评，防守综合原值 195/318；2K25 保持 22 条评分缺失。已有评分、球队及号码不改，逐字段记录混合来源，剩余 null 保留；验证与远端同步见[补采交接](../handoffs/thy-0629/2026-10-01-1129-nba2k-null-remediation.md) |
+| 2024–25 NBA 训练素材100段 | [素材说明](../data/videos/nba/2024-25/collection-report.md)、[播放目录](../data/videos/nba/2024-25/INDEX.md) | 已推送main（[ef840fb](https://github.com/Linzeyu912/courtstory/commit/ef840fb1a0d73b13363e64becccb08d1770f6db4)）：100段LFS成片，共647,393,804字节，独立远端下载及哈希核验100/100通过；16场、17队，14段完整球权；同类动作16组，包含首批3段；见[交接](../handoffs/Linzeyu912/2026-10-01-0848-video-lfs-management.md) |
 | 2025–26 赛季 NBA 备赛视频素材（30 段+历史9段） | [赛季清单](../data/videos/nba/2025-26/manifest.json)、[标签与要求复核](../data/videos/nba/2025-26/review.md) | 39个成片已于2026-10-01入库Git LFS并推送main（见[交接](../handoffs/Linzeyu912/2026-10-01-2307-raw-clips-lfs-upload.md)）：batch030三十段字节与原采集记录逐一相符，尺寸/帧率/时长ffprobe实测；历史8段与单段独立登记，与三十段对应关系未确认；标签均为草案，画面复核待看片 |
 | 视频按赛季归并与仓库资料审阅 | [目录说明](repository-map.md)、[视频入口](../data/videos/README.md)、[同步记录](../handoffs/Linzeyu912/2026-10-01-2118-repository-audit-sync.md) | 2026-10-01已完成资料整理与审阅：2024–25共100段，首批独立旧文件已删除；2025–26为30条待取得成片记录。用户已授权选择性同步，正在开发的文件与文档增量保留本地；实际推送和核验结果见同步记录 |
 | 视频管理规范与统一批次登记 | [管理规范](video-data-management.md)、[批次清单](../data/videos/catalog.json)、[校验脚本](../scripts/validate_video_data.py) | 成片用LFS、元数据用普通Git；100段与2025–26的39段均已登记并入库；区分实测/采集记录、已看片标签/草案、完整回合/局部片段和内容重复/同类动作 |
 
 ## 待认领任务
 
-下面是任务候选清单。开始时从 [GitHub 新建任务](https://github.com/Linzeyu912/broadcastcode-team-hub/issues/new?template=task.yml)，填写负责人和完成标准，并把 Issue 链接补入最后一列。创建 Issue 后，以 Issue 里的状态和负责人为准。
+下面是任务候选清单。开始时从 [GitHub 新建任务](https://github.com/Linzeyu912/courtstory/issues/new?template=task.yml)，填写负责人和完成标准，并把 Issue 链接补入最后一列。创建 Issue 后，以 Issue 里的状态和负责人为准。
 
 | 优先级 | 任务 | 完成标准 | 负责人 / Issue |
 |---|---|---|---|

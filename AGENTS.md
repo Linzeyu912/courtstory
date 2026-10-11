@@ -2,11 +2,13 @@
 
 ## 当前任务与仓库接续（2026-10-11，Asia/Singapore）
 
+用户最新要求正式调整仓库名称：原 `broadcastcode-team-hub` 改为 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory)，继续保留完整开发历史；原独立 CourtStory 比赛成果仓库改为 [Linzeyu912/courtstory-snapshot](https://github.com/Linzeyu912/courtstory-snapshot)。两个仓库使用相同的产品简介，快照用途由仓库名和 README 说明。用户明确取消上轮创建的快照标签，删除该标签及当前文档入口，不改写其对应提交。此要求覆盖下文历史阶段“仓库地址不变”的安排；本地 Git remote 使用改名后的地址。见[本轮交接](handoffs/Linzeyu912/2026-10-11-2337-repository-rename.md)。
+
 用户选择继续使用原 Team Hub 仓库作为主仓库，接回 CourtStory 的后续成果，并统一 CourtStory 名称与介绍。本轮范围为仓库历史接续、最新产品快照、文档与 Git 关联整理；以下旧 UI 专属范围仅反映历史任务，不能限制本轮仓库整合。Team Hub 已共享历史、作者和 commit SHA 保留，成果整理后的更新逐项接在其后；CourtStory 的整段独立历史保留在原仓库与恢复包，不再合入 main，避免与接续提交重复。最新产品以源 CourtStory `c914c14` 为依据；旧资料保留为历史证据，不宣称已完成新的云端部署。
 
 所有后续工作直接在 main 上进行，不新建任务分支或 PR。保留其他任务的未提交文件，选择性提交。本轮接续详情见 [仓库接续记录](docs/repository-continuation-20261011.md)。
 
-2026-10-11 用户最新要求：保留 Team Hub 原来的开发历史，再接上成果整理后的更新，每项更新只在 main 历史中出现一次；随后明确授权“推送”。26 条接续提交已发布至 `082d61c`，另补一条本次发布记录。独立技术亮点介绍及附件已移除，README 只展示 Single 最终成片；GitHub 简介使用 CourtStory，仓库地址与私有属性不变。旧的 `f0435be`、`4b5e417` 整合已备份，不属于当前 main 历史。详见 [提交对照表](docs/repository-update-history-20261011.md)和[发布交接](handoffs/Linzeyu912/2026-10-11-2144-teamhub-courtstory-publication.md)。此要求覆盖本任务此前的暂停推送及双历史连接安排，不包含云部署。
+2026-10-11 前轮发布记录：保留 Team Hub 原来的开发历史，再接上成果整理后的更新，每项更新只在 main 历史中出现一次；随后明确授权“推送”。26 条接续提交已发布至 `082d61c`，另补一条本次发布记录。独立技术亮点介绍及附件已移除，README 只展示 Single 最终成片；当时 GitHub 简介使用 CourtStory，仓库地址与私有属性不变，地址现按上方最新要求调整。旧的 `f0435be`、`4b5e417` 整合已备份，不属于当前 main 历史。详见 [提交对照表](docs/repository-update-history-20261011.md)和[发布交接](handoffs/Linzeyu912/2026-10-11-2144-teamhub-courtstory-publication.md)。此要求覆盖本任务此前的暂停推送及双历史连接安排，不包含云部署。
 
 ## 统一 Git 提交署名
 

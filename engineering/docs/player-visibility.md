@@ -1,6 +1,6 @@
 # 球员画面状态与镜头外空位置
 
-日期：2026-10-04，Asia/Shanghai。依据为本聊天用户确认的三种情况；这是本机工作台的产品约定，不是赛事官方要求。仓库来源：[BroadcastCode Team Hub](https://github.com/Linzeyu912/broadcastcode-team-hub)。开始时远端 Issues 列表为空，未新建或分配任务。
+日期：2026-10-04，Asia/Shanghai。依据为本聊天用户确认的三种情况；这是本机工作台的产品约定，不是赛事官方要求。仓库来源：[BroadcastCode Team Hub](https://github.com/Linzeyu912/courtstory)。开始时远端 Issues 列表为空，未新建或分配任务。
 
 ## 操作
 

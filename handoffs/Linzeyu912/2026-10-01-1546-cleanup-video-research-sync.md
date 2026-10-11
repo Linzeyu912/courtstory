@@ -4,7 +4,7 @@
 - 成员：Linzeyu912。
 - 任务 / Issue：用户要求“前两个删除，第三个上传上去”；对应本地评分核查与来源记录、Excel/CSV统计、视频叠层调研三类内容。开始时只读查询开放Issue返回空列表。
 - 分支：main。
-- 提交：内容提交 [72f868a](https://github.com/Linzeyu912/broadcastcode-team-hub/commit/72f868af02ab7c138eeaa99ccaa6190054d039f6)；本次同步补记的提交标识以Git历史为准。
+- 提交：内容提交 [72f868a](https://github.com/Linzeyu912/courtstory/commit/72f868af02ab7c138eeaa99ccaa6190054d039f6)；本次同步补记的提交标识以Git历史为准。
 - 状态：视频调研已推送并核对远端；评分文本清理完成，Excel删除受阻。
 
 ## 本次完成
