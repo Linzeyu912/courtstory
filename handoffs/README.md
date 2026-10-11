@@ -26,6 +26,7 @@
 
 | 记录 | 内容 |
 |---|---|
+| [CourtStory 接续成果发布](Linzeyu912/2026-10-11-2144-teamhub-courtstory-publication.md) | 按用户授权推送 26 条接续提交，补 1 条发布记录；远端核对、署名检查、Single LFS 与 CourtStory 简介同步 |
 | [Team Hub 历史去重与线性接续](Linzeyu912/2026-10-11-2127-teamhub-linear-history.md) | 保留 Team Hub 197 条原始提交，接续 26 条本地提交；移除独立 CourtStory 历史连接，23 条更新各一份；未推送 |
 | [分类接续更新与 Single 成果展示](Linzeyu912/2026-10-11-2113-classified-history-single-showcase.md) | 23 条独立更新、来源对照、技术介绍附件移出当前版本、README 展示 Single；仅本地，未推送 |
 | [Team Hub 接续 CourtStory 开发历史](Linzeyu912/2026-10-11-2055-teamhub-courtstory-continuation.md) | 主仓库地址不变，连接两段原始历史并采用最新成果，名称介绍统一为 CourtStory |

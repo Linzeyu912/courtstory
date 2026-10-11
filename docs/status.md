@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-11 21:44 起（Asia/Singapore，已授权推送并完成成果发布）：用户明确要求“推送”。已将 `56e6466..082d61c` 的 26 条接续提交正常推送至原 Team Hub main，GitHub API 核对一致，Commit identity 检查成功；Git LFS 确认两项活动媒体已存在于远端。CourtStory 简介已同步，URL 与私有属性保持；原独立 CourtStory 仓库不变。另补本次发布记录，累计较原基线新增 27 条，其中功能／成果后续更新仍为 23 条，无重复历史。见[发布交接](../handoffs/Linzeyu912/2026-10-11-2144-teamhub-courtstory-publication.md)。下方“仅本地／不推送”均保留前轮时点，本轮未部署云端。
+
 2026-10-11 21:27 起（Asia/Singapore，仅本地历史去重）：用户明确只保留 Team Hub 原开发历史，再接续成果整理后的更新。已移除将 CourtStory 整段 31 条历史并入 main 的连接，23 条更新各保留一份，原接续提交编号不变。当前 main 共 223 条可达提交：Team Hub 原有 197 条，加成果基线 1 条、更新 23 条、README 1 条和协作配置／记录 1 条。业务代码与 Single 成片保持；署名检查使用 Team Hub 固定基线，支持只含 main 的新克隆。本轮不推送，详见[去重交接](../handoffs/Linzeyu912/2026-10-11-2127-teamhub-linear-history.md)。下方双历史连接记录已被本轮方案替代，保留当时事实。
 
 2026-10-11 21:13 起（Asia/Singapore，仅本地分类接续）：按用户补充，将上轮未推送的整体整合改为成果基线加 23 条独立更新，每条保留来源编号，并连接双方原始历史。当前技术介绍 HTML 及附件已移除；README 以 68.3 秒、1080p 的 Single 最终成片展示产品效果。核心运行文件与 `c914c14` 一致，Git 历史、LFS 与逐条补丁等价性按本轮交接核验；远端同步继续暂停。见[提交对照表](repository-update-history-20261011.md)和[本轮交接](../handoffs/Linzeyu912/2026-10-11-2113-classified-history-single-showcase.md)。下方记录保留当时状态。
