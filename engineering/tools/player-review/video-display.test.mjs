@@ -125,7 +125,7 @@ test('paused frame steps keep the old canvas pending until the new seek finishes
 });
 
 test('frame navigation survives quantized seeks followed by actual decoded-frame callbacks',t=>{
-  const records=JSON.parse(fs.readFileSync(new URL('../../../data/videos/tactics/acceptance/tracks/basketball-20261002/004-team-stable.json',import.meta.url),'utf8'));
+  const records=JSON.parse(fs.readFileSync(new URL('../../../engineering/tests/fixtures/player-observations/004-team-stable.json',import.meta.url),'utf8'));
   const pts=records.map(record=>record.source_frame_pts*record.source_time_base[0]/record.source_time_base[1]);
   class QuantizedVideo extends FakeVideo {
     get currentTime(){return super.currentTime;}

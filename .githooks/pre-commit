@@ -1,0 +1,4 @@
+#!/bin/sh
+identity_root=$(git rev-parse --show-toplevel) || exit 1
+. "$identity_root/.githooks/identity-policy.sh" || exit 1
+check_current_identity || exit 1

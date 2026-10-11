@@ -35,6 +35,7 @@ class ReleaseTests(unittest.TestCase):
             (old / 'release-manifest.json').write_text(json.dumps({'files': [], 'videos': videos}))
             paths = {
                 'engineering/scripts/main.py': 'import new_dependency\n',
+                'data/player-rosters/0022500701.json': '{"gameId":"0022500701"}',
                 'engineering/scripts/new_dependency.py': 'value = 1\n',
                 'engineering/scripts/cloud_tactics_agent.py': 'value = 2\n',
                 'engineering/tools/player-review/app.mjs': "import './new-feature.mjs';\n",

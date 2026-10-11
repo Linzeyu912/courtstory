@@ -18,7 +18,7 @@ WEIGHTS = {
     'tmp/models/yolov8s.pt': '1f47a78bf100391c2a140b7ac73a1caae18c32779be7d310658112f7ac9aa78a',
     'tmp/court-models-v2/best.pt': '68e5faf5fb5388cf83477238abe22e9824a69fb33a4cf34f79ab61858f410064',
 }
-FIXTURE = 'data/videos/nba/2024-25/clips/005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4'
+FIXTURE = 'data/videos/uploads/2026-10-05-official-training/clips/训练_弗拉格2月1日.mp4'
 
 
 def main():

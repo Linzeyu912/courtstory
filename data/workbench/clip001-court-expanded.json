@@ -1,0 +1,440 @@
+{
+  "videoHash": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+  "template": "NBA",
+  "description": "2026-10-01 extended reference: named key corners plus independently visible far sideline intersections. Visually read, not surveyed. No metric accuracy claim. Original four-corner snapshot preserved.",
+  "maxKeyframeGapSeconds": 1.2,
+  "keyframes": [
+    {
+      "frame": 0,
+      "side": "left",
+      "source": "reference",
+      "points": [
+        {
+          "id": "A",
+          "image": [
+            448,
+            536
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "B",
+          "image": [
+            934,
+            570
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "C",
+          "image": [
+            809,
+            697
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "D",
+          "image": [
+            230,
+            653
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "E",
+          "image": [
+            595,
+            440
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "F",
+          "image": [
+            1754,
+            507
+          ],
+          "source": "reference"
+        }
+      ]
+    },
+    {
+      "frame": 30,
+      "side": "left",
+      "source": "reference",
+      "points": [
+        {
+          "id": "A",
+          "image": [
+            519,
+            546
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "B",
+          "image": [
+            1040,
+            588
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "C",
+          "image": [
+            907,
+            719
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "D",
+          "image": [
+            302,
+            665
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "E",
+          "image": [
+            690,
+            447
+          ],
+          "source": "reference"
+        }
+      ]
+    },
+    {
+      "frame": 60,
+      "side": "left",
+      "source": "reference",
+      "points": [
+        {
+          "id": "A",
+          "image": [
+            566,
+            558
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "B",
+          "image": [
+            1128,
+            606
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "C",
+          "image": [
+            982,
+            748
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "D",
+          "image": [
+            331,
+            686
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "E",
+          "image": [
+            749,
+            453
+          ],
+          "source": "reference"
+        }
+      ]
+    },
+    {
+      "frame": 90,
+      "side": "left",
+      "source": "reference",
+      "points": [
+        {
+          "id": "A",
+          "image": [
+            580,
+            571
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "B",
+          "image": [
+            1177,
+            619
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "C",
+          "image": [
+            1023,
+            771
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "D",
+          "image": [
+            331,
+            705
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "E",
+          "image": [
+            765,
+            460
+          ],
+          "source": "reference"
+        }
+      ]
+    },
+    {
+      "frame": 120,
+      "side": "left",
+      "source": "reference",
+      "points": [
+        {
+          "id": "A",
+          "image": [
+            530,
+            587
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "B",
+          "image": [
+            1140,
+            636
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "C",
+          "image": [
+            978,
+            794
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "D",
+          "image": [
+            273,
+            732
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "E",
+          "image": [
+            718,
+            468
+          ],
+          "source": "reference"
+        }
+      ]
+    },
+    {
+      "frame": 150,
+      "side": "left",
+      "source": "reference",
+      "points": [
+        {
+          "id": "A",
+          "image": [
+            518,
+            594
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "B",
+          "image": [
+            1138,
+            645
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "C",
+          "image": [
+            978,
+            804
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "D",
+          "image": [
+            266,
+            737
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "E",
+          "image": [
+            716,
+            477
+          ],
+          "source": "reference"
+        }
+      ]
+    },
+    {
+      "frame": 180,
+      "side": "left",
+      "source": "reference",
+      "points": [
+        {
+          "id": "A",
+          "image": [
+            518,
+            595
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "B",
+          "image": [
+            1139,
+            646
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "C",
+          "image": [
+            978,
+            804
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "D",
+          "image": [
+            267,
+            737
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "E",
+          "image": [
+            717,
+            475
+          ],
+          "source": "reference"
+        }
+      ]
+    },
+    {
+      "frame": 210,
+      "side": "left",
+      "source": "reference",
+      "points": [
+        {
+          "id": "A",
+          "image": [
+            518,
+            594
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "B",
+          "image": [
+            1140,
+            646
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "C",
+          "image": [
+            978,
+            804
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "D",
+          "image": [
+            267,
+            737
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "E",
+          "image": [
+            719,
+            477
+          ],
+          "source": "reference"
+        }
+      ]
+    },
+    {
+      "frame": 242,
+      "side": "left",
+      "source": "reference",
+      "points": [
+        {
+          "id": "A",
+          "image": [
+            516,
+            590
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "B",
+          "image": [
+            1140,
+            644
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "C",
+          "image": [
+            980,
+            804
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "D",
+          "image": [
+            270,
+            736
+          ],
+          "source": "reference"
+        },
+        {
+          "id": "E",
+          "image": [
+            720,
+            472
+          ],
+          "source": "reference"
+        }
+      ]
+    }
+  ],
+  "revision": "expanded-ground-controls-v1"
+}

@@ -4,82 +4,6 @@
   "path_base": "repository_root",
   "datasets": [
     {
-      "dataset_id": "nba-2024-25-library100",
-      "season": "2024-25",
-      "root": "data/videos/nba/2024-25",
-      "manifest": "data/videos/nba/2024-25/manifest.json",
-      "entry_count": 98,
-      "included_count": 98,
-      "awaiting_upload_count": 0
-    },
-    {
-      "dataset_id": "nba-2025-26-batch030",
-      "season": "2025-26",
-      "root": "data/videos/nba/2025-26",
-      "manifest": "data/videos/nba/2025-26/manifest.json",
-      "entry_count": 28,
-      "included_count": 28,
-      "awaiting_upload_count": 0
-    },
-    {
-      "dataset_id": "nba-2025-26-batch-008",
-      "season": "2025-26",
-      "root": "data/videos/nba/2025-26",
-      "manifest": "data/videos/nba/2025-26/manifest-batch-008.json",
-      "entry_count": 7,
-      "included_count": 7,
-      "awaiting_upload_count": 0
-    },
-    {
-      "dataset_id": "nba-2025-26-sample-001",
-      "season": "2025-26",
-      "root": "data/videos/nba/2025-26",
-      "manifest": "data/videos/nba/2025-26/manifest-sample-001.json",
-      "entry_count": 1,
-      "included_count": 1,
-      "awaiting_upload_count": 0
-    },
-    {
-      "dataset_id": "tactics-acceptance",
-      "season": null,
-      "purpose": "tactic_acceptance",
-      "root": "data/videos/tactics/acceptance",
-      "manifest": "data/videos/tactics/acceptance/manifest.json",
-      "entry_count": 2,
-      "included_count": 2,
-      "awaiting_upload_count": 0
-    },
-    {
-      "dataset_id": "user-uploads-20261003",
-      "season": null,
-      "purpose": "user_upload",
-      "root": "data/videos/uploads/2026-10-03",
-      "manifest": "data/videos/uploads/2026-10-03/manifest.json",
-      "entry_count": 4,
-      "included_count": 4,
-      "awaiting_upload_count": 0
-    },
-    {
-      "dataset_id": "user-uploads-20261003-batch02",
-      "season": null,
-      "purpose": "user_upload",
-      "root": "data/videos/uploads/2026-10-03-batch02",
-      "manifest": "data/videos/uploads/2026-10-03-batch02/manifest.json",
-      "entry_count": 10,
-      "included_count": 10,
-      "awaiting_upload_count": 0
-    },
-    {
-      "dataset_id": "user-uploads-20261004",
-      "season": null,
-      "purpose": "user_upload",
-      "root": "data/videos/uploads/2026-10-04",
-      "manifest": "data/videos/uploads/2026-10-04/manifest.json",
-      "entry_count": 13,
-      "included_count": 13,
-      "awaiting_upload_count": 0
-    },
-    {
       "dataset_id": "broadcastcode-training-20261005",
       "season": null,
       "purpose": "user_upload",
@@ -91,32 +15,8 @@
       "entry_count": 2,
       "included_count": 2,
       "awaiting_upload_count": 0
-    },
-    {
-      "dataset_id": "player-name-v4-demo-20261008",
-      "season": "2025-26",
-      "purpose": "rendered_demo",
-      "category": "rendered_result",
-      "display_name": "全员姓名v4演示（派生输出）",
-      "root": "data/videos/demos/player-name-v4-20261008",
-      "manifest": "data/videos/demos/player-name-v4-20261008/manifest.json",
-      "entry_count": 1,
-      "included_count": 1,
-      "awaiting_upload_count": 0
-    }
-  ],
-  "historical_references": [
-    {
-      "path": "data/videos/nba/2025-26/sources/batch-008.json",
-      "note": "历史8段清单；与30段的逐段关系待确认，不计新增独立素材"
-    },
-    {
-      "path": "data/videos/nba/2025-26/sources/sample-001.json",
-      "note": "历史单段清单；与后续批次关系待确认，不计新增独立素材"
     }
   ],
   "classification_index": "data/videos/classification/index.json",
-  "material_label_schema": "data/videos/classification/label-schema.json",
-  "human_review_index": "data/videos/reviews/human-2026-10-04/index.json",
-  "discarded_index": "data/videos/classification/discarded/index.json"
+  "material_label_schema": "data/videos/classification/label-schema.json"
 }

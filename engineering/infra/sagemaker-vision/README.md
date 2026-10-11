@@ -15,7 +15,7 @@
 
 在独立虚拟环境安装本目录 `requirements.txt`。实际账号、桶、前缀、代码 ZIP、校验摘要及 CDK 输出放在被忽略的 `tmp/`。设置 `HKS_SAGEMAKER_CONFIG` 指向该目录的 `deploy-private.json`，其字段为：`account`、`region`、`stack_name`、`notebook_name`、`instance_type`、`bucket`、`prefix`、`bootstrap_sha256`。不得把具体账号配置或凭据加入 Git。
 
-在仓库根目录运行 `python engineering/infra/sagemaker-vision/prepare.py --output tmp/<全新任务目录> --expected-account <STS核实的账号> --notebook-name <实例名称> --upload`，准备 `vision-bundle.zip`（原有 Python 脚本、跟踪配置、三份已校验权重和 005 测试片）及 `bootstrap.zip`（启动脚本、验证脚本、文件清单与 rsa/pyasn1 依赖）。省略 `--upload` 不上传文件，但仍会通过指定 AWS profile 调用 STS 校验账号，需有效登录状态。启动脚本验证两个 ZIP 的 SHA-256。上传到本队私有桶中全新的任务前缀后，进入本目录执行：
+在仓库根目录运行 `python engineering/infra/sagemaker-vision/prepare.py --output tmp/<全新任务目录> --expected-account <STS核实的账号> --notebook-name <实例名称> --upload`，准备 `vision-bundle.zip`（原有 Python 脚本、跟踪配置、三份已校验权重和 官方训练 001（弗拉格）测试片）及 `bootstrap.zip`（启动脚本、验证脚本、文件清单与 rsa/pyasn1 依赖）。省略 `--upload` 不上传文件，但仍会通过指定 AWS profile 调用 STS 校验账号，需有效登录状态。启动脚本验证两个 ZIP 的 SHA-256。上传到本队私有桶中全新的任务前缀后，进入本目录执行：
 
 ```powershell
 cdk synth --strict --profile nba
@@ -31,4 +31,4 @@ cdk deploy --profile nba
 
 通过 SageMaker 控制台启动该实例后，可打开 JupyterLab 或终端运行已有脚本。任务结束后停机；停机停止计算计费，保留磁盘仍可能产生存储费用。30 帧检查是运行兼容性验证，不是完整视频、跟踪准确率、标定精度或在线产品验收。
 
-实际部署、费用、验证结果与清理状态记录在 [2026-10-10 环境记录](../../../environment/aws/gpu-openrouter-bootstrap-20261010.md)。
+本目录从 Team Hub 迁入，测试片已适配本仓库保留的官方训练 001。模型权重仍需单独准备；历史云端验收属于旧工程快照，本仓库迁移后未重新开机或调用模型。

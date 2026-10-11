@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[3]
 HERE = Path(__file__).resolve().parent
 CODE_PREFIXES = ('engineering/scripts/', 'engineering/configs/',
                  'engineering/tools/player-review/', 'engineering/tools/tactical-overlay/',
-                 'engineering/archive/tactical-video/005-authored-v2/', '2K Player Data/')
+                 'engineering/archive/tactical-video/005-authored-v2/', '2K Player Data/', 'data/player-rosters/')
 REPLAY_PREFIXES = ('research/agents/qwen-ground-official-20261005/replay/',
                    'research/agents/qwen-parallel-20261007/replay/')
 PRIVATE_PARTS = {'.git', '.env', '.codex', 'node_modules', '__pycache__', 'tmp', 'artifacts'}
@@ -64,8 +64,8 @@ def validate_selection(library, previous):
     videos = previous.get('videos', [])
     samples = library.get('samples', [])
     registered = {item['path']: item for item in videos}
-    if len(samples) != 3 or len(videos) != 3 or len(registered) != 3:
-        raise ValueError('Expected the existing three-sample deployment selection')
+    if len(samples) not in (2, 3) or len(videos) != len(samples) or len(registered) != len(samples):
+        raise ValueError('Expected the existing two- or three-sample deployment selection')
     if len({sample['id'] for sample in samples}) != 3 or library.get('defaultSample') not in {s['id'] for s in samples}:
         raise ValueError('Invalid existing sample IDs or default sample')
     if {sample['video'] for sample in samples} != set(registered):

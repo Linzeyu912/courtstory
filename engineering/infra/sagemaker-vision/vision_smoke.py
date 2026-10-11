@@ -19,7 +19,7 @@ def main():
 
     if not torch.cuda.is_available():
         raise RuntimeError('CUDA is required; CPU fallback is disabled.')
-    video = workspace/'data/videos/nba/2024-25/clips/005_LAL-MIN_Q2_catch-shoot_10.8s_720p.mp4'
+    video = workspace/'data/videos/uploads/2026-10-05-official-training/clips/训练_弗拉格2月1日.mp4'
     outputs = workspace/'artifacts/gpu-smoke'
     outputs.mkdir(parents=True, exist_ok=True)
     result = {'passed': False, 'fixture': video.name, 'frames_per_tracker': 30,

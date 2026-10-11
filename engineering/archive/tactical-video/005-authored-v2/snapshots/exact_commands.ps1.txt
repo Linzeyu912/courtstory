@@ -1,9 +1,0 @@
-& 'C:/python313/python.exe' 'D:/HKS/outputs/future-route-video-20261003-v2/render_authored_video.py' '--encode'
-
-# Rawvideo stdin is provided by the Python renderer:
-
-& 'D:/ffmbeg/ffmpeg-n8.1-latest-win64-gpl-shared-8.1/bin/ffmpeg.exe' '-hide_banner' '-y' '-f' 'rawvideo' '-pixel_format' 'rgb24' '-video_size' '1920x1080' '-framerate' '30' '-i' 'pipe:0' '-an' '-c:v' 'h264_nvenc' '-preset' 'p7' '-tune' 'hq' '-rc' 'vbr' '-cq' '17' '-b:v' '0' '-multipass' 'fullres' '-pix_fmt' 'yuv420p' '-profile:v' 'high' '-g' '60' '-color_primaries' 'bt709' '-color_trc' 'bt709' '-colorspace' 'bt709' '-movflags' '+faststart' 'D:/HKS/outputs/future-route-video-20261003-v2/005_future_routes_authored_v2.mp4'
-
-& 'D:/ffmbeg/ffmpeg-n8.1-latest-win64-gpl-shared-8.1/bin/ffprobe.exe' '-v' 'error' '-count_frames' '-show_streams' '-show_format' '-of' 'json' 'D:/HKS/outputs/future-route-video-20261003-v2/005_future_routes_authored_v2.mp4'
-
-& 'D:/ffmbeg/ffmpeg-n8.1-latest-win64-gpl-shared-8.1/bin/ffmpeg.exe' '-hide_banner' '-v' 'error' '-xerror' '-i' 'D:/HKS/outputs/future-route-video-20261003-v2/005_future_routes_authored_v2.mp4' '-f' 'null' '-'

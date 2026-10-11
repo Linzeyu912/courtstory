@@ -1,0 +1,17 @@
+{
+  "videoHash": "8ed5a5c07ee550ed89db2d9a01b8ba1d59ace52a85a1fec0c78a77ac7644ac7d",
+  "template": "NBA",
+  "description": "参考标定，待人工复核。2026-10-01 目视读取禁区四角；角点间随时间线性估计，未做独立精度验收。仅用于本片段工作台演示。",
+  "maxKeyframeGapSeconds": 1.2,
+  "keyframes": [
+    {"frame":0,"side":"left","source":"reference","image":[[448,536],[934,570],[809,697],[230,653]]},
+    {"frame":30,"side":"left","source":"reference","image":[[519,546],[1040,588],[907,719],[302,665]]},
+    {"frame":60,"side":"left","source":"reference","image":[[566,558],[1128,606],[982,748],[331,686]]},
+    {"frame":90,"side":"left","source":"reference","image":[[580,571],[1177,619],[1023,771],[331,705]]},
+    {"frame":120,"side":"left","source":"reference","image":[[530,587],[1140,636],[978,794],[273,732]]},
+    {"frame":150,"side":"left","source":"reference","image":[[518,594],[1138,645],[978,804],[266,737]]},
+    {"frame":180,"side":"left","source":"reference","image":[[518,595],[1139,646],[978,804],[267,737]]},
+    {"frame":210,"side":"left","source":"reference","image":[[518,594],[1140,646],[978,804],[267,737]]},
+    {"frame":242,"side":"left","source":"reference","image":[[516,590],[1140,644],[980,804],[270,736]]}
+  ]
+}

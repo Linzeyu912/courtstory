@@ -47,7 +47,7 @@ test('explicit projection review can anchor the current camera frame without rew
  assert.equal(reviewed.cameraSupportFrame,4);assert.equal(reviewed.quality.cameraSupportFrame,4);assert.equal(reviewed.quality.referenceFrame,70);assert.equal(reviewed.quality.sourceReferenceFrame,70);assert.deepEqual(reviewed.points,pending.points);assert.equal(pending.cameraSupportFrame,0);assert.equal(reviewed.reviewRequired,true);
 });
 test('real 005 camera dependents stay stale after a reference edit until a matching profile is generated',()=>{
- const profile=JSON.parse(fs.readFileSync(new URL('../../../research/vision/vision-player-refinement/court-candidates-005.json',import.meta.url),'utf8'));
+ const profile=JSON.parse(fs.readFileSync(new URL('../../../data/workbench/court-candidates-005.json',import.meta.url),'utf8'));
  const videoFrames=Array.from({length:143},(_,frame)=>({frame,time:frame/30})),session=blankSession(profile.videoHash),reference=profile.referenceFrame;
  acceptCourtCandidates(session,profile,videoFrames.length,profile.videoHash);
  const cameraKeys=session.courtCalibration.keyframes.filter(k=>k.frame!==reference&&k.source==='camera_propagation'&&k.status==='accepted_reference'),dependent=cameraKeys[0],independent=cameraKeys.at(-1);
