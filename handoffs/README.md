@@ -26,6 +26,7 @@
 
 | 记录 | 内容 |
 |---|---|
+| [片段剪辑数据链路与本地/AWS部署指导](Linzeyu912/2026-10-13-1034-trim-dataflow-deployment-modes.md) | 后台剪辑、锁反转修复、数据登记与恢复；两版在线 AI 与部署职责，浏览器及回归验证，未部署云端 |
 | [主仓库导览与产品 README 分工](Linzeyu912/2026-10-13-1001-repository-readme-layout.md) | 明确研究、数据、决定与产品职责；产品介绍迁入 engineering，补齐数据/团队入口，安装和运维文档归入产品目录 |
 | [主仓库与比赛快照正式改名](Linzeyu912/2026-10-11-2337-repository-rename.md) | 主仓库 courtstory、比赛快照 courtstory-snapshot；本地 remote、共同简介与快照说明同步，取消快照标签 |
 | [CourtStory 接续成果发布](Linzeyu912/2026-10-11-2144-teamhub-courtstory-publication.md) | 按用户授权推送 26 条接续提交，补 1 条发布记录；远端核对、署名检查、Single LFS 与 CourtStory 简介同步 |

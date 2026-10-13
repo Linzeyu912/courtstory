@@ -33,11 +33,12 @@ engineering/
   configs/           运行配置
   agent-workflows/   Agent 工作流契约
   infra/             EC2 / AgentCore / CloudFront / SageMaker 工程
+  deploy/            本地与 AWS 部署指导、独立依赖入口
   tests/             回归检查和固定样例
   docs/              产品设计、操作、接口、计划与验收说明
 ```
 
-产品[本地安装](../engineering/docs/local-setup.md)、[云端工程说明](../engineering/docs/cloud-setup.md)和[既有运维记录](../engineering/docs/aws-live-deployment.md)随产品放在 `engineering/docs/`。`infra/` 已有实际工程代码；是否在某个账号部署、当时验证到哪一步，以对应日期的记录为准。
+产品[本地部署](../engineering/deploy/local/README.md)与[AWS 部署](../engineering/deploy/aws/README.md)分别保存在 `engineering/deploy/`；原 `engineering/docs/local-setup.md`、`cloud-setup.md` 保留导航。[既有运维记录](../engineering/docs/aws-live-deployment.md)和功能说明仍在 `engineering/docs/`。`infra/` 保存实际基础设施代码；部署指导不复制产品实现，部署状态以对应日期的验证记录为准。
 
 脚本按实际调用关系分类：生产流程复用的算法保留在 `engineering/scripts/`，独立研究探针放 `research/` 对应专题。文件名中出现 benchmark 不足以判断应归哪一类。
 

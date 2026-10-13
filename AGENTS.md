@@ -1,5 +1,9 @@
 # CourtStory repository guidance
 
+## 本地与 AWS 部署、片段截取（2026-10-13）
+
+产品使用同一套代码，部署指导分为 `engineering/deploy/local/README.md` 和 `engineering/deploy/aws/README.md`，分别说明服务、存储与计算调度；两版均允许 OpenRouter、Qwen 等在线 AI，不因本地部署而要求本机语言模型或 TTS。显式本地启动使用 `--deployment-mode local`，基础依赖与 AWS SDK 分开维护。截取片段的数据流与验证见 [剪辑说明](engineering/docs/video-trim-dataflow.md)。用户本轮只要求优先解决剪辑后卡住和数据去向，不改变多片段拼接、特写跳过等编辑规则；本轮不更新运行中的云端服务。
+
 ## 仓库导览与产品说明（2026-10-13，Asia/Singapore）
 
 根 `README.md` 负责介绍主仓库的目录、职责和关系；`engineering/` 是产品目录，产品介绍、Single 样例、架构与制作流程统一维护在 `engineering/README.md`。产品操作、设计和运维说明放在 `engineering/docs/`；仓库决定、状态和协作入口留在 `docs/`，分别以 `docs/decisions.md`、`docs/status.md` 和 `docs/README.md` 为入口。数据关系从 `data/README.md` 进入，参考球员数据包和最终成果分别保留在 `2K Player Data/` 与 `deliverables/`，不为统一目录外观搬动运行依赖路径。新增资料按 [目录规范](docs/repository-map.md)分类并更新所属目录 README。本轮只整理主仓库，比赛快照保持其留档内容。

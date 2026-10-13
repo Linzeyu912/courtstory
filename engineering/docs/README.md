@@ -8,6 +8,7 @@
 | --- | --- |
 | 安装与启动工作台 | [本地安装](local-setup.md)、[工作台工具](../tools/player-review/README.md) |
 | 部署工程与既有运行记录 | [云端工程](cloud-setup.md)、[运维记录](aws-live-deployment.md)、[部署脚本](../infra/ec2-workbench/README.md) |
+| 截取片段后的保存、读取与卡住修复 | [剪辑数据流与验证](video-trim-dataflow.md) |
 | 产品结构、制作流程与最终样例 | [产品 README](../README.md) |
 | 当前团队进展与本轮修改 | [团队状态](../../docs/status.md)、[交接记录](../../handoffs/README.md) |
 

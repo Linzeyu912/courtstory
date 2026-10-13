@@ -61,11 +61,12 @@ engineering/
 ├── configs/           产品运行配置
 ├── agent-workflows/   Agent 工作流契约
 ├── infra/             EC2 / AgentCore / CloudFront / SageMaker 工程
+├── deploy/            本地与 AWS 两套部署指导及各自依赖入口
 ├── tests/             工程测试与固定样例
 └── docs/              产品设计、操作、接口、计划与验收记录
 ```
 
-产品安装和运维说明也随产品保存：[本地安装与启动](engineering/docs/local-setup.md)、[云端工程](engineering/docs/cloud-setup.md)、[既有云端运行记录](engineering/docs/aws-live-deployment.md)。命令默认从仓库根目录执行；目录整理本身不代表重新部署或完成新的功能验收。
+产品安装和运维说明也随产品保存：[本地部署](engineering/deploy/local/README.md)、[AWS 云端部署](engineering/deploy/aws/README.md)、[既有云端运行记录](engineering/docs/aws-live-deployment.md)。两种部署均可使用在线 AI，服务与数据的运行位置分别说明。命令默认从仓库根目录执行。
 
 ## 维护约定
 
