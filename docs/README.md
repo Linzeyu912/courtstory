@@ -15,6 +15,7 @@
 
 | 内容 | 入口 |
 | --- | --- |
+| 内容入库、格式、commit 拆分和上传机制的总规范 | [AGENTS.md](../AGENTS.md) |
 | 内容分类、目录关系与放置规则 | [repository-map.md](repository-map.md) |
 | main 同步、选择性提交与冲突处理 | [workflow.md](workflow.md) |
 | 成员和职责记录 | [team.md](team.md) |

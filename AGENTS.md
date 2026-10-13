@@ -1,26 +1,85 @@
-# CourtStory repository guidance
+# CourtStory 仓库管理规范
 
-## 本地与 AWS 部署、片段截取（2026-10-13）
+更新日期：2026-10-13，Asia/Singapore（UTC+8）。本文件是主仓库成员与 Agent 的共同工作入口；具体操作见 [协作流程](docs/workflow.md)，已确认选择见 [决策记录](docs/decisions.md)。正文优先中文，新增目录与通用文件使用清晰的英文名。
 
-产品使用同一套代码，部署指导分为 `engineering/deploy/local/README.md` 和 `engineering/deploy/aws/README.md`，分别说明服务、存储与计算调度；两版均允许 OpenRouter、Qwen 等在线 AI，不因本地部署而要求本机语言模型或 TTS。显式本地启动使用 `--deployment-mode local`，基础依赖与 AWS SDK 分开维护。截取片段的数据流与验证见 [剪辑说明](engineering/docs/video-trim-dataflow.md)。用户本轮只要求优先解决剪辑后卡住和数据去向，不改变多片段拼接、特写跳过等编辑规则；本轮不更新运行中的云端服务。
+## 1. 仓库定位与长期约定
 
-## 仓库导览与产品说明（2026-10-13，Asia/Singapore）
+- [courtstory](https://github.com/Linzeyu912/courtstory) 是持续开发主仓库，保留原 Team Hub 的开发历史并接续成果更新。已共享的作者、提交与 SHA 保留，不重新合入比赛成果仓库的整段独立历史。
+- [courtstory-snapshot](https://github.com/Linzeyu912/courtstory-snapshot) 只留档比赛提交版本；后续产品开发在本仓库进行。快照维护须有用户明确要求，不自动重建已取消的快照标签。两仓库产品简介一致，快照用途由名称与 README 说明。
+- **所有工作直接在 `main` 进行，不新建任务分支，不使用 PR 合并流程。** 只提交当前任务的内容，保护其他成员、其他会话的未提交工作；不 force push，不改写已共享历史。
+- 当前用户指令确定任务范围和提交／同步授权；“先核对”“先不提交”“先不推送”等限制优先执行。已有当前任务授权时继续完成，不反复确认；某次历史发布授权不能推定为以后所有任务的授权。
+- 本规范不授权创建云资源、部署应用、提交赛事作品、改变仓库可见性或向组外分享资料；这些操作按当前任务的相应授权执行。
 
-根 `README.md` 负责介绍主仓库的目录、职责和关系；`engineering/` 是产品目录，产品介绍、Single 样例、架构与制作流程统一维护在 `engineering/README.md`。产品操作、设计和运维说明放在 `engineering/docs/`；仓库决定、状态和协作入口留在 `docs/`，分别以 `docs/decisions.md`、`docs/status.md` 和 `docs/README.md` 为入口。数据关系从 `data/README.md` 进入，参考球员数据包和最终成果分别保留在 `2K Player Data/` 与 `deliverables/`，不为统一目录外观搬动运行依赖路径。新增资料按 [目录规范](docs/repository-map.md)分类并更新所属目录 README。本轮只整理主仓库，比赛快照保持其留档内容。
+## 2. 内容归属与文件格式
 
-## 当前任务与仓库接续（2026-10-11，Asia/Singapore）
+根 `README.md` 介绍仓库的目录、职责和关系；**`engineering/` 是产品目录**，产品介绍、Single 样例、架构与使用导航放在其 README。新增内容更新所属目录 README；详细边界见 [目录规范](docs/repository-map.md)。
 
-用户最新要求正式调整仓库名称：原 `broadcastcode-team-hub` 改为 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory)，继续保留完整开发历史；原独立 CourtStory 比赛成果仓库改为 [Linzeyu912/courtstory-snapshot](https://github.com/Linzeyu912/courtstory-snapshot)。两个仓库使用相同的产品简介，快照用途由仓库名和 README 说明。用户明确取消上轮创建的快照标签，删除该标签及当前文档入口，不改写其对应提交。此要求覆盖下文历史阶段“仓库地址不变”的安排；本地 Git remote 使用改名后的地址。见[本轮交接](handoffs/Linzeyu912/2026-10-11-2337-repository-rename.md)。
+| 内容 | 位置 | 格式与入库规则 |
+| --- | --- | --- |
+| 调研、独立实验、来源与结果 | `research/` | Markdown 说明、原生实验脚本和必要结果；记录方法、来源与限制 |
+| 赛事规则、任务和交付要求 | `requirements/` | Markdown 整理与必要的原始来源附件；官方要求与团队建议分开 |
+| 本机工具、模型环境、AWS 准备 | `environment/` | 准备说明和可共享配置示例；实际凭据、模型权重留在本机 |
+| 产品实现、设计、测试和部署指导 | `engineering/` | 代码保留原语言格式，维护依赖清单、测试和相关产品文档；运行复用的算法随工程保存 |
+| 输入数据、名单、标签和清单 | `data/` | 按已有契约使用 JSON／CSV 等结构化格式；共享视频位于 `data/videos/`，通过 Git LFS 保存 |
+| 第三方球员参考数据 | `2K Player Data/` | 遵循该目录既有规范与来源口径，不为统一外观搬动依赖路径 |
+| 选定的最终成果 | `deliverables/` | MP4 成片通过 Git LFS 保存；SRT 字幕和 README 使用普通 Git，说明版本、来源输入与播放入口 |
+| 决策、状态和协作规范 | `docs/` | Markdown；分别进入 `decisions.md`、`status.md` 和相应专题，产品操作说明归 `engineering/docs/` |
+| 每轮修改、验证和接续记录 | `handoffs/<github-login>/` | 按 [模板](handoffs/_template.md) 新建 `YYYY-MM-DD-HHMM-topic.md`，写明时区 |
+| 仓库维护工具与检查 | `scripts/`、`config/`、`.githooks/`、`.github/` | 原生脚本／配置格式；产品运行脚本和配置归 `engineering/` |
 
-用户选择继续使用原 Team Hub 仓库作为主仓库，接回 CourtStory 的后续成果，并统一 CourtStory 名称与介绍。本轮范围为仓库历史接续、最新产品快照、文档与 Git 关联整理；以下旧 UI 专属范围仅反映历史任务，不能限制本轮仓库整合。Team Hub 已共享历史、作者和 commit SHA 保留，成果整理后的更新逐项接在其后；CourtStory 的整段独立历史保留在原仓库与恢复包，不再合入 main，避免与接续提交重复。最新产品以源 CourtStory `c914c14` 为依据；旧资料保留为历史证据，不宣称已完成新的云端部署。
+- 新增共享文字使用 UTF-8，优先 LF；已有文件遵循其格式契约与 `.gitattributes`，不顺带批量改换行或格式。文档以 Markdown 为主，图片按用途使用 PNG／JPEG／WebP／SVG；必须保留的 PDF 等来源附件保持原貌。
+- 使用仓库内相对路径和可跨机器使用的命令，不将个人盘符路径写成协作依赖。来源记录 URL、采集日期；未知字段按契约保存 null／未知原因，不猜测模型、AWS 服务、比赛或数据事实。
+- 不提交密钥、密码、Cookie、实际 `.env`、证件、个人报名材料或受限制的原始数据；不将模型权重、依赖安装目录、缓存、构建产物、重复 ZIP、恢复包加入 Git。
+- 本机导入视频、裁剪中间文件、工作台草稿留在相应忽略目录（如 `data/local-videos/`、`data/local-workbench/`、`data/raw/`、`artifacts/`、`tmp/`）。产品内上传／剪辑不自动成为团队共享资产；只有本次范围内选定且获准共享的素材／成果才入库。
+- 数据与媒体先确认来源、授权范围、唯一编号／版本、清单、大小、哈希与必要的可播放验证。`data/videos/` 与 `deliverables/` 分别按 [视频数据规范](docs/video-data-management.md) 检查；不把素材 catalog 校验当作最终成果已验证。
+- 研究、计划、实现、本机验收、远端可下载和云端上线分别陈述；原始快照及历史交接保留当时事实，修正写入当前整理文档，不凭空宣布团队共识或分配职责。
 
-所有后续工作直接在 main 上进行，不新建任务分支或 PR。保留其他任务的未提交文件，选择性提交。本轮接续详情见 [仓库接续记录](docs/repository-continuation-20261011.md)。
+## 3. Commit 格式与拆分
 
-2026-10-11 前轮发布记录：保留 Team Hub 原来的开发历史，再接上成果整理后的更新，每项更新只在 main 历史中出现一次；随后明确授权“推送”。26 条接续提交已发布至 `082d61c`，另补一条本次发布记录。独立技术亮点介绍及附件已移除，README 只展示 Single 最终成片；当时 GitHub 简介使用 CourtStory，仓库地址与私有属性不变，地址现按上方最新要求调整。旧的 `f0435be`、`4b5e417` 整合已备份，不属于当前 main 历史。详见 [提交对照表](docs/repository-update-history-20261011.md)和[发布交接](handoffs/Linzeyu912/2026-10-11-2144-teamhub-courtstory-publication.md)。此要求覆盖本任务此前的暂停推送及双历史连接安排，不包含云部署。
+沿用现有英文标题格式：`type: short English summary`。标题直接说明做了什么；需要解释时，正文可用中文记录原因、影响与验证。类型约定如下：
 
-## 统一 Git 提交署名
+| 类型 | 用途 |
+| --- | --- |
+| `feat` | 新功能 |
+| `fix` | 问题修复 |
+| `docs` | 文档调整 |
+| `refactor` | 不改变预期行为的代码重构 |
+| `test` | 测试调整 |
+| `chore` | 仓库维护、配置或工具调整 |
 
-仓库所有者于 2026-10-10 明确要求：其他电脑上的合作者也使用以下署名创建本仓库的新提交。
+已有示例：
+
+```text
+fix: unblock video trimming and isolate local execution
+docs: separate local and AWS deployment guides
+```
+
+- 一条 commit 对应一个可以独立说明和验证的主题；同一修复的代码、测试和必要文档可一起提交。
+- 互不相关的功能、数据整理、文档或仓库维护分别提交，不按文件数机械拆分，不以增加条数为目的重复接入相同更新。
+- 每次检查暂存区，只暂存已确认属于本次主题的文件／改动；不能用一次无差别暂存带入其他任务、凭据或临时产物。
+- 标题格式是协作规范，当前没有自动检查标题的 `commit-msg` hook；提交者负责核对。已有署名检查继续强制执行。
+
+## 4. 提交、上传与部署机制
+
+| 操作 | 结果 | 核对依据 |
+| --- | --- | --- |
+| `git commit` | 在本地保存开发历史 | 提交内容、署名、验证记录 |
+| `git push origin main` | 将普通文件与提交同步到 GitHub | 远端 `main` 与本地 HEAD 一致 |
+| Git LFS 上传 | 将共享视频对象同步至 LFS 存储；Git 中保存指针 | 暂存区属性／指针、对象大小与哈希，新增或更新媒体的远端实际下载校验 |
+| 应用部署 | 更新实际运行的本地／AWS 服务 | 对应部署流程和运行环境验收；Git 推送不代替此步骤 |
+
+1. 开工先读根 README、`docs/status.md`、`docs/team.md`、`docs/decisions.md` 及相关最新交接；检查当前分支、状态、remote 和任务相关 Issue。无法读取远端时说明未同步，不假设最新状态。
+2. 保护已有未提交内容；在安全的工作区同步 `main`，正常使用 `git pull --ff-only origin main`。本地与远端分叉时按 [冲突处理流程](docs/workflow.md) 处理，不丢弃任何一方。
+3. 完成本次修改及相应验证。文档核对事实、路径和链接；代码执行相关检查；媒体核对 LFS 和来源。检查 `git diff --cached` 与 `git diff --cached --check`。
+4. 按当前任务授权分类提交、正常推送。只要求检查／讨论时不编辑；允许本地修改不自动等于允许提交或推送；明确“先不推送”时保留本地成果，不后台恢复上传。
+5. 远端有新提交时，只重放尚未推送的本地提交；解决冲突后重新执行受影响的验证。已共享历史保持，不使用 force push。
+6. 推送后 fetch 并核对远端 SHA；新增／更新共享视频还须验证远端 LFS 对象实际可下载。准确报告本地修改、已提交、已推送、已部署分别到哪一步。
+
+当前没有后台自动同步服务。共享媒体遵循 `.gitattributes`；保留 pre-push 中的 LFS 调用，不用绕过 hook 的方式完成上传。
+
+## 5. 主仓库统一 Git 提交署名
+
+仓库所有者于 2026-10-10 要求统一署名，并于 2026-10-13 再次确认：**主仓库继续保留此规则；只有比赛快照仓库取消强制署名。** 各电脑的新提交使用：
 
 | 字段 | 作者 Author | 提交者 Committer |
 | --- | --- | --- |
@@ -34,52 +93,19 @@
 - 本规则适用于新提交。不自动改写旧历史，不把引入的第三方提交直接改成所有者署名；发现已有不符提交时，先明确来源和处理范围。
 - 身份检查实现与基线位于 [config/commit-identity.config](config/commit-identity.config) 和 `.githooks/`。修改协作身份规则需要所有者明确指示。
 
-历史兼容：署名检查的 `identity.baseline` 为 Team Hub `56e6466`；该提交及其祖先按原署名保留，其后的全部新提交继续按统一身份检查。检查不再依赖独立 CourtStory 根提交，新克隆只取得 main 历史即可运行。
+历史兼容：署名检查的 `identity.baseline` 为 Team Hub `56e6466`；该提交及其祖先按原署名保留，其后的全部新提交继续按统一身份检查。检查不依赖独立 CourtStory 根提交，新克隆只取得 main 历史即可运行。
 
-## 历史协作约定
+## 6. 验证与交接
 
-# Repository guidance for agents
+- 每轮按 [交接模板](handoffs/_template.md) 写独立文件，记录产出、依据、实际验证、限制、阻塞、下一步及同步状态。重要结论不只留在聊天里。
+- 团队级信息变化时更新 `docs/status.md` 或 `docs/decisions.md`；各目录 README 链接到当前入口。历史记录中的“未推送／未部署”按当时日期理解。
+- 以验证范围报告结果；不能把安装完成写成部署完成，把 AI 候选写成人工确认，把研究案例的公开仓库要求替代本届赛事的私有要求。
 
-**当前任务指令（2026-10-09，America/New_York）：用户要求球员标定和战术制作前端直接在 main 开发、提交并推送，不新建分支。** 本轮多 agent 单屏布局及重点圈姓名规则按此执行；保留其他任务未提交资料，选择性提交，不自动部署云端。
+## 7. 持续有效的产品约定与历史入口
 
-本仓库由三位成员在各自电脑上，通过各自的 AI Agent 协作维护。正文优先使用中文；新增目录和通用协作文件使用清晰的英文名。
-
-## UI 定稿与分支收敛（2026-10-10）
-
-用户最新明确要求：将现有更新分类整理并推送到 `main`，不再需要的旧 UI 分支可以删除。本轮先在现有 `codex/courtstory-ui-broadcast` 工作区整合最新 main，选择性提交已审核的界面、设计资料和协作记录；核对远端 main 完整包含成果后，移除该本地／远端分支及其独立工作区。必须先保存被忽略的历史恢复包与验收资料，不覆盖或顺带发布主工作区其他任务的未提交内容。执行结果见[TEAM 25 发布记录](engineering/docs/ui-team25-publication-20261010.md)。
-
-2026-10-10 11:03 用户确认：任务栏上的灰色线条图案及位置按[定稿截图](engineering/docs/images/nba-ui-20261009/workbench-team25-angle-20261010.png)固定。后续改字标、字号、任务栏或其他页面时，不顺带修改该背景的形状、缩放、角度、描边、透明度、定位及手机隐藏规则；只有用户后续明确要求调整这组灰色图案时才修改。具体冻结参数见[视觉规范](engineering/docs/broadcast-studio-style-20261009.md#灰色图案定稿)。
-
-此前仅在 UI 分支设计、先推送 UI 再回并 main、后续继续原分支的约定属于已完成阶段，不能要求接续已删除的分支。本轮收敛以 main 为成果基线；未来设计的工作位置按届时用户指示确定，不自动重建旧 UI 分支。唯一视觉方向仍为 Broadcast Studio；玻璃、纸感及纸感重做分支不恢复为活动方向。历史边界与当时发布情况见[设计方向](engineering/docs/ui-nba-direction-20261009.md)和[前轮发布记录](engineering/docs/ui-publication-20261010.md)。
-
-本聊天继续聚焦 UI 设计与视觉适配，不因发布自行扩展到业务逻辑、模型策略、后端接口或云部署。已存在的 main 功能、数据和历史记录必须保留。此次授权仅覆盖本轮仓库整理、推送与无用分支清理，不自动延伸为未来发布或部署授权。
-
-## 开始任务前
-
-1. 阅读 `README.md`、`docs/status.md`、`docs/team.md`、`docs/decisions.md`，再阅读与任务有关的最近 `handoffs/` 记录和来源文档。
-2. 检查当前分支、`git status` 和远端状态。保留已有未提交修改，不覆盖其他人或其他任务的工作；在工作区安全的前提下切换到 `main` 并同步远端。
-3. **所有内容都直接在 `main` 上修改、提交和推送。不得新建任务分支，也不使用 PR 合并流程。** 按 `docs/workflow.md` 执行同步；每次只提交当前任务的相关文件。
-4. 以 GitHub Issue 的负责人和最新讨论核对任务范围。无法读取远端时明确说明本地资料的时效，不声称已经同步。
-
-## 编辑与资料整理
-
-- 四类内容分目录保存：`research/` 放调研、独立实验脚本、来源与结果；`requirements/` 放赛事规则、任务、交付要求和历史报名资料；`environment/` 放本机依赖、模型环境、AWS 账号与工具准备；`engineering/` 放作品代码、产品设计、功能说明、测试和实际部署工程。团队协作规范留在 `docs/`，数据留在各自数据入口。具体边界与迁移路径见 `docs/repository-map.md`。
-- 新增内容先确定上述类别，并更新对应目录 README；目录必须清晰，不能把实验结果写成已上线功能、把安装完成写成部署完成。被作品运行复用的公共算法和项目依赖清单随工程保留，纯研究脚本归入调研专题。
-- 修改工程功能时更新工程文档；核实赛事要求时更新对应来源整理，不把模型实验、产品设想或工作台能力混写为赛事官方要求。原始快照与历史交接保留当时路径文字，只修复可点击链接。
-- 将重要结论写入可共享文件，不能只留在聊天上下文中。
-- 记录来源 URL、采集日期，区分官方要求、转写疑点和团队建议。不要推测未确认的 AWS 服务、模型或数据字段。
-- 原始快照保留采集时的原貌；修正写入整理文档并说明依据。
-- 本届 BroadcastCode 的规则与其他赛事案例分开标注。研究案例中的公开仓库要求不能替代本届的私有仓库要求。
-- 不凭空分配队友职责、宣布团队共识，或把计划标成已完成。
-- 保存相对路径供跨机器使用；不要在新协作文档中依赖某位成员的绝对本地路径。
-- 不提交密钥、密码、Cookie、证件、个人报名材料或受限制的原始数据。用户授权共享的成片放入 `data/videos/` 并用 Git LFS 保存；来源原片与处理中间文件留在被忽略的本地目录。视频入库遵循 `docs/video-data-management.md`，提交前运行 `scripts/validate_video_data.py --check-index`。
-
-## 完成任务时
-
-1. 按改动风险做必要验证；文档调整检查事实、链接和文件路径，代码变更执行相应检查。
-2. 按 `handoffs/_template.md` 写独立交接文件：`handoffs/<github-login>/YYYY-MM-DD-HHMM-topic.md`，写明时区。多个会话使用不同文件名。
-3. 交接记录写明改了什么、产出在哪里、来源、验证、阻塞和下一步。团队级信息变化时更新 `docs/status.md` 或 `docs/decisions.md`。
-4. 用户已授权当前任务的提交和同步时，选择性提交相关文件，直接推送 `main`；不要创建分支或 PR。核对远端提交后报告真实完成状态，不要把本地修改说成已在云端可用。
-5. 不使用 force push，不丢弃他人修改。远端已有新提交时，按协作流程仅重放尚未推送的本地提交；发生冲突时结合两侧目的处理并验证，无法判断的内容保留并说明。
-
-本文件只规定仓库协作方式，不要求所有成员使用同一种 Agent，也不授权 Agent 创建云资源、提交赛事作品或向组外分享资料。
+- 产品使用一套代码，本地与 AWS 部署指导分别位于 [local](engineering/deploy/local/README.md) 和 [aws](engineering/deploy/aws/README.md)。两版均允许 OpenRouter、Qwen 等在线 AI，本地版不要求本机语言模型／TTS；实际模型标识以配置为准。
+- 剪辑数据流见 [说明](engineering/docs/video-trim-dataflow.md)。多片段拼接、特写跳过与节奏安排尚待后续产品决定，仓库管理任务不顺带改变编辑规则。
+- UI 继续使用 Broadcast Studio。任务栏灰色图案按 [定稿截图](engineering/docs/images/nba-ui-20261009/workbench-team25-angle-20261010.png) 与 [冻结参数](engineering/docs/broadcast-studio-style-20261009.md#灰色图案定稿) 保持形状、缩放、角度、描边、透明度、定位及手机隐藏规则；只有用户明确要求调整时才修改。
+- 历史接续与名称：见 [接续说明](docs/repository-continuation-20261011.md)、[提交对照](docs/repository-update-history-20261011.md) 和 [改名交接](handoffs/Linzeyu912/2026-10-11-2337-repository-rename.md)。
+- 旧 UI 分支已收敛到 main，见 [TEAM 25 发布记录](engineering/docs/ui-team25-publication-20261010.md) 与 [设计方向](engineering/docs/ui-nba-direction-20261009.md)；不恢复已停用分支或视觉方向。
+- 上述交接中的临时任务范围、旧分支和单次发布授权只解释历史，不作为当前任务指令。后续按本规范与用户当前要求工作。

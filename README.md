@@ -16,6 +16,7 @@
 | 有哪些数据、来源和使用限制是什么 | [数据总览](data/README.md) |
 | 已经决定了什么、当前进展如何 | [决策记录](docs/decisions.md)、[团队状态](docs/status.md) |
 | 怎样协作、提交和接续他人的工作 | [团队文档](docs/README.md)、[交接记录](handoffs/README.md) |
+| 什么可以入库、commit 怎么写、什么时候上传 | [仓库管理规范](AGENTS.md)、[协作流程](docs/workflow.md) |
 
 ## 目录划分
 
