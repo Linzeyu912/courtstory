@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-13",
+  "timezone": "Asia/Singapore",
+  "repository": "Linzeyu912/courtstory",
+  "changes": [
+    {
+      "kind": "readme_split",
+      "from": "README.md",
+      "to": "engineering/README.md",
+      "content": "产品介绍、Single 样例、系统架构、五步制作流程、可靠性与产品使用入口；根 README 改为仓库导览"
+    },
+    { "kind": "file_move", "from": "docs/local-setup.md", "to": "engineering/docs/local-setup.md" },
+    { "kind": "file_move", "from": "docs/cloud-setup.md", "to": "engineering/docs/cloud-setup.md" },
+    { "kind": "file_move", "from": "docs/aws-live-deployment.md", "to": "engineering/docs/aws-live-deployment.md" },
+    { "kind": "new_index", "to": "data/README.md", "content": "数据、参考数据包与成果的关系" },
+    { "kind": "new_index", "to": "docs/README.md", "content": "仓库决策、状态、协作和历史记录入口" }
+  ],
+  "runtime_paths_preserved": ["engineering/", "data/", "2K Player Data/", "deliverables/"]
+}

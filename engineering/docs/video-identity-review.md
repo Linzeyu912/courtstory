@@ -20,7 +20,7 @@
 
 ## 配置与接口
 
-身份、姓名、解说和 Polly 共用服务端明确指定的 `--env-file`，支持 UTF-8 和带 BOM 的 UTF-16；同名进程环境变量优先。独立绘图继承 Node 代理配置。安装需同时执行工作台与 `agents/` 的 npm 依赖安装，见[本地启动](../../docs/local-setup.md)。
+身份、姓名、解说和 Polly 共用服务端明确指定的 `--env-file`，支持 UTF-8 和带 BOM 的 UTF-16；同名进程环境变量优先。独立绘图继承 Node 代理配置。安装需同时执行工作台与 `agents/` 的 npm 依赖安装，见[本地启动](local-setup.md)。
 
 `GET /api/identity-agent/status` 的 `initialReview` 返回配置状态；`POST /api/identity-agent/jobs` 的 `purpose: initial_review` 使用 `video-identity-review-v2`。available 只代表配置检查通过，不代表模型真实请求或识别质量已验收。
 

@@ -1,5 +1,9 @@
 # CourtStory repository guidance
 
+## 仓库导览与产品说明（2026-10-13，Asia/Singapore）
+
+根 `README.md` 负责介绍主仓库的目录、职责和关系；`engineering/` 是产品目录，产品介绍、Single 样例、架构与制作流程统一维护在 `engineering/README.md`。产品操作、设计和运维说明放在 `engineering/docs/`；仓库决定、状态和协作入口留在 `docs/`，分别以 `docs/decisions.md`、`docs/status.md` 和 `docs/README.md` 为入口。数据关系从 `data/README.md` 进入，参考球员数据包和最终成果分别保留在 `2K Player Data/` 与 `deliverables/`，不为统一目录外观搬动运行依赖路径。新增资料按 [目录规范](docs/repository-map.md)分类并更新所属目录 README。本轮只整理主仓库，比赛快照保持其留档内容。
+
 ## 当前任务与仓库接续（2026-10-11，Asia/Singapore）
 
 用户最新要求正式调整仓库名称：原 `broadcastcode-team-hub` 改为 [Linzeyu912/courtstory](https://github.com/Linzeyu912/courtstory)，继续保留完整开发历史；原独立 CourtStory 比赛成果仓库改为 [Linzeyu912/courtstory-snapshot](https://github.com/Linzeyu912/courtstory-snapshot)。两个仓库使用相同的产品简介，快照用途由仓库名和 README 说明。用户明确取消上轮创建的快照标签，删除该标签及当前文档入口，不改写其对应提交。此要求覆盖下文历史阶段“仓库地址不变”的安排；本地 Git remote 使用改名后的地址。见[本轮交接](handoffs/Linzeyu912/2026-10-11-2337-repository-rename.md)。

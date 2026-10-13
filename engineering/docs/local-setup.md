@@ -22,4 +22,4 @@ $env:NODE_PATH = "$PWD/tmp/node-deps/node_modules"
 
 自动识别需要另行安装模型依赖与权重；服务参数 `--inference-python`、`--models`、`--court-model` 指定实际路径。模型识别不是人工制作的前置条件。完整参数用 `python engineering/scripts/serve_player_review.py --help` 查看。
 
-解说和姓名识别等远程模型需要相应凭据，可通过 `--env-file .env` 显式加载；切勿提交 `.env`。Polly 配音需要有效 AWS 凭据与 `polly:SynthesizeSpeech` 权限；视频导出需要 FFmpeg，带姓名叠加的路径还需要 OpenCV。本次迁移不重跑付费模型或配音请求。
+解说和姓名识别等远程模型需要相应凭据，可通过 `--env-file .env` 显式加载；切勿提交 `.env`。当前默认中文配音使用阿里云 Qwen Audio，需要对应 TTS 凭据；模型与音色以 [commentary_tts.py](../scripts/commentary_tts.py) 的配置为准。视频导出需要 FFmpeg，带姓名叠加的路径还需要 OpenCV。本次目录整理不重跑付费模型或配音请求。

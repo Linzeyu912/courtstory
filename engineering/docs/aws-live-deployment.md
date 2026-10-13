@@ -1,5 +1,7 @@
 # AWS 工作台运行与维护
 
+> 本文保留 2026-10-10 部署及后续修复时的运行记录，2026-10-13 随产品文档迁入本目录。资源是否仍在线、私有配置是否仍适用，需实际维护时再核对；本次目录整理没有重新部署或验证云端服务。下方涉及旧门户和 Polly 的验证按各阶段时间阅读，现有工程入口见[云端工程](cloud-setup.md)。
+
 部署沿用 EC2 + AgentCore + CloudFront，GPU 使用现有 SageMaker `ml.g5.2xlarge`（NVIDIA A10G）。EC2 的 G/VT 按需配额为 0，因此通过私有 S3 任务目录调用 SageMaker；视频检测、跟踪和 48 点场地模型均在 GPU worker 中执行。手工制作仍在工作台本地运行。
 
 所有在用语言与视觉模型统一通过 OpenRouter；AgentCore 战术分析与旧身份/球队识别适配器也使用 OpenRouter。旧 Qwen 地面轨迹和实测回放已移除工作台入口，其历史文件保留供归档查阅。中文配音使用阿里云 `qwen-audio-3.1-tts-flash`，默认男声 `anmingyuan_v3.1`。TTS 不再调用 Amazon Polly。

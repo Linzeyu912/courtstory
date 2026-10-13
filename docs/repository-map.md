@@ -1,55 +1,72 @@
 # 仓库目录与内容边界
 
-更新：2026-10-05，Asia/Shanghai。按用户要求，调研、赛事任务、环境准备和作品工程分目录保存。此次整理只调整存放与引用，不代表新功能、模型效果或云端部署完成。
+更新：2026-10-13，Asia/Singapore（UTC+8）。本页依据主仓库实际跟踪的文件整理，配合[根 README](../README.md)回答资料在哪里、目录之间如何协作，以及新增内容应放哪里。产品说明统一从 [engineering/README.md](../engineering/README.md)进入。
 
-跨成员成果如何衔接，见[成果与接续总览](work-index.md)。新增的 THY 导入视频诊断归视觉研究，005 V2 制作基准和原始制作资料归作品工程，原交接保留在个人目录。
+## 当前目录职责
 
-## 四个主目录
+| 类别 | 目录与入口 | 应保存的内容 | 与其他目录的边界 |
+| --- | --- | --- | --- |
+| 调研 | [research/](../research/README.md) | 来源、论文、模型比较、独立实验脚本及结果 | 已被产品复用的运行算法保留在工程中，研究结果不直接等于产品能力 |
+| 需求 | [requirements/](../requirements/README.md) | 官方规则、评分、交付要求及有日期的来源 | 团队建议与产品实现另存，不改写原始来源 |
+| 环境 | [environment/](../environment/README.md) | 本机依赖、模型环境、AWS 账号与工具准备 | 安装和权限说明留此；产品部署代码与操作说明随工程 |
+| 产品 | [engineering/](../engineering/README.md) | 前端、服务、Agent、算法、配置、测试、基础设施和产品文档 | 完整产品介绍在本目录 README；仓库总览不重复维护产品正文 |
+| 数据 | [data/](../data/README.md) | 视频输入、标签、轨迹、比赛名单与历史辅助数据 | 原始数据、机器候选和人工确认分别记录 |
+| 参考数据 | [2K Player Data/](../2K%20Player%20Data/README.md) | 球员能力、球队赛季名单与来源索引 | 保留独立数据包契约；游戏评分不能替代真实比赛统计 |
+| 成果 | [deliverables/](../deliverables/README.md) | 已选定的最终成片及字幕 | 产品输出；输入和处理中间产物不能混称最终成果 |
+| 决策与协作 | [docs/](README.md) | 采用的决定、状态、流程、成员和仓库索引 | 决策在 [decisions.md](decisions.md)，状态在 [status.md](status.md)，产品设计在工程文档 |
+| 过程 | [handoffs/](../handoffs/README.md) | 每轮任务的修改、验证、来源、阻塞与下一步 | 保留当时事实，当前结论通过状态和决策文档引用 |
+| 维护 | 根 `scripts/`、`config/`、`.githooks/`、`.github/` | 视频/LFS 检查、Git 署名规则、CI 与 Issue 模板 | 与 `engineering/scripts/` 产品逻辑、`engineering/configs/` 产品配置区分 |
+
+## 产品、调研与决定如何衔接
+
+需求说明约束，调研提供证据；已确认采用的选择写入 `docs/decisions.md`，产品设计和实现进入 `engineering/`。验证结果随产品或研究专题保存，每次工作用 `handoffs/` 记录范围和入口，`docs/status.md` 汇总当前进展。
+
+待讨论的方案不能写成已采用决定，实验跑通不能写成产品已上线，安装完成不能写成部署完成。混合资料应拆分正文并互相链接：模型比较进研究，账号准备进环境，产品接入进工程。
+
+## 产品内部结构
 
 ```text
-research/                         # 调研、实验脚本、来源与结果
-  vision/                         # 篮球跟踪、身份 / 脚点绑定、球场与 2D
-    scripts/                      # 独立视觉研究探针
-    vision-player-refinement/     # 原专题及结果配套
-  agents/                         # Agent、视频理解与源码研究
-  basketball-models/              # 篮球论文、模型与权重验证
-  evidence/                       # 数据证据、纠错与故障实验
-  runtime/                        # 历史性能和服务可行性调查
-requirements/                     # 官方任务、规则、评分、交付与来源
-  references/                     # 指标参考
-  archive/                        # 历史培训、报名和手册
-environment/                      # 电脑、依赖、账号与工具准备
-  local/                          # 本机开发、模型与依赖
-  aws/                            # CLI / CDK、profile、登录及资源核验
-engineering/                      # 作品和工作台
-  tools/                          # 前端、战术渲染及审核工具
-  scripts/                        # 后端、候选处理及复用算法
-  configs/                        # 产品运行配置
-  docs/                           # 设计、接口、操作、计划与验收
-  archive/                        # 历史产品工具与实现
+engineering/
+  README.md          产品介绍、Single 样例、架构与使用入口
+  tools/             工作台前端、审核、图形和预览工具
+  scripts/           服务、视频处理、身份、解说与复用算法
+  configs/           运行配置
+  agent-workflows/   Agent 工作流契约
+  infra/             EC2 / AgentCore / CloudFront / SageMaker 工程
+  tests/             回归检查和固定样例
+  docs/              产品设计、操作、接口、计划与验收说明
 ```
 
-实际 CDK 应用代码属于作品工程，后续可建 `engineering/infra/`；当前尚无可部署工程，环境就绪不能写成部署成功。
+产品[本地安装](../engineering/docs/local-setup.md)、[云端工程说明](../engineering/docs/cloud-setup.md)和[既有运维记录](../engineering/docs/aws-live-deployment.md)随产品放在 `engineering/docs/`。`infra/` 已有实际工程代码；是否在某个账号部署、当时验证到哪一步，以对应日期的记录为准。
 
-## 内容该放哪里
+脚本按实际调用关系分类：生产流程复用的算法保留在 `engineering/scripts/`，独立研究探针放 `research/` 对应专题。文件名中出现 benchmark 不足以判断应归哪一类。
 
-| 内容 | 主入口 | 边界 |
+## 数据与成果的关系
+
+- `data/videos/`：当前活动输入由 [catalog.json](../data/videos/catalog.json) 和 [review-library.json](../data/videos/tactics/acceptance/review-library.json)定义；本次核对只包含 Single 考试视频及其标签、轨迹和来源。
+- `data/player-rosters/`：明确比赛的球员名单，用作身份候选依据；不能将其他比赛名单自动套用到 Single。
+- `data/workbench/`：保留的历史标定和脚点辅助 JSON，按样例与日期使用。
+- `2K Player Data/`：参考能力数据包，独立保留原索引与来源契约。
+- `deliverables/`：Single 最终成片与 SRT；与输入片段分别管理。
+
+这些路径已被工作台和部署打包代码引用，本次保留物理位置，统一由[数据总览](../data/README.md)导航。共享视频遵守 [Git LFS 规范](video-data-management.md)，本地原片、草稿和处理中间文件保留在被忽略的目录。
+
+## 2026-10-13 文档整理
+
+| 原入口 | 当前入口 | 调整方式 |
 | --- | --- | --- |
-| 跟踪、脚环 / 身份绑定、脚点与球场研究 | [视觉研究](../research/vision/README.md) | 报告、独立实验脚本和结果成套保存 |
-| 论文、Agent、证据与性能调查 | [research](../research/README.md) | 保留来源、日期、输入输出与限制 |
-| 比赛做什么、怎么评分、何时交付 | [requirements](../requirements/README.md) | 官方要求和来源；工程建议另存 |
-| 安装工具、模型依赖、账号与权限 | [environment](../environment/README.md) | 可共享说明与状态，不保存实际凭据 |
-| 工作台、Agent、成片与云端应用 | [engineering](../engineering/README.md)、[产品文档](../engineering/docs/README.md) | 代码、功能说明、测试及部署代码随作品保存 |
-| 视频、标签和候选 | [视频入口](../data/videos/README.md)、[规范](video-data-management.md) | 视频唯一入口；共享成片用 LFS |
-| 球员数据包 | [manifest](../2K%20Player%20Data/manifest.json)、[约定](../2K%20Player%20Data/AGENTS.md) | 保留原目录与契约 |
-| 团队协作、进度与决定 | [流程](workflow.md)、[状态](status.md)、[决策](decisions.md) | 协作与索引，不放研究正文或产品设计 |
-| 每轮过程与验证 | [handoffs](../handoffs/README.md) | 保留当时事实与路径文字，只更新可点击链接 |
+| 根 README 的产品介绍 | [engineering/README.md](../engineering/README.md) | 产品正文迁入产品目录，根 README 改为仓库导览 |
+| `docs/local-setup.md` | [engineering/docs/local-setup.md](../engineering/docs/local-setup.md) | 产品安装说明随工程保存 |
+| `docs/cloud-setup.md` | [engineering/docs/cloud-setup.md](../engineering/docs/cloud-setup.md) | 产品云端说明随工程保存 |
+| `docs/aws-live-deployment.md` | [engineering/docs/aws-live-deployment.md](../engineering/docs/aws-live-deployment.md) | 保留原有运维事实与时间，迁入产品文档 |
+| 缺少数据、决定与协作总览 | [data/README.md](../data/README.md)、[docs/README.md](README.md) | 补齐分类入口 |
 
-混合文档应拆开：安装 / 账号步骤放环境，比较和测量放研究，产品接入放工程，彼此链接。项目依赖清单仍在代码旁，环境说明引用清单，不维护两套版本。
+[本轮迁移清单](repository-migrations/2026-10-13-readme-layout.json)记录文件与内容的对应关系。目录整理只改变文档组织与导航，不搬运行代码、媒体或模型，不代表新的云端部署。
 
-按实际调用关系分类脚本。生产候选生成器正在复用的公共算法留在 `engineering/scripts/`；八个独立视觉探针迁到 `research/vision/scripts/`。文件名含 benchmark 不必然代表独立研究。
+## 2026-10-05 历史迁移记录
 
-## 本轮迁移表
+以下记录保留当时的迁移对应；部分旧样例和归档目录后来已从当前文件树移除，需要结合 Git 历史查看。当前目录以本页上半部分为准。
+
 
 逐文件查询见[243 条迁移映射](repository-migrations/2026-10-05-layout.json)。
 
@@ -71,10 +88,9 @@ engineering/                      # 作品和工作台
 
 原始 JSON、来源快照、源码摘录、视频和历史手册不改字节；里面的旧路径是采集时记录，按本表映射。当前候选清单和代码读取路径随迁移更新，历史交接只修复链接。
 
-## 其他固定入口
 
-`data/`、`2K Player Data/`、`docs/`、`handoffs/`、根 `scripts/` 分别保留数据、球员包、协作、历史过程及仓库维护工具。根 `scripts/validate_video_data.py` 负责视频 / LFS 检查，`scripts/requirements/` 保存历史手册生成器。
+## 本地目录与共享内容
 
-活动素材入口为 [data/videos/classification](../data/videos/classification/README.md)，当前 163 段；人工抽检与删除依据留在原数据入口。本轮不搬视频、改标签或合并草稿。
+`tmp/`、`artifacts/`、本机输出、原片、草稿、虚拟环境、模型权重和凭据继续按忽略规则管理。它们可能出现在某台电脑的目录列表中，不代表已入库或在其他电脑可用。
 
-`tmp/`、`artifacts/`、`data/raw/`、本机视频 / 草稿、虚拟环境与模型继续忽略。新建研究目录不会把下载的源码或权重自动入库。当前仅本地整理，提交推送状态以最新交接为准。2026-10-02 的初次拆分见[历史交接](../handoffs/Linzeyu912/2026-10-02-1109-organize-publish.md)。
+原始 JSON、来源快照、源码摘录、视频和历史手册保留原貌。历史交接保留当时路径文字，修复可点击链接；不为修复索引重新引入已移除的大文件。初次拆分见[2026-10-02 交接](../handoffs/Linzeyu912/2026-10-02-1109-organize-publish.md)。

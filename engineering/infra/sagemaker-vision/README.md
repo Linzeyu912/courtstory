@@ -1,6 +1,6 @@
 # SageMaker 视觉开发实例
 
-2026-10-10 新增工作台 GPU worker：`worker.py` 消费私有 S3 中的视频和场地推理作业，`start_worker.sh` 复用本目录准备的运行环境与权重。运行中的部署见 [AWS 工作台运行与维护](../../../docs/aws-live-deployment.md)。下文保留原始 Notebook 建立与一次性验证流程。
+2026-10-10 新增工作台 GPU worker：`worker.py` 消费私有 S3 中的视频和场地推理作业，`start_worker.sh` 复用本目录准备的运行环境与权重。运行中的部署见 [AWS 工作台运行与维护](../../docs/aws-live-deployment.md)。下文保留原始 Notebook 建立与一次性验证流程。
 
 本目录通过 CDK 创建一台 GPU Notebook，复用主办方预置 `NBAHackathonWorkloadRole`。默认 `ml.g5.2xlarge`、AL2023、50 GiB 持久磁盘；不创建 IAM 角色，不执行 CDK bootstrap，也不部署推理 Endpoint。Notebook 首次启动的环境安装脚本另见下文。
 

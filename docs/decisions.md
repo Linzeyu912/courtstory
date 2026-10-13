@@ -2,6 +2,15 @@
 
 只把已经做出的决定写为“采用”。讨论中的方案标为“待定”，并记录参与人或关联 Issue。
 
+## D017：仓库导览与产品说明分层维护
+
+- 日期：2026-10-13，Asia/Singapore（UTC+8）。状态：按用户本聊天要求采用。
+- 根 README 介绍主仓库的目录、职责与关系；CourtStory 产品介绍、Single 样例、架构和制作流程集中到 `engineering/README.md`，明确 `engineering/` 为产品目录。
+- 调研在 `research/`，规则在 `requirements/`，环境准备在 `environment/`，数据从 `data/README.md` 统一导航，已确认决定和当前状态分别保存在 `docs/decisions.md` 与 `docs/status.md`，过程证据在 `handoffs/`。
+- 产品安装、云端及运行维护三份说明从根 `docs/` 迁入 `engineering/docs/`；根 `docs/README.md` 负责仓库协作入口，避免产品说明与决定混放。
+- 产品运行直接引用的 `data/`、`2K Player Data/`、`deliverables/` 路径保持；通过说明厘清输入、参考评分与最终成片的区别。旧来源与交接保留当时事实，缺失历史入口转向可核实的历史版本。
+- 本轮不修改比赛快照仓库、运行实现或媒体，不部署云端。详细映射见[目录说明](repository-map.md)和[本轮交接](../handoffs/Linzeyu912/2026-10-13-1001-repository-readme-layout.md)。
+
 ## D016：正式区分 CourtStory 开发主仓库与比赛快照仓库
 
 - 日期：2026-10-11，Asia/Singapore（UTC+8）。状态：按用户本聊天明确要求采用。
