@@ -1,3 +1,5 @@
+import {runTrim} from './trim-client.mjs';
+
 export function mountFootageUI(api){
   const $=id=>document.getElementById(id),last=api.clip.frames.length-1;
   for(const id of ['liveStart','liveEnd'])$(id).max=last+1;
@@ -21,10 +23,8 @@ export function mountFootageUI(api){
     }
     $('liveApply').disabled=true;$('liveApply').textContent='正在生成剪辑和对应候选…';
     try{
-      const response=await fetch('/api/trim',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({sample:api.sample,variant:api.variant,qa:api.qa,ranges})});
-      if(!response.ok){const message=await response.json().catch(()=>null);throw new Error(message?.error||'剪辑生成失败，原视频仍可使用。');}
-      const result=await response.json(),params=new URLSearchParams(location.search);
+      const result=await runTrim({sample:api.sample,variant:api.variant,qa:api.qa,ranges},
+        {onProgress:message=>$('liveApply').textContent=message}),params=new URLSearchParams(location.search);
       params.set('sample',result.sample);params.delete('variant');location.assign(`/?${params}`);
     }catch(error){api.toast(error.message);$('liveApply').disabled=false;$('liveApply').textContent='应用剪辑，进入球员标定';}
   };

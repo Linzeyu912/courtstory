@@ -197,6 +197,7 @@ def trim_review_clip(source, ranges, output_dir):
                 new_records.append(record);last_source=index
                 frame.pts=round(output_times[index]/float(time_base));frame.time_base=time_base
                 for packet in dst.encode(frame):result.mux(packet)
+                if index == kept[-1]:break
             for packet in dst.encode():result.mux(packet)
         with av.open(str(video)) as container:
             out_stream=container.streams.video[0];out_time_base=out_stream.time_base;out_fps=float(out_stream.average_rate)

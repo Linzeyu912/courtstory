@@ -26,6 +26,60 @@ class RaisingParser:
 
 
 class ReviewServerTests(unittest.TestCase):
+    def test_async_trim_registers_playable_multirange_clip_and_survives_restart_without_aws(self):
+        state = self.root / 'async-server.json'
+        library = self.root / 'async-library.json'
+        library.write_text(json.dumps({'defaultSample': 'fixture', 'samples': [self.sample]}), encoding='utf-8')
+        command = [sys.executable, str(Path(__file__).with_name('serve_player_review.py')),
+                   '--library', str(library), '--deployment-mode', 'local', '--port', '0',
+                   '--state-file', str(state), '--trim-root', str(self.root / 'async-trims'),
+                   '--import-cache', str(self.root / 'async-imports'), '--video-folder', str(self.root / 'async-inbox'),
+                   '--tactics-folder', str(self.root / 'async-tactics')]
+        child_env = {**os.environ, 'HKS_GPU_PREFIX': 'unused-cloud-worker', 'HKS_AGENT_RUNTIME': 'unused-runtime'}
+        sample_id = None
+        for attempt in range(2):
+            state.unlink(missing_ok=True)
+            process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                                       stderr=subprocess.PIPE, env=child_env)
+            try:
+                deadline = time.monotonic() + 15
+                while not state.is_file() and process.poll() is None and time.monotonic() < deadline:
+                    time.sleep(.02)
+                self.assertTrue(state.is_file(), 'Local fixture server must start without AWS access')
+                config = json.loads(state.read_text())
+                self.assertEqual(config['deploymentMode'], 'local')
+                url = config['url']
+                if attempt == 0:
+                    request = Request(url + 'api/trim', data=json.dumps({'sample': 'fixture', 'async': True,
+                                      'ranges': [{'start': 0, 'end': 1}, {'start': 3, 'end': 3}]}).encode(),
+                                      headers={'Content-Type': 'application/json'}, method='POST')
+                    with urlopen(request, timeout=3) as response:
+                        self.assertEqual(response.status, 202)
+                        job = json.load(response)
+                    deadline = time.monotonic() + 10
+                    while job['status'] in ('queued', 'running') and time.monotonic() < deadline:
+                        with urlopen(url + 'api/trim-jobs/' + job['id'], timeout=3) as response:
+                            job = json.load(response)
+                        time.sleep(.02)
+                    self.assertEqual(job['status'], 'ready', job)
+                    sample_id = job['result']['sample']
+                    self.assertEqual(job['result']['frames'], 3)
+                    self.assertEqual(job['result']['sourceCuts'], [2])
+                with urlopen(url + 'api/library', timeout=3) as response:
+                    self.assertIn(sample_id, [s['id'] for s in json.load(response)['samples']])
+                with urlopen(url + 'api/clip?sample=' + sample_id, timeout=3) as response:
+                    clip = json.load(response)
+                    self.assertEqual([r['source_frame'] for r in clip['frames']], [0, 1, 3])
+                    self.assertEqual(clip['sourceCuts'], [2])
+                with urlopen(Request(url + 'video.mp4?sample=' + sample_id,
+                                     headers={'Range': 'bytes=0-31'}), timeout=3) as response:
+                    self.assertEqual(response.status, 206)
+                    self.assertEqual(len(response.read()), 32)
+            finally:
+                if process.poll() is None:
+                    process.terminate()
+                process.communicate(timeout=5)
+
     def test_explicit_utf16_environment_reaches_commentary_status_without_exposing_keys_or_enabling_tts(self):
         state=self.root/'environment-server.json'
         env_file=self.root/'explicit.env'

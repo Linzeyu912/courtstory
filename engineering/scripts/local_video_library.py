@@ -96,7 +96,7 @@ class LocalVideoLibrary:
             except Exception as error:
                 self.restore_errors[ident] = f'已有结果无法加载：{error}'
 
-    def scan(self):
+    def scan(self, include_runtime=True):
         with self.lock:
             entries, paths = {}, {}
             candidates = [(p, 'local', p.relative_to(self.folder).as_posix(), None) for p in sorted(self.folder.rglob('*'))]
@@ -152,10 +152,15 @@ class LocalVideoLibrary:
                     'message': '共享视频尚未完整下载，请先下载 Git LFS 成片' if unavailable else job['message'] if job else self.restore_errors.get(ident, '已处理，可打开' if ready else '选择方案后开始处理'),
                     'jobVariant': job.get('variant') if job else None}
             self.paths = paths
+            inventory = {'folder': str(self.folder), 'entries': list(entries.values()),
+                         'presets': copy.deepcopy(PRESETS)+[MANUAL_PRESET],
+                         'modelChoices': copy.deepcopy(MODEL_CHOICES), 'maxUploadBytes': MAX_UPLOAD}
+        # A slow local interpreter or remote GPU heartbeat must not lock the library.
+        if include_runtime:
             runtime = copy.deepcopy(self.runtime_probe())
             runtime.setdefault('variants',{})['manual']={'available':True,'reason':''}
-            return {'folder': str(self.folder), 'entries': list(entries.values()), 'presets': copy.deepcopy(PRESETS)+[MANUAL_PRESET], 'modelChoices': copy.deepcopy(MODEL_CHOICES),
-                    'maxUploadBytes': MAX_UPLOAD, 'runtimeAvailable': runtime['available'], 'runtime': runtime}
+            inventory.update(runtimeAvailable=runtime['available'], runtime=runtime)
+        return inventory
 
     def import_stream(self, filename, stream, size):
         if (not isinstance(filename, str) or not filename or len(filename) > 180
@@ -179,7 +184,7 @@ class LocalVideoLibrary:
             check_video(temporary)
             ident = 'local-' + file_hash(temporary)
             with self.lock:
-                self.scan()
+                self.scan(include_runtime=False)
                 duplicate = ident in self.paths
                 if not duplicate:
                     destination = self.folder / filename
@@ -189,7 +194,7 @@ class LocalVideoLibrary:
                     with destination.open('xb') as output, temporary.open('rb') as source:
                         import shutil
                         shutil.copyfileobj(source, output)
-                    self.scan()
+                    self.scan(include_runtime=False)
                 if self.collection:
                     self.collection.activate(ident)
             return {'id': ident, 'duplicate': duplicate}
@@ -199,13 +204,17 @@ class LocalVideoLibrary:
     def import_and_start(self, filename, stream, size, variant='team-stable'):
         imported = self.import_stream(filename, stream, size)
         ident = imported['id']
-        with self.lock:
-            try:
-                job = self.start(ident, variant)
-            except ValueError as error:
-                job = {'status': 'error', 'variant': variant, 'message': str(error), 'sampleId': ident}
-                self.jobs[ident] = job
-                atomic_json(self.jobs_manifest, self.jobs)
+        try:
+            job = self.start(ident, variant)
+        except ValueError as error:
+            with self.lock:
+                current = self.jobs.get(ident)
+                if current and current['status'] in {'queued', 'running'}:
+                    job = copy.deepcopy(current)
+                else:
+                    job = {'status': 'error', 'variant': variant, 'message': str(error), 'sampleId': ident}
+                    self.jobs[ident] = job
+                    atomic_json(self.jobs_manifest, self.jobs)
         return {**imported, 'job': copy.deepcopy(job)}
 
     def archive(self, ident):
@@ -227,8 +236,8 @@ class LocalVideoLibrary:
             variant = resolve_selection(detector, tracker, variant)
         if variant not in {p['id'] for p in PRESETS} | {'manual'}:
             raise ValueError('请选择有效的处理方案。')
+        inventory = self.scan(include_runtime=variant != 'manual')
         with self.lock:
-            inventory = self.scan()
             if ident not in self.paths:
                 raise ValueError('视频已移走或尚未扫描到，请刷新文件夹。')
             job = self.jobs.get(ident)
@@ -237,7 +246,8 @@ class LocalVideoLibrary:
             sample = self.saved.get(ident)
             if ident not in self.restore_errors and sample and any(v['id'] == variant for v in sample.get('trackingVariants', [])):
                 return {'status': 'ready', 'sampleId': ident, 'variant': variant, 'message': '这个方案已有结果'}
-            availability = inventory['runtime'].get('variants', {}).get(variant, inventory['runtime'])
+            availability = ({'available': True} if variant == 'manual' else
+                            inventory['runtime'].get('variants', {}).get(variant, inventory['runtime']))
             if not availability['available']:
                 raise ValueError(availability.get('reason') or '当前模型不可用，请检查推理环境与模型权重。')
             if self.collection: self.collection.activate(ident)
@@ -250,10 +260,14 @@ class LocalVideoLibrary:
         # Called only with a source already validated and served by the workbench.
         # The HTTP client cannot provide a filesystem path here.
         video = Path(video).resolve()
+        stat = video.stat()
+        digest = file_hash(video)
+        ident = 'local-' + digest
         with self.lock:
             self.review_sources[video] = title
-            self.scan()
-            return 'local-' + file_hash(video)
+            self.hashes[str(video)] = ((stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns), digest)
+            self.paths[ident] = video
+        return ident
 
     def _process(self, ident, variant, source):
         try:
@@ -275,7 +289,10 @@ class LocalVideoLibrary:
                 updated = {**self.saved, ident: result}
                 atomic_json(self.manifest, updated)
                 self.saved = updated
-                self.publish(result, clip)
+            # Publishing takes the server's mutation lock. Never hold the library
+            # lock here: trimming registers its output in the opposite direction.
+            self.publish(result, clip)
+            with self.lock:
                 self.restore_errors.pop(ident, None)
                 self.jobs[ident].update(status='ready', message='处理完成，可以打开')
                 atomic_json(self.jobs_manifest, self.jobs)
