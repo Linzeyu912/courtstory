@@ -30,6 +30,18 @@ def load_server_environment(path):
     load_dotenv(stream=io.StringIO(environment_text(path)), override=False)
 
 
+def configure_deployment(mode):
+    """An explicit local launch cannot inherit AWS execution from another shell."""
+    if mode == 'local':
+        for key in ('HKS_GPU_PREFIX', 'HKS_AGENT_RUNTIME'):
+            os.environ.pop(key, None)
+    elif mode == 'aws':
+        missing = [key for key in ('HKS_BUCKET', 'HKS_PREFIX') if not os.environ.get(key)]
+        if missing:
+            raise ValueError('AWS 部署缺少配置：' + ', '.join(missing))
+    return ('aws' if os.environ.get('HKS_GPU_PREFIX') or os.environ.get('HKS_AGENT_RUNTIME') else 'local') if mode == 'auto' else mode
+
+
 def initially_active_samples(library, retained):
     """Opt important shared samples into new workspaces without undoing user archives."""
     extra = library.get('initiallyActiveSamples', [])
@@ -48,6 +60,8 @@ def main():
     parser.add_argument("--library", help="JSON library with explicit sample video / tracks paths")
     parser.add_argument("--alternative-tracks", help="Optional jersey-constrained experiment; separate browser drafts")
     parser.add_argument("--port", type=int, default=8876)
+    parser.add_argument("--deployment-mode", choices=('auto', 'local', 'aws'), default='auto',
+                        help="local disables inherited AWS executors; aws validates storage configuration; auto preserves older launch commands")
     parser.add_argument("--env-file", type=Path,
                         help="Explicit UTF-8 or BOM-tagged UTF-16 environment file; existing same-name environment variables take priority")
     parser.add_argument("--court-profile", default="data/workbench/clip001-court-expanded.json")
@@ -90,6 +104,7 @@ def main():
     args = parser.parse_args()
     try:
         load_server_environment(args.env_file)
+        deployment_mode = configure_deployment(args.deployment_mode)
     except ValueError as error:
         parser.error(str(error))
     if args.library:
@@ -202,17 +217,17 @@ def main():
     for sample_item in samples:
         if Path(clips[sample_item['id']]['video']).is_file():
             local_library.register_review_source(clips[sample_item['id']]['video'],sample_item.get('title',sample_item['id']))
-    def video_inventory():
-        inventory=merge_review_sources(local_library.scan(),dict(clips))
+    def video_inventory(include_runtime=True):
+        inventory=merge_review_sources(local_library.scan(include_runtime=include_runtime),dict(clips))
         collection.reconcile(samples,inventory['entries'])
         all_entries=inventory['entries']
         inventory['entries']=collection.filter_entries(all_entries)
         inventory['archivedEntries']=collection.filter_entries(all_entries,'archived')
         return inventory
-    video_inventory()
+    video_inventory(include_runtime=False)
     default=retained
     def library_payload():
-        video_inventory()
+        video_inventory(include_runtime=False)
         active_samples=collection.filter_samples(samples)
         current_default=default if any(s['id']==default for s in active_samples) else active_samples[0]['id'] if active_samples else default
         return json.dumps({"defaultSample":current_default,"processingPresets":PRESETS,"modelChoices":MODEL_CHOICES,"samples":[{
@@ -239,6 +254,7 @@ def main():
     for filename in ["ball-court.mjs","ground-position.mjs","ground-comparison-ui.mjs","identity-ocr.mjs","style.css","pipeline.css","app.mjs","player-identity.mjs","missing-player-range.mjs","footage-ui.mjs","manual-path.mjs","trajectory.mjs","identity-timeline.mjs","tracking-display.mjs","tracking-diagnostics.mjs","automatic-annotations.mjs","identity-initial-review.mjs","identity-review-workflow.mjs","scene-objects.mjs","scene-objects-ui.mjs","calibration-guide.mjs","feet-candidates.mjs","team-overlay.mjs","team-overlay-policy.json","court.mjs","workspace.mjs","court-geometry.mjs","image-edit.mjs","ui.bundle.mjs","ui.bundle.mjs.LEGAL.txt"]:
         routes['/'+filename]=static/filename
     routes['/video-library.mjs']=static/'video-library.mjs'
+    routes['/trim-client.mjs']=static/'trim-client.mjs'
     for filename in ['commentary-ui.mjs', 'commentary-client.mjs', 'api-request.mjs', 'commentary-ui.css']:
         routes['/'+filename]=static/filename
     for filename in ['player-name-identity.mjs', 'player-name-client.mjs', 'player-name-ui.mjs']:
@@ -261,6 +277,48 @@ def main():
             routes['/player-review'+route]=path
     for filename in ['overlay.mjs','binding.mjs','validation.mjs','geometry.mjs','render-svg.mjs']:
         routes['/tactical-overlay/'+filename]=static.parent/'tactical-overlay'/filename
+
+    def materialize_trim(request, progress=lambda message: None):
+        from review_video_trim import trim_review_clip
+        source_id = request['sample']
+        with mutation_lock:
+            parent = next(s for s in samples if s['id'] == source_id)
+            source_clip = clips[source_id]
+            variant = request.get('variant', source_clip['defaultVariant'])
+            source = {'video': source_clip['video'],
+                      'payload': json.loads(source_clip['payloads'][variant]),
+                      'payloads': {key: json.loads(value) for key, value in source_clip['payloads'].items()}}
+        ident = ('qa-cut-' if request.get('qa') is True else 'cut-') + uuid.uuid4().hex[:12]
+        progress('正在截取视频并整理对应候选…')
+        result = trim_review_clip(source, request['ranges'], cache / ident)
+        selection = {'ranges': result['retainedRanges'], 'confirmedAt': datetime.now(timezone.utc).isoformat(),
+                     'method': 'manual_retained_frame_ranges', 'parentVideoSha256': source_clip['digest']}
+        sample = {**result, 'id': ident, 'title': parent.get('title', source_id) + ' · 人工剪辑',
+                  'description': f"保留 {len(result['retainedRanges'])} 个直播区间；区间之间断开轨迹。人工剪辑当前不含音轨；原片音轨保留。",
+                  'sourceUrl': parent.get('sourceUrl'), 'liveSelection': selection,
+                  'parentSample': source_id, 'parentVideoSha256': source_clip['digest']}
+        progress('正在核对新片段并加入视频库…')
+        clip = validated_clip(sample)
+        # Neither media processing nor library registration holds the shared publication lock.
+        local_library.register_review_source(clip['video'], sample['title'])
+        with mutation_lock:
+            if request.get('qa') is not True:
+                updated = [*saved, sample]
+                temporary = cache / ('library-' + uuid.uuid4().hex + '.json')
+                try:
+                    temporary.write_text(json.dumps(updated, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+                    temporary.replace(saved_path)
+                finally:
+                    temporary.unlink(missing_ok=True)
+                saved.append(sample)
+            clips[ident] = clip
+            samples.append(sample)
+            collection.activate(ident)
+        return {'sample': ident, 'frames': clip['frames'], 'sourceCuts': result['sourceCuts'],
+                'audioPolicy': result['audioPolicy']}
+
+    from review_trim_jobs import ReviewTrimJobs
+    trim_jobs = ReviewTrimJobs(materialize_trim)
 
     class Handler(BaseHTTPRequestHandler):
         def json_response(self, status, value, head_only=False):
@@ -494,28 +552,15 @@ def main():
                     data=json.dumps(result,ensure_ascii=False,allow_nan=False).encode('utf-8')
                     self.send_response(200);self.send_header('Content-Type','application/json; charset=utf-8')
                     self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
-                from review_video_trim import trim_review_clip
-                with mutation_lock:
-                    parent=next(s for s in samples if s['id']==source_id)
-                    ident=('qa-cut-' if request.get('qa') is True else 'cut-')+uuid.uuid4().hex[:12]
-                    result=trim_review_clip({'video':clips[source_id]['video'],
-                        'payload':json.loads(clips[source_id]['payloads'][variant]),
-                        'payloads':{key:json.loads(value) for key,value in clips[source_id]['payloads'].items()}},request.get('ranges'),cache/ident)
-                    selection={'ranges':result['retainedRanges'],'confirmedAt':datetime.now(timezone.utc).isoformat(),
-                        'method':'manual_retained_frame_ranges','parentVideoSha256':clips[source_id]['digest']}
-                    sample={**result,'id':ident,'title':parent['title']+' · 人工剪辑',
-                        'description':f"保留 {len(result['retainedRanges'])} 个直播区间；区间之间断开轨迹。人工剪辑当前不含音轨；原片音轨保留。",'sourceUrl':parent.get('sourceUrl'),
-                        'liveSelection':selection,'parentSample':source_id,'parentVideoSha256':clips[source_id]['digest']}
-                    clips[ident]=load_clip(parser,sample);samples.append(sample)
-                    local_library.register_review_source(clips[ident]['video'],sample.get('title',ident))
-                    collection.activate(ident)
-                    if request.get('qa') is not True:
-                        saved.append(sample)
-                        temporary=cache/('library-'+uuid.uuid4().hex+'.json')
-                        temporary.write_text(json.dumps(saved,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');temporary.replace(saved_path)
-                data=json.dumps({'sample':ident,'frames':clips[ident]['frames'],'sourceCuts':result['sourceCuts'],
-                                 'audioPolicy':result['audioPolicy']}).encode('utf-8')
-                self.send_response(200);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data)
+                from review_video_trim import retained_ranges
+                ranges = retained_ranges(request.get('ranges'), clips[source_id]['frames'])
+                if 'async' in request and type(request['async']) is not bool:
+                    raise ValueError('异步剪辑选项必须为布尔值。')
+                trim_request = {**request, 'variant': variant, 'ranges': ranges}
+                if request.get('async') is True:
+                    self.json_response(202, trim_jobs.submit(trim_request))
+                else:
+                    self.json_response(200, materialize_trim(trim_request))
             except (ValueError,TypeError,KeyError) as error:
                 data=json.dumps({'error':str(error)},ensure_ascii=False).encode('utf-8')
                 self.send_response(400);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data)
@@ -531,6 +576,10 @@ def main():
         def respond(self, head_only=False):
             from urllib.parse import parse_qs
             parsed=urlsplit(self.path);route=parsed.path;query=parse_qs(parsed.query)
+            if route.startswith('/api/trim-jobs/'):
+                job = trim_jobs.get(route.removeprefix('/api/trim-jobs/'))
+                self.json_response(200 if job else 404, job or {'error': '剪辑任务不存在或服务已重启；请检查视频库中的成片。'}, head_only)
+                return
             if route == '/api/trajectory-replay':
                 root = Path(args.trajectory_replay_root).resolve()
                 try:
@@ -741,12 +790,13 @@ def main():
         request_queue_size = 128
     server=Server(('127.0.0.1',args.port),Handler)
     state_path=Path(args.state_file);state_path.parent.mkdir(parents=True,exist_ok=True)
-    state={'url':f'http://127.0.0.1:{server.server_port}/','pid':os.getpid(),'samples':len(samples),
+    state={'url':f'http://127.0.0.1:{server.server_port}/','pid':os.getpid(),'samples':len(samples),'deploymentMode':deployment_mode,
            'video_sha256':clips[default]['digest'],'frames':clips[default]['frames']}
     state_path.write_text(json.dumps(state,indent=2)+'\n',encoding='utf-8');print(json.dumps(state),flush=True)
     try:server.serve_forever()
     except KeyboardInterrupt:pass
     finally:
+        trim_jobs.close()
         drawing.close()
         commentary.close()
         name_jobs.close()

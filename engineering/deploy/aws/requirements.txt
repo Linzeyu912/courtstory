@@ -1,0 +1,3 @@
+# Application dependencies plus the optional AWS execution adapters.
+-r ../../requirements-review.txt
+boto3==1.43.108

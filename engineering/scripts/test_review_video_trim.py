@@ -4,6 +4,7 @@ from pathlib import Path
 import json
 import copy
 import hashlib
+from unittest.mock import patch
 from review_video_trim import retained_ranges,trim_review_clip
 from serve_player_review import validated_clip
 
@@ -77,6 +78,46 @@ class ReviewTrimTests(unittest.TestCase):
             result=trim_review_clip({'video':video,'payload':{'video_sha256':'variable','frames':records}},[{'start':1,'end':4}],root/'cut')
             data=json.loads(Path(result['tracks']).read_text());out=[r['time'] for r in data]
             for expected,actual in zip([t-times[1] for t in times[1:]],out):self.assertAlmostEqual(expected,actual,places=3)
+
+    def test_short_trim_stops_source_decoding_at_last_retained_frame(self):
+        import av
+        import numpy as np
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            video = root / 'source.mp4'
+            with av.open(str(video), 'w') as container:
+                stream = container.add_stream('libx264', rate=10)
+                stream.width, stream.height, stream.pix_fmt = 64, 48, 'yuv420p'
+                for index in range(40):
+                    frame = av.VideoFrame.from_ndarray(np.full((48, 64, 3), index * 5, np.uint8), format='rgb24')
+                    for packet in stream.encode(frame): container.mux(packet)
+                for packet in stream.encode(): container.mux(packet)
+            with av.open(str(video)) as container:
+                times = [float(frame.time) for frame in container.decode(video=0)]
+            records = [{'frame': index, 'time': time, 'tracks': []} for index, time in enumerate(times)]
+            opened = av.open
+            decoded = []
+            class CountedSource:
+                def __init__(self, container): self.container = container
+                def __enter__(self): return self
+                def __exit__(self, *args): self.container.close()
+                def __getattr__(self, name): return getattr(self.container, name)
+                def decode(self, **kwargs):
+                    for index, frame in enumerate(self.container.decode(**kwargs)):
+                        decoded.append(index)
+                        yield frame
+            def counted_open(path, *args, **kwargs):
+                container = opened(path, *args, **kwargs)
+                return CountedSource(container) if Path(path) == video else container
+            with patch.object(av, 'open', side_effect=counted_open):
+                result = trim_review_clip({'video': video, 'payload': {'video_sha256': 'source', 'frames': records}},
+                                          [{'start': 1, 'end': 2}, {'start': 5, 'end': 6}], root / 'cut')
+            self.assertEqual(decoded, list(range(7)))
+            child = json.loads(Path(result['tracks']).read_text())
+            self.assertEqual([record['source_frame'] for record in child], [1, 2, 5, 6])
+            self.assertEqual(result['sourceCuts'], [2])
+            with av.open(result['video']) as container:
+                self.assertEqual([float(frame.time) for frame in container.decode(video=0)], [record['time'] for record in child])
 
     def test_optimized_multirange_and_nested_trim_keep_model_and_visible_segment_suggestions(self):
         import av

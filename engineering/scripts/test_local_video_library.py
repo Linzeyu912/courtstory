@@ -10,6 +10,7 @@ import tempfile
 import threading
 import time
 import unittest
+from unittest.mock import Mock, patch
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
@@ -108,6 +109,147 @@ class LocalLibraryTests(unittest.TestCase):
         self.assertEqual(self.wait(ident)['status'], 'ready')
         self.assertEqual(self.source.read_bytes(), original)
         self.assertEqual(list(self.library.folder.iterdir()), [])
+
+    def test_register_review_source_does_not_scan_or_probe_gpu(self):
+        self.library.runtime_probe = Mock(side_effect=AssertionError('registration must not probe GPU'))
+        with patch.object(self.library, 'scan', side_effect=AssertionError('registration must not scan')):
+            ident = self.library.register_review_source(self.source, 'new trim')
+        self.assertEqual(ident, 'local-' + file_hash(self.source))
+        self.assertEqual(self.library.paths[ident], self.source.resolve())
+        self.assertEqual(self.library.review_sources[self.source.resolve()], 'new trim')
+        self.library.runtime_probe.assert_not_called()
+
+    def test_inventory_without_runtime_works_when_gpu_probe_would_fail(self):
+        ident = self.library.register_review_source(self.source, 'new trim')
+        self.library.runtime_probe = Mock(side_effect=AssertionError('inventory must not probe GPU'))
+        inventory = self.library.scan(include_runtime=False)
+        self.assertEqual(inventory['entries'][0]['id'], ident)
+        self.assertNotIn('runtime', inventory)
+        self.assertNotIn('runtimeAvailable', inventory)
+        self.library.runtime_probe.assert_not_called()
+
+    def test_manual_import_does_not_need_runtime_probe(self):
+        self.library.runtime_probe = Mock(side_effect=AssertionError('manual preparation needs no GPU'))
+        self.library.runner = self.library._run
+        data = self.source.read_bytes()
+        result = self.library.import_and_start('manual.mp4', io.BytesIO(data), len(data), 'manual')
+        self.assertEqual(self.wait(result['id'])['status'], 'ready')
+        self.library.runtime_probe.assert_not_called()
+
+    def test_slow_runtime_probe_does_not_block_trim_registration_or_inventory(self):
+        entered, release, registered = threading.Event(), threading.Event(), threading.Event()
+        errors = []
+        def probe():
+            entered.set()
+            release.wait(5)
+            return {'available': False, 'reason': 'GPU unavailable', 'variants': {}}
+        def scan_runtime():
+            try: self.library.scan()
+            except Exception as error: errors.append(error)
+        def register():
+            try:
+                self.library.register_review_source(self.source, 'trim while probing')
+                self.library.scan(include_runtime=False)
+            except Exception as error: errors.append(error)
+            finally: registered.set()
+        self.library.runtime_probe = probe
+        scanner = threading.Thread(target=scan_runtime, daemon=True)
+        registration = threading.Thread(target=register, daemon=True)
+        scanner.start()
+        try:
+            self.assertTrue(entered.wait(2))
+            registration.start()
+            self.assertTrue(registered.wait(2), 'slow GPU status held the library lock')
+        finally:
+            release.set()
+            scanner.join(3)
+            if registration.ident is not None: registration.join(3)
+        self.assertEqual(errors, [])
+
+    def test_worker_publish_does_not_deadlock_with_trim_registration(self):
+        mutation_lock = threading.Lock()
+        entered, registered = threading.Event(), threading.Event()
+        errors = []
+        snapshots = []
+        ident = self.library.register_review_source(self.source, 'source')
+        def publish(sample, clip):
+            entered.set()
+            with mutation_lock:
+                self.published[sample['id']] = clip
+        def register():
+            try:
+                self.library.register_review_source(self.source, 'trim registration')
+                snapshots.append(self.library.scan(include_runtime=False))
+            except Exception as error: errors.append(error)
+            finally: registered.set()
+        self.library.publish = publish
+        registration = threading.Thread(target=register, daemon=True)
+        mutation_lock.acquire()
+        try:
+            self.library.start(ident, 'manual')
+            self.assertTrue(entered.wait(3))
+            registration.start()
+            self.assertTrue(registered.wait(2), 'worker publish held the library lock while awaiting server lock')
+            self.assertEqual(self.library.jobs[ident]['status'], 'running')
+            self.assertEqual(snapshots[0]['entries'][0]['status'], 'running')
+            self.assertNotIn(ident, self.published)
+        finally:
+            mutation_lock.release()
+            if registration.ident is not None: registration.join(3)
+        self.assertEqual(errors, [])
+        self.assertEqual(self.wait(ident)['status'], 'ready')
+        self.assertIn(ident, self.published)
+
+    def test_delayed_import_preflight_preserves_concurrent_running_job(self):
+        probing, release_probe = threading.Event(), threading.Event()
+        processing, release_worker = threading.Event(), threading.Event()
+        results, errors, calls = [], [], []
+        def probe():
+            probing.set()
+            release_probe.wait(5)
+            return {'available': False, 'reason': 'GPU unavailable', 'variants': {}}
+        def runner(*args):
+            calls.append(args)
+            processing.set()
+            release_worker.wait(5)
+            return self.run_fixture(*args)
+        def import_video():
+            try:
+                data = self.source.read_bytes()
+                results.append(self.library.import_and_start('new.mp4', io.BytesIO(data), len(data), 'yolo'))
+            except Exception as error: errors.append(error)
+        self.library.runtime_probe, self.library.runner = probe, runner
+        importer = threading.Thread(target=import_video, daemon=True)
+        ident = 'local-' + file_hash(self.source)
+        importer.start()
+        try:
+            self.assertTrue(probing.wait(2))
+            self.library.start(ident, 'manual')
+            self.assertTrue(processing.wait(2))
+            release_probe.set()
+            importer.join(2)
+            self.assertFalse(importer.is_alive())
+            self.assertEqual(errors, [])
+            self.assertEqual(results[0]['job']['status'], 'running')
+            self.assertEqual(results[0]['job']['variant'], 'manual')
+            self.assertEqual(len(calls), 1)
+            self.assertEqual(self.library.jobs[ident]['status'], 'running')
+        finally:
+            release_probe.set()
+            release_worker.set()
+            importer.join(3)
+        self.assertEqual(self.wait(ident)['status'], 'ready')
+
+    def test_failed_duplicate_import_keeps_existing_queued_and_running_jobs(self):
+        ident = self.library.register_review_source(self.source, 'source')
+        for state in ('queued', 'running'):
+            with self.subTest(state=state):
+                current = {'status': state, 'variant': 'manual', 'message': state, 'sampleId': ident}
+                self.library.jobs[ident] = copy.deepcopy(current)
+                data = self.source.read_bytes()
+                result = self.library.import_and_start('duplicate.mp4', io.BytesIO(data), len(data), 'invalid')
+                self.assertEqual(result['job'], current)
+                self.assertEqual(self.library.jobs[ident], current)
 
     def wait(self, ident):
         deadline = time.monotonic() + 10
