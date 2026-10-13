@@ -1,5 +1,7 @@
 # 团队状态
 
+2026-10-13 10:34（Asia/Singapore，剪辑数据链路与双部署指导）：已修复截取请求长时间占用、全源片尾部解码、素材库探测与发布锁反转，页面改为后台任务轮询；真实 Single 截取、浏览器进入新片段、多区间及重启恢复均已验证。两套部署指导明确本地/AWS的数据位置与依赖，两版均使用在线 AI。本轮保持既有片段拼接和音轨规则，未部署云端。范围、测量与同步信息见[本轮交接](../handoffs/Linzeyu912/2026-10-13-1034-trim-dataflow-deployment-modes.md)。
+
 2026-10-13 10:01 起（Asia/Singapore，主仓库目录与 README 分层）：按用户要求重新核对实际目录，根 README 改为仓库导览，完整产品介绍与 Single 样例集中到 `engineering/README.md`；补齐数据与决策/协作总览，三份产品运行说明迁入 `engineering/docs/`，修正目录清单和历史入口的过时说明。代码、数据、成片路径保持，比赛快照仓库未修改。范围、链接检查与同步结果见[本轮交接](../handoffs/Linzeyu912/2026-10-13-1001-repository-readme-layout.md)。
 
 2026-10-11 23:37 起（Asia/Singapore，仓库正式改名）：用户要求原 Team Hub 使用 `courtstory` 名称，原成果仓库使用 `courtstory-snapshot`，两个仓库简介一致，并取消上轮快照标签。主仓库保留原开发历史，比赛快照保留独立历史与 Single 成片；同步修正 remote、克隆说明和历史文档链接。下方“仓库地址不变”等为此前阶段记录。本轮变更与验证见[改名交接](../handoffs/Linzeyu912/2026-10-11-2337-repository-rename.md)。

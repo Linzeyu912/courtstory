@@ -2,6 +2,15 @@
 
 只把已经做出的决定写为“采用”。讨论中的方案标为“待定”，并记录参与人或关联 Issue。
 
+## D018：本地与 AWS 分别指导，剪辑先解决数据链路
+
+- 日期：2026-10-13，Asia/Singapore（UTC+8）。状态：按用户本聊天要求采用。
+- 保留一套产品实现，分别提供本地和 AWS 部署指导；两版使用在线 AI，差别在服务位置、存储与调度。本地部署不要求本机语言模型或 TTS；用户当前偏好 OpenRouter 与千问在线能力，实际模型标识仍以配置为准，本轮不更换模型。
+- 产品 README 介绍共用能力，AWS 服务专章归入 `engineering/deploy/aws/README.md`；本地说明归入 `engineering/deploy/local/README.md`，显式关闭 AWS 执行分流，AWS SDK 不进入基础本地依赖。
+- 优先修复“保留选区后点击应用剪辑卡住”：后台截取、输出校验、登记与下一步读取独立于 GPU/S3 探测；已完成结果保持可恢复。
+- 多片段如何拼接、是否跳过特写及节奏安排后续再定，本轮保持现有选区和音轨语义。代码同步不等于已更新运行中的 AWS 服务。
+- 依据与验证见[数据流说明](../engineering/docs/video-trim-dataflow.md)和[本轮交接](../handoffs/Linzeyu912/2026-10-13-1034-trim-dataflow-deployment-modes.md)。
+
 ## D017：仓库导览与产品说明分层维护
 
 - 日期：2026-10-13，Asia/Singapore（UTC+8）。状态：按用户本聊天要求采用。

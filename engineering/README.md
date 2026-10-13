@@ -2,13 +2,8 @@
 
 `engineering/` 是 CourtStory 的产品目录，包含工作台、服务、Agent、渲染、测试与部署工程。本页介绍产品能力、成果样例和实现；仓库整体的资料分类、数据与决策入口见[仓库总览](../README.md)。
 
-本地工作台与云端部署共用本目录代码。下文的云端方案与配置依据已有实现和[运行记录](docs/aws-live-deployment.md)说明；运行记录中的验证保留当时日期和范围。
+本产品使用同一套工作台、服务与算法代码，提供[本地部署](deploy/local/README.md)和[AWS 云端部署](deploy/aws/README.md)两套指导。两者的运行位置、依赖、技术架构与数据流分别在各自 README 说明；本页保留共用的产品能力与制作流程。
 
-![Amazon EC2](https://img.shields.io/badge/AWS-EC2-FF9900)
-![Amazon SageMaker](https://img.shields.io/badge/AWS-SageMaker-FF9900)
-![Amazon Bedrock AgentCore](https://img.shields.io/badge/AWS-Bedrock_AgentCore-FF9900)
-![Amazon S3](https://img.shields.io/badge/AWS-S3-569A31)
-![Amazon CloudFront](https://img.shields.io/badge/AWS-CloudFront-8C4FFF)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-Agent_Runtime-339933?logo=nodedotjs&logoColor=white)
@@ -46,14 +41,14 @@ CourtStory 是一个面向篮球观众的 AI 篮球解读工作台。我们从�
 | 内容质量控制 | 人工核对身份与讲解，调整图形位置、时间和曲线；来源、版本与区间校验配合成片预览 |
 | 应用技术 | Python、React、JavaScript、Node.js、OpenCV、SVG、FFmpeg |
 | 视觉模型与跟踪 | 篮球专用 YOLOv8n + BoT-SORT 为默认组合；保留 YOLOv8s 与 ByteTrack 对照；48 点场地模型辅助标定 |
-| AWS 服务 | EC2、SageMaker、S3、Bedrock AgentCore Runtime、CloudFront；IAM、SSM、CDK / CloudFormation 支持权限与运维 |
+| 部署方式 | [本地部署](deploy/local/README.md)：服务与数据在本机；[AWS 云端部署](deploy/aws/README.md)：交互、GPU、Agent 与存储分工运行 |
 | 外部模型服务 | OpenRouter 提供语言与视觉模型调用；阿里云 Qwen Audio 提供中文配音 |
-| 运行方式 | 本地与云端共用工作台代码；云端将交互服务、GPU 计算和战术分析分工运行 |
+| 外部依赖边界 | 两种部署均使用 OpenRouter 理解 / 绘图与 Qwen Audio 配音；本地部署无需 AWS 账号，不另行部署本地语言模型或 TTS |
 
 ### 内容导航
 
 - [成果样例：Single](#成果样例single)：查看最终讲解成片。
-- [系统架构](#系统架构)：先看完整方案，再看 AWS 服务如何承载它。
+- [系统架构](#系统架构)：查看共用流程，并选择本地或 AWS 的架构与部署指导。
 - [五步制作流程](#五步制作流程)：按检测、身份、讲解、贴图、成片的顺序展开实现。
 - [全流程可靠性保障](#全流程可靠性保障)：集中说明人工兜底、数据一致性和运行恢复。
 - [代码与文档入口](#代码与文档入口)：定位实现、安装与维护说明。
@@ -88,60 +83,14 @@ flowchart LR
 
 工作台贯通球员标定、战术制作、解说、配音和成片。用户也可以直接人工制作，在模型结果不完整时继续完成作品。
 
-### AWS 服务选型与分工
+### 选择部署方式
 
-上面的五步描述制作过程。下面说明承载这些步骤的云端资源：哪些服务负责交互，哪些执行计算，以及结果如何传递。
-
-CourtStory 将任务分为三类：**需要持续交互和保存状态的工作台任务、需要 GPU 的视觉计算、通过模型 API 完成的语义分析**。围绕这三类负载组合 AWS 服务，让用户的编辑状态、计算任务和最终视频形成一条可追踪的制作链路。
-
-```mermaid
-flowchart TB
-    U[浏览器：标定、编辑与成片预览] --> CF[CloudFront：HTTPS 访问入口]
-    subgraph AWS[AWS 云端运行环境]
-        CF -->|VPC Origin| EC2[EC2：网关、工作台与任务管理]
-        EC2 -->|视频、帧与 GPU 作业| S3[私有 S3：输入、结果与状态备份]
-        S3 -->|读取待处理作业| GPU[SageMaker：A10G GPU worker]
-        GPU -->|轨迹、场地点与处理日志| S3
-        S3 -->|读取计算结果| EC2
-        EC2 -->|调用战术分析任务| AC[Bedrock AgentCore Runtime]
-        S3 -->|读取战术证据| AC
-        AC -->|写入结构化候选| S3
-        EC2 --> R[SVG 图形与 FFmpeg 成片]
-    end
-    AC --> OR[OpenRouter：语言与视觉模型]
-    EC2 -->|身份、解说与绘图 Agent| OR
-    EC2 --> TTS[阿里云 Qwen Audio：中文配音]
-    TTS -->|音频| EC2
-    R -->|MP4、SRT 与预览| EC2
-```
-
-AWS 承担应用运行、GPU 计算、Agent 执行、数据交换和交付入口。OpenRouter 与阿里云 TTS 是明确的外部模型依赖；AgentCore 在本项目中负责运行战术分析适配器，模型推理请求由该适配器发往 OpenRouter。
-
-| AWS 服务 | 为什么选择它 | 在 CourtStory 中实际完成什么 | 实现入口 |
+| 选择 | 运行位置与数据 | AI 与计算依赖 | 部署指南 |
 | --- | --- | --- | --- |
-| **Amazon EC2** | 工作台需要同时运行 Python、Node.js、FFmpeg，维护草稿并执行较长的视频制作任务 | `t3.large` 承载网关、HTTP 服务、Agent 子进程、任务编排和成片；systemd 管理服务 | [基础设施](infra/ec2-workbench/app.py)、[启动脚本](infra/ec2-workbench/bootstrap.sh) |
-| **Amazon SageMaker** | 球员检测、跟踪与场地模型需要独立 GPU 环境，适合与交互服务分开运行 | 在 `ml.g5.2xlarge` / A10G Notebook 实例上运行 GPU worker，执行 YOLO、BoT-SORT 与 48 点场地模型 | [GPU worker](infra/sagemaker-vision/worker.py)、[启动与恢复](infra/sagemaker-vision/start_worker.sh) |
-| **Amazon S3** | 视频、帧证据和结果包需要在不同执行环境之间传递；草稿状态需要独立备份 | 通过私有作业目录交换 GPU 输入、请求和结果；保存 Agent 证据与候选、发布包和工作区备份 | [GPU 作业适配](scripts/cloud_gpu.py)、[备份网关](infra/ec2-workbench/gateway.py) |
-| **Amazon Bedrock AgentCore Runtime** | 战术分析需要一个与工作台分开的调用入口和运行会话 | EC2 提交 S3 证据引用，Runtime 读取图像与输出约束、调用模型、写回候选；工作台取回后继续校验 | [调用适配](scripts/cloud_tactics_agent.py)、[Runtime 实现](infra/ec2-workbench/agent_main.py) |
-| **Amazon CloudFront** | 浏览器需要统一 HTTPS 入口，前端、API 和视频使用同一访问路径 | 通过 VPC Origin 连接 EC2 网关；直接进入工作台，网关校验 Host / Origin 并转发请求 | [交付栈](infra/ec2-workbench/app.py)、[网关](infra/ec2-workbench/gateway.py) |
-| **AWS IAM** | EC2、AgentCore 和 GPU worker 的资源访问应与各自职责对应 | 通过角色、赛事权限边界和资源路径授权访问 AWS；运行服务不复制开发电脑的 AWS 登录凭据 | [工作台角色](infra/ec2-workbench/app.py)、[GPU 基础设施](infra/sagemaker-vision/app.py) |
-| **AWS Systems Manager** | 云端维护需要执行服务检查、读取日志和更新操作 | EC2 使用 SSM 维护通道，配合服务日志定位运行问题 | [运行维护](docs/aws-live-deployment.md) |
-| **AWS CDK / CloudFormation** | 环境的创建、交付和恢复需要有代码依据 | 用基础设施定义描述工作台、AgentCore、角色和 CloudFront，结合发布包与状态恢复脚本重建环境 | [CDK 定义](infra/ec2-workbench/app.py)、[恢复准备](infra/ec2-workbench/prepare_rebuild.py) |
+| 本地部署 | 浏览器连接本机 Python 服务，视频、草稿和输出保存在本机 | OpenRouter / Qwen 在线 AI；可选本机 CUDA 检测，基础工作台不要求 AWS | [本地架构、安装与验收](deploy/local/README.md) |
+| AWS 云端部署 | CloudFront 访问 EC2 工作台，S3 保存作业和备份，SageMaker 执行 GPU 计算 | AgentCore 承载战术分析适配器；在线模型与配音仍使用各自服务凭据 | [AWS 架构、部署与验收](deploy/aws/README.md) |
 
-当前云端入口直接进入工作台，不要求访问码或会话 Cookie；旧 `/login` 链接跳转到首页。网关继续检查请求来源，并保持密钥文件与静态资源隔离。
-
-GPU 选型还考虑了赛事账号的实际约束：部署时 EC2 GPU 按需配额为 0，因此使用已有 SageMaker GPU 资源承接视觉任务。这里采用的是 **Notebook 实例上的自定义 worker + S3 作业交换**，具体验证与维护方式见[云端运行记录](docs/aws-live-deployment.md)。
-
-### 服务如何协作完成一次视觉任务
-
-以第一步的检测与跟踪为例，一次 GPU 任务按下列顺序流转。这里展开的是云端调用过程；后面的“五步制作流程”再解释这些结果怎样用于作品制作。
-
-1. **接收输入**：EC2 为视频或图像任务生成独立作业 ID，把输入上传到 S3。
-2. **发布请求**：在结果占位对象创建后，写入操作类型、模型组合和截止时间；工作台轮询该任务的结果对象。
-3. **GPU 处理**：SageMaker worker 读取作业，执行检测跟踪或场地推理，把结构化结果、输出包及失败日志写回同一任务目录。
-4. **返回结果**：EC2 取回结果并接入标定工作台，完成这次视觉任务。轨迹随后进入第二步的身份校正，供后续讲解和绘图使用。
-
-S3 在这条实现中承担的是对象存储与作业交换；GPU worker 采用轮询处理。计算结果会继续进入身份校正、战术制作和渲染，形成服务间有实际数据流转的组合。
+两套指导复用下面的产品流程，部署目录只保存部署入口与说明。工作台实现仍在 `tools/`、`scripts/`，基础设施仍在 `infra/`；两个部署入口不复制产品代码。
 
 ## 五步制作流程
 
@@ -235,7 +184,7 @@ P1 也不要求一开始就有真实姓名。姓名候选结合明确的比赛�
 
 身份、解说和绘图 Agent 使用视频总览、时间窗口和局部读图工具，把画面证据与已保存的身份快照结合起来，生成可审核的候选。解说节点连接视频时间、讲解内容和绘图需求，再由工作台校验来源、时间范围及人物关联。
 
-在用语言与视觉模型按当前部署记录统一通过 OpenRouter 调用，云端战术分析使用 AgentCore 执行入口。模型选择由服务端配置管理。Agent 能辅助识别动作、组织讲解，但也可能误认人物、误解配合，或生成画面没有支持的描述，即模型幻视。
+现有解说与视频身份初稿通过 OpenRouter 调用语言与视觉模型，模型选择由服务端配置管理。其他 Agent 的执行入口随部署方式配置，见对应部署指南。Agent 能辅助识别动作、组织讲解，但也可能误认人物、误解配合，或生成画面没有支持的描述，即模型幻视。
 
 用户可以对照视频逐句核对并修改解说文字、起止时间和讲述方式，再保存用于后续绘图与配音。修改解说后，已有图形需按新稿核对，配音和成片需重新生成才能反映新内容。实现入口：[解说编辑](tools/player-review/commentary-ui.mjs)。
 
@@ -342,16 +291,15 @@ CourtStory 把**视频中的观测、球员身份、比赛名单和讲解内容*
 
 | 交接点 | 已实现的机制 | 对制作流程的作用 |
 | --- | --- | --- |
-| 工作台 → GPU | 提交前检查 worker 心跳，90 秒过期判定、任务截止时间、失败结果回传 | GPU 不可用时给出明确状态，避免无限等待 |
-| 工作台 → AgentCore | 独立任务目录与会话、输入路径限制、返回结果路径核对、调用结束后停止会话 | 把一次模型调用与对应证据、候选绑定 |
+| 工作台 → 视觉处理 | 本机校验推理环境与权重；远程 worker 的状态与超时见 [AWS 部署](deploy/aws/README.md#运行状态与验收) | 未就绪时给出明确状态，避免把缺少依赖当成完成 |
+| 工作台 → Agent | 独立任务目录、证据与输出约束；不同执行环境的会话机制见部署指南 | 把一次模型调用与对应证据、候选绑定 |
 | 模型候选 → 当前草稿 | 视频来源、帧映射、身份快照和草稿版本检查 | 防止旧素材、旧身份或迟到结果写入新稿 |
 | 浏览器 → 保存服务 | 相同内容保存重试、不同内容版本冲突检查、恢复前备份 | 断线重试时避免重复保存或静默覆盖人工修改 |
-| 网关 → 工作台 | 直接转发工作台请求，检查 Host / Origin；健康检查确认后端监听状态，启动阶段返回 503 | 保持访问入口简洁，并明确呈现服务是否就绪 |
-| 工作区 → S3 | 异步备份、备份完整性检查、状态打包与恢复脚本 | 为发布更新与实例恢复保留制作状态 |
+| 工作区 → 保存与备份 | 本机保存工作区；云端备份路径及恢复机制见 [AWS 数据流](deploy/aws/README.md#视频草稿与-s3-的数据流) | 依据部署方式保存制作状态，恢复前核对范围 |
 | 绘图任务 → 进度界面 | 根据节点实际状态显示进度，不把尚未绘制的待复核节点描述为“已生成” | 让用户区分正在生成、等待复核和已完成的阶段 |
 | 制作任务 → 成片页 | 保存已完成结果；后续任务失败时仍展示上一份完成视频 | 已生成的作品能够继续预览与下载 |
 
-相关实现与回归入口：[GPU](scripts/test_cloud_gpu.py)、[AgentCore](scripts/test_cloud_tactics_agent.py)、[请求恢复](tools/player-review/api-request.test.mjs)、[联合成片](scripts/test_commentary_joint.py)。
+共用实现与回归入口：[请求恢复](tools/player-review/api-request.test.mjs)、[联合成片](scripts/test_commentary_joint.py)；远程 GPU 与 AgentCore 检查见 [AWS 部署指南](deploy/aws/README.md#运行状态与验收)。
 
 ## 代码与文档入口
 
@@ -366,6 +314,7 @@ CourtStory 把**视频中的观测、球员身份、比赛名单和讲解内容*
 | [tools/material-label-review/](tools/material-label-review/) | 视频素材标签工具 |
 | [configs/](configs/)、[agent-workflows/](agent-workflows/) | 跟踪配置及 Agent 工作流契约 |
 | [docs/](docs/) | 产品设计、功能说明、测试验收与工程历史记录 |
+| [deploy/local/](deploy/local/README.md)、[deploy/aws/](deploy/aws/README.md) | 本地与 AWS 两套部署指导，各自说明技术架构、依赖、数据流与验收 |
 | [infra/ec2-workbench/](infra/ec2-workbench/) | EC2、AgentCore、CloudFront 工程与恢复工具 |
 | [infra/sagemaker-vision/](infra/sagemaker-vision/) | SageMaker GPU Notebook 环境与训练片验证工程 |
 | [tests/](tests/) | 工程回归检查 |
@@ -387,8 +336,8 @@ CourtStory 把**视频中的观测、球员身份、比赛名单和讲解内容*
 
 ### 安装与维护文档
 
-- [本地安装与启动](docs/local-setup.md)：依赖、启动与模型配置。
-- [云端工程](docs/cloud-setup.md)：部署代码与运行环境。
+- [本地部署](deploy/local/README.md)：本机架构、依赖、启动、在线 AI 配置与验收。
+- [AWS 云端部署](deploy/aws/README.md)：AWS 架构、S3 数据流、环境约束、发布与恢复。
 - [AWS 运行维护记录](docs/aws-live-deployment.md)：部署、故障处理与服务调用记录。
 - [功能同步记录](../docs/feature-sync-20261010.md)：2026-10-10 成果整理时的功能范围与迁移记录。
 - [视频素材库](../data/videos/README.md)：样例与 Git LFS 素材管理。
@@ -397,4 +346,4 @@ CourtStory 把**视频中的观测、球员身份、比赛名单和讲解内容*
 
 CourtStory 的持续开发在本主仓库 `main` 进行。仓库结构、调研、赛事要求、环境准备、团队决定与交接资料统一从[仓库总览](../README.md)进入；比赛提交留档见独立的 [courtstory-snapshot](https://github.com/Linzeyu912/courtstory-snapshot)。
 
-安装和维护命令从仓库根目录执行，按[本地安装与启动](docs/local-setup.md)、[云端工程](docs/cloud-setup.md)及[协作流程](../docs/workflow.md)操作。历史工程文档与验收记录保留其时点，不将调研实验结果视为产品能力或当前运行状态。
+安装和维护命令从仓库根目录执行，按[本地部署](deploy/local/README.md)、[AWS 云端部署](deploy/aws/README.md)及[协作流程](../docs/workflow.md)操作。历史工程文档与验收记录保留其时点，不将调研实验结果视为产品能力或当前运行状态。
