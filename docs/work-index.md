@@ -1,4 +1,10 @@
-# 成果与接续总览
+# 历史成果与接续索引
+
+本页保留历次调研与实现的接续关系。查找当前目录请先看[仓库 README](../README.md)，产品介绍见[产品 README](../engineering/README.md)，数据见[数据总览](../data/README.md)，团队决定与协作入口见[团队文档](README.md)，最新进展见[状态记录](status.md)。
+
+## 历史记录的阅读方式
+
+以下“当前”“已完成”“待执行”和云端状态均保留记录当时的含义，不代表今天重新验证。已移除的旧样例链接到 Git 历史版本，不能作为当前工作台输入。
 
 更新：2026-10-07，Asia/Singapore（UTC+8）。本页按问题串联 Linzeyu912、chuali-zi、thy-0629 各自记录中的成果，方便在另一台电脑接手；不代表新增职责分配或团队技术共识。
 
@@ -21,13 +27,13 @@
 | 比较多模态模型与理解 Qwen 规格 | [多模态篮球调研](../research/agents/multimodal-basketball-20261006/README.md)、[Qwen3-VL 说明](../research/agents/multimodal-basketball-20261006/qwen3-vl-235b-a22b.md) | [本队 Bedrock 白名单与实测](../environment/aws/bedrock-model-access-20261006.md) | 厂商规格不等于本队可调用；本队 Qwen 文本请求通过，Sonnet 尚未调用 |
 | 评估点选跟随与遮挡恢复 | [TAPNext++ 研究](../research/vision/tapnet-20261006/README.md) | [独立运行探针](../research/vision/tapnet-20261006/probe_runtime.py) | CPU / CUDA 随机参数接口通过；正式权重与篮球效果未测，未接工作台 |
 | Agent 如何读取视频 | [OpenCode / Codex 源码](../research/agents/agent-video-understanding-20261005/README.md)、[视频模型研究](../research/agents/video-model-to-court-20261005/README.md) | [视觉接口](../engineering/docs/identity-vision-provider.md) | 固定源码和离线检查，不能当作真实推理成功 |
-| 复用认可的战术大箭头效果 | [005 V2 原始资料](../engineering/archive/tactical-video/005-authored-v2/README.md) | [005 V2 流程](../engineering/docs/005-authored-v2-workflow.md)、[成片操作](../engineering/docs/tactics-authored-production-guide.md) | 共享的是配置、脚本和说明；成片 MP4 未随本次提交共享，新视频须重做人物与坐标核对 |
+| 复用认可的战术大箭头效果 | [005 V2 原始资料（历史版本）](https://github.com/Linzeyu912/courtstory/blob/56e6466057c0560701d3163d2dbd1384e59249d2/engineering/archive/tactical-video/005-authored-v2/README.md) | [005 V2 流程](../engineering/docs/005-authored-v2-workflow.md)、[成片操作](../engineering/docs/tactics-authored-production-guide.md) | 共享的是配置、脚本和说明；成片 MP4 未随本次提交共享，新视频须重做人物与坐标核对 |
 | 接续导入视频的身份 / 战术问题 | [新诊断入口](../research/vision/imported-video-diagnostics-20261005.md) | [2D 工作流](../engineering/docs/2d-first-tactics-workbench-guide.md)、[战术画布](../engineering/docs/tactics-canvas.md) | 续接存在错人，38.5 MB 草稿与服务端保存待处理；作者本机动画 / 草稿未同步 |
 | 使用篮球论文模型 | [14 篇功能指南](../research/basketball-models/mentor-components-20261005/PAPER_GUIDE.md)、[权重核查](../research/basketball-models/mentor-components-20261005/OPEN_SOURCE_AUDIT.md)、[遮挡球员热图论文](../research/basketball-models/occluded-player-heatmap-20261006.md) | [研究复现](../research/basketball-models/mentor-components-20261005/REPRODUCE.md) | 已有局部试跑；热图论文未确认公开代码 / 权重；尚未验证本项目新视频精度 |
 | 区分事实、候选和推断 | [数据证据与纠错研究](../research/evidence/README.md) | 各工作台来源 / 待审核字段 | 离线实验保留失败，不可直接升级成官方指标或人工真值 |
 | 准备电脑与核对 AWS 服务 | [本机环境](../environment/local/README.md)、[19 项服务实测](../environment/aws/services-live-audit-20261006.md)、[服务入门](../environment/aws/services-primer-20261006.md) | [当前 EC2 部署](../engineering/infra/ec2-workbench/README.md)、[S3 实际上传与脚本](../engineering/docs/aws-cloud-preflight-20261006.md) | 10 月 6 日独立探针已清理；10 月 7 日工作台云服务保留，具体限制见当前验收；两轮资源状态不能混用 |
 | 理解 CloudFront、代码重跑和截止时间 | [评审与截止时间澄清](../requirements/judging-operation-clarification-20261006.md)、[CDK 补充通知](../requirements/cdk-deployment-notice-20261006.md) | [提交入口与制作工作台](../engineering/docs/aws-workbench-deployment-guide.md#作品提交入口与制作工作台) | 考试视频 18:00 发布，19:45 结束调优，20:00 截止；截止后继续加工没有已读规则支持，机器评测接口仍待明确 |
-| 核对赛事与正式素材 | [赛事索引](../requirements/README.md)、[训练包核验](../requirements/training-package-check-20261005.md)、[官方训练重点素材](../data/videos/uploads/2026-10-05-official-training/README.md) | [视频数据入口](../data/videos/README.md) | 两段已按10维打标并接入工作台，优先用于回归；官方指标与事件对齐仍需补齐 |
+| 核对赛事与正式素材 | [赛事索引](../requirements/README.md)、[训练包核验](../requirements/training-package-check-20261005.md)、[官方训练重点素材（历史版本）](https://github.com/Linzeyu912/courtstory/blob/56e6466057c0560701d3163d2dbd1384e59249d2/data/videos/uploads/2026-10-05-official-training/README.md) | [视频数据入口](../data/videos/README.md) | 两段已按10维打标并接入工作台，优先用于回归；官方指标与事件对齐仍需补齐 |
 
 ## 回到对应成员的原记录
 

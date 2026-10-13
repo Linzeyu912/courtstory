@@ -32,4 +32,4 @@
 - 云端打包/恢复 11 项测试通过，新增名单进入 ZIP 的覆盖。
 - 迁入的 SageMaker 工程严格本地合成通过，未运行 bootstrap / deploy。
 
-上述检查证明代码及接口衔接，不代表真实模型识别准确率、新成片或云部署已验收。使用见[身份初稿](../engineering/docs/video-identity-review.md)、[本地启动](local-setup.md)与[云端工程](cloud-setup.md)。
+上述检查证明代码及接口衔接，不代表真实模型识别准确率、新成片或云部署已验收。使用见[身份初稿](../engineering/docs/video-identity-review.md)、[本地启动](../engineering/docs/local-setup.md)与[云端工程](../engineering/docs/cloud-setup.md)。

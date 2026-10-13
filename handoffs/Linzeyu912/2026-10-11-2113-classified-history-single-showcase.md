@@ -19,7 +19,7 @@
 
 ## 产出与来源
 
-- [README 成果样例](../../README.md#成果样例single)、[最终成片](../../deliverables/single.mp4)。
+- [README 成果样例](../../engineering/README.md#成果样例single)、[最终成片](../../deliverables/single.mp4)。
 - [提交对照表](../../docs/repository-update-history-20261011.md)、[仓库接续说明](../../docs/repository-continuation-20261011.md)。
 - 来源：两仓实际 Git 对象与用户本聊天指示，读取日期 2026-10-11；本轮没有新增外部资料。
 - 本地恢复包：`artifacts/repository-history-20261011/before-split.bundle`；未提交文档、同主题技术介绍及全部素材位于该目录的 `pending-files/`，哈希清单为 `pending-files.json`。前轮 `artifacts/repository-continuation-20261011/` 备份继续保留。

@@ -2,7 +2,7 @@
 
 每位成员和 Agent 在一次任务结束时记录可接续的信息，方便其他人在另一台电脑上继续工作。
 
-找当前成果先看[成果与接续总览](../docs/work-index.md)，再回到对应原交接。交接中的“未提交”“本机已完成”是当时状态；代码已拉取也不代表作者的浏览器草稿、模型、视频或本机输出已共享。
+找当前成果先看[团队状态](../docs/status.md)与[产品 README](../engineering/README.md)，历史接续关系见[历史成果索引](../docs/work-index.md)，再回到对应原交接。交接中的“未提交”“本机已完成”是当时状态；代码已拉取也不代表作者的浏览器草稿、模型、视频或本机输出已共享。
 
 ## 文件命名
 
@@ -26,6 +26,8 @@
 
 | 记录 | 内容 |
 |---|---|
+| [主仓库导览与产品 README 分工](Linzeyu912/2026-10-13-1001-repository-readme-layout.md) | 明确研究、数据、决定与产品职责；产品介绍迁入 engineering，补齐数据/团队入口，安装和运维文档归入产品目录 |
+| [主仓库与比赛快照正式改名](Linzeyu912/2026-10-11-2337-repository-rename.md) | 主仓库 courtstory、比赛快照 courtstory-snapshot；本地 remote、共同简介与快照说明同步，取消快照标签 |
 | [CourtStory 接续成果发布](Linzeyu912/2026-10-11-2144-teamhub-courtstory-publication.md) | 按用户授权推送 26 条接续提交，补 1 条发布记录；远端核对、署名检查、Single LFS 与 CourtStory 简介同步 |
 | [Team Hub 历史去重与线性接续](Linzeyu912/2026-10-11-2127-teamhub-linear-history.md) | 保留 Team Hub 197 条原始提交，接续 26 条本地提交；移除独立 CourtStory 历史连接，23 条更新各一份；未推送 |
 | [分类接续更新与 Single 成果展示](Linzeyu912/2026-10-11-2113-classified-history-single-showcase.md) | 23 条独立更新、来源对照、技术介绍附件移出当前版本、README 展示 Single；仅本地，未推送 |

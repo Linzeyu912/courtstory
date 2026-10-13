@@ -1,5 +1,20 @@
 # 作品设计、功能与验收文档
 
+产品介绍、Single 成果视频和使用入口见[产品 README](../README.md)；本目录保存产品的设计、操作、接口、计划与验收文档。仓库分类和团队决定分别见[仓库导览](../../README.md)与[决策记录](../../docs/decisions.md)。
+
+## 当前阅读入口
+
+| 要了解什么 | 入口 |
+| --- | --- |
+| 安装与启动工作台 | [本地安装](local-setup.md)、[工作台工具](../tools/player-review/README.md) |
+| 部署工程与既有运行记录 | [云端工程](cloud-setup.md)、[运维记录](aws-live-deployment.md)、[部署脚本](../infra/ec2-workbench/README.md) |
+| 产品结构、制作流程与最终样例 | [产品 README](../README.md) |
+| 当前团队进展与本轮修改 | [团队状态](../../docs/status.md)、[交接记录](../../handoffs/README.md) |
+
+## 历史设计与验收索引
+
+以下按原记录的日期保留当时结论，其中“当前”“最新”“待实施”“未提交”和部署状态均指该阶段；不能据此判断今天的运行状态。已移除的旧样例与流程入口链接到对应的 Git 历史版本，当前目录从上方入口查找。
+
 2026-10-10：[第一部分视频身份初稿与人工审核](video-identity-review-20261010.md)复用第三部分视频工具，接通检测准备、暂定身份、名单候选、人工修改和保存；本轮补齐首次比赛上下文、已保存姓名面板和共享配置，保留远端单屏／Astra／Polly 更新。805 项前端测试及独立 API／下游验收通过；Agent 只做待人工审核的初稿，完整同步记录见[发布交接](../../handoffs/thy-0629/2026-10-10-1147-identity-remote-sync.md)。
 
 2026-10-10 本轮：[TEAM 25 分类发布与旧 UI 分支清理](ui-team25-publication-20261010.md)记录最新 main 整合、定稿保存、验证与推送核对；下方“仅本地”描述保留各轮历史状态。
@@ -26,7 +41,7 @@
 
 2026-10-10（本地未提交／未部署）：[解说先行、独立绘图与姓名接入设计](specs/2026-10-09-commentary-led-tactics-design.md)已按[实施计划](plans/2026-10-10-commentary-led-tactics-implementation.md)完成代码与独立复核。先解说后独立绘图，复用姓名（1A），绘图模型默认继承并可覆盖（2A），联合字幕／图形／姓名／音轨及音频缓存已接通；出手/2K 新规则暂缓。110 项 Python、前端及 Agent 全量 762 项 Node 通过，最后 UI 增量后 81 项完整 UI 回归通过；两段真实素材以测试音和测试图形验证渲染。真实模型与真实 TTS 凭据未配置，内容质量尚未验收。见[实施交接](../../handoffs/thy-0629/2026-10-10-0033-commentary-led-tactics-implementation.md)和[当前工作流](commentary-narration-workflow.md)。
 
-2026-10-08姓名功能当前成果按用户要求发布，见[v4方法和实际结果](player-name-optimization-20261007.md)、[完整演示](../../data/videos/demos/player-name-v4-20261008/README.md)及[发布交接](../../handoffs/chuali-zi/2026-10-08-0230-player-name-v4-publication.md)。下文记录保留历史时点；全量前端测试尚未全部通过。
+2026-10-08姓名功能当前成果按用户要求发布，见[v4方法和实际结果](player-name-optimization-20261007.md)、[完整演示（历史版本）](https://github.com/Linzeyu912/courtstory/blob/56e6466057c0560701d3163d2dbd1384e59249d2/data/videos/demos/player-name-v4-20261008/README.md)及[发布交接](../../handoffs/chuali-zi/2026-10-08-0230-player-name-v4-publication.md)。下文记录保留历史时点；全量前端测试尚未全部通过。
 
 2026-10-09：总工作台第三部分的[解说与配音工作流](commentary-narration-workflow.md)新增整段文本润色、候选对照/采用/撤回、自然有趣配音口吻及[逐句人工编辑与UI迁移接口](commentary-cue-editing-api.md)；[三段实测与试听](../../research/agents/commentary-personality-20261009/README.md)。当前接入本机工作台，未更新运行中的云服务。
 
@@ -50,7 +65,7 @@
 
 2026-10-06 独立验收：111 项新增回归重跑通过，但追加场景发现 1 项 P1、2 项 P2，真实 005 指人问题仍在，M0／M1 不予整体签收。见[验收结论与复验条件](agent-tactics-acceptance-20261006.md)。
 
-2026-10-06 首批实现进度见[Agent 战术工作流实施与验收](agent-tactics-implementation-20261006.md)，配套[运行命令](../agent-workflows/tactics-v1/README.md)及[T00 固定基线](agent-tactics-baseline-20261006.md)。下表“待实施”是原规划时点；当前能力、真实失败与剩余任务以实施报告为准。
+2026-10-06 首批实现进度见[Agent 战术工作流实施与验收](agent-tactics-implementation-20261006.md)，配套[运行命令（历史版本）](https://github.com/Linzeyu912/courtstory/blob/56e6466057c0560701d3163d2dbd1384e59249d2/engineering/agent-workflows/tactics-v1/README.md)及[T00 固定基线](agent-tactics-baseline-20261006.md)。下表“待实施”是原规划时点；当前能力、真实失败与剩余任务以实施报告为准。
 
 | 要找的内容 | 入口 |
 | --- | --- |
@@ -60,7 +75,7 @@
 | 人工制作实施与验收 | [Task 0 文件/缺口核实](manual-tactics-workbench-task0.md)、[浏览器 MP4 验收与限制](manual-tactics-workbench-acceptance.md) |
 | 人物与球场 | [视频身份初稿与人工审核](video-identity-review-20261010.md)、[身份审核](track-identity-review.md)、[可见性](player-visibility.md)、[球场标定](court-calibration-backend.md) |
 | 战术编辑与成片 | [画布](tactics-canvas.md)、[成片生产](tactics-authored-production-guide.md)、[未来路线](future-route-editor.md) |
-| 已认可的 005 成片视觉基准 | [005 V2 流程](005-authored-v2-workflow.md)、[原始资料归档](../archive/tactical-video/005-authored-v2/README.md) |
+| 已认可的 005 成片视觉基准 | [005 V2 流程](005-authored-v2-workflow.md)、[原始资料归档（历史版本）](https://github.com/Linzeyu912/courtstory/blob/56e6466057c0560701d3163d2dbd1384e59249d2/engineering/archive/tactical-video/005-authored-v2/README.md) |
 | 导入视频的待解决问题 | [人物 / 球场 / 战术诊断](../../research/vision/imported-video-diagnostics-20261005.md)，按原记录区分待验证结论与本机产物 |
 | Agent 接口 | [Qwen 地面轨迹](qwen-ground-trajectory-agent.md)、[视觉接口](identity-vision-provider.md) |
 | 上云与交付计划 | [服务分工与部署顺序](aws-deployment-architecture-20261006.md)、[10 月 6 日预检与 S3 实际上传](aws-cloud-preflight-20261006.md)、[AWS 迁移设计](aws-workbench-deployment-guide.md)、[接续清单](contest-readiness-20261005.md) |

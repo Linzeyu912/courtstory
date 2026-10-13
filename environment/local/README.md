@@ -1,19 +1,12 @@
 # 本机开发与工作台环境
 
-整理日期：2026-10-05，Asia/Shanghai。以下沿用现有工程与交接记录；本次目录整理没有重新安装软件或运行模型。
+更新：2026-10-13，Asia/Singapore。本页说明本机环境与资料存放边界；当前安装、启动和功能依赖统一见[本地安装与启动](../../engineering/docs/local-setup.md)。本次只整理文档入口，没有重新安装软件或运行模型。
 
 ## 使用已有工作台
 
-从仓库根目录执行；先按 [视频入口](../../data/videos/README.md)取得需要的 Git LFS 成片。默认验收样例为 005，004 只保留部分历史候选。
+先按[本地安装与启动](../../engineering/docs/local-setup.md)准备 Python、Node.js、FFmpeg 和 Git LFS，再从仓库根目录执行其中命令。当前[视频入口](../../data/videos/README.md)只提供 Single 考试输入，默认样例为 `exam-001`；[展示成片](../../deliverables/README.md)单独保存在 `deliverables/`。
 
-```powershell
-git lfs pull --include="data/videos/tactics/acceptance/clips/**" origin
-python -m venv .venv
-& .venv/Scripts/python.exe -m pip install -r engineering/requirements-review.txt
-& .venv/Scripts/python.exe engineering/scripts/serve_player_review.py --library data/videos/tactics/acceptance/review-library.json --port 8876
-```
-
-打开 `http://127.0.0.1:8876/?sample=005`。浏览已有候选不需要 CUDA 或模型权重；导入新视频的自动检测有额外依赖，见[模型环境](model-runtime.md)。不要把“网页能打开”当作所有模型功能已准备好。
+直接人工制作与自动识别的依赖不同；模型权重、推理环境与 CUDA 等准备见[模型环境](model-runtime.md)，其中实测版本和验证范围按各自记录日期理解。打开页面不代表所有模型功能均已准备好。
 
 ## 修改与测试工程
 
@@ -22,14 +15,16 @@ python -m venv .venv
 - 视频处理：依赖 PyAV；成片另外需要 Node、Sharp、FFmpeg 和字体，实际接口见[成片指南](../../engineering/docs/tactics-authored-production-guide.md)。
 - 依赖以[工作台 Python 清单](../../engineering/requirements-review.txt)、[前端 package.json](../../engineering/tools/player-review/package.json)及具体功能说明为准。
 
-22:03 已有交接记录 Node `24.14.1`、npm `11.11.0` 可用；视觉环境的 Python / PyTorch / CUDA 版本见[模型运行记录](model-runtime.md)。这些是对应机器的实测版本，不代表团队所有电脑都已安装。
+历史说明：2026-10-05（Asia/Shanghai）整理时沿用 005 默认验收样例与部分 004 候选；同日 22:03 已有交接记录 Node `24.14.1`、npm `11.11.0` 可用。上述样例和依赖结果属于当时的工作区，当前启动不再使用 005 地址或旧成片目录。视觉环境的 Python / PyTorch / CUDA 版本见[模型运行记录](model-runtime.md)，不代表团队所有电脑都已安装。
 
 ## 文件位置
 
 | 内容 | 位置 |
 | --- | --- |
 | 共享代码、项目依赖清单 | `engineering/` |
-| 共享成片、标签与候选 | `data/` |
+| 输入素材、名单、标签与候选 | [data/](../../data/README.md) |
+| 球员赛季与第三方评分资料 | [2K Player Data/](../../2K%20Player%20Data/README.md) |
+| Single 展示成片与字幕 | [deliverables/](../../deliverables/README.md) |
 | 模型、第三方源码、专用虚拟环境 | 被忽略的 `tmp/` |
 | 新实验结果、预览与检查中间文件 | 被忽略的 `artifacts/` |
 | 用户导入原片与草稿 | `data/local-videos/`、`data/local-workbench/` 的本机内容 |

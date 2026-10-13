@@ -19,6 +19,6 @@
 
 ## GPU 工程与身份运行数据
 
-[SageMaker 视觉环境](../engineering/infra/sagemaker-vision/README.md)保留开发与验证脚本。新增 `worker.py` / `start_worker.sh`，通过私有 S3 作业连接 EC2 工作台，执行视频检测、跟踪和 48 点场地模型。
+[SageMaker 视觉环境](../infra/sagemaker-vision/README.md)保留开发与验证脚本。新增 `worker.py` / `start_worker.sh`，通过私有 S3 作业连接 EC2 工作台，执行视频检测、跟踪和 48 点场地模型。
 
 EC2 首次打包与更新打包已包含 `data/player-rosters/`，保证初稿 Agent 的明确比赛名单可随代码进入部署包。模型权重和凭据仍单独准备，迁入代码不代表已部署。
